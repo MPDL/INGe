@@ -78,9 +78,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -142,7 +146,7 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -209,14 +213,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -230,41 +234,41 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- Genre must not be one of Proceedings, Conference Paper, Talk at event, Conference Report, Poster, Courseware/Lecture, Thesis, Paper, Report, Other. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type = ''Proceedings'' or @type = ''Conference Paper'' or @type = ''Talk at event'' or @type = ''Conference Report'' or @type = ''Poster'' or @type = ''Courseware/Lecture'' or @type = ''Thesis'' or @type = ''Paper'' or @type = ''Report'' or @type = ''Other''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- At least one creator of role "author" is MPDL (organization) or is affiliated to MPDL (person). -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role = ''author''">AuthorNotProvided</iso:assert>
-			<iso:assert test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/escidoc:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role = ''author''">AuthorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/escidoc:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- One date of type "modified" has to be provided and it''s value is after 2007-01-01. -->
 	<iso:pattern name="date_modified_required" id="date_modified_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')">DateModifiedNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- An abstract of language "English" has to be provided. -->
 	<iso:pattern name="abstract_english_required" id="abstract_english_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:abstract[@xml:lang=''en'']">EnglishAbstractNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -278,14 +282,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- If genre is equal to "Proceedings", "Conference Paper", "Talk at event", "Conference Report" or "Courseware/Lecture", an event has to be provided. -->
 	<iso:pattern name="event_required" id="event_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')">EventNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')">EventNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- The ReviewMethod has the value "internal".  -->
 	<iso:pattern name="review_method_internal_required" id="review_method_internal_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="publication:review-method = ''internal''">ReviewMethodInternalNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -333,9 +337,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -397,7 +405,7 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -464,14 +472,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -485,41 +493,41 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- Genre must not be one of Proceedings, Conference Paper, Talk at event, Conference Report, Poster, Courseware/Lecture, Thesis, Paper, Report, Other. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type = ''Proceedings'' or @type = ''Conference Paper'' or @type = ''Talk at event'' or @type = ''Conference Report'' or @type = ''Poster'' or @type = ''Courseware/Lecture'' or @type = ''Thesis'' or @type = ''Paper'' or @type = ''Report'' or @type = ''Other''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- At least one creator of role "author" is MPDL (organization) or is affiliated to MPDL (person). -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role = ''author''">AuthorNotProvided</iso:assert>
-			<iso:assert test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role = ''author''">AuthorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- One date of type "modified" has to be provided and it''s value is after 2007-01-01. -->
 	<iso:pattern name="date_modified_required" id="date_modified_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')">DateModifiedNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- An abstract of language "English" has to be provided. -->
 	<iso:pattern name="abstract_english_required" id="abstract_english_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:abstract[@xml:lang=''en'']">EnglishAbstractNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -533,14 +541,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- If genre is equal to "Proceedings", "Conference Paper", "Talk at event", "Conference Report" or "Courseware/Lecture", an event has to be provided. -->
 	<iso:pattern name="event_required" id="event_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')">EventNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')">EventNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- The ReviewMethod has the value "internal".  -->
 	<iso:pattern name="review_method_internal_required" id="review_method_internal_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="publication:review-method = ''internal''">ReviewMethodInternalNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -588,9 +596,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -652,21 +664,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -719,14 +731,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -740,41 +752,41 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- Genre must not be one of Proceedings, Conference Paper, Talk at event, Conference Report, Poster, Courseware/Lecture, Thesis, Paper, Report, Other. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type = ''Proceedings'' or @type = ''Conference Paper'' or @type = ''Talk at event'' or @type = ''Conference Report'' or @type = ''Poster'' or @type = ''Courseware/Lecture'' or @type = ''Thesis'' or @type = ''Paper'' or @type = ''Report'' or @type = ''Other''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- At least one creator of role "author" is MPDL (organization) or is affiliated to MPDL (person). -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role = ''author''">AuthorNotProvided</iso:assert>
-			<iso:assert test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role = ''author''">AuthorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- One date of type "modified" has to be provided and it''s value is after 2007-01-01. -->
 	<iso:pattern name="date_modified_required" id="date_modified_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')">DateModifiedNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- An abstract of language "English" has to be provided. -->
 	<iso:pattern name="abstract_english_required" id="abstract_english_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:abstract[@xml:lang=''en'']">EnglishAbstractNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -788,14 +800,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- If genre is equal to "Proceedings", "Conference Paper", "Talk at event", "Conference Report" or "Courseware/Lecture", an event has to be provided. -->
 	<iso:pattern name="event_required" id="event_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')">EventNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')">EventNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- The ReviewMethod has the value "internal".  -->
 	<iso:pattern name="review_method_internal_required" id="review_method_internal_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="publication:review-method = ''internal''">ReviewMethodInternalNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -843,9 +855,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -907,21 +923,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -974,14 +990,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -995,41 +1011,41 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	<!-- Genre must not be one of Proceedings, Conference Paper, Talk at event, Conference Report, Poster, Courseware/Lecture, Thesis, Paper, Report, Other. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type = ''Proceedings'' or @type = ''Conference Paper'' or @type = ''Talk at event'' or @type = ''Conference Report'' or @type = ''Poster'' or @type = ''Courseware/Lecture'' or @type = ''Thesis'' or @type = ''Paper'' or @type = ''Report'' or @type = ''Other''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- At least one creator of role "author" is MPDL (organization) or is affiliated to MPDL (person). -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role = ''author''">AuthorNotProvided</iso:assert>
-			<iso:assert test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role = ''author''">AuthorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- One date of type "modified" has to be provided and it''s value is after 2007-01-01. -->
 	<iso:pattern name="date_modified_required" id="date_modified_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')">DateModifiedNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- An abstract of language "English" has to be provided. -->
 	<iso:pattern name="abstract_english_required" id="abstract_english_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:abstract[@xml:lang=''en'']">EnglishAbstractNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -1043,14 +1059,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- If genre is equal to "Proceedings", "Conference Paper", "Talk at event", "Conference Report" or "Courseware/Lecture", an event has to be provided. -->
 	<iso:pattern name="event_required" id="event_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')">EventNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')">EventNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- The ReviewMethod has the value "internal".  -->
 	<iso:pattern name="review_method_internal_required" id="review_method_internal_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="publication:review-method = ''internal''">ReviewMethodInternalNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -1098,9 +1114,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -1162,21 +1182,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -1229,14 +1249,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -1250,41 +1270,41 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- Genre must not be one of Proceedings, Conference Paper, Talk at event, Conference Report, Poster, Courseware/Lecture, Thesis, Paper, Report, Other. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type = ''Proceedings'' or @type = ''Conference Paper'' or @type = ''Talk at event'' or @type = ''Conference Report'' or @type = ''Poster'' or @type = ''Courseware/Lecture'' or @type = ''Thesis'' or @type = ''Paper'' or @type = ''Report'' or @type = ''Other''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- At least one creator of role "author" is MPDL (organization) or is affiliated to MPDL (person). -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role = ''author''">AuthorNotProvided</iso:assert>
-			<iso:assert test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role = ''author''">AuthorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- One date of type "modified" has to be provided and it''s value is after 2007-01-01. -->
 	<iso:pattern name="date_modified_required" id="date_modified_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')">DateModifiedNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- An abstract of language "English" has to be provided. -->
 	<iso:pattern name="abstract_english_required" id="abstract_english_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:abstract[@xml:lang=''en'']">EnglishAbstractNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -1298,14 +1318,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- If genre is equal to "Proceedings", "Conference Paper", "Talk at event", "Conference Report" or "Courseware/Lecture", an event has to be provided. -->
 	<iso:pattern name="event_required" id="event_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')">EventNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')">EventNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- The ReviewMethod has the value "internal".  -->
 	<iso:pattern name="review_method_internal_required" id="review_method_internal_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="publication:review-method = ''internal''">ReviewMethodInternalNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -1353,9 +1373,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -1417,21 +1441,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -1484,14 +1508,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -1505,41 +1529,41 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	<!-- Genre must not be one of Proceedings, Conference Paper, Talk at event, Conference Report, Poster, Courseware/Lecture, Thesis, Paper, Report, Other. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type = ''Proceedings'' or @type = ''Conference Paper'' or @type = ''Talk at event'' or @type = ''Conference Report'' or @type = ''Poster'' or @type = ''Courseware/Lecture'' or @type = ''Thesis'' or @type = ''Paper'' or @type = ''Report'' or @type = ''Other''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- At least one creator of role "author" is MPDL (organization) or is affiliated to MPDL (person). -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role = ''author''">AuthorNotProvided</iso:assert>
-			<iso:assert test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role = ''author''">AuthorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- One date of type "modified" has to be provided and it''s value is after 2007-01-01. -->
 	<iso:pattern name="date_modified_required" id="date_modified_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')">DateModifiedNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- An abstract of language "English" has to be provided. -->
 	<iso:pattern name="abstract_english_required" id="abstract_english_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:abstract[@xml:lang=''en'']">EnglishAbstractNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -1553,14 +1577,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- If genre is equal to "Proceedings", "Conference Paper", "Talk at event", "Conference Report" or "Courseware/Lecture", an event has to be provided. -->
 	<iso:pattern name="event_required" id="event_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')">EventNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')">EventNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- The ReviewMethod has the value "internal".  -->
 	<iso:pattern name="review_method_internal_required" id="review_method_internal_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="publication:review-method = ''internal''">ReviewMethodInternalNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -1608,9 +1632,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+	<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+	<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+	<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -1672,21 +1700,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -1739,14 +1767,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -1760,41 +1788,41 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- Genre must not be one of Proceedings, Conference Paper, Talk at event, Conference Report, Poster, Courseware/Lecture, Thesis, Paper, Report, Other. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type = ''Proceedings'' or @type = ''Conference Paper'' or @type = ''Talk at event'' or @type = ''Conference Report'' or @type = ''Poster'' or @type = ''Courseware/Lecture'' or @type = ''Thesis'' or @type = ''Paper'' or @type = ''Report'' or @type = ''Other''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- At least one creator of role "author" is MPDL (organization) or is affiliated to MPDL (person). -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role = ''author''">AuthorNotProvided</iso:assert>
-			<iso:assert test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role = ''author''">AuthorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- One date of type "modified" has to be provided and it''s value is after 2007-01-01. -->
 	<iso:pattern name="date_modified_required" id="date_modified_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')">DateModifiedNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- An abstract of language "English" has to be provided. -->
 	<iso:pattern name="abstract_english_required" id="abstract_english_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:abstract[@xml:lang=''en'']">EnglishAbstractNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -1808,14 +1836,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- If genre is equal to "Proceedings", "Conference Paper", "Talk at event", "Conference Report" or "Courseware/Lecture", an event has to be provided. -->
 	<iso:pattern name="event_required" id="event_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')">EventNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')">EventNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- The ReviewMethod has the value "internal".  -->
 	<iso:pattern name="review_method_internal_required" id="review_method_internal_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="publication:review-method = ''internal''">ReviewMethodInternalNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -1863,9 +1891,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -1927,21 +1959,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -1994,14 +2026,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -2015,41 +2047,41 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- Genre must not be one of Proceedings, Conference Paper, Talk at event, Conference Report, Poster, Courseware/Lecture, Thesis, Paper, Report, Other. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type = ''Proceedings'' or @type = ''Conference Paper'' or @type = ''Talk at event'' or @type = ''Conference Report'' or @type = ''Poster'' or @type = ''Courseware/Lecture'' or @type = ''Thesis'' or @type = ''Paper'' or @type = ''Report'' or @type = ''Other''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- At least one creator of role "author" is MPDL (organization) or is affiliated to MPDL (person). -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role = ''author''">AuthorNotProvided</iso:assert>
-			<iso:assert test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role = ''author''">AuthorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- One date of type "modified" has to be provided and it''s value is after 2007-01-01. -->
 	<iso:pattern name="date_modified_required" id="date_modified_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')">DateModifiedNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- An abstract of language "English" has to be provided. -->
 	<iso:pattern name="abstract_english_required" id="abstract_english_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:abstract[@xml:lang=''en'']">EnglishAbstractNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -2063,14 +2095,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- If genre is equal to "Proceedings", "Conference Paper", "Talk at event", "Conference Report" or "Courseware/Lecture", an event has to be provided. -->
 	<iso:pattern name="event_required" id="event_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')">EventNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')">EventNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- The ReviewMethod has the value "internal".  -->
 	<iso:pattern name="review_method_internal_required" id="review_method_internal_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="publication:review-method = ''internal''">ReviewMethodInternalNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -2118,9 +2150,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -2182,21 +2218,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -2249,14 +2285,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -2270,41 +2306,41 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	<!-- Genre must not be one of Proceedings, Conference Paper, Talk at event, Conference Report, Poster, Courseware/Lecture, Thesis, Paper, Report, Other. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type = ''Proceedings'' or @type = ''Conference Paper'' or @type = ''Talk at event'' or @type = ''Conference Report'' or @type = ''Poster'' or @type = ''Courseware/Lecture'' or @type = ''Thesis'' or @type = ''Paper'' or @type = ''Report'' or @type = ''Other''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- At least one creator of role "author" is MPDL (organization) or is affiliated to MPDL (person). -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role = ''author''">AuthorNotProvided</iso:assert>
-			<iso:assert test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role = ''author''">AuthorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- One date of type "modified" has to be provided and it''s value is after 2007-01-01. -->
 	<iso:pattern name="date_modified_required" id="date_modified_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')">DateModifiedNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- An abstract of language "English" has to be provided. -->
 	<iso:pattern name="abstract_english_required" id="abstract_english_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:abstract[@xml:lang=''en'']">EnglishAbstractNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -2318,14 +2354,14 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- If genre is equal to "Proceedings", "Conference Paper", "Talk at event", "Conference Report" or "Courseware/Lecture", an event has to be provided. -->
 	<iso:pattern name="event_required" id="event_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')">EventNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')">EventNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- The ReviewMethod has the value "internal".  -->
 	<iso:pattern name="review_method_internal_required" id="review_method_internal_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="publication:review-method = ''internal''">ReviewMethodInternalNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -2372,9 +2408,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -2431,21 +2471,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -2498,33 +2538,33 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre must not be manuscript. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''manuscript''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- At least one creator with an organizational unit provided is required -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
-			<iso:assert test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">OrganizationalMetadataNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''">OrganizationalMetadataNotProvided</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -2538,28 +2578,28 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	<!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- If genre is not equal to "Series" or "Journal" or "Other" or "Manuscript" at least one date has to be provided -->
 	<iso:pattern name="date_required" id="date_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="(@type = ''series'' or @type = ''journal'' or @type = ''manuscript'' or @type = ''other'') or ((dcterms:created != '''') or (dcterms:modified != '''') or (dcterms:dateSubmitted != '''') or (dcterms:dateAccepted != '''') or (dcterms:issued != ''''))">DateNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If genre is equal to "Article", "Book Chapter" or "Conference Paper" at least one source has to be provided -->
 	<iso:pattern name="source_required" id="source_required" flag="restrictive">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')">SourceNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')">SourceNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If a date of type "dcterms:dateIssued" is given, the ReviewType has to be provided -->
 	<iso:pattern name="review_method_required" id="review_method_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="not(dcterms:issued != '''') or (publication:review-method != '''')">ReviewMethodNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -2606,9 +2646,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -2665,21 +2709,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -2732,33 +2776,33 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre must not be manuscript. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''manuscript''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- At least one creator with an organizational unit provided is required -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
-			<iso:assert test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">OrganizationalMetadataNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''">OrganizationalMetadataNotProvided</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -2772,28 +2816,28 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	<!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- If genre is not equal to "Series" or "Journal" or "Other" or "Manuscript" at least one date has to be provided -->
 	<iso:pattern name="date_required" id="date_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="(@type = ''series'' or @type = ''journal'' or @type = ''manuscript'' or @type = ''other'') or ((dcterms:created != '''') or (dcterms:modified != '''') or (dcterms:dateSubmitted != '''') or (dcterms:dateAccepted != '''') or (dcterms:issued != ''''))">DateNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If genre is equal to "Article", "Book Chapter" or "Conference Paper" at least one source has to be provided -->
 	<iso:pattern name="source_required" id="source_required" flag="restrictive">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')">SourceNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')">SourceNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If a date of type "dcterms:dateIssued" is given, the ReviewType has to be provided -->
 	<iso:pattern name="review_method_required" id="review_method_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="not(dcterms:issued != '''') or (publication:review-method != '''')">ReviewMethodNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -2840,9 +2884,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -2899,21 +2947,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -2966,33 +3014,33 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre must not be manuscript. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''manuscript''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- At least one creator with an organizational unit provided is required -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
-			<iso:assert test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">OrganizationalMetadataNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''">OrganizationalMetadataNotProvided</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -3006,28 +3054,28 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	<!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- If genre is not equal to "Series" or "Journal" or "Other" or "Manuscript" at least one date has to be provided -->
 	<iso:pattern name="date_required" id="date_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="(@type = ''series'' or @type = ''journal'' or @type = ''manuscript'' or @type = ''other'') or ((dcterms:created != '''') or (dcterms:modified != '''') or (dcterms:dateSubmitted != '''') or (dcterms:dateAccepted != '''') or (dcterms:issued != ''''))">DateNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If genre is equal to "Article", "Book Chapter" or "Conference Paper" at least one source has to be provided -->
 	<iso:pattern name="source_required" id="source_required" flag="restrictive">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')">SourceNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')">SourceNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If a date of type "dcterms:dateIssued" is given, the ReviewType has to be provided -->
 	<iso:pattern name="review_method_required" id="review_method_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="not(dcterms:issued != '''') or (publication:review-method != '''')">ReviewMethodNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -3074,9 +3122,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -3133,21 +3185,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -3200,33 +3252,33 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre must not be manuscript. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''manuscript''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- At least one creator with an organizational unit provided is required -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
-			<iso:assert test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">OrganizationalMetadataNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''">OrganizationalMetadataNotProvided</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -3240,28 +3292,28 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	<!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- If genre is not equal to "Series" or "Journal" or "Other" or "Manuscript" at least one date has to be provided -->
 	<iso:pattern name="date_required" id="date_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="(@type = ''series'' or @type = ''journal'' or @type = ''manuscript'' or @type = ''other'') or ((dcterms:created != '''') or (dcterms:modified != '''') or (dcterms:dateSubmitted != '''') or (dcterms:dateAccepted != '''') or (dcterms:issued != ''''))">DateNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If genre is equal to "Article", "Book Chapter" or "Conference Paper" at least one source has to be provided -->
 	<iso:pattern name="source_required" id="source_required" flag="restrictive">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')">SourceNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')">SourceNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If a date of type "dcterms:dateIssued" is given, the ReviewType has to be provided -->
 	<iso:pattern name="review_method_required" id="review_method_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="not(dcterms:issued != '''') or (publication:review-method != '''')">ReviewMethodNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -3308,9 +3360,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -3367,21 +3423,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -3434,33 +3490,33 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre must not be manuscript. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''manuscript''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- At least one creator with an organizational unit provided is required -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
-			<iso:assert test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">OrganizationalMetadataNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''">OrganizationalMetadataNotProvided</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -3474,28 +3530,28 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	<!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- If genre is not equal to "Series" or "Journal" or "Other" or "Manuscript" at least one date has to be provided -->
 	<iso:pattern name="date_required" id="date_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="(@type = ''series'' or @type = ''journal'' or @type = ''manuscript'' or @type = ''other'') or ((dcterms:created != '''') or (dcterms:modified != '''') or (dcterms:dateSubmitted != '''') or (dcterms:dateAccepted != '''') or (dcterms:issued != ''''))">DateNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If genre is equal to "Article", "Book Chapter" or "Conference Paper" at least one source has to be provided -->
 	<iso:pattern name="source_required" id="source_required" flag="restrictive">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')">SourceNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')">SourceNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If a date of type "dcterms:dateIssued" is given, the ReviewType has to be provided -->
 	<iso:pattern name="review_method_required" id="review_method_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="not(dcterms:issued != '''') or (publication:review-method != '''')">ReviewMethodNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -3542,9 +3598,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -3601,21 +3661,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -3668,33 +3728,33 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre must not be manuscript. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''manuscript''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- At least one creator with an organizational unit provided is required -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
-			<iso:assert test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">OrganizationalMetadataNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''">OrganizationalMetadataNotProvided</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -3708,28 +3768,28 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	<!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- If genre is not equal to "Series" or "Journal" or "Other" or "Manuscript" at least one date has to be provided -->
 	<iso:pattern name="date_required" id="date_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="(@type = ''series'' or @type = ''journal'' or @type = ''manuscript'' or @type = ''other'') or ((dcterms:created != '''') or (dcterms:modified != '''') or (dcterms:dateSubmitted != '''') or (dcterms:dateAccepted != '''') or (dcterms:issued != ''''))">DateNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If genre is equal to "Article", "Book Chapter" or "Conference Paper" at least one source has to be provided -->
 	<iso:pattern name="source_required" id="source_required" flag="restrictive">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')">SourceNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')">SourceNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If a date of type "dcterms:dateIssued" is given, the ReviewType has to be provided -->
 	<iso:pattern name="review_method_required" id="review_method_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="not(dcterms:issued != '''') or (publication:review-method != '''')">ReviewMethodNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -3776,9 +3836,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -3835,21 +3899,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -3902,33 +3966,33 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre must not be manuscript. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''manuscript''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- At least one creator with an organizational unit provided is required -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
-			<iso:assert test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">OrganizationalMetadataNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''">OrganizationalMetadataNotProvided</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -3942,28 +4006,28 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	<!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- If genre is not equal to "Series" or "Journal" or "Other" or "Manuscript" at least one date has to be provided -->
 	<iso:pattern name="date_required" id="date_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="(@type = ''series'' or @type = ''journal'' or @type = ''manuscript'' or @type = ''other'') or ((dcterms:created != '''') or (dcterms:modified != '''') or (dcterms:dateSubmitted != '''') or (dcterms:dateAccepted != '''') or (dcterms:issued != ''''))">DateNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If genre is equal to "Article", "Book Chapter" or "Conference Paper" at least one source has to be provided -->
 	<iso:pattern name="source_required" id="source_required" flag="restrictive">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')">SourceNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')">SourceNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If a date of type "dcterms:dateIssued" is given, the ReviewType has to be provided -->
 	<iso:pattern name="review_method_required" id="review_method_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="not(dcterms:issued != '''') or (publication:review-method != '''')">ReviewMethodNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -4010,9 +4074,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -4069,21 +4137,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -4136,33 +4204,33 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre must not be manuscript. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''manuscript''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- At least one creator with an organizational unit provided is required -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
-			<iso:assert test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">OrganizationalMetadataNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''">OrganizationalMetadataNotProvided</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -4176,28 +4244,28 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	<!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- If genre is not equal to "Series" or "Journal" or "Other" or "Manuscript" at least one date has to be provided -->
 	<iso:pattern name="date_required" id="date_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="(@type = ''series'' or @type = ''journal'' or @type = ''manuscript'' or @type = ''other'') or ((dcterms:created != '''') or (dcterms:modified != '''') or (dcterms:dateSubmitted != '''') or (dcterms:dateAccepted != '''') or (dcterms:issued != ''''))">DateNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If genre is equal to "Article", "Book Chapter" or "Conference Paper" at least one source has to be provided -->
 	<iso:pattern name="source_required" id="source_required" flag="restrictive">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')">SourceNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')">SourceNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If a date of type "dcterms:dateIssued" is given, the ReviewType has to be provided -->
 	<iso:pattern name="review_method_required" id="review_method_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="not(dcterms:issued != '''') or (publication:review-method != '''')">ReviewMethodNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -4244,9 +4312,13 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
+<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -4303,21 +4375,21 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
 	<iso:pattern name="event_title_required" id="event_title_required">
-		<iso:rule context="publication:event">
+		<iso:rule context="event:event">
 			<iso:assert test="dc:title != '''' or not(* != '''' or @xml:lang != '''')">EventTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
+		<iso:rule context="source:source">
 			<iso:assert test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -4370,33 +4442,33 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	
 	<!-- Title is required -->
 	<iso:pattern name="title_required" id="title_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="dc:title != ''''">TitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre is required -->
 	<iso:pattern name="genre_required" id="genre_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''''">GenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- Genre must not be manuscript. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="@type != ''manuscript''">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- At least one creator with an organizational unit provided is required -->
 	<iso:pattern name="creator_required" id="creator_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
-			<iso:assert test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''">OrganizationalMetadataNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/@role != ''''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''">OrganizationalMetadataNotProvided</iso:assert>
 		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+		<iso:rule context="publication:publication/escidoc:creator/person:person">
 			<iso:assert test="escidoc:family-name != ''''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -4410,28 +4482,28 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	 
 	<!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
-		<iso:rule context="escidoc:organization">
-			<iso:assert test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
+		<iso:rule context="organization:organization">
+			<iso:assert test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- If genre is not equal to "Series" or "Journal" or "Other" or "Manuscript" at least one date has to be provided -->
 	<iso:pattern name="date_required" id="date_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="(@type = ''series'' or @type = ''journal'' or @type = ''manuscript'' or @type = ''other'') or ((dcterms:created != '''') or (dcterms:modified != '''') or (dcterms:dateSubmitted != '''') or (dcterms:dateAccepted != '''') or (dcterms:issued != ''''))">DateNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If genre is equal to "Article", "Book Chapter" or "Conference Paper" at least one source has to be provided -->
 	<iso:pattern name="source_required" id="source_required" flag="restrictive">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')">SourceNotProvided</iso:assert>
+		<iso:rule context="publication:publication">
+			<iso:assert test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')">SourceNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If a date of type "dcterms:dateIssued" is given, the ReviewType has to be provided -->
 	<iso:pattern name="review_method_required" id="review_method_required">
-		<iso:rule context="escidocMetadataProfile:publication">
+		<iso:rule context="publication:publication">
 			<iso:assert test="not(dcterms:issued != '''') or (publication:review-method != '''')">ReviewMethodNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
@@ -4457,9 +4529,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -4626,7 +4702,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -4664,7 +4740,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -4702,7 +4778,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -4999,7 +5075,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -5037,7 +5113,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -5113,11 +5189,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -5151,11 +5227,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -5174,7 +5250,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -5193,7 +5269,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -5212,7 +5288,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -5232,7 +5308,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -5279,9 +5355,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -5458,7 +5538,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -5496,7 +5576,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -5534,7 +5614,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -5831,7 +5911,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -5869,7 +5949,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -5945,11 +6025,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -5983,11 +6063,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -6006,7 +6086,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -6025,7 +6105,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -6044,7 +6124,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -6064,7 +6144,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -6104,7 +6184,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -6142,7 +6222,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -6218,11 +6298,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -6256,7 +6336,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -6301,9 +6381,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -6480,7 +6564,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -6518,7 +6602,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -6556,7 +6640,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -6853,7 +6937,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -6891,7 +6975,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -6967,11 +7051,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -7005,11 +7089,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -7028,7 +7112,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -7047,7 +7131,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -7066,7 +7150,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -7086,7 +7170,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -7126,7 +7210,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -7164,7 +7248,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -7240,11 +7324,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -7278,7 +7362,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -7323,9 +7407,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -7492,7 +7580,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -7530,7 +7618,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -7568,7 +7656,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -7865,7 +7953,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -7903,7 +7991,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -7979,11 +8067,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -8017,11 +8105,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -8040,7 +8128,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -8059,7 +8147,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -8078,7 +8166,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -8098,7 +8186,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -8145,9 +8233,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -8324,7 +8416,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -8362,7 +8454,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -8400,7 +8492,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -8697,7 +8789,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -8735,7 +8827,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -8811,11 +8903,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -8849,11 +8941,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -8872,7 +8964,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -8891,7 +8983,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -8910,7 +9002,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -8930,7 +9022,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -8970,7 +9062,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -9008,7 +9100,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -9084,11 +9176,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -9122,7 +9214,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -9167,9 +9259,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -9346,7 +9442,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -9384,7 +9480,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -9422,7 +9518,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -9719,7 +9815,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -9757,7 +9853,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -9833,11 +9929,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -9871,11 +9967,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -9894,7 +9990,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -9913,7 +10009,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -9932,7 +10028,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -9952,7 +10048,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -9992,7 +10088,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -10030,7 +10126,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -10106,11 +10202,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -10144,7 +10240,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -10189,9 +10285,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -10358,7 +10458,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -10396,7 +10496,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -10434,7 +10534,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -10731,7 +10831,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -10769,7 +10869,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -10845,11 +10945,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -10883,11 +10983,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -10906,7 +11006,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -10925,7 +11025,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -10944,7 +11044,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -10964,7 +11064,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -11011,9 +11111,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -11190,7 +11294,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -11228,7 +11332,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -11266,7 +11370,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -11563,7 +11667,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -11601,7 +11705,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -11677,11 +11781,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -11715,11 +11819,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -11738,7 +11842,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -11757,7 +11861,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -11776,7 +11880,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -11796,7 +11900,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -11836,7 +11940,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -11874,7 +11978,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -11950,11 +12054,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -11988,7 +12092,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -12033,9 +12137,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -12212,7 +12320,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -12250,7 +12358,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -12288,7 +12396,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -12585,7 +12693,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -12623,7 +12731,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -12699,11 +12807,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -12737,11 +12845,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -12760,7 +12868,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -12779,7 +12887,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -12798,7 +12906,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -12818,7 +12926,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -12858,7 +12966,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -12896,7 +13004,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -12972,11 +13080,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -13010,7 +13118,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -13055,9 +13163,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -13224,7 +13336,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -13262,7 +13374,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -13300,7 +13412,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -13597,7 +13709,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -13635,7 +13747,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -13711,11 +13823,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -13749,11 +13861,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -13772,7 +13884,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -13791,7 +13903,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -13810,7 +13922,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -13830,7 +13942,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -13877,9 +13989,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -14056,7 +14172,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -14094,7 +14210,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -14132,7 +14248,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -14429,7 +14545,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -14467,7 +14583,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -14543,11 +14659,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -14581,11 +14697,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -14604,7 +14720,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -14623,7 +14739,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -14642,7 +14758,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -14662,7 +14778,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -14702,7 +14818,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -14740,7 +14856,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -14816,11 +14932,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -14854,7 +14970,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -14899,9 +15015,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -15078,7 +15198,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -15116,7 +15236,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -15154,7 +15274,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -15451,7 +15571,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -15489,7 +15609,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -15565,11 +15685,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -15603,11 +15723,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -15626,7 +15746,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -15645,7 +15765,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -15664,7 +15784,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -15684,7 +15804,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -15724,7 +15844,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -15762,7 +15882,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -15838,11 +15958,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -15876,7 +15996,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -15921,9 +16041,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -16090,7 +16214,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -16128,7 +16252,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -16166,7 +16290,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -16463,7 +16587,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -16501,7 +16625,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -16577,11 +16701,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -16615,11 +16739,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -16638,7 +16762,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -16657,7 +16781,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -16676,7 +16800,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -16696,7 +16820,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -16743,9 +16867,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -16922,7 +17050,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -16960,7 +17088,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -16998,7 +17126,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -17295,7 +17423,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -17333,7 +17461,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -17409,11 +17537,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -17447,11 +17575,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -17470,7 +17598,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -17489,7 +17617,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -17508,7 +17636,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -17528,7 +17656,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -17568,7 +17696,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -17606,7 +17734,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -17682,11 +17810,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -17720,7 +17848,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -17765,9 +17893,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -17944,7 +18076,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -17982,7 +18114,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -18020,7 +18152,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -18317,7 +18449,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -18355,7 +18487,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -18431,11 +18563,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -18469,11 +18601,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -18492,7 +18624,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -18511,7 +18643,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -18530,7 +18662,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -18550,7 +18682,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -18590,7 +18722,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -18628,7 +18760,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -18704,11 +18836,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -18742,7 +18874,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -18787,9 +18919,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -18956,7 +19092,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -18994,7 +19130,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -19032,7 +19168,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -19329,7 +19465,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -19367,7 +19503,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -19443,11 +19579,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -19481,11 +19617,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -19504,7 +19640,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -19523,7 +19659,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -19542,7 +19678,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -19562,7 +19698,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -19609,9 +19745,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -19788,7 +19928,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -19826,7 +19966,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -19864,7 +20004,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -20161,7 +20301,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -20199,7 +20339,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -20275,11 +20415,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -20313,11 +20453,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -20336,7 +20476,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -20355,7 +20495,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -20374,7 +20514,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -20394,7 +20534,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -20434,7 +20574,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -20472,7 +20612,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -20548,11 +20688,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -20586,7 +20726,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -20631,9 +20771,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -20810,7 +20954,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -20848,7 +20992,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -20886,7 +21030,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -21183,7 +21327,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -21221,7 +21365,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -21297,11 +21441,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -21335,11 +21479,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -21358,7 +21502,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -21377,7 +21521,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -21396,7 +21540,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -21416,7 +21560,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -21456,7 +21600,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -21494,7 +21638,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -21570,11 +21714,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -21608,7 +21752,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -21653,9 +21797,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -21822,7 +21970,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -21860,7 +22008,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -21898,7 +22046,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -22195,7 +22343,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -22233,7 +22381,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -22309,11 +22457,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -22347,11 +22495,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -22370,7 +22518,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -22389,7 +22537,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -22408,7 +22556,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -22428,7 +22576,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -22475,9 +22623,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -22654,7 +22806,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -22692,7 +22844,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -22730,7 +22882,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -23027,7 +23179,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -23065,7 +23217,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -23141,11 +23293,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -23179,11 +23331,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -23202,7 +23354,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -23221,7 +23373,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -23240,7 +23392,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -23260,7 +23412,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -23300,7 +23452,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -23338,7 +23490,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -23414,11 +23566,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -23452,7 +23604,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -23497,9 +23649,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -23676,7 +23832,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -23714,7 +23870,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -23752,7 +23908,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -24049,7 +24205,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -24087,7 +24243,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -24163,11 +24319,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -24201,11 +24357,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -24224,7 +24380,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -24243,7 +24399,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -24262,7 +24418,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -24282,7 +24438,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -24322,7 +24478,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -24360,7 +24516,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -24436,11 +24592,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -24474,7 +24630,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -24519,9 +24675,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -24688,7 +24848,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -24726,7 +24886,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -24764,7 +24924,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -25061,7 +25221,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -25099,7 +25259,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -25175,11 +25335,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -25213,11 +25373,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -25236,7 +25396,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -25255,7 +25415,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -25274,7 +25434,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -25294,7 +25454,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -25341,9 +25501,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+               xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -25520,7 +25684,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -25558,7 +25722,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -25596,7 +25760,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -25893,7 +26057,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -25931,7 +26095,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -26007,11 +26171,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -26045,11 +26209,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -26068,7 +26232,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -26087,7 +26251,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -26106,7 +26270,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -26126,7 +26290,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -26166,7 +26330,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -26204,7 +26368,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -26280,11 +26444,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -26318,7 +26482,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -26363,9 +26527,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -26542,7 +26710,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -26580,7 +26748,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -26618,7 +26786,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -26915,7 +27083,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -26953,7 +27121,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -27029,11 +27197,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -27067,11 +27235,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -27090,7 +27258,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -27109,7 +27277,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -27128,7 +27296,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -27148,7 +27316,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -27188,7 +27356,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -27226,7 +27394,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -27302,11 +27470,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -27340,7 +27508,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -27385,9 +27553,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -27554,7 +27726,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -27592,7 +27764,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -27630,7 +27802,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -27927,7 +28099,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -27965,7 +28137,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -28041,11 +28213,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -28079,11 +28251,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -28102,7 +28274,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -28121,7 +28293,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -28140,7 +28312,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -28160,7 +28332,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -28207,9 +28379,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -28386,7 +28562,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -28424,7 +28600,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -28462,7 +28638,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -28759,7 +28935,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -28797,7 +28973,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -28873,11 +29049,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -28911,11 +29087,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -28934,7 +29110,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -28953,7 +29129,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -28972,7 +29148,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -28992,7 +29168,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -29032,7 +29208,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -29070,7 +29246,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -29146,11 +29322,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -29184,7 +29360,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -29229,9 +29405,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -29408,7 +29588,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -29446,7 +29626,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -29484,7 +29664,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -29781,7 +29961,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -29819,7 +29999,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -29895,11 +30075,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+<xsl:template match="organization:organization" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -29933,11 +30113,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+<xsl:template match="publication:publication" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -29956,7 +30136,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator"/>
+         <xsl:when test="escidoc:creator"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -29975,7 +30155,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:when test="escidoc:creator/@role = ''author''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -29994,7 +30174,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:when test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -30014,7 +30194,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M25">
 
@@ -30054,7 +30234,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -30092,7 +30272,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -30168,11 +30348,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+<xsl:template match="publication:publication" priority="4000" mode="M29">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (event:event/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -30206,7 +30386,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+<xsl:template match="publication:publication" priority="4000" mode="M30">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -30251,9 +30431,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -30420,7 +30604,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -30458,7 +30642,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -30496,7 +30680,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -30793,7 +30977,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -30831,7 +31015,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -30869,11 +31053,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -30892,7 +31076,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -30911,7 +31095,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -30931,7 +31115,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -31009,11 +31193,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -31054,9 +31238,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -31229,7 +31417,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -31267,7 +31455,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -31305,7 +31493,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -31602,7 +31790,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -31640,7 +31828,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -31678,11 +31866,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -31701,7 +31889,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -31720,7 +31908,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -31740,7 +31928,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -31818,11 +32006,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -31856,7 +32044,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -31894,11 +32082,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -31932,7 +32120,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -31977,9 +32165,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -32152,7 +32344,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -32190,7 +32382,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -32228,7 +32420,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -32525,7 +32717,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -32563,7 +32755,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -32601,11 +32793,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -32624,7 +32816,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -32643,7 +32835,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -32663,7 +32855,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -32741,11 +32933,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -32779,7 +32971,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -32817,11 +33009,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -32855,7 +33047,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -32900,9 +33092,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -33069,7 +33265,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -33107,7 +33303,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -33145,7 +33341,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -33442,7 +33638,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -33480,7 +33676,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -33518,11 +33714,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -33541,7 +33737,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -33560,7 +33756,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -33580,7 +33776,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -33658,11 +33854,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -33703,9 +33899,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -33878,7 +34078,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -33916,7 +34116,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -33954,7 +34154,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -34251,7 +34451,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -34289,7 +34489,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -34327,11 +34527,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -34350,7 +34550,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -34369,7 +34569,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -34389,7 +34589,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -34467,11 +34667,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -34505,7 +34705,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -34543,11 +34743,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -34581,7 +34781,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -34626,9 +34826,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -34801,7 +35005,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -34839,7 +35043,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -34877,7 +35081,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -35174,7 +35378,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -35212,7 +35416,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -35250,11 +35454,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -35273,7 +35477,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -35292,7 +35496,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -35312,7 +35516,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -35390,11 +35594,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -35428,7 +35632,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -35466,11 +35670,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -35504,7 +35708,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -35549,9 +35753,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -35718,7 +35926,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -35756,7 +35964,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -35794,7 +36002,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -36091,7 +36299,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -36129,7 +36337,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -36167,11 +36375,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -36190,7 +36398,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -36209,7 +36417,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -36229,7 +36437,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -36307,11 +36515,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -36352,9 +36560,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -36527,7 +36739,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -36565,7 +36777,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -36603,7 +36815,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -36900,7 +37112,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -36938,7 +37150,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -36976,11 +37188,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -36999,7 +37211,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -37018,7 +37230,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -37038,7 +37250,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -37116,11 +37328,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -37154,7 +37366,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -37192,11 +37404,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -37230,7 +37442,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -37275,9 +37487,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -37450,7 +37666,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -37488,7 +37704,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -37526,7 +37742,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -37823,7 +38039,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -37861,7 +38077,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -37899,11 +38115,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -37922,7 +38138,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -37941,7 +38157,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -37961,7 +38177,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -38039,11 +38255,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -38077,7 +38293,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -38115,11 +38331,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -38153,7 +38369,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -38198,9 +38414,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -38367,7 +38587,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -38405,7 +38625,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -38443,7 +38663,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -38740,7 +38960,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -38778,7 +38998,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -38816,11 +39036,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -38839,7 +39059,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -38858,7 +39078,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -38878,7 +39098,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -38956,11 +39176,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -39001,9 +39221,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -39176,7 +39400,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -39214,7 +39438,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -39252,7 +39476,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -39549,7 +39773,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -39587,7 +39811,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -39625,11 +39849,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -39648,7 +39872,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -39667,7 +39891,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -39687,7 +39911,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -39765,11 +39989,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -39803,7 +40027,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -39841,11 +40065,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -39879,7 +40103,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -39924,9 +40148,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -40099,7 +40327,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -40137,7 +40365,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -40175,7 +40403,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -40472,7 +40700,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -40510,7 +40738,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -40548,11 +40776,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -40571,7 +40799,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -40590,7 +40818,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -40610,7 +40838,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -40688,11 +40916,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -40726,7 +40954,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -40764,11 +40992,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -40802,7 +41030,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -40847,9 +41075,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -41016,7 +41248,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -41054,7 +41286,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -41092,7 +41324,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -41389,7 +41621,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -41427,7 +41659,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -41465,11 +41697,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -41488,7 +41720,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -41507,7 +41739,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -41527,7 +41759,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -41605,11 +41837,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -41650,9 +41882,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                 xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -41825,7 +42061,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -41863,7 +42099,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -41901,7 +42137,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -42198,7 +42434,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -42236,7 +42472,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -42274,11 +42510,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -42297,7 +42533,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -42316,7 +42552,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -42336,7 +42572,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -42414,11 +42650,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -42452,7 +42688,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -42490,11 +42726,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -42528,7 +42764,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -42748,7 +42984,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -42786,7 +43022,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -42824,7 +43060,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -43121,7 +43357,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -43159,7 +43395,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -43197,11 +43433,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -43220,7 +43456,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -43239,7 +43475,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -43259,7 +43495,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -43337,11 +43573,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -43375,7 +43611,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -43413,11 +43649,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -43451,7 +43687,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -43665,7 +43901,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -43703,7 +43939,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -43741,7 +43977,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -44038,7 +44274,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -44076,7 +44312,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -44114,11 +44350,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -44137,7 +44373,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -44156,7 +44392,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -44176,7 +44412,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -44254,11 +44490,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -44474,7 +44710,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -44512,7 +44748,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -44550,7 +44786,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -44847,7 +45083,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -44885,7 +45121,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -44923,11 +45159,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -44946,7 +45182,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -44965,7 +45201,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -44985,7 +45221,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -45063,11 +45299,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -45101,7 +45337,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -45139,11 +45375,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -45177,7 +45413,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -45397,7 +45633,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -45435,7 +45671,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -45473,7 +45709,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -45770,7 +46006,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -45808,7 +46044,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -45846,11 +46082,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -45869,7 +46105,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -45888,7 +46124,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -45908,7 +46144,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -45986,11 +46222,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -46024,7 +46260,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -46062,11 +46298,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -46100,7 +46336,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -46314,7 +46550,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -46352,7 +46588,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -46390,7 +46626,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -46687,7 +46923,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -46725,7 +46961,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -46763,11 +46999,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -46786,7 +47022,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -46805,7 +47041,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -46825,7 +47061,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -46903,11 +47139,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -47123,7 +47359,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -47161,7 +47397,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -47199,7 +47435,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -47496,7 +47732,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -47534,7 +47770,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -47572,11 +47808,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -47595,7 +47831,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -47614,7 +47850,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -47634,7 +47870,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -47712,11 +47948,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -47750,7 +47986,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -47788,11 +48024,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -47826,7 +48062,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -48046,7 +48282,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -48084,7 +48320,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -48122,7 +48358,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -48419,7 +48655,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -48457,7 +48693,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -48495,11 +48731,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -48518,7 +48754,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -48537,7 +48773,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -48557,7 +48793,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -48635,11 +48871,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -48673,7 +48909,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -48711,11 +48947,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -48749,7 +48985,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -48963,7 +49199,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -49001,7 +49237,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -49039,7 +49275,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -49336,7 +49572,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -49374,7 +49610,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -49412,11 +49648,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -49435,7 +49671,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -49454,7 +49690,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -49474,7 +49710,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -49552,11 +49788,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -49772,7 +50008,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -49810,7 +50046,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -49848,7 +50084,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -50145,7 +50381,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -50183,7 +50419,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -50221,11 +50457,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -50244,7 +50480,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -50263,7 +50499,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -50283,7 +50519,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -50361,11 +50597,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -50399,7 +50635,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -50437,11 +50673,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -50475,7 +50711,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -50695,7 +50931,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -50733,7 +50969,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -50771,7 +51007,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -51068,7 +51304,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -51106,7 +51342,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -51144,11 +51380,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -51167,7 +51403,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -51186,7 +51422,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -51206,7 +51442,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -51284,11 +51520,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -51322,7 +51558,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -51360,11 +51596,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -51398,7 +51634,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -51612,7 +51848,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -51650,7 +51886,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -51688,7 +51924,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -51985,7 +52221,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -52023,7 +52259,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -52061,11 +52297,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -52084,7 +52320,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -52103,7 +52339,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -52123,7 +52359,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -52201,11 +52437,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -52421,7 +52657,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -52459,7 +52695,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -52497,7 +52733,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -52794,7 +53030,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -52832,7 +53068,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -52870,11 +53106,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -52893,7 +53129,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -52912,7 +53148,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -52932,7 +53168,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -53010,11 +53246,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -53048,7 +53284,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -53086,11 +53322,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -53124,7 +53360,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -53169,9 +53405,13 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+				xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+				xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+				xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+				xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
@@ -53344,7 +53584,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
+<xsl:template match="event:event" priority="4000" mode="M12">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -53382,7 +53622,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
+<xsl:template match="source:source" priority="4000" mode="M13">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -53420,7 +53660,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
+<xsl:template match="source:source" priority="4000" mode="M14">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -53717,7 +53957,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+<xsl:template match="publication:publication" priority="4000" mode="M20">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -53755,7 +53995,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+<xsl:template match="publication:publication" priority="4000" mode="M21">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -53793,11 +54033,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M23">
+<xsl:template match="publication:publication" priority="4000" mode="M23">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -53816,7 +54056,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/@role != ''''"/>
+         <xsl:when test="escidoc:creator/@role != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -53835,7 +54075,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name != ''''"/>
+         <xsl:when test="escidoc:creator/person:person/organization:organization/dc:title != '''' or escidoc:creator/organization:organization/organization:organization-name != ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -53855,7 +54095,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+<xsl:template match="publication:publication/escidoc:creator/person:person"
                  priority="3999"
                  mode="M23">
 
@@ -53933,11 +54173,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M25">
+<xsl:template match="organization:organization" priority="4000" mode="M25">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:when test="dc:title != '''' or not(escidoc:address) or escidoc:address = ''''"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -53971,7 +54211,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+<xsl:template match="publication:publication" priority="4000" mode="M26">
 
 		<!--ASSERT -->
 <xsl:choose>
@@ -54009,11 +54249,11 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+<xsl:template match="publication:publication" priority="4000" mode="M27">
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (publication:source/dc:title != '''')"/>
+         <xsl:when test="not(@type = ''article'' or @type = ''book-item'' or @type = ''conference-paper'') or (source:source/dc:title != '''')"/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
@@ -54047,7 +54287,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 
 	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M28">
+<xsl:template match="publication:publication" priority="4000" mode="M28">
 
 		<!--ASSERT -->
 <xsl:choose>
