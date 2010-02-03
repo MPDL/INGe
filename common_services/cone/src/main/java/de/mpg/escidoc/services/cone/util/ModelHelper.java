@@ -56,6 +56,8 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 public class ModelHelper
 {
     
+    private static final String test = "";
+    
     private static final Logger logger = Logger.getLogger(ModelHelper.class);
     
     private static final String REGEX_BRACKETS = "<[^>]+>";
@@ -393,6 +395,17 @@ public class ModelHelper
                     {
                         Querier querier = QuerierFactory.newQuerier();
                         TreeFragment treeFragment = querier.details(predicate.getResourceModel(), ((TreeFragment)value).getSubject(), lang);
+                        querier.release();
+                        Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
+                        for (String subPredicateName : treeFragment.keySet())
+                        {
+                            strings.addAll(replacePattern(treeFragment, line.replace("<" + predicate.getId() + "|", "<"), newModel.getPredicate(subPredicateName), lang));
+                        }
+                    }
+                    else if (predicate.isResource() && value instanceof LocalizedString)
+                    {
+                        Querier querier = QuerierFactory.newQuerier();
+                        TreeFragment treeFragment = querier.details(predicate.getResourceModel(), ((LocalizedString)value).getValue(), lang);
                         querier.release();
                         Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
                         for (String subPredicateName : treeFragment.keySet())
