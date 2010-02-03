@@ -413,7 +413,7 @@
 
 	<xsl:template name="createCreator">
 		<xsl:param name="role"/>
-		<xsl:element name="eterms:creator">
+		<xsl:element name="pub:creator">
 			<xsl:attribute name="role" select="$role"/>
 			<xsl:if test="exists(t:persName)">
 				<xsl:call-template name="createPerson"/>
