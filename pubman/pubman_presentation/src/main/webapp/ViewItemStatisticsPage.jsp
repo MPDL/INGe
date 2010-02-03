@@ -176,7 +176,7 @@
 										<h:outputText id="txtViewItemStatisticsPagePublicState" value="#{ViewItemFull.itemPublicState}" />
 									</h:outputLabel>
 									<h:outputLabel id="lblViewItemStatisticsPageItemState" styleClass="medium_label endline" style="text-align: center;" rendered="#{!ViewItemFull.isStateWithdrawn}">
-										<h:outputText id="txtViewItemStatisticsPageItemState" value="#{ViewItemFull.itemState}" />
+										<h:outputText value="#{ViewItemFull.itemState}" />
 									</h:outputLabel>
 								</h:panelGroup>
 							</div>

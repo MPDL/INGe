@@ -75,25 +75,25 @@
 								<div class="free_area0 sub">
 								<!-- content menu lower line starts here -->										
 									<h:commandLink id="lnkSubmission_lnkEasySubmissionMenu" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
-										<h:outputText id="lblSubmission_lnkEasySubmissionMenu" value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+										<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 									</h:commandLink>
 									<h:outputText styleClass="seperator void" />
 									<h:commandLink id="lnkSubmission_lnkNewSubmissionMenu" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
-										<h:outputText id="lblSubmission_lnkNewSubmissionMenu" value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+										<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 									</h:commandLink>
 									<h:outputText styleClass="seperator void" />
 									<h:commandLink id="lnkSubmission_lnkImportMenu" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
-										<h:outputText id="lblSubmission_lnkImportMenu" value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+										<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 									</h:commandLink>
 									<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 										<h:outputText styleClass="seperator void" />
 										<h:commandLink id="lnkSubmission_lnkMultipleImportMenu" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
-											<h:outputText id="lblSubmission_lnkMultipleImportMenu" value="#{lbl.submission_lnkMultipleImport}"/>
+											<h:outputText value="#{lbl.submission_lnkMultipleImport}"/>
 										</h:commandLink>
 									</h:panelGroup>
 									<h:outputText styleClass="seperator void" />
 									<h:outputLink id="lnkSubmission_lnkImportWorkspaceMenu" title="#{tip.submission_lnkImportWorkspace}" value="ImportWorkspace.jsp" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
-										<h:outputText id="lblSubmission_lnkImportWorkspaceMenu" value="#{lbl.submission_lnkImportWorkspace}"/>
+										<h:outputText value="#{lbl.submission_lnkImportWorkspace}"/>
 									</h:outputLink>
 								<!-- content menu lower line ends here -->
 								</div>

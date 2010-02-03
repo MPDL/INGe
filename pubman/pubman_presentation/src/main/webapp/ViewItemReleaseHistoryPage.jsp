@@ -173,7 +173,7 @@
 										<h:outputText id="txtViewItemReleaseHistoryPublicState" value="#{ViewItemFull.itemPublicState}" />
 									</h:outputLabel>
 									<h:outputLabel id="lblViewItemReleaseHistoryItemState" styleClass="medium_label endline" style="text-align: center;" rendered="#{!ViewItemFull.isStateWithdrawn}">
-										<h:outputText id="txtViewItemReleaseHistoryItemState" value="#{ViewItemFull.itemState}" />
+										<h:outputText value="#{ViewItemFull.itemState}" />
 									</h:outputLabel>
 								</h:panelGroup>
 							</div>
