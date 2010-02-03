@@ -104,8 +104,12 @@ public class Export implements ExportHandler {
 	
 	public static String COMPONENTS_NS;
 	public static String MDRECORDS_NS;
+	public static String FILE_NS;
+	public static String DC_NS;
+	public static String DCTERMS_NS;
+	public static String PROPERTIES_NS;
+
 	public static final String XLINK_NS = "http://www.w3.org/1999/xlink";
-	public static final String PROPERTIES_NS = "http://escidoc.de/core/01/properties/";
 	public static final String LICENSE_AGREEMENT_NAME = "Faces_Release_Agreement_Export.pdf";
 	private final static String PATH_TO_RESOURCES = "resources/";
 	
@@ -133,6 +137,10 @@ public class Export implements ExportHandler {
 	    	PASSWORD =  PropertyReader.getProperty(PROPERTY_PASSWORD);
 	    	COMPONENTS_NS = PropertyReader.getProperty("xsd.soap.item.components");
 	    	MDRECORDS_NS = PropertyReader.getProperty("xsd.soap.common.mdrecords");
+	    	FILE_NS = PropertyReader.getProperty("xsd.metadata.file");
+	    	DCTERMS_NS = PropertyReader.getProperty("xsd.metadata.dcterms");
+	    	DC_NS = PropertyReader.getProperty("xsd.metadata.dc");
+	    	PROPERTIES_NS = PropertyReader.getProperty("xsd.soap.common.prop");
 	    }
 	    catch (Exception e) {
             logger.error("Error getting properties", e);
@@ -659,6 +667,7 @@ public class Export implements ExportHandler {
 		      Node n;
 		      while ((n = ni.nextNode()) != null) 
 		      {
+
 		    	  Element componentElement = (Element) n;
 		    	  NodeList nl = componentElement.getElementsByTagNameNS(COMPONENTS_NS, "content");
 		    	  Element contentElement = (Element)nl.item( 0 );
@@ -682,9 +691,11 @@ public class Export implements ExportHandler {
 		    		    		  true
 		    		      );
 		    		  Node nf;
+
 		    		  if ((nf = nif.nextNode()) != null) 
 		    		  {
 		    			  fileName = ((Element) nf).getTextContent();
+
 		    			  // names of files for
 		    			  Matcher m = Pattern.compile("^([\\w.]+?)(\\s+|$)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(fileName);
 		    			  m.find();
@@ -903,72 +914,73 @@ public class Export implements ExportHandler {
 	}
 
 
-   
-
-}
-
-// NodeFilters for XML Traversing 
-class ComponentNodeFilter implements NodeFilter {
-
-	public short acceptNode(Node n) {
-		Element e = (Element) n;
-		//System.out.println(e.getNodeName());
-		
-		try
-		{
-    		String COMPONENTS_NS = PropertyReader.getProperty("xsd.soap.item.components");
-    		
-    		if (COMPONENTS_NS.equals(e.getNamespaceURI()) && "component".equals(e.getLocalName())) {
-    //			System.out.println("component--->" + e.getNodeName());
-    			return FILTER_ACCEPT;
-    		}
-		}
-		catch (Exception ex) {
-            throw new RuntimeException("Error evaluating export filter", ex);
-        }
-		return FILTER_SKIP;
-	}
-}
-
-class FileNameNodeFilter implements NodeFilter {
 	
-	public static final String FILE_NS = "http://purl.org/escidoc/metadata/profiles/0.1/file";
-	public static final String DC_NS = "http://purl.org/dc/elements/1.1/";
-
-	public short acceptNode(Node n) {
-		Element e = (Element) n;
-		Element parent = (Element)e.getParentNode();
-		boolean parentIsFile = parent != null && FILE_NS.equals(parent.getNamespaceURI()) && "file".equals(parent.getLocalName());
-		if (
-				parentIsFile && 
-				DC_NS.equals(e.getNamespaceURI()) && 
-				(
-						"title".equals(e.getLocalName()) 
-				)
-		)		
-		{
-			return FILTER_ACCEPT;
-		}
-		return FILTER_SKIP;
-	}
-}
-
-class FileSizeNodeFilter implements NodeFilter {
-		
-		public static final String DCTERMS_NS = "http://purl.org/dc/terms/";
+	// NodeFilters for XML Traversing 
+	class FileNameNodeFilter implements NodeFilter {
 		
 		public short acceptNode(Node n) {
 			Element e = (Element) n;
+			Element parent = (Element)e.getParentNode();
+			boolean parentIsFile = parent != null && FILE_NS.equals(parent.getNamespaceURI()) && "file".equals(parent.getLocalName());
 			if (
-					DCTERMS_NS.equals(e.getNamespaceURI()) &&   
-					"extent".equals(e.getLocalName()) 
+					parentIsFile && 
+					DC_NS.equals(e.getNamespaceURI()) && 
+					(
+							"title".equals(e.getLocalName()) 
+					)
 			)		
 			{
-				//System.out.println("accepted: " + e.getLocalName() + ":" + e.getTextContent());
-				return FILTER_ACCEPT; 
+				return FILTER_ACCEPT;
 			}
 			return FILTER_SKIP;
 		}
-		
+	}
+	
+	
+	class ComponentNodeFilter implements NodeFilter {
+
+
+		public short acceptNode(Node n) {
+			Element e = (Element) n;
+			//System.out.println(e.getNodeName());
+			
+			try
+			{
+	    		
+	    		if (COMPONENTS_NS.equals(e.getNamespaceURI()) && "component".equals(e.getLocalName())) {
+	    //			System.out.println("component--->" + e.getNodeName());
+	    			return FILTER_ACCEPT;
+	    		}
+			}
+			catch (Exception ex) {
+	            throw new RuntimeException("Error evaluating export filter", ex);
+	        }
+			return FILTER_SKIP;
+		}
+	}
+
+
+	class FileSizeNodeFilter implements NodeFilter {
+			
+			public short acceptNode(Node n) {
+				Element e = (Element) n;
+				if (
+						DCTERMS_NS.equals(e.getNamespaceURI()) &&   
+						"extent".equals(e.getLocalName()) 
+				)		
+				{
+					//System.out.println("accepted: " + e.getLocalName() + ":" + e.getTextContent());
+					return FILTER_ACCEPT; 
+				}
+				return FILTER_SKIP;
+			}
+			
+	}	
+
 }
+
+
+
+
+
 
