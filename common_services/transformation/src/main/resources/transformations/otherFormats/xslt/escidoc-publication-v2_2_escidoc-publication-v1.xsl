@@ -53,8 +53,11 @@
 		xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
         xmlns:idtype="http://purl.org/escidoc/metadata/terms/0.1/"
 		xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"		
-        
+
         xmlns:file="http://purl.org/metadata/profiles/0.1/file"
+        
+        xmlns:prop="http://escidoc.de/core/01/properties/"
+        
         xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:dcterms="http://purl.org/dc/terms/"
         
@@ -270,6 +273,32 @@
 			</xsl:if>
 			<!-- skip duplicated value of the element -->
 			<xsl:apply-templates select="*/*"/>
+		</xsl:element>
+	</xsl:template>
+		
+	<xsl:template match="eterms:content-category" priority="999">
+		<xsl:variable name="v2" select="normalize-space(lower-case(.))"/>
+		<xsl:variable name="v1" select="$vm/content-category/v2-to-v1/map[@v2=$v2]"/>
+		<xsl:element name="file:content-category" namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
+			<xsl:value-of select="
+				if ($v1!='')
+				then $v1
+				else .
+			"/>
+			<xsl:apply-templates select="*/*" />
+		</xsl:element>
+	</xsl:template>
+		
+	<xsl:template match="prop:content-category" priority="999">
+		<xsl:variable name="v2" select="normalize-space(lower-case(.))"/>
+		<xsl:variable name="v1" select="$vm/content-category/v2-to-v1/map[@v2=$v2]"/>
+		<xsl:element name="prop:content-category" namespace="http://escidoc.de/core/01/properties/">
+			<xsl:value-of select="
+				if ($v1!='')
+				then $v1
+				else .
+			"/>
+			<xsl:apply-templates select="*/*" />
 		</xsl:element>
 	</xsl:template>	
 	
