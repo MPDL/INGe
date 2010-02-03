@@ -1010,66 +1010,13 @@ public class JiBXHelper
      */
     public static String serializeIdentifierTypeEnum(IdType idType)
     {
-        String s = "";
+    	
         if (idType == null)
         {
             return "";
         }
-        switch (idType)
-        {
-            case DOI:
-                s = IDTYPES_NAMESPACE_PREFIX + "DOI";
-                break;
-            case EDOC:
-                s = IDTYPES_NAMESPACE_PREFIX + "EDOC";
-                break;
-            case ESCIDOC:
-                s = IDTYPES_NAMESPACE_PREFIX + "ESCIDOC";
-                break;
-            case ISBN:
-                s = IDTYPES_NAMESPACE_PREFIX + "ISBN";
-                break;
-            case ISI:
-                s = IDTYPES_NAMESPACE_PREFIX + "ISI";
-                break;
-            case ISSN:
-                s = IDTYPES_NAMESPACE_PREFIX + "ISSN";
-                break;
-            case OTHER:
-                s = IDTYPES_NAMESPACE_PREFIX + "OTHER";
-                break;
-            case PND:
-                s = IDTYPES_NAMESPACE_PREFIX + "PND";
-                break;
-            case URI:
-                s = DCTERMS_NAMESPACE_PREFIX + "URI";
-                break;
-            case URN:
-                s = IDTYPES_NAMESPACE_PREFIX + "URN";
-                break;
-            case CONE:
-                s = IDTYPES_NAMESPACE_PREFIX + "CONE";
-                break;
-            case PII:
-                s = IDTYPES_NAMESPACE_PREFIX + "PII";
-                break;
-            case ZDB:
-                s = IDTYPES_NAMESPACE_PREFIX + "ZDB";
-                break;
-            case PMID:
-                s = IDTYPES_NAMESPACE_PREFIX + "PMID";
-                break;
-            case ARXIV:
-                s = IDTYPES_NAMESPACE_PREFIX + "ARXIV";
-                break;
-            case PMC:
-                s = IDTYPES_NAMESPACE_PREFIX + "PMC";
-                break;
-            case BMC:
-                s = IDTYPES_NAMESPACE_PREFIX + "BMC";
-                break;
-        }
-        return s;
+       
+        return IDTYPES_NAMESPACE_PREFIX + idType.name();
     }
 
     /**
