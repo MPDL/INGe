@@ -370,8 +370,8 @@
 												<option value="html">HTML</option>
 												<option value="rtf">RTF</option>
 												<option value="odt">ODT</option>
-												<option value="snippet">SNIPPET</option>
-												<option value="escidoc_snippet">ESCIDOC SNIPPET</option>
+												<option value="snippet">SNIPPET v5.x</option>
+												<option value="escidoc_snippet">SNIPPET v6.x</option>
 							                </select>
 										</span>
 									</span>
