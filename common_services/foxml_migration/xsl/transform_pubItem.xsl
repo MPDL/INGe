@@ -245,12 +245,14 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<!--
 	<xsl:template match="dcterms:subject">
 		<xsl:element name="dc:subject">
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
 		</xsl:element>
 	</xsl:template>
+	-->
 	
 
 	
