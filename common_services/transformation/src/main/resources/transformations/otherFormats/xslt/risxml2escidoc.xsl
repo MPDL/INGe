@@ -460,10 +460,13 @@
 					<xsl:when test="TY='NEWS'">
 						<xsl:value-of select="$genre-ves/enum[.='series']/@uri"/>
 					</xsl:when>
+					<xsl:when test="TY='JFULL'">
+						<xsl:value-of select="$genre-ves/enum[.='journal']/@uri"/>
+					</xsl:when>
 					<xsl:when test="T3 and ($title=T3)">
 						<xsl:value-of select="$genre-ves/enum[.='series']/@uri"/>
 					</xsl:when>
-					<xsl:otherwise>xxx</xsl:otherwise>
+					<xsl:otherwise><xsl:value-of select="error(QName('http://www.escidoc.de', 'err:SourceGenreNotRecognized' ), concat('RIS genre -', TY, '- for publication genre -', $genre, '- cannot be mapped to an eSciDoc genre'))"/></xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>
 			<!-- SOURCE TITLE -->
