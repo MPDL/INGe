@@ -248,9 +248,10 @@ public class ProcessSnippet {
 	{
 	    try
 	    {
-	        System.out.print("Started xslt transformation...");
+	    	
+	        System.out.print("Started xslt transformation v1 to v2...");
 	        InputStream stylesheet = ResourceUtil.getResourceAsStream(
-	        		ResourceUtil.getPathToTransformations() + "/escidoc-snippet-v1-to-v2.xsl"
+	        		ResourceUtil.getPathToTransformations() + "escidoc-snippet-v1-to-v2.xsl"
 	        );
 	        
 	        Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));

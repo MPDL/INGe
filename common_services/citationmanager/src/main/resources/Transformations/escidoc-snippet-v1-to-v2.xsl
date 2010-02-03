@@ -42,10 +42,9 @@
 	
 	<xsl:template match="prop:content-model-specific">
 	
-		TUTA:
-<!--		<xsl:copy-of select="$v1"/>-->
-		<xsl:variable name="id" select="../../@xlink:href" as="xs:string"/>
-		<xsl:variable name="cit" select="$v1//escidocItem:item[@xlink:href=$id]/escidocItem:properties/prop:content-model-specific/dcterms:bibliographicCitation"/>
+		
+		<xsl:variable name="id" select="../../@objid" as="xs:string"/>
+		<xsl:variable name="cit" select="$v1//escidocItem:item[@objid=$id]/escidocItem:properties/prop:content-model-specific/dcterms:bibliographicCitation"/>
 	     <xsl:element name="{name(.)}">
 	         <xsl:copy-of select="*[name(.)!='dcterms:bibliographicCitation']"/>
 	         <xsl:element name="dcterms:bibliographicCitation">
