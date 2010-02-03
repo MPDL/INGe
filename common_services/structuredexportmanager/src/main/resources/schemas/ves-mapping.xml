@@ -437,5 +437,59 @@
 		</v2-to-edoc>
 	</identifier-type>
 	
+	<content-category>
+		<v1-to-v2>
+			<map v1="any-fulltext">http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</map>
+			<map v1="any_fulltext">http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</map>
+			<map v1="pre-print">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</map>
+			<map v1="pre_print">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</map>
+			<map v1="post-print">http://purl.org/escidoc/metadata/ves/content-categories/post-print</map>
+			<map v1="post_print">http://purl.org/escidoc/metadata/ves/content-categories/post-print</map>
+			<map v1="publisher-version">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</map>
+			<map v1="publisher_version">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</map>
+			<map v1="abstract">http://purl.org/escidoc/metadata/ves/content-categories/abstract</map>
+			<map v1="table-of-contents">http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents</map>
+			<map v1="table_of_contents">http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents</map>
+			<map v1="table_of_content">http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents</map>
+			<map v1="supplementary-material">http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material</map>
+			<map v1="supplementary_material">http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material</map>
+			<map v1="additional-material">http://purl.org/escidoc/metadata/ves/content-categories/additional-material</map>
+			<map v1="administrative-files">http://purl.org/escidoc/metadata/ves/content-categories/administrative-files</map>
+			<map v1="copyright-transfer-agreement">http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement</map>
+			<map v1="correspondence">http://purl.org/escidoc/metadata/ves/content-categories/correspondence</map>
+			<map v1="jpeg_max">http://purl.org/escidoc/metadata/ves/content-categories/original-resolution</map>
+			<map v1="jpeg_default">http://purl.org/escidoc/metadata/ves/content-categories/web-resolution</map>
+			<map v1="jpeg_min">http://purl.org/escidoc/metadata/ves/content-categories/thumbnail</map>
+			<map v1="original-data">http://purl.org/escidoc/metadata/ves/content-categories/original-data</map>
+			<map v1="high resolution">http://purl.org/escidoc/metadata/ves/content-categories/original-resolution</map>
+			<map v1="web resolution">http://purl.org/escidoc/metadata/ves/content-categories/web-resolution</map>
+			<map v1="thumbnail">http://purl.org/escidoc/metadata/ves/content-categories/thumbnail</map>
+		</v1-to-v2>
+		
+		<v2-to-v1>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext">any-fulltext</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/pre-print">pre-print</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/post-print">post-print</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/publisher-version">publisher-version</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/abstract">abstract</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents">table-of-contents</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material">supplementary-material</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/additional-material">additional-material</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/administrative-files">administrative-files</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement">copyright-transfer-agreement</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/correspondence">correspondence</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/original-resolution">jpeg-max</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/web-resolution">jpeg-default</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/thumbnail">jpeg-min</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/original-data">original-data</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/original-resolution">high resolution</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/web-resolution">web resolution</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/content-categories/thumbnail">thumbnail</map>
+		</v2-to-v1>		
+	</content-category>
+	
+	
+	
+	
 	
 </mappings>
