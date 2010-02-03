@@ -207,7 +207,6 @@
 		$input = $(this);
 		$input.resultValue = this.resultValue;
 		$input.resultID = this.resultID;
-		alert(personDetailsBaseURL.replace('$1', this.resultID));
 		$.getJSON(personDetailsBaseURL.replace('$1', this.resultID), getPersonDetails);
 	}
 	
