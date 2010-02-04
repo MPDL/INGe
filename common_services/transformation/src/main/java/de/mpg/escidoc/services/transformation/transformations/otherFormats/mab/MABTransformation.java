@@ -17,6 +17,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.wos.WoSImport;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
@@ -119,6 +120,7 @@ public class MABTransformation implements Transformation{
                 MABImport mab = new MABImport();
                 output = mab.transformMAB2XML(mabSource);
                 TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
+                factory.setURIResolver(new LocalUriResolver("transformations/otherFormats/xslt"));
                 InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/mabxml2escidoc.xsl");
                 Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
                 

@@ -73,7 +73,7 @@
 	<xsl:param name="localIdentifier" select="'xserveg5.eva.mpg.de'"/>
 	<xsl:param name="localPrefix" select="'http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/'"/>
 	<xsl:param name="localSuffix" select="'.pdf'"/>
-	<xsl:param name="locator-filename-substitute" seldct="'external resource'"/>
+	<xsl:param name="locator-filename-substitute" select="'external resource'"/>
 	
 	<xsl:param name="content-model"/>
 	<!--
@@ -581,7 +581,7 @@
 	<!-- LANGUAGE -->
 	<xsl:template match="mab037_c">
 		<xsl:element name="dc:language">
-			<xsl:variable name="language-identifier" select="."/>
+			<!-- <xsl:variable name="language-identifier" select="."/> -->
 		<!-- 	<xsl:variable name="cone-language" select="Util:queryCone('languages', .)"/>
 			<xsl:value-of select="$cone-language/cone/rdf:RDF[rdf:Description/dc:identifier = $language-identifier]/rdf:Description/dc:identifier[string-length(.) = 2]"/>
 			-->
@@ -758,14 +758,14 @@
 	<xsl:template name="createFile">
 		<xsl:if test="not(normalize-space(.)='-')">
 			
-			<xsl:variable name="filename" as="xs:string" select="escidoc:computeFilename(.)"/>
+			<xsl:variable name="filename" as="xs:string" select="escidoc:computeFilename()"/>
 
 			<xsl:choose>
 				<xsl:when test="starts-with($filename, $localPrefix)">
 				
 					<xsl:variable name="content-category">
 						<xsl:choose>
-							<xsl:when test="exists(preceding-sibling::*[name() = 'mab655_e' and starts-with(escidoc:computeFilename(.), $localPrefix)])">publisher-version</xsl:when>
+							<xsl:when test="exists(preceding-sibling::*[name() = 'mab655_e' and starts-with(escidoc:computeFilename(), $localPrefix)])">publisher-version</xsl:when>
 							<xsl:otherwise>any-fulltext</xsl:otherwise>
 						</xsl:choose>
 					</xsl:variable>
