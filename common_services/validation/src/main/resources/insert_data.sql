@@ -81,10 +81,10 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
 	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
-<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
-<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
-<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
-<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
+	<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+	<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+	<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+	<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -340,10 +340,10 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
 	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
-<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
-<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
-<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
-<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
+	<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+	<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+	<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+	<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -599,10 +599,10 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
 	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
-<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
-<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
-<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
-<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
+	<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+	<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+	<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+	<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -858,10 +858,10 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
 	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
-<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
-<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
-<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
-<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
+	<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+	<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+	<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+	<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -1117,10 +1117,10 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
 	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
-<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
-<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
-<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
-<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
+	<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+	<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+	<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+	<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -1376,10 +1376,10 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
 	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
-<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
-<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
-<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
-<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
+	<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+	<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+	<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+	<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -1638,7 +1638,7 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
 	<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
 	<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
-<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
+	<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -1894,10 +1894,10 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<iso:ns prefix="escidoc" uri="http://purl.org/escidoc/metadata/terms/0.1/"/>
 	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
 	<iso:ns prefix="publication" uri="http://purl.org/escidoc/metadata/profiles/0.1/publication"/>
-<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
-<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
-<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
-<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
+	<iso:ns prefix="person" uri="http://purl.org/escidoc/metadata/profiles/0.1/person"/>
+	<iso:ns prefix="source" uri="http://purl.org/escidoc/metadata/profiles/0.1/source"/>
+	<iso:ns prefix="event" uri="http://purl.org/escidoc/metadata/profiles/0.1/event"/>
+	<iso:ns prefix="organization" uri="http://purl.org/escidoc/metadata/profiles/0.1/organization"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
 	<!-- Validation points -->
@@ -2062,7 +2062,7 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<!-- At least one creator of role "author" is MPDL (organization) or is affiliated to MPDL (person). -->
 	<iso:pattern name="creator_required" id="creator_required">
 		<iso:rule context="publication:publication">
-			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title !='''' ">CreatorNotProvided</iso:assert>
 			<iso:assert test="escidoc:creator">CreatorNotProvided</iso:assert>
 			<iso:assert test="escidoc:creator/@role = ''author''">AuthorNotProvided</iso:assert>
 			<iso:assert test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
@@ -2321,7 +2321,7 @@ INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_m
 	<!-- At least one creator of role "author" is MPDL (organization) or is affiliated to MPDL (person). -->
 	<iso:pattern name="creator_required" id="creator_required">
 		<iso:rule context="publication:publication">
-			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title">CreatorNotProvided</iso:assert>
+			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title != '''' ">CreatorNotProvided</iso:assert>
 			<iso:assert test="escidoc:creator">CreatorNotProvided</iso:assert>
 			<iso:assert test="escidoc:creator/@role = ''author''">AuthorNotProvided</iso:assert>
 			<iso:assert test="escidoc:creator//dc:title[contains(., ''Max Planck Digital Library'')]">MpdlCreatorRequired</iso:assert>
@@ -5231,7 +5231,7 @@ INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_
 
 		<!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title"/>
+         <xsl:when test="escidoc:creator/person:person/escidoc:family-name != '''' or escidoc:creator/organization:organization/dc:title !='''' "/>
          <xsl:otherwise>
             <failure infolevel="restrictive">
                <message>
