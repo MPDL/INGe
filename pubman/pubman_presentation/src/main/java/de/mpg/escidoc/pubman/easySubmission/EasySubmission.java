@@ -756,6 +756,7 @@ public class EasySubmission extends FacesBean
                 if (contentURL != null && !contentURL.trim().equals(""))
                 {
                     this.getFiles().get(indexUpload).getFile().getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
+                    this.getFiles().get(indexUpload).getFile().setName(file.getFilename());
                     this.getFiles().get(indexUpload).getFile().getDefaultMetadata().setSize((int)file.getLength());
                     // set the file name automatically if it is not filled by the user
                     /*
