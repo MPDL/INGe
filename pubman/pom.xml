@@ -762,7 +762,7 @@
 				<escidoc.cone.mulgara.server.port>8888</escidoc.cone.mulgara.server.port>
 				<escidoc.cone.language.default>en</escidoc.cone.language.default>
 				<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
-				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
+				<escidoc.cone.service.url>http://dev-pubman.mpdl.mpg.de/cone/</escidoc.cone.service.url>
 				<escidoc.cone.modelsxml.path>models.xml</escidoc.cone.modelsxml.path>
 				
 				<!-- Import database -->
