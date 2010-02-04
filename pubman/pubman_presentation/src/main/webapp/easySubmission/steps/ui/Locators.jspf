@@ -127,7 +127,7 @@
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<span class="xDouble_area0 tiny_marginRIncl">
 							<h:outputLabel id="lblLocatorsComponentDescription" styleClass="xDouble_label" value="#{genre.locators_component_description_label}" converter="GenreLabelConverter"/>
-							<h:inputTextarea id="inpLocatorFileDescription" styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.description}" cols="15" rows="3"/>
+							<h:inputTextarea id="inpLocatorFileDescription" styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.defaultMetadata.description}" cols="15" rows="3"/>
 						</span>
 					</span>
 				</h:panelGroup>
