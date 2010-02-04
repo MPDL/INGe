@@ -94,7 +94,7 @@
 									<!-- content menu lower line starts here -->
 									<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
 										<h:selectOneMenu id="selEXPORTFORMAT_OPTIONS" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
-												 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
+											<f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 										</h:selectOneMenu>
 										<h:commandButton id="btnUpdateExportFormats" styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />	
 										<h:selectOneMenu id="selFILEFORMAT_OPTIONS" value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableFileFormats}">
@@ -110,12 +110,12 @@
 									<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">
 									<!-- content menu lower line starts here -->
 										<h:commandLink id="lnkList_lblBibListGRID" styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}" action="#{PubItemListSessionBean.changeListTypeToBib}">
-											<h:outputText id="lblList_lblBibListGRID" value="#{lbl.List_lblBibList}" />
+											<h:outputText value="#{lbl.List_lblBibList}" />
 										</h:commandLink>
 										<h:outputText id="lblList_lblBibListBIB" styleClass="free_area0" value="#{lbl.List_lblBibList}" rendered="#{PubItemListSessionBean.listType == 'BIB'}" />
 										<h:outputText styleClass="seperator" />
 										<h:commandLink id="lnkList_lblBibListBIB" styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'BIB'}"  action="#{PubItemListSessionBean.changeListTypeToGrid}">
-											<h:outputText id="lblList_lblGridListChange" value="#{lbl.List_lblGridList}" />
+											<h:outputText value="#{lbl.List_lblGridList}" />
 										</h:commandLink>
 										<h:outputText id="List_lblGridListGRID" styleClass="free_area0" value="#{lbl.List_lblGridList}" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
 									<!-- content menu lower line ends here -->
