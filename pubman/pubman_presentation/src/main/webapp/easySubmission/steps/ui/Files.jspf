@@ -191,7 +191,7 @@
 					</h:panelGroup>
 					<span class="large_area0 xTiny_marginRIncl">
 						<h:outputLabel id="lblEditItemMimeType" styleClass="large_label labelToTextAreaBottom" value="#{lbl.EditItem_lblMimeType}" />
-						<h:inputText id="inpComponentFileMimeType" styleClass="large_txtInput" value="#{component.file.mimeType}" />
+						<h:inputText id="inpComponentFileMimeType" styleClass="large_txtInput" value="#{component.mimeType}" />
 					</span>
 				</span>
 			</h:panelGroup>
