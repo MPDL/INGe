@@ -75,6 +75,10 @@ public class ConeInsertProcess extends Thread
 		   {
 			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_ESCIDOC_MIMETYPES);
 		   }
+		   if(idata.getVariable("ConeCreateCcLicenses").equals("true"))
+		   {
+			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_CC_LICENSES);
+		   }
 		   
 		   // at least index the tables
 		   coneDataset.runConeScript(ConeDataset.CONE_INDEX_SCRIPT);

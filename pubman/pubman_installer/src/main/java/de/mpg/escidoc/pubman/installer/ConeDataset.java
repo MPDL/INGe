@@ -49,6 +49,8 @@ public class ConeDataset
     public static final String CONE_INSERT_LANGUAGES = "coneData/languages.sql";
     /** SQL script for insertig mimetypes into cone database */
     public static final String CONE_INSERT_MIMETYPES = "coneData/mimetypes.sql";
+    /** SQL script for insertig cc_licenses into cone database */
+    public static final String CONE_INSERT_CC_LICENSES = "coneData/cc_licenses.sql";
     /** the connection to the cone DB */
     private Connection connection;
     private String coneServer; 
