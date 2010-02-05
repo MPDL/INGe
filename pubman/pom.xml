@@ -3,7 +3,7 @@
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>5.0.15-SNAPSHOT</version>
+	<version>6.0</version>
 	<name>pubman</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/pubman</url>
 	<description>
@@ -182,9 +182,9 @@
   </modules>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman</developerConnection>
-		<url>https://zim02.gwdg.de/repos/pubman/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-6.0</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-6.0</developerConnection>
+		<url>https://zim02.gwdg.de/repos/pubman/tags/pubman-6.0</url>
 	</scm>
 
 	<distributionManagement>
@@ -629,8 +629,8 @@
 				
 				<escidoc.statistics.max_mind_geo_lite_city_db.location />
                 <escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
-                <escidoc.pubman.statistics.nims.link></escidoc.pubman.statistics.nims.link>
-				<escidoc.pubman.statistics.nims.context.ids></escidoc.pubman.statistics.nims.context.ids>
+                <escidoc.pubman.statistics.nims.link />
+				<escidoc.pubman.statistics.nims.context.ids />
 				
 			</properties>
 			
@@ -850,8 +850,8 @@
 				
 				<escidoc.statistics.max_mind_geo_lite_city_db.location />
                 <escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
-                <escidoc.pubman.statistics.nims.link></escidoc.pubman.statistics.nims.link>
-				<escidoc.pubman.statistics.nims.context.ids></escidoc.pubman.statistics.nims.context.ids>
+                <escidoc.pubman.statistics.nims.link />
+				<escidoc.pubman.statistics.nims.context.ids />
 				
 			</properties>
 				<distributionManagement>
