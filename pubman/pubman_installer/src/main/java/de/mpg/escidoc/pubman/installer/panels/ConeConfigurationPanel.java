@@ -40,6 +40,7 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
    private JCheckBox checkBoxDDC;
    private JCheckBox checkBoxMimeTypes;
    private JCheckBox checkBoxEscidocMimeTypes;
+   private JCheckBox checkBoxCCLicenses;
       
 	   /**
 	    * The constructor.
@@ -72,6 +73,7 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	       checkBoxDDC = null;
 	       checkBoxMimeTypes = null;
 	       checkBoxEscidocMimeTypes = null;
+	       checkBoxCCLicenses = null;
 	       // We create and put the labels
 	       String str;
 	       str = "Collecting Information for CoNE configuration...";
@@ -117,6 +119,8 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	       checkBoxEscidocMimeTypes = new JCheckBox("eSciDoc Mimetypes");
 	       checkBoxEscidocMimeTypes.addActionListener(this);
 	       add(checkBoxEscidocMimeTypes, NEXT_LINE);
+	       checkBoxCCLicenses = new JCheckBox("CC Licenses");
+	       add(checkBoxCCLicenses, NEXT_LINE);
 	       getLayoutHelper().completeLayout();
 	   }
 	   

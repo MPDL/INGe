@@ -163,6 +163,7 @@
         <variable name="ConeCreateDDC" value="true"/>
         <variable name="ConeCreateMimetypes" value="true"/>
         <variable name="ConeCreateEscidocMimeTypes" value="true"/>
+        <variable name="ConeCreateCcLicenses" value="true"/>
     </variables>
     
     <listeners>
