@@ -525,7 +525,6 @@
 				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleSourceForSingleTarget' ), 'Single item was selected as target, but the source contained multiple items')"/>
 			</xsl:otherwise>
 		</xsl:choose>
-			<!-- <xsl:copy-of select="Util:queryCone('languages', 'uighur')"/> -->
 	</xsl:template>
 	
 	<xsl:template match="record/metadata">
@@ -1508,13 +1507,14 @@
 
 							<xsl:if test="not($source)">
 								<xsl:choose>
-									<xsl:when test="@internextern='mpg' and exists(../../../docaff/affiliation) and ($is-mpgsunit or $is-mpgunit)">
+									<xsl:when test="@internextern='mpg' and exists(../../../docaff/affiliation) and ($is-mpgsunit = true()) or ($is-mpgunit = true())">
 	
 										<xsl:for-each select="../../../docaff/affiliation">
 											<xsl:variable name="mpgunit" select="normalize-space(mpgunit)"/>
 											<xsl:variable name="mpgsunit" select="normalize-space(mpgsunit)"/>
-	
-											<xsl:if test="$is-mpgsunit or $is-mpgunit">
+
+											<xsl:if test="($is-mpgsunit = true()) or ($is-mpgunit = true())">											
+												<xsl:comment> Case 1 </xsl:comment>
 												<xsl:element name="organization:organization">
 													<xsl:element name="dc:title">
 														<xsl:choose>
@@ -1541,6 +1541,7 @@
 										</xsl:for-each>
 									</xsl:when>
 									<xsl:when test="@internextern='mpg' and $collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)] and not(../../../docaff/affiliation/*[lower-case(.) = lower-case($collection)])">
+										<xsl:comment> Case 2 </xsl:comment>
 										<organization:organization>
 											<dc:title>
 												<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-ou"/>
@@ -1551,7 +1552,7 @@
 										</organization:organization>
 									</xsl:when>
 									<xsl:when test="@internextern='mpg' and ../../../docaff/affiliation and not(../../../docaff_external)">
-	
+										<xsl:comment> Case 3 </xsl:comment>
 										<xsl:element name="organization:organization">
 											<xsl:element name="dc:title">
 												<xsl:value-of select="escidocFunctions:ou-name('root')"/>
@@ -1567,6 +1568,7 @@
 										<xsl:for-each select="../../../docaff/affiliation">
 											<xsl:variable name="mpgunit" select="normalize-space(mpgunit)"/>
 											<xsl:variable name="mpgsunit" select="normalize-space(mpgsunit)"/>
+											<xsl:comment> Case 4 </xsl:comment>
 											<xsl:element name="organization:organization">
 												<xsl:element name="dc:title">
 													<xsl:choose>
@@ -1592,6 +1594,7 @@
 										</xsl:for-each>
 									</xsl:when>
 									<xsl:when test=". = ../creator[1] and ../../../docaff/docaff_external">
+										<xsl:comment> Case 5 </xsl:comment>
 										<organization:organization>
 											<dc:title>
 												<xsl:value-of select="escidocFunctions:ou-name(../../../docaff/docaff_external)"/>
@@ -1602,6 +1605,7 @@
 										</organization:organization>
 									</xsl:when>
 									<xsl:when test=". = ../creator[1] and not(../creator[@internextern = 'mpg'])">
+										<xsl:comment> Case 6 </xsl:comment>
 										<organization:organization>
 											<dc:title>
 												<xsl:value-of select="escidocFunctions:ou-name('root')"/>
@@ -1612,6 +1616,7 @@
 										</organization:organization>
 									</xsl:when>
 									<xsl:when test="@internextern = 'mpg' and not(../creator[position() &lt; $position and @internextern = 'mpg'])">
+										<xsl:comment> Case 7 </xsl:comment>
 										<organization:organization>
 											<dc:title>
 												<xsl:value-of select="escidocFunctions:ou-name('root')"/>
@@ -1644,6 +1649,7 @@
 							</dc:identifier>
 
 							<xsl:for-each select="$coneCreator/cone/rdf:RDF[1]/rdf:Description/escidoc:position">
+								<xsl:comment> Case 8 </xsl:comment>
 								<organization:organization>
 									<dc:title>
 										<xsl:value-of select="rdf:Description/escidoc:organization"/>
@@ -1659,6 +1665,7 @@
 				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>
+				<xsl:comment> Case 9 </xsl:comment>
 				<xsl:element name="organization:organization">
 					<xsl:element name="dc:title">
 						<xsl:value-of select="creatornfamily"/>
@@ -1862,10 +1869,12 @@
 	
 	<xsl:template match="language">
 		<xsl:variable name="coneLanguage">
-			<xsl:copy-of select="Util:queryCone('languages', .)"/>
+			<xsl:copy-of select="Util:queryCone('iso639-3', .)"/>
 		</xsl:variable>
+		<xsl:variable name="language" select="."/>
+		
 		<xsl:element name="dc:language">
-			<xsl:value-of select="$coneLanguage/cone/rdf:RDF/rdf:Description[1]/dc:identifier"/>
+			<xsl:value-of select="$coneLanguage/cone/rdf:RDF/rdf:Description[dc:title = $language]/dc:identifier"/>
 		</xsl:element>
 	</xsl:template>
 	

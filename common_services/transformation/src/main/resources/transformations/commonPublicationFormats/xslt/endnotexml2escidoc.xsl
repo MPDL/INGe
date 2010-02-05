@@ -428,12 +428,14 @@
 			
 			<!-- PUBLISHING INFO -->
 			<xsl:variable name="publisher">
-				<xsl:if test="(B or I) and $refType = 'Thesis'">
-					<xsl:value-of select="string-join((B, I), ', ')" />
-				</xsl:if>
-				<xsl:if test="(I or Y or QUESTION) and $refType = 'Report'">
-					<xsl:value-of select="string-join((I, Y, QUESTION), ', ')" />
-				</xsl:if>
+				<xsl:choose>
+					<xsl:when test="(B or I) and $refType = 'Thesis'">
+						<xsl:value-of select="string-join((B, I), ', ')" />
+					</xsl:when>
+					<xsl:when test="(I or Y or QUESTION) and $refType = 'Report'">
+						<xsl:value-of select="string-join((I, Y, QUESTION), ', ')" />
+					</xsl:when>
+				</xsl:choose>
 			</xsl:variable>
 			<xsl:variable name="place">
 				<xsl:if test="C and $refType = ('Book', 'Book Section', 'Edited Book', 'Electronic Article', 'Electronic Book', 'Manuscript', 'Newspaper Article', 'Report', 'Thesis', 'Magazine Article')">
