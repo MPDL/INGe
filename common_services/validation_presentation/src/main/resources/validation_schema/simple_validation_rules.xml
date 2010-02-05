@@ -98,6 +98,7 @@
 	</iso:phase>
 	
 	<iso:phase id="easy_submission_step_5">
+		<iso:active pattern="publisher_name_required"/>
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
 		<iso:active pattern="component_data_required"/>
