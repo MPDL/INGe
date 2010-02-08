@@ -340,109 +340,6 @@ function addDateJSFunctions() {
 	});
 }
 
-/*SELECT REPLACEMENT*/
-
-function rebuildSelectDOM() {
-	$('select.replace').each(function(i, ele){
-		
-		var ieChange = "";
-		if(ele.getAttribute("onchange") != null) {
-			ieChange = ele.getAttribute("onchange").toString();
-		}
-		ieChange = ieChange.substr(ieChange.indexOf("{")+1);
-		ieChange = ieChange.substring(0,ieChange.lastIndexOf("}"));
-		
-		var classNameString = $(ele).attr("class");
-		var lengthValue;
-		var possibleLengthValues = classNameString.split(' ');
-		var otherClasses = '';
-		for(var i=0; i<possibleLengthValues.length; i++) {
-			if(possibleLengthValues[i].match('_select')) {
-				var wholeLengthValue = possibleLengthValues[i].split('_');
-				lengthValue = wholeLengthValue[0];
-			} else {
-				if(possibleLengthValues[i].match('replace')){}
-				else {otherClasses = otherClasses+possibleLengthValues[i]+' '};
-			}
-		};
-		var replacementString = '<span class="'+lengthValue+'_area0 replace '+otherClasses+'">';
-		
-			if((BrowserDetect.browser == 'Firefox')&& (BrowserDetect.version < 3 )) {
-				replacementString = replacementString+'<span class="'+lengthValue+'_area0">&nbsp;</span>';
-				};
-		
-			if($(ele).find('option[selected]').length==0){
-				replacementString = replacementString+'<span class="'+lengthValue+'_area1_p7 replaceLabel">'+$(ele).find('option').text()+'</span>';
-				
-				if(BrowserDetect.browser != 'Explorer'){
-					replacementString = replacementString+'<input type="hidden" id="'+$(ele).attr('id')+'" name="'+$(ele).attr('name')+'" class="hiddenInput" value="'+$(ele).find('option').val()+'" onchange="'+ele.getAttribute("onchange")+'" />';
-					}
-				else {
-					replacementString = replacementString+'<input type="hidden" id="'+$(ele).attr('id')+'" name="'+$(ele).attr('name')+'" class="hiddenInput" value="'+$(ele).find('option').val()+'" onchange="'+ieChange+'" />';
-					}
-			}
-			else{
-				replacementString = replacementString+'<span class="'+lengthValue+'_area1_p7 replaceLabel">'+$(ele).find('option[selected]').text()+'</span>';
-				replacementString = replacementString+'<input type="hidden" id="'+$(ele).attr('id')+'" name="'+$(ele).attr('name')+'" class="hiddenInput" value="'+$(ele).find('option[selected]').val()+'"';
-				if(ele.getAttribute("onchange")!=null) {
-					
-					if(BrowserDetect.browser != 'Explorer'){
-						replacementString = replacementString+' onchange="'+ele.getAttribute("onchange")+'"';
-						}
-					else {
-						replacementString = replacementString+' onchange="'+ieChange+'"';
-						}
-					
-					
-					replacementString = replacementString+' onchange="'+ele.getAttribute("onchange")+'"';
-				}
-				replacementString = replacementString+' />';
-			}
-			replacementString = replacementString+'<span class="'+lengthValue+'_area0_p8 openArea"><input type="button" class="min_imgBtn open" /></span><span class="'+lengthValue+'_area1 pulldown">';
-			$(ele).find('option').each(function(j, elem){
-				replacementString = replacementString+'<a class="'+lengthValue+'_area0_p7 selectLine';
-				if($(elem).text()==$(ele).find('option[selected]').text()) replacementString = replacementString+' actual';
-				replacementString = replacementString+'" name="'+$(elem).val()+'">'+$(elem).text()+'</a>';
-				if(j==0) {
-					replacementString = replacementString+'<input type="button" class="min_imgBtn close endline"/>';
-				}
-			})
-		replacementString = replacementString+'</span></span>'
-		if(!((BrowserDetect.browser == 'Firefox')&&(BrowserDetect.version < 3 ))) {
-			if(BrowserDetect.browser != 'Explorer'){
-				replacementString = replacementString+'<span class="'+lengthValue+'_area0">&nbsp;</span>';
-				}
-			else {
-				replacementString = replacementString+'<span class="free_area0" style="width: 0em;">&nbsp;</span>';
-				}
-			};
-		//replacementString = replacementString+'<span class="'+lengthValue+'_area0">&nbsp;</span>';
-		$(ele).replaceWith(replacementString);
-	});
-}
-
-function addReplacementFunctions() {
-	$('span.replace').find('.open').each(function(i,ele){$(ele).click(function(){ $(this).parents('.replace').find('.pulldown').show(); })});
-	$('span.replace').find('.close').each(function(i,ele){$(ele).click(function(){ $(this).parents('.replace').find('.pulldown').hide(); })});
-	$('span.replace').find('.selectLine').each(function(i,ele){$(ele).click(function(){ $(this).parents('.replace').find('input:hidden').val($(this).attr('name')); $(this).parents('.replace').find('.replaceLabel').text($(this).text()); $(this).parents('.pulldown').find('.actual').removeClass('actual'); $(this).addClass('actual');  $(this).parents('.pulldown').hide(); $(this).parents('span.replace').find('input:hidden').trigger('change');  })});
-}
-
-jQuery.fn.replaceValue = function(value) {
-	if($(this).find('input[type=hidden]').length > 0 ){
-		$(this).find('input[type=hidden]').val(value);
-		$(this).find('.replaceLabel').text($(this).find('.selectLine[name='+value+']:first').text());
-		$(this).find('.actual').removeClass('actual');
-		$(this).find('.selectLine[name='+value+']').addClass('actual');
-		$(this).find('input[type=hidden]').trigger('change'); 
-	}
-};
-
-jQuery.fn.getValue = function() {
-	if($(this).find('input[type=hidden]').length > 0 ){
-		return $(this).find('input[type=hidden]').val();
-	}
-};
-
 function installQuickSearchShortcut() {
 	addQuickSearchFunction();
 }
@@ -456,9 +353,4 @@ function installDateTextbox() {
 	include_dom(jsURL + 'eSciDoc_component_JavaScript/DateJS/date'+language+'.js');
 	addDateJSLabels();
 	addDateJSFunctions();
-}
-
-function installSelectReplacement() {
-//	rebuildSelectDOM();
-//	addReplacementFunctions();
 }

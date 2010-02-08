@@ -245,27 +245,6 @@ FORM BG			#F2F8FC
 		color: #0076C9;
 	}
 
-	/*RANGE SELECTOR*/
-
-	.rangeSelector .replaceLabel {
-		border-color: #99C8E9 !important;
-		color: #0076C9 !important;
-	}
-	
-	.rangeSelector .pulldown {
-		border-color: #99C8E9 !important;
-		background-color: #FFFFFF !important;
-	}
-	
-	.rangeSelector .open, .rangeSelector .close {
-		background-color: inherit;
-	}
-	
-	.rangeSelector .actual, .rangeSelector .selectLine:hover {
-		background-color: #3391D4 !important;
-		color: #FFFFFF !important;
-	}
-
 	/*PAGE BROWSER*/
 	.pageBrowser input, .pageBrowser button, .pageBrowser a {
 		background-color: #FFFFFF;
@@ -295,17 +274,7 @@ FORM BG			#F2F8FC
 	}
 	
 /* INFO PAGE*/
-/*
-	.infoPage {
-		border-style: solid;
-		border-color: #AEAEAE;
-	}
-	
-	.infoPage .mainSection h2 {
-		border-style: solid;
-		border-color: #AEAEAE;
-	}
-*/
+
 	.infoPage .sideSection {
 		border-style: solid;
 		border-left-color: #AEAEAE;
@@ -403,11 +372,6 @@ FORM BG			#F2F8FC
 		border-color: #548E00 !important;
 	}
 
-/*	
-	.fullItem, .listItem:hover, .itemBlock .itemLine:hover {
-		background-color: #FFFFFF;
-	}
-*/	
 		/*ITEM HEADER*/
 		
 	.fullItem .itemHeadline b {
@@ -501,25 +465,6 @@ FORM BG			#F2F8FC
 	.dateJSLabel {
 		background-color: #D9EBF7;
 		color: #343434;
-	}
-	
-	.replace .replaceLabel {
-		border-color: #99C8E9 !important;
-		color: #0076C9 !important;
-	}
-	
-	.replace .pulldown {
-		border-color: #99C8E9 !important;
-		background-color: #D9EBF7 !important;
-	}
-	
-	.replace .open, .replace .close {
-		background-color: inherit;
-	}
-	
-	.replace .actual, .replace .selectLine:hover {
-		background-color: #3391D4 !important;
-		color: #FFFFFF !important;
 	}
 
 /*FORM BUTTONS*/

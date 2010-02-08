@@ -159,7 +159,6 @@ function install_javascripts() {
 	installFullItem();
 	installQuickSearchShortcut();
 	installDateTextbox();
-	installSelectReplacement();
 	bindSuggests();
 }
 

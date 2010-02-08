@@ -176,43 +176,6 @@
 
 /*EXTENDED PAGINATOR*/
 
-	/*RANGE SELECTOR*/
-	.rangeSelector .open {
-		background-image: url('../images/All_DropDown_TriangleOpen_15_Active.gif');
-		background-repeat: no-repeat;
-		background-position: center center;
-	}
-	
-	.rangeSelector .open:hover, .rangeSelector .open:focus {
-		background-image: url('../images/All_DropDown_TriangleOpen_15_Hover.gif');
-		background-repeat: no-repeat;
-		background-position: center center;
-	}
-	
-	.rangeSelector .open:disabled {
-		background-image: url('../images/All_DropDown_TriangleOpen_15_Deactivated.gif');
-		background-repeat: no-repeat;
-		background-position: center center;
-	}
-	
-	.rangeSelector .close {
-		background-image: url('../images/All_DropDown_CrossClose_15_Active.gif');
-		background-repeat: no-repeat;
-		background-position: center center;
-	}
-	
-	.rangeSelector .close:hover, .rangeSelector .close:focus {
-		background-image: url('../images/All_DropDown_CrossClose_15_Hover.gif');
-		background-repeat: no-repeat;
-		background-position: center center;
-	}
-	
-	.rangeSelector .close:disabled {
-		background-image: url('../images/All_DropDown_CrossClose_15_Deactivated.gif');
-		background-repeat: no-repeat;
-		background-position: center center;
-	}
-
 	/*PAGE BROWSER*/
 	.pageBrowser .skipToFirst {
 		background-image: url('../images/All_Paginator_ArrowFirst_15_Active.gif');
