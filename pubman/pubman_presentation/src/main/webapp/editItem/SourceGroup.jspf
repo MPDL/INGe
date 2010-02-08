@@ -318,7 +318,10 @@
 						<h:column>
 						<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
 							<b class="xLarge_area0_p8 endline labelLine clear">
-								&nbsp;<h:outputText id="txtSourceDetailIdentifier" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{(genre.sources_source_identifiers_source_identifier_type_optional != 'true' || genre.sources_source_identifiers_source_identifier_value_optional != 'true') && genre.sources_source_identifiers_optional != 'true'}" /><h:outputText value="#{genre.sources_source_identifiers_label}" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+								&nbsp;
+								<h:outputText id="txtSourceDetailIdentifier" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{(genre.sources_source_identifiers_source_identifier_type_optional != 'true' || genre.sources_source_identifiers_source_identifier_value_optional != 'true') && genre.sources_source_identifiers_optional != 'true'}" />
+								<h:outputText value="#{genre.sources_source_identifiers_label}" rendered="#{sourceBean.identifierCollection.identifierManager.objectDM.rowIndex == 0}" converter="GenreLabelConverter"/>
+								<span class="noDisplay">: </span>
 							</b>
 							<span class="xHuge_area0 xTiny_marginLExcl endline">
 								<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.sources_source_identifiers_source_identifier_type_display == 'false' && genre.sources_source_identifiers_source_identifier_type_form_id == 'full-submission' || genre.sources_source_identifiers_source_identifier_type_display == 'false' && genre.sources_source_identifiers_source_identifier_type_form_id == 'all')}">
