@@ -31,9 +31,9 @@
 	eDoc import schema: http://edoc.mpg.de/doc/schema/zim_transfer.xsd
 	Mapping: http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_eSciDoc_To_eDoc_Mapping  
 	Author: Vlad Makarenko (initial creation) 
-	$Author: $ (last changed)
-	$Revision: $ 
-	$LastChangedDate: $
+	$Author$ (last changed)
+	$Revision$ 
+	$LastChangedDate$
 -->
 <xsl:stylesheet version="2.0"
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
