@@ -101,6 +101,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
@@ -2385,7 +2386,7 @@ public class ViewItemFull extends FacesBean
         try
         {
             exportAttFile = File.createTempFile("eSciDoc_Export_" + curExportFormat.getName() + "_" + date, "."
-                    + curExportFormat.getSelectedFileFormat().getName());
+                    + FileFormatVO.getExtensionByName(curExportFormat.getSelectedFileFormat().getName()));
             FileOutputStream fos = new FileOutputStream(exportAttFile);
             fos.write(exportFileData);
             fos.close();
@@ -2441,7 +2442,7 @@ public class ViewItemFull extends FacesBean
     	HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
     	String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
     	response.setContentType(contentType);
-    	String fileName = "export_" + curExportFormat.getName().toLowerCase() + "." + sb.getFileFormat();
+    	String fileName = "export_" + curExportFormat.getName().toLowerCase() + "." + FileFormatVO.getExtensionByName(sb.getFileFormat());
     	response.setHeader("Content-disposition", "attachment; filename=" + fileName);
     	try
     	{
