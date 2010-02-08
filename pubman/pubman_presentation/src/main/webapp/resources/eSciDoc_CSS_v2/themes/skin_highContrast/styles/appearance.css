@@ -336,7 +336,7 @@ FORM BG			#F2F8FC
 	
 		/*GENERAL*/
 	
-	.listHeader a {
+	.listHeader a, .listHeader span {
 		line-height: normal;
 		font-weight: normal;
 	}
@@ -385,22 +385,22 @@ FORM BG			#F2F8FC
 		border-top-color: #AEAEAE !important;
 	}
 	
-	.tiledList .metaDataSection, .itemTile .tileIconArea {
-		border-color: #AEAEAE !important;
-		border-style: solid;
-	}
-	
-	.itemTile .inAlbum {
-		background-color: #BADF4A;
-		border-color: #548E00;
-	}
-	
 	.searchHit {
 		background-color: #99C8E9;
 	}
 	
 	.preListHeader, .fullItem, .tiledList, .listBackground, .listBackground .seperator {
 		background-color: #FFFFFF;
+	}
+	
+	.tiledList .metaDataSection, .itemTile .tileIconArea {
+		border-color: #AEAEAE !important;
+		border-style: solid;
+	}
+	
+	.tiledList .inAlbum, .fullItem .inAlbum, .activeAlbum, .listBackground .seperator {
+		background-color: #BADF4A;
+		border-color: #548E00 !important;
 	}
 
 /*	
@@ -446,6 +446,11 @@ FORM BG			#F2F8FC
 	}
 	
 	/*FULL ITEM BLOCK*/
+	
+	.fullItem .metaDataSection {
+		border-color: #AEAEAE !important;
+		border-style: solid;
+	}
 	
 	.fullItem .itemBlock, .fullItem .itemHeader {
 		border-top-color: #AEAEAE;

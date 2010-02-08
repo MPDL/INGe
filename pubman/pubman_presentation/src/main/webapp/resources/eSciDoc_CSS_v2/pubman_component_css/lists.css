@@ -46,15 +46,23 @@
 
 .tiledList .fullBrowse {
 	width: 75em;
-	overflow: visible !important;
 }
 
-.itemList input {
+.tiledList .metaDataSection {
+	margin-right: 0.74em;
+	margin-top: 0.74em;
+}
+
+.tiledList .albumBrowse {
+	width: 50em;
+}
+
+.itemList input[type="button"] {
 	border-width: 0px;
 }
 
 .itemList .seperator {
-	width: 0.09em;
+	width: 0.10em;
 	margin: 0px;
 	padding: 0px;
 	border-width: 0px;
@@ -71,7 +79,7 @@
 	padding-top: 0.37em;
 	padding-bottom: 0px;
 	margin: 0px;
-	margin-right: -0.09em;
+	margin-right: -0.11em;
 }
 
 .listHeader .collapse, .listHeader .collapse:hover, .listHeader .collapse:focus, .listHeader .expand, .listHeader .expand:hover, .listHeader .expand:focus {
@@ -174,12 +182,12 @@
 }
 
 .itemTile .tileIconArea img.horizontal {
-	width: 96%;
+	width: 100%;
 	vertical-align:middle;
 }
 		
 .itemTile .tileIconArea img.vertical {
-	height: 96%;
+	height: 100%;
 	margin: 0 auto 0 auto !important;
 }
 

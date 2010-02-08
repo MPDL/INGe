@@ -336,7 +336,7 @@ FORM BG			#FFFFFF
 	
 		/*GENERAL*/
 	
-	.listHeader a {
+	.listHeader a, .listHeader span {
 		line-height: normal;
 		font-weight: normal;
 	}
@@ -370,7 +370,7 @@ FORM BG			#FFFFFF
 	}
 	
 	.statusArea .ascSort, .statusArea .desSort, th .ascSort, th .desSort {
-		background-color: #FFFFFF;
+		background-color: #E7E8E2;
 	}
 	
 	.listBackground .ascSort, .listBackground .descSort {
@@ -385,22 +385,22 @@ FORM BG			#FFFFFF
 		border-top-color: #B9B9B9 !important;
 	}
 	
-	.tiledList .metaDataSection, .itemTile .tileIconArea {
-		border-color: #B9B9B9 !important;
-		border-style: solid;
-	}
-	
-	.itemTile .inAlbum {
-		background-color: #3EABC9;
-		border-color: #66852C;
-	}
-	
 	.searchHit {
 		background-color: #ACC6CF;
 	}
 	
 	.preListHeader, .fullItem, .tiledList, .listBackground, .listBackground .seperator {
 		background-color: #ffffff;
+	}
+	
+	.tiledList .metaDataSection, .itemTile .tileIconArea {
+		border-color: #B9B9B9 !important;
+		border-style: solid;
+	}
+	
+	.tiledList .inAlbum, .fullItem .inAlbum, .activeAlbum, .listBackground .seperator {
+		background-color: #3EABC9;
+		border-color: #66852C !important;
 	}
 
 /*	
@@ -446,6 +446,11 @@ FORM BG			#FFFFFF
 	}
 	
 	/*FULL ITEM BLOCK*/
+	
+	.fullItem .metaDataSection {
+		border-color: #B9B9B9 !important;
+		border-style: solid;
+	}
 	
 	.fullItem .itemBlock, .fullItem .itemHeader {
 		border-top-color: #B9B9B9;

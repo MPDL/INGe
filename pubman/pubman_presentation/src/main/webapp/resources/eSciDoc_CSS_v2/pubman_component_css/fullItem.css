@@ -42,13 +42,46 @@
 .fullItem table, .fullItem td, .fullItem tr, .fullItem th {
 	margin: 0px;
 	padding: 0px;
-} 
+}
+
+.fullItem .radioButtonTable td {
+	display: block !important;
+	float: left !important;
+}
 
 .fullItem .seperator {
 	width: 0.09em;
 	border-top-width: 1.3em;
 	height: 0em;
 	border-style: solid;
+}
+
+.fullItem .metaDataSection, .fullItem .detailedItem {
+	margin-right: 0.74em;
+	margin-top: 0.74em;
+	margin-bottom: 0.74em;
+}
+
+.fullItem .detailedItem {
+	border: 0.10em;
+	height: 40.61em;
+	line-height: 40.61em;
+	text-align: center;
+}
+
+.fullItem .detailedItem img {
+	border: 0px;
+	border-style: solid;
+}
+
+.fullItem .detailedItem img.horizontal {
+	width: 100%;
+	vertical-align:middle;
+}
+		
+.fullItem .detailedItem img.vertical {
+	height: 100%;
+	margin: 0 auto 0 auto !important;
 }
 
 /*HEADER*/

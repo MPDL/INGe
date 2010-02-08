@@ -109,6 +109,18 @@
 	text-align: right;
 }
 
+.tiledList .lineToolSection, .tiledList .sectionToolSection {
+	float: right;
+}
+
+.tiledList .lineToolSection .groupTool, .tiledList .sectionToolSection .groupTool {
+	float: left;
+}
+
+.tiledList .lineToolSection .sectionTool, .tiledList .sectionToolSection .sectionTool {
+	float: right;
+}
+
 /*STATUS RELATED ELEMENTS*/
 
 .listHeader .status, .listItem .status {
