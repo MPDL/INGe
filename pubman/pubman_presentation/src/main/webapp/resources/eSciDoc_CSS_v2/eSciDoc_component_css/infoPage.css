@@ -30,6 +30,84 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-.infoPage .sideSection {
+.infoPage {
+	border-top-width: 0.10em !important;
+}
+
+.infoPage .mainSection {
+	margin-left: 4.92em;
+	padding-top: 0px;
+}
+
+.infoPage .mainSection *, .infoPage .mainSection li {
+	font-size: 118%;
+}
+
+.infoPage .mainSection * * {
+	font-size: 100%;
+}
+
+.infoPage .sideSection * {
 	float: right;
+	font-size: 117%;
+}
+
+.infoPage .mainSection ul {
+	font-size: 100%;
+	margin-left: 0em;
+	padding-left: 0px;
+	list-style: inside;
+}
+
+.infoPage .mainSection li {
+	margin-bottom: 1em;
+}
+
+.infoPage .mainSection li a {
+	font-size: 100%;
+}
+
+.infoPage h2, .infoPage .mainSection h2, .infoPage .sideSection h2{
+	font-size: 150%;
+	margin: 0px;
+	padding-top: 0.28em;
+	margin-left: -0.74em;
+	padding-left: 0.74em;
+}
+
+.infoPage .mainSection h2 {
+	border-width: 0px;
+	border-top-width: 0.10em !important;
+}
+
+.infoPage .sideSectionArea { 
+	width: 34em;
+}
+
+.infoPage .sideSection {
+	padding: 0px;
+	width: 31.28em;
+	border-width: 0px 0px 0px 0.10em !important;
+}
+
+.infoPage .sideSection .gfc-resultsHeader {
+	border: 0px;
+}
+
+.infoPage .sideSection .gf-result{
+	margin-top: 1.2em;
+} 
+
+.infoPage .sideSection a {
+	font-weight: bold;
+}
+
+.startPageIcon {
+	float: left;
+	border: 0px;
+	margin-top: 1.7em;
+}
+
+.infoPage .videoPreview {
+	border-width: 0.10em;
 }

@@ -30,145 +30,96 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-/*EXTENDED PAGINATOR GLOBAL*/
-
 	.paginator {
 		margin-right: 0px;
+		margin-top: 0.5em;
+		margin-bottom: 1em;
+	}
+
+	.paginatorFallbackGoBtn {
+		margin-top: 0.73em;
 	}
 
 /*RANGE SELECTOR*/
 
-.rangeSelector .replaceLabel {
-	padding-top: 0px !important;
-	padding-bottom: 0px !important;
-	white-space: nowrap;
-	z-index: 1;
-	border-top-width: 0px !important;
-	border-bottom-width: 0px !important;
-	border-style: solid;
-	position: absolute;
-}
-
-.rangeSelector .pulldown {
-	border-style: solid !important;
-	border-top-width: 0px !important;
-	white-space: nowrap;
-	position: absolute;
-	z-index:3;
-	display: none;
-	/*ADD OPACITY*/
-	/*
-	opacity: 0.9;
-	filter: alpha(opacity=90);
-	*/
-}
-
-.rangeSelector .selectLine {
-	margin-right: 0px !important;
-	padding-top: 0px !important;
-	padding-bottom: 0px !important;
-}
-
-.rangeSelector .open, .replace .close {
-	float: right !important;
-}
-
-.rangeSelector .openArea {
-	padding-top: 0px !important;
-	padding-bottom: 0px !important;
-	position: absolute;
-	z-index: 2;
-}
-
-.rangeSelector .close {
-	margin-right: -2.10em !important;
-	position: relative;
-	z-index:4;
-}
-
-/*
-	.rangeSelector {
-		overflow: visible;
-		float: left;
-		position: static;
-	}
-
-	.rangeSelector .menu {
-		z-index: 1;
-		position: absolute;
-		float: none;
-		
-		opacity: 0.95;
-		filter: alpha(opacity=95);
-	}
-
-	.rangeSelector .line {
-		border-style: solid;
-		padding-top: 0px;
-		padding-bottom: 0px;
+.rangeSelector {
+		margin-top: 0.46em;
 	}
 	
-	.rangeSelector .menu {
-		cursor: pointer;
-	}
-
 	.rangeSelector select {
-		text-align: right;
-		z-index: 1;
+		margin-top: 0.09em;
 	}
-
-	.rangeSelector .open, rangeSelector .close {
-		float: left;
-	}
-
-	.rangeSelector .numberLabel {
-		border: 0px;
-		text-align: right;
-		float: left;
-		padding-top: 0px;
-		cursor: inherit;
-	}
-
-	.rangeSelector .hitsLabel {
-		z-index: 1;
-		cursor: inherit;
-	}
-*/
+	
 @media print {
 	.rangeSelector {
 		display: none;
 	}
 }
-	
+
 /*PAGE BROWSER*/
+
 	.pageBrowser {
 		float: left;
 		display: inline;
+		margin-top: 0.09em;
 	}
-
+	
 	.pageBrowser * {
 		float: left;
 	}
-
+	
+	.pageBrowser > a {
+		margin-top: 0.65em;
+	}
+	
 	.pageBrowser input, .pageBrowser button, .pageBrowser a, .pageBrowser span {
 		margin: 0px;
 		border: 0px;
 		display: block;
 		text-align: center;
 		text-decoration: none;
+		
+	}
+
+	.pageBrowser input, .pageBrowser button {
+		height: 2.45em;
 	}
 
 	.pageBrowser .seperator, .pageBrowser .actualSeperator {
 		display: block;
 		overflow: hidden;
+		width: 0.09em;
+		height: 1.27em;
+		margin: 0px;
+		padding: 0px;
+		border-right-width: 0px;
+		border-left-width: 0px;
+		border-top-width: 0.65em;
+		border-top-style: solid;
+		border-bottom-width: 0.82em;
+		border-bottom-style: solid;
+	}
+
+	.pageBrowser .skipToFirst {
+		margin-right: 0.45em;	
 	}
 
 	.pageBrowser .forward {
 		text-align: left;
+		margin-left: 0.64em;
 	}
 
 	.pageBrowser .backward {
 		text-align: right;
+		margin-right: 0.64em;
+	}
+
+	.pageBrowser .skipToLast {
+		margin-left: 0.45em;
+	}
+	
+	.pageBrowser label, .pageBrowser span, .pageBrowser a {
+		margin-top: 0.65em;
 	}
 	
 @media print {
@@ -194,11 +145,17 @@
 	.gotoBox {
 		float: right;
 	}
+	
+	.gotoBox label {
+		margin-top: 0.46em;
+	}
 
 	.gotoBox input {
-		margin-left: 0.09em;
-		margin-right: 0.09em;
 		text-align: right;
+		margin-top: 0.46em;
+		margin-left: 0.19em;
+		margin-right: 0.37em;
+		padding-top: 0.18em;
 	}
 	
 @media print {
@@ -209,6 +166,4 @@
 	.gotoBox input, .gotoBox .gotoLabel {
 		display: none;
 	}
-	
-	
 }

@@ -37,36 +37,13 @@
 	float: none;
 	z-index: 2;
 	display: inline;
-}
-
-/*SELECT REPLACEMENT*/
-
-.replace .replaceLabel {
-	white-space:nowrap;
-	z-index: 1;
-	position: absolute;
-}
-
-.replace .pulldown {
-	position: absolute;
-	z-index:3;
-	display: none;
-}
-
-.replace .selectLine {
-	white-space:nowrap;
-}
-
-.replace .open, .replace .close {
-	float: right !important;
-}
-
-.replace .openArea {
-	position: absolute;
-	z-index: 2;
-}
-
-.replace .close {
-	position: relative;
-	z-index:4;
+	padding-top: 0.09em;
+	padding-bottom: 0.09em;
+	height: 1.3em;
+	margin-top: -1.4em ;
+	/*ADD OPACITY*/
+	/*
+	opacity: 0.9;
+	filter: alpha(opacity=90);
+	*/
 }

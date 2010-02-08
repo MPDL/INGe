@@ -37,44 +37,86 @@
 }
 
 /*META MENU*/
-
+	.metaMenu {
+		height: 2.73em;
+		line-height: normal;
+	}
+	
 	.metaMenu .logButton, .metaMenu button, .metaMenu select, .metaMenu label, .metaMenu div, .metaMenu span, .metaMenu a  {
 		float: right;
 		white-space: nowrap;
 		text-decoration: none;
 	}
-
-	.metaMenu .logButton, .metaMenu button, .metaMenu label, .metaMenu a {
+	
+	.metaMenu a {
 		text-align: left;
+		padding-top: 0.37em;
+	}
+
+	.metaMenu .logButton, .metaMenu button, .metaMenu label {
+		text-align: left;
+		margin-top: 0.27em;
+		padding-top: 0px;
+		padding-left: 0.46em;
 	}
 
 	.metaMenu label {
 		white-space: nowrap;
+		margin-top: 0.36em;
 	}
 
 	.metaMenu .seperator {
 		display: block;
 		overflow: hidden;
+		width: 0.09em;
+		height: 1.65em;
+		margin: 0px;
+		padding: 0px;
+		border-right-width: 0px;
+		border-left-width: 0px;
+		border-top-width: 0px;
+		border-top-style: solid;
+		border-bottom-width: 1.45em;
+		border-bottom-style: solid;
 	}
 	
 	.logoAlternate, .logoAlternate * {
 		float: left !important;
 	}
 
+/*HEADER LOGO*/
+
+	.headerLogo, .themePark {
+		height: 5em;
+	}
+
 /*SEARCH MENU*/
 
 	.searchMenu {
 		float: right;
+		margin-top: 2em;
 	}
 	
 	.searchMenu * {
 		white-space: nowrap;
 	}
-
-	.quickSearchIcon {
+	
+	.searchMenu .quickSearchBtn {
 		float: left;
+		height: 1.65em;
+		margin-left: 0.37em;
+		margin-right: 2.37em;
 	}
 
+	.searchMenu .quickSearchIcon {
+		float: left;
+		margin-right: 0.34em;
+	}
+	
+	.quickSearchCheckBoxMenu > label {
+		margin-top: 0.19em;
+	}
+	
 	.quickSearchTextInput, .quickSearchCheckBoxMenu {
 		text-align: left;
 		float: left;
@@ -90,9 +132,23 @@
 
 /*MAIN MENU*/
 
+	.mainMenu {
+		margin-top: 1.27em;
+		margin-bottom: 1.55em;
+		padding-left: 5.74em !important;
+	}
+
 	.mainMenu input, .mainMenu a, .mainMenu span {
 		text-align: left;
 		text-decoration: none;
+		font-size: 16px !important;
+		font-weight: bold;
+		margin-right: 0.80em;
+	}
+
+/*SUB-HEADER SECTION*/
+	.subHeaderSection {
+		margin-bottom: 0.46em;
 	}
 
 /*BREADCRUMB*/
@@ -101,14 +157,21 @@
 		float: right;
 		white-space: nowrap;
 		overflow: hidden;
+		margin-bottom: -0.56em;
 	}
 
 	.breadcrumb ol {
 		list-style: none;
+		margin: 0px;
 	}
 
 	.breadcrumb li {
 		float: left;
+		margin: 0px;
+	}
+
+	.breadcrumb a {
+		text-decoration: none;
 	}
 	
 @media print {
@@ -119,10 +182,18 @@
 
 /*PAGE HEADER*/
 
+	.headLine {
+		margin: 0px;
+		line-height: normal;
+	}
+	
 	.headLine h1 {
 		display: block;
+		margin: 0px;
+		margin-bottom: 0.28em;
+		line-height: normal;
 	}
-
+	
 @media screen, presentation {
 	.headLine {
 		float: right;
@@ -146,20 +217,47 @@
 }
 
 /*CONTENT MENU*/
+	.contentMenu * {
+		float: left;
+		line-height: normal;
+	}
+	
+	.contentMenu .action * {
+		margin-right: 0.37em;
+	}
 
+	.contentMenu {
+		margin-top: 0em;
+		padding-top: 1.46em;
+	}
+	
 	.contentMenu .sub {
 		overflow: hidden;
 	}
-	
+
 	.contentMenu .action {
 		overflow: visible;
 		clear: left;
+		padding: 0px;
+		margin: 0px;
 	}
-
-	.contentMenu * {
-		float: left;
-	}
-
+	
+		/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+		* html .contentMenu .action {
+			margin-top: -1.28em;
+			width: 100%;
+		}
+		* html .contentMenu .ieFilter {
+			width: 50em;
+		}
+		/*REPLACEMENT HACK FOR IE 7*/
+		*:first-child+html .contentMenu .action {
+			margin-top: -1.28em;
+		}
+		*:first-child+html .ieFilter {
+			width: 50em;
+		}
+		
 	.contentMenu input, .contentMenu a {
 		float: left;
 		text-decoration: none;
@@ -168,10 +266,43 @@
 
 	.contentMenu .seperator  {
 		float: left;
+		width: 0.10em;
+		height: 1.15em;
+		margin: 0px;
+		margin-left: 0.46em;
+		margin-right: 0.46em;
+		padding: 0px;
+		border-right-width: 0px;
+		border-left-width: 0px;
+		border-top-width: 0.18em;
+		border-top-style: solid;
+		border-bottom-width: 0.97em;
+		border-bottom-style: solid;
+	}
+
+	.bibList ,.gridList {
+		padding-left: 1.36em;
+	}
+
+	.ascSort, .desSort {
+		padding-right: 1.36em;
 	}
 	
 	.subHeader {
 		clear: left;
+		margin-top: 0.65em;
+	}
+	
+	.singleMessage {
+		list-style-type: none;
+		list-style-position: outside;
+		padding: 0px;
+		margin: 0px;
+	}
+	
+	.singleMessage li{
+		padding: 0px;
+		margin: 0px;
 	}
 	
 @media print {
