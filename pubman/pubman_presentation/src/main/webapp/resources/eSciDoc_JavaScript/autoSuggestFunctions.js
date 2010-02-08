@@ -256,7 +256,7 @@
 	function selectLanguage()
 	{
 		$input = $(this);
-		$.getJSON(personDetailsBaseURL.replace('$1', this.resultID), selectLanguageDetails);
+		$.getJSON(languageDetailsBaseURL.replace('$1', this.resultID), selectLanguageDetails);
 	}
 	
 	function selectLanguageDetails(details)
