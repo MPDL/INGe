@@ -112,6 +112,7 @@ public class ConeInsertProcess extends Thread
 		catch(Exception e)
 		{
 			panel.coneInsertionError(e);
+			e.printStackTrace();
 		}
 	}
 }

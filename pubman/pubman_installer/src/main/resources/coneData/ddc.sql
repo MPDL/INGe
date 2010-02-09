@@ -1,12 +1,3 @@
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.005', 'http://purl.org/dc/elements/1.1/identifier', '000.000.005', NULL, NULL);
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.005', 'http://purl.org/dc/elements/1.1/identifier', '000.000.005', NULL, NULL);
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.005', 'http://purl.org/dc/elements/1.1/title', 'Computer programming, programs & data', NULL, NULL);
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.005', 'http://purl.org/dc/elements/1.1/title', 'Computer programming, programs & data', NULL, NULL);
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.006', 'http://purl.org/dc/elements/1.1/identifier', '000.000.006', NULL, NULL);
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.006', 'http://purl.org/dc/elements/1.1/identifier', '000.000.006', NULL, NULL);
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.006', 'http://purl.org/dc/elements/1.1/title', 'Special computer methods', NULL, NULL);
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.006', 'http://purl.org/dc/elements/1.1/title', 'Special computer methods', NULL, NULL);
-
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/000', 'http://dewey.info/class', '000', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/000', 'http://purl.org/dc/elements/1.1/title', 'Computer science, information & general works', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/001', 'http://dewey.info/class', '001', NULL, 'ddc');
@@ -2006,3 +1997,12 @@ INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resou
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/998', 'http://purl.org/dc/elements/1.1/title', 'Arctic islands & Antarctica', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/999', 'http://dewey.info/class', '999', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/999', 'http://purl.org/dc/elements/1.1/title', 'Extraterrestrial worlds', NULL, 'ddc');
+
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.005', 'http://purl.org/dc/elements/1.1/identifier', '000.000.005', NULL, NULL);
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.005', 'http://purl.org/dc/elements/1.1/identifier', '000.000.005', NULL, NULL);
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.005', 'http://purl.org/dc/elements/1.1/title', 'Computer programming, programs & data', NULL, NULL);
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.005', 'http://purl.org/dc/elements/1.1/title', 'Computer programming, programs & data', NULL, NULL);
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.006', 'http://purl.org/dc/elements/1.1/identifier', '000.000.006', NULL, NULL);
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.006', 'http://purl.org/dc/elements/1.1/identifier', '000.000.006', NULL, NULL);
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.006', 'http://purl.org/dc/elements/1.1/title', 'Special computer methods', NULL, NULL);
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.006', 'http://purl.org/dc/elements/1.1/title', 'Special computer methods', NULL, NULL);

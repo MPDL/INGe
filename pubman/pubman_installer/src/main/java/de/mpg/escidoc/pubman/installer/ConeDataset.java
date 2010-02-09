@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -134,22 +135,22 @@ public class ConeDataset
         {
             InputStream fileIn = ResourceUtil.getResourceAsStream(sqlScript);
             BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
-            String query = "";
+            StringBuffer query = new StringBuffer();
             String queryPart = "";
             while ((queryPart = br.readLine()) != null)
             {
-            	query += queryPart;
-            	if(queryPart != null && queryPart.endsWith(";"))
-	            {
-	            	if(!query.trim().equals(""))
-	            	{
-		            	Statement statement = connection.createStatement();
-		                statement.executeUpdate(query);
-		                statement.close();
-		                query = "";
-	            	}
-            	}
+            	//if(queryPart != null && queryPart.endsWith(";"))
+	            //{
+            		query.append(queryPart);
+            	//}
             }
+            
+            
+        	Statement statement = connection.createStatement();
+            statement.executeUpdate(query.toString());
+            statement.close();
+                
+        	
         }
         catch (SQLException e)
         {

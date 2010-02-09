@@ -330,7 +330,9 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 	public void coneDataInsertedSuccessfully() {
 		conePanel.showProgressBar(false);
 		conePanel.setEndLabel("CoNE data written and processed!", LabelPanel.ICON_SUCCESS);
-		setPanelValid(success);
+		
+		//always set to true for now
+		setPanelValid(true);
 		revalidate();
 	}
 
@@ -339,7 +341,8 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 		conePanel.setEndLabel("Error. CoNE data could not be inserted.", LabelPanel.ICON_ERROR);
 		conePanel.addToTextArea(e.toString() + ": " + e.getMessage());
 		success=false;
-		setPanelValid(success);
+		//always set to true for now
+		setPanelValid(true);
 		revalidate();
 	}
 	

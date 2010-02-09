@@ -120,6 +120,7 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	       checkBoxEscidocMimeTypes.addActionListener(this);
 	       add(checkBoxEscidocMimeTypes, NEXT_LINE);
 	       checkBoxCCLicenses = new JCheckBox("CC Licenses");
+	       checkBoxCCLicenses.addActionListener(this);
 	       add(checkBoxCCLicenses, NEXT_LINE);
 	       getLayoutHelper().completeLayout();
 	   }
@@ -132,6 +133,7 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 		   idata.setVariable("ConeCreateDDC", String.valueOf(checkBoxDDC.isSelected()));
 		   idata.setVariable("ConeCreateMimetypes", String.valueOf(checkBoxMimeTypes.isSelected()));
 		   idata.setVariable("ConeCreateEscidocMimeTypes", String.valueOf(checkBoxEscidocMimeTypes.isSelected()));
+		   idata.setVariable("ConeCreateCcLicenses", String.valueOf(checkBoxCCLicenses.isSelected()));
 	    
 	    }
 }
