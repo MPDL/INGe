@@ -34,31 +34,20 @@
 ALL COLORS USED
 
 BACKGROUND		#EAF4F7
-
 LINK COLOR		#147DA2
 AUTHOR/ORG BG	#4397B4
 LIGHT LINES		#A1CBDA
 DROPDOWN/BG		#DCECF1
 INPUT BG		#F3F8FA
-
 PAGE TITLE		#0F313E
-
 ERROR MSG		#E95A29
-
 SUCCESS MSG		#56871B
-
 DEACTIVATED		#827775
-
 DEA LIGHT		#CDC9C8
-
 TEXT			#524240
-
 TEXT LIGHT		#BAB4B3
-
 MOUSEOVER		#382926
-
 INPUT TEXT		#000000
-
 FORM BG			#FFFFFF
 
 */
@@ -199,7 +188,7 @@ FORM BG			#FFFFFF
 	}
 /*HEADER*/
 	/*COLORING FOR ALL MENU INPUTS AND LABELS*/
-	.metaMenu input, .metaMenu button, .metaMenu a, .quickSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input, .contentMenu a  {
+	.metaMenu input, .metaMenu button, .metaMenu a, .quickSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input, .contentMenu a {
 		background-color: #EAF4F7;
 		color: #147DA2;
 	}
@@ -325,7 +314,7 @@ FORM BG			#FFFFFF
 		*/
 	}
 
-	.selectMenu ,.selectMenu input {
+	.selectMenu, .selectMenu input {
 		background-color: #FFFFFF;
 	}
 
@@ -361,7 +350,7 @@ FORM BG			#FFFFFF
 	.preListHeader, .fullItem, .tiledList, .listBackground, .listBackground .seperator {
 		background-color: #FFFFFF;
 	}
-	
+
 	.tiledList .metaDataSection, .itemTile .tileIconArea {
 		border-color: #BAB4B3 !important;
 		border-style: solid;
