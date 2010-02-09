@@ -235,7 +235,7 @@
 		
 			<!-- PUBLISHER -->
 			<xsl:if test="
-				not(../@type=(
+				not(@type=(
 					'http://purl.org/eprint/type/ConferencePaper', 
 					'http://purl.org/escidoc/metadata/ves/publication-types/webpage', 
 					'http://purl.org/escidoc/metadata/ves/publication-types/issue', 
@@ -251,7 +251,7 @@
 			
 			<!-- PUBLISHERADD -->
 			<xsl:if test="
-				../@type=(
+				@type=(
 					'http://purl.org/eprint/type/BookItem',
 					'http://purl.org/escidoc/metadata/ves/publication-types/proceedings',
 					'http://purl.org/eprint/type/Book',
@@ -280,7 +280,7 @@
 							
 			<!-- DATEPUBLISHED -->
 			<xsl:if test="
-					not(../@type=(
+					not(@type=(
 						'http://purl.org/escidoc/metadata/ves/publication-types/series',
 						'http://purl.org/escidoc/metadata/ves/publication-types/journal',
 						'http://purl.org/eprint/type/Thesis'
@@ -314,7 +314,7 @@
 	
 		
 			<xsl:variable name="g1" select="
-				not(../@type=(
+				not(@type=(
 					'http://purl.org/escidoc/metadata/ves/publication-types/series',
 					'http://purl.org/escidoc/metadata/ves/publication-types/journal',
 					'http://purl.org/escidoc/metadata/ves/publication-types/webpage', 
@@ -344,7 +344,7 @@
 			
 			<!-- VOLUME -->
 			<xsl:if test="
-				../@type=(
+				@type=(
 					'http://purl.org/escidoc/metadata/ves/publication-types/article',
 					'http://purl.org/eprint/type/Report'
 				)">
@@ -785,12 +785,14 @@
 		<xsl:element name="docaff">
 		
 			<!-- DOCAFF_EXTERNAL -->
+			<!-- Not relevant for MPIPL 
 			<xsl:variable name="da_ext"  select="func:docaff_external(eterms:creator/person:person/organization:organization)"/>
 			<xsl:if test="$da_ext!=''">
 				<xsl:element name="docaff_external">	
 					<xsl:value-of select="$da_ext"/>
 				</xsl:element>
-			</xsl:if>	
+			</xsl:if>
+			 -->	
 			
 			<!-- DOCAFF_RESEARCHCONTEXT -->
 			<!-- empty for MPIPL -->
@@ -869,7 +871,7 @@
 			<xsl:if test="eterms:given-name">
 				<xsl:value-of select="concat(', ', eterms:given-name)"/>
 			</xsl:if>
-			<xsl:value-of select="if (position ()!=last()) then ' - ' else ''"/>	
+			<xsl:value-of select="if (position ()!=last()) then '; ' else ''"/>	
 		</xsl:for-each>
 	</xsl:function>
 	
@@ -930,9 +932,13 @@
 		
 	<xsl:function name="func:getDate">
 		<xsl:param name="d" />
-			<xsl:value-of select="
-				translate ($d, '.', '-')
-			"/>
+		<xsl:variable name="date" select="translate ($d, '.', '-')"/>
+		<!-- MPIPL specific -->
+		<xsl:value-of select="
+			if (contains($date,'-'))
+			then substring-before($date, '-')
+			else $date
+		"/>
 	</xsl:function>	
 	
 </xsl:stylesheet>
