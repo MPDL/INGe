@@ -233,12 +233,6 @@
 										can be <i>APA</i>, <i>AJP</i>, <i>BIBTEX</i>, <i>ENDNOTE</i> or <i>eSciDoc XML</i>. (Default:&#160;<i>ENDNOTE</i>)
 									</span>
 									<b class="xLarge_area0_p8 endline labelLine clear">
-										language<span class="noDisplay">: </span>
-									</b>
-									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										can be <i>all</i>, <i>en</i> or <i>de</i>. (Default: <i>all</i>)
-									</span>
-									<b class="xLarge_area0_p8 endline labelLine clear">
 										outputFormat<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
