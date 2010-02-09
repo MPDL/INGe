@@ -47,8 +47,11 @@
 	font-size: 100%;
 }
 
-.infoPage .sideSection * {
+.infoPage .sideSection {
 	float: right;
+}
+
+.infoPage .sideSection * {
 	font-size: 117%;
 }
 
