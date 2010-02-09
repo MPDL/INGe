@@ -593,7 +593,7 @@ public class SQLQuerier implements Querier
     protected void finalize() throws Throwable
     {
         super.finalize();
-        //connection.close();
+        connection.close();
     }
 
     /**
@@ -601,7 +601,7 @@ public class SQLQuerier implements Querier
      */
     public void release() throws Exception
     {
-        //connection.close();
+        connection.close();
     }
     
     
