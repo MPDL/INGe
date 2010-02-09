@@ -36,6 +36,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -69,6 +70,15 @@ public class QuerierTest
         querier = QuerierFactory.newQuerier();
     }
 
+    /**
+     * Initialize the querier before each test.
+     */
+    @After
+    public void releaseQuerier() throws Exception
+    {
+        querier.release();
+    }
+    
     @Test
     public void testAllIdsMethod() throws Exception
     {

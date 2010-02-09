@@ -220,5 +220,22 @@ public class RDFHandler extends ShortContentHandler
     {
         return this.result;
     }
+
+    /* (non-Javadoc)
+     * @see org.xml.sax.helpers.DefaultHandler#endDocument()
+     */
+    @Override
+    public void endDocument() throws SAXException
+    {
+        try
+        {
+            querier.release();
+        }
+        catch (Exception e)
+        {
+            throw new SAXException(e);
+        }
+    }
+    
     
 }

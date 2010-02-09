@@ -188,6 +188,7 @@ public class CCCrawler
                 }
             }
         }
+        querier.release();
     }
 
     private static List<LocalizedTripleObject> extractLanguages(String page, String baseURL) throws Exception
