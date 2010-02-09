@@ -24,7 +24,7 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -186,7 +186,17 @@ FORM BG			#FFFFFF
 		border-color: #EAF4F7;
 		background-color: #EAF4F7;
 	}
-/*HEADER*/
+
+/*HEADER
+-----------------------------------------------
+|[ Logo ]                 [      Meta Menu   ]|
+|                           [   Breadcrumb   ]|
+|[ Main Menu ]                   [   Title   ]|
+|[ Options ]                        	      |
+|[ Actions ]                         	      |
+|[ Message ]                        	      |
+-----------------------------------------------
+*/
 	/*COLORING FOR ALL MENU INPUTS AND LABELS*/
 	.metaMenu input, .metaMenu button, .metaMenu a, .quickSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input, .contentMenu a {
 		background-color: #EAF4F7;
@@ -226,7 +236,15 @@ FORM BG			#FFFFFF
 	.contentMenu span, .contentMenu input, .contentMenu a {
 		font-weight: bold;
 	}
-	
+
+/*Content
+-----------------------------------------------
+|         [      Paginator      ]             |
+|                               	      |
+|[ Lists & Full Item ]                        |
+|         [        Footer       ]             |
+-----------------------------------------------*/
+
 /*EXT. PAGINATOR*/
 
 	.paginatorFallbackGoBtn {
