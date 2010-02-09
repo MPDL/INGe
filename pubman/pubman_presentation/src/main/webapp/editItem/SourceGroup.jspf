@@ -141,7 +141,7 @@
 								</b>
 								<span class="xHuge_area0 xTiny_marginLExcl endline">
 									<h:selectOneRadio id="selSourceCreatorType" styleClass="medium_radioBtn double_area0" value="#{creatorBean.creator.typeString}" 
-										valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onchange="submit();" >
+										valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onclick="submit();" >
 										<f:selectItems value="#{creatorBean.creatorTypes}"/>
 									</h:selectOneRadio>
 								</span>
