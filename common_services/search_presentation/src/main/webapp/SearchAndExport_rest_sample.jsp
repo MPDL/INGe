@@ -387,7 +387,7 @@
 						</div>
 						<div id="feeds" class="full_area0 itemBlock" style="display: none;">
 							<h3 class="xLarge_area0_p8 endline blockHeader">
-								Feeds for the search.
+								Search Feeds
 							</h3>
 							<span class="seperator"></span>
 							<div class="free_area0 itemBlockContent endline">
