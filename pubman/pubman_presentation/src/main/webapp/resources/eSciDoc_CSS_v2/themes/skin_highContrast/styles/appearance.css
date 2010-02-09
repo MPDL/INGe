@@ -24,7 +24,7 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -34,31 +34,20 @@
 ALL COLORS USED
 
 BACKGROUND		#FFFFFF
-
 LINK COLOR		#0076C9
 AUTHOR/ORG BG	#3391D4
 LIGHT LINES		#99C8E9
 DROPDOWN/BG		#D9EBF7
 INPUT BG		#F2F8FC
-
 PAGE TITLE		#004373
-
 ERROR MSG		#D80000
-
 SUCCESS MSG		#548E00
-
 DEACTIVATED		#777777
-
 DEA LIGHT		#C9C9C9
-
 TEXT			#343434
-
 TEXT LIGHT		#AEAEAE
-
 MOUSEOVER		#1B1B1B
-
 INPUT TEXT		#000000
-
 FORM BG			#F2F8FC
 
 */
@@ -197,7 +186,26 @@ FORM BG			#F2F8FC
 		border-color: #FFFFFF;
 		background-color: #FFFFFF;
 	}
-/*HEADER*/
+	
+/*HEADER
+
+-----------------------------------------------
+
+|[ Logo ]                 [      Meta Menu   ]|
+
+|                           [   Breadcrumb   ]|
+
+|[ Main Menu ]                   [   Title   ]|
+
+|[ Options ]                        	      |
+
+|[ Actions ]                         	      |
+
+|[ Message ]                        	      |
+
+-----------------------------------------------
+
+*/
 	/*COLORING FOR ALL MENU INPUTS AND LABELS*/
 	.metaMenu input, .metaMenu button, .metaMenu a, .quickSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input, .contentMenu a  {
 		background-color: #FFFFFF;
@@ -237,6 +245,20 @@ FORM BG			#F2F8FC
 	.contentMenu span, .contentMenu input, .contentMenu a {
 		font-weight: bold;
 	}
+
+/*Content
+
+-----------------------------------------------
+
+|         [      Paginator      ]             |
+
+|                               	          |
+
+|[ Lists & Full Item ]                        |
+
+|         [        Footer       ]             |
+
+-----------------------------------------------*/
 	
 /*EXT. PAGINATOR*/
 
@@ -367,7 +389,7 @@ FORM BG			#F2F8FC
 		border-style: solid;
 	}
 	
-	.tiledList .inAlbum, .fullItem .inAlbum, .activeAlbum, .listBackground .seperator {
+	.tiledList .inAlbum, .fullItem .inAlbum, .activeAlbum, .activeAlbum .seperator {
 		background-color: #BADF4A;
 		border-color: #548E00 !important;
 	}
@@ -411,7 +433,7 @@ FORM BG			#F2F8FC
 	
 	/*FULL ITEM BLOCK*/
 	
-	.fullItem .metaDataSection {
+	.fullItem .metaDataSection, .fullItem .detailedItem {
 		border-color: #AEAEAE !important;
 		border-style: solid;
 	}

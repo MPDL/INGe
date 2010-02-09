@@ -240,7 +240,7 @@ FORM BG			#FFFFFF
 /*Content
 -----------------------------------------------
 |         [      Paginator      ]             |
-|                               	      |
+|                               	      	  |
 |[ Lists & Full Item ]                        |
 |         [        Footer       ]             |
 -----------------------------------------------*/
@@ -595,6 +595,6 @@ FORM BG			#FFFFFF
 	
 /*UNDER REWORK*/
 
-.underRework {
-	background-color: #F43E71 !important;
-}
+	.underRework {
+		background-color: #F43E71 !important;
+	}
