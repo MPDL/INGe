@@ -126,17 +126,6 @@ public class RestServlet extends HttpServlet
                 return;
             }
 
-            language = req.getParameter("language");
-            language = language == null ? "" : language.trim().toLowerCase();
-            if (language.equals(""))
-            {
-                language = "all";
-            } else if (!("all".equals(language) || "en".equals(language) || "de".equals(language)))
-            {
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong language: " + language);
-                return;
-            }
-
             exportFormat = req.getParameter("exportFormat").toUpperCase();
             exportFormat = !checkVal(exportFormat) ? "" : exportFormat.trim();
 
@@ -191,25 +180,9 @@ public class RestServlet extends HttpServlet
             	}
             	searchCounter++;
             }
-            
-            
-            
-            String index = null;
 
-            // transform language selector to enum
-            if (language.contains("all"))
-            {
-                index = "escidoc_all";
-            } else if (language.contains("en"))
-            {
-                index = "escidoc_en";
-            } else if (language.contains("de"))
-            {
-                index = "escidoc_de";
-            } else
-            {
-                throw new TechnicalException("Cannot map language string to database selector.");
-            }
+            // escidoc_all as static value
+            String index = "escidoc_all";
 
             // create the query
             ExportSearchQuery query = new ExportSearchQuery(cqlQuery, index, exportFormat, outputFormat);

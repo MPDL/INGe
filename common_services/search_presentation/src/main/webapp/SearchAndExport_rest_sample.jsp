@@ -141,7 +141,6 @@
 				
 				queryString += '&exportFormat=' + document.form.exportFormat.options[document.form.exportFormat.selectedIndex].value;
 				queryString += '&outputFormat=' + document.form.outputFormat.options[document.form.outputFormat.selectedIndex].value;
-				queryString += '&language=' + document.form.language.options[document.form.language.selectedIndex].value;
 				queryString += '&sortKeys=' + document.form.sortKeys.value;
 				queryString += '&sortOrder=' + document.form.sortOrder.options[document.form.sortOrder.selectedIndex].value;
 				queryString += '&startRecord=' + document.form.startRecord.value;
@@ -327,23 +326,8 @@
 											<input class="double_txtInput" type="text" name="startRecord" value="" />
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
-											<label class="double_label" for="maximumRecords">Maximum Number of records (default is all)</label>
+											<label class="double_label" for="maximumRecords">End Record (default is all) </label>
 											<input class="double_txtInput" type="text" name="maximumRecords" value="" />
-										</span>
-									</span>
-								</div>
-								<div class="free_area0 endline itemLine noTopBorder">
-									<b class="xLarge_area0_p8 endline labelLine clear">
-										Database Index<span class="noDisplay">: </span>
-									</b>
-									<span class="xHuge_area0 xTiny_marginLExcl endline">
-									 	<span class="double_area0 xTiny_marginRIncl">
-											<label class="double_label" for="language">Language</label>
-											<select class="double_select" name="language">
-							                    <option value="all">all languages</option>
-												<option value="en">English</option>
-												<option value="de">German</option>
-							                </select>
 										</span>
 									</span>
 								</div>
