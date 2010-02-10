@@ -269,7 +269,7 @@ public class Installer extends InstallerBase
         dataset.createGrantForUser(
                 "datasetObjects/grant_depositor.xml", userDepositorId, contextObjectId);
         
-        createInitialStatisticData(dataset);
+        //createInitialStatisticData(dataset);
     }
     
     private void createInitialStatisticData(InitialDataset dataset) throws Exception
