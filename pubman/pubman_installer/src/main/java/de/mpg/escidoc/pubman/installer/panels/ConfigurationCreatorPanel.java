@@ -307,7 +307,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 		
 		if(haveToInsertConeData())
 		{
-			conePanel = new LabelPanel("Writing CoNE data to database. This process may take up to one hour.", true);
+			conePanel = new LabelPanel("Writing CoNE data to database. This process may take several minutes.", true);
 			add(conePanel, NEXT_LINE);
 			
 	
