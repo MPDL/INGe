@@ -5,6 +5,8 @@ import java.io.File;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
+import org.apache.log4j.Logger;
+
 import com.izforge.izpack.gui.LabelFactory;
 import com.izforge.izpack.installer.InstallData;
 import com.izforge.izpack.installer.IzPanel;
@@ -20,6 +22,7 @@ public class ConeInsertProcess extends Thread
 	private InstallData idata;
 	private ConfigurationCreatorPanel panel;
 	private static final String coneInsertDataFile = "/jboss-4.2.2.GA/server/default/conf/initializeConeDatabase";
+	private static Logger logger = Logger.getLogger(ConeInsertProcess.class);
 	/**
 	 * Public constructor
 	 */
@@ -38,8 +41,11 @@ public class ConeInsertProcess extends Thread
 	public void insertConeData() throws Exception
 	{
 		
-		this.panel.getTextArea().append("Inserting CoNE data...\n");
+			this.panel.getTextArea().append("Inserting CoNE data...\n");
+			
 		
+			logger.info("Starting Cone Initialization");
+			
 			coneDataset.connectToDB("");
 			
 			// check if cone database already exists on the Postgres server or not. if not create it.
@@ -57,30 +63,37 @@ public class ConeInsertProcess extends Thread
 		   // then insert data if needed
 		   if(idata.getVariable("ConeCreateJournals").equals("true"))
 		   {
+			   logger.info("Inserting journals");
 			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_JOURNALS);
 		   }
 		   if(idata.getVariable("ConeCreateLanguages").equals("true"))
 		   {
+			   logger.info("Inserting languages");
 			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_LANGUAGES);
 		   }
 		   if(idata.getVariable("ConeCreateDDC").equals("true"))
 		   {
+			   logger.info("Inserting DDC");
 			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_DDC);
 		   }
 		   if(idata.getVariable("ConeCreateMimetypes").equals("true"))
 		   {
+			   logger.info("Inserting Mimetypes");
 			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_MIMETYPES);
 		   }
 		   if(idata.getVariable("ConeCreateEscidocMimeTypes").equals("true"))
 		   {
+			   logger.info("Inserting eSciDoc Mimetypes");
 			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_ESCIDOC_MIMETYPES);
 		   }
 		   if(idata.getVariable("ConeCreateCcLicenses").equals("true"))
 		   {
+			   logger.info("Inserting cc licenses");
 			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_CC_LICENSES);
 		   }
 		   
 		   // at least index the tables
+		   logger.info("Indexing CoNe database");
 		   coneDataset.runConeScript(ConeDataset.CONE_INDEX_SCRIPT);
 
 		   coneDataset.disconnectFromDB();
@@ -90,12 +103,16 @@ public class ConeInsertProcess extends Thread
 		   panel.getTextArea().append("Processing Cone Data...\n");
 		   
 		   //PropertyReader.
+		   /*
+		   logger.info("Processing CoNe database.");
 		   coneDataset.processConeData();
-
+		   logger.info("CoNE processing finished!");
+			*/
 		   panel.getTextArea().append("\n\n\n");
 		   panel.getTextArea().append("DONE. You can proceed with 'Next' now.\n");
 		   File pf = new File(idata.getInstallPath() + coneInsertDataFile);
 		   pf.createNewFile();
+		   logger.info("Cone initialization finished successfully");
 		
 		
 	}
@@ -112,7 +129,7 @@ public class ConeInsertProcess extends Thread
 		catch(Exception e)
 		{
 			panel.coneInsertionError(e);
-			e.printStackTrace();
+			logger.error("Error during CoNe initialization", e);
 		}
 	}
 }

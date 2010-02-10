@@ -27,7 +27,7 @@ public class ConeDataset
 {
 
 	/** logging instance */
-    private Logger logger = null;
+    private Logger logger = Logger.getLogger(ConeDataset.class);
 	/** driver class for the cone database */
     private static final String CONE_DB_DRIVER_CLASS = "org.postgresql.Driver";
     /** connection type for the cone database */
@@ -200,6 +200,7 @@ public class ConeDataset
         return coneIsAvailable;
     }
     
+    
     public void processConeData() throws Exception
     {
     	Querier querier = QuerierFactory.newQuerier();
@@ -207,7 +208,7 @@ public class ConeDataset
 
 		for (Model model : models)
 		{
-		    
+		    logger.info("Processing CoNe model: " + model.getName());
 		    List<String> ids = querier.getAllIds(model.getName());
 		    for (String id : ids)
 		    {
@@ -219,7 +220,5 @@ public class ConeDataset
 		}
 		querier.release();
     }
-
     
-	
 }
