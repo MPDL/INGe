@@ -138,6 +138,7 @@
                 <configuration>
                     <izpackBasedir>${staging.dir}</izpackBasedir>
                     <customPanelDirectory>${staging.dir}</customPanelDirectory>
+                    <descriptorEncoding>UTF-8</descriptorEncoding>
                 </configuration>
                 <executions>
                     <execution>

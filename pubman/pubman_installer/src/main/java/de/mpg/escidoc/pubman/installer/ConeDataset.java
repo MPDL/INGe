@@ -142,6 +142,7 @@ public class ConeDataset
             	//if(queryPart != null && queryPart.endsWith(";"))
 	            //{
             		query.append(queryPart);
+            		query.append("\n");
             	//}
             }
             
