@@ -84,7 +84,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 		JLabel welcomeLabel = LabelFactory.create("Writing configuration...",
 				parent.icons.getImageIcon("host"), LEADING);
 		add(welcomeLabel, NEXT_LINE);
-
 		getLayoutHelper().completeLayout();
 		configuration = new Configuration("pubman.properties");
 
@@ -249,6 +248,9 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 	}
 
 	public void panelActivate() {
+		parent.lockPrevButton();
+		parent.lockNextButton();
+		
 		success = true;
 
 		this.textArea = new JTextArea();
@@ -298,7 +300,8 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 		        
 		    } catch( Exception e ) {
 		    	datasetPanel.setEndLabel("Error while creating initial dataset!", LabelPanel.ICON_ERROR);
-		    	datasetPanel.addToTextArea(e.toString() + ": " + e.getMessage());
+		    	String hint = "Please rerun installation and ensure that the eSciDoc coreservice is running and the correct coreservice credentials are provided in the installer.";
+		    	datasetPanel.addToTextArea(e.toString() + ": " + e.getMessage() + "\n" + hint);
 			    success = false;
 		       }
 		    
@@ -323,7 +326,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 		}
 
 		setPanelValid(success);
-
+		
 	}
 
 
@@ -332,7 +335,15 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 		conePanel.setEndLabel("CoNE data written and processed!", LabelPanel.ICON_SUCCESS);
 		
 		//always set to true for now
-		setPanelValid(true);
+		setPanelValid(success);
+		if(success)
+		{
+			parent.unlockNextButton();
+		}
+		else
+		{
+			parent.unlockPrevButton();
+		}
 		revalidate();
 	}
 
@@ -342,7 +353,16 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 		conePanel.addToTextArea(e.toString() + ": " + e.getMessage());
 		success=false;
 		//always set to true for now
-		setPanelValid(true);
+		setPanelValid(success);
+		if(success)
+		{
+			parent.unlockNextButton();
+		}
+		else
+		{
+			parent.unlockPrevButton();
+		}
+		
 		revalidate();
 	}
 	
