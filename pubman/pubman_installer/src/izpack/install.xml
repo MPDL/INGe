@@ -66,7 +66,7 @@
         <panel classname="UserInputPanel" id="UserInputPanel.3"/>
         <panel classname="de.mpg.escidoc.pubman.installer.panels.ConeConfigurationPanel"/>
         <panel classname="UserInputPanel" id="UserInputPanel.4"/>
-        <panel classname="UserInputPanel" id="UserInputPanel.5"/>
+        <panel classname="UserInputPanel" id="UserInputPanel.5" condition="not_dataset_selected"/>
         <panel classname="UserInputPanel" id="UserInputPanel.6"/>
 <!--        <panel classname="JDKPathPanel" id="CommonJDKPath" />-->
         <panel classname="TargetPanel"/>
@@ -126,6 +126,9 @@
         </condition>
         <condition type="packselection" id="dataset_selected">
             <packid>pack_dataset</packid>
+        </condition>
+        <condition type="not" id="not_dataset_selected">
+            <condition type="ref"  refid="dataset_selected"/>
         </condition>
     </conditions>
     
