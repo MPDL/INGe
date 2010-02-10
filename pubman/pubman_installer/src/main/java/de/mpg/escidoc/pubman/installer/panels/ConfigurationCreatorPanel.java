@@ -208,8 +208,8 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 				|| idata.getVariable("ConeCreateLanguages").equals("true")
 				|| idata.getVariable("ConeCreateDDC").equals("true")
 				|| idata.getVariable("ConeCreateMimetypes").equals("true")
-				|| idata.getVariable("ConeCreateEscidocMimeTypes").equals(
-						"true")) {
+				|| idata.getVariable("ConeCreateEscidocMimeTypes").equals("true")
+				|| idata.getVariable("ConeCreateCcLicenses").equals("true")) {
 			insertConeData = true;
 		}
 		return insertConeData;
