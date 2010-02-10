@@ -198,7 +198,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>cone</artifactId>
-            <version>1.1.1-SNAPSHOT</version>
+            <version>1.1.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
