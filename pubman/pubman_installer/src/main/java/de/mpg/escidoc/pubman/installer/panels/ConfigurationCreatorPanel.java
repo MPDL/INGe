@@ -272,7 +272,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 			checkContentModel();
 		} catch (Exception e) {
 			contentModelPanel.setEndLabel("Content model (" + Installer.CHECK_CONTENT_MODEL + ") not found.", LabelPanel.ICON_WARNING);
-			String hint = "Please ingest content model after installation, as described at first information page. If you've already done this, please re-run the installation and ensure that the coreservice is up and running and the correct coreservice credentials are provided during installation.";
+			String hint = "Please ingest content model after installation, as described on first installer information page. If the content model was already available during this installation, please re-run the installation and ensure that the coreservice is up and running and the correct coreservice credentials are provided in the installer.";
 			contentModelPanel.addToTextArea(e.toString() + ": " + e.getMessage() + "\n" + hint);
 		}
 		
