@@ -180,7 +180,10 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 	       ouExternalObjectId = dataset.createAndOpenOrganizationalUnit("datasetObjects/ou_external.xml");
 	       String ouDefaultObjectId = dataset.createAndOpenOrganizationalUnit("datasetObjects/ou_default.xml");
 	       
-	       configuration.setProperty(Configuration.KEY_EXTERNAL_OU, ouExternalObjectId);      
+	       configuration.setProperty(Configuration.KEY_EXTERNAL_OU, ouExternalObjectId);
+	       idata.setVariable("ExternalOrganisationID", ouExternalObjectId);
+	       
+	       
 	       String contextObjectId = dataset.createAndOpenContext("datasetObjects/context.xml", ouDefaultObjectId);
 	       String userModeratorId = dataset.createUser("datasetObjects/user_moderator.xml", 
 	               idata.getVariable("InitialUserPassword"), ouDefaultObjectId);
@@ -278,16 +281,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 		
 		revalidate();
 		
-		try {
-			storeConfiguration();
-			propertiesModelPanel.setEndLabel("Configuration written successfully!", LabelPanel.ICON_SUCCESS);
-		} catch (Exception e) {
-			propertiesModelPanel.setEndLabel("Error. Property file could not be written!", LabelPanel.ICON_ERROR);
-			propertiesModelPanel.addToTextArea(e.toString() + ": " + e.getMessage());
-			success = false;
-		}
-		
-		revalidate();
 		
 		if(haveToInstallInitialDataset())
 		{
@@ -307,6 +300,19 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 		    
 		    revalidate();
 		}
+		
+		try {
+			storeConfiguration();
+			propertiesModelPanel.setEndLabel("Configuration written successfully!", LabelPanel.ICON_SUCCESS);
+		} catch (Exception e) {
+			propertiesModelPanel.setEndLabel("Error. Property file could not be written!", LabelPanel.ICON_ERROR);
+			propertiesModelPanel.addToTextArea(e.toString() + ": " + e.getMessage());
+			success = false;
+		}
+		
+		revalidate();
+		
+		
 		
 		if(haveToInsertConeData())
 		{
