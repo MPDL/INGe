@@ -106,21 +106,27 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	       add(emptyLabel, NEXT_LINE);
 	       checkBoxJournals = new JCheckBox("Journals");
 	       checkBoxJournals.addActionListener(this);
+	       checkBoxJournals.setSelected(true);
 	       add(checkBoxJournals, NEXT_LINE);
 	       checkBoxLanguages = new JCheckBox("Languages");
 	       checkBoxLanguages.addActionListener(this);
+	       checkBoxLanguages.setSelected(true);
 	       add(checkBoxLanguages, NEXT_LINE);
 	       checkBoxDDC = new JCheckBox("DDC");
 	       checkBoxDDC.addActionListener(this);
+	       checkBoxDDC.setSelected(true);
 	       add(checkBoxDDC, NEXT_LINE);
 	       checkBoxMimeTypes = new JCheckBox("Mimetypes");
 	       checkBoxMimeTypes.addActionListener(this);
+	       checkBoxMimeTypes.setSelected(true);
 	       add(checkBoxMimeTypes, NEXT_LINE);
 	       checkBoxEscidocMimeTypes = new JCheckBox("eSciDoc Mimetypes");
 	       checkBoxEscidocMimeTypes.addActionListener(this);
+	       checkBoxEscidocMimeTypes.setSelected(true);
 	       add(checkBoxEscidocMimeTypes, NEXT_LINE);
 	       checkBoxCCLicenses = new JCheckBox("CC Licenses");
 	       checkBoxCCLicenses.addActionListener(this);
+	       checkBoxCCLicenses.setSelected(true);
 	       add(checkBoxCCLicenses, NEXT_LINE);
 	       getLayoutHelper().completeLayout();
 	   }
