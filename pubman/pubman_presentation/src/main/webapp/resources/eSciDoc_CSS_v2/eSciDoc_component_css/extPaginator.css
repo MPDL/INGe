@@ -37,6 +37,7 @@
 	}
 
 	.paginatorFallbackGoBtn {
+		display: none;
 		margin-top: 0.73em;
 	}
 
