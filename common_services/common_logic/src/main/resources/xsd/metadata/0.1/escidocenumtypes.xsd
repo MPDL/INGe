@@ -41,7 +41,6 @@
 	<xs:simpleType name="GenreEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/journal"/>
-			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/journal-article"/>
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/article"/>
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/issue"/>
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article"/>
