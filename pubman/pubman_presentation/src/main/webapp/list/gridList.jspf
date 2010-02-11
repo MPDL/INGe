@@ -241,8 +241,8 @@ All rights reserved. Use is subject to license terms.
 		      	<td class="free_area0 endline">
 		      		<span class="seperator"></span>
 		      		<span class="large_area0_p8 endline filesSection">
-		      			<h:outputLink styleClass="files" rendered="#{item.numberOfFiles > 0}" title="#{tip.list_fileInfo}" value="#{item.link}#files"><h:outputText value="#{item.fileInfo}"/></h:outputLink>
-		      			<h:outputLink styleClass="locators" rendered="#{item.numberOfLocators > 0}" title="#{tip.list_locInfo}" value="#{item.link}#locators"><h:outputText value="#{item.locatorInfo}"/></h:outputLink>
+		      			<h:outputLink styleClass="large_area0 files" rendered="#{item.numberOfFiles > 0}" title="#{tip.list_fileInfo}" value="#{item.link}#files"><h:outputText value="#{item.fileInfo}"/></h:outputLink>
+		      			<h:outputLink styleClass="large_area0 locators" rendered="#{item.numberOfLocators > 0}" title="#{tip.list_locInfo}" value="#{item.link}#locators"><h:outputText value="#{item.locatorInfo}"/></h:outputLink>
 		      		</span>
 		      	</td>
 		    </tr>

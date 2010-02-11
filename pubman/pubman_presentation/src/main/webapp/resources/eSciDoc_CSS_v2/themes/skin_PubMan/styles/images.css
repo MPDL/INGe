@@ -577,19 +577,19 @@
 		background-image: url('../images/All_Attached_ClipAttached_15_Static.gif');
 		background-repeat: no-repeat;
 		background-position: bottom left;
-		padding-left: 2.10em;
+		padding-left: 2.10em !important;
 	}
 
 	.locators {
 		background-image: url('../images/All_Attached_ClipAttached_15_Static.gif');
 		background-repeat: no-repeat;
 		background-position: bottom left;
-		padding-left: 2.10em;
+		padding-left: 2.10em !important;
 	}
 
 	@media print {
 		.files, .locators {
-			padding-left: 0em;
+			padding-left: 0em !important;
 		}
 	}
 	
