@@ -154,7 +154,7 @@
 		</xsl:variable>
 		
 		<xsl:call-template name="createEntry">
-			<xsl:with-param name="gen" select="$genre-ves/enum[. = $gen]/@uri"/>
+			<xsl:with-param name="gen" select="$gen"/>
 		</xsl:call-template>
 	</xsl:template>
 	
@@ -370,32 +370,32 @@
 	
 	<xsl:template match="mab100_b">
 		<xsl:call-template name="createPersonCreator">
-			<xsl:with-param name="role">editor</xsl:with-param>
+			<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
 			<xsl:with-param name="org" select="true()"/>
 		</xsl:call-template>
 	</xsl:template>
 	
 	<xsl:template match="mab104_b">
 		<xsl:call-template name="createPersonCreator">
-			<xsl:with-param name="role">editor</xsl:with-param>
+			<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
 		</xsl:call-template>
 	</xsl:template>
 	
 	<xsl:template match="mab100_c">
 		<xsl:call-template name="createPersonCreator">
-			<xsl:with-param name="role">editor</xsl:with-param>
+			<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
 		</xsl:call-template>
 	</xsl:template>
 	
 	<xsl:template match="mab108_b">
 		<xsl:call-template name="createPersonCreator">
-			<xsl:with-param name="role">editor</xsl:with-param>
+			<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
 		</xsl:call-template>
 	</xsl:template>
 	
 	<xsl:template match="mab112_b">
 		<xsl:call-template name="createPersonCreator">
-			<xsl:with-param name="role">editor</xsl:with-param>
+			<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
 		</xsl:call-template>
 	</xsl:template>
 	
@@ -433,15 +433,15 @@
 	
 	<xsl:template match="mab200">
 		<xsl:call-template name="createOrganizationCreator">
-			<xsl:with-param name="role">editor</xsl:with-param>
+			<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
 		</xsl:call-template>
 	</xsl:template>
 	
 	<xsl:template match="mab200_b">
 		<xsl:variable name="role">
 			<xsl:choose>
-				<xsl:when test="../mab100">editor</xsl:when>
-				<xsl:otherwise>editor</xsl:otherwise>
+				<xsl:when test="../mab100"><xsl:value-of select="$creator-ves/enum[.='editor']/@uri"/></xsl:when>
+				<xsl:otherwise><xsl:value-of select="$creator-ves/enum[.='editor']/@uri"/></xsl:otherwise>
 			</xsl:choose>
 		
 		</xsl:variable>
@@ -452,13 +452,13 @@
 	
 	<xsl:template match="mab204_a">
 		<xsl:call-template name="createOrganizationCreator">
-			<xsl:with-param name="role">editor</xsl:with-param>
+			<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
 		</xsl:call-template>
 	</xsl:template>
 	
 	<xsl:template match="mab204_b">
 		<xsl:call-template name="createOrganizationCreator">
-			<xsl:with-param name="role">editor</xsl:with-param>
+			<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
 		</xsl:call-template>
 	</xsl:template>
 	
@@ -474,7 +474,7 @@
 			<xsl:attribute name="role" select="$role"/>
 			<xsl:element name="organization:organization">
 				<!-- <xsl:attribute name="role" select="$role"/>-->
-				<xsl:element name="organization:organization-name">
+				<xsl:element name="dc:title">
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:element>
@@ -758,14 +758,14 @@
 	<xsl:template name="createFile">
 		<xsl:if test="not(normalize-space(.)='-')">
 			
-			<xsl:variable name="filename" as="xs:string" select="escidoc:computeFilename()"/>
+			<xsl:variable name="filename" as="xs:string" select="escidoc:computeFilename(.)"/>
 
 			<xsl:choose>
 				<xsl:when test="starts-with($filename, $localPrefix)">
 				
 					<xsl:variable name="content-category">
 						<xsl:choose>
-							<xsl:when test="exists(preceding-sibling::*[name() = 'mab655_e' and starts-with(escidoc:computeFilename(), $localPrefix)])">publisher-version</xsl:when>
+							<xsl:when test="exists(preceding-sibling::*[name() = 'mab655_e' and starts-with(escidoc:computeFilename(.), $localPrefix)])">publisher-version</xsl:when>
 							<xsl:otherwise>any-fulltext</xsl:otherwise>
 						</xsl:choose>
 					</xsl:variable>
@@ -784,13 +784,20 @@
 							<mdr:md-record name="escidoc">
 								<xsl:element name="file:file">
 									<dc:title>
-										<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
+										<xsl:choose>
+											<xsl:when test="escidoc:substring-after-last($filename, '/') != '' ">
+												<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:value-of select="$locator-filename-substitute"/>
+											</xsl:otherwise>
+										</xsl:choose>
 									</dc:title>
 									<xsl:element name="dc:identifier">
 										<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
 										<xsl:value-of select="."/>
 									</xsl:element>
-									<file:content-category><xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/></file:content-category>
+									<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/></eterms:content-category>
 									<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
 									<xsl:variable name="file-size" select="Util:getSize($filename)"/>
 									<xsl:if test="exists($file-size)">
@@ -815,13 +822,20 @@
 							<mdr:md-record name="escidoc">
 								<xsl:element name="file:file">
 									<dc:title>
-										<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
+										<xsl:choose>
+											<xsl:when test="escidoc:substring-after-last($filename, '/') != '' and  escidoc:substring-after-last($filename, '/') != 'pdf'">
+												<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:value-of select="$locator-filename-substitute"/>
+											</xsl:otherwise>
+										</xsl:choose>
 									</dc:title>
 									<xsl:element name="dc:identifier">
 										<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
 										<xsl:value-of select="$filename"/>
 									</xsl:element>
-									<xsl:element name="file:content-category">any-fulltext</xsl:element>
+									<xsl:element name="eterms:content-category">any-fulltext</xsl:element>
 								</xsl:element>
 							</mdr:md-record>
 						</mdr:md-records>
@@ -844,8 +858,9 @@
 	</xsl:template>
 	
 	<xsl:function name="escidoc:computeFilename" as="xs:string">
+		<xsl:param name="filename" as="xs:string"/>
 		
-		<xsl:variable name="srcWithoutSpaces" select="translate(., ' &#xA;&#xD; ', '')" as="xs:string"/>
+		<xsl:variable name="srcWithoutSpaces" select="translate($filename, ' &#xA;&#xD; ', '')" as="xs:string"/>
 		
 		<xsl:variable name="result">
 			<xsl:choose>
