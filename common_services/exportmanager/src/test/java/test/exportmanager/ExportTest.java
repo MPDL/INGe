@@ -67,6 +67,8 @@ public class ExportTest
 
 	    private static Logger logger = Logger.getLogger(ExportTest.class);
 
+	    private FileOutputStream fos;
+	    
 	    /**
 	     * Get test item list from XML 
 	     * @throws Exception
@@ -74,7 +76,7 @@ public class ExportTest
 	    @BeforeClass
 		public final static void getItemLists() throws Exception
 	    {
-	    	FileOutputStream fos;
+	    	
 	    	
 //	    	pubManItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_PUBMAN, "5");
 //			assertFalse("PubMan item list from framework is empty", pubManItemList == null || pubManItemList.trim().equals("") );
@@ -82,6 +84,8 @@ public class ExportTest
 			
 			
 			facesItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_FACES, "5");
+//			facesItemList = TestHelper.readFile("FacesExport.xml", "UTF-8");
+			
 			assertFalse("Faces item list from framework is empty", facesItemList == null || facesItemList.trim().equals("") );
 			logger.info("Faces item list from framework:\n" + facesItemList);
 			
@@ -99,7 +103,7 @@ public class ExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
-	    @Ignore // tendres: the same test exists in the integration test suite
+//	    @Ignore // tendres: the same test exists in the integration test suite
 	    public final void testExplainExport() throws Exception
 	    {
 	    	String result = export.explainFormatsXML();  
@@ -113,7 +117,7 @@ public class ExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
-	    @Ignore
+//	    @Ignore
 	    public final void testCalculateItemListFileSizes() throws Exception
 	    {
 	    	long size = export.calculateItemListFileSizes(facesItemList);
@@ -127,7 +131,7 @@ public class ExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test 
-	    //@Ignore // tendres: the same test exists in the integration test suite
+//	    @Ignore // tendres: the same test exists in the integration test suite
 	    public final void testExportsToArchives() throws Exception
 	    {
 	    	logger.info("heapMaxSize = " + Runtime.getRuntime().maxMemory());
@@ -163,7 +167,7 @@ public class ExportTest
 	    				"byte array size:" + ba.length 
 	    		);
 	    					afString = afString.equals(ArchiveFormats.gzip.toString()) ? "tar.gz" : afString; 
-	    					fos = new FileOutputStream("output." + afString);
+	    					fos = new FileOutputStream("target/output." + afString);
 	    					fos.write(ba);				
 	    					fos.close();	        
 	    	}
@@ -199,6 +203,35 @@ public class ExportTest
 	    	}
 
 	    }
+	    
+	    /**
+	     * Test License export.
+	     * @throws Exception Any exception.
+	     */
+	    @Test 
+	    public final void testLicenseExport() throws Exception
+	    {
+	    	
+	    	byte[] result; 
+    		logger.info("start license export, zip");
+    		start = -System.currentTimeMillis();
+//    		result = export.getOutput("CSV", null, null, facesItemList);
+    		
+    		result = export.generateArchive("zip", facesItemList, 
+    				TestHelper.findFileInClasspath("Faces_Release_Agreement_Export.pdf")
+    		
+    		); 
+    		
+    		start += System.currentTimeMillis();
+    		assertFalse("license export failed", result == null || result.length == 0);
+    		logger.info(" export (" + start + "ms)\n");
+    		
+			fos = new FileOutputStream("target/license_output.zip");
+			fos.write(result);
+			fos.close();
+	    		
+    	}
+	    	
 	    
 
 }
