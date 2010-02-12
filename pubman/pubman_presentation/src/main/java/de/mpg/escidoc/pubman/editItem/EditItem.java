@@ -462,7 +462,10 @@ public class EditItem extends FacesBean
 	                    this.getLocators().get(i).getFile().getDefaultMetadata().setTitle(new TextVO(this.getEditItemSessionBean().getLocators().get(i).getFile().getContent()));
 	                    //this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().setName(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent());
 	                }
-	                this.getLocators().get(i).getFile().getDefaultMetadata().setDescription(this.getLocators().get(i).getFile().getDescription());
+	                if(this.getLocators().get(i).getFile().getDefaultMetadata().getDescription() == null || this.getLocators().get(i).getFile().getDefaultMetadata().getDescription().equals(""))
+	                {
+	                	this.getLocators().get(i).getFile().getDefaultMetadata().setDescription(this.getLocators().get(i).getFile().getDescription());
+	                }
 	                this.getPubItem().getFiles().add(this.getLocators().get(i).getFile());
 	            }
 	        }
