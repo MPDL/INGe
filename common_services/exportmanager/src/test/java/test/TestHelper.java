@@ -84,9 +84,9 @@ public class TestHelper
      * @return The file defined by The given path.
      * @throws FileNotFoundException File not there.
      */
-    public final File findFileInClasspath(final String fileName) throws FileNotFoundException
+    public final static File findFileInClasspath(final String fileName) throws FileNotFoundException
     {
-        URL url = getClass().getClassLoader().getResource(fileName);
+        URL url = TestHelper.class.getClassLoader().getResource(fileName);
         if (url == null)
         {
             throw new FileNotFoundException(fileName);

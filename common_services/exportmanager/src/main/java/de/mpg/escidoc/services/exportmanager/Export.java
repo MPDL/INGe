@@ -110,9 +110,6 @@ public class Export implements ExportHandler {
 	public static String PROPERTIES_NS;
 
 	public static final String XLINK_NS = "http://www.w3.org/1999/xlink";
-	public static final String LICENSE_AGREEMENT_NAME = "Faces_Release_Agreement_Export.pdf";
-	private final static String PATH_TO_RESOURCES = "resources/";
-	
 	
 	
 	public static final short BUFFER_SIZE = 1024;
@@ -237,8 +234,7 @@ public class Export implements ExportHandler {
 		try {
 			fos = new FileOutputStream(tmpFile);
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			throw new ExportManagerException("Cannot create temp file", e1);			
 		}
 		BufferedOutputStream bos = new BufferedOutputStream(fos);
 		
@@ -313,7 +309,7 @@ public class Export implements ExportHandler {
 		{
 			//only CSV for the moment
 			if ("CSV".equals(exportFormat))
-				generateArchiveBase(exportFormat, archiveFormat, ba, itemList, bos);
+				generateArchiveBase(exportFormat, archiveFormat, ba, itemList, null, bos);
 		}
 		else
 		{
@@ -347,7 +343,31 @@ public class Export implements ExportHandler {
 		
 		FileOutputStream fos = null;
 			
-		System.out.println("Hello Export");
+		File tmpFile = File.createTempFile(generateTmpFileName(), "." +	getFileExt(archiveFormat)); 
+		try {
+			fos = new FileOutputStream(tmpFile);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		BufferedOutputStream bos = new BufferedOutputStream(fos);
+		
+		generateArchiveBase(exportFormat, archiveFormat, exportOut, itemList, null, bos);
+		
+		bos.close();
+		fos.close();
+		
+		return tmpFile;
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.exportmanager.ExportHandler#generateArchive(String, String, byte[], String, File) 
+	) 
+	 */
+	public File generateArchiveFile(String exportFormat, String archiveFormat,
+			byte[] exportOut, String itemList, File license) throws ExportManagerException, IOException {
+		
+		FileOutputStream fos = null;
 		
 		File tmpFile = File.createTempFile(generateTmpFileName(), "." +	getFileExt(archiveFormat)); 
 		try {
@@ -358,13 +378,15 @@ public class Export implements ExportHandler {
 		}
 		BufferedOutputStream bos = new BufferedOutputStream(fos);
 		
-		generateArchiveBase(exportFormat, archiveFormat, exportOut, itemList, bos);
+		generateArchiveBase(exportFormat, archiveFormat, exportOut, itemList, license, bos);
 		
 		bos.close();
 		fos.close();
 		
 		return tmpFile;
 	}
+	
+
 	
 	private void addDescriptionEnrty(byte[] exportOut, String exportFormat, OutputStream aos) throws IOException, ExportManagerException
 	{
@@ -412,13 +434,31 @@ public class Export implements ExportHandler {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		BufferedOutputStream bos = new BufferedOutputStream(baos);
 		
-		generateArchiveBase(exportFormat, archiveFormat, exportOut, itemList, bos);
+		generateArchiveBase(exportFormat, archiveFormat, exportOut, itemList, null, bos);
+		
+		bos.close();
+		
+		return baos.toByteArray();
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.exportmanager.ExportHandler#generateArchive(String, String, byte[], String, File) 
+	) 
+	 */
+	public byte[] generateArchive(String exportFormat, String archiveFormat,
+			byte[] description, String itemListFiltered, File license)
+			throws ExportManagerException, IOException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		BufferedOutputStream bos = new BufferedOutputStream(baos);
+		
+		generateArchiveBase(exportFormat, archiveFormat, description, itemListFiltered, license, bos);
 		
 		bos.close();
 		
 		return baos.toByteArray();
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see de.mpg.escidoc.services.exportmanager.ExportHandler#generateArchive(String, String) 
 	) 
@@ -429,14 +469,28 @@ public class Export implements ExportHandler {
 		return generateArchive(null, archiveFormat, null, itemListFiltered);
 	}	
 	
+	
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.exportmanager.ExportHandler#generateArchive(String, String, File) 
+	) 
+	 */
+	public byte[] generateArchive(String archiveFormat,
+			String itemListFiltered, File license)
+			throws ExportManagerException, IOException {
+		return generateArchive(null, archiveFormat, null, itemListFiltered, license);
+	}
+	
+
+	
+	
 	/* (non-Javadoc)
 	 * @see de.mpg.escidoc.services.exportmanager.ExportHandler#generateArchive(String, String, byte[], String) 
 	) 
 	 */
 	private void generateArchiveBase(String exportFormat, String archiveFormat,
-			 byte[] exportOut, String itemList, BufferedOutputStream bos) throws ExportManagerException, IOException {
+			 byte[] exportOut, String itemList, File license, 
+			 BufferedOutputStream bos) throws ExportManagerException, IOException {
 
-		
 		Utils.checkCondition(
 				!Utils.checkVal(exportFormat) 
 				&& !(exportOut == null || exportOut.length==0), 
@@ -459,7 +513,7 @@ public class Export implements ExportHandler {
 					addDescriptionEnrty(exportOut, exportFormat, zos);
 					
 					//add LICENSE AGREEMENT entry
-					addLicenseAgreement(zos);
+					addLicenseAgreement(license, zos);
 					
 					//add files to the zip
 					fetchComponentsDo(zos, itemList);
@@ -480,7 +534,7 @@ public class Export implements ExportHandler {
 					addDescriptionEnrty(exportOut, exportFormat, tos);
 					 
 					//add LICENSE AGREEMENT entry
-					addLicenseAgreement(tos);
+					addLicenseAgreement(license, tos);
 					
 					//add files to the tar
 					fetchComponentsDo(tos, itemList); 
@@ -543,39 +597,41 @@ public class Export implements ExportHandler {
 	 * @throws IOException
 	 * @throws ExportManagerException 
 	 */
-	private void addLicenseAgreement(OutputStream os) throws IOException, ExportManagerException 
+	private void addLicenseAgreement(File license, OutputStream os) throws IOException, ExportManagerException 
 	{
-		BufferedInputStream bis = new BufferedInputStream(getResource(LICENSE_AGREEMENT_NAME));
-		if (os instanceof TarOutputStream)
+
+		if (license != null) 
 		{
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			BufferedOutputStream bos = new BufferedOutputStream(baos);
-			writeFromStreamToStream(bis, baos);
-			bis.close();
-			byte[] file = baos.toByteArray();
-			bos.close();
-			     
-			TarEntry te = new TarEntry(LICENSE_AGREEMENT_NAME);
-			te.setSize(file.length);
-			TarOutputStream tos = (TarOutputStream)os;
-			tos.putNextEntry(te);
-			tos.write(file);
-			tos.closeEntry();
-		} 
-		else if (os instanceof ZipOutputStream)
-		{
-			ZipEntry ze = new ZipEntry(LICENSE_AGREEMENT_NAME);
-			ZipOutputStream zos = (ZipOutputStream)os;
-			zos.putNextEntry(ze);
-			writeFromStreamToStream(bis, zos);
-			bis.close();
-			zos.closeEntry();
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(license));
+			if (os instanceof TarOutputStream)
+			{
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				BufferedOutputStream bos = new BufferedOutputStream(baos);
+				writeFromStreamToStream(bis, baos);
+				bis.close();
+				byte[] file = baos.toByteArray();
+				bos.close();
+				TarEntry te = new TarEntry(license.getName());
+				te.setSize(file.length);
+				TarOutputStream tos = (TarOutputStream)os;
+				tos.putNextEntry(te);
+				tos.write(file);
+				tos.closeEntry();
+			} 
+			else if (os instanceof ZipOutputStream)
+			{
+				ZipEntry ze = new ZipEntry(license.getName());
+				ZipOutputStream zos = (ZipOutputStream)os;
+				zos.putNextEntry(ze);
+				writeFromStreamToStream(bis, zos);
+				bis.close();
+				zos.closeEntry();
+			}
+			else
+			{
+				throw new ExportManagerException("Wrong archive OutputStream: " + os);
+			}
 		}
-		else
-		{
-			throw new ExportManagerException("Wrong archive OutputStream: " + os);
-		}
-			
 	}
 
 	/**
@@ -882,8 +938,6 @@ public class Export implements ExportHandler {
     			String location = headers[i].getValue();
     			int index = location.indexOf('=');
     			userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
-    			//System.out.println("location: "+location);
-    			//System.out.println("handle: "+userHandle);
     		}
     	}
 
@@ -894,25 +948,6 @@ public class Export implements ExportHandler {
     	return userHandle;
     }
     
-	/**
-	 * Gets resources according to an execution environment
-	 * @param fileName
-	 * @return InputStream of resource
-	 * @throws IOException
-	 */
-	private InputStream getResource(final String fileName) throws IOException
-	{
-		String path = PATH_TO_RESOURCES + fileName;
-		InputStream fileIn = getClass()
-								.getClassLoader()
-								.getResourceAsStream(path);
-		if (fileIn == null)
-		{
-			fileIn = new FileInputStream(path);
-		}
-		return fileIn;
-	}
-
 
 	
 	// NodeFilters for XML Traversing 
@@ -948,7 +983,6 @@ public class Export implements ExportHandler {
 			{
 	    		
 	    		if (COMPONENTS_NS.equals(e.getNamespaceURI()) && "component".equals(e.getLocalName())) {
-	    //			System.out.println("component--->" + e.getNodeName());
 	    			return FILTER_ACCEPT;
 	    		}
 			}
@@ -969,13 +1003,14 @@ public class Export implements ExportHandler {
 						"extent".equals(e.getLocalName()) 
 				)		
 				{
-					//System.out.println("accepted: " + e.getLocalName() + ":" + e.getTextContent());
 					return FILTER_ACCEPT; 
 				}
 				return FILTER_SKIP;
 			}
 			
-	}	
+	}
+
+
 
 }
 

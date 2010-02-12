@@ -96,6 +96,17 @@ public class ExportHandlerBean implements ExportHandler
 	{
 		return exportService.generateArchiveFile(exportFormat, archiveFormat, exportOut, itemListFiltered);
 	}
+	
+	/**
+	 * {@inheritDoc}  
+	 * @throws IOException 
+	 */
+	public File generateArchiveFile(String exportFormat, String archiveFormat,
+			byte[] exportOut, String itemListFiltered, File license)
+	throws ExportManagerException, IOException 
+	{
+		return exportService.generateArchiveFile(exportFormat, archiveFormat, exportOut, itemListFiltered, license);
+	}
 
 
     /**
@@ -108,6 +119,16 @@ public class ExportHandlerBean implements ExportHandler
 		return exportService.generateArchive(exportFormat, archiveFormat, export, itemListFiltered);
 	}
 	
+	/**
+	 * {@inheritDoc}  
+	 * @throws IOException 
+	 */
+	public byte[] generateArchive(String exportFormat, String archiveFormat,
+			byte[] export, String itemListFiltered, File license)
+	throws ExportManagerException, IOException {
+		return exportService.generateArchive(exportFormat, archiveFormat, export, itemListFiltered, license);
+	}
+	
 	/** 
 	 * {@inheritDoc}  
 	 * @throws IOException 
@@ -116,6 +137,16 @@ public class ExportHandlerBean implements ExportHandler
 			String itemListFiltered)
 	throws ExportManagerException, IOException {
 		return exportService.generateArchive(archiveFormat, itemListFiltered);
+	}
+	
+	/** 
+	 * {@inheritDoc}  
+	 * @throws IOException 
+	 */
+	public byte[] generateArchive(String archiveFormat,
+			String itemListFiltered, File license)
+	throws ExportManagerException, IOException {
+		return exportService.generateArchive(archiveFormat, itemListFiltered, license);
 	}
 
     /** 
@@ -137,6 +168,6 @@ public class ExportHandlerBean implements ExportHandler
 		return exportService.calculateItemListFileSizes(itemList);
 	}
 
-
+	
 
 }

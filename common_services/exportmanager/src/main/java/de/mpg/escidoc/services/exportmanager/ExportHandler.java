@@ -65,7 +65,7 @@ public interface ExportHandler {
 	 * @param outputFormat - file format (e.g. pdf, odt, rtf etc.) to be exported 
 	 * @param archiveFormat - 	archive format for the export bundle. Can be zip, tar.gz, etc. 
 	 * 		  					If <code>null </code>the archive will not be created.
-	 * @param filteredItemList is used for archive generation. This is the XML String in the appropriate scheme which will be processed by export component. 
+	 * @param filteredItemList is used for archive generation. This is a XML String in the appropriate scheme which will be processed by export component. 
 	 * 							 All files will be downloaded according to theirs URIs references  and put into the resulting archive. 
 	 * @return export as byte[]
 	 * @throws ExportManagerException
@@ -79,12 +79,34 @@ public interface ExportHandler {
 	) throws  
 			ExportManagerException, IOException;
 
+	/**
+	 * Returns data presenting the items in export format.
+	 *  
+	 * Used in the cases of the huge sizes.   
+	 * 
+	 * @param exportFormat - export format of the items 
+	 * @param outputFormat - file format (e.g. pdf, odt, rtf etc.) to be exported 
+	 * @param archiveFormat - 	archive format for the export bundle. Can be zip, tar.gz, etc. 
+	 * 							Archive will be created with the method {@link generateArchiveFile(java.lang.String, java.lang.String, byte[], java.lang.String) generateArchiveFile}.  
+	 * 		  					If <code>null</code>, the archive will not be created.
+	 * @param filteredItemList - XML String in the appropriate scheme (PibItemList for the moment) which will be processed by export component
+	 * @return export as <code>java.io.File</code> 
+	 * @throws ExportManagerException
+	 * @throws IOException 
+	 */
+	File getOutputFile(
+			String exportFormat,
+			String outputFormat,
+			String archiveFormat,
+			String filteredItemList
+	) throws  
+			ExportManagerException, IOException;
+		
     /**
      * Generates archive, put the following issues in it:
      * 
      * 1) All files, referenced via URIs in the <code>itemListFiltered</code> XML 
      * 2) Description of the list, content of the <code>description</code>      
-     * 3) License agreement
      * 
      * To be used in case of the huge sizes, which can be precalculated with {@link calculateItemListFileSizes(java.lang.String) calculateItemListFileSizes}  
      * 
@@ -107,12 +129,41 @@ public interface ExportHandler {
     ) throws 
     	ExportManagerException, IOException;
 	
+	/**
+	 * Generates archive, put the following issues in it:
+	 * 
+	 * 1) All files, referenced via URIs in the <code>itemListFiltered</code> XML 
+	 * 2) Description of the list, content of the <code>description</code>      
+	 * 3) License agreement
+	 * 
+	 * To be used in case of the huge sizes, which can be precalculated with {@link calculateItemListFileSizes(java.lang.String) calculateItemListFileSizes}  
+	 * 
+	 * P.S. Please delete generated File since processing of it will be finished!  
+	 * 
+	 * @param exportFormat - is the name of the export format to ba presented in the archive description file   
+	 * @param archiveFormat is archive format for the export bundle. Can be zip, tar.gz, etc.
+	 * @param description contains some info which can describe the content of the archive. E.g. CSV or XMl file with the list of all archive items, some addition info 
+	 * @param itemListFiltered is XML String which contents all file references (URIs) to be presented in the archive.
+	 * 	 	  The components which will not be exported should be removed from the itemList.    
+	 * @param license - license File     
+	 * @return archive as <code>java.io.File</code> reference
+	 * @throws ExportManagerException
+	 * @throws IOException 
+	 */
+	File generateArchiveFile(
+			String exportFormat,  
+			String archiveFormat,
+			byte[] description, 
+			String itemListFiltered,
+			File license
+	) throws 
+	ExportManagerException, IOException;
+	
     /**
      * Generates archive, put the following issues in it:
      * 
      * 1) All files, referenced via URIs in the <code>itemListFiltered</code> XML 
      * 2) Description of the list, content of the <code>description</code>      
-     * 3) License agreement
      * 
      * @param exportFormat - is the name of the export format to be presented in the archive description file   
      * @param archiveFormat is archive format for the export bundle. Can be zip, tar.gz, etc.
@@ -136,7 +187,33 @@ public interface ExportHandler {
 	 * Generates archive, put the following issues in it:
 	 * 
 	 * 1) All files, referenced via URIs in the <code>itemListFiltered</code> XML 
-	 * 2) License agreement
+	 * 2) Description of the list, content of the <code>description</code>      
+	 * 3) License agreement
+	 * 
+	 * @param exportFormat - is the name of the export format to be presented in the archive description file   
+	 * @param archiveFormat is archive format for the export bundle. Can be zip, tar.gz, etc.
+	 * @param description contains some info which can describe the content of the archive. E.g. CSV or XMl file with the list of all archive items, some addition info 
+	 * @param itemListFiltered is XML String which contents all file references (URIs) to be presented in the archive.
+	 * 	 	  The components which will not be exported should be removed from the itemList.    
+	 * @param license - license File     
+	 * @return archive as byte[]
+	 * @throws ExportManagerException
+	 * @throws IOException 
+	 */
+	
+	byte[] generateArchive(
+			String exportFormat, 
+			String archiveFormat,
+			byte[] description, 
+			String itemListFiltered,
+			File license
+	) throws 
+	ExportManagerException, IOException;
+	
+	/**
+	 * Generates archive, put the following issues in it:
+	 * 
+	 * All files, referenced via URIs in the <code>itemListFiltered</code> XML 
 	 * 
 	 * @param archiveFormat is archive format for the export bundle. Can be zip, tar.gz, etc.
 	 * @param itemListFiltered is XML String which contents all file references (URIs) to be presented in the archive.
@@ -151,30 +228,28 @@ public interface ExportHandler {
 			String itemListFiltered
 	) throws 
 	ExportManagerException, IOException;	
- 
 	/**
-	 * Returns data presenting the items in export format.
-	 *  
-	 * Used in the cases of the huge sizes.   
+	 * Generates archive, put the following issues in it:
 	 * 
-	 * @param exportFormat - export format of the items 
-	 * @param outputFormat - file format (e.g. pdf, odt, rtf etc.) to be exported 
-	 * @param archiveFormat - 	archive format for the export bundle. Can be zip, tar.gz, etc. 
-	 * 							Archive will be created with the method {@link generateArchiveFile(java.lang.String, java.lang.String, byte[], java.lang.String) generateArchiveFile}.  
-	 * 		  					If <code>null</code>, the archive will not be created.
-	 * @param filteredItemList - XML String in the appropriate scheme (PibItemList for the moment) which will be processed by export component
-	 * @return export as <code>java.io.File</code> 
+	 * 1) All files, referenced via URIs in the <code>itemListFiltered</code> XML 
+	 * 2) License agreement
+	 * 
+	 * @param archiveFormat is archive format for the export bundle. Can be zip, tar.gz, etc.
+	 * @param itemListFiltered is XML String which contents all file references (URIs) to be presented in the archive.
+	 * 	 	  The components which will not be exported should be removed from the itemList.    
+	 * @param license - license File     
+	 * @return archive as byte[]
 	 * @throws ExportManagerException
 	 * @throws IOException 
 	 */
-	File getOutputFile(
-			String exportFormat,
-			String outputFormat,
-			String archiveFormat,
-			String filteredItemList
-	) throws  
-			ExportManagerException, IOException;
 	
+	byte[] generateArchive(
+			String archiveFormat,
+			String itemListFiltered,
+			File license
+	) throws 
+	ExportManagerException, IOException;	
+ 
 	
 	/**
 	 * Calculates complete sum of the file sizes referenced from the itemList.
