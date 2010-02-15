@@ -38,10 +38,8 @@
 
 package de.mpg.escidoc.services.syndication.feed;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -56,6 +54,7 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import com.sun.syndication.feed.atom.Content;
@@ -84,10 +83,8 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-
 import de.mpg.escidoc.services.syndication.SyndicationException;
 import de.mpg.escidoc.services.syndication.Utils;
-import org.apache.commons.lang.StringEscapeUtils;
 
 
 public class Feed extends SyndFeedImpl 
@@ -135,6 +132,8 @@ public class Feed extends SyndFeedImpl
 	//Hash of the parameters/values
 	private Map<String, String> paramHash = new HashMap<String, String>();
 	
+	//XML transformation bean
+	private XmlTransforming xt = new XmlTransformingBean();
 	
 	/**
 	 * Query getter.
@@ -639,7 +638,6 @@ public class Feed extends SyndFeedImpl
 	{
 		
 		List entries = new ArrayList();
-		XmlTransforming xt = new XmlTransformingBean();
 		
 		List<ItemVO> itemListVO = null; 
 		try 
