@@ -316,18 +316,17 @@ public class EasySubmission extends FacesBean
             this.getEasySubmissionSessionBean().setImportSourceRefresh(false);
         }
         
+        this.setBibTexInfo();
+        
         if(getItem() != null && getItem().getMetadata()!=null && getSource()!=null && getSource().getGenre() != null && getSource().getGenre().equals(SourceVO.Genre.JOURNAL))
         {
             this.autosuggestJournals = true;
         }
         
-        PubItemVO it = getItem();
         if(getItem() != null && getItem().getMetadata()!= null && getItem().getMetadata().getGenre() == null)
         {
             getItem().getMetadata().setGenre(Genre.ARTICLE);
         }
-        
-        this.setBibTexInfo(); 
     }
 
     public String selectSubmissionMethod()
@@ -1644,6 +1643,7 @@ public class EasySubmission extends FacesBean
         this.getEasySubmissionSessionBean().setREFERENCE_OPTIONS(new SelectItem[]{new SelectItem(this.REFERENCE_FILE, getLabel("easy_submission_lblReference_file")), 
                 new SelectItem(this.REFERENCE_LOCATOR, getLabel("easy_submission_lblReference_locator"))});
 
+        this.getEasySubmissionSessionBean().getRadioSelectReference().setValue(this.REFERENCE_LOCATOR);
         this.getEasySubmissionSessionBean().getRadioSelectReference().setSubmittedValue(this.REFERENCE_LOCATOR);
     }
     
@@ -1664,7 +1664,7 @@ public class EasySubmission extends FacesBean
      * @return String navigation string
      */
     public String selectImportBibtex()
-    {
+    {       
         this.setBibTexInfo();
         this.getEasySubmissionSessionBean().setFulltext(false);  
         this.getEasySubmissionSessionBean().setImportMethod(EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX);
