@@ -2,6 +2,8 @@ package test.framework.sm;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.HashMap;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
@@ -26,7 +28,8 @@ public class TestScopeHandler
     public void retrieveScopes() throws Exception
     {
         long zeit = -System.currentTimeMillis();
-        String scopes = ServiceLocator.getScopeHandler().retrieveScopes( null );
+        HashMap<String, String[]> emptymap = new HashMap<String, String[]>();
+        String scopes = ServiceLocator.getScopeHandler().retrieveScopes( emptymap );
         zeit += System.currentTimeMillis();
         logger.info("retrieveScopes()->" + zeit + "ms");
         assertNotNull(scopes);

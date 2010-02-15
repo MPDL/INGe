@@ -2,6 +2,8 @@ package test.framework.sm;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.HashMap;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
@@ -25,7 +27,8 @@ public class TestAggregationDefinitionHandler
     public void retrieveAggregationDefinitions() throws Exception
     {
         long zeit = -System.currentTimeMillis();
-        String definitions = ServiceLocator.getAggregationDefinitionHandler().retrieveAggregationDefinitions( null );
+        HashMap<String, String[]> emptymap = new HashMap<String, String[]>();
+        String definitions = ServiceLocator.getAggregationDefinitionHandler().retrieveAggregationDefinitions( emptymap );
         zeit += System.currentTimeMillis();
         logger.info("retrieveAggregationDefinitions()->" + zeit + "ms");
         assertNotNull(definitions);

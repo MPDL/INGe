@@ -443,6 +443,17 @@ public class ServiceLocator
             throw new ServiceException(e);
         }
     }
+    
+    public static SemanticStoreHandler getSemanticScoreHandler() throws ServiceException, URISyntaxException
+    {
+        try
+        {
+            return getSemanticScoreHandler("", new URL(getFrameworkUrl()));
+        } catch (MalformedURLException e)
+        {
+            throw new ServiceException(e);
+        }
+    }
 
     /**
      * Gets the SemanticStoreHandler service for an authentificated user.
