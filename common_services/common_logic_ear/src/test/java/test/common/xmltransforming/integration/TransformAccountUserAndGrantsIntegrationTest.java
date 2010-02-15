@@ -68,7 +68,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
 {
-    private static final String ACCOUNT_USER_SCHEMA_FILE = "xsd/soap/user-account/0.6/user-account.xsd";
+    private static final String ACCOUNT_USER_SCHEMA_FILE = "xsd/soap/user-account/0.7/user-account.xsd";
     private static final String PUBMAN_COLLECTION_ID = "escidoc:persistent3";
     private static final String TEST_DEP_SCIENTIST_LOGIN_NAME = "test_dep_scientist";
     private static final String TEST_DEP_SCIENTIST_ID = "escidoc:user1";
@@ -139,8 +139,8 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         // assertEquals("", accountUser.getEmail());
         
         // TODO: What is this test for?
-        assertTrue(1 == accountUser.getAffiliations().size());
-//        assertTrue(0 == accountUser.getAffiliations().size());
+        //assertTrue(1 == accountUser.getAffiliations().size());
+        assertTrue(0 == accountUser.getAffiliations().size());
         logger.info("The account user XML has successfully been transformed into an AffilitationVO.");
     }
 
@@ -218,9 +218,8 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         assertEquals("Test Depositor Library", accountUser.getName());
         // assertEquals("", accountUser.getEmail());
         // TODO: What is this test for?
-        assertTrue(1 == accountUser.getAffiliations().size());
-        
-//        assertTrue(0 == accountUser.getAffiliations().size());
+        //assertTrue(1 == accountUser.getAffiliations().size());
+        assertTrue(0 == accountUser.getAffiliations().size());
         logger.info("The account user XML has successfully been transformed into an AffilitationVO.");
     }
 
@@ -307,9 +306,8 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         assertEquals("Test Editor", accountUser.getName());
         // assertEquals("", accountUser.getEmail());
         // TODO: What is this test for?
-        assertTrue(1 == accountUser.getAffiliations().size());
-        
-//        assertTrue(0 == accountUser.getAffiliations().size());
+        //assertTrue(1 == accountUser.getAffiliations().size());
+        assertTrue(0 == accountUser.getAffiliations().size());
         logger.info("The account user XML has successfully been transformed into an AffilitationVO.");
     }
 
@@ -340,9 +338,8 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         assertEquals("Test Author", accountUser.getName());
         // assertEquals("", accountUser.getEmail());
         // TODO: What is this test for?
-        assertTrue(1 == accountUser.getAffiliations().size());
-
-//      assertTrue(0 == accountUser.getAffiliations().size());
+        //assertTrue(1 == accountUser.getAffiliations().size());
+        assertTrue(0 == accountUser.getAffiliations().size());
         assertXMLValid(user);
         logger.info("The account user XML has successfully been transformed into an AffilitationVO.");
     }
@@ -373,9 +370,8 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         assertEquals("roland", accountUser.getName());
         //assertEquals("roland@roland", accountUser.getEmail());
         // TODO: What is this test for?
-        assertTrue(1 == accountUser.getAffiliations().size());
-        
-//      assertTrue(0 == accountUser.getAffiliations().size());
+        //assertTrue(1 == accountUser.getAffiliations().size());
+        assertTrue(0 == accountUser.getAffiliations().size());
         logger.info("The account user XML has successfully been transformed into an AffilitationVO.");
     }
 }

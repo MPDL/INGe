@@ -104,7 +104,7 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="format" minOccurs="0" type="xs:token" />
-				<xs:element name="order-by" minOccurs="0">
+				<xs:element name="order-by" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 					    <xs:simpleContent>
       						<xs:extension base="xs:token">

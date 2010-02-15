@@ -6,7 +6,7 @@
 			<anything/>
 		</prop:content-model-specific>
 	</item:properties>
-	<md-records:md-records  xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:properties="http://www.escidoc.de/schemas/properties/0.3" xmlns:prop="${xsd.core.properties}" xmlns:resources="http://www.escidoc.de/schemas/resources/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<md-records:md-records  xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:properties="http://www.escidoc.de/schemas/properties/0.3" xmlns:prop="${xsd.core.properties}" xmlns:resources="http://www.escidoc.de/schemas/resources/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<md-records:md-record name="escidoc">
 			<publication:publication xmlns:prop="${xsd.soap.common.prop}" xmlns:properties="${xsd.core.properties}" type="http://purl.org/eprint/type/Book">
 				<eterms:creator role="http://www.loc.gov/loc.terms/relators/ART">
