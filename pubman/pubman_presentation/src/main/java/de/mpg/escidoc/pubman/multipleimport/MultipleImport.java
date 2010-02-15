@@ -30,11 +30,13 @@
 
 package de.mpg.escidoc.pubman.multipleimport;
 
-import java.util.TreeMap;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.model.UploadedFile;
@@ -46,8 +48,6 @@ import de.mpg.escidoc.pubman.createItem.CreateItem.SubmissionMethod;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.transformation.Transformation;
-import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -78,8 +78,8 @@ public class MultipleImport extends FacesBean
     public static final Format RIS_FORMAT = new Format("ris", "text/plain", "UTF-8");
     public static final Format WOS_FORMAT = new Format("wos", "text/plain", "UTF-8");
     private static final Format MAB_FORMAT = new Format("mab", "text/plain", "UTF-8");
-    
-    private TreeMap<String, Object> importFormats = new TreeMap<String, Object>();
+
+    private List<SelectItem> importFormats = new ArrayList<SelectItem>();
     private UploadedFile uploadedImportFile;
     
     private ImportProcess importProcess = null;
@@ -129,23 +129,18 @@ public class MultipleImport extends FacesBean
     
     public MultipleImport()
     {
+        //Standard formats
+        importFormats.add(new SelectItem(ENDNOTE_FORMAT, "Endnote"));
+        importFormats.add(new SelectItem(BIBTEX_FORMAT, "BibTeX"));
+        importFormats.add(new SelectItem(RIS_FORMAT, "RIS"));
+        importFormats.add(new SelectItem(WOS_FORMAT, "WoS"));
+        importFormats.add(new SelectItem(MAB_FORMAT, "MAB"));
+        importFormats.add(new SelectItem(EDOC_FORMAT, "eDoc"));
+        importFormats.add(new SelectItem(ESCIDOC_FORMAT, "eSciDoc"));
         
-//        Transformation transformation = new TransformationBean();
-//        Format[] formats = transformation.getSourceFormats(ESCIDOC_FORMAT);
-//        for (Format format : formats)
-//        {
-//            format.setEncoding("UTF-8");
-//            importFormats.put(format.getName(), format);
-//        }
-        importFormats.put("Endnote", ENDNOTE_FORMAT);
-        importFormats.put("Endnote-ICE", ENDNOTE_ICE_FORMAT);
-        importFormats.put("BibTeX", BIBTEX_FORMAT);
-        importFormats.put("eDoc", EDOC_FORMAT);
-        importFormats.put("eDoc-AEI", EDOC_FORMAT_AEI);
-        importFormats.put("RIS", RIS_FORMAT);
-        importFormats.put("WoS", WOS_FORMAT);
-        importFormats.put("eSciDoc", ESCIDOC_FORMAT);
-        importFormats.put("MAB", MAB_FORMAT);
+        //Specialized formats
+        importFormats.add(new SelectItem(ENDNOTE_ICE_FORMAT, "Endnote-ICE"));
+        importFormats.add(new SelectItem(EDOC_FORMAT_AEI, "eDoc-AEI"));
     }
         
     public String uploadFile()
@@ -252,7 +247,7 @@ public class MultipleImport extends FacesBean
     /**
      * @return the importFormats
      */
-    public TreeMap<String, Object> getImportFormats()
+    public List<SelectItem> getImportFormats()
     {
         return importFormats;
     }
@@ -260,7 +255,7 @@ public class MultipleImport extends FacesBean
     /**
      * @param importFormats the importFormats to set
      */
-    public void setImportFormats(TreeMap<String, Object> importFormats)
+    public void setImportFormats(List<SelectItem> importFormats)
     {
         this.importFormats = importFormats;
     }
