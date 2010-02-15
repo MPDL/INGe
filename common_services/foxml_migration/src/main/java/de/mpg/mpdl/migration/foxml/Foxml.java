@@ -20,6 +20,7 @@ import org.apache.xmlbeans.XmlObject;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.vocabulary.RDF;
 
 import de.mpg.mpdl.migration.util.MigrationProperties;
@@ -28,19 +29,15 @@ import fedora.fedoraSystemDef.foxml.DatastreamType;
 import fedora.fedoraSystemDef.foxml.DigitalObjectDocument;
 import fedora.fedoraSystemDef.foxml.XmlContentType;
 
-
 /**
- * 
  * Main class in foxml_migartion-jar-with-dependencies.jar.
- *
+ * 
  * @author frank (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- *
  */
 public class Foxml implements MigrationConstants
 {
-    
     private static ArrayList<File> allFiles = new ArrayList<File>();
     private static Logger logger = Logger.getLogger("migration");
     private static int publication = 0;
@@ -53,21 +50,20 @@ public class Foxml implements MigrationConstants
 
     private Foxml()
     {
-        
     }
-    
+
     /**
-     * 
      * @param args {@link String[]}
      */
     public static void main(String[] args)
     {
         migrate();
+        //view();
     }
 
     /**
-     * Recursivly iterate over basedir (== $FEDORA_HOME/data/objects)
-     * and store all FOXML files in an ArrayList.
+     * Recursivly iterate over basedir (== $FEDORA_HOME/data/objects) and store all FOXML files in an ArrayList.
+     * 
      * @param baseDir {@link File}
      * @return {@link ArrayList}
      */
@@ -92,12 +88,12 @@ public class Foxml implements MigrationConstants
     }
 
     /**
-     * Query the most current RELS_EXT datastream to return
-     * the id, the resourceType, the version number of the stream and,
-     * in case of item / conatiner, the context as an array of Strings.
+     * Query the most current RELS_EXT datastream to return the id, the resourceType, the version number of the stream
+     * and, in case of item / conatiner, the context as an array of Strings.
+     * 
      * @param rdfStream {@link InputStream}
      * @param resourceUri {@link String}
-     * @param streamVersion {@value int}
+     * @param streamVersion int}
      * @return {@link String[]}
      */
     public static String[] getResourceType(InputStream rdfStream, String resourceUri, int streamVersion)
@@ -109,7 +105,6 @@ public class Foxml implements MigrationConstants
         model.read(rdfStream, "");
         Resource about = model.getResource(resourceUri);
         resourceType = about.getRequiredProperty(RDF.type).getResource().getLocalName();
-        
         if (resourceType.equalsIgnoreCase("item") || resourceType.equalsIgnoreCase("container"))
         {
             context = about.getProperty(ESCIDOCPROPERTIES.contexttitle).getString();
@@ -128,7 +123,7 @@ public class Foxml implements MigrationConstants
                 }
             }
         }
-        return new String[] {id, resourceType, Integer.toString(streamVersion), context};
+        return new String[] { id, resourceType, Integer.toString(streamVersion), context };
     }
 
     /**
@@ -139,7 +134,6 @@ public class Foxml implements MigrationConstants
     public static DigitalObjectDocument migrate()
     {
         ArrayList<File> files = null;
-        
         long time = -System.currentTimeMillis();
         System.out.println(System.getenv("FEDORA_HOME"));
         files = fileList(new File(System.getenv("FEDORA_HOME") + "/data/objects"));
@@ -191,19 +185,12 @@ public class Foxml implements MigrationConstants
                                 if (metadata.equalsIgnoreCase(OLD_FILE))
                                 {
                                     /*
-                                    if (props[1].equalsIgnoreCase("component"))
-                                    {
-                                        if (props[3].equalsIgnoreCase("high resolution") || props[3].equalsIgnoreCase("web resolution") || props[3].equalsIgnoreCase("thumbnail"))
-                                        {
-                                            transMD = "FACES component !!!";
-                                            updateRequired = false;
-                                        }
-                                        else
-                                        {
-                                            transformed = xsltTransformation(f, file);
-                                        }
-                                    }
-                                    */
+                                     * if (props[1].equalsIgnoreCase("component")) { if
+                                     * (props[3].equalsIgnoreCase("high resolution") ||
+                                     * props[3].equalsIgnoreCase("web resolution") ||
+                                     * props[3].equalsIgnoreCase("thumbnail")) { transMD = "FACES component !!!";
+                                     * updateRequired = false; } else { transformed = xsltTransformation(f, file); } }
+                                     */
                                     transformed = xsltTransformation(f, file);
                                 }
                                 if (metadata.equalsIgnoreCase(OLD_ORGUNIT))
@@ -253,7 +240,6 @@ public class Foxml implements MigrationConstants
                         /*
                          * transformation for FACES
                          */
-                        
                         else
                         {
                             metadata = "unknown metadata format";
@@ -304,10 +290,9 @@ public class Foxml implements MigrationConstants
                             metadata = null;
                             transMD = null;
                         }
-                        
                     }
-                    // no need to transform contexts again
-                    /*
+                    // transform contexts
+                    
                     if (stream.getID().equalsIgnoreCase("pubman"))
                     {
                         updateRequired = true;
@@ -317,7 +302,7 @@ public class Foxml implements MigrationConstants
                             logger.info("    changed values in admin-descriptor !");
                         }
                     }
-                    */
+                    
                 }
                 if (updateRequired)
                 {
@@ -358,7 +343,7 @@ public class Foxml implements MigrationConstants
      * Do the transformation.
      * 
      * @param source {@link File}
-     * @param schematype {@value int}
+     * @param schematype int}
      * @return {@link File}
      */
     public static File xsltTransformation(File source, int schematype)
@@ -418,6 +403,76 @@ public class Foxml implements MigrationConstants
         {
             logger.info(e.toString());
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void view()
+    {
+        ArrayList<File> files = null;
+        System.out.println(System.getenv("FEDORA_HOME"));
+        files = fileList(new File(System.getenv("FEDORA_HOME") + "/data/objects/2010"));
+        int filenum = 0;
+        for (File f : files)
+        {
+            InputStream rdfStream = null;
+            String resourceUri = null;
+            String metadata = null;
+            String transMD = null;
+            File transformed = null;
+            String props = null;
+            XmlObject xo = null;
+            boolean updateRequired = false;
+            filenum = filenum + 1;
+            DigitalObjectDocument dodo;
+            try
+            {
+                dodo = DigitalObjectDocument.Factory.parse(f);
+                DatastreamType[] streams = dodo.getDigitalObject().getDatastreamArray();
+                for (DatastreamType stream : streams)
+                {
+                    if (stream.getID().equals("RELS-EXT"))
+                    {
+                        int lastRelsExt = stream.sizeOfDatastreamVersionArray() - 1;
+                        XmlContentType rdf = stream.getDatastreamVersionArray(lastRelsExt).getXmlContent();
+                        rdfStream = rdf.newInputStream();
+                        resourceUri = "info:fedora/escidoc:"
+                                + f.getName().substring(f.getName().indexOf("_") + 1, f.getName().length());
+                        props = getResources(rdfStream, resourceUri, lastRelsExt);
+                        if (props != null && props.equalsIgnoreCase("Test2"))
+                        {
+                            System.out.println(f.getName());
+                        }
+                    }
+                }
+            }
+            catch (XmlException e)
+            {
+                logger.info(e.toString());
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                logger.info(e.toString());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static String getResources(InputStream rdfStream, String resourceUri, int streamVersion)
+    {
+        String id = resourceUri.substring(resourceUri.indexOf("/") + 1);
+        String resourceType = null;
+        String context = null;
+        String juliane = null;
+        Model model = ModelFactory.createDefaultModel();
+        model.read(rdfStream, "");
+        Resource about = model.getResource(resourceUri);
+        resourceType = about.getRequiredProperty(RDF.type).getResource().getLocalName();
+        if (resourceType.equalsIgnoreCase("item") || resourceType.equalsIgnoreCase("container"))
+        {
+            juliane = about.getProperty(ESCIDOCPROPERTIES.createdbytitle).getString();
+            return juliane;
         }
         return null;
     }

@@ -44,44 +44,25 @@ public class Main
     
     public static void main(String[] args)
     {
-        
-        //DuplicateDetection dd = new DuplicateDetection();
-        //dd.checkMMS();
-        /*
-        String compare = dd.comparableURL("http://www.fao.org/documents/show_cdr.asp?url_file=/docrep/X5328F/X5328F00.htm");
-        String compare2 = dd.comparableURL(" http://www.fao.org/docrep/010/a1445e/a1445e00.htm");
-        String compare3 = dd.comparableURL("http://www.fao.org/../docrep/X4480E/X4480E00.htm");
-        String compare4 = dd.comparableURL("http://www.fao.org/docrep/X4480E/X4480E00.htm");
-        String compare5 = dd.comparableURL("ftp://ftp.fao.org/docrep/fao/010/a1246e");
-        String compare6 = dd.comparableURL("ftp://ftp.fao.org/docrep/fao/010/a1246e/a1246e01.pdf");
-        System.out.println(compare);
-        System.out.println(compare2);
-        System.out.println(compare3 + "   " + compare4);
-        System.out.println(compare5 + "   " + compare6);
-        */
-        testObjectMerge();
-        //testObjectCreation();
-        /*
-        try
+        if (args.length < 1)
         {
-            createFoxml();
+            System.out.println("USAGE: duplicates / foxml [all / start-end]");
         }
-        catch (Exception e)
+        else
         {
-            e.printStackTrace();
+            if (args.length == 1 && args[0].equalsIgnoreCase("duplicates"))
+            {
+                DuplicateDetection dd = new DuplicateDetection();
+                dd.checkMMS();
+            }
+            else
+            {
+                if (args.length == 2 && args[0].equalsIgnoreCase("foxml"))
+                {
+                   createFoxml(args[1]);
+                }
+            }
         }
-        */
-        /*
-        String label = "Forestry";
-        long time = -System.currentTimeMillis();
-        AgrovocSkos agskos = new AgrovocSkos();
-        String uri = agskos.getURI(label);
-        System.out.println(System.currentTimeMillis() + time);
-        System.out.println(uri + "  " + agskos.getLabels(uri));
-        */
-        //testControlledVocab();
-        
-
     }
 
    
@@ -98,43 +79,29 @@ public class Main
         }
     }
 
-    public static List<String[]> parseLogFile() throws Exception
+    public static List<String[]> parseLogFile(String arg) throws Exception
     {
         File logfile = new File("ingestion.log");
         BufferedReader reader = new BufferedReader(new FileReader(logfile));
-        ArrayList<String> eims_ids = new ArrayList<String>();
-        ArrayList<String> faodoc_ids = new ArrayList<String>();
         ArrayList<String[]> dups = new ArrayList<String[]>();
-        String key = null;
-        String val;
+        List<String[]> subList = null;
         String line;
-        int counter = 0;
         while ((line = reader.readLine()) != null)
         {
-            /*
-            if (line.contains("EIMS"))
-            {
-                int begin = line.indexOf("EIMS record:") + 13;
-                //eims_ids.add(line.substring(begin, begin + 6));
-                //System.out.println(line.substring(begin, begin + 6));
-                key = line.substring(begin, begin + 6).trim();
-                
-            }
-            if (line.contains("FAODOC"))
-            {
-                int begin = line.indexOf("FAODOC record:") + 15;
-                //faodoc_ids.add(line.substring(begin, begin + 12));
-                //System.out.println(line.substring(begin, begin + 12));
-                val = line.substring(begin, begin + 12).trim();
-                dups.add(key + "=" + val);
-            }
-            */
             String[] values = line.split("\t");
             dups.add(values);
         }
         
         System.out.println(dups.size() + " items !!!");
-        List<String[]> subList = dups.subList(666, 699);
+        if (arg.equalsIgnoreCase("all"))
+        {
+            subList = dups;
+        }
+        else
+        {
+            String[] indices = arg.split("-");
+            subList = dups.subList(Integer.valueOf(indices[0]), Integer.valueOf(indices[1]));
+        }
         System.out.println(subList.size());
         for (String[] vals : subList)
         {
@@ -331,7 +298,7 @@ public class Main
         //System.out.println(codes[0] + "  " + codes[1] + "  " + codes[2]);
     }
     
-    public static void createFoxml()
+    public static void createFoxml(String arg)
     {
         String[] faodocFiles = IngestionProperties.get("faodoc.export.file.names").split(" ");
         String filter = "M";
@@ -340,7 +307,7 @@ public class Main
         ArrayList<ItemType> eimsList = EimsCdrItem.allEIMSItemsAsList(eimsFiles);
         try
         {
-            List<String[]> duplicates = parseLogFile();
+            List<String[]> duplicates = parseLogFile(arg);
             for (String[] duplicate : duplicates)
             {
                 String arn = null;
@@ -358,17 +325,21 @@ public class Main
                 if (arn != null && id != null)
                 {
                     System.out.println("Merging EIMS " + id + " with FAODOC " + arn);
+                    DigitalObjectDocument fox = new Foxml().merge(faodoc, eims);
+                    fox.save(new File(FOXML_DESTINATION_DIR + arn + "_" + id), XBeanUtils.getFoxmlOpts());
                 }
                 else
                 {
                     if (arn != null)
                     {
                         System.out.println("Creating FOXML for " + arn);
+                        DigitalObjectDocument fox = new Foxml().merge(faodoc, null);
+                        fox.save(new File(FOXML_DESTINATION_DIR + arn), XBeanUtils.getFoxmlOpts());
                     }
                 }
                 //DigitalObjectDocument fox = new Foxml().merge(faodoc, eims);
                 //fox.save(new File(FOXML_DESTINATION_DIR + arn + "_" + id), XBeanUtils.getFoxmlOpts());
-                System.out.println("file name " + FOXML_DESTINATION_DIR + arn + "_" + id);
+                //System.out.println("file name " + FOXML_DESTINATION_DIR + arn + "_" + id);
             }
         }
         catch (Exception e1)

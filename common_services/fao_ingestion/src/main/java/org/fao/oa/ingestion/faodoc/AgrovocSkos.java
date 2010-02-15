@@ -112,7 +112,7 @@ public class AgrovocSkos
         //String qry = "SELECT ?S ?P ?O WHERE {?S <http://www.w3.org/2004/02/skos/core#prefLabel> ?O FILTER regex(str(?O), \"^"+ label +"$\", \"i\")}";
 
         String qry = "SELECT ?S WHERE {?S <http://www.w3.org/2004/02/skos/core#prefLabel> \"" + label + "\"@en}";
-        System.out.println(qry);
+        //System.out.println(qry);
         Query q = QueryFactory.create(qry);
         QueryExecution qexec = QueryExecutionFactory.create(q, model);
         ResultSet results = qexec.execSelect();
