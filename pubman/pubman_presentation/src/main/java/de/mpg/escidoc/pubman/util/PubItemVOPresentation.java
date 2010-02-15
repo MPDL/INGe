@@ -602,6 +602,14 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     }
     
     /**
+     * @return String the title
+     */
+    public String getFullTitle()
+    {
+        return getMetadata().getTitle().getValue();
+    }
+    
+    /**
      * Returns the source title (50 Chars) of the first source and crops the last characters 
      * @return String the event title
      */

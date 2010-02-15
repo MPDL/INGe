@@ -154,7 +154,7 @@
  				</span>
  				<span class="seperator status"></span>
  				<span class="free_area0_p6 endline itemHeadline">
- 					<h:outputLink id="lnkList_shortTitle" title="#{tip.list_shortTitle}" value="#{item.link}">
+ 					<h:outputLink id="lnkList_shortTitle" title="#{item.fullTitle}" value="#{item.link}">
  						<b><h:outputText id="lblShortTitle" value="#{item.shortTitle}"/></b>
  					</h:outputLink>
 					
