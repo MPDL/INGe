@@ -1048,7 +1048,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             try
             {
                 exportAttFile = File.createTempFile("eSciDoc_Export_" + curExportFormat.getName() + "_" + date, "."
-                        + curExportFormat.getSelectedFileFormat().getName());
+                        + FileFormatVO.getExtensionByName(sb.getFileFormat()));
                 FileOutputStream fos = new FileOutputStream(exportAttFile);
                 fos.write(exportFileData);
                 fos.close();
