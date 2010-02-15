@@ -93,6 +93,10 @@
 	March, 2009
 	- version changed to 0.8
 	- Changed namespace of refered component schema (0.7 to 0.8).
+	  
+	July, 2009
+	- version changed to ??????????????????????????????????
+	- refers to xml in version 0.4
 	
 -->
 <xs:schema attributeFormDefault="unqualified"
@@ -126,7 +130,7 @@
 	<xs:import namespace="http://www.escidoc.de/schemas/components/0.8"
 		schemaLocation="../../../rest/item/0.8/components.xsd" />
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../rest/common/0.3/xml.xsd" />
+		schemaLocation="../../../rest/common/0.4/xml.xsd" />
 	
 	<xs:element name="item">
 		<xs:annotation>

@@ -44,6 +44,10 @@
 	- version changed to 0.6
 	- added properties/public-status-comment
 	
+	
+	July, 2009
+	- removed member-refs from Resources.
+	
 -->
 
 <xs:schema attributeFormDefault="unqualified"
@@ -233,18 +237,6 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="members" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>
-							<create>discarded</create>
-							<update>discarded</update>
-						</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:attributeGroup
-							ref="common-types:readOnlyESciDocResourceLinkAttributes" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="member-refs" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>
 							<create>discarded</create>

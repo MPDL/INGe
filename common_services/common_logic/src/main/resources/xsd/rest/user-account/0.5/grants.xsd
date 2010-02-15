@@ -154,7 +154,7 @@
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element minOccurs="0"
+                            <xs:element minOccurs="0" maxOccurs="unbounded"
                                 ref="srel:granted-to">
                                 <xs:annotation>
                                     <xs:documentation>

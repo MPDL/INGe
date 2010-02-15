@@ -1,3 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	Changes applied to this schema (since version 0.4, July 2009):
+	  
+	July, 2009
+	- version changed to ??????????????????????????????????
+	- refers to xml and xlink in version 0.4
+	
+ -->
 <xs:schema attributeFormDefault="unqualified"
 	elementFormDefault="qualified"
 	targetNamespace="http://www.escidoc.de/schemas/contentstreams/0.6"
@@ -7,11 +16,11 @@
     xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <xs:import namespace="http://www.w3.org/1999/xlink"
-        schemaLocation="../../../soap/common/0.3/xlink.xsd" />
+        schemaLocation="../../../soap/common/0.4/xlink.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
 		schemaLocation="../../../soap/common/0.4/common-types.xsd" />
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../soap/common/0.3/xml.xsd" />
+		schemaLocation="../../../soap/common/0.4/xml.xsd" />
 
 	<xs:element name="content-streams">
 		<xs:complexType>

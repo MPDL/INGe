@@ -15,6 +15,10 @@
 	removed a restriction of its value
 	
 	- changed name of md-record/@type to md-record/@md-type
+	  
+	July, 2009
+	- version changed to ??????????????????????????????????
+	- refers to xml in version 0.4
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://www.escidoc.de/schemas/metadatarecords/0.4"
@@ -24,7 +28,7 @@
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
 		schemaLocation="../../../rest/common/0.4/common-types.xsd" />
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../rest/common/0.3/xml.xsd" />
+		schemaLocation="../../../rest/common/0.4/xml.xsd" />
 	<xs:element name="md-records">
 		<xs:annotation>
 			<xs:documentation>

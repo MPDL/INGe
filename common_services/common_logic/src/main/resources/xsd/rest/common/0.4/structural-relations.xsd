@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	  
+	July, 2009
+	- refers to xlink in version 0.4
+	
+ -->
 <xs:schema attributeFormDefault="unqualified"
 	elementFormDefault="qualified"
 	targetNamespace="http://escidoc.de/core/01/structural-relations/"
@@ -8,7 +14,7 @@
 	xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
     <xs:import namespace="http://www.w3.org/1999/xlink"
-        schemaLocation="../../../rest/common/0.3/xlink.xsd" />
+        schemaLocation="../../../rest/common/0.4/xlink.xsd" />
 
 	<xs:annotation>
 		<xs:documentation>
@@ -22,6 +28,14 @@
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
 		schemaLocation="../../../rest/common/0.4/common-types.xsd" />
 
+    <xs:element name="origin" type="common-types:linkForCreate">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to the source resource of a resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
 	<xs:element name="created-by" type="common-types:readOnlyLink">
 		<xs:annotation>
 			<xs:documentation>

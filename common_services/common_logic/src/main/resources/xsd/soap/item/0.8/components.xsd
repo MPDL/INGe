@@ -48,6 +48,10 @@
 	- version changed to 0.8
 	- Added elements checksum and checksum-algorithm to properties, both are
 	  optional and discarded on create or update. Just for deliver these values.
+	  
+	July, 2009
+	- version changed to ??????????????????????????????????
+	- refers to xml and xlink in version 0.4
 	
 -->
 
@@ -70,12 +74,12 @@
 		namespace="http://escidoc.de/core/01/structural-relations/"
 		schemaLocation="../../../soap/common/0.4/structural-relations.xsd" />
 	<xs:import namespace="http://www.w3.org/1999/xlink"
-		schemaLocation="../../../soap/common/0.3/xlink.xsd" />
+		schemaLocation="../../../soap/common/0.4/xlink.xsd" />
 	<xs:import
 		namespace="http://www.escidoc.de/schemas/metadatarecords/0.4"
 		schemaLocation="../../../soap/common/0.4/md-records.xsd" />
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../soap/common/0.3/xml.xsd" />
+		schemaLocation="../../../soap/common/0.4/xml.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
 		schemaLocation="../../../soap/common/0.4/common-types.xsd" />
 
@@ -166,18 +170,7 @@
 				<xs:element ref="components:properties"></xs:element>
 
 				<xs:element name="content">
-					<xs:annotation>
-						<xs:documentation>
-							<create>optional</create>
-							<update>optional (see comment)</update>
-							<comment>
-								if not present in XML-stream and exists
-								in stored object this content will be
-								deleted.
-							</comment>
-						</xs:documentation>
-					</xs:annotation>
-
+					
 					<xs:complexType>
 						<xs:simpleContent>
 							<xs:extension base="xs:string">

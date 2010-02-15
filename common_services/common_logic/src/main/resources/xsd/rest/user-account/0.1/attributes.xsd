@@ -41,6 +41,8 @@
                             </xs:documentation>
                         </xs:annotation>
                     </xs:attribute>
+                    <xs:attributeGroup ref="common-types:eSciDocResourceLocationAttributes" />
+                    <xs:attributeGroup ref="common-types:eSciDocRootElementAttributes" />
                     <xs:attribute name="internal" use="optional"
                         type="xs:boolean">
 						<xs:annotation>
