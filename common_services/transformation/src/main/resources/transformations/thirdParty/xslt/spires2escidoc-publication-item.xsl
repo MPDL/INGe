@@ -201,22 +201,28 @@
 	
 	<!-- IDENTIFIER -->	
 	<xsl:template match="doi">
-		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eterms:DOI</xsl:attribute>							
-			<xsl:value-of select="."/>
-		</xsl:element>
+	   	<xsl:if test="not(. = '')">
+			<xsl:element name="dc:identifier">
+				<xsl:attribute name="xsi:type">eterms:DOI</xsl:attribute>							
+				<xsl:value-of select="."/>
+			</xsl:element>
+		</xsl:if>
 	</xsl:template>
 	<xsl:template match="eprint">
-		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>							
-			<xsl:value-of select="."/>
-		</xsl:element>
+		<xsl:if test="not(. = '')">
+			<xsl:element name="dc:identifier">
+				<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>							
+				<xsl:value-of select="."/>
+			</xsl:element>
+		</xsl:if>
 	</xsl:template>
 	<xsl:template match="spires_key">
-		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>							
-			<xsl:value-of select="concat('spires:',.)"/>
-		</xsl:element>
+		<xsl:if test="not(. = '')">
+			<xsl:element name="dc:identifier">
+				<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>							
+				<xsl:value-of select="concat('spires:',.)"/>
+			</xsl:element>
+		</xsl:if>
 	</xsl:template>
 	
 	<!-- DATES -->
