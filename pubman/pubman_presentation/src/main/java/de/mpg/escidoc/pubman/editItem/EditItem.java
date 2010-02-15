@@ -813,6 +813,38 @@ public class EditItem extends FacesBean
         // bind the temporary uploaded files to the files in the current item
         bindUploadedFilesAndLocators();
         
+        // start: check if the item has been changed
+        PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+        PubItemVO oldPubItem = null;
+        try
+        {
+            oldPubItem = this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not retrieve item." + "\n" + e.toString(), e);
+            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+            
+            return ErrorPage.LOAD_ERRORPAGE;
+        }
+        
+        if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem))
+        {
+            logger.warn("Item has not been changed.");
+
+            // create a validation report
+            ValidationReportVO changedReport = new ValidationReportVO();
+            ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
+            changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
+            changedReportItem.setContent("itemHasNotBeenChanged");                                
+            changedReport.addItem(changedReportItem);
+            
+            // show report and stay on this page
+            this.showValidationMessages(changedReport);                
+            return null;
+        }
+        // end: check if the item has been changed
+        
         //  cleanup item according to genre specific MD specification
         GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(), GenreSecificItemManager.SUBMISSION_METHOD_FULL);
         try 
@@ -868,7 +900,8 @@ public class EditItem extends FacesBean
                 String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
                 info(localMessage);
                 getSubmitItemSessionBean().setMessage(localMessage);
-            }
+            }           
+            
             return retVal;
         }
         else if (report.isValid())
