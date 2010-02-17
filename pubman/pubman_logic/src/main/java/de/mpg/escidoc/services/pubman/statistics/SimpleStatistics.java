@@ -263,8 +263,13 @@ public class SimpleStatistics implements PubItemSimpleStatistics
     private List<StatisticReportDefinitionVO> retrieveReportDefinitionListFromFile() throws Exception
     {
         String repDefListXML = ResourceUtil.getResourceAsString(REPORTDEFINITION_FILE);
-       
-        List<StatisticReportDefinitionVO> repDefVOList =  xmlTransforming.transformToStatisticReportDefinitionList(repDefListXML);
+        String[] repDefs = repDefListXML.split("\n");
+        List<StatisticReportDefinitionVO> repDefVOList = new ArrayList<StatisticReportDefinitionVO>();
+        for(String repDefXml : repDefs)
+        {
+        	repDefVOList.add(xmlTransforming.transformToStatisticReportDefinition(repDefXml));
+        	
+        }
         return repDefVOList;
         
     }
