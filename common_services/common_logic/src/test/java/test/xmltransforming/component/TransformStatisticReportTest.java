@@ -158,19 +158,19 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase
         assertNotNull("report definition is null", reportDefVO1);
         
      
-        assertEquals("Wrong object id in report-definition", "1", reportDefVO1.getObjectId());
-        assertEquals("Wrong scope id in report-definition", "1", reportDefVO1.getScopeID());
+        assertEquals("Wrong object id in report-definition", "escidoc:repdef1", reportDefVO1.getObjectId());
+        assertEquals("Wrong scope id in report-definition", "escidoc:scope1", reportDefVO1.getScopeID());
         assertEquals("Wrong name in report-definition", "Successful Framework Requests", reportDefVO1.getName());
-        assertEquals("Wrong sql string in report-definition", "select handler, request, day, month, year, sum(requests) from _1_request_statistics group by handler, request, day, month, year;", reportDefVO1.getSql());
+        assertEquals("Wrong sql string in report-definition", "select handler, request, day, month, year, sum(requests) from _escidocaggdef1_request_statistics group by handler, request, day, month, year;", reportDefVO1.getSql());
         
         StatisticReportDefinitionVO reportDefVO2 = statisticReportRecordList.get(8);
         assertNotNull("report definition is null", reportDefVO2);
         
      
-        assertEquals("Wrong object id in report-definition", "9", reportDefVO2.getObjectId());
-        assertEquals("Wrong scope id in report-definition", "2", reportDefVO2.getScopeID());
+        assertEquals("Wrong object id in report-definition", "escidoc:repdef9", reportDefVO2.getObjectId());
+        assertEquals("Wrong scope id in report-definition", "escidoc:scope2", reportDefVO2.getScopeID());
         assertEquals("Wrong name in report-definition", "File downloads, anonymous users", reportDefVO2.getName());
-        assertEquals("Wrong sql string in report-definition", "select object_id as fileId, sum(requests) as fileRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%') and handler='ItemHandler' and request='retrieveContent' and user_id='' group by object_id;", reportDefVO2.getSql());
+        assertEquals("Wrong sql string in report-definition", "select object_id as fileid, sum(requests) as filerequests from _escidocaggdef1_object_statistics where object_id = {object_id} and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' and user_id='' group by object_id;", reportDefVO2.getSql());
         
         
        

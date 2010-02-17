@@ -87,6 +87,8 @@ import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.ResultVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchResultVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.TocItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TocVO;
@@ -1651,15 +1653,16 @@ public class XmlTransformingBean implements XmlTransforming
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToStatisticReportDefinitionList: reportDefinitionList is null");
         }
-        StatisticReportDefinitionVOListWrapper statisticReportDefinitionVOWrapper = null;
+        SearchRetrieveResponseVO response = null;
+        
         try
         {
             // unmarshal StatisticReport from String
-            IBindingFactory bfact = BindingDirectory.getFactory("StatisticReport", StatisticReportDefinitionVOListWrapper.class);
+            IBindingFactory bfact = BindingDirectory.getFactory("StatisticReport", SearchRetrieveResponseVO.class);
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
             StringReader sr = new StringReader(reportDefinitionList);
             Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
-            statisticReportDefinitionVOWrapper = (StatisticReportDefinitionVOListWrapper)unmarshalledObject;
+            response = (SearchRetrieveResponseVO)unmarshalledObject;
         }
         catch (JiBXException e)
         {
@@ -1671,12 +1674,16 @@ public class XmlTransformingBean implements XmlTransforming
         {
             throw new TechnicalException(e);
         }
+        List<StatisticReportDefinitionVO> repDefList = new ArrayList<StatisticReportDefinitionVO>();
        
-        if (statisticReportDefinitionVOWrapper.getRepDefList() != null)
+        if (response.getRecords() != null)
         {
-            return statisticReportDefinitionVOWrapper.getRepDefList();
+            for(SearchRetrieveRecordVO s : response.getRecords())
+            {
+            	repDefList.add((StatisticReportDefinitionVO) s.getData());
+            }
         }
-        else return new ArrayList<StatisticReportDefinitionVO>();
+        return repDefList;
         
     }
 

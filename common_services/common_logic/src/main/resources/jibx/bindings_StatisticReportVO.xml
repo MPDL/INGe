@@ -34,8 +34,9 @@
 	
 	<namespace prefix="report" uri="${xsd.soap.statistic.report}" default="none" />
 	<namespace prefix="report-parameters" uri="${xsd.soap.statistic.reportparameters}" default="none" />
-	<namespace prefix="report-definition-list" uri="${xsd.soap.statistic.reportdefinitionlist}" default="elements" />
+	<namespace prefix="report-definition-list" uri="${xsd.soap.statistic.reportdefinitionlist}" default="none" />
 	<namespace prefix="report-definition" uri="${xsd.soap.statistic.reportdefinition}" default="none" />
+	<namespace prefix="zs" uri="${xsd.soap.searchRetrieveResponse}" default="none" />
 	
 
 	<format type="java.util.Date" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
@@ -49,6 +50,8 @@
 	
 	<include path="StatisticReportDefinitionVO_binding.xml" />
 	<include path="StatisticReportDefinitionVOList_binding.xml" />
+	
+	<include path="SearchRetrieveResponse_binding_input.xml" />
 	
 	             
 	

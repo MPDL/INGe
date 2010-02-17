@@ -58,6 +58,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.escidoc.services.common.valueobjects.TextFragmentVO;
 import de.mpg.escidoc.services.common.valueobjects.TocDivVO;
 import de.mpg.escidoc.services.common.valueobjects.TocPtrVO;
@@ -529,6 +530,11 @@ public class JiBXHelper
             e.printStackTrace();
         }
         return url;
+    }
+    
+    public static List<SearchRetrieveRecordVO> searchRetrieveRecordVOListFactory()
+    {
+    	return new ArrayList<SearchRetrieveRecordVO>();
     }
 
     /**
