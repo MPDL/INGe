@@ -60,6 +60,8 @@ public class SearchResultVO implements SearchResultElement
      */
     private java.util.List<SearchHitVO> searchHitList = new java.util.ArrayList<SearchHitVO>();
     private Searchable resultVO;
+    
+    private float score;
 
     /**
      * {@inheritDoc}
@@ -77,6 +79,22 @@ public class SearchResultVO implements SearchResultElement
     public void setResultVO(Searchable resultVO)
     {
         this.resultVO = resultVO;
+    }
+
+    /**
+     * @return the score
+     */
+    public float getScore()
+    {
+        return score;
+    }
+
+    /**
+     * @param score the score to set
+     */
+    public void setScore(float score)
+    {
+        this.score = score;
     }
     
 }
