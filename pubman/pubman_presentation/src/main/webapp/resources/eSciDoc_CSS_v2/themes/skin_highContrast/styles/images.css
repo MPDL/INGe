@@ -361,6 +361,24 @@
 			background-repeat: no-repeat;
 			background-position: left;
 		}
+		
+		.virrMediaTypeV {
+			background-image: url('../images/Virr_Media_TypeVolume_31_Static.gif');
+			background-repeat: no-repeat;
+			background-position: left;
+		}
+		
+		.virrMediaTypeMG {
+			background-image: url('../images/Virr_Media_TypeMonographie_31_Static.gif');
+			background-repeat: no-repeat;
+			background-position: left;
+		}
+		
+		.virrMediaTypeM {
+			background-image: url('../images/Virr_Media_TypeMultivolume_31_Static.gif');
+			background-repeat: no-repeat;
+			background-position: left;
+		}
 
 	/*AFFILIATION TREE*/
 		.organisationalUnit {
