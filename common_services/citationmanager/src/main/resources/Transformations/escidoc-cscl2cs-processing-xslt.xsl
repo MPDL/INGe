@@ -334,6 +334,9 @@
 					<xsl:call-template name="applyMaxLengthEndsWith">
 						<xsl:with-param name="params" select="$params"/>
 					</xsl:call-template>
+					<xsl:call-template name="applyI18N">
+						<xsl:with-param name="params" select="$params"/>
+					</xsl:call-template>
 					<xsl:call-template name="applyFontStyle">
 						<xsl:with-param name="params" select="$params"/>
 					</xsl:call-template>
@@ -357,6 +360,9 @@
 						<xsl:with-param name="le" select="$le"/>
 					</xsl:call-template>
 					<xsl:call-template name="applyStartsWithEndsWith">
+						<xsl:with-param name="params" select="$params"/>
+					</xsl:call-template>
+					<xsl:call-template name="applyI18N">
 						<xsl:with-param name="params" select="$params"/>
 					</xsl:call-template>
 					<xsl:call-template name="applyFontStyle">
@@ -394,6 +400,9 @@
 					<xsl:with-param name="le" select="$le"/>
 				</xsl:call-template>
 				<xsl:call-template name="applyStartsWithEndsWith">
+					<xsl:with-param name="params" select="$params"/>
+				</xsl:call-template>
+				<xsl:call-template name="applyI18N">
 					<xsl:with-param name="params" select="$params"/>
 				</xsl:call-template>
 				<xsl:call-template name="applyFontStyle">
@@ -684,8 +693,31 @@
 			
 		</xsl:if>
 	</xsl:template>
-
 	
+	<!--#### I18N (localization/internationalization) ####-->
+	<xsl:template name="applyI18N">
+		<xsl:param name="params" />
+		<xsl:variable name="ref" select="$params/cit:i18n/@ref"/>
+		
+		<xsl:if test="$ref!=''">
+			<xsl:comment>i18n</xsl:comment>
+			
+			<xsl:element name="xsl:variable">
+				<xsl:attribute name="name" select="'var'"/>
+				<xsl:element name="xsl:if">
+					<xsl:attribute name="test" select="'exists($var) and $var!='''''" />
+					
+					<xsl:value-of select="concat ( '&lt;localized class=&quot;', $ref, '&quot;&gt;' )"/>
+						<xsl:element name="xsl:copy-of">
+							<xsl:attribute name="select" select="'$var'"/>
+						</xsl:element>
+					<xsl:value-of select="'&lt;/localized&gt;'"/>
+					
+				</xsl:element> 
+			</xsl:element>
+			
+		</xsl:if>
+	</xsl:template>
 
 
 						
