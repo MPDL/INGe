@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <item:item xmlns:report="http://www.escidoc.de/schemas/report/0.3" 
-	xmlns:item="http://www.escidoc.de/schemas/item/0.8" 
+	xmlns:item="http://www.escidoc.de/schemas/item/0.9" 
 	xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" 
 	xmlns:context="http://www.escidoc.de/schemas/context/0.6" 
 	xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" 
 	xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" 
-	xmlns:mdrecords="http://www.escidoc.de/schemas/metadatarecords/0.4" 
+	xmlns:mdrecords="http://www.escidoc.de/schemas/metadatarecords/0.5" 
 	xmlns:escidocprofile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" 
 	xmlns:relations="http://www.escidoc.de/schemas/relations/0.3" 
 	xmlns:commontypes="http://www.escidoc.de/schemas/commontypes/0.4" 
@@ -20,20 +20,20 @@
 	xmlns:version="http://escidoc.de/core/01/properties/version/" 
 	xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" 
 	xmlns:memberlist="http://www.escidoc.de/schemas/memberlist/0.8" 
-	xmlns:metadatarecords="http://www.escidoc.de/schemas/metadatarecords/0.4" 
+	xmlns:metadatarecords="http://www.escidoc.de/schemas/metadatarecords/0.5" 
 	xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:table-of-content="http://www.escidoc.de/schemas/tableofcontent/0.1"
 >
   		            
-  	<item:properties  xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:xlink="http://www.w3.org/1999/xlink">
+  	<item:properties  xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<srel:context objid="escidoc:persistent3"/>
 		<srel:content-model objid="escidoc:persistent4"/>
 		<prop:content-model-specific>
 			<anything/>
 		</prop:content-model-specific>
 	</item:properties>
-	<md-records:md-records  xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<md-records:md-records  xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<md-records:md-record name="escidoc">
 			<publication:publication type="http://purl.org/eprint/type/Thesis">
 	        <escidoc:creator role="http://www.loc.gov/loc.terms/relators/EDT">
