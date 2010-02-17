@@ -198,7 +198,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics
             
             ReportDefinitionHandler repDefHandler = ServiceLocator.getReportDefinitionHandler(AdminHelper.getAdminUserHandle());
             //EntityManager em = emf.createEntityManager();
-            String repDefFrameworkListXML = repDefHandler.retrieveReportDefinitions("anonymous");
+            String repDefFrameworkListXML = repDefHandler.retrieveReportDefinitions(new HashMap<String, String[]>());
             List<StatisticReportDefinitionVO> repDefFrameworkList = xmlTransforming.transformToStatisticReportDefinitionList(repDefFrameworkListXML);
             
             
