@@ -201,7 +201,18 @@
 						<layout-element ref="func:get_initials(e:person/e:given-name/text())"/>
 					</elements>
 				</layout-element>
-				<layout-element ref="$ed-postfix" />
+				<layout-element ref="$ed-postfix" >
+					<parameters>
+						<valid-if><![CDATA[$editorsCount=1]]></valid-if>
+						<i18n ref="editor"/>
+					</parameters>
+				</layout-element>
+				<layout-element ref="$ed-postfix" >
+					<parameters>
+						<valid-if><![CDATA[$editorsCount>1]]></valid-if>
+						<i18n ref="editors"/>
+					</parameters>
+				</layout-element>
 			</elements>
 		</layout-element>
 		
@@ -702,7 +713,7 @@
 		<parameters>
 			<valid-if><![CDATA[
 				$genre = ( 'book', 'proceedings') 
-				or ( $genre = ( 'conference-report', 'conference-paper') and 
+				or ( $genre = ( 'conference-report', 'conference-paper', 'other' ) and 
 					not($source-type = ('journal', 'proceedings', 'book' ))  
 				)  
 				or ( $genre = 'other' and not($source-type) )

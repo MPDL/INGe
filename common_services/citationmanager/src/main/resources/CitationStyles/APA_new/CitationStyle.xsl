@@ -290,6 +290,27 @@
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$ed-postfix"/>
+                                                        <!--valid-if--><xsl:variable name="var">
+                                                            <xsl:if test="$editorsCount=1"><!--i18n--><xsl:variable name="var">
+                                                                    <xsl:if test="exists($var) and $var!=''">&lt;localized class="editor"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                                </xsl:variable>
+                                                                <xsl:copy-of select="$var"/>
+                                                            </xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$ed-postfix"/>
+                                                        <!--valid-if--><xsl:variable name="var">
+                                                            <xsl:if test="$editorsCount&gt;1"><!--i18n--><xsl:variable name="var">
+                                                                    <xsl:if test="exists($var) and $var!=''">&lt;localized class="editors"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                                </xsl:variable>
+                                                                <xsl:copy-of select="$var"/>
+                                                            </xsl:if>
+                                                        </xsl:variable>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
@@ -1606,7 +1627,7 @@
                                 </xsl:variable>
                                 <xsl:copy-of select="$journal-article-etc"/>
                             </xsl:when>
-                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = ( 'book', 'proceedings') &#xA;&#x9;&#x9;&#x9;&#x9;or ( $genre = ( 'conference-report', 'conference-paper') and &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;not($source-type = ('journal', 'proceedings', 'book' ))  &#xA;&#x9;&#x9;&#x9;&#x9;)  &#xA;&#x9;&#x9;&#x9;&#x9;or ( $genre = 'other' and not($source-type) )&#xA;&#x9;&#x9;&#x9;">
+                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = ( 'book', 'proceedings') &#xA;&#x9;&#x9;&#x9;&#x9;or ( $genre = ( 'conference-report', 'conference-paper', 'other' ) and &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;not($source-type = ('journal', 'proceedings', 'book' ))  &#xA;&#x9;&#x9;&#x9;&#x9;)  &#xA;&#x9;&#x9;&#x9;&#x9;or ( $genre = 'other' and not($source-type) )&#xA;&#x9;&#x9;&#x9;">
                                 <xsl:variable name="book-etc"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                     <xsl:variable name="var">

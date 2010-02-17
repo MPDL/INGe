@@ -33,6 +33,8 @@
 	>
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"
 		cdata-section-elements="dcterms:bibliographicCitation" />
+
+
 	<xsl:template match="/*">
 		<xsl:call-template name="createJasperDS" />
 	</xsl:template>
@@ -44,8 +46,24 @@
 					<xsl:value-of select="jfunc:convertSnippetToJasperStyledText(.)"/>					
 				</xsl:element>
 
-<!--				<xsl:copy-of select="." copy-namespaces="no" />-->
 			</xsl:for-each>
 		</snippets>
 	</xsl:template>
+
+		
+<!--		<xsl:template match="node() | @*">-->
+<!--	        <xsl:copy>-->
+<!--	            <xsl:apply-templates select="@* | node ()"/>-->
+<!--	        </xsl:copy>-->
+<!--	    </xsl:template>-->
+<!--	    		-->
+<!--		<xsl:template match="prop:content-model-specific">-->
+<!--		     <xsl:element name="{name(.)}">-->
+<!--		         <xsl:copy-of select="child::node()[name(.)!='dcterms:bibliographicCitation']"/>-->
+<!--		         <xsl:element name="dcterms:bibliographicCitation">-->
+<!--		         	<xsl:value-of select="jfunc:convertSnippetToJasperStyledText(dcterms:bibliographicCitation/text())"/>-->
+<!--		         </xsl:element>-->
+<!--		      </xsl:element>-->
+<!--		</xsl:template>-->
+	
 </xsl:stylesheet>

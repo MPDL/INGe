@@ -52,10 +52,11 @@ import de.mpg.escidoc.services.citationmanager.data.FontStylesCollection;
 public class XsltHelper 
 {
 	private static final Logger logger = Logger.getLogger(XsltHelper.class);
-	
+
 	//FontStyleCollection 
 	public static FontStylesCollection fsc = null;
 		
+	public static final String I18N_TAG = "localized";
 	
 	/**
 	 * Load Default FontStylesCollection only once 
@@ -92,6 +93,8 @@ public class XsltHelper
 	public static String convertSnippetToJasperStyledText(String snippet) throws CitationStyleManagerException
     {  
 		
+		snippet = removeI18N (snippet);
+		
 		loadFontStylesCollection();
 		
         if ( ! Utils.checkVal(snippet) || fsc == null ) return snippet;
@@ -126,4 +129,15 @@ public class XsltHelper
         
         return snippet;
     }
+
+
+	public static String removeI18N( String snippet ) 
+	{
+		return Utils.replaceAllTotal(
+				snippet, 
+				"<" + I18N_TAG + "\\s+class=\"\\w+\".*?>(.*?)</" + I18N_TAG + ">", 
+				"$1"
+		);
+	}
+	
 }
