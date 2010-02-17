@@ -39,24 +39,24 @@
  
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 
-		xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.8"		
-  		xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.8"
+		xmlns:escidocItemList="${xsd.soap.item.itemlist}"		
+  		xmlns:escidocItem="${xsd.soap.item.item}"
   		
-        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"
-		xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-		xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+        xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"
+		xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}"
+		xmlns:escidoc="${xsd.metadata.escidocprofile.types}"
 		  		
-		xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"        
-		xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
-		xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
-		xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
-		xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
-        xmlns:idtype="http://purl.org/escidoc/metadata/terms/0.1/"
-		xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"		
+		xmlns:publication="${xsd.metadata.publication}"        
+		xmlns:eterms="${xsd.metadata.terms}"
+		xmlns:organization="${xsd.metadata.organization}"
+		xmlns:person="${xsd.metadata.person}"
+		xmlns:source="${xsd.metadata.source}"
+        xmlns:idtype="${xsd.metadata.escidocprofile.idtypes}"
+		xmlns:event="${xsd.metadata.event}"		
 
-        xmlns:file="http://purl.org/metadata/profiles/0.1/file"
+        xmlns:file="${xsd.metadata.file}"
         
-        xmlns:prop="http://escidoc.de/core/01/properties/"
+        xmlns:prop="${xsd.soap.common.prop}"
         
         xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:dcterms="http://purl.org/dc/terms/"

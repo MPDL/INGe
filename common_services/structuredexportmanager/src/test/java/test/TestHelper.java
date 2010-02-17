@@ -93,41 +93,6 @@ public class TestHelper
     }
 
     /**
-     * Reads contents from text file and returns it as String.
-     *
-     * @param fileName Name of input file
-     * @return Entire contents of filename as a String
-     */
-    public static String readFile(final String fileName, String enc)
-    {
-        boolean isFileNameNull = (fileName == null);
-        StringBuffer fileBuffer;
-        String fileString = null;
-        String line;
-        if (!isFileNameNull)
-        {
-            try
-            {
-//                InputStreamReader isr = new InputStreamReader(new FileInputStream(fileName), "UTF-8");
-                InputStreamReader isr = new InputStreamReader(new FileInputStream(fileName), enc);
-                BufferedReader br = new BufferedReader(isr);
-                fileBuffer = new StringBuffer();
-                while ((line = br.readLine()) != null)
-                {
-                    fileBuffer.append(line + "\n");
-                }
-                isr.close();
-                fileString = fileBuffer.toString();
-            }
-            catch (IOException e)
-            {
-                return null;
-            }
-        }
-        return fileString;
-    }
-    
-    /**
      * Reads contents from text file and returns it as array of bytes.
      * @param fileName
      * @return

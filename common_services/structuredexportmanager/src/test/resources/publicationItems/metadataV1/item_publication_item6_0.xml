@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <escidocItem:item 
-	xmlns:relations="http://www.escidoc.de/schemas/relations/0.3" 
-	xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" 
+	xmlns:relations="${xsd.soap.common.relations}" 
+	xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" 
 	xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6" 
-	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.8" 
-	xmlns:version="http://escidoc.de/core/01/properties/version/" 
-	xmlns:release="http://escidoc.de/core/01/properties/release/" 
-	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.8" 
-	xmlns:prop="http://escidoc.de/core/01/properties/" 
-	xmlns:srel="http://escidoc.de/core/01/structural-relations/" 
+	xmlns:escidocComponents="${xsd.soap.item.components}" 
+	xmlns:version="${xsd.soap.common.version}" 
+	xmlns:release="${xsd.soap.common.release}" 
+	xmlns:escidocItem="${xsd.soap.item.item}" 
+	xmlns:prop="${xsd.soap.common.prop}" 
+	xmlns:srel="${xsd.soap.common.srel}" 
 	xmlns:xlink="http://www.w3.org/1999/xlink" 
 	xmlns:xml="http://www.w3.org/XML/1998/namespace" 
 	xml:base="http://localhost:18080" 
@@ -44,7 +44,7 @@
 			<release:date>2007-11-15T08:36:58.765Z</release:date>
 		</prop:latest-release>
 		<prop:content-model-specific 
-			xmlns:prop="http://escidoc.de/core/01/properties/"
+			xmlns:prop="${xsd.soap.common.prop}"
 		></prop:content-model-specific>
 	
 	</escidocItem:properties>
@@ -197,15 +197,15 @@
 	</escidocItem:resources>
 </escidocItem:item>
 <!-- escidocItem:item 
-	xmlns:relations="http://www.escidoc.de/schemas/relations/0.3" 
-	xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" 
+	xmlns:relations="${xsd.soap.common.relations}" 
+	xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" 
 	xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6" 
 	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.6" 
-	xmlns:version="http://escidoc.de/core/01/properties/version/" 
-	xmlns:release="http://escidoc.de/core/01/properties/release/" 
+	xmlns:version="${xsd.soap.common.version}" 
+	xmlns:release="${xsd.soap.common.release}" 
 	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.6" 
-	xmlns:prop="http://escidoc.de/core/01/properties/" 
-	xmlns:srel="http://escidoc.de/core/01/structural-relations/" 
+	xmlns:prop="${xsd.soap.common.prop}" 
+	xmlns:srel="${xsd.soap.common.srel}" 
 	xmlns:xlink="http://www.w3.org/1999/xlink" 
 	xmlns:xml="http://www.w3.org/XML/1998/namespace" 
 	xml:base="http://localhost:18080" 
@@ -241,7 +241,7 @@
 			<release:date>2007-11-15T08:36:58.765Z</release:date>
 		</prop:latest-release>
 		<prop:content-model-specific 
-			xmlns:prop="http://escidoc.de/core/01/properties/"
+			xmlns:prop="${xsd.soap.common.prop}"
 		></prop:content-model-specific>
 	
 	</escidocItem:properties>

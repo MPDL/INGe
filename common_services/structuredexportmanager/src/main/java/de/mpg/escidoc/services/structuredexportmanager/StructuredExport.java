@@ -76,7 +76,7 @@ public class StructuredExport implements StructuredExportHandler {
 
 	private final static Logger logger = Logger.getLogger(StructuredExport.class);
 	
-	private final static String PATH_TO_RESOURCES = "resources/";
+	private final static String PATH_TO_RESOURCES = "";
 	private final static String PATH_TO_SCHEMAS = PATH_TO_RESOURCES + "schemas/";
 	private final static String EXPLAIN_FILE = "explain-structured-formats.xml";
     private static final Map<String, String> XSLT_FILE_LIST =   

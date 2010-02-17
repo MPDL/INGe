@@ -40,13 +40,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-        <resources>
-          <resource>
-            <targetPath>resources</targetPath>
-            <filtering>true</filtering>
-            <directory>${basedir}/src/main/resources</directory>
-          </resource>
-        </resources>          
 	</build>
 
 	<dependencies>

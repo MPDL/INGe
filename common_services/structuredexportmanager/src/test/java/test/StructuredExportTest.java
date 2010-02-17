@@ -51,6 +51,7 @@ import org.junit.Ignore;
 import org.junit.Test; 
 
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
@@ -101,7 +102,7 @@ public class StructuredExportTest
     		
 	    	for ( String key : ITEM_LISTS_FILE_MAMES.keySet() )
 	    	{
-	    		String itemList =  TestHelper.readFile(ITEM_LISTS_FILE_MAMES.get(key), "UTF-8");
+	    		String itemList =  ResourceUtil.getResourceAsString(ITEM_LISTS_FILE_MAMES.get(key));
 	    		assertNotNull("Item list xml is not found", itemList);
 	    		itemLists.put(key, itemList);
 	    	}
@@ -169,7 +170,7 @@ public class StructuredExportTest
 	    	{
 	    		logger.info("Export format: " + f);
 	    		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
-	    		String itemList = TestHelper.readFile(ITEM_LISTS_FILE_MAMES.get(f),"UTF-8");    		
+	    		String itemList = ResourceUtil.getResourceAsString(ITEM_LISTS_FILE_MAMES.get(f));    		
 	    		//logger.info("Test item list:\n" + itemList);
 	    		
 	    		XmlTransforming xmlTransforming = new XmlTransformingBean();
@@ -191,7 +192,7 @@ public class StructuredExportTest
 	    @Test
 	    public void doExportTest() throws Exception
 	    {
-            String itemList = TestHelper.readFile("src/test/resources/publicationItems/metadataV2/item_book.xml","UTF-8");            
+            String itemList = ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_book.xml");            
             XmlTransforming xmlTransforming = new XmlTransformingBean();
             PubItemVO itemVO = xmlTransforming.transformToPubItem(itemList);
             List<PubItemVO> pubitemList = Arrays.asList(itemVO);
@@ -201,7 +202,7 @@ public class StructuredExportTest
             logger.info("BIBTEX (Book)");
             logger.info(new String(result));
             
-            itemList = TestHelper.readFile("src/test/resources/publicationItems/metadataV2/item_book.xml","UTF-8");            
+            itemList = ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_book.xml");            
             itemVO = xmlTransforming.transformToPubItem(itemList);
             pubitemList = Arrays.asList(itemVO);
             itemList = xmlTransforming.transformToItemList(pubitemList);
@@ -210,7 +211,7 @@ public class StructuredExportTest
             logger.info("ENDNOTE (Book)");
             logger.info(new String(result));
             
-            itemList = TestHelper.readFile("src/test/resources/publicationItems/metadataV2/item_thesis.xml","UTF-8");            
+            itemList = ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_thesis.xml");            
             xmlTransforming = new XmlTransformingBean();
             itemVO = xmlTransforming.transformToPubItem(itemList);
             pubitemList = Arrays.asList(itemVO);
@@ -220,7 +221,7 @@ public class StructuredExportTest
             logger.info("BIBTEX (Thesis)");
             logger.info(new String(result));
             
-            itemList = TestHelper.readFile("src/test/resources/publicationItems/metadataV2/item_thesis.xml","UTF-8");            
+            itemList = ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_thesis.xml");            
             itemVO = xmlTransforming.transformToPubItem(itemList);
             pubitemList = Arrays.asList(itemVO);
             itemList = xmlTransforming.transformToItemList(pubitemList);

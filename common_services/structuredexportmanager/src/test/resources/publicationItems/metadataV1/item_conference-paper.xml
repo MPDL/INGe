@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <escidocMetadataRecords:md-record name="escidoc"
-      xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  xml:base="http://srv05.mpdl.mpg.de:8080" xlink:type="simple" xlink:title="escidoc" xlink:href="/ir/item/escidoc:34973/md-records/md-record/escidoc" last-modification-date="2008-06-23T09:39:55.930Z" >
+      xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  xml:base="http://srv05.mpdl.mpg.de:8080" xlink:type="simple" xlink:title="escidoc" xlink:href="/ir/item/escidoc:34973/md-records/md-record/escidoc" last-modification-date="2008-06-23T09:39:55.930Z" >
   
 
 
