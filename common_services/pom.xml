@@ -540,6 +540,7 @@
                 <xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.3</xsd.soap.statistic.reportparameters>
                 <xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.3</xsd.soap.statistic.reportdefinitionlist>
                 <xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.3</xsd.soap.statistic.reportdefinition>
+               
                 <xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
                 <xsd.metadata.dcterms>http://purl.org/dc/terms/</xsd.metadata.dcterms>
 
@@ -569,6 +570,8 @@
 
                 <escidoc.statistics.max_mind_geo_lite_city_db.location />
                 <escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
+                
+                 <xsd.soap.searchRetrieveResponse>http://www.loc.gov/zing/srw/</xsd.soap.searchRetrieveResponse>
 
             </properties>
 
@@ -733,6 +736,8 @@
                 
                 <escidoc.statistics.max_mind_geo_lite_city_db.location />
                 <escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
+                
+                 <xsd.soap.searchRetrieveResponse>http://www.loc.gov/zing/srw/</xsd.soap.searchRetrieveResponse>
 
             </properties>
 
