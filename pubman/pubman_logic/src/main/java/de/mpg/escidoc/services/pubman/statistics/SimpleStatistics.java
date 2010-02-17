@@ -223,14 +223,8 @@ public class SimpleStatistics implements PubItemSimpleStatistics
                     //set Property
                     Map<String, String> reportDefMap =   ReportDefinitionStorage.getInstance().getReportDefinitionMap();
                     reportDefMap.put(repDefFW.getSql(), repDefFW.getObjectId());
-                    
-                    for(String key : reportDefMap.keySet())
-                    {
-                        logger.info(reportDefMap.get(key)+" --- "+key);
-                    }
-                    
-                    
-                    
+                    logger.info("Added existing report definition to Map: " + repDefFW.getObjectId() + " --- " + repDefFW.getSql());
+
                 }
                 //Report Definition does not exist yet
                 else 
@@ -240,6 +234,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics
                     String repDefFWXMLNew = repDefHandler.create(repDefFileXML);
                     StatisticReportDefinitionVO repDefFWNew = xmlTransforming.transformToStatisticReportDefinition(repDefFWXMLNew);
                     ReportDefinitionStorage.getInstance().getReportDefinitionMap().put(repDefFWNew.getSql(), repDefFWNew.getObjectId());
+                    logger.info("Created new report definition and added to Map: " + repDefFWNew.getObjectId() + " --- " + repDefFWNew.getSql());
                     
                 }
             }
