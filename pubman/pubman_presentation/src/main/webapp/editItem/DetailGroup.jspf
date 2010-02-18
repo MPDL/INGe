@@ -177,7 +177,7 @@
 			</h:panelGroup>
 		</tr:iterator>
 
-<%-- Edition, Degree type, location --%>
+<%-- Edition, Location --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" >
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_edition_optional != 'true' || genre.details_item_degree_optional != 'true' || genre.details_item_location_optional != 'true'}" /><span class="noDisplay"> </span>
@@ -187,14 +187,6 @@
 					<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_publishing_info_publishing_info_edition_display == 'false' && genre.details_publishing_info_publishing_info_edition_form_id == 'full-submission' || genre.details_publishing_info_publishing_info_edition_display == 'false' && genre.details_publishing_info_publishing_info_edition_form_id == 'all')}">
 						<h:outputLabel styleClass="large_label" id="lblEdition" for="txtEdition" value="#{genre.details_publishing_info_publishing_info_edition_label}" converter="GenreLabelConverter"/>
 						<h:inputText styleClass="large_txtInput" id="txtEdition" value="#{EditItem.pubItem.metadata.publishingInfo.edition}" />
-					</h:panelGroup>
-				</h:panelGroup>
-				<h:panelGroup rendered="#{!(genre.details_item_degree_display == 'false' && (genre.details_item_degree_form_id == 'full-submission' || genre.details_item_degree_form_id == 'all'))}">
-					<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_item_degree_item_degree_display == 'false' && genre.details_item_degree_item_degree_form_id == 'full-submission' || genre.details_item_degree_item_degree_display == 'false' && genre.details_item_degree_item_degree_form_id == 'all')}">
-						<h:outputLabel styleClass="large_label" for="cboDegreeType" id="lblDegreeType" value="#{genre.details_item_degree_label}" converter="GenreLabelConverter"/>
-						<h:selectOneMenu styleClass="large_select replace" id="cboDegreeType" value="#{EditItem.pubItem.metadata.degree}" >
-							<f:selectItems value="#{EditItem.degreeTypes}" />
-						</h:selectOneMenu>
 					</h:panelGroup>
 				</h:panelGroup>
 				<h:panelGroup rendered="#{!(genre.details_item_location_display == 'false' && genre.details_item_location_form_id == 'full-submission' || genre.details_item_location_display == 'false' && genre.details_item_location_form_id == 'all')}">

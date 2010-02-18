@@ -51,10 +51,24 @@
 			</span>
 		</h:panelGroup>
 
+<%-- Degree Type --%>
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_item_degree_display == 'false' && (genre.details_item_degree_form_id == 'full-submission' || genre.details_item_degree_form_id == 'all'))}">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				&#160;<h:outputText  id="txtDegreeType" value="#{genre.details_item_degree_label}" converter="GenreLabelConverter"/>
+				<span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:selectOneMenu styleClass="large_select replace" id="cboDegreeType" value="#{EditItem.pubItem.metadata.degree}" >
+					<f:selectItems value="#{EditItem.degreeTypes}" />
+				</h:selectOneMenu>
+			</span>
+		</h:panelGroup>
+
 <%-- Title --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.item_basic_item_title_display == 'false' && genre.item_basic_item_title_form_id == 'full-submission' || genre.item_basic_item_title_display == 'false' && genre.item_basic_item_title_form_id == 'all')}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText id="txtTitleDisplay" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_optional == 'false'}" /><h:outputText value="#{genre.item_basic_item_title_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_item_title_display == 'true'}"/><span class="noDisplay">: </span>
+				&#160;<h:outputText id="txtTitleDisplay" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_optional == 'false'}" /><h:outputText value="#{genre.item_basic_item_title_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_item_title_display == 'true'}"/>
+				<span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:inputTextarea id="inputTitleText" styleClass="quad_txtArea inputTxtArea" value="#{EditItem.titleCollection.titleIF.title.value}" cols="15" rows="3" ></h:inputTextarea>
