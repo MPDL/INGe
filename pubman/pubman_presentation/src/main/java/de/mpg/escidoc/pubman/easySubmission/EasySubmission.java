@@ -82,6 +82,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -548,6 +549,9 @@ public class EasySubmission extends FacesBean
         {
             this.getLocators().get(this.getLocators().size() - 1).getFile().getDefaultMetadata().setSize(11);
         }
+        //Visibility PUBLIC is static default value for locators
+        this.getLocators().get(this.getLocators().size() - 1).getFile().setVisibility(Visibility.PUBLIC);
+        
         this.locatorIterator = new UIXIterator();
         return "loadNewEasySubmission";
     }

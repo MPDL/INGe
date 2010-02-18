@@ -101,15 +101,6 @@
 						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.files_component_name_optional != 'true'}" /></span><h:outputText value="#{genre.locators_component_name_label}" converter="GenreLabelConverter"/></label>
 						<h:inputText id="inpLocatorName" styleClass="xDouble_txtInput" value="#{locator.file.defaultMetadata.title.value}" />
 					</h:panelGroup>
-					<h:panelGroup styleClass="large_area0 endline" rendered="#{!(genre.locators_component_visibility_display == 'false' && genre.locators_component_visibility_form_id == 'full-submission' || genre.locators_component_visibility_display == 'false' && genre.locators_component_visibility_form_id == 'all')}">
-						<h:panelGroup styleClass="large_area0">
-							<h:outputText id="txtTitleLocatorVisibilityRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_visibility_optional != 'true'}" />
-							<h:outputText id="txtTitleLocatorVisibility" value="#{genre.locators_component_visibility_label}" converter="GenreLabelConverter"/>
-						</h:panelGroup>
-						<h:selectOneRadio id="selLocatorVisibility" styleClass="small_radioBtn large_area0" value="#{locator.file.visibility}">
-							<f:selectItems value="#{EditItem.visibilities}" />
-						</h:selectOneRadio>
-					</h:panelGroup>
 				</span>
 			</h:panelGroup>
 

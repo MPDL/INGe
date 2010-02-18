@@ -95,7 +95,7 @@
 				</h:panelGroup>
 			</h:panelGroup>
 
-<%-- Locator name, Locator visibility --%>
+<%-- Locator name--%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{locator.locator != null && locator.locator != ''}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblFileProperties}" /><span class="noDisplay">: </span>
@@ -105,14 +105,6 @@
 					<span class="xDouble_area0 tiny_marginRIncl">
 						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.locators_component_name_optional != 'true'}"/></span><h:outputText value="#{genre.locators_component_name_label}" converter="GenreLabelConverter"/></label>
 						<h:inputText id="inpLocatorFileDefaultMetadataTitle" styleClass="xDouble_txtInput" value="#{locator.file.defaultMetadata.title.value}"/>
-					</span>
-					</h:panelGroup>
-					<h:panelGroup rendered="#{!(genre.locators_component_visibility_display == 'false' && genre.locators_component_visibility_form_id == 'easy-submission' || genre.locators_component_visibility_display == 'false' && genre.locators_component_visibility_form_id == 'all')}">
-					<span class="large_area0 endline">
-						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.locators_component_visibility_optional != 'true'}"/></span><h:outputText value="#{genre.locators_component_visibility_label}" converter="GenreLabelConverter"/></label>
-						<h:selectOneRadio id="selLocatorFileVisibility" styleClass="small_radioBtn large_area0" value="#{locator.file.visibility}">
-							<f:selectItems id="selLocatorFileVisibilities" value="#{EasySubmission.visibilities}" />
-						</h:selectOneRadio>
 					</span>
 					</h:panelGroup>
 				</span>

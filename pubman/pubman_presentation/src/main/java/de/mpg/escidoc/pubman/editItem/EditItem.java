@@ -96,6 +96,7 @@ import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -466,6 +467,8 @@ public class EditItem extends FacesBean
 	                {
 	                	this.getLocators().get(i).getFile().getDefaultMetadata().setDescription(this.getLocators().get(i).getFile().getDescription());
 	                }
+	                //Visibility PUBLIC is static default value for locators
+	                this.getLocators().get(i).getFile().setVisibility(Visibility.PUBLIC);
 	                this.getPubItem().getFiles().add(this.getLocators().get(i).getFile());
 	            }
 	        }
@@ -1320,14 +1323,6 @@ public class EditItem extends FacesBean
         
         if (locatorBean.getError()!= null)
         {
-//            if (check)
-//            {
-//                //Reset locator if it was already added to list
-//                locatorBean.removeLocator();
-//                List <PubFileVOPresentation> list = this.getLocators();
-//                list.get(indexUpload).setLocator(locatorValue);
-//                this.setLocators(list);
-//            }
             error(getMessage("errorLocatorMain").replace("$1", locatorBean.getError()));
         }
     }

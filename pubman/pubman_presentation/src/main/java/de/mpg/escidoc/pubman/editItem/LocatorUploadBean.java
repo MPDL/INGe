@@ -36,6 +36,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.util.FileLocatorUploadBean;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
@@ -77,6 +78,8 @@ public class LocatorUploadBean extends FileLocatorUploadBean
                 fileVO.getDefaultMetadata().getFormats().add(formatVO);
                 fileVO.setContent(this.getLocator());
                 fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+                //Public is static default value for locators
+                fileVO.setVisibility(Visibility.PUBLIC);
                 
                 //The initinally created empty file has to be deleted
                 this.removeEmptyFile();
