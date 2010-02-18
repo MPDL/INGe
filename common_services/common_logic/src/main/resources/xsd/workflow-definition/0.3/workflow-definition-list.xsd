@@ -4,7 +4,7 @@
 	xmlns:workflow-definition-list="http://www.escidoc.de/schemas/workflowdefinitionlist/0.3"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.escidoc.de/schemas/workflowdefinition/0.3"
-		schemaLocation="../../rest/workflow-definition/0.3/workflow-definition.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/workflow-definition/0.3/workflow-definition.xsd" />
 	<xs:element name="workflow-definition-list">
 		<xs:annotation>
 			<xs:documentation>

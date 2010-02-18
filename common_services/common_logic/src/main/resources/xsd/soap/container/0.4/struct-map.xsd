@@ -33,10 +33,10 @@
 	xmlns:common="http://www.escidoc.de/schemas/commontypes/0.4">
 	<xs:import
 		namespace="http://www.escidoc.de/schemas/commontypes/0.4" 
-		schemaLocation="../../../soap/common/0.4/common-types.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/common-types.xsd" />
 	<xs:import
 		namespace="http://escidoc.de/core/01/structural-relations/"
-		schemaLocation="../../../soap/common/0.4/structural-relations.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/structural-relations.xsd" />
 	<xs:element name="struct-map">
 		<xs:annotation>
 			<xs:documentation>

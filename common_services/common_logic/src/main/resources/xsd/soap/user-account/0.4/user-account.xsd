@@ -39,13 +39,13 @@
     targetNamespace="http://www.escidoc.de/schemas/useraccount/0.4"
     elementFormDefault="qualified" attributeFormDefault="unqualified">
     <xs:import namespace="http://www.w3.org/XML/1998/namespace"
-        schemaLocation="../../../soap/common/0.3/xml.xsd" />
+        schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xml.xsd" />
     <xs:import namespace="http://escidoc.de/core/01/properties/" 
-        schemaLocation="../../../soap/common/0.4/properties.xsd"/>
+        schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/properties.xsd"/>
     <xs:import namespace="http://escidoc.de/core/01/structural-relations/" 
-        schemaLocation="../../../soap/common/0.4/structural-relations.xsd"/>
+        schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/structural-relations.xsd"/>
     <xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
-        schemaLocation="../../../soap/common/0.4/common-types.xsd" />
+        schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/common-types.xsd" />
     <xs:element name="user-account">
         <xs:annotation>
             <xs:documentation>

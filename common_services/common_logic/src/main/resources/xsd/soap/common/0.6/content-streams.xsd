@@ -16,11 +16,11 @@
     xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <xs:import namespace="http://www.w3.org/1999/xlink"
-        schemaLocation="../../../soap/common/0.4/xlink.xsd" />
+        schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/xlink.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
-		schemaLocation="../../../soap/common/0.4/common-types.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/common-types.xsd" />
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../soap/common/0.4/xml.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/xml.xsd" />
 
 	<xs:element name="content-streams">
 		<xs:complexType>

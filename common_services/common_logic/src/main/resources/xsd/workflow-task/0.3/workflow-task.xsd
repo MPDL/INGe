@@ -5,7 +5,7 @@
 	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
-		schemaLocation="../../soap/common/0.4/common-types.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/common-types.xsd" />
 	<xs:element name="workflow-task">
 		<xs:annotation>
 			<xs:documentation>

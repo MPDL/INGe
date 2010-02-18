@@ -37,11 +37,11 @@
 	targetNamespace="http://www.escidoc.de/schemas/containerlist/0.6"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/1999/xlink"
-		schemaLocation="../../../rest/common/0.3/xlink.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xlink.xsd" />
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-        schemaLocation="../../../rest/common/0.3/xml.xsd" />
+        schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xml.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/container/0.6"
-		schemaLocation="../../../rest/container/0.6/container.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/container/0.6/container.xsd" />
 	<xs:element name="container-list">
 		<xs:complexType>
 			<xs:sequence>

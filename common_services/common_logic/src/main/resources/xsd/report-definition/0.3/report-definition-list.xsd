@@ -4,7 +4,7 @@
 	xmlns:report-definition-list="http://www.escidoc.de/schemas/reportdefinitionlist/0.3"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.escidoc.de/schemas/reportdefinition/0.3"
-		schemaLocation="../../rest/report-definition/0.3/report-definition.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/report-definition/0.3/report-definition.xsd" />
 	<xs:element name="report-definition-list">
 		<xs:annotation>
 			<xs:documentation>

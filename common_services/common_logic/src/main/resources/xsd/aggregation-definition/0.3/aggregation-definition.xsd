@@ -5,7 +5,7 @@
 	elementFormDefault="qualified" 
 	attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
-	schemaLocation="../../soap/common/0.3/common-types.xsd" />
+	schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/common-types.xsd" />
 	<xs:element name="aggregation-definition">
 		<xs:annotation>
 			<xs:documentation>

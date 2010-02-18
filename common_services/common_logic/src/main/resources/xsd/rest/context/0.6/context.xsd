@@ -60,12 +60,12 @@
 	xmlns:srel="http://escidoc.de/core/01/structural-relations/">
 
 	<xs:import namespace="http://escidoc.de/core/01/properties/"
-		schemaLocation="../../../rest/common/0.4/properties.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/properties.xsd" />
 	<xs:import
 		namespace="http://escidoc.de/core/01/structural-relations/"
-		schemaLocation="../../../rest/common/0.4/structural-relations.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/structural-relations.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
-		schemaLocation="../../../rest/common/0.4/common-types.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/common-types.xsd" />
 
 	<!-- This xsd is used in the API of Context; REST interface -->
 	<xs:element name="context">

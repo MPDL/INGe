@@ -4,7 +4,7 @@
 	xmlns:workflow-template-list="http://www.escidoc.de/schemas/workflowtemplatelist/0.3"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="urn:jbpm.org:jpdl-3.2"
-		schemaLocation="../../rest/jpdl/3.2/jpdl-3.2.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/jpdl/3.2/jpdl-3.2.xsd" />
 	<xs:element name="workflow-template-list">
 		<xs:annotation>
 			<xs:documentation>

@@ -6,13 +6,13 @@
 	targetNamespace="http://www.escidoc.de/schemas/role/0.3"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/1999/xlink"
-		schemaLocation="../../../rest/common/0.3/xlink.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xlink.xsd" />
 	<xs:import namespace="urn:oasis:names:tc:xacml:1.0:policy"
-		schemaLocation="../../../rest/common/0.3/cs-xacml-schema-policy-01.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/cs-xacml-schema-policy-01.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
-		schemaLocation="../../../rest/common/0.3/common-types.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/common-types.xsd" />
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../rest/common/0.3/xml.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xml.xsd" />
 	<xs:element name="role">
 		<xs:annotation>
 			<xs:documentation>

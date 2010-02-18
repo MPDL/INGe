@@ -34,9 +34,9 @@
 	targetNamespace="http://www.escidoc.de/schemas/containerlist/0.6"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../soap/common/0.3/xml.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/xml.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/container/0.6"
-		schemaLocation="../../../soap/container/0.6/container.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/container/0.6/container.xsd" />
 	<xs:element name="container-list">
 		<xs:complexType>
 			<xs:sequence>

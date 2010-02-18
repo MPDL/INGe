@@ -34,10 +34,10 @@
 	
 	<xs:import
 		namespace="http://escidoc.de/core/01/structural-relations/"
-		schemaLocation="../../../rest/common/0.4/structural-relations.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/structural-relations.xsd" />
 		<xs:import
 		namespace="http://www.escidoc.de/schemas/commontypes/0.4" 
-		schemaLocation="../../../rest/common/0.4/common-types.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/common-types.xsd" />
 	<xs:element name="struct-map">
 		<xs:annotation>
 			<xs:documentation>

@@ -6,10 +6,10 @@
            xmlns:member-ref-list="http://www.escidoc.de/schemas/memberreflist/0.3"
            xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3">
   <xs:import namespace="http://www.escidoc.de/schemas/memberreflist/0.3"
-             schemaLocation="../../../rest/common/0.3/member-ref-list.xsd"></xs:import>
+             schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/member-ref-list.xsd"></xs:import>
 
   <xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
-             schemaLocation="../../../rest/common/0.3/common-types.xsd"></xs:import>
+             schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/common-types.xsd"></xs:import>
 
   <xs:element name="struct-map">
     <xs:annotation>

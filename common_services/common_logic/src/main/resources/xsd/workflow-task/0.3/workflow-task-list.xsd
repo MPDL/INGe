@@ -4,7 +4,7 @@
 	xmlns:workflow-task-list="http://www.escidoc.de/schemas/workflowtasklist/0.3"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.escidoc.de/schemas/workflowtask/0.3"
-		schemaLocation="../../rest/workflow-task/0.3/workflow-task.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/workflow-task/0.3/workflow-task.xsd" />
 	<xs:element name="workflow-task-list">
 		<xs:annotation>
 			<xs:documentation>

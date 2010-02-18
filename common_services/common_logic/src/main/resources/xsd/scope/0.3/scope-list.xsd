@@ -4,7 +4,7 @@
 	xmlns:scope-list="http://www.escidoc.de/schemas/scopelist/0.3"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.escidoc.de/schemas/scope/0.3"
-		schemaLocation="../../rest/scope/0.3/scope.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/scope/0.3/scope.xsd" />
 	<xs:element name="scope-list">
 		<xs:annotation>
 			<xs:documentation>

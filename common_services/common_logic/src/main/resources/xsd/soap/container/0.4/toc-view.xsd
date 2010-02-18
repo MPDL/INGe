@@ -20,7 +20,7 @@
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import
 		namespace="http://www.escidoc.de/schemas/tocviewmemberreflist/0.4"
-		schemaLocation="../../../soap/common/0.4/toc-view-member-ref-list.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/toc-view-member-ref-list.xsd" />
 	<xs:element name="toc">
 		<xs:complexType>
 			<xs:sequence>

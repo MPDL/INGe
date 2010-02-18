@@ -18,9 +18,9 @@
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../soap/common/0.4/xml.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/xml.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/context/0.5"
-		schemaLocation="../../../soap/context/0.5/context.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/context/0.5/context.xsd" />
 	<xs:element name="context-list">
 		<xs:complexType>
 			<xs:sequence>

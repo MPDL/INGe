@@ -14,7 +14,7 @@
 	xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
     <xs:import namespace="http://www.w3.org/1999/xlink"
-        schemaLocation="../../../rest/common/0.4/xlink.xsd" />
+        schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/xlink.xsd" />
 
 	<xs:annotation>
 		<xs:documentation>
@@ -26,7 +26,7 @@
 	</xs:annotation>
 
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
-		schemaLocation="../../../rest/common/0.4/common-types.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/common-types.xsd" />
 
     <xs:element name="origin" type="common-types:linkForCreate">
 		<xs:annotation>

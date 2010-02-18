@@ -12,11 +12,11 @@
 	elementFormDefault="qualified" 
 	attributeFormDefault="unqualified">
 	<xsd:import namespace="http://www.loc.gov/zing/cql/xcql/" 
-		schemaLocation="../../soap/search-result/0.4/xcql.xsd"/>
+		schemaLocation="http://www.escidoc.org/schemas/soap/search-result/0.4/xcql.xsd"/>
 	<xsd:import namespace="http://www.loc.gov/zing/srw/diagnostic/" 
-		schemaLocation="../../soap/search-result/0.4/diagnostics.xsd"/>
+		schemaLocation="http://www.escidoc.org/schemas/soap/search-result/0.4/diagnostics.xsd"/>
 	<xsd:import namespace="http://www.escidoc.de/schemas/searchresult/0.7" 
-		schemaLocation="../../soap/search-result/0.7/search-result.xsd"/>
+		schemaLocation="http://www.escidoc.org/schemas/soap/search-result/0.7/search-result.xsd"/>
 	<xsd:complexType name="requestType">
 		<xsd:sequence>
 			<xsd:element ref="version"/>

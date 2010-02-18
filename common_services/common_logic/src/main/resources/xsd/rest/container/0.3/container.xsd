@@ -18,28 +18,28 @@
            xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
            xmlns:admin-descriptor="http://www.escidoc.de/schemas/admindescriptor/0.3">
   <xs:import namespace="http://www.w3.org/1999/xlink"
-             schemaLocation="../../../rest/common/0.3/xlink.xsd"></xs:import>
+             schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xlink.xsd"></xs:import>
 
   <xs:import namespace="http://www.escidoc.de/schemas/metadatarecords/0.3"
-             schemaLocation="../../../rest/common/0.3/md-records.xsd"></xs:import>
+             schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/md-records.xsd"></xs:import>
 
   <xs:import namespace="http://www.escidoc.de/schemas/relations/0.3"
-             schemaLocation="../../../rest/common/0.3/relations.xsd"></xs:import>
+             schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/relations.xsd"></xs:import>
 
   <xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
-             schemaLocation="../../../rest/common/0.3/common-types.xsd"></xs:import>
+             schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/common-types.xsd"></xs:import>
 
   <xs:import namespace="http://www.escidoc.de/schemas/structmap/0.3"
-             schemaLocation="../../../rest/container/0.3/struct-map.xsd"></xs:import>
+             schemaLocation="http://www.escidoc.org/schemas/rest/container/0.3/struct-map.xsd"></xs:import>
 
   <xs:import namespace="http://www.escidoc.de/schemas/toc/0.2"
-             schemaLocation="../../../container/0.2/toc.xsd"></xs:import>
+             schemaLocation="http://www.escidoc.org/schemas/container/0.2/toc.xsd"></xs:import>
 
   <xs:import namespace="http://www.w3.org/XML/1998/namespace"
-             schemaLocation="../../../rest/common/0.3/xml.xsd"></xs:import>
+             schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xml.xsd"></xs:import>
              
   <xs:import namespace="http://www.escidoc.de/schemas/admindescriptor/0.3"
-		     schemaLocation="../../../rest/common/0.3/admin-descriptor.xsd" />
+		     schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/admin-descriptor.xsd" />
 
   <xs:element name="container">
     <xs:annotation>

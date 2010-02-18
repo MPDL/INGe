@@ -33,13 +33,13 @@
 	targetNamespace="http://www.escidoc.de/schemas/memberlist/0.5"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../soap/common/0.3/xml.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/xml.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/item/0.5"
-		schemaLocation="../../../soap/item/0.5/item.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/item/0.5/item.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/container/0.5"
-		schemaLocation="../../../soap/container/0.5/container.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/container/0.5/container.xsd" />
 		<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4" 
-		schemaLocation="../../../soap/common/0.4/common-types.xsd"/>
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/common-types.xsd"/>
 	<xs:element name="member-list">
 		<xs:complexType>
 			<xs:sequence>

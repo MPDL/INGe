@@ -7,9 +7,9 @@
 	xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.3"
 	xmlns:member-ref-list="http://www.escidoc.de/schemas/tocviewmemberreflist/0.3"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="../../../rest/common/0.3/xlink.xsd" />
-	<xs:import namespace="http://www.escidoc.de/schemas/tocviewmemberreflist/0.3"	schemaLocation="../../../rest/common/0.3/toc-view-member-ref-list.xsd" />
-	<xs:import namespace="http://www.w3.org/XML/1998/namespace"  schemaLocation="../../../rest/common/0.3/xml.xsd" />
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xlink.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/tocviewmemberreflist/0.3"	schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/toc-view-member-ref-list.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"  schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xml.xsd" />
 	<xs:element name="toc">
 		<xs:complexType>
 			<xs:sequence>

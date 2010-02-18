@@ -4,7 +4,7 @@
 	xmlns:workflow-instance-list="http://www.escidoc.de/schemas/workflowinstancelist/0.3"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.escidoc.de/schemas/workflowinstance/0.3"
-		schemaLocation="../../rest/workflow-instance/0.3/workflow-instance.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/workflow-instance/0.3/workflow-instance.xsd" />
 	<xs:element name="workflow-instance-list">
 		<xs:annotation>
 			<xs:documentation>

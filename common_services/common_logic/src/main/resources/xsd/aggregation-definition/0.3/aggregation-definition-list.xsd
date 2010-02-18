@@ -4,7 +4,7 @@
 	xmlns:aggregation-definition-list="http://www.escidoc.de/schemas/aggregationdefinitionlist/0.3"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.escidoc.de/schemas/aggregationdefinition/0.3"
-		schemaLocation="../../rest/aggregation-definition/0.3/aggregation-definition.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/aggregation-definition/0.3/aggregation-definition.xsd" />
 	<xs:element name="aggregation-definition-list">
 		<xs:annotation>
 			<xs:documentation>

@@ -7,11 +7,11 @@
 	elementFormDefault="qualified" 
 	attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" 
-		schemaLocation="../../soap/common/0.3/xml.xsd"/>
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/xml.xsd"/>
 	<xs:import namespace="http://www.escidoc.de/schemas/item/0.3" 
-		schemaLocation="../../soap/item/0.3/item.xsd"/>
+		schemaLocation="http://www.escidoc.org/schemas/soap/item/0.3/item.xsd"/>
 	<xs:import namespace="http://www.escidoc.de/schemas/container/0.3" 
-		schemaLocation="../../soap/container/0.3/container.xsd"/>
+		schemaLocation="http://www.escidoc.org/schemas/soap/container/0.3/container.xsd"/>
 	<xs:element name="search-result-record">
 		<xs:complexType>
 			<xs:sequence>

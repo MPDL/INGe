@@ -4,7 +4,7 @@
     targetNamespace="http://www.escidoc.de/schemas/pdp/0.3/requests"
     elementFormDefault="qualified" attributeFormDefault="unqualified">
     <xs:import namespace="urn:oasis:names:tc:xacml:1.0:context"
-        schemaLocation="../../common/0.3/cs-xacml-schema-context-01.xsd"/>
+        schemaLocation="http://www.escidoc.org/schemas/common/0.3/cs-xacml-schema-context-01.xsd"/>
     <xs:element name="requests">
         <xs:complexType>
             <xs:sequence>

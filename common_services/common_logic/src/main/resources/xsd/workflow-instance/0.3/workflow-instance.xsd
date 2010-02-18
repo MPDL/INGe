@@ -6,10 +6,10 @@
 	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
-		schemaLocation="../../soap/common/0.4/common-types.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/common-types.xsd" />
 	<xs:import
 		namespace="http://www.escidoc.de/schemas/workflowconfiguration/0.3"
-		schemaLocation="../../soap/workflow-definition/0.3/workflow-configuration.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/workflow-definition/0.3/workflow-configuration.xsd" />
 	<xs:element name="workflow-instance">
 		<xs:annotation>
 			<xs:documentation>

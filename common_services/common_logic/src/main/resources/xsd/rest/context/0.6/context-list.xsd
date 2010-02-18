@@ -23,11 +23,11 @@
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 
 	<xs:import namespace="http://www.w3.org/1999/xlink"
-		schemaLocation="../../../rest/common/0.4/xlink.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/xlink.xsd" />
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../rest/common/0.4/xml.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/xml.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/context/0.6"
-		schemaLocation="../../../rest/context/0.6/context.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/context/0.6/context.xsd" />
 
 	<xs:element name="context-list">
 		<xs:complexType>

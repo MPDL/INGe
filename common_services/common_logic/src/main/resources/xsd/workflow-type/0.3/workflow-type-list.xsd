@@ -4,7 +4,7 @@
 	xmlns:workflow-type-list="http://www.escidoc.de/schemas/workflowtypelist/0.3"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.escidoc.de/schemas/workflowtype/0.3"
-		schemaLocation="../../rest/workflow-type/0.3/workflow-type.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/rest/workflow-type/0.3/workflow-type.xsd" />
 	<xs:element name="workflow-type-list">
 		<xs:annotation>
 			<xs:documentation>
