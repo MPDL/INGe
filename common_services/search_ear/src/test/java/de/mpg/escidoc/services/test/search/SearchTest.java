@@ -27,6 +27,7 @@ import org.junit.runners.Suite;
 //                     SimpleSearchTest.class
 //                     ,AdvancedSearchTest.class
 //                     ,SearchAndOutputTest.class
+                        TestIndices.class
                     })
 public class SearchTest {
 
