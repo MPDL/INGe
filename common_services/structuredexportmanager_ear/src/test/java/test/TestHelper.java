@@ -197,7 +197,7 @@ public class TestHelper
     	}
     }
     
-    public static String getItemListFromFramework() throws IOException, ServiceException, URISyntaxException
+    public String getItemListFromFramework() throws IOException, ServiceException, URISyntaxException
     {
     	
     	String userHandle = loginUser(USER_NAME, USER_PASSWD); 
@@ -217,7 +217,7 @@ public class TestHelper
     
     
     
-    protected static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
+    protected String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
     {
     	String frameworkUrl = ServiceLocator.getFrameworkUrl();
     	StringTokenizer tokens = new StringTokenizer( frameworkUrl, "//" );

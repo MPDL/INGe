@@ -84,7 +84,7 @@ public class StructuredExportIntegrationTest
 //	        itemList = TestHelper.readFile("src/test/resources/item_publication.xml", "UTF-8");
 //	        assertNotNull("Item list xml is not found", itemList);
 	    	
-	    	itemList = TestHelper.getItemListFromFramework(); 
+	    	itemList = new TestHelper().getItemListFromFramework(); 
 			assertFalse("item list from framework is empty", itemList == null || itemList.trim().equals("") );
 			logger.info("item list from framework:\n" + itemList);
 	    	
