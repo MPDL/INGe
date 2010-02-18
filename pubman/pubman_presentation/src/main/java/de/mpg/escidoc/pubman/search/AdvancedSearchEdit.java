@@ -40,6 +40,7 @@ import org.apache.myfaces.trinidad.component.UIXIterator;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.bean.AnyFieldCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.DateCriterionCollection;
+import de.mpg.escidoc.pubman.search.bean.DegreeCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.EventCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.FileCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.GenreCriterionCollection;
@@ -83,6 +84,7 @@ public class AdvancedSearchEdit extends FacesBean
     private PersonCriterionCollection personCriterionCollection = null ;
     private OrganizationCriterionCollection organizationCriterionCollection = null;
     private GenreCriterionCollection genreCriterionCollection = null;
+    private DegreeCriterionCollection degreeCriterionCollection = null;
     private DateCriterionCollection dateCriterionCollection = null;
     private SourceCriterionCollection sourceCriterionCollection = null;
     private EventCriterionCollection eventCriterionCollection = null;
@@ -95,6 +97,7 @@ public class AdvancedSearchEdit extends FacesBean
     private UIXIterator personCriterionIterator = new UIXIterator();
     private UIXIterator dateCriterionIterator = new UIXIterator();
     private UIXIterator genreCriterionIterator = new UIXIterator();
+    private UIXIterator degreeCriterionIterator = new UIXIterator();
     private UIXIterator organizationCriterionIterator = new UIXIterator();
     private UIXIterator eventCriterionIterator = new UIXIterator();
     private UIXIterator sourceCriterionIterator = new UIXIterator();
@@ -115,6 +118,7 @@ public class AdvancedSearchEdit extends FacesBean
         personCriterionCollection = new PersonCriterionCollection();
         organizationCriterionCollection = new OrganizationCriterionCollection();
         genreCriterionCollection = new GenreCriterionCollection();
+        degreeCriterionCollection = new DegreeCriterionCollection();
         dateCriterionCollection = new DateCriterionCollection();
         sourceCriterionCollection = new SourceCriterionCollection();
         eventCriterionCollection = new EventCriterionCollection();
@@ -141,6 +145,7 @@ public class AdvancedSearchEdit extends FacesBean
         personCriterionCollection = new PersonCriterionCollection();
         organizationCriterionCollection = new OrganizationCriterionCollection();
         genreCriterionCollection = new GenreCriterionCollection();
+        degreeCriterionCollection = new DegreeCriterionCollection();
         dateCriterionCollection = new DateCriterionCollection();
         sourceCriterionCollection = new SourceCriterionCollection();
         eventCriterionCollection = new EventCriterionCollection();
@@ -161,7 +166,9 @@ public class AdvancedSearchEdit extends FacesBean
         personCriterionCollection.clearAllForms();
         organizationCriterionCollection.clearAllForms();
         genreCriterionCollection.clearAllForms();
+        degreeCriterionCollection.clearAllForms();
         dateCriterionCollection.clearAllForms();
+        degreeCriterionCollection.clearAllForms();
         sourceCriterionCollection.clearAllForms();
         eventCriterionCollection.clearAllForms();
         identifierCriterionCollection.clearAllForms();
@@ -188,6 +195,7 @@ public class AdvancedSearchEdit extends FacesBean
     	criterionList.addAll( personCriterionCollection.getFilledCriterion() );
         criterionList.addAll( dateCriterionCollection.getFilledCriterion() );   	
         criterionList.addAll( genreCriterionCollection.getFilledCriterion() );
+        criterionList.addAll( degreeCriterionCollection.getFilledCriterion() );
     	criterionList.addAll( organizationCriterionCollection.getFilledCriterion() );
         criterionList.addAll( fileCriterionCollection.getFilledCriterion() );
         criterionList.addAll( identifierCriterionCollection.getFilledCriterion() );
@@ -256,7 +264,11 @@ public class AdvancedSearchEdit extends FacesBean
                     searchString += c.getSearchString() + " ";
                 }
                 
-                searchString = searchString.substring(0, searchString.length()-1);
+                //TODO:What is this doing? Added the >1 test cause it throws exception if no search string was enteres. e.g. search for genre
+                if (searchString.length()>1)
+                {
+                    searchString = searchString.substring(0, searchString.length()-1);
+                }
                 
                 //log search for statistics
                 LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class); 
@@ -563,4 +575,25 @@ public class AdvancedSearchEdit extends FacesBean
     {
         this.localTagCriterionIterator = localTagCriterionIterator;
     }
+    
+    public DegreeCriterionCollection getDegreeCriterionCollection()
+    {
+        return degreeCriterionCollection;
+    }
+
+    public void setDegreeCriterionCollection(DegreeCriterionCollection degreeCriterionCollection)
+    {
+        this.degreeCriterionCollection = degreeCriterionCollection;
+    }
+    
+    public UIXIterator getDegreeCriterionIterator()
+    {
+        return degreeCriterionIterator;
+    }
+
+    public void setDegreeCriterionIterator(UIXIterator degreeCriterionIterator)
+    {
+        this.degreeCriterionIterator = degreeCriterionIterator;
+    }
+
 }

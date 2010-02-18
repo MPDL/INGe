@@ -38,6 +38,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 
+<!-- Start Genre -->
 		<tr:iterator id="genreCriterion" var="genreCriterionBean" value="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.genreCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.genreCriterionIterator.rowIndex == 0}">
@@ -132,7 +133,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<a class="large_area0 tiny_marginRIncl checkAll"><h:outputText value="#{lbl.adv_search_btAll}" /></a>
-					<span class="free_area0 checkboxDoubleGroup">
+					<span class="free_area0 checkboxDoubleGroup2">
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchArticlesMultiple" value="#{genreCriterionBean.searchArticle}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_article}" for="genreCriterionBean_searchArticles" />
@@ -221,6 +222,62 @@
 			</h:panelGroup>
 
 		</tr:iterator>
+<!-- End Genre -->
+
+<!-- Start Degree -->
+		<tr:iterator id="degreeCriterion" var="degreeCriterionBean" value="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.degreeCriterionIterator}" varStatus="index">
+				
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" >
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblDegreeType}" />
+					<span class="free_area0 checkboxDoubleGroup2">
+							<span class="large_checkbox tiny_marginRIncl">
+								<h:selectBooleanCheckbox id="degreeCriterionBean_diploma" value="#{degreeCriterionBean.searchDiploma}" />
+								<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_DIPLOMA}" />
+							</span>
+							<span class="large_checkbox tiny_marginRIncl">
+								<h:selectBooleanCheckbox id="degreeCriterionBean_master" value="#{degreeCriterionBean.searchMaster}" />
+								<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_MASTER}" />
+							</span>
+							<span class="large_checkbox tiny_marginRIncl">
+								<h:selectBooleanCheckbox id="degreeCriterionBean_dis" value="#{degreeCriterionBean.searchPHD}" />
+								<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_PHD}"/>
+							</span>
+							<span class="large_checkbox tiny_marginRIncl">
+								<h:selectBooleanCheckbox id="degreeCriterionBean_hab" value="#{degreeCriterionBean.searchHab}" />
+								<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_HABILITATION}"/>
+							</span>
+							<span class="large_checkbox tiny_marginRIncl">
+								<h:selectBooleanCheckbox id="degreeCriterionBean_bachelor" value="#{degreeCriterionBean.searchBachelor}" />
+								<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_BACHELOR}"/>
+							</span>
+							<span class="large_checkbox tiny_marginRIncl">
+								<h:selectBooleanCheckbox id="degreeCriterionBean_staats" value="#{degreeCriterionBean.searchStaats}" />
+								<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_STAATSEXAMEN}"/>
+							</span>
+							<span class="large_checkbox tiny_marginRIncl">
+								<h:selectBooleanCheckbox id="degreeCriterionBean_magister" value="#{degreeCriterionBean.searchMagister}" />
+								<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_MAGISTER}"/>
+							</span>
+					</span>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton id="btnAddDegree" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemoveDegree" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.size == 1}" action="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.removeObject}"/>
+				</span>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="free_area0 endline noTopBorder itemLine" ></h:panelGroup>
+			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection" >
+				<h:selectOneMenu id="selDegreeCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{degreeCriterionBean.logicOperator}">
+					<f:selectItems value="#{degreeCriterionBean.logicOptions}"/>
+				</h:selectOneMenu>				
+			</h:panelGroup>
+		</tr:iterator>
+<!-- End Degree -->
+
 		<a class="free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderGenre}" /></a>
 	</div>
 	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.adv_search_lbHeaderGenre}" /></a>

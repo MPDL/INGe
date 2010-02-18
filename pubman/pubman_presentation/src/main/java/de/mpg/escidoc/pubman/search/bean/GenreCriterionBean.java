@@ -22,6 +22,7 @@ public class GenreCriterionBean extends CriterionBean
 	private boolean searchIssue, searchJournal, searchManuscript, searchOther, searchPaper, searchPoster;
 	private boolean searchProceedings, searchReport, searchSeries, searchTalkAtEvent, searchThesis;
 	
+
     public GenreCriterionBean()
 	{
 		// ensure the parentVO is never null;
