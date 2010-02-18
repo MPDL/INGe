@@ -20,20 +20,20 @@
 
 	<xs:import
 		namespace="http://www.escidoc.de/schemas/metadatarecords/0.3"
-		schemaLocation="../../../soap/common/0.3/md-records.xsd" />
+		schemaLocation="../../common/0.3/md-records.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/relations/0.3"
-		schemaLocation="../../../soap/common/0.3/relations.xsd" />
+		schemaLocation="../../common/0.3/relations.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
-		schemaLocation="../../../soap/common/0.3/common-types.xsd" />
+		schemaLocation="../../common/0.3/common-types.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/structmap/0.3"
-		schemaLocation="../../../soap/container/0.3/struct-map.xsd" />
+		schemaLocation="../../container/0.3/struct-map.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/toc/0.2"
 		schemaLocation="../../../container/0.2/toc.xsd" />
 	<xs:import
 		namespace="http://www.escidoc.de/schemas/admindescriptor/0.3"
-		schemaLocation="../../../soap/common/0.3/admin-descriptor.xsd" />
+		schemaLocation="../../common/0.3/admin-descriptor.xsd" />
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../soap/common/0.3/xml.xsd" />
+		schemaLocation="../../common/0.3/xml.xsd" />
 
 	 <xs:element name="container">
 		<xs:annotation>

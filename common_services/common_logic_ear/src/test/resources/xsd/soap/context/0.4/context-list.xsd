@@ -10,9 +10,9 @@
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../soap/common/0.4/xml.xsd" />
+		schemaLocation="../../common/0.4/xml.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/context/0.4"
-		schemaLocation="../../../soap/context/0.4/context.xsd" />
+		schemaLocation="../../context/0.4/context.xsd" />
 	<xs:element name="context-list">
 		<xs:complexType>
 			<xs:sequence>

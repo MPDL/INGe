@@ -1292,6 +1292,7 @@ public class TestBase
                 logger.debug("Stacktrace: ", e);
             }
         }
+        logger.info("XSD Schemas found: " + schemas);
     }
 
     /**

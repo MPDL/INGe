@@ -6,7 +6,7 @@
            xmlns:member-ref-list="http://www.escidoc.de/schemas/memberreflist/0.3"
            xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3">
   <xs:import namespace="http://www.escidoc.de/schemas/memberreflist/0.3"
-             schemaLocation="../../../soap/common/0.3/member-ref-list.xsd"></xs:import>
+             schemaLocation="../../common/0.3/member-ref-list.xsd"></xs:import>
 
   <xs:element name="struct-map">
     <xs:annotation>

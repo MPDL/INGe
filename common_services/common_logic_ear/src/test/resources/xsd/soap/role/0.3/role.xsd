@@ -5,11 +5,11 @@
     targetNamespace="http://www.escidoc.de/schemas/role/0.3"
     elementFormDefault="qualified" attributeFormDefault="unqualified">
     <xs:import namespace="urn:oasis:names:tc:xacml:1.0:policy"
-        schemaLocation="../../../soap/common/0.3/cs-xacml-schema-policy-01.xsd"/>
+        schemaLocation="../../common/0.3/cs-xacml-schema-policy-01.xsd"/>
     <xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
-        schemaLocation="../../../soap/common/0.3/common-types.xsd"/>
+        schemaLocation="../../common/0.3/common-types.xsd"/>
     <xs:import namespace="http://www.w3.org/XML/1998/namespace"
-        schemaLocation="../../../soap/common/0.3/xml.xsd"/>
+        schemaLocation="../../common/0.3/xml.xsd"/>
     <xs:element name="role">
         <xs:annotation>
             <xs:documentation>

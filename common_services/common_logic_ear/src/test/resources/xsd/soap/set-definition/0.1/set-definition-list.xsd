@@ -5,8 +5,8 @@
 		xmlns:set-definition="http://www.escidoc.de/schemas/setdefinition/0.1" 
 		targetNamespace="http://www.escidoc.de/schemas/setdefinitionlist/0.1" 
 		elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../../soap/common/0.4/xml.xsd"/>
-	<xs:import namespace="http://www.escidoc.de/schemas/setdefinition/0.1" schemaLocation="../../../soap/set-definition/0.1/set-definition.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../common/0.4/xml.xsd"/>
+	<xs:import namespace="http://www.escidoc.de/schemas/setdefinition/0.1" schemaLocation="../../set-definition/0.1/set-definition.xsd"/>
 	<xs:element name="set-definition-list">
 		<xs:complexType>
 			<xs:sequence>

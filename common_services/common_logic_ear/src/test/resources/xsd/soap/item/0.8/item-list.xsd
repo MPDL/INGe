@@ -35,8 +35,8 @@
 		xmlns:item="http://www.escidoc.de/schemas/item/0.8" 
 		targetNamespace="http://www.escidoc.de/schemas/itemlist/0.8" 
 		elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../../soap/common/0.4/xml.xsd"/>
-	<xs:import namespace="http://www.escidoc.de/schemas/item/0.8" schemaLocation="../../../soap/item/0.8/item.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../common/0.4/xml.xsd"/>
+	<xs:import namespace="http://www.escidoc.de/schemas/item/0.8" schemaLocation="../../item/0.8/item.xsd"/>
 	<xs:element name="item-list">
 		<xs:complexType>
 			<xs:sequence>

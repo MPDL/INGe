@@ -19,9 +19,9 @@
 	xmlns:container="http://www.escidoc.de/schemas/container/0.4"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../soap/common/0.3/xml.xsd" />
+		schemaLocation="../../common/0.3/xml.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/container/0.4"
-		schemaLocation="../../../soap/container/0.4/container.xsd" />
+		schemaLocation="../../container/0.4/container.xsd" />
 	<xs:element name="container-list">
 		<xs:complexType>
 			<xs:sequence>
