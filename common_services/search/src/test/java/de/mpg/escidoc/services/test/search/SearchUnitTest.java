@@ -44,8 +44,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ 
 					TestMetadataSearchQuery.class,
-					TestQueryParser.class,
-					TestIndices.class
+					TestQueryParser.class
                     })
                     
                     
