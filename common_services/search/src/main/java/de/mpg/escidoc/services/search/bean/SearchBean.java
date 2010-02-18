@@ -233,10 +233,10 @@ public class SearchBean implements Search
 
         try
         {
-            logger.info("Cql search string: <" + searchRetrieveRequest.getQuery() + ">");
-            logger.info("Cql sorting key(s): <" + searchRetrieveRequest.getSortKeys() + ">");
+            logger.debug("Cql search string: <" + searchRetrieveRequest.getQuery() + ">");
+            logger.debug("Cql sorting key(s): <" + searchRetrieveRequest.getSortKeys() + ">");
             searchResult = ServiceLocator.getSearchHandler(index).searchRetrieveOperation(searchRetrieveRequest);
-            logger.info("Search result: " + searchResult.getNumberOfRecords() + " item(s) or container(s)");
+            logger.debug("Search result: " + searchResult.getNumberOfRecords() + " item(s) or container(s)");
         } 
         catch (Exception e)
         {
@@ -424,15 +424,15 @@ public class SearchBean implements Search
         // structured export
         if (formatType == FormatType.LAYOUT)
         {
-            logger.info("Calling citationStyleHandler");
+            logger.debug("Calling citationStyleHandler");
             exportData = citationStyleHandler.getOutput(exportFormat, outputFormat, itemList);
-            logger.info("Returning from citationStyleHandler");
+            logger.debug("Returning from citationStyleHandler");
         } 
         else if (formatType == FormatType.STRUCTURED)
         {
-            logger.info("Calling structuredExportHandler");
+            logger.debug("Calling structuredExportHandler");
             exportData = structuredExportHandler.getOutput(itemList, exportFormat);
-            logger.info("Returning from structuredExportHandler");
+            logger.debug("Returning from structuredExportHandler");
         } 
         else
         {

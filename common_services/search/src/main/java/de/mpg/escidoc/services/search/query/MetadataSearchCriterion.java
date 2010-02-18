@@ -6,7 +6,6 @@ package de.mpg.escidoc.services.search.query;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.z3950.zing.cql.CQLNode;
@@ -40,7 +39,7 @@ public class MetadataSearchCriterion implements Serializable
         DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, TOPIC,
         SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CONTEXT_NAME, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE,
         COMPONENT_ACCESSABILITY, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY, LOCAL_TAG, COPYRIGHT_DATE, 
-        EMBARGO_DATE
+        EMBARGO_DATE, DEGREE
     };
 
     /**
@@ -139,6 +138,8 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_COPYRIGHT_DATE = "escidoc.component.file.dateCopyrighted";
     /** Index for copyright date. */
     private static final String INDEX_EMBARGO_DATE = "escidoc.component.file.available";
+    /** Index for degree. */
+    private static final String INDEX_DEGREE = "escidoc.publication.degree";
     /** String to be used to represent an empty search term. */
     private static final String EMPTY_SEARCH_TERM = "''";
 
@@ -467,6 +468,9 @@ public class MetadataSearchCriterion implements Serializable
                 break;
             case EMBARGO_DATE:
                 indexes.add(INDEX_EMBARGO_DATE);
+                break;
+            case DEGREE:
+                indexes.add(INDEX_DEGREE);
                 break;
             default:
                 throw new TechnicalException("The index is unknown. Cannot map to index name.");
