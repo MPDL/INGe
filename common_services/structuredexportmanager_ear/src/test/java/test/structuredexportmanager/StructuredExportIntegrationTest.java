@@ -63,7 +63,7 @@ public class StructuredExportIntegrationTest
 	    private static final String ENDNOTE_FORMAT = "ENDNOTE";
 
 	    /**
-	     * Init  StructuredExport bean.
+	     * Init StructuredExport bean.
 	     * @throws Exception Any Exception.
 	     */
 	    @Before
