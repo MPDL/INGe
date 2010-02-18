@@ -71,6 +71,11 @@
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>structuredexportmanager</artifactId>
 						</ejbModule>
+						<jarModule>
+                            <groupId>com.maxmind.geoip</groupId>
+                            <artifactId>geoip</artifactId>
+                            <includeInApplicationXml>true</includeInApplicationXml>
+                        </jarModule>
 					</modules>
 				</configuration>
 			</plugin>

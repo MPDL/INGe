@@ -56,6 +56,7 @@ import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.PostMethod;
 
 import de.escidoc.www.services.om.ItemHandler;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 // import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
@@ -72,8 +73,31 @@ public class TestHelper
 	
 	public static final String ITEMS_LIMIT = "50"; 
 	public static final String CONTENT_MODEL = "escidoc:persistent4"; 
-	public static final String USER_NAME = "test_dep_scientist"; 
-	public static final String USER_PASSWD = "verdi"; 
+	public static String USER_NAME = null;
+	public static String USER_PASSWD = null; 
+	
+	/**
+	 * Initialize user credetials.
+	 */
+	public TestHelper() throws Exception
+	{
+	    if (USER_NAME == null)
+	    {
+            USER_NAME = PropertyReader.getProperty("framework.scientist.username");
+            if (USER_NAME == null)
+            {
+                throw new RuntimeException("Property 'framework.scientist.username' not found.");
+            }
+	    }
+	    if (USER_PASSWD == null)
+        {
+            USER_PASSWD = PropertyReader.getProperty("framework.scientist.password");
+            if (USER_PASSWD == null)
+            {
+                throw new RuntimeException("Property 'framework.scientist.password' not found.");
+            }
+	    }
+	}
 	
     /**
      * Retrieve resource based on a path relative to the classpath.
