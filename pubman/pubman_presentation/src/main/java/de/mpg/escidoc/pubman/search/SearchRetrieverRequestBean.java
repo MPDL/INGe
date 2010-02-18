@@ -248,7 +248,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     public String getRssFeedLink () throws PubManVersionNotAvailableException
     {
         String link = "";
-        ApplicationBean appBean = new ApplicationBean();
+        ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
         link = "<link href='"+appBean.getPubmanInstanceUrl()+"/syndication/feed/rss_2.0/search?q="+ this.getNormalizedCqlQuery() +"' rel='alternate' type='application/rss+xml' title='Current Search | rss 2.0' />";
         return link;
     }
@@ -260,7 +260,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     public String getAtomFeedLink () throws PubManVersionNotAvailableException
     {
         String link = "";
-        ApplicationBean appBean = new ApplicationBean();
+        ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);        
         link = "<link href='"+appBean.getPubmanInstanceUrl()+"/syndication/feed/atom_1.0/search?q="+ this.getNormalizedCqlQuery() +"' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
         return link;
     }
