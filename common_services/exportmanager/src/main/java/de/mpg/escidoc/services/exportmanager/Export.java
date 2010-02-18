@@ -824,9 +824,10 @@ public class Export implements ExportHandler {
 		    	  bis.close();
 		      }
 		}
-		catch (Exception e) {
-		    	  throw new ExportManagerException (e);
-		      }
+		catch (Exception e)
+		{
+		    throw new ExportManagerException (e);
+		}
 
 	}
 
