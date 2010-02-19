@@ -19,7 +19,7 @@
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 version="2.0">
     <xsl:output method="xml" encoding="UTF-8" indent="yes"
-                cdata-section-elements="dcterms:bibliographicCitation"/>
+                cdata-section-elements="dcterms:bibliographicCitation dcterms:abstract"/>
     <xsl:param name="pubman_instance"/>
     <xsl:template match="node() | @*">
         <xsl:copy>
