@@ -122,7 +122,7 @@
 									<h:outputText id="lblList_lblGridList" styleClass="free_area0" value="#{lbl.List_lblGridList}" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 sub action ieFilter" style="width: 50em;" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
+								<h:panelGroup layout="block" styleClass="free_area0 sub action ieFilter" style="width: 55em;" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 								<!-- content menu lower line starts here -->
 									<h:outputText id="lblENUM_CRITERIA_STATE1" styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE} "/>
 									<h:selectOneMenu id="selSelectedItemState" styleClass="large_select replace" value="#{MyTasksRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
