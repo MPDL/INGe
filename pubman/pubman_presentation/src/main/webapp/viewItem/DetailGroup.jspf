@@ -151,17 +151,6 @@
 			</span>
 		</div>
 
-<%-- Publication Location --%>
-		<div class="free_area0 endline itemLine">
-			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText id="lblViewItemFull_lblPublicationLocation" value="#{lbl.ViewItemFull_lblPublicationLocation}"/><span class="noDisplay">: </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText id="txtLocation" value="#{ViewItemFull.pubItem.metadata.location}"/>
-				<h:outputText id="txtLocationEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.location == null || ViewItemFull.pubItem.metadata.location == ''}"/>
-			</span>
-		</div>
-
 		<a id="lnkHideGroupDetails" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblSubHeaderDetails}" /></a>	
 	</h:panelGroup>
 	<a id="lnkShowGroupDetails" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemFull_lblSubHeaderDetails}" /></a>
