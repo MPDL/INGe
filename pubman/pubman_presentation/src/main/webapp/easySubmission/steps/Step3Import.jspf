@@ -107,6 +107,8 @@
 			</h3>
 			<span class="seperator"></span>
 			<div class="free_area0 itemBlockContent endline">
+
+			<!-- Import from external source -->
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstLine" rendered="#{EasySubmission.disableBibtexFields}">		
 					<b class="xLarge_area0 endline labelLine">
 						<h:outputText value="#{lbl.easy_submission_lblProvideID}" /><span class="noDisplay">: </span>
@@ -125,7 +127,8 @@
 						</span>
 					</span>
 					<b class="xLarge_area0 endline labelLine">
-						<h:outputText value="#{lbl.easy_submission_lblFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}" /><span class="noDisplay">: </span>
+						<h:outputText value="#{lbl.easy_submission_lblFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}" />
+						<span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:selectOneRadio id="selSelectFulltext" styleClass="large_radioBtn tiny_marginRIncl xHuge_area0" value="FORMAT" binding="#{EasySubmissionSessionBean.radioSelectFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}">										
@@ -134,7 +137,7 @@
 					</span>
 				</h:panelGroup>
 
-
+			<!-- Import from bibtex file -->
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstLine" rendered="#{EasySubmission.disableExternalFields}">		
 					<b class="xLarge_area0 endline labelLine">
 						<h:outputText value="#{lbl.easy_submission_lblUploadBibtex}" /><span class="noDisplay">: </span>
@@ -142,10 +145,10 @@
 					<span class="xHuge_area0 xTiny_marginLExcl endline fileSection">
 						<tr:inputFile id="inpUploadedBibTexFile" styleClass="fileInput" value="#{EasySubmission.uploadedBibTexFile}" />
 					</span>
-					<span class="xHuge_area0 xTiny_marginLExcl endline">
-					</span>
+
 					<b class="xLarge_area0 endline labelLine">
-						<h:outputText value="#{lbl.easy_submission_lblReference}" /><span class="noDisplay">: </span>
+						<h:outputText value="#{lbl.easy_submission_lblReference}" />
+						<span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:selectOneRadio id="selSelectReference" styleClass="xLarge_radioBtn tiny_marginRIncl xHuge_area0" value="LOCATOR" binding="#{EasySubmissionSessionBean.radioSelectReference}">										
