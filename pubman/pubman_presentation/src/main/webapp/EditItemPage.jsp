@@ -164,7 +164,11 @@
 							<jsp:directive.include file="editItem/EventGroup.jspf" />
 							<jsp:directive.include file="editItem/SourceGroup.jspf" />
 
-							<div class="free_area0 xTiny_marginLIncl"><h:outputText value="* #{msg.mandatoryField}" styleClass="mandatory"/></div>
+							<div class="free_area0 xTiny_marginLIncl">
+								<h:outputText value="* " />
+								<h:commandLink id="lnkValidate2"  value="#{msg.mandatoryFieldFS1}" action="#{EditItem.validate}"/>
+								<h:outputText value="#{msg.mandatoryFieldFS2}" />
+							</div>
 						 
 						</div>
 						<div class="full_area0 formButtonArea">
