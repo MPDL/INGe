@@ -66,16 +66,6 @@
 					<h:outputText id="txtLocatorDescriptionEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{locator.fileDescription == null  || locator.fileDescription == ''}"/>
 				</span>
 			</h:panelGroup>
-<%-- Locator visibility --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
-				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText id="lblLocatorVisibility" value="#{lbl.ViewItemMedium_lblFileVisibility}"/><span class="noDisplay">: <br /></span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtLocatorVisibility" value="#{locator.visibility}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-					<h:outputText id="txtLocatorVisibilityEmpty" value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
-				</span>
-			</h:panelGroup>
 
 <%-- Copyright Date --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="true">
