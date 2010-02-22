@@ -90,7 +90,9 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.locators_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
-						<h:outputLabel id="lblContentCategory" styleClass="double_label" value="#{locator.contentCategory}" />
+						<h:selectOneMenu id="selContentCategoryLoc" styleClass="double_select replace" value="#{locator.file.contentCategory}" >
+							<f:selectItems id="selContentCategorysLoc" value="#{EasySubmission.contentCategories}" />
+						</h:selectOneMenu>
 					</span>
 				</h:panelGroup>
 			</h:panelGroup>

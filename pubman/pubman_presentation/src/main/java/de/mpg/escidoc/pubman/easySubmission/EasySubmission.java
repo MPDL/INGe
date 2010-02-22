@@ -76,6 +76,7 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.pubman.util.PubFileVOPresentation.ContentCategory;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -551,6 +552,8 @@ public class EasySubmission extends FacesBean
         }
         //Visibility PUBLIC is static default value for locators
         this.getLocators().get(this.getLocators().size() - 1).getFile().setVisibility(Visibility.PUBLIC);
+        //As default value set 'supplementary material'
+        this.getLocators().get(this.getLocators().size() - 1).getFile().setContentCategory(ContentCategory.SUPPLEMENTARY_MATERIAL.getUri());
         
         this.locatorIterator = new UIXIterator();
         return "loadNewEasySubmission";
