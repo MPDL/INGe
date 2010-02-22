@@ -68,7 +68,7 @@
 	
 	
 	<xsl:param name="user" select="'dummy-user'"/>
-	<xsl:param name="context" select="'escidoc:31013'"/>
+	<xsl:param name="context" select="'escidoc:37005'"/>
 	<xsl:param name="is-item-list" select="true()"/>
 	<xsl:param name="localIdentifier" select="'xserveg5.eva.mpg.de'"/>
 	<xsl:param name="localPrefix" select="'http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/'"/>
@@ -316,10 +316,15 @@
 			<xsl:apply-templates select="mab750"/>
 			<xsl:apply-templates select="mab526"/>
 			<!-- SUBJECT -->
-			<xsl:apply-templates select="mab700_c" mode="subject"/>
-			<xsl:apply-templates select="mab711_b" mode="subject"/>
-			<xsl:apply-templates select="mab711_t" mode="subject"/>
-			<xsl:apply-templates select="mab740_s" mode="subject"/>
+			<xsl:variable name="subject">
+				<xsl:apply-templates select="mab700_c" mode="subject"/>
+				<xsl:apply-templates select="mab711_b" mode="subject"/>
+				<xsl:apply-templates select="mab711_t" mode="subject"/>
+				<xsl:apply-templates select="mab740_s" mode="subject"/>
+			</xsl:variable>
+			<xsl:element name="dcterms:subject">
+				<xsl:value-of select="substring($subject,3)"></xsl:value-of>
+			</xsl:element>
 			<!--end publication-->
 		</xsl:element>
 	</xsl:template>
@@ -588,11 +593,12 @@
 		</xsl:element>
 	</xsl:template>
 	<!-- SUBJECT -->
-	
 	<xsl:template match="*" mode="subject">
-		<xsl:element name="dcterms:subject">
+			<xsl:value-of select="', '"></xsl:value-of>
 			<xsl:value-of select="."/>
-		</xsl:element>
+		<!-- <xsl:element name="dcterms:subject">
+			<xsl:value-of select="."/>
+		</xsl:element> -->
 	</xsl:template>
 	
 	<!-- DATES -->
@@ -772,7 +778,7 @@
 				
 					<xsl:element name="ec:component">
 						<ec:properties>
-							<prop:visibility>private</prop:visibility>
+							<prop:visibility>audience</prop:visibility>
 							<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/></prop:content-category>
 							<prop:file-name>
 								<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
