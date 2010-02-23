@@ -23,6 +23,7 @@ import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
+import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
 
 /**
  * @author endres 
@@ -36,12 +37,12 @@ public class TestCitationManager {
     
 //    private final static String dsFileName = "APA_revised_item-list.xml";  
 //    private final static String dsFileName = "backward_trans.xml";  
-    private final static String dsFileName = "escidoc-item-ver2.xml";  
+    private final static String dsFileName = "target/test-classes/backup/CitationStyleTestCollectionV2.xml";  
+//    private final static String dsFileName = "export_escidoc_series-problem-v2.xml";  
 //    private final static String dsFileName = "problem-by-ice.xml";  
-    
     private static String itemList;
      
-    private CitationStyleHandler pcs = new ProcessCitationStyles();
+    private CitationStyleHandler cse = new CitationStyleExecutor();
 
     private static int itemsNumber;
     
@@ -61,7 +62,7 @@ public class TestCitationManager {
     @BeforeClass 
     public static void getItemList() throws Exception
     {
-        String ds = ResourceUtil.getPathToDataSources() + dsFileName; 
+        String ds = dsFileName; 
         logger.info("Data Source:" + ds);
         itemList = ResourceUtil.getResourceAsString(ds);
         assertNotNull("Item list xml is not found:", ds);
@@ -84,7 +85,7 @@ public class TestCitationManager {
     @Test
     public final void testGetStyles() throws Exception {
         logger.info("List of citation styles: " );
-        for (String s : pcs.getStyles() )
+        for (String s : cse.getStyles() )
             logger.info("Citation Style: " + s);
     }
      
@@ -95,18 +96,18 @@ public class TestCitationManager {
     @Test
     public final void testExplainStuff() throws Exception 
     {
-        String explain = pcs.explainStyles();
+        String explain = cse.explainStyles();
         assertTrue("Empty explain xml", Utils.checkVal(explain) );
         logger.info("Explain file:" + explain);
         
         logger.info("List of citation styles with output formats: " );
-        for (String s : pcs.getStyles() )
+        for (String s : cse.getStyles() )
         {
             logger.info("Citation Style: " + s);
-            for(String of : pcs.getOutputFormats(s))
+            for(String of : cse.getOutputFormats(s))
             {
                 logger.info("--Output Format: " + of);
-                logger.info("--Mime Type: " + pcs.getMimeType(s, of));
+                logger.info("--Mime Type: " + cse.getMimeType(s, of));
             }
             
         }   
@@ -121,7 +122,7 @@ public class TestCitationManager {
         
         //TODO: always recent schema should be provided
         long start = 0;
-        String dsName = ResourceUtil.getPathToDataSources() + dsFileName;
+        String dsName = dsFileName;
           
         try {
             start = System.currentTimeMillis();
@@ -146,7 +147,7 @@ public class TestCitationManager {
     public final void testCitationStyleValidation() throws IOException, CitationStyleManagerException, ParserConfigurationException, SAXException
     {
         
-//      for (String cs : pcs.getStyles() )
+//      for (String cs : cse.getStyles() )
         for (String cs : new String[]{"APA","AJP"} )
         {
             logger.info("Validate Citation Style: " + cs);
@@ -177,21 +178,22 @@ public class TestCitationManager {
     public final void testCitManOutput() throws Exception {
         
         
-//      for (String cs : pcs.getStyles() )
-      for (String cs : new String[]{"AJP","AJP"} )
-//            for (String cs : new String[]{"AJP"} )
+      for (String cs : cse.getStyles() )
+//      for (String cs : new String[]{"APA","AJP"} )
+//            for (String cs : new String[]{"APA"} )
         {
             long start;
             byte[] result;
             for ( String format : 
-                  pcs.getOutputFormats(cs)
-//                    new String[]{/*"snippet"/*,*/ "escidoc_snippet"}
-//          new String[]{"snippet"}
+                  cse.getOutputFormats(cs)
+//                    new String[]{"snippet", "escidoc_snippet"}
+//            new String[]{"pdf"}
+//          new String[]{"escidoc_snippet"}
             ) {
                 logger.info("Test Citation Style: " + cs);
                 
                 start = System.currentTimeMillis();
-                result = pcs.getOutput(cs, format, itemList);
+                result = cse.getOutput(cs, format, itemList);
                 
 //              logger.info("ItemList\n: " + itemList);
 //              logger.info("Result\n: " + new String(result));
@@ -203,7 +205,7 @@ public class TestCitationManager {
                 logger.info(format + " length: " + result.length);
                 logger.info(format + " is OK");
                 
-//                TestHelper.writeToFile(cs + "." + format, result);
+                TestHelper.writeToFile("target/" + cs + "." + format, result);
                 
             }
             

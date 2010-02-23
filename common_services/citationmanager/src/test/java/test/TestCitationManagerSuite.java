@@ -38,12 +38,13 @@ import org.junit.runners.Suite;
  * Component test suite for citationmanager.
  *
  * @author Vlad Makarenko (initial creation)
- * @version $Revision:$ $LastChangedDate:$ by $Author$
+ * @version $Revision$ $LastChangedDate$ by $Author$
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
                     TestCitationManager.class
-//                   ,TestCitationStylesSubstantial.class                                        
+//                   ,
+//					TestCitationStylesSubstantial.class                                        
                     })
 public class TestCitationManagerSuite
 {

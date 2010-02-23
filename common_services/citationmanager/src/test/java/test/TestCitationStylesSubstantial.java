@@ -48,9 +48,11 @@ import javax.xml.xpath.XPathFactory;
 import net.sf.jasperreports.engine.util.JRXmlUtils;
 
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -119,7 +121,7 @@ public class TestCitationStylesSubstantial {
 	private static final String CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME = "CitationStyleTestUserAccount.xml"; 
 	private static final String CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME = "CitationStyleTestUserGrants.xml"; 
 	private static final String CITATION_STYLE_TEST_CONTEXTS_FILE_NAME = "CitationStyleTestContexts.xml"; 
-	private static final String CITATION_STYLE_TEST_COLLECTION_FILE_NAME = "CitationStyleTestCollection.xml"; 
+	private static final String CITATION_STYLE_TEST_COLLECTION_FILE_NAME = "CitationStyleTestCollectionV2.xml"; 
 	
 	
 	private static String userHandle, adminHandle;   
@@ -134,10 +136,10 @@ public class TestCitationStylesSubstantial {
 	 {
 		 pcs = new ProcessCitationStyles();
 		 cse = new CitationStyleExecutor();
-//		 userHandle = TestHelper.loginUser(USER_NAME, USER_PASSWD);
-//		 uah_user = ServiceLocator.getUserAccountHandler(userHandle);
-//		 adminHandle = TestHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN));
-//		 uah_admin = ServiceLocator.getUserAccountHandler(adminHandle);
+		 userHandle = TestHelper.loginUser(USER_NAME, USER_PASSWD);
+		 uah_user = ServiceLocator.getUserAccountHandler(userHandle);
+		 adminHandle = TestHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN));
+		 uah_admin = ServiceLocator.getUserAccountHandler(adminHandle);
 		 XPathFactory factory = XPathFactory.newInstance();
 		 xpath = factory.newXPath();
 	 }
@@ -236,7 +238,7 @@ public class TestCitationStylesSubstantial {
      * @throws Exception
      */
     @Test
-    //@Ignore
+    @Ignore
     public final void testCitationStyleSnippetGeneration() throws Exception  {
 
     	int FAILED = 0;
@@ -247,7 +249,7 @@ public class TestCitationStylesSubstantial {
     	
 
     	// for all citation styles
-    	for (String cs : /*pcs.getStyles()*/ new String[]{"APA_new"} )    	
+    	for (String cs : /*pcs.getStyles()*/ new String[]{"AJP_new"} )    	
     	{
 
     		logger.info("Citation Style: " + cs);
@@ -276,7 +278,7 @@ public class TestCitationStylesSubstantial {
     			root.appendChild(itemsArr[i]);
     			Node n = itemsArr[i];
     			String objid = n.getAttributes().getNamedItem("objid") + "";  
-    			logger.info(objid);
+    			logger.info("item: " + i + ", " + objid);
 
     			//generate text citation form the current item
     			String snippet = new String(cse.getOutput(cs, "snippet", XmlHelper.outputString(doc))); 
@@ -299,8 +301,8 @@ public class TestCitationStylesSubstantial {
     			{
     				FAILED++;
     				failedCits.append(
-    						"\n " + objid  
-    						+ "\nThe generated citation:\n"
+    						"\n" + "Item: " + (i + 1) + ", " + objid  
+    						+ "\nGenerated citation:\n"
     						+ "[" +generatedCit + "]"
     						+ "\n does not match expected citation:\n"
     						+ "[" + expectedCit + "]"
@@ -308,12 +310,14 @@ public class TestCitationStylesSubstantial {
     			}
 
     			root.removeChild(itemsArr[i]);
-    		}        		
-    		assertTrue(
-    				"There (is/are) " + FAILED + " wrong generated citation(s):" 
-    				+ failedCits.toString()
-    				, FAILED == 0
-    		);
+    		}
+    		if (FAILED != 0)
+    		{
+    			logger.info("There (is/are) " + FAILED + " wrong generated citation(s):" 
+        				+ failedCits.toString());
+    			Assert.fail();
+    		}
+    		
 
     	}
     }
@@ -332,9 +336,9 @@ public class TestCitationStylesSubstantial {
     @Ignore
     public void backupAll() throws Exception
     {
-    	backupUser();
-    	backupContext();
-    	backupItems();
+//    	backupUser();
+//    	backupContext();
+//    	backupItems();
     }
     
     /**
@@ -345,14 +349,14 @@ public class TestCitationStylesSubstantial {
      * @throws Exception
      */
     @Test
-    @Ignore
+//    @Ignore
     public void restoreAll() throws Exception
     {
-//    	restoreUser();
-//    	restoreContext();
+    	restoreUser();
+    	restoreContext();
     	restoreGrants();
 //    	for (int i = 1; i <= 35; i++) {
-//    		restoreItems();	
+    		restoreItems();	
 //		}
         
     }
@@ -436,6 +440,12 @@ public class TestCitationStylesSubstantial {
     		logger.error("No context has been found");
     		return false;
     	}
+    	logger.info("context for user:" + context_id);
+    	
+    	//get namespaces of the root element 
+    	NamedNodeMap namespaces = xpathNode("/item-list", itemList).getAttributes() ;
+    	namespaces.removeNamedItem("xmlns:escidocItemList");
+    	
     	
     	NodeList nodes = xpathNodeList("/item-list/item", itemList);
     	
@@ -453,6 +463,13 @@ public class TestCitationStylesSubstantial {
     		//remove old objid of the item
     		logger.info("objid:" + ((Element)n).getAttribute("objid"));
     		((Element)n).removeAttribute("objid");
+    		
+       		for (int ii = 0; ii < namespaces.getLength(); ii++)
+        	{
+//        		logger.info ("name:" + nnm.item(i).getNodeName() + ";type:" + nnm.item(i).getNodeType() + ";value:" + nnm.item(i).getNodeValue());
+        		((Element)n).setAttribute(namespaces.item(ii).getNodeName(), namespaces.item(ii).getNodeValue());
+        	}
+    		
     		Document tmpDoc = JRXmlUtils.createDocument(n);
     		
     		//replace props
@@ -475,7 +492,7 @@ public class TestCitationStylesSubstantial {
     		
     		String itemXml = XmlHelper.outputString(tmpDoc);
     		logger.info("item to be created: " + itemXml);
-
+    		
     		//create item
     		String createdItemXml = ih.create(itemXml);
     		logger.info("created item: " + createdItemXml);
@@ -483,15 +500,40 @@ public class TestCitationStylesSubstantial {
     		String item_id = xpathString("/item/@objid", createdItemXml);
     		String last_modification_date = xpathString("/item/@last-modification-date", createdItemXml);
     		//submit item
-    		last_modification_date = ih.submit(item_id, String.format(LMD_FORMAT, last_modification_date));
-    		last_modification_date = xpathString("/result/@last-modification-date", last_modification_date);
+    		last_modification_date = xpathString(
+    				"/result/@last-modification-date", 
+    				ih.submit(item_id, String.format(LMD_FORMAT, last_modification_date))
+    		);
     		
+    		//assignObjectPid
+    		String pid = "CIT_COL_PID_" + System.currentTimeMillis() ;
+    		last_modification_date = xpathString(
+    				"/result/@last-modification-date", 
+    				ih.assignObjectPid(
+    						item_id, 
+    	    				"<param last-modification-date=\"" + last_modification_date + "\">" + 
+//    	    					"<url>http://localhost/" + System.currentTimeMillis() + "</url>" +
+    	    				"<pid>" + pid + "</pid>" + 
+    	    				"</param>"
+    	    		)    				
+    		);
     		//assignVersionPid
-    		last_modification_date = ih.assignVersionPid(item_id + ":1", "<param last-modification-date=\"" + last_modification_date + "\">" + "<url>http://localhost</url>" + "</param>");
-    		last_modification_date = xpathString("/result/@last-modification-date", last_modification_date);
-    		
+    		last_modification_date = xpathString(
+    				"/result/@last-modification-date", 
+    				ih.assignVersionPid(item_id + ":1", 
+    	    				"<param last-modification-date=\"" + last_modification_date + "\">" + 
+//    	    					"<url>http://localhost/" + System.currentTimeMillis() + "</url>" +
+    	    					"<pid>" + pid + ":1</pid>" +
+    	    				"</param>"
+    	    		)    		
+    	    );
+
     		//release item
-    		last_modification_date = ih.release(item_id, String.format(LMD_FORMAT, last_modification_date));
+    		logger.info("release object result:" +
+    			ih.release(item_id, String.format(LMD_FORMAT, last_modification_date))
+    		);
+    		
+//    		Thread.sleep(10000);
     		
     	}    	
     	
