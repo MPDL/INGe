@@ -50,6 +50,26 @@ public class WesternFormat10 extends AuthorFormat {
     public List<Author> getAuthors(String authorsString) throws Exception
     {
 
+        if (contains(authorsString, "0123456789") || (authorsString.contains(",") && authorsString.contains(";")))
+        {
+            return null;
+        }
+        else
+        {
+            String[] potentialAuthorGroups = split(authorsString, ',');
+            for (String potentialAuthorGroup : potentialAuthorGroups)
+            {
+                String[] potentialAuthors = split(potentialAuthorGroup, ';');
+                for (String potentialAuthor : potentialAuthors)
+                {
+                    if (!contains(potentialAuthor, " "))
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+        
         String[] authors = authorsString.split(" *(,|;| and | AND | und | et |\\n) *");
         
         return getAuthorListNormalFormat(authors);

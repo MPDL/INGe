@@ -43,6 +43,10 @@ public class WesternFormat3 extends AuthorFormat {
     @Override
     public List<Author> getAuthors(String authorsString) {
 
+        if (authorsString.contains(","))
+        {
+            return null;
+        }
         String[] authors = authorsString.split(" *(;| and | AND | und | et |\\n) *");
 
         return getAuthorListNormalFormat(authors);

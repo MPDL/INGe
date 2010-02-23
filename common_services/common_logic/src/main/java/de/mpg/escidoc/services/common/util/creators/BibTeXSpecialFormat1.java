@@ -54,6 +54,11 @@ public class BibTeXSpecialFormat1 extends AuthorFormat
     public List<Author> getAuthors(String authorsString)
     {
 
+        if (!authorsString.contains("~"))
+        {
+            return null;
+        }
+        
         String[] authors = authorsString.split(" *(,| and | AND | und | et ) *");
 
         return getAuthorListNormalFormat(authors, "~");

@@ -41,7 +41,22 @@ public class WesternFormat7 extends AuthorFormat {
     @Override
     public List<Author> getAuthors(String authorsString) throws Exception
     {
-
+        if (authorsString.contains(";") || contains(authorsString, "0123456789"))
+        {
+            return null;
+        }
+        else
+        {
+            String[] potentialAuthors = split(authorsString, ',');
+            for (String potentialAuthor : potentialAuthors)
+            {
+                if (!contains(potentialAuthor, " "))
+                {
+                    return null;
+                }
+            }
+        }
+        
         String[] authors = authorsString.split(" *(,| and | AND | und | et |\\n) *");
         
         return getAuthorListCheckingGivenNames(authors);

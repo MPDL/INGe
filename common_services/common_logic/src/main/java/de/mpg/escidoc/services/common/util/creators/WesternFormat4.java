@@ -41,6 +41,10 @@ public class WesternFormat4 extends AuthorFormat {
     @Override
     public List<Author> getAuthors(String authorsString) {
 
+        if (authorsString.contains(","))
+        {
+            return null;
+        }
         String[] authors = authorsString.split(" *(;| and | AND | und | et |\\n) *");
 
         return getAuthorListWithInitials(authors);
@@ -53,7 +57,7 @@ public class WesternFormat4 extends AuthorFormat {
 
     @Override
     public String getDescription() {
-        return "Nachname, Vorname[; Nach-Name, Vor-Name]";
+        return "V. Nachname[; V.-N. Nach-Name]";
     }
 
     @Override

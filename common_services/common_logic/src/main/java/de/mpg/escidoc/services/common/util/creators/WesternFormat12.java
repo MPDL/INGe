@@ -49,6 +49,11 @@ public class WesternFormat12 extends AuthorFormat {
     @Override
     public List<Author> getAuthors(String authorsString) {
 
+        if (authorsString.contains(",") || contains(authorsString, "0123456789"))
+        {
+            return null;
+        }
+        
         String[] authors = authorsString.split(" *(;| and | AND | und | et |\\n) *");
 
         return getAuthorListLeadingSurname(authors, " ");

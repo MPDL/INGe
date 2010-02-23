@@ -42,6 +42,11 @@ public class WesternFormat8 extends AuthorFormat {
     public List<Author> getAuthors(String authorsString) throws Exception
     {
 
+        if (authorsString.contains(";") || contains(authorsString, "0123456789"))
+        {
+            return null;
+        }
+        
         String[] authors = authorsString.split(" *(,| and | AND | und | et |\\n) *");
         
         return getAuthorListCheckingNames(authorsString, authors);

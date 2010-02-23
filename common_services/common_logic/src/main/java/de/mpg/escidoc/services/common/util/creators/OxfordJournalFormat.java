@@ -53,6 +53,11 @@ public class OxfordJournalFormat extends AuthorFormat
     public List<Author> getAuthors(String authorsString) throws Exception
     {
 
+        if (authorsString.contains(";") || !authorsString.matches("\\d"))
+        {
+            return null;
+        }
+        
         String[] authors = authorsString.split(" *, (and)? *");
 
         for (int i = 0; i < authors.length; i++)

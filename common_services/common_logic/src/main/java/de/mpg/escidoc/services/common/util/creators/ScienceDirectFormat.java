@@ -56,6 +56,11 @@ public class ScienceDirectFormat extends AuthorFormat
     public List<Author> getAuthors(String authorsString) throws Exception
     {
 
+        if (!authorsString.contains("[") || !authorsString.contains("Corresponding Author Contact Information"))
+        {
+            return null;
+        }
+        
         String[] authors = authorsString.split(" *(,| and | AND | und | et ) *");
         List<String> newList = new ArrayList<String>();
         for (int i = 0; i < authors.length; i++)

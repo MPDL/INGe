@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
@@ -632,4 +634,60 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
         return result;
         
     }
+    
+    /**
+     * Checks if a string contains at least one of the given characters without using regexp.
+     * 
+     * @param authorsString The string that is tested
+     * @param listOfCharacters A string containing characters that are searched for.
+     * 
+     * @return true if the tested string contains one of the test characters.
+     */
+    protected boolean contains(String authorsString, String listOfCharacters)
+    {
+        for (char chr : listOfCharacters.toCharArray())
+        {
+            if (authorsString.indexOf(chr) >= 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Splits a string into pieces without using regexp.
+     * 
+     * @param authorsString The string that is splitted.
+     * @param delimiter The character where the string is splitted at.
+     * 
+     * @return A string array containing the trimmed pieces of the string.
+     */
+    protected String[] split(String authorsString, char delimiter)
+    {
+        ArrayList<String> list = new ArrayList<String>();
+        int currentStart = 0;
+        int currentEnd;
+        while ((currentEnd = authorsString.indexOf(delimiter, currentStart)) >= 0)
+        {
+            list.add(authorsString.substring(currentStart, currentEnd).trim());
+            currentStart = currentEnd + 1;
+        }
+        list.add(authorsString.substring(currentStart).trim());
+        return list.toArray(new String[]{});
+    }
+    
+    /**
+     * Removes disturbing whitespaces from a given input string. If an author format does
+     * not require this normalization it has to override this method.
+     * 
+     * @param authors The string that should be normalized.
+     * 
+     * @return The normalized string.
+     */
+    protected String normalize(String authors)
+    {
+        return authors.replaceAll("\\s+", " ").trim();
+    }
+    
 }

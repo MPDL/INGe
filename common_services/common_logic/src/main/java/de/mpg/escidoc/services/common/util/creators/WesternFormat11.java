@@ -49,6 +49,11 @@ public class WesternFormat11 extends AuthorFormat {
     @Override
     public List<Author> getAuthors(String authorsString) {
 
+        if (!authorsString.contains(";") || (authorsString.contains(",") && authorsString.contains(";") && authorsString.indexOf(",") < authorsString.indexOf(";")))
+        {
+            return null;
+        }
+        
         String[] authors = authorsString.split(" *(,| and | AND | und | et |\\n) *");
 
         return getAuthorListLeadingSurname(authors, ";");

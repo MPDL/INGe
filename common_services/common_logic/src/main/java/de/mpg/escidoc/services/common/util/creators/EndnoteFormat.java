@@ -31,6 +31,8 @@ package de.mpg.escidoc.services.common.util.creators;
 
 import java.util.List;
 
+import net.sf.saxon.functions.Contains;
+
 /**
  * Parser for comma seperated author strings (surname first, semicolon, given name(s)), mixed given names and initials
  *
@@ -49,6 +51,11 @@ public class EndnoteFormat extends AuthorFormat {
     @Override
     public List<Author> getAuthors(String authorsString) {
 
+        if (!authorsString.contains("\n"))
+        {
+            return null;
+        }
+        
         String[] authors = authorsString.split(" *\\n *");
 
         return getAuthorListLeadingSurname(authors, ",");
@@ -75,4 +82,10 @@ public class EndnoteFormat extends AuthorFormat {
         return null;
     }
 
+    @Override
+    protected String normalize(String authors)
+    {
+        return authors.trim();
+    }
+    
 }

@@ -102,34 +102,34 @@ public class AuthorDecoder
     public AuthorDecoder(String authors) throws Exception
     {
         //Remove newlines that have a seperator before or after it
-        
-        //replace newlines before or after commas
-        authors = authors.replaceAll(",\\s*\\n\\s*", ", ");
-        authors = authors.replaceAll("\\s*\\n\\s*,", ",");
-        
-        //replace newlines before or after semicolons
-        authors = authors.replaceAll(";\\s*\\n\\s*", "; ");
-        authors = authors.replaceAll("\\s*\\n\\s*;", ";");
-        
-       //replace newlines before or after "and"
-        authors = authors.replaceAll(" and\\s*\\n\\s*", " and ");
-        authors = authors.replaceAll("\\s*\\n\\s*and ", " and ");
-        
-        //replace newlines before or after "und"
-        authors = authors.replaceAll(" und\\s*\\n\\s*", " und ");
-        authors = authors.replaceAll("\\s*\\n\\s*und ", " und ");
-        
-        //replace newlines before or after "et"
-        authors = authors.replaceAll(" et\\s*\\n\\s*", " et ");
-        authors = authors.replaceAll("\\s*\\n\\s*et ", " et ");
-        
-        //replace ", and"
-        authors = authors.replaceAll(",\\s*and\\s+", ", ");
-        authors = authors.replaceAll(";\\s*and\\s+", "; ");
- 
-        //normalize the string
-        //authors = authors.replaceAll("(\\s)+", " ").trim();
-        authors = authors.trim();
+
+//        //replace newlines before or after commas
+//        authors = authors.replaceAll(",\\s*\\n\\s*", ", ");
+//        authors = authors.replaceAll("\\s*\\n\\s*,", ",");
+//        
+//        //replace newlines before or after semicolons
+//        authors = authors.replaceAll(";\\s*\\n\\s*", "; ");
+//        authors = authors.replaceAll("\\s*\\n\\s*;", ";");
+//        
+//       //replace newlines before or after "and"
+//        authors = authors.replaceAll(" and\\s*\\n\\s*", " and ");
+//        authors = authors.replaceAll("\\s*\\n\\s*and ", " and ");
+//        
+//        //replace newlines before or after "und"
+//        authors = authors.replaceAll(" und\\s*\\n\\s*", " und ");
+//        authors = authors.replaceAll("\\s*\\n\\s*und ", " und ");
+//        
+//        //replace newlines before or after "et"
+//        authors = authors.replaceAll(" et\\s*\\n\\s*", " et ");
+//        authors = authors.replaceAll("\\s*\\n\\s*et ", " et ");
+//        
+//        //replace ", and"
+//        authors = authors.replaceAll(",\\s*and\\s+", ", ");
+//        authors = authors.replaceAll(";\\s*and\\s+", "; ");
+// 
+//        //normalize the string
+//        //authors = authors.replaceAll("(\\s)+", " ").trim();
+//        authors = authors.trim();
         
         logger.debug("Testing '" + authors + "'");
 
@@ -141,13 +141,14 @@ public class AuthorDecoder
             logger.debug(authorFormat.getName() + ": " + authorFormat.getPattern());
             try
             {
-                Pattern pattern = Pattern.compile(authorFormat.getPattern());
-                Matcher matcher = pattern.matcher(authors);
-                if (matcher.find())
+                //Pattern pattern = Pattern.compile(authorFormat.getPattern());
+                //Matcher matcher = pattern.matcher(authors);
+
+                if (true)
                 {
                     logger.debug("Pattern found!");
 
-                    List<Author> authorList = authorFormat.getAuthors(authors);
+                    List<Author> authorList = authorFormat.getAuthors(authorFormat.normalize(authors));
                     if (authorList != null)
                     {
                         authorListList.add(authorList);
