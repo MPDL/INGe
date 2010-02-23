@@ -72,6 +72,18 @@
 	<variable name="l_staatsexamen">'http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen'</variable>
 	<variable name="l_phd">'http://purl.org/escidoc/metadata/ves/academic-degrees/phd'</variable>
 	<variable name="l_habilitation">'http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation'</variable>
-	<variable name="l_bachelor">'http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor'</variable>			
+	<variable name="l_bachelor">'http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor'</variable>
+	
+	<variable name="v_degree">pub:publication/eterms:degree/text()</variable>
+	
+	<variable name="l_degree">
+		if ($v_degree=$l_master) then 'Master' else
+		if ($v_degree=$l_diploma) then 'Diploma' else
+		if ($v_degree=$l_magister) then 'Magister' else
+		if ($v_degree=$l_staatsexamen) then 'Staatsexamen' else
+		if ($v_degree=$l_phd) then 'PhD' else
+		if ($v_degree=$l_habilitation) then 'Habilitation' else
+		if ($v_degree=$l_bachelor) then 'Bachelor' else ''
+	</variable>				
 		
 </variables>
