@@ -69,7 +69,7 @@
 			<xsl:namespace name="pub">${xsd.metadata.publication}</xsl:namespace>
 			<xsl:namespace name="e">${xsd.metadata.escidocprofile.types}</xsl:namespace>
 			<xsl:namespace name="prop">${xsd.soap.common.prop}</xsl:namespace>
-			<xsl:namespace name="ec">${xsd.soap.item.components}</xsl:namespace>
+			<xsl:namespace name="escidocComponents">${xsd.soap.item.components}</xsl:namespace>
 			<xsl:namespace name="source">${xsd.metadata.source}</xsl:namespace>
 			<xsl:namespace name="eterms">${xsd.metadata.escidocprofile.types}</xsl:namespace>
 			<xsl:namespace name="event">${xsd.metadata.escidocprofile.types}</xsl:namespace>
@@ -915,7 +915,7 @@
 		<xsl:comment>### Runtime Functions ###</xsl:comment>
 		<xsl:text>
 	</xsl:text>
-		<xsl:copy-of select="document('../CitationStyles/functions.xml')/xsl:functions/*"/>	
+		<xsl:copy-of select="document('../CitationStyles/functions.xml')/cit:functions/*"/>	
 	</xsl:template>
 	
 	
