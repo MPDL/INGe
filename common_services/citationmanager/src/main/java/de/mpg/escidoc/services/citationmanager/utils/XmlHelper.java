@@ -34,6 +34,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -152,7 +153,7 @@ public class XmlHelper {
     	return db.parse(
     			new ByteArrayInputStream(xml), "UTF-8" 
     	); 
-    }      
+    }
     
     /**
      * Creates new org.w3c.dom.Document with Traversing possibility 
@@ -414,12 +415,10 @@ public class XmlHelper {
     	try 
     	{
     		doc = parseDocumentForTraversing(
-    				new InputSource(
-    						ResourceUtil.getResourceAsStream(
-							ResourceUtil.getPathToSchemas() 
-							+ ResourceUtil.EXPLAIN_FILE
-					)    				)
-    				);
+    				new InputSource( 
+    								ResourceUtil.getPathToSchemas() + ResourceUtil.EXPLAIN_FILE
+    				)
+    		);
 		} catch (Exception e) 
 		{
 			throw new CitationStyleManagerException("Cannot parse explain file", e);
@@ -427,8 +426,7 @@ public class XmlHelper {
     	return doc;
     }
     
-    
-
+ 
 	/* 
 	 * Returns list of Citation Styles 
 	 */
@@ -444,20 +442,6 @@ public class XmlHelper {
 		return lof.size()==0 ? null : lof.toArray(new String[lof.size()]);
 	}
 
-	/* 
-	 * Checks whether the csName is in the list of Citation Styles
-	 */
-    public static boolean isCitationStyle(String csName) throws CitationStyleManagerException 
-	{
-		Utils.checkCondition( !Utils.checkVal(csName), "Empty name of the citation style");
-		 
-		for ( String csn : getListOfStyles() )
-			if ( csn.equals(csName) )
-				return true;
-		
-		return false;
-		
-	}    
 	
 
 	/**
@@ -469,8 +453,7 @@ public class XmlHelper {
 	 */
 	public static List<String[]> getOutputFormatList(String csName) throws CitationStyleManagerException 
 	{
-		if (!isCitationStyle(csName)) 
-			return null;
+		Utils.checkCondition( !Utils.checkVal(csName), "Empty name of the citation style");
 		
 		NodeIterator ni = getFilteredNodes(new OutputFormatNodeFilter(csName), getExplainDocument());
 
@@ -489,49 +472,6 @@ public class XmlHelper {
 		return ofal;	    
 	}
     
-    
-	/**
-	 * Returns the list of the output formats
-	 * for the citation style <code>csName</code> 
-	 * @param csName is name of citation style
-	 * @return list of the output formats 
-	 * @throws CitationStyleManagerException
-	 */
-	public static String[] getOutputFormats(String csName) throws CitationStyleManagerException 
-	{
-		
-		List<String[]> ofal = getOutputFormatList(csName);
-		String[] ofl = new String[ ofal.size() ];
-		for (int i = 0; i < ofl.length; i++) 
-		{
-			ofl[i] = (ofal.get(i))[0];
-		}
-		return ofl;	    
-	}
-	
-	
-	/**
-	 * Returns the mime-type for output format of the citation style
-	 * @param csName is name of citation style
-	 * @param outFormat is the output format 
-	 * @return mime-type, or <code>null</code>, if no <code>mime-type</code> has been found    
-	 * @throws CitationStyleManagerException if no <code>csName</code> or <code>outFormat</code> are defined 
-	 */ 
-	public static String getMimeType(String csName, String outFormat) throws CitationStyleManagerException{
-		
-		List<String[]> ofal = getOutputFormatList(csName);
-		
-		Utils.checkCondition( ofal==null || ofal.size()==0, "Empty list of output formats for citation style: " + csName);
-
-		Utils.checkName(outFormat,  "Empty output format: " + outFormat);
-
-		for( String[] of : ofal )
-		{
-			if (outFormat.equals(of[0]))
-				return of[1];
-		}
-		return null;	    
-	}
     
 
 	/**
