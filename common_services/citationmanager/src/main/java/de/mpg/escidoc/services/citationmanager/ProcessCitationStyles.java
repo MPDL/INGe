@@ -1239,7 +1239,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     	 }
     	 catch (Exception e) 
     	 {
-    		 throw new CitationStyleManagerException("Problems by escidoc v1 to v2 transformation:", e);	
+    		 throw new CitationStyleManagerException("Problems by escidoc v2 to v1 transformation:", e);	
     	 } 
 		
 
@@ -1454,19 +1454,9 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	 * Explains citation styles and output types for them 
 	 * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#explainStyles()
 	 */
-	public String explainStyles() throws CitationStyleManagerException {
-		
-		String fileString = null;
-		
-		try {
-			fileString = ResourceUtil.getResourceAsString(
-					ResourceUtil.getPathToSchemas()
-					+ ResourceUtil.EXPLAIN_FILE
-			);
-		} catch (IOException e) {
-        	throw new CitationStyleManagerException(e);
-		}
-		return fileString;
+	public String explainStyles() throws CitationStyleManagerException 
+	{
+		return ResourceUtil.getExplainStyles();
 	}
 	
 	
@@ -1512,7 +1502,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	 */
 	public boolean isCitationStyle(String citationStyle) throws CitationStyleManagerException 
 	{
-		return XmlHelper.isCitationStyle(citationStyle);
+		return ResourceUtil.isCitationStyle(citationStyle);
 	}
 
 	/* (non-Javadoc)
@@ -1529,7 +1519,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	 */	
 	public String[] getOutputFormats(String cs) throws CitationStyleManagerException
 	{
-		return XmlHelper.getOutputFormats(cs);
+		return ResourceUtil.getOutputFormats(cs);
 	}
 	
 	/* (non-Javadoc)
@@ -1537,7 +1527,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	 */	
 	public String getMimeType(String cs, String ouf) throws CitationStyleManagerException
 	{
-		return XmlHelper.getMimeType(cs, ouf);
+		return ResourceUtil.getMimeType(cs, ouf);
 	}
 	
 	
