@@ -62,19 +62,17 @@ public class CitationStyleHandlerBean implements CitationStyleHandler
      * Logger for this class.
      */
     private static Logger logger = Logger.getLogger(CitationStyleHandlerBean.class);
-    ProcessCitationStyles citStylesMan = new ProcessCitationStyles();
     CitationStyleExecutor cse = new CitationStyleExecutor();
-
     
     
     /**
      * {@inheritDoc}
+     * @throws IOException 
+     * @throws IllegalArgumentException 
      */
-     public String explainStyles() throws CitationStyleManagerException
+     public String explainStyles() throws CitationStyleManagerException, IllegalArgumentException, IOException
      {           
-    	 String exportStyles = null;
-    	 exportStyles = citStylesMan.explainStyles();                 
-    	 return exportStyles;
+    	 return cse.explainStyles();
      }
 
      /**
@@ -83,15 +81,8 @@ public class CitationStyleHandlerBean implements CitationStyleHandler
     public byte[] getOutput(String citationStyle, String outputFormat, String itemList)
         throws JRException, CitationStyleManagerException, IOException
     {
-        logger.debug("CitationStyleHandlerBean getOutput with citationStyle " + citationStyle);
-       
-        byte[] exportData = null;
-        //TODO
-        exportData = citStylesMan.getOutput(citationStyle, outputFormat, itemList);
-//        exportData = citationStyle.startsWith("AJP") ?
-//        			cse.getOutput("AJP_new", outputFormat, itemList) : 
-//                	cse.getOutput("APA_new", outputFormat, itemList);
-        return exportData;
+        logger.debug("CitationStyleHandlerBean getOutput with citationStyle: " + citationStyle);
+        return cse.getOutput(citationStyle, outputFormat, itemList);
     }
 
     /**
@@ -99,28 +90,28 @@ public class CitationStyleHandlerBean implements CitationStyleHandler
      */
 	public boolean isCitationStyle(String citationStyle)
 			throws CitationStyleManagerException {
-		return citStylesMan.isCitationStyle(citationStyle);
+		return cse.isCitationStyle(citationStyle);
 	}
 
     /**
      * {@inheritDoc}
      */
 	public String[] getStyles() throws CitationStyleManagerException {
-		return citStylesMan.getStyles();
+		return cse.getStyles();
 	}
 	
     /**
      * {@inheritDoc}
      */
 	public String[] getOutputFormats(String cs) throws CitationStyleManagerException {
-		return citStylesMan.getOutputFormats(cs);
+		return cse.getOutputFormats(cs);
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	public String getMimeType(String cs, String ouf) throws CitationStyleManagerException {
-		return citStylesMan.getMimeType(cs, ouf);
+		return cse.getMimeType(cs, ouf);
 	}
 	
 }
