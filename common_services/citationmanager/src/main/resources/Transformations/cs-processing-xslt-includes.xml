@@ -30,18 +30,18 @@
 	<!-- TEMPLATES -->
 	
 	<!-- Component link resolver -->
-    <xsl:template match="escidocComponents:content[@storage='internal-managed']">
+    <xsl:template match="ec:content[@storage='internal-managed']">
     	<xsl:element name="{name(.)}">
     		<xsl:copy-of select="@*[name(.)!='xlink:href']"/>
     		<xsl:attribute name="xlink:href"
     			select="concat(
     				$pubman_instance, 
     				'/item/', 
-    				../../../escidocItem:properties/prop:version/@objid,
+    				../../../ei:properties/prop:version/@objid,
     				'/component/',
     				../@objid,
     				'/',
-    				../escidocComponents:properties/prop:file-name
+    				../ec:properties/prop:file-name
     			)"
     		/>
     	</xsl:element>
