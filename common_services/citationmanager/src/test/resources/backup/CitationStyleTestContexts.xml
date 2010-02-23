@@ -1,58 +1,133 @@
-<?xml version="1.0" encoding="UTF-8"?><context-list:context-list xmlns:context-list="http://www.escidoc.de/schemas/contextlist/0.6" xmlns:xml="http://www.w3.org/XML/1998/namespace" limit="1000" offset="0" number-of-records="1"><context:context
+<?xml version="1.0" encoding="UTF-8"?>
+<context-list:context-list
+	xmlns:context-list="http://www.escidoc.de/schemas/contextlist/0.6"
+	limit="1000" offset="0" number-of-records="1">
+	<context:context xmlns:context="http://www.escidoc.de/schemas/context/0.6"
+		xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+		objid="escidoc:12567" last-modification-date="2010-01-20T13:35:23.197Z">
+		<context:properties>
+			<prop:creation-date>2010-01-20T13:33:27.168Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:public-status-comment>Context escidoc:12567 opened.
+			</prop:public-status-comment>
+			<prop:name>Citation Style Testing Context</prop:name>
+			<prop:description>A context that contains items for citation style
+				validation.</prop:description>
+			<prop:type>PubMan</prop:type>
+			<prop:organizational-units>
+				<srel:organizational-unit objid="escidoc:persistent13" />
+			</prop:organizational-units>
+		</context:properties>
+		<context:admin-descriptors xmlns:context="http://www.escidoc.de/schemas/context/0.6"
+			last-modification-date="2010-01-20T13:35:23.197Z">
+			<context:admin-descriptor name="pubman">
 
-     xmlns:context="http://www.escidoc.de/schemas/context/0.6"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:149035"  last-modification-date="2009-01-15T10:57:01.048Z" >
-    <context:properties 
-  >
-		
- <prop:creation-date>2009-01-15T10:56:02.648Z</prop:creation-date> <srel:created-by   objid="escidoc:user42" />	 	 <srel:modified-by   objid="escidoc:user42" />	 
-	 	<prop:public-status>opened</prop:public-status>	
-  <prop:public-status-comment>Context escidoc:149035 opened.</prop:public-status-comment>	
-		 <prop:name>Citation Style Testing Context</prop:name>
-	
-			  <prop:description>A context that contains items for citation style validation.</prop:description>
-		
-	<prop:type>PubMan</prop:type>
+				<pubman-admin-descriptor>
+					<allowed-genres>
+						<allowed-genre>article</allowed-genre>
+						<allowed-genre>book</allowed-genre>
+						<allowed-genre>book-item</allowed-genre>
+						<allowed-genre>proceedings</allowed-genre>
+						<allowed-genre>conference-paper</allowed-genre>
+						<allowed-genre>talk-at-event</allowed-genre>
+						<allowed-genre>conference-report</allowed-genre>
+						<allowed-genre>poster</allowed-genre>
+						<allowed-genre>courseware-lecture</allowed-genre>
+						<allowed-genre>thesis</allowed-genre>
+						<allowed-genre>paper</allowed-genre>
+						<allowed-genre>report</allowed-genre>
+						<allowed-genre>journal</allowed-genre>
+						<allowed-genre>issue</allowed-genre>
+						<allowed-genre>series</allowed-genre>
+						<allowed-genre>manuscript</allowed-genre>
+						<allowed-genre>other</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal-article
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article
+						</allowed-genre>
+						<allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+						<allowed-genre>http://purl.org/eprint/type/BookItem
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings
+						</allowed-genre>
+						<allowed-genre>http://purl.org/eprint/type/ConferencePaper
+						</allowed-genre>
+						<allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+						<allowed-genre>http://purl.org/eprint/type/ConferencePoster
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/report
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/paper
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/working-paper
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture
+						</allowed-genre>
+						<allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manuscript
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/manual
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/webpage
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/editorial
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/book-review
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/opinion
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-study
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/case-note
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/monograph
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/newspaper
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/multi-volume
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/commentary
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/handbook
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/collected-edition
+						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/festschrift
+						</allowed-genre>
+					</allowed-genres>
+					<template-item></template-item>
+					<validation-schema>publication</validation-schema>
+					<workflow>simple</workflow>
+					<contact-email></contact-email>
+				</pubman-admin-descriptor>
 
-	<prop:organizational-units>
- 	  <srel:organizational-unit   objid="escidoc:persistent13" />
- 		</prop:organizational-units>
-
-</context:properties>
-		 <context:admin-descriptors 
- xmlns:context="http://www.escidoc.de/schemas/context/0.6"    xmlns:xml="http://www.w3.org/XML/1998/namespace"    last-modification-date="2009-01-15T10:57:01.048Z" >
-		
-	<context:admin-descriptor name="pubman"
-
-   >
-  
-<pubman-admin-descriptor>
-  <allowed-genres>
-    <allowed-genre>article</allowed-genre>
-    <allowed-genre>book</allowed-genre>
-    <allowed-genre>book-item</allowed-genre>
-    <allowed-genre>proceedings</allowed-genre>
-    <allowed-genre>conference-paper</allowed-genre>
-    <allowed-genre>talk-at-event</allowed-genre>
-    <allowed-genre>conference-report</allowed-genre>
-    <allowed-genre>poster</allowed-genre>
-    <allowed-genre>courseware-lecture</allowed-genre>
-    <allowed-genre>thesis</allowed-genre>
-    <allowed-genre>paper</allowed-genre>
-    <allowed-genre>report</allowed-genre>
-    <allowed-genre>journal</allowed-genre>
-    <allowed-genre>issue</allowed-genre>
-    <allowed-genre>series</allowed-genre>
-    <allowed-genre>manuscript</allowed-genre>
-    <allowed-genre>other</allowed-genre>
-  </allowed-genres>
-  <template-item></template-item>
-  <validation-schema>publication</validation-schema>
-  <workflow>simple</workflow>
-</pubman-admin-descriptor>
-
-</context:admin-descriptor>
+			</context:admin-descriptor>
 
 
-</context:admin-descriptors>	
-</context:context>
+		</context:admin-descriptors>
+	</context:context>
 </context-list:context-list>
