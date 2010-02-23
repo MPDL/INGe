@@ -37,7 +37,7 @@ public class TestCitationManager {
     
 //    private final static String dsFileName = "APA_revised_item-list.xml";  
 //    private final static String dsFileName = "backward_trans.xml";  
-    private final static String dsFileName = "target/test-classes/backup/CitationStyleTestCollectionV2.xml";  
+    private final static String dsFileName = "target/test-classes/backup/CitationStyleTestCollection.xml";  
 //    private final static String dsFileName = "export_escidoc_series-problem-v2.xml";  
 //    private final static String dsFileName = "problem-by-ice.xml";  
     private static String itemList;
