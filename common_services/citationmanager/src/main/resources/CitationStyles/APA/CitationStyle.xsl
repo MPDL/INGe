@@ -12,7 +12,7 @@
                 xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
                 xmlns:e="http://purl.org/escidoc/metadata/terms/0.1/"
                 xmlns:prop="http://escidoc.de/core/01/properties/"
-                xmlns:ec="http://www.escidoc.de/schemas/components/0.9"
+                xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9"
                 xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
                 xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
                 xmlns:event="http://purl.org/escidoc/metadata/terms/0.1/"
@@ -160,6 +160,12 @@
                         <xsl:variable name="l_bachelor">
                             <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor'"/>
                         </xsl:variable>
+                        <xsl:variable name="v_degree">
+                            <xsl:value-of select="pub:publication/eterms:degree/text()"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_degree">
+                            <xsl:value-of select="&#xA;&#x9;&#x9;if ($v_degree=$l_master) then 'Master' else&#xA;&#x9;&#x9;if ($v_degree=$l_diploma) then 'Diploma' else&#xA;&#x9;&#x9;if ($v_degree=$l_magister) then 'Magister' else&#xA;&#x9;&#x9;if ($v_degree=$l_staatsexamen) then 'Staatsexamen' else&#xA;&#x9;&#x9;if ($v_degree=$l_phd) then 'PhD' else&#xA;&#x9;&#x9;if ($v_degree=$l_habilitation) then 'Habilitation' else&#xA;&#x9;&#x9;if ($v_degree=$l_bachelor) then 'Bachelor' else ''&#xA;&#x9;"/>
+                        </xsl:variable>
                         <!--### Variables ###-->
 	<xsl:variable name="objid">
                             <xsl:value-of select="../../@objid"/>
@@ -204,7 +210,7 @@
                             <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;$date = ( 'submitted', 'in preparation') and&#xA;&#x9;&#x9;&#x9;not( $genre = ($l_manuscript, $l_courseware-lecture, $l_talk-at-event, $l_poster) )&#xA;&#x9;&#x9;"/>
                         </xsl:variable>
                         <xsl:variable name="degree">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;concat (&#xA;&#x9;&#x9;&#x9;&#x9;(if (not(pub:publication/eterms:degree))&#xA;&#x9;&#x9;&#x9;&#x9;then ''&#xA;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/eterms:degree/text()=$l_phd)&#xA;&#x9;&#x9;&#x9;&#x9;then 'PhD '&#xA;&#x9;&#x9;&#x9;&#x9;else concat (pub:publication/eterms:degree/text(), ' ')),&#xA;&#x9;&#x9;&#x9;&#x9;'thesis'&#xA;&#x9;&#x9;&#x9;)&#x9;&#x9;&#xA;&#x9;&#x9;"/>
+                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;concat (&#xA;&#x9;&#x9;&#x9;&#x9;(if (not($v_degree))&#xA;&#x9;&#x9;&#x9;&#x9;then ''&#xA;&#x9;&#x9;&#x9;&#x9;else if ($v_degree=$l_phd)&#xA;&#x9;&#x9;&#x9;&#x9;then 'PhD '&#xA;&#x9;&#x9;&#x9;&#x9;else concat ($l_degree, ' ')),&#xA;&#x9;&#x9;&#x9;&#x9;'Thesis'&#xA;&#x9;&#x9;&#x9;)&#x9;&#x9;&#xA;&#x9;&#x9;"/>
                         </xsl:variable>
                         <xsl:variable name="doi">
                             <xsl:value-of select="(pub:publication/dc:identifier[@xsi:type='eterms:DOI'])[1]/text()"/>
@@ -2721,11 +2727,11 @@
         </xsl:element>
     </xsl:template>
     <!--### Includes ###-->
-	<xsl:template match="ec:content[@storage='internal-managed']">
+	<xsl:template match="escidocComponents:content[@storage='internal-managed']">
     	   <xsl:element name="{name(.)}">
     		      <xsl:copy-of select="@*[name(.)!='xlink:href']"/>
     		      <xsl:attribute name="xlink:href"
-                           select="concat(         $pubman_instance,          '/item/',          ../../../ei:properties/prop:version/@objid,         '/component/',         ../@objid,         '/',         ../ec:properties/prop:file-name        )"/>
+                           select="concat(         $pubman_instance,          '/item/',          ../../../ei:properties/prop:version/@objid,         '/component/',         ../@objid,         '/',         ../escidocComponents:properties/prop:file-name        )"/>
     	   </xsl:element>
     </xsl:template>
     <xsl:template name="applyDelimiter">
@@ -2741,15 +2747,15 @@
 		      </xsl:for-each>
 	   </xsl:template>
     <!--### Runtime Functions ###-->
-	<xsl:function name="func:get_year">
+	<xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_year">
 		      <xsl:param name="date"/>
 		      <xsl:value-of select="substring($date,1,4)"/>
 	   </xsl:function>
-    <xsl:function name="func:get_month">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_month">
 		      <xsl:param name="date"/>
 		      <xsl:value-of select="substring($date,6,2)"/>
 	   </xsl:function>
-    <xsl:function name="func:get_month_name">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_month_name">
 		      <xsl:param name="date"/>
 		      <xsl:variable name="months">
 			         <m n="0?1">January</m>
@@ -2767,19 +2773,20 @@
 		      </xsl:variable>
 		      <xsl:value-of select="     $months/m[     matches(      tokenize($date, '-')[2], @n     )     ]   "/>
 	   </xsl:function>
-    <xsl:function name="func:get_initials">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_initials">
 		      <xsl:param name="str"/>
 		      <xsl:variable name="delim" select="if (contains ($str, '-')) then '-' else ' '"/>
 		      <xsl:for-each select="tokenize(normalize-space ($str), '\s+|\.\s+|\-\s*')">
 			         <xsl:value-of select="concat(substring (., 1, 1), if (position()!=last())then concat ('.', $delim) else '.')"/>
 		      </xsl:for-each>
 	   </xsl:function>
-    <xsl:function name="func:cleanCitation">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:cleanCitation">
 		      <xsl:param name="str"/>
 			     <xsl:value-of select="     normalize-space (     functx:replace-multi (      $str,      ( '([.,?!:;])\s*(&lt;[/]span&gt;)\s*\1', '([.,?!:;])\s*\1', '\.&#34;\.', '\s+([.,?!:;])', '\s*(&lt;[/]?span&gt;)\s*([.,?!:;])', '([?!])+\.' ),      ( '$1$2',         '$1',    '.&#34;',  '$1',     '$1$2',         '$1' )     )     )    "/>
 			     <!-- 																	.".=>." ??? -->
 	</xsl:function>
-    <xsl:function name="functx:replace-multi" as="xs:string?">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="functx:replace-multi"
+                  as="xs:string?">
 	       <xsl:param name="arg" as="xs:string?"/> 
 	       <xsl:param name="changeFrom" as="xs:string*"/> 
 	       <xsl:param name="changeTo" as="xs:string*"/> 
@@ -2787,7 +2794,7 @@
 	       <xsl:sequence select="      if (count($changeFrom) &gt; 0)     then functx:replace-multi(            replace($arg, $changeFrom[1],                       functx:if-absent($changeTo[1],'')),            $changeFrom[position() &gt; 1],            $changeTo[position() &gt; 1])     else $arg   "/>
 	   
 	   </xsl:function>
-    <xsl:function name="functx:if-absent" as="item()*">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="functx:if-absent" as="item()*">
 	       <xsl:param name="arg" as="item()*"/> 
 	       <xsl:param name="value" as="item()*"/> 
 	 

@@ -109,11 +109,11 @@
 		
 		<variable name="degree">
 			concat (
-				(if (not(pub:publication/eterms:degree))
+				(if (not($v_degree))
 				then ''
-				else if (pub:publication/eterms:degree/text()=$l_phd)
+				else if ($v_degree=$l_phd)
 				then 'PhD '
-				else concat (pub:publication/eterms:degree/text(), ' ')),
+				else concat ($l_degree, ' ')),
 				'Thesis'
 			)		
 		</variable>
