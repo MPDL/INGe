@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CDDL HEADER START The contents of this file are subject to the terms
+	of the Common Development and Distribution License, Version 1.0 only
+	(the "License"). You may not use this file except in compliance with
+	the License. You can obtain a copy of the license at
+	license/ESCIDOC.LICENSE or http://www.escidoc.de/license. See the
+	License for the specific language governing permissions and
+	limitations under the License. When distributing Covered Code, include
+	this CDDL HEADER in each file and include the License file at
+	license/ESCIDOC.LICENSE. If applicable, add the following below this
+	CDDL HEADER, with the fields enclosed by brackets "[]" replaced with
+	your own identifying information: Portions Copyright [yyyy] [name of
+	copyright owner] CDDL HEADER END Copyright 2006-2010
+	Fachinformationszentrum Karlsruhe Gesellschaft für
+	wissenschaftlich-technische Information mbH and Max-Planck-
+	Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved.
+	Use is subject to license terms.
+-->
+<!--
+	Default variables for the transformations from eSciDoc Citation Style Configuration Language 
+	to the Citation Style Execution XSLT 
+	See http://colab.mpdl.mpg.de/mediawiki/CitationStyleConfigurationConcept
+	and https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager/src/main/resources/Schemas/citation-style.xsd
+	Author: Vlad Makarenko (initial creation) $Author$ (last changed)
+	$Revision$ $LastChangedDate$
+-->
+<variables xmlns="http://www.escidoc.de/citationstyle">
+	
+	<!-- genre labels -->
+	<variable name="l_journal">'http://purl.org/escidoc/metadata/ves/publication-types/journal'</variable>
+	<variable name="l_article">'http://purl.org/escidoc/metadata/ves/publication-types/article'</variable>
+	<variable name="l_issue">'http://purl.org/escidoc/metadata/ves/publication-types/issue'</variable>
+	<variable name="l_book">'http://purl.org/eprint/type/Book'</variable>
+	<variable name="l_book-item">'http://purl.org/eprint/type/BookItem'</variable>
+	<variable name="l_proceedings">'http://purl.org/escidoc/metadata/ves/publication-types/proceedings'</variable>
+	<variable name="l_conference-paper">'http://purl.org/eprint/type/ConferencePaper'</variable>
+	<variable name="l_conference-report">'http://purl.org/escidoc/metadata/ves/publication-types/conference-report'</variable>
+	<variable name="l_poster">'http://purl.org/eprint/type/ConferencePoster'</variable>
+	<variable name="l_report">'http://purl.org/eprint/type/Report'</variable>
+	<variable name="l_paper">'http://purl.org/escidoc/metadata/ves/publication-types/paper'</variable>
+	<variable name="l_talk-at-event">'http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event'</variable>
+	<variable name="l_paper">'http://purl.org/escidoc/metadata/ves/publication-types/working-paper'</variable>
+	<variable name="l_courseware-lecture">'http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture'</variable>
+	<variable name="l_thesis">'http://purl.org/eprint/type/Thesis'</variable>
+	<variable name="l_series">'http://purl.org/escidoc/metadata/ves/publication-types/series'</variable>
+	<variable name="l_manuscript">'http://purl.org/escidoc/metadata/ves/publication-types/manuscript'</variable>
+	<variable name="l_other">'http://purl.org/escidoc/metadata/ves/publication-types/other'</variable>
+
+	<!-- creator labels -->
+	<variable name="l_author">'http://www.loc.gov/loc.terms/relators/AUT'</variable>
+	<variable name="l_artist">'http://www.loc.gov/loc.terms/relators/ART'</variable>
+	<variable name="l_editor">'http://www.loc.gov/loc.terms/relators/EDT'</variable>
+	<variable name="l_painter">'http://purl.org/escidoc/metadata/ves/creator-roles/painter'</variable>
+	<variable name="l_photographer">'http://www.loc.gov/loc.terms/relators/PHT'</variable>
+	<variable name="l_illustrator">'http://www.loc.gov/loc.terms/relators/ILL'</variable>
+	<variable name="l_commentator">'http://www.loc.gov/loc.terms/relators/CMM'</variable>
+	<variable name="l_transcriber">'http://www.loc.gov/loc.terms/relators/TRC'</variable>
+	<variable name="l_translator">'http://www.loc.gov/loc.terms/relators/TRL'</variable>
+	<variable name="l_advisor">'http://www.loc.gov/loc.terms/relators/SAD'</variable>
+	<variable name="l_advisor">'http://www.loc.gov/loc.terms/relators/THS'</variable>
+	<variable name="l_contributor">'http://www.loc.gov/loc.terms/relators/CTB'</variable>
+	<variable name="l_publisher">'http://purl.org/escidoc/metadata/ves/creator-roles/publisher'</variable>
+	<variable name="l_honoree">'http://www.loc.gov/loc.terms/relators/HNR'</variable>
+	<variable name="l_contributor">'http://purl.org/escidoc/metadata/ves/creator-roles/founder'</variable>
+	<variable name="l_contributor">'http://purl.org/escidoc/metadata/ves/creator-roles/referee'</variable>
+
+	<!-- degree labels -->
+	<variable name="l_master">'http://purl.org/escidoc/metadata/ves/academic-degrees/master'</variable>
+	<variable name="l_diploma">'http://purl.org/escidoc/metadata/ves/academic-degrees/diploma'</variable>
+	<variable name="l_magister">'http://purl.org/escidoc/metadata/ves/academic-degrees/magister'</variable>
+	<variable name="l_staatsexamen">'http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen'</variable>
+	<variable name="l_phd">'http://purl.org/escidoc/metadata/ves/academic-degrees/phd'</variable>
+	<variable name="l_habilitation">'http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation'</variable>
+	<variable name="l_bachelor">'http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor'</variable>			
+		
+</variables>

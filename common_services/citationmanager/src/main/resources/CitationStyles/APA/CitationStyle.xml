@@ -21,17 +21,19 @@
 	Specifications: http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA	
 -->
 <citation-style name="APA"
-	xmlns="http://www.escidoc.de/citationstyle" 
+	xmlns="http://www.escidoc.de/citationstyle"  
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style-new.xsd"
+	xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd"
 	read-only="no" 
-	element-specific="no" 
+	element-specific="no"
 	md-xpath="../../mdr:md-records/mdr:md-record"
 	source-placeholder-tag="prop:content-model-specific"
 	citation-placeholder-tag="dcterms:bibliographicCitation"
+	include-global-default-variables="yes"
+	include-default-variables="no"
 	>
 	<!-- special variables to be used in expressions for short notations -->
-	<variables>
+	<variables> 
 		<!-- variables which use xpath directly in DataSource NS-->
 
 		<!--		NOTE: -->
@@ -40,106 +42,95 @@
 		<!--		??????-->
 
 		<!-- ### objid should be always defined!!! ### -->
-		<variable name="objid" ><![CDATA[../../@objid]]></variable>
+		<variable name="objid" >../../@objid</variable>
 		<!--  -->
-		<variable name="genre"><![CDATA[mdp:publication/@type]]></variable>
-		<variable name="source-type"><![CDATA[mdp:publication/pub:source[1]/@type]]></variable>
-		<variable name="hasPublication" type="xs:boolean"><![CDATA[exists(mdp:publication)]]></variable>
-		<variable name="authorsCount"><![CDATA[count(mdp:publication/pub:creator[@role='author'])]]></variable>
-		<variable name="editorsCount"><![CDATA[count(mdp:publication/pub:creator[@role='editor'])]]></variable>
-		<variable name="ed-postfix"><![CDATA[if ($editorsCount=1) then ' (Ed.)' else ' (Eds.)']]></variable>
-		<variable name="sourceEditorsCount"><![CDATA[count(mdp:publication/pub:source[1]/e:creator[@role='editor'])]]></variable>
-		<variable name="source-ed-postfix"><![CDATA[if ($sourceEditorsCount=1) then ' (Ed.)' else ' (Eds.)']]></variable>
-		<variable name="genre-exception" type="xs:boolean"><![CDATA[$genre=( 'poster', 'talk-at-event', 'courseware-lecture' )]]></variable>
+		
+		<variable name="genre">pub:publication/@type</variable>
+		<variable name="source-type">pub:publication/source:source[1]/@type</variable>
+		<variable name="hasPublication" type="xs:boolean">exists(pub:publication)</variable>
+		<variable name="authorsCount">count(pub:publication/eterms:creator[@role=$l_author])</variable>
+		<variable name="editorsCount">count(pub:publication/eterms:creator[@role=$l_editor])</variable>
+		<variable name="ed-postfix">if ($editorsCount=1) then 'Ed.' else 'Eds.'</variable>
+		<variable name="sourceEditorsCount">count(pub:publication/source:source[1]/eterms:creator[@role=$l_editor])</variable>
+		<variable name="source-ed-postfix">if ($sourceEditorsCount=1) then 'Ed.' else 'Eds.'</variable>
+		<variable name="genre-exception" type="xs:boolean">$genre=( $l_poster, $l_talk-at-event, $l_courseware-lecture )</variable>
 
 		<!-- Dates block -->
-		<variable name="date">
-			<![CDATA[
-				if ($genre='manuscript' and mdp:publication/dcterms:created) 
-				then func:get_year(mdp:publication/dcterms:created)  
-				else if ($genre-exception and mdp:publication/pub:event/e:start-date)
-				then func:get_year(mdp:publication/pub:event/e:start-date) 
-				else if (mdp:publication/dcterms:issued)
-				then func:get_year(mdp:publication/dcterms:issued) 
-				else if (mdp:publication/pub:published-online) 
-				then func:get_year(mdp:publication/pub:published-online) 
-				else if (( $genre-exception and $genre='manuscript') and mdp:publication/dcterms:dateAccepted)
-				then func:get_year(mdp:publication/dcterms:dateAccepted)
-				else if (mdp:publication/dcterms:dateAccepted) 
-				then 'in press' 
-				else if	(( $genre-exception or $genre='manuscript') and mdp:publication/dcterms:dateSubmitted)
-				then func:get_year(mdp:publication/dcterms:dateSubmitted)
-				else if (mdp:publication/dcterms:dateSubmitted) 
-				then 'submitted' 
-				else if	(( $genre-exception or $genre='manuscript') and mdp:publication/dcterms:modified)
-				then func:get_year(mdp:publication/dcterms:modified)
-				else if (( $genre-exception or $genre='manuscript') and mdp:publication/dcterms:created)
-				then func:get_year(mdp:publication/dcterms:created)
-				else if (mdp:publication/dcterms:modified or mdp:publication/dcterms:created) 
-				then 'in preparation' 
-				else if (not($genre = ( 'journal', 'series')))
-				then 'n.d.'
-				else ''
-			]]>
+		<variable name="date"> 
+			if ($genre=$l_manuscript and pub:publication/dcterms:created) 
+			then func:get_year(pub:publication/dcterms:created)  
+			else if ($genre-exception and pub:publication/event:event/eterms:start-date)
+			then func:get_year(pub:publication/event:event/eterms:start-date) 
+			else if (pub:publication/dcterms:issued)
+			then func:get_year(pub:publication/dcterms:issued) 
+			else if (pub:publication/eterms:published-online) 
+			then func:get_year(pub:publication/eterms:published-online) 
+			else if (( $genre-exception and $genre=$l_manuscript) and pub:publication/dcterms:dateAccepted)
+			then func:get_year(pub:publication/dcterms:dateAccepted)
+			else if (pub:publication/dcterms:dateAccepted) 
+			then 'in press' 
+			else if	(( $genre-exception or $genre=$l_manuscript) and pub:publication/dcterms:dateSubmitted)
+			then func:get_year(pub:publication/dcterms:dateSubmitted)
+			else if (pub:publication/dcterms:dateSubmitted) 
+			then 'submitted' 
+			else if	(( $genre-exception or $genre=$l_manuscript) and pub:publication/dcterms:modified)
+			then func:get_year(pub:publication/dcterms:modified)
+			else if (( $genre-exception or $genre=$l_manuscript) and pub:publication/dcterms:created)
+			then func:get_year(pub:publication/dcterms:created)
+			else if (pub:publication/dcterms:modified or pub:publication/dcterms:created) 
+			then 'in preparation' 
+			else if (not($genre = ( $l_journal, $l_series)))
+			then 'n.d.'
+			else ''
 		</variable>
 		
 		<variable name="start-date-or-date">
-			<![CDATA[
-				if (mdp:publication/pub:event/e:start-date) 
-				then mdp:publication/pub:event/e:start-date
-				else $date
-			]]>
+			if (pub:publication/event:event/eterms:start-date) 
+			then pub:publication/event:event/eterms:start-date
+			else $date
 		</variable>
 
 		<variable name="date-for-thesis">
-			<![CDATA[
-				if (mdp:publication/dcterms:issued)
-				then func:get_year(mdp:publication/dcterms:issued) 
-				else if (mdp:publication/dcterms:dateAccepted)
-				then func:get_year(mdp:publication/dcterms:dateAccepted) 
-				else if (mdp:publication/pub:published-online)
-				then func:get_year(mdp:publication/pub:published-online) 
-				else ''
-			]]>
+			if (pub:publication/dcterms:issued)
+			then func:get_year(pub:publication/dcterms:issued) 
+			else if (pub:publication/dcterms:dateAccepted)
+			then func:get_year(pub:publication/dcterms:dateAccepted) 
+			else if (pub:publication/eterms:published-online)
+			then func:get_year(pub:publication/eterms:published-online) 
+			else ''
 		</variable>
 		
 		<!-- see http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Citation_of_not_yet_published_works_.28valid_for_all_genres.2C_except_for_manuscript.2C_teaching_.28Lecture.2FCourseware.29.2C_Talk_at_event.2C_Poster.29 -->
 		<variable name="notPublishedRule" type="xs:boolean">
-			<![CDATA[
-				$date = ( 'submitted', 'in preparation') and
-				not( $genre = ('manuscript', 'courseware-lecture', 'talk-at-event', 'poster') )
-			]]>
+			$date = ( 'submitted', 'in preparation') and
+			not( $genre = ($l_manuscript, $l_courseware-lecture, $l_talk-at-event, $l_poster) )
 		</variable>		
 		
 		
 		<variable name="degree">
-			<![CDATA[
-					concat (
-						(if (not(mdp:publication/pub:degree))
-						then ''
-						else if (mdp:publication/pub:degree/text()='phd')
-						then 'PhD '
-						else concat (mdp:publication/pub:degree/text(), ' ')),
-						'Thesis'
-					)		
-			]]>
+			concat (
+				(if (not(pub:publication/eterms:degree))
+				then ''
+				else if (pub:publication/eterms:degree/text()=$l_phd)
+				then 'PhD '
+				else concat (pub:publication/eterms:degree/text(), ' ')),
+				'Thesis'
+			)		
 		</variable>
 		
 		
-		<variable name="doi"><![CDATA[(mdp:publication/dc:identifier[@xsi:type='eidt:DOI'])[1]/text()]]></variable>
-		<variable name="uri"><![CDATA[(mdp:publication/dc:identifier[@xsi:type='dcterms:URI'])[1]/text()]]></variable>
+		<variable name="doi">(pub:publication/dc:identifier[@xsi:type='eterms:DOI'])[1]/text()</variable>
+		<variable name="uri">(pub:publication/dc:identifier[@xsi:type='eterms:URI'])[1]/text()</variable>
 		
 		<variable name="published-online-and-external-locator">
-			<![CDATA[
-				if (not(mdp:publication/dcterms:issued) and mdp:publication/pub:published-online)
-				then 
-					(
-						if (not($doi='')) 
-						then concat('doi:', $doi)
-						else concat('Retrieved from ', $uri)
-					)
-				else ''	
-			]]>
+			if (not(pub:publication/dcterms:issued) and pub:publication/eterms:published-online)
+			then 
+				(
+					if (not($doi='')) 
+					then concat('doi:', $doi)
+					else concat('Retrieved from ', $uri)
+				)
+			else ''	
 		</variable>
 
 	</variables>
@@ -155,21 +146,21 @@
 			</parameters>
 			<elements>
 				<layout-element name="editors-Equal1"
-					ref="mdp:publication/pub:creator[@role='editor']" repeatable="yes">
+					ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
 					<parameters>
 						<valid-if><![CDATA[$editorsCount=1]]></valid-if>
 						<delimiter value=", " />
 						<internal-delimiter value=", " />
 					</parameters>
 					<elements>
-						<layout-element ref="e:organization/e:organization-name/text()" />
-						<layout-element ref="e:person/e:family-name/text()" />
-						<layout-element ref="func:get_initials(e:person/e:given-name/text())"/>
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="person:person/eterms:family-name/text()" />
+						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
 					</elements>
 				</layout-element>
 		
 				<layout-element name="editors-MoreThan1LessOrEqual6"
-					ref="mdp:publication/pub:creator[@role='editor']" repeatable="yes">
+					ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
 					<parameters position="last">
 						<delimiter value=", &amp;amp; " />
 						<internal-delimiter value=", " />
@@ -180,14 +171,14 @@
 						<internal-delimiter value=", " />
 					</parameters>
 					<elements>
-						<layout-element ref="e:organization/e:organization-name/text()" />
-						<layout-element ref="e:person/e:family-name/text()" />
-						<layout-element ref="func:get_initials(e:person/e:given-name/text())"/>
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="person:person/eterms:family-name/text()" />
+						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
 					</elements>
 				</layout-element>
 		
 				<layout-element name="editors-MoreThan6"
-					ref="mdp:publication/pub:creator[@role='editor']" repeatable="yes">
+					ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
 					<parameters>
 						<valid-if><![CDATA[$editorsCount>6]]></valid-if>
 						<delimiter value=", " />
@@ -196,19 +187,23 @@
 						<max-count value="6" />
 					</parameters>
 					<elements>
-						<layout-element ref="e:organization/e:organization-name/text()" />
-						<layout-element ref="e:person/e:family-name/text()" />
-						<layout-element ref="func:get_initials(e:person/e:given-name/text())"/>
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="person:person/eterms:family-name/text()" />
+						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
 					</elements>
 				</layout-element>
 				<layout-element ref="$ed-postfix" >
 					<parameters>
+						<starts-with value=" ("/>
+						<ends-with value=")"/>
 						<valid-if><![CDATA[$editorsCount=1]]></valid-if>
 						<i18n ref="editor"/>
 					</parameters>
 				</layout-element>
 				<layout-element ref="$ed-postfix" >
 					<parameters>
+						<starts-with value=" ("/>
+						<ends-with value=")"/>
 						<valid-if><![CDATA[$editorsCount>1]]></valid-if>
 						<i18n ref="editors"/>
 					</parameters>
@@ -235,21 +230,21 @@
 					</parameters>
 					<elements>
 						<layout-element name="authors-Equal1"
-							ref="mdp:publication/pub:creator[@role='author']" repeatable="yes">
+							ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
 							<parameters>
 								<valid-if><![CDATA[$authorsCount=1]]></valid-if>
 								<delimiter value=", " />
 								<internal-delimiter value=", " />
 							</parameters>
 							<elements>
-								<layout-element ref="e:organization/e:organization-name/text()" />
-								<layout-element ref="e:person/e:family-name/text()" />
-								<layout-element ref="func:get_initials(e:person/e:given-name/text())"/>
+								<layout-element ref="organization:organization/dc:title/text()" />
+								<layout-element ref="person:person/eterms:family-name/text()" />
+								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
 							</elements>
 						</layout-element>
 				
 						<layout-element name="authors-MoreThan1LessOrEqual6"
-							ref="mdp:publication/pub:creator[@role='author']" repeatable="yes">
+							ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
 							<parameters position="last">
 								<delimiter value=", &amp;amp; " />
 								<internal-delimiter value=", " />
@@ -260,14 +255,14 @@
 								<internal-delimiter value=", " />
 							</parameters>
 							<elements>
-								<layout-element ref="e:organization/e:organization-name/text()" />
-								<layout-element ref="e:person/e:family-name/text()" />
-								<layout-element ref="func:get_initials(e:person/e:given-name/text())"/>
+								<layout-element ref="organization:organization/dc:title/text()" />
+								<layout-element ref="person:person/eterms:family-name/text()" />
+								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
 							</elements>
 						</layout-element>
 				
 						<layout-element name="authors-MoreThan6"
-							ref="mdp:publication/pub:creator[@role='author']" repeatable="yes">
+							ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
 							<parameters>
 								<valid-if><![CDATA[$authorsCount>6]]></valid-if>
 								<delimiter value=", " />
@@ -276,9 +271,9 @@
 								<max-count value="6" />
 							</parameters>
 							<elements>
-								<layout-element ref="e:organization/e:organization-name/text()" />
-								<layout-element ref="e:person/e:family-name/text()" />
-								<layout-element ref="func:get_initials(e:person/e:given-name/text())"/>
+								<layout-element ref="organization:organization/dc:title/text()" />
+								<layout-element ref="person:person/eterms:family-name/text()" />
+								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
 							</elements>
 						</layout-element>
 					</elements>
@@ -302,19 +297,19 @@
 			</parameters>
 			<elements>
 				<layout-element name="source-editors-Equal1"
-					ref="mdp:publication/pub:source[1]/e:creator[@role='editor']" repeatable="yes">
+					ref="pub:publication/source:source[1]/eterms:creator[@role=$l_editor]" repeatable="yes">
 					<parameters>
 						<valid-if><![CDATA[$sourceEditorsCount=1]]></valid-if>
 					</parameters>
 					<elements>
-						<layout-element ref="e:organization/e:organization-name/text()" />
-						<layout-element ref="func:get_initials(e:person/e:given-name/text())"/>
-						<layout-element ref="e:person/e:family-name/text()" />
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+						<layout-element ref="person:person/eterms:family-name/text()" />
 					</elements>
 				</layout-element>
 		
 				<layout-element name="source-editors-MoreThan1LessOrEqual6"
-					ref="mdp:publication/pub:source[1]/e:creator[@role='editor']" repeatable="yes">
+					ref="pub:publication/source:source[1]/eterms:creator[@role=$l_editor]" repeatable="yes">
 					<parameters position="last">
 						<delimiter value=", &amp;amp; " />
 					</parameters>
@@ -323,14 +318,14 @@
 						<delimiter value=", " />
 					</parameters>
 					<elements>
-						<layout-element ref="e:organization/e:organization-name/text()" />
-						<layout-element ref="func:get_initials(e:person/e:given-name/text())"/>
-						<layout-element ref="e:person/e:family-name/text()" />
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+						<layout-element ref="person:person/eterms:family-name/text()" />
 					</elements>
 				</layout-element>
 		
 				<layout-element name="source-editors-MoreThan6"
-					ref="mdp:publication/pub:source[1]/e:creator[@role='editor']" repeatable="yes">
+					ref="pub:publication/source:source[1]/eterms:creator[@role=$l_editor]" repeatable="yes">
 					<parameters>
 						<valid-if><![CDATA[$sourceEditorsCount>6]]></valid-if>
 						<delimiter value=", " />
@@ -338,12 +333,17 @@
 						<max-count value="6" />
 					</parameters>
 					<elements>
-						<layout-element ref="e:organization/e:organization-name/text()" />
-						<layout-element ref="func:get_initials(e:person/e:given-name/text())"/>
-						<layout-element ref="e:person/e:family-name/text()" />
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+						<layout-element ref="person:person/eterms:family-name/text()" />
 					</elements>
 				</layout-element>
-				<layout-element ref="$source-ed-postfix" />
+				<layout-element ref="$source-ed-postfix" >
+					<parameters>
+						<starts-with value=" ("/>
+						<ends-with value=")"/>
+					</parameters>
+				</layout-element>
 			</elements>
 		</layout-element>		
 		
@@ -407,17 +407,17 @@
 			<elements>
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[mdp:publication/dcterms:issued]]></valid-if>
+						<valid-if><![CDATA[pub:publication/dcterms:issued]]></valid-if>
 						<delimiter value=", " />
 					</parameters>
 					<elements>
-						<layout-element ref="func:get_year(mdp:publication/dcterms:issued/text())" />
-						<layout-element ref="func:get_month_name(mdp:publication/dcterms:issued/text())" />
+						<layout-element ref="func:get_year(pub:publication/dcterms:issued/text())" />
+						<layout-element ref="func:get_month_name(pub:publication/dcterms:issued/text())" />
 					</elements>
 				</layout-element>
 				<layout-element ref="$date">
 					<parameters>
-						<valid-if><![CDATA[not(mdp:publication/dcterms:issued)]]></valid-if>
+						<valid-if><![CDATA[not(pub:publication/dcterms:issued)]]></valid-if>
 					</parameters>
 				</layout-element>
 			</elements>
@@ -449,14 +449,14 @@
 		</layout-element>
 
 
-		<layout-element name="title-with-dot" ref="mdp:publication/dc:title/text()">
+		<layout-element name="title-with-dot" ref="pub:publication/dc:title/text()">
 			<parameters>
 				<starts-with value=" " />
 				<ends-with value="." />
 			</parameters>
 		</layout-element>
 
-		<layout-element name="title-italic" ref="mdp:publication/dc:title/text()">
+		<layout-element name="title-italic" ref="pub:publication/dc:title/text()">
 			<parameters>
 				<font-style ref="ITALIC" />
 			</parameters>
@@ -474,8 +474,8 @@
 				<delimiter value="-" />
 			</parameters>
 			<elements>
-				<layout-element ref="mdp:publication/pub:source[1]/e:start-page/text()" />
-				<layout-element ref="mdp:publication/pub:source[1]/e:end-page/text()" />
+				<layout-element ref="pub:publication/source:source[1]/eterms:start-page/text()" />
+				<layout-element ref="pub:publication/source:source[1]/eterms:end-page/text()" />
 			</elements>
 		</layout-element>
 
@@ -486,7 +486,7 @@
 				<delimiter value=", " />
 			</parameters>
 			<elements>
-				<layout-element ref="mdp:publication/pub:source[1]/e:publishing-info/e:edition/text()"/>
+				<layout-element ref="pub:publication/source:source[1]/eterms:publishing-info/eterms:edition/text()"/>
 				<layout-element ref="$start-page-end-page">
 					<parameters>
 						<starts-with value="pp. " />
@@ -501,12 +501,12 @@
 				<delimiter value="" />
 			</parameters>
 			<elements>
-				<layout-element ref="mdp:publication/pub:source[1]/e:volume/text()">
+				<layout-element ref="pub:publication/source:source[1]/eterms:volume/text()">
 					<parameters>
 						<font-style ref="ITALIC" />
 					</parameters>
 				</layout-element>
-				<layout-element ref="mdp:publication/pub:source[1]/e:issue/text()">
+				<layout-element ref="pub:publication/source:source[1]/eterms:issue/text()">
 					<parameters>
 						<starts-with value="(" />
 						<ends-with value=")" />
@@ -515,7 +515,7 @@
 			</elements>
 		</layout-element>
 
-		<layout-element name="source-title" ref="mdp:publication/pub:source[1]/dc:title/text()">
+		<layout-element name="source-title" ref="pub:publication/source:source[1]/dc:title/text()">
 			<parameters>
 				<font-style ref="ITALIC" />
 				<starts-with value=" " />
@@ -528,8 +528,8 @@
 				<delimiter value=": " />
 			</parameters>
 			<elements>
-				<layout-element ref="mdp:publication/pub:publishing-info/e:place/text()" />
-				<layout-element ref="mdp:publication/pub:publishing-info/dc:publisher/text()" />
+				<layout-element ref="pub:publication/eterms:publishing-info/eterms:place/text()" />
+				<layout-element ref="pub:publication/eterms:publishing-info/dc:publisher/text()" />
 			</elements>
 		</layout-element>
 		
@@ -541,14 +541,14 @@
 				<ends-with value="." />
 			</parameters>
 			<elements>
-				<layout-element ref="mdp:publication/pub:event/e:place/text()" />
+				<layout-element ref="pub:publication/event:event/eterms:place/text()" />
 				<layout-element>
 					<parameters>
 						<delimiter value=" - " />
 					</parameters>
 					<elements>
-						<layout-element ref="mdp:publication/pub:event/e:start-date/text()" />
-						<layout-element ref="mdp:publication/pub:event/e:end-date/text()" />
+						<layout-element ref="pub:publication/event:event/eterms:start-date/text()" />
+						<layout-element ref="pub:publication/event:event/eterms:end-date/text()" />
 					</elements>
 				</layout-element>
 			</elements>
@@ -590,16 +590,16 @@
 					</parameters>
 				</layout-element>
 				<layout-element ref="$genre" />
-				<layout-element ref="mdp:publication/dc:title/text()" />
-				<layout-element ref="mdp:publication/dcterms:abstract[contains(.,'APA')]/text()" />
-				<layout-element ref="mdp:publication/dc:subject/text()" />
+				<layout-element ref="pub:publication/dc:title/text()" />
+				<layout-element ref="pub:publication/dcterms:abstract[contains(.,'APA')]/text()" />
+				<layout-element ref="pub:publication/dc:subject/text()" />
 
-				<layout-element ref="mdp:publication/dcterms:issued/text()">
+				<layout-element ref="pub:publication/dcterms:issued/text()">
 					<parameters>
 						<starts-with value="issued:" />
 					</parameters>
 				</layout-element>
-				<layout-element ref="mdp:publication/e:published-online/text()">
+				<layout-element ref="pub:publication/eterms:published-online/text()">
 					<parameters>
 						<starts-with value="published-online:" />
 					</parameters>
@@ -609,26 +609,26 @@
 						<starts-with value="doi:" />
 					</parameters>
 				</layout-element>
-				<layout-element ref="mdp:publication/dcterms:dateAccepted/text()">
+				<layout-element ref="pub:publication/dcterms:dateAccepted/text()">
 					<parameters>
 						<starts-with value="dateAccepted:" />
 					</parameters>
 					<elements />
 				</layout-element>
-				<layout-element ref="mdp:publication/dcterms:dateSubmitted/text()">
+				<layout-element ref="pub:publication/dcterms:dateSubmitted/text()">
 					<parameters>
 						<starts-with value="dateSubmitted:" />
 					</parameters>
 					<elements />
 				</layout-element>
-				<layout-element ref="mdp:publication/dcterms:modified/text()">
+				<layout-element ref="pub:publication/dcterms:modified/text()">
 					<parameters>
 						<starts-with value="modified:" />
 					</parameters>
 					<elements />
 				</layout-element>
 
-				<layout-element ref="mdp:publication/dcterms:created/text()">
+				<layout-element ref="pub:publication/dcterms:created/text()">
 					<parameters>
 						<starts-with value="created:" />
 					</parameters>
@@ -675,8 +675,8 @@
 	<cs-layout-definition name="journal-article-etc">
 		<parameters>
 			<valid-if><![CDATA[
-				$genre = ( 'article', 'paper' ) 
-				or ( $genre = ( 'other', 'paper', 'conference-report', 'conference-paper') and $source-type = 'journal' )  
+				$genre = ( $l_article, $l_paper ) 
+				or ( $genre = ( $l_other, $l_paper, $l_conference-report, $l_conference-paper) and $source-type = $l_journal )  
 			]]></valid-if>
 			<delimiter value="" />
 		</parameters>
@@ -712,11 +712,11 @@
 	<cs-layout-definition name="book-etc">
 		<parameters>
 			<valid-if><![CDATA[
-				$genre = ( 'book', 'proceedings') 
-				or ( $genre = ( 'conference-report', 'conference-paper', 'other' ) and 
-					not($source-type = ('journal', 'proceedings', 'book' ))  
+				$genre = ( $l_book, $l_proceedings) 
+				or ( $genre = ( $l_conference-report, $l_conference-paper, $l_other ) and 
+					not($source-type = ($l_journal, $l_proceedings, $l_book ))  
 				)  
-				or ( $genre = 'other' and not($source-type) )
+				or ( $genre = $l_other and not($source-type) )
 			]]></valid-if>
 		</parameters>
 		<elements>
@@ -732,9 +732,9 @@
 				</parameters>
 				<elements>
 					<layout-element ref="$title-italic"/>
-					<layout-element ref="mdp:publication/pub:publishing-info/e:edition/text()">
+					<layout-element ref="pub:publication/eterms:publishing-info/eterms:edition/text()">
 						<parameters>
-							<valid-if><![CDATA[$genre = 'book']]></valid-if>
+							<valid-if><![CDATA[$genre = $l_book]]></valid-if>
 							<starts-with value=" (" />
 							<ends-with value=")" />
 						</parameters>
@@ -762,7 +762,7 @@
 	-->
 	<cs-layout-definition name="thesis-in-print-or-accepted">
 		<parameters>
-			<valid-if><![CDATA[ $genre = 'thesis' and (mdp:publication/dcterms:issued or mdp:publication/dcterms:dateAccepted)]]></valid-if>
+			<valid-if><![CDATA[ $genre = $l_thesis and (pub:publication/dcterms:issued or pub:publication/dcterms:dateAccepted)]]></valid-if>
 		</parameters>
 		<elements>
 			<!--			<layout-element ref="$debugBlock" />-->
@@ -781,8 +781,8 @@
 				</parameters>
 				<elements>
 					<layout-element ref="$degree" />
-					<layout-element ref="mdp:publication/pub:publishing-info/dc:publisher/text()" />
-					<layout-element ref="mdp:publication/pub:publishing-info/e:place/text()" />
+					<layout-element ref="pub:publication/eterms:publishing-info/dc:publisher/text()" />
+					<layout-element ref="pub:publication/eterms:publishing-info/eterms:place/text()" />
 				</elements>
 			</layout-element>
 
@@ -795,7 +795,7 @@
 	-->
 	<cs-layout-definition name="thesis-published-online">
 		<parameters>
-			<valid-if><![CDATA[ $genre = 'thesis' and mdp:publication/pub:published-online ]]></valid-if>
+			<valid-if><![CDATA[ $genre = $l_thesis and pub:publication/eterms:published-online ]]></valid-if>
 		</parameters>
 		<elements>
 			<!--			<layout-element ref="$debugBlock" />-->
@@ -818,8 +818,8 @@
 						</parameters>
 						<elements>
 							<layout-element ref="$degree" />
-							<layout-element ref="mdp:publication/pub:publishing-info/dc:publisher/text()" />
-							<layout-element ref="mdp:publication/pub:publishing-info/e:place/text()" />
+							<layout-element ref="pub:publication/eterms:publishing-info/dc:publisher/text()" />
+							<layout-element ref="pub:publication/eterms:publishing-info/eterms:place/text()" />
 							<layout-element ref="$date-for-thesis" />
 						</elements>
 					</layout-element>	
@@ -843,11 +843,11 @@
 	<cs-layout-definition name="book-item-etc">
 		<parameters>
 			<valid-if><![CDATA[
-				$genre = 'book-item'
-				or ( $genre = 'other' and $source-type = 'book' )  
+				$genre = $l_book-item
+				or ( $genre = $l_other and $source-type = $l_book )  
 				or ( 
-					 $genre = ( 'conference-report', 'conference-paper' )   
-					 and  $source-type = ( 'book', 'proceedings' )  
+					 $genre = ( $l_conference-report, $l_conference-paper )   
+					 and  $source-type = ( $l_book, $l_proceedings )  
 				)  
 			]]></valid-if>
 			<delimiter value="" />
@@ -868,7 +868,7 @@
 							<ends-with value=", " />
 						</parameters>
 					</layout-element>
-					<layout-element ref="mdp:publication/pub:source[1]/dc:title/text()">
+					<layout-element ref="pub:publication/source:source[1]/dc:title/text()">
 						<parameters>
 							<font-style ref="ITALIC" />
 						</parameters>
@@ -884,8 +884,8 @@
 					<delimiter value=": " />
 				</parameters>
 				<elements>
-					<layout-element ref="mdp:publication/pub:source[1]/e:publishing-info/e:place/text()" />
-					<layout-element ref="mdp:publication/pub:source[1]/e:publishing-info/dc:publisher/text()" />
+					<layout-element ref="pub:publication/source:source[1]/eterms:publishing-info/eterms:place/text()" />
+					<layout-element ref="pub:publication/source:source[1]/eterms:publishing-info/dc:publisher/text()" />
 				</elements>
 			</layout-element>
 		
@@ -898,7 +898,7 @@
 	<!-- ISSUE -->
 	<cs-layout-definition name="issue">
 		<parameters>
-			<valid-if><![CDATA[$genre = 'issue']]></valid-if>
+			<valid-if><![CDATA[$genre = $l_issue]]></valid-if>
 			<delimiter value="" />
 		</parameters>
 		<elements>
@@ -908,7 +908,7 @@
 
 			<layout-element ref="$year-editors-are-presented" />
 
-			<layout-element ref="mdp:publication/dc:title/text()">
+			<layout-element ref="pub:publication/dc:title/text()">
 				<parameters>
 					<starts-with value=" " />
 					<ends-with value=" [Special Issue]. " />
@@ -937,7 +937,7 @@
 	<!-- JOURNAL -->
 	<cs-layout-definition name="journal">
 		<parameters>
-			<valid-if><![CDATA[$genre = 'journal']]></valid-if>
+			<valid-if><![CDATA[$genre = $l_journal]]></valid-if>
 			<delimiter value="" />
 		</parameters>
 		<elements>
@@ -964,7 +964,7 @@
 	-->
 	<cs-layout-definition name="manuscript">
 		<parameters>
-			<valid-if><![CDATA[$genre = 'manuscript']]></valid-if>
+			<valid-if><![CDATA[$genre = $l_manuscript]]></valid-if>
 			<ends-with value=" Unpublished Manuscript." />
 		</parameters>
 		<elements>
@@ -978,7 +978,7 @@
 	<!-- SERIES -->
 	<cs-layout-definition name="series">
 		<parameters>
-			<valid-if><![CDATA[$genre = 'series']]></valid-if>
+			<valid-if><![CDATA[$genre = $l_series]]></valid-if>
 			<delimiter value="" />
 		</parameters>
 		<elements>
@@ -992,7 +992,7 @@
 				start-volume / end-volume are not presented in MD, only volume!!!
 				TODO:  to be updated!!! : http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Series
 			-->
-			<layout-element ref="mdp:publication/pub:source[1]/e:volume">
+			<layout-element ref="pub:publication/source:source[1]/eterms:volume">
 				<parameters>
 					<starts-with value=" (Vols. " />
 					<ends-with value=")." />
@@ -1015,7 +1015,7 @@
 	-->
 	<cs-layout-definition name="talk-at-event">
 		<parameters>
-			<valid-if><![CDATA[$genre = 'talk-at-event']]></valid-if>
+			<valid-if><![CDATA[$genre = $l_talk-at-event]]></valid-if>
 			<delimiter value="" />
 		</parameters>
 		<elements>
@@ -1024,7 +1024,7 @@
 
 			<layout-element ref="$authors-or-editors-and-year-and-title-with-dot" />
 
-			<layout-element ref="mdp:publication/pub:event/dc:title/text()">
+			<layout-element ref="pub:publication/event:event/dc:title/text()">
 				<parameters>
 					<font-style ref="ITALIC"/>
 					<starts-with value=" "/>
@@ -1045,7 +1045,7 @@
 	<cs-layout-definition name="courseware-lecture">
 		<parameters>
 			<valid-if><![CDATA[
-					$genre = 'courseware-lecture'
+					$genre = $l_courseware-lecture
 				]]></valid-if>
 			<delimiter value="" />
 		</parameters>
@@ -1055,7 +1055,7 @@
 
 			<layout-element ref="$authors-or-editors-and-year-and-title-with-dot" />
 
-			<layout-element ref="mdp:publication/pub:event/dc:title/text()">
+			<layout-element ref="pub:publication/event:event/dc:title/text()">
 				<parameters>
 					<starts-with value=" " />
 					<ends-with value="." />
@@ -1074,7 +1074,7 @@
 	-->
 	<cs-layout-definition name="poster">
 		<parameters>
-			<valid-if><![CDATA[$genre = 'poster']]></valid-if>
+			<valid-if><![CDATA[$genre = $l_poster]]></valid-if>
 			<delimiter value="" />
 		</parameters>
 		<elements>
@@ -1085,14 +1085,14 @@
 
 			<layout-element name="event-title-and-place">
 				<parameters>
-					<valid-if><![CDATA[exists(mdp:publication/pub:event/dc:title/text()) and mdp:publication/pub:event/dc:title/text()!='']]></valid-if>
+					<valid-if><![CDATA[exists(pub:publication/event:event/dc:title/text()) and pub:publication/event:event/dc:title/text()!='']]></valid-if>
 					<starts-with value=" Poster presented at the " />
 					<ends-with value="." />
 					<delimiter value=", " />
 				</parameters>
 				<elements>
-					<layout-element ref="mdp:publication/pub:event/dc:title/text()" />
-					<layout-element ref="mdp:publication/pub:event/e:place/text()" />
+					<layout-element ref="pub:publication/event:event/dc:title/text()" />
+					<layout-element ref="pub:publication/event:event/eterms:place/text()" />
 				</elements>
 			</layout-element>
 
@@ -1104,7 +1104,7 @@
 	<!-- REPORT -->
 	<cs-layout-definition name="report">
 		<parameters>
-			<valid-if><![CDATA[$genre = 'report']]></valid-if>
+			<valid-if><![CDATA[$genre = $l_report]]></valid-if>
 			<delimiter value="" />
 		</parameters>
 		<elements>
@@ -1122,7 +1122,7 @@
 				</parameters>
 				<elements>
 					<layout-element ref="$title-italic"/>
-					<layout-element ref="(mdp:publication/e:identifier[@xsi:type='eidt:OTHER'])[1]/text()">
+					<layout-element ref="(pub:publication/e:identifier[@xsi:type='eterms:OTHER'])[1]/text()">
 						<parameters>
 							<starts-with value="(" />
 							<ends-with value=")" />
@@ -1155,15 +1155,6 @@
 <!--			-->
 <!--			</elements>-->
 <!--		</cs-layout-definition>-->
-
-
-
-
-
-
-
-
-
 
 
 

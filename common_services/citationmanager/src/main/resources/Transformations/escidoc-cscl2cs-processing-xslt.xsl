@@ -30,21 +30,20 @@
 	xmlns:fn="http://www.w3.org/2005/xpath-functions" 
 	xmlns:cit="http://www.escidoc.de/citationstyle"
 
-	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.8"
 	xmlns:jfunc="java:de.mpg.escidoc.services.citationmanager.utils.XsltHelper"
 	xmlns:func="http://www.escidoc.de/citationstyle/functions"	
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	
-	xmlns:ei="http://www.escidoc.de/schemas/item/0.8"
-	xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
-    xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-    xmlns:pub="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
-    xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-	xmlns:dc="http://purl.org/dc/elements/1.1/"    
-    xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:ei="${xsd.soap.item.item}"
+	xmlns:mdr="${xsd.soap.common.mdrecords}"
+    xmlns:mdp="${xsd.metadata.escidocprofile}"
+    xmlns:pub="${xsd.metadata.publication}"
+    xmlns:e="${xsd.metadata.escidocprofile.types}"
+	xmlns:dc="${xsd.metadata.dc}"    
+    xmlns:dcterms="${xsd.metadata.dcterms}"
 	
-	xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style-new.xsd"
+	xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd"
 	>
 <!--	xmlns:snippet="http://www.escidoc.de/citationstyle/snippet"-->	
 	<xsl:output method="xml" encoding="UTF-8" indent="no"
@@ -64,17 +63,21 @@
 			<xsl:namespace name="func">http://www.escidoc.de/citationstyle/functions</xsl:namespace>
 			<xsl:namespace name="functx">http://www.functx.com</xsl:namespace>
 			
-			<xsl:namespace name="escidocItem">http://www.escidoc.de/schemas/item/0.8</xsl:namespace>
-			<xsl:namespace name="ei">http://www.escidoc.de/schemas/item/0.8</xsl:namespace>
-			<xsl:namespace name="mdr">http://www.escidoc.de/schemas/metadatarecords/0.4</xsl:namespace>
-			<xsl:namespace name="mdp">http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsl:namespace>
-			<xsl:namespace name="pub">http://escidoc.mpg.de/metadataprofile/schema/0.1/publication</xsl:namespace>
-			<xsl:namespace name="e">http://escidoc.mpg.de/metadataprofile/schema/0.1/types</xsl:namespace>
-			<xsl:namespace name="prop">http://escidoc.de/core/01/properties/</xsl:namespace>
-			<xsl:namespace name="escidocComponents">http://www.escidoc.de/schemas/components/0.8</xsl:namespace>
+			<xsl:namespace name="ei">${xsd.soap.item.item}</xsl:namespace>
+			<xsl:namespace name="mdr">${xsd.soap.common.mdrecords}</xsl:namespace>
+			<xsl:namespace name="mdp">${xsd.metadata.escidocprofile}</xsl:namespace>
+			<xsl:namespace name="pub">${xsd.metadata.publication}</xsl:namespace>
+			<xsl:namespace name="e">${xsd.metadata.escidocprofile.types}</xsl:namespace>
+			<xsl:namespace name="prop">${xsd.soap.common.prop}</xsl:namespace>
+			<xsl:namespace name="ec">${xsd.soap.item.components}</xsl:namespace>
+			<xsl:namespace name="source">${xsd.metadata.source}</xsl:namespace>
+			<xsl:namespace name="eterms">${xsd.metadata.escidocprofile.types}</xsl:namespace>
+			<xsl:namespace name="event">${xsd.metadata.escidocprofile.types}</xsl:namespace>
+			<xsl:namespace name="organization">${xsd.metadata.organization}</xsl:namespace>
+			<xsl:namespace name="person">${xsd.metadata.person}</xsl:namespace>
 			
-			<xsl:namespace name="dc">http://purl.org/dc/elements/1.1/</xsl:namespace>
-			<xsl:namespace name="dcterms">http://purl.org/dc/terms/</xsl:namespace>
+			<xsl:namespace name="dc">${xsd.metadata.dc}</xsl:namespace>
+			<xsl:namespace name="dcterms">${xsd.metadata.dcterms}</xsl:namespace>
 			
 			<xsl:namespace name="xsi">http://www.w3.org/2001/XMLSchema-instance</xsl:namespace>
 			<xsl:namespace name="xs">http://www.w3.org/2001/XMLSchema</xsl:namespace>
@@ -94,7 +97,6 @@
 				<xsl:attribute name="name" select="'pubman_instance'"/>
 			</xsl:element>
 			
-
 			<xsl:variable name="variables" >
 				<xsl:call-template name="createVariables"/>
 			</xsl:variable>	
@@ -163,35 +165,33 @@
 	<!-- Font Styles -->
 	<xsl:variable name="font-styles">
 	   <xsl:copy-of select="document('../CitationStyles/font-styles.xml')/font-styles-collection/*"/>
-	 </xsl:variable>
+	</xsl:variable>
 	
 	
 	<!-- ##### VARIABLES ##### -->
 	<xsl:template name="createVariables">
+
+		<!-- load default variables from the -->	
+		<!-- global set of default variables -->
+		<xsl:if test="@include-global-default-variables='yes'">
+			<xsl:call-template name="insertGlobalDefaultVariables"/>
+		</xsl:if>
+		<!-- set of default variables for the citation style -->
+		<xsl:if test="@include-default-variables='yes'">
+			<xsl:call-template name="insertDefaultVariables"/>
+		</xsl:if>
+	
 		<xsl:if test="count (/cit:citation-style/cit:variables/cit:variable)>0">
 			<xsl:comment>### Variables ###</xsl:comment>
 			<xsl:text>
 	</xsl:text>
-			<xsl:for-each select="/cit:citation-style/cit:variables/cit:variable">
-				<!-- Declare variable -->
-				<xsl:element name="xsl:variable">
-					<xsl:attribute name="name" select="@name"/>
-<!--					<xsl:attribute name="as" select="-->
-<!--						if (not(@type)) then 'xs:string' else @type -->
-<!--					"/>-->
-					<xsl:if test="@type">
-						<xsl:attribute name="as" select="@type"/>
-					</xsl:if>
-					<xsl:element name="xsl:value-of">
-						<xsl:attribute name="select" select="."/>
-					</xsl:element>
-				</xsl:element>
-			</xsl:for-each>
+			<xsl:copy-of select="func:generateVariables(/cit:citation-style/cit:variables/cit:variable)"/>
 			<xsl:comment>### End of Variables ###</xsl:comment>
 			<xsl:text>
 	</xsl:text>
 		</xsl:if>
 	</xsl:template>
+	
 	
 	<!-- ##### PREDEFINED LAYOUT ELEMENTS ##### -->
 	<xsl:template name="createPredefinedLayoutElements">
@@ -862,6 +862,29 @@
 	</xsl:template>
 	
 	<!--#############################################################-->
+	
+	<!-- Generate Variables -->
+	<xsl:function name="func:generateVariables">
+		<xsl:param name="vars"/>
+		<xsl:for-each select="$vars">
+			<!-- Declare variable -->
+			<xsl:element name="xsl:variable">
+				<xsl:attribute name="name" select="@name"/>
+<!--					<xsl:attribute name="as" select="-->
+<!--						if (not(@type)) then 'xs:string' else @type -->
+<!--					"/>-->
+				<xsl:if test="@type">
+					<xsl:attribute name="as" select="@type"/>
+				</xsl:if>
+				<xsl:element name="xsl:value-of">
+					<xsl:attribute name="select" select="."/>
+				</xsl:element>
+			</xsl:element>
+		</xsl:for-each>
+		
+	</xsl:function>
+	
+	
 	<!-- Includes -->
 	<xsl:template name="insertIncludes">
 		<xsl:comment>### Includes ###</xsl:comment>
@@ -869,6 +892,24 @@
 	</xsl:text>
 		<xsl:copy-of select="document('cs-processing-xslt-includes.xml')/xsl:includes/*"/>	
 	</xsl:template>
+
+	<xsl:template name="insertGlobalDefaultVariables">
+		<xsl:comment>### Global Default Variables ###</xsl:comment>
+		<xsl:text>
+	</xsl:text>
+		<xsl:copy-of select="func:generateVariables(document('../CitationStyles/variables.xml')/cit:variables/*)"/>	
+	</xsl:template>
+
+	<xsl:template name="insertDefaultVariables">
+		<xsl:variable name="csv" select="document(concat('../CitationStyles/', @name, '/variables.xml'))"/>
+		<xsl:if test="exists ($csv)">
+		<xsl:comment>### <xsl:value-of select="@name"/> specific Default Variables ###</xsl:comment>
+		<xsl:text>
+	</xsl:text>
+			<xsl:copy-of select="func:generateVariables($csv/cit:variables/*)"/>	
+		</xsl:if>
+	</xsl:template>
+
 	
 	<xsl:template name="insertFunctions">
 		<xsl:comment>### Runtime Functions ###</xsl:comment>
