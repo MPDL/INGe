@@ -42,7 +42,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.xml.transform.*;
+import javax.xml.transform.Templates;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
@@ -54,7 +57,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRXmlDataSource;
-import net.sf.jasperreports.engine.design.JRCompilationUnit;
 import net.sf.jasperreports.engine.design.JRDesignStaticText;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRHtmlExporter;
@@ -65,21 +67,19 @@ import net.sf.jasperreports.engine.export.JRTextExporter;
 import net.sf.jasperreports.engine.export.JRTextExporterParameter;
 import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
 import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
-import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.engine.xml.JRXmlWriter;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
-import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles.OutFormats;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.transformation.TransformationBean;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
 *
@@ -100,28 +100,40 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 	private static TransformerFactory tf = new net.sf.saxon.TransformerFactoryImpl();		
 
 	
+	
 	private static final Logger logger = Logger.getLogger(CitationStyleExecutor.class);	
 
-	private static ProcessCitationStyles pcs = new ProcessCitationStyles();
+//	private static ProcessCitationStyles pcs = new ProcessCitationStyles();
 
 	
 	private HashMap<String, Templates> templCache = new HashMap<String, Templates>(20);
 	private HashMap<String, JasperReport> jasperCache = new HashMap<String, JasperReport>(20);
 
 	
-
-	public String explainStyles() throws IllegalArgumentException, IOException,
-			CitationStyleManagerException {
-		
-		return pcs.explainStyles();
+	/* 
+	 * Explains citation styles and output types for them 
+	 * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#explainStyles()
+	 */
+	public String explainStyles() throws CitationStyleManagerException 
+	{
+		return ResourceUtil.getExplainStyles();
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#getOutputFormats(java.lang.String)
+	 */	
+	public String[] getOutputFormats(String cs) throws CitationStyleManagerException
+	{
+		return ResourceUtil.getOutputFormats(cs);
+	}
 	
-	public String getMimeType(String cs, String ouf)
-			throws CitationStyleManagerException {
-		// TODO Auto-generated method stub
-		return pcs.getMimeType(cs, ouf);
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#getMimeType(java.lang.String, java.lang.String)
+	 */	
+	public String getMimeType(String cs, String ouf) throws CitationStyleManagerException
+	{
+		return ResourceUtil.getMimeType(cs, ouf);
 	}
 
 	
@@ -136,19 +148,11 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		
 		Utils.checkCondition( !Utils.checkVal(itemList), "Empty item-list");
 		
-		int slashPos = outputFormat.indexOf( "/" );
-		String ouf = slashPos == -1 ? outputFormat : outputFormat.substring( slashPos + 1 );
 		
-		// TODO: mapping should be taken from explain-styles.xml 
-		if (ouf.equals("vnd.oasis.opendocument.text")) 
-			ouf = "odt";
-		 
-		try {
-			OutFormats.valueOf(ouf);
-		} catch (Exception e) {
-			throw new CitationStyleManagerException( "Output format: " + outputFormat + " is not supported" );
+		if ( ! ResourceUtil.citationStyleHasOutputFormat(cs, outputFormat) )
+		{
+			throw new CitationStyleManagerException( "Output format: " + outputFormat + " is not supported for Citation Style: " + cs );
 		}		
-		
 
 		byte[] result;
 		String snippet;
@@ -175,9 +179,29 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 			
 			snippet = sw.toString(); 
 			
-			if ("snippet".equals(outputFormat))
+			// new edoc md set
+			if ("escidoc_snippet".equals(outputFormat))
 			{
 				result = snippet.getBytes("UTF-8");
+			}
+			// old edoc md set: back transformation
+			else if ("snippet".equals(outputFormat))
+			{
+		    	 Format in = new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8");
+		    	 Format out = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
+		    	 
+		    	 TransformationBean trans = ResourceUtil.getTransformationBean();
+		    	 
+		    	 byte[] v1 = null;
+		    	 try 
+		    	 {
+					v1 = trans.transform(snippet.getBytes("UTF-8"), in, out, "escidoc");
+		    	 }
+		    	 catch (Exception e) 
+		    	 {
+		    		 throw new CitationStyleManagerException("Problems by escidoc v2 to v1 transformation:", e);	
+		    	 } 
+				result = v1;
 			}
 			else
 			{
@@ -187,9 +211,6 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 				String jrds = generateJasperReportDataSource(snippet);
 				
 				logger.info("Transformation snippet 2 JasperDS: " + (System.currentTimeMillis() - start));
-//				logger.info ("DS:" + jrds);
-				
-
 				
 				JasperReport jr = null;
 				String csj = null;
@@ -214,7 +235,6 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 							jr,
 							params,
 							new JRXmlDataSource(doc, jr.getQuery().getText())
-//							new JRXmlDataSource(doc)
 					);
 					
 					
@@ -279,7 +299,6 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 					logger.info("export to " + outputFormat + ": " + (System.currentTimeMillis() - start));					
 					
 					
-					
 				} 
 				catch (Exception e) 
 				{
@@ -312,21 +331,17 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 	}	
 	
 	
-	
-	public String[] getOutputFormats(String cs)
-			throws CitationStyleManagerException {
-		return pcs.getOutputFormats(cs);
-	}
-
-	public String[] getStyles() throws CitationStyleManagerException {
-		// TODO Auto-generated method stub
-		return pcs.getStyles();
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#getStyles()
+	 */	
+	public String[] getStyles() throws CitationStyleManagerException
+	{
+		return XmlHelper.getListOfStyles();
 	}
 
 	public boolean isCitationStyle(String cs)
 			throws CitationStyleManagerException {
-		// TODO Auto-generated method stub
-		return pcs.isCitationStyle(cs);
+		return ResourceUtil.isCitationStyle(cs);
 	}
 
 	private String generateJasperReportDataSource (String snippets)
@@ -336,8 +351,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		
 		try 
 		{
-			
-			Transformer transformer = tryTemplCache(ResourceUtil.TRANSFORMATIONS_DIRECTORY + "escidoc-publication-snippet2jasper_DS.xsl").newTransformer();
+			Transformer transformer = tryTemplCache(ResourceUtil.getPathToResources() + ResourceUtil.TRANSFORMATIONS_DIRECTORY + "escidoc-publication-snippet2jasper_DS.xsl").newTransformer();
 			transformer.transform(new StreamSource(new StringReader(snippets)), new StreamResult(result));
 			
 		} 
@@ -376,9 +390,22 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		return al; 
 	}
 	
-	private static ArrayList<String> extractBibliographicCitation(String xml)
+	private static ArrayList<String> extractBibliographicCitations(String xml)
 	{
 		return extractTag(xml, "dcterms:bibliographicCitation"); 
+	}
+	
+	private static String extractBibliographicCitation(String xml, String match)
+	{
+		for (String cit: extractTag(xml, "dcterms:bibliographicCitation"))
+		{
+//			logger.info(cit);
+			if (cit.indexOf(match)>0 && cit.indexOf("span class=\"Default\"")==-1)
+			{
+				return cit;
+			}
+		}
+		return ""; 
 	}
 	
 	private static ArrayList<String> extractAbstract(String xml)
@@ -424,6 +451,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 	   if (jr==null) {
 
 		   //get default JasperDesign 
+		   
 		   String path = ResourceUtil.getPathToCitationStyles() + "citation-style.jrxml";
 		   JasperDesign jd = JRXmlLoader.load(ResourceUtil.getResourceAsStream(path));
 			
@@ -446,35 +474,41 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 	public static void main(String[] args) throws Exception {
 		
 		CitationStyleExecutor cse = new CitationStyleExecutor();
-		
+		FileOutputStream fos;
 		
 		//logger.info(pcst.explainStyles());
 		
 //		byte[] cit = cse.getOutput("APA_new", "pdf", ResourceUtil.getResourceAsString("DataSources/export_xml.xml"));
 		
-		String items = ResourceUtil.getResourceAsString("/home/vlad/Projects/escidoc/common_services/citationmanager/src/test/resources/backup/CitationStyleTestCollection.xml");
+//		String items = ResourceUtil.getResourceAsString("target/test-classes/backup/CitationStyleTestCollectionV2.xml");
+		String items = ResourceUtil.getResourceAsString("target/test-classes/testFiles/temp_items.xml");
+//		String items = ResourceUtil.getResourceAsString("/home/vlad/Projects/escidoc/common_services/citationmanager/src/test/resources/testFiles/Sengbusch.xml");
+		
+		byte[] cit;
 		
 		long start = System.currentTimeMillis();
-		byte[] cit;
- 
-		
-		cit = cse.getOutput("AJP_new", "snippet", items);
-		
+		cit = cse.getOutput("APA", "escidoc_snippet", items);
 		float itogo = (System.currentTimeMillis() - start);
+		
 		logger.info("Itogo: " + itogo + "; pro item:" + (itogo/2) );
 
-		int item_num = 11;
-		logger.info("NEW: " + extractBibliographicCitation(new String (cit)).get(item_num - 1) );
-		logger.info("OLD: " + extractBibliographicCitation(new String (pcs.getOutput("AJP", "snippet", items))).get(item_num - 1) );
+		fos = new FileOutputStream("target/APA.escidoc_snippet.xml");
 		
-/*		
-		cit = cse.getOutput("APA_new", "pdf", items);
-		FileOutputStream fos = new FileOutputStream("Report.pdf");
+    	fos.write(cit);
+    	fos.close();
+
 		
+//		int item_num = 24*2;
+//		logger.info("NEW: " + extractBibliographicCitations(new String (cit)) );
+//		logger.info("OLD: " + extractBibliographicCitation(new String (pcs.getOutput("AJP", "snippet", items))).get(item_num - 1) );
+		
+		
+		cit = cse.getOutput("APA", "pdf", items);
+		fos = new FileOutputStream("target/Report.pdf");
 	
     	fos.write(cit);
     	fos.close();
-*/
+
 //		logger.info(new String (cit));
 //		logger.info(extractBibliographicCitation(new String (cit)));
 //		logger.info(extractAbstract(new String (cit)));
@@ -499,8 +533,6 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 //						)));
 
 	}
-
-
 
 
 
