@@ -30,7 +30,7 @@
 	<!-- TEMPLATES -->
 	
 	<!-- Component link resolver -->
-    <xsl:template match="ec:content[@storage='internal-managed']">
+    <xsl:template match="escidocComponents:content[@storage='internal-managed']">
     	<xsl:element name="{name(.)}">
     		<xsl:copy-of select="@*[name(.)!='xlink:href']"/>
     		<xsl:attribute name="xlink:href"
@@ -41,7 +41,7 @@
     				'/component/',
     				../@objid,
     				'/',
-    				../ec:properties/prop:file-name
+    				../escidocComponents:properties/prop:file-name
     			)"
     		/>
     	</xsl:element>
