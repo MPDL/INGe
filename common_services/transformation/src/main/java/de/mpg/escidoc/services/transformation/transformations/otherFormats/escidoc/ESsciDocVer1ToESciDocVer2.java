@@ -61,7 +61,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
  *
  */
 @TransformationModule
-public class eSsciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transformation
+public class ESsciDocVer1ToESciDocVer2 extends DefaultHandler implements Transformation
 {
 
     
@@ -70,16 +70,14 @@ public class eSsciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfo
     private static final Format ESCIDOC_ITEM_LIST_V2_FORMAT = new Format("escidoc-publication-item-list-v2", "application/xml", "*");
     private static final Format ESCIDOC_ITEM_V2_FORMAT = new Format("escidoc-publication-item-v2", "application/xml", "*");
     
-    private static final String PATH = "transformations/otherFormats/xslt";
-    
-    private static final String XSLT_PATH = PATH + "/escidoc-publication-v2_2_escidoc-publication-v1.xsl";
+    private static final String XSLT_PATH = "transformations/otherFormats/xslt/escidoc-publication-v1_2_escidoc-publication-v2.xsl";
     
     /**
      * {@inheritDoc}
      */
     public Format[] getSourceFormats()
     {
-        return new Format[]{ESCIDOC_ITEM_LIST_V2_FORMAT, ESCIDOC_ITEM_V2_FORMAT};
+        return new Format[]{ESCIDOC_ITEM_LIST_V1_FORMAT, ESCIDOC_ITEM_V1_FORMAT};
     }
 
     /**
@@ -87,7 +85,7 @@ public class eSsciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfo
      */
     public Format[] getSourceFormats(Format trg)
     {
-        if (trg != null && (trg.matches(ESCIDOC_ITEM_LIST_V1_FORMAT) || trg.matches(ESCIDOC_ITEM_V1_FORMAT)))
+        if (trg != null && (trg.matches(ESCIDOC_ITEM_LIST_V2_FORMAT) || trg.matches(ESCIDOC_ITEM_V2_FORMAT)))
         {
             return getSourceFormats();
         }
@@ -112,9 +110,9 @@ public class eSsciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfo
      */
     public Format[] getTargetFormats(Format src) throws RuntimeException
     {
-        if (src != null && (src.matches(ESCIDOC_ITEM_LIST_V2_FORMAT) || src.matches(ESCIDOC_ITEM_V2_FORMAT)))
+        if (src != null && (src.matches(ESCIDOC_ITEM_LIST_V1_FORMAT) || src.matches(ESCIDOC_ITEM_V1_FORMAT)))
         {
-            return new Format[]{ESCIDOC_ITEM_LIST_V1_FORMAT,  ESCIDOC_ITEM_V1_FORMAT};
+            return new Format[]{ESCIDOC_ITEM_LIST_V2_FORMAT,  ESCIDOC_ITEM_V2_FORMAT};
         }
         else
         {
@@ -159,11 +157,11 @@ public class eSsciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfo
             
             Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
             
-            if (trgFormat.matches(ESCIDOC_ITEM_LIST_V1_FORMAT))
+            if (trgFormat.matches(ESCIDOC_ITEM_LIST_V2_FORMAT))
             {
                 transformer.setParameter("is-item-list", Boolean.TRUE);
             }
-            else if (trgFormat.matches(ESCIDOC_ITEM_V1_FORMAT))
+            else if (trgFormat.matches(ESCIDOC_ITEM_V2_FORMAT))
             {
                 transformer.setParameter("is-item-list", Boolean.FALSE);
             }
@@ -172,7 +170,12 @@ public class eSsciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfo
                 throw new TransformationNotSupportedException("The requested target format (" + trgFormat.toString() + ") is not supported");
             }
             
+            //Find path to the xslt directory.
+            //The path is needed to resolve the ves-mapping.xml in xslt  
+//            String path = ResourceUtil.getResourceAsFile(XSLT_PATH).getAbsolutePath();
+//            path = path.replaceFirst("\\/[\\w_.-]+$", "");
             transformer.setURIResolver(new myURIResolver());
+//            transformer.setParameter("path", path);
             
             transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
             transformer.transform(new StreamSource(new ByteArrayInputStream(src)), new StreamResult(result));
@@ -189,27 +192,35 @@ public class eSsciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfo
     }
 
     /**
-     * URIResolver for the document() in the XSLT 
+     * URIResolver for the documnet() in the XSLT 
      *
      */
     class myURIResolver implements URIResolver 
     {
+    	public String absPath;
+    	
+    	public myURIResolver() throws FileNotFoundException 
+    	{
+    		absPath = ResourceUtil.getResourceAsFile(XSLT_PATH).getParent();
+		}
     	
 		public Source resolve(String href, String base) throws TransformerException {
 //			System.out.println("resolving stylesheet ref " + href);
+//			System.out.println("abs path:" + absPath);
 			Source src = null;
 			try 
 			{
-				src = new StreamSource(ResourceUtil.getResourceAsStream(PATH + "/" + href));
+				src = new StreamSource(ResourceUtil.getResourceAsStream(absPath + "/" + href));
 			} 
 			catch (FileNotFoundException e) 
 			{
-				throw new TransformerException("cannot find path to the document:" + PATH + "/" + href, e);
+				// TODO Auto-generated catch block
+				throw new TransformerException("cannot find path to the document:" + href, e);
 			} 
 			return src;
 		}
 	}
-    
 
+    
     
 }
