@@ -72,7 +72,7 @@
 			<xsl:namespace name="escidocComponents">${xsd.soap.item.components}</xsl:namespace>
 			<xsl:namespace name="source">${xsd.metadata.source}</xsl:namespace>
 			<xsl:namespace name="eterms">${xsd.metadata.escidocprofile.types}</xsl:namespace>
-			<xsl:namespace name="event">${xsd.metadata.escidocprofile.types}</xsl:namespace>
+			<xsl:namespace name="event">${xsd.metadata.event}</xsl:namespace>
 			<xsl:namespace name="organization">${xsd.metadata.organization}</xsl:namespace>
 			<xsl:namespace name="person">${xsd.metadata.person}</xsl:namespace>
 			
