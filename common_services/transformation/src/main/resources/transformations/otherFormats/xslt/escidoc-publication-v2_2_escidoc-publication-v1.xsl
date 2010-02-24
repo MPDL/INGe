@@ -39,24 +39,24 @@
  
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 
-		xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.8"		
-  		xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.8"
+		xmlns:escidocItemList="${xsd.soap.item.itemlist}"		
+  		xmlns:escidocItem="${xsd.soap.item.item}"
   		
-        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"
+        xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"
 		xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
 		xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		  		
-		xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"        
-		xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
-		xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
-		xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
-		xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
-        xmlns:idtype="http://purl.org/escidoc/metadata/terms/0.1/"
-		xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"		
+		xmlns:publication="${xsd.metadata.publication}"        
+		xmlns:eterms="${xsd.metadata.escidocprofile.types}"
+		xmlns:organization="${xsd.metadata.organization}"
+		xmlns:person="${xsd.metadata.person}"
+		xmlns:source="${xsd.metadata.source}"
+        xmlns:idtype="${xsd.metadata.escidocprofile.types}"
+		xmlns:event="${xsd.metadata.event}"		
 
         xmlns:file="http://purl.org/metadata/profiles/0.1/file"
         
-        xmlns:prop="http://escidoc.de/core/01/properties/"
+        xmlns:prop="${xsd.soap.common.prop}"
         
         xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:dcterms="http://purl.org/dc/terms/"
@@ -76,8 +76,7 @@
 		<xsl:choose>
 			<xsl:when test="$is-item-list">
 				<xsl:if test="count(//escidocItemList:item-list) = 0">
-					<xsl:element name="escidocItemList:item-list">
-						<xsl:namespace name="escidocItemList">http://www.escidoc.de/schemas/itemlist/0.8</xsl:namespace>
+					<xsl:element name="escidocItemList:item-list" namespace="http://www.escidoc.de/schemas/itemlist/0.8">
 						<xsl:call-template name="item-namespaces"/>
 						<xsl:apply-templates select="escidocItem:item" />
 					</xsl:element>
@@ -106,8 +105,7 @@
 
 	<xsl:template match="escidocItemList:item-list">
 		<xsl:if test="$is-item-list">
-			<xsl:element name="escidocItemList:item-list">
-				<xsl:namespace name="escidocItemList">http://www.escidoc.de/schemas/itemlist/0.8</xsl:namespace>			
+			<xsl:element name="escidocItemList:item-list" namespace="http://www.escidoc.de/schemas/itemlist/0.8">
 				<xsl:call-template name="item-namespaces"/>
 				<xsl:apply-templates />
 			</xsl:element>
@@ -119,7 +117,7 @@
 	</xsl:template>
 	
 	<xsl:template match="escidocItem:item">
-		<xsl:element name="escidocItem:item">
+		<xsl:element name="escidocItem:item" namespace="http://www.escidoc.de/schemas/item/0.8">
 			<xsl:if test="not($is-item-list)">
 				<xsl:call-template name="item-namespaces"/>
 			</xsl:if>				
@@ -371,6 +369,29 @@
 		</xsl:element>
 	</xsl:template>
 
+	<xsl:template match="*[namespace-uri()='${xsd.soap.item.item}']" priority="999">
+		<xsl:element name="{name()}" namespace="http://www.escidoc.de/schemas/item/0.8">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template match="*[namespace-uri()='${xsd.soap.common.mdrecords}']" priority="999">
+		<xsl:element name="{name()}" namespace="http://www.escidoc.de/schemas/metadatarecords/0.4">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template match="*[namespace-uri()='${xsd.soap.item.components}']" priority="999">
+		<xsl:element name="{name()}" namespace="http://www.escidoc.de/schemas/components/0.8">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</xsl:element>
+	</xsl:template>
+	
+
+
 
 	<!-- all namespaces which should be presented in item root element -->
 	<xsl:template name="item-namespaces">
@@ -386,6 +407,11 @@
 		<xsl:namespace name="escidocMetadataProfile">http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsl:namespace>
 		<xsl:namespace name="escidocMetadataRecords">http://www.escidoc.de/schemas/metadatarecords/0.4</xsl:namespace>
 		<xsl:namespace name="eidt">http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes</xsl:namespace>
+		<xsl:namespace name="prop">http://escidoc.de/core/01/properties/</xsl:namespace>
+		<xsl:namespace name="srel">http://escidoc.de/core/01/structural-relations/</xsl:namespace>
+		<xsl:namespace name="version">http://escidoc.de/core/01/properties/version/</xsl:namespace>
+		<xsl:namespace name="release">http://escidoc.de/core/01/properties/release/</xsl:namespace>
+		<xsl:namespace name="escidocComponents">http://www.escidoc.de/schemas/components/0.8</xsl:namespace>
         
 	</xsl:template>
 

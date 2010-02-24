@@ -51,7 +51,10 @@
 	xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.8"
 	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.8"
 	xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+	xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
 	xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+	xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file"
+	xmlns:prop="http://escidoc.de/core/01/properties/" 
 	>
 	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
@@ -64,8 +67,7 @@
 		<xsl:choose>
 			<xsl:when test="$is-item-list">
 				<xsl:if test="count(//escidocItemList:item-list) = 0">
-					<xsl:element name="escidocItemList:item-list">
-						<xsl:namespace name="escidocItemList">http://www.escidoc.de/schemas/itemlist/0.8</xsl:namespace>
+					<xsl:element name="escidocItemList:item-list" namespace="${xsd.soap.item.itemlist}">
 						<xsl:call-template name="item-namespaces"/>
 						<xsl:apply-templates select="escidocItem:item" />
 					</xsl:element>
@@ -94,8 +96,7 @@
 
 	<xsl:template match="escidocItemList:item-list">
 		<xsl:if test="$is-item-list">
-			<xsl:element name="{name(.)}">
-				<xsl:namespace name="escidocItemList">http://www.escidoc.de/schemas/itemlist/0.8</xsl:namespace>			
+			<xsl:element name="escidocItemList:item-list" namespace="${xsd.soap.item.itemlist}">
 				<xsl:call-template name="item-namespaces"/>
 				<xsl:apply-templates />
 			</xsl:element>
@@ -107,7 +108,7 @@
 	</xsl:template>
 	
 	<xsl:template match="escidocItem:item">
-		<xsl:element name="{name(.)}">
+		<xsl:element name="escidocItem:item" namespace="${xsd.soap.item.item}">
 			<xsl:if test="not($is-item-list)">
 				<xsl:call-template name="item-namespaces"/>
 			</xsl:if>				
@@ -118,9 +119,10 @@
 	
 
 	<xsl:template match="escidocMetadataProfile:publication">
+		<xsl:variable name="objid" select="../../../@objid"/>
 		<xsl:variable name="v1" select="@type"/> 
 		<xsl:variable name="v2" select="$vm/publication-type/v1-to-v2/map[@v1=$v1]"/>
-		<xsl:element name="publication" namespace="http://purl.org/escidoc/metadata/profiles/0.1/publication">
+		<xsl:element name="pub:publication" namespace="http://purl.org/escidoc/metadata/profiles/0.1/publication">
 			<xsl:copy-of select="@*[name()!='type']" />
 			<!-- publication type (genre) from the ves -->	
 			<xsl:attribute name="type" select="
@@ -128,27 +130,35 @@
 				then $v2
 				else error(
 					QName('http://www.escidoc.de/transformation', 'err:NoMappingForEnum' ), 
-						concat ('No mapping v1.0 to v2.0 for publication type: ', $v1 )
+						concat ('No mapping v1.0 to v2.0 for publication type: ', $v1, ', item id: ', $objid)
 					)
 			" />
 			<xsl:apply-templates/>
 		</xsl:element>
 	</xsl:template>
 	
-	<xsl:template match="publication:creator">
+	<xsl:template match="publication:creator | escidoc:creator" priority="999" >
+		<xsl:variable name="objid" select="
+			if (namespace-uri()='http://escidoc.mpg.de/metadataprofile/schema/0.1/publication') 
+			then ../../../@objid 
+			else ../../../../@objid
+		 "/>
 		<xsl:variable name="v1" select="@role"/>
 		<xsl:variable name="v2" select="$vm/creator-role/v1-to-v2/map[@v1=$v1]"/>
 		<xsl:element name="eterms:creator">
 			<xsl:copy-of select="@*[name()!='role']" />
-			<!-- creator role from the ves -->	
-			<xsl:attribute name="role" select="
-				if (exists($v2))  
-				then $v2
-				else error(
-					QName('http://www.escidoc.de/transformation', 'err:NoMappingForEnum' ), 
-						concat ('No mapping v1.0 to v2.0 for creator role: ', $v1 )
-					)
-			" />
+			<!-- creator role from the ves -->
+			<!-- TODO: NON STRICT for the moment!!! -->
+			<xsl:if test="$v2!=''">
+				<xsl:attribute name="role" select="
+					if (exists($v2))  
+					then $v2
+					else error(
+						QName('http://www.escidoc.de/transformation', 'err:NoMappingForEnum' ), 
+							concat ('No mapping v1.0 to v2.0 for creator role: ', $v1, ', item id: ', $objid)
+						)
+				" />
+				</xsl:if>
 			<xsl:apply-templates />
 		</xsl:element>
 	</xsl:template>
@@ -213,6 +223,7 @@
 	</xsl:template>
 	
 	<xsl:template match="publication:review-method">
+		<xsl:variable name="objid" select="../../../../@objid"/>
 		<xsl:variable name="v1" select="."/>
 		<xsl:variable name="v2" select="$vm/review-method/v1-to-v2/map[@v1=$v1]"/>
 		<!-- review method from the ves -->	
@@ -222,7 +233,7 @@
 				then $v2
 				else error(
 					QName('http://www.escidoc.de/transformation', 'err:NoMappingForEnum' ), 
-						concat ('No mapping v1.0 to v2.0 for review method: ', $v1 )
+						concat ('No mapping v1.0 to v2.0 for review method: ', $v1, ', item id: ', $objid)
 					)
 			" />
 			<!-- skip duplicated value of the element -->
@@ -231,20 +242,27 @@
 	</xsl:template>
 	
 	<xsl:template match="publication:source | escidoc:source" priority="999">
-		<xsl:variable name="v1" select="@type"/>
-		<!-- no constrains for the source type:  mapping is taken from the publication type list-->
-		<xsl:variable name="v2" select="$vm/publication-type/v1-to-v2/map[@v1=$v1]"/>
 		<xsl:element name="source:source">
 			<xsl:copy-of select="@*[name()!='type']"/>
-			<!-- source type from the ves -->	
-			<xsl:attribute name="type" select="
-				if (exists($v2))  
-				then $v2
-				else error(
-					QName('http://www.escidoc.de/transformation', 'err:NoMappingForEnum' ), 
-						concat ('No mapping v1.0 to v2.0 for source type: ', $v1 )
-					)
-			" />
+			<!-- source type from the ves -->
+			<xsl:if test="@type">
+				<xsl:variable name="objid" select="
+					if (namespace-uri()='http://escidoc.mpg.de/metadataprofile/schema/0.1/publication') 
+					then ../../../../@objid 
+					else ../../../../../@objid
+				 "/>
+				<xsl:variable name="v1" select="@type"/>
+				<!-- no constrains for the source type:  mapping is taken from the publication type list-->
+				<xsl:variable name="v2" select="$vm/publication-type/v1-to-v2/map[@v1=$v1]"/>
+				<xsl:attribute name="type" select="
+					if (exists($v2))  
+					then $v2
+					else error(
+						QName('http://www.escidoc.de/transformation', 'err:NoMappingForEnum' ), 
+							concat ('No mapping v1.0 to v2.0 for source type: ', $v1, ', item id: ', $objid)
+						)
+				" />
+			</xsl:if>
 			<xsl:apply-templates/>
 		</xsl:element>
 	</xsl:template>
@@ -287,6 +305,7 @@
 	</xsl:template>
 	
 	<xsl:template match="publication:degree">
+		<xsl:variable name="objid" select="../../../../@objid"/>
 		<xsl:variable name="v1" select="."/>
 		<xsl:variable name="v2" select="$vm/academic-degree/v1-to-v2/map[@v1=$v1]"/>
 		<xsl:element name="eterms:degree">
@@ -296,7 +315,7 @@
 				then $v2
 				else error(
 					QName('http://www.escidoc.de/transformation', 'err:NoMappingForEnum' ), 
-						concat ('No mapping v1.0 to v2.0 for academic degree: ', $v1 )
+						concat ('No mapping v1.0 to v2.0 for academic degree: ', $v1, ', item id: ', $objid)
 					)
 			" />
 			<!-- skip duplicated value of the element -->
@@ -327,6 +346,31 @@
 	</xsl:template>
 	
 
+	<xsl:template match="file:content-category" priority="999">
+		<xsl:variable name="v1" select="normalize-space(lower-case(translate(.,'_', '-')))"/>
+		<xsl:variable name="v2" select="$vm/content-category/v1-to-v2/map[@v1=$v1]"/>
+		<xsl:element name="eterms:content-category" namespace="http://purl.org/escidoc/metadata/terms/0.1/">
+			<xsl:value-of select="
+				if ($v2!='')
+				then $v2
+				else .
+			"/>
+			<xsl:apply-templates select="*/*" />
+		</xsl:element>
+	</xsl:template>
+		
+	<xsl:template match="prop:content-category" priority="999">
+		<xsl:variable name="v1" select="normalize-space(lower-case(translate(.,'_', '-')))"/>
+		<xsl:variable name="v2" select="$vm/content-category/v1-to-v2/map[@v1=$v1]"/>
+		<xsl:element name="prop:content-category">
+			<xsl:value-of select="
+				if ($v2!='')
+				then $v2
+				else .
+			"/>
+			<xsl:apply-templates select="*/*" />
+		</xsl:element>
+	</xsl:template>
 	
 	<!-- all escidoc: prefixes to the eterms: 
 		Note: escidoc:identifier for person and organization has own processing  
@@ -345,6 +389,27 @@
 			<xsl:apply-templates/>
 		</xsl:element>
 	</xsl:template>
+	
+	<xsl:template match="*[namespace-uri()='http://www.escidoc.de/schemas/metadatarecords/0.4']" priority="1">
+		<xsl:element name="{name()}" namespace="${xsd.soap.common.mdrecords}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template match="*[namespace-uri()='http://www.escidoc.de/schemas/components/0.8']" priority="1">
+		<xsl:element name="{name()}" namespace="${xsd.soap.item.components}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template match="*[namespace-uri()='http://www.escidoc.de/schemas/item/0.8']" priority="1">
+		<xsl:element name="{name()}" namespace="${xsd.soap.item.item}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</xsl:element>
+	</xsl:template>
 
 	
 	
@@ -353,26 +418,26 @@
 	<!-- all namespaces which should be presented in item root element -->
 	<xsl:template name="item-namespaces">
 	
-		<xsl:namespace name="escidocItem">http://www.escidoc.de/schemas/item/0.8</xsl:namespace>
-		<xsl:namespace name="escidocContext">http://www.escidoc.de/schemas/context/0.6</xsl:namespace>
-        <xsl:namespace name="escidocContextList">http://www.escidoc.de/schemas/contextlist/0.6</xsl:namespace>
-        <xsl:namespace name="escidocComponents">http://www.escidoc.de/schemas/components/0.8</xsl:namespace>
-        <xsl:namespace name="escidocMetadataRecords">http://www.escidoc.de/schemas/metadatarecords/0.4</xsl:namespace>
-        <xsl:namespace name="prop">http://escidoc.de/core/01/properties/</xsl:namespace>
-        <xsl:namespace name="srel">http://escidoc.de/core/01/structural-relations/</xsl:namespace>
-        <xsl:namespace name="version">http://escidoc.de/core/01/properties/version/</xsl:namespace>
-        <xsl:namespace name="release">http://escidoc.de/core/01/properties/release/</xsl:namespace>
+		<xsl:namespace name="escidocItem">${xsd.soap.item.item}</xsl:namespace>
+		<xsl:namespace name="escidocContext">${xsd.soap.context.context}</xsl:namespace>
+        <xsl:namespace name="escidocContextList">${xsd.soap.context.contextlist}</xsl:namespace>
+        <xsl:namespace name="escidocComponents">${xsd.soap.item.components}</xsl:namespace>
+        <xsl:namespace name="escidocMetadataRecords">${xsd.soap.common.mdrecords}</xsl:namespace>
+        <xsl:namespace name="prop">${xsd.soap.common.prop}</xsl:namespace>
+        <xsl:namespace name="srel">${xsd.soap.common.srel}</xsl:namespace>
+        <xsl:namespace name="version">${xsd.soap.common.version}</xsl:namespace>
+        <xsl:namespace name="release">${xsd.soap.common.release}</xsl:namespace>
         
-		<xsl:namespace name="eterms">http://purl.org/escidoc/metadata/terms/0.1/</xsl:namespace>
-		<xsl:namespace name="organization">http://purl.org/escidoc/metadata/profiles/0.1/organization</xsl:namespace>
-		<xsl:namespace name="person">http://purl.org/escidoc/metadata/profiles/0.1/person</xsl:namespace>
-		<xsl:namespace name="source">http://purl.org/escidoc/metadata/profiles/0.1/source</xsl:namespace>
-        <xsl:namespace name="idtype">http://purl.org/escidoc/metadata/terms/0.1/</xsl:namespace>
-		<xsl:namespace name="event">http://purl.org/escidoc/metadata/profiles/0.1/event</xsl:namespace>		
+		<xsl:namespace name="eterms">${xsd.metadata.escidocprofile.types}</xsl:namespace>
+		<xsl:namespace name="organization">${xsd.metadata.organization}</xsl:namespace>
+		<xsl:namespace name="person">${xsd.metadata.person}</xsl:namespace>
+		<xsl:namespace name="source">${xsd.metadata.source}</xsl:namespace>
+        <xsl:namespace name="idtype">${xsd.metadata.escidocprofile.types}</xsl:namespace>
+		<xsl:namespace name="event">${xsd.metadata.event}</xsl:namespace>		
         
-        <xsl:namespace name="file">http://purl.org/metadata/profiles/0.1/file</xsl:namespace>
-        <xsl:namespace name="dc">http://purl.org/dc/elements/1.1/</xsl:namespace>
-        <xsl:namespace name="dcterms">http://purl.org/dc/terms/</xsl:namespace>
+        <xsl:namespace name="file">${xsd.metadata.file}</xsl:namespace>
+        <xsl:namespace name="dc">${xsd.metadata.dc}</xsl:namespace>
+        <xsl:namespace name="dcterms">${xsd.metadata.dcterms}</xsl:namespace>
         
         <xsl:namespace name="xlink">http://www.w3.org/1999/xlink</xsl:namespace>
         <xsl:namespace name="xsi">http://www.w3.org/2001/XMLSchema-instance</xsl:namespace>
