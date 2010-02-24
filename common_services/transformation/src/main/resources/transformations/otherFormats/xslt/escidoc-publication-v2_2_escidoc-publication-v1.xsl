@@ -66,7 +66,7 @@
   
 	>
 	
-	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+	<xsl:output method="xml" encoding="UTF-8" indent="yes" cdata-section-elements="dcterms:bibliographicCitation"/>
 
 	<xsl:param name="is-item-list" select="true()"/>
 
