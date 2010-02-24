@@ -117,128 +117,40 @@ public class TestCitationStylesSubstantial {
 	
 	private static final String LMD_FORMAT = "<param last-modification-date=\"%s\"/>";
 
-	private static final String CITATION_STYLE_TEST_XMLS_DIRECTORY = "src/test/resources/backup";
+	private static final String CITATION_STYLE_TEST_XMLS_DIRECTORY = "target/test-classes/backup";
 	private static final String CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME = "CitationStyleTestUserAccount.xml"; 
 	private static final String CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME = "CitationStyleTestUserGrants.xml"; 
 	private static final String CITATION_STYLE_TEST_CONTEXTS_FILE_NAME = "CitationStyleTestContexts.xml"; 
-	private static final String CITATION_STYLE_TEST_COLLECTION_FILE_NAME = "CitationStyleTestCollectionV2.xml"; 
+	private static final String CITATION_STYLE_TEST_COLLECTION_FILE_NAME = "CitationStyleTestCollection.xml"; 
 	
 	
 	private static String userHandle, adminHandle;   
 	private static UserAccountHandler uah_user, uah_admin; 
 	
-	private static ProcessCitationStyles pcs;    
+//	private static ProcessCitationStyles pcs;    
 	private static CitationStyleExecutor cse;
 	private static XPath xpath;
 	 
 	 @BeforeClass
 	 public static void setUp() throws Exception
 	 {
-		 pcs = new ProcessCitationStyles();
 		 cse = new CitationStyleExecutor();
-		 userHandle = TestHelper.loginUser(USER_NAME, USER_PASSWD);
-		 uah_user = ServiceLocator.getUserAccountHandler(userHandle);
-		 adminHandle = TestHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN));
-		 uah_admin = ServiceLocator.getUserAccountHandler(adminHandle);
+		 
+//		 userHandle = TestHelper.loginUser(USER_NAME, USER_PASSWD);
+//		 uah_user = ServiceLocator.getUserAccountHandler(userHandle);
+//		 adminHandle = TestHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN));
+//		 uah_admin = ServiceLocator.getUserAccountHandler(adminHandle);
 		 XPathFactory factory = XPathFactory.newInstance();
 		 xpath = factory.newXPath();
 	 }
 	 
-	 /**
-     * Tests all citation styles substantial 
-     * 
-     * @throws Exception
-     */
-    @Test
-    @Ignore
-    public final void testCitationStylesGeneration() throws Exception  {
-
-    	int FAILED = 0;
-    	String generatedCit;
-    	String expectedCit;
-    	StringBuffer failedCits = new StringBuffer();
-    	String itemList;
-    	
-//		ItemHandler ih = ServiceLocator.getItemHandler(userHandle);
-
-    	// for all citation styles
-    	for (String cs : /*pcs.getStyles()*/ new String[]{"APA"} )    	
-    	{
-
-    		logger.info("Citation Style: " + cs);
-    		Properties tp = TestHelper.getTestProperties(cs);
-    		
-    		//get item list from framework
-    		boolean IS_IGNORE_MULTIPLY_SPACES = tp.getProperty("ignore.multiply.spaces").equals("yes");
-    		//    	
-    		String USER = tp.getProperty("data.source.user");
-    		String PASSWD = tp.getProperty("data.source.password");
-    		String FILTER = tp.getProperty("data.source.filter");
-    		String EXPECTED_KEY = tp.getProperty("data.source.expected.key");
-    		String EXPECTED_XPATH = tp.getProperty("data.source.expected.xpath");
-    		
-
-    		//get items from framework
-//    		itemList = ih.retrieveItems( FILTER_CITATION_STYLE_TEST_COLLECTION );
-    		itemList = getFileAsString(CITATION_STYLE_TEST_COLLECTION_FILE_NAME);
-
-    		NodeList nodes = xpathNodeList("/item-list/item", itemList);
-
-    		assertFalse("No items have been found", nodes.getLength()==0);
-    		
-    		for (int i = 0; i < nodes.getLength(); i++) 
-    		{
-    			Node n = nodes.item(i);
-    			String objid = n.getAttributes().getNamedItem("objid") + "";  
-    			logger.info(objid);
-    			Document tmpDoc = JRXmlUtils.createDocument(n);
-
-    			//generate text citation form the current item
-    			generatedCit = new String(pcs.getOutput(cs, XmlHelper.outputString(tmpDoc)));
-    			generatedCit = cleanCit(generatedCit);
-    			generatedCit = generatedCit.replaceFirst("^.*" + cs +"\\s+?", "");
-    			//    	    logger.info( "generated citation:" + generatedCit );
-
-    			//get expected result from the abstract field 
-    			Node checkNode = xpathNode(EXPECTED_XPATH, tmpDoc);
-    			String comment = objid + ", xpath:" + EXPECTED_XPATH + ", item:" + XmlHelper.outputString(tmpDoc);
-    			assertNotNull("expected citation has not been found for " + comment, checkNode);
-    			expectedCit = checkNode.getTextContent();
-    			assertNotNull("expected citation element is empty for " + comment, checkNode);
-    			expectedCit = cleanCit(expectedCit);
-    			expectedCit = expectedCit.replaceFirst("^" + EXPECTED_KEY , "");
-    			//    	    logger.info( "expected citation:" + expectedCit );
-
-    			//compare generated and expected items
-    			if ( !diffStrings(generatedCit, expectedCit) )
-    			{
-    				FAILED++;
-    				failedCits.append(
-    						"\n " + objid  
-    						+ "\nThe generated citation:\n"
-    						+ "[" +generatedCit + "]"
-    						+ "\n does not match expected citation:\n"
-    						+ "[" + expectedCit + "]"
-    				);
-    			}
-
-    		}
-    		assertTrue(
-    				"There (is/are) " + FAILED + " wrong generated citation(s):" 
-    				+ failedCits.toString()
-    				, FAILED == 0
-    		);
-
-    	}
-    }
-
 	 /**
      * Tests all citation styles snippets from file 
      * 
      * @throws Exception
      */
     @Test
-    @Ignore
+//    @Ignore
     public final void testCitationStyleSnippetGeneration() throws Exception  {
 
     	int FAILED = 0;
@@ -249,7 +161,10 @@ public class TestCitationStylesSubstantial {
     	
 
     	// for all citation styles
-    	for (String cs : /*pcs.getStyles()*/ new String[]{"AJP_new"} )    	
+    	for (String cs : 
+    		cse.getStyles() 
+//    		new String[]{"AJP"} 
+    	)    	
     	{
 
     		logger.info("Citation Style: " + cs);
@@ -264,7 +179,6 @@ public class TestCitationStylesSubstantial {
     		
     		//get items from file
     		itemList = getFileAsString(CITATION_STYLE_TEST_COLLECTION_FILE_NAME);
-    		
     		
     		Document doc = XmlHelper.createDocument(itemList);
     		Element root = doc.getDocumentElement();
@@ -281,11 +195,13 @@ public class TestCitationStylesSubstantial {
     			logger.info("item: " + i + ", " + objid);
 
     			//generate text citation form the current item
-    			String snippet = new String(cse.getOutput(cs, "snippet", XmlHelper.outputString(doc))); 
+//    			logger.info( "item:" + XmlHelper.outputString(doc));
+    			String snippet = new String(cse.getOutput(cs, "escidoc_snippet", XmlHelper.outputString(doc)));
     			Node snippetNode = xpathNode(SNIPPET_XPATH, snippet);
+    			
     			generatedCit = snippetNode.getTextContent();
     			generatedCit = generatedCit.replaceFirst("^.*" + cs +"\\s+?", "");
-    			//    	    logger.info( "generated citation:" + generatedCit );
+//    			logger.info( "generated citation:" + generatedCit );
 
     			//get expected result from the abstract field 
     			Node checkNode = xpathNode(EXPECTED_XPATH, doc);
@@ -294,7 +210,7 @@ public class TestCitationStylesSubstantial {
     			expectedCit = checkNode.getTextContent();
     			assertNotNull("expected citation element is empty for " + comment, checkNode);
     			expectedCit = expectedCit.replaceFirst("^" + EXPECTED_KEY , "");
-    			//    	    logger.info( "expected citation:" + expectedCit );
+//    			 logger.info( "expected citation:" + expectedCit );
 
     			//compare generated and expected items
     			if ( !diffStrings(generatedCit, expectedCit) )
@@ -313,7 +229,7 @@ public class TestCitationStylesSubstantial {
     		}
     		if (FAILED != 0)
     		{
-    			logger.info("There (is/are) " + FAILED + " wrong generated citation(s):" 
+    			logger.info("I found " + FAILED + " wrong generated citation(s):" 
         				+ failedCits.toString());
     			Assert.fail();
     		}
@@ -349,7 +265,7 @@ public class TestCitationStylesSubstantial {
      * @throws Exception
      */
     @Test
-//    @Ignore
+    @Ignore
     public void restoreAll() throws Exception
     {
     	restoreUser();
@@ -743,7 +659,6 @@ private static void administration(String userHandle) throws Exception
    }     * 
      */
     
-//    @Test
     public void purgeItems() throws ServiceException, URISyntaxException, InvalidXmlException, SystemException, RemoteException
     {
     	AdminHandler ah = ServiceLocator.getAdminHandler(adminHandle);

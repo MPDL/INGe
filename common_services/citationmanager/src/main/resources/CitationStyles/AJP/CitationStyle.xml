@@ -24,22 +24,28 @@
 <citation-style name="AJP"
 	xmlns="http://www.escidoc.de/citationstyle" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style-new.xsd"
+	xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd"
 	read-only="no" 
 	element-specific="no" 
 	md-xpath="../../mdr:md-records/mdr:md-record"
 	source-placeholder-tag="prop:content-model-specific"
 	citation-placeholder-tag="dcterms:bibliographicCitation"
+	include-global-default-variables="yes"
+	include-default-variables="no"
 	> 	
 	<!-- special variables to be used in expressions for short notations -->
 	<variables>
 		<variable name="objid" ><![CDATA[../../@objid]]></variable>
-		<variable name="hasPublication" type="xs:boolean"><![CDATA[exists(mdp:publication)]]></variable>
-		<variable name="genre"><![CDATA[mdp:publication/@type]]></variable>
-		<variable name="authorsCount"><![CDATA[count(mdp:publication/pub:creator[@role='author'])]]></variable>
-		<variable name="editorsCount"><![CDATA[count(mdp:publication/pub:creator[@role='editor'])]]></variable>
-		<variable name="sourceEditorsCount"><![CDATA[count(mdp:publication/pub:source[1]/e:creator[@role='editor'])]]></variable>
+		
+		<variable name="authorsCount">count(pub:publication/eterms:creator[@role=$l_author])</variable>
+		<variable name="editorsCount">count(pub:publication/eterms:creator[@role=$l_editor])</variable>
+		<variable name="sourceEditorsCount">count(pub:publication/source:source[1]/eterms:creator[@role=$l_editor])</variable>
 		<variable name="ed"><![CDATA[if ($editorsCount=1) then ' (ed)' else ' (eds)']]></variable>
+		
+		<variable name="genre">pub:publication/@type</variable>
+		<variable name="source-type">pub:publication/source:source[1]/@type</variable>
+		<variable name="hasPublication" type="xs:boolean">exists(pub:publication)</variable>
+		
 			
 		<!--
 			variables which use java-like expressions with references to other
@@ -48,21 +54,21 @@
 		<variable name="date">
 			<![CDATA[
 			func:get_year(
-				if (exists(mdp:publication/dcterms:issued/text())) 
-				then mdp:publication/dcterms:issued/text()  
-				else if (exists(mdp:publication/pub:published-online/text()))
-				then mdp:publication/pub:published-online/text()  
+				if ( exists(pub:publication/dcterms:issued/text()) ) 
+				then pub:publication/dcterms:issued/text()  
+				else if ( exists(pub:publication/eterms:published-online/text()) )
+				then pub:publication/eterms:published-online/text()  
 				else (
-					if ( $genre='manuscript')
+					if ( $genre=$l_manuscript )
 					then (
-							 if (exists(mdp:publication/dcterms:dateAccepted/text()))
-							 then mdp:publication/dcterms:dateAccepted/text()
-							 else if (exists(mdp:publication/dcterms:dateSubmitted/text()))
-							 then mdp:publication/dcterms:dateSubmitted/text()
-							 else if (exists(mdp:publication/dcterms:modified/text()))
-							 then mdp:publication/dcterms:modified/text()
-							 else if (exists(mdp:publication/dcterms:created/text()))
-							 then mdp:publication/dcterms:created/text()
+							 if (exists(pub:publication/dcterms:dateAccepted/text()))
+							 then pub:publication/dcterms:dateAccepted/text()
+							 else if (exists(pub:publication/dcterms:dateSubmitted/text()))
+							 then pub:publication/dcterms:dateSubmitted/text()
+							 else if (exists(pub:publication/dcterms:modified/text()))
+							 then pub:publication/dcterms:modified/text()
+							 else if (exists(pub:publication/dcterms:created/text()))
+							 then pub:publication/dcterms:created/text()
 							 else ''
 					)
 					else ''
@@ -74,14 +80,14 @@
 <!--		master, diploma, magister, staatsexamen, phd, habilitation, bachelor -->
 		<variable name="degree">
 			<![CDATA[
-				if (exists(mdp:publication/pub:degree/text()))
+				if ($v_degree!='')
 				then 
 				(
-					if (mdp:publication/pub:degree/text()='phd')
+					if ($v_degree=$l_phd)
 					then 'PhD Thesis'
-					else mdp:publication/pub:degree/text()
+					else $l_degree
 				)
-				else 'Thesis'
+				else $l_thesis
 			]]>
 		</variable>
 		
@@ -101,7 +107,7 @@
 			</parameters>
 			<elements>
 				<layout-element name="authors-NotEqual2"
-					ref="mdp:publication/pub:creator[@role='author']"
+					ref="pub:publication/eterms:creator[@role=$l_author]"
 					repeatable="yes">
 					<parameters position="last">
 						<delimiter value=", and " />
@@ -111,13 +117,13 @@
 						<delimiter value=", " />
 					</parameters>
 					<elements>
-						<layout-element ref="e:organization/e:organization-name/text()" />
-						<layout-element ref="e:person/e:given-name/text()"/>
-						<layout-element ref="e:person/e:family-name/text()" />
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="person:person/eterms:given-name/text()"/>
+						<layout-element ref="person:person/eterms:family-name/text()" />
 					</elements>
 				</layout-element>
 				<layout-element name="authors-Equal2"
-					ref="mdp:publication/pub:creator[@role='author']"
+					ref="pub:publication/eterms:creator[@role=$l_author]"
 					repeatable="yes">
 					<parameters position="last">
 						<delimiter value=" and " />
@@ -127,9 +133,9 @@
 						<delimiter value=", " />
 					</parameters>
 					<elements>
-						<layout-element ref="e:organization/e:organization-name/text()" />
-						<layout-element ref="e:person/e:given-name/text()"/>
-						<layout-element ref="e:person/e:family-name/text()" />
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="person:person/eterms:given-name/text()"/>
+						<layout-element ref="person:person/eterms:family-name/text()" />
 					</elements>
 				</layout-element>
 			</elements>
@@ -143,7 +149,7 @@
 			</parameters>
 			<elements>
 				<layout-element name="editors-NotEqual2"
-					ref="mdp:publication/pub:creator[@role='editor']"
+					ref="pub:publication/eterms:creator[@role=$l_editor]"
 					repeatable="yes">
 					<parameters position="last">
 						<delimiter value=", and " />
@@ -153,13 +159,13 @@
 						<delimiter value=", " />
 					</parameters>
 					<elements>
-						<layout-element ref="e:organization/e:organization-name/text()" />
-						<layout-element ref="e:person/e:given-name/text()"/>
-						<layout-element ref="e:person/e:family-name/text()" />
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="person:person/eterms:given-name/text()"/>
+						<layout-element ref="person:person/eterms:family-name/text()" />
 					</elements>
 				</layout-element>
 				<layout-element name="editors-Equal2"
-					ref="mdp:publication/pub:creator[@role='editor']"
+					ref="pub:publication/eterms:creator[@role=$l_editor]"
 					repeatable="yes">
 					<parameters position="last">
 						<delimiter value=" and " />
@@ -169,9 +175,9 @@
 						<delimiter value=", " />
 					</parameters>
 					<elements>
-						<layout-element ref="e:organization/e:organization-name/text()" />
-						<layout-element ref="e:person/e:given-name/text()"/>
-						<layout-element ref="e:person/e:family-name/text()" />
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="person:person/eterms:given-name/text()"/>
+						<layout-element ref="person:person/eterms:family-name/text()" />
 					</elements>
 				</layout-element>
 				
@@ -207,7 +213,7 @@
 			</parameters>
 			<elements>
 				<layout-element name="source-editors-NotEqual2"
-					ref="mdp:publication/pub:source[1]/e:creator[@role='editor']"
+					ref="pub:publication/source:source[1]/eterms:creator[@role=$l_editor]"
 					repeatable="yes">
 					<parameters position="last">
 						<delimiter value=", and " />
@@ -217,13 +223,13 @@
 						<delimiter value=", " />
 					</parameters>
 					<elements>
-						<layout-element ref="e:organization/e:organization-name/text()" />
-						<layout-element ref="e:person/e:given-name/text()"/>
-						<layout-element ref="e:person/e:family-name/text()" />
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="person:person/eterms:given-name/text()"/>
+						<layout-element ref="person:person/eterms:family-name/text()" />
 					</elements>
 				</layout-element>
 				<layout-element name="source-editors-Equal2"
-					ref="mdp:publication/pub:source[1]/e:creator[@role='editor']"
+					ref="pub:publication/source:source[1]/eterms:creator[@role=$l_editor]"
 					repeatable="yes">
 					<parameters position="last">
 						<delimiter value=" and " />
@@ -233,9 +239,9 @@
 						<delimiter value=", " />
 					</parameters>
 					<elements>
-						<layout-element ref="e:organization/e:organization-name/text()" />
-						<layout-element ref="e:person/e:given-name/text()"/>
-						<layout-element ref="e:person/e:family-name/text()" />
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="person:person/eterms:given-name/text()"/>
+						<layout-element ref="person:person/eterms:family-name/text()" />
 					</elements>
 				</layout-element>
 			</elements>
@@ -243,7 +249,7 @@
 			
 		<!-- "plain" layout elements -->
 		
-		<layout-element name="vol" ref="mdp:publication/pub:source[1]/e:volume/text()">
+		<layout-element name="vol" ref="pub:publication/source:source[1]/eterms:volume/text()">
 			<parameters>
 				<starts-with value="Vol. "/>
 			</parameters>
@@ -254,8 +260,8 @@
 				<delimiter value="-" />
 			</parameters>
 			<elements>
-				<layout-element ref="mdp:publication/pub:source[1]/e:start-page/text()" />
-				<layout-element ref="mdp:publication/pub:source[1]/e:end-page/text()" />
+				<layout-element ref="pub:publication/source:source[1]/eterms:start-page/text()" />
+				<layout-element ref="pub:publication/source:source[1]/eterms:end-page/text()" />
 			</elements>
 		</layout-element>
 		
@@ -265,10 +271,10 @@
 				<starts-with value="pp. "/>
 			</parameters>
 			<elements>
-				<layout-element ref="mdp:publication/pub:total-number-of-pages/text()" />
+				<layout-element ref="pub:publication/eterms:total-number-of-pages/text()" />
 				<layout-element ref="$start-page-end-page">
 					<parameters>
-						<valid-if><![CDATA[not(exists(mdp:publication/pub:total-number-of-pages/text()))]]></valid-if>
+						<valid-if><![CDATA[not(exists(pub:publication/eterms:total-number-of-pages/text()))]]></valid-if>
 					</parameters>
 				</layout-element>			
 			</elements>
@@ -288,8 +294,8 @@
 					<ends-with value=")" />
 				</parameters>
 				<elements>
-					<layout-element ref="mdp:publication/pub:publishing-info/dc:publisher/text()" />
-					<layout-element ref="mdp:publication/pub:publishing-info/e:place/text()" />
+					<layout-element ref="pub:publication/eterms:publishing-info/dc:publisher/text()" />
+					<layout-element ref="pub:publication/eterms:publishing-info/eterms:place/text()" />
 					<layout-element ref="$date" />
 				</elements>
 		</layout-element>
@@ -308,8 +314,8 @@
 						<ends-with value=")" />
 					</parameters>
 					<elements>
-						<layout-element ref="mdp:publication/pub:source[1]/e:publishing-info/dc:publisher/text()"/>
-						<layout-element ref="mdp:publication/pub:source[1]/e:publishing-info/e:place/text()"/>
+						<layout-element ref="pub:publication/source:source[1]/eterms:publishing-info/dc:publisher/text()"/>
+						<layout-element ref="pub:publication/source:source[1]/eterms:publishing-info/eterms:place/text()"/>
 						<layout-element ref="$date" />
 					</elements>
 				</layout-element>
@@ -322,27 +328,27 @@
 				<delimiter value=""/>
 			</parameters>
 			<elements>
-				<layout-element ref="mdp:publication/pub:source[1]/dc:title/text()" />
-				<layout-element ref="mdp:publication/pub:source[1]//e:volume/text()">
+				<layout-element ref="pub:publication/source:source[1]/dc:title/text()" />
+				<layout-element ref="pub:publication/source:source[1]//eterms:volume/text()">
 					<parameters>
 						<font-style ref="BOLD" />
 						<starts-with value=" "/>
 					</parameters>
 				</layout-element>
-				<layout-element ref="mdp:publication/pub:source[1]/e:issue/text()">
+				<layout-element ref="pub:publication/source:source[1]/eterms:issue/text()">
 					<parameters>
 						<starts-with value=" (" />
 						<ends-with value=")" />
 					</parameters>
 				</layout-element>
-				<layout-element ref="mdp:publication/pub:source[1]/e:sequence-number/text()">
+				<layout-element ref="pub:publication/source:source[1]/eterms:sequence-number/text()">
 					<parameters>
 						<starts-with value=", " />
 					</parameters>
 				</layout-element>
 				<layout-element ref="$start-page-end-page">
 					<parameters>
-						<valid-if><![CDATA[not(exists(mdp:publication/pub:source[1]/e:sequence-number/text()))]]></valid-if>
+						<valid-if><![CDATA[not(exists(pub:publication/source:source[1]/eterms:sequence-number/text()))]]></valid-if>
 						<starts-with value=", " />
 					</parameters>
 				</layout-element>
@@ -355,14 +361,14 @@
 			</elements>
 		</layout-element>
 		
-		<layout-element name="edition" ref="mdp:publication/pub:publishing-info/e:edition/text()" >
+		<layout-element name="edition" ref="pub:publication/eterms:publishing-info/eterms:edition/text()" >
 			<parameters>
 				<starts-with value=", "/>
 				<ends-with value=" ed"/>
 			</parameters>
 		</layout-element>	
 			
-		<layout-element  name="title-italic" ref="mdp:publication/dc:title/text()">
+		<layout-element  name="title-italic" ref="pub:publication/dc:title/text()">
 			<parameters>
 				<starts-with value=" "/>
 				<ends-with value="."/>
@@ -389,8 +395,8 @@
 						<starts-with value="genre:"/>
 					</parameters>
 				</layout-element>
-				<layout-element ref="mdp:publication/dcterms:abstract[contains(.,'AJP:')]/text()" />
-				<layout-element ref="mdp:publication/dc:subject/text()" />
+				<layout-element ref="pub:publication/dcterms:abstract[contains(.,'AJP:')]/text()" />
+				<layout-element ref="pub:publication/dc:subject/text()" />
 			</elements>
 		</layout-element>
 			
@@ -414,7 +420,7 @@
 
 	<cs-layout-definition name="Article">
 		<parameters>
-			<valid-if><![CDATA[$genre = 'article']]></valid-if>
+			<valid-if><![CDATA[$genre = $l_article]]></valid-if>
 			<delimiter value=""/>
 		</parameters>
 		<elements>
@@ -429,14 +435,14 @@
 					<starts-with value=", "/>
 				</parameters>
 				<elements>
-					<layout-element ref="mdp:publication/dc:title/text()">
+					<layout-element ref="pub:publication/dc:title/text()">
 						<parameters>
 							<valid-if><![CDATA[not(exists($SourceTitleVolumeIssuePhysicalDescriptionDateBlock/text()))]]></valid-if>
 							<starts-with value="&quot;" />		
 							<ends-with value=".&quot;" />		
 						</parameters>
 					</layout-element>
-					<layout-element ref="mdp:publication/dc:title/text()">
+					<layout-element ref="pub:publication/dc:title/text()">
 						<parameters>
 							<valid-if><![CDATA[exists($SourceTitleVolumeIssuePhysicalDescriptionDateBlock/text())]]></valid-if>
 							<starts-with value="&quot;" />		
@@ -458,7 +464,7 @@
 
 	<cs-layout-definition name="Book-or-Proceedings">
 		<parameters>
-			<valid-if><![CDATA[ $genre = ('book', 'proceedings')  ]]></valid-if>
+			<valid-if><![CDATA[ $genre = ($l_book, $l_proceedings)  ]]></valid-if>
 			<delimiter value=""/>
 		</parameters>
 		<elements>
@@ -490,7 +496,7 @@
 	
 	<cs-layout-definition name="BookChapter">
 		<parameters>
-			<valid-if><![CDATA[ $genre = ('book-item') ]]></valid-if>
+			<valid-if><![CDATA[ $genre = ($l_book-item) ]]></valid-if>
 			<delimiter value=", " />
 			<ends-with value="." />
 		</parameters>
@@ -500,7 +506,7 @@
 			
 			<layout-element ref="$creators" />
 						
-			<layout-element ref="mdp:publication/dc:title">
+			<layout-element ref="pub:publication/dc:title">
 				<parameters>
 					<starts-with value="&quot;" />
 					<ends-with value="&quot;" />
@@ -509,11 +515,11 @@
 			
 			<layout-element name="BookTitleBlock">
 				<parameters>
-					<valid-if><![CDATA[exists(mdp:publication/pub:source[@type='book']/dc:title)]]></valid-if>
+					<valid-if><![CDATA[exists(pub:publication/source:source[@type=$l_book]/dc:title)]]></valid-if>
 					<starts-with value="in "/>
 				</parameters>
 				<elements>
-					<layout-element ref="mdp:publication/pub:source[@type='book'][1]/dc:title/text()">
+					<layout-element ref="pub:publication/source:source[@type=$l_book][1]/dc:title/text()">
 						<parameters>
 							<font-style ref="ITALIC"/>
 						</parameters>
@@ -534,7 +540,7 @@
 	<cs-layout-definition name="Thesis">
 	
 		<parameters>
-			<valid-if><![CDATA[ $genre = ('thesis') ]]></valid-if>
+			<valid-if><![CDATA[ $genre = ($l_thesis) ]]></valid-if>
 			<delimiter value=", " />
 			<ends-with value="." />
 		</parameters>
@@ -546,7 +552,7 @@
 			
 			<layout-element ref="$degree"/>
 
-			<layout-element ref="mdp:publication/pub:publishing-info/dc:publisher/text()" />
+			<layout-element ref="pub:publication/eterms:publishing-info/dc:publisher/text()" />
 			
 			<layout-element ref="$date" />
 						
@@ -564,7 +570,7 @@
 			
 			<layout-element ref="$creators" />
 
-			<layout-element  ref="mdp:publication/dc:title">
+			<layout-element  ref="pub:publication/dc:title">
 				<parameters>
 					<starts-with value="&quot;" />
 					<ends-with value="&quot;" />
@@ -574,11 +580,11 @@
 			
 			<layout-element name="SourceTitleBlock">
 				<parameters>
-					<valid-if><![CDATA[ exists(mdp:publication/pub:source[1]/dc:title) ]]></valid-if>
+					<valid-if><![CDATA[ exists(pub:publication/source:source[1]/dc:title) ]]></valid-if>
 					<starts-with value="in "/>
 				</parameters>
 				<elements>
-					<layout-element ref="mdp:publication/pub:source[1]/dc:title">
+					<layout-element ref="pub:publication/source:source[1]/dc:title">
 						<parameters>
 							<font-style ref="ITALIC"/>
 						</parameters>

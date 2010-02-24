@@ -43,8 +43,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
                     TestCitationManager.class
-//                   ,
-//					TestCitationStylesSubstantial.class                                        
+					, TestCitationStylesSubstantial.class                                        
                     })
 public class TestCitationManagerSuite
 {
