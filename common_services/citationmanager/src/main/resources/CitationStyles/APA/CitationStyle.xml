@@ -1122,7 +1122,7 @@
 				</parameters>
 				<elements>
 					<layout-element ref="$title-italic"/>
-					<layout-element ref="(pub:publication/e:identifier[@xsi:type='eterms:OTHER'])[1]/text()">
+					<layout-element ref="(pub:publication/dc:identifier[@xsi:type='eterms:OTHER'])[1]/text()">
 						<parameters>
 							<starts-with value="(" />
 							<ends-with value=")" />
