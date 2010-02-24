@@ -15,7 +15,7 @@
                 xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9"
                 xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
                 xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
-                xmlns:event="http://purl.org/escidoc/metadata/terms/0.1/"
+                xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
                 xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -72,9 +72,6 @@
                         </xsl:variable>
                         <xsl:variable name="l_talk-at-event">
                             <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event'"/>
-                        </xsl:variable>
-                        <xsl:variable name="l_paper">
-                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/working-paper'"/>
                         </xsl:variable>
                         <xsl:variable name="l_courseware-lecture">
                             <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture'"/>
@@ -2653,7 +2650,7 @@
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                          select="(pub:publication/e:identifier[@xsi:type='eterms:OTHER'])[1]/text()"/>
+                                                                                          select="(pub:publication/dc:identifier[@xsi:type='eterms:OTHER'])[1]/text()"/>
                                                                             <!--
 				start-with/ends-with
 			--><xsl:variable name="var">
