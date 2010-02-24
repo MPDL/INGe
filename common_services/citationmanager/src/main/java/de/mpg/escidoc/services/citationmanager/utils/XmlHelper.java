@@ -415,14 +415,18 @@ public class XmlHelper {
     	try 
     	{
     		doc = parseDocumentForTraversing(
-    				new InputSource( 
-    								ResourceUtil.getPathToSchemas() + ResourceUtil.EXPLAIN_FILE
+    				new InputSource(
+    						ResourceUtil.getResourceAsStream(
+    								ResourceUtil.getPathToSchemas() 
+    								+ ResourceUtil.EXPLAIN_FILE
+    						)  
     				)
     		);
-		} catch (Exception e) 
-		{
-			throw new CitationStyleManagerException("Cannot parse explain file", e);
-		}
+    	} 
+    	catch (Exception e) 
+    	{
+    		throw new CitationStyleManagerException("Cannot parse explain file", e);
+    	}
     	return doc;
     }
     

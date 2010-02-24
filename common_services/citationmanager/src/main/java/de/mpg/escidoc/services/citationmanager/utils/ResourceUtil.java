@@ -294,15 +294,9 @@ public class ResourceUtil
     public static String getPathToClasses() throws IOException
     {
     	String classString = ResourceUtil.class.getName().replace(".", "/") + ".class";
-    	
-//        logger.info("classString:" + classString);
-    	
-//    	logger.info(":" + ResourceUtil.class.getClassLoader().getResource(classString).getFile() );
         String result = ResourceUtil.class.getClassLoader().getResource(classString).getFile().replace(classString, "");
         // jar context!!!
-//        logger.info("result:" + result);
-//        logger.info("context:"+ResourceUtil.class.getClassLoader().getResource("."));
-//        if (!result.equals(ResourceUtil.class.getClassLoader().getResource(".")))
+        //logger.debug("result:" + result);
         return 
         	result.indexOf(".jar!") == -1 ?
         	    //Decode necessary for windows paths
@@ -318,10 +312,8 @@ public class ResourceUtil
      */
     public static String getPathToResources() throws IOException
     {
-//    	logger.info("context:"+ResourceUtil.class.getClassLoader().getResource("."));
         return
     		getPathToClasses().replace(CLASS_DIRECTORY, RESOURCES_DIRECTORY_LOCAL);
-//        	getPathToClasses();
     }
     
     
@@ -375,28 +367,6 @@ public class ResourceUtil
     	getPathToResources() + TRANSFORMATIONS_DIRECTORY;
     }
     
-//	/**
-//	 * Generates file location (URI) independent of service location: 
-//	 * in jboss .ear or stand alone  
-//	 * @param fileName is a file name
-//	 * @return file location
-//	 * @throws IOException
-//	 */
-//	public static String getUriToResources(final String fileName) throws IOException
-//	{
-//		URL fileURL = ResourceUtil.class.getClassLoader().getResource(fileName);
-//		String fileLoc;
-//
-//		if (fileURL == null)
-//		{
-//			fileLoc = (new File(".")).getAbsolutePath() + "/" + fileName;
-//		}
-//		else
-//		{
-//			fileLoc = fileURL.toString();
-//		}
-//		return fileLoc;
-//	}     
 
 	/**
 	 * Gets URI to the resources
