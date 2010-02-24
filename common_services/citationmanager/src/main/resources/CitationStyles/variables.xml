@@ -40,7 +40,7 @@
 	<variable name="l_report">'http://purl.org/eprint/type/Report'</variable>
 	<variable name="l_paper">'http://purl.org/escidoc/metadata/ves/publication-types/paper'</variable>
 	<variable name="l_talk-at-event">'http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event'</variable>
-	<variable name="l_paper">'http://purl.org/escidoc/metadata/ves/publication-types/working-paper'</variable>
+<!--	<variable name="l_paper">'http://purl.org/escidoc/metadata/ves/publication-types/working-paper'</variable>-->
 	<variable name="l_courseware-lecture">'http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture'</variable>
 	<variable name="l_thesis">'http://purl.org/eprint/type/Thesis'</variable>
 	<variable name="l_series">'http://purl.org/escidoc/metadata/ves/publication-types/series'</variable>
