@@ -47,8 +47,9 @@ import javax.sql.DataSource;
  */
 public class DatabaseHelper
 {
-    public static final String CREATE_TABLE_STATEMENT = 
-        "CREATE TABLE ESCIDIC_PID_CACHE (identifier VARCHAR NOT NULL PRIMARY KEY, created TIMESTAMP)";
+    public static final String CREATE_TABLES_STATEMENT = 
+        "CREATE TABLE ESCIDIC_PID_CACHE (identifier VARCHAR NOT NULL PRIMARY KEY, created TIMESTAMP);\n" +
+        "CREATE TABLE ESCIDIC_PID_QUEUE (identifier VARCHAR NOT NULL PRIMARY KEY, url VARCHAR NOT NULL PRIMARY KEY, created TIMESTAMP);";
     
     public static Connection getConnection() throws Exception
     {
@@ -63,7 +64,7 @@ public class DatabaseHelper
     {
         Connection connection = getConnection();
         Statement statement = connection.createStatement();
-        statement.executeUpdate(CREATE_TABLE_STATEMENT);
+        statement.executeUpdate(CREATE_TABLES_STATEMENT);
         
         statement.close();
         connection.close();
