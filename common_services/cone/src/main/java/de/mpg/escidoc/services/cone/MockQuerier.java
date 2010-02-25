@@ -245,7 +245,25 @@ public class MockQuerier implements Querier
         return resultSet;
         
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<Pair> query(String model, Pair[] searchFields, String language) throws Exception
+    {
+        String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
+        return query(model, searchFields, language, Integer.parseInt(limitString));
+    }
+
+    /* (non-Javadoc)
+     * @see de.mpg.escidoc.services.cone.Querier#query(java.lang.String, de.mpg.escidoc.services.cone.util.Pair[], java.lang.String, int)
+     */
+    public List<Pair> query(String model, Pair[] searchFields, String lang, int limit) throws Exception
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     /**
      * {@inheritDoc}
      */

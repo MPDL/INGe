@@ -66,6 +66,31 @@ public interface Querier
     public List<Pair> query(String model, String query, String lang, int limit) throws Exception;
 
     /**
+     * Retrieve a list of objects matching the given search fields and the given language.
+     * 
+     * @param model The object type, e.g. "journals", "languages".
+     * @param searchFields The search fields, key is the predicate and value is the search term.
+     * @param lang The given language in ISO-639-1 format (2 letters).
+     * 
+     * @return A {@link List} of key-value pairs containing the matching results.
+     * @throws Exception Any exception
+     */
+    public List<Pair> query(String model, Pair[] searchFields, String lang) throws Exception;
+
+    /**
+     * Retrieve a list of objects matching the given search fields and the given language.
+     * 
+     * @param model The object type, e.g. "journals", "languages".
+     * @param searchFields The search fields, key is the predicate and value is the search term.
+     * @param lang The given language in ISO-639-1 format (2 letters).
+     * @param limit The maximum number of results returned.
+     * 
+     * @return A {@link List} of key-value pairs containing the matching results.
+     * @throws Exception Any exception
+     */
+    public List<Pair> query(String model, Pair[] searchFields, String lang, int limit) throws Exception;
+
+    /**
      * Retrieves details about an entity identified by the given id.
      * 
      * @param model The entity type, e.g. "journals", "languages".

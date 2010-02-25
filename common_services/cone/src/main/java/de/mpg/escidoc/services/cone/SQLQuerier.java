@@ -100,6 +100,15 @@ public class SQLQuerier implements Querier
     /**
      * {@inheritDoc}
      */
+    public List<Pair> query(String model, Pair[] searchFields, String language) throws Exception
+    {
+        String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
+        return query(model, searchFields, language, Integer.parseInt(limitString));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public List<Pair> query(String model, String searchString, String language, int limit) throws Exception
     {
         if (connection.isClosed())
@@ -126,6 +135,96 @@ public class SQLQuerier implements Querier
             else
             {
                 subQuery += " value ilike '%" + searchStrings[i] + "%'";
+            }
+        }
+        String query = "select distinct r1.id, r1.value, r1.lang"
+                + " from results r1 where id in (" + subQuery;
+        query += ") and (lang = '" + language + "' or (lang is null and '" + language +
+            "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+        query += " order by value, id";
+        if (limit > 0)
+        {
+            query += " limit " + limit;
+        }
+        
+        query += ";";
+        
+        logger.debug("query: " + query);
+        
+        Statement statement = connection.createStatement();
+        long now = new Date().getTime();
+        ResultSet result = statement.executeQuery(query);
+        logger.debug("Took " + (new Date().getTime() - now) + " ms.");
+        List<Pair> resultSet = new ArrayList<Pair>();
+        while (result.next())
+        {
+            String id = result.getString("id");
+            String value = result.getString("value");
+            Pair pair = new Pair(id, value);
+            resultSet.add(pair);
+        }
+        
+        result.close();
+        statement.close();
+
+        return resultSet;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<Pair> query(String modelName, Pair[] searchPairs, String language, int limit) throws Exception
+    {
+        if (connection.isClosed())
+        {
+            throw new RuntimeException("Connection was already closed.");
+        }
+        
+        if (language == null)
+        {
+            language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
+        }
+
+        language = language.replace("'", "''");
+        
+        ArrayList<Pair> allPairs = new ArrayList<Pair>();
+        for (Pair pair : searchPairs)
+        {
+            String[] predicatePieces = pair.getKey().split(":");
+            if (predicatePieces.length != 2)
+            {
+                // field has no prefix, so ignore it.
+                continue;
+            }
+            else
+            {
+                for (String key : ModelList.getInstance().getDefaultNamepaces().keySet())
+                {
+                    if (ModelList.getInstance().getDefaultNamepaces().get(key).equals(predicatePieces[0]))
+                    {
+                        // Replace prefix with uri.
+                        pair.setKey(key + predicatePieces[1]);
+                        break;
+                    }
+                }
+            }
+            String[] results = formatSearchString(pair.getValue());
+            for (String result : results)
+            {
+                allPairs.add(new Pair(pair.getKey(), result));
+            }
+        }
+        String subQuery = "select subject from triples where model = '" + modelName + "'";
+        for (Pair pair : allPairs)
+        {
+            subQuery += " and (predicate = '" + pair.getKey() + "' and ";
+            if (pair.getValue().startsWith("\"") && pair.getValue().endsWith("\""))
+            {
+                subQuery += " object ilike '" + pair.getValue().substring(1,pair.getValue().length() - 1) + "')";
+            }
+            else
+            {
+                subQuery += " object ilike '%" + pair.getValue() + "%')";
             }
         }
         String query = "select distinct r1.id, r1.value, r1.lang"
