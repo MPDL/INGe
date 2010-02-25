@@ -22,8 +22,6 @@ public class GenreServlet extends HttpServlet
 			File file = ResourceUtil.getResourceAsFile("WEB-INF/classes/Genres.xml");
 			String dir = file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf(File.separator));
 			
-			System.out.println("Dir: " + dir);
-			
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser parser = factory.newSAXParser();
 			DefaultHandler handler = new GenreHandler(dir);
