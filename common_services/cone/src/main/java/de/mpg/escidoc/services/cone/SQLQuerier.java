@@ -20,9 +20,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -109,12 +114,19 @@ public class SQLQuerier implements Querier
 
         language = language.replace("'", "''");
         
-        String[] searchStringsWithWildcards = formatSearchString(searchString);
+        String[] searchStrings = formatSearchString(searchString);
         String subQuery = "select id from matches where model = '" + model + "'";
-        for (int i = 0; i < searchStringsWithWildcards.length; i++)
+        for (int i = 0; i < searchStrings.length; i++)
         {
             subQuery += " and";
-            subQuery += " value ilike '" + searchStringsWithWildcards[i] + "'";
+            if (searchStrings[i].startsWith("\"") && searchStrings[i].endsWith("\""))
+            {
+                subQuery += " ('|' || value || '|') ilike '%|" + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
+            }
+            else
+            {
+                subQuery += " value ilike '%" + searchStrings[i] + "%'";
+            }
         }
         String query = "select distinct r1.id, r1.value, r1.lang"
                 + " from results r1 where id in (" + subQuery;
@@ -154,12 +166,28 @@ public class SQLQuerier implements Querier
      */
     private String[] formatSearchString(String searchString)
     {
-        String[] result = searchString.replace("'", "''").trim().split(" ");
-        for (int i = 0; i < result.length; i++)
+        searchString = searchString.replace("'", "''").replace('*', '%').trim();
+        
+        ArrayList<String> list = new ArrayList<String>();
+        
+        Pattern pattern = Pattern.compile("(\"[^\"]*\")");
+        Matcher matcher = pattern.matcher(searchString);
+        int start = 0;
+        while (start < searchString.length() && matcher.find(start))
         {
-            result[i] = "%" + result[i].replaceAll("\\*|%", "") + "%";
+            if (start < matcher.start() && !"".equals(searchString.substring(start, matcher.start()).trim()))
+            {
+                list.addAll(Arrays.asList(searchString.substring(start, matcher.start()).split(" ")));
+            }
+            list.add(matcher.group(1));
+            start = matcher.end();
         }
-        return result;
+        if (start < searchString.length())
+        {
+            list.addAll(Arrays.asList(searchString.substring(start).split(" ")));
+        }
+        
+        return list.toArray(new String[]{});
     }
 
     /**
