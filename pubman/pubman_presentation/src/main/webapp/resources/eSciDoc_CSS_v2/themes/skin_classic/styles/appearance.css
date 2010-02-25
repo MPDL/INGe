@@ -433,7 +433,7 @@ FORM BG			#FFFFFF
 	
 	/*FULL ITEM BLOCK*/
 	
-	.fullItem .metaDataSection, .fullItem .detailedItem {
+	.fullItem .metaDataSection, .fullItem .detailedItem, .fullItem .fullsizedBlock {
 		border-color: #B9B9B9 !important;
 		border-style: solid;
 	}

@@ -163,6 +163,10 @@
 	padding-bottom: 0px;
 }
 
+.fullItem .fullsizedBlock {
+	width: 78.37em;
+}
+
 .fullItem .itemBlock .expand, .fullItem .itemBlock .collapse {
 	display: none;
 	line-height: normal;
@@ -304,7 +308,7 @@
 	height: 4em;
 }
 
-.fullItem .checkboxDoubleGroup .checkboxDoubleGroup2 {
+.fullItem .checkboxDoubleGroup, .fullItem .checkboxDoubleGroup .checkboxDoubleGroup2 {
 	width: 27.65em;
 }
 
