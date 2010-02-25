@@ -200,7 +200,6 @@ public class TestCitationStylesSubstantial {
     			Node snippetNode = xpathNode(SNIPPET_XPATH, snippet);
     			
     			generatedCit = snippetNode.getTextContent();
-    			generatedCit = generatedCit.replaceFirst("^.*" + cs +"\\s+?", "");
 //    			logger.info( "generated citation:" + generatedCit );
 
     			//get expected result from the abstract field 
@@ -269,10 +268,10 @@ public class TestCitationStylesSubstantial {
     public void restoreAll() throws Exception
     {
     	restoreUser();
-    	restoreContext();
-    	restoreGrants();
-//    	for (int i = 1; i <= 35; i++) {
-    		restoreItems();	
+//    	restoreContext();
+//    	restoreGrants();
+////    	for (int i = 1; i <= 35; i++) {
+//    		restoreItems();	
 //		}
         
     }
@@ -312,9 +311,14 @@ public class TestCitationStylesSubstantial {
     		
     	//remove objd
     	userXml = Pattern.compile("objid=\".*?\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(userXml).replaceFirst("");
+
+    	
+//    	logger.info("user:" + userXml);
     	
     	//create user
     	uah_admin.create( userXml );
+    	
+
     	
     	//change password
     	userXml = uah_admin.retrieve(USER_NAME);
