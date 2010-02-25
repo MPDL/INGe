@@ -67,6 +67,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -113,22 +114,30 @@ public class ConeServlet extends HttpServlet
         
         PrintWriter out = response.getWriter();
         
+//        System.out.println("request.getPathInfo() " + request.getPathInfo());
+//        System.out.println("getPathTranslated() " + request.getPathTranslated());
+//        System.out.println("getRequestURI() " + request.getRequestURI());
+//        System.out.println("getServletPath() " + request.getServletPath());
+        
         // Read the model name and action from the URL
-        String[] path = request.getPathInfo().split("/", 4);
+        String[] path = request.getServletPath().split("/", 4);
         
         String model = null;
         String action = null;
         String format = DEFAULT_FORMAT;
         String lang = request.getParameter("lang");
         
-        if (path.length >= 2)
+        if (path.length == 3 && "".equals(path[2]))
+        {
+            action = path[1];
+        }
+        else if (path.length > 2)
         {
             model = path[1];
-        }
-        
-        if (path.length >= 3)
-        {
-            action = path[2];
+            if (path.length >= 3)
+            {
+                action = path[2];
+            }
         }
         
         if (request.getParameter("format") != null)
@@ -217,7 +226,7 @@ public class ConeServlet extends HttpServlet
         }
         else if ("explain".equals(action))
         {
-            response.getWriter().print(ResourceUtil.getResourceAsString("models.xml"));
+            out.print(ResourceUtil.getResourceAsString("models.xml"));
         }
     }
 
