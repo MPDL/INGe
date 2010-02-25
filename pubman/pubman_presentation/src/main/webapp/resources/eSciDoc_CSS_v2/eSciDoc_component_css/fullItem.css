@@ -308,6 +308,10 @@
 	height: 4em;
 }
 
+.fullItem .splitBlockHeader {
+	height: 4.92em;
+}
+
 .fullItem .checkboxDoubleGroup {
 	width: 27.65em;
 }
