@@ -87,6 +87,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.LegalCaseVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
@@ -205,7 +206,6 @@ public class EasySubmission extends FacesBean
     
     private String locatorUpload;
     
-
     /**
      * Public constructor.
      */
@@ -2234,14 +2234,83 @@ public class EasySubmission extends FacesBean
         {
             pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setType(IdType.OTHER); 
         }
-        else
-        {
-            pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setType(null);
-        }
-        
-        
     }
-
+    
+    /*JUS BEGIN*/
+    
+   public String getLegalCaseTitle()
+    {
+    	return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().getTitle();
+    }
+    
+    public void setLegalCaseTitle(String legalCaseTitle)
+    {
+    	logger.info("legalCAse Title " + legalCaseTitle);
+    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().setTitle(legalCaseTitle);
+    }
+    
+    public String getLegalCaseIdentifier()
+    {
+    	return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().getIdentifier();
+    }
+    
+    public void setLegalCaseIdentifier(String legalCaseIdentifier)
+    {
+    	logger.info("legalCAse ID " + legalCaseIdentifier);
+    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().setIdentifier(legalCaseIdentifier);
+    }
+    
+    
+    public String getLegalCaseCourtName()
+    {
+    	if (this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().getCourtName() == null){
+    		LegalCaseVO legalCase = new LegalCaseVO();
+    		logger.info("create new legal case  " );
+    		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setLegalCase(legalCase);
+    	}
+    	return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().getCourtName();
+    }
+    
+    public void setLegalCaseCourtName(String legalCaseCourtName)
+    {
+    	logger.info("legalCAse Court  " + legalCaseCourtName);
+    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().setCourtName(legalCaseCourtName);
+    }
+    
+    public String getLegalCaseDatePublished()
+    {
+    	return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().getDatePublished();
+    }
+    
+    public void setLegalCaseDatePublished(String legalCaseDatePublished)
+    {
+    	logger.info("legalCAse Date Pub " + legalCaseDatePublished);
+    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().setDatePublished(legalCaseDatePublished);
+    }
+   
+    // source identifier
+    public void setSourceIdentifierType(String typeString)
+    {
+    	logger.info("typeSTring " + typeString);
+        PubItemVO pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+        pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setTypeString(typeString);
+    }
+    
+    public String getSourceIdentifierType()
+    {
+        if (this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0).getIdentifiers().size()==0)
+        {
+            IdentifierVO identifier = new IdentifierVO();
+            this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0).getIdentifiers().add(identifier);
+        }
+    	return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0).getIdentifiers().get(0).getTypeString();
+    }
+    
+    
+    
+    
+    /*JUS END*/
+    
     /**
      * localized creation of SelectItems for the source genres available
      * 
@@ -2578,7 +2647,11 @@ public class EasySubmission extends FacesBean
     {
         this.identifierIterator = identifierIterator;
     }
-
+    
+    /*JUS BEGIN*/
+    
+    /*JUS BEGIN*/
+    
     public UIXIterator getIdentifierIterator()
     {
         return identifierIterator;
@@ -2615,6 +2688,7 @@ public class EasySubmission extends FacesBean
         return this.contextName;
 
     }
+    
 
     public void setContextName(String contextName)
     {
