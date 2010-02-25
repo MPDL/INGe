@@ -52,7 +52,7 @@ public class DuplicateDetection
         duplicates = new HashMap<String, String>();
         String[] faodoc_filenames = IngestionProperties.get("faodoc.export.file.names").split(" ");
         String[] eims_filenames = IngestionProperties.get("eims.export.file.names").split(" ");
-        faodocItems = FaodocItem.filteredList(faodoc_filenames, "M");
+        faodocItems = FaodocItem.filteredList(faodoc_filenames, "AMS");
         eimsItems = EimsCdrItem.allEIMSItemsAsList(eims_filenames);
         int recordCounter = 0;
         for (ITEMType faodoc : faodocItems)

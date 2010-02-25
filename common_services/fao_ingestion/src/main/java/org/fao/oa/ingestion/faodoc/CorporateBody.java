@@ -18,6 +18,7 @@ public class CorporateBody
     {
         String label_en = null;
         String href = null;
+        String desc = null;
         FaoUris uris = new FaoUris();
         ArrayList<Object> corpBodyList = uris.getUriList(URI_TYPE.CORPORATEBODIES);
         
@@ -48,11 +49,12 @@ public class CorporateBody
             {
                 label_en = ((FAOCorporateBody)corpBody).getLABELEN();
                 href = ((FAOCorporateBody)corpBody).getURI();
+                desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
             }
         }
         if (label_en != null && href != null)
         {
-            return new String[] {label_en, href};
+            return new String[] {label_en, href, desc};
         }
         return null;
     }
@@ -61,6 +63,7 @@ public class CorporateBody
     {
         String label_fr = null;
         String href = null;
+        String desc = null;
         FaoUris uris = new FaoUris();
         ArrayList<Object> corpBodyList = uris.getUriList(URI_TYPE.CORPORATEBODIES);
         
@@ -87,11 +90,12 @@ public class CorporateBody
             {
                 label_fr = ((FAOCorporateBody)corpBody).getLABELFR();
                 href = ((FAOCorporateBody)corpBody).getURI();
+                desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
             }
         }
         if (label_fr != null && href != null)
         {
-            return new String[] {label_fr, href};
+            return new String[] {label_fr, href, desc};
         }
         return null;
     }
@@ -100,6 +104,7 @@ public class CorporateBody
     {
         String label_es = null;
         String href = null;
+        String desc = null;
         FaoUris uris = new FaoUris();
         ArrayList<Object> corpBodyList = uris.getUriList(URI_TYPE.CORPORATEBODIES);
         for (Object corpBody : corpBodyList)
@@ -169,11 +174,12 @@ public class CorporateBody
             {
                 label_es = ((FAOCorporateBody)corpBody).getLABELES();
                 href = ((FAOCorporateBody)corpBody).getURI();
+                desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
             }
         }
         if (label_es != null && href != null)
         {
-            return new String[] {label_es, href};
+            return new String[] {label_es, href, desc};
         }
         return null;
     }
@@ -182,6 +188,7 @@ public class CorporateBody
     {
         String label = null;
         String href = null;
+        String desc = null;
         FaoUris uris = new FaoUris();
         ArrayList<Object> corpBodyList = uris.getUriList(URI_TYPE.CORPORATEBODIES);
         for (Object corpBody : corpBodyList)
@@ -192,6 +199,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELIT();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeIT2() != null)
@@ -200,6 +208,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELIT();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativePT1() != null)
@@ -208,6 +217,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELPT();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeRO() != null)
@@ -216,6 +226,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELRO();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativePL() != null)
@@ -224,6 +235,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELPL();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeTR() != null)
@@ -232,6 +244,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELTR();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeNL() != null)
@@ -240,6 +253,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELNL();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeHU() != null)
@@ -248,6 +262,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELHU();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeCA() != null)
@@ -256,6 +271,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELCA();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeID() != null)
@@ -264,6 +280,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELID();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeDE() != null)
@@ -272,6 +289,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELDE();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeSV() != null)
@@ -280,6 +298,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELSV();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeMS() != null)
@@ -288,6 +307,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELMS();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }if (((FAOCorporateBody)corpBody).getAlternativeNO() != null)
             {
@@ -295,6 +315,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELNO();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeUK() != null)
@@ -303,6 +324,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELUK();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeDA() != null)
@@ -311,6 +333,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELDA();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeFJ() != null)
@@ -319,6 +342,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELFJ();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeSL() != null)
@@ -327,6 +351,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELSL();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeBS() != null)
@@ -335,6 +360,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELBS();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeCS() != null)
@@ -343,6 +369,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELCS();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeHR() != null)
@@ -351,6 +378,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELHR();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeSK() != null)
@@ -359,6 +387,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELSK();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeSR() != null)
@@ -367,6 +396,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELSR();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeMK() != null)
@@ -375,6 +405,7 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELMK();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
             if (((FAOCorporateBody)corpBody).getAlternativeML() != null)
@@ -383,12 +414,13 @@ public class CorporateBody
                 {
                     label = ((FAOCorporateBody)corpBody).getLABELML();
                     href = ((FAOCorporateBody)corpBody).getURI();
+                    desc = ((FAOCorporateBody)corpBody).getIsComponentOf1();
                 }
             }
         }
         if (label != null && href != null)
         {
-            return new String[] {label, href};
+            return new String[] {label, href, desc};
         }
         return null;
     }

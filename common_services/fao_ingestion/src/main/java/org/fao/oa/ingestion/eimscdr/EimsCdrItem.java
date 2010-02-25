@@ -27,6 +27,8 @@ import noNamespace.EimsresourcesDocument;
 import noNamespace.ITEMType;
 import noNamespace.ItemType;
 import noNamespace.ResourcesDocument;
+import noNamespace.SubtitleType;
+import noNamespace.TitleType;
 
 import org.apache.xmlbeans.XmlException;
 import org.fao.oa.ingestion.utils.IngestionProperties;
@@ -159,11 +161,22 @@ public class EimsCdrItem
                         }
                     }
                     */
-                    if (i.sizeOfCountryArray() > 0)
+                    if (i.sizeOfTitleArray() > 0 && i.sizeOfSubtitleArray() > 0)
                     {
-                        for (CountryType c : i.getCountryArray())
+                        for (TitleType t : i.getTitleArray())
                         {
-                            System.out.println(i.getIdentifier() + "  " + c.getStringValue());
+                            System.out.println(i.getIdentifier() + " Title " + t.getStringValue() + "   " + t.getLang());
+                            for (SubtitleType s : i.getSubtitleArray())
+                            {
+                                if (t.getLang().equalsIgnoreCase(s.getLang()))
+                                {
+                                    System.out.println(i.getIdentifier() + " Sub " + s.getStringValue() + "   " + s.getLang());
+                                }
+                                else
+                                {
+                                    System.out.println("no subtitle in title language");
+                                }
+                            }
                         }
                     }
                     else

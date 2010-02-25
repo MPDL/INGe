@@ -13,16 +13,14 @@ public class ConferenceName
 {
     public ConferenceName()
     {
-        
     }
-    
+
     public String[] getEnglish(CONFERENCEType conference, String name)
     {
         String label_en = null;
         String href = null;
         FaoUris uris = new FaoUris();
         ArrayList<Object> conferences = uris.getUriList(URI_TYPE.CONFERENCES);
-        
         for (Object conf : conferences)
         {
             ArrayList<String> alternatives = new ArrayList<String>();
@@ -47,18 +45,17 @@ public class ConferenceName
         if (label_en != null && href != null)
         {
             String confName = conferenceName(conference, label_en);
-            return new String[] {confName, href};
+            return new String[] { confName, href };
         }
         return null;
     }
-    
+
     public String[] getFrench(CONFERENCEType conference, String name)
     {
         String label_fr = null;
         String href = null;
         FaoUris uris = new FaoUris();
         ArrayList<Object> conferences = uris.getUriList(URI_TYPE.CONFERENCES);
-        
         for (Object conf : conferences)
         {
             ArrayList<String> alternatives = new ArrayList<String>();
@@ -87,23 +84,23 @@ public class ConferenceName
         if (label_fr != null && href != null)
         {
             String confName = conferenceName(conference, label_fr);
-            return new String[] {confName, href};
+            return new String[] { confName, href };
         }
         return null;
     }
-    
+
     public String[] getOther(CONFERENCEType conference, String name)
     {
         String label = null;
         String href = null;
         FaoUris uris = new FaoUris();
         ArrayList<Object> conferences = uris.getUriList(URI_TYPE.CONFERENCES);
-        
         for (Object conf : conferences)
         {
             if (((FAOConference)conf).getLABELRU() != null)
             {
-                if (name.equalsIgnoreCase(((FAOConference)conf).getLABELRU()) || name.equalsIgnoreCase(((FAOConference)conf).getAlternativeRU()))
+                if (name.equalsIgnoreCase(((FAOConference)conf).getLABELRU())
+                        || name.equalsIgnoreCase(((FAOConference)conf).getAlternativeRU()))
                 {
                     label = ((FAOConference)conf).getLABELRU();
                     href = ((FAOConference)conf).getID();
@@ -169,18 +166,17 @@ public class ConferenceName
         if (label != null && href != null)
         {
             String confName = conferenceName(conference, label);
-            return new String[] {confName, href};
+            return new String[] { confName, href };
         }
         return null;
     }
-    
+
     public String[] getSpanish(CONFERENCEType conference, String name)
     {
         String label_es = null;
         String href = null;
         FaoUris uris = new FaoUris();
         ArrayList<Object> conferences = uris.getUriList(URI_TYPE.CONFERENCES);
-        
         for (Object conf : conferences)
         {
             ArrayList<String> alternatives = new ArrayList<String>();
@@ -213,11 +209,11 @@ public class ConferenceName
         if (label_es != null && href != null)
         {
             String confName = conferenceName(conference, label_es);
-            return new String[] {confName, href};
+            return new String[] { confName, href };
         }
         return null;
     }
-    
+
     public String conferenceName(CONFERENCEType conference, String name)
     {
         StringBuilder sb = new StringBuilder(name);
@@ -236,28 +232,48 @@ public class ConferenceName
             String confState = null;
             String confCountry = null;
             String confPlace = conference.getCONFPLACE();
-            if (!confPlace.contains(","))
+            if (!confPlace.contains("("))
             {
-                confCity = confPlace.split("\\s\\(")[0];
-                confState = "";
-                confCountry = confPlace.substring(confPlace.indexOf("("), confPlace.indexOf(")") + 1);
+                confCountry = confPlace;
             }
             else
             {
-                confCity = confPlace.split(",")[0];
-                confState = confPlace.split(",")[1].substring(1, confPlace.split(",")[1].indexOf("("));
-                confCountry = confPlace.split(",")[1].substring(confPlace.split(",")[1].indexOf("("), confPlace.split(",")[1].indexOf(")") + 1);
+                if (confPlace.startsWith("("))
+                {
+                    confCountry = confPlace.substring(confPlace.indexOf("(") + 1, confPlace.indexOf(")") + 1);
+                }
+                else
+                {
+                    if (!confPlace.substring(1, confPlace.indexOf("(")).contains(","))
+                    {
+                        confCity = confPlace.split("\\s\\(")[0];
+                        confCountry = confPlace.substring(confPlace.indexOf("(") + 1, confPlace.indexOf(")") + 1);
+                    }
+                    else
+                    {
+                        confCity = confPlace.split(",")[0];
+                        confState = confPlace.split(",")[1].substring(1, confPlace.split(",")[1].indexOf("("));
+                        confCountry = confPlace.split(",")[1].substring(confPlace.split(",")[1].indexOf("(") + 1,
+                                confPlace.split(",")[1].indexOf(")") + 1);
+                    }
+                }
             }
-            if (confState != "")
+            if (confCity != null && confState != null)
             {
-                sb.append(confCity + " (" + confState + ") " + confCountry);
+                sb.append(confCity + " (" + confState + "), " + confCountry);
             }
             else
             {
-                sb.append(confCity + " " + confCountry);
+                if (confCity != null)
+                {
+                    sb.append(confCity + ", " + confCountry);
+                }
+                else
+                {
+                    sb.append(confCountry);
+                }
             }
         }
-        
         return sb.toString();
     }
 }

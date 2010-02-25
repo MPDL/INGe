@@ -15,6 +15,7 @@ import noNamespace.EimsDocument;
 import noNamespace.ITEMType;
 import noNamespace.ItemType;
 import noNamespace.KosDocument;
+import noNamespace.FAOCorporateBodyDocument.FAOCorporateBody;
 import noNamespace.FAOJournalDocument.FAOJournal;
 
 import org.fao.oa.ingestion.eimscdr.EimsCdrItem;
@@ -22,6 +23,7 @@ import org.fao.oa.ingestion.faodoc.AgrovocSkos;
 import org.fao.oa.ingestion.faodoc.ConferenceName;
 import org.fao.oa.ingestion.faodoc.FaodocItem;
 import org.fao.oa.ingestion.faodoc.JournalName;
+import org.fao.oa.ingestion.faodoc.LanguageCodes;
 import org.fao.oa.ingestion.faodoc.SeriesName;
 import org.fao.oa.ingestion.foxml.AgrisAPDatastream;
 import org.fao.oa.ingestion.foxml.BibDatastream;
@@ -44,12 +46,21 @@ public class Main
     
     public static void main(String[] args)
     {
+        
         if (args.length < 1)
         {
             System.out.println("USAGE: duplicates / foxml [all / start-end]");
         }
         else
         {
+            if (args.length == 1 && args[0].equalsIgnoreCase("test"))
+            {
+                testObjectMerge();
+            }
+            if (args.length == 2 && args[0].equalsIgnoreCase("lang"))
+            {
+                testLanguageCodes(args[1]);
+            }
             if (args.length == 1 && args[0].equalsIgnoreCase("duplicates"))
             {
                 DuplicateDetection dd = new DuplicateDetection();
@@ -71,17 +82,18 @@ public class Main
     public static void testURIFiles()
     {
         FaoUris uris = new FaoUris();
-        ArrayList<Object> uriList = uris.getUriList(URI_TYPE.JOURNALS);
+        ArrayList<Object> uriList = uris.getUriList(URI_TYPE.CORPORATEBODIES);
         for (Object o : uriList)
         {
-            String uri = ((FAOJournal)o).getID();
-            System.out.println(uri);
+            String uri = ((FAOCorporateBody)o).getURI();
+            String desc = ((FAOCorporateBody)o).getIsComponentOf1();
+            System.out.println(uri + "   " + desc);
         }
     }
 
     public static List<String[]> parseLogFile(String arg) throws Exception
     {
-        File logfile = new File("ingestion.log");
+        File logfile = new File("ingestion.log_MS");
         BufferedReader reader = new BufferedReader(new FileReader(logfile));
         ArrayList<String[]> dups = new ArrayList<String[]>();
         List<String[]> subList = null;
@@ -143,13 +155,13 @@ public class Main
     public static void testObjectMerge()
     {
         String[] faodocFiles = IngestionProperties.get("faodoc.export.file.names").split(" ");
-        String filter = "M";
+        String filter = "MS";
         ArrayList<ITEMType> faodocList = FaodocItem.filteredList(faodocFiles, filter);
-        String arn = "XF2006123588";
+        String arn = "XF1999384991";
         ITEMType faodoc = FaodocItem.getByARN(faodocList, arn);
         String[] eimsFiles = IngestionProperties.get("eims.export.file.names").split(" ");
         ArrayList<ItemType> eimsList = EimsCdrItem.allEIMSItemsAsList(eimsFiles);
-        String id = "169463";
+        String id = "60355";
         ItemType eims = EimsCdrItem.getById(eimsList, id);
         
         System.out.println(faodoc.xmlText(XBeanUtils.getDefaultOpts()));
@@ -301,7 +313,7 @@ public class Main
     public static void createFoxml(String arg)
     {
         String[] faodocFiles = IngestionProperties.get("faodoc.export.file.names").split(" ");
-        String filter = "M";
+        String filter = "MS";
         ArrayList<ITEMType> faodocList = FaodocItem.filteredList(faodocFiles, filter);
         String[] eimsFiles = IngestionProperties.get("eims.export.file.names").split(" ");
         ArrayList<ItemType> eimsList = EimsCdrItem.allEIMSItemsAsList(eimsFiles);
@@ -328,6 +340,7 @@ public class Main
                     DigitalObjectDocument fox = new Foxml().merge(faodoc, eims);
                     fox.save(new File(FOXML_DESTINATION_DIR + arn + "_" + id), XBeanUtils.getFoxmlOpts());
                 }
+                /*
                 else
                 {
                     if (arn != null)
@@ -337,6 +350,7 @@ public class Main
                         fox.save(new File(FOXML_DESTINATION_DIR + arn), XBeanUtils.getFoxmlOpts());
                     }
                 }
+                */
                 //DigitalObjectDocument fox = new Foxml().merge(faodoc, eims);
                 //fox.save(new File(FOXML_DESTINATION_DIR + arn + "_" + id), XBeanUtils.getFoxmlOpts());
                 //System.out.println("file name " + FOXML_DESTINATION_DIR + arn + "_" + id);
@@ -345,6 +359,16 @@ public class Main
         catch (Exception e1)
         {
             e1.printStackTrace();
+        }
+    }
+    
+    public static void testLanguageCodes(String lang)
+    {
+        LanguageCodes lc = new LanguageCodes();
+        String[] codes = lc.getIso639Codes(lang);
+        for (String code : codes)
+        {
+            System.out.println(code);
         }
     }
 }

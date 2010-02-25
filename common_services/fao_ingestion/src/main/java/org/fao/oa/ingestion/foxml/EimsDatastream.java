@@ -192,6 +192,8 @@ public class EimsDatastream
         }
         // E-17
         // add eims:division
+        // moved to MODS datastream as note@type=division
+        /*
         if (eimsItem.getDivision() != null)
         {
             Division division = eims.addNewDivision();
@@ -210,6 +212,7 @@ public class EimsDatastream
                 }
             }
         }
+        */
         // E-18
         // add eims:department
         if (eimsItem.getDepartment() != null)

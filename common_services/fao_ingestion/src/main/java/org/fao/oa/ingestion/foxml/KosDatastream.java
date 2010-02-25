@@ -25,6 +25,7 @@ public class KosDatastream
 
     /**
      * create SKOS datastream with merged values from FAODOC and EIMS-CDR.
+     * 
      * @param faodoc {@link ITEMType}
      * @param eims {@link ItemType}
      * @return {@link KosDocument}
@@ -42,13 +43,16 @@ public class KosDatastream
             {
                 String formatted = formatString(agrovoc);
                 String uri = skos.getURI(formatted);
-                Concept concept = kos.addNewConcept();
-                concept.setConceptURI(uri);
-                for (String l : skos.getLabels(uri))
+                if (uri != null && !uri.equalsIgnoreCase(""))
                 {
-                    Label label = concept.addNewLabel();
-                    label.setLanguage(l.split("=")[1]);
-                    label.setStringValue(l.split("=")[0]);
+                    Concept concept = kos.addNewConcept();
+                    concept.setConceptURI(uri);
+                    for (String l : skos.getLabels(uri))
+                    {
+                        Label label = concept.addNewLabel();
+                        label.setLanguage(l.split("=")[1]);
+                        label.setStringValue(l.split("=")[0]);
+                    }
                 }
             }
         }
@@ -60,13 +64,16 @@ public class KosDatastream
                 for (AgrovocType agrovocType : eims.getAgrovocArray())
                 {
                     String uri = skos.getURI(agrovocType.getStringValue());
-                    Concept concept = kos.addNewConcept();
-                    concept.setConceptURI(uri);
-                    for (String l : skos.getLabels(uri))
+                    if (uri != null && !uri.equalsIgnoreCase(""))
                     {
-                        Label label = concept.addNewLabel();
-                        label.setLanguage(l.split("=")[1]);
-                        label.setStringValue(l.split("=")[0]);
+                        Concept concept = kos.addNewConcept();
+                        concept.setConceptURI(uri);
+                        for (String l : skos.getLabels(uri))
+                        {
+                            Label label = concept.addNewLabel();
+                            label.setLanguage(l.split("=")[1]);
+                            label.setStringValue(l.split("=")[0]);
+                        }
                     }
                 }
             }
@@ -80,13 +87,16 @@ public class KosDatastream
             {
                 String formatted = formatString(geogr);
                 String uri = skos.getURI(formatted);
-                Geographic geo = kos.addNewGeographic();
-                geo.setGeographicURI(uri);
-                for (String l : skos.getLabels(uri))
+                if (uri != null && !uri.equalsIgnoreCase(""))
                 {
-                    noNamespace.KosDocument.Kos.Geographic.Label label = geo.addNewLabel();
-                    label.setLanguage(l.split("=")[1]);
-                    label.setStringValue(l.split("=")[0]);
+                    Geographic geo = kos.addNewGeographic();
+                    geo.setGeographicURI(uri);
+                    for (String l : skos.getLabels(uri))
+                    {
+                        noNamespace.KosDocument.Kos.Geographic.Label label = geo.addNewLabel();
+                        label.setLanguage(l.split("=")[1]);
+                        label.setStringValue(l.split("=")[0]);
+                    }
                 }
             }
         }
@@ -157,6 +167,7 @@ public class KosDatastream
 
     /**
      * create SKOS datastream with values from FAODOC only.
+     * 
      * @param faodoc {@link ITEMType}
      * @return {@link KosDocument}
      */
@@ -173,13 +184,16 @@ public class KosDatastream
             {
                 String formatted = formatString(agrovoc);
                 String uri = skos.getURI(formatted);
-                Concept concept = kos.addNewConcept();
-                concept.setConceptURI(uri);
-                for (String l : skos.getLabels(uri))
+                if (uri != null && !uri.equalsIgnoreCase(""))
                 {
-                    Label label = concept.addNewLabel();
-                    label.setLanguage(l.split("=")[1]);
-                    label.setStringValue(l.split("=")[0]);
+                    Concept concept = kos.addNewConcept();
+                    concept.setConceptURI(uri);
+                    for (String l : skos.getLabels(uri))
+                    {
+                        Label label = concept.addNewLabel();
+                        label.setLanguage(l.split("=")[1]);
+                        label.setStringValue(l.split("=")[0]);
+                    }
                 }
             }
         }
@@ -192,13 +206,16 @@ public class KosDatastream
             {
                 String formatted = formatString(geogr);
                 String uri = skos.getURI(formatted);
-                Geographic geo = kos.addNewGeographic();
-                geo.setGeographicURI(uri);
-                for (String l : skos.getLabels(uri))
+                if (uri != null && !uri.equalsIgnoreCase(""))
                 {
-                    noNamespace.KosDocument.Kos.Geographic.Label label = geo.addNewLabel();
-                    label.setLanguage(l.split("=")[1]);
-                    label.setStringValue(l.split("=")[0]);
+                    Geographic geo = kos.addNewGeographic();
+                    geo.setGeographicURI(uri);
+                    for (String l : skos.getLabels(uri))
+                    {
+                        noNamespace.KosDocument.Kos.Geographic.Label label = geo.addNewLabel();
+                        label.setLanguage(l.split("=")[1]);
+                        label.setStringValue(l.split("=")[0]);
+                    }
                 }
             }
         }
@@ -232,6 +249,7 @@ public class KosDatastream
 
     /**
      * create SKOS datastream with values from EIMS-CDR only.
+     * 
      * @param eims {@link ItemType}
      * @return {@link KosDocument}
      */
@@ -247,13 +265,16 @@ public class KosDatastream
             for (AgrovocType agrovocType : eims.getAgrovocArray())
             {
                 String uri = skos.getURI(agrovocType.getStringValue());
-                Concept concept = kos.addNewConcept();
-                concept.setConceptURI(uri);
-                for (String l : skos.getLabels(uri))
+                if (uri != null && !uri.equalsIgnoreCase(""))
                 {
-                    Label label = concept.addNewLabel();
-                    label.setLanguage(l.split("=")[1]);
-                    label.setStringValue(l.split("=")[0]);
+                    Concept concept = kos.addNewConcept();
+                    concept.setConceptURI(uri);
+                    for (String l : skos.getLabels(uri))
+                    {
+                        Label label = concept.addNewLabel();
+                        label.setLanguage(l.split("=")[1]);
+                        label.setStringValue(l.split("=")[0]);
+                    }
                 }
             }
         }
@@ -297,7 +318,7 @@ public class KosDatastream
         // S-7 - S-9 not available
         return kosDoc;
     }
-    
+
     public String formatString(String s)
     {
         String formatted = s.toLowerCase();
