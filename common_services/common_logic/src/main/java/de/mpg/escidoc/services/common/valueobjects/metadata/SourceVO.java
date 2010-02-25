@@ -77,7 +77,16 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
         PROCEEDINGS("http://purl.org/escidoc/metadata/ves/publication-types/proceedings"),
         JOURNAL("http://purl.org/escidoc/metadata/ves/publication-types/journal"),
         ISSUE("http://purl.org/escidoc/metadata/ves/publication-types/issue"),
-        SERIES("http://purl.org/escidoc/metadata/ves/publication-types/series");
+        SERIES("http://purl.org/escidoc/metadata/ves/publication-types/series"),
+        
+        // JUS 
+        NEWSPAPER("http://purl.org/escidoc/metadata/ves/publication-types/newspaper"),
+        ENCYCLOPEDIA("http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia"),
+        MULTI_VOLUME("http://purl.org/escidoc/metadata/ves/publication-types/multi-volume"),
+        COMMENTARY("http://purl.org/escidoc/metadata/ves/publication-types/commentary"),
+        HANDBOOK("http://purl.org/escidoc/metadata/ves/publication-types/handbook"),
+        COLLECTED_EDITION("http://purl.org/escidoc/metadata/ves/publication-types/collected-edition"),
+        FESTSCHRIFT("http://purl.org/escidoc/metadata/ves/publication-types/festschrift");
         
         private String uri;
         
