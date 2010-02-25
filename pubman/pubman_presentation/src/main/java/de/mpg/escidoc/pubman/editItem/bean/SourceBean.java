@@ -31,7 +31,10 @@
 package de.mpg.escidoc.pubman.editItem.bean;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
@@ -184,9 +187,11 @@ public class SourceBean extends FacesBean
      */
     public SelectItem[] getSourceGenreOptions()
     {
+    	
         InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
                 .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
                         InternationalizationHelper.BEAN_NAME);
+        
         ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
         SelectItem NO_ITEM_SET = new SelectItem("", bundleLabel.getString("EditItem_NO_ITEM_SET"));
         SelectItem GENRE_BOOK = new SelectItem(SourceVO.Genre.BOOK, bundleLabel.getString("ENUM_GENRE_BOOK"));
@@ -195,9 +200,19 @@ public class SourceBean extends FacesBean
         SelectItem GENRE_PROCEEDINGS = new SelectItem(SourceVO.Genre.PROCEEDINGS, bundleLabel
                 .getString("ENUM_GENRE_PROCEEDINGS"));
         SelectItem GENRE_SERIES = new SelectItem(SourceVO.Genre.SERIES, bundleLabel.getString("ENUM_GENRE_SERIES"));
-        return new SelectItem[]{ NO_ITEM_SET, GENRE_BOOK, GENRE_ISSUE, GENRE_JOURNAL, GENRE_PROCEEDINGS, GENRE_SERIES };
+        // JUS BEGING
+        SelectItem GENRE_COLLECTED_EDITION = new SelectItem(SourceVO.Genre.COLLECTED_EDITION, bundleLabel.getString("ENUM_GENRE_COLLECTED_EDITION"));
+        SelectItem GENRE_HANDBOOK = new SelectItem(SourceVO.Genre.HANDBOOK, bundleLabel.getString("ENUM_GENRE_HANDBOOK"));
+        SelectItem GENRE_FESTSCHRIFT = new SelectItem(SourceVO.Genre.FESTSCHRIFT, bundleLabel.getString("ENUM_GENRE_FESTSCHRIFT"));
+        SelectItem GENRE_COMMENTARY = new SelectItem(SourceVO.Genre.COMMENTARY, bundleLabel.getString("ENUM_GENRE_COMMENTARY"));
+        SelectItem GENRE_NEWSPAPER = new SelectItem(SourceVO.Genre.NEWSPAPER, bundleLabel.getString("ENUM_GENRE_NEWSPAPER"));
+        SelectItem GENRE_ENCYCLOPEDIA = new SelectItem(SourceVO.Genre.ENCYCLOPEDIA, bundleLabel.getString("ENUM_GENRE_ENCYCLOPEDIA"));
+        SelectItem GENRE_MULTI_VOLUME = new SelectItem(SourceVO.Genre.MULTI_VOLUME, bundleLabel.getString("ENUM_GENRE_MULTI_VOLUME"));
+        // JUS END
+        return new SelectItem[]{ NO_ITEM_SET, GENRE_BOOK, GENRE_ISSUE, GENRE_JOURNAL, GENRE_PROCEEDINGS, GENRE_SERIES,
+        		GENRE_COLLECTED_EDITION,GENRE_HANDBOOK, GENRE_FESTSCHRIFT, GENRE_COMMENTARY, GENRE_NEWSPAPER, GENRE_ENCYCLOPEDIA, GENRE_MULTI_VOLUME};
     }
-
+    
     public boolean getAutosuggestJournals()
     {
         return autosuggestJournals;
@@ -274,7 +289,7 @@ public class SourceBean extends FacesBean
             // id has no type, use type 'other'
             if (idParts.length == 1 && !idParts[0].equals(""))
             {
-                IdentifierVO idVO = new IdentifierVO(IdType.OTHER, idParts[0].trim());
+            	IdentifierVO idVO = new IdentifierVO(IdType.OTHER, idParts[0].trim());
                 list.add(idVO);
             }
             // Id has a type
