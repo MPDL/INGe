@@ -71,6 +71,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.LegalCaseVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
@@ -865,6 +866,14 @@ public class ItemControllerSessionBean extends FacesBean
         {
             newPubItem.getMetadata().getEvent().setPlace(new TextVO());
         }
+        
+        // LegalCase
+        // add LegalCase to be able to bind uiCompontents to it
+        if (newPubItem.getMetadata().getLegalCase() == null){
+        	LegalCaseVO legalCaseVO = new LegalCaseVO();
+        	newPubItem.getMetadata().setLegalCase(legalCaseVO);
+        }
+       
         // add subject if needed to be able to bind uiComponents to it
         if (newPubItem.getMetadata().getFreeKeywords() == null)
         {
