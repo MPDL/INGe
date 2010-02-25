@@ -215,8 +215,11 @@
                         <xsl:variable name="uri">
                             <xsl:value-of select="(pub:publication/dc:identifier[@xsi:type='eterms:URI'])[1]/text()"/>
                         </xsl:variable>
+                        <xsl:variable name="doi-or-uri">
+                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;if ($doi!='') then concat('doi:', $doi) &#xA;&#x9;&#x9;&#x9;else if ($uri!='') then concat('Retrieved from ', $uri)&#xA;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;"/>
+                        </xsl:variable>
                         <xsl:variable name="published-online-and-external-locator">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;if (not(pub:publication/dcterms:issued) and pub:publication/eterms:published-online)&#xA;&#x9;&#x9;&#x9;then &#xA;&#x9;&#x9;&#x9;&#x9;(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (not($doi='')) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then concat('doi:', $doi)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else concat('Retrieved from ', $uri)&#xA;&#x9;&#x9;&#x9;&#x9;)&#xA;&#x9;&#x9;&#x9;else ''&#x9;&#xA;&#x9;&#x9;"/>
+                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;if ( ($genre=$l_article) or (not(pub:publication/dcterms:issued) and pub:publication/eterms:published-online) ) &#xA;&#x9;&#x9;&#x9;then $doi-or-uri&#xA;&#x9;&#x9;&#x9;else ''&#x9;&#xA;&#x9;&#x9;"/>
                         </xsl:variable>
                         <!--### End of Variables ###-->
 	<!--### Predefined Layout Elements ###-->
@@ -637,10 +640,10 @@
                                                                         <xsl:copy-of select="$authors-Equal1"/>
                                                                     </le>
                                                                     <le>
-                                                                        <xsl:variable name="authors-MoreThan1LessOrEqual6"><!--### Repeatable Layout Element ###-->
+                                                                        <xsl:variable name="authors-MoreThan1LessOrEqual20"><!--### Repeatable Layout Element ###-->
 	<xsl:variable name="var" select="''"/>
                                                                             <!--valid-if--><xsl:variable name="var">
-                                                                                <xsl:if test="$authorsCount&gt;1 and $authorsCount&lt;=6">
+                                                                                <xsl:if test="$authorsCount&gt;1 and $authorsCount&lt;=20">
                                                                                     <xsl:variable name="var">
                                                                                         <xsl:call-template name="applyDelimiter">
                                                                                             <xsl:with-param name="les">
@@ -717,18 +720,18 @@
                                                                             </xsl:variable>
                                                                             <xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$authors-MoreThan1LessOrEqual6"/>
+                                                                        <xsl:copy-of select="$authors-MoreThan1LessOrEqual20"/>
                                                                     </le>
                                                                     <le>
-                                                                        <xsl:variable name="authors-MoreThan6"><!--### Repeatable Layout Element ###-->
+                                                                        <xsl:variable name="authors-MoreThan20"><!--### Repeatable Layout Element ###-->
 	<xsl:variable name="var" select="''"/>
                                                                             <!--valid-if--><xsl:variable name="var">
-                                                                                <xsl:if test="$authorsCount&gt;6">
+                                                                                <xsl:if test="$authorsCount&gt;20">
                                                                                     <xsl:variable name="var">
                                                                                         <xsl:call-template name="applyDelimiter">
                                                                                             <xsl:with-param name="les">
                                                                                                 <xsl:for-each select="pub:publication/eterms:creator[@role=$l_author]">
-                                                                                                    <xsl:if test="position()&lt;=6">
+                                                                                                    <xsl:if test="position()&lt;=20">
                                                                                                         <le position-delimiter=", ">
                                                                                                             <xsl:call-template name="applyDelimiter">
                                                                                                                 <xsl:with-param name="les">
@@ -776,7 +779,7 @@
                                                                             </xsl:variable>
                                                                             <xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
-                                                                        <xsl:copy-of select="$authors-MoreThan6"/>
+                                                                        <xsl:copy-of select="$authors-MoreThan20"/>
                                                                     </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
@@ -2534,24 +2537,6 @@
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$title-with-dot-italic"/>
-                                                        <xsl:copy-of select="$var"/>
-                                                    </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
-                                                </le>
-                                                <le>
-                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/eterms:volume"/>
-                                                        <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                                            <xsl:if test="exists($var) and $var!=''">
-                                                                <xsl:text> (Vols. </xsl:text>
-                                                            </xsl:if>
-                                                            <xsl:copy-of select="$var"/>
-                                                            <xsl:if test="exists($var) and $var!=''">
-                                                                <xsl:text>).</xsl:text>
-                                                            </xsl:if>
-                                                        </xsl:variable>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>

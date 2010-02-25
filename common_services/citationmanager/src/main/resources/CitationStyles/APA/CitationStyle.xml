@@ -122,14 +122,15 @@
 		<variable name="doi">(pub:publication/dc:identifier[@xsi:type='eterms:DOI'])[1]/text()</variable>
 		<variable name="uri">(pub:publication/dc:identifier[@xsi:type='eterms:URI'])[1]/text()</variable>
 		
+		<variable name="doi-or-uri">
+			if ($doi!='') then concat('doi:', $doi) 
+			else if ($uri!='') then concat('Retrieved from ', $uri)
+			else ''
+		</variable>
+		
 		<variable name="published-online-and-external-locator">
-			if (not(pub:publication/dcterms:issued) and pub:publication/eterms:published-online)
-			then 
-				(
-					if (not($doi='')) 
-					then concat('doi:', $doi)
-					else concat('Retrieved from ', $uri)
-				)
+			if ( ($genre=$l_article) or (not(pub:publication/dcterms:issued) and pub:publication/eterms:published-online) ) 
+			then $doi-or-uri
 			else ''	
 		</variable>
 
@@ -278,14 +279,14 @@
 							</elements>
 						</layout-element>
 				
-						<layout-element name="authors-MoreThan1LessOrEqual6"
+						<layout-element name="authors-MoreThan1LessOrEqual20"
 							ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
 							<parameters position="last">
 								<delimiter value=", &amp;amp; " />
 								<internal-delimiter value=", " />
 							</parameters>
 							<parameters>
-								<valid-if><![CDATA[$authorsCount>1 and $authorsCount<=6]]></valid-if>
+								<valid-if><![CDATA[$authorsCount>1 and $authorsCount<=20]]></valid-if>
 								<delimiter value=", " />
 								<internal-delimiter value=", " />
 							</parameters>
@@ -296,14 +297,14 @@
 							</elements>
 						</layout-element>
 				
-						<layout-element name="authors-MoreThan6"
+						<layout-element name="authors-MoreThan20"
 							ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
 							<parameters>
-								<valid-if><![CDATA[$authorsCount>6]]></valid-if>
+								<valid-if><![CDATA[$authorsCount>20]]></valid-if>
 								<delimiter value=", " />
 								<internal-delimiter value=", " />
 								<ends-with value=", et al." />
-								<max-count value="6" />
+								<max-count value="20" />
 							</parameters>
 							<elements>
 								<layout-element ref="organization:organization/dc:title/text()" />
@@ -1036,17 +1037,6 @@
 			<layout-element ref="$editors-with-dot" />
 
 			<layout-element ref="$title-with-dot-italic" />
-
-			<!--
-				start-volume / end-volume are not presented in MD, only volume!!!
-				TODO:  to be updated!!! : http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Series
-			-->
-			<layout-element ref="pub:publication/source:source[1]/eterms:volume">
-				<parameters>
-					<starts-with value=" (Vols. " />
-					<ends-with value=")." />
-				</parameters>
-			</layout-element>
 
 			<layout-element ref="$place-publisher" >
 				<parameters>

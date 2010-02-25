@@ -1118,7 +1118,8 @@ APA= please note that rule might need correction, so that periodical and non per
 					               </eterms:creator>
 					               <dc:title>Determination of symmetry reduced structures using a soft phonon analysis for magnetic shape memory alloysJOURNALARTICLE</dc:title>
 					               <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
-					 
+				                   <dc:identifier xsi:type="eterms:DOI">10.1017/q.knozler.2008.01.27</dc:identifier>
+				                    <dc:identifier xsi:type="eterms:URI">arXiv:0810.3998</dc:identifier>
 					               <dcterms:issued xsi:type="dcterms:W3CDTF">2008</dcterms:issued> 
 					               <eterms:review-method>http://purl.org/eprint/status/PeerReviewed</eterms:review-method>
 					               <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
@@ -1149,7 +1150,7 @@ APA= please note that rule might need correction, so that periodical and non per
 					               </source:source>
 					               <eterms:total-number-of-pages>7
 					</eterms:total-number-of-pages>
-					               <dcterms:abstract><![CDATA[APA: Hickel, T., Uijttewaal, M., Grabowski, B., &amp; Neugebauer, J. <span class="DisplayDateStatus">(2008).</span> Determination of symmetry reduced structures using a soft phonon analysis for magnetic shape memory alloysJOURNALARTICLE.<span class="Italic"> Journal of Physics: Condensed Matter</span>, <span class="Italic">20</span>(6), 28-35.]]></dcterms:abstract>
+					               <dcterms:abstract><![CDATA[APA: Hickel, T., Uijttewaal, M., Grabowski, B., &amp; Neugebauer, J. <span class="DisplayDateStatus">(2008).</span> Determination of symmetry reduced structures using a soft phonon analysis for magnetic shape memory alloysJOURNALARTICLE.<span class="Italic"> Journal of Physics: Condensed Matter</span>, <span class="Italic">20</span>(6), 28-35. doi:10.1017/q.knozler.2008.01.27.]]></dcterms:abstract>
 					               <dcterms:abstract><![CDATA[AJP: Tilmann Hickel, Matthe Uijttewaal, Blazej Grabowski, and Jörg Neugebauer, "Determination of symmetry reduced structures using a soft phonon analysis for magnetic shape memory alloysJOURNALARTICLE," Journal of Physics: Condensed Matter<span class="Bold"> 20</span> (6), 28-35 (2008).]]></dcterms:abstract>
 					               <dc:subject/>
 					               <dcterms:tableOfContents/>
@@ -1238,6 +1239,7 @@ APA= please note that rule might need correction, so that periodical and non per
                     <dc:title>Search for gravitational waves from primordial black hole binary coalescences in the galactic halo</dc:title>
 
                     <dc:identifier xsi:type="eterms:DOI">10.1103/PhysRevD.72.082002</dc:identifier>
+                    <dc:identifier xsi:type="eterms:URI">arXiv:0810.3998</dc:identifier>
                     <dc:identifier xsi:type="eterms:EDOC">250761 </dc:identifier>
                     <eterms:published-online xsi:type="dcterms:W3CDTF">2005-10</eterms:published-online>
                     <eterms:review-method>http://purl.org/eprint/status/PeerReviewed</eterms:review-method>
@@ -1779,7 +1781,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
                     </event:event>
 
                     <eterms:total-number-of-pages/>
-                    <dcterms:abstract><![CDATA[APA: Strain, K. A., Casey, M. M., Hough, J., McNamara, P. W., Newton, G., Plissi, M. V., et al. <span class="DisplayDateStatus">(1999).</span> Laser interferometric gravitational wave detectors spanning 7 decades of frequency.SOURCE_GENRE_JOURNAL.<span class="Italic"> Eighth Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Gravitation, and Relativistic Field Theories</span>, <span class="Italic">volume</span>(issue), 176-193.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Strain, K. A., Casey, M. M., Hough, J., McNamara, P. W., Newton, G., Plissi, M. V., Robertson, N. A., Rowan, S., Robertson, D. I., Skeldon, K. D., Torrie, C. I., Twyford, S. M., Ward, H., Danzmann, K., Aufmuth, P., Lück, H., Mossavi, K., Mizuno, J., Rüdiger, A., Schilling, R., et al. <span class="DisplayDateStatus">(1999).</span> Laser interferometric gravitational wave detectors spanning 7 decades of frequency.SOURCE_GENRE_JOURNAL.<span class="Italic"> Eighth Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Gravitation, and Relativistic Field Theories</span>, <span class="Italic">volume</span>(issue), 176-193.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: Kenneth A. Strain, M. M. Casey, J. Hough, P. W. McNamara, G. Newton, M. V. Plissi, N. A. Robertson, S. Rowan, D. I. Robertson, K. D. Skeldon, C. I. Torrie, S. M. Twyford, H. Ward, Karsten Danzmann, Peter Aufmuth, Harald Lück, Kasem Mossavi, J. Mizuno, Albrecht Rüdiger, Roland Schilling, Walter Winkler, Bernard F. Schutz, B. S. Sathyaprakash, and I. Taylor, "Laser interferometric gravitational wave detectors spanning 7 decades of frequency.SOURCE_GENRE_JOURNAL", in <span class="Italic">Eighth Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Gravitation, and Relativistic Field Theories</span>, edited by Tsvi Piran (World Scientific, Singapore, 1999), Vol. volume, pp. 176-193.]]></dcterms:abstract>
                     <dc:subject/>
                     <dc:subject/>
@@ -3163,7 +3165,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
                         <dc:identifier xsi:type="eterms:ISSN">0452-2834</dc:identifier>
                     </source:source>
                     <eterms:total-number-of-pages/>
-                    <dcterms:abstract><![CDATA[APA: <span class="Italic">Title</span>. (Vols. 56).]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: <span class="Italic">Title</span>.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: Auth Author1, "Title", in <span class="Italic">Journal title</span>, (Publisher, Place, 2008), Vol. 56.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[Abstarct]]></dcterms:abstract>
                     <dc:subject>optical fuse, patent</dc:subject>
@@ -3691,6 +3693,279 @@ both language-universal constraints and language-specific rules for contextual w
                      <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
                   </person:person>
                </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Van Berkum</eterms:family-name>
+                     <eterms:given-name>Jos J. A.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Language Production Group, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:55205</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://cone.mpdl.mpg.de/persons/resource/persons189</dc:identifier>
+                  </person:person>
+               </eterms:creator>
                <dc:title>Nek APA Test Editon</dc:title>
                <dcterms:alternative>ein kleiner Test zum Abschied</dcterms:alternative>
                <eterms:publishing-info>
@@ -3700,9 +3975,8 @@ both language-universal constraints and language-specific rules for contextual w
                </eterms:publishing-info>
                <dcterms:issued xsi:type="dcterms:W3CDTF">2009-11-27</dcterms:issued>
                <eterms:total-number-of-pages>234</eterms:total-number-of-pages>
-               <dcterms:abstract><![CDATA[APA: Van Berkum, J. J. A. <span class="DisplayDateStatus">(2009).</span> <span class="Italic">Nek APA Test Editon</span><span class="Italic">: ein kleiner Test zum Abschied</span> (Kastens, K., <localized class="editor">Ed.</localized>) (3. rev. Ed.). München: MPDL.]]></dcterms:abstract>
-               <dcterms:abstract><![CDATA[AJP: Jos J. A. Van Berkum,<span class="Italic"> Nek APA Test Editon.</span> (MPDL, München, 2009), 3. rev. Ed. ed.]]></dcterms:abstract>
-               
+               <dcterms:abstract><![CDATA[APA: Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., et al. <span class="DisplayDateStatus">(2009).</span> <span class="Italic">Nek APA Test Editon</span><span class="Italic">: ein kleiner Test zum Abschied</span> (Kastens, K., <localized class="editor">Ed.</localized>) (3. rev. Ed.). München: MPDL.]]></dcterms:abstract>
+               <dcterms:abstract><![CDATA[AJP: Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, and Jos J. A. Van Berkum,<span class="Italic"> Nek APA Test Editon.</span> (MPDL, München, 2009), 3. rev. Ed. ed.]]></dcterms:abstract>
                <dc:subject/>
                <dcterms:tableOfContents/>
             </pub:publication>
