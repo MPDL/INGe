@@ -147,7 +147,7 @@
 				</h:panelGroup>
 			</div>
 		</h:panelGroup>
-
+			
 		<jsp:directive.include file="./ui/Files.jspf"/>
 		<jsp:directive.include file="./ui/Locators.jspf"/>
 

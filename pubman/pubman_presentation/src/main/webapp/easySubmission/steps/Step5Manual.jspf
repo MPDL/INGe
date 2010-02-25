@@ -343,6 +343,67 @@
 				</div>
 			</div>
 			</h:panelGroup>
+			
+			<%-- JUS begin --%>
+			<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!(genre.legal_case_display == 'false' && genre.legal_case_form_id == 'easy-submission' || genre.legal_case_display == 'false' && genre.legal_case_form_id == 'all')}">
+				<h3 class="xLarge_area0_p8 endline blockHeader">
+					<h:outputText value="#{genre.legal_case_label}" converter="GenreLabelConverter"/>
+				</h3>
+				<span class="seperator"></span>
+				<div class="free_area0 itemBlockContent endline">
+				
+				<%-- Court --%>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">				
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false"/><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:panelGroup styleClass="double_area0 xTiny_marginRIncl" rendered="#{!(genre.legal_case_legal_case_court_name_display == 'false' && genre.legal_case_legal_case_court_name_form_id == 'easy-submission' || genre.legal_case_legal_case_court_name_display == 'false' && genre.legal_case_legal_case_court_name_form_id == 'all')}">
+							<h:panelGroup styleClass="double_area0">
+								<h:outputText id="txtlegal_case_legal_case_court_name_Required" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_court_name_optional != 'true'}" />
+								<h:outputText id="txtlegal_case_legal_case_court_name_optional" value="#{genre.legal_case_legal_case_court_name_label}" converter="GenreLabelConverter"/>
+							</h:panelGroup>
+							<h:inputText id="inplegal_case_legal_case_court_nameOptional" styleClass="double_txtInput" value="#{ItemControllerSessionBean.currentPubItem.metadata.legalCase.courtName}" />
+						</h:panelGroup>
+				<%-- Identifier --%>
+						<h:panelGroup styleClass="double_area0" rendered="#{!(genre.legal_case_legal_case_identifier_display == 'false' && genre.legal_case_legal_case_identifier_form_id == 'easy-submission' || genre.legal_case_legal_case_identifier_display == 'false' && genre.legal_case_legal_case_identifier_form_id == 'all')}">
+							<h:panelGroup styleClass="double_area0">
+								<h:outputText id="txtlegal_case_legal_case_identifier_optionalRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_identifier_optional != 'true'}" />
+								<h:outputText id="txtlegal_case_legal_case_identifier_optional" value="#{genre.legal_case_legal_case_identifier_label}" converter="GenreLabelConverter"/>
+							</h:panelGroup>
+							<h:inputText id="inplegal_case_legal_case_identifier" styleClass="double_txtInput" value="#{ItemControllerSessionBean.currentPubItem.metadata.legalCase.identifier}" />
+						</h:panelGroup>
+					</span>
+				</h:panelGroup>
+				<%-- Title --%>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.legal_case_legal_case_title_display == 'false' && genre.legal_case_legal_case_title_form_id == 'easy-submission' || genre.legal_case_legal_case_title_display == 'false' && genre.legal_case_legal_case_title_form_id == 'all')}">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText id="txtLegalCaseTitleDisplay" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_title_optional != 'true'}" />
+						<h:outputText value="#{genre.legal_case_legal_case_title_label}" converter="GenreLabelConverter" /><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:inputTextarea id="inputLegalCaseTitleText" styleClass="quad_txtArea inputTxtArea" value="#{ItemControllerSessionBean.currentPubItem.metadata.legalCase.title}" cols="15" rows="3" ></h:inputTextarea>
+					</span>
+				</h:panelGroup>
+				<%-- Date --%>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.legal_case_legal_case_date_published_display == 'false' && genre.legal_case_legal_case_date_published_form_id == 'easy-submission' || genre.legal_case_legal_case_date_published_display == 'false' && genre.legal_case_legal_case_date_published_form_id == 'all')}">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&nbsp;<h:outputText id="txtlegal_case_legal_case_date_publishedRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_date_published_optional != 'true'}" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.legal_case_legal_case_date_published_display == 'false' && genre.legal_case_legal_case_date_published_form_id == 'easy-submission' || genre.legal_case_legal_case_date_published_display == 'false' && genre.legal_case_legal_case_date_published_form_id == 'all')}">
+						<span class="large_area0">
+							<h:outputText id="txtlegal_case_legal_case_date_publishedLabelRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_date_published_optional != 'true'}" />
+							<h:outputText id="txtlegal_case_legal_case_date_published" value="#{genre.legal_case_legal_case_date_published_label}" converter="GenreLabelConverter"/>
+						</span>
+						<h:inputText id="inplegal_case_legal_case_date-published" styleClass="large_txtInput dateJSInput" value="#{ItemControllerSessionBean.currentPubItem.metadata.legalCase.datePublished}" />
+					</h:panelGroup>
+					</span>
+				</h:panelGroup>	
+				</div>
+			</h:panelGroup>
+			<%-- JUS end --%>
+			
 			<%-- Source --%>
 			<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!(genre.sources_display == 'false' && genre.sources_form_id == 'easy-submission' || genre.sources_display == 'false' && genre.sources_form_id == 'all')}">
 				<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -495,8 +556,34 @@
 						<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceIdentifierPasteField" value="#{EasySubmission.hiddenIdsField}" cols="15" rows="3" />
 					</span>
 				</div>
-
-
+				
+		
+		<%-- Source details identifier --%>
+					<h:panelGroup layout="block" rendered="#{!(genre.sources_source_identifiers_display == 'false' && genre.sources_source_identifiers_form_id == 'easy-submission' || genre.sources_source_identifiers_display == 'false' && genre.sources_source_identifiers_form_id == 'all')}">
+		
+						<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+							
+							<b class="xLarge_area0_p8 endline labelLine clear">
+								&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_identifiers_optional != 'true' && (genre.sources_source_identifiers_source_identifier_type_optional != 'true' || genre.sources_source_identifiers_source_identifier_value_optional != 'true')}" /><h:outputText value="#{genre.sources_source_identifiers_label}" converter="GenreLabelConverter" rendered="#{EasySubmission.identifierIterator.rowIndex == 0}" /><span class="noDisplay">: </span>
+							</b>
+							
+							<span class="xHuge_area0 xTiny_marginLExcl endline">
+								<h:panelGroup rendered="#{!(genre.sources_source_identifiers_source_identifier_type_display == 'false' && genre.sources_source_identifiers_source_identifier_type_form_id == 'easy-submission' || genre.sources_source_identifiers_source_identifier_type_display == 'false' && genre.sources_source_identifiers_source_identifier_type_form_id == 'all')}">
+									<span class="large_area0 largeFormPush">
+										<h:outputLabel id="lblDetailsIdentifiersItemIdentifierType" styleClass="large_label" value="#{genre.sources_source_identifiers_source_identifier_type_label}" converter="GenreLabelConverter"/>
+										<h:selectOneMenu id="selTypeString" styleClass="large_select replace" value="#{EasySubmission.sourceIdentifierType}">
+											<f:selectItems id="selIdentifierTypes" value="#{EasySubmission.identifierCollection.identifierTypes}"/>
+										</h:selectOneMenu>
+									</span>
+								</h:panelGroup>
+								<h:panelGroup rendered="#{!(genre.sources_source_identifiers_source_identifier_value_display == 'false' && genre.sources_source_identifiers_source_identifier_value_form_id == 'easy-submission' || genre.sources_source_identifiers_source_identifier_value_display == 'false' && genre.sources_source_identifiers_source_identifier_value_form_id == 'all')}">
+									<h:outputLabel id="lblDetailsIdentifiersItemIdentifierValue" styleClass="xDouble_label" value="#{genre.sources_source_identifiers_source_identifier_value_label}" converter="GenreLabelConverter"/>
+									<h:inputText styleClass="xDouble_txtInput" value="#{EasySubmission.sourceIdentifier}" />
+								</h:panelGroup>
+							</span>
+						</h:panelGroup>
+				</h:panelGroup>
+				
 				</div>
 			</h:panelGroup>
 
