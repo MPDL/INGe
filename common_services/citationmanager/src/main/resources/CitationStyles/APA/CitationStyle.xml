@@ -139,7 +139,7 @@
 	<predefined-layout-elements>
 
 		<!-- editors -->
-		<layout-element name="editors">
+		<layout-element name="editors-base">
 			<parameters>
 				<valid-if><![CDATA[$editorsCount>0]]></valid-if>
 				<delimiter value="" />
@@ -192,10 +192,20 @@
 						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
 					</elements>
 				</layout-element>
+			</elements>
+		</layout-element>
+		
+		<layout-element name="editors" >
+			<parameters>
+				<valid-if><![CDATA[$editorsCount>0]]></valid-if>
+				<delimiter value="" />
+			</parameters>
+			<elements>
+				<layout-element ref="$editors-base" />
 				<layout-element ref="$ed-postfix" >
 					<parameters>
 						<starts-with value=" ("/>
-						<ends-with value=")"/>
+						<ends-with value=")."/>
 						<valid-if><![CDATA[$editorsCount=1]]></valid-if>
 						<i18n ref="editor"/>
 					</parameters>
@@ -203,13 +213,38 @@
 				<layout-element ref="$ed-postfix" >
 					<parameters>
 						<starts-with value=" ("/>
-						<ends-with value=")"/>
+						<ends-with value=")."/>
 						<valid-if><![CDATA[$editorsCount>1]]></valid-if>
 						<i18n ref="editors"/>
 					</parameters>
 				</layout-element>
 			</elements>
 		</layout-element>
+		
+		<layout-element name="editors-book" >
+			<parameters>
+				<valid-if><![CDATA[$authorsCount>0 and $editorsCount>0 and $genre=$l_book]]></valid-if>
+				<delimiter value=", " />
+				<starts-with value=" ("/>
+				<ends-with value=")"/>
+			</parameters>
+			<elements>
+				<layout-element ref="$editors-base" />
+				<layout-element ref="$ed-postfix" >
+					<parameters>
+						<valid-if><![CDATA[$editorsCount=1]]></valid-if>
+						<i18n ref="editor"/>
+					</parameters>
+				</layout-element>
+				<layout-element ref="$ed-postfix" >
+					<parameters>
+						<valid-if><![CDATA[$editorsCount>1]]></valid-if>
+						<i18n ref="editors"/>
+					</parameters>
+				</layout-element>
+			</elements>
+		</layout-element>
+		
 		
 		<layout-element name="editors-with-dot" ref="$editors">
 			<parameters>
@@ -729,15 +764,29 @@
 			<layout-element>
 				<parameters>
 					<ends-with value="." />
+					<delimiter value=""/>
 				</parameters>
 				<elements>
 					<layout-element ref="$title-italic"/>
-					<layout-element ref="pub:publication/eterms:publishing-info/eterms:edition/text()">
+					<layout-element>
 						<parameters>
 							<valid-if><![CDATA[$genre = $l_book]]></valid-if>
-							<starts-with value=" (" />
-							<ends-with value=")" />
 						</parameters>
+						<elements>
+							<layout-element ref="pub:publication/dcterms:alternative[1]/text()">
+								<parameters>
+									<starts-with value=": "/>
+									<font-style ref="ITALIC" />
+								</parameters>
+							</layout-element>
+							<layout-element ref="$editors-book"/>
+							<layout-element ref="pub:publication/eterms:publishing-info/eterms:edition/text()">
+								<parameters>
+									<starts-with value=" (" />
+									<ends-with value=")" />
+								</parameters>
+							</layout-element>
+						</elements>
 					</layout-element>
 				</elements>
 			</layout-element>
