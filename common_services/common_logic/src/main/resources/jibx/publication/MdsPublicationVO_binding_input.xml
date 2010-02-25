@@ -42,6 +42,9 @@
 	<namespace prefix="event" uri="${xsd.metadata.event}" default="none" />
 	<namespace prefix="source" uri="${xsd.metadata.source}" default="none" />
 	<namespace prefix="organization" uri="${xsd.metadata.organization}" default="none" />
+	<!-- JUS -->
+	<namespace prefix="legalCase" uri="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" default="none"/>
+	
 
 	<!--  -->
 	<!-- The bindings for escidocprofile.xsd -->
@@ -212,7 +215,35 @@
 					usage="optional" />
 
 			</structure>
+			
+			<!-- JUS BEGIN-->
+			<!-- Node: item.md-records.md-record.publication.legalCase -->
+			<!-- Field: LegalCaseVO.metadata.legalCase [LegalCaseVO] -->
+			<structure name="legal-case" ns="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" field="legalCase"
+				ordered="false" allow-repeats="false" usage="optional">
 
+				<!-- Node: item.md-records.md-record.publication.legalCase.title -->
+				<!-- Field: LegalCaseVO.metadata.legalCase.title -->
+				<value style="element" name="title" ns="${xsd.metadata.dc}"
+					field="title" usage="optional" />
+					
+				<!-- Node: item.md-records.md-record.publication.legalCase.court -->
+				<!-- Field: LegalCaseVO.metadata.legalCase.courtName -->
+				<value style="element" name="court" ns="${xsd.metadata.escidocprofile.types}"
+					field="courtName" usage="optional" />
+
+				<!-- Node: item.md-records.md-record.publication.legalCase.identifier -->
+				<!-- Field: LegalCaseVO.metadata.legalCase.identifier -->
+				<value style="element" name="identifier" ns="${xsd.metadata.dc}"
+					field="identifier" usage="optional" />
+
+				<!-- Node: item.md-records.md-record.publication.legalCase.issued -->
+				<!-- Field: LegalCaseVO.metadata.legalCase.datePublished -->
+               <value style="element" name="issued" ns="${xsd.metadata.dcterms}"
+					field="datePublished" usage="optional" />	
+
+			</structure>
+			<!-- JUS END-->
 
 			<!-- Node: item.md-records.md-record.publication.total-number-of-pages -->
 			<!-- Field: PubItemVO.metadata.totalNumberOfPages [String] -->
