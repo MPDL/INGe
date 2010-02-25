@@ -37,6 +37,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.httpclient.HttpClient;
+
+import de.mpg.escidoc.services.pidcache.PidCache;
 import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
 
 /**
@@ -64,7 +67,17 @@ public class MainServlet extends HttpServlet
      */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        resp.getWriter().append("Hello World");
+    	PidCache cache = new PidCache();
+
+    	try 
+    	{
+    		resp.getWriter().append(cache.retrievePid(req.getParameter("pid")));
+		} 
+    	catch (Exception e) 
+    	{
+    		throw new RuntimeException(e);
+		}
+    	
     }
 
     /* (non-Javadoc)
@@ -74,12 +87,28 @@ public class MainServlet extends HttpServlet
     {
         try
         {
-            DatabaseHelper.createTable();
+            //DatabaseHelper.createTable();
         }
         catch (Exception e)
         {
             throw new ServletException(e);
         }
+        
+        PidCache cache = new PidCache();
+        
+        if (req.getParameter("url") == null) 
+        {
+        	throw new RuntimeException("No url parameter!");
+		}
+        
+        try 
+        {
+			resp.getWriter().append(cache.assignPid(req.getParameter("url")).getIdentifier());
+		} 
+        catch (Exception e) 
+        {
+        	throw new RuntimeException(e);
+		}
     }
 
     /* (non-Javadoc)

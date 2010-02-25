@@ -47,19 +47,29 @@ import javax.sql.DataSource;
  */
 public class DatabaseHelper
 {
-    public static final String CREATE_TABLES_STATEMENT = 
-        "CREATE TABLE ESCIDIC_PID_CACHE (identifier VARCHAR NOT NULL PRIMARY KEY, created TIMESTAMP);\n" +
-        "CREATE TABLE ESCIDIC_PID_QUEUE (identifier VARCHAR NOT NULL PRIMARY KEY, url VARCHAR NOT NULL PRIMARY KEY, created TIMESTAMP);";
+	public static final String CREATE_TABLES_STATEMENT = 
+	    "CREATE TABLE ESCIDOC_PID_CACHE (identifier VARCHAR NOT NULL PRIMARY KEY, created TIMESTAMP);\n" +
+	    "CREATE TABLE ESCIDOC_PID_QUEUE (identifier VARCHAR NOT NULL PRIMARY KEY, url VARCHAR NOT NULL PRIMARY KEY, created TIMESTAMP);";
+    public static final String GET_ID_FIRST_ELEMENT_STATEMENT = "SELECT IDENTIFIER FROM ESCIDOC_PID_CACHE";
+    public static final String ADD_ELEMENT_STATEMENT = "INSERT INTO ESCIDOC_PID_CACHE VALUES ('XXX_IDENTIFER_XXX', XXX_TIMESTAMP_XXX)";
+
     
+    /**
+     * Get the connection to the cache table
+     * @return
+     * @throws Exception
+     */
     public static Connection getConnection() throws Exception
     {
-
         Context ctx = new InitialContext();
         DataSource dataSource = (DataSource) ctx.lookup("PidCache");
         return dataSource.getConnection();
-
     }
     
+    /**
+     * Create the cache table.
+     * @throws Exception
+     */
     public static void createTable() throws Exception
     {
         Connection connection = getConnection();
@@ -68,6 +78,5 @@ public class DatabaseHelper
         
         statement.close();
         connection.close();
-        
     }
 }
