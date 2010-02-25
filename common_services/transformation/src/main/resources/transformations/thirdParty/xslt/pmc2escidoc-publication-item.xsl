@@ -61,7 +61,7 @@
 	
 
 	<xsl:param name="user" select="'dummy-user'"/>
-	<xsl:param name="context" select="'escidoc:31013'"/>	
+	<xsl:param name="context" select="'dummy-context'"/>	
 	<xsl:param name="content-model"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>	
@@ -77,7 +77,7 @@
 	<xsl:template name="createItem">
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
-				<srel:context objid="escidoc:persistent3" />
+				<srel:context objid="{$context}" />
 				<!--<xsl:element name="srel:context">
 					<xsl:attribute name="xlink:href" select="concat('/ir/context/', $context)"/>
 				</xsl:element>-->

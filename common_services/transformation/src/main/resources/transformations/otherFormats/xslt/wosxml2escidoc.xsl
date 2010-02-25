@@ -63,7 +63,7 @@
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
 	<xsl:param name="user" select="'dummy-user'"/>
-	<xsl:param name="context" select="'escidoc:31013'"/>
+	<xsl:param name="context" select="'dummy-context'"/>
 	<xsl:param name="is-item-list" select="true()"/>
 	<xsl:param name="content-model"/>
 	<!--

@@ -59,7 +59,7 @@
 	<xsl:import href="../../vocabulary-mappings.xsl"/>   
    
 	<xsl:param name="user" select="'dummy-user'"/>
-	<xsl:param name="context" select="'escidoc:31013'"/>	
+	<xsl:param name="context" select="'dummy-context'"/>	
 	<xsl:param name="content-model"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>	
@@ -98,7 +98,7 @@
 		<xsl:param name="genre"/>
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
-				<srel:context objid="escidoc:persistent3"/>
+				<srel:context objid="{$context}"/>
 				<srel:content-model objid="{$content-model}"/>
 				<xsl:element name="prop:content-model-specific"/>
 			</xsl:element>
