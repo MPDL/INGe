@@ -64,6 +64,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -72,7 +73,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.lf5.util.ResourceUtils;
 
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList;
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
@@ -149,9 +152,34 @@ public class ConeServlet extends HttpServlet
         if ("query".equals(action))
         {
             String query = request.getParameter("q");
+            int limit = -1;
             try
             {
-                queryAction(query, lang, response, model);
+                limit = Integer.parseInt(request.getParameter("l"));
+            }
+            catch (Exception e)
+            {
+                // Ignore l(imit) parameter as it is no number.
+            }
+            
+            try
+            {
+                if (query != null)
+                {
+                    queryAction(query, limit, lang, response, model);
+                }
+                else
+                {
+                    ArrayList<Pair> searchFields = new ArrayList<Pair>();
+                    for (Object key : request.getParameterMap().keySet())
+                    {
+                        if (!"l".equals(key) && !"lang".equals(key))
+                        {
+                            searchFields.add(new Pair(key.toString(), request.getParameter(key.toString())));
+                        }
+                    }
+                    queryFieldsAction(searchFields.toArray(new Pair[]{}), limit, lang, response, model);
+                }
             }
             catch (Exception e)
             {
@@ -186,6 +214,10 @@ public class ConeServlet extends HttpServlet
             {
                 throw new ServletException(e);
             }
+        }
+        else if ("explain".equals(action))
+        {
+            response.getWriter().print(ResourceUtil.getResourceAsString("models.xml"));
         }
     }
 
@@ -331,7 +363,7 @@ public class ConeServlet extends HttpServlet
      * @param model
      * @throws IOException
      */
-    private void queryAction(String query, String lang, HttpServletResponse response, String modelName)
+    private void queryAction(String query, int limit, String lang, HttpServletResponse response, String modelName)
         throws Exception
     {
         Model model = ModelList.getInstance().getModelByAlias(modelName);
@@ -365,7 +397,14 @@ public class ConeServlet extends HttpServlet
                     
                     try
                     {
-                        result = querier.query(model.getName(), query, lang);
+                        if (limit >= 0)
+                        {
+                            result = querier.query(model.getName(), query, lang, limit);
+                        }
+                        else
+                        {
+                            result = querier.query(model.getName(), query, lang);
+                        }
                     }
                     catch (Exception e)
                     {
@@ -376,6 +415,62 @@ public class ConeServlet extends HttpServlet
                 }
                 querier.release();
             }
+        }
+        else
+        {
+            reportUnknownModel(modelName, response);
+        }
+    }
+
+    /**
+     * Retrieve a list of matching entities.
+     * 
+     * @param request
+     * @param response
+     * @param model
+     * @throws IOException
+     */
+    private void queryFieldsAction(Pair[] searchFields, int limit, String lang, HttpServletResponse response, String modelName)
+        throws Exception
+    {
+        Model model = ModelList.getInstance().getModelByAlias(modelName);
+
+        if (model != null)
+        {
+            response.setContentType(formatter.getContentType());
+
+            Querier querier = QuerierFactory.newQuerier();
+            
+            logger.debug("Querier is " + querier);
+                
+                if (querier == null)
+                {
+                    reportMissingQuerier(response);
+                }
+                else
+                {
+                    List<Pair> result = null;
+                    
+                    try
+                    {
+                        if (limit >= 0)
+                        {
+                            result = querier.query(model.getName(), searchFields, lang, limit);
+                        }
+                        else
+                        {
+                            result = querier.query(model.getName(), searchFields, lang);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        logger.error(DB_ERROR_MESSAGE, e);
+                    }
+   
+                    response.getWriter().print(formatter.formatQuery(result));
+                }
+                querier.release();
+
         }
         else
         {

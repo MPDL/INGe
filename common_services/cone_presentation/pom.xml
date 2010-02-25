@@ -87,7 +87,14 @@
 	    	<groupId>de.mpg.escidoc.services</groupId>
 	    	<artifactId>cone</artifactId>
 	    	<version>1.1.2-SNAPSHOT</version>
-	    	<scope>compile</scope>
+	    	<scope>provided</scope>
+	    </dependency>
+	    <dependency>
+	    	<groupId>de.mpg.escidoc.services</groupId>
+	    	<artifactId>common_logic</artifactId>
+	    	<version>1.1.36-SNAPSHOT</version>
+	    	<type>ejb</type>
+	    	<scope>provided</scope>
 	    </dependency>
 	</dependencies>
 	<dependencyManagement>
