@@ -258,6 +258,8 @@
 							<jsp:directive.include file="viewItem/ContentGroup.jspf" />
 							<jsp:directive.include file="viewItem/DetailGroup.jspf" />
 							<jsp:directive.include file="viewItem/EventGroup.jspf" />
+							<!--JUS content section -->
+							<jsp:directive.include file="viewItem/LegalCaseGroup.jspf" />
 							<jsp:directive.include file="viewItem/SourceGroup.jspf" />
 							<jsp:directive.include file="viewItem/SystemDetailGroup.jspf" />
 							<jsp:directive.include file="viewItem/WithdrawnGroup.jspf" />
