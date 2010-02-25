@@ -42,6 +42,9 @@
 	<namespace prefix="event" uri="${xsd.metadata.event}" default="none" />
 	<namespace prefix="source" uri="${xsd.metadata.source}" default="none" />
 	<namespace prefix="organization" uri="${xsd.metadata.organization}" default="none" />
+	<!-- JUS -->
+	<namespace prefix="legalCase" uri="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" default="none"/>
+	
 	
 	<!--  -->
 	<!-- The bindings for escidocprofile.xsd -->
@@ -262,7 +265,38 @@
 				usage="optional" />
 
 		</structure>
+		
+		<!-- JUS BEGIN-->
+		<!-- Node: item.md-records.md-record.publication.legalCase -->
+		<!-- Field: LegalCaseVO.metadata.legalCase [LegalCaseVO] -->
+		<structure name="legal-case" ns="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" field="legalCase"
+			ordered="false" allow-repeats="false" usage="optional">
+			
+			<!-- Node: item.md-records.md-record.publication.legalCase.title -->
+			<!-- Field: LegalCaseVO.metadata.legalCase.title [String]-->
+			<value style="element" name="title" ns="${xsd.metadata.dc}"
+				field="title" usage="optional" />
+		
+			<!-- Node: item.md-records.md-record.publication.legalCase.court -->
+			<!-- Field: LegalCaseVO.metadata.legalCase.courtName [String] -->
+			<value style="element" name="court" ns="${xsd.metadata.escidocprofile.types}"
+				field="courtName" usage="optional" />
 
+			<!-- Node: item.md-records.md-record.publication.legalCase.identifier -->
+			<!-- Field: LegalCaseVO.metadata.legalCase.identifier [String] -->
+			<value style="element" name="identifier" ns="${xsd.metadata.dc}"
+				field="identifier" usage="optional" />
+				
+		    <!-- Node: item.md-records.md-record.publication.legalCase.issued -->
+			<!-- Field: LegalCaseVO.metadata.legalCase.datePublished [String]-->
+            <structure field="datePublished" usage="optional">
+				<structure name="issued" ns="${xsd.metadata.dcterms}" value-style="attribute" usage="optional">
+					<value name="type" ns="http://www.w3.org/2001/XMLSchema-instance" constant="dcterms:W3CDTF" />
+					<value style="text" get-method="toString" usage="optional" />
+				</structure>
+			</structure>		
+
+		</structure>
 
 		<!-- Node: item.md-records.md-record.publication.total-number-of-pages -->
 		<!-- Field: PubItemVO.metadata.totalNumberOfPages [String] -->
@@ -309,7 +343,7 @@
 		<!-- Node: item.md-records.md-record.publication.tableOfContents -->
 		<!-- Field: PubItemVO.metadata.tableOfContents [TextVO] -->
         <structure name="tableOfContents" ns="${xsd.metadata.dcterms}" field="tableOfContents" usage="optional"/>
-
+		
 
 		<!-- Node: item.md-records.md-record.publication.location -->
 		<!-- Field: PubItemVO.metadata.location [String] -->
