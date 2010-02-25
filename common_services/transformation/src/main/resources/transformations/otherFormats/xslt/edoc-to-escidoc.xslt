@@ -75,7 +75,7 @@
 	<xsl:param name="user" select="'dummy-user'"/>
 	<xsl:param name="context" select="'dummy-context'"/>
 	<xsl:param name="external-ou"/>
-	<xsl:param name="root-ou" select="${escidoc.pubman.external.organisation.id}"/>
+	<xsl:param name="root-ou" select="'dummy-root-ou'"/>
 	<xsl:param name="source-name" select="'eDoc'"/>
 	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
@@ -535,11 +535,18 @@
 				</xsl:element>
 				<srel:content-model objid="{$content-model}"/>
 				<xsl:element name="prop:content-model-specific">
-					<xsl:if test="../MPGyearbook = '2009'">
-						<local-tags>
-							<local-tag>Yearbook 2009</local-tag>
-						</local-tags>
-					</xsl:if>
+					<xsl:choose>
+						<xsl:when test="../MPGyearbook = '2009'">
+							<local-tags>
+								<local-tag>Yearbook 2009</local-tag>
+							</local-tags>
+						</xsl:when>
+						<xsl:when test="../MPGyearbook = '2010'">
+							<local-tags>
+								<local-tag>Yearbook 2010</local-tag>
+							</local-tags>
+						</xsl:when>
+					</xsl:choose>
 				</xsl:element>
 			</xsl:element>
 			<xsl:element name="mdr:md-records">

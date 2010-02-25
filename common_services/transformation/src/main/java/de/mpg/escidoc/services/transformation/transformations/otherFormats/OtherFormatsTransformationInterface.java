@@ -43,8 +43,8 @@ import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.escidoc.eSsciDocVer1ToeSciDocVer2;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.escidoc.eSsciDocVer2ToeSciDocVer1;
+import de.mpg.escidoc.services.transformation.transformations.otherFormats.escidoc.eSciDocVer1ToeSciDocVer2;
+import de.mpg.escidoc.services.transformation.transformations.otherFormats.escidoc.eSciDocVer2ToeSciDocVer1;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -243,7 +243,7 @@ public class OtherFormatsTransformationInterface implements Transformation
         {
         	try
         	{
-        		eSsciDocVer1ToeSciDocVer2 escidocTransformer = new eSsciDocVer1ToeSciDocVer2();
+        		eSciDocVer1ToeSciDocVer2 escidocTransformer = new eSciDocVer1ToeSciDocVer2();
         		result = escidocTransformer.transform(src, srcFormat, trgFormat, service);
         	}
         	catch(Exception e)
@@ -256,7 +256,7 @@ public class OtherFormatsTransformationInterface implements Transformation
         {
         	try
         	{
-        		eSsciDocVer2ToeSciDocVer1 escidocTransformer = new eSsciDocVer2ToeSciDocVer1();
+        		eSciDocVer2ToeSciDocVer1 escidocTransformer = new eSciDocVer2ToeSciDocVer1();
         		result = escidocTransformer.transform(src, srcFormat, trgFormat, service);
         	}
         	catch(Exception e)

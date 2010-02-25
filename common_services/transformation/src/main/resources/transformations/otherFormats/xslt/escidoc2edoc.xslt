@@ -64,7 +64,7 @@
 		xmlns:escidoc="http://escidoc.mpg.de/"
 		xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
 		xmlns:itemlist="${xsd.soap.item.itemlist}"
-		xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.7"
+		xmlns:organizational-unit="${xsd.soap.ou.ou}"
 		>
 	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
