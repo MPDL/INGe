@@ -41,12 +41,14 @@ import org.junit.Test;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
+import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 
 public class CitationStyleHandlerTest {
 
-    private static String itemList;
-	private static CitationStyleHandler pcs;
+    private static final String dsName = "target/target/test-classes/DataSources/CitationStyleTestCollection.xml";
+	private static String itemList;
+	private static CitationStyleHandler pcs; 
 
 
     private static Logger logger = Logger.getLogger(test.CitationStyleHandlerTest.class);
@@ -69,15 +71,17 @@ public class CitationStyleHandlerTest {
     @BeforeClass
     public static final void getItemList() throws Exception
     {
-//    	String dsName = ResourceUtil.getPathToDataSources() + "item-list-inga.xml"; 
+//    	String dsName = ResourceUtil.getPathToDataSources() + "item-list-inga.xml";
+    	
 //    	logger.info("Data Source:" + dsName);
-//    			
 //        itemList = ResourceUtil.getResourceAsString(dsName);
+//        
+//        logger.info("itemList:" + itemList);
     	
         itemList = TestHelper.getTestItemListFromFramework();
 		assertTrue("item list from framework is empty", Utils.checkVal(itemList) );
 		logger.info("item list from framework:\n" + itemList);
-		TestHelper.writeBinFile(itemList.getBytes(), "/home/vlad/Projects/escidoc/common_services/citationmanager_ear/src/test/resources/DataSources/il.xml");
+//		TestHelper.writeBinFile(itemList.getBytes(), "/home/vlad/Projects/escidoc/common_services/citationmanager_ear/src/test/resources/DataSources/il.xml");
         
     }
     
@@ -113,16 +117,25 @@ public class CitationStyleHandlerTest {
      * @throws Exception Any exception.
      */
     @Test
-    @Ignore
+//    @Ignore
     public final void testCitManOutput() throws Exception {
     	
-//    	for (String cs : pcs.getStyles() )
-    	for (String cs :  new String[]{"APA","AJP"})
+    	for 
+    	(
+    			String cs :
+    				pcs.getStyles()
+//    				new String[]{"APA","AJP"}
+    	)
     	{
     		long start;
         	byte[] result;
 //    		for ( String format : pcs.getOutputFormats(cs) ) {
-    		for ( String format : new String[]{"snippet"} ) {
+    		for 
+    		( 
+    				String format :
+    					pcs.getOutputFormats(cs)
+//    					new String[]{"snippet"} 
+    		) {
         		logger.info("Test Citation Style: " + cs);
     			
     	    	start = System.currentTimeMillis();

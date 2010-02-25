@@ -78,8 +78,8 @@ public class TestHelper
 	
 	public static final String ITEMS_LIMIT = "10"; 
 	public static final String CONTENT_MODEL = "escidoc:persistent4"; 
-	public static final String USER_NAME = "citman_user"; 
-	public static final String USER_PASSWD = "citman_user";
+//	public static final String USER_NAME = "citman_user"; 
+//	public static final String USER_PASSWD = "citman_user";
 	public static final String CONTEXT_TITLE = "Citation Style Testing Context";
     private static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
     private static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
