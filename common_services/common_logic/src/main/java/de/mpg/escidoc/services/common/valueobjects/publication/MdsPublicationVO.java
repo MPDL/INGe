@@ -38,6 +38,7 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.TitleIF;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.LegalCaseVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
@@ -126,8 +127,8 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
      */
     public enum Genre
     {
-    	
         ARTICLE("http://purl.org/escidoc/metadata/ves/publication-types/article"),
+        NEWSPAPER_ARTICLE("http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article"),
         BOOK("http://purl.org/eprint/type/Book"),
         BOOK_ITEM("http://purl.org/eprint/type/BookItem"),
         PROCEEDINGS("http://purl.org/escidoc/metadata/ves/publication-types/proceedings"),
@@ -143,7 +144,26 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
         JOURNAL("http://purl.org/escidoc/metadata/ves/publication-types/journal"),
         MANUSCRIPT("http://purl.org/escidoc/metadata/ves/publication-types/manuscript"),
         SERIES("http://purl.org/escidoc/metadata/ves/publication-types/series"),
-        OTHER("http://purl.org/escidoc/metadata/ves/publication-types/other");
+        OTHER("http://purl.org/escidoc/metadata/ves/publication-types/other"),
+        EDITORIAL("http://purl.org/escidoc/metadata/ves/publication-types/editorial"),
+        CONTRIBUTION_TO_HANDBOOK("http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook"),
+        CONTRIBUTION_TO_ENCYCLOPEDIA("http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia"),
+        CONTRIBUTION_TO_FESTSCHRIFT("http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift"),
+        CONTRIBUTION_TO_COMMENTARY("http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary"),
+        CONTRIBUTION_TO_COLLECTED_EDITION("http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition"),
+        BOOK_REVIEW("http://purl.org/escidoc/metadata/ves/publication-types/book-review"),
+        OPINION("http://purl.org/escidoc/metadata/ves/publication-types/opinion"),
+        CASE_STUDY("http://purl.org/escidoc/metadata/ves/publication-types/case-study"),
+        CASE_NOTE("http://purl.org/escidoc/metadata/ves/publication-types/case-note"),
+        MONOGRAPH("http://purl.org/escidoc/metadata/ves/publication-types/monograph"),
+        NEWSPAPER("http://purl.org/escidoc/metadata/ves/publication-types/newspaper"),
+        ENCYCLOPEDIA("http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia"),
+        MULTI_VOLUME("http://purl.org/escidoc/metadata/ves/publication-types/multi-volume"),
+        COMMENTARY("http://purl.org/escidoc/metadata/ves/publication-types/commentary"),
+        HANDBOOK("http://purl.org/escidoc/metadata/ves/publication-types/handbook"),
+        COLLECTED_EDITION("http://purl.org/escidoc/metadata/ves/publication-types/collected-edition"),
+        FESTSCHRIFT("http://purl.org/escidoc/metadata/ves/publication-types/festschrift");
+        
         
         private String uri;
         
@@ -156,8 +176,9 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
         {
         	return uri;
         }
-    }
 
+    }
+    
     /**
      * Alternative titles of the publication, e.g. translations of original title or sub-titles.
      */
@@ -184,6 +205,10 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
      * Some items are related to an event, e.g. a conference or a lecture series.
      */
     private EventVO event;
+    /**
+     * JUS The information about the legal case of case note publication. 
+     */
+    private LegalCaseVO legalCase;
     /**
      * The genre of a publication describes the type of the publication.
      */
@@ -289,6 +314,12 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
         {
             setEvent((EventVO) other.getEvent().clone());
         }
+        // JUS BEGIN
+        if(other.getLegalCase() != null)
+        {
+        	setLegalCase((LegalCaseVO)other.getLegalCase().clone());
+    	}
+        // JUS END
         setGenre(other.getGenre());
         for (IdentifierVO identifier : other.getIdentifiers())
         {
@@ -358,6 +389,14 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
     public EventVO getEvent()
     {
         return event;
+    }
+    
+    /**
+     * JUS Delivers the legal case of the item. Items of genre types case note has mandatory legal case information.
+     */
+    public LegalCaseVO getLegalCase()
+    {
+        return legalCase;
     }
 
     /**
@@ -455,7 +494,14 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
     {
         event = newVal;
     }
-
+    
+    /**
+     * JUS Sets the legal case of the item. Items of genre types case note has mandatory legal case information.
+     */
+    public void setLegalCase(LegalCaseVO newVal)
+    {
+        legalCase = newVal;
+    }
     /**
      * Sets the genre of the item, i. e. the type of the publication (e. g. article, book, conference paper).
      * 
@@ -547,7 +593,9 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
                 // DiT, 14.11.2007: added DatePublishedOnline
                 && equals(getDatePublishedOnline(), other.getDatePublishedOnline())
                 && equals(getDateSubmitted(), other.getDateSubmitted()) && equals(getDegree(), other.getDegree())
-                && equals(getEvent(), other.getEvent()) && equals(getGenre(), other.getGenre())
+                && equals(getEvent(), other.getEvent()) 
+                && equals(getLegalCase(), other.getLegalCase()) 
+                && equals(getGenre(), other.getGenre())
                 && equals(getIdentifiers(), other.getIdentifiers()) && equals(getLanguages(), other.getLanguages())
                 && equals(getLocation(), other.getLocation()) && equals(getPublishingInfo(), other.getPublishingInfo())
                 && equals(getReviewMethod(), other.getReviewMethod()) && equals(getSources(), other.getSources())
