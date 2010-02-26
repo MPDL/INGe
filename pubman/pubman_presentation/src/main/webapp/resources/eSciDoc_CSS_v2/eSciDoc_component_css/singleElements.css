@@ -47,3 +47,7 @@
 	filter: alpha(opacity=90);
 	*/
 }
+
+.sameHeightSlave {
+	overflow-y: auto;
+}

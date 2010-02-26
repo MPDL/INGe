@@ -159,6 +159,7 @@ function install_javascripts() {
 	installFullItem();
 	installQuickSearchShortcut();
 	installDateTextbox();
+	installSameHeight();
 	bindSuggests();
 }
 

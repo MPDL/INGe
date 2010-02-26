@@ -354,3 +354,7 @@ function installDateTextbox() {
 	addDateJSLabels();
 	addDateJSFunctions();
 }
+
+function installSameHeight() {
+	$('.sameHeightSlave').each(function(i,elem){$(elem).height($('.sameHeightMaster').height());});
+}
