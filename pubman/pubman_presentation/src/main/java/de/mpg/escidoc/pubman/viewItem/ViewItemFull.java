@@ -2551,4 +2551,14 @@ public class ViewItemFull extends FacesBean
 	    return url;
 	    
 	}
+	
+	/**
+	 * TODO GS: Implement stub.
+	 * 
+	 * @return
+	 */
+	public boolean getShowLegalCase()
+	{
+	    return false;
+	}
 }    
