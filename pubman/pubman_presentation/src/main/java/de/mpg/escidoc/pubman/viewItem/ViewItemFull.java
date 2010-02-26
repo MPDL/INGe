@@ -923,7 +923,7 @@ public class ViewItemFull extends FacesBean
     private void showValidationMessages(ValidationReportVO report)
     {
         
-        info(getMessage(VALIDATION_ERROR_MESSAGE));
+        warn(getMessage(VALIDATION_ERROR_MESSAGE));
         
         for (Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();)
         {

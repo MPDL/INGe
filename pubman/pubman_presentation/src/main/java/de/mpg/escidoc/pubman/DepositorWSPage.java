@@ -145,7 +145,7 @@ public class DepositorWSPage extends BreadcrumbPage
      */
     protected ViewItemSessionBean getViewItemSessionBean()
     {
-        return (ViewItemSessionBean)getBean(ViewItemSessionBean.class);
+        return (ViewItemSessionBean)getSessionBean(ViewItemSessionBean.class);
     }
 
 	@Override
