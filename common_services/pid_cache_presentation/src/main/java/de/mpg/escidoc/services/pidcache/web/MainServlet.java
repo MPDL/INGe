@@ -40,6 +40,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.httpclient.HttpClient;
 
 import de.mpg.escidoc.services.pidcache.PidCache;
+import de.mpg.escidoc.services.pidcache.PidHandler;
+import de.mpg.escidoc.services.pidcache.xmltransforming;
 import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
 
 /**
@@ -67,11 +69,16 @@ public class MainServlet extends HttpServlet
      */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-    	PidCache cache = new PidCache();
-
+    	PidHandler handler = new PidHandler();
+    	
+    	if (req.getParameter("pid") == null) 
+        {
+           	throw new RuntimeException("No 'pid' parameter!");
+   		}
+    	   
     	try 
     	{
-    		resp.getWriter().append(cache.retrievePid(req.getParameter("pid")));
+    		resp.getWriter().append(handler.retrievePid(req.getParameter("pid")));
 		} 
     	catch (Exception e) 
     	{
@@ -84,26 +91,18 @@ public class MainServlet extends HttpServlet
      * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-    {
-        try
-        {
-            //DatabaseHelper.createTable();
-        }
-        catch (Exception e)
-        {
-            throw new ServletException(e);
-        }
-        
-        PidCache cache = new PidCache();
-        
+    {        
         if (req.getParameter("url") == null) 
         {
-        	throw new RuntimeException("No url parameter!");
+        	throw new RuntimeException("No 'url' parameter!");
 		}
         
         try 
         {
-			resp.getWriter().append(cache.assignPid(req.getParameter("url")).getIdentifier());
+        	PidCache cache = new PidCache();
+        	xmltransforming xmltransforming = new xmltransforming();
+			String pidXml = xmltransforming.transformtoPidXml(cache.assignPid(req.getParameter("url")));
+        	resp.getWriter().append(pidXml);
 		} 
         catch (Exception e) 
         {

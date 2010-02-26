@@ -34,15 +34,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.util.Timer;
+import java.util.Date;
 
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
-import de.mpg.escidoc.services.pidcache.util.GwdgClient;
 
 /**
  * TODO Description
@@ -54,15 +49,22 @@ import de.mpg.escidoc.services.pidcache.util.GwdgClient;
  */
 public class PidCache
 {
-    public static final String GWDG_PIDSERVICE_CREATE = "http://handle.gwdg.de:8080/pidservice/write/create";
-    public static final String GWDG_PIDSERVICE_VIEW = "http://handle.gwdg.de:8080/pidservice/read/view";
-    public static final String GWDG_PIDSERVICE_FIND = "http://handle.gwdg.de:8080/pidservice/read/search";
+    public static String GWDG_PIDSERVICE_CREATE = null;
+    public static String GWDG_PIDSERVICE_VIEW = null;
+    public static String GWDG_PIDSERVICE_FIND = null;
 	
-
+    
+    public PidCache() throws Exception
+    {
+    	GWDG_PIDSERVICE_CREATE = PropertyReader.getProperty("escidoc.pid.gwdg.create.url");
+    	GWDG_PIDSERVICE_VIEW = PropertyReader.getProperty("escidoc.pid.gwdg.view.url");
+    	GWDG_PIDSERVICE_FIND = PropertyReader.getProperty("escidoc.pid.gwdg.search.url");
+	}
+    
     /**
      * This method does the following:
      *  - Take a Pid from the cache
-     *  - Invoke the following (asynchroous) workflow:
+     *  - Invoke the following (asynchronous) workflow:
      *      - Change the URL of the Pid in the Handle system.
      *      - Add a new PID to the cache.
      *  - Return the Pid
@@ -74,19 +76,12 @@ public class PidCache
     public Pid assignPid(String url) throws Exception
     {
     	Pid pid = new Pid();
-    	pid.setUrl(url);	
-    	pid.setIdentifier("dummy/1/to/REMOVE");
-		//pid = this.createPid(pid);
-		
-		this.savePidInCache(pid);
-		
+    	pid.setUrl(url);
+    	
 		Connection connection  = DatabaseHelper.getConnection();
-		
 		PreparedStatement pst = connection.prepareStatement(DatabaseHelper.GET_ID_FIRST_ELEMENT_STATEMENT);
 		pst.setMaxRows(1);
-		
 		pst.executeQuery();
-		
 		ResultSet resultSet = pst.getResultSet();
 
         if (resultSet.next())
@@ -102,24 +97,10 @@ public class PidCache
 		
 		pst.close();
 		
+		PidHandler handler = new PidHandler();
+		String updatedPidXml = handler.updatePid("");
+		
     	return pid;
-    }
-        
-    /**
-     * This method calls the PID Handler service of the GWDG.
-     * 
-     * @param pidString
-     * @return
-     */
-    public String retrievePid(String pidString) throws Exception
-    {
-    	GetMethod retrieve = new GetMethod(GWDG_PIDSERVICE_CREATE.concat("?pid=").concat(pidString));
-    	
-    	GwdgClient client = new GwdgClient();
-    	
-    	client.executeMethod(retrieve);
-    	
-    	return retrieve.getResponseBodyAsString();
     }
     
     /**
@@ -131,7 +112,7 @@ public class PidCache
     {
     	String sql = DatabaseHelper.ADD_ELEMENT_STATEMENT;
     	sql = sql.replace("XXX_IDENTIFER_XXX", pid.getIdentifier());
-    	sql = sql.replace("XXX_TIMESTAMP_XXX", "2010");
+    	sql = sql.replace("XXX_TIMESTAMP_XXX", Long.toString((new Date()).getTime()));
     	
     	Connection connection  = DatabaseHelper.getConnection();
     	Statement statement = connection.createStatement();
@@ -141,35 +122,22 @@ public class PidCache
         connection.close();
     }
     
-    private void deletePidFromCache(Pid pid)
-    {
-    	
-    }
-    
     /**
-     * Create a PID:
+     * Delete a PID from the cache.
      * 
-     *  - Calls the PID Handler Service of the GWDG
-     *  - Return the Identifier of the PID created
-     *  
-     * @param pid not created.
-     * @return pid created
+     * @param pid
      * @throws Exception
      */
-    private Pid createPid(Pid pid) throws Exception
+    private void deletePidFromCache(Pid pid) throws Exception
     {
-    	PostMethod create = new PostMethod(GWDG_PIDSERVICE_CREATE);
-    	create.setParameter("url", pid.getUrl());
+    	String sql = DatabaseHelper.REMOVE_ELEMENT_STATEMENT;
+    	sql = sql.replace("XXX_IDENTIFER_XXX", pid.getIdentifier());
     	
-    	GwdgClient client = new GwdgClient();
-    	client.executeMethod(create);
-    	
-    	String pidXml = create.getResponseBodyAsString();
-    	
-    	String id = pidXml.split("<pid>")[1].split("</pid>")[0];
-    	
-    	pid.setIdentifier(id);
-    	
-    	return pid;
+    	Connection connection  = DatabaseHelper.getConnection();
+    	Statement statement = connection.createStatement();
+    	statement.executeUpdate(sql);
+		
+    	statement.close();
+        connection.close();
     }
 }
