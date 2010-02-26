@@ -142,7 +142,7 @@ public class StatisticLoggerBean implements StatisticLogger
     {
         logger.debug("Logging new user for statistics...");
         StatisticRecordVO statisticRecord = new StatisticRecordVO();
-        statisticRecord.setScope("2");
+        statisticRecord.setScope("escidoc:scope2");
         List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
         statisticRecord.setParamList(paramList);
         StatisticReportRecordParamVO actionParam = new StatisticReportRecordParamVO();
@@ -286,7 +286,7 @@ public class StatisticLoggerBean implements StatisticLogger
     {
         logger.debug("Logging new search with keywwords" + keywords);
         StatisticRecordVO statisticRecord = new StatisticRecordVO();
-        statisticRecord.setScope("2");
+        statisticRecord.setScope("escidoc:scope2");
         List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
         statisticRecord.setParamList(paramList);
         StatisticReportRecordParamVO actionParam = new StatisticReportRecordParamVO();
@@ -319,7 +319,7 @@ public class StatisticLoggerBean implements StatisticLogger
     {
         logger.debug("Logging new action " + action.toString() + "for item" + item.getVersion().getObjectId());
         StatisticRecordVO statisticRecord = new StatisticRecordVO();
-        statisticRecord.setScope("2");
+        statisticRecord.setScope("escidoc:scope2");
         List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
         statisticRecord.setParamList(paramList);
         StatisticReportRecordParamVO actionParam = new StatisticReportRecordParamVO();
@@ -366,7 +366,7 @@ public class StatisticLoggerBean implements StatisticLogger
             String solutionId, List<StatisticReportRecordParamVO> additionalParams, String userHandle) throws Exception
     {
         StatisticRecordVO statisticRecord = new StatisticRecordVO();
-        statisticRecord.setScope("2");
+        statisticRecord.setScope("escidoc:scope2");
         List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
         statisticRecord.setParamList(paramList);
         StatisticReportRecordParamVO actionParam = new StatisticReportRecordParamVO();
@@ -401,7 +401,7 @@ public class StatisticLoggerBean implements StatisticLogger
             String solutionId, List<StatisticReportRecordParamVO> additionalParams, String userHandle) throws Exception
     {
         StatisticRecordVO statisticRecord = new StatisticRecordVO();
-        statisticRecord.setScope("2");
+        statisticRecord.setScope("escidoc:scope2");
         List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
         statisticRecord.setParamList(paramList);
         StatisticReportRecordParamVO actionParam = new StatisticReportRecordParamVO();
