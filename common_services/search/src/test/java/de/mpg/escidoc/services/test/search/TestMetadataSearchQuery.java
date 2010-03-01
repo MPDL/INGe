@@ -107,7 +107,7 @@ public class TestMetadataSearchQuery
         
         String query = msq.getCqlQuery();
         logger.debug(query);
-        String expected = "( (  ( escidoc.publication.dateAccepted>=\"2008\\-05\\-15\" and escidoc.publication.dateAccepted<=\"2008\\-10\\-08\" )  ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        String expected = "( (  ( escidoc.publication.dateAccepted>=\"2008\\-05\\-15\" and ( escidoc.publication.dateAccepted<=\"2008\\-10\\-08\" not ( escidoc.publication.dateAccepted=\"2008\" )  not ( escidoc.publication.dateAccepted=\"2008\\-10\" )  ) )  ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);
         

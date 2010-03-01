@@ -30,6 +30,7 @@ package de.mpg.escidoc.services.search.query;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -116,8 +117,9 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
     {
         String fromQuery = null;
         String toQuery = null;
-        if (getSearchTerm() != null)
+        if (minor != null)
         {
+            minor = normalizeFromQuery(minor);
             QueryParser parserFrom = new QueryParser(minor,
                     booleanOperatorToString(BooleanOperator.GREATER_THAN_EQUALS));
             parserFrom.addCQLIndex(index);
@@ -125,10 +127,18 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
         }
         if (major != null)
         {
-            QueryParser parserTo = new QueryParser(major, 
+            String[] majorParts = normalizeToQuery(major);
+            QueryParser parserTo = new QueryParser(majorParts[0], 
                     booleanOperatorToString(BooleanOperator.LESS_THAN_EQUALS));
             parserTo.addCQLIndex(index);
             toQuery = parserTo.parse();
+            for (int i = 1; i < majorParts.length; i++)
+            {
+                QueryParser parserNotTo = new QueryParser(majorParts[i], 
+                        booleanOperatorToString(BooleanOperator.EQUALS));
+                parserNotTo.addCQLIndex(index);
+                toQuery += " " + CQL_NOT + " ( " + parserNotTo.parse() + " ) ";
+            }
         }
         
         StringBuffer buffer = new StringBuffer();
@@ -144,11 +154,109 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
         }
         else
         {
-            buffer.append(" ( " + fromQuery + " " + CQL_AND + " " + toQuery + " ) ");
+            buffer.append(" ( " + fromQuery + " " + CQL_AND + " ( " + toQuery + " ) ) ");
         }
         return buffer.toString();
     }
     
+    private String normalizeFromQuery(String fromQuery)
+    {
+        if (fromQuery == null)
+        {
+            return null;
+        }
+        else if (fromQuery.matches("\\d\\d\\d\\d"))
+        {
+            return fromQuery;
+        }
+        else if (fromQuery.matches("\\d\\d\\d\\d-\\d\\d"))
+        {
+            String[] parts = fromQuery.split("-");
+            if ("01".equals(parts[1]))
+            {
+                return parts[0];
+            }
+            else
+            {
+                return fromQuery;
+            }
+        }
+        else if (fromQuery.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d"))
+        {
+            String[] parts = fromQuery.split("-");
+            if ("01".equals(parts[2]))
+            {
+                if ("01".equals(parts[1]))
+                {
+                    return parts[0];
+                }
+                else
+                {
+                    return parts[0] + "-" + parts[1];
+                }
+            }
+            else
+            {
+                return fromQuery;
+            }
+        }
+        else
+        {
+            return fromQuery;
+        }
+    }
+    
+    private String[] normalizeToQuery(String toQuery)
+    {
+        if (toQuery == null)
+        {
+            return null;
+        }
+        else if (toQuery.matches("\\d\\d\\d\\d"))
+        {
+            return new String[]{toQuery + "-12-31"};
+        }
+        else if (toQuery.matches("\\d\\d\\d\\d-\\d\\d"))
+        {
+            String[] parts = toQuery.split("-");
+            if ("12".equals(parts[1]))
+            {
+                return new String[]{toQuery + "-31"};
+            }
+            else
+            {
+                return new String[]{toQuery + "-31", parts[0]};
+            }
+        }
+        else if (toQuery.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d"))
+        {
+            String[] parts = toQuery.split("-");
+            // Get last day of month
+            if ("31".equals(parts[2]) && "12".equals(parts[1]))
+            {
+                return new String[]{toQuery};
+            }
+            else
+            {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]) - 1, Integer.parseInt(parts[2]));
+                int maximumDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+                if (Integer.parseInt(parts[2]) == maximumDay)
+                {
+                    return new String[]{toQuery, parts[0]};
+                }
+                else
+                {
+                    return new String[]{toQuery, parts[0], parts[0] + "-" + parts[1]};
+                }
+            }
+        }
+        else
+        {
+            return new String[]{toQuery};
+        }
+    }
+
     private String getMajorSearchTerm() {
         return this.majorSearchTerm;
     }
