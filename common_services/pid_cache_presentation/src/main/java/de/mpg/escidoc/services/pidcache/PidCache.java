@@ -48,32 +48,29 @@ import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
  *
  */
 public class PidCache
-{
-    public static String GWDG_PIDSERVICE_CREATE = null;
-    public static String GWDG_PIDSERVICE_VIEW = null;
-    public static String GWDG_PIDSERVICE_FIND = null;
-	
-    
-    public PidCache() throws Exception
+{    
+    public PidCache() 
     {
-    	GWDG_PIDSERVICE_CREATE = PropertyReader.getProperty("escidoc.pid.gwdg.create.url");
-    	GWDG_PIDSERVICE_VIEW = PropertyReader.getProperty("escidoc.pid.gwdg.view.url");
-    	GWDG_PIDSERVICE_FIND = PropertyReader.getProperty("escidoc.pid.gwdg.search.url");
+    	
 	}
     
     /**
      * This method does the following:
-     *  - Take a Pid from the cache
-     *  - Invoke the following (asynchronous) workflow:
-     *      - Change the URL of the Pid in the Handle system.
-     *      - Add a new PID to the cache.
-     *  - Return the Pid
+     *  - Take a PID from the cache
+     *  - Change the URL of the PID
+     *  - Put the PID in the queue
+     *  - Delete the PID from the cache
+     *  - Return the PID
+     *  
+     *  Notes: 
+     *  - The actual editing of the PID in the GWDG service will proceed from the queue
+     *  - The cache will be completed by a new PID generated from {@link PidCacheManager}
      * 
      * @param url The URL to be registered.
      * 
-     * @return The Pid.
+     * @return The PID.
      */
-    public Pid assignPid(String url) throws Exception
+    public String assignPid(String url) throws Exception
     {
     	Pid pid = new Pid();
     	pid.setUrl(url);
@@ -83,7 +80,7 @@ public class PidCache
 		pst.setMaxRows(1);
 		pst.executeQuery();
 		ResultSet resultSet = pst.getResultSet();
-
+		
         if (resultSet.next())
         {
     	 	pid.setIdentifier(resultSet.getString("identifier"));
@@ -94,14 +91,39 @@ public class PidCache
             connection.close();
             throw new RuntimeException("No more PID in cache");
         }
-		
+        
 		pst.close();
 		
-		PidHandler handler = new PidHandler();
-		String updatedPidXml = handler.updatePid("");
+		this.editPid(pid.getIdentifier(), pid.getUrl());
+		this.deletePidFromCache(pid);
 		
-    	return pid;
+    	return "You have created a message pid=" + pid.getIdentifier() + " and url=" + pid.getUrl();
     }
+    
+    /**
+     * This method does the following:	
+     *  - Create a {@link Pid} with new values
+     *  - Add a PID in the queue to update it.
+     * 	- Return the updated PID.
+     * 
+     *  Note: 
+     *  - The actual editing of the PID in the GWDG service will proceed from the queue.
+     * 
+     * @param id
+     * @param url
+     * @return
+     * @throws Exception
+     */
+    public String editPid(String id, String url) throws Exception
+    {
+    	Pid pid = new Pid(id, url);
+    	
+    	PidQueue queue = new PidQueue();
+    	queue.addInQueue(pid);
+    	
+    	return "You have edited a message pid=" + pid.getIdentifier() + " and url=" + pid.getUrl();
+    }
+
     
     /**
      * Save a PID into the cache.
@@ -112,7 +134,7 @@ public class PidCache
     {
     	String sql = DatabaseHelper.ADD_ELEMENT_STATEMENT;
     	sql = sql.replace("XXX_IDENTIFER_XXX", pid.getIdentifier());
-    	sql = sql.replace("XXX_TIMESTAMP_XXX", Long.toString((new Date()).getTime()));
+    	sql = sql.replace("XXX_TIMESTAMP_XXX", DatabaseHelper.getTimeStamp());
     	
     	Connection connection  = DatabaseHelper.getConnection();
     	Statement statement = connection.createStatement();

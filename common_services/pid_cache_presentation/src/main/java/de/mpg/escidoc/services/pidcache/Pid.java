@@ -44,6 +44,26 @@ public class Pid
     private String identifier;
     
     /**
+     * Default constructor
+     */
+    public Pid() 
+    {
+		
+	}
+    
+    /**
+     * Constructor with parameters
+     * 
+     * @param identifier
+     * @param url
+     */
+    public Pid(String identifier, String url)
+    {
+    	this.identifier = identifier;
+    	this.url = url;
+    }
+    
+    /**
      * @return the url
      */
     public String getUrl()

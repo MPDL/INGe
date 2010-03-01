@@ -32,6 +32,8 @@ package de.mpg.escidoc.services.pidcache.util;
 
 import java.sql.Connection;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -47,13 +49,24 @@ import javax.sql.DataSource;
  */
 public class DatabaseHelper
 {
+	// Initial statement to create tables
 	public static final String CREATE_TABLES_STATEMENT = 
 	    "CREATE TABLE ESCIDOC_PID_CACHE (identifier VARCHAR NOT NULL PRIMARY KEY, created TIMESTAMP);\n" +
-	    "CREATE TABLE ESCIDOC_PID_QUEUE (identifier VARCHAR NOT NULL PRIMARY KEY, url VARCHAR NOT NULL PRIMARY KEY, created TIMESTAMP);";
-    public static final String GET_ID_FIRST_ELEMENT_STATEMENT = "SELECT IDENTIFIER FROM ESCIDOC_PID_CACHE";
-    public static final String ADD_ELEMENT_STATEMENT = "INSERT INTO ESCIDOC_PID_CACHE VALUES ('XXX_IDENTIFER_XXX', XXX_TIMESTAMP_XXX)";
-    public static final String REMOVE_ELEMENT_STATEMENT= "DELETE FROM ESCIDOC_PID_CACHE WHERE IDENTIFIER = 'XXX_IDENTIFER_XXX'";
-
+	    "CREATE TABLE ESCIDOC_PID_QUEUE (identifier VARCHAR NOT NULL PRIMARY KEY, url VARCHAR NOT NULL, created TIMESTAMP);";
+    
+	// Statements for pid cache table
+	public static final String GET_ID_FIRST_ELEMENT_STATEMENT = 
+		"SELECT IDENTIFIER FROM ESCIDOC_PID_CACHE";
+    public static final String ADD_ELEMENT_STATEMENT = 
+    	"INSERT INTO ESCIDOC_PID_CACHE VALUES ('XXX_IDENTIFER_XXX', XXX_TIMESTAMP_XXX)";
+    public static final String REMOVE_ELEMENT_STATEMENT= 
+    	"DELETE FROM ESCIDOC_PID_CACHE WHERE IDENTIFIER = 'XXX_IDENTIFER_XXX'";
+    
+    // Statements for pid queue table
+    public static final String ADD_QUEUE_ELEMENT_STATEMENT = 
+    	"INSERT INTO ESCIDOC_PID_QUEUE VALUES ('XXX_IDENTIFER_XXX', 'XXX_URL_XXX', 'XXX_TIMESTAMP_XXX')";
+    public static final String REMOVE_QUEUE_ELEMENT_STATEMENT = 
+    	"DELETE FROM ESCIDOC_PID_QUEUE WHERE IDENTIFIER = 'XXX_IDENTIFIER_XXX'";
     
     /**
      * Get the connection to the cache table
@@ -79,5 +92,18 @@ public class DatabaseHelper
         
         statement.close();
         connection.close();
+    }
+    
+    /**
+     * Return a formatted timestamp of the current time
+     *
+     * @return
+     */
+    public static String getTimeStamp()
+    {
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+    	Date date = new Date(new Date().getTime());
+    	
+    	return dateFormat.format(date);
     }
 }

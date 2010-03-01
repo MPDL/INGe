@@ -92,17 +92,27 @@ public class MainServlet extends HttpServlet
      */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {        
-        if (req.getParameter("url") == null) 
+    	if (req.getParameter("url") == null) 
         {
         	throw new RuntimeException("No 'url' parameter!");
 		}
-        
+    	
+    	PidCache cache = new PidCache();
+    	
         try 
         {
-        	PidCache cache = new PidCache();
-        	xmltransforming xmltransforming = new xmltransforming();
-			String pidXml = xmltransforming.transformtoPidXml(cache.assignPid(req.getParameter("url")));
-        	resp.getWriter().append(pidXml);
+        	if (PidHandler.GWDG_PIDSERVICE_CREATE.equals(req.getPathInfo())) 
+            {
+        		resp.getWriter().append(cache.assignPid(req.getParameter("url")));
+    		}
+        	else if (PidHandler.GWDG_PIDSERVICE_EDIT.equals(req.getPathInfo())) 
+        	{
+        		resp.getWriter().append(cache.editPid(req.getParameter("pid"), req.getParameter("url")));
+    		}
+        	else 
+        	{
+        		throw new ServletException("This path '" + req.getPathInfo() + "' is not valid for POST method");
+			}
 		} 
         catch (Exception e) 
         {
@@ -115,7 +125,6 @@ public class MainServlet extends HttpServlet
      */
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        // TODO Auto-generated method stub
         super.doPut(req, resp);
     }
     
