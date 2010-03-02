@@ -127,18 +127,6 @@ public class Navigation extends FacesBean
     }
 
     /**
-     * loads the affiliation tree page.
-     *
-     * @return String navigation string (JSF navigation) to load the affiliation tree page.
-     */
-    public String loadAffiliationTree()
-    {
-        
-        this.getAffiliationBean().setSource(null);
-        return AffiliationBean.LOAD_AFFILIATION_TREE;
-    }
-
-    /**
      * loads the help page.
      *
      * @return String navigation string (JSF navigation) to load the help page.

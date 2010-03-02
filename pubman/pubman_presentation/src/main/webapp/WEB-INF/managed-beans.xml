@@ -347,6 +347,11 @@
 		<managed-bean-name>SubmissionPage</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.SubmissionPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>	
+	<managed-bean>
+		<managed-bean-name>BrowseByPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.BrowseByPage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>		
 	<managed-bean>
 		<managed-bean-name>ContextListSessionBean</managed-bean-name>
@@ -553,4 +558,9 @@
         <managed-bean-class>de.mpg.escidoc.pubman.statistics.StatisticSessionBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+		<managed-bean-name>BrowseBySessionBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.browseBy.BrowseBySessionBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 </faces-config>

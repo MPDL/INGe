@@ -36,7 +36,7 @@
 		<h:outputText value="#{lbl.adv_search_lbHeaderGenre}" />
 	</h3>
 	<span class="seperator"></span>
-	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
+	<div class="free_area0 itemBlockContent hideAdvSearchGenreBlockIfVoid endline">
 
 <!-- Start Genre -->
 		<tr:iterator id="genreCriterion" var="genreCriterionBean" value="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.genreCriterionIterator}" varStatus="index">
@@ -133,7 +133,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<a class="large_area0 tiny_marginRIncl checkAll"><h:outputText value="#{lbl.adv_search_btAll}" /></a>
-					<span class="free_area0 checkboxDoubleGroup2">
+					<span class="free_area0 checkboxDoubleGroup">
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchArticlesMultiple" value="#{genreCriterionBean.searchArticle}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_article}" for="genreCriterionBean_searchArticles" />
@@ -226,14 +226,13 @@
 
 <!-- Start Degree -->
 		<tr:iterator id="degreeCriterion" var="degreeCriterionBean" value="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.degreeCriterionIterator}" varStatus="index">
-				
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" >
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<span class="noDisplay"> </span>
+					<h:outputText value="#{lbl.EditItem_lblDegreeType}" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblDegreeType}" />
-					<span class="free_area0 checkboxDoubleGroup2">
+					
+					<span class="free_area0">
 							<span class="large_checkbox tiny_marginRIncl">
 								<h:selectBooleanCheckbox id="degreeCriterionBean_diploma" value="#{degreeCriterionBean.searchDiploma}" />
 								<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_DIPLOMA}" />
