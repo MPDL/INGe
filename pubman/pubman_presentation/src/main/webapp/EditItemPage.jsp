@@ -166,9 +166,13 @@
 							<jsp:directive.include file="editItem/LegalCaseGroup.jspf" />
 							<jsp:directive.include file="editItem/SourceGroup.jspf" />
 
-							<div class="free_area0 xTiny_marginLIncl"><h:outputText value="* #{msg.mandatoryField}" styleClass="mandatory"/></div>
-						 
+							<div class="free_area0 xTiny_marginLIncl">
+								<h:outputText value="* " />
+								<h:commandLink id="lnkValidate2"  value="#{msg.mandatoryFieldFS1}" action="#{EditItem.validate}"/>
+								<h:outputText value="#{msg.mandatoryFieldFS2}" />
+							</div>			 
 						</div>
+						
 						<div class="full_area0 formButtonArea">
 							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.EditItem_lnkCancel}" action="#{EditItem.cancel}"/>
 							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkDelete" binding ="#{EditItem.lnkDelete}" immediate="true"  value="#{lbl.EditItem_lnkDelete}" onmousedown="if(!confirmDelete('form1:EditItem'))return false;" action="#{EditItem.delete}"/>
