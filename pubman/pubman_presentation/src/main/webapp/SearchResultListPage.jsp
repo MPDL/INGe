@@ -145,7 +145,7 @@
 							<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
 								<!-- Subheadline starts here -->
 									<h:outputLink id="lnkAdvancedSearchPage" styleClass="free_area0 xTiny_marginRIncl" value="AdvancedSearchPage.jsp"><h:outputText id="lblSearchResultList_lblAdvancedSearch1" value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>
-									<a class="free_area0" href="#" onclick="$(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $(this).hide();"><h:outputText id="lblShowQuery" value="Show Query"/></a>
+									<a class="free_area0" href="#" onclick="$(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $(this).hide();"><h:outputText id="lblShowQuery" value="#{lbl.ShowQuery}"/></a>
 								<!-- Subheadline ends here -->
 							</h:panelGroup>
 
