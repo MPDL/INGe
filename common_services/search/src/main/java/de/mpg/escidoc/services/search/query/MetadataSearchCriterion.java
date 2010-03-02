@@ -38,7 +38,7 @@ public class MetadataSearchCriterion implements Serializable
         TITLE, ANY, ANY_INCLUDE, ABSTRACT, PERSON, PERSON_ROLE, ORGANIZATION, ORGANIZATION_PIDS, GENRE, DATE_ANY,
         DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, TOPIC,
         SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CONTEXT_NAME, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE,
-        COMPONENT_ACCESSABILITY, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY, LOCAL_TAG, COPYRIGHT_DATE, 
+        COMPONENT_ACCESSABILITY, COMPONENT_STORAGE, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY, LOCAL_TAG, COPYRIGHT_DATE, 
         EMBARGO_DATE, DEGREE
     };
 
@@ -128,6 +128,8 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_OBJECT_TYPE = "escidoc.objecttype";
     /** Index for component availability. */
     private static final String INDEX_COMPONENT_ACCESSIBILITY = "escidoc.component.creation-date";
+    
+    private static final String INDEX_COMPONENT_STORAGE = "escidoc.component.content.storage";
     /** Index for component visibility. */
     private static final String INDEX_COMPONENT_VISIBILITY = "escidoc.component.visibility";
     /** Index for component content category. */
@@ -453,6 +455,9 @@ public class MetadataSearchCriterion implements Serializable
                 break;
             case COMPONENT_ACCESSABILITY:
                 indexes.add(INDEX_COMPONENT_ACCESSIBILITY);
+                break;
+            case COMPONENT_STORAGE:
+                indexes.add(INDEX_COMPONENT_STORAGE);
                 break;
             case COMPONENT_VISIBILITY:
                 indexes.add(INDEX_COMPONENT_VISIBILITY);
