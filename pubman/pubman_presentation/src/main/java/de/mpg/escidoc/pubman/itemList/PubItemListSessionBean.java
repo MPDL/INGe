@@ -202,7 +202,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     /**
      * The currently selected sorting criteria.
      */
-    private String selectedSortBy = SORT_CRITERIA.MODIFICATION_DATE.name();
+    private String selectedSortBy;
     
     /**
      * The currently selected sort order
