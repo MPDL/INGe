@@ -31,6 +31,7 @@
 package de.mpg.escidoc.services.pidcache.util;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -55,14 +56,18 @@ public class DatabaseHelper
 	    "CREATE TABLE ESCIDOC_PID_QUEUE (identifier VARCHAR NOT NULL PRIMARY KEY, url VARCHAR NOT NULL, created TIMESTAMP);";
     
 	// Statements for pid cache table
-	public static final String GET_ID_FIRST_ELEMENT_STATEMENT = 
-		"SELECT IDENTIFIER FROM ESCIDOC_PID_CACHE";
+	public static final String GET_CACHE_FIRST_ELEMENT_STATEMENT = 
+		"SELECT * FROM ESCIDOC_PID_CACHE";
     public static final String ADD_ELEMENT_STATEMENT = 
     	"INSERT INTO ESCIDOC_PID_CACHE VALUES ('XXX_IDENTIFER_XXX', XXX_TIMESTAMP_XXX)";
     public static final String REMOVE_ELEMENT_STATEMENT= 
     	"DELETE FROM ESCIDOC_PID_CACHE WHERE IDENTIFIER = 'XXX_IDENTIFER_XXX'";
+    public static final String CACHE_SIZE_STATEMENT =
+    	"SELECT COUNT(*) FROM ESCIDOC_PID_CACHE";
     
     // Statements for pid queue table
+    public static final String GET_QUEUE_FIRST_ELEMENT_STATEMENT =
+    	"SELECT * FROM ESCIDOC_PID_QUEUE";
     public static final String ADD_QUEUE_ELEMENT_STATEMENT = 
     	"INSERT INTO ESCIDOC_PID_QUEUE VALUES ('XXX_IDENTIFER_XXX', 'XXX_URL_XXX', 'XXX_TIMESTAMP_XXX')";
     public static final String REMOVE_QUEUE_ELEMENT_STATEMENT = 
@@ -82,13 +87,27 @@ public class DatabaseHelper
     
     /**
      * Create the cache table.
+     * @throws SQLException 
      * @throws Exception
      */
-    public static void createTable() throws Exception
+    public static void createTable() throws SQLException
     {
-        Connection connection = getConnection();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(CREATE_TABLES_STATEMENT);
+        Connection connection = null;
+        Statement statement = null;
+		
+        try 
+		{
+				connection = getConnection();
+				statement = connection.createStatement();
+		        statement.executeUpdate(CREATE_TABLES_STATEMENT);
+		} 
+        catch (Exception e) 
+		{
+        	statement.close();
+            connection.close();
+            //throw new RuntimeException(e);
+		}
+       
         
         statement.close();
         connection.close();

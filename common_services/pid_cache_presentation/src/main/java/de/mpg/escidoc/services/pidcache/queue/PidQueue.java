@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.pidcache;
+package de.mpg.escidoc.services.pidcache.queue;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
 
+import de.mpg.escidoc.services.pidcache.Pid;
 import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
 
 /**
@@ -16,6 +17,35 @@ import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
  */
 public class PidQueue 
 {	
+
+	public Pid getFirstPidFromQueue() throws Exception
+	{
+		Pid pid = new Pid();
+		
+		String sql = DatabaseHelper.GET_QUEUE_FIRST_ELEMENT_STATEMENT;
+    	
+    	Connection connection  = DatabaseHelper.getConnection();
+    	Statement statement = connection.createStatement();
+    	statement.setMaxRows(1);
+    	ResultSet resultSet = statement.executeQuery(sql);
+    	
+    	 if (resultSet.next())
+         {
+    		pid.setIdentifier(resultSet.getString("identifier"));
+ 			pid.setUrl( resultSet.getString("url"));
+ 	 		connection.close();
+         }
+         else
+         {
+        	 connection.close();
+             return null;
+         }
+		
+    	statement.close();
+		
+		return pid;
+	}
+	
 	/**
 	 * Add a PID to the queue
 	 * 
@@ -44,7 +74,7 @@ public class PidQueue
 	public void removeFromQueue(Pid pid) throws Exception
 	{
 		String sql = DatabaseHelper.REMOVE_QUEUE_ELEMENT_STATEMENT;
-    	sql = sql.replace("XXX_IDENTIFER_XXX", pid.getIdentifier());
+    	sql = sql.replace("XXX_IDENTIFIER_XXX", pid.getIdentifier());
     	
     	Connection connection  = DatabaseHelper.getConnection();
     	Statement statement = connection.createStatement();

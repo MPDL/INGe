@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.pidcache.util;
+package de.mpg.escidoc.services.pidcache.gwdg;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;

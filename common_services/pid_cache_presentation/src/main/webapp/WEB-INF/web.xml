@@ -8,9 +8,16 @@
 		<servlet-class>de.mpg.escidoc.services.pidcache.web.MainServlet</servlet-class>
 	</servlet>
 	
-	<servlet-mapping>
-		<url-pattern>/handle/*</url-pattern>
-		<servlet-name>MainServlet</servlet-name>
-	</servlet-mapping>
+	<servlet>
+		<servlet-name>InitializerServlet</servlet-name>
+		<display-name>InitializerServlet</display-name>
+		<servlet-class>de.mpg.escidoc.services.pidcache.init.InitializerServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 	
+	<servlet-mapping>
+		<servlet-name>MainServlet</servlet-name>
+		<url-pattern>/handle/*</url-pattern>
+	</servlet-mapping>
+		
 </web-app>

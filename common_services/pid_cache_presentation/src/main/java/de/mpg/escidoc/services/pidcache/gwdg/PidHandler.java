@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.pidcache;
+package de.mpg.escidoc.services.pidcache.gwdg;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -12,7 +12,6 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.pidcache.util.GwdgClient;
 
 /**
  * Handler for the PID Manager at the GWDG
@@ -115,7 +114,7 @@ public class PidHandler
 	 * @return
 	 * @throws Exception 
 	 */
-	public String updatePid(String url, String id) throws Exception 
+	public String updatePid(String id, String url) throws Exception 
 	{
 		PostMethod update = new PostMethod(GWDG_PIDSERVICE.concat(GWDG_PIDSERVICE_EDIT).concat("?pid=").concat(id));
     	update.setParameter("url", url);

@@ -39,9 +39,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.HttpClient;
 
-import de.mpg.escidoc.services.pidcache.PidCache;
-import de.mpg.escidoc.services.pidcache.PidHandler;
 import de.mpg.escidoc.services.pidcache.xmltransforming;
+import de.mpg.escidoc.services.pidcache.cache.PidCache;
+import de.mpg.escidoc.services.pidcache.gwdg.PidHandler;
 import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
 
 /**
