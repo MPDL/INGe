@@ -55,27 +55,6 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 &lt;http://purl.org/dc/terms/publisher&gt;
 			</pattern>
 		</result>
-		<samples>
-			<sample>
-				<description>Find journal names matching 'bio', e.g. 'Microbiology', 'Biometrics'.</description>
-				<method>
-					<name>query</name>
-					<parameters>
-						<parameter name="q">bio</parameter>
-					</parameters>
-				</method>
-			</sample>
-			<sample>
-				<description>Retrieve details about the "Journal of Endocrinological Investigation".</description>
-				<method>
-					<name>details</name>
-					<parameters>
-						<parameter name="id">954925529888</parameter>
-					</parameters>
-				</method>
-			</sample>
-		</samples>
-		<example_page>../jquery_journals.jsp</example_page>
 	</model>
 	<model>
 		<name>iso639-3</name>
@@ -94,19 +73,6 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 			</pattern>
 		</result>
 		<description>Languages</description>
-		<samples>
-			<sample>
-				<description>Find languages matching 'mal', given in french.</description>
-				<method>
-					<name>query</name>
-					<parameters>
-						<parameter name="q">mal</parameter>
-						<parameter name="lang">fr</parameter>
-					</parameters>
-				</method>
-			</sample>
-		</samples>
-		<example_page>../jquery_languages.jsp</example_page>
 	</model>
 	<model>
 		<name>iso639-1</name>
@@ -123,19 +89,6 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 			</pattern>
 		</result>
 		<description>Languages</description>
-		<samples>
-			<sample>
-				<description>Find languages matching 'mal', given in french.</description>
-				<method>
-					<name>query</name>
-					<parameters>
-						<parameter name="q">mal</parameter>
-						<parameter name="lang">fr</parameter>
-					</parameters>
-				</method>
-			</sample>
-		</samples>
-		<example_page>../jquery_languages.jsp</example_page>
 	</model>
 	<model>
 		<name>persons</name>
@@ -199,17 +152,6 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 			</pattern>
 		</result>
 		<description>Persons</description>
-		<samples>
-			<sample>
-				<description>Find persons matching 'Berkum'.</description>
-				<method>
-					<name>query</name>
-					<parameters>
-						<parameter name="q">Berkum</parameter>
-					</parameters>
-				</method>
-			</sample>
-		</samples>
 	</model>
 	<model>
 		<name>ddc</name>
@@ -229,19 +171,6 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 			</pattern>
 		</result>
 		<description>DDC Subjects</description>
-		<samples>
-			<sample>
-				<description>Find subjects matching 'Computer', given in english.</description>
-				<method>
-					<name>query</name>
-					<parameters>
-						<parameter name="q">Computer</parameter>
-						<parameter name="lang">en</parameter>
-					</parameters>
-				</method>
-			</sample>
-		</samples>
-		<!-- <example_page>../jquery_languages.jsp</example_page> -->
 	</model>
 	<model>
 		<name>mimetypes</name>
@@ -258,18 +187,6 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 			</pattern>
 		</result>
 		<description>IANA Mimetypes</description>
-		<samples>
-			<sample>
-				<description>Find subjects matching 'Computer', given in english.</description>
-				<method>
-					<name>query</name>
-					<parameters>
-						<parameter name="q">xml</parameter>
-					</parameters>
-				</method>
-			</sample>
-		</samples>
-		<!-- <example_page>../jquery_languages.jsp</example_page> -->
 	</model>
 	<model>
 		<name>escidocmimetypes</name>
@@ -287,15 +204,6 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 			</pattern>
 		</result>
 		<description>Allowed eSciDoc Mimetypes</description>
-		<samples>
-			<sample>
-				<description>Return the whole list of allowed mimetypes.</description>
-				<method>
-					<name>all</name>
-				</method>
-			</sample>
-		</samples>
-		<!-- <example_page>../jquery_languages.jsp</example_page> -->
 	</model>
 	<model>
 		<name>cclicenses</name>
@@ -325,14 +233,6 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 			</pattern>
 		</result>
 		<description>CreativeCommons licenses</description>
-		<samples>
-			<sample>
-				<description>Return the whole list of CreativeCommons licenses.</description>
-				<method>
-					<name>all</name>
-				</method>
-			</sample>
-		</samples>
 	</model>
 	<config>
 		<default-namespace uri="http://purl.org/dc/elements/1.1/" prefix="dc"/>
