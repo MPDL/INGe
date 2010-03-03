@@ -1,0 +1,141 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+            f�r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur F�rderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+
+<!-- Character select -->
+<div class="full_area0 fullItem itemHeader">
+	<h:panelGroup styleClass="full_area0 itemHeader noTopBorder" rendered="#{(BrowseBySessionBean.showChars == true) && (BrowseBySessionBean.selectedValue != 'year')}">
+		<span class="xLarge_area0_p8 blockHeader">
+			<h:outputText id="lblBrowseBy_txtChar" value="#{lbl.BrowseByChooseInitial}"/>
+		</span>
+		<h:panelGroup styleClass="seperator" />
+		<span class="free_area0_p8 itemHeadline">
+			<tr:iterator var="char" id="charIter" value="#{BrowseByPage.browseByCharacters}" binding="#{BrowseByPage.characterIterator}" varStatus="index" rows="0">
+				<b>
+					<tr:commandButton id="lnkChar" styleClass="free_txtBtn groupBtn" text="#{char}" action="#{BrowseByPage.startCharacterSearch}" immediate="true"/>
+				</b>
+			</tr:iterator>
+		</span>
+	</h:panelGroup>
+<!-- Character Search Result -->
+<!-- Year select -->
+	<h:panelGroup styleClass="full_area0 itemHeader noTopBorder" rendered="#{BrowseBySessionBean.selectedValue == 'year'}">
+		<span class="xLarge_area0_p8 blockHeader">
+			<h:outputText id="lblBrowseBy_txtYear" value="#{lbl.BrowseByChooseYear }"/>
+		</span>
+		<h:panelGroup styleClass="seperator" />
+		<span class="full_area0_p0 itemHeadline">
+		<span class="full_area0_p0">
+			&#160;
+		</span>
+			<h:selectOneRadio id="selSelectDate" styleClass="large_radioBtn tiny_marginRIncl xHuge_area0"  value="published" binding="#{BrowseBySessionBean.dateSelect}" 
+							  valueChangeListener="#{BrowseByPage.dateTypeChanged}" onclick="submit();">										
+				<f:selectItems id="selDateOptions" value="#{BrowseBySessionBean.DATE_OPTIONS}"/>
+			</h:selectOneRadio>
+		</span>
+		<span class="full_area0_p0 itemHeadline">
+			&#160;
+		</span>
+	</h:panelGroup>
+<!-- Character Search Result -->
+<!-- Display link list devided into seperate characters -->
+	<h:panelGroup styleClass="full_area0 itemBlock" rendered="#{(BrowseBySessionBean.showChars == true) && (BrowseBySessionBean.selectedValue != 'year')}">
+		<span class="xLarge_area0_p8 blockHeader endline">
+			<h:outputText id="lblBrowseBy_txtCreatorChar" value="#{lbl.BrowseByInitial} #{BrowseBySessionBean.currentCharacter}"/>
+		</span>
+		<h:panelGroup styleClass="seperator" />
+		<div class="free_area0 itemBlockContent endline">
+			<tr:iterator var="link" id="linkIter" value="#{BrowseBySessionBean.searchResults}" varStatus="index" rows="0">
+				<div class="free_area0 itemLine noTopBorder">
+					<!-- This one is only valid for cone identifier, other values from cone are not populated with the url -->
+					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.selectedValue == 'persons'}">									
+						<h:outputLink id="lnkLink" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{BrowseByPage.coneUrl}/persons/resource/#{link.value}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22escidoc%3Apersistent4%22+)">
+							<h:outputText value="#{link.label}"/>
+						</h:outputLink>
+						<h:outputLink id="lnkPersonPortfolioLink" styleClass="authorCard" value="#{BrowseByPage.portfolioLink}#{link.value}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+					</h:panelGroup>	
+					<!-- Link for other values then persons -->	
+					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.selectedValue != 'persons'}">									
+						<h:outputLink id="lnkLink2" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{link.label}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22escidoc%3Apersistent4%22+)">								
+							<h:outputText value="#{link.label}"/>
+						</h:outputLink>
+					</h:panelGroup>					
+				</div>
+			</tr:iterator>
+		</div>
+	</h:panelGroup>
+<!-- Display full link list -->
+	<h:panelGroup styleClass="full_area0 itemBlock" rendered="#{(BrowseBySessionBean.showChars == false) && (BrowseBySessionBean.selectedValue != 'year')}">
+		<span class="xLarge_area0_p8 blockHeader endline">
+			<h:outputText id="lblBrowseBy_txtCreatorCharAll">&#160; </h:outputText>
+		</span>
+		<h:panelGroup styleClass="seperator" />
+		<div class="free_area0 itemBlockContent endline">
+			<tr:iterator var="link" id="linkIterAll" value="#{BrowseBySessionBean.coneAll}" varStatus="index" rows="0">
+				<div class="free_area0 itemLine noTopBorder">
+					<!-- This one is only valid for cone identifier, other values from cone are not populated with the url -->
+					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.selectedValue == 'persons'}">									
+						<h:outputLink id="lnkLinkAll" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{BrowseByPage.coneUrl}/persons/resource/#{link.value}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22escidoc%3Apersistent4%22+)">
+							<h:outputText value="#{link.label}"/>
+						</h:outputLink>
+						<h:outputLink id="lnkPersonPortfolioLinkAll" styleClass="authorCard" value="#{BrowseByPage.portfolioLink}#{link.value}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+					</h:panelGroup>	
+					<!-- Link for other values then persons -->	
+					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.selectedValue != 'persons'}">									
+						<h:outputLink id="lnkLink2All" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{link.label}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22escidoc%3Apersistent4%22+)">								
+							<h:outputText value="#{link.label}"/>
+						</h:outputLink>
+					</h:panelGroup>					
+				</div>
+			</tr:iterator>
+		</div>
+	</h:panelGroup>
+	<h:panelGroup styleClass="full_area0 itemBlock" rendered="#{BrowseBySessionBean.selectedValue == 'year'}">
+		<span class="xLarge_area0_p8 blockHeader endline">
+			<h:outputText id="lblBrowseBy_txtYear2">&#160; </h:outputText>
+		</span>
+		<h:panelGroup styleClass="seperator" />
+		<div class="free_area0 itemBlockContent endline">
+			<tr:iterator var="year" id="yearIter" value="#{BrowseBySessionBean.browseByYears}" binding="#{BrowseByPage.yearIterator}" varStatus="index" rows="0" >
+				<div class="small_area0 noTopBorder">
+					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.dateType == 'published'}">						
+						<h:outputLink id="searchYearPublished" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseByPage.pubYearSearchIndex}>%3D%22#{year}%22++and+(+#{BrowseByPage.pubYearSearchIndex}%3C%3D%22#{year}\-12\-31%22+)+)++or++(+#{BrowseByPage.pubOnlineYearSearchIndex}%3D%22#{year}%22+++and+(+#{BrowseByPage.pubOnlineYearSearchIndex}%3C%3D%22#{year}\-12\-31%22+)+)++and++(+escidoc.objecttype%3D%22item%22+)+and++(+escidoc.content-model.objid%3D%22escidoc%3Apersistent4%22+)+)">								
+							<h:outputText value="#{year}"/>
+						</h:outputLink>									
+					</h:panelGroup>		
+					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.dateType == 'any'}">						
+						<h:outputLink id="searchYearAny" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseByPage.anyYearSearchIndex}>%3D%22#{year}%22++and+(+#{BrowseByPage.anyYearSearchIndex}%3C%3D%22#{year}\-12\-31%22+)+)++and++(+escidoc.objecttype%3D%22item%22+)+and++(+escidoc.content-model.objid%3D%22escidoc%3Apersistent4%22+)+)">								
+							<h:outputText value="#{year}"/>
+						</h:outputLink>									
+					</h:panelGroup>		
+				</div>
+			</tr:iterator>			
+		</div>
+	</h:panelGroup>
+</div>
