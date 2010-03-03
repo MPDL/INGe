@@ -68,7 +68,8 @@
 								<h1>
 									<h:outputText id="lblBrowseBy_lblCreatorStart" value="#{lbl.BrowseByCreator}" rendered="#{BrowseByPage.selectedValue == 'persons'}"/>
 									<h:outputText id="lblBrowseBy_lblYearStart" value="#{lbl.BrowseByYear}" rendered="#{BrowseByPage.selectedValue == 'year'}"/>
-									<h:outputText id="lblBrowseBy_lblSubjectStart" value="#{lbl.BrowseByPage} #{BrowseByPage.selectedValue}" rendered="#{BrowseByPage.selectedValue != 'persons'}"/>
+									<h:outputText id="lblBrowseBy_lblSubjectStart" value="#{lbl.BrowseByPage} #{BrowseByPage.selectedValue}" 
+													rendered="#{(BrowseByPage.selectedValue != 'persons') and (BrowseByPage.selectedValue != 'year') }"/>
 								</h1>
 								<!-- Headline ends here -->
 							</div>
