@@ -97,7 +97,7 @@ public class MABImport{
     		strArr.add(matcherLine1.group());
     	}
     	
-    	Pattern pattern = Pattern.compile("(\\s{6})[0-9]\\s*(.*(\\n|\\r|\\r\\n)(\\s{14}\\s*.*(\\n|\\r|\\r\\n)?)*)");
+    	Pattern pattern = Pattern.compile("(\\s{6})[0-9]{3}\\s*(.*((\\n|\\r|\\r\\n)\\s{14}\\s*.*)*)");
     	Matcher matcher = pattern.matcher(string);   	
     	
     	while(matcher.find()){
