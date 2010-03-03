@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.Date;
 
 import de.mpg.escidoc.services.pidcache.Pid;
+import de.mpg.escidoc.services.pidcache.gwdg.PidHandler;
 import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
 
 /**
@@ -21,28 +22,22 @@ public class PidQueue
 	public Pid getFirstPidFromQueue() throws Exception
 	{
 		Pid pid = new Pid();
-		
-		String sql = DatabaseHelper.GET_QUEUE_FIRST_ELEMENT_STATEMENT;
-    	
     	Connection connection  = DatabaseHelper.getConnection();
     	Statement statement = connection.createStatement();
     	statement.setMaxRows(1);
-    	ResultSet resultSet = statement.executeQuery(sql);
-    	
-    	 if (resultSet.next())
-         {
+    	ResultSet resultSet = statement.executeQuery(DatabaseHelper.GET_QUEUE_FIRST_ELEMENT_STATEMENT);
+    	if (resultSet.next())
+    	{
     		pid.setIdentifier(resultSet.getString("identifier"));
  			pid.setUrl( resultSet.getString("url"));
  	 		connection.close();
-         }
-         else
-         {
-        	 connection.close();
-             return null;
-         }
-		
+        }
+        else
+        {
+        	connection.close();
+        	return null;
+        }
     	statement.close();
-		
 		return pid;
 	}
 	
@@ -53,8 +48,11 @@ public class PidQueue
 	 */
 	public void addInQueue(Pid pid) throws Exception
 	{
+		checkDuplicateInQueue(pid.getUrl());
+		PidHandler handler = new PidHandler();
+		handler.checkDuplicateAtGwdg(pid.getUrl());
 		String sql = DatabaseHelper.ADD_QUEUE_ELEMENT_STATEMENT;
-    	sql = sql.replace("XXX_IDENTIFER_XXX", pid.getIdentifier());
+    	sql = sql.replace("XXX_IDENTIFIER_XXX", pid.getIdentifier());
     	sql = sql.replace("XXX_URL_XXX", pid.getUrl());
     	sql = sql.replace("XXX_TIMESTAMP_XXX", DatabaseHelper.getTimeStamp());
     	
@@ -80,6 +78,29 @@ public class PidQueue
     	Statement statement = connection.createStatement();
     	statement.executeUpdate(sql);
 		
+    	statement.close();
+        connection.close();
+	}
+	
+	
+	/**
+	 * Check if that URL has already a PID.
+	 * @param pid
+	 * @throws Exception
+	 */
+	private void checkDuplicateInQueue(String url) throws Exception
+	{
+		String sql = DatabaseHelper.GET_QUEUE_ELEMENT_URL_STATEMENT;
+    	sql = sql.replace("XXX_URL_XXX", url);
+    	Connection connection  = DatabaseHelper.getConnection();
+    	Statement statement = connection.createStatement();
+    	ResultSet resultSet = statement.executeQuery(sql);
+    	if (resultSet.next()) 
+    	{
+    		statement.close();
+            connection.close();
+    		throw new RuntimeException("This URL (" + url + ") has already a PID!");
+		}
     	statement.close();
         connection.close();
 	}

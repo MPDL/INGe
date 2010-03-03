@@ -18,9 +18,7 @@ public class GwdgClient extends HttpClient
 		super();
 		this.getParams().setAuthenticationPreemptive(true);
     	Credentials defaultcreds = new UsernamePasswordCredentials(GWDG_PIDSERVICE_USER, GWDG_PIDSERVICE_PASS);
-    	this.getState().setCredentials(new AuthScope(AuthScope.ANY), defaultcreds);
-    	
-    	
+    	this.getState().setCredentials(new AuthScope(AuthScope.ANY), defaultcreds);    	
 	}
 	
 	/**
@@ -42,5 +40,4 @@ public class GwdgClient extends HttpClient
     	Credentials defaultcreds = new UsernamePasswordCredentials(GWDG_PIDSERVICE_USER, GWDG_PIDSERVICE_PASS);
     	this.getState().setCredentials(new AuthScope(host, port, realm), defaultcreds);
 	}
-
 }

@@ -69,22 +69,34 @@ public class MainServlet extends HttpServlet
      */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-    	PidHandler handler = new PidHandler();
-    	
-    	if (req.getParameter("pid") == null) 
-        {
-           	throw new RuntimeException("No 'pid' parameter!");
-   		}
-    	   
     	try 
     	{
-    		resp.getWriter().append(handler.retrievePid(req.getParameter("pid")));
+    		PidHandler handler = new PidHandler();
+    		if (PidHandler.GWDG_PIDSERVICE_VIEW.equals(req.getPathInfo())) 
+            {
+        		if (req.getParameter("pid") == null) 
+                {
+                   	throw new RuntimeException("No 'pid' parameter!");
+           		}
+        		resp.getWriter().append(handler.retrievePid(req.getParameter("pid")));
+    		}
+        	else if (PidHandler.GWDG_PIDSERVICE_FIND.equals(req.getPathInfo())) 
+        	{
+        		if (req.getParameter("url") == null) 
+                {
+                   	throw new RuntimeException("No 'url' parameter!");
+           		}
+        		resp.getWriter().append(handler.searchPid(req.getParameter("url")));
+    		}
+        	else 
+        	{
+        		throw new ServletException("This path '" + req.getPathInfo() + "' is not valid for GET method");
+			}
 		} 
     	catch (Exception e) 
     	{
     		throw new RuntimeException(e);
 		}
-    	
     }
 
     /* (non-Javadoc)
@@ -96,11 +108,10 @@ public class MainServlet extends HttpServlet
         {
         	throw new RuntimeException("No 'url' parameter!");
 		}
-    	
-    	PidCache cache = new PidCache();
-    	
         try 
         {
+        	PidCache cache = new PidCache();
+        	new PidHandler();
         	if (PidHandler.GWDG_PIDSERVICE_CREATE.equals(req.getPathInfo())) 
             {
         		resp.getWriter().append(cache.assignPid(req.getParameter("url")));

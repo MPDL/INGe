@@ -71,10 +71,9 @@ public class PidCache
     public String assignPid(String url) throws Exception
     {
     	Pid pid = getFirstPidFromCache();
-		editPid(pid.getIdentifier(), pid.getUrl());
+		String pidXml = editPid(pid.getIdentifier(),url);
 		deletePidFromCache(pid);
-		
-    	return "You have created a message pid=" + pid.getIdentifier() + " and url=" + pid.getUrl();
+    	return "You have created a message pid=" + pid.getIdentifier() + " and url=" + url;
     }
     
     /**
@@ -94,13 +93,16 @@ public class PidCache
     public String editPid(String id, String url) throws Exception
     {
     	Pid pid = new Pid(id, url);
-    	
     	PidQueue queue = new PidQueue();
     	queue.addInQueue(pid);
-    	
     	return "You have edited a message pid=" + pid.getIdentifier() + " and url=" + pid.getUrl();
     }
     
+    /**
+     * Return the first PID of the cache
+     * @return
+     * @throws Exception
+     */
     public Pid getFirstPidFromCache() throws Exception
 	{
 		Pid pid = new Pid();
@@ -108,11 +110,9 @@ public class PidCache
     	Statement statement = connection.createStatement();
     	statement.setMaxRows(1);
     	ResultSet resultSet = statement.executeQuery(DatabaseHelper.GET_CACHE_FIRST_ELEMENT_STATEMENT);
-    	
     	if (resultSet.next())
      	{
     		pid.setIdentifier(resultSet.getString("identifier"));
-    		pid.setUrl( resultSet.getString("url"));
  			connection.close();
      	}
     	else
@@ -121,7 +121,6 @@ public class PidCache
     		throw new RuntimeException("No more PID in cache");
     	}
     	statement.close();
-		
 		return pid;
 	}
 
@@ -131,16 +130,15 @@ public class PidCache
      * @param pid
      * @throws Exception
      */
-    private void savePidInCache(Pid pid) throws Exception
+    public void savePidInCache(Pid pid) throws Exception
     {
     	String sql = DatabaseHelper.ADD_ELEMENT_STATEMENT;
     	sql = sql.replace("XXX_IDENTIFIER_XXX", pid.getIdentifier());
+    	sql = sql.replace("XXX_URL_XXX", pid.getUrl());
     	sql = sql.replace("XXX_TIMESTAMP_XXX", DatabaseHelper.getTimeStamp());
-    	
     	Connection connection  = DatabaseHelper.getConnection();
     	Statement statement = connection.createStatement();
     	statement.executeUpdate(sql);
-		
     	statement.close();
         connection.close();
     }
@@ -155,11 +153,9 @@ public class PidCache
     {
     	String sql = DatabaseHelper.REMOVE_ELEMENT_STATEMENT;
     	sql = sql.replace("XXX_IDENTIFIER_XXX", pid.getIdentifier());
-    	
     	Connection connection  = DatabaseHelper.getConnection();
     	Statement statement = connection.createStatement();
     	statement.executeUpdate(sql);
-		
     	statement.close();
         connection.close();
     }

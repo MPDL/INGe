@@ -25,12 +25,20 @@ public class QueueManager
      * Logger for this class.
      */
     private static final Logger LOGGER = Logger.getLogger(Initializer.class);
+    
+    /**
+     * Default constructor
+     */
+    public QueueManager()
+    {
+    	
+    }
 	
 	/**
 	 * Run the manager.
 	 * @throws Exception 
 	 */
-	public static void run() throws Exception
+	public void empty() throws Exception
 	{
 		PidQueue queue = new PidQueue();
 		Pid pid = queue.getFirstPidFromQueue();
@@ -53,7 +61,7 @@ public class QueueManager
 	 * @param pid
 	 * @throws Exception 
 	 */
-	private static boolean update(Pid pid) throws Exception
+	private boolean update(Pid pid) throws Exception
 	{
 		PidHandler handler = new PidHandler();
 		try 

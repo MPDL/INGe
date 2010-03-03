@@ -30,9 +30,6 @@
 
 package de.mpg.escidoc.services.pidcache.init;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -40,6 +37,8 @@ import de.mpg.escidoc.services.pidcache.cache.PidCacheManager;
 import de.mpg.escidoc.services.pidcache.queue.QueueManager;
 
 /**
+ * Thread running continuously in background.
+ * Calls {@link QueueManager} and {@link PidCacheManager} run method
  * 
  * @author saquet
  *
@@ -60,13 +59,14 @@ public class RefreshTask extends Thread
         {
             int timeout = Integer.parseInt(PropertyReader.getProperty("escidoc.pid.cache.refresh.interval"));
             timeout = timeout * 1 * 1000;
+            PidCacheManager cacheManager = new PidCacheManager();
+            QueueManager queueManager = new QueueManager();
             while (!signal)
             {
             	Thread.sleep(Long.parseLong(Integer.toString(timeout)));
                 logger.info("Starting refresh of pid cache databases.");
-                Context ctx = new InitialContext();
-                QueueManager.run();
-                PidCacheManager.run();
+                queueManager.empty();
+                //cacheManager.fill();
                 logger.info("Finished refresh of pid cache databases.");
                 
             }
