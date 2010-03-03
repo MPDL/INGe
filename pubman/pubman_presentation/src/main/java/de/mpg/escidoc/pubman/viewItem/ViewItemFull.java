@@ -2553,12 +2553,18 @@ public class ViewItemFull extends FacesBean
 	}
 	
 	/**
-	 * TODO GS: Implement stub.
-	 * 
-	 * @return
+	 *  Returns a true or a false according to the existance of an legal case in the item
+	 * @return boolean
 	 */
 	public boolean getShowLegalCase()
 	{
-	    return false;
+		if(this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getLegalCase() != null)
+        {
+            return true;
+        }
+        else
+        {
+          	return false;
+        }
 	}
 }    
