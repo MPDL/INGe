@@ -111,7 +111,7 @@ public class MetadataSearchCriterion implements Serializable
     /** Index for topics. */
     private static final String INDEX_TOPIC = "escidoc.publication.subject";
     /** Index for sources. */
-    private static final String INDEX_SOURCE = "escidoc.any-source";
+    private static final String INDEX_SOURCE = "escidoc.publication.source.any.title";
     /** Index for events. */
     private static final String INDEX_EVENT = "escidoc.any-event";
     /** Index for identifiers. */
