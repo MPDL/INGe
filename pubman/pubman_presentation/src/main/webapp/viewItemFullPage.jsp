@@ -221,11 +221,11 @@
 									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl releasedItem" rendered="#{ViewItemFull.isStateReleased and !ViewItemFull.isStateWithdrawn}" />
 									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl inRevisionItem" rendered="#{ViewItemFull.isStateInRevision}" />
 									<h:outputText styleClass="noDisplay" value="Item is " />
-									<h:outputLabel id="lblItemPublicState"  styleClass="medium_label endline" style="text-align: center;" rendered="#{ViewItemFull.isStateWithdrawn}">
+									<h:outputLabel styleClass="medium_label endline" style="text-align: center;" rendered="#{ViewItemFull.isStateWithdrawn}">
 										<h:outputText value="#{ViewItemFull.itemPublicState}" />
 									</h:outputLabel>
 									<h:outputLabel styleClass="medium_label endline" style="text-align: center;" rendered="#{!ViewItemFull.isStateWithdrawn}">
-										<h:outputText id="lblItemState" value="#{ViewItemFull.itemState}" />
+										<h:outputText value="#{ViewItemFull.itemState}" />
 									</h:outputLabel>
 								</h:panelGroup>	
 							</div>
@@ -247,8 +247,8 @@
 									&#160;
 								</h3>
 								<h:panelGroup styleClass="seperator" />
-								<a class="free_area0 expand"><h:outputText id="lblViewItemFull_lblShowGroup" value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.ViewItemFull_lblAll}" /></a>
-								<a class="free_area0 collapse"><h:outputText id="lblViewItemFull_lblHideGroup" value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblAll}" /></a>
+								<a class="free_area0 expand"><h:outputText  value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.ViewItemFull_lblAll}" /></a>
+								<a class="free_area0 collapse"><h:outputText  value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblAll}" /></a>
 							</h:panelGroup>
 
 							<jsp:directive.include file="viewItem/BasicGroup.jspf" />

@@ -36,18 +36,18 @@
 		<h:outputText id="lblViewItemFull_lblBasic" value="#{lbl.ViewItemFull_lblBasic}" />
 	</h3>
 	<span class="seperator"></span>
-	<div class="free_area0  endline">
+	<h:panelGroup styleClass="free_area0 itemBlockContent endline">
 
 <%-- Citation URL --%>
 		<div class="free_area0 endline itemLine noTopBorder" >
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText id="lblViewItemFull_lblCiteItemAs" value="#{lbl.ViewItemFull_lblCiteItemAs}" /><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ViewItemFull_lblCiteItemAs}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputLink id="lnkCitationURL" value="#{ViewItemFull.citationURL}" rendered="#{!ViewItemFull.isStatePending}">
 					<h:outputText value="#{ViewItemFull.citationURL}"/>
 				</h:outputLink>	
-			<h:outputText id="lblNoEntryCitationURL" value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.isStatePending}"/>
+			<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.isStatePending}"/>
 			</span>
 			<h:panelGroup styleClass="large_area0_p8 lineToolSection socialBookmarking" rendered="#{!ViewItemFull.isStatePending}">
 				<h:graphicImage id="imgSocialBookmarkingCiteULike" title="#{lbl.ViewItemFull_lblSocialBookmarking_CiteULike}" styleClass="min_imgArea sectionTool pointer" url="http://www.informaworld.com/images/bookmarks/citeulike.gif" onclick="citeULikeLink();"/>
@@ -96,6 +96,6 @@
 		</tr:iterator>	
 	
 		<a id="lnkHideGroupBasic" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblBasic}" /></a>	
-	</div>
+	</h:panelGroup>
 	<a id="lnkShowGroupBasic" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemFull_lblBasic}" /></a>
 </h:panelGroup>
