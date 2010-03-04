@@ -30,6 +30,9 @@
 
 package de.mpg.escidoc.services.pidcache;
 
+import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
+import de.mpg.escidoc.services.pidcache.tables.Queue;
+
 /**
  * TODO Description
  *
@@ -93,6 +96,57 @@ public class Pid
     public void setIdentifier(String identifier)
     {
         this.identifier = identifier;
+    }
+    
+    /**
+     * True if PID exists at GWDG.
+     * @return
+     * @throws Exception
+     */
+    public boolean exists() throws Exception
+    {
+    	GwdgPidService gwdgPidService = new GwdgPidService();
+    	xmltransforming xmltransforming = new xmltransforming();
+    	String pidXml = gwdgPidService.retrieve(identifier);
+    	try 
+    	{
+			xmltransforming.transFormToPid(pidXml);
+		}
+		catch (Exception e) 
+		{
+			return false;
+		}
+    	return true;
+    }
+    
+    /**
+     * True if URL of the PID is not already allocated to another PID.
+     * @return
+     * @throws Exception
+     */
+    public boolean hasFreeUrl() throws Exception
+    {
+    	PidCacheService pidCacheService = new PidCacheService();
+    	xmltransforming xmltransforming = new xmltransforming();
+    	try 
+    	{
+			xmltransforming.transFormToPid(pidCacheService.search(url));
+		}
+		catch (Exception e) 
+		{
+			return true;
+		}
+    	return false;
+    }
+    
+    /**
+     * Transform the PID into an XML string.
+     * @return
+     */
+    public String asXmlString()
+    {
+    	xmltransforming xmltransforming = new xmltransforming();
+    	return xmltransforming.transformtoPidXml(this);
     }
     
     

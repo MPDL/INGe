@@ -28,14 +28,15 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.pidcache.cache;
+package de.mpg.escidoc.services.pidcache.tables;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pidcache.Pid;
-import de.mpg.escidoc.services.pidcache.queue.PidQueue;
+import de.mpg.escidoc.services.pidcache.process.CacheProcess;
 import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
 
 /**
@@ -46,64 +47,21 @@ import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class PidCache
+public class Cache
 {    
-    public PidCache() 
+	public static int SIZE_MAX = 0;
+	
+    public Cache() throws Exception
     {
+    	SIZE_MAX = Integer.parseInt(PropertyReader.getProperty("escidoc.pid.cache.size.max"));
 	}
-    
-    /**
-     * This method does the following:
-     *  - Take a PID from the cache
-     *  - Change the URL of the PID
-     *  - Put the PID in the queue
-     *  - Delete the PID from the cache
-     *  - Return the PID
-     *  
-     *  Notes: 
-     *  - The actual editing of the PID in the GWDG service will proceed from the queue
-     *  - The cache will be completed by a new PID generated from {@link PidCacheManager}
-     * 
-     * @param url The URL to be registered.
-     * 
-     * @return The PID.
-     */
-    public String assignPid(String url) throws Exception
-    {
-    	Pid pid = getFirstPidFromCache();
-		String pidXml = editPid(pid.getIdentifier(),url);
-		deletePidFromCache(pid);
-    	return "You have created a message pid=" + pid.getIdentifier() + " and url=" + url;
-    }
-    
-    /**
-     * This method does the following:	
-     *  - Create a {@link Pid} with new values
-     *  - Add a PID in the queue to update it.
-     * 	- Return the updated PID.
-     * 
-     *  Note: 
-     *  - The actual editing of the PID in the GWDG service will proceed from the queue.
-     * 
-     * @param id
-     * @param url
-     * @return
-     * @throws Exception
-     */
-    public String editPid(String id, String url) throws Exception
-    {
-    	Pid pid = new Pid(id, url);
-    	PidQueue queue = new PidQueue();
-    	queue.addInQueue(pid);
-    	return "You have edited a message pid=" + pid.getIdentifier() + " and url=" + pid.getUrl();
-    }
-    
+
     /**
      * Return the first PID of the cache
      * @return
      * @throws Exception
      */
-    public Pid getFirstPidFromCache() throws Exception
+    public Pid getFirst() throws Exception
 	{
 		Pid pid = new Pid();
     	Connection connection  = DatabaseHelper.getConnection();
@@ -123,14 +81,13 @@ public class PidCache
     	statement.close();
 		return pid;
 	}
-
     
     /**
      * Save a PID into the cache.
      * @param pid
      * @throws Exception
      */
-    public void savePidInCache(Pid pid) throws Exception
+    public void add(Pid pid) throws Exception
     {
     	String sql = DatabaseHelper.ADD_ELEMENT_STATEMENT;
     	sql = sql.replace("XXX_IDENTIFIER_XXX", pid.getIdentifier());
@@ -149,7 +106,7 @@ public class PidCache
      * @param pid
      * @throws Exception
      */
-    private void deletePidFromCache(Pid pid) throws Exception
+    public void remove(Pid pid) throws Exception
     {
     	String sql = DatabaseHelper.REMOVE_ELEMENT_STATEMENT;
     	sql = sql.replace("XXX_IDENTIFIER_XXX", pid.getIdentifier());
@@ -158,5 +115,25 @@ public class PidCache
     	statement.executeUpdate(sql);
     	statement.close();
         connection.close();
+    }
+    
+    /**
+     * Current Size of the cache
+     * @return
+     * @throws Exception
+     */
+    public int size() throws Exception
+    {
+    	Connection connection  = DatabaseHelper.getConnection();
+    	Statement statement = connection.createStatement();
+    	ResultSet resultSet = statement.executeQuery(DatabaseHelper.CACHE_SIZE_STATEMENT);
+    	int size = 0;
+	 	if (resultSet.next())
+	 	{	
+	 		size = resultSet.getInt("size");
+	    }
+	 	connection.close();
+    	statement.close();
+		return size;
     }
 }

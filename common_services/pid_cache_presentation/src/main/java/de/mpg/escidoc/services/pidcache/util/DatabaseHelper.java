@@ -74,6 +74,8 @@ public class DatabaseHelper
     	"DELETE FROM ESCIDOC_PID_QUEUE WHERE IDENTIFIER = 'XXX_IDENTIFIER_XXX'";
     public static final String GET_QUEUE_ELEMENT_URL_STATEMENT = 
     	"SELECT * FROM ESCIDOC_PID_QUEUE WHERE URL = 'XXX_URL_XXX'";
+    public static final String RETRIEVE_QUEUE_ELEMENT_STATEMENT = 
+    	"SELECT * FROM ESCIDOC_PID_QUEUE WHERE IDENTIFIER = 'XXX_IDENTIFIER_XXX'";
     
     /**
      * Get the connection to the cache table
@@ -96,21 +98,18 @@ public class DatabaseHelper
     {
         Connection connection = null;
         Statement statement = null;
-		
         try 
 		{
-				connection = getConnection();
-				statement = connection.createStatement();
-		        statement.executeUpdate(CREATE_TABLES_STATEMENT);
+			connection = getConnection();
+			statement = connection.createStatement();
+	        statement.executeUpdate(CREATE_TABLES_STATEMENT);
 		} 
         catch (Exception e) 
 		{
         	statement.close();
             connection.close();
             //throw new RuntimeException(e);
-		}
-       
-        
+		}        
         statement.close();
         connection.close();
     }
@@ -124,7 +123,6 @@ public class DatabaseHelper
     {
     	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
     	Date date = new Date(new Date().getTime());
-    	
     	return dateFormat.format(date);
     }
 }

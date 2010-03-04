@@ -37,12 +37,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.httpclient.HttpClient;
-
-import de.mpg.escidoc.services.pidcache.xmltransforming;
-import de.mpg.escidoc.services.pidcache.cache.PidCache;
-import de.mpg.escidoc.services.pidcache.gwdg.PidHandler;
-import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
+import de.mpg.escidoc.services.pidcache.PidCacheService;
+import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
 
 /**
  * TODO Description
@@ -71,22 +67,24 @@ public class MainServlet extends HttpServlet
     {
     	try 
     	{
-    		PidHandler handler = new PidHandler();
-    		if (PidHandler.GWDG_PIDSERVICE_VIEW.equals(req.getPathInfo())) 
+    		PidCacheService pidCacheService = new PidCacheService();
+    		if (GwdgPidService.GWDG_PIDSERVICE_VIEW.equals(req.getPathInfo())
+    				|| GwdgPidService.GWDG_PIDSERVICE_VIEW.concat("/").equals(req.getPathInfo())) 
             {
         		if (req.getParameter("pid") == null) 
                 {
                    	throw new RuntimeException("No 'pid' parameter!");
            		}
-        		resp.getWriter().append(handler.retrievePid(req.getParameter("pid")));
+        		resp.getWriter().append(pidCacheService.retrieve(req.getParameter("pid")));
     		}
-        	else if (PidHandler.GWDG_PIDSERVICE_FIND.equals(req.getPathInfo())) 
+        	else if (GwdgPidService.GWDG_PIDSERVICE_FIND.equals(req.getPathInfo())
+        			|| GwdgPidService.GWDG_PIDSERVICE_FIND.concat("/").equals(req.getPathInfo())) 
         	{
         		if (req.getParameter("url") == null) 
                 {
                    	throw new RuntimeException("No 'url' parameter!");
            		}
-        		resp.getWriter().append(handler.searchPid(req.getParameter("url")));
+        		resp.getWriter().append(pidCacheService.search(req.getParameter("url")));
     		}
         	else 
         	{
@@ -110,15 +108,14 @@ public class MainServlet extends HttpServlet
 		}
         try 
         {
-        	PidCache cache = new PidCache();
-        	new PidHandler();
-        	if (PidHandler.GWDG_PIDSERVICE_CREATE.equals(req.getPathInfo())) 
+        	PidCacheService cacheService = new PidCacheService();
+        	if (GwdgPidService.GWDG_PIDSERVICE_CREATE.equals(req.getPathInfo())) 
             {
-        		resp.getWriter().append(cache.assignPid(req.getParameter("url")));
+        		resp.getWriter().append(cacheService.create((req.getParameter("url"))));
     		}
-        	else if (PidHandler.GWDG_PIDSERVICE_EDIT.equals(req.getPathInfo())) 
+        	else if (GwdgPidService.GWDG_PIDSERVICE_EDIT.equals(req.getPathInfo())) 
         	{
-        		resp.getWriter().append(cache.editPid(req.getParameter("pid"), req.getParameter("url")));
+        		resp.getWriter().append(cacheService.update(req.getParameter("pid"), req.getParameter("url")));
     		}
         	else 
         	{
