@@ -91,7 +91,7 @@
 				</h:panelGroup>
 			</h:panelGroup>
 
-<%-- Locator name, Locator visibility --%>
+<%-- Locator name--%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator != null && locator.locator != '')}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText id="txtTitleLocatorName" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblFileProperties}" /><span class="noDisplay">: </span>
@@ -117,47 +117,11 @@
 						</span>
 					</span>
 				</h:panelGroup>
-			</h:panelGroup>
-
-<%-- Copyright Statement, Copyright Date, Licence --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator != null && locator.locator != '') }">
-				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText id="txtTitleCopyrightInfo" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblRights}" /><span class="noDisplay">:</span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="true">
-						<h:outputLabel styleClass="xDouble_label">
-							<h:outputText id="txtTitleCopyrightStatementRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
-							<h:outputText id="txtTitleCopyrightStatement" value="#{lbl.EditItem_lblCopyrightStatement}" />
-						</h:outputLabel>
-						<h:inputTextarea id="inpCopyrightStatement" styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.defaultMetadata.rights}" cols="15" rows="3" rendered="true"/>
-					</h:panelGroup>
-					<span class="large_area0 xTiny_marginRIncl">
-						<h:outputLabel id="txtTitleCopyrightStatementInput" styleClass="large_label labelToTextAreaBottom" value="#{lbl.EditItem_lblCopyrightDate}" />
-						<h:inputText id="locatorLicenseDate" styleClass="large_txtInput dateJSInput" value="#{locator.file.defaultMetadata.copyrightDate}" />
-					</span>
-				</span>
-				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText id="txtMandatoryFieldRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">:</span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl licenseArea endline">
-					<h:panelGroup styleClass="quad_area0" rendered="true">
-						<label class="quad_label"><span id="txtLicensingInfoRequired" class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText id="txtLicensingInfoRequired2" value="*" rendered="false"/></span><h:outputText value="#{lbl.EditItem_lblLicencingInfo}"/></label>
-						<h:inputText id="inpLicensingInfo" styleClass="xDouble_txtInput tiny_marginRIncl licenseURL" value="#{locator.file.defaultMetadata.license}"/>
-						<tr:goButton id="btnLicensingInfo" text="#{lbl.EditItem_btnSelectCCLicense}" styleClass="large_txtBtn groupBtn ccLicense" onclick="$(this).parents('.licenseArea').find('.messageArea').find('.ccContent').html($('#CCScriptTag').val()); var actualCCContent = $(this).parents('.licenseArea').find('.messageArea').find('.ccContent'); window.setTimeout(function (){ $(actualCCContent).append($('head').children('div')); $(actualCCContent).parents('.messageArea').removeClass('noDisplay');},1000);"/>
-					</h:panelGroup>
-					<h:panelGroup id="cc_js_widget_container" styleClass="xHuge_area2_p8 messageArea noDisplay" style="margin-top: -1.82em;">
-						<input type="button" onclick="$(this).parents('.messageArea').addClass('noDisplay');" value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
-						<div class="ccContent">&#160;</div>
-						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicenseApply}" styleClass="activeButton" onclick="$(this).parents('.licenseArea').find('.licenseURL').val($(this).parents('.messageArea').find('#cc_js_result_uri').val()); $(this).parents('.messageArea').find('.ccContent').html('&nbsp;'); $(this).parents('.messageArea').addClass('noDisplay');"/>
-				     </h:panelGroup>
-				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAddLicensingInfo" styleClass="min_imgBtn sectionTool remove" text=" " shortDesc="#{tip.EditItem_removeLoc}" action="#{locator.removeLocatorEditItem}" rendered="#{genre.locators_repeatable != 'false'}"/>	
 					<tr:commandButton id="btnRemoveLicensingInfo" styleClass="min_imgBtn sectionTool add" text=" " shortDesc="#{tip.EditItem_addLoc}" action="#{EditItem.addLocator}" disabled="#{EditItem.locators[EditItem.numberOfLocators-1].locator == null || EditItem.locators[EditItem.numberOfLocators-1].locator == '' }" rendered="#{genre.locators_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
-
 		</tr:iterator>
 		<a class="free_area0 collapse"><h:outputText id="txtViewItemFull_lblHideGroupLocators" value="#{lbl.ViewItemFull_lblHideGroup} " /> <h:outputText value="#{genre.locators_label}" converter="GenreLabelConverter"/></a>	
 	</div>

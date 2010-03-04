@@ -87,7 +87,6 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.LegalCaseVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
@@ -2240,52 +2239,53 @@ public class EasySubmission extends FacesBean
     
    public String getLegalCaseTitle()
     {
-    	return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().getTitle();
+    	return null;//return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().getTitle();
     }
     
     public void setLegalCaseTitle(String legalCaseTitle)
     {
-    	logger.info("legalCAse Title " + legalCaseTitle);
-    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().setTitle(legalCaseTitle);
+//    	logger.info("legalCAse Title " + legalCaseTitle);
+//    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().setTitle(legalCaseTitle);
     }
     
     public String getLegalCaseIdentifier()
     {
-    	return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().getIdentifier();
+    	return null; //return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().getIdentifier();
     }
     
     public void setLegalCaseIdentifier(String legalCaseIdentifier)
     {
-    	logger.info("legalCAse ID " + legalCaseIdentifier);
-    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().setIdentifier(legalCaseIdentifier);
+//    	logger.info("legalCAse ID " + legalCaseIdentifier);
+//    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().setIdentifier(legalCaseIdentifier);
     }
     
     
     public String getLegalCaseCourtName()
     {
-    	if (this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().getCourtName() == null){
-    		LegalCaseVO legalCase = new LegalCaseVO();
-    		logger.info("create new legal case  " );
-    		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setLegalCase(legalCase);
-    	}
-    	return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().getCourtName();
+//    	if (this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().getCourtName() == null){
+//    		LegalCaseVO legalCase = new LegalCaseVO();
+//    		logger.info("create new legal case  " );
+//    		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setLegalCase(legalCase);
+//    	}
+//    	return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().getCourtName();
+        return null;
     }
     
     public void setLegalCaseCourtName(String legalCaseCourtName)
     {
-    	logger.info("legalCAse Court  " + legalCaseCourtName);
-    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().setCourtName(legalCaseCourtName);
+//    	logger.info("legalCAse Court  " + legalCaseCourtName);
+//    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().setCourtName(legalCaseCourtName);
     }
     
     public String getLegalCaseDatePublished()
     {
-    	return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().getDatePublished();
+    	return null; //return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().getDatePublished();
     }
     
     public void setLegalCaseDatePublished(String legalCaseDatePublished)
     {
-    	logger.info("legalCAse Date Pub " + legalCaseDatePublished);
-    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().setDatePublished(legalCaseDatePublished);
+//    	logger.info("legalCAse Date Pub " + legalCaseDatePublished);
+//    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLegalCase().setDatePublished(legalCaseDatePublished);
     }
    
     // source identifier

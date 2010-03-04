@@ -67,42 +67,6 @@
 				</span>
 			</h:panelGroup>
 
-<%-- Copyright Date --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="true">
-				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText id="lblLocatorCopyrightDate" value="#{lbl.ViewItem_lblCopyrightDate}"/><span class="noDisplay">: <br /></span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtLocatorCopyrightDate" value="#{locator.file.defaultMetadata.copyrightDate}" rendered="true"/>
-					<h:outputText id="txtLocatorCopyrightDateEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{locator.file.defaultMetadata.copyrightDate == null  || locator.file.defaultMetadata.copyrightDate == ''}"/>
-				</span>
-			</h:panelGroup>
-
-<%-- Copyright Info --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="true">
-				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText id="lblLocatorCopyrightInfo" value="#{lbl.ViewItem_lblCopyrightInfo}"/><span class="noDisplay">: <br /></span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtLocatorCopyrightInfo" value="#{locator.file.defaultMetadata.rights}" rendered="true"/>
-					<h:outputText id="txtLocatorCopyrightInfoEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{locator.file.defaultMetadata.rights == null  || locator.file.defaultMetadata.rights == ''}"/>
-				</span>
-			</h:panelGroup>
-
-<%-- Locator License --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="true">
-				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText id="lblLocatorFileLicense" value="#{lbl.ViewItemFull_lblFileLicense}"/><span class="noDisplay">: <br /></span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLink id="txtLocatorFileLicense" value="#{locator.file.defaultMetadata.license}" target="_blank" title="#{lbl.ViewItemFull_lblFileLicenseShow}" rendered="#{locator.file.defaultMetadata.license != ''}"><h:outputText value="#{locator.file.defaultMetadata.license}" rendered="true"/></h:outputLink>
-					<h:outputText id="txtLocatorFileLicenseEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{locator.file.defaultMetadata.license == null  || locator.file.defaultMetadata.license == ''}"/>
-				</span>
-				<h:panelGroup styleClass="large_area0_p8 lineToolSection" rendered="true">
-					<h:graphicImage id="imgLocatorUrlToLicenceImage" styleClass="sectionTool" url="#{locator.urlToLicenceImage}" value="#{locator.urlToLicenceImage}" rendered="#{locator.urlToLicenceImage != ''}"/>
-				</h:panelGroup>
-			</h:panelGroup>
-
 		</tr:iterator>
 
 		<a id="lnkHideGroupLocator" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblSubHeaderLocators}" /></a>	

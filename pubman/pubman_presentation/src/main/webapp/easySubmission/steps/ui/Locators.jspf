@@ -66,7 +66,7 @@
 			</h:panelGroup>
 
 <%-- Locator URL --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{(locator.locator != null && locator.locator != '') && locator.index == 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator != null && locator.locator != '') && locator.index == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<span class="noDisplay"> </span>
 				</b>
@@ -125,41 +125,7 @@
 						</span>
 					</span>
 				</h:panelGroup>
-			</h:panelGroup>
 
-<%-- Copyright Statement, Copyright Date, Licence --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{locator.locator != null && locator.locator != ''}">
-				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.easy_submission_lblRights}" /><span class="noDisplay">:</span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="true">
-						<h:outputLabel id="lblMandatoryField" styleClass="xDouble_label">
-							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
-							<h:outputText value="#{lbl.easy_submission_lblCopyrightStatement}" />
-						</h:outputLabel>
-						<h:inputTextarea id="inpLocatorFileDefaultMetadataRights" styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.defaultMetadata.rights}" cols="15" rows="3" rendered="true"/>
-					</h:panelGroup>
-					<span class="large_area0 xTiny_marginRIncl">
-						<h:outputLabel id="lblCopyrightDate" styleClass="large_label labelToTextAreaBottom" value="#{lbl.easy_submission_lblCopyrightDate}" />
-						<h:inputText id="locatorLicenseDate" styleClass="large_txtInput dateJSInput" value="#{locator.file.defaultMetadata.copyrightDate}" />
-					</span>
-				</span>
-				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">:</span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl licenseArea endline">
-					<h:panelGroup styleClass="quad_area0" rendered="true">
-						<label class="quad_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="#{lbl.easy_submission_lblLicencingInfo}"/></label>
-						<h:inputText id="inpLocatorFileDefaultMetadataLicense" styleClass="xDouble_txtInput tiny_marginRIncl licenseURL" value="#{locator.file.defaultMetadata.license}"/>
-						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicense}" styleClass="large_txtBtn groupBtn ccLicense" onclick="$(this).parents('.licenseArea').find('.messageArea').find('.ccContent').html($('#CCScriptTag').val()); var actualCCContent = $(this).parents('.licenseArea').find('.messageArea').find('.ccContent'); window.setTimeout(function (){ $(actualCCContent).append($('head').children('div')); $(actualCCContent).parents('.messageArea').removeClass('noDisplay');},1000);"/>
-					</h:panelGroup>
-					<h:panelGroup id="cc_js_widget_container" styleClass="xHuge_area2_p8 messageArea noDisplay" style="margin-top: -1.82em;">
-						<input type="button" id="btnNoDisplay" onclick="$(this).parents('.messageArea').addClass('noDisplay');" value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
-						<div class="ccContent">&#160;</div>
-						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicenseApply}" styleClass="activeButton" onclick="$(this).parents('.licenseArea').find('.licenseURL').val($(this).parents('.messageArea').find('#cc_js_result_uri').val()); $(this).parents('.messageArea').find('.ccContent').html('&nbsp;'); $(this).parents('.messageArea').addClass('noDisplay');"/>
-				     </h:panelGroup>
-				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnRemoveLocatorEasySubmission" styleClass="min_imgBtn sectionTool remove" text=" " action="#{locator.removeLocatorEasySubmission}" rendered="#{genre.locators_repeatable != 'false'}"/>	
 					<tr:commandButton id="btnEasySubmissionAddLocator" styleClass="min_imgBtn sectionTool add" text=" " action="#{EasySubmission.addLocator}" disabled="#{EasySubmission.locators[EasySubmission.numberOfLocators-1].locator == null || EasySubmission.locators[EasySubmission.numberOfLocators-1].locator == '' }" rendered="#{genre.locators_repeatable != 'false'}"/>
