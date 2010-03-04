@@ -123,6 +123,8 @@ public class Util
         { return "application/pdf"; } 
         if (formatName.equalsIgnoreCase("ps")) 
         { return "application/gzip"; } 
+        if (formatName.equalsIgnoreCase("bmcarticle")) 
+        { return "text/html"; } 
         
         return "application/xml";
     }

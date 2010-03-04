@@ -5,7 +5,7 @@
 <!-- Copyright BioMed Central Limited 2004 --> 
 <!-- Version 1.02  23rd March 2005 -->
 
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:bmc="http://www.biomedcentral.com/xml/schemas/oai/2.0/">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:bmc="http://www.biomedcentral.com/xml/schemas/oai/2.0/" xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" >
 	
 <xsl:output method="html" encoding="utf-16" />
 	
@@ -18,7 +18,7 @@
 <xsl:variable name="inline-url">content/inline/</xsl:variable><!-- for graphics with paragraph tags (inline images) -->
 <xsl:variable name="suppl-url">content/supplementary/</xsl:variable><!-- for graphics within fig tag -->
 
-<xsl:template match="/">
+<xsl:template match="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata">
 	<html>
 	<head>
 		<style type="text/css"><!-- Basic style sheet to give sans-serif output -->

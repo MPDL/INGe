@@ -71,6 +71,7 @@ import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.exceptions.FormatNotSupportedException;
+import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -657,6 +658,23 @@ public class DataHandlerBean implements DataHandler
         {
             throw new RuntimeException(e);
         }
+        //bmc needs transformation from xml to html
+        if (this.currentSource.getName().equalsIgnoreCase("BioMed Central") && fulltext.getFtFormat().equalsIgnoreCase("text/html"))
+        {
+            Format from = new Format("bmc_fulltext_xml", "application/xml", "*");
+            Format to = new Format("bmc_fulltext_html", "text/html", "*");
+            TransformationBean transformer = new TransformationBean();
+            
+            try
+            {
+                input = transformer.transform(input, from, to, "escidoc");
+            }
+            catch (Exception e)
+            {
+                this.logger.error("Could not transform BMC fulltext", e);
+            }
+        }
+        
         return input;
     }
 
