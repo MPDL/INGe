@@ -173,6 +173,22 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 		<description>DDC Subjects</description>
 	</model>
 	<model>
+		<name>mpipks</name>
+		<aliases>
+			<alias>mpipks</alias>
+		</aliases>
+		<primary-identifier control="true" generate-cone-id="false" subject-prefix="mpipks/resource/" identifier-prefix=""></primary-identifier>
+		<predicates>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true"/>
+		</predicates>
+		<result>
+			<pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+			</pattern>
+		</result>
+		<description>MPI PKS Subject Classification</description>
+	</model>
+	<model>
 		<name>mimetypes</name>
 		<aliases>
 			<alias>mimetypes</alias>
