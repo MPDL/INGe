@@ -175,13 +175,13 @@ public class BrowseBySessionBean extends FacesBean
     public void setShowChars()
     {
         if (!this.selectedValue.equals("year"))
-            {
+        {
             if (this.getConeAll().size() > this.getMaxDisplay())
             {
                 this.showChars = true;
             }
+            else this.showChars = false;
         }
-        else this.showChars = false;
     }
     
     /**

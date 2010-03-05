@@ -101,21 +101,23 @@
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		&#160;
 	</h3>
-	<tr:iterator var="subjectVocab" id="subjectVocabIter" value="#{BrowseBySessionBean.controlledVocabs}" binding="#{BrowseByPage.subjectIterator}" varStatus="index" rows="0">
-		<div class="free_area0 itemBlockContent endline">		
-			<div class="free_area0 endline itemLine firstLine">
-				<b class="xLarge_area0 endline labelLine">
-					<h:commandLink id="lnkSubject" title="" action="#{BrowseByPage.loadBrowseBySubject}" immediate="true">
-						<h:outputText id="lblBrowseBy_lnkSubject" value="#{subjectVocab}"/>
-					</h:commandLink>
+	<div class="free_area0 itemBlockContent endline">	
+		<tr:iterator var="subjectVocab" id="subjectVocabIter" value="#{BrowseBySessionBean.controlledVocabs}" binding="#{BrowseByPage.subjectIterator}" varStatus="index" rows="0">
+			<div class="free_area0 firstLine">
+				<b class="xLarge_area0 labelLine">
+					<tr:commandButton id="lnkSubject" styleClass="medium_marginLExcl free_area0 groupBtn" text="#{subjectVocab}" action="#{BrowseByPage.loadBrowseBySubject}" immediate="true">
+					</tr:commandButton>
 					<span class="noDisplay">: </span>
 				</b>
-				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline" rendered="#{subjectVocab == 'ddc'}">
+				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl" rendered="#{subjectVocab == 'ddc'}">
 					<h:outputText id="lblBrowseBy_descDdc" value="#{lbl.ddcDesc}" />
 				</h:panelGroup>
-			</div>	
-		</div>
-	</tr:iterator>
+				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl" rendered="#{subjectVocab == 'mpipks'}">
+					<h:outputText id="lblBrowseBy_descMpipks" value="#{lbl.mpipksDesc}" />
+				</h:panelGroup>
+			</div>			
+		</tr:iterator>
+	</div>
 </div>
 <!-- Browse By Year -->
 <div class="full_area0 itemHeader">
