@@ -38,13 +38,14 @@
 		<predicates>
 			<predicate name="Journal Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true"/>
 			<predicate name="Alternative Journal Name" value="http://purl.org/dc/terms/alternative" multiple="true" mandatory="false" localized="false" searchable="true"/>
-			<predicate name="SFX-ID" value="http://purl.org/dc/terms/identifier" multiple="false" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="Abbreviation" value="http://purl.org/escidoc/metadata/terms/0.1/abbreviation" multiple="false" mandatory="false" localized="false" searchable="true"/>
 			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true">
 				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#/value" multiple="false" mandatory="true" localized="false" searchable="true"/>
 				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance/type" multiple="false" mandatory="true" localized="false" searchable="false"/>
 			</predicate>
 			<predicate name="Publisher" value="http://purl.org/dc/elements/1.1/publisher" multiple="false" mandatory="false" localized="false" searchable="true"/>
 			<predicate name="Publisher Place" value="http://purl.org/dc/terms/publisher" multiple="false" mandatory="false" localized="true" searchable="true"/>
+			<predicate name="Citation Style" value="http://purl.org/escidoc/metadata/terms/0.1/citation-style" multiple="false" mandatory="false" localized="false" searchable="true"/>
 		</predicates>
 		<result>
 			<pattern>
@@ -59,7 +60,6 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 	<model>
 		<name>iso639-3</name>
 		<aliases>
-			<alias>iso639-3</alias>
 			<alias>iso639-3</alias>
 		</aliases>
 		<primary-identifier control="true" generate-cone-id="false" subject-prefix="iso639-3/resource/" identifier-prefix=""/>
