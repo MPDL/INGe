@@ -46,6 +46,11 @@ public class PidTaskParamVO extends ValueObject
 
     private Date lastModificationDate;
     private String url;
+    
+    public PidTaskParamVO() 
+    {
+		// TODO Auto-generated constructor stub
+	}
 
     public PidTaskParamVO(Date lastModificationDate, String url)
     {

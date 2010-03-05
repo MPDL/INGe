@@ -81,6 +81,7 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.LockVO;
+import de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
@@ -2025,5 +2026,72 @@ public class XmlTransformingBean implements XmlTransforming
         return fileVO;
     }
     
+    public String transformToPidServiceResponse(PidServiceResponseVO pidServiceResponseVO) throws TechnicalException
+    {
+    	logger.debug("transformToPidServiceResponse()");
+        if (pidServiceResponseVO == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() 
+            		+ "transformToPidServiceResponse:pidServiceResponseVO is null");
+        }
+        String utf8container = null;
+        try
+        {
+            IBindingFactory bfact = BindingDirectory.getFactory(PidServiceResponseVO.class);
+            // marshal object (with nice indentation, as UTF-8)
+            IMarshallingContext mctx = bfact.createMarshallingContext();
+            mctx.setIndent(2);
+            StringWriter sw = new StringWriter();
+            mctx.setOutput(sw);
+            mctx.marshalDocument(pidServiceResponseVO, "UTF-8", null, sw);
+            // use the following call to omit the leading "<?xml" tag of the generated XML
+            // mctx.marshalDocument(containerVO);
+            utf8container = sw.toString().trim();
+        }
+        catch (JiBXException e)
+        {
+            throw new MarshallingException(pidServiceResponseVO.getClass().getSimpleName(), e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("transformToPidServiceResponse() - result: String utf8container=" + utf8container);
+        }
+    	return utf8container;
+    }
     
+    public PidServiceResponseVO transformToPidServiceResponse(String pidServiceResponseXml) throws TechnicalException
+    {
+    	logger.debug("transformToPidServiceResponse(String) - String pidServiceResponse=\n" + pidServiceResponseXml);
+    	if (pidServiceResponseXml == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToPidServiceResponse: pidServiceResponseXml is null");
+        }
+    	PidServiceResponseVO pidServiceResponseVO = null;
+    	
+    	 try
+         {
+             // unmarshal pidServiceResponse from String
+             IBindingFactory bfact = BindingDirectory.getFactory(PidServiceResponseVO.class);
+             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+             StringReader sr = new StringReader(pidServiceResponseXml);
+             Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+             pidServiceResponseVO = (PidServiceResponseVO)unmarshalledObject;
+         }
+         catch (JiBXException e)
+         {
+             // throw a new UnmarshallingException, log the root cause of the JiBXException first
+             logger.error(e.getRootCause());
+             throw new UnmarshallingException(pidServiceResponseXml, e);
+         }
+         catch (ClassCastException e)
+         {
+             throw new TechnicalException(e);
+         }
+    	 
+    	return pidServiceResponseVO;
+    }
 }

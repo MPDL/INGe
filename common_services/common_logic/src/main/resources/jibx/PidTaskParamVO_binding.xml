@@ -26,7 +26,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<binding direction="output">
+<binding>
 
 	<!-- abtract mapping for PidTaskParamVO"  -->
 	<mapping type-name="PidTaskParamVOAbstract" class="de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO"

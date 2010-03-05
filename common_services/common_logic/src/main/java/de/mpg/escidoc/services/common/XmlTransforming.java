@@ -49,6 +49,7 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.LockVO;
+import de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
@@ -329,7 +330,7 @@ public interface XmlTransforming
      * @throws MarshallingException
      */
     public String transformToTaskParam(TaskParamVO taskParam) throws TechnicalException, MarshallingException;
-
+        
     /**
      * Transforms a given <code>PidTaskParamVO</code> to corresponding XML that is valid according to (filter.xsd,
      * filter- containers.xsd, filter-contexts.xsd, filter-items.xsd, or filter-organizational-units.xsd respectively).
@@ -454,4 +455,8 @@ public interface XmlTransforming
     
     public List<AffiliationRO> transformToSuccessorAffiliationList(String successorOrganizationalUnitList) throws TechnicalException, 
         UnmarshallingException;
+    
+    public String transformToPidServiceResponse(PidServiceResponseVO pidServiceResponseVO) throws TechnicalException;
+    
+    public PidServiceResponseVO transformToPidServiceResponse(String pidServiceResponseXml) throws TechnicalException;
 }
