@@ -610,6 +610,7 @@ public class ModsDatastream
                 {
                     seriesTitles = new ArrayList<String[]>();
                     String issn = null;
+                    String pages = null;
                     if (series.isSetSERTITEN())
                     {
                         String[] ser_vals = new SeriesName().getEnglish(series.getSERTITEN());
@@ -655,7 +656,13 @@ public class ModsDatastream
                             issn = eims.getIssn();
                         }
                     }
-                    addNewRelatedItemSeries(seriesTitles, issn);
+                    // M-60
+                    // add mods:relatedItem@type='host'/part/detail
+                    if (series.isSetSERPAGES())
+                    {
+                        pages = series.getSERPAGES();
+                    }
+                    addNewRelatedItemSeries(seriesTitles, issn, pages);
                 } // end for
                 // TODO: add check for SER_TIT
                 // is lang always en?
@@ -677,7 +684,7 @@ public class ModsDatastream
                 {
                     issn = eims.getIssn();
                 }
-                addNewRelatedItemSeries(seriesTitles, issn);
+                addNewRelatedItemSeries(seriesTitles, issn, null);
             }
         } // end if biblevel = MS or AS
         else
@@ -1717,7 +1724,7 @@ public class ModsDatastream
      * 
      * @param values {@link String[]}
      */
-    public void addNewRelatedItemSeries(ArrayList<String[]> titles, String issn)
+    public void addNewRelatedItemSeries(ArrayList<String[]> titles, String issn, String pages)
     {
         if (titles != null || issn != null)
         {
@@ -1740,6 +1747,12 @@ public class ModsDatastream
                 IdentifierType idType = related.addNewIdentifier();
                 idType.setType("issn");
                 idType.setStringValue(issn);
+            }
+            if (pages != null)
+            {
+                PartType part = related.addNewPart();
+                DetailType detail = part.addNewDetail();
+                detail.addNumber(pages);
             }
         }
     }
@@ -1989,7 +2002,7 @@ public class ModsDatastream
         {
             issn = eims.getIssn();
         }
-        addNewRelatedItemSeries(seriesTitles, issn);
+        addNewRelatedItemSeries(seriesTitles, issn, null);
         // M-61
         // add mods:note@type='library_subject_code'
         // M-62 - M-63
@@ -2540,6 +2553,7 @@ public class ModsDatastream
                 {
                     seriesTitles = new ArrayList<String[]>();
                     String issn = null;
+                    String pages = null;
                     if (series.isSetSERTITEN())
                     {
                         String[] ser_vals = new SeriesName().getEnglish(series.getSERTITEN());
@@ -2578,7 +2592,13 @@ public class ModsDatastream
                     {
                         issn = series.getISSN();
                     }
-                    addNewRelatedItemSeries(seriesTitles, issn);
+                 // M-60
+                    // add mods:relatedItem@type='host'/part/detail
+                    if (series.isSetSERPAGES())
+                    {
+                        pages = series.getSERPAGES();
+                    }
+                    addNewRelatedItemSeries(seriesTitles, issn, pages);
                 } // end for
                 // TODO: add check for SER_TIT
                 // is lang always en?

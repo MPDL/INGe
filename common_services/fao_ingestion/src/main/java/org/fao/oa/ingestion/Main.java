@@ -157,11 +157,11 @@ public class Main
         String[] faodocFiles = IngestionProperties.get("faodoc.export.file.names").split(" ");
         String filter = "MS";
         ArrayList<ITEMType> faodocList = FaodocItem.filteredList(faodocFiles, filter);
-        String arn = "XF1999384991";
+        String arn = "XF2002407817";
         ITEMType faodoc = FaodocItem.getByARN(faodocList, arn);
         String[] eimsFiles = IngestionProperties.get("eims.export.file.names").split(" ");
         ArrayList<ItemType> eimsList = EimsCdrItem.allEIMSItemsAsList(eimsFiles);
-        String id = "60355";
+        String id = "67246";
         ItemType eims = EimsCdrItem.getById(eimsList, id);
         
         System.out.println(faodoc.xmlText(XBeanUtils.getDefaultOpts()));

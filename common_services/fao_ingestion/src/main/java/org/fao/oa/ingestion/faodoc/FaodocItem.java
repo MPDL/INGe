@@ -208,11 +208,11 @@ public class FaodocItem
                         */
                         
                         
-                        if (item.sizeOfSERTITArray() > 0)
+                        if (item.sizeOfCOLLINFOArray() > 0)
                         {
-                            for (String tit : item.getSERTITArray())
+                            for (String tit : item.getCOLLINFOArray())
                             {
-                                System.out.println(item.getARNArray(0) + "  has SER_TIT " + tit);
+                                System.out.println(item.getARNArray(0) + "  has COLL_INFO " + tit);
                             }
                         }
                     }
