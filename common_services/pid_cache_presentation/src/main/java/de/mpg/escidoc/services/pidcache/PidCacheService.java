@@ -1,5 +1,11 @@
 package de.mpg.escidoc.services.pidcache;
 
+import javax.naming.InitialContext;
+
+import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO;
+import de.mpg.escidoc.services.pidcache.gwdg.GwdgClient;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
 import de.mpg.escidoc.services.pidcache.tables.Cache;
 import de.mpg.escidoc.services.pidcache.tables.Queue;
@@ -16,6 +22,8 @@ public class PidCacheService
 	private Cache cache = null;
 	private Queue queue = null;
 	private GwdgPidService gwdgPidService = null;
+	private InitialContext context = null;
+	private XmlTransforming xmlTransforming = null;
 	
 	/**
 	 * Default constructor
@@ -26,6 +34,8 @@ public class PidCacheService
 		cache = new Cache();
 		queue = new Queue();
 		gwdgPidService = new GwdgPidService();
+		context = new InitialContext();
+		xmlTransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
 	}
 	
 	 /**
@@ -50,7 +60,7 @@ public class PidCacheService
 		pid.setUrl(url);
 		queue.add(pid);
 		cache.remove(pid);
-    	return "You have created a message pid=" + pid.getIdentifier() + " and url=" + url;
+    	return transformToPidServiceResponse(pid, "create");
 	}
 	
 	/**
@@ -66,7 +76,7 @@ public class PidCacheService
 		pid = queue.retrieve(id);
 		if (pid != null) 
 		{
-			return pid.asXmlString();
+			return xmlTransforming.transformToPidServiceResponse(pid);
 		}
 		if (!gwdgPidService.available()) 
 		{
@@ -88,7 +98,7 @@ public class PidCacheService
 		pid = queue.search(url);
 		if (pid != null) 
 		{
-			return pid.asXmlString();
+			return xmlTransforming.transformToPidServiceResponse(pid);
 		}
 		if (!gwdgPidService.available()) 
 		{
@@ -106,10 +116,9 @@ public class PidCacheService
 	 */
 	public String update(String id, String url) throws Exception
 	{
-		pid.setIdentifier(id);
-		pid.setUrl(url);
+		Pid pid = new Pid(id, url);
 		queue.add(pid);
-		return pid.asXmlString();
+		return transformToPidServiceResponse(pid, "modify");
 	}
 	
 	/**
@@ -120,5 +129,16 @@ public class PidCacheService
 	public String delete(String id)
 	{
 		return "Delete not possble for a PID";
+	}
+	
+	private String transformToPidServiceResponse(Pid pid, String action) throws TechnicalException
+	{
+		PidServiceResponseVO pidServiceResponseVO = new PidServiceResponseVO();
+		pidServiceResponseVO.setAction(action);
+		pidServiceResponseVO.setCreator(GwdgClient.GWDG_PIDSERVICE_USER);
+		pidServiceResponseVO.setIdentifier(pid.getIdentifier());
+		pidServiceResponseVO.setUrl(pid.getUrl());
+		pidServiceResponseVO.setUserUid("anonymous");
+		return xmlTransforming.transformToPidServiceResponse(pidServiceResponseVO);
 	}
 }

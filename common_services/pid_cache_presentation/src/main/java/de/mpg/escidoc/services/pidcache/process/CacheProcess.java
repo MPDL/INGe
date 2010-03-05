@@ -5,10 +5,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
 
+import javax.naming.InitialContext;
+
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.pidcache.xmltransforming;
+import de.mpg.escidoc.services.pidcache.Pid;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
 import de.mpg.escidoc.services.pidcache.init.RefreshTask;
 import de.mpg.escidoc.services.pidcache.tables.Cache;
@@ -28,6 +31,8 @@ public class CacheProcess
 {
 	 private static String DUMMY_URL = null;
 	 private static final Logger logger = Logger.getLogger(CacheProcess.class);
+	 private InitialContext context = null;
+	 private XmlTransforming xmlTransforming = null;
 	
 	/**
 	 * Manage the cache
@@ -36,6 +41,8 @@ public class CacheProcess
 	public CacheProcess() throws Exception
 	{
 		DUMMY_URL = PropertyReader.getProperty("escidoc.pid.cache.dummy.url");
+		context = new InitialContext();
+		xmlTransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
 	}
 
 	/**
@@ -45,7 +52,6 @@ public class CacheProcess
 	{
 		Cache cache = new Cache();
 		GwdgPidService gwdgPidService = new GwdgPidService();
-		xmltransforming xmltransforming = new xmltransforming();
 		long current = 0;
 		if (gwdgPidService.available()) 
 		{
@@ -54,7 +60,7 @@ public class CacheProcess
 			{
 				current = new Date().getTime();
 				String pidXml = gwdgPidService.create(DUMMY_URL.concat(Long.toString(current)));
-				cache.add(xmltransforming.transFormToPid(pidXml));
+				cache.add((Pid)xmlTransforming.transformToPidServiceResponse(pidXml));
 			}
 		}
 		else 

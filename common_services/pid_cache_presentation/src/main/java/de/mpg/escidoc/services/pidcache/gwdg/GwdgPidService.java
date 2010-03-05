@@ -6,6 +6,12 @@ import org.apache.commons.httpclient.methods.PostMethod;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
 
+/**
+ * Class handling GWDG PID service interface
+ * 
+ * @author saquet
+ *
+ */
 public class GwdgPidService 
 {
 	public static String GWDG_PIDSERVICE_CREATE = null;
@@ -15,6 +21,10 @@ public class GwdgPidService
 	public static String GWDG_PIDSERVICE_EDIT = null;
 	public static String GWDG_PIDSERVICE_DELETE = null;
 	
+	/**
+	 * Default constructor
+	 * @throws Exception
+	 */
 	public GwdgPidService() throws Exception
 	{
 		GWDG_PIDSERVICE = PropertyReader.getProperty("escidoc.pid.gwdg.service.url");
@@ -114,5 +124,4 @@ public class GwdgPidService
     	client.executeMethod(delete);
     	return delete.getResponseBodyAsString();
 	}
-
 }

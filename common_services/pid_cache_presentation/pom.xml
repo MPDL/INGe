@@ -31,13 +31,13 @@
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>framework_access</artifactId>
             <version>1.0.39-SNAPSHOT</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
 		<dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>common_logic</artifactId>
             <version>1.1.36-SNAPSHOT</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
 		<dependency>
 			<groupId>commons-httpclient</groupId>

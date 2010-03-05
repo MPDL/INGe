@@ -30,6 +30,11 @@
 
 package de.mpg.escidoc.services.pidcache;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
 import de.mpg.escidoc.services.pidcache.tables.Queue;
 
@@ -41,17 +46,18 @@ import de.mpg.escidoc.services.pidcache.tables.Queue;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class Pid
+public class Pid extends PidServiceResponseVO
 {
-    private String url;
-    private String identifier;
-    
+    private XmlTransforming xmlTransforming = null;
     /**
      * Default constructor
+     * @throws NamingException 
      */
-    public Pid() 
+    public Pid() throws NamingException 
     {
-		
+		super();
+		InitialContext context = new InitialContext();
+		xmlTransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
 	}
     
     /**
@@ -59,43 +65,13 @@ public class Pid
      * 
      * @param identifier
      * @param url
+     * @throws NamingException 
      */
-    public Pid(String identifier, String url)
+    public Pid(String identifier, String url) throws NamingException
     {
+    	this();
     	this.identifier = identifier;
     	this.url = url;
-    }
-    
-    /**
-     * @return the url
-     */
-    public String getUrl()
-    {
-        return url;
-    }
-    
-    /**
-     * @param url the url to set
-     */
-    public void setUrl(String url)
-    {
-        this.url = url;
-    }
-    
-    /**
-     * @return the identifier
-     */
-    public String getIdentifier()
-    {
-        return identifier;
-    }
-    
-    /**
-     * @param identifier the identifier to set
-     */
-    public void setIdentifier(String identifier)
-    {
-        this.identifier = identifier;
     }
     
     /**
@@ -106,11 +82,10 @@ public class Pid
     public boolean exists() throws Exception
     {
     	GwdgPidService gwdgPidService = new GwdgPidService();
-    	xmltransforming xmltransforming = new xmltransforming();
-    	String pidXml = gwdgPidService.retrieve(identifier);
+    	String pidXml = gwdgPidService.retrieve(this.identifier);
     	try 
     	{
-			xmltransforming.transFormToPid(pidXml);
+			xmlTransforming.transformToPidServiceResponse(pidXml);
 		}
 		catch (Exception e) 
 		{
@@ -127,10 +102,9 @@ public class Pid
     public boolean hasFreeUrl() throws Exception
     {
     	PidCacheService pidCacheService = new PidCacheService();
-    	xmltransforming xmltransforming = new xmltransforming();
     	try 
     	{
-			xmltransforming.transFormToPid(pidCacheService.search(url));
+    		xmlTransforming.transformToPidServiceResponse(pidCacheService.search(url));
 		}
 		catch (Exception e) 
 		{
@@ -138,16 +112,5 @@ public class Pid
 		}
     	return false;
     }
-    
-    /**
-     * Transform the PID into an XML string.
-     * @return
-     */
-    public String asXmlString()
-    {
-    	xmltransforming xmltransforming = new xmltransforming();
-    	return xmltransforming.transformtoPidXml(this);
-    }
-    
     
 }

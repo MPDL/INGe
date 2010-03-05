@@ -37,6 +37,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.httpclient.Header;
+
 import de.mpg.escidoc.services.pidcache.PidCacheService;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
 
@@ -56,8 +58,7 @@ public class MainServlet extends HttpServlet
      */
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        // TODO Auto-generated method stub
-        super.doDelete(req, resp);
+    	resp.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED, "DELETE method not supported for this service.");
     }
 
     /* (non-Javadoc)
@@ -73,7 +74,7 @@ public class MainServlet extends HttpServlet
             {
         		if (req.getParameter("pid") == null) 
                 {
-                   	throw new RuntimeException("No 'pid' parameter!");
+        			resp.sendError(HttpServletResponse.SC_NO_CONTENT, "PID parameter failed.");
            		}
         		resp.getWriter().append(pidCacheService.retrieve(req.getParameter("pid")));
     		}
@@ -82,13 +83,13 @@ public class MainServlet extends HttpServlet
         	{
         		if (req.getParameter("url") == null) 
                 {
-                   	throw new RuntimeException("No 'url' parameter!");
+        			resp.sendError(HttpServletResponse.SC_NO_CONTENT, "URL parameter failed.");
            		}
         		resp.getWriter().append(pidCacheService.search(req.getParameter("url")));
     		}
         	else 
         	{
-        		throw new ServletException("This path '" + req.getPathInfo() + "' is not valid for GET method");
+        		resp.sendError(HttpServletResponse.SC_NOT_FOUND, req.getPathInfo());
 			}
 		} 
     	catch (Exception e) 
@@ -104,7 +105,7 @@ public class MainServlet extends HttpServlet
     {        
     	if (req.getParameter("url") == null) 
         {
-        	throw new RuntimeException("No 'url' parameter!");
+        	resp.sendError(HttpServletResponse.SC_NO_CONTENT, "URL parameter failed.");
 		}
         try 
         {
@@ -115,11 +116,15 @@ public class MainServlet extends HttpServlet
     		}
         	else if (GwdgPidService.GWDG_PIDSERVICE_EDIT.equals(req.getPathInfo())) 
         	{
+        		if (req.getParameter("pid") == null) 
+        		{
+        			resp.sendError(HttpServletResponse.SC_NO_CONTENT, "PID parameter failed.");
+    			}
         		resp.getWriter().append(cacheService.update(req.getParameter("pid"), req.getParameter("url")));
     		}
         	else 
         	{
-        		throw new ServletException("This path '" + req.getPathInfo() + "' is not valid for POST method");
+        		resp.sendError(HttpServletResponse.SC_NOT_FOUND, req.getPathInfo());
 			}
 		} 
         catch (Exception e) 
@@ -133,7 +138,7 @@ public class MainServlet extends HttpServlet
      */
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        super.doPut(req, resp);
+    	resp.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED, "PUT method not supported for this service");
     }
     
 }
