@@ -30,13 +30,13 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.38-SNAPSHOT</version>
+		<version>1.0.38</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>sword_presentation</artifactId>
 	<name>sword_presentation</name>
-	<version>1.0.15-SNAPSHOT</version>
+	<version>1.0.15</version>
 	<packaging>war</packaging>
 
 
