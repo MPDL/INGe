@@ -559,9 +559,18 @@
 	
 	if ((request.getParameter("delete") != null
 	        || request.getParameter("save") != null)
-	        && (request.getSession().getAttribute("edit") == null
-	        || !((Boolean)request.getSession().getAttribute("edit")).booleanValue()))
+	        && ((request.getSession().getAttribute("edit_open_vocabulary") == null)
+	      		  && (model != null && (Boolean)model.isOpen())		
+	        //|| !((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue())
+	        ))
     {
+	    errors.add("Not authorized for this action.");
+    }
+	else if ((request.getParameter("delete") != null
+	        || request.getParameter("save") != null)
+	        && ((request.getSession().getAttribute("edit_closed_vocabulary") == null)
+	        && (model != null && !(Boolean)model.isOpen())))
+	{
 	    errors.add("Not authorized for this action.");
     }
 	else if (request.getParameter("delete") != null)
