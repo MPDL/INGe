@@ -52,6 +52,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList.Model;
+import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -140,26 +141,33 @@ public class JQueryFormatter extends Formatter
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    public String formatQuery(List<Pair> pairs) throws IOException
+    public String formatQuery(List<? extends Describable> pairs) throws IOException
     {
         
         StringWriter result = new StringWriter();
         
         if (pairs != null)
         {
-            for (Pair pair : pairs)
+            for (Describable pair : pairs)
             {
-                String key = pair.getKey();
-                String value = pair.getValue();
-                result.append(value);
-                result.append("|");
-                try
+                if (pair instanceof Pair)
                 {
-                    result.append(PropertyReader.getProperty("escidoc.cone.service.url") + key);
+                    String key = ((Pair) pair).getKey();
+                    String value = ((Pair) pair).getValue();
+                    result.append(value);
+                    result.append("|");
+                    try
+                    {
+                        result.append(PropertyReader.getProperty("escidoc.cone.service.url") + key);
+                    }
+                    catch (Exception e)
+                    {
+                        throw new RuntimeException(e);
+                    }
                 }
-                catch (Exception e)
+                else if (pair instanceof TreeFragment)
                 {
-                    throw new RuntimeException(e);
+                    result.append(((TreeFragment)pair).toJson());
                 }
                 result.append("\n");
             }

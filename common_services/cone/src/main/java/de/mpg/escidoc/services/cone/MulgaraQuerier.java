@@ -24,6 +24,7 @@ import org.apache.log4j.Logger;
 import org.mulgara.itql.ItqlInterpreterBean;
 import org.mulgara.query.Answer;
 
+import de.mpg.escidoc.services.cone.Querier.ModeType;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
@@ -59,7 +60,7 @@ public class MulgaraQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public List<Pair> query(String model, String query) throws Exception
+    public List<Pair> query(String model, String query, ModeType modeType) throws Exception
     {
         return query(model, query, null);
     }
@@ -67,7 +68,7 @@ public class MulgaraQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public List<Pair> query(String model, String searchString, String language, int limit) throws Exception
+    public List<Pair> query(String model, String searchString, String language, ModeType modeType, int limit) throws Exception
     {
         if (language == null)
         {
@@ -120,16 +121,16 @@ public class MulgaraQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public List<Pair> query(String model, Pair[] searchFields, String language) throws Exception
+    public List<Pair> query(String model, Pair[] searchFields, String language, ModeType modeType) throws Exception
     {
         String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
-        return query(model, searchFields, language, Integer.parseInt(limitString));
+        return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
     }
 
     /* (non-Javadoc)
      * @see de.mpg.escidoc.services.cone.Querier#query(java.lang.String, de.mpg.escidoc.services.cone.util.Pair[], java.lang.String, int)
      */
-    public List<Pair> query(String model, Pair[] searchFields, String lang, int limit) throws Exception
+    public List<Pair> query(String model, Pair[] searchFields, String lang, ModeType modeType, int limit) throws Exception
     {
         // TODO Auto-generated method stub
         return null;
@@ -207,10 +208,10 @@ public class MulgaraQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public List<Pair> query(String model, String query, String language) throws Exception
+    public List<Pair> query(String model, String query, String language, ModeType modeType) throws Exception
     {
         String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
-        return query(model, query, null, Integer.parseInt(limitString));
+        return query(model, query, null, modeType, Integer.parseInt(limitString));
     }
 
     /**

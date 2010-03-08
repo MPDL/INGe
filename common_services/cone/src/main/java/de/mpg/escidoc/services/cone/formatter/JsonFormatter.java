@@ -53,6 +53,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList.Model;
+import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -141,51 +142,41 @@ public class JsonFormatter extends Formatter
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    public String formatQuery(List<Pair> pairs) throws IOException
+    public String formatQuery(List<? extends Describable> pairs) throws IOException
     {
         
         StringWriter result = new StringWriter();
         
-        result.append("[\n");
-        
         if (pairs != null)
         {
-            for (Pair pair : pairs)
+            for (Describable pair : pairs)
             {
-                result.append("\t{\n");
-                String key = pair.getKey();
-                String value = pair.getValue();
-                
-                result.append("\t\t\"id\" : \"");
-                try
+                if (pair instanceof Pair)
                 {
-                    result.append(PropertyReader.getProperty("escidoc.cone.service.url") + key.replace("\"", "\\\""));
+                    String key = ((Pair) pair).getKey();
+                    String value = ((Pair) pair).getValue();
+                    result.append(value);
+                    result.append("|");
+                    try
+                    {
+                        result.append(PropertyReader.getProperty("escidoc.cone.service.url") + key);
+                    }
+                    catch (Exception e)
+                    {
+                        throw new RuntimeException(e);
+                    }
                 }
-                catch (Exception e)
+                else if (pair instanceof TreeFragment)
                 {
-                    throw new RuntimeException(e);
-                }
-                result.append("\",\n");
-                
-                result.append("\t\t\"value\" : \"");
-                result.append(value.replace("\"", "\\\""));
-                result.append("\"\n");
-                
-                result.append("\t}");
-                
-                if (!(pair == pairs.get(pairs.size() - 1)))
-                {
-                    result.append(",");
+                    result.append(((TreeFragment)pair).toJson());
                 }
                 result.append("\n");
             }
         }
         
-        result.append("]\n");
-        
         return result.toString();
     }
-
+    
     /**
      * Formats an Map&lt;String, String> into a JQuery readable list.
      * 

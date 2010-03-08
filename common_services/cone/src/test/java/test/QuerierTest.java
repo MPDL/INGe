@@ -43,6 +43,8 @@ import org.junit.Test;
 
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
+import de.mpg.escidoc.services.cone.Querier.ModeType;
+import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -90,32 +92,32 @@ public class QuerierTest
     @Test
     public void testQueryMethod1() throws Exception
     {
-        List<Pair> results = querier.query("journals", "of");
+        List<? extends Describable> results = querier.query("journals", "of", ModeType.FAST);
         assertNotNull("No results for query 'of'", results);
         assertTrue("No results for query 'of'", results.size() > 0);
         assertTrue("Retrieved more results than allowed (" + results.size() + " > " + Integer.parseInt(PropertyReader.getProperty("escidoc.cone.maximum.results")) + ")", results.size() <= Integer.parseInt(PropertyReader.getProperty("escidoc.cone.maximum.results")));
         
         logger.debug("Query returned " + results.size() + " hits");
         
-        for (Pair pair : results)
+        for (Describable pair : results)
         {
-            assertTrue("Result does not contain query string 'of': " + pair.getValue(), pair.getValue().contains("of"));
+            assertTrue("Result does not contain query string 'of': " + ((Pair) pair).getValue(), ((Pair) pair).getValue().contains("of"));
         }
     }
 
     @Test
     public void testQueryMethod2() throws Exception
     {
-        List<Pair> results = querier.query("journals", "of", null, 10);
+        List<? extends Describable> results = querier.query("journals", "of", null, ModeType.FAST, 10);
         assertNotNull("No results for query 'of'", results);
         assertTrue("No results for query 'of'", results.size() > 0);
         assertTrue("Retrieved more results than allowed (" + results.size() + " > 10)", results.size() <= 10);
         
         logger.debug("Query returned " + results.size() + " hits");
         
-        for (Pair pair : results)
+        for (Describable pair : results)
         {
-            assertTrue("Result does not contain query string 'of': " + pair.getValue(), pair.getValue().contains("of"));
+            assertTrue("Result does not contain query string 'of': " + ((Pair) pair).getValue(), ((Pair) pair).getValue().contains("of"));
         }
     }
 

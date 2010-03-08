@@ -59,7 +59,7 @@ public class RdfHelper
      * 
      * @return The RDF
      */
-    public static String formatList(List<Pair> pairs)
+    public static String formatList(List<? extends Describable> pairs)
     {
         
         StringWriter result = new StringWriter();
@@ -69,20 +69,28 @@ public class RdfHelper
                 + "xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n");
         if (pairs != null)
         {
-            for (Pair pair : pairs)
+            
+            for (Describable pair : pairs)
             {
-                String key = pair.getKey();
-                String value = pair.getValue();
-                
-                try
+                if (pair instanceof Pair)
                 {
-                    result.append("\t<rdf:Description rdf:about=\"" + PropertyReader.getProperty("escidoc.cone.service.url") + key.replace("\"", "\\\"") + "\">\n");
-                    result.append("\t\t<dc:title>" + xmlEscape(value) + "</dc:title>\n");
-                    result.append("\t</rdf:Description>\n");
+                    String key = ((Pair) pair).getKey();
+                    String value = ((Pair) pair).getValue();
+                    
+                    try
+                    {
+                        result.append("\t<rdf:Description rdf:about=\"" + PropertyReader.getProperty("escidoc.cone.service.url") + key.replace("\"", "\\\"") + "\">\n");
+                        result.append("\t\t<dc:title>" + xmlEscape(value) + "</dc:title>\n");
+                        result.append("\t</rdf:Description>\n");
+                    }
+                    catch (Exception exception)
+                    {
+                        throw new RuntimeException(exception);
+                    }
                 }
-                catch (Exception exception)
+                else if (pair instanceof TreeFragment)
                 {
-                    throw new RuntimeException(exception);
+                    result.append(((TreeFragment) pair).toRdf());
                 }
             }
         }

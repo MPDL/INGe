@@ -48,6 +48,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList.Model;
+import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.RdfHelper;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
@@ -111,7 +112,7 @@ public class RdfFormatter extends Formatter
      * @param pairs A list of key-value pairs
      * @return A String formatted as HTML
      */
-    public String formatQuery(List<Pair> pairs) throws IOException
+    public String formatQuery(List<? extends Describable> pairs) throws IOException
     {
         
         String result = RdfHelper.formatList(pairs);

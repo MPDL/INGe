@@ -38,7 +38,7 @@ package de.mpg.escidoc.services.cone.util;
  * @version $Revision: 1952 $ $LastChangedDate: 2009-05-07 10:33:48 +0200 (Do, 07 Mai 2009) $
  *
  */
-public class Pair
+public class Pair implements Describable
 {
     private String key;
     private String value;

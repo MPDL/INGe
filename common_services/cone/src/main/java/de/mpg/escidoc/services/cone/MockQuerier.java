@@ -24,6 +24,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.cone.Querier.ModeType;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
@@ -218,15 +219,15 @@ public class MockQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public List<Pair> query(String model, String query, String lang) throws Exception
+    public List<Pair> query(String model, String query, String lang, ModeType modeType) throws Exception
     {
-        return query(model, query, lang, Integer.parseInt(PropertyReader.getProperty("escidoc.cone.maximum.results")));
+        return query(model, query, lang, modeType, Integer.parseInt(PropertyReader.getProperty("escidoc.cone.maximum.results")));
     }
 
     /**
      * {@inheritDoc}
      */
-    public List<Pair> query(String model, String query, String lang, int limit) throws Exception
+    public List<Pair> query(String model, String query, String lang, ModeType modeType, int limit) throws Exception
     {
         List<Pair> resultSet = new ArrayList<Pair>();
         for (String id : data.keySet())
@@ -249,16 +250,16 @@ public class MockQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public List<Pair> query(String model, Pair[] searchFields, String language) throws Exception
+    public List<Pair> query(String model, Pair[] searchFields, String language, ModeType modeType) throws Exception
     {
         String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
-        return query(model, searchFields, language, Integer.parseInt(limitString));
+        return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
     }
 
     /* (non-Javadoc)
      * @see de.mpg.escidoc.services.cone.Querier#query(java.lang.String, de.mpg.escidoc.services.cone.util.Pair[], java.lang.String, int)
      */
-    public List<Pair> query(String model, Pair[] searchFields, String lang, int limit) throws Exception
+    public List<Pair> query(String model, Pair[] searchFields, String lang, ModeType modeType, int limit) throws Exception
     {
         // TODO Auto-generated method stub
         return null;
@@ -267,9 +268,9 @@ public class MockQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public List<Pair> query(String model, String query) throws Exception
+    public List<Pair> query(String model, String query, ModeType modeType) throws Exception
     {
-        return query(model, query, PropertyReader.getProperty("escidoc.cone.language.default"));
+        return query(model, query, PropertyReader.getProperty("escidoc.cone.language.default"), modeType);
     }
 
     /**

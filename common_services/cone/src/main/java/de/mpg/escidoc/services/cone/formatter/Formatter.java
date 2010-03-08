@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import de.mpg.escidoc.services.cone.ModelList.Model;
+import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 
@@ -99,7 +100,7 @@ public abstract class Formatter
      * @return A string that displays the given results in the current format.
      * @throws IOException From XSLT transformation.
      */
-    public abstract String formatQuery(List<Pair> pairs) throws IOException;
+    public abstract String formatQuery(List<? extends Describable> pairs) throws IOException;
 
     /**
      * Format the results of the details action.

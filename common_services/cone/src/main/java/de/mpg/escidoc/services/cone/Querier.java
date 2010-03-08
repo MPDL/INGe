@@ -17,6 +17,7 @@ package de.mpg.escidoc.services.cone;
 import java.util.List;
 import java.util.Map;
 
+import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
@@ -31,6 +32,12 @@ import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
  */
 public interface Querier
 {
+    public enum ModeType
+    {
+        FAST, FULL;
+    }
+    
+    
     /**
      * Retrieve a list of entities matching the given search query.
      * 
@@ -39,7 +46,7 @@ public interface Querier
      * @return A {@link List} of key-value pairs containing the matching results.
      * @throws Exception Any exception
      */
-    public List<Pair> query(String model, String query) throws Exception;
+    public List<? extends Describable> query(String model, String query, ModeType modeType) throws Exception;
 
     /**
      * Retrieve a list of objects matching the given search query and the given language.
@@ -50,7 +57,7 @@ public interface Querier
      * @return A {@link List} of key-value pairs containing the matching results.
      * @throws Exception Any exception
      */
-    public List<Pair> query(String model, String query, String lang) throws Exception;
+    public List<? extends Describable> query(String model, String query, String lang, ModeType modeType) throws Exception;
 
     /**
      * Retrieve a list of objects matching the given search query and the given language.
@@ -63,7 +70,7 @@ public interface Querier
      * @return A {@link List} of key-value pairs containing the matching results.
      * @throws Exception Any exception
      */
-    public List<Pair> query(String model, String query, String lang, int limit) throws Exception;
+    public List<? extends Describable> query(String model, String query, String lang, ModeType modeType, int limit) throws Exception;
 
     /**
      * Retrieve a list of objects matching the given search fields and the given language.
@@ -75,7 +82,7 @@ public interface Querier
      * @return A {@link List} of key-value pairs containing the matching results.
      * @throws Exception Any exception
      */
-    public List<Pair> query(String model, Pair[] searchFields, String lang) throws Exception;
+    public List<? extends Describable> query(String model, Pair[] searchFields, String lang, ModeType modeType) throws Exception;
 
     /**
      * Retrieve a list of objects matching the given search fields and the given language.
@@ -88,7 +95,7 @@ public interface Querier
      * @return A {@link List} of key-value pairs containing the matching results.
      * @throws Exception Any exception
      */
-    public List<Pair> query(String model, Pair[] searchFields, String lang, int limit) throws Exception;
+    public List<? extends Describable> query(String model, Pair[] searchFields, String lang, ModeType modeType, int limit) throws Exception;
 
     /**
      * Retrieves details about an entity identified by the given id.
