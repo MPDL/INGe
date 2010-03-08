@@ -82,6 +82,7 @@ import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.formatter.Formatter;
+import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 
@@ -162,6 +163,12 @@ public class ConeServlet extends HttpServlet
         {
             String query = request.getParameter("q");
             int limit = -1;
+            String mode = request.getParameter("m");
+            Querier.ModeType modeType = Querier.ModeType.FAST;
+            if (mode != null && "full".equals(mode.toLowerCase()))
+            {
+                modeType = Querier.ModeType.FULL;
+            }
             try
             {
                 limit = Integer.parseInt(request.getParameter("l"));
@@ -175,7 +182,7 @@ public class ConeServlet extends HttpServlet
             {
                 if (query != null)
                 {
-                    queryAction(query, limit, lang, response, model);
+                    queryAction(query, limit, lang, modeType, response, model);
                 }
                 else
                 {
@@ -187,7 +194,7 @@ public class ConeServlet extends HttpServlet
                             searchFields.add(new Pair(key.toString(), request.getParameter(key.toString())));
                         }
                     }
-                    queryFieldsAction(searchFields.toArray(new Pair[]{}), limit, lang, response, model);
+                    queryFieldsAction(searchFields.toArray(new Pair[]{}), limit, lang, modeType, response, model);
                 }
             }
             catch (Exception e)
@@ -226,6 +233,7 @@ public class ConeServlet extends HttpServlet
         }
         else if ("explain".equals(action))
         {
+            response.setContentType("text/xml");
             out.print(ResourceUtil.getResourceAsString("models.xml"));
         }
     }
@@ -256,11 +264,11 @@ public class ConeServlet extends HttpServlet
             }
             else
             {
-                List<Pair> result = null;
+                List<? extends Describable> result = null;
                 
                 try
                 {
-                    result = querier.query(model.getName(), "*", lang, 0);
+                    result = querier.query(model.getName(), "*", lang, Querier.ModeType.FAST, 0);
                 }
                 catch (Exception e)
                 {
@@ -372,7 +380,7 @@ public class ConeServlet extends HttpServlet
      * @param model
      * @throws IOException
      */
-    private void queryAction(String query, int limit, String lang, HttpServletResponse response, String modelName)
+    private void queryAction(String query, int limit, String lang, Querier.ModeType modeType, HttpServletResponse response, String modelName)
         throws Exception
     {
         Model model = ModelList.getInstance().getModelByAlias(modelName);
@@ -402,17 +410,17 @@ public class ConeServlet extends HttpServlet
                 }
                 else
                 {
-                    List<Pair> result = null;
+                    List<? extends Describable> result = null;
                     
                     try
                     {
                         if (limit >= 0)
                         {
-                            result = querier.query(model.getName(), query, lang, limit);
+                            result = querier.query(model.getName(), query, lang, modeType, limit);
                         }
                         else
                         {
-                            result = querier.query(model.getName(), query, lang);
+                            result = querier.query(model.getName(), query, lang, modeType);
                         }
                     }
                     catch (Exception e)
@@ -439,7 +447,7 @@ public class ConeServlet extends HttpServlet
      * @param model
      * @throws IOException
      */
-    private void queryFieldsAction(Pair[] searchFields, int limit, String lang, HttpServletResponse response, String modelName)
+    private void queryFieldsAction(Pair[] searchFields, int limit, String lang, Querier.ModeType modeType, HttpServletResponse response, String modelName)
         throws Exception
     {
         Model model = ModelList.getInstance().getModelByAlias(modelName);
@@ -458,17 +466,17 @@ public class ConeServlet extends HttpServlet
                 }
                 else
                 {
-                    List<Pair> result = null;
+                    List<? extends Describable> result = null;
                     
                     try
                     {
                         if (limit >= 0)
                         {
-                            result = querier.query(model.getName(), searchFields, lang, limit);
+                            result = querier.query(model.getName(), searchFields, lang, modeType, limit);
                         }
                         else
                         {
-                            result = querier.query(model.getName(), searchFields, lang);
+                            result = querier.query(model.getName(), searchFields, lang, modeType);
                         }
                     }
                     catch (Exception e)
