@@ -54,7 +54,7 @@
 	    AccountUserVO accountUser = xmlTransforming.transformToAccountUser(xmlUser);
 	    // add the user handle to the transformed account user
 	    accountUser.setHandle(userHandle);
-	    
+	    request.getSession().setAttribute("user_handle_exist",Boolean.TRUE);
 	    String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(accountUser.getReference().getObjectId());
 	    List<GrantVO> grants = xmlTransforming.transformToGrantVOList(userGrantXML);
 	    
@@ -68,12 +68,38 @@
 	        {
 	            request.getSession().setAttribute("user", accountUser);
 	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
-	    		request.getSession().setAttribute("edit", Boolean.TRUE);
+	    		request.getSession().setAttribute("edit_open_vocabulary", Boolean.TRUE);
+	    		request.getSession().setAttribute("edit_closed_vocabulary", Boolean.TRUE);
 	    		showWarning = false;
 	    		break;
 	        }
+	        if ("escidoc:role-cone-editor".equals(grant.getRole()))
+	        {
+	        	request.getSession().setAttribute("user", accountUser);
+	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
+	    		request.getSession().setAttribute("edit_open_vocabulary", Boolean.TRUE);
+	    		request.getSession().setAttribute("edit_closed_vocabulary", Boolean.TRUE);
+	        	showWarning = false;
+	        	break;
+	        }
+	        if ("escidoc:role-cone-open-vocabulary-editor".equals(grant.getRole()))
+	        {
+	        	request.getSession().setAttribute("user", accountUser);
+	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
+	    		request.getSession().setAttribute("edit_open_vocabulary", Boolean.TRUE);	    		
+	        	showWarning = false;
+	        	break;
+	        }
+	        if ("escidoc:role-cone-closed-vocabulary-editor".equals(grant.getRole()))
+	        {
+	        	request.getSession().setAttribute("user", accountUser);
+	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
+	    		request.getSession().setAttribute("edit_closed_vocabulary", Boolean.TRUE);	    		
+	        	showWarning = false;
+	        	break;
+	        }
 	    }
-	}
+	}else{}
 %>
 <div class="full_area0 header clear">
 <!-- start: header section -->
@@ -108,10 +134,12 @@
 		<div>
 			Not sufficient privileges!
 		</div>
+			
 	<% } %>
+	
 	<div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
 		<a href="index.jsp" class="free_area0 xTiny_marginRIncl">Home</a>
-
+		
 		<% if (request.getSession().getAttribute("latestSearch") != null) { %>
 			<a href="<%= request.getSession().getAttribute("latestSearch") %>" class="free_area0 xTiny_marginRIncl">Back to Search</a>
 		<% } else { %>
@@ -121,6 +149,7 @@
 		<% if (request.getSession() != null && request.getSession().getAttribute("edit") != null && ((Boolean)request.getSession().getAttribute("edit")).booleanValue()) { %>
 			<a href="select.jsp" class="free_area0 xTiny_marginRIncl">Enter New Entity</a>
 			<a href="import.jsp" class="free_area0 xTiny_marginRIncl">Import</a>
+		
 		<% } %>
 		
 	</div>

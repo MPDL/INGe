@@ -114,7 +114,7 @@
 								<div class="free_area0 itemBlockContent endline">
 									<div class="free_area0 endline itemLine firstline noTopBorder">
 										<select class="medium_select xSmall_marginLExcl" size="1" name="model">
-											<% for (ModelList.Model model : ModelList.getInstance().getList()) { %>
+											<%	for (ModelList.Model model : ModelList.getInstance().getList()) { %>
 													<option value="<%= model.getName() %>" <%= (model.getName().equals(request.getParameter("model")) ? "selected" : "") %>
 													<% if (model.getName().equals(request.getParameter("model"))) { %>selected<% } %>><%= model.getName() %></option>
 											<% } %>
@@ -158,9 +158,28 @@
 													<b class="xHuge_area0 large_marginLIncl endline clear">
 														<a href="view.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>"><%= pair.getValue() %></a>
 													</b>
+													
+													<%	for (ModelList.Model model : ModelList.getInstance().getList()) {
+														 if (model.getName().equals(request.getParameter("model"))){ 
+															request.getSession().setAttribute("open_model",new Boolean(model.isOpen()));
+															//System.out.print("model "+model.getName()+" open: "+Boolean.toString(model.isOpen()));
+															break;
+														 }	
+													 } %>
 													<span class="large_area0_p8 lineToolSection">
 														<% if (request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
-															<a class="free_txtBtn groupBtn sectionTool" href="edit.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">Edit</a>
+															<% 
+															if((Boolean)request.getSession().getAttribute("open_model") &&																	
+																	(request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue())) { %>
+																<a class="free_txtBtn groupBtn sectionTool" href="edit.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">Edit</a>
+															<% } %>														
+														
+															<% 
+															if(!(Boolean)request.getSession().getAttribute("open_model") &&
+																	(request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue())) { %>
+																<a class="free_txtBtn groupBtn sectionTool" href="edit.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">Edit</a>
+															<% } %>
+															
 														<% } %>
 													</span>
 												</div>

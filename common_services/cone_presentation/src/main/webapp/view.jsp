@@ -47,19 +47,21 @@
 	TreeFragment results;
 	ModelList.Model model;
 
-	private String printPredicates(List<Predicate> predicates, TreeFragment resultNode) throws Exception
+	private String printPredicates(List<Predicate> predicates, TreeFragment resultNode, boolean loggedIn) throws Exception
 	{
 	    StringWriter writer = new StringWriter();
 	    
     	for (Predicate predicate : predicates)
     	{
 			
-    	    if (resultNode.get(predicate.getId()) != null)
+    	    if (resultNode.get(predicate.getId()) != null && loggedIn)
     	    {
     	        List<LocalizedTripleObject> nodeList = resultNode.get(predicate.getId());
     	        
 	    	    for (LocalizedTripleObject node : nodeList)
 	    	    {
+	    	    	if(!predicate.isRestricted() || loggedIn)
+	    	    	{	
 	    	        writer.append("<span class=\"full_area0 endline itemLine noTopBorder\">");
 	    	        
 	    				writer.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
@@ -77,7 +79,7 @@
 		   				     		writer.append("</span>");
 		   				     	writer.append("</span>");
    		  				       	writer.append("<span class=\"free_area0 large_negMarginLExcl\">");
-   					    	        writer.append(printPredicates(predicate.getPredicates(), (TreeFragment) node));
+   					    	        writer.append(printPredicates(predicate.getPredicates(), (TreeFragment) node, loggedIn));
    	    				     	writer.append("</span>");
   		    			   	}
    		    				else
@@ -90,6 +92,7 @@
    		    				}
 	    				writer.append("</span>");
 	    			writer.append("</span>");
+	    	    	}
 	    	    }
     	    }
     	}
@@ -137,9 +140,20 @@
 						<div class="contentMenu">
 							<div class="free_area0 sub">
 								<% if (request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
-									<a href="edit.jsp?model=<%= modelName %>&amp;uri=<%= uri %>">
-										Edit Entity
-									</a>
+								
+									<% if (model.isOpen() &&
+										(request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue())) { %>
+										<a href="edit.jsp?model=<%= modelName %>&amp;uri=<%= uri %>">
+											Edit Entity
+										</a>
+									<% } %>
+									
+									<% if (!model.isOpen() &&
+										(request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue())) { %>
+										<a href="edit.jsp?model=<%= modelName %>&amp;uri=<%= uri %>">
+											Edit Entity
+										</a>
+									<% } %>
 								<% } %>
 							</div>
 						</div>
@@ -166,7 +180,7 @@
 
 
 								<% if (model != null) { %>
-									<%= printPredicates(model.getPredicates(), results) %>
+									<%= printPredicates(model.getPredicates(), results, (request.getSession().getAttribute("user_handle_exist")!=null)) %>
 								<% } %>
 								
 								
