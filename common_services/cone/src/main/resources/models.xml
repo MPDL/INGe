@@ -33,6 +33,7 @@
 			<alias>jnar</alias>
 			<alias>journals</alias>
 		</aliases>
+		<open>true</open>
 		<description>Journal Names</description>
 		<primary-identifier control="false" generate-cone-id="false" subject-prefix="journals/resource/"></primary-identifier>
 		<predicates>
@@ -62,6 +63,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 		<aliases>
 			<alias>iso639-3</alias>
 		</aliases>
+		<open>false</open>
 		<primary-identifier control="true" generate-cone-id="false" subject-prefix="iso639-3/resource/" identifier-prefix=""/>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true"/>
@@ -79,6 +81,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 		<aliases>
 			<alias>iso639-1</alias>
 		</aliases>
+		<open>false</open>
 		<primary-identifier control="false" generate-cone-id="false" subject-prefix="iso639-1/resource/"></primary-identifier>
 		<predicates>
 			<predicate name="ISO639-3 Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" searchable="true" generateObject="false" resourceModel="iso639-3"/>
@@ -96,42 +99,43 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 			<alias>authors</alias>
 			<alias>persons</alias>
 		</aliases>
+		<open>true</open>
 		<primary-identifier control="false" generate-cone-id="true" subject-prefix="persons/resource/"/>
 		<predicates>
-			<predicate name="Complete Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="true" searchable="true"/>
+			<predicate name="Complete Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="true" searchable="true" restricted="false"/>
 			<!-- <predicate name="Cone-ID" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false"/> -->
-			<predicate name="Alternative Name" value="http://purl.org/dc/terms/alternative" multiple="true" mandatory="false" localized="true" searchable="true"/>
-			<predicate name="Family Name" value="http://xmlns.com/foaf/0.1/family_name" multiple="false" mandatory="true" localized="true" searchable="true"/>
+			<predicate name="Alternative Name" value="http://purl.org/dc/terms/alternative" multiple="true" mandatory="false" localized="true" searchable="true" restricted="false"/>
+			<predicate name="Family Name" value="http://xmlns.com/foaf/0.1/family_name" multiple="false" mandatory="true" localized="true" searchable="true" restricted="false"/>
 			<!-- added underscore-->
-			<predicate name="Given Name" value="http://xmlns.com/foaf/0.1/givenname" multiple="false" mandatory="true" localized="true" searchable="true"/>
-			<predicate name="Photo-URL" value="http://xmlns.com/foaf/0.1/depiction" multiple="false" mandatory="false" localized="false" searchable="false"/>
-			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true">
+			<predicate name="Given Name" value="http://xmlns.com/foaf/0.1/givenname" multiple="false" mandatory="true" localized="true" searchable="true" restricted="false"/>
+			<predicate name="Photo-URL" value="http://xmlns.com/foaf/0.1/depiction" multiple="false" mandatory="false" localized="false" searchable="false" restricted="false"/>
+			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true" restricted="false">
 				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#/value" multiple="false" mandatory="true" localized="false" searchable="true"/>
 				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance/type" multiple="false" mandatory="true" localized="false" searchable="false"/>
 				<!-- changed idtype namespace-->
 			</predicate>
-			<predicate name="Researcher URL" value="http://xmlns.com/foaf/0.1/homepage" multiple="true" mandatory="false" localized="true" generateObject="true" searchable="false">
+			<predicate name="Researcher URL" value="http://xmlns.com/foaf/0.1/homepage" multiple="true" mandatory="false" localized="true" generateObject="true" searchable="false" restricted="false">
 				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#/value" multiple="false" mandatory="true" localized="false" searchable="false"/>
 				<predicate name="Description" value="http://purl.org/dc/elements/1.1/description" multiple="false" mandatory="true" localized="true" searchable="false"/>
 			</predicate>
-			<predicate name="Keywords of research fields and interests" value="http://purl.org/dc/terms/subject" multiple="false" mandatory="false" localized="true" searchable="false"/>
-			<predicate name="Subject (DDC)" value="http://purl.org/dc/elements/1.1/subject" multiple="true" mandatory="false" localized="true" resourceModel="ddc" searchable="false"/>
-			<predicate name="Degree" value="http://purl.org/escidoc/metadata/terms/0.1/degree" multiple="false" mandatory="false" localized="true" searchable="false"/>
-			<predicate name="Awards" value="http://purl.org/escidoc/metadata/terms/0.1/award" multiple="false" mandatory="false" localized="true" searchable="false"/>
+			<predicate name="Keywords of research fields and interests" value="http://purl.org/dc/terms/subject" multiple="false" mandatory="false" localized="true" searchable="false" restricted="false"/>
+			<predicate name="Subject (DDC)" value="http://purl.org/dc/elements/1.1/subject" multiple="true" mandatory="false" localized="true" resourceModel="ddc" searchable="false" restricted="false"/>
+			<predicate name="Degree" value="http://purl.org/escidoc/metadata/terms/0.1/degree" multiple="false" mandatory="false" localized="true" searchable="false" restricted="false"/>
+			<predicate name="Awards" value="http://purl.org/escidoc/metadata/terms/0.1/award" multiple="false" mandatory="false" localized="true" searchable="false" restricted="false"/>
 			<!-- changed namespace, no data in cone-->
-			<predicate name="Position" value="http://purl.org/escidoc/metadata/terms/0.1/position" multiple="true" mandatory="false" localized="true" generateObject="true" searchable="true">
-				<predicate name="Organization" value="http://purl.org/eprint/terms/affiliatedInstitution" multiple="false" mandatory="false" localized="true" searchable="true"/>
-				<predicate name="eSciDoc-ID" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="false"/>
-				<predicate name="Position Appellation" value="http://purl.org/escidoc/metadata/terms/0.1/position-name" multiple="false" mandatory="false" localized="true" searchable="false"/>
-				<predicate name="From" value="http://purl.org/escidoc/metadata/terms/0.1/start-date" multiple="false" mandatory="false" localized="false" searchable="false"/>
-				<predicate name="Until" value="http://purl.org/escidoc/metadata/terms/0.1/end-date" multiple="false" mandatory="false" localized="false" searchable="false"/>
-				<predicate name="E-mail Address" value="http://xmlns.com/foaf/0.1/mbox" multiple="false" mandatory="false" localized="false" searchable="false"/>
+			<predicate name="Position" value="http://purl.org/escidoc/metadata/terms/0.1/position" multiple="true" mandatory="false" localized="true" generateObject="true" searchable="true" restricted="false">
+				<predicate name="Organization" value="http://purl.org/eprint/terms/affiliatedInstitution" multiple="false" mandatory="false" localized="true" searchable="true" restricted="false"/>
+				<predicate name="eSciDoc-ID" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="false" restricted="false"/>
+				<predicate name="Position Appellation" value="http://purl.org/escidoc/metadata/terms/0.1/position-name" multiple="false" mandatory="false" localized="true" searchable="false" restricted="false"/>
+				<predicate name="From" value="http://purl.org/escidoc/metadata/terms/0.1/start-date" multiple="false" mandatory="false" localized="false" searchable="false" restricted="false"/>
+				<predicate name="Until" value="http://purl.org/escidoc/metadata/terms/0.1/end-date" multiple="false" mandatory="false" localized="false" searchable="false" restricted="false"/>
+				<predicate name="E-mail Address" value="http://xmlns.com/foaf/0.1/mbox" multiple="false" mandatory="false" localized="false" searchable="false" restricted="true"/>
 			</predicate>
 			<!-- <predicate name="Other affiliations" value="urn:cone:other-ou" multiple="false" mandatory="false" localized="true"/> -->
-			<predicate name="E-mail Address" value="http://xmlns.com/foaf/0.1/mbox" multiple="false" mandatory="false" localized="false" searchable="false"/>
-			<predicate name="Telephone" value="http://xmlns.com/foaf/0.1/tel" multiple="false" mandatory="false" localized="false" searchable="false"/>
+			<predicate name="E-mail Address" value="http://xmlns.com/foaf/0.1/mbox" multiple="false" mandatory="false" localized="false" searchable="false" restricted="true"/>
+			<predicate name="Telephone" value="http://xmlns.com/foaf/0.1/tel" multiple="false" mandatory="false" localized="false" searchable="false" restricted="true"/>
 			<!-- no data in cone-->
-			<predicate name="Actual Status" value="http://purl.org/escidoc/metadata/terms/0.1/person-activity-status" multiple="false" mandatory="false" localized="false" searchable="false"/>
+			<predicate name="Actual Status" value="http://purl.org/escidoc/metadata/terms/0.1/person-activity-status" multiple="false" mandatory="false" localized="false" searchable="false" restricted="false"/>
 			<predicate name="Last Modification Date" value="http://purl.org/dc/terms/modified" multiple="false" mandatory="true" localized="false" searchable="false" default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentDate" overwrite="true" event="onsave" modify="false"/>
 			<predicate name="Creation Date" value="http://purl.org/dc/terms/created" multiple="false" mandatory="true" localized="false" searchable="false" default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentDate" overwrite="false" event="onsave" modify="false"/>
 			<predicate name="Modified By" value="http://purl.org/dc/terms/creator" multiple="false" mandatory="true" localized="false" searchable="false" default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentUser" overwrite="true" event="onsave" modify="false"/>
@@ -158,6 +162,7 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 		<aliases>
 			<alias>ddc</alias>
 		</aliases>
+		<open>false</open>
 		<primary-identifier control="true" generate-cone-id="false" subject-prefix="ddc/resource/" identifier-prefix="">http://dewey.info/class</primary-identifier>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true"/>
@@ -193,6 +198,7 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 		<aliases>
 			<alias>mimetypes</alias>
 		</aliases>
+		<open>false</open>
 		<primary-identifier control="true" generate-cone-id="false" subject-prefix="mimetypes/resource/" identifier-prefix="">http://purl.org/dc/elements/1.1/title</primary-identifier>
 		<predicates>
 			<predicate name="Type" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true"/>
@@ -209,6 +215,7 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 		<aliases>
 			<alias>escidocmimetypes</alias>
 		</aliases>
+		<open>false</open>
 		<primary-identifier control="true" generate-cone-id="false" subject-prefix="escidocmimetypes/resource/" identifier-prefix="mimetypes/resource/">http://purl.org/dc/elements/1.1/relation</primary-identifier>
 		<predicates>
 			<predicate name="Type" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" resourceModel="mimetypes" searchable="true"/>
@@ -227,6 +234,7 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 			<alias>cclicenses</alias>
 			<alias>cclicences</alias>
 		</aliases>
+		<open>false</open>
 		<primary-identifier control="true" generate-cone-id="false" subject-prefix="cclicenses/resource/" identifier-prefix="http://creativecommons.org/licenses/">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
 		<predicates>
 			<predicate name="Version" value="urn:cone:version" multiple="false" mandatory="true" localized="false" searchable="true"/>
