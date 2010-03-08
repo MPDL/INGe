@@ -84,9 +84,9 @@ public class SQLQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public List<Describable> query(String model, String query, ModeType modeType) throws Exception
+    public List<? extends Describable> query(String model, String query, ModeType modeType) throws Exception
     {
-        return query(model, query, null);
+        return query(model, query, null, modeType);
     }
 
     /**
