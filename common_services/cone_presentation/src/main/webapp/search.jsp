@@ -46,7 +46,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%
 	
-	List<Pair> results = null;
+	List<? extends Describable> results = null;
 	String path = "search.jsp";
 	String queryString = "?";
 	Enumeration params = request.getParameterNames();
@@ -72,17 +72,19 @@
 	    Querier querier = QuerierFactory.newQuerier();
 	    if (request.getParameter("lang") != null && !"".equals(request.getParameter("lang")))
 	    {
-	    	results = querier.query(request.getParameter("model"), request.getParameter("searchterm"), request.getParameter("lang"));
+	    	results = querier.query(request.getParameter("model"), request.getParameter("searchterm"), request.getParameter("lang"), Querier.ModeType.FAST);
 	    }
 	    else
 	    {
-	        results = querier.query(request.getParameter("model"), request.getParameter("searchterm"));
+	        results = querier.query(request.getParameter("model"), request.getParameter("searchterm"), Querier.ModeType.FAST);
 	    }
 		querier.release();
 	}
 %>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+<%@page import="de.mpg.escidoc.services.cone.Querier.ModeType"%>
+<%@page import="de.mpg.escidoc.services.cone.util.Describable"%><html xmlns="http://www.w3.org/1999/xhtml">
 	<jsp:include page="header.jsp"/>
 	<body>
 		<div class="full wrapper">
@@ -146,7 +148,8 @@
 											</div>
 										<% } else { %>
 											<% int i = 0; %>
-											<% for (Pair pair : results) { %>
+											<% for (Describable desc : results) { 
+												Pair pair = (Pair) desc; %>
 												<% if(i == 0) { %>
 													<div class="free_area0 endline itemLine noTopBorder">
 												<% } else { %>

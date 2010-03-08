@@ -189,7 +189,7 @@ public class ConeServlet extends HttpServlet
                     ArrayList<Pair> searchFields = new ArrayList<Pair>();
                     for (Object key : request.getParameterMap().keySet())
                     {
-                        if (!"l".equals(key) && !"lang".equals(key))
+                        if (!"l".equals(key) && !"lang".equals(key) && !"m".equals(key))
                         {
                             searchFields.add(new Pair(key.toString(), request.getParameter(key.toString())));
                         }
