@@ -15,8 +15,8 @@
 			<plugin>
 				<artifactId>maven-ear-plugin</artifactId>
 				<configuration>
-					<displayName>validation</displayName>
-					<description>validation integration testing ear</description>
+					<displayName>pid_cache</displayName>
+					<description>pid cache integration testing ear</description>
 					<resourcesDir>target/classes/in_ear</resourcesDir>
 					<version>5</version>
 					<modules>
@@ -25,6 +25,11 @@
 							<artifactId>framework_access</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<webModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>pid_cache_presentation</artifactId>
+							<contextRoot>/handle</contextRoot>
+						</webModule>
 						<jarModule>
 							<groupId>org.jibx</groupId>
 							<artifactId>jibx-run</artifactId>
@@ -34,6 +39,13 @@
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>common_logic</artifactId>
 						</ejbModule>
+						<jarModule>
+                            <groupId>axis</groupId>
+                            <artifactId>axis</artifactId>
+                            <includeInApplicationXml>
+                                true
+                            </includeInApplicationXml>
+                        </jarModule>
 						<jarModule>
                             <groupId>com.maxmind.geoip</groupId>
                             <artifactId>geoip</artifactId>
@@ -72,7 +84,7 @@
 							<goal>test</goal>
 						</goals>
 						<configuration>
-							<skip>true</skip>
+							<skip>false</skip>
 						</configuration>
 					</execution>
 				</executions>
@@ -95,6 +107,18 @@
                     </items>
                 </configuration>
        		</plugin>
+       		<!-- enables the process test resources feature in the ear -->
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>testResources</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -120,7 +144,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.36-SNAPSHOT</version>
+			<version>1.1.37-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
@@ -129,13 +153,79 @@
 	      	<artifactId>geoip</artifactId>
 	      	<version>1.2.3</version>
     	</dependency>
+		<dependency>
+			<groupId>jboss-ejb3-client</groupId>
+			<artifactId>jboss-ejb-client</artifactId>
+			<version>4.2.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>jboss-ejb3x</groupId>
+			<artifactId>jboss-ejb3x</artifactId>
+			<version>4.2.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>jboss-annotations-ejb3</groupId>
+			<artifactId>jboss-annotations-ejb3</artifactId>
+			<version>4.2.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>jbossall-client</groupId>
+			<artifactId>jbossall-client</artifactId>
+			<version>4.2.2</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	
 	<profiles>
+		
 		<profile>
 			<id>jboss42</id>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>start-container</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>start</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>stop-container</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<wait>false</wait>
+							<container>
+								<containerId>jboss42x</containerId>
+								<zipUrlInstaller>
+									<url>${cargo.jboss.url}</url>
+									<installDir>${cargo.install.dir}</installDir>
+								</zipUrlInstaller>
+							</container>
+							<configuration>
+								<type>existing</type>
+								<home>${project.build.directory}/jboss/server</home>
+								<properties>
+									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
+									<cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
+									<cargo.logging>${cargo.log}</cargo.logging>
+									<cargo.jvmargs>${cargo.jvmargs}</cargo.jvmargs>
+									<cargo.jboss.configuration>default</cargo.jboss.configuration>
+								</properties>
+							</configuration>
+						</configuration>
+					</plugin>
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>jboss-maven-plugin</artifactId>
@@ -150,7 +240,7 @@
 						<version>1.1</version>
 						<executions>
 							<execution>
-								<id>prepare-test-deployment</id>
+								<id>prepare-deployment</id>
 								<phase>generate-test-sources</phase>
 								<goals>
 									<goal>run</goal>
@@ -161,42 +251,16 @@
 										<copy todir="${project.build.directory}">
 											<fileset dir="src/jboss/configuration42x" />
 										</copy>
-										<!--  <copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/server/default/deploy">
-										</copy>-->
-									</tasks>
-								</configuration>
-							</execution>
-							<execution>
-								<id>prepare-deployment</id>
-								<phase>process-resources</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-								<configuration>
-									<tasks>
-									
-										<echo message="${project.build.directory}" />
-									
-										<!-- configuration for the deploy jboss server -->
 										<!-- copy over the validation datasource descriptor -->
-										<!--  <copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/server/default/deploy">
-										</copy>-->
-										<!-- configuration for the runtime server jboss server -->
-										<!-- <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl" out="${project.build.directory}/properties-service.temp" />
-										<copy overwrite="true" file="${project.build.directory}/properties-service.temp" toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml">
-										</copy> -->
-
+										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${project.build.directory}/jboss/server/deploy" />
+										<!-- copy the configuration file -->
+										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${project.build.directory}/jboss/server/conf" />
+										<!-- copy over the jboss service descriptor -->
+										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf" />
 									</tasks>
 								</configuration>
 							</execution>
 						</executions>
-						<dependencies>
-							<dependency>
-								<groupId>ant</groupId>
-								<artifactId>ant-trax</artifactId>
-								<version>1.6.5</version>
-							</dependency>
-						</dependencies>
 					</plugin>
 				</plugins>
 			</build>
