@@ -196,6 +196,8 @@
         <module>syndication_ear</module>
         <module>syndication_presentation</module>
         <module>sword_presentation</module>
+        <module>pid_cache_presentation</module>
+        <module>pid_cache_ear</module>
 
     </modules>
 
