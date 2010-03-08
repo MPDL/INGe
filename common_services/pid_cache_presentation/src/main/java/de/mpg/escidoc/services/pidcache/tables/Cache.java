@@ -53,7 +53,7 @@ public class Cache
 	
     public Cache() throws Exception
     {
-    	SIZE_MAX = Integer.parseInt(PropertyReader.getProperty("escidoc.pid.cache.size.max"));
+    	SIZE_MAX = Integer.parseInt(PropertyReader.getProperty("escidoc.pidcache.cache.size.max"));
 	}
 
     /**

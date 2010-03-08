@@ -28,11 +28,11 @@ public class GwdgPidService
 	public GwdgPidService() throws Exception
 	{
 		GWDG_PIDSERVICE = PropertyReader.getProperty("escidoc.pid.gwdg.service.url");
-    	GWDG_PIDSERVICE_CREATE = PropertyReader.getProperty("escidoc.pid.gwdg.create.path");
-    	GWDG_PIDSERVICE_VIEW = PropertyReader.getProperty("escidoc.pid.gwdg.view.path");
-    	GWDG_PIDSERVICE_FIND = PropertyReader.getProperty("escidoc.pid.gwdg.search.path");
-    	GWDG_PIDSERVICE_EDIT = PropertyReader.getProperty("escidoc.pid.gwdg.update.path");
-    	GWDG_PIDSERVICE_DELETE = PropertyReader.getProperty("escidoc.pid.gwdg.delete.path");
+    	GWDG_PIDSERVICE_CREATE = PropertyReader.getProperty("escidoc.pid.service.create.path");
+    	GWDG_PIDSERVICE_VIEW = PropertyReader.getProperty("escidoc.pid.service.view.path");
+    	GWDG_PIDSERVICE_FIND = PropertyReader.getProperty("escidoc.pid.service.search.path");
+    	GWDG_PIDSERVICE_EDIT = PropertyReader.getProperty("escidoc.pid.service.update.path");
+    	GWDG_PIDSERVICE_DELETE = PropertyReader.getProperty("escidoc.pid.service.delete.path");
 	}
 		
 	/**

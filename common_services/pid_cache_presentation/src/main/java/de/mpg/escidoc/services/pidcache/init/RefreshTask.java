@@ -55,7 +55,7 @@ public class RefreshTask extends Thread
     {
         try
         {
-            int timeout = Integer.parseInt(PropertyReader.getProperty("escidoc.pid.cache.refresh.interval"));
+            int timeout = Integer.parseInt(PropertyReader.getProperty("escidoc.pidcache.refresh.interval"));
             timeout = timeout * 1 * 1000;
             CacheProcess cacheProcess = new CacheProcess();
             QueueProcess queueProcess = new QueueProcess();

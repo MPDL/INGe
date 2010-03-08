@@ -21,7 +21,18 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<wtpversion>1.5</wtpversion>
+				</configuration>
+			</plugin>
+			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -36,7 +47,7 @@
 		<dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>common_logic</artifactId>
-            <version>1.1.36-SNAPSHOT</version>
+            <version>1.1.37-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 		<dependency>
