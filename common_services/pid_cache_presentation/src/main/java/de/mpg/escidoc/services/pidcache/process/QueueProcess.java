@@ -3,8 +3,11 @@
  */
 package de.mpg.escidoc.services.pidcache.process;
 
+import javax.naming.InitialContext;
+
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.pidcache.Pid;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
 import de.mpg.escidoc.services.pidcache.init.RefreshTask;
@@ -23,11 +26,14 @@ import de.mpg.escidoc.services.pidcache.tables.Queue;
 public class QueueProcess 
 {    
 	private static final Logger logger = Logger.getLogger(QueueProcess.class);
+	private XmlTransforming xmlTransforming = null;
 	/**
      * Default constructor
      */
-    public QueueProcess()
+    public QueueProcess() throws Exception
     {
+    	InitialContext context = new InitialContext();
+    	xmlTransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
     }
 	
 	/**
@@ -46,27 +52,17 @@ public class QueueProcess
 		{
 			while (pid != null) 
 			{
-				if (pid.exists()) 
+				try 
 				{
-					if (pid.hasFreeUrl()) 
-					{
-						gwdgPidService.update(pid.getIdentifier(), pid.getUrl());
-						queue.remove(pid);
-						pid = queue.getFirst();
-					} 
-					else 
-					{
-						// We have a problem!!! URL has been already declared for another PID
-						// Some Reporting should be done from here
-						queue.remove(pid);
-						pid = queue.getFirst();
-					}
-				}
-				else
+					String pidXml = gwdgPidService.update(pid.getIdentifier(), pid.getUrl());
+					xmlTransforming.transformToPidServiceResponse(pidXml);
+				} 
+				catch (Exception e) 
 				{
-					queue.remove(pid);
-					pid = queue.getFirst();
+					logger.info("Error, PID can not be updated on GWDG service.");
 				}
+				queue.remove(pid);
+				pid = queue.getFirst();
 			}
 		}
 		else

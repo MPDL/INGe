@@ -79,38 +79,18 @@ public class Pid extends PidServiceResponseVO
      * @return
      * @throws Exception
      */
-    public boolean exists() throws Exception
-    {
-    	GwdgPidService gwdgPidService = new GwdgPidService();
-    	String pidXml = gwdgPidService.retrieve(this.identifier);
-    	try 
-    	{
-			xmlTransforming.transformToPidServiceResponse(pidXml);
-		}
-		catch (Exception e) 
-		{
-			return false;
-		}
-    	return true;
-    }
-    
-    /**
-     * True if URL of the PID is not already allocated to another PID.
-     * @return
-     * @throws Exception
-     */
-    public boolean hasFreeUrl() throws Exception
-    {
-    	PidCacheService pidCacheService = new PidCacheService();
-    	try 
-    	{
-    		xmlTransforming.transformToPidServiceResponse(pidCacheService.search(url));
-		}
-		catch (Exception e) 
-		{
-			return true;
-		}
-    	return false;
-    }
-    
+//    public boolean exists() throws Exception
+//    {
+//    	GwdgPidService gwdgPidService = new GwdgPidService();
+//    	String pidXml = gwdgPidService.retrieve(this.identifier);
+//    	try 
+//    	{
+//			xmlTransforming.transformToPidServiceResponse(pidXml);
+//		}
+//		catch (Exception e) 
+//		{
+//			return false;
+//		}
+//    	return true;
+//    }
 }

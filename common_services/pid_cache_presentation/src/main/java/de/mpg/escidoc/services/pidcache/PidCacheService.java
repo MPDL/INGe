@@ -78,11 +78,16 @@ public class PidCacheService
 		{
 			return xmlTransforming.transformToPidServiceResponse(pid);
 		}
-		if (!gwdgPidService.available()) 
+		String pidXml = gwdgPidService.retrieve(id);
+		try 
+		{
+			xmlTransforming.transformToPidServiceResponse(pidXml);
+		} 
+		catch (Exception e) 
 		{
 			throw new RuntimeException("Service Not available");
 		}
-		return gwdgPidService.retrieve(id);
+		return pidXml;
 	}
 	
 	/**
@@ -100,11 +105,16 @@ public class PidCacheService
 		{
 			return xmlTransforming.transformToPidServiceResponse(pid);
 		}
-		if (!gwdgPidService.available()) 
+		String pidXml =  gwdgPidService.search(url);
+		try 
+		{
+			xmlTransforming.transformToPidServiceResponse(pidXml);
+		} 
+		catch (Exception e) 
 		{
 			throw new RuntimeException("Service Not available");
 		}
-		return  gwdgPidService.search(url);
+		return  pidXml;
 	}
 	
 	/**

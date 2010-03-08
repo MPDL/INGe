@@ -1,8 +1,5 @@
 package de.mpg.escidoc.services.pidcache.process;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Date;
 
 import javax.naming.InitialContext;
@@ -10,12 +7,11 @@ import javax.naming.InitialContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pidcache.Pid;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
-import de.mpg.escidoc.services.pidcache.init.RefreshTask;
 import de.mpg.escidoc.services.pidcache.tables.Cache;
-import de.mpg.escidoc.services.pidcache.util.DatabaseHelper;
 
 
 /**
@@ -40,7 +36,7 @@ public class CacheProcess
 	 */
 	public CacheProcess() throws Exception
 	{
-		DUMMY_URL = PropertyReader.getProperty("escidoc.pid.cache.dummy.url");
+		DUMMY_URL = PropertyReader.getProperty("escidoc.pidcache.dummy.url");
 		context = new InitialContext();
 		xmlTransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
 	}
@@ -60,13 +56,14 @@ public class CacheProcess
 			{
 				current = new Date().getTime();
 				String pidXml = gwdgPidService.create(DUMMY_URL.concat(Long.toString(current)));
-				cache.add((Pid)xmlTransforming.transformToPidServiceResponse(pidXml));
+				PidServiceResponseVO pidServiceResponseVO = xmlTransforming.transformToPidServiceResponse(pidXml);
+				Pid pid = new Pid(pidServiceResponseVO.getIdentifier(), pidServiceResponseVO.getUrl());
+				cache.add(pid);
 			}
 		}
 		else 
 		{
 			 logger.info("PID manager at GWDG not available.");
 		}
-		
 	}
 }

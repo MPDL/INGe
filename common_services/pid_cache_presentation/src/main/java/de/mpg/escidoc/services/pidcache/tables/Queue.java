@@ -51,10 +51,6 @@ public class Queue
 	 */
 	public void add(Pid pid) throws Exception
 	{
-		if (!pid.hasFreeUrl()) 
-		{
-			throw new RuntimeException("This URL (" + pid.getUrl() + ") has already a PID!");
-		}
 		String sql = DatabaseHelper.ADD_QUEUE_ELEMENT_STATEMENT;
     	sql = sql.replace("XXX_IDENTIFIER_XXX", pid.getIdentifier());
     	sql = sql.replace("XXX_URL_XXX", pid.getUrl());

@@ -1,5 +1,8 @@
 package de.mpg.escidoc.services.pidcache.gwdg;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -21,6 +24,8 @@ public class GwdgPidService
 	public static String GWDG_PIDSERVICE_EDIT = null;
 	public static String GWDG_PIDSERVICE_DELETE = null;
 	
+	private boolean available = true;
+	
 	/**
 	 * Default constructor
 	 * @throws Exception
@@ -35,16 +40,6 @@ public class GwdgPidService
     	GWDG_PIDSERVICE_DELETE = PropertyReader.getProperty("escidoc.pid.service.delete.path");
 	}
 		
-	/**
-	 * True if GWDG PID service is available.
-	 * False if not.
-	 * @return
-	 */
-	public boolean available()
-	{
-		return true;
-	}
-	
 	/**
 	 * Calls GWDG PID manager interface:
 	 * 
@@ -123,5 +118,29 @@ public class GwdgPidService
 		GwdgClient client = new GwdgClient();
     	client.executeMethod(delete);
     	return delete.getResponseBodyAsString();
+	}
+
+	/**
+	 * True if GWDG PID service is available.
+	 * False if not.
+	 * @return
+	 */
+	public boolean available()
+	{
+		GetMethod method = new GetMethod(GWDG_PIDSERVICE);
+		try
+		{	GwdgClient client = new GwdgClient();
+			client.getHttpConnectionManager().getParams().setConnectionTimeout(GwdgClient.GWDG_SERVICE_TIMEOUT);
+	    	client.executeMethod(method);
+		} 
+		catch (Exception e) 
+		{
+			return false;
+		}
+		if (method.getStatusCode() == 200) 
+		{
+			return true;
+		}
+    	return false;
 	}
 }
