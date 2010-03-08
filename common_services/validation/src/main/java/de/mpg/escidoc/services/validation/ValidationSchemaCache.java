@@ -480,7 +480,7 @@ public final class ValidationSchemaCache
 
         // Retrieve changed validation schemas from external source
         retrieveNewSchemas(lastRefresh);
-        
+        validationSchemaContextMap.clear();
         
         precompileAll();
         xsltCache = new HashMap<CacheTriple, Transformer>();
