@@ -159,6 +159,10 @@ public class ModelList
             {
                 currentService.getAliases().add(content.trim());
             }
+            else if ("models/model/open".equals(stack.toString()))
+            {
+                currentService.setOpen(Boolean.parseBoolean(content.trim()));
+            }
             else if ("models/model/primary-identifier".equals(stack.toString()))
             {
                 currentService.setIdentifier("".equals(content.trim()) ? null : content.trim());
@@ -212,6 +216,7 @@ public class ModelList
                         Boolean.parseBoolean(attributes.getValue("localized")),
                         Boolean.parseBoolean(attributes.getValue("generateObject")),
                         Boolean.parseBoolean(attributes.getValue("searchable")),
+                        Boolean.parseBoolean(attributes.getValue("restricted")),
                         Boolean.parseBoolean(attributes.getValue("overwrite")),
                         (attributes.getValue("modify") == null ? true : Boolean.parseBoolean(attributes.getValue("modify"))),
                         attributes.getValue("event"),
@@ -469,6 +474,7 @@ public class ModelList
         private boolean globalResultPattern;
         private boolean localizedMatches;
         private boolean globalMatches;
+        private boolean open;
         /**
          * Default constructor.
          */
@@ -484,6 +490,7 @@ public class ModelList
         public Model(String name)
         {
             this.name = name;
+            this.open = false;
         }
 
         /**
@@ -496,6 +503,7 @@ public class ModelList
         {
             this.name = name;
             this.description = description;
+            this.open = false;
         }
 
         /**
@@ -510,6 +518,7 @@ public class ModelList
             this.name = name;
             this.description = description;
             this.aliases = aliases;
+            this.open = false;
         }
 
         /**
@@ -526,6 +535,7 @@ public class ModelList
             this.description = description;
             this.aliases = aliases;
             this.predicates = predicates;
+            this.open = false;
         }
 
         public String getName()
@@ -667,6 +677,14 @@ public class ModelList
         {
             this.controlled = controlled;
         }
+        
+        public void setOpen(boolean open){
+        	this.open = open;
+        }
+        
+        public boolean isOpen(){
+        	return this.open;
+        }
 
         /**
          * Find a predicate by id.
@@ -753,6 +771,7 @@ public class ModelList
         private boolean generateObject = false;
         private String resourceModel;
         private boolean searchable;
+        private boolean restricted;
         private boolean overwrite;
         private boolean modify;
         private Event event;
@@ -781,6 +800,7 @@ public class ModelList
                 boolean localized,
                 boolean generateObject,
                 boolean searchable,
+                boolean restricted,
                 boolean overwrite,
                 boolean modify,
                 String eventString,
@@ -795,6 +815,7 @@ public class ModelList
             this.name = name;
             this.generateObject = generateObject;
             this.searchable = searchable;
+            this.restricted = restricted;
             this.overwrite = overwrite;
             this.modify = modify;
             if (eventString != null && !"".equals(eventString))
@@ -937,6 +958,16 @@ public class ModelList
         public boolean isSearchable()
         {
             return searchable;
+        }
+        
+        public void setRestricted(boolean restricted)
+        {
+            this.restricted = restricted;
+        }
+        
+        public boolean isRestricted()
+        {
+            return restricted;
         }
 
         public boolean isOverwrite()
