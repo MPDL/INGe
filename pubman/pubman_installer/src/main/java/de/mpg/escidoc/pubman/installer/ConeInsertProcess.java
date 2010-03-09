@@ -56,7 +56,7 @@ public class ConeInsertProcess extends Thread
 		   coneDataset.disconnectFromDB();
 		   
 		   
-		   coneDataset.connectToDB("cone");
+		   coneDataset.connectToDB(idata.getVariable("ConeDatabase"));
 		   // first create tables
 		   coneDataset.runConeScript(ConeDataset.CONE_CREATE_SCRIPT);
 		   
