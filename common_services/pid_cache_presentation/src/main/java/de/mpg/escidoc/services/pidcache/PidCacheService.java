@@ -76,18 +76,9 @@ public class PidCacheService
 		pid = queue.retrieve(id);
 		if (pid != null) 
 		{
-			return xmlTransforming.transformToPidServiceResponse(pid);
+			return  transformToPidServiceResponse(pid, "view");
 		}
-		String pidXml = gwdgPidService.retrieve(id);
-		try 
-		{
-			xmlTransforming.transformToPidServiceResponse(pidXml);
-		} 
-		catch (Exception e) 
-		{
-			throw new RuntimeException("Service Not available");
-		}
-		return pidXml;
+		return gwdgPidService.retrieve(id);
 	}
 	
 	/**
@@ -103,18 +94,9 @@ public class PidCacheService
 		pid = queue.search(url);
 		if (pid != null) 
 		{
-			return xmlTransforming.transformToPidServiceResponse(pid);
+			return transformToPidServiceResponse(pid, "search");
 		}
-		String pidXml =  gwdgPidService.search(url);
-		try 
-		{
-			xmlTransforming.transformToPidServiceResponse(pidXml);
-		} 
-		catch (Exception e) 
-		{
-			throw new RuntimeException("Service Not available");
-		}
-		return  pidXml;
+		return  gwdgPidService.search(url);
 	}
 	
 	/**
@@ -149,6 +131,9 @@ public class PidCacheService
 		pidServiceResponseVO.setIdentifier(pid.getIdentifier());
 		pidServiceResponseVO.setUrl(pid.getUrl());
 		pidServiceResponseVO.setUserUid("anonymous");
+		pidServiceResponseVO.setInstitute("institute");
+		pid.setContact("jon@doe.xx");
+		pidServiceResponseVO.setMessage(action + "  PID " + pid.getIdentifier() + " with URL " + pid.getUrl());
 		return xmlTransforming.transformToPidServiceResponse(pidServiceResponseVO);
 	}
 }

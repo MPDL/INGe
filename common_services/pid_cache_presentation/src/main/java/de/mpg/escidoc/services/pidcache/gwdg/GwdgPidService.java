@@ -1,8 +1,5 @@
 package de.mpg.escidoc.services.pidcache.gwdg;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -24,8 +21,6 @@ public class GwdgPidService
 	public static String GWDG_PIDSERVICE_EDIT = null;
 	public static String GWDG_PIDSERVICE_DELETE = null;
 	
-	private boolean available = true;
-	
 	/**
 	 * Default constructor
 	 * @throws Exception
@@ -38,7 +33,10 @@ public class GwdgPidService
     	GWDG_PIDSERVICE_FIND = PropertyReader.getProperty("escidoc.pid.service.search.path");
     	GWDG_PIDSERVICE_EDIT = PropertyReader.getProperty("escidoc.pid.service.update.path");
     	GWDG_PIDSERVICE_DELETE = PropertyReader.getProperty("escidoc.pid.service.delete.path");
+    	
+    	//GWDG_PIDSERVICE = GWDG_PIDSERVICE.concat("/out");
 	}
+	
 		
 	/**
 	 * Calls GWDG PID manager interface:
