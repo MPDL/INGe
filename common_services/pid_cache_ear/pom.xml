@@ -74,9 +74,6 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
 				<executions>
 					<execution>
 						<phase>integration-test</phase>
@@ -85,6 +82,7 @@
 						</goals>
 						<configuration>
 							<skip>false</skip>
+							<test>PidCacheServiceTest</test>
 						</configuration>
 					</execution>
 				</executions>
