@@ -323,7 +323,7 @@
 				<xsl:apply-templates select="mab740_s" mode="subject"/>
 			</xsl:variable>
 			<xsl:element name="dcterms:subject">
-				<xsl:value-of select="substring($subject,3)"></xsl:value-of>
+				<xsl:value-of select="normalize-space(substring($subject,3))"></xsl:value-of>
 			</xsl:element>
 			<!--end publication-->
 		</xsl:element>
@@ -585,20 +585,16 @@
 	
 	<!-- LANGUAGE -->
 	<xsl:template match="mab037_c">
-		<xsl:element name="dc:language">
-			<!-- <xsl:variable name="language-identifier" select="."/> -->
-		<!-- 	<xsl:variable name="cone-language" select="Util:queryCone('languages', .)"/>
-			<xsl:value-of select="$cone-language/cone/rdf:RDF[rdf:Description/dc:identifier = $language-identifier]/rdf:Description/dc:identifier[string-length(.) = 2]"/>
-			-->
-		</xsl:element>
+		<xsl:for-each select="tokenize(normalize-space(replace(.,'/', ' ')), '\s+')">
+			<xsl:element name="dc:language">
+				<xsl:value-of select="."/>
+			</xsl:element>
+		</xsl:for-each>
 	</xsl:template>
 	<!-- SUBJECT -->
 	<xsl:template match="*" mode="subject">
 			<xsl:value-of select="', '"></xsl:value-of>
 			<xsl:value-of select="."/>
-		<!-- <xsl:element name="dcterms:subject">
-			<xsl:value-of select="."/>
-		</xsl:element> -->
 	</xsl:template>
 	
 	<!-- DATES -->
@@ -612,35 +608,65 @@
 		</xsl:analyze-string>
 	</xsl:template>
 	
-	<!-- PUBLISHING INFO -->
 	<xsl:template match="mab519">		
-		<!-- <xsl:analyze-string select="." regex="\d\d\d\d">
-				<xsl:matching-substring>
-					<xsl:element name="dcterms:dateAccepted">
-						<xsl:value-of select="."/>
-					</xsl:element>
-				</xsl:matching-substring>
-			</xsl:analyze-string>--></xsl:template>
-	<xsl:template name="createPublInfo">
-		<!--<xsl:element name="eterms:publishing-info">
-		 <xsl:variable name="publisher" select="substring-before(substring-after(mab519,','),',')"/>
-		<xsl:variable name="place" select="substring-before(mab519,',')"/>
-		<xsl:choose>
-			<xsl:when test="not(mab412)">
-				<xsl:element name="dc:publisher">
-					<xsl:value-of select="$publisher"/>
+	 	<xsl:analyze-string select="." regex="\d\d\d\d">
+			<xsl:matching-substring>
+				<xsl:element name="dcterms:dateAccepted">
+					<xsl:value-of select="."/>
 				</xsl:element>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:element name="dc:publisher">N.A.</xsl:element>
-			</xsl:otherwise>
-		</xsl:choose>	
-			<xsl:if test="not($place='')">
-				<xsl:element name="eterms:place">
-					<xsl:value-of select="$place"/>
-				</xsl:element>		
-			</xsl:if>			
-		</xsl:element>--></xsl:template>
+			</xsl:matching-substring>
+		</xsl:analyze-string>-->
+	</xsl:template>
+	<xsl:template name="createPublInfo">
+		<xsl:element name="eterms:publishing-info">
+			<xsl:variable name="publisher" select="substring-before(substring-after(mab519,','),',')"/>
+			<xsl:variable name="place" select="substring-before(mab519,',')"/>
+			<!-- PUBLISHER INFO -->
+			<xsl:choose>
+				<xsl:when test="not(mab412)">
+					<xsl:element name="dc:publisher">
+						<xsl:value-of select="$publisher"/>
+					</xsl:element>
+				</xsl:when>
+				<xsl:when test="mab412 != ''">
+					<xsl:element name="dc:publisher">
+						<xsl:value-of select="mab412 "/>
+					</xsl:element>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:element name="dc:publisher">N.A.</xsl:element>
+				</xsl:otherwise>
+			</xsl:choose>	
+			<!-- PUBLISHER PLACE -->
+			<xsl:choose>
+				<xsl:when test="not(mab412) and $place != ''">
+					<xsl:element name="eterms:place">
+						<xsl:value-of select="$place"/>
+					</xsl:element>		
+				</xsl:when>
+				<xsl:when test="mab410 != ''">
+					<xsl:element name="eterms:place">
+						<xsl:value-of select="mab410"/>
+					</xsl:element>		
+				</xsl:when>	
+				<xsl:otherwise>
+					<xsl:element name="eterms:place">N.A.</xsl:element>
+				</xsl:otherwise>
+			</xsl:choose>
+			<!-- EDITION -->
+			<xsl:choose>
+				<xsl:when test="mab403 != ''">
+					<xsl:element name="eterms:edition">
+						<xsl:value-of select="mab403"/>
+					</xsl:element>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:element name="eterms:edition">N.A.</xsl:element>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:element>
+	</xsl:template>
+	
 	<!-- SOURCE -->
 	<xsl:template name="createSource">
 		<xsl:param name="title"/>
@@ -769,17 +795,17 @@
 			<xsl:choose>
 				<xsl:when test="starts-with($filename, $localPrefix)">
 				
-					<xsl:variable name="content-category">
+					<!--  <xsl:variable name="content-category">
 						<xsl:choose>
 							<xsl:when test="exists(preceding-sibling::*[name() = 'mab655_e' and starts-with(escidoc:computeFilename(.), $localPrefix)])">publisher-version</xsl:when>
 							<xsl:otherwise>any-fulltext</xsl:otherwise>
 						</xsl:choose>
-					</xsl:variable>
+					</xsl:variable>-->
 				
 					<xsl:element name="ec:component">
 						<ec:properties>
 							<prop:visibility>audience</prop:visibility>
-							<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/></prop:content-category>
+							<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/></prop:content-category>
 							<prop:file-name>
 								<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
 							</prop:file-name>
@@ -803,7 +829,7 @@
 										<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
 										<xsl:value-of select="."/>
 									</xsl:element>
-									<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/></eterms:content-category>
+									<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/></eterms:content-category>
 									<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
 									<xsl:variable name="file-size" select="Util:getSize($filename)"/>
 									<xsl:if test="exists($file-size)">
@@ -820,7 +846,7 @@
 					<xsl:element name="ec:component">
 						<ec:properties>
 							<prop:visibility>public</prop:visibility>
-							<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/></prop:content-category>
+							<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/></prop:content-category>
 							<prop:file-name><xsl:value-of select="$filename"/></prop:file-name>
 						</ec:properties>
 						<ec:content xlink:type="simple" xlink:title="{escidoc:substring-after-last($filename, '/')}" xlink:href="{$filename}" storage="external-url"/>
@@ -841,7 +867,7 @@
 										<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
 										<xsl:value-of select="$filename"/>
 									</xsl:element>
-									<xsl:element name="eterms:content-category">any-fulltext</xsl:element>
+									<xsl:element name="eterms:content-category"><xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/></xsl:element>
 								</xsl:element>
 							</mdr:md-record>
 						</mdr:md-records>
