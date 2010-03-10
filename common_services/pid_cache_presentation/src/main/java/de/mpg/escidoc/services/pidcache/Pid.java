@@ -73,24 +73,4 @@ public class Pid extends PidServiceResponseVO
     	this.identifier = identifier;
     	this.url = url;
     }
-    
-    /**
-     * True if PID exists at GWDG.
-     * @return
-     * @throws Exception
-     */
-//    public boolean exists() throws Exception
-//    {
-//    	GwdgPidService gwdgPidService = new GwdgPidService();
-//    	String pidXml = gwdgPidService.retrieve(this.identifier);
-//    	try 
-//    	{
-//			xmlTransforming.transformToPidServiceResponse(pidXml);
-//		}
-//		catch (Exception e) 
-//		{
-//			return false;
-//		}
-//    	return true;
-//    }
 }

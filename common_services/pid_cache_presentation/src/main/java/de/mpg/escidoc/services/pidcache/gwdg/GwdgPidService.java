@@ -33,7 +33,7 @@ public class GwdgPidService
     	GWDG_PIDSERVICE_FIND = PropertyReader.getProperty("escidoc.pid.service.search.path");
     	GWDG_PIDSERVICE_EDIT = PropertyReader.getProperty("escidoc.pid.service.update.path");
     	GWDG_PIDSERVICE_DELETE = PropertyReader.getProperty("escidoc.pid.service.delete.path");
-    	
+    	// Use to simulate non available gwdg
     	//GWDG_PIDSERVICE = GWDG_PIDSERVICE.concat("/out");
 	}
 	
@@ -46,7 +46,7 @@ public class GwdgPidService
 	 * @param url: 
 	 * @return
 	 */
-	public String create(String url) throws Exception
+	public synchronized String create(String url) throws Exception
 	{
 		PostMethod create = new PostMethod(GWDG_PIDSERVICE.concat(GWDG_PIDSERVICE_CREATE));
     	create.setParameter("url", url);

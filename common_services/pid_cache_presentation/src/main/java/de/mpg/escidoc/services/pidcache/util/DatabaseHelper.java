@@ -53,7 +53,7 @@ public class DatabaseHelper
 	// Initial statement to create tables
 	public static final String CREATE_TABLES_STATEMENT = 
 	    "CREATE TABLE ESCIDOC_PID_CACHE (identifier VARCHAR NOT NULL PRIMARY KEY, created TIMESTAMP);\n" +
-	    "CREATE TABLE ESCIDOC_PID_QUEUE (identifier VARCHAR NOT NULL PRIMARY KEY, url VARCHAR NOT NULL, created TIMESTAMP);";
+	    "CREATE TABLE ESCIDOC_PID_QUEUE (identifier VARCHAR NOT NULL, url VARCHAR NOT NULL, created TIMESTAMP);";
     
 	// Statements for pid cache table
 	public static final String GET_CACHE_FIRST_ELEMENT_STATEMENT = 

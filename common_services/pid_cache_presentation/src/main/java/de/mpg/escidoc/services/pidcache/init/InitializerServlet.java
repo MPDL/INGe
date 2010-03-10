@@ -52,7 +52,6 @@ public class InitializerServlet extends HttpServlet
         
         refreshTask = new RefreshTask();
         refreshTask.start();
-        
     }
 
     /* (non-Javadoc)
