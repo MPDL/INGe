@@ -115,7 +115,16 @@ public class DataGatheringBean implements DataGathering
         logger.debug("Param=" + param);
         try
         {
-            String result = ServiceLocator.getSemanticScoreHandler(userHandle).spo(param);
+            
+            String result;
+            if (userHandle == null)
+            {
+                result = ServiceLocator.getSemanticScoreHandler().spo(param);
+            }
+            else
+            {
+                result = ServiceLocator.getSemanticScoreHandler(userHandle).spo(param);
+            }
             List<RelationVO> relations = xmlTransforming.transformToRelationVOList(result);
             return relations;
         }
