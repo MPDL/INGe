@@ -24,7 +24,7 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -326,7 +326,7 @@
 				width: 81.37em;
 			}
 		/*TEXT INPUTS (base size-6px)*/
-			.free_txtInput, .xTiny_txtInput, .tiny_txtInput, .xSmall_txtInput, .small_txtInput, .medium_txtInput, .large_txtInput, .xLarge_txtInput, .double_txtInput, .xDouble_txtInput, .quad_txtInput, .huge_txtInput, .xHuge_txtInput, .half_txtInput, .full_txtInput  {
+			.free_txtInput, .free_txtInput input, .xTiny_txtInput, .xTiny_txtInput input, .tiny_txtInput, .tiny_txtInput input, .xSmall_txtInput, .xSmall_txtInput input, .small_txtInput, .small_txtInput input, .medium_txtInput, .medium_txtInput input, .large_txtInput, .large_txtInput input, .xLarge_txtInput, .xLarge_txtInput input, .double_txtInput, .double_txtInput input, .xDouble_txtInput, .xDouble_txtInput input, .quad_txtInput, .quad_txtInput input, .huge_txtInput, .huge_txtInput input, .xHuge_txtInput, .xHuge_txtInput input, .half_txtInput, .half_txtInput input, .full_txtInput, .full_txtInput input  {
 				padding-left: 0.09em;
 				padding-right: 0.09em;
 				border-width: 0.09em;
@@ -336,67 +336,67 @@
 				float: left;
 			}
 			
-			.xTiny_txtInput {
+			.xTiny_txtInput, .xTiny_txtInput input {
 				width: 1.01em;
 			}
 
-			.tiny_txtInput {
+			.tiny_txtInput, .tiny_txtInput input {
 				width: 1.74em;
 			}
 			
-			.xSmall_txtInput {
+			.xSmall_txtInput, .xSmall_txtInput input {
 				width: 2.46em;
 			}
 			
-			.small_txtInput {
+			.small_txtInput, .small_txtInput input {
 				width: 5.37em;
 			}
 			
-			.medium_txtInput {
+			.medium_txtInput, .medium_txtInput input {
 				width: 8.28em;
 			}
 			
-			.large_txtInput {
+			.large_txtInput, .large_txtInput input {
 				width: 11.19em;
 			}
 			
-			.xLarge_txtInput {
+			.xLarge_txtInput, .xLarge_txtInput input {
 				width: 14.10em;
 			}
 			
-			.double_txtInput {
+			.double_txtInput, .double_txtInput input {
 				width: 18.28em;
 			}
 			
-			.xDouble_txtInput {
+			.xDouble_txtInput, .xDouble_txtInput input {
 				width: 24.83em;
 			}
 			
-			.quad_txtInput {
+			.quad_txtInput, .quad_txtInput input {
 				width: 38.65em;
 			}
 			
-			.huge_txtInput {
+			.huge_txtInput, .huge_txtInput input {
 				width: 22.83em;
 			}
 			
-			.xHuge_txtInput {
+			.xHuge_txtInput, .xHuge_txtInput input {
 				width: 43.19em;
 			}
 			
-			.half_txtInput {
+			.half_txtInput, .half_txtInput input {
 				width: 40.24em;
 			}
 			
-				.full_area0_p1 .half_txtInput, .full_area1 .half_txtInput, .full_area1_p0 .half_txtInput {
+				.full_area0_p1 .half_txtInput, .full_area0_p1 .half_txtInput input, .full_area1 .half_txtInput, .full_area1 .half_txtInput input, .full_area1_p0 .half_txtInput, .full_area1_p0 .half_txtInput input {
 					width: 40.15em;
 				}
 				
-				.full_area0_p2 .half_txtInput, .full_area1_p1 .half_txtInput, .full_area2 .half_txtInput, .full_area2_p0 .half_txtInput {
+				.full_area0_p2 .half_txtInput, .full_area0_p2 .half_txtInput input, .full_area1_p1 .half_txtInput, .full_area1_p1 .half_txtInput input, .full_area2 .half_txtInput, .full_area2 .half_txtInput input, .full_area2_p0 .half_txtInput, .full_area2_p0 .half_txtInput input {
 					width: 40.06em;
 				}
 			
-			.full_txtInput {
+			.full_txtInput, .full_txtInput input {
 				width: 81.01em;
 			}
 			
