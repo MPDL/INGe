@@ -61,6 +61,8 @@
 
 		<value style="element" name="issue" ns="${xsd.metadata.escidocprofile.types}" field="issue"
 			usage="optional" />
+			
+		<value style="element" name="issued" ns="${xsd.metadata.dcterms}" field="datePublishedInPrint" usage="optional" />
 
 		<value style="element" name="start-page" ns="${xsd.metadata.escidocprofile.types}"
 			field="startPage" usage="optional" />

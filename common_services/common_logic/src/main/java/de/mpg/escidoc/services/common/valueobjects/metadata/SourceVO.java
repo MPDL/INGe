@@ -30,6 +30,8 @@
 
 package de.mpg.escidoc.services.common.valueobjects.metadata;
 
+import java.util.Date;
+
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.TitleIF;
 
@@ -59,6 +61,7 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
     private java.util.List<CreatorVO> creators = new java.util.ArrayList<CreatorVO>();
     private String volume;
     private String issue;
+    private Date datePublishedInPrint;
     private String startPage;
     private String endPage;
     private String sequenceNumber;
@@ -379,4 +382,12 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
                 // added by DiT, 27.11.2007
                 && equals(this.getGenre(), vo.getGenre());                
     }
+
+	public void setDatePublishedInPrint(Date datePublishedInPrint) {
+		this.datePublishedInPrint = datePublishedInPrint;
+	}
+
+	public Date getDatePublishedInPrint() {
+		return datePublishedInPrint;
+	}
 }
