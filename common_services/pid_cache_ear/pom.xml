@@ -28,7 +28,7 @@
 						<webModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>pid_cache_presentation</artifactId>
-							<contextRoot>/handle</contextRoot>
+							<contextRoot>pid_cache_presentation</contextRoot>
 						</webModule>
 						<jarModule>
 							<groupId>org.jibx</groupId>
