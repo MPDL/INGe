@@ -69,6 +69,8 @@
 
 		<value style="element" name="issue" ns="${xsd.metadata.escidocprofile.types}" field="issue"
 			usage="optional" />
+			
+		<value style="element" name="issued" ns="${xsd.metadata.dcterms}" field="datePublishedInPrint" usage="optional" />
 
 		<value style="element" name="start-page" ns="${xsd.metadata.escidocprofile.types}"
 			field="startPage" usage="optional" />
@@ -93,7 +95,7 @@
 
 		<collection field="sources"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.sourceVOListFactory" usage="optional">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO" />
+			<structure name="source" ns="${xsd.metadata.source}" map-as="SourceVO_abstract" />
 		</collection>
 
 	</mapping>
