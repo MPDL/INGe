@@ -40,7 +40,8 @@ public abstract class SearchQuery implements Serializable
     /** Sorting order */
     private SortingOrder sortingOrder = null;
     /** Maximum number of results. */
-    private static final String DEFAULT_MAXIMUM_RECORDS = "10000";
+    // changed to 1000 due to java heap space problems
+    private static final String DEFAULT_MAXIMUM_RECORDS = "1000";
     /** Cql definition for a descending order of the search result */
     private static final String CQL_DESCENDING_DEFINITION = ",,0";
 
