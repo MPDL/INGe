@@ -843,6 +843,9 @@
                                         <!-- copy over the configuration file -->
                                         <copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${project.build.directory}/jboss/server/conf">
                                         </copy>
+                                        <!-- copy over the validation datasource descriptor -->
+										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${project.build.directory}/jboss/server/deploy" />
+                                        
                                     </tasks>
                                 </configuration>
                             </execution>
@@ -862,7 +865,7 @@
                                         <copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${jboss.install.dir}/server/default/conf">
                                         </copy>
 										<!-- copy over the validation datasource descriptor -->
-										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${project.build.directory}/jboss/server/deploy" />
+										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/server/default/deploy" />
                                         <!-- configuration for the runtime server jboss server -->
                                         <!--
                                             <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl" out="${project.build.directory}/properties-service.temp" />
