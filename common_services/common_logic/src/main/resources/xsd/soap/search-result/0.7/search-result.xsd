@@ -19,7 +19,7 @@
 											<xs:complexType>
 												<xs:sequence>
 													<xs:element name="text-fragment-data" type="xs:string"/>
-													<xs:element name="hit-word" minOccurs="0" maxOccurs="unbounded">
+													<xs:element name="hit-word" maxOccurs="unbounded">
 														<xs:complexType>
 															<xs:sequence>
 																<xs:element name="start-index" type="xs:decimal"/>
@@ -45,7 +45,7 @@
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-                <xs:any processContents="skip" namespace="##other" maxOccurs="unbounded"/>
+                <xs:any processContents="skip" namespace="##other"/>
 			</xs:sequence>
 			<xs:attribute ref="xml:base"/>
 		</xs:complexType>

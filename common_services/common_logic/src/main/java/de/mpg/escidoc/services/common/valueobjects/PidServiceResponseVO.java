@@ -13,6 +13,9 @@ public class PidServiceResponseVO extends ValueObject
 	protected String url;
 	private String creator;
 	private String userUid;
+	private String message;
+	private String institute;
+	private String contact;
 	
 	/**
 	 * Default constructor.
@@ -71,4 +74,35 @@ public class PidServiceResponseVO extends ValueObject
 	{
 		this.userUid = userUid;
 	}
+	
+	public String getMessage() 
+	{
+		return message;
+	}
+
+	public void setMessage(String message) 
+	{
+		this.message = message;
+	}
+
+	public String getInstitute() 
+	{
+		return institute;
+	}
+
+	public void setInstitute(String institute) 
+	{
+		this.institute = institute;
+	}
+
+	public String getContact() 
+	{
+		return contact;
+	}
+
+	public void setContact(String contact) 
+	{
+		this.contact = contact;
+	}
+
 }
