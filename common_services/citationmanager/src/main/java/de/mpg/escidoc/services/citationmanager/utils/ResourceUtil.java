@@ -41,18 +41,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLDecoder;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 
 import net.sf.jasperreports.engine.JRException;
 
 import org.apache.log4j.Logger;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
@@ -250,7 +245,6 @@ public class ResourceUtil
     public static InputStream getResourceAsStream(final String fileName) throws FileNotFoundException
     {
         InputStream fileIn = null;
-        
         File file = new File(fileName);
         if (file.exists())
         {
