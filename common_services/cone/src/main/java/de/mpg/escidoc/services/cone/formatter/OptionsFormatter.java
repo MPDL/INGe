@@ -126,8 +126,6 @@ public class OptionsFormatter extends Formatter
                 {
                     String key = ((Pair) pair).getKey();
                     String value = ((Pair) pair).getValue();
-                    result.append(value);
-                    result.append("|");
                     try
                     {
                         result.append(key.substring(key.lastIndexOf("/") + 1));
@@ -136,6 +134,8 @@ public class OptionsFormatter extends Formatter
                     {
                         throw new RuntimeException(e);
                     }
+                    result.append("|");
+                    result.append(value);
                 }
                 else if (pair instanceof TreeFragment)
                 {

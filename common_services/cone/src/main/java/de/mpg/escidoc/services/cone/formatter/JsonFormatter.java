@@ -137,15 +137,17 @@ public class JsonFormatter extends Formatter
     }
 
     /**
-     * Formats an Map&lt;String, String> into a JQuery readable list.
+     * Formats RDF descriptions into a JSON list.
      * 
-     * @param result The RDF.
-     * @return A String formatted  in a JQuery readable format.
+     * @param pairs The RDF.
+     * @return A String formatted in JSON format.
      */
     public String formatQuery(List<? extends Describable> pairs) throws IOException
     {
         
         StringWriter result = new StringWriter();
+        
+        result.append("[\n");
         
         if (pairs != null)
         {
@@ -153,18 +155,33 @@ public class JsonFormatter extends Formatter
             {
                 if (pair instanceof Pair)
                 {
+                    result.append("\t{\n");
                     String key = ((Pair) pair).getKey();
                     String value = ((Pair) pair).getValue();
-                    result.append(value);
-                    result.append("|");
+                    
+                    result.append("\t\t\"id\" : \"");
                     try
                     {
-                        result.append(PropertyReader.getProperty("escidoc.cone.service.url") + key);
+                        result.append(PropertyReader.getProperty("escidoc.cone.service.url") + key.replace("\"", "\\\""));
                     }
                     catch (Exception e)
                     {
                         throw new RuntimeException(e);
                     }
+                    result.append("\",\n");
+                    
+                    result.append("\t\t\"value\" : \"");
+                    result.append(value.replace("\"", "\\\""));
+                    result.append("\"\n");
+                    
+                    result.append("\t}");
+                    
+                    if (!(pair == pairs.get(pairs.size() - 1)))
+                    {
+                        result.append(",");
+                    }
+                    result.append("\n");
+
                 }
                 else if (pair instanceof TreeFragment)
                 {
@@ -173,6 +190,8 @@ public class JsonFormatter extends Formatter
                 result.append("\n");
             }
         }
+        
+        result.append("]\n");
         
         return result.toString();
     }
