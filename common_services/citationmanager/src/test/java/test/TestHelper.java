@@ -29,7 +29,7 @@
 
 package test; 
 
-import gov.loc.www.zing.srw.RecordType;
+import gov.loc.www.zing.srw.RecordType; 
 import gov.loc.www.zing.srw.SearchRetrieveRequestType;
 import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 import gov.loc.www.zing.srw.StringOrXmlFragment;

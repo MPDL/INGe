@@ -122,6 +122,7 @@ public class TestCitationStylesSubstantial {
 	private static final String CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME = "CitationStyleTestUserGrants.xml"; 
 	private static final String CITATION_STYLE_TEST_CONTEXTS_FILE_NAME = "CitationStyleTestContexts.xml"; 
 	private static final String CITATION_STYLE_TEST_COLLECTION_FILE_NAME = "CitationStyleTestCollection.xml"; 
+	private static final String CITATION_STYLE_JUS_TEST_COLLECTION_FILE_NAME = "CitationStyleJusTestCollection.xml"; 
 	
 	
 	private static String userHandle, adminHandle;   
@@ -163,7 +164,7 @@ public class TestCitationStylesSubstantial {
     	// for all citation styles
     	for (String cs : 
     		cse.getStyles() 
-//    		new String[]{"AJP"} 
+    		//new String[]{"JUS"} 
     	)    	
     	{
 
@@ -173,12 +174,14 @@ public class TestCitationStylesSubstantial {
     		//get item list from file
 //    		boolean IS_IGNORE_MULTIPLY_SPACES = tp.getProperty("ignore.multiply.spaces").equals("yes");
     		//    	
+    		String FILE_NAME = tp.getProperty("data.source.filename");
     		String EXPECTED_KEY = tp.getProperty("data.source.expected.key");
     		String EXPECTED_XPATH = tp.getProperty("data.source.expected.xpath");
     		String SNIPPET_XPATH = tp.getProperty("snippet.placeholder.xpath");
     		
     		//get items from file
-    		itemList = getFileAsString(CITATION_STYLE_TEST_COLLECTION_FILE_NAME);
+    		//itemList = getFileAsString(CITATION_STYLE_TEST_COLLECTION_FILE_NAME);
+    		itemList = getFileAsString(FILE_NAME);
     		
     		Document doc = XmlHelper.createDocument(itemList);
     		Element root = doc.getDocumentElement();
@@ -196,11 +199,12 @@ public class TestCitationStylesSubstantial {
 
     			//generate text citation form the current item
 //    			logger.info( "item:" + XmlHelper.outputString(doc));
+    			
     			String snippet = new String(cse.getOutput(cs, "escidoc_snippet", XmlHelper.outputString(doc)));
     			Node snippetNode = xpathNode(SNIPPET_XPATH, snippet);
     			
     			generatedCit = snippetNode.getTextContent();
-//    			logger.info( "generated citation:" + generatedCit );
+    			logger.info( "generated citation:" + generatedCit );
 
     			//get expected result from the abstract field 
     			Node checkNode = xpathNode(EXPECTED_XPATH, doc);

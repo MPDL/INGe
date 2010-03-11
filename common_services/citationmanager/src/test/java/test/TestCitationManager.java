@@ -13,13 +13,11 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
@@ -35,7 +33,10 @@ public class TestCitationManager {
     
     private XmlHelper xh = new XmlHelper();
     
-    private final static String dsFileName = "target/test-classes/backup/CitationStyleTestCollection.xml";  
+    private final static String dsFileName = "target/test-classes/testFiles/1_JournalArticle.xml"; 
+    // 2_ContrToCollectedEdition.xml
+    // 
+    //target/test-classes/backup/CitationStyleTestCollection.xml
     private static String itemList;
      
     private CitationStyleHandler cse = new CitationStyleExecutor();
@@ -59,7 +60,6 @@ public class TestCitationManager {
     public static void getItemList() throws Exception
     {
         String ds = dsFileName; 
-        logger.info("Data Source:" + ds);
         itemList = ResourceUtil.getResourceAsString(ds);
         assertNotNull("Item list xml is not found:", ds);
         itemsNumber =  TestHelper.getItemsNumber(ds);
@@ -83,13 +83,14 @@ public class TestCitationManager {
         logger.info("List of citation styles: " );
         for (String s : cse.getStyles() )
             logger.info("Citation Style: " + s);
-    }
+    } 
      
     /**
      * Test list of styles
      * @throws Exception Any exception.
      */
-    @Test
+  //  @Test
+    
     public final void testExplainStuff() throws Exception 
     {
         String explain = cse.explainStyles();
@@ -169,13 +170,12 @@ public class TestCitationManager {
      * Test service for all citation styles and all output formats 
      * @throws Exception Any exception.
      */
-    @Test
-//    @Ignore
+   // @Test
     public final void testCitManOutput() throws Exception {
         
         
-      for (String cs : cse.getStyles() )
-//      for (String cs : new String[]{"APA","AJP"} )
+   //  for (String cs : cse.getStyles() )
+     for (String cs : new String[]{"APA","AJP"} )
 //            for (String cs : new String[]{"APA"} )
         {
             long start;
@@ -207,6 +207,25 @@ public class TestCitationManager {
             
         }
     }
+    
+   // @Test
+    // @Ignore
+     public final void testJusOutput() throws Exception {
+       	
+       	CitationStyleExecutor cse = new CitationStyleExecutor();
+         
+//       for (String cs : pcs.getStyles() )
+             byte[] result;
+         	
+         	result = cse.getOutput("JUS", "snippet", itemList);
+         	
+         	System.out.println(new String(result, "UTF-8"));
+             
+//         TestHelper.writeToFile(cs + "." + format, result);
+
+         	
+             
+     }
     
  
     
