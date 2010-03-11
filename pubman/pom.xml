@@ -550,6 +550,7 @@
 				<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
 				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 				<escidoc.cone.modelsxml.path>models.xml</escidoc.cone.modelsxml.path>
+				
 				<!-- Vocabularies which wil be integrated inot Borwse by, seperator is ;-->
 				<escidoc.cone.subjectVocab>ddc</escidoc.cone.subjectVocab>
 				
@@ -630,9 +631,23 @@
 				<xsd.metadata.dcterms>http://purl.org/dc/terms/</xsd.metadata.dcterms>
 				
 				<escidoc.statistics.max_mind_geo_lite_city_db.location />
-                <escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
-                <escidoc.pubman.statistics.nims.link />
+				<escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
+				<escidoc.pubman.statistics.nims.link />
 				<escidoc.pubman.statistics.nims.context.ids />
+				
+				<escidoc.pidcache.cache.size.max>5</escidoc.pidcache.cache.size.max>
+				<escidoc.pidcache.refresh.interval>100</escidoc.pidcache.refresh.interval>
+				<escidoc.pidcache.dummy.url>http://pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
+				<escidoc.pid.gwdg.service.url>http://handle.gwdg.de:8080/pidservice</escidoc.pid.gwdg.service.url>
+				<escidoc.pid.gwdg.timeout>3000</escidoc.pid.gwdg.timeout>
+				<escidoc.pid.pidcache.service.url>http://localhost:8080/pidcache/handle</escidoc.pid.pidcache.service.url>
+				<escidoc.pid.service.create.path>/write/create</escidoc.pid.service.create.path>
+				<escidoc.pid.service.view.path>/read/view</escidoc.pid.service.view.path>
+				<escidoc.pid.service.delete.path>/write/delete</escidoc.pid.service.delete.path>
+				<escidoc.pid.service.update.path>/write/modify</escidoc.pid.service.update.path>
+				<escidoc.pid.service.search.path>/read/search</escidoc.pid.service.search.path>
+				<escidoc.pid.gwdg.user.login>demo2</escidoc.pid.gwdg.user.login>
+				<escidoc.pid.gwdg.user.password>Evaluierung</escidoc.pid.gwdg.user.password>
 				
 			</properties>
 			
@@ -851,12 +866,25 @@
 				<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
 				<xsd.metadata.dcterms>http://purl.org/dc/terms/</xsd.metadata.dcterms>
 				
-				
 				<escidoc.statistics.max_mind_geo_lite_city_db.location />
-                <escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
-                <escidoc.pubman.statistics.nims.link />
+				<escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
+				<escidoc.pubman.statistics.nims.link />
 				<escidoc.pubman.statistics.nims.context.ids />
 				
+				<escidoc.pidcache.cache.size.max>5</escidoc.pidcache.cache.size.max>
+				<escidoc.pidcache.refresh.interval>100</escidoc.pidcache.refresh.interval>
+				<escidoc.pidcache.dummy.url>http://pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
+				<escidoc.pid.gwdg.service.url>http://handle.gwdg.de:8080/pidservice</escidoc.pid.gwdg.service.url>
+				<escidoc.pid.gwdg.timeout>3000</escidoc.pid.gwdg.timeout>
+				<escidoc.pid.pidcache.service.url>http://localhost:8080/pidcache/handle</escidoc.pid.pidcache.service.url>
+				<escidoc.pid.service.create.path>/write/create</escidoc.pid.service.create.path>
+				<escidoc.pid.service.view.path>/read/view</escidoc.pid.service.view.path>
+				<escidoc.pid.service.delete.path>/write/delete</escidoc.pid.service.delete.path>
+				<escidoc.pid.service.update.path>/write/modify</escidoc.pid.service.update.path>
+				<escidoc.pid.service.search.path>/read/search</escidoc.pid.service.search.path>
+				<escidoc.pid.gwdg.user.login>demo2</escidoc.pid.gwdg.user.login>
+				<escidoc.pid.gwdg.user.password>Evaluierung</escidoc.pid.gwdg.user.password>
+
 			</properties>
 				<distributionManagement>
 				<repository>
