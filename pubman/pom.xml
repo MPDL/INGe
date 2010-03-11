@@ -516,7 +516,7 @@
 				<escidoc.pubman.sitemap.retrieve.timeout>20</escidoc.pubman.sitemap.retrieve.timeout>
 
 				<!-- URL of the FIZ framework instance -->
-				<escidoc.common.framework.url>http://dev-coreservice.mpdl.mpg.de:8080</escidoc.common.framework.url>
+				<escidoc.common.framework.url>http://coreservice.mpdl.mpg.de:8080</escidoc.common.framework.url>
 				
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
 				<escidoc.framework_access.content-model.id.publication>escidoc:persistent4</escidoc.framework_access.content-model.id.publication>
@@ -635,6 +635,7 @@
 				<escidoc.pubman.statistics.nims.link />
 				<escidoc.pubman.statistics.nims.context.ids />
 				
+				<!-- Pid cache properties -->
 				<escidoc.pidcache.cache.size.max>5</escidoc.pidcache.cache.size.max>
 				<escidoc.pidcache.refresh.interval>100</escidoc.pidcache.refresh.interval>
 				<escidoc.pidcache.dummy.url>http://pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
@@ -871,12 +872,13 @@
 				<escidoc.pubman.statistics.nims.link />
 				<escidoc.pubman.statistics.nims.context.ids />
 				
-				<escidoc.pidcache.cache.size.max>5</escidoc.pidcache.cache.size.max>
-				<escidoc.pidcache.refresh.interval>100</escidoc.pidcache.refresh.interval>
+				<!-- Pid cache properties -->
+				<escidoc.pidcache.cache.size.max>100</escidoc.pidcache.cache.size.max>
+				<escidoc.pidcache.refresh.interval>120</escidoc.pidcache.refresh.interval>
 				<escidoc.pidcache.dummy.url>http://pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
 				<escidoc.pid.gwdg.service.url>http://handle.gwdg.de:8080/pidservice</escidoc.pid.gwdg.service.url>
 				<escidoc.pid.gwdg.timeout>3000</escidoc.pid.gwdg.timeout>
-				<escidoc.pid.pidcache.service.url>http://localhost:8080/pidcache/handle</escidoc.pid.pidcache.service.url>
+				<escidoc.pid.pidcache.service.url>http://dev-pubman.mpdl.mpg.de/pidcache/handle</escidoc.pid.pidcache.service.url>
 				<escidoc.pid.service.create.path>/write/create</escidoc.pid.service.create.path>
 				<escidoc.pid.service.view.path>/read/view</escidoc.pid.service.view.path>
 				<escidoc.pid.service.delete.path>/write/delete</escidoc.pid.service.delete.path>
@@ -884,7 +886,7 @@
 				<escidoc.pid.service.search.path>/read/search</escidoc.pid.service.search.path>
 				<escidoc.pid.gwdg.user.login>demo2</escidoc.pid.gwdg.user.login>
 				<escidoc.pid.gwdg.user.password>Evaluierung</escidoc.pid.gwdg.user.password>
-
+				
 			</properties>
 				<distributionManagement>
 				<repository>

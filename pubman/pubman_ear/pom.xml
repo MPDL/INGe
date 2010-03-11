@@ -64,10 +64,10 @@
                             <contextRoot>/sword-app</contextRoot>
                         </webModule>
                         <webModule>
-                           <groupId>de.mpg.escidoc.services</groupId>
-                           <artifactId>pid_cache_presentation</artifactId>
-                           <contextRoot>/pidcache</contextRoot>
-                       </webModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>pid_cache_presentation</artifactId>
+							<contextRoot>/pidcache</contextRoot>
+						</webModule>
                         <ejbModule>
                             <groupId>de.mpg.escidoc.services</groupId>
                             <artifactId>common_logic</artifactId>
@@ -861,7 +861,8 @@
                                         <!-- copy over the configuration file -->
                                         <copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${jboss.install.dir}/server/default/conf">
                                         </copy>
-
+										<!-- copy over the validation datasource descriptor -->
+										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${project.build.directory}/jboss/server/deploy" />
                                         <!-- configuration for the runtime server jboss server -->
                                         <!--
                                             <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl" out="${project.build.directory}/properties-service.temp" />
