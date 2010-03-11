@@ -116,6 +116,7 @@ public class JiBXHelper
     // private static final Logger logger = Logger.getLogger(JiBXHelper.class);
     public static final String DCTERMS_NAMESPACE_PREFIX = "dcterms:";
     public static final String IDTYPES_NAMESPACE_PREFIX = "eterms:";
+    public static final String TYPES_NAMESPACE_PREFIX = "eterms:";
     /**
      * XML escaped characters mapping ("<" and "&" get escaped/unescaped automatically by JiBX) Note: Only the
      * characters "<" and "&" are strictly illegal in XML. Apostrophes, quotation marks and greater than signs are
@@ -1007,6 +1008,28 @@ public class JiBXHelper
     }
 
     /**
+     * Deserializes a String containing a <code>xsi:type</code> attribute of TextVO
+     * elements (referencing to the types defined in escidoctypes.xsd) to the corresponding
+     * String.
+     * 
+     * @param value The String to deserialize
+     * @return String The corresponding string
+     */
+    public static String deserializeTextTypeEnum(String value)
+    {
+        if (value == null)
+        {
+            throw new NullPointerException("'xsi:type' attribute of text element is null.");
+        }
+        else
+        {
+            String upperCaseTextWithoutNamespace = value.substring(value.lastIndexOf(':') + 1).trim()
+                    .toUpperCase();
+            return upperCaseTextWithoutNamespace;
+        }
+    }
+
+    /**
      * Serializes an <code>IdentifierVO.IdType</code> Enum to a String that corresponds to the types defined in
      * escidocidtypes.xsd and dcterms.xsd.
      * 
@@ -1016,13 +1039,32 @@ public class JiBXHelper
      */
     public static String serializeIdentifierTypeEnum(IdType idType)
     {
-    	
+        
         if (idType == null)
         {
             return "";
         }
        
         return IDTYPES_NAMESPACE_PREFIX + idType.name();
+    }
+
+    /**
+     * Serializes an <code>TextVO.Type</code> Enum to a String that corresponds to the types defined in
+     * escidoctypes.xsd.
+     * 
+     * @param type The <code>TextVO.Type</code> to serialize
+     * @return The corresponding 'xsi:type' String (cf. escidocidtypes.xsd and
+     *         http://dublincore.org/schemas/xmls/qdc/2003/04/02/dcterms.xsd)
+     */
+    public static String serializeTextTypeEnum(String type)
+    {
+        
+        if (type == null)
+        {
+            return "";
+        }
+       
+        return TYPES_NAMESPACE_PREFIX + type;
     }
 
     /**

@@ -95,12 +95,33 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
         
         private Genre(String uri)
         {
-        	this.uri=uri;
+            this.uri=uri;
         }
         
         public String getUri()
         {
-        	return uri;
+            return uri;
+        }
+    }
+    
+    /**
+     * The possible genres for an source.
+     */
+    public enum AlternativeTitleType
+    {
+        ABBREVIATION("http://purl.org/escidoc/metadata/terms/0.1/ABBREVIATION"),
+        OTHER("http://purl.org/escidoc/metadata/terms/0.1/OTHER");
+        
+        private String uri;
+        
+        private AlternativeTitleType(String uri)
+        {
+            this.uri=uri;
+        }
+        
+        public String getUri()
+        {
+            return uri;
         }
     }
 

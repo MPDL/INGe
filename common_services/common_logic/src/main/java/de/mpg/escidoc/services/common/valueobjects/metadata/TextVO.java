@@ -53,6 +53,7 @@ public class TextVO extends ValueObject implements Cloneable
     private static final long serialVersionUID = 1L;
     private String language;
     private String value;
+    private String type;
 
     /**
      * Creates a new instance with the given value.
@@ -81,6 +82,20 @@ public class TextVO extends ValueObject implements Cloneable
     {
         this.value = value;
         this.language = language;
+    }
+
+    /**
+     * Creates a new instance with the given value and language.
+     * 
+     * @param value The text value
+     * @param language The text language
+     * @param type The type of the text
+     */
+    public TextVO(String value, String language, String type)
+    {
+        this.value = value;
+        this.language = language;
+        this.type = type;
     }
 
     /**
@@ -119,6 +134,22 @@ public class TextVO extends ValueObject implements Cloneable
         value = newVal;
     }
 
+    /**
+     * @return the type
+     */
+    public String getType()
+    {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(String type)
+    {
+        this.type = type;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -130,6 +161,7 @@ public class TextVO extends ValueObject implements Cloneable
         TextVO vo = new TextVO();
         vo.setLanguage(getLanguage());
         vo.setValue(getValue());
+        vo.setType(getType());
         return vo;
     }
 
@@ -146,7 +178,7 @@ public class TextVO extends ValueObject implements Cloneable
             return false;
         }
         TextVO vo = (TextVO)o;
-        return equals(getLanguage(), vo.getLanguage()) && equals(getValue(), vo.getValue());
+        return equals(getLanguage(), vo.getLanguage()) && equals(getValue(), vo.getValue()) && equals(getType(), vo.getType());
     }
 
     /*
