@@ -146,14 +146,14 @@
 						displayItems(cached['items']);
 						
 					} else {
-						
+
 						$.ajax({
 							processData: false,
 							type: "GET",
 							dataType: "json",
 							url: options.source,
-							data: "lang="+lang+"&q="+escape(q),
-							success:function(result){
+							data: "format=json&lang="+lang+"&q="+escape(q),
+							success: function(result){
 									$results.hide();
 									var items = parseJSON(result, q);
 									displayItems(items);
