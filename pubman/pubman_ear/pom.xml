@@ -63,6 +63,11 @@
                             <artifactId>sword_presentation</artifactId>
                             <contextRoot>/sword-app</contextRoot>
                         </webModule>
+                        <webModule>
+                           <groupId>de.mpg.escidoc.services</groupId>
+                           <artifactId>pid_cache_presentation</artifactId>
+                           <contextRoot>/pidcache</contextRoot>
+                       </webModule>
                         <ejbModule>
                             <groupId>de.mpg.escidoc.services</groupId>
                             <artifactId>common_logic</artifactId>
@@ -565,6 +570,13 @@
             <scope>compile</scope>
             <type>jar</type>
         </dependency>
+        <dependency>
+           <groupId>de.mpg.escidoc.services</groupId>
+           <artifactId>pid_cache_presentation</artifactId>
+           <version>0.1.0-SNAPSHOT</version>
+           <scope>compile</scope>
+           <type>war</type>
+       </dependency>
         <dependency>
             <groupId>xmlunit</groupId>
             <artifactId>xmlunit</artifactId>
