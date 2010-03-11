@@ -54,7 +54,7 @@
     	for (Predicate predicate : predicates)
     	{
 			
-    	    if (resultNode.get(predicate.getId()) != null && loggedIn)
+    	    if (resultNode.get(predicate.getId()) != null)
     	    {
     	        List<LocalizedTripleObject> nodeList = resultNode.get(predicate.getId());
     	        

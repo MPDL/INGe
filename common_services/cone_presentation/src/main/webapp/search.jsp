@@ -72,11 +72,11 @@
 	    Querier querier = QuerierFactory.newQuerier();
 	    if (request.getParameter("lang") != null && !"".equals(request.getParameter("lang")))
 	    {
-	    	results = querier.query(request.getParameter("model"), request.getParameter("searchterm"), request.getParameter("lang"), Querier.ModeType.FAST);
+	    	results = querier.query(request.getParameter("model"), request.getParameter("searchterm"), request.getParameter("lang"), Querier.ModeType.FAST, true);
 	    }
 	    else
 	    {
-	        results = querier.query(request.getParameter("model"), request.getParameter("searchterm"), Querier.ModeType.FAST);
+	        results = querier.query(request.getParameter("model"), request.getParameter("searchterm"), Querier.ModeType.FAST, true);
 	    }
 		querier.release();
 	}
