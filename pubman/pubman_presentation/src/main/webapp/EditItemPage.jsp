@@ -224,10 +224,10 @@
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 				});
 			
-				languageSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>iso639-1/query?format=json';
-				journalSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>journals/query?format=json';
-				subjectSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>ddc/query?format=json';
-				personSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>persons/query?format=json';
+				languageSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>iso639-1/query';
+				journalSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>journals/query';
+				subjectSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>ddc/query';
+				personSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>persons/query';
 				journalDetailsBaseURL = '$1?format=json';
 				personDetailsBaseURL = '$1?format=json';
 				languageDetailsBaseURL = '$1?format=json';

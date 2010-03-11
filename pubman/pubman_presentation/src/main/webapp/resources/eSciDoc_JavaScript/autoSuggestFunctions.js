@@ -39,6 +39,7 @@
 	var journalDetailsBaseURL = '';
 	var languageDetailsBaseURL = '';
 	var autopasteDelimiter = ' ||##|| ';
+	var autopasteInnerDelimiter = ' @@~~@@ ';
 	var journalSuggestCommonParentClass = 'sourceArea';
 	var journalSuggestTrigger = 'JOURNAL';
 
@@ -50,6 +51,9 @@
 		var altTitle = (typeof details.http_purl_org_dc_terms_alternative != 'undefined' ?
 				(typeof details.http_purl_org_dc_terms_alternative == 'object' ?
 						details.http_purl_org_dc_terms_alternative[0] : details.http_purl_org_dc_terms_alternative) : null);
+		var abbrev = (typeof details.http_purl_org_escidoc_metadata_terms_0_1_abbreviation != 'undefined' ?
+				(typeof details.http_purl_org_escidoc_metadata_terms_0_1_abbreviation == 'object' ?
+						details.http_purl_org_escidoc_metadata_terms_0_1_abbreviation[0] : details.http_purl_org_escidoc_metadata_terms_0_1_abbreviation) : null);
 		var publisher = (typeof details.http_purl_org_dc_elements_1_1_publisher != 'undefined' ? details.http_purl_org_dc_elements_1_1_publisher : null);
 		var place = (typeof details.http_purl_org_dc_terms_publisher != 'undefined' ? details.http_purl_org_dc_terms_publisher : null);
 		
@@ -57,13 +61,28 @@
 				details.http_purl_org_dc_elements_1_1_identifier : null);
 
 		var allAltTitles = '';
-		if((typeof(altTitle)=='object') && (altTitle != null) ){
-			allAltTitles = altTitle[0];
+		if(((altTitle != null) && typeof(altTitle) == 'object'))
+		{
+			allAltTitles = 'OTHER' + autopasteInnerDelimiter + altTitle[0];
 			for(var i=1; i<altTitle.length; i++) {
-					allAltTitles = allAltTitles + autopasteDelimiter + altTitle[i];
+					allAltTitles += autopasteDelimiter + 'OTHER' + autopasteInnerDelimiter + altTitle[i];
 			}
-		} else {
-			allAltTitles = altTitle;
+		}
+		else if (altTitle != null)
+		{
+			allAltTitles = 'OTHER' + autopasteInnerDelimiter + altTitle;
+		}
+		
+		if(((abbrev != null) && typeof(abbrev) == 'object'))
+		{
+			allAltTitles += 'ABBREVIATION' + autopasteInnerDelimiter + abbrev[0];
+			for(var i=1; i<abbrev.length; i++) {
+					allAltTitles = allAltTitles + autopasteDelimiter + 'ABBREVIATION' + autopasteInnerDelimiter + abbrev[i];
+			}
+		}
+		else if (abbrev != null)
+		{
+			allAltTitles += 'ABBREVIATION' + autopasteInnerDelimiter + abbrev;
 		}
 		
 		var allIDs = '';
@@ -251,6 +270,7 @@
 		$('.languageSuggest').suggest(languageSuggestURL, { onSelect: selectLanguage});
 		$('.subjectSuggest').suggest(subjectSuggestURL, { onSelect: function() {$(this).val(this.currentResult)}});
 		$('.personSuggest').suggest(personSuggestURL, { onSelect: fillPersonFields });
+
 	};
 	
 	function selectLanguage()

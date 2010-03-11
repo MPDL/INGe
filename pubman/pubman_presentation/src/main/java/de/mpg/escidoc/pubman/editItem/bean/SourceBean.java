@@ -61,7 +61,8 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
  */
 public class SourceBean extends FacesBean
 {
-    public static final String HIDDEN_DELIMITER = "\\|\\|##\\|\\|";
+    public static final String HIDDEN_DELIMITER = " \\|\\|##\\|\\| ";
+    public static final String HIDDEN_INNER_DELIMITER = " @@~~@@ ";
     public static final String HIDDEN_IDTYPE_DELIMITER = "\\|";
     private SourceVO source;
     private CreatorCollection creatorCollection;
@@ -268,10 +269,13 @@ public class SourceBean extends FacesBean
         String[] alternativeTitles = titleList.split(HIDDEN_DELIMITER);
         for (int i = 0; i < alternativeTitles.length; i++)
         {
-            String alternativeTitle = alternativeTitles[i].trim();
+            String[] parts = alternativeTitles[i].trim().split(HIDDEN_INNER_DELIMITER);
+            String alternativeTitleType = parts[0].trim();
+            String alternativeTitle = parts[1].trim();
             if (!alternativeTitle.equals(""))
             {
                 TextVO textVO = new TextVO(alternativeTitle);
+                textVO.setType(alternativeTitleType);
                 list.add(textVO);
             }
         }

@@ -169,7 +169,7 @@ public class SubmitItem extends FacesBean
         	}
         	else
         	{
-        	info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SUBMITTED));
+        	    info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SUBMITTED));
         	}
         }
         

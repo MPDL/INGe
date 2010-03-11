@@ -147,7 +147,10 @@
 				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="all">
 					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre" class-attribute="metadata.sources.genre"/>
 					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title" class-attribute="metadata.sources.title"/>
-					<field id="source_title_alternative" repeatable="true" display="true" optional="true" label="source_title_alternative" class-attribute="metadata.sources.alternativeTitles"/>
+					<group id="source_title_alternative" repeatable="true" display="true" optional="true" label="source_title_alternative" class-attribute="metadata.sources.alternativeTitles" form-id="all">
+						<field id="source_title_alternative_type" repeatable="false" display="true" optional="false" label="source_title_alternative_type" class-attribute="metadata.sources.alternativeTitles.type"/>
+						<field id="source_title_alternative_value" repeatable="false" display="true" optional="false" label="source_title_alternative_value" class-attribute="metadata.sources.alternativeTitles.value"/>
+					</group>
 				</group>
 				<group id="source_person_organization" repeatable="true" display="true" optional="true" label="g_source_person_organization" form-id="all" class-attribute="metadata.sources.creators">
 					<group id="select_roles" repeatable="false" display="true" optional="true" label="g_select_roles" form-id="all" class-attribute="metadata.sources.creators.role">

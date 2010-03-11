@@ -205,7 +205,8 @@ public class SiteMapTask extends Thread
                 {
                     // Unable to delete file, it probably didn't exist
                 }
-                logger.debug("Renaming succeeded: " + this.copySiteMap(indexFile, finalFile, (int) indexFile.length(), true));
+                boolean success = this.copySiteMap(indexFile, finalFile, (int) indexFile.length(), true);
+                logger.debug("Renaming succeeded: " + success);
             }
             
             
@@ -256,6 +257,7 @@ public class SiteMapTask extends Thread
             if (in != null) {
                 try {
                     in.close();
+                    successful |= src.delete();
                 }
                 finally {
                     if (out != null) {

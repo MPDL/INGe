@@ -82,22 +82,31 @@
 				</h:panelGroup>
 	
 		<%-- Source alternative title --%>
-				<h:dataTable id="iterSourceAlternativeTitle" styleClass="free_area0" var="altTitle" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}" rendered="#{!(genre.sources_source_basic_source_title_alternative_display == 'false' && genre.sources_source_basic_source_title_alternative_form_id == 'full-submission' || genre.sources_source_basic_source_title_alternative_display == 'false' && genre.sources_source_basic_source_title_alternative_form_id == 'all')}">
-					<h:column>
-					<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
+				<tr:iterator id="iterSourceGroupAlternativeTitle" var="altTitle" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}" rendered="#{!(genre.sources_source_basic_source_title_alternative_display == 'false' && genre.sources_source_basic_source_title_alternative_form_id == 'full-submission' || genre.sources_source_basic_source_title_alternative_display == 'false' && genre.sources_source_basic_source_title_alternative_form_id == 'all')}">
+					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 						<b class="xLarge_area0_p8 endline labelLine clear">
-							&#160;<h:outputText id="txtSourceAlternativeTitle" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_basic_source_title_alternative_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_title_alternative_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_basic_source_title_alternative_optional != 'true' && (genre.sources_source_basic_source_title_alternative_source_title_alternative_type_optional != 'true' || genre.sources_source_basic_source_title_alternative_source_title_alternative_value_optional != 'true')}" />
+							<h:outputText value="#{genre.sources_source_basic_source_title_alternative_label}" rendered="#{sourceBean.titleCollection.alternativeTitleManager.objectDM.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline">
-							<h:inputTextarea id="inpSourceAlternativeTitle" styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
+							<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.sources_source_basic_source_title_alternative_source_title_alternative_type_display == 'false' && genre.sources_source_basic_source_title_alternative_source_title_alternative_type_form_id == 'full-submission' || genre.sources_source_basic_source_title_alternative_source_title_alternative_type_display == 'false' && genre.sources_source_basic_source_title_alternative_source_title_alternative_type_form_id == 'all')}">
+								<h:outputLabel id="lblSelectAltTitleType" styleClass="large_label" value="#{genre.sources_source_basic_source_title_alternative_source_title_alternative_type_label}" converter="GenreLabelConverter"/>
+								<h:selectOneMenu id="selSelectAlternativeTitleType" styleClass="large_select replace" value="#{altTitle.type}" >
+									<f:selectItems value="#{sourceBean.titleCollection.alternativeTitleManager.alternativeTitleTypes}"/>
+								</h:selectOneMenu>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{!(genre.sources_source_basic_source_title_alternative_source_title_alternative_value_display == 'false' && genre.sources_source_basic_source_title_alternative_source_title_alternative_value_form_id == 'full-submission' || genre.sources_source_basic_source_title_alternative_source_title_alternative_value_display == 'false' && genre.sources_source_basic_source_title_alternative_source_title_alternative_value_form_id == 'all')}">
+								<h:outputLabel id="lblAltTitleValue" styleClass="xDouble_label" value="#{genre.sources_source_basic_source_title_alternative_source_title_alternative_value_label}" converter="GenreLabelConverter"/>
+								<h:inputTextarea id="inpAltTitleValue" styleClass="xDouble_txtArea inputTxtArea" value="#{altTitle.value}" />
+							</h:panelGroup>
 						</span>
 						<span class="large_area0_p8 lineToolSection">
-							<tr:commandButton id="btnAddSourceAlternativeTitle" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
-							<tr:commandButton id="btnRemoveSourceAlternativeTitle" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
+							<tr:commandButton id="btnAddDetails" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.addTitle}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
+							<tr:commandButton id="btnRemoveDetails" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.removeTitle}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
 						</span>
 					</h:panelGroup>
-					</h:column>
-				</h:dataTable>
+				</tr:iterator>
+				
 			</h:panelGroup>
 	<%-- Source creator --%>
 				<h:panelGroup layout="block" rendered="#{!(genre.sources_source_person_organization_display == 'false' && genre.sources_source_person_organization_form_id == 'full-submission' || genre.sources_source_person_organization_display == 'false' && genre.sources_source_person_organization_form_id == 'all')}">

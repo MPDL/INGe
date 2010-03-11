@@ -30,13 +30,19 @@
 
 package de.mpg.escidoc.pubman.editItem.bean;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.TitleIF;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 
@@ -138,6 +144,27 @@ public class TitleCollection
 		{
 			return getObjectDM().getRowCount();
 		}
+
+	    /**
+	     * localized creation of SelectItems for the identifier types available
+	     * @return SelectItem[] with Strings representing identifier types
+	     */
+	    public SelectItem[] getAlternativeTitleTypes()
+	    {
+	        InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
+	        ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
+
+	        ArrayList<SelectItem> selectItemList = new ArrayList<SelectItem>();
+	        
+	        // constants for comboBoxes
+	        selectItemList.add(new SelectItem("", labelBundle.getString("EditItem_NO_ITEM_SET")));
+	        
+	        for (SourceVO.AlternativeTitleType type : SourceVO.AlternativeTitleType.values())
+	        {
+	            selectItemList.add(new SelectItem(type.toString(), labelBundle.getString("ENUM_ALTERNATIVETITLETYPE_" + type.toString())));
+	        }
+	        return selectItemList.toArray(new SelectItem[]{});
+	    }
 	}
 
 	public AlternativeTitleManager getAlternativeTitleManager()
@@ -149,5 +176,5 @@ public class TitleCollection
 	{
 		this.alternativeTitleManager = alternativeTitleManager;
 	}
-	
+
 }

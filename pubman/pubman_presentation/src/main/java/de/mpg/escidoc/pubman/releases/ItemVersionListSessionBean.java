@@ -63,7 +63,8 @@ public class ItemVersionListSessionBean extends FacesBean
     private List<EventLogEntryVOPresentation> eventLogList = new ArrayList<EventLogEntryVOPresentation>();
     
     private UIXIterator eventIterator = new UIXIterator();
-    
+    private UIXIterator versionIterator = new UIXIterator();
+       
     /**
      * Public constructor.
      */
@@ -170,7 +171,21 @@ public class ItemVersionListSessionBean extends FacesBean
     {
         return releaseList;
     }
-    
-    
-    
+
+    /**
+     * @return the versionIterator
+     */
+    public UIXIterator getVersionIterator()
+    {
+        return versionIterator;
+    }
+
+    /**
+     * @param versionIterator the versionIterator to set
+     */
+    public void setVersionIterator(UIXIterator versionIterator)
+    {
+        this.versionIterator = versionIterator;
+    }
+
 }
