@@ -123,6 +123,34 @@
     is-strike-through="false"
     css-class="DisplayDateStatus"
     />
+    
+    <font-style name="EDITOR"
+    css-class="editor"
+    />
+    
+    <font-style name="EDITORS"
+    css-class="editors"
+    />
+    
+    <font-style name="TOGETHER_WITH"
+    css-class="togetherWith"
+    />
+    
+    <font-style name="PAGE"
+    css-class="page"
+    />
+    
+    <font-style name="INSTALMENT"
+    css-class="instalment"
+    />
+    
+    <font-style name="EDITION"
+    css-class="edition"
+    />
+    
+    <font-style name="VOLUME"
+    css-class="volume"
+    />
    
 
 </font-styles-collection>

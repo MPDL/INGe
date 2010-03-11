@@ -28,7 +28,7 @@
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:fn="http://www.w3.org/2005/xpath-functions" 
-	xmlns:cit="http://www.escidoc.de/citationstyle"
+	xmlns:cit="http://www.escidoc.de/citationstyle" 
 
 	xmlns:jfunc="java:de.mpg.escidoc.services.citationmanager.utils.XsltHelper"
 	xmlns:func="http://www.escidoc.de/citationstyle/functions"	
@@ -75,6 +75,7 @@
 			<xsl:namespace name="event">${xsd.metadata.event}</xsl:namespace>
 			<xsl:namespace name="organization">${xsd.metadata.organization}</xsl:namespace>
 			<xsl:namespace name="person">${xsd.metadata.person}</xsl:namespace>
+			<xsl:namespace name="legalCase">http://purl.org/escidoc/metadata/profiles/0.1/legal-case</xsl:namespace>
 			
 			<xsl:namespace name="dc">${xsd.metadata.dc}</xsl:namespace>
 			<xsl:namespace name="dcterms">${xsd.metadata.dcterms}</xsl:namespace>
@@ -886,7 +887,7 @@
 	
 	
 	<!-- Includes -->
-	<xsl:template name="insertIncludes">
+	<xsl:template name="insertIncludes">  
 		<xsl:comment>### Includes ###</xsl:comment>
 		<xsl:text>
 	</xsl:text>
