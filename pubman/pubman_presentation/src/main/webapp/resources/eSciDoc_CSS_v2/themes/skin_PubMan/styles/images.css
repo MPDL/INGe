@@ -597,6 +597,24 @@
 		background-position: center center;
 	}
 	
+	.assign {
+		background-image: url('../images/Virr_Work_Assign_15_Active.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.assign:hover, .assign:focus {
+		background-image: url('../images/Virr_Work_Assign_15_Hover.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.assign:disabled {
+		background-image: url('../images/Virr_Work_Assign_15_Deactivated.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
 	.fixMessageBlockBtn {
 		background-image: url('../images/All_DropDown_CrossClose_15_Active.gif');
 		background-repeat: no-repeat;
