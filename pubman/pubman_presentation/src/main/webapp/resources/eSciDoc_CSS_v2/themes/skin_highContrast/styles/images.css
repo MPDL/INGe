@@ -711,3 +711,21 @@
 		background-repeat: no-repeat;
 		background-position: center left;
 	}
+	
+	.visibility {
+		background-image: url('../images/Virr_Visibility_EyeTrue_15_Active.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.visibility:hover, .visibility:focus {
+		background-image: url('../images/Virr_Visibility_EyeTrue_15_Hover.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.visibility:disabled {
+		background-image: url('../images/Virr_Visibility_EyeTrue_15_Deactivated.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
