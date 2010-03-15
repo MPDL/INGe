@@ -48,17 +48,17 @@
 			</h:panelGroup>
 			
 			<tr:iterator var="detail" value="#{ImportItemDetails.details}" rows="0">
-				<h:panelGroup styleClass="free_area0" style="margin-bottom: 0.56em;">
-					<span class="small_area0">
+				<h:panelGroup styleClass="quad_area0" style="margin-bottom: 0.56em;">
+					<span class="small_area0 endline">
 						<h:outputText value="#{detail.status}"/>&#160;
 					</span>
-					<span class="small_area0">
+					<span class="small_area0 endline">
 						<h:outputText value="#{detail.errorLevel}"/>&#160;
 					</span>
-					<span class="medium_area0">
+					<span class="medium_area0 endline">
 						<h:outputText value="#{detail.startDateFormatted}"/>&#160;
 					</span>
-					<span class="double_area0">
+					<span class="double_area0 endline">
 						<h:outputText value="#{detail.localizedMessage}" converter="HTMLEscapeConverter" escape="false" rendered="#{detail.itemId == null}"/>
 						<h:outputLink id="lnkDetail" value="#{detail.link}" rendered="#{detail.itemId != null}">
 							<h:outputText value="#{detail.localizedMessage}" converter="HTMLEscapeConverter" escape="false"/>&#160;
