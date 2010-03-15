@@ -226,7 +226,7 @@
 			
 				languageSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>iso639-1/query';
 				journalSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>journals/query';
-				subjectSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>ddc/query';
+				subjectSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>$1/query';
 				personSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>persons/query';
 				journalDetailsBaseURL = '$1?format=json';
 				personDetailsBaseURL = '$1?format=json';

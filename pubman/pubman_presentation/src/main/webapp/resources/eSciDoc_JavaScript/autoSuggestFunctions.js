@@ -42,6 +42,7 @@
 	var autopasteInnerDelimiter = ' @@~~@@ ';
 	var journalSuggestCommonParentClass = 'sourceArea';
 	var journalSuggestTrigger = 'JOURNAL';
+	var subjectSuggestCommonParentClass = 'parentArea';
 
 	function getJournalDetails(details)
 	{
@@ -268,7 +269,10 @@
 		bindJournalSuggest();
 		
 		$('.languageSuggest').suggest(languageSuggestURL, { onSelect: selectLanguage});
-		$('.subjectSuggest').suggest(subjectSuggestURL, { onSelect: function() {$(this).val(this.currentResult)}});
+		$('.subjectSuggest').each(
+			function(i,ele){
+				$(ele).suggest(subjectSuggestURL, { vocab: $(ele).parents('.subjectArea').find('.vocabulary'), onSelect: function() {$(this).val(this.currentResult)}});
+			});
 		$('.personSuggest').suggest(personSuggestURL, { onSelect: fillPersonFields });
 
 	};

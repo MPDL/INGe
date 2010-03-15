@@ -36,8 +36,15 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
+import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
+import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Bean to handle the ContentSubjectCollection on a single jsp.
@@ -148,5 +155,4 @@ public class ContentSubjectCollection
         this.contentSubjectManager = contentAbstractManager;
     }
 
-    
 }

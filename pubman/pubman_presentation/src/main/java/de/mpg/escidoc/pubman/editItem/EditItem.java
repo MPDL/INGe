@@ -84,12 +84,14 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
 import de.mpg.escidoc.pubman.util.ListItem;
 import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation.WrappedLocalTag;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.util.creators.Author;
 import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
@@ -110,6 +112,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.util.AdminHelper;
@@ -2097,6 +2100,65 @@ public class EditItem extends FacesBean
     }
     
     /**
+     * Checks if there are any subject classifications defined for this item.
+     * 
+     * @return true if ther is at least one subject classification.
+     * 
+     * @throws Exception Any exception.
+     */
+    public boolean getHasSubjectClassification() throws Exception
+    {
+        return !(getSubjectTypes() == null);
+    }
+    
+    /**
+     * Get all allowed subject classifications from the admin descriptor of the context.
+     * 
+     * @return An array of SelectItem containing the subject classifications.
+     * @throws Exception Any exception.
+     */
+    public SelectItem[] getSubjectTypes() throws Exception
+    {
+        ArrayList<SelectItem> result = new ArrayList<SelectItem>();
+        ContextRO contextRO = getPubItem().getContext();
+        ContextListSessionBean contextListSessionBean = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+        for (PubContextVOPresentation context : contextListSessionBean.getDepositorContextList())
+        {
+            if (context.getReference().equals(contextRO))
+            {
+                PublicationAdminDescriptorVO adminDescriptorVO = context.getAdminDescriptor();
+                List<SubjectClassification> list = adminDescriptorVO.getAllowedSubjectClassifications();
+                for (SubjectClassification classification : list)
+                {
+                    SelectItem selectItem = new SelectItem(classification.name(), classification.name());
+                    result.add(selectItem);
+                }
+                return result.toArray(new SelectItem[]{});
+            }
+        }
+        
+        return null;
+        
+// First try: Take vocabs from the properties
+//        String typesProperty = PropertyReader.getProperty("escidoc.cone.subjectVocab");
+//        if (typesProperty != null && !"".equals(typesProperty))
+//        {
+//            ArrayList<SelectItem> list = new ArrayList<SelectItem>();
+//            String[] types = typesProperty.split(",");
+//            for (int i = 0; i < types.length; i++)
+//            {
+//                SelectItem selectItem = new SelectItem(types[i], types[i].toUpperCase());
+//                list.add(selectItem);
+//            }
+//            return list.toArray(new SelectItem[]{});
+//        }
+//        else
+//        {
+//            throw new RuntimeException("Property \"escidoc.cone.subjectVocab\" not set.");
+//        }
+    }
+    
+    /**
      * This method changes the Genre and sets the needed property file for genre specific Metadata
      * @return String null
      */
@@ -2123,8 +2185,8 @@ public class EditItem extends FacesBean
     	this.getEditItemSessionBean().setGenreBundle("Genre_" + newGenre);
     	this.init();
     	return null;
-      
     }
+    
     /**
      * Adds a new local tag to the PubItemVO and a new wrapped local tag to PubItemVOPresentation.
      * 

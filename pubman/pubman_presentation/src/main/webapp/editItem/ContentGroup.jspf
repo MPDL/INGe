@@ -48,14 +48,23 @@
 			</span>
 		</h:panelGroup>
 
-<%-- DDC Subject (List) --%>		
-		<tr:iterator id="iterContentGroupDDCSubjectList" var="subject" value="#{EditItem.contentSubjectCollection.contentSubjectManager.objectDM}" rendered="#{!(genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'full-submission' || genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'all')}">
+<%-- Classified Subject (List) --%>		
+		<tr:iterator id="iterContentGroupDDCSubjectList" var="subject" value="#{EditItem.contentSubjectCollection.contentSubjectManager.objectDM}" rendered="#{EditItem.hasSubjectClassification && !(genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'full-submission' || genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblDDCSubject}"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblClassifiedSubject}" rendered="#{EditItem.contentSubjectCollection.contentSubjectManager.objectDM.rowIndex == 0}"/><span class="noDisplay">: </span>
 				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:inputText id="inputSubjectSuggest" styleClass="quad_txtInput subjectSuggest" value="#{subject.value}" />
+				<span class="xHuge_area0 xTiny_marginLExcl endline subjectArea">
+					<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.content_item_subject_item_subject_type_display == 'false' && genre.content_item_subject_item_subject_type_form_id == 'full-submission' || genre.content_item_subject_item_subject_type_display == 'false' && genre.content_item_subject_item_subject_type_form_id == 'all')}">
+						<h:outputLabel id="lblSelectIdentifierType" styleClass="large_label" value="#{genre.content_item_subject_item_subject_type_label}" converter="GenreLabelConverter"/>
+						<h:selectOneMenu id="selSelectIdentifierType" styleClass="large_select replace vocabulary" value="#{subject.type}">
+							<f:selectItems value="#{EditItem.subjectTypes}"/>
+						</h:selectOneMenu>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{!(genre.content_item_subject_item_subject_value_display == 'false' && genre.content_item_subject_item_subject_type_display == 'false' && genre.content_item_subject_item_subject_value_form_id == 'full-submission' || genre.content_item_subject_item_subject_type_display == 'false' && genre.content_item_subject_item_subject_value_display == 'false' && genre.content_item_subject_item_subject_type_display == 'false' && genre.content_item_subject_item_subject_value_form_id == 'all')}">
+						<h:outputLabel id="lblSubjectValue" styleClass="xDouble_label" value="#{genre.content_item_subject_item_subject_value_label}" converter="GenreLabelConverter"/>
+						<h:inputText id="inpSubjectValue" styleClass="xDouble_txtInput subjectSuggest" value="#{subject.value}" />
+					</h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAddSubject" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addSubject}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.addObject}" rendered="#{genre.content_item_subject_repeatable != 'false'}"/>
