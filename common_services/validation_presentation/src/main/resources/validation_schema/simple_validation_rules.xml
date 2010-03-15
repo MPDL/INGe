@@ -69,7 +69,7 @@
 		<iso:active pattern="source_genre_required"/>
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="component_mimeType"/>
-		<iso:active pattern="ddc_keywords"/>
+		<iso:active pattern="classified_keywords"/>
 		<iso:active pattern="no_slashes_in_filename"/>	
 		<iso:active pattern="id_type_required"/>
 	</iso:phase>
@@ -113,7 +113,7 @@
 		<iso:active pattern="source_genre_required"/>
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="component_mimeType"/>
-		<iso:active pattern="ddc_keywords"/>
+		<iso:active pattern="classified_keywords"/>
 		<iso:active pattern="no_slashes_in_filename"/>
 		<iso:active pattern="id_type_required"/>
 	</iso:phase>
@@ -134,7 +134,7 @@
 		<iso:active pattern="component_mimeType"/>
 		<iso:active pattern="source_genre_required"/>
 		<iso:active pattern="uri_as_locator"/>
-		<iso:active pattern="ddc_keywords"/>
+		<iso:active pattern="classified_keywords"/>
 		<iso:active pattern="no_slashes_in_filename"/>
 		<iso:active pattern="id_type_required"/>
 	</iso:phase>
@@ -155,7 +155,7 @@
 		<iso:active pattern="source_genre_required"/>
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="component_mimeType"/>
-		<iso:active pattern="ddc_keywords"/>
+		<iso:active pattern="classified_keywords"/>
 		<iso:active pattern="no_slashes_in_filename"/>
 		<iso:active pattern="id_type_required"/>
 	</iso:phase>
@@ -171,6 +171,13 @@
 	<iso:let name="ddcSubjects">
 		<var>
 			<?cone ddc?>
+		</var>
+	</iso:let>
+
+	<!-- MPIPKS -->
+	<iso:let name="mpipksSubjects">
+		<var>
+			<?cone mpipks?>
 		</var>
 	</iso:let>
 
@@ -366,10 +373,11 @@
 		</iso:rule>
 	</iso:pattern>
 
-	<!-- the mime type of a file has to be one of the list given in "mimeTypes" above -->
-	<iso:pattern name="ddc_keywords" id="ddc_keywords">
+	<!-- subjects should be from the matching vocabulary -->
+	<iso:pattern name="classified_keywords" id="classified_keywords">
 		<iso:rule context="publication:publication/dc:subject">
-			<iso:assert test="not(exists($ddcSubjects/var/rdf:RDF)) or . = '' or . = $ddcSubjects/var/rdf:RDF/rdf:Description/dc:title">NoDDCKeyword</iso:assert>
+			<iso:assert test="not(exists($ddcSubjects/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:DDC' or . = $ddcSubjects/var/rdf:RDF/rdf:Description/dc:title">IncorrectClassification</iso:assert>
+			<iso:assert test="not(exists($mpipksSubjects/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:MPIPKS' or . = $mpipksSubjects/var/rdf:RDF/rdf:Description/dc:title">IncorrectClassification</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
