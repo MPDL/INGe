@@ -79,12 +79,12 @@ public class ModelHelper
      * @return A list of {@link Pair} containing the results in different languages.
      * @throws Exception Any exception.
      */
-    public static List<Pair> buildObjectFromPattern(String modelName, String currentSubject, TreeFragment poMap) throws Exception
+    public static List<Pair> buildObjectFromPattern(String modelName, String currentSubject, TreeFragment poMap, boolean loggedIn) throws Exception
     {
      
         Model model = ModelList.getInstance().getModelByAlias(modelName);
         
-        Set<String> languages = getLanguagesForResults(model, poMap);
+        Set<String> languages = getLanguagesForResults(model, poMap, loggedIn);
         
         List<Pair> results = new ArrayList<Pair>();
         
@@ -114,7 +114,7 @@ public class ModelHelper
                         
                         for (String string : strings)
                         {
-                            List<String> rep = replacePattern(poMap, string, predicate, "");
+                            List<String> rep = replacePattern(poMap, string, predicate, "", loggedIn);
                             newStrings.addAll(rep);
                         }
                         if (newStrings.size() > 0)
@@ -187,7 +187,7 @@ public class ModelHelper
                             
                             for (String string : strings)
                             {
-                                List<String> rep = replacePattern(poMap, string, predicate, lang);
+                                List<String> rep = replacePattern(poMap, string, predicate, lang, loggedIn);
                                 newStrings.addAll(rep);
                             }
                             if (newStrings.size() > 0)
@@ -270,7 +270,7 @@ public class ModelHelper
      * @return
      * @throws Exception
      */
-    private static Set<String> getLanguagesForResults(Model model, TreeFragment poMap) throws Exception
+    private static Set<String> getLanguagesForResults(Model model, TreeFragment poMap, boolean loggedIn) throws Exception
     {
         Set<String> languages = new HashSet<String>();
         
@@ -291,10 +291,10 @@ public class ModelHelper
                     }
                     if (object instanceof TreeFragment && model.getPredicate(key).isResource())
                     {
-                        Querier querier = QuerierFactory.newQuerier();
+                        Querier querier = QuerierFactory.newQuerier(loggedIn);
                         Model subModel = ModelList.getInstance().getModelByAlias(model.getPredicate(key).getResourceModel());
                         TreeFragment subResource = querier.details(subModel.getName(), ((TreeFragment) object).getSubject(), "*");
-                        languages.addAll(getLanguagesForResults(subModel, subResource));
+                        languages.addAll(getLanguagesForResults(subModel, subResource, loggedIn));
                         querier.release();
                     }
                 }
@@ -314,7 +314,7 @@ public class ModelHelper
      * @return
      * @throws Exception
      */
-    private static Set<String> getLanguagesForMatches(Model model, TreeFragment poMap) throws Exception
+    private static Set<String> getLanguagesForMatches(Model model, TreeFragment poMap, boolean loggedIn) throws Exception
     {
         Set<String> languages = new HashSet<String>();
         
@@ -335,10 +335,10 @@ public class ModelHelper
                     }
                     if (object instanceof TreeFragment && model.getPredicate(key).isResource())
                     {
-                        Querier querier = QuerierFactory.newQuerier();
+                        Querier querier = QuerierFactory.newQuerier(loggedIn);
                         Model subModel = ModelList.getInstance().getModelByAlias(model.getPredicate(key).getResourceModel());
                         TreeFragment subResource = querier.details(subModel.getName(), ((TreeFragment) object).getSubject(), "*");
-                        languages.addAll(getLanguagesForMatches(subModel, subResource));
+                        languages.addAll(getLanguagesForMatches(subModel, subResource, loggedIn));
                         querier.release();
                     }
                 }
@@ -358,7 +358,7 @@ public class ModelHelper
      * @param predicate
      * @return
      */
-    private static List<String> replacePattern(TreeFragment poMap, String line, Predicate predicate, String lang)
+    private static List<String> replacePattern(TreeFragment poMap, String line, Predicate predicate, String lang, boolean loggedIn)
     {
         List<String> strings = new ArrayList<String>();
         if (line.contains("<" + predicate.getId() + ">"))
@@ -390,29 +390,29 @@ public class ModelHelper
                         TreeFragment treeValue = (TreeFragment) value;
                         for (String subPredicateName : treeValue.keySet())
                         {
-                            strings.addAll(replacePattern(treeValue, line.replace("<" + predicate.getId() + "|", "<"), predicate.getPredicate(subPredicateName), lang));
+                            strings.addAll(replacePattern(treeValue, line.replace("<" + predicate.getId() + "|", "<"), predicate.getPredicate(subPredicateName), lang, loggedIn));
                         }
                     }
                     else if (predicate.isResource() && value instanceof TreeFragment)
                     {
-                        Querier querier = QuerierFactory.newQuerier();
+                        Querier querier = QuerierFactory.newQuerier(loggedIn);
                         TreeFragment treeFragment = querier.details(predicate.getResourceModel(), ((TreeFragment)value).getSubject(), lang);
                         querier.release();
                         Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
                         for (String subPredicateName : treeFragment.keySet())
                         {
-                            strings.addAll(replacePattern(treeFragment, line.replace("<" + predicate.getId() + "|", "<"), newModel.getPredicate(subPredicateName), lang));
+                            strings.addAll(replacePattern(treeFragment, line.replace("<" + predicate.getId() + "|", "<"), newModel.getPredicate(subPredicateName), lang, loggedIn));
                         }
                     }
                     else if (predicate.isResource() && value instanceof LocalizedString)
                     {
-                        Querier querier = QuerierFactory.newQuerier();
+                        Querier querier = QuerierFactory.newQuerier(loggedIn);
                         TreeFragment treeFragment = querier.details(predicate.getResourceModel(), ((LocalizedString)value).getValue(), lang);
                         querier.release();
                         Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
                         for (String subPredicateName : treeFragment.keySet())
                         {
-                            strings.addAll(replacePattern(treeFragment, line.replace("<" + predicate.getId() + "|", "<"), newModel.getPredicate(subPredicateName), lang));
+                            strings.addAll(replacePattern(treeFragment, line.replace("<" + predicate.getId() + "|", "<"), newModel.getPredicate(subPredicateName), lang, loggedIn));
                         }
                     }
                         
@@ -452,18 +452,18 @@ public class ModelHelper
         return result.replace("'", "\\'");
     }
 
-    public static List<Pair> buildMatchStringFromModel(String modelName, String id, TreeFragment values) throws Exception
+    public static List<Pair> buildMatchStringFromModel(String modelName, String id, TreeFragment values, boolean loggedIn) throws Exception
     {
         Set<String> languages = new HashSet<String>();
         Model model = ModelList.getInstance().getModelByAlias(modelName);
         
         List<Pair> results = new ArrayList<Pair>();
         
-        languages = getLanguagesForMatches(model, values);
+        languages = getLanguagesForMatches(model, values, loggedIn);
 
         for (String lang : languages)
         {
-            String matchString = id + getMatchString(model.getPredicates(), values, lang);
+            String matchString = id + getMatchString(model.getPredicates(), values, lang, loggedIn);
             Pair pair = new Pair(lang, matchString);
             results.add(pair);
         }
@@ -471,7 +471,7 @@ public class ModelHelper
         return results;
     }
     
-    public static String getMatchString(List<Predicate> predicates, TreeFragment values, String lang) throws Exception
+    public static String getMatchString(List<Predicate> predicates, TreeFragment values, String lang, boolean loggedIn) throws Exception
     {
         StringWriter result = new StringWriter();
         
@@ -485,13 +485,13 @@ public class ModelHelper
                     {
                         if (predicate.isResource() && value instanceof TreeFragment)
                         {
-                            Querier querier = QuerierFactory.newQuerier();
+                            Querier querier = QuerierFactory.newQuerier(loggedIn);
                             
                             String id = ((TreeFragment) value).getSubject();
                             
                             TreeFragment treeFragment = querier.details(predicate.getResourceModel(), id, "*");
                             Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
-                            result.append(getMatchString(newModel.getPredicates(), treeFragment, lang));
+                            result.append(getMatchString(newModel.getPredicates(), treeFragment, lang, loggedIn));
                             querier.release();
                         }
                         else if (value instanceof LocalizedString)
@@ -501,7 +501,7 @@ public class ModelHelper
                         }
                         else if (value instanceof TreeFragment)
                         {
-                            result.append(getMatchString(predicate.getPredicates(), (TreeFragment) value, lang));
+                            result.append(getMatchString(predicate.getPredicates(), (TreeFragment) value, lang, loggedIn));
                         }
                     }
                 }

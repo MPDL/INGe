@@ -32,6 +32,7 @@ import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
  */
 public interface Querier
 {
+	
     public enum ModeType
     {
         FAST, FULL;
@@ -149,4 +150,8 @@ public interface Querier
     public List<String> getAllIds(String model) throws Exception;
     
     public void release() throws Exception;
+    
+    public void setLoggedIn(boolean loggedIn);
+    
+    public boolean getLoggedIn();
 }

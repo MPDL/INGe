@@ -45,6 +45,7 @@ public class MulgaraQuerier implements Querier
     private static final Logger logger = Logger.getLogger(MulgaraQuerier.class);
     private String mulgaraServer;
     private String mulgaraPort;
+    protected boolean loggedIn;
 
     /**
      * Default constructor getting needed properties.
@@ -256,4 +257,12 @@ public class MulgaraQuerier implements Querier
         // TODO MF: Implement
     }
 
+    public void setLoggedIn(boolean loggedIn){
+    	loggedIn = loggedIn;
+    }
+    
+    public boolean getLoggedIn(){
+    	return loggedIn;
+    }
+    
 }

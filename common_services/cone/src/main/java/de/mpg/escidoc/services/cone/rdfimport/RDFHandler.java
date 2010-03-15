@@ -59,7 +59,12 @@ public class RDFHandler extends ShortContentHandler
 
     private List<LocalizedTripleObject> result = new ArrayList<LocalizedTripleObject>();
     private Stack<LocalizedTripleObject> stack = new Stack<LocalizedTripleObject>();
-    private Querier querier = QuerierFactory.newQuerier();
+    
+    private Querier querier;
+    
+    public RDFHandler(boolean loggedIn){
+    	querier  = QuerierFactory.newQuerier(loggedIn);
+    }
     
     @Override
     public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException

@@ -44,7 +44,7 @@ public class QuerierFactory
      * 
      * @return An instance of the currently used {@link Querier} implementation
      */
-    public static Querier newQuerier()
+    public static Querier newQuerier(boolean loggedIn)
     {
         String querier;
         try
@@ -63,6 +63,7 @@ public class QuerierFactory
             Object querierImpl = Class.forName(querier).newInstance();
             if (querierImpl instanceof Querier)
             {
+            	((Querier)querierImpl).setLoggedIn(loggedIn);
                 return (Querier) querierImpl;
             }
             else

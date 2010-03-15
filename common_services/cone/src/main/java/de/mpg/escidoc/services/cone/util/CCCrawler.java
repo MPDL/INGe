@@ -90,7 +90,8 @@ public class CCCrawler
     public static void main(String[] args) throws Exception
     {
         HttpClient httpClient = new HttpClient();
-        querier = QuerierFactory.newQuerier();
+        
+        querier = QuerierFactory.newQuerier(false);
         
         // field_commercial
         for (YesNo fieldCommercial : YesNo.values())

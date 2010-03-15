@@ -58,6 +58,7 @@ public class SQLQuerier implements Querier
     private static final Logger logger = Logger.getLogger(SQLQuerier.class);
     private DataSource dataSource = null;
     private Connection connection;
+    protected boolean loggedIn;
 
     /**
      * Default constructor initializing the {@link DataSource}.
@@ -561,6 +562,7 @@ public class SQLQuerier implements Querier
             {
                 if (predicate.getId().equals(predicateValue))
                 {
+                	if(!predicate.isRestricted() || loggedIn){
                     if (predicate.isResource() && !(idStack.contains(object)))
                     {
                         idStack.push(object);
@@ -579,6 +581,7 @@ public class SQLQuerier implements Querier
                     }
                     found = true;
                     break;
+                }
                 }
             }
             if (!found)
@@ -704,7 +707,7 @@ public class SQLQuerier implements Querier
             
             statement.setString(1, id);
             
-            List<Pair> results = ModelHelper.buildObjectFromPattern(modelName, id, values);
+            List<Pair> results = ModelHelper.buildObjectFromPattern(modelName, id, values, loggedIn);
             
             for (Pair pair : results)
             {
@@ -730,7 +733,7 @@ public class SQLQuerier implements Querier
             statement.setString(1, id);
             statement.setString(4, modelName);
             
-            results = ModelHelper.buildMatchStringFromModel(modelName, id, values);
+            results = ModelHelper.buildMatchStringFromModel(modelName, id, values, loggedIn);
             
             for (Pair pair : results)
             {
@@ -912,5 +915,12 @@ public class SQLQuerier implements Querier
         connection.close();
     }
     
+    public void setLoggedIn(boolean loggedIn){
+    	loggedIn = loggedIn;
+    }
+    
+    public boolean getLoggedIn(){
+    	return loggedIn;
+    }
     
 }

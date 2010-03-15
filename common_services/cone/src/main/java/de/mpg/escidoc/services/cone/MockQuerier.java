@@ -49,6 +49,7 @@ public class MockQuerier implements Querier
     private static final String DC_TITLE = "http://purl.org/dc/elements/1.1/title";
     private static final LocalizedString THIS_IS_THE_DESCRIPTION = new LocalizedString("This is the description. ");
     private static final LocalizedString THIS_IS_THE_TITLE = new LocalizedString("This is the title");
+    protected boolean loggedIn;
     
     private Map<String, String> data = new LinkedHashMap<String, String>();
 
@@ -371,6 +372,14 @@ public class MockQuerier implements Querier
     public void release() throws Exception
     {
         // Do nothing here
+    }
+    
+    public void setLoggedIn(boolean loggedIn){
+    	loggedIn = loggedIn;
+    }
+    
+    public boolean getLoggedIn(){
+    	return loggedIn;
     }
     
 }

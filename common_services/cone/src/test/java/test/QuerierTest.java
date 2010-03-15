@@ -67,9 +67,9 @@ public class QuerierTest
      * Initialize the querier before each test.
      */
     @Before
-    public void getQuerier()
+    public void getQuerier(boolean loggedIn)
     {
-        querier = QuerierFactory.newQuerier();
+        querier = QuerierFactory.newQuerier(loggedIn);
     }
 
     /**
