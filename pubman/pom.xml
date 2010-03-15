@@ -552,7 +552,7 @@
 				<escidoc.cone.modelsxml.path>models.xml</escidoc.cone.modelsxml.path>
 				
 				<!-- Vocabularies which wil be integrated inot Borwse by, seperator is ;-->
-				<escidoc.cone.subjectVocab>ddc,mpipks</escidoc.cone.subjectVocab>
+				<escidoc.cone.subjectVocab>ddc;mpipks</escidoc.cone.subjectVocab>
 				
 				<!-- Import database -->
 				<escidoc.import.database.driver.class>org.hsqldb.jdbcDriver</escidoc.import.database.driver.class>
@@ -783,7 +783,7 @@
 				<escidoc.cone.service.url>http://dev-pubman.mpdl.mpg.de/cone/</escidoc.cone.service.url>
 				<escidoc.cone.modelsxml.path>models.xml</escidoc.cone.modelsxml.path>
 				<!-- Vocabularies which wil be integrated inot Borwse by, seperator is ; -->
-				<escidoc.cone.subjectVocab>ddc,mpipks</escidoc.cone.subjectVocab>
+				<escidoc.cone.subjectVocab>ddc;mpipks</escidoc.cone.subjectVocab>
 				
 				<!-- Import database -->
 				<escidoc.import.database.driver.class>org.hsqldb.jdbcDriver</escidoc.import.database.driver.class>
