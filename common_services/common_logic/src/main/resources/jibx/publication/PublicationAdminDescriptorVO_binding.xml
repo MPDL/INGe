@@ -50,6 +50,19 @@
 			</collection>
 		</structure>
 
+		<structure name="allowed-subject-classifications" usage="optional">
+
+			<collection field="allowedSubjectClassifications" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.subjectClassificationListFactory" usage="optional">
+
+				<!-- Node: context.admin-descriptor.allowed-content-types.allowed-genres.allowed-genre -->
+				<value style="element" name="allowed-subject-classification"
+					type="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO$SubjectClassification"
+					deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeSubjectClassificationEnum"
+					serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeSubjectClassificationEnum" usage="optional" />
+
+			</collection>
+		</structure>
+
 		<value style="element" name="template-item" field="templateItem" usage="optional" />
 		
 		<value style="element" name="validation-schema" field="validationSchema" usage="optional" />

@@ -37,8 +37,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.AllowedRolesRO;
 import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
@@ -74,7 +76,6 @@ import de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
@@ -84,7 +85,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordParamVO;
@@ -276,10 +276,22 @@ public class JiBXHelper
      */
     public static List<MdsPublicationVO.Genre> genreListFactory()
     {
-        System.out.println("XXXX");
         return new ArrayList<MdsPublicationVO.Genre>();
     }
 
+    /**
+     * Factory method to create a <code>java.util.ArrayList&lt;MdsPublicationVO.SubjectClassification></code> as the implementation of a
+     * <code>java.util.List</code>.
+     * 
+     * @return A new <code>java.util.ArrayList&lt;MdsPublicationVO.SubjectClassification></code>
+     */
+    public static List<MdsPublicationVO.SubjectClassification> subjectClassificationListFactory()
+    {
+        return new ArrayList<MdsPublicationVO.SubjectClassification>();
+    }
+
+    
+    
     /**
      * Factory method to create a <code>java.util.ArrayList&lt;OrganizationVO></code> as the implementation of a
      * <code>java.util.List</code>.
@@ -927,19 +939,19 @@ public class JiBXHelper
         }
         else
         { 
-        	
-        	for(MdsPublicationVO.Genre g: MdsPublicationVO.Genre.values())
-        	{
-        		if (enumValue.equals(g.getUri()))
-        		{
-        			return g;
-        		}
-        	}
-        	 
-        	//throw exception if not found
+            
+            for(MdsPublicationVO.Genre g: MdsPublicationVO.Genre.values())
+            {
+                if (enumValue.equals(g.getUri()))
+                {
+                    return g;
+                }
+            }
+             
+            //throw exception if not found
             //throw new WrongEnumException("GenreEnum value is '" + enumValue + "'.");
              
-        	/*
+            /*
             String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
             try
             {
@@ -956,6 +968,27 @@ public class JiBXHelper
         System.out.println("Genre " + enumValue + " could not be found. Returning null.");
         return null;
     }
+
+    public static MdsPublicationVO.SubjectClassification deserializeSubjectClassificationEnum(String enumValue) throws WrongEnumException
+    {
+        if (enumValue == null)
+        {
+            throw new WrongEnumException("SubjectClassification is null.");
+        }
+        else
+        { 
+            
+            for(MdsPublicationVO.SubjectClassification g: MdsPublicationVO.SubjectClassification.values())
+            {
+                if (enumValue.equals(g.getUri()))
+                {
+                    return g;
+                }
+            }
+        }
+        
+        return null;
+    }
     
     /**
      * Serializes enums to strings 
@@ -969,6 +1002,16 @@ public class JiBXHelper
         if (enumeration != null)
         {
             enumString = enumeration.getUri();
+        }
+        return enumString;
+    }
+
+    public static String serializeSubjectClassificationEnum(MdsPublicationVO.SubjectClassification enumeration)
+    {
+        String enumString = "";
+        if (enumeration != null)
+        {
+            enumString = enumeration.name();
         }
         return enumString;
     }

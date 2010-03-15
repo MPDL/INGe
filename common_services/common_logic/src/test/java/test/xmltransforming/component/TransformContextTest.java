@@ -136,6 +136,13 @@ public class TransformContextTest extends TestBase
         
         // check results
         ContextVO expectedContext = getExpectedContext();
+        
+        
+        List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications = expectedContext.getAdminDescriptor().getAllowedSubjectClassifications();
+        allowedSubjectClassifications.add(MdsPublicationVO.SubjectClassification.DDC);
+        allowedSubjectClassifications.add(MdsPublicationVO.SubjectClassification.MPIPKS);
+
+        
         // add all additional expected values from full sample
         assertEquals(expectedContext.getDefaultMetadata(), contextVO.getDefaultMetadata());
         ObjectComparator oc = new ObjectComparator(expectedContext, contextVO);

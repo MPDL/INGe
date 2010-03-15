@@ -279,12 +279,7 @@
 			<!-- Field: PubItemVO.metadata.subjects -->
 			<collection field="subjects"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
-				<structure name="subject" ns="${xsd.metadata.dc}"
-					type="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO">
-					<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
-						usage="optional" />
-					<value style="text" field="value" usage="optional" />
-				</structure>
+				<structure name="subject" ns="${xsd.metadata.dc}" map-as="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO"/>
 			</collection>
 
 			<structure name="DDC" ns="${xsd.metadata.dcterms}" usage="optional"/>

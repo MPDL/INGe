@@ -39,9 +39,7 @@ u.tschida@zim.mpg.de for any questions.</prop:description>
 				</allowed-genres>
 				<allowed-subject-classifications>
 					<allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/DDC</allowed-subject-classification>
-					<allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/PACS</allowed-subject-classification>
 					<allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/MPIPKS</allowed-subject-classification>
-					<allowed-subject-classification>http://purl.org/escidoc/metadata/terms/0.1/JUS</allowed-subject-classification>
 				</allowed-subject-classifications>
 				<template-item>escidoc:123</template-item>
 				<validation-schema>publication</validation-schema>

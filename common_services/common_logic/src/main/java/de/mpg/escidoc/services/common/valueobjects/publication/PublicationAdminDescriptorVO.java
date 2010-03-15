@@ -54,6 +54,8 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
     
     private List<MdsPublicationVO.Genre> allowedGenres = new ArrayList<MdsPublicationVO.Genre>();
     
+    private List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications = new ArrayList<MdsPublicationVO.SubjectClassification>();
+    
     private ItemRO templateItem;
     
     private String validationSchema;
@@ -72,6 +74,22 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
     public void setAllowedGenres(List<MdsPublicationVO.Genre> allowedGenres)
     {
         this.allowedGenres = allowedGenres;
+    }
+
+    /**
+     * @return the allowedSubjectClassifications
+     */
+    public List<MdsPublicationVO.SubjectClassification> getAllowedSubjectClassifications()
+    {
+        return allowedSubjectClassifications;
+    }
+
+    /**
+     * @param allowedSubjectClassifications the allowedSubjectClassifications to set
+     */
+    public void setAllowedSubjectClassifications(List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications)
+    {
+        this.allowedSubjectClassifications = allowedSubjectClassifications;
     }
 
     public ItemRO getTemplateItem()

@@ -179,6 +179,29 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
 
     }
     
+    public enum SubjectClassification
+    {
+        DDC("http://purl.org/escidoc/metadata/terms/0.1/DDC"),
+        MPIPKS("http://purl.org/escidoc/metadata/terms/0.1/MPIPKS");
+        
+        private String uri;
+        
+        private SubjectClassification(String uri)
+        {
+            this.uri=uri;
+        }
+        
+        public String getUri()
+        {
+            return uri;
+        }
+        
+        public String toString()
+        {
+            return name();
+        }
+    }
+    
     /**
      * Alternative titles of the publication, e.g. translations of original title or sub-titles.
      */
