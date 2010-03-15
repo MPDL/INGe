@@ -151,7 +151,7 @@ public class ImportSurveyor extends Thread
      */
     public void terminate()
     {
-        logger.info("Sitemap creation task signalled to terminate.");
+        logger.info("Import surveyor signalled to terminate.");
         signal = true;
     }
 

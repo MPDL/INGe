@@ -2149,7 +2149,8 @@ public class ViewItemFull extends FacesBean
         {
             return false;
         }
-        else if (this.pubItem.getVersion().getState() == State.RELEASED && getIsModerator())
+        else if ((this.pubItem.getVersion().getState() == State.RELEASED || this.pubItem.getVersion().getState() == State.SUBMITTED)
+        		&& (getIsModerator() || getIsDepositor()))
         {
             for (FileVO file : this.pubItem.getFiles())
             {
