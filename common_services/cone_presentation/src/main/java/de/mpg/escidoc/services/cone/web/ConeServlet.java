@@ -165,6 +165,7 @@ public class ConeServlet extends HttpServlet
             int limit = -1;
             String mode = request.getParameter("m");
             Querier.ModeType modeType = Querier.ModeType.FAST;
+            
             if (mode != null && "full".equals(mode.toLowerCase()))
             {
                 modeType = Querier.ModeType.FULL;
@@ -182,7 +183,7 @@ public class ConeServlet extends HttpServlet
             {
                 if (query != null)
                 {
-                    queryAction(query, limit, lang, modeType, response, model);
+                    queryAction(query, limit, lang, modeType, response, model, ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
                 }
                 else
                 {
@@ -194,7 +195,7 @@ public class ConeServlet extends HttpServlet
                             searchFields.add(new Pair(key.toString(), request.getParameter(key.toString())));
                         }
                     }
-                    queryFieldsAction(searchFields.toArray(new Pair[]{}), limit, lang, modeType, response, model);
+                    queryFieldsAction(searchFields.toArray(new Pair[]{}), limit, lang, modeType, response, model, ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
                 }
             }
             catch (Exception e)
@@ -224,7 +225,7 @@ public class ConeServlet extends HttpServlet
             
             try
             {
-                detailAction(id, lang, response, out, model);
+                detailAction(id, lang, response, out, model, ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
             }
             catch (Exception e)
             {
@@ -254,7 +255,7 @@ public class ConeServlet extends HttpServlet
         {
             response.setContentType(formatter.getContentType());
             String lang = request.getParameter("lang");
-            Querier querier = QuerierFactory.newQuerier();
+            Querier querier = QuerierFactory.newQuerier(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
             
             logger.debug("Querier is " + querier);
                 
@@ -299,7 +300,8 @@ public class ConeServlet extends HttpServlet
             String lang,
             HttpServletResponse response,
             PrintWriter out,
-            String modelName)
+            String modelName,
+            boolean loggedIn)
         throws Exception
     {
         Model model = ModelList.getInstance().getModelByAlias(modelName);
@@ -342,8 +344,8 @@ public class ConeServlet extends HttpServlet
             else
             {
             
-                Querier querier = QuerierFactory.newQuerier();
-
+                Querier querier = QuerierFactory.newQuerier(loggedIn);
+                
                 if (querier == null)
                 {
                     reportMissingQuerier(response);
@@ -380,7 +382,7 @@ public class ConeServlet extends HttpServlet
      * @param model
      * @throws IOException
      */
-    private void queryAction(String query, int limit, String lang, Querier.ModeType modeType, HttpServletResponse response, String modelName)
+    private void queryAction(String query, int limit, String lang, Querier.ModeType modeType, HttpServletResponse response, String modelName, boolean loggedIn)
         throws Exception
     {
         Model model = ModelList.getInstance().getModelByAlias(modelName);
@@ -400,7 +402,7 @@ public class ConeServlet extends HttpServlet
             else
             {
             
-                Querier querier = QuerierFactory.newQuerier();
+                Querier querier = QuerierFactory.newQuerier(loggedIn);
                 
                 logger.debug("Querier is " + querier);
                 
@@ -447,7 +449,7 @@ public class ConeServlet extends HttpServlet
      * @param model
      * @throws IOException
      */
-    private void queryFieldsAction(Pair[] searchFields, int limit, String lang, Querier.ModeType modeType, HttpServletResponse response, String modelName)
+    private void queryFieldsAction(Pair[] searchFields, int limit, String lang, Querier.ModeType modeType, HttpServletResponse response, String modelName, boolean loggedIn)
         throws Exception
     {
         Model model = ModelList.getInstance().getModelByAlias(modelName);
@@ -456,7 +458,7 @@ public class ConeServlet extends HttpServlet
         {
             response.setContentType(formatter.getContentType());
 
-            Querier querier = QuerierFactory.newQuerier();
+            Querier querier = QuerierFactory.newQuerier(loggedIn);
             
             logger.debug("Querier is " + querier);
                 
