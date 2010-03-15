@@ -147,11 +147,14 @@
 						
 					} else {
 
+						var vocab = $(options.vocab).val().toLowerCase();
+						vocab = vocab.substring(vocab.lastIndexOf("/"));
+						
 						$.ajax({
 							processData: false,
 							type: "GET",
 							dataType: "json",
-							url: options.source,
+							url: (options.vocab == null ? options.source : options.source.replace('\$1', vocab)),
 							data: "format=json&lang="+lang+"&q="+escape(q),
 							success: function(result){
 									$results.hide();
@@ -377,7 +380,8 @@
 		
 			if (!source)
 				return;
-		
+
+			
 			options = options || {};
 			options.source = source;
 			options.delay = options.delay || 100;
@@ -389,6 +393,7 @@
 			options.subdelimiter = options.subdelimiter || '|';
 			options.onSelect = options.onSelect || false;
 			options.maxCacheSize = options.maxCacheSize || 65536;
+			//options.vocab = options.vocab;
 	
 			this.each(function() {
 				new $.suggest(this, options);
