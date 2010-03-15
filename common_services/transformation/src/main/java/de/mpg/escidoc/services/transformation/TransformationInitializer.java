@@ -36,7 +36,7 @@ public class TransformationInitializer
         this.logger.debug("Classes which implement the transformation interface:");
         URL classPath = null;
         Set entities;
-        Vector entetiesV = new Vector();
+        Vector entitiesV = new Vector();
         ClassLoader cl = this.getClass().getClassLoader();
         Class transformationClass;
         ClasspathUrlFinder classPathFinder = new ClasspathUrlFinder();
@@ -58,7 +58,7 @@ public class TransformationInitializer
                 anDB.setScanClassAnnotations(true);
 
                 entities = anDB.getAnnotationIndex().get(TransformationModule.class.getName());           
-                entetiesV.addAll(entities);
+                entitiesV.addAll(entities);
             }
             //Search in jboss directory
             else
@@ -82,17 +82,17 @@ public class TransformationInitializer
                             entities = anDB.getAnnotationIndex().get(TransformationModule.class.getName());     
                             if (entities != null)
                             {
-                                entetiesV.addAll(entities);
+                                entitiesV.addAll(entities);
                             }
                         }                            
                     }
                 }
             }
   
-            for (int i = 0; i < entetiesV.size(); i++)
+            for (int i = 0; i < entitiesV.size(); i++)
             {
-                this.logger.debug(entetiesV.get(i));
-                transformationClass = cl.loadClass(entetiesV.get(i).toString());
+                this.logger.debug(entitiesV.get(i));
+                transformationClass = cl.loadClass(entitiesV.get(i).toString());
                 this.transformationClasses.add(transformationClass);
             }       
 
