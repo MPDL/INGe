@@ -41,7 +41,7 @@ public abstract class SearchQuery implements Serializable
     private SortingOrder sortingOrder = null;
     /** Maximum number of results. */
     // changed to 1000 due to java heap space problems
-    private static final String DEFAULT_MAXIMUM_RECORDS = "1000";
+    private static final int DEFAULT_MAXIMUM_RECORDS = 5000;
     /** Cql definition for a descending order of the search result */
     private static final String CQL_DESCENDING_DEFINITION = ",,0";
 
@@ -50,7 +50,7 @@ public abstract class SearchQuery implements Serializable
      */
     public SearchQuery()
     {
-        this.maximumRecords = new NonNegativeInteger(DEFAULT_MAXIMUM_RECORDS);
+        this.maximumRecords = new NonNegativeInteger(DEFAULT_MAXIMUM_RECORDS + "");
     }
 
     /**
@@ -99,19 +99,16 @@ public abstract class SearchQuery implements Serializable
 
     public void setMaximumRecords(NonNegativeInteger maximumRecords)
     {
-        this.maximumRecords = maximumRecords;
+        if (maximumRecords.compareTo(this.maximumRecords) < 0)
+        {
+            this.maximumRecords = maximumRecords;
+        }
     }
 
     public void setMaximumRecords(String maximumRecords)
     {
-        try
-        {
-            NonNegativeInteger i = new NonNegativeInteger(maximumRecords);
-            this.maximumRecords = i;
-        } catch (Exception e)
-        {
-            // trying to set an invalid value
-        }
+        NonNegativeInteger i = new NonNegativeInteger(maximumRecords);
+        setMaximumRecords(i);
     }
     
     /**
