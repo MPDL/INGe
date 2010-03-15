@@ -60,11 +60,13 @@
 <%!
 	List<String> errors;
 	List<String> messages;
-	Querier querier = QuerierFactory.newQuerier();
 	HttpServletRequest request = null;
+	Querier querier = null;
+	
 
-	private String displayPredicates(Model model, TreeFragment results, String uri, List<Predicate> predicates, String prefix)
+	private String displayPredicates(Model model, TreeFragment results, String uri, List<Predicate> predicates, String prefix, boolean loggedIn)
 	{
+		
     	StringWriter out = new StringWriter();
     
 	    for (Predicate predicate : predicates)
@@ -241,7 +243,7 @@
 			                if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
 			                {
 	    		                out.append("<span class=\"free_area0 large_negMarginLExcl\">");
-	        		            out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":" + counter + ":"));
+	        		            out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":" + counter + ":",((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()));
 	            		        out.append("</span>");
 	            	    	}
 	                
@@ -539,13 +541,15 @@
 
 	errors = new ArrayList<String>();
 	messages = new ArrayList<String>();
-
+	
 	String uri = request.getParameter("uri");
 	String modelName = request.getParameter("model");
 	Model model = null;
 	TreeFragment results = new TreeFragment();
 
 	Enumeration<String> paramNames = request.getParameterNames();
+	
+	querier = QuerierFactory.newQuerier(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
 	
 	if (modelName != null && !"".equals(modelName))
 	{
@@ -751,7 +755,7 @@
 										</span>
 									</span>
 									<% if (model != null) { %>
-										<%= displayPredicates(model, results, uri, model.getPredicates(), "") %>
+										<%= displayPredicates(model, results, uri, model.getPredicates(), "", ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) %>
 									<% } %>	
 								</div>
 								<div class="free_area0 xTiny_marginLIncl">

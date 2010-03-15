@@ -57,7 +57,7 @@
 				<div class="full_area0">
 					<%
 						Set<Model> modelList = ModelList.getInstance().getList();
-						Querier querier = QuerierFactory.newQuerier();
+						Querier querier = QuerierFactory.newQuerier(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
 					%>
 					<div class="full_area0 fullItem">
 					<div class="full_area0 itemBlock noTopBorder">

@@ -44,6 +44,7 @@
 <%
 	XmlTransforming xmlTransforming = new XmlTransformingBean();
 	boolean showWarning = false;
+	if(request.getSession().getAttribute("logged_in") == null){request.getSession().setAttribute("logged_in", Boolean.FALSE);}
 	
 	if (request.getParameter("eSciDocUserHandle") != null)
 	{
@@ -99,7 +100,8 @@
 	        	break;
 	        }
 	    }
-	}else{}
+	}else{
+	}
 %>
 <div class="full_area0 header clear">
 <!-- start: header section -->
@@ -119,7 +121,7 @@
 
 			<!-- Login -->
 		
-				<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && (Boolean)request.getSession().getAttribute("logged_in")) { %>
+				<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
 					<a class="medium_area0_p8 endline" href="logout.jsp?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Logout</a>
 				<% } else { %>
 					<a class="medium_area0_p8 endline" href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") %>/aa/login?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Login</a>

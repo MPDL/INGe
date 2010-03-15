@@ -111,7 +111,7 @@
 	
 	if (uri != null && !"".equals(uri) && modelName != null && !"".equals(modelName))
 	{
-	    Querier querier = QuerierFactory.newQuerier();
+	    Querier querier = QuerierFactory.newQuerier(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
 	    results = querier.details(modelName, uri, "*");
 		querier.release();
 	}

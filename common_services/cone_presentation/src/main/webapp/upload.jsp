@@ -103,10 +103,10 @@
 						}
 						
 						SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-						RDFHandler rdfHandler = new RDFHandler();
+						RDFHandler rdfHandler = new RDFHandler(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
 						parser.parse(uploadedStream, rdfHandler);
 						
-						Querier querier = QuerierFactory.newQuerier();
+						Querier querier = QuerierFactory.newQuerier(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
 						List<LocalizedTripleObject> results = rdfHandler.getResult();
 						
 						for (LocalizedTripleObject result : results)

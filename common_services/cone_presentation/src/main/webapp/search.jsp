@@ -69,14 +69,15 @@
 	
 	if (request.getParameter("searchterm") != null && !"".equals(request.getParameter("searchterm")))
 	{
-	    Querier querier = QuerierFactory.newQuerier();
+	    Querier querier = QuerierFactory.newQuerier(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
+	   
 	    if (request.getParameter("lang") != null && !"".equals(request.getParameter("lang")))
 	    {
-	    	results = querier.query(request.getParameter("model"), request.getParameter("searchterm"), request.getParameter("lang"), Querier.ModeType.FAST, true);
+	    	results = querier.query(request.getParameter("model"), request.getParameter("searchterm"), request.getParameter("lang"), Querier.ModeType.FAST);
 	    }
 	    else
 	    {
-	        results = querier.query(request.getParameter("model"), request.getParameter("searchterm"), Querier.ModeType.FAST, true);
+	        results = querier.query(request.getParameter("model"), request.getParameter("searchterm"), Querier.ModeType.FAST);
 	    }
 		querier.release();
 	}
