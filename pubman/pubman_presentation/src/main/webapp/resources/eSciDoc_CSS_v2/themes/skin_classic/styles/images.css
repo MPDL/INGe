@@ -598,19 +598,37 @@
 	}
 	
 	.assign {
-		background-image: url('../images/Virr_Work_Assign_15_Active.gif');
+		background-image: url('../images/Virr_Work_Assign_31_Active.gif');
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
 	
 	.assign:hover, .assign:focus {
-		background-image: url('../images/Virr_Work_Assign_15_Hover.gif');
+		background-image: url('../images/Virr_Work_Assign_31_Hover.gif');
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
 	
 	.assign:disabled {
-		background-image: url('../images/Virr_Work_Assign_15_Deactivated.gif');
+		background-image: url('../images/Virr_Work_Assign_31_Deactivated.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.unassign {
+		background-image: url('../images/Virr_Work_Assign_31_Active.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.unassign:hover, .unassign:focus {
+		background-image: url('../images/Virr_Work_Assign_31_Hover.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.unassign:disabled {
+		background-image: url('../images/Virr_Work_Assign_31_Deactivated.gif');
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
