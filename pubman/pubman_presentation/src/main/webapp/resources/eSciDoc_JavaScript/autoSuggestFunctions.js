@@ -43,6 +43,8 @@
 	var journalSuggestCommonParentClass = 'sourceArea';
 	var journalSuggestTrigger = 'JOURNAL';
 	var subjectSuggestCommonParentClass = 'parentArea';
+	
+	var globalId = '';
 
 	function getJournalDetails(details)
 	{
@@ -115,7 +117,14 @@
 			}
 			allIDs += identifierValue;
 		}
-		
+		if (globalId != '')
+		{
+			if (allIDs != '')
+			{
+				allIDs += autopasteDelimiter;
+			}
+			allIDs += 'http://purl.org/escidoc/metadata/terms/0.1/CONE|' + globalId;
+		}
 		
 		
 		fillField('journalSuggest', title, parent);
@@ -219,6 +228,7 @@
 	function fillFields()
 	{
 		$input = $(this);
+		globalId = this.resultID;
 		$.getJSON(journalDetailsBaseURL.replace('$1', this.resultID), getJournalDetails);
 	}
 	

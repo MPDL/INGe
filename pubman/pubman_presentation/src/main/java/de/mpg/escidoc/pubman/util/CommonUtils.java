@@ -931,7 +931,7 @@ public class CommonUtils extends InternationalizedImpl
         try
         {
             if (id.getType()== null){return false;}
-            if (id.getType().equals(IdType.URI))
+            if (id.getType().equals(IdType.URI) || id.getType().equals(IdType.CONE))
             {
                 new URL (id.getId());
                 valid = true;
