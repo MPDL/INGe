@@ -246,17 +246,17 @@
 					<xsl:if test="PB">
 						<xsl:element name="dc:publisher">						
 							<xsl:value-of select="PB"/>
-						</xsl:element>
+						</xsl:element><genre><xsl:value-of select="$gen"/></genre>
 					</xsl:if>
 					<xsl:if test="CY">
 						<xsl:element name="eterms:place">
 							<xsl:value-of select="CY"/>
 						</xsl:element>
 					</xsl:if>
-					<xsl:if test="VL and not(ET or JF or JO or T3)">				
+					<xsl:if test="VL and not(ET or JF or JO)">									
 						<xsl:element name="eterms:edition">
 							<xsl:value-of select="VL"/>					
-						</xsl:element>
+						</xsl:element>						
 					</xsl:if>
 				</xsl:element>
 			</xsl:if>
@@ -510,10 +510,10 @@
 						</xsl:call-template>
 					</xsl:element>          
       			</xsl:for-each>
-				
+				  
 			</xsl:if>
 			<!-- SOURCE VOLUME -->
-			<xsl:if test="(VL and (JF or JO or T3 or ET))">
+			<xsl:if test="(VL and (JF or JO or ET))">
 				<xsl:element name="eterms:volume">
 					<xsl:value-of select="VL" />
 				</xsl:element>
