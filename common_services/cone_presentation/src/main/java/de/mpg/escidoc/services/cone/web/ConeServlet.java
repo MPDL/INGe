@@ -127,6 +127,11 @@ public class ConeServlet extends HttpServlet
         String action = null;
         String format = DEFAULT_FORMAT;
         String lang = request.getParameter("lang");
+        boolean loggedIn = false;
+        if (request.getSession().getAttribute("logged_in") != null)
+        {
+            loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
+        }
         
         if (path.length == 3 && "".equals(path[2]))
         {
@@ -183,7 +188,7 @@ public class ConeServlet extends HttpServlet
             {
                 if (query != null)
                 {
-                    queryAction(query, limit, lang, modeType, response, model, ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
+                    queryAction(query, limit, lang, modeType, response, model, loggedIn);
                 }
                 else
                 {
@@ -195,7 +200,7 @@ public class ConeServlet extends HttpServlet
                             searchFields.add(new Pair(key.toString(), request.getParameter(key.toString())));
                         }
                     }
-                    queryFieldsAction(searchFields.toArray(new Pair[]{}), limit, lang, modeType, response, model, ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
+                    queryFieldsAction(searchFields.toArray(new Pair[]{}), limit, lang, modeType, response, model, loggedIn);
                 }
             }
             catch (Exception e)
@@ -207,7 +212,7 @@ public class ConeServlet extends HttpServlet
         {
             try
             {
-                allAction(request, response, model);
+                allAction(request, response, model, loggedIn);
             }
             catch (Exception e)
             {
@@ -225,7 +230,7 @@ public class ConeServlet extends HttpServlet
             
             try
             {
-                detailAction(id, lang, response, out, model, ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
+                detailAction(id, lang, response, out, model, loggedIn);
             }
             catch (Exception e)
             {
@@ -247,7 +252,7 @@ public class ConeServlet extends HttpServlet
      * @param model
      * @throws IOException
      */
-    private void allAction(HttpServletRequest request, HttpServletResponse response, String modelName) throws Exception
+    private void allAction(HttpServletRequest request, HttpServletResponse response, String modelName, boolean loggedIn) throws Exception
     {
         Model model = ModelList.getInstance().getModelByAlias(modelName);
 
@@ -255,7 +260,8 @@ public class ConeServlet extends HttpServlet
         {
             response.setContentType(formatter.getContentType());
             String lang = request.getParameter("lang");
-            Querier querier = QuerierFactory.newQuerier(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
+
+            Querier querier = QuerierFactory.newQuerier(loggedIn);
             
             logger.debug("Querier is " + querier);
                 
