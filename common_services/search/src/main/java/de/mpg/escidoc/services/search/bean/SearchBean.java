@@ -159,8 +159,6 @@ public class SearchBean implements Search
             searchRetrieveRequest.setQuery(cqlQuery);
             searchRetrieveRequest.setSortKeys(query.getCqlSortingQuery());
 
-            System.out.println(query.getMaximumRecords());
-            
             searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
             searchRetrieveRequest.setStartRecord(query.getStartRecord());
             searchRetrieveRequest.setRecordPacking(RECORD_PACKING);
