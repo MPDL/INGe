@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?> 
 <escidocItemList:item-list xmlns:escidocItemList="${xsd.soap.item.itemlist}"
                            xmlns:escidocItem="${xsd.soap.item.item}"
                            xmlns:escidocContext="${xsd.soap.context.context}"
@@ -171,7 +171,7 @@
                         <eterms:place>Garching</eterms:place>
                     </event:event>
                     <eterms:total-number-of-pages>555</eterms:total-number-of-pages>
-                    <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2006).</span> It's raining todayTALK.<span class="Italic"> 9th Symposium on Rain.</span> Garching, 2006.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2006).</span> It's raining todayTALK.<span class="Italic"> Talk presented at 9th Symposium on Rain.</span> Garching, 2006.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: H. Knözinger and E. Taglauer, "It's raining todayTALK", in <span class="Italic">Acta Anatomica</span>, (S. Karger, Basel, 2008), pp. 555.]]></dcterms:abstract>
                     <dc:subject>PLEASE NOTE: AJP CITATION = GENERIC WITHOUT SOURCE</dc:subject>
                     <dcterms:tableOfContents/>
@@ -3292,7 +3292,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
                         <eterms:place>Berlin</eterms:place>
                     </event:event>
                     <eterms:total-number-of-pages/>
-                    <dcterms:abstract><![CDATA[APA: Brozinski, M., Knothe, W., &amp; Sengbusch, R. v. <span class="DisplayDateStatus">(1960).</span> Oxalatsteinauflösung in der menschlichen Niere durch Chemolyse.<span class="Italic"> 85. Kongress der Vereinigung Nordwestdeutscher Chirurgen.</span> Berlin, 1960-06-25 - 1960-06-30.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Brozinski, M., Knothe, W., &amp; Sengbusch, R. v. <span class="DisplayDateStatus">(1960).</span> Oxalatsteinauflösung in der menschlichen Niere durch Chemolyse.<span class="Italic"> Talk presented at 85. Kongress der Vereinigung Nordwestdeutscher Chirurgen.</span> Berlin, 1960-06-25 - 1960-06-30.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: M. Brozinski, W. Knothe, and Reinhold von Sengbusch, "Oxalatsteinauflösung in der menschlichen Niere durch Chemolyse", in <span class="Italic">Deutsche medizinische Wochenschrift</span>, (Georg Thieme, Leipzig, 1960), Vol. 86, pp. 255-256.]]></dcterms:abstract>
                     <dc:subject>Kidney stones, Methods</dc:subject>
                     <dc:subject/>
@@ -3975,7 +3975,7 @@ both language-universal constraints and language-specific rules for contextual w
                </eterms:publishing-info>
                <dcterms:issued xsi:type="dcterms:W3CDTF">2009-11-27</dcterms:issued>
                <eterms:total-number-of-pages>234</eterms:total-number-of-pages>
-               <dcterms:abstract><![CDATA[APA: Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., et al. <span class="DisplayDateStatus">(2009).</span> <span class="Italic">Nek APA Test Editon</span><span class="Italic">: ein kleiner Test zum Abschied</span> (Kastens, K., <localized class="editor">Ed.</localized>) (3. rev. Ed.). München: MPDL.]]></dcterms:abstract>
+               <dcterms:abstract><![CDATA[APA: Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., et al. <span class="DisplayDateStatus">(2009).</span> <span class="Italic">Nek APA Test Editon</span><span class="Italic">: ein kleiner Test zum Abschied</span> (Kastens, K., <localized class="editor">Ed.</localized>). (3. rev. Ed.). München: MPDL.]]></dcterms:abstract>
                <dcterms:abstract><![CDATA[AJP: Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, and Jos J. A. Van Berkum,<span class="Italic"> Nek APA Test Editon.</span> (MPDL, München, 2009), 3. rev. Ed. ed.]]></dcterms:abstract>
                <dc:subject/>
                <dcterms:tableOfContents/>
