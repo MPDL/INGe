@@ -1703,34 +1703,33 @@ public class ProcessCitationStyles implements CitationStyleHandler{
                 logger.info("Filling of the sorted file: " + (System.currentTimeMillis() - start));
                 
             }
-            else if (TASK_VALIDATE_DS.equalsIgnoreCase(taskName))
-            {
-
-            	XmlHelper xh = new XmlHelper();
-                try {
-                	xh.validateDataSourceXML(dsName);
-                    logger.info("DataSource file:" + dsName + " is valid.");
-                }catch (CitationStyleManagerException e){
-                    logger.info("DataSource file:" + dsName + " is not valid.\n" + e.toString());
-                }
-                logger.info("Data Source Validation time : " + (System.currentTimeMillis() - start));
-                
-            }
+//            else if (TASK_VALIDATE_DS.equalsIgnoreCase(taskName))
+//            {
+//
+//            	XmlHelper xh = new XmlHelper();
+//                try {
+//                	xh.validateDataSourceXML(dsName);
+//                    logger.info("DataSource file:" + dsName + " is valid.");
+//                }catch (CitationStyleManagerException e){
+//                    logger.info("DataSource file:" + dsName + " is not valid.\n" + e.toString());
+//                }
+//                logger.info("Data Source Validation time : " + (System.currentTimeMillis() - start));
+//                
+//            }
             else if (TASK_VALIDATE_CS.equalsIgnoreCase(taskName))
             {
             	
             	
             	XmlHelper xh = new XmlHelper();
-                try {
-                	xh.validateCitationStyleXML(
-                			ResourceUtil.getPathToCitationStyles()
-                			+ csName + "/" + pcs.CITATION_XML_FILENAME );
-                	logger.info("Citation Style XML file for " + csName + " is valid.");
-            	}catch (CitationStyleManagerException e){
-            		logger.info("Citation Style definition file:" + csName + " is not valid.\n" + e.toString());
-            	}
-                logger.info("Citation Style validation time : " + (System.currentTimeMillis() - start));
+                String report = xh.validateCitationStyleXML(
+						ResourceUtil.getPathToCitationStyles()
+						+ csName + "/" + pcs.CITATION_XML_FILENAME );
                 
+                if ( report == null )
+                	logger.info("Citation Style XML file for " + csName + " is valid.");
+                else
+                	logger.info("Citation Style XML file for " + csName + " is not valid: " + report);
+                logger.info("Citation Style validation time : " + (System.currentTimeMillis() - start));
             }
             else
             {
