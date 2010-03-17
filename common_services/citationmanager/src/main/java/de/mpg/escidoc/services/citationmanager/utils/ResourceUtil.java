@@ -65,13 +65,14 @@ import de.mpg.escidoc.services.transformation.TransformationBean;
  */
 /**
  * @author vlad
- *
+ * 
  */
 public class ResourceUtil
 {
 	private static final Logger logger = Logger.getLogger(ResourceUtil.class);
 	
     public final static String RESOURCES_DIRECTORY_LOCAL = "src/main/resources/";
+//    public final static String RESOURCES_DIRECTORY_LOCAL = "target/classes/";
 //    public final static String RESOURCES_DIRECTORY_JAR = "resources/";
     public final static String RESOURCES_DIRECTORY_JAR = "";
     public final static String CLASS_DIRECTORY = "target/classes/";
@@ -322,8 +323,19 @@ public class ResourceUtil
         return
 			getPathToResources() + CITATIONSTYLES_DIRECTORY;
     }
+    
+    /**
+     * Returns path to the Citation Style directory 
+     * @param cs
+     * @return
+     * @throws IOException
+     */
+    public static String getPathToCitationStyle(String cs) throws IOException 
+    {
+    	return 
+    		getPathToCitationStyles() + cs + "/";
+    }
 
-   
 
     /**
      * Returns path to the Data Sources directory 
