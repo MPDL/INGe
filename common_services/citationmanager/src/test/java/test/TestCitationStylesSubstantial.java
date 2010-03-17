@@ -163,8 +163,8 @@ public class TestCitationStylesSubstantial {
 
     	// for all citation styles
     	for (String cs : 
-    		cse.getStyles() 
-    		//new String[]{"JUS"} 
+//    		cse.getStyles() 
+    		new String[]{"APA", "AJP"} 
     	)    	
     	{
 
