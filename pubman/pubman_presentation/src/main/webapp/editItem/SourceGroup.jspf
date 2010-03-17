@@ -47,7 +47,7 @@
 						&#160;<h:outputText id="txtsources_source_basic_optionalRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_basic_optional != 'true' && genre.sources_source_basic_source_genre_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneMenu id="selChooseSourceGenre" styleClass="large_select replace journalPulldown" value="#{sourceBean.source.genre}" valueChangeListener="#{sourceBean.chooseSourceGenre}" >
+						<h:selectOneMenu id="selChooseSourceGenre" styleClass="large_select replace journalPulldown" value="#{sourceBean.source.genre}" valueChangeListener="#{sourceBean.chooseSourceGenre}">
 							<f:selectItems value="#{sourceBean.sourceGenreOptions}"/>
 						</h:selectOneMenu>
 					</span>
@@ -150,7 +150,7 @@
 								</b>
 								<span class="xHuge_area0 xTiny_marginLExcl endline">
 									<h:selectOneRadio id="selSourceCreatorType" styleClass="medium_radioBtn double_area0" value="#{creatorBean.creator.typeString}" 
-										valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onclick="submit();" >
+										valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onclick="submit(); fullItemReload();" >
 										<f:selectItems value="#{creatorBean.creatorTypes}"/>
 									</h:selectOneRadio>
 								</span>

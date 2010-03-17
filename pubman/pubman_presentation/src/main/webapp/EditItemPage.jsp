@@ -201,8 +201,8 @@
 							</div>			 
 						</div>
 						
-						<div id="ImgFullItem" class="">
-							<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed; width: 50%; height: 50%;"></div>
+						<div id="ImgFullItem">
+							<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed; width: 50%; height: 30%;"></div>
 						</div>
 						
 						<div class="full_area0 formButtonArea">
@@ -244,11 +244,11 @@
 			<script type="text/javascript">
 				function fullItemReload()
 				{
-					/**$('.dialogDummy').createDialog({addr: '<h:outputText value="#{EditItem.suggestConeUrl}"/>persons/query', bg: '#FFF',opacity: 0.5});
-					*/
-					document.getElementById('fullItem').style.visibility='hidden';
+					document.getElementById('fullItem').style.opacity='0.4';
+					document.getElementById('fullItem').style.bg='FFF';
 					document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea smallThrobber');
-					document.body.style.cursor = 'wait';
+					$('#fullItem :input :text').attr('disabled', true);
+				    $('#fullItem :textarea :text').attr('disabled', true);
 				}
 			</script>
 			<h:inputHidden id="CCScriptTag" value="#{EditItem.ccScriptTag}"/>
