@@ -47,11 +47,7 @@ import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.events.XMLEvent;
+
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -205,10 +201,10 @@ public class XsltHelper {
 		HttpClient client = new HttpClient();
 
 		String coneUrl = PropertyReader.getProperty("escidoc.cone.service.url");
-
-		GetMethod getMethod = new GetMethod(
-				coneUrl
-						+ "journals/query?format=rdf&escidoc:citation-style=*&m=full&l=0");
+		
+		String coneQuery = coneUrl + "journals/query?format=rdf&escidoc:citation-style=*&m=full&l=0";
+		logger.info("cone query:" + coneQuery);
+		GetMethod getMethod = new GetMethod(coneQuery);
 
 		client.executeMethod(getMethod);
 
