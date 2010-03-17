@@ -2224,6 +2224,11 @@ public class EditItem extends FacesBean
         return suggestConeUrl;
     }
     
+    public void setCcScriptTag(String ccScriptTag)
+    {
+    	
+    }
+    
     public String getCcScriptTag()
     {
         return EditItem.getCcScriptTagForAll();

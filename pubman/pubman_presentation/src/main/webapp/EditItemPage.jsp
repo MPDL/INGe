@@ -45,6 +45,8 @@
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
+				
+				<script src="./resources/eSciDoc_JavaScript/jquery/jquery.jdialog.min.js" language="JavaScript" type="text/javascript">;</script>
 
 				<link rel="stylesheet" href="http://labs.creativecommons.org/demos/jswidget/tags/0.97/example_web_app/example-widget-style.css" />
 
@@ -52,7 +54,7 @@
 			<body lang="#{InternationalizationHelper.locale}">
 
 			<h:outputText id="pageDummy" value="#{EditItemPage.beanName}" styleClass="noDisplay" />
-			<tr:form usesUpload="true">
+			<tr:form usesUpload="true" onsubmit="fullItemReload();">
 			<div class="full wrapper">
 			<h:inputHidden value="#{EditItemSessionBean.offset}" id="offset"></h:inputHidden>
 			
@@ -134,7 +136,7 @@
 						</div>
 					</div>
 					<div class="full_area0">
-						<div class="full_area0 fullItem">
+						<div id="fullItem" class="full_area0 fullItem">
 							<div class="full_area0 fullItemControls">
 								<span class="full_area0_p5">
 									<h:panelGroup styleClass="seperator" rendered="#{!(genre.sources_display == 'false' and genre.sources_form_id == 'full-submission' or  genre.sources_display == 'false' and genre.sources_form_id == 'all')}"/>
@@ -199,6 +201,10 @@
 							</div>			 
 						</div>
 						
+						<div id="ImgFullItem" class="">
+							<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed; width: 50%; height: 50%;"></div>
+						</div>
+						
 						<div class="full_area0 formButtonArea">
 							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.EditItem_lnkCancel}" action="#{EditItem.cancel}"/>
 							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkDelete" binding ="#{EditItem.lnkDelete}" immediate="true"  value="#{lbl.EditItem_lnkDelete}" onmousedown="if(!confirmDelete('form1:EditItem'))return false;" action="#{EditItem.delete}"/>
@@ -234,6 +240,16 @@
 				journalSuggestCommonParentClass = 'itemBlock';
 				personSuggestCommonParentClass = 'suggestAnchor';
 				journalSuggestTrigger = 'JOURNAL';
+			</script>
+			<script type="text/javascript">
+				function fullItemReload()
+				{
+					/**$('.dialogDummy').createDialog({addr: '<h:outputText value="#{EditItem.suggestConeUrl}"/>persons/query', bg: '#FFF',opacity: 0.5});
+					*/
+					document.getElementById('fullItem').style.visibility='hidden';
+					document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea smallThrobber');
+					document.body.style.cursor = 'wait';
+				}
 			</script>
 			<h:inputHidden id="CCScriptTag" value="#{EditItem.ccScriptTag}"/>
 			</body>

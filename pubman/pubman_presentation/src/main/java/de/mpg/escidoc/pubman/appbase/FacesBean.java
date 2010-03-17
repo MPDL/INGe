@@ -405,7 +405,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable
             FacesMessage fm = i.next();
             if (fm.getSeverity().equals(FacesMessage.SEVERITY_ERROR) || fm.getSeverity().equals(FacesMessage.SEVERITY_WARN) || fm.getSeverity().equals(FacesMessage.SEVERITY_FATAL))
             {
-                return true;
+            	return true;
             }
         }
         return false;
