@@ -40,6 +40,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
@@ -84,24 +85,18 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * @version $Revision: 69 $ $LastChangedDate: 2007-12-11 12:41:58 +0100 (Tue, 11 Dec 2007) $
  */
 public class TestHelper
-{
+{ 
  
 	private static Logger logger = Logger.getLogger(TestHelper.class);
 	
 	public static final String ITEMS_LIMIT = "50"; 
 	public static final String CONTENT_MODEL = "escidoc:persistent4"; 
-//	public static final String USER_NAME = "test_dep_scientist"; 
-//	public static final String USER_PASSWD = "verdi"; 
 	public static final String USER_NAME = "citman_user"; 
 	public static final String USER_PASSWD = "citman_user";
 	public static final String CONTEXT = "Citation Style Testing Context";
 	public static final String SEARCH_CONTEXT = "escidoc.context.name=%22Citation%20Style%20Testing%20Context%22";
 	
 	
-
-	
-
-    
     public static String getTestItemListFromFramework() throws IOException, ServiceException, URISyntaxException
     {
     	
@@ -110,7 +105,7 @@ public class TestHelper
     		// escidoc content model
 //            "<filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + CONTENT_MODEL + " </filter>" +
     		"<filter name=\"/properties/content-model/id\">" + CONTENT_MODEL + "</filter>" +
-    		"<filter name=\"/properties/context/title\">" + CONTEXT + "</filter>" +
+//    		"<filter name=\"/properties/context/title\">" + CONTEXT + "</filter>" +
 //    		"<filter name=\"/properties/public-status\">pending</filter>" +
     		"</param>"
     	);	
@@ -379,5 +374,57 @@ public class TestHelper
 		}    	
 		return itemsArr;
     }    
+    
+    
+	private Object[] extractSnippets(String snippetsXml)
+	{
+		Pattern p = Pattern.compile("<snippet:snippet\\s.*?>(.*?)</snippet:snippet>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+	    Matcher m = p.matcher(snippetsXml);
+	    
+	    ArrayList<String> al = new ArrayList<String>();
+	    while (m.find())
+	    {
+	    	al.add(m.group(1));
+	    }
+	    return al.toArray(); 
+	}
+	
+	
+	private static ArrayList<String> extractTag(String xml, String tag)
+	{
+		Pattern p = Pattern.compile("<(" +tag +")\\s.*?>(.*?)</\\1>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+		Matcher m = p.matcher(xml);
+		
+		ArrayList<String> al = new ArrayList<String>();
+		while (m.find())
+		{
+			al.add(m.group(2));
+		}
+		return al; 
+	}
+	
+	public static ArrayList<String> extractBibliographicCitations(String xml)
+	{
+		return extractTag(xml, "dcterms:bibliographicCitation"); 
+	}
+	
+	public static String extractBibliographicCitation(String xml, String match)
+	{
+		for (String cit: extractTag(xml, "dcterms:bibliographicCitation"))
+		{
+//			logger.info(cit);
+			if (cit.indexOf(match)>0 && cit.indexOf("span class=\"Default\"")==-1)
+			{
+				return cit;
+			}
+		}
+		return ""; 
+	}
+	
+	public static ArrayList<String> extractAbstract(String xml)
+	{
+		return extractTag(xml, "dcterms:abstract"); 
+	}    
+    
 }
 
