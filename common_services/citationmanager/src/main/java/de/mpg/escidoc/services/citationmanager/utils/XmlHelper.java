@@ -31,26 +31,39 @@ package de.mpg.escidoc.services.citationmanager.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignStaticText;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.saxon.event.SaxonOutputKeys;
 
 import org.apache.log4j.Logger;
@@ -85,7 +98,7 @@ public class XmlHelper {
 
     private static final Logger logger = Logger.getLogger(XmlHelper.class);
 	
-    public final static String DATASOURCES_XML_SCHEMA_FILE = "escidoc/soap/item/0.3/item-list.xsd";
+//    public final static String DATASOURCES_XML_SCHEMA_FILE = "escidoc/soap/item/0.3/item-list.xsd";
     public final static String CITATIONSTYLE_XML_SCHEMA_FILE = "citation-style.xsd";
 	public final static String SCHEMATRON_DIRECTORY =  "Schematron/";
     public final static String SCHEMATRON_FILE = SCHEMATRON_DIRECTORY + "layout-element.sch";
@@ -96,6 +109,12 @@ public class XmlHelper {
     	"{http://purl.org/dc/terms/}bibliographicCitation" 	// Snippet output
     	;
 
+	private static TransformerFactory tf = new net.sf.saxon.TransformerFactoryImpl();		
+
+	public static HashMap<String, Templates> templCache = new HashMap<String, Templates>(20);
+	public static HashMap<String, JasperReport> jasperCache = new HashMap<String, JasperReport>(20);
+	
+	
     private static XPath xpath = XPathFactory.newInstance().newXPath();
     
     /**
@@ -274,14 +293,63 @@ public class XmlHelper {
         outputBase(doc, streamResult);
     }
     
+    
+    /**
+	* Maintain prepared stylesheets in memory for reuse
+	*/
+   public static Templates tryTemplCache(String path) throws TransformerException, FileNotFoundException, CitationStyleManagerException 
+   {
+	   Utils.checkName(path, "Empty XSLT name.");
+
+	   InputStream is = ResourceUtil.getResourceAsStream(path);
+	   
+        Templates x = templCache.get(path);
+        if (x==null) {
+            x = tf.newTemplates(new StreamSource(is));
+            templCache.put(path, x);
+        }
+        return x;
+    }    
+    
+   public static JasperReport tryJasperCache(String cs) throws CitationStyleManagerException, IOException, JRException   
+   {
+	   Utils.checkName(cs, "Empty style name.");
+	   
+	   JasperReport jr = XmlHelper.jasperCache.get(cs);
+	   
+	   if (jr==null) {
+
+		   //get default JasperDesign 
+		   
+		   String path = ResourceUtil.getPathToCitationStyles() + "citation-style.jrxml";
+		   JasperDesign jd = JRXmlLoader.load(ResourceUtil.getResourceAsStream(path));
+			
+		   //populate page header
+		    
+		   jd.setName(cs);
+		   JRDesignStaticText st = (JRDesignStaticText)jd.getTitle().getElementByKey("staticText");
+	        if ( st != null )
+	        	st.setText("Citation Style: " + cs);
+			
+	        //compile to the JasperReport
+			jr = JasperCompileManager.compileReport(jd);
+		    
+			XmlHelper.jasperCache.put(cs, jr);
+	   }
+	   
+	   return jr;
+   }   
+   
     /**
      * XML Schema validation (JAVAX)  
      * @param schemaUrl is the XML Schema 
      * @param xmlDocumentUrl is URI to XML to be validated
      * @throws CitationStyleManagerException 
      */
-    public void validateSchema(final String schemaUrl, final String xmlDocumentUrl) throws CitationStyleManagerException   {    
-    	try{
+    public String validateSchema(final String schemaUrl, final String xmlDocumentUrl)    
+    {   
+    	try
+    	{
     		// System.setProperty("javax.xml.parsers.DocumentBuilderFactory",
     		// "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
     		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();     
@@ -304,46 +372,49 @@ public class XmlHelper {
     		
     		builder.parse(ResourceUtil.getResourceAsFile(xmlDocumentUrl));
     		
-    		if(handler.validationError == true) 
-    			throw new CitationStyleManagerException (  
-    					"XML Document has Error:" +
-    					handler.validationError + " "+
-    					handler.saxParseException.getMessage()
+    		if( handler.validationError )
+    		{
+    			return 
+    			(
+					"XML Document has Error: " +
+					handler.saxParseException.getLineNumber() + ":" +
+					handler.saxParseException.getColumnNumber() + ", " +
+					handler.saxParseException.getMessage()
     			);
-    	} catch(java.io.IOException ioe)    {
-    		logger.info("xmlDocumentUrl :" + xmlDocumentUrl);
-			throw new CitationStyleManagerException (  
-					"IOException ", ioe
-			);         
+    		}
+    	} 
+    	catch(java.io.IOException ioe)    
+    	{
+    			return ( "IO problems: " + ioe.getMessage() );
     	}
-    	catch (SAXException e) {            
-			throw new CitationStyleManagerException (  
-					"SAXException" + e.getMessage()
-			);         
+    	catch (SAXException e) 
+    	{            
+				return ( "SAX problems: " + e.getMessage() );
     	}        
-    	catch (ParserConfigurationException e) {
-			throw new CitationStyleManagerException (  
-					"ParserConfigurationException " + e.getMessage()
-			);		
-    	}       
+    	catch (ParserConfigurationException e) 
+    	{
+				return ( "Wrong ParserConfiguration: " + e.getMessage() );
+    	}
+    	
+    	return null;
     }
     
-    /**
-     * Validation of DataSource XML against the XML schema  
-     * @param xmlDocumentUrl is URI to XML to be validated 
-     * @throws CitationStyleManagerException 
-     * @throws IOException 
-     */
+//    /**
+//     * Validation of DataSource XML against the XML schema  
+//     * @param xmlDocumentUrl is URI to XML to be validated 
+//     * @throws CitationStyleManagerException 
+//     * @throws IOException 
+//     */
 
-    public void validateDataSourceXML(final String xmlDocumentUrl) throws CitationStyleManagerException, IOException{
-    	
-    	validateSchema(
-    			ResourceUtil.getUriToResources()
-    			+ ResourceUtil.SCHEMAS_DIRECTORY
-    			+ DATASOURCES_XML_SCHEMA_FILE
-    			, xmlDocumentUrl
-    	);
-    }
+//    public void validateDataSourceXML(final String xmlDocumentUrl) throws CitationStyleManagerException, IOException{
+//    	
+//    	validateSchema(
+//    			ResourceUtil.getUriToResources()
+//    			+ ResourceUtil.SCHEMAS_DIRECTORY
+//    			+ DATASOURCES_XML_SCHEMA_FILE
+//    			, xmlDocumentUrl
+//    	);
+//    }
 
     
     /**
@@ -351,23 +422,29 @@ public class XmlHelper {
      *  1) XML schema
      *  2) Schematron schema  
      * @param xmlDocumentUrl is URI to XML to be validated 
-     * @throws CitationStyleManagerException
      * @throws IOException 
      */
-    public void validateCitationStyleXML(final String xmlDocumentUrl) throws CitationStyleManagerException, IOException{
+    public String validateCitationStyleXML(final String xmlDocumentUrl) throws IOException
+    {
+    	logger.info("Document to be validated: " + xmlDocumentUrl );
     	
     	// XML Schema validation
     	logger.info("XML Schema validation...");
-    	validateSchema(
+    	String report =
+    		validateSchema(
     			ResourceUtil.getUriToResources()
     			+ ResourceUtil.SCHEMAS_DIRECTORY
     			+ CITATIONSTYLE_XML_SCHEMA_FILE
     			, xmlDocumentUrl
-    	);
-    	logger.info("OK"); 
+    		);
+    	if ( report != null )
+    	{
+    			return report;
+    	} 
+    	logger.info("OK");
     	
     	// Schematron validation
-    	logger.info("Schematron validation..." + xmlDocumentUrl);
+    	logger.info( "Schematron validation..." );
         SchtrnValidator validator = new SchtrnValidator();
         validator.setEngineStylesheet(
     			ResourceUtil.getPathToSchemas()
@@ -377,18 +454,31 @@ public class XmlHelper {
         validator.setParams(new SchtrnParams());
         validator.setBaseXML(true);
         try {
-        	String info = validator.validate(
-    				xmlDocumentUrl,
-        			ResourceUtil.getPathToSchemas()
-        			+ SCHEMATRON_FILE
-            ); 
-            if (info != null && info.contains("Report: "))
-            	throw new CitationStyleManagerException(info);
-        	logger.info("OK");
-        } catch (Exception e) {
-        	logger.info(e.getMessage());
-        	throw new CitationStyleManagerException(e);
+			report = validator.validate(
+					xmlDocumentUrl,
+					ResourceUtil.getPathToSchemas()
+					+ SCHEMATRON_FILE
+			);
+		} 
+        catch (TransformerConfigurationException e1) 
+		{
+        	return "Schematron validation problem (TransformerConfigurationException): " + e1.getMessage();
+		} 
+        catch (TransformerException e1) 
+		{
+        	return "Schematron validation problem (TransformerException): " + e1.getMessage();
+		} 
+		catch (Exception e1) 
+		{
+        	return "Schematron validation problem: " + e1.getMessage();
+		} 
+        if (report != null && report.contains("Report: "))
+        {
+        	return report;
         }
+    	logger.info("OK");
+        
+        return null;
     }
 
     /**
