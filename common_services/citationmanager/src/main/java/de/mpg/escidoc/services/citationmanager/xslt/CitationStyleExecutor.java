@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -97,17 +97,10 @@ public class CitationStyleExecutor implements CitationStyleHandler{
     private static final String SNIPPET_ELEMENT_NAME = "dcterms:bibliographicCitation";
     private static final String SNIPPET_NS = "http://purl.org/dc/terms/";
 
-	private static TransformerFactory tf = new net.sf.saxon.TransformerFactoryImpl();		
-
-	
 	
 	private static final Logger logger = Logger.getLogger(CitationStyleExecutor.class);	
 
 //	private static ProcessCitationStyles pcs = new ProcessCitationStyles();
-
-	
-	private HashMap<String, Templates> templCache = new HashMap<String, Templates>(20);
-	private HashMap<String, JasperReport> jasperCache = new HashMap<String, JasperReport>(20);
 
 	
 	/* 
@@ -168,7 +161,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 			String path = ResourceUtil.getPathToCitationStyles() + cs + "/CitationStyle.xsl"; 
 			
 			/* get xslt from the templCache */
-			transformer = tryTemplCache(path).newTransformer();
+			transformer = XmlHelper.tryTemplCache(path).newTransformer();
 			
 			//set parameters
 			String pub_inst = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path"); 
@@ -219,7 +212,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 					start = System.currentTimeMillis();
 					
 					//get JasperReport from cache
-					jr = tryJasperCache(cs);
+					jr = XmlHelper.tryJasperCache(cs);
 					
 //					JRXmlWriter.writeReport(jr, ResourceUtil.getPathToCitationStyles() + "citation-style.jrxml", "UTF-8");
 					
@@ -327,7 +320,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 	public byte[] getOutput(String citationStyle, String itemList)
 			throws IOException, JRException, CitationStyleManagerException {
 
-		return getOutput(citationStyle, "snippet", itemList);
+		return getOutput(citationStyle, "snippet_esidoc", itemList);
 	}	
 	
 	
@@ -351,7 +344,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		
 		try 
 		{
-			Transformer transformer = tryTemplCache(ResourceUtil.getPathToResources() + ResourceUtil.TRANSFORMATIONS_DIRECTORY + "escidoc-publication-snippet2jasper_DS.xsl").newTransformer();
+			Transformer transformer = XmlHelper.tryTemplCache(ResourceUtil.getPathToResources() + ResourceUtil.TRANSFORMATIONS_DIRECTORY + "escidoc-publication-snippet2jasper_DS.xsl").newTransformer();
 			transformer.transform(new StreamSource(new StringReader(snippets)), new StreamResult(result));
 			
 		} 
@@ -363,179 +356,6 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		return result.toString();
 	}
 	
-	private Object[] extractSnippets(String snippetsXml)
-	{
-		Pattern p = Pattern.compile("<snippet:snippet\\s.*?>(.*?)</snippet:snippet>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-	    Matcher m = p.matcher(snippetsXml);
-	    
-	    ArrayList<String> al = new ArrayList<String>();
-	    while (m.find())
-	    {
-	    	al.add(m.group(1));
-	    }
-	    return al.toArray(); 
-	}
-	
-	
-	private static ArrayList<String> extractTag(String xml, String tag)
-	{
-		Pattern p = Pattern.compile("<(" +tag +")\\s.*?>(.*?)</\\1>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-		Matcher m = p.matcher(xml);
-		
-		ArrayList<String> al = new ArrayList<String>();
-		while (m.find())
-		{
-			al.add(m.group(2));
-		}
-		return al; 
-	}
-	
-	private static ArrayList<String> extractBibliographicCitations(String xml)
-	{
-		return extractTag(xml, "dcterms:bibliographicCitation"); 
-	}
-	
-	private static String extractBibliographicCitation(String xml, String match)
-	{
-		for (String cit: extractTag(xml, "dcterms:bibliographicCitation"))
-		{
-//			logger.info(cit);
-			if (cit.indexOf(match)>0 && cit.indexOf("span class=\"Default\"")==-1)
-			{
-				return cit;
-			}
-		}
-		return ""; 
-	}
-	
-	private static ArrayList<String> extractAbstract(String xml)
-	{
-		return extractTag(xml, "dcterms:abstract"); 
-	}
-
-   /**
-	* Maintain prepared stylesheets in memory for reuse
-	*/
-   private Templates tryTemplCache(String path) throws TransformerException, FileNotFoundException, CitationStyleManagerException 
-   {
-	   Utils.checkName(path, "Empty XSLT name.");
-
-	   InputStream is = ResourceUtil.getResourceAsStream(path);
-	   
-        Templates x = templCache.get(path);
-        if (x==null) {
-            x = tf.newTemplates(new StreamSource(is));
-            templCache.put(path, x);
-        }
-        return x;
-    }
-   
-/**
- * Maintain prepared JasperReports in memory for reuse
- * @throws CitationStyleManagerException 
- * @throws IOException 
- * @throws JRException 
-    */
-   private JasperReport tryJasperCache(String cs) throws CitationStyleManagerException, IOException, JRException   
-   {
-	   Utils.checkName(cs, "Empty style name.");
-	   
-	   //TODO: should be cleaned after complete migration to the XSLT version
-	   String tmp_cs_name = 
-		   	cs.toUpperCase().startsWith("APA") ? "APA" : 
-	   		cs.toUpperCase().startsWith("AJP") ? "AJP" : 
-			cs; 
-
-	   JasperReport jr = jasperCache.get(tmp_cs_name);
-	   
-	   if (jr==null) {
-
-		   //get default JasperDesign 
-		   
-		   String path = ResourceUtil.getPathToCitationStyles() + "citation-style.jrxml";
-		   JasperDesign jd = JRXmlLoader.load(ResourceUtil.getResourceAsStream(path));
-			
-		   //populate page header
-		    
-		   jd.setName(tmp_cs_name);
-		   JRDesignStaticText st = (JRDesignStaticText)jd.getTitle().getElementByKey("staticText");
-	        if ( st != null )
-	        	st.setText("Citation Style: " + tmp_cs_name);
-			
-	        //compile to the JasperReport
-			jr = JasperCompileManager.compileReport(jd);
-		   
-			jasperCache.put(tmp_cs_name, jr);
-	   }
-	   
-	   return jr;
-   }
-	
-	public static void main(String[] args) throws Exception {
-		
-		CitationStyleExecutor cse = new CitationStyleExecutor();
-		FileOutputStream fos;
-		
-		//logger.info(pcst.explainStyles());
-		
-//		byte[] cit = cse.getOutput("APA_new", "pdf", ResourceUtil.getResourceAsString("DataSources/export_xml.xml"));
-		
-//		String items = ResourceUtil.getResourceAsString("target/test-classes/backup/CitationStyleTestCollectionV2.xml");
-		String items = ResourceUtil.getResourceAsString("target/test-classes/testFiles/temp_items.xml");
-//		String items = ResourceUtil.getResourceAsString("/home/vlad/Projects/escidoc/common_services/citationmanager/src/test/resources/testFiles/Sengbusch.xml");
-		
-		byte[] cit;
-		
-		long start = System.currentTimeMillis();
-		cit = cse.getOutput("APA", "escidoc_snippet", items);
-		float itogo = (System.currentTimeMillis() - start);
-		
-		logger.info("Itogo: " + itogo + "; pro item:" + (itogo/2) );
-
-		fos = new FileOutputStream("target/APA.escidoc_snippet.xml");
-		
-    	fos.write(cit);
-    	fos.close();
-
-		
-//		int item_num = 24*2;
-//		logger.info("NEW: " + extractBibliographicCitations(new String (cit)) );
-//		logger.info("OLD: " + extractBibliographicCitation(new String (pcs.getOutput("AJP", "snippet", items))).get(item_num - 1) );
-		
-		
-		cit = cse.getOutput("APA", "pdf", items);
-		fos = new FileOutputStream("target/Report.pdf");
-	
-    	fos.write(cit);
-    	fos.close();
-
-//		logger.info(new String (cit));
-//		logger.info(extractBibliographicCitation(new String (cit)));
-//		logger.info(extractAbstract(new String (cit)));
-		
-		
-//		String s1 = new String (cit); 
-//		logger.info( s1);
-		
-    	
-//		String s1 = new String (
-//				cse.getOutput("APA_new", "snippet", ResourceUtil.getResourceAsString("DataSources/export_xml.xml")
-//				)); 
-//		logger.info( cse.extractBibliographicCitation(s1));
-//		logger.info( cse.extractBibliographicCitation(
-//				new String (
-//						pcs.getOutput("APA", "snippet", ResourceUtil.getResourceAsString("DataSources/export_xml.xml")
-//						))
-//		));
-//		logger.info(
-//				new String (
-//						pcs.getOutput("APA", "snippet", ResourceUtil.getResourceAsString("DataSources/export_xml.xml")
-//						)));
-
-	}
-
-
-
 
 
 }
