@@ -21,7 +21,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -38,7 +38,6 @@
 
 		<!-- Parameters which are not applicable in non-repeatable elements: -->
 		<sch:rule context="cs:layout-element[not(@repeatable)]/cs:parameters">
-			
 				<sch:report test="cs:internal-delimiter">The internal-delimiter 
 					parameter cannot be defined for non-repeatable elements.</sch:report>
 				<sch:report test="cs:max-count">The max-count 
