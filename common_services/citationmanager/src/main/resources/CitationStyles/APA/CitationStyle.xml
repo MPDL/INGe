@@ -20,18 +20,18 @@
 <!--
 	Specifications: http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA	
 -->
-<citation-style name="APA"
+<citation-style name="APA" 
 	xmlns="http://www.escidoc.de/citationstyle"  
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd"
-	read-only="no" 
+	read-only="no"  
 	element-specific="no"
 	md-xpath="../../mdr:md-records/mdr:md-record"
 	source-placeholder-tag="prop:content-model-specific"
 	citation-placeholder-tag="dcterms:bibliographicCitation"
 	include-global-default-variables="yes"
 	include-default-variables="no"
-	>
+	>  
 	<!-- special variables to be used in expressions for short notations -->
 	<variables> 
 		<!-- variables which use xpath directly in DataSource NS-->
@@ -139,12 +139,12 @@
 	<!-- predefined layout elements which can be referenced in CSLDs -->
 	<predefined-layout-elements>
 
-		<!-- editors -->
+		<!-- editors -->   
 		<layout-element name="editors-base">
-			<parameters>
-				<valid-if><![CDATA[$editorsCount>0]]></valid-if>
+			<parameters>  
+				<valid-if><![CDATA[$editorsCount>0]]></valid-if> 
 				<delimiter value="" />
-			</parameters>
+			</parameters> 
 			<elements>
 				<layout-element name="editors-Equal1"
 					ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
@@ -780,13 +780,21 @@
 									<font-style ref="ITALIC" />
 								</parameters>
 							</layout-element>
-							<layout-element ref="$editors-book"/>
-							<layout-element ref="pub:publication/eterms:publishing-info/eterms:edition/text()">
+							<layout-element>
 								<parameters>
-									<starts-with value=" (" />
-									<ends-with value=")" />
+									<delimiter value=". "/>
 								</parameters>
+								<elements>
+									<layout-element ref="$editors-book"/>
+									<layout-element ref="pub:publication/eterms:publishing-info/eterms:edition/text()">
+										<parameters>
+											<starts-with value=" (" />
+											<ends-with value=")" />
+										</parameters>
+									</layout-element>
+								</elements>
 							</layout-element>
+							
 						</elements>
 					</layout-element>
 				</elements>
@@ -1066,7 +1074,7 @@
 			<layout-element ref="pub:publication/event:event/dc:title/text()">
 				<parameters>
 					<font-style ref="ITALIC"/>
-					<starts-with value=" "/>
+					<starts-with value=" Talk presented at "/>
 					<ends-with value="."/>
 				</parameters>
 			</layout-element>
