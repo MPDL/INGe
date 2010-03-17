@@ -21,6 +21,91 @@
                            xmlns:xlink="http://www.w3.org/1999/xlink"
                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	
+     <!-- escidocItem:item objid="escidoc:39025" last-modification-date="2010-03-17T15:44:25.189Z">
+      <escidocItem:properties>
+         <prop:creation-date>2010-03-17T15:42:56.543Z</prop:creation-date>
+         <srel:created-by objid="escidoc:user2"/>
+         <prop:public-status>pending</prop:public-status>
+         <prop:public-status-comment>Object created.</prop:public-status-comment>
+         <srel:context objid="escidoc:persistent3"/>
+         <srel:content-model objid="escidoc:persistent4"/>
+         <prop:lock-status>unlocked</prop:lock-status>
+         <prop:version objid="escidoc:39025:2">
+            <version:number>2</version:number>
+            <version:date>2010-03-17T15:44:25.189Z</version:date>
+            <version:status>pending</version:status>
+            <srel:modified-by objid="escidoc:user2"/>
+            <version:comment>ItemHandler.update()</version:comment>
+         </prop:version>
+         <prop:latest-version objid="escidoc:39025:2">
+            <version:number>2</version:number>
+            <version:date>2010-03-17T15:44:25.189Z</version:date>
+         </prop:latest-version>
+         <prop:latest-release>
+            <release:number>1</release:number>
+            <release:date>2010-03-17T17:24:12.223Z</release:date>
+         </prop:latest-release>
+         <prop:content-model-specific>
+            <local-tags>
+               <local-tag/>
+            </local-tags>
+            <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[Harris, M. <span class="DisplayDateStatus">(2009).</span> <span class="Italic">APA Test Book</span> (Arimura, G.-i., <localized class="editor">Ed.</localized>). (3). München: Beck.]]></dcterms:bibliographicCitation>
+         </prop:content-model-specific>
+      </escidocItem:properties>
+      <escidocMetadataRecords:md-records>
+         <escidocMetadataRecords:md-record name="escidoc">
+            <publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+            	type="http://purl.org/eprint/type/Book">
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Harris</eterms:family-name>
+                     <eterms:given-name>M.</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Max Planck Society</dc:title>
+                        <eterms:address>Munich, DE</eterms:address>
+                        <dc:identifier>escidoc:persistent13</dc:identifier>
+                     </organization:organization>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Arimura</eterms:family-name>
+                     <eterms:given-name>Gen-ichiro</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Department of Bioorganic Chemistry, MPI for Chemical Ecology, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:182686</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons30817</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <dc:title>APA Test Book</dc:title>
+               <dc:identifier xsi:type="eterms:ISBN">1569-4896</dc:identifier>
+               <eterms:publishing-info>
+                  <dc:publisher>Beck</dc:publisher>
+                  <eterms:place>München</eterms:place>
+                  <eterms:edition>3</eterms:edition>
+               </eterms:publishing-info>
+               <dcterms:issued xsi:type="dcterms:W3CDTF">2009-01-14</dcterms:issued>
+               <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/series">
+                  <dc:title>Any series</dc:title>
+                  <eterms:volume>3</eterms:volume>
+                  <eterms:total-number-of-pages>256</eterms:total-number-of-pages>
+               </source:source>
+               <eterms:total-number-of-pages>25</eterms:total-number-of-pages>
+               <dcterms:subject/>
+               <dc:subject xsi:type="eterms:DDC"/>
+               <dcterms:tableOfContents/>
+            </publication:publication>
+         </escidocMetadataRecords:md-record>
+      </escidocMetadataRecords:md-records>
+      <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item-->
+	
+	
+	
     <escidocItem:item objid="escidoc:24404" last-modification-date="2009-04-10T10:35:38.192Z">
         <escidocItem:properties>
             <prop:creation-date>2009-04-10T10:35:36.488Z</prop:creation-date>
@@ -171,7 +256,7 @@
                         <eterms:place>Garching</eterms:place>
                     </event:event>
                     <eterms:total-number-of-pages>555</eterms:total-number-of-pages>
-                    <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2006).</span> It's raining todayTALK.<span class="Italic"> Talk presented at 9th Symposium on Rain.</span> Garching, 2006.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2006).</span> It's raining todayTALK.<span class="Italic"> Talk presented at 9th Symposium on Rain.</span> Garching. 2006.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: H. Knözinger and E. Taglauer, "It's raining todayTALK", in <span class="Italic">Acta Anatomica</span>, (S. Karger, Basel, 2008), pp. 555.]]></dcterms:abstract>
                     <dc:subject>PLEASE NOTE: AJP CITATION = GENERIC WITHOUT SOURCE</dc:subject>
                     <dcterms:tableOfContents/>
@@ -364,7 +449,7 @@
                         </eterms:publishing-info>
                     </source:source>
                     <eterms:total-number-of-pages>16</eterms:total-number-of-pages>
-                    <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2008).</span> Spreading and Wetting.BOOKCHAPTER. In G. Ertl, H. Knötzinger, F. Schüth, &amp; J. Weikamp (Eds.), <span class="Italic">Handbook of Heterogenous Catalysis</span> (pp. 555-571). Weinheim: Wiley-VCH.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2008).</span> Spreading and Wetting.BOOKCHAPTER. In G. Ertl, H. Knötzinger, F. Schüth, &amp; J. Weikamp (<localized class="editors">Eds.</localized>), <span class="Italic">Handbook of Heterogenous Catalysis</span> (pp. 555-571). Weinheim: Wiley-VCH.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: H. Knözinger and E. Taglauer, "Spreading and Wetting.BOOKCHAPTER", in <span class="Italic">Handbook of Heterogenous Catalysis</span>, edited by G. Ertl, H. Knötzinger, F. Schüth, and J. Weikamp (Wiley-VCH, Weinheim, 2008), pp. 555-571.]]></dcterms:abstract>
                     <dc:subject>PLEASE NOTE: SOURCE VOLUME IS MISSING. PLEASE EDIT ITEM WHEN PROBLEM IS FIXED.</dc:subject>
                     <dcterms:tableOfContents/>
@@ -487,7 +572,7 @@
                         </eterms:publishing-info>
                     </source:source>
                     <eterms:total-number-of-pages>555</eterms:total-number-of-pages>
-                    <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2008).</span> It's raining today - update PROCEEDINGS PAPER. In G. Ertl, H. Knözinger, &amp; F. Schüth (Eds.), <span class="Italic">Heterogeneous Catalysis</span>. Weinheim: Wiley-VCH. doi:doi:10.1017/q.knozler.2008.01.27.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2008).</span> It's raining today - update PROCEEDINGS PAPER. In G. Ertl, H. Knözinger, &amp; F. Schüth (<localized class="editors">Eds.</localized>), <span class="Italic">Heterogeneous Catalysis</span>. Weinheim: Wiley-VCH. doi:doi:10.1017/q.knozler.2008.01.27.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: H. Knözinger and E. Taglauer, "It's raining today - update PROCEEDINGS PAPER", in <span class="Italic">Heterogeneous Catalysis</span>, edited by G. Ertl, H. Knözinger, and F. Schüth (Wiley-VCH, Weinheim, 2008), Vol. 1, pp. 555.]]></dcterms:abstract>
                     <dc:subject>AJP CITATION = GENERIC WITH SOURCE
 APA= please note that rule might need correction, so that periodical and non periodical procedings will be covered. This one is a non periodical.</dc:subject>
@@ -667,7 +752,7 @@ APA= please note that rule might need correction, so that periodical and non per
                     </eterms:publishing-info>
                     <dcterms:issued xsi:type="dcterms:W3CDTF">2007</dcterms:issued>
                     <eterms:total-number-of-pages/>
-                    <dcterms:abstract><![CDATA[APA: Behrisch, R., &amp; Eckstein, W.<localized class="editors"> (Eds.).</localized> <span class="DisplayDateStatus">(2007).</span> <span class="Italic">Sputtering by Particle Bombardment: Experiments and Computer Calculations from Threshold to MeV Energies.BOOKWITHMOREEDITORS</span>. Berlin: Springer Verlag.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Behrisch, R., &amp; Eckstein, W. (<localized class="editors">Eds.</localized>). <span class="DisplayDateStatus">(2007).</span> <span class="Italic">Sputtering by Particle Bombardment: Experiments and Computer Calculations from Threshold to MeV Energies.BOOKWITHMOREEDITORS</span>. Berlin: Springer Verlag.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: R. Behrisch and W. Eckstein (eds),<span class="Italic"> Sputtering by Particle Bombardment: Experiments and Computer Calculations from Threshold to MeV Energies.BOOKWITHMOREEDITORS.</span> (Springer Verlag, Berlin, 2007).]]></dcterms:abstract>
                     <dc:subject>ITEM MODIFIED (PUBLISHER AND PLACE ADDED)</dc:subject>
                     <dcterms:tableOfContents/>
@@ -730,7 +815,7 @@ APA= please note that rule might need correction, so that periodical and non per
                     <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
                     <dcterms:issued xsi:type="dcterms:W3CDTF">2006</dcterms:issued>
                     <eterms:total-number-of-pages/>
-                    <dcterms:abstract><![CDATA[APA: Naujoks, D.<localized class="editor"> (Ed.).</localized> <span class="DisplayDateStatus">(2006).</span> <span class="Italic">Plasma-Material Interaction in Controlled Fusion.BOOK WITH EDITOR</span>.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Naujoks, D. (<localized class="editor">Ed.</localized>). <span class="DisplayDateStatus">(2006).</span> <span class="Italic">Plasma-Material Interaction in Controlled Fusion.BOOK WITH EDITOR</span>.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: D. Naujoks (ed),<span class="Italic"> Plasma-Material Interaction in Controlled Fusion.BOOK WITH EDITOR.</span> (2006).]]></dcterms:abstract>
                     <dc:subject>PLEASE NOTE: GENRE SPECIFIC SUBMISSION DOES NOT CONTAIN PUBLISHER; PLACE AND EDITION INFORMATION FOR BOOKS. ITEM NEEDS TO BE EDITED ACCORDINGLY AFTER PROBLEM IS FIXED. </dc:subject>
                     <dcterms:tableOfContents/>
@@ -853,7 +938,7 @@ APA= please note that rule might need correction, so that periodical and non per
                         </eterms:publishing-info>
                     </source:source>
                     <eterms:total-number-of-pages>555</eterms:total-number-of-pages>
-                    <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2008).</span> It's raining today - update PROCEEDINGS PAPER. In G. Ertl, H. Knözinger, &amp; F. Schüth (Eds.), <span class="Italic">Heterogeneous Catalysis</span>. Weinheim: Wiley-VCH. doi:doi:10.1017/q.knozler.2008.01.27.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2008).</span> It's raining today - update PROCEEDINGS PAPER. In G. Ertl, H. Knözinger, &amp; F. Schüth (<localized class="editors">Eds.</localized>), <span class="Italic">Heterogeneous Catalysis</span>. Weinheim: Wiley-VCH. doi:doi:10.1017/q.knozler.2008.01.27.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: H. Knözinger and E. Taglauer, "It's raining today - update PROCEEDINGS PAPER", in <span class="Italic">Heterogeneous Catalysis</span>, edited by G. Ertl, H. Knözinger, and F. Schüth (Wiley-VCH, Weinheim, 2008), Vol. 1, pp. 555.]]></dcterms:abstract>
                     <dc:subject>AJP CITATION = GENERIC WITH SOURCE
 APA= please note that rule might need correction, so that periodical and non periodical procedings will be covered. This one is a non periodical.</dc:subject>
@@ -931,7 +1016,7 @@ APA= please note that rule might need correction, so that periodical and non per
                     </eterms:publishing-info>
                     <dcterms:issued xsi:type="dcterms:W3CDTF">2007</dcterms:issued>
                     <eterms:total-number-of-pages/>
-                    <dcterms:abstract><![CDATA[APA: Behrisch, R., &amp; Eckstein, W.<localized class="editors"> (Eds.).</localized> <span class="DisplayDateStatus">(2007).</span> <span class="Italic">Sputtering by Particle Bombardment: Experiments and Computer Calculations from Threshold to MeV Energies.BOOKWITHMOREEDITORS</span>. Berlin: Springer Verlag.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Behrisch, R., &amp; Eckstein, W. (<localized class="editors">Eds.</localized>). <span class="DisplayDateStatus">(2007).</span> <span class="Italic">Sputtering by Particle Bombardment: Experiments and Computer Calculations from Threshold to MeV Energies.BOOKWITHMOREEDITORS</span>. Berlin: Springer Verlag.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: R. Behrisch and W. Eckstein (eds),<span class="Italic"> Sputtering by Particle Bombardment: Experiments and Computer Calculations from Threshold to MeV Energies.BOOKWITHMOREEDITORS.</span> (Springer Verlag, Berlin, 2007).]]></dcterms:abstract>
                     <dc:subject>ITEM MODIFIED (PUBLISHER AND PLACE ADDED)</dc:subject>
                     <dcterms:tableOfContents/>
@@ -1794,7 +1879,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
 
     </escidocItem:item>
 
-    <escidocItem:item objid="escidoc:52062" last-modification-date="2009-11-02T13:02:24.012Z">
+    <escidocItem:item objid="escidoc:52063" last-modification-date="2009-11-02T13:02:24.012Z">
         <escidocItem:properties>
             <prop:creation-date>2008-12-30T14:40:43.262Z</prop:creation-date>
             <srel:created-by objid="escidoc:22127"/>
@@ -1963,7 +2048,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
                     </event:event>
 
                     <eterms:total-number-of-pages/>
-                    <dcterms:abstract><![CDATA[APA: Strain, K. A., Casey, M. M., Hough, J., McNamara, P. W., Newton, G., &amp; Plissi, M. V. <span class="DisplayDateStatus">(1999).</span> Laser interferometric gravitational wave detectors spanning 7 decades of frequency.SOURCE_GENRE_PROCEEDINGS. In T. Piran (Ed.), <span class="Italic">Eighth Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Gravitation, and Relativistic Field Theories</span> (pp. 176-193). Singapore: World Scientific.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Strain, K. A., Casey, M. M., Hough, J., McNamara, P. W., Newton, G., &amp; Plissi, M. V. <span class="DisplayDateStatus">(1999).</span> Laser interferometric gravitational wave detectors spanning 7 decades of frequency.SOURCE_GENRE_PROCEEDINGS. In T. Piran (<localized class="editor">Ed.</localized>), <span class="Italic">Eighth Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Gravitation, and Relativistic Field Theories</span> (pp. 176-193). Singapore: World Scientific.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: Kenneth A. Strain, M. M. Casey, J. Hough, P. W. McNamara, G. Newton, and M. V. Plissi, "Laser interferometric gravitational wave detectors spanning 7 decades of frequency.SOURCE_GENRE_PROCEEDINGS", in <span class="Italic">Eighth Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Gravitation, and Relativistic Field Theories</span>, edited by Tsvi Piran (World Scientific, Singapore, 1999), Vol. volume, pp. 176-193.]]></dcterms:abstract>
                     <dc:subject/>
                     <dc:subject/>
@@ -2155,7 +2240,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
                         <dc:identifier xsi:type="eterms:ISBN">0-521-45506-5</dc:identifier>
                     </source:source>
                     <eterms:total-number-of-pages/>
-                    <dcterms:abstract><![CDATA[APA: Schutz, B. F.<localized class="editor"> (Ed.).</localized> <span class="DisplayDateStatus">(2003).</span> <span class="Italic">Gravity from the Ground Up: An Introductory Guide to Gravity and General Relativity</span> (edition). Place: Publisher.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Schutz, B. F. (<localized class="editor">Ed.</localized>). <span class="DisplayDateStatus">(2003).</span> <span class="Italic">Gravity from the Ground Up: An Introductory Guide to Gravity and General Relativity</span> (edition). Place: Publisher.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: Bernard F. Schutz (ed),<span class="Italic"> Gravity from the Ground Up: An Introductory Guide to Gravity and General Relativity.</span> (Publisher, Place, 2003), edition ed.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[This book invites the reader to understand our Universe, not just marvel at it. From the clock-like motions of the planets to the catastrophic collapse of a star into a black hole, gravity controls the Universe. Gravity is central to modern physics, helping to answer the deepest questions about the nature of time, the origin of the Universe and the unification of the forces of nature. Linking key experiments and observations through careful physical reasoning, the author builds the reader's insight step-by-step from simple but profound facts about gravity on Earth to the frontiers of research. Topics covered include the nature of stars and galaxies, the mysteries of dark matter and dark energy, black holes, gravitational waves, inflation and the Big Bang. Suitable for general readers and for undergraduate courses, the treatment uses only high-school level mathematics, supplemented by optional computer programs, to explain the laws of physics governing gravity.]]></dcterms:abstract>
                     <dc:subject/>
@@ -2449,7 +2534,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
                         </eterms:publishing-info>
                     </source:source>
                     <eterms:total-number-of-pages/>
-                    <dcterms:abstract><![CDATA[APA: Sengbusch, R. v. <span class="DisplayDateStatus">(1942).</span> Süßlupinen und Öllupinen. Teil II. Eine züchterisch brauchbare Schnellmethode zur Bestimmung des Ölgehaltes von Samen und ihre erstmalige Anwendung bei der Züchtung von Öllupinen. In E. Editor1, &amp; E. Editor2 (Eds.), <span class="Italic">Landwirtschaftliche Jahrbücher</span> (Edition, pp. 763-792). Berlin: Paul Parey.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Sengbusch, R. v. <span class="DisplayDateStatus">(1942).</span> Süßlupinen und Öllupinen. Teil II. Eine züchterisch brauchbare Schnellmethode zur Bestimmung des Ölgehaltes von Samen und ihre erstmalige Anwendung bei der Züchtung von Öllupinen. In E. Editor1, &amp; E. Editor2 (<localized class="editors">Eds.</localized>), <span class="Italic">Landwirtschaftliche Jahrbücher</span> (Edition, pp. 763-792). Berlin: Paul Parey.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: Reinhold von Sengbusch, "Süßlupinen und Öllupinen. Teil II. Eine züchterisch brauchbare Schnellmethode zur Bestimmung des Ölgehaltes von Samen und ihre erstmalige Anwendung bei der Züchtung von Öllupinen", edited by Editor Editor1 and Editor Editor2 (Paul Parey, Berlin, 1942), Vol. 91, pp. 763-792.]]></dcterms:abstract>
                     <dc:subject>Lupins</dc:subject>
                     <dc:subject/>
@@ -2550,7 +2635,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
   
     </escidocItem:item>
 
-    <escidocItem:item objid="escidoc:52314" last-modification-date="2009-01-03T18:20:33.231Z">
+    <escidocItem:item objid="escidoc:52315" last-modification-date="2009-01-03T18:20:33.231Z">
         <escidocItem:properties>
             <prop:creation-date>2009-01-03T18:20:15.213Z</prop:creation-date>
             <srel:created-by objid="escidoc:22127"/>
@@ -2752,7 +2837,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
                     </eterms:publishing-info>
                     <dcterms:created xsi:type="dcterms:W3CDTF">1995</dcterms:created>
                     <eterms:total-number-of-pages/>
-                    <dcterms:abstract><![CDATA[APA: Schutz, B. F., Beig, R., Brügmann, B., Isham, C., Iyer, B., Loll, R., et al.<localized class="editors"> (Eds.).</localized> <span class="DisplayDateStatus">(in preparation).</span> Living Reviews in Relativity.IN_PREPARATION.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Schutz, B. F., Beig, R., Brügmann, B., Isham, C., Iyer, B., Loll, R., et al. (<localized class="editors">Eds.</localized>). <span class="DisplayDateStatus">(in preparation).</span> Living Reviews in Relativity.IN_PREPARATION.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: Bernard F. Schutz, Robert Beig, Bernd Brügmann, C. Isham, B. Iyer, Renate Loll, J. Pullin, Jürgen Renn, Edward Seidel, J. Wambsganss, and C. Will (eds), "Living Reviews in Relativity.IN_PREPARATION".]]></dcterms:abstract>
                     <dc:subject/>
 
@@ -2966,7 +3051,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
                     </eterms:publishing-info>
                     <dcterms:issued xsi:type="dcterms:W3CDTF">2009</dcterms:issued>
                     <eterms:total-number-of-pages/>
-                    <dcterms:abstract><![CDATA[APA: Schutz, B. F., Beig, R., Brügmann, B., Isham, C., Iyer, B., Loll, R., et al.<localized class="editors"> (Eds.).</localized>. <span class="Italic">Living Reviews in Relativity.ISSUED</span>. Golm near Potsdam, Germany: Max-Planck-Institut für Gravitationsphysik.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Schutz, B. F., Beig, R., Brügmann, B., Isham, C., Iyer, B., Loll, R., et al. (<localized class="editors">Eds.</localized>). <span class="Italic">Living Reviews in Relativity.ISSUED</span>. Golm near Potsdam, Germany: Max-Planck-Institut für Gravitationsphysik.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: Bernard F. Schutz, Robert Beig, Bernd Brügmann, C. Isham, B. Iyer, Renate Loll, J. Pullin, Jürgen Renn, Edward Seidel, J. Wambsganss, and C. Will (eds), "Living Reviews in Relativity.ISSUED", (2009).]]></dcterms:abstract>
                     <dc:subject/>
 
@@ -3292,7 +3377,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
                         <eterms:place>Berlin</eterms:place>
                     </event:event>
                     <eterms:total-number-of-pages/>
-                    <dcterms:abstract><![CDATA[APA: Brozinski, M., Knothe, W., &amp; Sengbusch, R. v. <span class="DisplayDateStatus">(1960).</span> Oxalatsteinauflösung in der menschlichen Niere durch Chemolyse.<span class="Italic"> Talk presented at 85. Kongress der Vereinigung Nordwestdeutscher Chirurgen.</span> Berlin, 1960-06-25 - 1960-06-30.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Brozinski, M., Knothe, W., &amp; Sengbusch, R. v. <span class="DisplayDateStatus">(1960).</span> Oxalatsteinauflösung in der menschlichen Niere durch Chemolyse.<span class="Italic"> Talk presented at 85. Kongress der Vereinigung Nordwestdeutscher Chirurgen.</span> Berlin. 1960-06-25 - 1960-06-30.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: M. Brozinski, W. Knothe, and Reinhold von Sengbusch, "Oxalatsteinauflösung in der menschlichen Niere durch Chemolyse", in <span class="Italic">Deutsche medizinische Wochenschrift</span>, (Georg Thieme, Leipzig, 1960), Vol. 86, pp. 255-256.]]></dcterms:abstract>
                     <dc:subject>Kidney stones, Methods</dc:subject>
                     <dc:subject/>
@@ -3975,7 +4060,7 @@ both language-universal constraints and language-specific rules for contextual w
                </eterms:publishing-info>
                <dcterms:issued xsi:type="dcterms:W3CDTF">2009-11-27</dcterms:issued>
                <eterms:total-number-of-pages>234</eterms:total-number-of-pages>
-               <dcterms:abstract><![CDATA[APA: Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., et al. <span class="DisplayDateStatus">(2009).</span> <span class="Italic">Nek APA Test Editon</span><span class="Italic">: ein kleiner Test zum Abschied</span> (Kastens, K., <localized class="editor">Ed.</localized>). (3. rev. Ed.). München: MPDL.]]></dcterms:abstract>
+               <dcterms:abstract><![CDATA[APA: Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., Van Berkum, J. J. A., et al. <span class="DisplayDateStatus">(2009).</span> <span class="Italic">Nek APA Test Editon</span><span class="Italic">: ein kleiner Test zum Abschied</span> (K. Kastens, <localized class="editor">Ed.</localized>). (3. rev. Ed.). München: MPDL.]]></dcterms:abstract>
                <dcterms:abstract><![CDATA[AJP: Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, Jos J. A. Van Berkum, and Jos J. A. Van Berkum,<span class="Italic"> Nek APA Test Editon.</span> (MPDL, München, 2009), 3. rev. Ed. ed.]]></dcterms:abstract>
                <dc:subject/>
                <dcterms:tableOfContents/>

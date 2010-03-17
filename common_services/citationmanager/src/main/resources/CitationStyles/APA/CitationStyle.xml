@@ -140,6 +140,23 @@
 	<predefined-layout-elements>
 
 		<!-- editors -->   
+		<layout-element name="ed-postfix-i18n">
+			<elements>
+				<layout-element ref="$ed-postfix" >
+					<parameters>
+						<valid-if><![CDATA[$editorsCount=1]]></valid-if>
+						<i18n ref="editor"/>
+					</parameters>
+				</layout-element>
+				<layout-element ref="$ed-postfix" >
+					<parameters>
+						<valid-if><![CDATA[$editorsCount>1]]></valid-if>
+						<i18n ref="editors"/>
+					</parameters>
+				</layout-element>
+			</elements>
+		</layout-element>		
+		
 		<layout-element name="editors-base">
 			<parameters>  
 				<valid-if><![CDATA[$editorsCount>0]]></valid-if> 
@@ -195,28 +212,19 @@
 				</layout-element>
 			</elements>
 		</layout-element>
-		
+
 		<layout-element name="editors" >
 			<parameters>
 				<valid-if><![CDATA[$editorsCount>0]]></valid-if>
 				<delimiter value="" />
+				<ends-with value="."/>
 			</parameters>
 			<elements>
 				<layout-element ref="$editors-base" />
-				<layout-element ref="$ed-postfix" >
+				<layout-element ref="$ed-postfix-i18n" >
 					<parameters>
 						<starts-with value=" ("/>
-						<ends-with value=")."/>
-						<valid-if><![CDATA[$editorsCount=1]]></valid-if>
-						<i18n ref="editor"/>
-					</parameters>
-				</layout-element>
-				<layout-element ref="$ed-postfix" >
-					<parameters>
-						<starts-with value=" ("/>
-						<ends-with value=")."/>
-						<valid-if><![CDATA[$editorsCount>1]]></valid-if>
-						<i18n ref="editors"/>
+						<ends-with value=")"/>
 					</parameters>
 				</layout-element>
 			</elements>
@@ -230,30 +238,66 @@
 				<ends-with value=")"/>
 			</parameters>
 			<elements>
-				<layout-element ref="$editors-base" />
-				<layout-element ref="$ed-postfix" >
-					<parameters>
-						<valid-if><![CDATA[$editorsCount=1]]></valid-if>
-						<i18n ref="editor"/>
-					</parameters>
+				<!-- for the case initials before the name no "," in the internal delimiter -->
+				<layout-element>
+					<parameters>  
+						<valid-if><![CDATA[$editorsCount>0]]></valid-if> 
+						<delimiter value="" />
+					</parameters> 
+					<elements>
+						<layout-element name="editors-Equal1"
+							ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
+							<parameters>
+								<valid-if><![CDATA[$editorsCount=1]]></valid-if>
+								<delimiter value=", " />
+								<internal-delimiter value=" " />
+							</parameters>
+							<elements>
+								<layout-element ref="organization:organization/dc:title/text()" />
+								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+								<layout-element ref="person:person/eterms:family-name/text()" />
+							</elements>
+						</layout-element>
+				
+						<layout-element name="editors-MoreThan1LessOrEqual6"
+							ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
+							<parameters position="last">
+								<delimiter value=", &amp;amp; " />
+								<internal-delimiter value=" " />
+							</parameters>
+							<parameters>
+								<valid-if><![CDATA[$editorsCount>1 and $editorsCount<=6]]></valid-if>
+								<delimiter value=", " />
+								<internal-delimiter value=", " />
+							</parameters>
+							<elements>
+								<layout-element ref="organization:organization/dc:title/text()" />
+								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+								<layout-element ref="person:person/eterms:family-name/text()" />
+							</elements>
+						</layout-element>
+						<layout-element name="editors-MoreThan6"
+							ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
+							<parameters>
+								<valid-if><![CDATA[$editorsCount>6]]></valid-if>
+								<delimiter value=", " />
+								<internal-delimiter value=" " />
+								<ends-with value=", et al." />
+								<max-count value="6" />
+							</parameters>
+							<elements>
+								<layout-element ref="organization:organization/dc:title/text()" />
+								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+								<layout-element ref="person:person/eterms:family-name/text()" />
+							</elements>
+						</layout-element>
+					</elements>
 				</layout-element>
-				<layout-element ref="$ed-postfix" >
-					<parameters>
-						<valid-if><![CDATA[$editorsCount>1]]></valid-if>
-						<i18n ref="editors"/>
-					</parameters>
-				</layout-element>
+				<layout-element ref="$ed-postfix-i18n" />
 			</elements>
 		</layout-element>
 		
 		
-		<layout-element name="editors-with-dot" ref="$editors">
-			<parameters>
-				<ends-with value=". " />
-			</parameters>
-		</layout-element>
-
-				
 		<!-- authors-or-editors -->
 		<layout-element name="authors-or-editors">
 			<parameters>
@@ -326,6 +370,24 @@
 		</layout-element>
 		
 		<!-- source-editors -->
+		
+		<layout-element name="source-ed-postfix-i18n">
+			<elements>
+				<layout-element ref="$source-ed-postfix" >
+					<parameters>
+						<valid-if><![CDATA[$sourceEditorsCount=1]]></valid-if>
+						<i18n ref="editor"/>
+					</parameters>
+				</layout-element>
+				<layout-element ref="$source-ed-postfix" >
+					<parameters>
+						<valid-if><![CDATA[$sourceEditorsCount>1]]></valid-if>
+						<i18n ref="editors"/>
+					</parameters>
+				</layout-element>
+			</elements>
+		</layout-element>		
+		
 		<layout-element name="source-editors">
 			<parameters>
 				<valid-if><![CDATA[$sourceEditorsCount>0]]></valid-if>
@@ -374,7 +436,7 @@
 						<layout-element ref="person:person/eterms:family-name/text()" />
 					</elements>
 				</layout-element>
-				<layout-element ref="$source-ed-postfix" >
+				<layout-element ref="$source-ed-postfix-i18n" >
 					<parameters>
 						<starts-with value=" ("/>
 						<ends-with value=")"/>
@@ -570,25 +632,7 @@
 		</layout-element>
 		
 		
-		<layout-element name="event-place-start-date-end-date-with-dot">
-			<parameters>
-				<starts-with value=" " />
-				<delimiter value=", " />
-				<ends-with value="." />
-			</parameters>
-			<elements>
-				<layout-element ref="pub:publication/event:event/eterms:place/text()" />
-				<layout-element>
-					<parameters>
-						<delimiter value=" - " />
-					</parameters>
-					<elements>
-						<layout-element ref="pub:publication/event:event/eterms:start-date/text()" />
-						<layout-element ref="pub:publication/event:event/eterms:end-date/text()" />
-					</elements>
-				</layout-element>
-			</elements>
-		</layout-element>		
+			
 
 		<!-- COMMONS -->
 		<layout-element name="authors-or-editors-and-year-and-title-with-dot">
@@ -962,7 +1006,7 @@
 		<elements>
 			<!--			<layout-element ref="$debugBlock" />-->
 
-			<layout-element ref="$editors-with-dot" />
+			<layout-element ref="$editors" />
 
 			<layout-element ref="$year-editors-are-presented" />
 
@@ -1001,7 +1045,7 @@
 		<elements>
 <!--						<layout-element ref="$debugBlock" />-->
 
-			<layout-element ref="$editors-with-dot" />
+			<layout-element ref="$editors" />
 
 			<layout-element ref="$title-with-dot-italic" />
 
@@ -1042,7 +1086,7 @@
 		<elements>
 <!--						<layout-element ref="$debugBlock" />-->
 
-			<layout-element ref="$editors-with-dot" />
+			<layout-element ref="$editors" />
 
 			<layout-element ref="$title-with-dot-italic" />
 
@@ -1079,8 +1123,26 @@
 				</parameters>
 			</layout-element>
 
-			<layout-element ref="$event-place-start-date-end-date-with-dot" />
-
+			<layout-element>
+				<parameters>
+					<starts-with value=" " />
+					<delimiter value=". " />
+					<ends-with value="." />
+				</parameters>
+				<elements>
+					<layout-element ref="pub:publication/event:event/eterms:place/text()" />
+					<layout-element>
+						<parameters>
+							<delimiter value=" - " />
+						</parameters>
+						<elements>
+							<layout-element ref="pub:publication/event:event/eterms:start-date/text()" />
+							<layout-element ref="pub:publication/event:event/eterms:end-date/text()" />
+						</elements>
+					</layout-element>
+				</elements>
+			</layout-element>
+			
 		</elements>
 
 	</cs-layout-definition>
@@ -1109,7 +1171,25 @@
 				</parameters>
 			</layout-element>
 
-			<layout-element ref="$event-place-start-date-end-date-with-dot" />
+			<layout-element>
+				<parameters>
+					<starts-with value=" " />
+					<delimiter value=", " />
+					<ends-with value="." />
+				</parameters>
+				<elements>
+					<layout-element ref="pub:publication/event:event/eterms:place/text()" />
+					<layout-element>
+						<parameters>
+							<delimiter value=" - " />
+						</parameters>
+						<elements>
+							<layout-element ref="pub:publication/event:event/eterms:start-date/text()" />
+							<layout-element ref="pub:publication/event:event/eterms:end-date/text()" />
+						</elements>
+					</layout-element>
+				</elements>
+			</layout-element>	
 			
 		</elements>
 
