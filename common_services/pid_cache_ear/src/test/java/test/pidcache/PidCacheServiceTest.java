@@ -75,26 +75,32 @@ public class PidCacheServiceTest
 	
 	public void testAssignPid() throws Exception
 	{
-		logger.info("Test assign PID for url: " + testUrl + "...");
+		logger.info("TEST ASSIGN PID for url: " + testUrl);
 		PostMethod method = new PostMethod(CACHE_PIDSERVICE.concat(PIDSERVICE_CREATE));
 		method.setParameter("url", testUrl);
     	client.executeMethod(method);
 		PidServiceResponseVO pidServiceResponseVO = xmlTransforming.transformToPidServiceResponse(method.getResponseBodyAsString());
+		assertNotNull(method.getResponseHeader("Location").getValue());
+		logger.info("Location: " +  method.getResponseHeader("Location").getValue());
 		testIdentifier = pidServiceResponseVO.getIdentifier();
-		assertNotNull("PID pidServiceResponseVO.getIdentifier()" + " has been assigned.", testIdentifier);
+		assertNotNull(testIdentifier);
+		logger.info("PID"  + pidServiceResponseVO.getIdentifier() + " has been assigned.");
 		logger.info("done.");
 	}
 	
 	public void testUpdatePid() throws Exception
 	{
 		testUrl = testUrl.concat("/edition");
-		logger.info("Test Update PID " + testIdentifier + " with url: " + testUrl + "...");
+		logger.info("TEST UPDATE PID " + testIdentifier + " with new URL: " + testUrl);
 		PostMethod method = new PostMethod(CACHE_PIDSERVICE.concat(PIDSERVICE_EDIT).concat("?pid=").concat(testIdentifier));
 		method.setParameter("url", testUrl);
     	client.executeMethod(method);
 		PidServiceResponseVO pidServiceResponseVO = xmlTransforming.transformToPidServiceResponse(method.getResponseBodyAsString());
+		assertNotNull(method.getResponseHeader("Location").getValue());
+		logger.info("Location: " +  method.getResponseHeader("Location").getValue());
 		assertEquals(testIdentifier, pidServiceResponseVO.getIdentifier());
 		assertEquals(testUrl, pidServiceResponseVO.getUrl());
+		logger.info("PID"  + pidServiceResponseVO.getIdentifier() + " has been updated with " +  pidServiceResponseVO.getUrl());
 		logger.info("done.");
 	}
 	
