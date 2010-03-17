@@ -1,6 +1,7 @@
 package de.mpg.escidoc.services.pidcache;
 
 import javax.naming.InitialContext;
+import javax.servlet.http.HttpServletResponse;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -24,6 +25,9 @@ public class PidCacheService
 	private GwdgPidService gwdgPidService = null;
 	private InitialContext context = null;
 	private XmlTransforming xmlTransforming = null;
+	
+	private String location = "http://hdl.handle.net/XXX_HANDLE_IDENTIFIER_XXX?noredirect";
+	private int status = HttpServletResponse.SC_OK;
 	
 	/**
 	 * Default constructor
@@ -54,13 +58,18 @@ public class PidCacheService
      * 
      * @return The PID.
      **/
-	public String create(String url)throws Exception
+	public String create(String url) throws Exception
 	{
+		String xmlOutput = null;
 		Pid pid = cache.getFirst();
 		pid.setUrl(url);
 		queue.add(pid);
 		cache.remove(pid);
-    	return transformToPidServiceResponse(pid, "create");
+		xmlOutput = transformToPidServiceResponse(pid, "create");
+		this.status = HttpServletResponse.SC_CREATED;
+		this.location = this.location.replace("XXX_HANDLE_IDENTIFIER_XXX", pid.getIdentifier()); 
+	
+    	return xmlOutput;
 	}
 	
 	/**
@@ -108,9 +117,13 @@ public class PidCacheService
 	 */
 	public String update(String id, String url) throws Exception
 	{
+		String xmlOutput = null;
 		Pid pid = new Pid(id, url);
 		queue.add(pid);
-		return transformToPidServiceResponse(pid, "modify");
+		xmlOutput = transformToPidServiceResponse(pid, "modify");
+		this.status = HttpServletResponse.SC_OK;
+		this.location = this.location.replace("XXX_HANDLE_IDENTIFIER_XXX", pid.getIdentifier());
+    	return xmlOutput;
 	}
 	
 	/**
@@ -120,7 +133,7 @@ public class PidCacheService
 	 */
 	public String delete(String id)
 	{
-		return "Delete not possble for a PID";
+		return "Delete not possible for a PID";
 	}
 	
 	private String transformToPidServiceResponse(Pid pid, String action) throws TechnicalException
@@ -136,4 +149,26 @@ public class PidCacheService
 		pidServiceResponseVO.setMessage(action + "  PID " + pid.getIdentifier() + " with URL " + pid.getUrl());
 		return xmlTransforming.transformToPidServiceResponse(pidServiceResponseVO);
 	}
+
+	public String getLocation() 
+	{
+		return location;
+	}
+
+	public void setLocation(String location) 
+	{
+		this.location = location;
+	}
+
+	public int getStatus() 
+	{
+		return status;
+	}
+
+	public void setStatus(int status) 
+	{
+		this.status = status;
+	}
+	
+	
 }

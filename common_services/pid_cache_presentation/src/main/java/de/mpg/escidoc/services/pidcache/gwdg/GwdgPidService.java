@@ -37,6 +37,18 @@ public class GwdgPidService
     	//GWDG_PIDSERVICE = GWDG_PIDSERVICE.concat("/out");
 	}
 	
+	/**
+	 * Constructor to set the availability of the {@link GwdgPidService}
+	 * @param available
+	 */
+	public GwdgPidService(boolean available)
+	{
+		if (!available) 
+		{
+			GWDG_PIDSERVICE = GWDG_PIDSERVICE.concat("/out");
+		}
+	}
+	
 		
 	/**
 	 * Calls GWDG PID manager interface:
@@ -46,12 +58,13 @@ public class GwdgPidService
 	 * @param url: 
 	 * @return
 	 */
-	public synchronized String create(String url) throws Exception
+	public String create(String url) throws Exception
 	{
 		PostMethod create = new PostMethod(GWDG_PIDSERVICE.concat(GWDG_PIDSERVICE_CREATE));
     	create.setParameter("url", url);
     	GwdgClient client = new GwdgClient();
     	client.executeMethod(create);
+    	System.out.println(create.getResponseBodyAsString());
     	return create.getResponseBodyAsString();
 	}
 	

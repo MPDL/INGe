@@ -110,10 +110,11 @@ public class MainServlet extends HttpServlet
         try 
         {
         	PidCacheService cacheService = new PidCacheService();
+        	String xmlOutput = null;
+        	
         	if (GwdgPidService.GWDG_PIDSERVICE_CREATE.equals(req.getPathInfo())) 
             {
-        		resp.setStatus(HttpServletResponse.SC_CREATED);
-        		resp.getWriter().append(cacheService.create((req.getParameter("url"))));
+        		xmlOutput = cacheService.create(req.getParameter("url"));
     		}
         	else if (GwdgPidService.GWDG_PIDSERVICE_EDIT.equals(req.getPathInfo())) 
         	{
@@ -121,13 +122,16 @@ public class MainServlet extends HttpServlet
         		{
         			resp.sendError(HttpServletResponse.SC_NO_CONTENT, "PID parameter failed.");
     			}
-        		resp.setStatus(HttpServletResponse.SC_OK);
-        		resp.getWriter().append(cacheService.update(req.getParameter("pid"), req.getParameter("url")));
+        		xmlOutput = cacheService.update(req.getParameter("pid"), req.getParameter("url"));
     		}
         	else 
         	{
         		resp.sendError(HttpServletResponse.SC_NOT_FOUND, req.getPathInfo());
 			}
+        	
+        	resp.setStatus(cacheService.getStatus());
+            resp.encodeRedirectURL(cacheService.getLocation());
+    		resp.getWriter().append(xmlOutput);
 		} 
         catch (Exception e) 
         {
