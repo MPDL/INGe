@@ -65,9 +65,8 @@ public class PidCacheService
 		pid.setUrl(url);
 		queue.add(pid);
 		cache.remove(pid);
-		xmlOutput = transformToPidServiceResponse(pid, "create");
 		this.status = HttpServletResponse.SC_CREATED;
-		this.location = this.location.replace("XXX_LOCATION_XXX", pid.getIdentifier()); 
+		xmlOutput = transformToPidServiceResponse(pid, "create");
     	return xmlOutput;
 	}
 	
@@ -121,7 +120,6 @@ public class PidCacheService
 		queue.add(pid);
 		xmlOutput = transformToPidServiceResponse(pid, "modify");
 		this.status = HttpServletResponse.SC_OK;
-		this.location = this.location.replace("XXX_LOCATION_XXX", pid.getIdentifier()); 
     	return xmlOutput;
 	}
 	
@@ -137,6 +135,7 @@ public class PidCacheService
 	
 	private String transformToPidServiceResponse(Pid pid, String action) throws TechnicalException
 	{
+		this.location = this.location.replace("XXX_LOCATION_XXX", pid.getIdentifier()); 
 		PidServiceResponseVO pidServiceResponseVO = new PidServiceResponseVO();
 		pidServiceResponseVO.setAction(action);
 		pidServiceResponseVO.setCreator(GwdgClient.GWDG_PIDSERVICE_USER);
