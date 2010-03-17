@@ -131,6 +131,7 @@ public class MainServlet extends HttpServlet
         	
         	resp.setStatus(cacheService.getStatus());
             resp.encodeRedirectURL(cacheService.getLocation());
+            resp.addHeader("Location", cacheService.getLocation());
     		resp.getWriter().append(xmlOutput);
 		} 
         catch (Exception e) 

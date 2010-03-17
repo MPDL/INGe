@@ -26,8 +26,8 @@ public class PidCacheService
 	private InitialContext context = null;
 	private XmlTransforming xmlTransforming = null;
 	
-	private String location = "http://hdl.handle.net/XXX_HANDLE_IDENTIFIER_XXX?noredirect";
 	private int status = HttpServletResponse.SC_OK;
+	private String location = "http://hdl.handle.net/XXX_LOCATION_XXX?noredirect";
 	
 	/**
 	 * Default constructor
@@ -67,8 +67,7 @@ public class PidCacheService
 		cache.remove(pid);
 		xmlOutput = transformToPidServiceResponse(pid, "create");
 		this.status = HttpServletResponse.SC_CREATED;
-		this.location = this.location.replace("XXX_HANDLE_IDENTIFIER_XXX", pid.getIdentifier()); 
-	
+		this.location = this.location.replace("XXX_LOCATION_XXX", pid.getIdentifier()); 
     	return xmlOutput;
 	}
 	
@@ -122,7 +121,7 @@ public class PidCacheService
 		queue.add(pid);
 		xmlOutput = transformToPidServiceResponse(pid, "modify");
 		this.status = HttpServletResponse.SC_OK;
-		this.location = this.location.replace("XXX_HANDLE_IDENTIFIER_XXX", pid.getIdentifier());
+		this.location = this.location.replace("XXX_LOCATION_XXX", pid.getIdentifier()); 
     	return xmlOutput;
 	}
 	
@@ -146,7 +145,7 @@ public class PidCacheService
 		pidServiceResponseVO.setUserUid("anonymous");
 		pidServiceResponseVO.setInstitute("institute");
 		pid.setContact("jon@doe.xx");
-		pidServiceResponseVO.setMessage(action + "  PID " + pid.getIdentifier() + " with URL " + pid.getUrl());
+		pidServiceResponseVO.setMessage("Web proxy view URL: " + this.location);
 		return xmlTransforming.transformToPidServiceResponse(pidServiceResponseVO);
 	}
 
