@@ -247,8 +247,8 @@
 					document.getElementById('fullItem').style.opacity='0.4';
 					document.getElementById('fullItem').style.bg='FFF';
 					document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea smallThrobber');
-					$('#fullItem :input :text').attr('disabled', true);
-				    $('#fullItem :textarea :text').attr('disabled', true);
+					$('#fullItem :input :text').attr('readonly', true);
+				    $('#fullItem :textarea').attr('readonly', true);
 				}
 			</script>
 			<h:inputHidden id="CCScriptTag" value="#{EditItem.ccScriptTag}"/>
