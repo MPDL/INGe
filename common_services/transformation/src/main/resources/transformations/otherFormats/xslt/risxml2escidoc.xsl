@@ -203,8 +203,11 @@
 			<!-- TITLE -->
 			<xsl:element name="dc:title">
 				<xsl:choose>
-					<xsl:when test="T1">
+					<xsl:when test="T1 and not(TY='JFULL')">
 						<xsl:value-of select="T1"/>
+					</xsl:when>
+					<xsl:when test="JF">
+						<xsl:value-of select="JF"/>
 					</xsl:when>
 					<xsl:when test="TI">
 						<xsl:value-of select="TI"/>
@@ -253,7 +256,7 @@
 							<xsl:value-of select="CY"/>
 						</xsl:element>
 					</xsl:if>
-					<xsl:if test="VL and not(ET or JF or JO)">									
+					<xsl:if test="VL and not(ET or JF or JO)">					
 						<xsl:element name="eterms:edition">
 							<xsl:value-of select="VL"/>					
 						</xsl:element>						
@@ -267,7 +270,7 @@
 			<xsl:choose>
 				<xsl:when test="BT">
 					<xsl:if test="not($gen='book' or $gen='proceedings' or $gen='thesis' or $gen='journal' or $gen='other')">
-						<xsl:if test="JF">
+						<xsl:if test="JF and not(TY='JFULL')">
 							<xsl:call-template name="createSource">
 								<xsl:with-param name="genre" select="$gen"/>
 								<xsl:with-param name="title" select="JF"/>
