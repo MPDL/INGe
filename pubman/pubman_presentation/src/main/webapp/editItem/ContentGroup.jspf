@@ -75,12 +75,15 @@
 
 <%-- Abstract --%>		
 		<tr:iterator id="iterContentGroupAbstract" var="abstract" value="#{EditItem.contentAbstractCollection.contentAbstractManager.objectDM}" rendered="#{!(genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'full-submission' || genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'all')}">
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-				<b class="xLarge_area0_p8 endline labelLine clear">
+			<h:panelGroup layout="block" styleClass="xHuge_area0 xTiny_marginLExcl endline noTopBorder">
+				<b class="xDouble_area0 tiny_marginRIncl">
 					&#160;<h:outputText id="txtMandatoryField" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_abstract_optional != 'true'}" /><h:outputText id="txtGenreContentLabel" value="#{genre.content_item_abstract_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:inputTextarea id="inputAbstractValue" styleClass="quad_txtArea inputTxtArea" value="#{abstract.value}" cols="15" rows="3" />
+					<h:inputTextarea id="inputAbstractValue" styleClass="xDouble_txtArea inputTxtArea" value="#{abstract.value}" cols="15" rows="3" />
+					<h:selectOneMenu value="#{abstract.language}" styleClass="medium_select endline">
+						<f:selectItems value="#{EditItem.languageOptions}"/>
+					</h:selectOneMenu>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAddAbstract" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addAbstract}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" rendered="#{genre.content_item_abstract_repeatable != 'false'}"/>
