@@ -17,24 +17,20 @@ import java.util.Map;
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.namespace.QName;
 import javax.xml.rpc.ServiceException;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
-
 import org.apache.xmlbeans.XmlOptions;
 import org.purl.escidoc.metadata.profiles.x01.virrelement.VirrelementDocument;
 
-import de.escidoc.schemas.container.x07.ContainerDocument;
-import de.escidoc.schemas.container.x07.ContainerDocument.Container;
-import de.escidoc.schemas.item.x08.ItemDocument;
-import de.escidoc.schemas.metadatarecords.x04.MdRecordDocument.MdRecord;
+import de.escidoc.schemas.container.x08.ContainerDocument;
+import de.escidoc.schemas.container.x08.ContainerDocument.Container;
+import de.escidoc.schemas.item.x09.ItemDocument;
+import de.escidoc.schemas.metadatarecords.x05.MdRecordDocument.MdRecord;
 import de.escidoc.schemas.tableofcontent.x01.TocDocument;
 import de.escidoc.schemas.tableofcontent.x01.DivDocument.Div;
 import de.escidoc.schemas.tableofcontent.x01.PtrDocument.Ptr;
