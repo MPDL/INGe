@@ -587,7 +587,43 @@
 	<xsl:template match="mab037_c">
 		<xsl:for-each select="tokenize(normalize-space(replace(.,'/', ' ')), '\s+')">
 			<xsl:element name="dc:language">
-				<xsl:value-of select="."/>
+			<xsl:choose>
+				<xsl:when test=". = 'afr'">af</xsl:when>
+				<xsl:when test=". = 'ara'">ar</xsl:when>
+				<xsl:when test=". = 'aze'">az</xsl:when>
+				<xsl:when test=". = 'bul'">bg</xsl:when>
+				<xsl:when test=". = 'bis'">bi</xsl:when>
+				<xsl:when test=". = 'ben'">bn</xsl:when>
+				<xsl:when test=". = 'tib'">bo</xsl:when>
+				<xsl:when test=". = 'ger'">de</xsl:when>
+				<xsl:when test=". = 'eng'">en</xsl:when>
+				<xsl:when test=". = 'spa'">es</xsl:when>
+				<xsl:when test=". = 'fre'">fr</xsl:when>
+				<xsl:when test=". = 'gua'">gn</xsl:when>
+				<xsl:when test=". = 'heb'">he</xsl:when>
+				<xsl:when test=". = 'hin'">hi</xsl:when>
+				<xsl:when test=". = 'ind'">id</xsl:when>
+				<xsl:when test=". = 'ita'">it</xsl:when>
+				<xsl:when test=". = 'jpn'">ja</xsl:when>
+				<xsl:when test=". = 'geo'">ka</xsl:when>
+				<xsl:when test=". = 'kaz'">kk</xsl:when>
+				<xsl:when test=". = 'kan'">kn</xsl:when>
+				<xsl:when test=". = 'kor'">ko</xsl:when>
+				<xsl:when test=". = 'lat'">la</xsl:when>
+				<xsl:when test=". = 'mon'">mn</xsl:when>
+				<xsl:when test=". = 'bur'">my</xsl:when>
+				<xsl:when test=". = 'dut'">nl</xsl:when>
+				<xsl:when test=". = 'por'">pt</xsl:when>
+				<xsl:when test=". = 'que'">qu</xsl:when>
+				<xsl:when test=". = 'rum'">ro</xsl:when>
+				<xsl:when test=". = 'rus'">ru</xsl:when>
+				<xsl:when test=". = 'alb'">sq</xsl:when>
+				<xsl:when test=". = 'tam'">ta</xsl:when>
+				<xsl:when test=". = 'tur'">tr</xsl:when>
+				<xsl:when test=". = 'wol'">wo</xsl:when>
+				<xsl:when test=". = 'chi'">zh</xsl:when>
+				<xsl:otherwise></xsl:otherwise>
+			</xsl:choose>
 			</xsl:element>
 		</xsl:for-each>
 	</xsl:template>
