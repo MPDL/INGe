@@ -125,7 +125,7 @@ public class TransformationInitializer
             for (int i=0; i<children.length; i++) 
             {
                 String filename = children[i];
-                if (filename.contains("pubman_ear") && filename.contains("contents"))
+                if ((filename.contains("pubman_ear")|| filename.contains("virr_ear")) && filename.contains("contents"))
                 {
                     logger.debug("PubMan contents at: " + path + filename);
                     return path + filename;
