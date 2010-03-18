@@ -1880,7 +1880,6 @@ public class ItemControllerSessionBean extends FacesBean
      */
     public List<AffiliationVOPresentation> searchChildAffiliations(AffiliationVOPresentation parentAffiliation) throws Exception
     {
-
         PlainCqlQuery cqlQuery = new PlainCqlQuery("(escidoc.parent.objid=" + parentAffiliation.getReference().getObjectId() + ")");
         OrgUnitsSearchResult results = search.searchForOrganizationalUnits(cqlQuery);
         

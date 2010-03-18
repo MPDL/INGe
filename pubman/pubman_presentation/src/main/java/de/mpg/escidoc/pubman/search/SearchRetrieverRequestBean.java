@@ -189,7 +189,6 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
                     query.setSortKeysAndOrder(sc.getIndex(), SortingOrder.ASCENDING);
                 } 
             }
-            
             ItemContainerSearchResult result = this.searchService.searchForItemContainer(query);
             
             pubItemList =  extractItemsOfSearchResult(result);

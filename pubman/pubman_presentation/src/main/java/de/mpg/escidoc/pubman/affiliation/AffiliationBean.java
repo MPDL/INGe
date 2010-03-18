@@ -45,6 +45,7 @@ public class AffiliationBean extends FacesBean
     public static final String LOAD_AFFILIATION_TREE = "loadAffiliationTree";
     private TreeModel tree;
     private List<AffiliationVOPresentation> selected = null;
+    private List<AffiliationVOPresentation> topLevelAffs = null;
     AffiliationVOPresentation selectedAffiliation = null;
     private String source = null;
     private Object cache = null;
@@ -60,6 +61,7 @@ public class AffiliationBean extends FacesBean
     {
         tree = new ChildPropertyTreeModel(getAffiliations(), "children");
         timestamp = new Date().getTime();
+        this.setTopLevelAffs(getTopLevelAffiliations());
     }
 
     public TreeModel getTree()
@@ -326,8 +328,7 @@ public class AffiliationBean extends FacesBean
         List<AffiliationVO> tops = null;
         try
         {
-            tops = ((ItemControllerSessionBean) FacesContext.getCurrentInstance().getExternalContext()
-                    .getSessionMap().get("ItemControllerSessionBean")).searchTopLevelAffiliations();
+            tops = this.getItemControllerSessionBean().searchTopLevelAffiliations();
         } catch (Exception e)
         {
             logger.error("TopLevel affiliations cannot be fetched.");
@@ -340,5 +341,15 @@ public class AffiliationBean extends FacesBean
             topsPres.add(new AffiliationVOPresentation(tops.get(i))); 
         }
         return topsPres;
+    }
+    
+    public List<AffiliationVOPresentation> getTopLevelAffs()
+    {
+        return topLevelAffs;
+    }
+
+    public void setTopLevelAffs(List<AffiliationVOPresentation> topLevelAffs)
+    {
+        this.topLevelAffs = topLevelAffs;
     }
 }
