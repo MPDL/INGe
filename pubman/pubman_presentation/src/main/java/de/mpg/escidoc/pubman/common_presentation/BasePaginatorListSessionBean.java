@@ -201,7 +201,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
             totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
             
             //reset current page and reload list if list is shorter than the given current page number allows
-            if (getTotalNumberOfElements()<= getOffset()){
+            if (getTotalNumberOfElements()>0 && getTotalNumberOfElements()<= getOffset()){
                 setCurrentPageNumber(((getTotalNumberOfElements()-1)/getElementsPerPage())+1);
                 currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage, getAdditionalFilters());
                 totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
