@@ -2753,28 +2753,7 @@
                                             <xsl:with-param name="les">
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$authors-or-editors-and-year-and-title-with-dot"/>
-                                                        <xsl:copy-of select="$var"/>
-                                                    </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
-                                                </le>
-                                                <le>
-                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/event:event/dc:title/text()"/>
-                                                        <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                                            <xsl:if test="exists($var) and $var!=''">
-                                                                <xsl:text> Talk presented at </xsl:text>
-                                                            </xsl:if>
-                                                            <xsl:copy-of select="$var"/>
-                                                            <xsl:if test="exists($var) and $var!=''">
-                                                                <xsl:text>.</xsl:text>
-                                                            </xsl:if>
-                                                        </xsl:variable>
-                                                        <!--font-style--><xsl:variable name="var">
-                                                            <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
-                                                        </xsl:variable>
+	<!--### @ref is available ###--><xsl:variable name="var" select="$authors-or-editors-and-year-and-title-with-dot-italic"/>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
@@ -2785,6 +2764,21 @@
                                                         <xsl:variable name="var">
                                                             <xsl:call-template name="applyDelimiter">
                                                                 <xsl:with-param name="les">
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/event:event/dc:title/text()"/>
+                                                                            <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                                                                <xsl:if test="exists($var) and $var!=''">
+                                                                                    <xsl:text>Talk presented at </xsl:text>
+                                                                                </xsl:if>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </xsl:variable>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/event:event/eterms:place/text()"/>
@@ -3194,9 +3188,6 @@
 	 
 	       <xsl:sequence select="       if (exists($arg))      then $arg      else $value   "/>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:read_file">
-	
-	</xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_reverse_date">
 		      <xsl:param name="date"/>
 		      <xsl:if test="$date[.!=''] ">

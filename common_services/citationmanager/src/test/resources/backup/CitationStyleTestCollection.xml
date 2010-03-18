@@ -172,7 +172,7 @@
                         <eterms:place>Garching</eterms:place>
                     </event:event>
                     <eterms:total-number-of-pages>555</eterms:total-number-of-pages>
-                    <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2006).</span> It's raining todayTALK.<span class="Italic"> Talk presented at 9th Symposium on Rain.</span> Garching. 2006.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2006).</span> <span class="Italic">It's raining todayTALK</span>. Talk presented at 9th Symposium on Rain. Garching. 2006.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: H. Knözinger and E. Taglauer, "It's raining todayTALK", in <span class="Italic">Acta Anatomica</span>, (S. Karger, Basel, 2008), pp. 555.]]></dcterms:abstract>
                     <dc:subject>PLEASE NOTE: AJP CITATION = GENERIC WITHOUT SOURCE</dc:subject>
                     <dcterms:tableOfContents/>
@@ -3293,7 +3293,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
                         <eterms:place>Berlin</eterms:place>
                     </event:event>
                     <eterms:total-number-of-pages/>
-                    <dcterms:abstract><![CDATA[APA: Brozinski, M., Knothe, W., &amp; Sengbusch, R. v. <span class="DisplayDateStatus">(1960).</span> Oxalatsteinauflösung in der menschlichen Niere durch Chemolyse.<span class="Italic"> Talk presented at 85. Kongress der Vereinigung Nordwestdeutscher Chirurgen.</span> Berlin. 1960-06-25 - 1960-06-30.]]></dcterms:abstract>
+                    <dcterms:abstract><![CDATA[APA: Brozinski, M., Knothe, W., &amp; Sengbusch, R. v. <span class="DisplayDateStatus">(1960).</span> <span class="Italic">Oxalatsteinauflösung in der menschlichen Niere durch Chemolyse</span>. Talk presented at 85. Kongress der Vereinigung Nordwestdeutscher Chirurgen. Berlin. 1960-06-25 - 1960-06-30.]]></dcterms:abstract>
                     <dcterms:abstract><![CDATA[AJP: M. Brozinski, W. Knothe, and Reinhold von Sengbusch, "Oxalatsteinauflösung in der menschlichen Niere durch Chemolyse", in <span class="Italic">Deutsche medizinische Wochenschrift</span>, (Georg Thieme, Leipzig, 1960), Vol. 86, pp. 255-256.]]></dcterms:abstract>
                     <dc:subject>Kidney stones, Methods</dc:subject>
                     <dc:subject/>

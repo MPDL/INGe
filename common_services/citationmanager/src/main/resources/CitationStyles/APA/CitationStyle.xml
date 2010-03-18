@@ -1113,15 +1113,7 @@
 
 			<!--			<layout-element ref="$debugBlock" />-->
 
-			<layout-element ref="$authors-or-editors-and-year-and-title-with-dot" />
-
-			<layout-element ref="pub:publication/event:event/dc:title/text()">
-				<parameters>
-					<font-style ref="ITALIC"/>
-					<starts-with value=" Talk presented at "/>
-					<ends-with value="."/>
-				</parameters>
-			</layout-element>
+			<layout-element ref="$authors-or-editors-and-year-and-title-with-dot-italic" />
 
 			<layout-element>
 				<parameters>
@@ -1130,6 +1122,11 @@
 					<ends-with value="." />
 				</parameters>
 				<elements>
+					<layout-element ref="pub:publication/event:event/dc:title/text()">
+						<parameters>
+							<starts-with value="Talk presented at "/>
+						</parameters>
+					</layout-element>
 					<layout-element ref="pub:publication/event:event/eterms:place/text()" />
 					<layout-element>
 						<parameters>
