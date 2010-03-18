@@ -202,7 +202,7 @@
 						</div>
 						
 						<div id="ImgFullItem">
-							<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed; width: 50%; height: 30%;"></div>
+							<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;"></div>
 						</div>
 						
 						<div class="full_area0 formButtonArea">
@@ -246,7 +246,7 @@
 				{
 					document.getElementById('fullItem').style.opacity='0.4';
 					document.getElementById('fullItem').style.bg='FFF';
-					document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea smallThrobber');
+					document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea half_marginLIncl smallThrobber');
 					$('#fullItem :input :text').attr('readonly', true);
 				    $('#fullItem :textarea').attr('readonly', true);
 				}
