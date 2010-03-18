@@ -147,6 +147,11 @@ public class PidCacheService
 		pidServiceResponseVO.setMessage("Web proxy view URL: " + this.location);
 		return xmlTransforming.transformToPidServiceResponse(pidServiceResponseVO);
 	}
+	
+	public int getCacheSize() throws Exception
+	{
+		return cache.size();
+	}
 
 	public String getLocation() 
 	{

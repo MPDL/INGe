@@ -69,6 +69,7 @@ public class MainServlet extends HttpServlet
     	try 
     	{
     		PidCacheService pidCacheService = new PidCacheService();
+    		
     		if (GwdgPidService.GWDG_PIDSERVICE_VIEW.equals(req.getPathInfo())
     				|| GwdgPidService.GWDG_PIDSERVICE_VIEW.concat("/").equals(req.getPathInfo())) 
             {
@@ -87,6 +88,10 @@ public class MainServlet extends HttpServlet
            		}
         		resp.getWriter().append(pidCacheService.search(req.getParameter("url")));
     		}
+        	else if ("/cache/size".equals(req.getPathInfo()))
+        	{
+        		resp.getWriter().append("There are " +  pidCacheService.getCacheSize() + " PID stored in cache");
+        	}
         	else 
         	{
         		resp.sendError(HttpServletResponse.SC_NOT_FOUND, req.getPathInfo());
