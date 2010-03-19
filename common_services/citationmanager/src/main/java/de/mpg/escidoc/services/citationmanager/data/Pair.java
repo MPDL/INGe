@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.citationmanager.utils;
+package de.mpg.escidoc.services.citationmanager.data;
 
 
 
