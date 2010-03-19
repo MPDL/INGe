@@ -18,6 +18,7 @@
                 xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
                 xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case"
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -25,6 +26,7 @@
                 version="2.0">
     <xsl:output method="xml" encoding="UTF-8" indent="yes"
                 cdata-section-elements="dcterms:bibliographicCitation dcterms:abstract"/>
+    <xsl:param name="pubman_instance"/>
     <xsl:template match="node() | @*">
         <xsl:copy>
             <xsl:apply-templates select="@* | node ()"/>
@@ -3118,7 +3120,7 @@
     	   <xsl:element name="{name(.)}">
     		      <xsl:copy-of select="@*[name(.)!='xlink:href']"/>
     		      <xsl:attribute name="xlink:href"
-                           select="concat(         'http://localhost:8080/pubman/item/',          ../../../ei:properties/prop:version/@objid,         '/component/',         ../@objid,         '/',         ../escidocComponents:properties/prop:file-name        )"/>
+                           select="concat(         $pubman_instance,         '/item/',          ../../../ei:properties/prop:version/@objid,         '/component/',         ../@objid,         '/',         ../escidocComponents:properties/prop:file-name        )"/>
     	   </xsl:element>
     </xsl:template>
     <xsl:template name="applyDelimiter">
