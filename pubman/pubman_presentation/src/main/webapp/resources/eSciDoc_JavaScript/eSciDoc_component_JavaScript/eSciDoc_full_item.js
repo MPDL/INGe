@@ -22,21 +22,21 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * f�r wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur F�rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
 
 function addFullItemFunctions() {
-	$('.itemBlock').each(function(i,ele){$(ele).find('.collapse').each(function(j,elem){$(elem).show();}); $(ele).find('.expand').each(function(j,elem){$(elem).hide();});  $(ele).not('.visibility').find('.blockHeader').each(function(j,elem){if($(elem).siblings('.itemBlockContent').length==0)$(elem).addClass('voidBlock');});})
+	$('.itemBlock').each( function(i,ele){$(ele).find('.collapse').each(function(j,elem){$(elem).show();}); $(ele).find('.expand').each(function(j,elem){$(elem).hide();});  $(ele).not('.visibility').find('.blockHeader').each(function(j,elem){if($(elem).siblings('.itemBlockContent').length==0)$(elem).addClass('voidBlock');});})
 	$('.fullItem').find('.visibility').find('.collapse').click(function(){$(this).hide(); $(this).parents('.itemBlock').find('.expand').show(); $(this).parents('.fullItem').find('.itemBlock:not(.visibility)').find('.collapse:visible').trigger('click');});
 	$('.fullItem').find('.visibility').find('.expand').click(function(){$(this).hide(); $(this).parents('.itemBlock').find('.collapse').show(); $(this).parents('.fullItem').find('.itemBlock:not(.visibility)').find('.expand:visible').trigger('click');}); 
 	$('.itemBlock:not(.visibility)').find('.expand').each(function(i,ele){$(ele).click(function(){$(this).hide(); $(this).parents('.itemBlock').children('.itemBlockContent').children('.lineToolSection').hide(); $(this).parents('.itemBlock').children('.itemBlockContent').slideToggle('normal', function(){$(this).parents('.itemBlock').find('.collapse').show();  $(this).parents('.itemBlock').children('.itemBlockContent').children('.lineToolSection').show(); if(($(this).parents('.fullItem').find('.itemBlock:not(.visibility)').find('.expand:visible').length)==0) { $(this).parents('.fullItem').find('.visibility').find('.collapse').show(); $(this).parents('.fullItem').find('.visibility').find('.expand').hide();} });})});
 	$('.itemBlock:not(.visibility)').find('.collapse').each(function(i,ele){$(ele).click(function(){$(this).hide(); $(this).parents('.itemBlock').children('.itemBlockContent').children('.lineToolSection').hide(); $(this).parents('.itemBlock').children('.itemBlockContent').slideToggle('normal', function(){$(this).parents('.itemBlock').find('.expand').show(); if(($(this).parents('.fullItem').find('.itemBlock:not(.visibility)').find('.collapse:visible').length)==0) { $(this).parents('.fullItem').find('.visibility').find('.collapse').hide(); $(this).parents('.fullItem').find('.visibility').find('.expand').show();} });})});
-	$('.hideBlockIfVoid').each(function(i,elem){ if( ($(elem).find(':checkbox:checked').length == 0) && ($(elem).find("textarea[value!=''], :text[value!='']").length == 0) && ($(elem).find('.languageSuggest').siblings("select[value!='']").length == 0) && ($(elem).find('.itemLine').length < 3 ) && ($(elem).find('.languageSuggest').siblings('span.replace').find("input:hidden[value!='']").length == 0) ) { $(elem).siblings('.expand').show(); $(elem).find('.collapse').hide(); $(elem).hide();  };   });
-	$('.hideAdvSearchGenreBlockIfVoid').each(function(i,elem){ if( ($(elem).find(':checkbox:checked').length == 0) && ($(elem).find("textarea[value!=''], :text[value!='']").length == 0) && ($(elem).find('.languageSuggest').siblings("select[value!='']").length == 0) && ($(elem).find('.itemLine').length < 5 ) && ($(elem).find('.languageSuggest').siblings('span.replace').find("input:hidden[value!='']").length == 0) ) { $(elem).siblings('.expand').show(); $(elem).find('.collapse').hide(); $(elem).hide();  };   });
-	$('.hideAdvSearchComplexBlockIfVoid').each(function(i,elem){ if( ($(elem).find(':checkbox:checked').length == 0) && ($(elem).find("textarea[value!=''], :text[value!='']").length == 0) && ($(elem).find('.languageSuggest').siblings("select[value!='']").length == 0) && ($(elem).find('.itemLine').length < 11 ) && ($(elem).find('.languageSuggest').siblings('span.replace').find("input:hidden[value!='']").length == 0) ) { $(elem).siblings('.expand').show(); $(elem).find('.collapse').hide(); $(elem).hide();  };   });
+	$('.hideBlockIfVoid').each(function(i,elem){ if( allInputsBelowVoid(elem) && ($(elem).find('.itemLine').length < 3 ) ) { $(elem).siblings('.expand').show(); $(elem).find('.collapse').hide(); $(elem).hide();  };   });
+	$('.hideAdvSearchGenreBlockIfVoid').each(function(i,elem){ if( allInputsBelowVoid(elem) && ($(elem).find('.itemLine').length < 5 ) ) { $(elem).siblings('.expand').show(); $(elem).find('.collapse').hide(); $(elem).hide();  };   });
+	$('.hideAdvSearchComplexBlockIfVoid').each(function(i,elem){ if( allInputsBelowVoid(elem) && ($(elem).find('.itemLine').length < 11 ) ) { $(elem).siblings('.expand').show(); $(elem).find('.collapse').hide(); $(elem).hide();  };   });
 	
 	$('.creator').each(function(i,ele){$(ele).hover(function(){
 				$(this).addClass('affHover');
@@ -95,6 +95,14 @@ function addFullItemFunctions() {
 	
 	$('.showMoreDates').click(function(){ $(this).hide(); $(this).siblings().show(); });
 	$('.datesGroup').each(function(i,elem){if($(elem).find('span.large_area0:gt(0)').find(":text[value!='']").length == 0) {$(elem).find('span.large_area0:gt(0)').hide();} else {$(elem).find('.showMoreDates').hide();};});
+}
+
+function allInputsBelowVoid(topLevelElement) {
+	return ( ($(topLevelElement).find(':checkbox:checked').length == 0) && 
+			 ($(topLevelElement).find("textarea[value!=''], :text[value!='']").length == 0) && 
+			 ($(topLevelElement).find('.languageSuggest').siblings("select[value!='']").length == 0) &&
+			 ($(topLevelElement).find('.languageSuggest').siblings('span.replace').find("input:hidden[value!='']").length == 0)
+			)
 }
 
 function installFullItem() {
