@@ -123,10 +123,6 @@
 	 "/>
 	</xsl:function>
 	
-	<xsl:function name="func:read_file">
-	
-	</xsl:function>
-	
 	<!-- JUS: Get reverse date if the input is not an empty sting. 
 	The input YYYY-MM-TT is converted to TT.MM.YYYY. -->
 	<xsl:function name="func:get_reverse_date">
