@@ -370,7 +370,8 @@ public class ResourceUtil
     public static String getPathToTransformations() throws IOException 
     {
     	return
-    	getPathToResources() + TRANSFORMATIONS_DIRECTORY;
+    	//    	getPathToResources() 
+    		getPathToClasses() + TRANSFORMATIONS_DIRECTORY;
     }
     
 
