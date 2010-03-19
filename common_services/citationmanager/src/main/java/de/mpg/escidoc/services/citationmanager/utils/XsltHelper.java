@@ -31,37 +31,27 @@ package de.mpg.escidoc.services.citationmanager.utils;
 
 //import static org.junit.Assert.fail;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
-import org.w3c.dom.Document;
+import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.data.FontStyle;
 import de.mpg.escidoc.services.citationmanager.data.FontStylesCollection;
+import de.mpg.escidoc.services.citationmanager.data.Pair;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
@@ -157,6 +147,7 @@ public class XsltHelper {
 		return Utils.replaceAllTotal(snippet, "<" + I18N_TAG
 				+ "\\s+class=\"\\w+\".*?>(.*?)</" + I18N_TAG + ">", "$1");
 	}
+	
 	/**
 	 * Gets the citation style for given idType and idValue.
 	 * Called from functions.xml for Jus-citation style.
@@ -176,7 +167,7 @@ public class XsltHelper {
 		} else {
 			Pair keyValue = new Pair(idType, idValue);
 			if (citationMap.size() == 0) {
-				getXML();
+				getJournalsXML();
 			}
 			if (citationMap.get(keyValue) == null) {
 				citationStyle = "default";
@@ -197,7 +188,7 @@ public class XsltHelper {
 	 * Generates a Map with citation styles and idValue-Type-Pairs. 
 	 * @throws Exception
 	 */
-	public static void getXML() throws Exception {
+	public static void getJournalsXML() throws Exception {
 		HttpClient client = new HttpClient();
 
 		String coneUrl = PropertyReader.getProperty("escidoc.cone.service.url");
@@ -211,7 +202,7 @@ public class XsltHelper {
 		XMLReader xr;
 
 		xr = XMLReaderFactory.createXMLReader();
-		XmlHandler handler = new XmlHandler();
+		JusXmlHandler handler = new JusXmlHandler();
 		xr.setContentHandler(handler);
 		xr.setErrorHandler(handler);
 
@@ -221,4 +212,86 @@ public class XsltHelper {
 		citationMap = handler.getCitationStyleMap();
 	}
 
+	
 }
+
+class JusXmlHandler extends DefaultHandler {
+
+	private static final Logger logger = Logger.getLogger(JusXmlHandler.class);
+	String currentElement = null;
+	String citationStyle = null;
+	String idType = null;
+	private Map<Pair, String> citationStyleMap;
+	int counter = 0;
+	Pair journalIdTypeValue;
+
+	/**
+	 * Start reading an XML-File. 
+	 * Creates a Map to hold the JournalId-Value-Pair and the corresponding citation style.
+	 */
+	@Override
+	public void startDocument() throws SAXException {
+		citationStyleMap = new HashMap<Pair, String>();
+		super.startDocument();
+	}
+
+	/**
+	 * Gets every element and set it to currentElement.
+	 */
+	@Override
+	public void startElement(String uri, String localName, String name,
+			Attributes attributes) throws SAXException {
+		if ("".equals(uri)) {
+			currentElement = name;
+		} else {
+			currentElement = localName;
+		}
+	}
+
+	@Override
+	public void endDocument() throws SAXException {
+		// TODO Auto-generated method stub
+		super.endDocument();
+	}
+
+	@Override
+	public void endElement(String arg0, String arg1, String arg2)
+	throws SAXException {
+		// TODO Auto-generated method stub
+		super.endElement(arg0, arg1, arg2);
+
+	}
+
+	/**
+	 * Gets the values of the elements. 
+	 * For every id-type of journal a new Pair is created. 
+	 * The key is set to the idType. The value is set to the value of the id. 
+	 * The journalIdTypeValue and the citationStyle are putted in a HashMap. 
+	 */
+	public void characters(char ch[], int start, int length) {
+		String tempString = new String(ch, start, length);
+
+		if (currentElement.equals("citation-style")& !tempString.trim().equals("")) {
+			citationStyle = tempString;
+		} else if (currentElement.equals("type")& !tempString.trim().equals("")) {
+
+			idType = tempString.substring(tempString.lastIndexOf("/") + 1);
+			journalIdTypeValue = new Pair();
+			journalIdTypeValue.setKey(idType);
+
+		} else if (currentElement.equals("value") & !tempString.trim().equals("")) {
+			journalIdTypeValue.setValue(tempString);
+			citationStyleMap.put(journalIdTypeValue, citationStyle);
+		}
+	}
+
+	/**
+	 * Returns a HashMap with JournalId-Value-Pair and 
+	 * the corresponding citation style.
+	 * @return
+	 */
+	public Map<Pair,String> getCitationStyleMap(){
+		return this.citationStyleMap;
+	}
+
+}	
