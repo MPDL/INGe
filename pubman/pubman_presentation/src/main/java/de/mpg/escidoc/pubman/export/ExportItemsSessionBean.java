@@ -183,7 +183,7 @@ public class ExportItemsSessionBean extends FacesBean
 //        	exportFormatName = "APA";
         this.exportFormatName = exportFormatName; 
         this.curExportFormatVO.setName(exportFormatName);
-    	if  ( "APA".equalsIgnoreCase(exportFormatName) || "AJP".equalsIgnoreCase(exportFormatName))
+    	if  ( "APA".equalsIgnoreCase(exportFormatName) || "AJP".equalsIgnoreCase(exportFormatName) || "JUS".equalsIgnoreCase(exportFormatName))
     	{
     		curExportFormatVO.setFormatType(FormatType.LAYOUT);
             this.exportFormatType = FormatType.LAYOUT.toString();
