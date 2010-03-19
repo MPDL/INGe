@@ -375,6 +375,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		try 
 		{
 			Transformer transformer = XmlHelper.tryTemplCache(ResourceUtil.getPathToTransformations() + "escidoc-publication-snippet2html.xsl").newTransformer();
+			transformer.setParameter("pubman_instance", PropertyReader.getProperty("escidoc.pubman.instance.url"));
 			transformer.transform(new StreamSource(new StringReader(snippets)), new StreamResult(result));
 		} 
 		catch (Exception e) 

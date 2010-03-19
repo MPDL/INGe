@@ -35,7 +35,8 @@
     		<xsl:copy-of select="@*[name(.)!='xlink:href']"/>
     		<xsl:attribute name="xlink:href"
     			select="concat(
-    				'${escidoc.pubman.instance.url}/item/', 
+    				$pubman_instance,
+    				'/item/', 
     				../../../ei:properties/prop:version/@objid,
     				'/component/',
     				../@objid,
