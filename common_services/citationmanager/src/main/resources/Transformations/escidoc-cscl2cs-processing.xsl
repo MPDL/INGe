@@ -49,6 +49,8 @@
 	<xsl:output method="xml" encoding="UTF-8" indent="no"
 		cdata-section-elements="" />
 	
+	<xsl:param name="pubman_instance"/>
+	
 	<!-- Default delimiter for undefined delimiter and internal-delimiter	-->
 	<xsl:param name="default-delimiter" select="' '"/>
 	
