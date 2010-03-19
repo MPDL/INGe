@@ -158,14 +158,15 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 			
 			StringWriter sw = new StringWriter();
 			
-			String path = ResourceUtil.getPathToCitationStyles() + cs + "/CitationStyle.xsl"; 
+			String path = ResourceUtil.getPathToCitationStyle(cs) + "CitationStyle.xsl"; 
 			
 			/* get xslt from the templCache */
 			transformer = XmlHelper.tryTemplCache(path).newTransformer();
 			
 			//set parameters
-			String pub_inst = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path"); 
-			transformer.setParameter("pubman_instance", pub_inst);
+//			String pub_inst = PropertyReader.getProperty("escidoc.pubman.instance.url"); 
+//			transformer.setParameter("pubman_instance", pub_inst);
+			
 			transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(sw));
 			
 			logger.info("Transformation item-list 2 snippet: " + (System.currentTimeMillis() - start));
@@ -195,6 +196,10 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		    		 throw new CitationStyleManagerException("Problems by escidoc v2 to v1 transformation:", e);	
 		    	 } 
 				result = v1;
+			}
+			else if ("html".equals(outputFormat))
+			{
+				result = generateHtmlOutput(snippet).getBytes("UTF-8");
 			}
 			else
 			{
@@ -251,15 +256,16 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 					if ("pdf".equals(outputFormat))
 					{
 						exporter = new JRPdfExporter();
-					} 
-					else if ("html".equals(outputFormat))
-					{
-						exporter = new JRHtmlExporter();
-						/* Switch off pagination and null pixel alignment for JRHtmlExporter */
-				        exporter.setParameter(JRHtmlExporterParameter.BETWEEN_PAGES_HTML, "");
-				        exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
-		                exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.FALSE);						
 					}
+//					Moved to the simple version, see above					
+//					else if ("html".equals(outputFormat))
+//					{
+//						exporter = new JRHtmlExporter();
+//						/* Switch off pagination and null pixel alignment for JRHtmlExporter */
+//				        exporter.setParameter(JRHtmlExporterParameter.BETWEEN_PAGES_HTML, "");
+//				        exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
+//		                exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.FALSE);						
+//					}
 					else if ("rtf".equals(outputFormat))
 					{
 						exporter = new JRRtfExporter();
@@ -299,7 +305,6 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 				}
 				
 				
-				
 			}
 			
 			
@@ -337,14 +342,17 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		return ResourceUtil.isCitationStyle(cs);
 	}
 
+	/**
+	 * Generates JasperReport DataSource
+	 * @param snippets
+	 * @return String 
+	 */
 	private String generateJasperReportDataSource (String snippets)
 	{
-		
 		StringWriter result = new StringWriter();
-		
 		try 
 		{
-			Transformer transformer = XmlHelper.tryTemplCache(ResourceUtil.getPathToResources() + ResourceUtil.TRANSFORMATIONS_DIRECTORY + "escidoc-publication-snippet2jasper_DS.xsl").newTransformer();
+			Transformer transformer = XmlHelper.tryTemplCache(ResourceUtil.getPathToTransformations() + "escidoc-publication-snippet2jasper_DS.xsl").newTransformer();
 			transformer.transform(new StreamSource(new StringReader(snippets)), new StreamResult(result));
 			
 		} 
@@ -353,6 +361,27 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 			throw new RuntimeException("Cannot transform to JasperReport DataSource", e);
 		}
 
+		return result.toString();
+	}
+	
+	/**
+	 * Generates custom HTML output
+	 * @param snippets
+	 * @return String 
+	 */	
+	private String generateHtmlOutput(String snippets)
+	{
+		StringWriter result = new StringWriter();
+		try 
+		{
+			Transformer transformer = XmlHelper.tryTemplCache(ResourceUtil.getPathToTransformations() + "escidoc-publication-snippet2html.xsl").newTransformer();
+			transformer.transform(new StreamSource(new StringReader(snippets)), new StreamResult(result));
+		} 
+		catch (Exception e) 
+		{
+			throw new RuntimeException("Cannot transform to html:", e);
+		}
+		
 		return result.toString();
 	}
 	
