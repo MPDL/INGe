@@ -163,7 +163,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 			/* get xslt from the templCache */
 			transformer = XmlHelper.tryTemplCache(path).newTransformer();
 			
-			//set parameters
+			//set parameters 
 			String pub_inst = PropertyReader.getProperty("escidoc.pubman.instance.url"); 
 			transformer.setParameter("pubman_instance", pub_inst);
 			
@@ -373,7 +373,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 	{
 		StringWriter result = new StringWriter();
 		try 
-		{
+		{ 
 			Transformer transformer = XmlHelper.tryTemplCache(ResourceUtil.getPathToTransformations() + "escidoc-publication-snippet2html.xsl").newTransformer();
 			transformer.setParameter("pubman_instance", PropertyReader.getProperty("escidoc.pubman.instance.url"));
 			transformer.transform(new StreamSource(new StringReader(snippets)), new StreamResult(result));
