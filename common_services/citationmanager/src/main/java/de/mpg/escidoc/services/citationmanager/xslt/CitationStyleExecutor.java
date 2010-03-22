@@ -389,7 +389,6 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 				pubManUrl = 
 					PropertyReader.getProperty("escidoc.pubman.instance.url") + 
 					(contextPath == null ? "" : contextPath);
-				logger.info("pubman url 1:" + pubManUrl);
 				return pubManUrl; 
 			} 
 			catch (Exception e) 
@@ -399,7 +398,6 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		}	
 		else 
 		{
-			logger.info("pubman url 2:" + pubManUrl);
 			return pubManUrl;
 		}
 		
