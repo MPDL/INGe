@@ -31,9 +31,10 @@ public class TestCitationManager {
     
     private static Logger logger = Logger.getLogger(TestCitationManager.class);
     
-    private XmlHelper xh = new XmlHelper();
+    private XmlHelper xh = new XmlHelper(); 
     
     private final static String dsFileName = "target/test-classes/backup/CitationStyleTestCollection.xml"; 
+//    private final static String dsFileName = "target/test-classes/testFiles/temp_items.xml"; 
     	//"target/test-classes/testFiles/1_JournalArticle.xml"; 
     // 2_ContrToCollectedEdition.xml
     // 
@@ -175,14 +176,16 @@ public class TestCitationManager {
         
      for (
     		 String cs : 
-    			 new String[]{"APA","AJP"}
+//    			 new String[]{"APA","AJP"}
+    			 new String[]{"APA"}
 //     			cse.getStyles()
      ) {
             long start;
             byte[] result;
             for ( String format : 
                   cse.getOutputFormats(cs)
-//                  new String[]{"snippet", "escidoc_snippet"}
+//                  new String[]{"escidoc_snippet", "snippet" , "html"}
+//            		new String[]{"html_plain", "html_styled"}
             ) {
                 logger.info("Test Citation Style: " + cs);
                 
@@ -199,7 +202,7 @@ public class TestCitationManager {
                 logger.info(format + " length: " + result.length);
                 logger.info(format + " is OK");
                  
-                TestHelper.writeToFile("target/" + cs + "." + format, result); 
+                TestHelper.writeToFile("target/" + cs + "_" + format + "." + TestHelper.getExtensionByName(format), result); 
                 
             }
             
