@@ -15,7 +15,7 @@
 	xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case"
 	xmlns:publication="${xsd.metadata.publication}">
 
-	<!-- JOURNAL ARTICLE  local-tag > Kurztitel_ZS_Jahr-->
+	<!-- JOURNAL ARTICLE  local-tag > Kurztitel_ZS_Jahr escidoc:51001-->
 	<escidocItem:item objid="escidoc:51001"
 		last-modification-date="2010-02-03T11:17:35.546Z">
 		<escidocItem:properties>
@@ -91,7 +91,7 @@
 					<source:source
 						type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
 						<dc:title>Börsen-Zeitung</dc:title>
-						<dcterms:alternative>BZ</dcterms:alternative>
+						<dcterms:alternative xsi:type="eterms:ABBREVIATION">BZ</dcterms:alternative>
 						<eterms:volume>55</eterms:volume>
 						<eterms:issue>3</eterms:issue>
 						<eterms:start-page>25</eterms:start-page>
@@ -106,7 +106,7 @@
 						-->
 					</source:source>
 					<eterms:total-number-of-pages />
-					<dcterms:abstract><![CDATA[JUS: Basedow, Jürgen, Der Grundsatz der Nichtdiskriminierung im europäischen Privatrecht, BZ 2010, 25 - 32.]]></dcterms:abstract>
+					<dcterms:abstract><![CDATA[JUS: <span class="Italic">Basedow, Jürgen</span>, Der Grundsatz der Nichtdiskriminierung im europäischen Privatrecht, BZ 2010, 25 - 32.]]></dcterms:abstract>
 					<dcterms:subject></dcterms:subject>
 					<dc:subject></dc:subject>
 					<dcterms:tableOfContents></dcterms:tableOfContents>
@@ -152,7 +152,7 @@
 		</escidocComponents:components>
 	</escidocItem:item>
 
-	<!-- JOURNAL ARTICLE  local-tag > Kurztitel_ZS_Band_Jahr-->
+	<!-- JOURNAL ARTICLE  local-tag > Kurztitel_ZS_Band_Jahr escidoc:51002-->
 	<escidocItem:item objid="escidoc:51002"
 		last-modification-date="2010-02-03T11:17:35.546Z">
 		<escidocItem:properties>
@@ -235,7 +235,7 @@
 					<source:source
 						type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
 						<dc:title>Zeitschrift für HR</dc:title>
-						<dcterms:alternative>ZHR</dcterms:alternative>
+						<dcterms:alternative xsi:type="eterms:ABBREVIATION">ZHR</dcterms:alternative>
 						<eterms:volume>170</eterms:volume>
 						<eterms:issue>10</eterms:issue>
 						<eterms:start-page>178</eterms:start-page>
@@ -248,7 +248,7 @@
 						</dc:identifier>
 					</source:source>
 					<eterms:total-number-of-pages />
-					<dcterms:abstract><![CDATA[JUS: Basedow, Jürgen, Die Nutzung fremder Infrastrukturen im Privatrecht, ZHR 170 (2006), 178 - 198.]]></dcterms:abstract>
+					<dcterms:abstract><![CDATA[JUS: <span class="Italic">Basedow, Jürgen</span>, Die Nutzung fremder Infrastrukturen im Privatrecht, ZHR 170 (2006), 178 - 198.]]></dcterms:abstract>
 					<dcterms:subject></dcterms:subject>
 					<dc:subject></dc:subject>
 					<dcterms:tableOfContents></dcterms:tableOfContents>
@@ -294,7 +294,7 @@
 		</escidocComponents:components>
 	</escidocItem:item>
 
-	<!-- CASE NOTE -->
+	<!-- CASE NOTE escidoc:26001 -->
 	<escidocItem:item objid="escidoc:26001"
 		last-modification-date="2010-01-14T10:33:51.706Z">
 		<escidocItem:properties>
@@ -380,7 +380,7 @@
 					</legalCase:legal-case>
 					<eterms:total-number-of-pages
 						xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">5</eterms:total-number-of-pages>
-					<dcterms:abstract><![CDATA[JUS: Basedow, Jürgen, Anmerkung zu LG München, 21.02.1984 - 28a C 10104/83 (Kündigungsfristklausel in AGB), Juristenzeitung (1985), 141 - 145.]]></dcterms:abstract>
+					<dcterms:abstract><![CDATA[JUS: <span class="Italic">Basedow, Jürgen</span>, Anmerkung zu LG München, 21.02.1984 - 28a C 10104/83 (Kündigungsfristklausel in AGB), Juristenzeitung 1985, 141 - 145.]]></dcterms:abstract>
 					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/">Lufttransportrecht,
 						Warschauer Abkommens, Haftungshöchstgrenzen</dcterms:subject>
 					<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">346 - Private law</dc:subject>
@@ -391,7 +391,7 @@
 		<escidocComponents:components xml:base="http://localhost:8080" />
 	</escidocItem:item>
 
-	<!-- CONTRIBUTION TO COLLECTED EDITION -->
+	<!-- CONTRIBUTION TO COLLECTED EDITION escidoc:18003-->
 	<escidocItem:item objid="escidoc:18003"
 		last-modification-date="2010-01-12T11:07:51.906Z">
 		<escidocItem:properties>
@@ -572,7 +572,7 @@
 					</source:source>
 					<eterms:total-number-of-pages
 						xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" />
-					<dcterms:abstract><![CDATA[JUS: Jessel-Holst, Christa, Bosnien-Herzegowina, in: Internationales Ehe- und Kindschaftsrecht (Hamburg Studies on maritime affairs, 10), Vol. 1, 2. ed., Springer, Berlin 2008, 19 - 25 (together with Dieter Henrich et al.).]]></dcterms:abstract>
+					<dcterms:abstract><![CDATA[JUS: <span class="Italic">Jessel-Holst, Christa</span>, Bosnien-Herzegowina, in: Internationales Ehe- und Kindschaftsrecht (Hamburg Studies on maritime affairs, 10), Vol. 1, 2. <localized class="edition">ed.</localized>, Springer, Berlin 2008, 19 - 25 (<localized class="togetherWith">together with</localized> Dieter Henrich et al.).]]></dcterms:abstract>
 					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" />
 					<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" />
 					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" />
@@ -620,7 +620,7 @@
 		</escidocComponents:components>
 	</escidocItem:item>
 
-	<!-- MONOGRAPH -->
+	<!-- MONOGRAPH escidoc:26012-->
 	<escidocItem:item objid="escidoc:26012"
 		last-modification-date="2010-01-14T17:05:17.675Z">
 		<escidocItem:properties>
@@ -779,7 +779,7 @@
 					</source:source>
 
 					<eterms:total-number-of-pages>1241</eterms:total-number-of-pages>
-					<dcterms:abstract><![CDATA[JUS: Zimmermann, Reinhard (ed.), The Law of Obligations. Roman Foundations of the Civilian Tradition (Studien zum ausländischen und internationalen Privatrecht, 203), 3. ed., Oxford University Press, Oxford 2010, 1241 pp. (together with Walter Doralt et al.).]]></dcterms:abstract>
+					<dcterms:abstract><![CDATA[JUS: <span class="Italic">Zimmermann, Reinhard</span> (<localized class="editor">ed.</localized>), The Law of Obligations. Roman Foundations of the Civilian Tradition (Studien zum ausländischen und internationalen Privatrecht, 203), 3. <localized class="edition">ed.</localized>, Oxford University Press, Oxford 2010, 1241 <localized class="page">pp.</localized> (<localized class="togetherWith">together with</localized> Walter Doralt et al.).]]></dcterms:abstract>
 					<dcterms:subject></dcterms:subject>
 					<dc:subject></dc:subject>
 					<dcterms:tableOfContents></dcterms:tableOfContents>
