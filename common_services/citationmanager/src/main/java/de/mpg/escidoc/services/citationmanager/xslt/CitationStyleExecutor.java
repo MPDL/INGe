@@ -30,35 +30,24 @@
 package de.mpg.escidoc.services.citationmanager.xslt;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.ArrayList;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRXmlDataSource;
-import net.sf.jasperreports.engine.design.JRDesignStaticText;
-import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRHtmlExporter;
 import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
@@ -67,7 +56,6 @@ import net.sf.jasperreports.engine.export.JRTextExporter;
 import net.sf.jasperreports.engine.export.JRTextExporterParameter;
 import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
 import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -98,6 +86,8 @@ public class CitationStyleExecutor implements CitationStyleHandler{
     private static final String SNIPPET_NS = "http://purl.org/dc/terms/";
 
 	
+    private static String pubManUrl = null;
+    
 	private static final Logger logger = Logger.getLogger(CitationStyleExecutor.class);	
 
 //	private static ProcessCitationStyles pcs = new ProcessCitationStyles();
@@ -164,8 +154,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 			transformer = XmlHelper.tryTemplCache(path).newTransformer();
 			
 			//set parameters
-			String pub_inst = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path"); 
-			transformer.setParameter("pubman_instance", pub_inst);
+			transformer.setParameter("pubman_instance", getPubManUrl());
 			
 			transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(sw));
 			
@@ -374,7 +363,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		try 
 		{ 
 			Transformer transformer = XmlHelper.tryTemplCache(ResourceUtil.getPathToTransformations() + "escidoc-publication-snippet2html.xsl").newTransformer();
-			transformer.setParameter("pubman_instance", PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path"));
+			transformer.setParameter("pubman_instance", getPubManUrl());
 			transformer.transform(new StreamSource(new StringReader(snippets)), new StreamResult(result));
 		} 
 		catch (Exception e) 
@@ -385,6 +374,37 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		return result.toString();
 	}
 	
-
+	
+	/**
+	 * Resolves PubMan instance url
+	 * @return PubMan URL
+	 */
+	private static String getPubManUrl()
+	{
+		if( pubManUrl == null )
+		{
+			try 
+			{
+				String contextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+				pubManUrl = 
+					PropertyReader.getProperty("escidoc.pubman.instance.url") + 
+					(contextPath == null ? "" : contextPath);
+				logger.info("pubman url 1:" + pubManUrl);
+				return pubManUrl; 
+			} 
+			catch (Exception e) 
+			{
+				throw new RuntimeException("Cannot get property:", e);
+			} 
+		}	
+		else 
+		{
+			logger.info("pubman url 2:" + pubManUrl);
+			return pubManUrl;
+		}
+		
+		
+	}
+	
 
 }
