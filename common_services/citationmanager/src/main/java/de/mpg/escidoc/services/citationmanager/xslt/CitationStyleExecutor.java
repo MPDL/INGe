@@ -163,8 +163,8 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 			/* get xslt from the templCache */
 			transformer = XmlHelper.tryTemplCache(path).newTransformer();
 			
-			//set parameters 
-			String pub_inst = PropertyReader.getProperty("escidoc.pubman.instance.url"); 
+			//set parameters
+			String pub_inst = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path"); 
 			transformer.setParameter("pubman_instance", pub_inst);
 			
 			transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(sw));
