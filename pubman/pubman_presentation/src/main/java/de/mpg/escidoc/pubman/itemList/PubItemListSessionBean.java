@@ -974,7 +974,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             // save selected file format on the web interface
             String selectedFileFormat = sb.getFileFormat();
             // for the display export data the file format should be always HTML
-            sb.setFileFormat(FileFormatVO.HTML_NAME);
+            sb.setFileFormat(FileFormatVO.HTML_STYLED_NAME);
             ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
             try
             {
