@@ -197,7 +197,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		    	 } 
 				result = v1;
 			}
-			else if ("html".equals(outputFormat))
+			else if ("html_plain".equals(outputFormat))
 			{
 				result = generateHtmlOutput(snippet).getBytes("UTF-8");
 			}
@@ -257,15 +257,14 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 					{
 						exporter = new JRPdfExporter();
 					}
-//					Moved to the simple version, see above					
-//					else if ("html".equals(outputFormat))
-//					{
-//						exporter = new JRHtmlExporter();
-//						/* Switch off pagination and null pixel alignment for JRHtmlExporter */
-//				        exporter.setParameter(JRHtmlExporterParameter.BETWEEN_PAGES_HTML, "");
-//				        exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
-//		                exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.FALSE);						
-//					}
+					else if ("html_styled".equals(outputFormat))
+					{
+						exporter = new JRHtmlExporter();
+						/* Switch off pagination and null pixel alignment for JRHtmlExporter */
+				        exporter.setParameter(JRHtmlExporterParameter.BETWEEN_PAGES_HTML, "");
+				        exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
+		                exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.FALSE);						
+					}
 					else if ("rtf".equals(outputFormat))
 					{
 						exporter = new JRRtfExporter();

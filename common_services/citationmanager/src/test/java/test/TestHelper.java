@@ -41,6 +41,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
@@ -95,6 +97,23 @@ public class TestHelper
 	public static final String USER_PASSWD = "citman_user";
 	public static final String CONTEXT = "Citation Style Testing Context";
 	public static final String SEARCH_CONTEXT = "escidoc.context.name=%22Citation%20Style%20Testing%20Context%22";
+	
+    private static final Map<String, String> formatExtensions =   
+    	new HashMap<String, String>()   
+    	{  
+			{  
+                put("txt", "txt");
+                put("pdf", "pdf");
+                put("rtf", "rtf");
+                put("html_plain", "html");
+                put("html_styled", "html");
+                put("odt", "odt");
+                put("snippet", "xml");
+                put("escidoc_snippet", "xml");
+                put("xml", "xml");
+                put("escidoc_xml", "xml");
+	    	}  
+    	};
 	
 	
     public static String getTestItemListFromFramework() throws IOException, ServiceException, URISyntaxException
@@ -425,6 +444,15 @@ public class TestHelper
 	{
 		return extractTag(xml, "dcterms:abstract"); 
 	}    
+	
+	 /**
+     * Delivers the name of the selected file according to name of format.
+     */
+    public static String getExtensionByName(String name)
+    {
+    	name = name == null || name.trim().equals("") ? "" : name.trim();  
+    	return formatExtensions.containsKey(name) ? formatExtensions.get(name) : formatExtensions.get("pdf");   
+    }
     
 }
 
