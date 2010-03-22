@@ -28,6 +28,7 @@
  */ 
 package de.mpg.escidoc.services.framework;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -67,6 +68,8 @@ public class PropertyReader
     private static final String PROPERTY_FILE_KEY = "pubman.properties.file";
     
     private static URL solution;
+    
+    private static String fileLocation = null;
 
     /**
      * Gets the value of a property for the given key from the system properties or the escidoc property file.
@@ -134,14 +137,14 @@ public class PropertyReader
             propertiesFile = DEFAULT_PROPERTY_FILE;
             Logger.getLogger(PropertyReader.class).debug("solution.properties file not found. Trying default.");
         }
-        
+
         InputStream instream = getInputStream(propertiesFile);
         properties = new Properties();
         properties.load(instream);
         properties.putAll(solProperties);
             
-        Logger.getLogger(PropertyReader.class).info("Properties loaded from " + propertiesFile);
-        Logger.getLogger(PropertyReader.class).info(properties.toString());
+        Logger.getLogger(PropertyReader.class).info("Properties loaded from " + fileLocation);
+        //Logger.getLogger(PropertyReader.class).info(properties.toString());
     }
 
     /**
@@ -159,6 +162,7 @@ public class PropertyReader
         try
         {
             instream = new FileInputStream(filepath);
+            fileLocation = (new File(filepath)).getAbsolutePath();
         }
         catch (Exception e)
         {
@@ -167,6 +171,7 @@ public class PropertyReader
             if (url != null)
             {
                 instream = url.openStream();
+                fileLocation = url.getFile();
             }
         }
         if (instream == null)

@@ -76,19 +76,24 @@ public class TestLoginLogout
 
     private static String loginUser(String userid, String password) throws ServiceException, HttpException, IOException, URISyntaxException
     {
-    	String frameworkUrl = ServiceLocator.getFrameworkUrl();
-    	StringTokenizer tokens = new StringTokenizer( frameworkUrl, "//" );
-    	if( tokens.countTokens() != NUMBER_OF_URL_TOKENS ) {
-    		throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
-    	}
-    	tokens.nextToken();
-    	StringTokenizer hostPort = new StringTokenizer(tokens.nextToken(), ":");
-    	
-    	if( hostPort.countTokens() != NUMBER_OF_URL_TOKENS ) {
-    		throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
-    	}
-    	String host = hostPort.nextToken();
-    	int port = Integer.parseInt( hostPort.nextToken() );
+        String frameworkUrl = ServiceLocator.getFrameworkUrl();
+
+        int delim1 = frameworkUrl.indexOf("//");
+        int delim2 = frameworkUrl.indexOf(":", delim1);
+        
+        String host;
+        int port;
+        
+        if (delim2 > 0)
+        {
+            host = frameworkUrl.substring(delim1 + 2, delim2);
+            port = Integer.parseInt(frameworkUrl.substring(delim2 + 1));
+        }
+        else
+        {
+            host = frameworkUrl.substring(delim1 + 2);
+            port = 80;
+        }
     	
         HttpClient client = new HttpClient();
         client.getHostConfiguration().setHost( host, port, "http");
