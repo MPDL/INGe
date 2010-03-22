@@ -188,16 +188,15 @@ public class XsltHelper {
 	 * Generates a Map with citation styles and idValue-Type-Pairs. 
 	 * @throws Exception
 	 */
-	public static void getJournalsXML() throws Exception {
+	public static void getJournalsXML() throws Exception 
+	{
 		HttpClient client = new HttpClient();
 
-		String coneUrl = PropertyReader.getProperty("escidoc.cone.service.url");
-		
-		String coneQuery = coneUrl + "journals/query?format=rdf&escidoc:citation-style=*&m=full&l=0";
-		//logger.info("cone query:" + coneQuery);
-		GetMethod getMethod = new GetMethod(
-				//coneQuery
-				"http://dev-pubman.mpdl.mpg.de/cone/journals/query?format=rdf&escidoc:citation-style=*&m=full&l=0");
+		String coneQuery = 
+			PropertyReader.getProperty("escidoc.cone.service.url") 
+			+ "journals/query?format=rdf&escidoc:citation-style=*&m=full&l=0";
+		logger.info("cone query:" + coneQuery);
+		GetMethod getMethod = new GetMethod(coneQuery);
 
 		client.executeMethod(getMethod);
 

@@ -41,7 +41,7 @@ import org.junit.runners.Suite;
  * @version $Revision$ $LastChangedDate$ by $Author$
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({
+@Suite.SuiteClasses({ 
                     TestCitationManager.class
 					, 
 					TestCitationStylesSubstantial.class                                        

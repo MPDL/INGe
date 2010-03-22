@@ -145,8 +145,8 @@ public class TestCitationManager {
     public final void testCitationStyleValidation() throws IOException, CitationStyleManagerException, ParserConfigurationException, SAXException
     {
         
-//      for (String cs : cse.getStyles() )
-        for (String cs : new String[]{"APA","AJP"} )
+      for (String cs : cse.getStyles() )
+//        for (String cs : new String[]{"APA","AJP"} )
         {
             logger.info("Validate Citation Style: " + cs);
             String csName = 
@@ -176,9 +176,9 @@ public class TestCitationManager {
         
      for (
     		 String cs : 
-//    			 new String[]{"APA","AJP"}
-    			 new String[]{"APA"}
-//     			cse.getStyles()
+////    			 new String[]{"APA","AJP"}
+//    			 new String[]{"APA"}
+     			cse.getStyles()
      ) {
             long start;
             byte[] result;
@@ -210,24 +210,24 @@ public class TestCitationManager {
     }
     
 
-  @Test
+//  @Test
     // @Ignore
-     public final void testJusOutput() throws Exception {
-       	
-       	CitationStyleExecutor cse = new CitationStyleExecutor();
-         
-//       for (String cs : pcs.getStyles() )
-             byte[] result;
-         	
-         	result = cse.getOutput("JUS", "snippet", itemList);
-         	
-         	System.out.println(new String(result, "UTF-8"));
-             
-//         TestHelper.writeToFile(cs + "." + format, result);
-
-         	
-             
-     }
+//     public final void testJusOutput() throws Exception {
+//       	
+//       	CitationStyleExecutor cse = new CitationStyleExecutor();
+//         
+////       for (String cs : pcs.getStyles() )
+//             byte[] result;
+//         	
+//         	result = cse.getOutput("JUS", "snippet", itemList);
+//         	
+//         	System.out.println(new String(result, "UTF-8"));
+//             
+////         TestHelper.writeToFile(cs + "." + format, result);
+//
+//         	
+//             
+//     }
     
 
  
