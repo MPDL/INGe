@@ -44,6 +44,7 @@ import de.mpg.escidoc.services.cone.QuerierFactory;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 
 /**
@@ -59,11 +60,21 @@ public class RDFHandler extends ShortContentHandler
 
     private List<LocalizedTripleObject> result = new ArrayList<LocalizedTripleObject>();
     private Stack<LocalizedTripleObject> stack = new Stack<LocalizedTripleObject>();
+    private String instanceUrl;
     
     private Querier querier;
     
-    public RDFHandler(boolean loggedIn){
+    public RDFHandler(boolean loggedIn)
+    {
     	querier  = QuerierFactory.newQuerier(loggedIn);
+    	try
+    	{
+    	    this.instanceUrl = PropertyReader.getProperty("escidoc.cone.service.url");
+    	}
+    	catch (Exception e)
+    	{
+    	    throw new RuntimeException(e);
+    	}
     }
     
     @Override
@@ -73,7 +84,7 @@ public class RDFHandler extends ShortContentHandler
         if ("RDF/Description".equals(getLocalStack().toString()))
         {
             // New element
-            String subject = attributes.getValue("rdf:about");
+            String subject = attributes.getValue("rdf:about").replace(this.instanceUrl, "");
             this.stack.push(new TreeFragment(subject));
         }
         else if (!"RDF".equals(getLocalStack().toString()))

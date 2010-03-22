@@ -67,7 +67,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 		<primary-identifier control="true" generate-cone-id="false" subject-prefix="iso639-3/resource/" identifier-prefix=""/>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true"/>
-			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="true" localized="false" searchable="false"/>
+			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="true" localized="false" searchable="true"/>
 		</predicates>
 		<result>
 			<pattern>
@@ -170,9 +170,10 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 		</predicates>
 		<result>
 			<pattern>
-&lt;http://dewey.info/class&gt;
- - 
 &lt;http://purl.org/dc/elements/1.1/title&gt;
+ (
+&lt;http://dewey.info/class&gt;
+)
 			</pattern>
 		</result>
 		<description>DDC Subjects</description>
