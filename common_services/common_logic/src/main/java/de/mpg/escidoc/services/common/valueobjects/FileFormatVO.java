@@ -64,8 +64,11 @@ public class FileFormatVO extends ValueObject
     public static final String RTF_NAME = "rtf";
     public static final String RTF_MIMETYPE = "application/rtf";
     
-    public static final String HTML_NAME = "html";
-    public static final String HTML_MIMETYPE = "text/html";
+    public static final String HTML_PLAIN_NAME = "html_plain";
+    public static final String HTML_PLAIN_MIMETYPE = "text/html";
+    
+    public static final String HTML_STYLED_NAME = "html_styled";
+    public static final String HTML_STYLED_MIMETYPE = "text/html";
     
     public static final String ODT_NAME = "odt";
     public static final String ODT_MIMETYPE = "application/vnd.oasis.opendocument.text";
@@ -92,7 +95,8 @@ public class FileFormatVO extends ValueObject
                 put(TEXT_NAME, "txt");
                 put(PDF_NAME, "pdf");
                 put(RTF_NAME, "rtf");
-                put(HTML_NAME, "html");
+                put(HTML_PLAIN_NAME, "html");
+                put(HTML_STYLED_NAME, "html");
                 put(ODT_NAME, "odt");
                 put(SNIPPET_NAME, "xml");
                 put(ESCIDOC_SNIPPET_NAME, "xml");
@@ -108,7 +112,8 @@ public class FileFormatVO extends ValueObject
     			put(TEXT_NAME, TEXT_MIMETYPE);
     			put(PDF_NAME, PDF_MIMETYPE);
     			put(RTF_NAME, RTF_MIMETYPE);
-    			put(HTML_NAME, HTML_MIMETYPE);
+    			put(HTML_PLAIN_NAME, HTML_PLAIN_MIMETYPE);
+    			put(HTML_STYLED_NAME, HTML_STYLED_MIMETYPE);
     			put(ODT_NAME, ODT_MIMETYPE);
     			put(SNIPPET_NAME, SNIPPET_MIMETYPE);
     			put(ESCIDOC_SNIPPET_NAME, ESCIDOC_SNIPPET_MIMETYPE);
