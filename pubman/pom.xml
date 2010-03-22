@@ -647,8 +647,6 @@
 				<escidoc.pid.service.delete.path>/write/delete</escidoc.pid.service.delete.path>
 				<escidoc.pid.service.update.path>/write/modify</escidoc.pid.service.update.path>
 				<escidoc.pid.service.search.path>/read/search</escidoc.pid.service.search.path>
-				<escidoc.pid.gwdg.user.login>demo2</escidoc.pid.gwdg.user.login>
-				<escidoc.pid.gwdg.user.password>Evaluierung</escidoc.pid.gwdg.user.password>
 				
 			</properties>
 			
@@ -884,8 +882,6 @@
 				<escidoc.pid.service.delete.path>/write/delete</escidoc.pid.service.delete.path>
 				<escidoc.pid.service.update.path>/write/modify</escidoc.pid.service.update.path>
 				<escidoc.pid.service.search.path>/read/search</escidoc.pid.service.search.path>
-				<escidoc.pid.gwdg.user.login>demo2</escidoc.pid.gwdg.user.login>
-				<escidoc.pid.gwdg.user.password>Evaluierung</escidoc.pid.gwdg.user.password>
 				
 			</properties>
 				<distributionManagement>
