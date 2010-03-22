@@ -39,7 +39,13 @@
 <%
 	response.setHeader("Content-Type", "text/plain");
 
-	Querier querier = QuerierFactory.newQuerier();
+	boolean loggedIn = false;
+	if (request.getSession().getAttribute("logged_in") != null)
+	{
+	    ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
+	}
+
+	Querier querier = QuerierFactory.newQuerier(loggedIn);
 	
 	out.println("Reset started...");
 	out.flush();
