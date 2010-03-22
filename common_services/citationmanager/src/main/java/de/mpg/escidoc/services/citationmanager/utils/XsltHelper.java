@@ -176,8 +176,8 @@ public class XsltHelper {
 			}
 		}
 
-		// logger.info("CIT STYLE " + idType + ", idValue: " + idValue +
-		// ", citation style: " + citationStyle);
+		 logger.info("CIT STYLE " + idType + ", idValue: " + idValue +
+		 ", citation style: " + citationStyle);
 
 		return citationStyle;
 
@@ -194,8 +194,10 @@ public class XsltHelper {
 		String coneUrl = PropertyReader.getProperty("escidoc.cone.service.url");
 		
 		String coneQuery = coneUrl + "journals/query?format=rdf&escidoc:citation-style=*&m=full&l=0";
-		logger.info("cone query:" + coneQuery);
-		GetMethod getMethod = new GetMethod(coneQuery);
+		//logger.info("cone query:" + coneQuery);
+		GetMethod getMethod = new GetMethod(
+				//coneQuery
+				"http://dev-pubman.mpdl.mpg.de/cone/journals/query?format=rdf&escidoc:citation-style=*&m=full&l=0");
 
 		client.executeMethod(getMethod);
 
