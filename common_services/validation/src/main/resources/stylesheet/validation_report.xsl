@@ -68,6 +68,15 @@
 		<xsl:apply-templates/>
 	</xsl:template>
 	
+	<xsl:template name="process-prolog">
+		<xsl:comment>A user-defined function to check if a string is contained in one of the string values of a list</xsl:comment>
+		<axsl:function name="escidoc:contains" as="xs:boolean">
+			<axsl:param name="list"/>
+			<axsl:param name="value"/>
+			<axsl:value-of select="exists($list[contains(., $value)])"/>
+		</axsl:function>
+	</xsl:template>
+	
 	<xsl:template name="process-diagnostic">
 		<xsl:param name="id"/>
 
@@ -323,7 +332,7 @@
 	  <xsl:if test="ancestor::iso:schema[@queryBinding='xpath']">
                     <xsl:message>Warning: Variables should not be used with the "xpath" query language binding.</xsl:message>
        </xsl:if>
-		<axsl:variable name="{@name}"><xsl:if test="@value != ''"><axsl:attribute name="select"><xsl:value-of select="@value"/></axsl:attribute></xsl:if><xsl:copy-of select="./*"/></axsl:variable>
+		<axsl:variable name="{@name}"><xsl:if test="@value != ''"><xsl:attribute name="select"><xsl:value-of select="@value"/></xsl:attribute></xsl:if><xsl:copy-of select="./*"/></axsl:variable>
 	</xsl:template>
 	
 </xsl:stylesheet>
