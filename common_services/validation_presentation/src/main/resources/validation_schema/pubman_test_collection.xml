@@ -33,7 +33,7 @@
 
 <iso:schema xmlns:iso="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt2" schemaVersion="ISO19757-3" defaultPhase="default">
 	
-<iso:ns prefix="item" uri="${xsd.soap.item.item}"/>
+	<iso:ns prefix="item" uri="${xsd.soap.item.item}"/>
 	<iso:ns prefix="escidocMetadataRecords" uri="${xsd.soap.common.mdrecords}"/>
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
@@ -70,6 +70,7 @@
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="component_mimeType"/>
 		<iso:active pattern="classified_keywords"/>
+		<iso:active pattern="language_code"/>
 		<iso:active pattern="no_slashes_in_filename"/>
 		<iso:active pattern="id_type_required"/>
 		
@@ -116,6 +117,7 @@
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="component_mimeType"/>
 		<iso:active pattern="classified_keywords"/>
+		<iso:active pattern="language_code"/>
 		<iso:active pattern="no_slashes_in_filename"/>
 		<iso:active pattern="id_type_required"/>
 	</iso:phase>
@@ -137,6 +139,7 @@
 		<iso:active pattern="source_genre_required"/>
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="classified_keywords"/>
+		<iso:active pattern="language_code"/>
 		<iso:active pattern="no_slashes_in_filename"/>
 		<iso:active pattern="id_type_required"/>
 		
@@ -162,6 +165,7 @@
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="component_mimeType"/>
 		<iso:active pattern="classified_keywords"/>
+		<iso:active pattern="language_code"/>
 		<iso:active pattern="no_slashes_in_filename"/>
 		<iso:active pattern="id_type_required"/>
 		
@@ -188,6 +192,13 @@
 	<iso:let name="mpipksSubjects">
 		<var>
 			<?cone mpipks?>
+		</var>
+	</iso:let>
+
+	<!-- ISO639-3 -->
+	<iso:let name="iso639-3">
+		<var>
+			<?cone iso639-3?>
 		</var>
 	</iso:let>
 	
@@ -387,6 +398,7 @@
 		<iso:rule context="publication:publication/dc:subject">
 			<iso:assert test="not(exists($ddcSubjects/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:DDC' or . = $ddcSubjects/var/rdf:RDF/rdf:Description/dc:title">IncorrectClassification</iso:assert>
 			<iso:assert test="not(exists($mpipksSubjects/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:MPIPKS' or . = $mpipksSubjects/var/rdf:RDF/rdf:Description/dc:title">IncorrectClassification</iso:assert>
+			<iso:assert test="not(exists($iso639-3/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:ISO639-3' or . = $iso639-3/var/rdf:RDF/rdf:Description/dc:title">IncorrectClassification</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
@@ -394,6 +406,13 @@
 	<iso:pattern name="no_slashes_in_filename" id="no_slashes_in_filename">
 		<iso:rule context="escidocComponents:component">
 			<iso:assert test="not(escidocComponents:content/@storage = 'internal-managed') or (not(contains(escidocComponents:properties/prop:file-name, '/')) and not(contains(escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/file:file/dc:title, '/')))">SlashInFilename</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!-- The language codes of the publication must be in ISO639-3 -->
+	<iso:pattern name="language_code" id="language_code">
+		<iso:rule context="publication:publication/dc:language">
+			<iso:assert test="not(exists($iso639-3/var/rdf:RDF)) or . = '' or escidoc:contains($iso639-3/var/rdf:RDF/rdf:Description/@rdf:about, .)">UnknownLanguageCode</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
