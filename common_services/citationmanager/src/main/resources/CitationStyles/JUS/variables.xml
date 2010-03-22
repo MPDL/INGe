@@ -101,21 +101,23 @@
 		will be chosen in the following order: SFX-ISSN-ZDB -->
 		<variable name="idType">
 			<![CDATA[
-				if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:SFX']) 
-				then 'SFX'
-				
-				else if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:ISSN']) 
-				then 'ISSN'
-				
-				else if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:ZDB']) 
-				then 'ZDB'
-				
+				if ($sourceGenre=$l_journal) then 
+					if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:SFX']) 
+					then 'SFX'
+					
+					else if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:ISSN']) 
+					then 'ISSN'
+					
+					else if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:ZDB']) 
+					then 'ZDB'
+					else ''
 				else '']]>
 		</variable>
 		
 		<!-- IdValue for the chosen idType -->
 		<variable name="idValue">
 			<![CDATA[
+			if ($sourceGenre=$l_journal) then 
 				if ($idType = 'SFX') 
 				then normalize-space(pub:publication/source:source/dc:identifier[@xsi:type='eterms:SFX']/text())
 				
@@ -125,6 +127,7 @@
 				else if ($idType = 'ZDB') 
 				then pub:publication/source:source/dc:identifier[@xsi:type='eterms:ZDB']/text()
 				
+				else ''
 				else '']]>
 		</variable>
 		
@@ -146,9 +149,9 @@
 		<variable name="kurztitel_zs_jahr"> <![CDATA['Kurztitel_ZS_Jahr']]></variable>
 		<variable name="kurztitel_zs_band_jahr"> <![CDATA['Kurztitel_ZS_Band_Jahr']]></variable>
 		
-		<!-- call a function in src/main/resources/functions.xml with the given idType and idValue
-		<variable name="getCitationStyleForJournal"><![CDATA[func:getCitationStyleForJournal($idType,$idValue)]]></variable>
-		 -->
+		<!-- call a function in src/main/resources/functions.xml with the given idType and idValue -->
+		<variable name="getCitationStyleForJournal"><![CDATA[if ($sourceGenre=$l_journal) then func:getCitationStyleForJournal($idType,$idValue) else '']]></variable>
+		
 	
 		
 </variables>
