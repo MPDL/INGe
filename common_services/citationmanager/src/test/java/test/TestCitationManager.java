@@ -209,6 +209,27 @@ public class TestCitationManager {
         }
     }
     
+
+  @Test
+    // @Ignore
+     public final void testJusOutput() throws Exception {
+       	
+       	CitationStyleExecutor cse = new CitationStyleExecutor();
+         
+//       for (String cs : pcs.getStyles() )
+             byte[] result;
+         	
+         	result = cse.getOutput("JUS", "snippet", itemList);
+         	
+         	System.out.println(new String(result, "UTF-8"));
+             
+//         TestHelper.writeToFile(cs + "." + format, result);
+
+         	
+             
+     }
+    
+
  
     
 }
