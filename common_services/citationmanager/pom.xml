@@ -74,10 +74,6 @@
 				<directory>src/main/resources/Fonts</directory>
 				<filtering>false</filtering>
 			</resource>
-			<resource>
-				<directory>src/test/resources</directory>
-				<filtering>true</filtering>
-			</resource>
 		</resources>
 		<testResources>
 			<testResource>
@@ -212,7 +208,7 @@
 			<groupId>com.sun</groupId>
 			<artifactId>tools</artifactId>
 			<version>1.5</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>xalan</groupId>
