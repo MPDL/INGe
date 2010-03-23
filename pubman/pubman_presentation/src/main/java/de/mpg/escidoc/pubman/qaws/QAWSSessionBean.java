@@ -33,8 +33,11 @@ package de.mpg.escidoc.pubman.qaws;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.model.SelectItem;
+
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -77,7 +80,11 @@ public class QAWSSessionBean extends FacesBean
     private String selectedOrgUnit;
 
  
-    
+    /**
+     * A list with the menu entries for the org units filter menu.
+     */
+    private List<SelectItem> orgUnitSelectItems;
+
 
     /**
      * Public constructor.
@@ -86,6 +93,15 @@ public class QAWSSessionBean extends FacesBean
     {
     	
         //this.init();
+        AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
+        try
+        {
+            this.setOrgUnitSelectItems(affTree.getAffiliationSelectItems());
+        }
+        catch (Exception e)
+        {
+            LOGGER.error("Error in retrieving organizations", e);
+        }
     }
 
     /**
@@ -156,4 +172,15 @@ public class QAWSSessionBean extends FacesBean
 	public void setSelectedOrgUnit(String selectedOrgUnit) {
 		this.selectedOrgUnit = selectedOrgUnit;
 	}
+	
+
+    public List<SelectItem> getOrgUnitSelectItems()
+    {
+        return orgUnitSelectItems;
+    }
+
+    public void setOrgUnitSelectItems(List<SelectItem> orgUnitSelectItems)
+    {
+        this.orgUnitSelectItems = orgUnitSelectItems;
+    }
 }

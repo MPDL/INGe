@@ -1,10 +1,8 @@
 package de.mpg.escidoc.pubman.qaws;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +14,6 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
-import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
@@ -28,7 +25,6 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LocalTagFilter;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -64,10 +60,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     private List<SelectItem> contextSelectItems;
 
-    /**
-     * A list with the menu entries for the org units filter menu.
-     */
-    private List<SelectItem> orgUnitSelectItems;
 	// Faces navigation string
 	public static final String LOAD_QAWS = "loadQAWSPage";
     
@@ -84,17 +76,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     {
         //affiliationMap = new HashMap<String, AffiliationVOPresentation>();
         checkLogin();
-        AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
-        try
-        {
-            orgUnitSelectItems = affTree.getAffiliationSelectItems();
-        }
-        catch (Exception e)
-        {
-            logger.error("Error in retrieving organizations", e);
-            error ("Couldn't retrieve all organizational units for the filter menu");
-        }
-
         initSelectionMenu();
         
     }
@@ -170,11 +151,11 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
                 filter.getFilterList().add(f10);
             }
             
-            if (!getSelectedOrgUnit().toLowerCase().equals("all"))
-            {
-                AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
-                addOrgFiltersRecursive(affTree.getAffiliationMap().get(getSelectedOrgUnit()), filter);
-            }
+//            if (!getSelectedOrgUnit().toLowerCase().equals("all"))
+//            {
+//                AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
+//                addOrgFiltersRecursive(affTree.getAffiliationMap().get(getSelectedOrgUnit()), filter);
+//            }
             
             if (!getSelectedImport().toLowerCase().equals("all"))
             {
@@ -436,24 +417,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         }
         
         setImportSelectItems(importSelectItems);
-        
-        /*
-        //Org unit menu
-        orgUnitSelectItems = new ArrayList<SelectItem>();
-        orgUnitSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
-        
-        AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
-        
-        List<AffiliationVOPresentation> topLevelAffs = affTree.getAffiliations();
-        try
-        {
-            addChildAffiliationsToMenu(topLevelAffs, orgUnitSelectItems, 0);
-        }
-        catch (Exception e)
-        {
-           error ("Couldn't retrieve all organizational units for the filter menu");
-        }
-        */
     }
     
     /**
@@ -556,14 +519,9 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         return "QAWSPage.jsp";
     }
 
-    public void setOrgUnitSelectItems(List<SelectItem> orgUnitSelectItems)
-    {
-        this.orgUnitSelectItems = orgUnitSelectItems;
-    }
-
     public List<SelectItem> getOrgUnitSelectItems()
     {
-        return orgUnitSelectItems;
+        return this.getQAWSSessionBean().getOrgUnitSelectItems();
     }
 
     public void setSelectedOrgUnit(String selectedOrgUnit)
