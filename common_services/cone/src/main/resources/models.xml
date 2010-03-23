@@ -171,9 +171,8 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 		<result>
 			<pattern>
 &lt;http://purl.org/dc/elements/1.1/title&gt;
- (
+ - 
 &lt;http://dewey.info/class&gt;
-)
 			</pattern>
 		</result>
 		<description>DDC Subjects</description>
