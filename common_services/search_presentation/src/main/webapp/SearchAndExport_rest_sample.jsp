@@ -351,7 +351,8 @@
 											<label class="double_label" for="outputFormat">Output Format</label>
 											<select class="double_select" name="outputFormat">
 							                    <option value="pdf">PDF</option>
-												<option value="html">HTML</option>
+												<option value="html_plain">plain HTML</option>
+												<option value="html_styled">styled HTML</option>
 												<option value="rtf">RTF</option>
 												<option value="odt">ODT</option>
 												<option value="snippet">SNIPPET v5.x</option>
