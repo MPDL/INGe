@@ -74,14 +74,14 @@
 				<div class="free_area0 itemLine noTopBorder">
 					<!-- This one is only valid for cone identifier, other values from cone are not populated with the url -->
 					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.selectedValue == 'persons'}">									
-						<h:outputLink id="lnkLink" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{BrowseByPage.coneUrl}/persons/resource/#{link.value}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22escidoc%3Apersistent4%22+)">
+						<h:outputLink id="lnkLink" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{BrowseByPage.coneUrl}/persons/resource/#{link.value}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)">
 							<h:outputText value="#{link.label}"/>
 						</h:outputLink>
 						<h:outputLink id="lnkPersonPortfolioLink" styleClass="authorCard" value="#{BrowseByPage.portfolioLink}#{link.value}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 					</h:panelGroup>	
 					<!-- Link for other values then persons -->	
 					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.selectedValue != 'persons'}">									
-						<h:outputLink id="lnkLink2" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{link.label}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22escidoc%3Apersistent4%22+)">								
+						<h:outputLink id="lnkLink2" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{link.label}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)">								
 							<h:outputText value="#{link.label}"/>
 						</h:outputLink>
 					</h:panelGroup>					
@@ -100,14 +100,14 @@
 				<div class="free_area0 itemLine noTopBorder">
 					<!-- This one is only valid for cone identifier, other values from cone are not populated with the url -->
 					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.selectedValue == 'persons'}">									
-						<h:outputLink id="lnkLinkAll" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{BrowseByPage.coneUrl}/persons/resource/#{link.value}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22escidoc%3Apersistent4%22+)">
+						<h:outputLink id="lnkLinkAll" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{BrowseByPage.coneUrl}/persons/resource/#{link.value}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)">
 							<h:outputText value="#{link.label}"/>
 						</h:outputLink>
 						<h:outputLink id="lnkPersonPortfolioLinkAll" styleClass="authorCard" value="#{BrowseByPage.portfolioLink}#{link.value}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 					</h:panelGroup>	
 					<!-- Link for other values then persons -->	
 					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.selectedValue != 'persons'}">									
-						<h:outputLink id="lnkLink2All" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{link.label}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22escidoc%3Apersistent4%22+)">								
+						<h:outputLink id="lnkLink2All" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{link.label}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)">								
 							<h:outputText value="#{link.label}"/>
 						</h:outputLink>
 					</h:panelGroup>					
@@ -124,12 +124,12 @@
 			<tr:iterator var="year" id="yearIter" value="#{BrowseBySessionBean.browseByYears}" binding="#{BrowseByPage.yearIterator}" varStatus="index" rows="0" >
 				<div class="small_area0 noTopBorder">
 					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.dateType == 'published'}">						
-						<h:outputLink id="searchYearPublished" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseByPage.pubYearSearchIndex}>%3D%22#{year}%22++and+(+#{BrowseByPage.pubYearSearchIndex}%3C%3D%22#{year}\-12\-31%22+)+)++or++(+#{BrowseByPage.pubOnlineYearSearchIndex}%3D%22#{year}%22+++and+(+#{BrowseByPage.pubOnlineYearSearchIndex}%3C%3D%22#{year}\-12\-31%22+)+)++and++(+escidoc.objecttype%3D%22item%22+)+and++(+escidoc.content-model.objid%3D%22escidoc%3Apersistent4%22+)+)">								
+						<h:outputLink id="searchYearPublished" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseByPage.pubYearSearchIndex}>%3D%22#{year}%22++and+(+#{BrowseByPage.pubYearSearchIndex}%3C%3D%22#{year}\-12\-31%22+)+)++or++(+#{BrowseByPage.pubOnlineYearSearchIndex}%3D%22#{year}%22+++and+(+#{BrowseByPage.pubOnlineYearSearchIndex}%3C%3D%22#{year}\-12\-31%22+)+)++and++(+escidoc.objecttype%3D%22item%22+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)+)">								
 							<h:outputText value="#{year}"/>
 						</h:outputLink>									
 					</h:panelGroup>		
 					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.dateType == 'any'}">						
-						<h:outputLink id="searchYearAny" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseByPage.anyYearSearchIndex}>%3D%22#{year}%22++and+(+#{BrowseByPage.anyYearSearchIndex}%3C%3D%22#{year}\-12\-31%22+)+)++and++(+escidoc.objecttype%3D%22item%22+)+and++(+escidoc.content-model.objid%3D%22escidoc%3Apersistent4%22+)+)">								
+						<h:outputLink id="searchYearAny" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseByPage.anyYearSearchIndex}>%3D%22#{year}%22++and+(+#{BrowseByPage.anyYearSearchIndex}%3C%3D%22#{year}\-12\-31%22+)+)++and++(+escidoc.objecttype%3D%22item%22+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)+)">								
 							<h:outputText value="#{year}"/>
 						</h:outputLink>									
 					</h:panelGroup>		

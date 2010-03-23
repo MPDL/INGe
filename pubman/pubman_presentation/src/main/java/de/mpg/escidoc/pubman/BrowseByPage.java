@@ -30,19 +30,13 @@
 package de.mpg.escidoc.pubman;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
@@ -52,6 +46,7 @@ import org.apache.myfaces.trinidad.component.UIXIterator;
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.browseBy.BrowseBySessionBean;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 
 /**
  * 
@@ -66,11 +61,11 @@ public class BrowseByPage extends BreadcrumbPage
 {
     private static Logger logger = Logger.getLogger(BrowseByPage.class);
     
-    private final String persSearchIndex = "escidoc.publication.creator.person.identifier";
-    private final String subSearchIndex ="escidoc.publication.subject";
-    private final String pubYearSearchIndex="escidoc.publication.issued";
-    private final String pubOnlineYearSearchIndex="escidoc.publication.published-online";
-    private final String anyYearSearchIndex="escidoc.any-dates";
+    private final String persSearchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();
+    private final String subSearchIndex = MetadataSearchCriterion.getINDEX_TOPIC();
+    private final String pubYearSearchIndex= MetadataSearchCriterion.getINDEX_DATE_ISSUED();
+    private final String pubOnlineYearSearchIndex= MetadataSearchCriterion.getINDEX_DATE_PUBLISHED_ONLINE();
+    private final String anyYearSearchIndex= MetadataSearchCriterion.getINDEX_DATE_ANY();
 
     private final String queryPerson="foaf:family_name";
     private final String queryDdc="dc:title";

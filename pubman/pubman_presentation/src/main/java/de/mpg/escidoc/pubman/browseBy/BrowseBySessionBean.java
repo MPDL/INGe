@@ -31,8 +31,10 @@
 package de.mpg.escidoc.pubman.browseBy;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -55,6 +57,7 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElemen
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
 import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
 
@@ -79,11 +82,11 @@ public class BrowseBySessionBean extends FacesBean
     List <String> allResults;
     private String currentCharacter = "A";
     private String selectedValue ="persons";
-    private String searchIndex ="escidoc.publication.creator.person.identifier";
+    private String searchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();
     private int yearStart;
     private String query ="q";
     private String dateType = "published";
-
+    private String pubContentModel = "";
 
     private List<String> browseByYears;
     private HtmlSelectOneRadio dateSelect = new HtmlSelectOneRadio();
@@ -95,14 +98,21 @@ public class BrowseBySessionBean extends FacesBean
      */
     public BrowseBySessionBean()
     {
-
+        try
+        {
+            this.pubContentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+        }
+        catch (Exception e)
+        {
+            this.logger.warn("Could not read property content model.", e);
+        }
     }
 
     public void clear()
     {
         this.currentCharacter ="A";
         this.selectedValue ="persons";
-        this.searchIndex = "escidoc.publication.creator.person.identifier";
+        this.searchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();
         this.showChars = true;
         this.query = "q";
         this.dateType = "published";
@@ -280,8 +290,8 @@ public class BrowseBySessionBean extends FacesBean
         int yearPublishedPrint = -1;
         int yearPublishedOnline = -1;
 
-        yearPublishedPrint = this.getOldestYear("escidoc.publication.issued", "print");
-        yearPublishedOnline = this.getOldestYear("escidoc.publication.published-online", "online");
+        yearPublishedPrint = this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_ISSUED(), "print");
+        yearPublishedOnline = this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_PUBLISHED_ONLINE(), "online");
 
         if ((yearPublishedPrint == -1))
         {
@@ -317,17 +327,17 @@ public class BrowseBySessionBean extends FacesBean
         
         int oldestYear =-1;
 
-        yearPublishedPrint = this.getOldestYear("escidoc.publication.issued", "print");
+        yearPublishedPrint = this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_ISSUED(), "print");
         years.add(yearPublishedPrint);
-        yearPublishedOnline = this.getOldestYear("escidoc.publication.published-online", "online");
+        yearPublishedOnline = this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_PUBLISHED_ONLINE(), "online");
         years.add(yearPublishedOnline);
-        yearAccepted = this.getOldestYear("escidoc.publication.dateAccepted", "accepted");
+        yearAccepted = this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_ACCEPTED(), "accepted");
         years.add(yearAccepted);
-        yearSubmitted = this.getOldestYear("escidoc.publication.dateSubmitted", "submitted");
+        yearSubmitted = this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_SUBMITTED(), "submitted");
         years.add(yearSubmitted);
-        yearModified = this.getOldestYear("escidoc.publication.modified", "modified");
+        yearModified = this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_MODIFIED(), "modified");
         years.add(yearModified);
-        yearCreated = this.getOldestYear("escidoc.publication.created", "created");
+        yearCreated = this.getOldestYear(MetadataSearchCriterion.getINDEX_DATE_CREATED(), "created");
         years.add(yearCreated);
 
         for (int i =0; i<years.size(); i++)
@@ -352,7 +362,7 @@ public class BrowseBySessionBean extends FacesBean
         String yearStr = "";
         int year = -1;
         
-        PlainCqlQuery query = new PlainCqlQuery("escidoc.content-model.objid=escidoc:persistent4 and "+ index +" > ''");
+        PlainCqlQuery query = new PlainCqlQuery("escidoc.content-model.objid="+this.getPubContentModel()+" and "+ index +" > ''");
         query.setSortKeysAndOrder("sort." + index, SortingOrder.ASCENDING);
         query.setStartRecord("1");
         query.setMaximumRecords("1");
@@ -487,6 +497,11 @@ public class BrowseBySessionBean extends FacesBean
     public void setDateType(String dateType)
     {
         this.dateType = dateType;
+    }
+
+    public String getPubContentModel()
+    {
+        return pubContentModel;
     }
 
 }
