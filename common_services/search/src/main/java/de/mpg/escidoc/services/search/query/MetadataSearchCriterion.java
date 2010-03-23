@@ -39,7 +39,7 @@ public class MetadataSearchCriterion implements Serializable
         DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, TOPIC,
         SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CONTEXT_NAME, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE,
         COMPONENT_ACCESSABILITY, COMPONENT_STORAGE, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY, LOCAL_TAG, COPYRIGHT_DATE, 
-        EMBARGO_DATE, DEGREE
+        EMBARGO_DATE, DEGREE, PERSON_IDENTIFIER
     };
 
     /**
@@ -142,6 +142,11 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_EMBARGO_DATE = "escidoc.component.file.available";
     /** Index for degree. */
     private static final String INDEX_DEGREE = "escidoc.publication.degree";
+    
+    /** Index for person identifier. */
+    private static final String INDEX_PERSON_IDENTIFIER = "escidoc.publication.creator.person.identifier";
+    
+    
     /** String to be used to represent an empty search term. */
     private static final String EMPTY_SEARCH_TERM = "''";
 
@@ -477,6 +482,10 @@ public class MetadataSearchCriterion implements Serializable
             case DEGREE:
                 indexes.add(INDEX_DEGREE);
                 break;
+            case PERSON_IDENTIFIER:
+                indexes.add(INDEX_PERSON_IDENTIFIER);
+                break;
+                
             default:
                 throw new TechnicalException("The index is unknown. Cannot map to index name.");
         }
@@ -635,5 +644,180 @@ public class MetadataSearchCriterion implements Serializable
             indices.addAll( setIndexByEnum(type) );
         }
         return indices;
+    }
+    
+    public static String getINDEX_CONTENT_TYPE()
+    {
+        return INDEX_CONTENT_TYPE;
+    }
+
+    public static String getINDEX_TITLE()
+    {
+        return INDEX_TITLE;
+    }
+
+    public static String getINDEX_METADATA()
+    {
+        return INDEX_METADATA;
+    }
+
+    public static String getINDEX_ABSTRACT()
+    {
+        return INDEX_ABSTRACT;
+    }
+
+    public static String getINDEX_FULLTEXT()
+    {
+        return INDEX_FULLTEXT;
+    }
+
+    public static String getINDEX_PERSON()
+    {
+        return INDEX_PERSON;
+    }
+
+    public static String getINDEX_PERSON_ROLE()
+    {
+        return INDEX_PERSON_ROLE;
+    }
+
+    public static String getINDEX_ORGANIZATION()
+    {
+        return INDEX_ORGANIZATION;
+    }
+
+    public static String getINDEX_ORGANIZATION_PIDS()
+    {
+        return INDEX_ORGANIZATION_PIDS;
+    }
+
+    public static String getINDEX_GENRE()
+    {
+        return INDEX_GENRE;
+    }
+
+    public static String getINDEX_DATE_ANY()
+    {
+        return INDEX_DATE_ANY;
+    }
+
+    public static String getINDEX_DATE_CREATED()
+    {
+        return INDEX_DATE_CREATED;
+    }
+
+    public static String getINDEX_DATE_ACCEPTED()
+    {
+        return INDEX_DATE_ACCEPTED;
+    }
+
+    public static String getINDEX_DATE_SUBMITTED()
+    {
+        return INDEX_DATE_SUBMITTED;
+    }
+
+    public static String getINDEX_DATE_ISSUED()
+    {
+        return INDEX_DATE_ISSUED;
+    }
+
+    public static String getINDEX_DATE_MODIFIED()
+    {
+        return INDEX_DATE_MODIFIED;
+    }
+
+    public static String getINDEX_DATE_PUBLISHED_ONLINE()
+    {
+        return INDEX_DATE_PUBLISHED_ONLINE;
+    }
+
+    public static String getINDEX_TOPIC()
+    {
+        return INDEX_TOPIC;
+    }
+
+    public static String getINDEX_SOURCE()
+    {
+        return INDEX_SOURCE;
+    }
+
+    public static String getINDEX_EVENT()
+    {
+        return INDEX_EVENT;
+    }
+
+    public static String getINDEX_IDENTIFIER()
+    {
+        return INDEX_IDENTIFIER;
+    }
+
+    public static String getINDEX_CONTEXT_OBJECTID()
+    {
+        return INDEX_CONTEXT_OBJECTID;
+    }
+
+    public static String getINDEX_CONTEXT_NAME()
+    {
+        return INDEX_CONTEXT_NAME;
+    }
+
+    public static String getINDEX_CREATED_BY_OBJECTID()
+    {
+        return INDEX_CREATED_BY_OBJECTID;
+    }
+
+    public static String getINDEX_LANGUAGE()
+    {
+        return INDEX_LANGUAGE;
+    }
+
+    public static String getINDEX_OBJECT_TYPE()
+    {
+        return INDEX_OBJECT_TYPE;
+    }
+
+    public static String getINDEX_COMPONENT_ACCESSIBILITY()
+    {
+        return INDEX_COMPONENT_ACCESSIBILITY;
+    }
+
+    public static String getINDEX_COMPONENT_STORAGE()
+    {
+        return INDEX_COMPONENT_STORAGE;
+    }
+
+    public static String getINDEX_COMPONENT_VISIBILITY()
+    {
+        return INDEX_COMPONENT_VISIBILITY;
+    }
+
+    public static String getINDEX_COMPONENT_CONTENT_CATEGORY()
+    {
+        return INDEX_COMPONENT_CONTENT_CATEGORY;
+    }
+
+    public static String getINDEX_LOCAL_TAG()
+    {
+        return INDEX_LOCAL_TAG;
+    }
+
+    public static String getINDEX_COPYRIGHT_DATE()
+    {
+        return INDEX_COPYRIGHT_DATE;
+    }
+
+    public static String getINDEX_EMBARGO_DATE()
+    {
+        return INDEX_EMBARGO_DATE;
+    }
+
+    public static String getINDEX_DEGREE()
+    {
+        return INDEX_DEGREE;
+    }
+
+    public static String getINDEX_PERSON_IDENTIFIER()
+    {
+        return INDEX_PERSON_IDENTIFIER;
     }
 }

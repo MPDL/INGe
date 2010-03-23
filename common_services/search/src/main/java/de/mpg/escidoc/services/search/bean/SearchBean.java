@@ -158,11 +158,9 @@ public class SearchBean implements Search
             searchRetrieveRequest.setVersion(SEARCHREQUEST_VERSION);
             searchRetrieveRequest.setQuery(cqlQuery);
             searchRetrieveRequest.setSortKeys(query.getCqlSortingQuery());
-
             searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
             searchRetrieveRequest.setStartRecord(query.getStartRecord());
             searchRetrieveRequest.setRecordPacking(RECORD_PACKING);
-
             SearchRetrieveResponseType searchResult = performSearch(searchRetrieveRequest, INDEXDATABASE_ALL);
             List<SearchResultElement> resultList = transformToSearchResultList(searchResult);
             ItemContainerSearchResult result = new ItemContainerSearchResult(resultList, cqlQuery, searchResult
@@ -233,7 +231,7 @@ public class SearchBean implements Search
 
         try
         {
-            logger.debug("Cql search string: <" + searchRetrieveRequest.getQuery() + ">");
+            logger.info("Cql search string: <" + searchRetrieveRequest.getQuery() + ">");
             logger.debug("Cql sorting key(s): <" + searchRetrieveRequest.getSortKeys() + ">");
             searchResult = ServiceLocator.getSearchHandler(index).searchRetrieveOperation(searchRetrieveRequest);
             logger.debug("Search result: " + searchResult.getNumberOfRecords() + " item(s) or container(s)");
