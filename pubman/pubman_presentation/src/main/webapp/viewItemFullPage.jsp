@@ -104,7 +104,7 @@
                                     <h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn and (ViewItemFull.isStatePending || (ViewItemFull.isStateInRevision and !ViewItemFull.isPublicStateReleased)) and ViewItemFull.isLatestVersion and ViewItemFull.isOwner}" />
 
                                     <h:commandLink id="lnkWithdraw" action="#{ViewItemFull.withdrawItem}" value="#{lbl.actionMenu_lnkWithdraw}" rendered="#{!ViewItemFull.isStateWithdrawn and (ViewItemFull.isStateReleased || ViewItemFull.isLatestVersion) and (ViewItemFull.isOwner || ViewItemFull.isModerator)}"/>
-									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestVersion and ViewItemFull.isOwner}" />
+									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn and (ViewItemFull.isStateReleased || ViewItemFull.isLatestVersion) and (ViewItemFull.isOwner || ViewItemFull.isModerator)}" />
 
 									<h:commandLink id="lnkModify" action="#{ViewItemFull.modifyItem}" value="#{lbl.actionMenu_lnkModify}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestVersion and !ViewItemFull.isModifyDisabled and (ViewItemFull.isModerator || ViewItemFull.isOwner)}"/>
 									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestVersion and !ViewItemFull.isModifyDisabled and (ViewItemFull.isModerator || ViewItemFull.isOwner)}" />
