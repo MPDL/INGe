@@ -36,6 +36,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -45,6 +46,7 @@ import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.browseBy.BrowseBySessionBean;
+import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 
@@ -142,8 +144,13 @@ public class BrowseByPage extends BreadcrumbPage
         
         try
         {
+            String localLang = Locale.getDefault().getLanguage();
+            if (!(localLang.equals("en") || localLang.equals("de") || localLang.equals("fr") || localLang.equals("ja")))
+            {
+                localLang = "en";
+            }
             URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+ "/" +type + "/query?format=options&"+
-                    this.bbBean.getQuery()+"=\"" + startChar + "*\"&l=0");
+                    this.bbBean.getQuery()+"=\"" + startChar + "*\"&l=0&lang="+localLang);
             URLConnection conn = coneUrl.openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
