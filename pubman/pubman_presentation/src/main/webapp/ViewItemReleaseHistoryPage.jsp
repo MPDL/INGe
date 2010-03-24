@@ -170,7 +170,7 @@
 									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl inRevisionItem" rendered="#{ViewItemFull.isStateInRevision}" />
 									<h:outputText id="txtViewItemReleaseHistoryItemIs" styleClass="noDisplay" value="Item is " />
 									<h:outputLabel id="lblViewItemReleaseHistoryPublicState" styleClass="medium_label endline" style="text-align: center;" rendered="#{ViewItemFull.isStateWithdrawn}">
-										<h:outputText id="txtViewItemReleaseHistoryPublicState" value="#{ViewItemFull.itemPublicState}" />
+										<h:outputText value="#{ViewItemFull.itemPublicState}" />
 									</h:outputLabel>
 									<h:outputLabel id="lblViewItemReleaseHistoryItemState" styleClass="medium_label endline" style="text-align: center;" rendered="#{!ViewItemFull.isStateWithdrawn}">
 										<h:outputText value="#{ViewItemFull.itemState}" />
