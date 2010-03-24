@@ -1896,7 +1896,34 @@
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                        <!--valid-if--><xsl:variable name="var">
+                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;$creatorsCount&gt;1&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                                <xsl:variable name="var">
+                                                                    <xsl:call-template name="applyDelimiter">
+                                                                        <xsl:with-param name="les">
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$second-or-more-creators"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                        </xsl:with-param>
+                                                                        <xsl:with-param name="delimiter" select="' '"/>
+                                                                    </xsl:call-template>
+                                                                </xsl:variable>
+                                                                <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                                                    <xsl:copy-of select="$var"/>
+                                                                    <xsl:if test="exists($var) and $var!=''">
+                                                                        <xsl:text>.</xsl:text>
+                                                                    </xsl:if>
+                                                                </xsl:variable>
+                                                                <xsl:copy-of select="$var"/>
+                                                            </xsl:if>
+                                                        </xsl:variable>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
@@ -1904,14 +1931,6 @@
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
                                         </xsl:call-template>
-                                    </xsl:variable>
-                                    <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                        <xsl:copy-of select="$var"/>
-                                        <xsl:if test="exists($var) and $var!=''">
-                                            <xsl:text>.</xsl:text>
-                                        </xsl:if>
                                     </xsl:variable>
                                     <xsl:copy-of select="$var"/>
                                 </xsl:variable>
@@ -1973,7 +1992,7 @@
     	   <xsl:element name="{name(.)}">
     		      <xsl:copy-of select="@*[name(.)!='xlink:href']"/>
     		      <xsl:attribute name="xlink:href"
-                           select="concat(         $pubman_instance,          '/item/',          ../../../ei:properties/prop:version/@objid,         '/component/',         ../@objid,         '/',         ../escidocComponents:properties/prop:file-name        )"/>
+                           select="concat(         $pubman_instance,         '/item/',          ../../../ei:properties/prop:version/@objid,         '/component/',         ../@objid,         '/',         ../escidocComponents:properties/prop:file-name        )"/>
     	   </xsl:element>
     </xsl:template>
     <xsl:template name="applyDelimiter">
@@ -2042,9 +2061,6 @@
 	 
 	       <xsl:sequence select="       if (exists($arg))      then $arg      else $value   "/>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:read_file">
-	
-	</xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_reverse_date">
 		      <xsl:param name="date"/>
 		      <xsl:if test="$date[.!=''] ">

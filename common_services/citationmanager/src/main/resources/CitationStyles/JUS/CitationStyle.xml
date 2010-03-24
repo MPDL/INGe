@@ -43,7 +43,7 @@
 				<layout-element>
 					<parameters>
 						<delimiter value=", " />
-						<font-style ref="ITALIC"/>
+						<font-style ref="ITALIC" />
 					</parameters>
 					<elements>
 						<layout-element
@@ -69,7 +69,7 @@
 					<elements>
 						<layout-element>
 							<parameters>
-								<i18n ref="editor" />  
+								<i18n ref="editor" />
 							</parameters>
 							<elements>
 								<layout-element ref="$editor-postfix" />
@@ -100,7 +100,7 @@
 				<!-- span class together with prefix -->
 				<layout-element>
 					<parameters>
-						  <i18n ref="togetherWith"/> 
+						<i18n ref="togetherWith" />
 					</parameters>
 					<elements>
 						<layout-element ref="$together-prefix" />
@@ -203,7 +203,7 @@
 								<layout-element>
 									<parameters>
 										<valid-if><![CDATA[$sourceCreatorsCount<2 or $sourceCreatorsCount>3]]></valid-if>
-										 <i18n ref="editor"/>  
+										<i18n ref="editor" />
 									</parameters>
 									<elements>
 										<layout-element ref="$editor-postfix" />
@@ -213,7 +213,7 @@
 								<layout-element>
 									<parameters>
 										<valid-if><![CDATA[$sourceCreatorsCount>1 and $sourceCreatorsCount<4]]></valid-if>
-										 	<i18n ref="editors"/>  
+										<i18n ref="editors" />
 									</parameters>
 									<elements>
 										<layout-element ref="$editors-postfix" />
@@ -239,7 +239,7 @@
 					ref="pub:publication/source:source[1]/e:publishing-info/e:edition/text()" />
 				<layout-element>
 					<parameters>
-						 	<i18n ref="edition" />  
+						<i18n ref="edition" />
 					</parameters>
 					<elements>
 						<layout-element ref="$edition-postfix" />
@@ -289,7 +289,7 @@
 				<layout-element ref="pub:publication/e:total-number-of-pages/text()" />
 				<layout-element>
 					<parameters>
-						 <i18n ref="page"/>   
+						<i18n ref="page" />
 					</parameters>
 					<elements>
 						<layout-element ref="$pages-postfix" />
@@ -319,7 +319,7 @@
 				</layout-element>
 			</elements>
 		</layout-element>
-		
+
 		<!-- Volume-Issue-Year for Journal Article -->
 		<layout-element name="volume-issue-year-journal">
 			<elements>
@@ -328,14 +328,14 @@
 						<valid-if><![CDATA[ exists (pub:publication/source:source[1]/e:volume/text()) 
 						or exists(pub:publication/source:source[1]/e:issue/text())
 						]]></valid-if>
-						<delimiter value=", "/>
+						<delimiter value=", " />
 					</parameters>
 					<elements>
-						<layout-element ref="$firstSourceVolume"/>
-						<layout-element ref="$firstSourceIssue"/>
+						<layout-element ref="$firstSourceVolume" />
+						<layout-element ref="$firstSourceIssue" />
 					</elements>
 				</layout-element>
-				
+
 				<layout-element>
 					<parameters>
 						<valid-if><![CDATA[exists (pub:publication/source:source[1]/e:volume/text()) 
@@ -344,16 +344,16 @@
 						<ends-with value=")" />
 					</parameters>
 					<elements>
-						<layout-element ref="$date"/>
+						<layout-element ref="$date" />
 					</elements>
 				</layout-element>
 				<layout-element>
-				<parameters>
-					<valid-if><![CDATA[not(pub:publication/source:source[1]/e:volume/text()) 
+					<parameters>
+						<valid-if><![CDATA[not(pub:publication/source:source[1]/e:volume/text()) 
 						and not(pub:publication/source:source[1]/e:issue/text())]]></valid-if>
-				</parameters>
+					</parameters>
 					<elements>
-						<layout-element ref="$date"/>
+						<layout-element ref="$date" />
 					</elements>
 				</layout-element>
 			</elements>
@@ -495,7 +495,7 @@
 
 		<layout-element name="journal-citation-style">
 			<parameters>
-			<valid-if><![CDATA[$genre = $l_article or $genre = $l_case-note]]>
+				<valid-if><![CDATA[$genre = $l_article or $genre = $l_case-note]]>
 			</valid-if>
 			</parameters>
 			<elements>
@@ -552,7 +552,7 @@
 								<valid-if><![CDATA[$source-title='']]></valid-if>
 							</parameters>
 							<elements>
-								<layout-element ref="$source-abbTitle"/>
+								<layout-element ref="$source-abbTitle" />
 							</elements>
 						</layout-element>
 						<layout-element ref="$volume-issue-year-journal" />
@@ -617,7 +617,6 @@
 				$genre = $l_monograph
 			]]>
 			</valid-if>
-			<ends-with value="." />
 		</parameters>
 		<elements>
 			<layout-element ref="$first-creator" />
@@ -627,8 +626,19 @@
 			<layout-element ref="$place-publisher" />
 			<layout-element ref="$date" />
 			<layout-element ref="$pages" />
-			<layout-element ref="$second-or-more-creators" />
+			<layout-element>
+				<parameters>
+					<valid-if><![CDATA[
+					$creatorsCount>1
+					]]></valid-if>
+					<ends-with value="." />
+				</parameters>
+				<elements>
+					<layout-element ref="$second-or-more-creators" />
+				</elements>
+			</layout-element>
 		</elements>
+
 	</cs-layout-definition>
 
 	<!--
