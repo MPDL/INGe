@@ -863,7 +863,7 @@
 									</dc:title>
 									<xsl:element name="dc:identifier">
 										<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
-										<xsl:value-of select="."/>
+										<xsl:value-of select="escidoc:substring-after-last(., '/')"/>
 									</xsl:element>
 									<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/></eterms:content-category>
 									<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
