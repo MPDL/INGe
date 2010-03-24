@@ -649,7 +649,7 @@
                                                                                                                                     <xsl:copy-of select="$var"/>
                                                                                                                                 </le>
                                                                                                                             </xsl:with-param>
-                                                                                                                            <xsl:with-param name="delimiter" select="', '"/>
+                                                                                                                            <xsl:with-param name="delimiter" select="' '"/>
                                                                                                                         </xsl:call-template>
                                                                                                                     </le>
                                                                                                                 </xsl:otherwise>

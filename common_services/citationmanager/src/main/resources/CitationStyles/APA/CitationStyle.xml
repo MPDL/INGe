@@ -268,7 +268,7 @@
 							<parameters>
 								<valid-if><![CDATA[$editorsCount>1 and $editorsCount<=6]]></valid-if>
 								<delimiter value=", " />
-								<internal-delimiter value=", " />
+								<internal-delimiter value=" " />
 							</parameters>
 							<elements>
 								<layout-element ref="organization:organization/dc:title/text()" />
