@@ -137,6 +137,9 @@ public class XsltHelper {
 		snippet = m.appendTail(sb).toString();
 
 		snippet = Utils.replaceAllTotal(snippet, "</span>", "</style>");
+		
+		//replace all non-escaped & 
+		snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
 
 		// logger.info("processed str:" + str);
 
