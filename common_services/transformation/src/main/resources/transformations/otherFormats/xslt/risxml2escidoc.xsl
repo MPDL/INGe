@@ -249,7 +249,7 @@
 					<xsl:if test="PB">
 						<xsl:element name="dc:publisher">						
 							<xsl:value-of select="PB"/>
-						</xsl:element><genre><xsl:value-of select="$gen"/></genre>
+						</xsl:element>
 					</xsl:if>
 					<xsl:if test="CY">
 						<xsl:element name="eterms:place">
