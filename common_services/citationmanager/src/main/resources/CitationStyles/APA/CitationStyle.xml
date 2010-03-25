@@ -1210,7 +1210,7 @@
 			<layout-element name="event-title-and-place">
 				<parameters>
 					<valid-if><![CDATA[exists(pub:publication/event:event/dc:title/text()) and pub:publication/event:event/dc:title/text()!='']]></valid-if>
-					<starts-with value=" Poster presented at the " />
+					<starts-with value=" Poster presented at " />
 					<ends-with value="." />
 					<delimiter value=", " />
 				</parameters>

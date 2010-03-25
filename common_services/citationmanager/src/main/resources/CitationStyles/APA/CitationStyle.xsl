@@ -2984,7 +2984,7 @@
 				start-with/ends-with
 			--><xsl:variable name="var">
                                                                     <xsl:if test="exists($var) and $var!=''">
-                                                                        <xsl:text> Poster presented at the </xsl:text>
+                                                                        <xsl:text> Poster presented at </xsl:text>
                                                                     </xsl:if>
                                                                     <xsl:copy-of select="$var"/>
                                                                     <xsl:if test="exists($var) and $var!=''">
