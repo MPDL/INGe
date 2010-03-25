@@ -47,8 +47,8 @@
 		xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
 		xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
 		xmlns:escidoc="urn:escidoc:functions"
-		xmlns:ei="${xsd.soap.item.item}"
-		xmlns:mdr="${xsd.soap.common.mdrecords}"		
+		xmlns:ei="http://www.escidoc.de/schemas/item/0.8"
+		xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"		
 		xmlns:file="${xsd.metadata.file}"
 		xmlns:pub="${xsd.metadata.publication}"
 		xmlns:person="${xsd.metadata.person}"
@@ -56,10 +56,10 @@
 		xmlns:event="${xsd.metadata.event}"
 		xmlns:organization="${xsd.metadata.organization}"		
 		xmlns:eterms="${xsd.metadata.terms}"
-		xmlns:ec="${xsd.soap.item.components}"
+		xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
 		xmlns:prop="${xsd.soap.common.prop}"
 		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-		xmlns:itemlist="${xsd.soap.item.itemlist}">
+		xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.8">
 	
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	
@@ -318,8 +318,8 @@
 			<!-- SUBJECT -->
 			<xsl:variable name="subject">
 				<xsl:apply-templates select="mab700_c" mode="subject"/>
-				<xsl:apply-templates select="mab711_b" mode="subject"/>
-				<xsl:apply-templates select="mab711_t" mode="subject"/>
+				<xsl:apply-templates select="mab711_b" mode="subject_iso"/>
+				<xsl:apply-templates select="mab711_t" mode="subject_iso"/>
 				<xsl:apply-templates select="mab740_s" mode="subject"/>
 			</xsl:variable>
 			<xsl:element name="dcterms:subject">
@@ -566,7 +566,14 @@
 		<xsl:param name="idtype"/>
 		<xsl:element name="dc:identifier">
 			<xsl:attribute name="xsi:type" select="$idtype"/>
-			<xsl:value-of select="."/>
+			<xsl:choose>
+				<xsl:when test="contains(replace(normalize-space(.), ' ', ''), normalize-space($localIdentifier))">
+					<xsl:value-of select="escidoc:substring-after-last(., '/')"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="."/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:element>
 	</xsl:template>
 	
@@ -627,9 +634,15 @@
 			</xsl:element>
 		</xsl:for-each>
 	</xsl:template>
+	
 	<!-- SUBJECT -->
 	<xsl:template match="*" mode="subject">
 			<xsl:value-of select="', '"></xsl:value-of>
+			<xsl:value-of select="."/>
+	</xsl:template>
+	
+	<xsl:template match="*" mode="subject_iso">
+			<xsl:value-of select="', ISO 639-3 : '"></xsl:value-of>
 			<xsl:value-of select="."/>
 	</xsl:template>
 	
@@ -659,7 +672,7 @@
 			<xsl:variable name="place" select="substring-before(mab519,',')"/>
 			<!-- PUBLISHER INFO -->
 			<xsl:choose>
-				<xsl:when test="not(mab412)">
+				<xsl:when test="not(mab412) and $publisher != ''">
 					<xsl:element name="dc:publisher">
 						<xsl:value-of select="$publisher"/>
 					</xsl:element>
@@ -863,7 +876,7 @@
 									</dc:title>
 									<xsl:element name="dc:identifier">
 										<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
-										<xsl:value-of select="escidoc:substring-after-last(., '/')"/>
+											<xsl:value-of select="."/>
 									</xsl:element>
 									<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/></eterms:content-category>
 									<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
@@ -901,7 +914,8 @@
 									</dc:title>
 									<xsl:element name="dc:identifier">
 										<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
-										<xsl:value-of select="$filename"/>
+										<!--  <xsl:value-of select="$filename"/>-->
+										<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
 									</xsl:element>
 									<xsl:element name="eterms:content-category"><xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/></xsl:element>
 								</xsl:element>
