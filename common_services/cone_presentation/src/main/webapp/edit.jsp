@@ -85,8 +85,7 @@
 	        	if (model != null && predicate.getId().equals(model.getIdentifier()))
 	        	{
 					if (results.get(predicate.getId()) != null)
-					{
-						System.out.println("predicate.getId(): " + predicate.getId());
+					{						
 						for (LocalizedTripleObject object : results.get(predicate.getId()))
 						{
 							out.append(object.toString());
