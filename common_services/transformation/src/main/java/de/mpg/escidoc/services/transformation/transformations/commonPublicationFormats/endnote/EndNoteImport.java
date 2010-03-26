@@ -110,7 +110,7 @@ public class EndNoteImport
     					sb = new StringBuffer();
     				}
     				// new item 
-    				else if ( counter >= 1 ) 
+    				else if ( counter >= 1 && buff.startsWith("%0") ) 
     				{
     					l.add(sb.toString().trim());
     					counter = 0;
