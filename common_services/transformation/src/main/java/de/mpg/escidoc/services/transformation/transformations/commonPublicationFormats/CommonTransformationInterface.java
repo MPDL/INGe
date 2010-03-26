@@ -202,7 +202,7 @@ public class CommonTransformationInterface implements Transformation
             result = this.bibtexTransform(src, srcFormat, trgFormat, service);
             supported = true;
         }
-        if (srcFormat.getName().equalsIgnoreCase("endnote"))
+        if (srcFormat.getName().toLowerCase().startsWith("endnote"))
         {
             result = this.endnoteTransform(src, srcFormat, trgFormat, service);
             supported = true;
