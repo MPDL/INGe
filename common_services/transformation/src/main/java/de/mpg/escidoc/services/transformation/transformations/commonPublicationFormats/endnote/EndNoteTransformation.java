@@ -1,5 +1,6 @@
 package de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.endnote;
 
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -51,8 +52,17 @@ public class EndNoteTransformation
             	String endnoteSource = new String(src,"UTF-8");
             	EndNoteImport endnote = new EndNoteImport();
             	output = endnote.transformEndNote2XML(endnoteSource);
+            	
+/*FileOutputStream fos = new FileOutputStream("target/endnote.xml");
+fos.write(output.getBytes("UTF-8"));
+fos.close();
+*/            	            	
             	TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
-            	InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl");
+            	InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/commonPublicationFormats/xslt/" +
+            			"endnote" +
+            			( util.isFormatEqual(srcFormat, ENDNOTE_ICE_FORMAT) ? "ice" : "" ) +
+            			"xml2escidoc.xsl"
+            	);
             	factory.setURIResolver(new LocalUriResolver("transformations/commonPublicationFormats/xslt"));
             	Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
             	//Transformer transformer = factory.newTransformer(stylesheet);
