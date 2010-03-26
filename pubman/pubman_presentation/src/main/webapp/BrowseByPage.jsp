@@ -67,7 +67,7 @@
 								<!-- Headline starts here -->
 								<h1>
 									<h:outputText value="#{lbl.BrowseByCreator}" rendered="#{BrowseByPage.selectedValue == 'persons'}"/>
-									<h:outputText ivalue="#{lbl.BrowseByYear}" rendered="#{BrowseByPage.selectedValue == 'year'}"/>
+									<h:outputText value="#{lbl.BrowseByYear}" rendered="#{BrowseByPage.selectedValue == 'year'}"/>
 									<h:outputText value="#{lbl.BrowseByPage} #{BrowseByPage.selectedValue}" 
 													rendered="#{(BrowseByPage.selectedValue != 'persons') and (BrowseByPage.selectedValue != 'year') }"/>
 								</h1>
