@@ -48,9 +48,9 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-			<h:outputText id="pageDummy" value="#{ViewItemFullPage.beanName}" styleClass="noDisplay" />
+			<h:outputText value="#{ViewItemFullPage.beanName}" styleClass="noDisplay" />
 			<!-- The unAPI Identifier for this item -->
-			<h:outputText id="lblObjectIdAndVersion" value="&lt;abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'&gt;&lt;/abbr&gt;" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}"/>
+			<h:outputText value="&lt;abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'&gt;&lt;/abbr&gt;" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}"/>
 
 			<tr:form usesUpload="true">
 			<div class="full wrapper">
@@ -67,7 +67,7 @@
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText id="lblViewItemPage1" value="#{lbl.ViewItemPage}" /></h1>
+								<h1><h:outputText value="#{lbl.ViewItemPage}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
@@ -77,10 +77,10 @@
 								<div class="free_area0 sub">
 								<!-- content menu upper line starts here -->
 									<h:outputLink id="lnkLinkForActionsView" styleClass="free_area0" value="#{ViewItemFull.linkForActionsView}" rendered="#{ViewItemSessionBean.subMenu != 'ACTIONS'}" ><h:outputText value="#{lbl.ViewItemFull_lblItemActions}"/></h:outputLink>
-									<h:outputText id="lblViewItemFull_lblItemActions" styleClass="free_area0" value="#{lbl.ViewItemFull_lblItemActions}" rendered="#{ViewItemSessionBean.subMenu == 'ACTIONS'}" />
+									<h:outputText styleClass="free_area0" value="#{lbl.ViewItemFull_lblItemActions}" rendered="#{ViewItemSessionBean.subMenu == 'ACTIONS'}" />
 									<h:outputText styleClass="seperator void" />
 									<h:outputLink id="lnkLinkForExportView" styleClass="free_area0" value="#{ViewItemFull.linkForExportView}" rendered="#{ViewItemSessionBean.subMenu != 'EXPORT' and !ViewItemFull.isStateWithdrawn}"><h:outputText value="#{lbl.List_lblExportOptions}"/></h:outputLink>
-									<h:outputText id="lblList_lblExportOptions" styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT' and !ViewItemFull.isStateWithdrawn}" />
+									<h:outputText styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT' and !ViewItemFull.isStateWithdrawn}" />
 								<!-- content menu upper line ends here -->
 								</div>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{ViewItemSessionBean.subMenu == 'ACTIONS'}">
@@ -143,22 +143,22 @@
 							<!-- content menu ends here -->
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="subHeader" rendered = "#{ViewItemFull.isStateInRevision}">
-								<h:outputText id="lblViewItemFull_inRevision" value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.publicStatusComment}" rendered = "#{ViewItemFull.pubItem.publicStatusComment != null and ViewItemFull.pubItem.publicStatusComment != ''}"/>
-								<h:outputText id="lblViewItemFull_inRevisionNoEntry" value="#{msg.ViewItemFull_inRevision} #{lbl.lbl_noEntry}" rendered = "#{ViewItemFull.pubItem.publicStatusComment == null || ViewItemFull.pubItem.publicStatusComment == ''}"/>
+								<h:outputText value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.publicStatusComment}" rendered = "#{ViewItemFull.pubItem.publicStatusComment != null and ViewItemFull.pubItem.publicStatusComment != ''}"/>
+								<h:outputText value="#{msg.ViewItemFull_inRevision} #{lbl.lbl_noEntry}" rendered = "#{ViewItemFull.pubItem.publicStatusComment == null || ViewItemFull.pubItem.publicStatusComment == ''}"/>
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="subHeader" rendered = "#{ViewItemFull.isStateSubmitted}">
-								<h:outputText id="lblViewItemFull_submitted" value="#{msg.ViewItemFull_submitted} #{ViewItemFull.pubItem.publicStatusComment}" rendered = "#{ViewItemFull.pubItem.publicStatusComment != null and ViewItemFull.pubItem.publicStatusComment != ''}"/>
-								<h:outputText id="lblViewItemFull_submittedNoEntry" value="#{msg.ViewItemFull_submitted} #{lbl.lbl_noEntry}" rendered = "#{ViewItemFull.pubItem.publicStatusComment == null || ViewItemFull.pubItem.publicStatusComment == ''}"/>
+								<h:outputText value="#{msg.ViewItemFull_submitted} #{ViewItemFull.pubItem.publicStatusComment}" rendered = "#{ViewItemFull.pubItem.publicStatusComment != null and ViewItemFull.pubItem.publicStatusComment != ''}"/>
+								<h:outputText value="#{msg.ViewItemFull_submitted} #{lbl.lbl_noEntry}" rendered = "#{ViewItemFull.pubItem.publicStatusComment == null || ViewItemFull.pubItem.publicStatusComment == ''}"/>
 							</h:panelGroup>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
 								<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.numberOfMessages == 1}"/>
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{ViewItemFull.hasErrorMessages and ViewItemFull.numberOfMessages != 1}">
-									<h2><h:outputText id="lblWarning_lblMessageHeader1" value="#{lbl.warning_lblMessageHeader}"/></h2>
+									<h2><h:outputText  value="#{lbl.warning_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{ViewItemFull.hasMessages and !ViewItemFull.hasErrorMessages and ViewItemFull.numberOfMessages != 1}">
-									<h2><h:outputText id="lblWarning_lblMessageHeader2" value="#{lbl.info_lblMessageHeader}"/></h2>
+									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
 								</h:panelGroup>
 								&#160;
@@ -170,38 +170,38 @@
 						<div class="full_area0 fullItem">
 							<div class="full_area0 fullItemControls">
 								<span class="full_area0_p5">
-									<b class="free_area0 small_marginLExcl">&#160;<h:outputText id="lblViewItemFull_withdrawn" styleClass="messageError" value="#{msg.ViewItemFull_withdrawn}" rendered="#{ViewItemFull.isStateWithdrawn}" /></b>
+									<b class="free_area0 small_marginLExcl">&#160;<h:outputText styleClass="messageError" value="#{msg.ViewItemFull_withdrawn}" rendered="#{ViewItemFull.isStateWithdrawn}" /></b>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}" />
 									<h:outputLink id="lnkViewLocalTagsPage" styleClass="free_area0" value="#{ApplicationBean.appContext}ViewLocalTagsPage.jsp" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
-										<h:outputText id="lblViewItemFull_lblSubHeaderLocalTags" value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
+										<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.hasAudience}"/>
 									<h:commandLink id="lnkManageAudience" styleClass="free_area0" action="#{AudienceBean.manageAudience}" rendered="#{ViewItemFull.hasAudience}">
-										<h:outputText id="lblAudiencePage" value="#{lbl.AudiencePage}" />
+										<h:outputText value="#{lbl.AudiencePage}" />
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="false"/>
 									<h:outputLink id="lnkCollaboratorPage" styleClass="free_area0" value="#{ApplicationBean.appContext}CollaboratorPage.jsp" rendered="false">
-										<h:outputText id="lblCollaboratorPage" value="#{lbl.CollaboratorPage}" />
+										<h:outputText value="#{lbl.CollaboratorPage}" />
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isOwner || ViewItemFull.isModerator)}" />
 									<h:commandLink id="lnkViewItemLogPage" styleClass="free_area0" action="#{ViewItemFull.showItemLog}" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isOwner || ViewItemFull.isModerator)}">
-										<h:outputText id="lblViewItemLogPage" value="#{lbl.ViewItemLogPage}"/>
+										<h:outputText value="#{lbl.ViewItemLogPage}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
 									<h:commandLink id="lnkViewItemFull_btnItemStatistics" styleClass="free_area0" action="#{ViewItemFull.showStatistics}" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}">
-										<h:outputText id="lblViewItemFull_btnItemStatistics" value="#{lbl.ViewItemFull_btnItemStatistics}"/>
+										<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
 									<h:commandLink id="lnkViewItemFull_btnItemRevisions" styleClass="free_area0" action="#{ViewItemFull.showRevisions}" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}">
-										<h:outputText id="lblViewItemFull_btnItemRevisions" value="#{lbl.ViewItemFull_btnItemRevisions}"/>
+										<h:outputText value="#{lbl.ViewItemFull_btnItemRevisions}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }" />
 									<h:commandLink id="lnkViewItemFull_btnItemVersions" styleClass="free_area0" action="#{ViewItemFull.showReleaseHistory}" rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }">
-										<h:outputText id="lblViewItemFull_btnItemVersions" value="#{lbl.ViewItemFull_btnItemVersions}"/>
+										<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" />
 									<h:outputLink id="lnkViewItemPage" styleClass="free_area0 actual" value="#contentSkipLinkAnchor">
-										<h:outputText id="lblViewItemPage" value="#{lbl.ViewItemPage}"/>
+										<h:outputText value="#{lbl.ViewItemPage}"/>
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" />
 								</span>
@@ -212,7 +212,7 @@
 								</h:panelGroup>
 									<h:panelGroup styleClass="seperator" />
 								<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
-									<b><h:outputText id="lblItemEndline" value="#{ViewItemFull.pubItem.metadata.title.value}"/></b>
+									<b><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/></b>
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="medium_area0_p4 statusArea" >
 									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl withdrawnItem" rendered="#{ViewItemFull.isStateWithdrawn}" />
@@ -235,7 +235,7 @@
 								</h3>
 								<div class="free_area0 itemBlockContent endline">
 									<b class="xLarge_area0_p8 endline labelLine clear">
-										<h:outputText id="lblViewItem_lblModeratorContact" value="#{lbl.ViewItem_lblModeratorContact}" /><span class="noDisplay">: </span>
+										<h:outputText value="#{lbl.ViewItem_lblModeratorContact}" /><span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<h:outputLink id="lnkModeratorContactEmail" value="mailto:#{ViewItemFull.moderatorContactEmail}?subject=#{ViewItemFull.pubItem.version.objectIdAndVersion}" rendered="#{ViewItemFull.isLoggedIn}"><h:outputText value="#{lbl.ViewItem_lnkModeratorEmail}" /></h:outputLink>

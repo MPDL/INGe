@@ -36,7 +36,7 @@
 	</h:panelGroup>
 		<h:panelGroup styleClass="seperator" />
 	<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
-		<b><h:outputText id="lblHeadline" value="#{SubmitItem.itemControllerSessionBean.currentPubItem.metadata.title.value}"/></b>
+		<b><h:outputText value="#{SubmitItem.itemControllerSessionBean.currentPubItem.metadata.title.value}"/></b>
 	</h:panelGroup>
 </div>
 <div class="full_area0 itemBlock">
@@ -47,18 +47,18 @@
 	<div class="free_area0 itemBlockContent endline">
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText id="lblPublication" value="Publication" /><span class="noDisplay">: </span>
+				<h:outputText value="Publication" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText id="lblObjectId" value="#{SubmitItem.itemControllerSessionBean.currentPubItem.version.objectId}" />
+				<h:outputText value="#{SubmitItem.itemControllerSessionBean.currentPubItem.version.objectId}" />
 			</span>
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText id="lblSubmitItem_lblSubmitCreator" value="#{lbl.SubmitItem_lblSubmitCreator}" /><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitCreator}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText id="lblCreators" value="#{SubmitItem.creators}" />
+				<h:outputText value="#{SubmitItem.creators}" />
 			</span>
 		</div>
 		<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder" rendered="#{SubmitItem.hasRightsInformation}">
@@ -66,27 +66,27 @@
 				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNotice}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText id="lblSubmitItem_lblSubmitCopyrightNoticeSubmit" value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeSubmit}" rendered="#{SubmitItem.isStandardWorkflow}" />
-				<h:outputText id="lblSubmitItem_lblSubmitCopyrightNoticeRelease" value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeRelease}" rendered="#{SubmitItem.isSimpleWorkflow}" />
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeSubmit}" rendered="#{SubmitItem.isStandardWorkflow}" />
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeRelease}" rendered="#{SubmitItem.isSimpleWorkflow}" />
 			</span>
 		</h:panelGroup>
 		<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder" rendered="#{SubmitItem.hasAudienceFiles}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText id="lblSubmitItem_lblSubmitAudienceNotice" value="#{lbl.SubmitItem_lblSubmitAudienceNotice}" /><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNotice}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText id="lblSubmitItem_lblSubmitAudienceNoticeSubmit" value="#{lbl.SubmitItem_lblSubmitAudienceNoticeSubmit}" rendered="#{SubmitItem.isStandardWorkflow}"/>
-				<h:outputText id="lblSubmitItem_lblSubmitAudienceNoticeRelease" value="#{lbl.SubmitItem_lblSubmitAudienceNoticeRelease}" rendered="#{SubmitItem.isSimpleWorkflow}"/>
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNoticeSubmit}" rendered="#{SubmitItem.isStandardWorkflow}"/>
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNoticeRelease}" rendered="#{SubmitItem.isSimpleWorkflow}"/>
 			</span>
 		</h:panelGroup>			
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText id="lblSubmitItem_lblSubmitComment" value="#{lbl.SubmitItem_lblSubmitComment}" rendered="#{SubmitItem.isStandardWorkflow}"/>
-				<h:outputText id="lblSubmitItem_lblReleaseComment" value="#{lbl.SubmitItem_lblReleaseComment}" rendered="#{SubmitItem.isSimpleWorkflow}"/>
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitComment}" rendered="#{SubmitItem.isStandardWorkflow}"/>
+				<h:outputText value="#{lbl.SubmitItem_lblReleaseComment}" rendered="#{SubmitItem.isSimpleWorkflow}"/>
 				&#160;<span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:inputTextarea id="inpSubmissionComment" styleClass="quad_txtArea inputTxtArea" value="#{SubmitItem.submissionComment}" cols="15" rows="3" ></h:inputTextarea>
+				<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{SubmitItem.submissionComment}" cols="15" rows="3" ></h:inputTextarea>
 			</span>
 		</div>
 	</div>

@@ -50,22 +50,22 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-			<h:outputText id="pageDummy" value="#{RevisionsRetrieverRequestBean.beanName}" styleClass="noDisplay" />
+			<h:outputText value="#{RevisionsRetrieverRequestBean.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			<!-- start: skip link navigation -->
 				<h:outputLink id="lnkViewItemRevisionsPageMainMenu" styleClass="skipLink" title="skip link" value="#mainMenuSkipLinkAnchor">
-					<h:outputText id="txtViewItemRevisionsPageMainMenu" value="Skip to the main menu"/>
+					<h:outputText value="Skip to the main menu"/>
 				</h:outputLink>
 				<h:outputLink id="lnkViewItemRevisionsPageContent" styleClass="skipLink" title="skip link" value="#contentSkipLinkAnchor">
-					<h:outputText id="txtViewItemRevisionsPageContent" value="Skip to the page content"/>
+					<h:outputText value="Skip to the page content"/>
 				</h:outputLink>
 				<h:outputLink id="lnkViewItemRevisionsPageSearch" styleClass="skipLink" title="skip link" value="#searchMenuSkipLinkAnchor">
-					<h:outputText id="txtViewItemRevisionsPageSearch" value="Skip to the search menu"/>
+					<h:outputText value="Skip to the search menu"/>
 				</h:outputLink>
 				<h:outputLink id="lnkViewItemRevisionsPageMeta" styleClass="skipLink" title="skip link" value="#metaMenuSkipLinkAnchor">
-					<h:outputText id="txtViewItemRevisionsPageMeta" value="Skip to the meta menu"/>
+					<h:outputText value="Skip to the meta menu"/>
 				</h:outputLink>
 			<!-- end: skip link navigation -->
 			

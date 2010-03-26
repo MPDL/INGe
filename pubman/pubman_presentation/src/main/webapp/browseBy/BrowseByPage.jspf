@@ -31,7 +31,7 @@
 <div id="fullItem" class="full_area0 fullItem itemHeader">
 	<h:panelGroup styleClass="full_area0 itemHeader noTopBorder" rendered="#{(BrowseBySessionBean.showChars == true) && (BrowseBySessionBean.selectedValue != 'year')}">
 		<span class="xLarge_area0_p8 blockHeader">
-			<h:outputText id="lblBrowseBy_txtChar" value="#{lbl.BrowseByChooseInitial}"/>
+			<h:outputText value="#{lbl.BrowseByChooseInitial}"/>
 		</span>
 		<h:panelGroup styleClass="seperator" />
 		<span class="free_area0_p8 itemHeadline">
@@ -46,7 +46,7 @@
 <!-- Year select -->
 	<h:panelGroup styleClass="full_area0 itemHeader noTopBorder" rendered="#{BrowseBySessionBean.selectedValue == 'year'}">
 		<span class="xLarge_area0_p8 blockHeader">
-			<h:outputText id="lblBrowseBy_txtYear" value="#{lbl.BrowseByChooseYear }"/>
+			<h:outputText value="#{lbl.BrowseByChooseYear }"/>
 		</span>
 		<h:panelGroup styleClass="seperator" />
 		<span class="full_area0_p0 itemHeadline">
@@ -66,7 +66,7 @@
 <!-- Display link list devided into seperate characters -->
 	<h:panelGroup styleClass="full_area0 itemBlock" rendered="#{(BrowseBySessionBean.showChars == true) && (BrowseBySessionBean.selectedValue != 'year')}">
 		<span class="xLarge_area0_p8 blockHeader endline">
-			<h:outputText id="lblBrowseBy_txtCreatorChar" value="#{lbl.BrowseByInitial} #{BrowseBySessionBean.currentCharacter}"/>
+			<h:outputText value="#{lbl.BrowseByInitial} #{BrowseBySessionBean.currentCharacter}"/>
 		</span>
 		<h:panelGroup styleClass="seperator" />
 		<div class="free_area0 itemBlockContent endline">
@@ -92,7 +92,7 @@
 <!-- Display full link list -->
 	<h:panelGroup styleClass="full_area0 itemBlock" rendered="#{(BrowseBySessionBean.showChars == false) && (BrowseBySessionBean.selectedValue != 'year')}">
 		<span class="xLarge_area0_p8 blockHeader endline">
-			<h:outputText id="lblBrowseBy_txtCreatorCharAll">&#160; </h:outputText>
+			<h:outputText>&#160; </h:outputText>
 		</span>
 		<h:panelGroup styleClass="seperator" />
 		<div class="free_area0 itemBlockContent endline">
@@ -117,7 +117,7 @@
 	</h:panelGroup>
 	<h:panelGroup styleClass="full_area0 itemBlock" rendered="#{BrowseBySessionBean.selectedValue == 'year'}">
 		<span class="xLarge_area0_p8 blockHeader endline">
-			<h:outputText id="lblBrowseBy_txtYear2">&#160; </h:outputText>
+			<h:outputText>&#160; </h:outputText>
 		</span>
 		<h:panelGroup styleClass="seperator" />
 		<div class="free_area0 itemBlockContent endline">

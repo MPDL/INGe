@@ -65,7 +65,7 @@
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText id="lblBrowseBy_lblBrowseByStart" value="#{lbl.BrowseBySelect}" /></h1>
+								<h1><h:outputText value="#{lbl.BrowseBySelect}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>

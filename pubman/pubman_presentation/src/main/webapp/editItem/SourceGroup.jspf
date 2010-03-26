@@ -36,7 +36,7 @@
 	    <h:column>
 		<h:panelGroup layout="block" styleClass="full_area0 itemBlock" >
 			<h3 class="xLarge_area0_p8 endline blockHeader">
-				<h:outputText id="txtGenreSourcesLabel" value="#{genre.sources_label}" converter="GenreLabelConverter"/> <h:outputText value="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" />
+				<h:outputText value="#{genre.sources_label}" converter="GenreLabelConverter"/> <h:outputText value="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" />
 			</h3>
 			<span class="seperator"></span>
 			<div class="free_area0 itemBlockContent endline">
@@ -44,7 +44,7 @@
 		<%-- Source genre --%>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.sources_source_basic_source_genre_display == 'false' && genre.sources_source_basic_source_genre_form_id == 'full-submission' || genre.sources_source_basic_source_genre_display == 'false' && genre.sources_source_basic_source_genre_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText id="txtsources_source_basic_optionalRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_basic_optional != 'true' && genre.sources_source_basic_source_genre_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_basic_optional != 'true' && genre.sources_source_basic_source_genre_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:selectOneMenu id="selChooseSourceGenre" styleClass="large_select replace journalPulldown" value="#{sourceBean.source.genre}" valueChangeListener="#{sourceBean.chooseSourceGenre}">
@@ -60,7 +60,7 @@
 		<%-- Source title --%>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.sources_source_basic_source_title_display == 'false' && genre.sources_source_basic_source_title_form_id == 'full-submission' || genre.sources_source_basic_source_title_display == 'false' && genre.sources_source_basic_source_title_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText id="txtSourceTitle" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_basic_optional != 'true' && genre.sources_source_basic_source_title_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_basic_optional != 'true' && genre.sources_source_basic_source_title_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:inputTextarea id="inpSourceTitle" styleClass="quad_txtArea inputTxtArea sourceTitle" value="#{sourceBean.titleCollection.titleIF.title.value}" cols="15" rows="3" />
@@ -74,7 +74,7 @@
 		<%-- Source alternative title copy&paste --%>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder noDisplay">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText id="txtSourceAlternativeTitleCopy" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblAlternativeTitel}" /><span class="noDisplay">: </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblAlternativeTitel}" /><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:inputTextarea id="inpSourceAlternativeTitleCopy" styleClass="quad_txtArea inputTxtArea sourceAltTitlePasteField" value="#{sourceBean.hiddenAlternativeTitlesField}" cols="15" rows="3" />
@@ -115,10 +115,10 @@
 						<div class="suggestAnchor">
 							<h:panelGroup layout="block" styleClass="free_area0 endline itemLine multipleAuthors" rendered="#{sourceBean.creatorCollection.creatorManager.objectDM.rowIndex == 0}">
 								<b class="xLarge_area0_p8 endline labelLine clear">
-									&#160;<h:outputText id="txtSourceCreatorRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.submission_lblAuthorCopyPasteLabel}"/><span class="noDisplay">: </span>
+									&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.submission_lblAuthorCopyPasteLabel}"/><span class="noDisplay">: </span>
 								</b>
 								<span class="xHuge_area0 xTiny_marginLExcl endline">
-									<h:outputText id="txtSourceCreatorCreatorRequired" styleClass="quad_area0" value="#{lbl.submission_lblAuthorCopyPaste}" />
+									<h:outputText styleClass="quad_area0" value="#{lbl.submission_lblAuthorCopyPaste}" />
 									<h:inputTextarea id="inpSourceCreatorParseString" styleClass="xDouble_txtArea tiny_marginRIncl inputTxtArea" value="#{sourceBean.creatorParseString}" cols="15" rows="3" />
 									<span class="large_checkbox">
 										<h:selectBooleanCheckbox id="chkOverwriteStatus" value="#{sourceBean.overwriteCreators}" />
@@ -131,7 +131,7 @@
 				<%-- Source creator role --%>
 							<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{!(genre.sources_source_person_organization_select_roles_display == 'false' && genre.sources_source_person_organization_select_roles_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_display == 'false' && genre.sources_source_person_organization_select_roles_form_id == 'all')}">
 								<b class="xLarge_area0_p8 endline labelLine clear">
-									&#160;<h:outputText id="txtSourceCreatorRoleRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_person_organization_select_roles_optional != 'true'}" /><h:outputText value="#{genre.sources_source_person_organization_select_roles_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+									&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_person_organization_select_roles_optional != 'true'}" /><h:outputText value="#{genre.sources_source_person_organization_select_roles_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 								</b>
 								<span class="xHuge_area0 xTiny_marginLExcl endline">
 									<h:selectOneMenu id="selSourceCreatorRole" styleClass="large_select replace" value="#{creatorBean.creator.roleString}" >
@@ -146,7 +146,7 @@
 				<%-- Source creator type --%>
 							<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_select_roles_creator_type_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_select_roles_creator_type_form_id == 'all')}">
 								<b class="xLarge_area0_p8 endline labelLine clear">
-									&#160;<h:outputText id="txtSourceCreatorTypeRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_person_organization_select_roles_creator_type_optional != 'true'}" /><h:outputText value="#{genre.sources_source_person_organization_select_roles_creator_type_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+									&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_person_organization_select_roles_creator_type_optional != 'true'}" /><h:outputText value="#{genre.sources_source_person_organization_select_roles_creator_type_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 								</b>
 								<span class="xHuge_area0 xTiny_marginLExcl endline">
 									<h:selectOneRadio id="selSourceCreatorType" styleClass="medium_radioBtn double_area0" value="#{creatorBean.creator.typeString}" 
@@ -159,20 +159,20 @@
 				<%-- Source creator person family name, Creator person given name --%>
 							<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.personType && !(genre.sources_source_person_organization_source_persons_display == 'false' && genre.sources_source_person_organization_source_persons_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_source_persons_form_id == 'all')}">				
 								<b class="xLarge_area0_p8 endline labelLine clear">
-									&#160;<h:outputText id="txtSourceCreatorNameRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+									&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 								</b>
 								<span class="xHuge_area0 xTiny_marginLExcl endline">
 									<h:panelGroup styleClass="double_area0 xTiny_marginRIncl" rendered="#{!(genre.sources_source_person_organization_source_persons_person_family_name_display == 'false' && genre.sources_source_person_organization_source_persons_person_family_name_form_id == 'full-submission' || genre.sources_source_person_organization_source_persons_person_family_name_display == 'false' && genre.sources_source_person_organization_source_persons_person_family_name_form_id == 'all')}">
 										<h:panelGroup styleClass="double_area0">
-											<h:outputText id="txtSourceCreatorNameOptionalRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_person_organization_source_persons_person_family_name_optional != 'true'}" />
+											<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_person_organization_source_persons_person_family_name_optional != 'true'}" />
 											<h:outputText value="#{genre.sources_source_person_organization_source_persons_person_family_name_label}" converter="GenreLabelConverter"/>
 										</h:panelGroup>
 										<h:inputText id="inpSourceCreatorNameOptional" styleClass="double_txtInput personSuggest familyName" value="#{creatorBean.creator.person.familyName}" />
 									</h:panelGroup>
 									<h:panelGroup styleClass="double_area0" rendered="#{!(genre.sources_source_person_organization_source_persons_person_given_name_display == 'false' && genre.sources_source_person_organization_source_persons_person_given_name_form_id == 'full-submission' || genre.sources_source_person_organization_source_persons_person_given_name_display == 'false' && genre.sources_source_person_organization_source_persons_person_given_name_form_id == 'all')}">
 										<h:panelGroup styleClass="double_area0">
-											<h:outputText id="txtSourceCreatorGivenNameOptionalRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_person_organization_source_persons_person_given_name_optional != 'true'}" />
-											<h:outputText id="txtSourceCreatorGivenNameOptional" value="#{genre.sources_source_person_organization_source_persons_person_given_name_label}" converter="GenreLabelConverter"/>
+											<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_person_organization_source_persons_person_given_name_optional != 'true'}" />
+											<h:outputText value="#{genre.sources_source_person_organization_source_persons_person_given_name_label}" converter="GenreLabelConverter"/>
 										</h:panelGroup>
 										<h:inputText id="inpSourceCreatorGivenName" styleClass="double_txtInput givenName" value="#{creatorBean.creator.person.givenName}" />
 										<h:inputText id="inpSourceCreatorIdentifier" styleClass="noDisplay personIdentifier" value="#{creatorBean.identifierValue}"/>
@@ -186,12 +186,12 @@
 									<h:column>
 									<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.sources_source_person_organization_source_organizations_organization_name_display == 'false' && genre.sources_source_person_organization_source_organizations_organization_name_form_id == 'full-submission' || genre.sources_source_person_organization_source_organizations_organization_name_display == 'false' && genre.sources_source_person_organization_source_organizations_organization_name_form_id == 'all')}">
 										<b class="xLarge_area0_p8 endline labelLine clear">
-											&#160;<h:outputText id="txtSourceCreatorPersonAffiliationRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+											&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 										</b>
 										<span class="xHuge_area0 xTiny_marginLExcl endline">
 											<h:panelGroup styleClass="quad_area0">
-												<h:outputText id="txtSourceCreatorPersonAffiliationNameRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_person_organization_source_organizations_organization_name_optional != 'true'}" />
-												<h:outputText id="txtSourceCreatorPersonAffiliationName" value="#{genre.sources_source_person_organization_source_organizations_organization_name_label}" converter="GenreLabelConverter" />
+												<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_person_organization_source_organizations_organization_name_optional != 'true'}" />
+												<h:outputText value="#{genre.sources_source_person_organization_source_organizations_organization_name_label}" converter="GenreLabelConverter" />
 											</h:panelGroup>
 											<h:inputText id="inpSourceCreatorPersonAffiliationName" styleClass="quad_txtInput orgName" value="#{persOrga.name.value}" />
 											<h:inputText id="inpSourceCreatorPersonAffiliationIdentifier" styleClass="noDisplay orgIdentifier" value="#{persOrga.identifier}"/>
@@ -218,12 +218,12 @@
 				<%-- Source creator organisation affiliation --%>
 							<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType && !(genre.sources_source_person_organization_source_organizations_organization_name_display == 'false' && genre.sources_source_person_organization_source_organizations_organization_name_form_id == 'full-submission' || genre.sources_source_person_organization_source_organizations_organization_name_display == 'false' && genre.sources_source_person_organization_source_organizations_organization_name_form_id == 'all')}">
 								<b class="xLarge_area0_p8 endline labelLine clear">
-									&#160;<h:outputText id="txtourceCreatorOrgaAffiliationRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+									&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 								</b>
 								<span class="xHuge_area0 xTiny_marginLExcl endline">
 									<h:panelGroup styleClass="quad_area0">
-										<h:outputText id="txtourceCreatorOrgaAffiliationNameRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{creatorBean.organisationType && genre.sources_optional != 'true' && genre.sources_source_person_organization_source_organizations_organization_name_optional != 'true'}" />
-										<h:outputText id="txtourceCreatorOrgaAffiliationName" value="#{genre.sources_source_person_organization_source_organizations_organization_name_label}" converter="GenreLabelConverter" />
+										<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{creatorBean.organisationType && genre.sources_optional != 'true' && genre.sources_source_person_organization_source_organizations_organization_name_optional != 'true'}" />
+										<h:outputText value="#{genre.sources_source_person_organization_source_organizations_organization_name_label}" converter="GenreLabelConverter" />
 									</h:panelGroup>
 									<h:inputText id="inpSourceCreatorOrgaAffiliationName" styleClass="quad_txtInput" value="#{creatorBean.creator.organization.name.value}" />
 								</span>
@@ -233,7 +233,7 @@
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType && !(genre.sources_source_person_organization_source_organizations_organization_address_display == 'false' && genre.sources_source_person_organization_source_organizations_organization_address_form_id == 'full-submission' || genre.sources_source_person_organization_source_organizations_organization_address_display == 'false' && genre.sources_source_person_organization_source_organizations_organization_address_form_id == 'all')}">
 								<b class="xLarge_area0_p8 endline labelLine clear">
-									&#160;<h:outputText id="txtourceCreatorOrgaAffiliationNameRequired2" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_person_organization_source_organizations_organization_address_optional != 'true'}" /><span class="noDisplay"> </span>
+									&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_person_organization_source_organizations_organization_address_optional != 'true'}" /><span class="noDisplay"> </span>
 								</b>
 								<span class="xHuge_area0 xTiny_marginLExcl endline">
 									<h:inputTextarea id="inpSourceCreatorOrgaAffiliationAddress" styleClass="quad_txtArea inputTxtArea" value="#{creatorBean.creator.organization.address}" cols="15" rows="3" />
@@ -255,13 +255,13 @@
 				<h:panelGroup layout="block" rendered="#{!(genre.sources_source_volume_issue_pages_display == 'false' && genre.sources_source_volume_issue_pages_form_id == 'full-submission' || genre.sources_source_volume_issue_pages_display == 'false' && genre.sources_source_volume_issue_pages_form_id == 'all')}">
 					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{!(genre.sources_source_volume_issue_pages_source_volume_display == 'false' && genre.sources_source_volume_issue_pages_source_volume_form_id == 'full-submission' || genre.sources_source_volume_issue_pages_source_volume_display == 'false' && genre.sources_source_volume_issue_pages_source_volume_form_id == 'all')}">
 						<b class="xLarge_area0_p8 endline labelLine clear">
-							&#160;<h:outputText id="txtSourceDetailVolumeRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{genre.sources_source_volume_issue_pages_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{genre.sources_source_volume_issue_pages_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline">
 							<span class="large_area0">
 								<span class="large_area0">
-									<h:outputText id="txtSourceDetailVolumeLabelRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_volume_issue_pages_source_volume_optional != 'true'}" />
-									<h:outputText id="txtSourceDetailVolumeLabel" value="#{genre.sources_source_volume_issue_pages_source_volume_label}" converter="GenreLabelConverter"/>
+									<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_volume_issue_pages_source_volume_optional != 'true'}" />
+									<h:outputText value="#{genre.sources_source_volume_issue_pages_source_volume_label}" converter="GenreLabelConverter"/>
 								</span>
 								<h:inputText id="inpSourceDetailVolume" styleClass="large_txtInput" value="#{sourceBean.source.volume}" />
 							</span>
@@ -272,13 +272,13 @@
 		<%-- Source total number of pages --%>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.sources_source_total_number_of_pages_display == 'false' && genre.sources_source_total_number_of_pages_form_id == 'full-submission' || genre.sources_source_total_number_of_pages_display == 'false' && genre.sources_source_total_number_of_pages_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&nbsp;<h:outputText id="txtSourceNumberOfPagesRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+						&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.sources_source_total_number_of_pages_source_total_number_of_pages_display == 'false' && genre.sources_source_total_number_of_pages_source_total_number_of_pages_form_id == 'full-submission' || genre.sources_source_total_number_of_pages_source_total_number_of_pages_display == 'false' && genre.sources_source_total_number_of_pages_source_total_number_of_pages_form_id == 'all')}">
 							<span class="large_area0">
-								<h:outputText id="txtSourceNumberOfPagesLabelRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_edition_optional != 'true'}" />
-								<h:outputText id="txtSourceNumberOfPagesLabel" value="#{genre.details_total_number_of_pages_item_total_number_of_pages_label}" converter="GenreLabelConverter"/>
+								<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_edition_optional != 'true'}" />
+								<h:outputText value="#{genre.details_total_number_of_pages_item_total_number_of_pages_label}" converter="GenreLabelConverter"/>
 							</span>
 							<h:inputText id="inpSourceNumberOfPagesLabel" styleClass="large_txtInput" value="#{sourceBean.source.totalNumberOfPages}" />
 						</h:panelGroup>
@@ -288,20 +288,20 @@
 		<%-- Source details publisher, place --%>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.sources_source_publishing_info_display == 'false' && genre.sources_source_publishing_info_form_id == 'full-submission' || genre.sources_source_publishing_info_display == 'false' && genre.sources_source_publishing_info_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&nbsp;<h:outputText id="txtSourceDetailPublisherRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+						&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="#{!(genre.sources_source_publishing_info_publishing_info_publisher_display == 'false' && genre.sources_source_publishing_info_publishing_info_publisher_form_id == 'full-submission' || genre.sources_source_publishing_info_publishing_info_publisher_display == 'false' && genre.sources_source_publishing_info_publishing_info_publisher_form_id == 'all')}">
 							<span class="xDouble_area0">
-								<h:outputText id="txtSourceDetailPublisherOptionalRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_publisher_optional != 'true'}" />
-								<h:outputText id="txtSourceDetailPublisherOptional" value="#{genre.sources_source_publishing_info_publishing_info_publisher_label}" converter="GenreLabelConverter"/>
+								<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_publisher_optional != 'true'}" />
+								<h:outputText value="#{genre.sources_source_publishing_info_publishing_info_publisher_label}" converter="GenreLabelConverter"/>
 							</span>
 							<h:inputTextarea id="inpSourceDetailPublisher" styleClass="xDouble_txtArea inputTxtArea publisher" value="#{sourceBean.source.publishingInfo.publisher}" cols="15" rows="3" />
 						</h:panelGroup>
 						<h:panelGroup styleClass="large_area0 xTiny_marginRIncl" rendered="#{!(genre.sources_source_publishing_info_publishing_info_place_display == 'false' && genre.sources_source_publishing_info_publishing_info_place_form_id == 'full-submission' || genre.sources_source_publishing_info_publishing_info_place_display == 'false' && genre.sources_source_publishing_info_publishing_info_place_form_id == 'all')}">
 							<span class="large_area0">
-								<h:outputText id="txtSourceDetailPublisherLabelRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_place_optional != 'true'}" />
-								<h:outputText id="txtSourceDetailPublisherLabel" value="#{genre.sources_source_publishing_info_publishing_info_place_label}" converter="GenreLabelConverter"/>
+								<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_place_optional != 'true'}" />
+								<h:outputText value="#{genre.sources_source_publishing_info_publishing_info_place_label}" converter="GenreLabelConverter"/>
 							</span>
 							<h:inputText id="inpSourceDetailPublisherLabel" styleClass="large_txtInput place" value="#{sourceBean.source.publishingInfo.place}" />
 						</h:panelGroup>
@@ -312,7 +312,7 @@
 			<%-- Source details identifier copy&paste --%>
 					<div class="free_area0 endline itemLine noTopBorder noDisplay">
 						<b class="xLarge_area0_p8 endline labelLine clear">
-							&#160;<h:outputText id="txtSourceDetailIdentifierCopy" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblIdentifier}" /><span class="noDisplay">: </span>
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblIdentifier}" /><span class="noDisplay">: </span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline">
 							<h:inputTextarea id="inpSourceDetailIdentifierCopy" styleClass="quad_txtArea inputTxtArea sourceIdentifierPasteField" value="#{sourceBean.hiddenIdsField}" cols="15" rows="3" />
@@ -328,7 +328,7 @@
 						<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
 							<b class="xLarge_area0_p8 endline labelLine clear">
 								&nbsp;
-								<h:outputText id="txtSourceDetailIdentifier" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{(genre.sources_source_identifiers_source_identifier_type_optional != 'true' || genre.sources_source_identifiers_source_identifier_value_optional != 'true') && genre.sources_source_identifiers_optional != 'true'}" />
+								<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{(genre.sources_source_identifiers_source_identifier_type_optional != 'true' || genre.sources_source_identifiers_source_identifier_value_optional != 'true') && genre.sources_source_identifiers_optional != 'true'}" />
 								<h:outputText value="#{genre.sources_source_identifiers_label}" rendered="#{sourceBean.identifierCollection.identifierManager.objectDM.rowIndex == 0}" converter="GenreLabelConverter"/>
 								<span class="noDisplay">: </span>
 							</b>
@@ -352,14 +352,14 @@
 		<%-- Source details edition, issue --%>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&nbsp;<h:outputText id="txtSourceDetailsEditionRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+						&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:panelGroup rendered="#{!(genre.sources_source_publishing_info_display == 'false' && genre.sources_source_publishing_info_form_id == 'full-submission' || genre.sources_source_publishing_info_display == 'false' && genre.sources_source_publishing_info_form_id == 'all')}">
 							<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.sources_source_publishing_info_publishing_info_edition_display == 'false' && genre.sources_source_publishing_info_publishing_info_edition_form_id == 'full-submission' || genre.sources_source_publishing_info_publishing_info_edition_display == 'false' && genre.sources_source_publishing_info_publishing_info_edition_form_id == 'all')}">
 								<span class="large_area0">
-									<h:outputText id="txtSourceDetailInfoEditionRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_edition_optional != 'true'}" />
-									<h:outputText id="txtSourceDetailInfoEdition" value="#{genre.sources_source_publishing_info_publishing_info_edition_label}" converter="GenreLabelConverter"/>
+									<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_edition_optional != 'true'}" />
+									<h:outputText value="#{genre.sources_source_publishing_info_publishing_info_edition_label}" converter="GenreLabelConverter"/>
 								</span>
 								<h:inputText id="inpSourceDetailInfoEdition" styleClass="large_txtInput" value="#{sourceBean.source.publishingInfo.edition}" />
 							</h:panelGroup>
@@ -367,8 +367,8 @@
 						<h:panelGroup rendered="#{!(sources_source_volume_issue_pages_display == 'false' && sources_source_volume_issue_pages_form_id == 'full-submission' || sources_source_volume_issue_pages_display == 'false' && sources_source_volume_issue_pages_form_id == 'all')}">
 							<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.sources_source_volume_issue_pages_source_issue_display == 'false' && genre.sources_source_volume_issue_pages_source_issue_form_id == 'full-submission' || genre.sources_source_volume_issue_pages_source_issue_display == 'false' && genre.sources_source_volume_issue_pages_source_issue_form_id == 'all')}">
 								<span class="large_area0">
-									<h:outputText id="txtSourceDetailSourceIssueRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_volume_issue_pages_source_issue_optional != 'true'}" />
-									<h:outputText id="txtSourceDetailSourceIssue" value="#{genre.sources_source_volume_issue_pages_source_issue_label}" converter="GenreLabelConverter"/>
+									<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_volume_issue_pages_source_issue_optional != 'true'}" />
+									<h:outputText value="#{genre.sources_source_volume_issue_pages_source_issue_label}" converter="GenreLabelConverter"/>
 								</span>
 								<h:inputText id="inpSourceDetailSourceIssue" styleClass="large_txtInput" value="#{sourceBean.source.issue}" />
 							</h:panelGroup>
@@ -385,14 +385,14 @@
 						<h:panelGroup rendered="#{!(genre.sources_source_volume_issue_pages_display == 'false' && genre.sources_source_volume_issue_pages_form_id == 'full-submission' || genre.sources_source_volume_issue_pages_display == 'false' && genre.sources_source_volume_issue_pages_form_id == 'all')}">
 							<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.sources_source_volume_issue_pages_source_start_page_display == 'false' && genre.sources_source_volume_issue_pages_source_start_page_form_id == 'full-submission' || genre.sources_source_volume_issue_pages_source_start_page_display == 'false' && genre.sources_source_volume_issue_pages_source_start_page_form_id == 'all')}">
 								<span class="large_area0">
-									<h:outputText id="txtSourceDetailStartPageRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_volume_issue_pages_source_start_page_optional != 'true'}" />
+									<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_volume_issue_pages_source_start_page_optional != 'true'}" />
 									<h:outputLabel id="txtSourceDetailStartPage" styleClass="large_label" value="#{genre.sources_source_volume_issue_pages_source_start_page_label}" converter="GenreLabelConverter"/>
 								</span>
 								<h:inputText id="inpSourceDetailStartPage" styleClass="large_txtInput" value="#{sourceBean.source.startPage}" />
 							</h:panelGroup>
 							<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.sources_source_volume_issue_pages_source_end_page_display == 'false' && genre.sources_source_volume_issue_pages_source_end_page_form_id == 'full-submission' || genre.sources_source_volume_issue_pages_source_end_page_display == 'false' && genre.sources_source_volume_issue_pages_source_end_page_form_id == 'all')}">
 								<span class="large_area0">
-									<h:outputText id="txtSourceDetailEndPageRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_volume_issue_pages_source_end_page_optional != 'true'}" />
+									<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_volume_issue_pages_source_end_page_optional != 'true'}" />
 									<h:outputLabel id="txtSourceDetailEndPage" styleClass="large_label" value="#{genre.sources_source_volume_issue_pages_source_end_page_label}" converter="GenreLabelConverter"/>
 								</span>
 								<h:inputText id="inpSourceDetailEndPage" styleClass="large_txtInput" value="#{sourceBean.source.endPage}" />
@@ -401,7 +401,7 @@
 						<h:panelGroup rendered="#{!(genre.sources_source_sequence_number_display == 'false' && genre.sources_source_sequence_number_form_id == 'full-submission' || genre.sources_source_sequence_number_display == 'false' && genre.sources_source_sequence_number_form_id == 'all')}">
 							<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.sources_source_sequence_number_source_sequence_number_display == 'false' && genre.sources_source_sequence_number_source_sequence_number_form_id == 'full-submission' || genre.sources_source_sequence_number_source_sequence_number_display == 'false' && genre.sources_source_sequence_number_source_sequence_number_form_id == 'all')}">
 								<span class="large_area0">
-									<h:outputText id="txtSourceDetailSeqNumberRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_sequence_number_source_sequence_number_optional != 'true'}" />
+									<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_sequence_number_source_sequence_number_optional != 'true'}" />
 									<h:outputLabel id="txtSourceDetailSeqNumber" styleClass="large_label" value="#{genre.sources_source_sequence_number_source_sequence_number_label}" converter="GenreLabelConverter"/>
 								</span>
 								<h:inputText id="inpSourceDetailSeqNumber" styleClass="large_txtInput" value="#{sourceBean.source.sequenceNumber}" />
@@ -410,10 +410,10 @@
 					</span>
 				</h:panelGroup>
 				
-				<a class="free_area0 collapse"><h:outputText id="lblViewItemFull_lblHideGroupSourceGroup" value="#{lbl.ViewItemFull_lblHideGroup} " /> <h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter"/> <h:outputText value="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" /></a>	
+				<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /> <h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter"/> <h:outputText value="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" /></a>	
 	
 			</div>
-			<a class="free_area0 expand"><h:outputText id="lblViewItemFull_lblShowGroupSourceGroup" value="#{lbl.ViewItemFull_lblShowGroup}" /> <h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter"/> <h:outputText value="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" /></a>
+			<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /> <h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter"/> <h:outputText value="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" /></a>
 		</h:panelGroup>
 		</h:column>
 	</h:dataTable>

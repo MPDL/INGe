@@ -52,7 +52,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-			<h:outputText id="pageDummy" value="#{SearchRetrieverRequestBean.beanName}" styleClass="noDisplay" />
+			<h:outputText value="#{SearchRetrieverRequestBean.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
@@ -68,7 +68,7 @@
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText id="lblSearchResultListPage" value="#{lbl.SearchResultListPage}" /></h1>
+								<h1><h:outputText value="#{lbl.SearchResultListPage}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
@@ -80,13 +80,13 @@
 									<div class="free_area0 sub">
 									<!-- content menu upper line starts here -->
 										<h:commandLink id="lnkList_lblViewOptions" styleClass="free_area0" value="#{lbl.List_lblViewOptions}" action="#{PubItemListSessionBean.changeSubmenuToView}" rendered="#{PubItemListSessionBean.subMenu != 'VIEW'}" />
-										<h:outputText id="lblList_lblViewOptions" styleClass="free_area0" value="#{lbl.List_lblViewOptions}" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}" />
+										<h:outputText styleClass="free_area0" value="#{lbl.List_lblViewOptions}" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}" />
 										<h:outputText styleClass="seperator void" />
 										<h:commandLink id="lnkList_lblSortOptions" styleClass="free_area0" value="#{lbl.List_lblSortOptions}" action="#{PubItemListSessionBean.changeSubmenuToSorting}" rendered="#{PubItemListSessionBean.subMenu != 'SORTING'}"/>	
-										<h:outputText id="lblList_lblSortOptions" styleClass="free_area0" value="#{lbl.List_lblSortOptions}" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}" />
+										<h:outputText styleClass="free_area0" value="#{lbl.List_lblSortOptions}" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}" />
 										<h:outputText styleClass="seperator void" />
 										<h:commandLink id="lnkList_lblExportOptions" styleClass="free_area0" value="#{lbl.List_lblExportOptions}" action="#{PubItemListSessionBean.changeSubmenuToExport}" rendered="#{PubItemListSessionBean.subMenu != 'EXPORT'}"/>	
-										<h:outputText id="lblList_lblExportOptions" styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}" />		
+										<h:outputText styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}" />		
 										<h:outputText styleClass="seperator void" />
 										<h:commandLink id="lnkList_lblAddToBasket" styleClass="free_area0" value="#{lbl.List_lblAddToBasket}" action="#{PubItemListSessionBean.addSelectedToCart}" />		
 									<!-- content menu upper line ends here -->
@@ -112,17 +112,17 @@
 										<h:commandLink id="lnkList_lblBibListGRID" styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}" action="#{PubItemListSessionBean.changeListTypeToBib}">
 											<h:outputText value="#{lbl.List_lblBibList}" />
 										</h:commandLink>
-										<h:outputText id="lblList_lblBibListBIB" styleClass="free_area0" value="#{lbl.List_lblBibList}" rendered="#{PubItemListSessionBean.listType == 'BIB'}" />
+										<h:outputText styleClass="free_area0" value="#{lbl.List_lblBibList}" rendered="#{PubItemListSessionBean.listType == 'BIB'}" />
 										<h:outputText styleClass="seperator" />
 										<h:commandLink id="lnkList_lblBibListBIB" styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'BIB'}"  action="#{PubItemListSessionBean.changeListTypeToGrid}">
 											<h:outputText value="#{lbl.List_lblGridList}" />
 										</h:commandLink>
-										<h:outputText id="List_lblGridListGRID" styleClass="free_area0" value="#{lbl.List_lblGridList}" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
+										<h:outputText styleClass="free_area0" value="#{lbl.List_lblGridList}" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
 									<!-- content menu lower line ends here -->
 									</h:panelGroup>
 									<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
 									<!-- content menu lower line starts here -->
-										<h:outputText id="lblItemList_SortBy" styleClass="free_area0" value="#{lbl.ItemList_SortBy} "/>
+										<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy} "/>
 										<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
 											<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
 										</h:selectOneMenu>
@@ -134,33 +134,33 @@
 								<!-- content menu ends here -->
 								</div>
 								<div class="subHeader">
-									<h:outputText id="lblSearchResultList_lblFound" value="#{PubItemListSessionBean.totalNumberOfElements} #{lbl.SearchResultList_lblItems} #{lbl.SearchResultList_lblFound}"/>
+									<h:outputText value="#{PubItemListSessionBean.totalNumberOfElements} #{lbl.SearchResultList_lblItems} #{lbl.SearchResultList_lblFound}"/>
 									<h:outputText value=" ("/>
-	 								<h:outputText id="lblENUM_SORTORDER_ASCENDING" value="#{lbl.ENUM_SORTORDER_ASCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{PubItemListSessionBean.isAscending}"/>
-									<h:outputText id="lblENUM_SORTORDER_DESCENDING" value="#{lbl.ENUM_SORTORDER_DESCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{!PubItemListSessionBean.isAscending}"/>
+	 								<h:outputText value="#{lbl.ENUM_SORTORDER_ASCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{PubItemListSessionBean.isAscending}"/>
+									<h:outputText value="#{lbl.ENUM_SORTORDER_DESCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{!PubItemListSessionBean.isAscending}"/>
 									<h:outputText value=")"/>	
 								</div>
 							</h:panelGroup>		
 							
 							<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
 								<!-- Subheadline starts here -->
-									<h:outputLink id="lnkAdvancedSearchPage" styleClass="free_area0 xTiny_marginRIncl" value="AdvancedSearchPage.jsp"><h:outputText id="lblSearchResultList_lblAdvancedSearch1" value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>
-									<a class="free_area0" href="#" onclick="$(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $(this).hide();"><h:outputText id="lblShowQuery" value="#{lbl.ShowQuery}"/></a>
+									<h:outputLink id="lnkAdvancedSearchPage" styleClass="free_area0 xTiny_marginRIncl" value="AdvancedSearchPage.jsp"><h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>
+									<a class="free_area0" href="#" onclick="$(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $(this).hide();"><h:outputText value="#{lbl.ShowQuery}"/></a>
 								<!-- Subheadline ends here -->
 							</h:panelGroup>
 
 							<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
 								<!-- Subheadline starts here -->
 									<h:panelGroup layout="block" styleClass="half_area0_p6 searchQuery" style="display: none;">
-										<h2><h:outputText id="lblSearchResultList_QueryString" value="#{msg.searchResultList_QueryString}"/></h2>
-										<h:outputText id="lblCQLQuery" value="#{SearchRetrieverRequestBean.cqlQuery}"/>
+										<h2><h:outputText value="#{msg.searchResultList_QueryString}"/></h2>
+										<h:outputText value="#{SearchRetrieverRequestBean.cqlQuery}"/>
 									</h:panelGroup>
 								<!-- Subheadline ends here -->
 							</h:panelGroup>
 							
 							<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'org'}" >
 								<!-- Subheadline starts here -->
-									<h:outputLink id="lnkAffiliationTreePage" styleClass="free_area0 xTiny_marginRIncl" value="AffiliationTreePage.jsp"><h:outputText id="lblSearchResultList_lblAdvancedSearch2" value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>									
+									<h:outputLink id="lnkAffiliationTreePage" styleClass="free_area0 xTiny_marginRIncl" value="AffiliationTreePage.jsp"><h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>									
 								<!-- Subheadline ends here -->
 							</h:panelGroup>
 
@@ -168,11 +168,11 @@
 								<!-- Subheadline starts here -->
 								<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SearchRetrieverRequestBean.numberOfMessages == 1}"/>
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{SearchRetrieverRequestBean.hasErrorMessages and SearchRetrieverRequestBean.numberOfMessages != 1}">
-									<h2><h:outputText id="lblWarning_lblMessageHeader" value="#{lbl.warning_lblMessageHeader}"/></h2>
+									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SearchRetrieverRequestBean.hasMessages}"/>
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{SearchRetrieverRequestBean.hasMessages and !SearchRetrieverRequestBean.hasErrorMessages and SearchRetrieverRequestBean.numberOfMessages != 1}">
-									<h2><h:outputText id="lblInfo_lblMessageHeader" value="#{lbl.info_lblMessageHeader}"/></h2>
+									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SearchRetrieverRequestBean.hasMessages}"/>
 								</h:panelGroup>
 								<!-- Subheadline ends here -->
@@ -186,7 +186,7 @@
 						<jsp:directive.include file="list/gridList.jspf" />
 					</h:panelGroup>
 					<h:panelGroup styleClass="full_area0" rendered="#{PubItemListSessionBean.partListSize==0}">
-						<h:outputText id="lblSearchResultList_Notification" styleClass="free_area0 small_marginLExcl" value="#{msg.searchResultList_Notification}"/>
+						<h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.searchResultList_Notification}"/>
 					</h:panelGroup>
 				<!-- end: content section -->
 				</div>

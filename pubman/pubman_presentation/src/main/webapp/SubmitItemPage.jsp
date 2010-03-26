@@ -65,8 +65,8 @@
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
 								<h1>
-									<h:outputText id="lblSubmitItemPage_Submit" value="#{lbl.SubmitItemPage_Submit}" rendered="#{SubmitItem.isStandardWorkflow}"/>
-									<h:outputText id="lblSubmitItemPage_Release" value="#{lbl.SubmitItemPage_Release}" rendered="#{SubmitItem.isSimpleWorkflow}"/>
+									<h:outputText value="#{lbl.SubmitItemPage_Submit}" rendered="#{SubmitItem.isStandardWorkflow}"/>
+									<h:outputText value="#{lbl.SubmitItemPage_Release}" rendered="#{SubmitItem.isSimpleWorkflow}"/>
 								</h1>
 								<!-- Headline ends here -->
 							</div>

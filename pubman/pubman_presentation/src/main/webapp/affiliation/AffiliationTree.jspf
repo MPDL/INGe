@@ -35,7 +35,7 @@
 
 <div class="full_area0 itemHeader">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText id="lblAffiliationTree_txtHeadline" value="#{lbl.AffiliationTree_txtHeadline}" />
+		<h:outputText value="#{lbl.AffiliationTree_txtHeadline}" />
 	</h3>
 	<h:panelGroup styleClass="seperator" />
 	<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">

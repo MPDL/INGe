@@ -33,7 +33,7 @@
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText id="lblViewItemFull_lblSubHeaderLegalCase" value="#{lbl.ViewItemFull_lblSubHeaderLegalCase}" />
+		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLegalCase}" />
 	</h3>
 	<span class="seperator"></span>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showLegalCase}">
@@ -53,10 +53,10 @@
 <%-- Legal Case title --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText id="lblViewItemFull_lblLegalCaseTitle" value="#{lbl.ViewItemFull_lblLegalCaseTitle}"/><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ViewItemFull_lblLegalCaseTitle}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText id="txtLegalCaseTitle" value="#{ViewItemFull.pubItem.metadata.legalCase.title}"/>
+				<h:outputText value="#{ViewItemFull.pubItem.metadata.legalCase.title}"/>
 			</span>
 		</div>
 

@@ -42,7 +42,7 @@
 		<tr:iterator var="language" id="lgTable" value="#{EditItem.languages}" binding="#{EditItem.pubLangIterator}" varStatus="index" rendered="#{!(genre.details_item_language_display == 'false' && genre.details_item_language_form_id == 'full-submission' || genre.details_item_language_display == 'false' && genre.details_item_language_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'full-submission' || genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'all')}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText id="txtLanguageOfPublication" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{language.index == 0 && genre.details_item_language_optional != 'true'}" /><h:outputText id="txtdetails_item_language_item_language_label" value="#{genre.details_item_language_item_language_label}" rendered="#{language.index == 0 && !(genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'full-submission' || genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'all')}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{language.index == 0 && genre.details_item_language_optional != 'true'}" /><h:outputText value="#{genre.details_item_language_item_language_label}" rendered="#{language.index == 0 && !(genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'full-submission' || genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'all')}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<input type="text" class="large_txtInput tiny_marginRIncl languageSuggest" />
@@ -94,7 +94,7 @@
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_total_number_of_pages_display == 'false' && genre.details_total_number_of_pages_form_id == 'full-submission' || genre.details_total_number_of_pages_display == 'false' && genre.details_total_number_of_pages_form_id == 'all')}">
 			<h:panelGroup layout="block" rendered="#{!(genre.details_total_number_of_pages_item_total_number_of_pages_display == 'false' && genre.details_total_number_of_pages_item_total_number_of_pages_form_id == 'full-submission' || genre.details_total_number_of_pages_item_total_number_of_pages_display == 'false' && genre.details_total_number_of_pages_item_total_number_of_pages_form_id == 'all')}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText id="txtNumberOfPages" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_total_number_of_pages_item_total_number_of_pages_optional != 'true'}" /><span class="noDisplay"> </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_total_number_of_pages_item_total_number_of_pages_optional != 'true'}" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="large_area0 tiny_marginRIncl">
@@ -108,7 +108,7 @@
 <%-- Publisher, Place --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_publishing_info_display == 'false' && genre.details_publishing_info_form_id == 'full-submission' || genre.details_publishing_info_display == 'false' && genre.details_publishing_info_form_id == 'all')}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText id="txtPublisherPlace" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_publisher_optional != 'true' || genre.details_publishing_info_publishing_info_place_optional != 'true'}" /><span class="noDisplay"> </span>
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_publisher_optional != 'true' || genre.details_publishing_info_publishing_info_place_optional != 'true'}" /><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="#{!(genre.details_publishing_info_publishing_info_publisher_display == 'false' && genre.details_publishing_info_publishing_info_publisher_form_id == 'full-submission' || genre.details_publishing_info_publishing_info_publisher_display == 'false' && genre.details_publishing_info_publishing_info_publisher_form_id == 'all')}">
@@ -126,7 +126,7 @@
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_item_toc_display == 'false' && genre.details_item_toc_form_id == 'full-submission' || genre.details_item_toc_display == 'false' && genre.details_item_toc_form_id == 'all')}">
 			<h:panelGroup layout="block" rendered="#{!(genre.details_item_toc_item_table_of_contents_display == 'false' && genre.details_item_toc_item_table_of_contents_form_id == 'full-submission' || genre.details_item_toc_item_table_of_contents_display == 'false' && genre.details_item_toc_item_table_of_contents_form_id == 'all')}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText id="txtTOC" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_toc_item_table_of_contents_optional != 'true'}" /><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_toc_item_table_of_contents_optional != 'true'}" /><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel styleClass="quad_label" for="txtaTableOfContent" id="lblTableOfContent" value="#{genre.details_item_toc_item_table_of_contents_label}" converter="GenreLabelConverter"/>
@@ -139,7 +139,7 @@
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_review_method_display == 'false' && genre.details_review_method_form_id == 'full-submission' || genre.details_review_method_display == 'false' && genre.details_review_method_form_id == 'all')}">
 			<h:panelGroup layout="block" rendered="#{!(genre.details_review_method_item_review_method_display == 'false' && genre.details_review_method_item_review_method_form_id == 'full-submission' || genre.details_review_method_item_review_method_display == 'false' && genre.details_review_method_item_review_method_form_id == 'all')}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText id="txtReviewType" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_review_method_item_review_method_optional != 'true'}" /><span class="noDisplay"> </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_review_method_item_review_method_optional != 'true'}" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="large_area0 tiny_marginRIncl">
@@ -156,7 +156,7 @@
 		<tr:iterator id="iterDetailGroupIdentifier" var="identifier" value="#{EditItem.identifierCollection.identifierManager.objectDM}" rendered="#{!(genre.details_identifiers_display == 'false' && genre.details_identifiers_form_id == 'full-submission' || genre.details_identifiers_display == 'false' && genre.details_identifiers_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText id="txtIdentifier" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_identifiers_optional != 'true' && (genre.details_identifiers_item_identifier_type_optional != 'true' || genre.details_identifiers_item_identifier_value_optional != 'true')}" /><h:outputText value="#{genre.details_identifiers_label}" rendered="#{EditItem.identifierCollection.identifierManager.objectDM.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_identifiers_optional != 'true' && (genre.details_identifiers_item_identifier_type_optional != 'true' || genre.details_identifiers_item_identifier_value_optional != 'true')}" /><h:outputText value="#{genre.details_identifiers_label}" rendered="#{EditItem.identifierCollection.identifierManager.objectDM.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.details_identifiers_item_identifier_type_display == 'false' && genre.details_identifiers_item_identifier_type_form_id == 'full-submission' || genre.details_identifiers_item_identifier_type_display == 'false' && genre.details_identifiers_item_identifier_type_form_id == 'all')}">
@@ -199,7 +199,7 @@
 		</h:panelGroup>
 
 	
-		<a class="free_area0 collapse"><h:outputText id="txtHideDetailGroup" value="#{lbl.ViewItemFull_lblHideGroup} " /> <h:outputText value="#{genre.details_label}" converter="GenreLabelConverter"/></a>	
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /> <h:outputText value="#{genre.details_label}" converter="GenreLabelConverter"/></a>	
 	</div>
-	<a class="free_area0 expand"><h:outputText id="txtShowDetailGroup" value="#{lbl.ViewItemFull_lblShowGroup} " /> <h:outputText value="#{genre.details_label}" converter="GenreLabelConverter"/></a>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /> <h:outputText value="#{genre.details_label}" converter="GenreLabelConverter"/></a>
 </h:panelGroup>

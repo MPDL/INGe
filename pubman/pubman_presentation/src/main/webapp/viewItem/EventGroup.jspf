@@ -33,7 +33,7 @@
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText id="lblViewItemFull_lblSubHeaderEvent" value="#{lbl.ViewItemFull_lblSubHeaderEvent}" />
+		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderEvent}" />
 	</h3>
 	<span class="seperator"></span>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showEvents}">
@@ -41,10 +41,10 @@
 <%-- Event title --%>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText id="lblViewItemFull_lblEventTitle" value="#{lbl.ViewItemFull_lblEventTitle}"/><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ViewItemFull_lblEventTitle}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText id="txtEventTitle" value="#{ViewItemFull.pubItem.metadata.event.title.value}"/>
+				<h:outputText value="#{ViewItemFull.pubItem.metadata.event.title.value}"/>
 			</span>
 		</div>
 
@@ -52,10 +52,10 @@
 		<tr:iterator var="eventAltTitles" value="#{ViewItemFull.pubItem.metadata.event.alternativeTitles}" binding="#{ViewItemFull.eventAltTitleIterator}" varStatus="index">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText id="lblViewItemFull_lblEventAlternativeTitle" value="#{lbl.ViewItemFull_lblEventAlternativeTitle}"/><span class="noDisplay">: </span>
+					&#160;<h:outputText value="#{lbl.ViewItemFull_lblEventAlternativeTitle}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtEventAlternativeTitle" value="#{eventAltTitles.value}"/>
+					<h:outputText value="#{eventAltTitles.value}"/>
 				</span>
 			</h:panelGroup>
 		</tr:iterator>
@@ -63,32 +63,32 @@
 <%-- Event place --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText id="lblViewItemFull_lblEventPlace" value="#{lbl.ViewItemFull_lblEventPlace}"/><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ViewItemFull_lblEventPlace}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText id="txtEventPlace" value="#{ViewItemFull.pubItem.metadata.event.place.value}"/>
-				<h:outputText id="txtEventPlaceEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.event.place.value == null || ViewItemFull.pubItem.metadata.event.place.value == ''}"/>
+				<h:outputText value="#{ViewItemFull.pubItem.metadata.event.place.value}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.event.place.value == null || ViewItemFull.pubItem.metadata.event.place.value == ''}"/>
 			</span>
 		</div>
 
 <%-- Start / end date --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText id="lblViewItemFull_lblEventStartEndDate" value="#{lbl.ViewItemFull_lblEventStartEndDate}"/><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ViewItemFull_lblEventStartEndDate}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText id="txtStartEndDate" value="#{ViewItemFull.startEndDate}"/>
-				<h:outputText id="txtStartEndDateEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.startEndDate == null || ViewItemFull.startEndDate == ''}"/>
+				<h:outputText value="#{ViewItemFull.startEndDate}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.startEndDate == null || ViewItemFull.startEndDate == ''}"/>
 			</span>
 		</div>
 
 <%-- Invitation status --%>
 		<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ViewItemFull.invited}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText id="lblViewItemMedium_lblEventInvited" value="#{lbl.ViewItemMedium_lblEventInvited}"/><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ViewItemMedium_lblEventInvited}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText id="txtEventInvited" value="#{lbl.yes}" />
+				<h:outputText value="#{lbl.yes}" />
 			</span>
 		</h:panelGroup>
 

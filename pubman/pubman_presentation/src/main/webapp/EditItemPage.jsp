@@ -53,7 +53,7 @@
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 
-			<h:outputText id="pageDummy" value="#{EditItemPage.beanName}" styleClass="noDisplay" />
+			<h:outputText value="#{EditItemPage.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true" onsubmit="fullItemReload();">
 			<div class="full wrapper">
 			<h:inputHidden value="#{EditItemSessionBean.offset}" id="offset"></h:inputHidden>

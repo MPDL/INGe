@@ -45,16 +45,16 @@
 		<span class="xHuge_area0 xTiny_marginLExcl endline">
 			<h:panelGroup styleClass="double_area0 xTiny_marginRIncl" rendered="#{!(genre.legal_case_legal_case_court_name_display == 'false' && genre.legal_case_legal_case_court_name_form_id == 'full-submission' || genre.legal_case_legal_case_court_name_display == 'false' && genre.legal_case_legal_case_court_name_form_id == 'all')}">
 				<h:panelGroup styleClass="double_area0">
-					<h:outputText id="txtlegal_case_legal_case_court_name_Required" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_court_name_optional != 'true'}" />
-					<h:outputText id="txtlegal_case_legal_case_court_name_optional" value="#{genre.legal_case_legal_case_court_name_label}" converter="GenreLabelConverter"/>
+					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_court_name_optional != 'true'}" />
+					<h:outputText value="#{genre.legal_case_legal_case_court_name_label}" converter="GenreLabelConverter"/>
 				</h:panelGroup>
 				<h:inputText id="inplegal_case_legal_case_court_nameOptional" styleClass="double_txtInput" value="#{EditItem.pubItem.metadata.legalCase.courtName}" />
 			</h:panelGroup>
 	<%-- Identifier --%>
 			<h:panelGroup styleClass="double_area0" rendered="#{!(genre.legal_case_legal_case_identifier_display == 'false' && genre.legal_case_legal_case_identifier_form_id == 'full-submission' || genre.legal_case_legal_case_identifier_display == 'false' && genre.legal_case_legal_case_identifier_form_id == 'all')}">
 				<h:panelGroup styleClass="double_area0">
-					<h:outputText id="txtlegal_case_legal_case_identifier_optionalRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_identifier_optional != 'true'}" />
-					<h:outputText id="txtlegal_case_legal_case_identifier_optional" value="#{genre.legal_case_legal_case_identifier_label}" converter="GenreLabelConverter"/>
+					<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_identifier_optional != 'true'}" />
+					<h:outputText value="#{genre.legal_case_legal_case_identifier_label}" converter="GenreLabelConverter"/>
 				</h:panelGroup>
 				<h:inputText id="inplegal_case_legal_case_identifier" styleClass="double_txtInput" value="#{EditItem.pubItem.metadata.legalCase.identifier}" />
 			</h:panelGroup>
@@ -63,7 +63,7 @@
 	<%-- Title --%>
 	<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.legal_case_legal_case_title_display == 'false' && genre.legal_case_legal_case_title_form_id == 'full-submission' || genre.legal_case_legal_case_title_display == 'false' && genre.legal_case_legal_case_title_form_id == 'all')}">
 		<b class="xLarge_area0_p8 endline labelLine clear">
-			&#160;<h:outputText id="txtLegalCaseTitleDisplay" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_title_optional != 'true'}" />
+			&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_title_optional != 'true'}" />
 			<h:outputText value="#{genre.legal_case_legal_case_title_label}" converter="GenreLabelConverter" /><span class="noDisplay">: </span>
 		</b>
 		<span class="xHuge_area0 xTiny_marginLExcl endline">
@@ -73,13 +73,13 @@
 	<%-- Date --%>
 	<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.legal_case_legal_case_date_published_display == 'false' && genre.legal_case_legal_case_date_published_form_id == 'full-submission' || genre.legal_case_legal_case_date_published_display == 'false' && genre.legal_case_legal_case_date_published_form_id == 'all')}">
 		<b class="xLarge_area0_p8 endline labelLine clear">
-			&nbsp;<h:outputText id="txtlegal_case_legal_case_date_publishedRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_date_published_optional != 'true'}" /><span class="noDisplay"> </span>
+			&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_date_published_optional != 'true'}" /><span class="noDisplay"> </span>
 		</b>
 		<span class="xHuge_area0 xTiny_marginLExcl endline">
 		<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.legal_case_legal_case_date_published_display == 'false' && genre.legal_case_legal_case_date_published_form_id == 'full-submission' || genre.legal_case_legal_case_date_published_display == 'false' && genre.legal_case_legal_case_date_published_form_id == 'all')}">
 			<span class="large_area0">
-				<h:outputText id="txtlegal_case_legal_case_date_publishedLabelRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_date_published_optional != 'true'}" />
-				<h:outputText id="txtlegal_case_legal_case_date_published" value="#{genre.legal_case_legal_case_date_published_label}" converter="GenreLabelConverter"/>
+				<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.legal_case_legal_case_date_published_optional != 'true'}" />
+				<h:outputText value="#{genre.legal_case_legal_case_date_published_label}" converter="GenreLabelConverter"/>
 			</span>
 			<h:inputText id="inplegal_case_legal_case_date-published" styleClass="large_txtInput dateJSInput" value="#{EditItem.pubItem.metadata.legalCase.datePublished}" />
 		</h:panelGroup>

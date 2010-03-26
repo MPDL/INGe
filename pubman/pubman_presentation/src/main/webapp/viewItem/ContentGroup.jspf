@@ -33,7 +33,7 @@
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText id="lblEditItem_lblContent" value="#{lbl.EditItem_lblContent}" />
+		<h:outputText value="#{lbl.EditItem_lblContent}" />
 	</h3>
 	<span class="seperator"></span>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.pubItem.metadata.freeKeywords != null || ViewItemFull.hasAbstracts}">
@@ -41,11 +41,11 @@
 <%-- Free keywords --%>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText id="lblViewItemFull_lblSubject" value="#{lbl.ViewItemFull_lblSubject}" /><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ViewItemFull_lblSubject}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText id="txtFreeKeywords" value="#{ViewItemFull.pubItem.metadata.freeKeywords.value}"/>
-				<h:outputText id="txtFreeKeywordsEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.freeKeywords.value == null || ViewItemFull.pubItem.metadata.freeKeywords.value == ''}"/>
+				<h:outputText value="#{ViewItemFull.pubItem.metadata.freeKeywords.value}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.freeKeywords.value == null || ViewItemFull.pubItem.metadata.freeKeywords.value == ''}"/>
 			</span>
 		</div>
 
@@ -53,11 +53,11 @@
 		<tr:iterator var="subject" value="#{ViewItemFull.pubItem.metadata.subjects}" binding="#{ViewItemFull.subjectIterator}" varStatus="index">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText id="lblEditItem_lblDDCSubject" value="#{lbl.ViewItemFull_lblDDCSubject}"/><span class="noDisplay">: </span>
+					&#160;<h:outputText value="#{lbl.ViewItemFull_lblDDCSubject}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtDDCSubject" value="#{subject.value}" converter="HTMLEscapeConverter" escape="false"/>
-					<h:outputText id="txtDDCSubjectEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{subject.value == null || subject.value == ''}"/>
+					<h:outputText value="#{subject.value}" converter="HTMLEscapeConverter" escape="false"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{subject.value == null || subject.value == ''}"/>
 				</span>
 			</h:panelGroup>
 		</tr:iterator>
@@ -66,20 +66,20 @@
 		<tr:iterator var="abstract" value="#{ViewItemFull.pubItem.metadata.abstracts}" binding="#{ViewItemFull.abstractIterator}" varStatus="index">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText id="lblViewItemFull_lblAbstract" value="#{lbl.ViewItemFull_lblAbstract}"/><span class="noDisplay">: </span>
+					&#160;<h:outputText value="#{lbl.ViewItemFull_lblAbstract}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtAbstract" value="#{abstract.value}" converter="HTMLEscapeConverter" escape="false"/>
+					<h:outputText value="#{abstract.value}" converter="HTMLEscapeConverter" escape="false"/>
 				</span>
 			</h:panelGroup>
 		</tr:iterator>
 
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{!ViewItemFull.hasAbstracts}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText id="lblViewItemFull_lblAbstractEmpty" value="#{lbl.ViewItemFull_lblAbstract}"/><span class="noDisplay">: </span>
+				&#160;<h:outputText value="#{lbl.ViewItemFull_lblAbstract}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText id="txtViewItemFull_lblAbstractEmpty" value="#{lbl.lbl_noEntry}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}"/>
 			</span>			
 		</h:panelGroup>
 		

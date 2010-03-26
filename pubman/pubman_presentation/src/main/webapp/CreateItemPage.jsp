@@ -79,7 +79,7 @@
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText id="lblCreateItemPage" value="#{lbl.CreateItemPage}"/></h1>
+								<h1><h:outputText value="#{lbl.CreateItemPage}"/></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
@@ -96,7 +96,7 @@
 										<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 									</h:commandLink>
 									<span>
-										<h:outputText id="lblSubmission_lnkNewSubmission" value="#{lbl.submission_lnkNewSubmission}" rendered="#{!CreateItem.multiple and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+										<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{!CreateItem.multiple and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 									</span>
 									<h:outputText styleClass="seperator void" />
 									<h:commandLink id="lnkNewImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
@@ -107,7 +107,7 @@
 										<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 									</h:commandLink>
 									<span>
-										<h:outputText id="lblSubmission_lnkMultipleImport" value="#{lbl.submission_lnkMultipleImport}" rendered="#{CreateItem.multiple and LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+										<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{CreateItem.multiple and LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 									</span>
 									<h:outputText styleClass="seperator void" />
 									<h:outputLink id="lnkImportWorkspace" title="#{tip.submission_lnkImportWorkspace}" value="ImportWorkspace.jsp" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
@@ -119,7 +119,7 @@
 							</div>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-									<h:outputText id="txtCreate_Item_Select_Collection" value="#{msg.create_Item_Select_Collection}"/>
+									<h:outputText value="#{msg.create_Item_Select_Collection}"/>
 								<!-- Subheadline ends here -->
 							</div>
 						</div>

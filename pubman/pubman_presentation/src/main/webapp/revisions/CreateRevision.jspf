@@ -33,21 +33,20 @@
 	id="CreateRevision">
 	<div>
 	<h1 class="bottomSpace">
-		<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.CreateRevisionPage}" />
+		<h:outputText styleClass="orientationHeader" value="#{lbl.CreateRevisionPage}" />
 		<h:commandButton title="#{tip.revisions_help}" type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#CreateRevision');return false"/>
 	</h1>
 	<div>
-		<h2><h:outputText id="existingRevisions"
-			value="#{lbl.CreateNewRevision_ExistingRevisions}" /></h2>
+		<h2><h:outputText value="#{lbl.CreateNewRevision_ExistingRevisions}" /></h2>
 		<h:panelGroup id="panRevisionList"
 			binding="#{CreateRevision.panDynamicRevisionList}">
 		</h:panelGroup> <!-- Removed according to JIRA-186
 		<h2>
-			<h:outputText id="newRevision" value="#{lbl.CreateNewRevision_NewRevision}" />
+			<h:outputText value="#{lbl.CreateNewRevision_NewRevision}" />
 		</h2>
 			
 			<div>
-				<h:outputText id="revisionDescription" value="#{lbl.CreateNewRevision_RevisionDescription}" />
+				<h:outputText value="#{lbl.CreateNewRevision_RevisionDescription}" />
 			</div>
 			<div>
 				<h:inputTextarea id="txtRevisionDescription" value="#{RevisionListSessionBean.revisionDescription}" />

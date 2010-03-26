@@ -68,7 +68,7 @@ All rights reserved. Use is subject to license terms.
 
  	<div class="small_marginLExcl pageBrowser">
  		<label class="noDisplay pageLabel">
- 			<h:outputText id="lblList_lblPage" value="#{lbl.List_lblPage}"/>
+ 			<h:outputText value="#{lbl.List_lblPage}"/>
 		</label>
  		<tr:goButton id="btItemList_Results1" styleClass="min_imgBtn skipToFirst" text=" " shortDesc="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForFirstPage}"/>
  		<tr:goButton id="btItemList_Results2" styleClass="backward" text="#{lbl.List_lkPrevious}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 - PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForPreviousPage}"/>
@@ -85,7 +85,7 @@ All rights reserved. Use is subject to license terms.
  	</div>
 
  	<div class="gotoBox">
- 		<label class="free_label gotoLabel"><h:outputText id="lblList_lblGoToPage" value="#{lbl.List_lblGoToPage}"/></label>
+ 		<label class="free_label gotoLabel"><h:outputText value="#{lbl.List_lblGoToPage}"/></label>
  		<h:inputText id="inpGoToPageTop" styleClass="tiny_txtInput" value="#{PubItemListSessionBean.goToPageTop}"/>
  		<h:outputLabel id="lblItemList_of" styleClass="free_label" value="#{lbl.ItemList_of} " />
  		<h:outputLabel id="lblPaginatorPageSize" styleClass="free_label" value="#{PubItemListSessionBean.paginatorPageSize}" />

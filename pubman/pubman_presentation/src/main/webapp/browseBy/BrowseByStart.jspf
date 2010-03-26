@@ -36,7 +36,7 @@
 	<span class="free_area0_p8 endline itemHeadline">
 		<b>
 			<h:commandLink id="lnkOrg" title="" action="#{BrowseByPage.loadAffiliationTree}">
-				<h:outputText id="lblBrowseBy_lnkOrg" value="#{lbl.EditItem_lblOrganization }" />
+				<h:outputText value="#{lbl.EditItem_lblOrganization }" />
 			</h:commandLink>
 		</b>
 	</span>
@@ -48,10 +48,10 @@
 	<div class="free_area0 itemBlockContent endline">		
 		<div class="free_area0 endline itemLine firstLine">
 			<b class="xLarge_area0 endline labelLine">
-				<h:outputText id="lnkBrowseBy_lnkOrg" value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText id="lblBrowseBy_descOrg" value="#{lbl.BrowseByOrgDesc }" />
+				<h:outputText value="#{lbl.BrowseByOrgDesc }" />
 			</span>
 		</div>
 	</div>
@@ -65,7 +65,7 @@
 	<span class="free_area0_p8 endline itemHeadline">
 		<b>
 			<h:commandLink id="lnkCreator" title=""  action="#{BrowseByPage.loadBrowseByCreator}" immediate="true">
-				<h:outputText id="lblBrowseBy_lnkCreator" value="#{lbl.ViewItemFull_lblCreator}" />
+				<h:outputText value="#{lbl.ViewItemFull_lblCreator}" />
 			</h:commandLink>
 		</b>
 	</span>
@@ -77,10 +77,10 @@
 	<div class="free_area0 itemBlockContent endline">		
 		<div class="free_area0 endline itemLine firstLine">
 			<b class="xLarge_area0 endline labelLine">
-				<h:outputText id="lnkBrowseBy_lnkCreator" value="#{lbl.submission_lblDescription}"/><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.submission_lblDescription}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText id="lblBrowseBy_descCreator" value="#{lbl.BrowseByCreatorDesc }" />
+				<h:outputText value="#{lbl.BrowseByCreatorDesc }" />
 			</span>
 		</div>
 	</div>
@@ -93,7 +93,7 @@
 	<span class="seperator"></span>
 	<span class="free_area0_p8 endline itemHeadline">
 		<b>
-			<h:outputText id="lblBrowseBy_lnkSubject" value="#{lbl.lblSubject}"/>
+			<h:outputText value="#{lbl.lblSubject}"/>
 		</b>
 	</span>
 </div>
@@ -110,10 +110,10 @@
 					<span class="noDisplay">: </span>
 				</b>
 				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl" rendered="#{subjectVocab == 'ddc'}">
-					<h:outputText id="lblBrowseBy_descDdc" value="#{lbl.ddcDesc}" />
+					<h:outputText value="#{lbl.ddcDesc}" />
 				</h:panelGroup>
 				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl" rendered="#{subjectVocab == 'mpipks'}">
-					<h:outputText id="lblBrowseBy_descMpipks" value="#{lbl.mpipksDesc}" />
+					<h:outputText value="#{lbl.mpipksDesc}" />
 				</h:panelGroup>
 			</div>			
 		</tr:iterator>
@@ -128,7 +128,7 @@
 	<span class="free_area0_p8 endline itemHeadline">
 		<b>
 			<h:commandLink id="lnkYear" title=""  action="#{BrowseByPage.loadBrowseByYear}" immediate="true">
-				<h:outputText id="lblBrowseBy_lnkYear" value="#{lbl.Year }" />
+				<h:outputText value="#{lbl.Year }" />
 			</h:commandLink>
 		</b>
 	</span>
@@ -140,10 +140,10 @@
 	<div class="free_area0 itemBlockContent endline">		
 		<div class="free_area0 endline itemLine firstLine">
 			<b class="xLarge_area0 endline labelLine">
-				<h:outputText id="lnkBrowseBy_lnkYear" value="#{lbl.submission_lblDescription}"/><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.submission_lblDescription}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText id="lblBrowseBy_descYear" value="#{lbl.BrowseByYearDesc }" />
+				<h:outputText value="#{lbl.BrowseByYearDesc }" />
 			</span>
 		</div>
 	</div>

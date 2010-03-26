@@ -78,7 +78,7 @@
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<a class="large_area0 tiny_marginRIncl checkAll"><h:outputText id="lblAllCreatorRoles" value="#{lbl.adv_search_btAll}" /></a>
+					<a class="large_area0 tiny_marginRIncl checkAll"><h:outputText value="#{lbl.adv_search_btAll}" /></a>
 					<span class="free_area0 checkboxDoubleGroup">
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchAuthor" value="#{personCriterionBean.searchAuthor}" />

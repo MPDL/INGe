@@ -49,7 +49,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-			<h:outputText id="pageDummy" value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
+			<h:outputText value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
@@ -65,7 +65,7 @@
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText id="lblAdvancedSearch" value="#{lbl.search_lblAdvancedSearch}" /></h1>
+								<h1><h:outputText value="#{lbl.search_lblAdvancedSearch}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>

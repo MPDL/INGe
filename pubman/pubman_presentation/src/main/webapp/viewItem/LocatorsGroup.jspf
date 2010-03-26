@@ -33,7 +33,7 @@
 
 <h:panelGroup id="locators" layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText id="lblViewItemFull_lblSubHeaderLocators" value="#{lbl.ViewItemFull_lblSubHeaderLocators}" />
+		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocators}" />
 	</h3>
 	<span class="seperator"></span>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showLocators}">
@@ -45,25 +45,25 @@
 <%-- Locator URL --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText id="lblViewItemFull_lblSubHeaderLocators" value="#{lbl.ViewItemFull_lblLocatorLocation}"/><span class="noDisplay">: <br /></span>
+					<h:outputText value="#{lbl.ViewItemFull_lblLocatorLocation}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:outputLink id="lnkLocatorLink" value="#{locator.locatorLink}" rendered="#{ViewItemFull.isStateWithdrawn == false && locator.locatorIsLink}" target="_blank" title="#{locator.file.description}">
 							<h:outputText value="#{locator.fileName}" />
 						</h:outputLink>
-						<h:outputText id="txtLocatorFileName" value="#{locator.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false && !locator.locatorIsLink}"/>
-						<h:outputText id="txtLocatorContentCategory" value=" (#{locator.contentCategory})" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-						<h:outputText id="txtLocatorEmpty" value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
+						<h:outputText value="#{locator.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false && !locator.locatorIsLink}"/>
+						<h:outputText value=" (#{locator.contentCategory})" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 				</span>
 			</h:panelGroup>
 <%-- Locator description --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText id="lblLocatorDescription" value="#{lbl.ViewItemMedium_lblFileDescription}"/><span class="noDisplay">: <br /></span>
+					<h:outputText value="#{lbl.ViewItemMedium_lblFileDescription}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtLocatorDescription" value="#{locator.fileDescription}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-					<h:outputText id="txtLocatorDescriptionEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{locator.fileDescription == null  || locator.fileDescription == ''}"/>
+					<h:outputText value="#{locator.fileDescription}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{locator.fileDescription == null  || locator.fileDescription == ''}"/>
 				</span>
 			</h:panelGroup>
 

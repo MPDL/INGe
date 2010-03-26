@@ -41,7 +41,7 @@
 <%-- All Files --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText id="lblAudiencePage_allFiles" value="#{lbl.AudiencePage_allFiles}" /><span class="noDisplay"> </span>
+				<h:outputText value="#{lbl.AudiencePage_allFiles}" /><span class="noDisplay"> </span>
 			</b>
 			<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputLabel id="lblNumberOfFiles" styleClass="quad_label" value="#{lbl.AudiencePage_numberOf} #{AudienceBean.numberOfFiles}"/>
@@ -49,7 +49,7 @@
 			<tr:iterator var="grantForAllFiles" id="grantListForAllFiles" value="#{AudienceBean.grantsForAllFiles}" >
 				<h:panelGroup>
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						<h:outputText id="txtAudiencePage_audiencingGroup" value="#{lbl.AudiencePage_audiencingGroup}" /><span class="noDisplay"> </span>
+						<h:outputText value="#{lbl.AudiencePage_audiencingGroup}" /><span class="noDisplay"> </span>
 					</b>
 					<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
 						<h:selectOneMenu id="selUserGroups" styleClass="quad_select" value="#{grantForAllFiles.grant.grantedTo}">
@@ -70,7 +70,7 @@
 			<tr:iterator var="file" id="allFiles" value="#{AudienceBean.fileList}" >
 				<h:panelGroup>
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						<h:outputText id="lblAudiencePage_file" value="#{lbl.AudiencePage_file}" /><span class="noDisplay"> </span>
+						<h:outputText value="#{lbl.AudiencePage_file}" /><span class="noDisplay"> </span>
 					</b>
 					<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
 						<tr:goLink id="lnkFile" targetFrame="." destination="#{AudienceBean.fwUrl}/ir/#{AudienceBean.itemPattern}/components/component/#{file.file.reference.objectId}/content" shortDesc="#{file.file.description}">
@@ -80,7 +80,7 @@
 					<tr:iterator var="grant" id="allGrants" value="#{file.grantList}" >
 						<h:panelGroup>
 							<b class="xLarge_area0_p8 endline labelLine clear">
-								<h:outputText id="lblAudiencePage_audiencingGroup" value="#{lbl.AudiencePage_audiencingGroup}" /><span class="noDisplay"> </span>
+								<h:outputText value="#{lbl.AudiencePage_audiencingGroup}" /><span class="noDisplay"> </span>
 							</b>
 							<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
 								<h:selectOneMenu id="selUserGroups" styleClass="quad_select" value="#{grant.grant.grantedTo}">

@@ -33,7 +33,7 @@
 
 <h:panelGroup layout="block" id="editContent" styleClass="full_area0 itemBlock" rendered="#{!(genre.content_display == 'false' && genre.content_form_id == 'full-submission' || genre.content_display == 'false' && genre.content_form_id == 'all')}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText id="txtOutputTxt" value="#{genre.content_label}" converter="GenreLabelConverter"/>
+		<h:outputText value="#{genre.content_label}" converter="GenreLabelConverter"/>
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
@@ -81,7 +81,7 @@
 				</b>
 				<h:panelGroup layout="block" styleClass="xHuge_area0 xTiny_marginLExcl endline noTopBorder">
 					<b class="xDouble_area0 tiny_marginRIncl">
-						&#160;<h:outputText id="txtMandatoryField" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_abstract_optional != 'true'}" /><h:outputText id="txtGenreContentLabel" value="#{genre.content_item_abstract_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_abstract_optional != 'true'}" /><h:outputText value="#{genre.content_item_abstract_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 endline">
 						<h:inputTextarea id="inputAbstractValue" styleClass="xDouble_txtArea tiny_marginRIncl inputTxtArea" value="#{abstract.value}" cols="15" rows="3" />
@@ -97,7 +97,7 @@
 			</h:panelGroup>
 		</tr:iterator>
 
-		<a class="free_area0 collapse"><h:outputText id="txtViewItemFull_lblHideGroup" value="#{lbl.ViewItemFull_lblHideGroup} " /> <h:outputText id="txtViewItemFull_lblHideGroupcontent_label" value="#{genre.content_label}" converter="GenreLabelConverter"/></a>	
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /> <h:outputText value="#{genre.content_label}" converter="GenreLabelConverter"/></a>	
 	</div>
-	<a class="free_area0 expand"><h:outputText id="txtViewItemFull_lblShowGroup" value="#{lbl.ViewItemFull_lblShowGroup} " /> <h:outputText id="txtViewItemFull_lblShowGroupcontent_label" value="#{genre.content_label}" converter="GenreLabelConverter"/></a>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /> <h:outputText value="#{genre.content_label}" converter="GenreLabelConverter"/></a>
 </h:panelGroup>

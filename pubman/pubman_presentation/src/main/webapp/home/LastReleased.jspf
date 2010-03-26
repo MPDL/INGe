@@ -54,7 +54,7 @@
     <div id="feedControl2" style="font-size: 0.4em"></div>
 </h:panelGroup>
 <h:panelGroup rendered="#{!ApplicationBean.checkSystemTypeProduction}">
-    <h:outputText id="rssFeedDisabled" value="#{lbl.Home_Header_LastItems_Disabled}"/>
+    <h:outputText value="#{lbl.Home_Header_LastItems_Disabled}"/>
 </h:panelGroup>
 
 

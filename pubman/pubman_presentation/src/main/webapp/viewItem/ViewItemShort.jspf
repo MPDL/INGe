@@ -32,12 +32,12 @@
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
 <h:panelGroup layout="block" styleClass="full_area0 shortView">
-	<h:outputText id="lblIdentifier" value="<abbr class='unapi-id' title='#{item.identifier}'></abbr>" escape="false" rendered="#{item.isReleased}"/>
+	<h:outputText value="<abbr class='unapi-id' title='#{item.identifier}'></abbr>" escape="false" rendered="#{item.isReleased}"/>
 	<div class="free_area0_p0  small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
- 			<div><a class="collapse"><span class="noDisplay"><h:outputText id="lblViewItemShort_lblShow1" value="#{lbl.ViewItemShort_lblShow}"/> </span><h:outputText id="lblViewItemShort_lblLess" value="#{lbl.ViewItemShort_lblLess}"/><span class="noDisplay"> <h:outputText id="lblViewItemShort_lblDetails1" value="#{lbl.ViewItemShort_lblDetails}"/></span></a>
-			<a class="expand"><span class="noDisplay"><h:outputText id="lblViewItemShort_lblShow2" value="#{lbl.ViewItemShort_lblShow}"/> </span><h:outputText id="lblViewItemShort_lblMore" value="#{lbl.ViewItemShort_lblMore}"/><span class="noDisplay"> <h:outputText id="lblViewItemShort_lblDetails2" value="#{lbl.ViewItemShort_lblDetails}"/></span></a></div>
-			<h:outputText id="lblViewItemShort_lblCreators" value="#{lbl.ViewItemShort_lblCreators}"/><span class="noDisplay">: </span>
+ 			<div><a class="collapse"><span class="noDisplay"><h:outputText value="#{lbl.ViewItemShort_lblShow}"/> </span><h:outputText value="#{lbl.ViewItemShort_lblLess}"/><span class="noDisplay"> <h:outputText  value="#{lbl.ViewItemShort_lblDetails}"/></span></a>
+			<a class="expand"><span class="noDisplay"><h:outputText value="#{lbl.ViewItemShort_lblShow}"/> </span><h:outputText value="#{lbl.ViewItemShort_lblMore}"/><span class="noDisplay"> <h:outputText value="#{lbl.ViewItemShort_lblDetails}"/></span></a></div>
+			<h:outputText value="#{lbl.ViewItemShort_lblCreators}"/><span class="noDisplay">: </span>
 		</span>
 		
 		<h:outputLabel id="lblCreatorsShort" styleClass="xHuge_area0 endline" value="#{item.creatorsShort}" title="#{item.creators}"/>
@@ -45,40 +45,40 @@
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
-			<h:outputText id="lblViewItemShort_lblDates" value="#{lbl.ViewItemShort_lblDates}"/><span class="noDisplay">: </span>
+			<h:outputText value="#{lbl.ViewItemShort_lblDates}"/><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<h:outputText id="lblDatesAsString" value="#{item.datesAsString}"/>&#160;
+			<h:outputText value="#{item.datesAsString}"/>&#160;
 		</span>
 	</div>
 	<div class="free_area0_p0  small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
-			<h:outputText id="lblViewItemShort_lblGenre" value="#{lbl.ViewItemShort_lblGenre}"/><span class="noDisplay">: </span>
+			<h:outputText value="#{lbl.ViewItemShort_lblGenre}"/><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<h:outputText id="lblGenre" value="#{item.genre}"/>&#160;
+			<h:outputText value="#{item.genre}"/>&#160;
 		</span>
 	</div>
 	<div class="free_area0_p0  small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
-			<h:outputText id="lblViewItemShort_lblFile" value="#{lbl.ViewItemShort_lblFile}"/><span class="noDisplay">: </span>
+			<h:outputText value="#{lbl.ViewItemShort_lblFile}"/><span class="noDisplay">: </span>
 		</span>
 		<h:panelGroup styleClass="xHuge_area0 endline" rendered="#{item.numberOfFiles > 0}">
 			<h:outputLink styleClass="files" id="lnkFiles" value="#{item.link}#files"><h:outputText value="#{item.fileInfo}"/></h:outputLink>
 		</h:panelGroup>
 		<h:panelGroup styleClass="xHuge_area0 endline" rendered="#{item.numberOfFiles == 0}">
-			<h:outputText id="lblViewItemFull_lblNoEntryFile" value="#{lbl.ViewItemFull_lblNoEntry}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}"/>
 		</h:panelGroup>
 	</div>
 	<div class="free_area0_p0  small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
-			<h:outputText id="lblViewItemShort_lblLocator" value="#{lbl.ViewItemShort_lblLocator}"/><span class="noDisplay">: </span>
+			<h:outputText value="#{lbl.ViewItemShort_lblLocator}"/><span class="noDisplay">: </span>
 		</span>
 		<h:panelGroup styleClass="xHuge_area0 endline" rendered="#{item.numberOfLocators > 0}">
 			<h:outputLink styleClass="locators" id="lnkLocatorInfo" value="#{item.link}#locators"><h:outputText value="#{item.locatorInfo}"/></h:outputLink>
 		</h:panelGroup>
 		<h:panelGroup styleClass="xHuge_area0 endline" rendered="#{item.numberOfLocators == 0}">
-			<h:outputText id="lblViewItemFull_lblNoEntryLocator" value="#{lbl.ViewItemFull_lblNoEntry}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}"/>
 		</h:panelGroup>
 	</div>
 </h:panelGroup>

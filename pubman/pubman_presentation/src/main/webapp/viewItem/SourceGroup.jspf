@@ -33,7 +33,7 @@
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.showSources and !ViewItemFull.isStateWithdrawn}">
 		<h3 class="xLarge_area0_p8 endline blockHeader">
-			<h:outputText id="lblViewItemFull_lblHeaderSource" value="#{lbl.ViewItemFull_lblSubHeaderSource}" />
+			<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderSource}" />
 		</h3>
 		<span class="seperator"></span>
 	<a id="lnkShowGroupSources" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemFull_lblSubHeaderSource}" /></a>
@@ -44,7 +44,7 @@
 
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemFull.showSources and !ViewItemFull.isStateWithdrawn}">
 		<h3 class="xLarge_area0_p8 endline blockHeader">
-			<h:outputText id="lblViewItemFull_lblSubHeaderSource" value="#{lbl.ViewItemFull_lblSubHeaderSource} #{ViewItemFull.sourceIterator.rowIndex +1}" />
+			<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderSource} #{ViewItemFull.sourceIterator.rowIndex +1}" />
 		</h3>
 		<span class="seperator"></span>
 		<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline">
@@ -52,10 +52,10 @@
 	<%-- Source Title --%>
 			<div class="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					<h:outputText id="lblViewItemFull_lblSourceTitle" value="#{lbl.ViewItemFull_lblSourceTitle}"/><span class="noDisplay">: </span>
+					<h:outputText value="#{lbl.ViewItemFull_lblSourceTitle}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtSourceTitle" value="#{source.source.title.value}"/>
+					<h:outputText value="#{source.source.title.value}"/>
 				</span>
 			</div>
 
@@ -63,10 +63,10 @@
 		<tr:iterator var="altTitle" value="#{source.source.alternativeTitles}" binding="#{ViewItemFull.sourceTitleIterator}" varStatus="index">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText id="lblViewItemFull_lblSourceAlternativeTitle" value="#{lbl.ViewItemFull_lblSourceAlternativeTitle}"/><span class="noDisplay">: </span>
+					&#160;<h:outputText value="#{lbl.ViewItemFull_lblSourceAlternativeTitle}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtSourceAlternativeTitle" value="#{altTitle.value}"/>
+					<h:outputText value="#{altTitle.value}"/>
 				</span>
 			</h:panelGroup>
 		</tr:iterator>
@@ -74,10 +74,10 @@
 	<%-- Source genre --%>
 			<div class="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					<h:outputText id="lblSourceAlternativeTitle" value="#{lbl.ViewItemFull_lblSourceGenre}"/><span class="noDisplay">: </span>
+					<h:outputText value="#{lbl.ViewItemFull_lblSourceGenre}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtSourceGenre" value="#{source.genre}"/>
+					<h:outputText value="#{source.genre}"/>
 				</span>
 			</div>
 
@@ -85,13 +85,13 @@
 	<%-- Source creators --%>
 			<div class="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine">
-					<sup>&nbsp;</sup><h:outputText id="lblViewItemFull_lblSourceCreators" value="#{lbl.ViewItemFull_lblSourceCreators}"/><span class="noDisplay">: <br /></span>
+					<sup>&nbsp;</sup><h:outputText value="#{lbl.ViewItemFull_lblSourceCreators}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtSourceCreatorsEmpty" value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.sourceCreatorPersonsIterator.rowCount <= 0 && ViewItemFull.sourceCreatorOrganizationsIterator.rowCount <=0}"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.sourceCreatorPersonsIterator.rowCount <= 0 && ViewItemFull.sourceCreatorOrganizationsIterator.rowCount <=0}"/>
 					<tr:iterator var="sourceCreatorPerson" value="#{source.sourceCreatorArray}" binding="#{ViewItemFull.sourceCreatorPersonsIterator}" varStatus="index" rows="0">
 						<h:panelGroup styleClass="free_area0 creator">
-							<h:outputText id="txtSourceCreatorPerson" value="#{sourceCreatorPerson.formattedDisplay}" escape="false"/>
+							<h:outputText value="#{sourceCreatorPerson.formattedDisplay}" escape="false"/>
 							<h:panelGroup rendered="#{sourceCreatorPerson.portfolioLink != null}">
 								&#160;
 								<h:outputLink id="lnkSourceCreatorPersonPortfolioLink" styleClass="authorCard" value="#{sourceCreatorPerson.portfolioLink}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
@@ -101,7 +101,7 @@
 					</tr:iterator>
 					<tr:iterator var="sourceCreatorOrganization" value="#{source.sourceCreatorOrganizationsArray}" binding="#{ViewItemFull.sourceCreatorOrganizationsIterator}" varStatus="index">
 						<h:panelGroup styleClass="free_area0 creator">
-							<h:outputText id="txtSourceCreatorOrganizationOrganizationName" value="#{sourceCreatorOrganization.organizationName}"/>
+							<h:outputText value="#{sourceCreatorOrganization.organizationName}"/>
 						</h:panelGroup>
 						<h:outputText value="<br />" escape="false"/>
 					</tr:iterator>		
@@ -111,14 +111,14 @@
 	<%-- Source affiliations --%>
 			<div class="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText id="lblViewItemFull_lblSourceAffiliations" value="#{lbl.ViewItemFull_lblSourceAffiliations}"/><span class="noDisplay">: <br /></span>
+					<h:outputText value="#{lbl.ViewItemFull_lblSourceAffiliations}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtSourceAffiliationsEmpty" value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.sourceCreatorAffiliationsIterator.rowCount <= 0}"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.sourceCreatorAffiliationsIterator.rowCount <= 0}"/>
 					<tr:iterator id="creatorAffiliations" var="creatorAffiliation" value="#{source.sourceOrganizationList}" binding="#{ViewItemFull.sourceCreatorAffiliationsIterator}" varStatus="index" rows="0">
-						<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText id="txtSourceCreatorAffiliationPosition" value="#{creatorAffiliation.position}"/></h:panelGroup>
+						<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
 						<h:panelGroup styleClass="free_area0 affiliation">
-                        <h:outputText id="txtSourceCreatorAffiliationOrganizationNameAddress" value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/>
+                        <h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/>
                         <h:panelGroup rendered="#{creatorAffiliation.hasOrganizationalIdentifier}">
                             &#160;
                             <h:outputLink id="lnkSourceCreatorAffiliationOrganizationDetails" value="" styleClass="ouCard" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{creatorAffiliation.organizationIdentifier}', 980, 400, 'Details');return false" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
@@ -132,69 +132,69 @@
 	<%-- Source publishing Info --%>
 			<div class="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					<h:outputText id="lblViewItemFull_lblSourcePubInfo" value="#{lbl.ViewItemFull_lblSourcePubInfo}"/><span class="noDisplay">: </span>
+					<h:outputText value="#{lbl.ViewItemFull_lblSourcePubInfo}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtSourcePublishingInfo" value="#{source.publishingInfo}"/>
-				<h:outputText id="txtSourcePublishingInfoEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{source.publishingInfo == null || source.publishingInfo == ''}"/>
+					<h:outputText value="#{source.publishingInfo}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{source.publishingInfo == null || source.publishingInfo == ''}"/>
 				</span>
 			</div>
 
 	<%-- total number of pages --%>
 			<h:panelGroup styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					<h:outputText id="lblViewItemFull_lblSourcePages" value="#{lbl.ViewItemFull_lblPages}"/><span class="noDisplay">: </span>
+					<h:outputText value="#{lbl.ViewItemFull_lblPages}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtSourceTotalNumberOfPages" value="#{source.source.totalNumberOfPages}"/>
-					<h:outputText id="txtSourceTotalNumberOfPagesEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{source.source.totalNumberOfPages == null || source.source.totalNumberOfPages == ''}"/>
+					<h:outputText value="#{source.source.totalNumberOfPages}"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{source.source.totalNumberOfPages == null || source.source.totalNumberOfPages == ''}"/>
 				</span>
 			</h:panelGroup>
 	
 	<%-- Volume / Issue --%>
 			<h:panelGroup styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					<h:outputText id="lblViewItemFull_lblSourceVolumeIssue" value="#{lbl.ViewItemFull_lblSourceVolumeIssue}"/><span class="noDisplay">: </span>
+					<h:outputText value="#{lbl.ViewItemFull_lblSourceVolumeIssue}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtSourceVolume" value="#{source.source.volume}"/>
+					<h:outputText value="#{source.source.volume}"/>
 					<h:outputText value=" (" rendered="#{source.source.issue != null && source.source.issue != ''}" />
-					<h:outputText id="txtSourceIssue" value="#{source.source.issue}"/>
+					<h:outputText value="#{source.source.issue}"/>
 					<h:outputText value=")" rendered="#{source.source.issue != null && source.source.issue != ''}" />
-					<h:outputText id="txtSourceVolumeIssueEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{(source.source.volume == null || source.source.volume == '') && (source.source.issue == null || source.source.issue == '')}"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{(source.source.volume == null || source.source.volume == '') && (source.source.issue == null || source.source.issue == '')}"/>
 				</span>
 			</h:panelGroup>
 
 	<%-- Sequence Number --%>
 			<h:panelGroup styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					<h:outputText id="lblViewItemFull_lblSourceSequenceNo" value="#{lbl.ViewItemFull_lblSourceSequenceNo}"/><span class="noDisplay">: </span>
+					<h:outputText value="#{lbl.ViewItemFull_lblSourceSequenceNo}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtSourceSequenceNumber" value="#{source.source.sequenceNumber}"/>
-					<h:outputText id="txtSourceSequenceNumberEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{source.source.sequenceNumber == null || source.source.sequenceNumber == ''}"/>
+					<h:outputText value="#{source.source.sequenceNumber}"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{source.source.sequenceNumber == null || source.source.sequenceNumber == ''}"/>
 				</span>
 			</h:panelGroup>
 
 	<%-- Start-/Endpage --%>
 			<h:panelGroup styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					<h:outputText id="lblViewItemFull_lblSourceStartEndPage" value="#{lbl.ViewItemFull_lblSourceStartEndPage}"/><span class="noDisplay">: </span>
+					<h:outputText value="#{lbl.ViewItemFull_lblSourceStartEndPage}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtSourceStartEndPage" value="#{source.startEndPage}"/>
-					<h:outputText id="txtSourceStartEndPageEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{source.startEndPage == null || source.startEndPage == ''}"/>
+					<h:outputText value="#{source.startEndPage}"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{source.startEndPage == null || source.startEndPage == ''}"/>
 				</span>
 			</h:panelGroup>
 
 	<%-- Source identifiers --%>
 			<h:panelGroup styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					<h:outputText id="lblViewItemFull_lblSourceIdentifier" value="#{lbl.ViewItemFull_lblSourceIdentifier}"/><span class="noDisplay">: </span>
+					<h:outputText value="#{lbl.ViewItemFull_lblSourceIdentifier}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtSourceIdentifiers" value="#{source.identifiers}" escape="false"/>
-					<h:outputText id="txtSourceIdentifiersEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{source.identifiers == null || source.identifiers == ''}"/>
+					<h:outputText value="#{source.identifiers}" escape="false"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{source.identifiers == null || source.identifiers == ''}"/>
 				</span>
 			</h:panelGroup>
 	

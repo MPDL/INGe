@@ -64,7 +64,7 @@
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText id="lblViewLocalTagsPageTitle" value="#{lbl.ViewItemPage}" /></h1>
+								<h1><h:outputText value="#{lbl.ViewItemPage}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
@@ -103,35 +103,35 @@
 								<span class="full_area0_p5 underRework">
 									<h:panelGroup styleClass="seperator" />
 									<h:outputLink id="lnkViewLocalTagsPageLocalTags" styleClass="free_area0 actual" value="#contentSkipLinkAnchor">
-										<h:outputText id="txtViewLocalTagsPageLocalTags" value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
+										<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.hasAudience}"/>
 									<h:commandLink id="lnkViewLocalTagsPageAudience" styleClass="free_area0" action="#{AudienceBean.manageAudience}" rendered="#{ViewItemFull.hasAudience}">
-										<h:outputText id="txtViewLocalTagsPageAudience" value="#{lbl.AudiencePage}" />
+										<h:outputText value="#{lbl.AudiencePage}" />
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="false"/>
 									<h:outputLink id="lnkViewLocalCollaborator" styleClass="free_area0" value="#{ApplicationBean.appContext}CollaboratorPage.jsp" rendered="false">
-										<h:outputText id="txtViewLocalCollaborator" value="#{lbl.CollaboratorPage}" />
+										<h:outputText value="#{lbl.CollaboratorPage}" />
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isOwner || ViewItemFull.isModerator)}" />
 									<h:commandLink id="lnkViewLocalLog" styleClass="free_area0" action="#{ViewItemFull.showItemLog}" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isOwner || ViewItemFull.isModerator)}">
-										<h:outputText id="txtViewLocalLog" value="#{lbl.ViewItemLogPage}"/>
+										<h:outputText value="#{lbl.ViewItemLogPage}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
 									<h:commandLink id="lnkViewLocalStatistics" styleClass="free_area0" action="#{ViewItemFull.showStatistics}" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}">
-										<h:outputText id="txtViewLocalStatistics" value="#{lbl.ViewItemFull_btnItemStatistics}"/>
+										<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
 									<h:commandLink id="lnkViewLocalRevisions" styleClass="free_area0" action="#{ViewItemFull.showRevisions}" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}">
-										<h:outputText id="txtViewLocalRevisions" value="#{lbl.ViewItemFull_btnItemRevisions}"/>
+										<h:outputText value="#{lbl.ViewItemFull_btnItemRevisions}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }" />
 									<h:commandLink id="lnkViewLocalVersions" styleClass="free_area0" action="#{ViewItemFull.showReleaseHistory}" rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }">
-										<h:outputText id="txtViewLocalVersions" value="#{lbl.ViewItemFull_btnItemVersions}"/>
+										<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" />
 									<h:outputLink id="lnkViewLocalUrl" styleClass="free_area0" value="#{ViewItemFull.citationURL}">
-										<h:outputText id="txtViewLocalUrl" value="#{lbl.ViewItemPage}"/>
+										<h:outputText value="#{lbl.ViewItemPage}"/>
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" />
 								</span>

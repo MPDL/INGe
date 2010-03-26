@@ -67,7 +67,7 @@
 <%-- Title --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.item_basic_item_title_display == 'false' && genre.item_basic_item_title_form_id == 'full-submission' || genre.item_basic_item_title_display == 'false' && genre.item_basic_item_title_form_id == 'all')}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText id="txtTitleDisplay" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_optional == 'false'}" /><h:outputText value="#{genre.item_basic_item_title_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_item_title_display == 'true'}"/>
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_optional == 'false'}" /><h:outputText value="#{genre.item_basic_item_title_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_item_title_display == 'true'}"/>
 				<span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
@@ -83,7 +83,7 @@
 		<tr:iterator id="iterAlternativeTitle" var="altTitle" value="#{EditItem.titleCollection.alternativeTitleManager.objectDM}" rendered="#{!(genre.item_basic_item_title_alternative_display == 'false' && genre.item_basic_item_title_alternative_form_id == 'full-submission' || genre.item_basic_item_title_alternative_display == 'false' && genre.item_basic_item_title_alternative_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText id="txtAlternativeTitleMandatory" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_alternative_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_title_alternative_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_alternative_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_title_alternative_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:inputTextarea id="inpAlternativeTitle" styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3"/>

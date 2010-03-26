@@ -65,7 +65,7 @@
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText id="lblsubmission_lblSubmissionStart" value="#{lbl.submission_lblSubmissionStart}" /></h1>
+								<h1><h:outputText value="#{lbl.submission_lblSubmissionStart}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>

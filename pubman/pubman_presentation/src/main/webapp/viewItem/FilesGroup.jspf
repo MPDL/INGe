@@ -33,7 +33,7 @@
 
 <h:panelGroup id="files" layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText id="lblViewItemMedium_lblSubHeaderFile" value="#{lbl.ViewItemMedium_lblSubHeaderFile}" />
+		<h:outputText value="#{lbl.ViewItemMedium_lblSubHeaderFile}" />
 	</h3>
 	<span class="seperator"></span>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showFiles}">
@@ -45,15 +45,15 @@
 <%-- File name --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText id="lblViewItemMedium_lblFileName" value="#{lbl.ViewItemMedium_lblFileName}"/><span class="noDisplay">: <br /></span>
+					<h:outputText value="#{lbl.ViewItemMedium_lblFileName}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<tr:goLink id="lnkCitationURL" targetFrame="." destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}" shortDesc="#{file.file.description}" rendered="#{!ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
 							<h:outputText value="#{file.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 						</tr:goLink>
-						<h:outputText id="txtFileName" value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn and !file.isVisible and !(ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}"/>
-						<h:outputText id="txtContentCategory" value=" (#{file.contentCategory})" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-						<h:outputText id="txtViewItemFull_lblNoAccessToFile" value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
+						<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn and !file.isVisible and !(ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}"/>
+						<h:outputText value=" (#{file.contentCategory})" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 						<h:commandLink id="lnkChecksum" value=" [#{file.checksumAlgorithmAsString}]" action="#{file.displayChecksum}" target="_blank" rendered="#{file.checksumAlgorithmAsString!=null and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}"/>		
 				</span>
 			</h:panelGroup>
@@ -61,66 +61,66 @@
 <%-- File description --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText id="lblViewItemMedium_lblFileDescription" value="#{lbl.ViewItemMedium_lblFileDescription}"/><span class="noDisplay">: <br /></span>
+					<h:outputText value="#{lbl.ViewItemMedium_lblFileDescription}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtFileDescription" value="#{file.fileDescription}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-					<h:outputText id="txtFileDescriptionEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{file.fileDescription == null  || file.fileDescription == ''}"/>
+					<h:outputText value="#{file.fileDescription}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{file.fileDescription == null  || file.fileDescription == ''}"/>
 				</span>
 			</h:panelGroup>
 
 <%-- File visibility, Embargo Date --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText id="lblViewItemMedium_lblFileVisibility" value="#{lbl.ViewItemMedium_lblFileVisibility}"/><span class="noDisplay">: <br /></span>
+					<h:outputText value="#{lbl.ViewItemMedium_lblFileVisibility}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtVisibility" value="#{file.visibility}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-					<h:outputText id="lblEditItem_lblFileEmbargo" value=" (#{lbl.EditItem_lblFileEmbargo} #{file.file.defaultMetadata.embargoUntil})" rendered="#{ViewItemFull.isStateWithdrawn == false && file.isVisible == false && file.file.defaultMetadata.embargoUntil != null}"/>
-					<h:outputText id="txtItemIsWithdrawn" value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
+					<h:outputText value="#{file.visibility}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+					<h:outputText value=" (#{lbl.EditItem_lblFileEmbargo} #{file.file.defaultMetadata.embargoUntil})" rendered="#{ViewItemFull.isStateWithdrawn == false && file.isVisible == false && file.file.defaultMetadata.embargoUntil != null}"/>
+					<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 				</span>
 			</h:panelGroup>
 
 <%-- File MIME type --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText id="lblViewItemMedium_lblFileMimeTypeSize" value="#{lbl.ViewItemMedium_lblFileMimeTypeSize}"/><span class="noDisplay">: <br /></span>
+					<h:outputText value="#{lbl.ViewItemMedium_lblFileMimeTypeSize}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtMimeTypeSize" value="#{file.file.mimeType} / #{file.fileSize}"/>
+					<h:outputText value="#{file.file.mimeType} / #{file.fileSize}"/>
 				</span>
 			</h:panelGroup>
 
 <%-- Copyright Date --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="true">
 				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText id="lblViewItem_lblCopyrightDate" value="#{lbl.ViewItem_lblCopyrightDate}"/><span class="noDisplay">: <br /></span>
+					<h:outputText value="#{lbl.ViewItem_lblCopyrightDate}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtcopyrightDate" value="#{file.file.defaultMetadata.copyrightDate}" rendered="true"/>
-					<h:outputText id="txtcopyrightDateEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{file.file.defaultMetadata.copyrightDate == null  || file.file.defaultMetadata.copyrightDate == ''}"/>
+					<h:outputText value="#{file.file.defaultMetadata.copyrightDate}" rendered="true"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{file.file.defaultMetadata.copyrightDate == null  || file.file.defaultMetadata.copyrightDate == ''}"/>
 				</span>
 			</h:panelGroup>
 
 <%-- Copyright Info --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="true">
 				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText id="lblViewItem_lblCopyrightInfo" value="#{lbl.ViewItem_lblCopyrightInfo}"/><span class="noDisplay">: <br /></span>
+					<h:outputText value="#{lbl.ViewItem_lblCopyrightInfo}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtRights" value="#{file.file.defaultMetadata.rights}" rendered="true"/>
-					<h:outputText id="txtRightsEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{file.file.defaultMetadata.rights == null  || file.file.defaultMetadata.rights == ''}"/>
+					<h:outputText value="#{file.file.defaultMetadata.rights}" rendered="true"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{file.file.defaultMetadata.rights == null  || file.file.defaultMetadata.rights == ''}"/>
 				</span>
 			</h:panelGroup>
  
 <%-- File License --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="true">
 				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText id="lblViewItemFull_lblFileLicense" value="#{lbl.ViewItemFull_lblFileLicense}"/><span class="noDisplay">: <br /></span>
+					<h:outputText value="#{lbl.ViewItemFull_lblFileLicense}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText id="txtLicenseDisplayString" value="#{file.file.defaultMetadata.licenseDisplayString}" escape="false"/>
-					<h:outputText id="txtLicenseDisplayStringEmpty" value="#{lbl.lbl_noEntry}" rendered ="#{file.file.defaultMetadata.licenseDisplayString == null  || file.file.defaultMetadata.licenseDisplayString == ''}"/>
+					<h:outputText value="#{file.file.defaultMetadata.licenseDisplayString}" escape="false"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{file.file.defaultMetadata.licenseDisplayString == null  || file.file.defaultMetadata.licenseDisplayString == ''}"/>
 				</span>
 				<h:panelGroup styleClass="large_area0_p8 lineToolSection" rendered="#{file.urlToLicenceImage != ''}">
 					<h:graphicImage id="imgUrlToLicenceImage" styleClass="sectionTool" url="#{file.urlToLicenceImage}" value="#{file.urlToLicenceImage}"/>
@@ -130,16 +130,16 @@
 <%-- File fulltext searchhits --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{file.showSearchHits}">
 				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText id="lblViewItemFull_lblFulltextSearchResults" value="#{lbl.ViewItemFull_lblFulltextSearchResults}"/><span class="noDisplay">: <br /></span>
+					<h:outputText value="#{lbl.ViewItemFull_lblFulltextSearchResults}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<tr:iterator var="hit" value="#{file.searchHits}" binding="#{ViewItemFull.fileSearchHitIterator}" varStatus="index">
 						<h:panelGroup styleClass="xHuge_area0">
-							<h:outputText id="txtBeforeSearchHitString" value="#{hit.beforeSearchHitString}"/>
+							<h:outputText value="#{hit.beforeSearchHitString}"/>
 								<h:outputText value='<em class="searchHit">' escape="false"/>
-									<h:outputText id="txtSearchHitString" value="#{hit.searchHitString}"/>
+									<h:outputText value="#{hit.searchHitString}"/>
 								<h:outputText value="</em>" escape="false"/>
-							<h:outputText id="txtAfterSearchHitString" value="#{hit.afterSearchHitString}"/>
+							<h:outputText value="#{hit.afterSearchHitString}"/>
 						</h:panelGroup>
 					</tr:iterator>
 				</span>

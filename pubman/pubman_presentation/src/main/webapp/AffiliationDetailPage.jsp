@@ -52,7 +52,7 @@
 	
 				</head>
 				<body lang="#{InternationalizationHelper.locale}">
-					<h:outputText id="pageDummy" value="#{AffiliationDetailPage.beanName}" styleClass="noDisplay" />
+					<h:outputText value="#{AffiliationDetailPage.beanName}" styleClass="noDisplay" />
 					<h:form id="form1">
 					<div class="full wrapper">
 						<div id="content" class="full_area0 clear">
@@ -80,7 +80,7 @@
 										<!-- alternative titles -->
 										<div class="free_area0 endline itemLine  noTopBorder">
 											<b class="xLarge_area0_p8 endline labelLine clear">
-												<h:outputText id="lblAffiliationDetailAlternativeTitle" value="#{lbl.AffiliationDetailAlternativeTitle}" /><span class="noDisplay">: </span>
+												<h:outputText value="#{lbl.AffiliationDetailAlternativeTitle}" /><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 endline">
 												<tr:iterator id="detailsAltTitles" var="alternative" value="#{AffiliationDetailPage.affiliation.defaultMetadata.alternativeNames}">
@@ -91,7 +91,7 @@
 										<!-- city & country -->
 										<div class="free_area0 endline itemLine  noTopBorder">
 											<b class="xLarge_area0_p8 endline labelLine clear">
-												<h:outputText id="lblAffiliationDetailLocation" value="#{lbl.AffiliationDetailLocation}" /><span class="noDisplay">: </span>
+												<h:outputText value="#{lbl.AffiliationDetailLocation}" /><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 endline">
 												<tr:outputText id="detailsCity" value="#{AffiliationDetailPage.affiliation.defaultMetadata.city}, "/>
@@ -101,7 +101,7 @@
 										<!-- descriptions -->
 										<div class="free_area0 endline itemLine noTopBorder">
 											<b class="xLarge_area0_p8 endline labelLine clear">
-												<h:outputText id="lblAffiliationDetailDescription" value="#{lbl.AffiliationDetailDescription}" /><span class="noDisplay">: </span>
+												<h:outputText value="#{lbl.AffiliationDetailDescription}" /><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 endline">
 												 <tr:iterator id="detailsDescription" var="description" value="#{AffiliationDetailPage.affiliation.defaultMetadata.descriptions}">
@@ -112,7 +112,7 @@
 										<!-- identifiers -->
                                         <div class="free_area0 endline itemLine noTopBorder">
                                             <b class="xLarge_area0_p8 endline labelLine clear">
-                                                <h:outputText id="lblAffiliationDetailIdentifier" value="#{lbl.AffiliationDetailIdentifier}" /><span class="noDisplay">: </span>
+                                                <h:outputText value="#{lbl.AffiliationDetailIdentifier}" /><span class="noDisplay">: </span>
                                             </b>
                                             <span class="xHuge_area0 endline">
                                                  <tr:iterator id="detailsIdentifier" var="identifier" value="#{AffiliationDetailPage.affiliation.defaultMetadata.identifiers}">
@@ -124,7 +124,7 @@
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{AffiliationDetailPage.affiliation.hasSuccessors}">
 									<h3 class="xLarge_area0_p8 endline blockHeader">
-										<h:outputText id="lblAffiliationDetailSuccessors" value="#{lbl.AffiliationDetailSuccessors}"/>
+										<h:outputText value="#{lbl.AffiliationDetailSuccessors}"/>
 									</h3>
 									<h:panelGroup styleClass="seperator"></h:panelGroup>
 									<div class="free_area0 itemBlockContent endline">
@@ -132,10 +132,10 @@
 										<tr:iterator id="successorsDescription" var="successors" value="#{AffiliationDetailPage.affiliation.successors}">
 										<div class="free_area0 endline itemLine noTopBorder">
 											<b class="xLarge_area0_p8 endline labelLine clear">
-												<h:outputText id="lblAffiliationDetailName" value="#{lbl.AffiliationDetailName}" /><span class="noDisplay">: </span>
+												<h:outputText value="#{lbl.AffiliationDetailName}" /><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 endline">
-                                             <h:outputText id="txtAffiliationDetailName" styleClass="xHuge_area0 endline" value="#{successors.defaultMetadata.name}"/>    
+                                             <h:outputText styleClass="xHuge_area0 endline" value="#{successors.defaultMetadata.name}"/>    
                                          </span>
 										</div>
 										</tr:iterator>
@@ -143,7 +143,7 @@
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{AffiliationDetailPage.affiliation.hasPredecessors}">
 									<h3 class="xLarge_area0_p8 endline blockHeader">
-										<h:outputText id="lblAffiliationDetailPredecessors" value="#{lbl.AffiliationDetailPredecessors}"/>
+										<h:outputText value="#{lbl.AffiliationDetailPredecessors}"/>
 									</h3>
 									<h:panelGroup styleClass="seperator"></h:panelGroup>
 								   <div class="free_area0 itemBlockContent endline">
@@ -151,10 +151,10 @@
 									<tr:iterator id="predecessorsDescription" var="predecessor" value="#{AffiliationDetailPage.affiliation.predecessors}">
 									  <div class="free_area0 endline itemLine noTopBorder">
 										 <b class="xLarge_area0_p8 endline labelLine clear">
-											    <h:outputText id="lblAffiliationDetailName" value="#{lbl.AffiliationDetailName}" /><span class="noDisplay">: </span>
+											    <h:outputText value="#{lbl.AffiliationDetailName}" /><span class="noDisplay">: </span>
 										 </b>
 										 <span class="xHuge_area0 endline">
-		                                     <h:outputText id="txtAffiliationDetailName" styleClass="xHuge_area0 endline" value="#{predecessor.defaultMetadata.name}"/>    
+		                                     <h:outputText styleClass="xHuge_area0 endline" value="#{predecessor.defaultMetadata.name}"/>    
 										 </span>
 									  </div>
 									</tr:iterator>

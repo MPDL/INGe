@@ -31,11 +31,11 @@
 	<f:subview id="ChooseCollection">
 		<div>
 			<h1 class="bottomSpace">
-			<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.CreateRevisionPage}"/>
+			<h:outputText styleClass="orientationHeader" value="#{lbl.CreateRevisionPage}"/>
 			<h:commandButton title="#{tip.revisions_help}" type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#CreateRevision');return false"/>	 
 			</h1>
 			<h2>
-				<h:outputText id="chooseCollection" value="#{lbl.CreateNewRevision_ChooseCollection}" />
+				<h:outputText value="#{lbl.CreateNewRevision_ChooseCollection}" />
 			</h2>
 			<div>
 				<h:panelGroup id="panCollectionList" binding="#{CreateRevision.panDynamicCollectionList}">
