@@ -28,7 +28,7 @@
              */
 %>
 <!-- Character select -->
-<div class="full_area0 fullItem itemHeader">
+<div id="fullItem" class="full_area0 fullItem itemHeader">
 	<h:panelGroup styleClass="full_area0 itemHeader noTopBorder" rendered="#{(BrowseBySessionBean.showChars == true) && (BrowseBySessionBean.selectedValue != 'year')}">
 		<span class="xLarge_area0_p8 blockHeader">
 			<h:outputText id="lblBrowseBy_txtChar" value="#{lbl.BrowseByChooseInitial}"/>
@@ -54,7 +54,7 @@
 			&#160;
 		</span>
 			<h:selectOneRadio id="selSelectDate" styleClass="large_radioBtn tiny_marginRIncl xHuge_area0"  value="published" binding="#{BrowseBySessionBean.dateSelect}" 
-							  valueChangeListener="#{BrowseByPage.dateTypeChanged}" onclick="submit();">										
+							  valueChangeListener="#{BrowseByPage.dateTypeChanged}" onclick="submit(); fullItemReload();">										
 				<f:selectItems id="selDateOptions" value="#{BrowseBySessionBean.DATE_OPTIONS}"/>
 			</h:selectOneRadio>
 		</span>
@@ -138,3 +138,5 @@
 		</div>
 	</h:panelGroup>
 </div>
+
+

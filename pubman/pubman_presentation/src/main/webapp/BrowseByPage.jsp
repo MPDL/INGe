@@ -50,7 +50,7 @@
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{BrowseByPage.beanName}" styleClass="noDisplay" />
-			<tr:form usesUpload="true">
+			<tr:form usesUpload="true" onsubmit="fullItemReload();">
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
@@ -76,8 +76,10 @@
 						</div>
 					</div>			
 					<div class="full_area0">
-						<div class="full_area0 ">
-
+							<div class="full_area0 ">
+								<div id="ImgFullItem">
+								<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;"></div>
+							</div>
 							<jsp:directive.include file="browseBy/BrowseByPage.jspf" />
 
 						</div>
@@ -95,6 +97,16 @@
 					$(window).scrollTop($("input[id$='offset']").val());
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 				});
+			</script>
+			<script type="text/javascript">
+				function fullItemReload()
+				{
+					$(document).ready(function(){$("#fullItem :a").click(function(event){event.preventDefault();});});
+					document.getElementById('fullItem').style.opacity='0.4';
+					document.getElementById('fullItem').style.bg='FFF';
+					document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea half_marginLIncl smallThrobber');
+				}
+				
 			</script>
 			</body>
 		</html>
