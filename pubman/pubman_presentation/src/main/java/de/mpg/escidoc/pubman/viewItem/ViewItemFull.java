@@ -71,6 +71,7 @@ import de.mpg.escidoc.pubman.basket.PubItemStorageSessionBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
+import de.mpg.escidoc.pubman.createItem.CreateItem.SubmissionMethod;
 import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
@@ -704,6 +705,10 @@ public class ViewItemFull extends FacesBean
             }
 
             this.getRelationListSessionBean().setPubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
+            
+            //Set submission method for correct redirect
+            CreateItem createItem = (CreateItem) getSessionBean(CreateItem.class);
+            createItem.setMethod(SubmissionMethod.FULL_SUBMISSION);
             
             return this.getItemControllerSessionBean().createNewRevision(CreateItem.LOAD_CREATEITEM, context.getReference(), this.pubItem, null);
         }

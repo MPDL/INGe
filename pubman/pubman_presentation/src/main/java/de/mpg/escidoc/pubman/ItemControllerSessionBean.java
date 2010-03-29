@@ -44,6 +44,7 @@ import de.escidoc.core.common.exceptions.application.violated.OptimisticLockingE
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
+import de.mpg.escidoc.pubman.createItem.CreateItem.SubmissionMethod;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
@@ -686,6 +687,10 @@ public class ItemControllerSessionBean extends FacesBean
 
             newItem.setContext(null);
             this.setCurrentPubItem(new PubItemVOPresentation(newItem));
+            
+            //Set submission method for correct redirect
+            CreateItem createItem = (CreateItem) getSessionBean(CreateItem.class);
+            createItem.setMethod(SubmissionMethod.FULL_SUBMISSION);
             
             return CreateItem.LOAD_CREATEITEM;
         }
