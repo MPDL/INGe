@@ -323,8 +323,15 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
 
             logger.debug("delimiter: " + delimiter);
 
-            author.setGivenName(authorString.substring(delimiter + 1).trim());
-            author.setSurname(authorString.substring(0, delimiter).trim());
+            if (delimiter >= 0)
+            {
+                author.setGivenName(authorString.substring(delimiter + 1).trim());
+                author.setSurname(authorString.substring(0, delimiter).trim());
+            }
+            else
+            {
+                return null;
+            }
             author.setFormat(this);
             result.add(author);
         }
