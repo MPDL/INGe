@@ -263,10 +263,12 @@
 		<!-- REVIEW METHOD -->
 		<xsl:variable name="review-method-uri" select="eterms:review-method"/>
 		<xsl:variable name="review-method" select="concat('Review method: ',$reviewMethod-ves/enum[@uri=$review-method-uri])"/>
-		<xsl:call-template name="print-line">
-			<xsl:with-param name="tag">Z</xsl:with-param>
-			<xsl:with-param name="value" select="$review-method"/>
-		</xsl:call-template>
+		<xsl:if test="$review-method-uri!=''">
+			<xsl:call-template name="print-line">
+				<xsl:with-param name="tag">Z</xsl:with-param>
+				<xsl:with-param name="value" select="$review-method"/>
+			</xsl:call-template>
+		</xsl:if>
 		
 		<!-- EVENT -->
 		<xsl:apply-templates select="event:event">
@@ -703,34 +705,41 @@
 			</xsl:call-template>
 		</xsl:if>
 		<xsl:if test="not($genre='book')">
-			<xsl:variable name="pages" select="concat(eterms:start-page,' - ',eterms:end-page)"/>
+			<xsl:variable name="pages">
+				<xsl:value-of select="eterms:start-page"/>
+				<xsl:if test="eterms:end-page!=''">					
+					<xsl:value-of select="concat(' - ',eterms:end-page)"/>
+				</xsl:if>
+			</xsl:variable>
 			<xsl:call-template name="print-line">
 				<xsl:with-param name="tag">P</xsl:with-param>
 				<xsl:with-param name="value" select="$pages"/>
 			</xsl:call-template>
 		</xsl:if>
 		<!-- SEQ NO -->
-		<xsl:choose>
-			<xsl:when test="$genre='report' or $genre='manuscript'">
-				<xsl:call-template name="print-line">
-					<xsl:with-param name="tag">N</xsl:with-param>
-					<xsl:with-param name="value" select="eterms:sequence-number"/>
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:when test="$genre='book-item'">
-				<xsl:call-template name="print-line">
-					<xsl:with-param name="tag" select="'&amp;'"/>
-					<xsl:with-param name="value" select="eterms:sequence-number"/>
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:variable name="seq-no" select="concat('sequence number: ',eterms:sequence-number)"/>
-				<xsl:call-template name="print-line">
-					<xsl:with-param name="tag">Z</xsl:with-param>
-					<xsl:with-param name="value" select="$seq-no"/>
-				</xsl:call-template>
-			</xsl:otherwise>
-		</xsl:choose>
+		<xsl:if test="eterms:sequence-number!=''">
+			<xsl:choose>
+				<xsl:when test="$genre='report' or $genre='manuscript'">
+					<xsl:call-template name="print-line">
+						<xsl:with-param name="tag">N</xsl:with-param>
+						<xsl:with-param name="value" select="eterms:sequence-number"/>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:when test="$genre='book-item'">
+					<xsl:call-template name="print-line">
+						<xsl:with-param name="tag" select="'&amp;'"/>
+						<xsl:with-param name="value" select="eterms:sequence-number"/>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:variable name="seq-no" select="concat('sequence number: ',eterms:sequence-number)"/>
+					<xsl:call-template name="print-line">
+						<xsl:with-param name="tag">Z</xsl:with-param>
+						<xsl:with-param name="value" select="$seq-no"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:if>
 		<!-- PUBLISHER -->
 		<xsl:if test="$genre='book-item' or $genre='conference-paper' or $genre='proceedings-paper' or $genre='article'">
 			<xsl:call-template name="print-line">
