@@ -453,7 +453,6 @@
 			
 			<!-- DEGREE -->
 			<!-- ??????? Check! -->
-			degree: 
 			<xsl:if test="$refType = 'Thesis'">
 				<xsl:variable name="dgr" select="escidoc:normalizeDegree(V)"/>
 				<xsl:variable name="dgr" select="$degree-ves/enum[$dgr=.]/@uri"/>
