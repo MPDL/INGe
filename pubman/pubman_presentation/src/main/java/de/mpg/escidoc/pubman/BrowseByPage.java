@@ -149,7 +149,7 @@ public class BrowseByPage extends BreadcrumbPage
             {
                 localLang = "en";
             }
-            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+ "/" +type + "/query?format=options&"+
+            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+type + "/query?format=options&"+
                     this.bbBean.getQuery()+"=\"" + startChar + "*\"&l=0&lang="+localLang);
             URLConnection conn = coneUrl.openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) conn;
@@ -382,7 +382,7 @@ public class BrowseByPage extends BreadcrumbPage
     {
         try
         {
-            String link = PropertyReader.getProperty("escidoc.cone.service.url")+ "/persons/resource/";
+            String link = PropertyReader.getProperty("escidoc.cone.service.url")+ "persons/resource/";
             return link;
         }
         catch (Exception e)

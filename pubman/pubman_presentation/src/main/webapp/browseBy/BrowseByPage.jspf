@@ -74,7 +74,7 @@
 				<div class="free_area0 itemLine noTopBorder">
 					<!-- This one is only valid for cone identifier, other values from cone are not populated with the url -->
 					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.selectedValue == 'persons'}">									
-						<h:outputLink id="lnkLink" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{BrowseByPage.coneUrl}/persons/resource/#{link.value}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)">
+						<h:outputLink id="lnkLink" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{BrowseByPage.coneUrl}persons/resource/#{link.value}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)">
 							<h:outputText value="#{link.label}"/>
 						</h:outputLink>
 						<h:outputLink id="lnkPersonPortfolioLink" styleClass="authorCard" value="#{BrowseByPage.portfolioLink}#{link.value}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
@@ -100,7 +100,7 @@
 				<div class="free_area0 itemLine noTopBorder">
 					<!-- This one is only valid for cone identifier, other values from cone are not populated with the url -->
 					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.selectedValue == 'persons'}">									
-						<h:outputLink id="lnkLinkAll" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{BrowseByPage.coneUrl}/persons/resource/#{link.value}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)">
+						<h:outputLink id="lnkLinkAll" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{BrowseByPage.coneUrl}persons/resource/#{link.value}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)">
 							<h:outputText value="#{link.label}"/>
 						</h:outputLink>
 						<h:outputLink id="lnkPersonPortfolioLinkAll" styleClass="authorCard" value="#{BrowseByPage.portfolioLink}#{link.value}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
