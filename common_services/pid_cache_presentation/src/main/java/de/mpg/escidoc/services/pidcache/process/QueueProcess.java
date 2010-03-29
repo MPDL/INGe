@@ -59,7 +59,7 @@ public class QueueProcess
 				} 
 				catch (Exception e) 
 				{
-					logger.info("Error, PID can not be updated on GWDG service.");
+					logger.debug("Error, PID can not be updated on GWDG service.");
 				}
 				queue.remove(pid);
 				pid = queue.getFirst();
@@ -67,7 +67,7 @@ public class QueueProcess
 		}
 		else
 		{
-			logger.info("PID manager at GWDG not available.");
+			logger.debug("PID manager at GWDG not available.");
 		}
 	}
 }

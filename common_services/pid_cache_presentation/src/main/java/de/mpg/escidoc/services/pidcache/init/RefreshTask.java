@@ -62,13 +62,13 @@ public class RefreshTask extends Thread
             while (!signal)
             {
             	Thread.sleep(Long.parseLong(Integer.toString(timeout)));
-                logger.info("Starting refresh of pid cache databases.");
+                logger.debug("Starting refresh of pid cache databases.");
                 queueProcess.empty();
                 cacheProcess.fill();
-                logger.info("Finished refresh of pid cache databases.");
+                logger.debug("Finished refresh of pid cache databases.");
                 
             }
-            logger.info("Refresh task terminated.");
+            logger.debug("Refresh task terminated.");
         }
         catch (Exception e)
         {
@@ -78,7 +78,7 @@ public class RefreshTask extends Thread
     
     public void terminate()
     {
-        logger.info("Refresh task signalled to terminate.");
+        logger.debug("Refresh task signalled to terminate.");
         signal = true;
     }
 }
