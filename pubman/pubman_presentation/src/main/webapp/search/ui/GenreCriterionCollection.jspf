@@ -112,6 +112,69 @@
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchThesis" value="#{genreCriterionBean.searchThesis}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_thesis}" for="genreCriterionBean_searchThesis" />
 						</span>
+						
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchContributionToCollectedEdition" value="#{genreCriterionBean.searchContributionToCollectedEdition}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_contrcolled}" for="genreCriterionBean_searchContributionToCollectedEdition" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchMonograph" value="#{genreCriterionBean.searchMonograph}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_monogaph}" for="genreCriterionBean_searchMonograph" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchContributionToCommentary" value="#{genreCriterionBean.searchContributionToCommentary}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_contrcommentary}" for="genreCriterionBean_searchContributionToCommentary" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchCaseNote" value="#{genreCriterionBean.searchCaseNote}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_casenote}" for="genreCriterionBean_searchCaseNote" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchBookReview" value="#{genreCriterionBean.searchBookReview}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_bookreview}" for="genreCriterionBean_searchBookReview" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchContributionToFestschrift" value="#{genreCriterionBean.searchContributionToFestschrift}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_contrfestschrift}" for="genreCriterionBean_searchContributionToFestschrift" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchCommentary" value="#{genreCriterionBean.searchCommentary}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_commentary}" for="genreCriterionBean_searchCommentary" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchCollectedEdition" value="#{genreCriterionBean.searchCollectedEdition}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_colled}" for="genreCriterionBean_searchCollectedEdition" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchFestschrift" value="#{genreCriterionBean.searchFestschrift}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_festschrift}" for="genreCriterionBean_searchFestschrift" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchContributionToEncyclopedia" value="#{genreCriterionBean.searchContributionToEncyclopedia}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_contrlexikon}" for="genreCriterionBean_searchContributionToEncyclopedia" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchNewspaperArticle" value="#{genreCriterionBean.searchNewspaperArticle}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_newspaperarticle}" for="genreCriterionBean_searchNewspaperArticle" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchCaseStudy" value="#{genreCriterionBean.searchCaseStudy}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_casestudy}" for="genreCriterionBean_searchCaseStudy" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchOpinion" value="#{genreCriterionBean.searchOpinion}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_opinion}" for="genreCriterionBean_searchOpinion" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchEditorial" value="#{genreCriterionBean.searchEditorial}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_editorial}" for="genreCriterionBean_searchEditorial" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchContributionToHandbook" value="#{genreCriterionBean.searchContributionToHandbook}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_contrhandbook}" for="genreCriterionBean_searchContributionToHandbook" />
+						</span>
+						
+						
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchOther" value="#{genreCriterionBean.searchOther}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_other}" for="genreCriterionBean_searchOther" />
@@ -198,6 +261,68 @@
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchThesisMultiple" value="#{genreCriterionBean.searchThesis}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_thesis}" for="genreCriterionBean_searchThesisMultiple" />
 						</span>
+						
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchContributionToCollectedEditionMultiple" value="#{genreCriterionBean.searchContributionToCollectedEdition}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_contrcolled}" for="genreCriterionBean_searchContributionToCollectedEdition" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchMonographMultiple" value="#{genreCriterionBean.searchMonograph}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_monogaph}" for="genreCriterionBean_searchMonograph" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchContributionToCommentaryMultiple" value="#{genreCriterionBean.searchContributionToCommentary}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_contrcommentary}" for="genreCriterionBean_searchContributionToCommentary" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchCaseNoteMultiple" value="#{genreCriterionBean.searchCaseNote}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_casenote}" for="genreCriterionBean_searchCaseNote" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchBookReviewMultiple" value="#{genreCriterionBean.searchBookReview}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_bookreview}" for="genreCriterionBean_searchBookReview" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchContributionToFestschriftMultiple" value="#{genreCriterionBean.searchContributionToFestschrift}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_contrfestschrift}" for="genreCriterionBean_searchContributionToFestschrift" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchCommentaryMultiple" value="#{genreCriterionBean.searchCommentary}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_commentary}" for="genreCriterionBean_searchCommentary" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchCollectedEditionMultiple" value="#{genreCriterionBean.searchCollectedEdition}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_colled}" for="genreCriterionBean_searchCollectedEdition" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchFestschriftMultiple" value="#{genreCriterionBean.searchFestschrift}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_festschrift}" for="genreCriterionBean_searchFestschrift" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchContributionToEncyclopediaMultiple" value="#{genreCriterionBean.searchContributionToEncyclopedia}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_contrlexikon}" for="genreCriterionBean_searchContributionToEncyclopedia" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchNewspaperArticleMultiple" value="#{genreCriterionBean.searchNewspaperArticle}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_newspaperarticle}" for="genreCriterionBean_searchNewspaperArticle" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchCaseStudyMultiple" value="#{genreCriterionBean.searchCaseStudy}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_casestudy}" for="genreCriterionBean_searchCaseStudy" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchOpinionMultiple" value="#{genreCriterionBean.searchOpinion}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_opinion}" for="genreCriterionBean_searchOpinion" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchEditorialMultiple" value="#{genreCriterionBean.searchEditorial}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_editorial}" for="genreCriterionBean_searchEditorial" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchContributionToHandbookMultiple" value="#{genreCriterionBean.searchContributionToHandbook}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_contrhandbook}" for="genreCriterionBean_searchContributionToHandbook" />
+						</span>
+						
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchOthersMultiple" value="#{genreCriterionBean.searchOther}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_other}" for="genreCriterionBean_searchOthersMultiple" />
