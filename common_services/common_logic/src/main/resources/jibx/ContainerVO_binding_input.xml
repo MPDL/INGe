@@ -96,6 +96,10 @@
 				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeContainerLockStatusEnum"
 				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
 
+			<!-- Node: properties.pid -->
+			<!-- Field: ContainerVO.pid [String] -->
+			<value style="element" name="pid" ns="${xsd.soap.common.prop}" field="pid" usage="optional" />
+
 			<!-- Node: properties.version -->
 			<!-- Field: ContainerVO.version [ContainerRO] -->
 			<structure field="version" ns="${xsd.soap.common.prop}" usage="optional" name="version">
