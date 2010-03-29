@@ -136,71 +136,71 @@
 					<span class="free_area0 checkboxDoubleGroup">
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchArticlesMultiple" value="#{genreCriterionBean.searchArticle}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_article}" for="genreCriterionBean_searchArticles" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_article}" for="genreCriterionBean_searchArticlesMultiple" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchBooksMultiple" value="#{genreCriterionBean.searchBook}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_book}" for="genreCriterionBean_searchBooks" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_book}" for="genreCriterionBean_searchBooksMultiple" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchBookItemsMultiple" value="#{genreCriterionBean.searchBookItem}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_bookitem}" for="genreCriterionBean_searchBookItems" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_bookitem}" for="genreCriterionBean_searchBooksMultiple" />
 						</span>                   
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchCoursewareLecturesMultiple" value="#{genreCriterionBean.searchCoursewareLecture}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_courseware}" for="genreCriterionBean_searchCoursewareLectures" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_courseware}" for="genreCriterionBean_searchCoursewareLecturesMultiple" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchConferencePapersMultiple" value="#{genreCriterionBean.searchConferencePaper}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_conferencepap}" for="genreCriterionBean_searchConferencePapers" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_conferencepap}" for="genreCriterionBean_searchConferencePapersMultiple" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchConferenceReportsMultiple" value="#{genreCriterionBean.searchConferenceReport}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_conferencerep}" for="genreCriterionBean_searchConferenceReports" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_conferencerep}" for="genreCriterionBean_searchConferenceReportsMultiple" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchIssuesMultiple" value="#{genreCriterionBean.searchIssue}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_issue}" for="genreCriterionBean_searchIssues" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_issue}" for="genreCriterionBean_searchIssuesMultiple" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchJournalsMultiple" value="#{genreCriterionBean.searchJournal}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_journal}" for="genreCriterionBean_searchJournals" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_journal}" for="genreCriterionBean_searchJournalsMultiple" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchManuscriptsMultiple" value="#{genreCriterionBean.searchManuscript}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_manuscript}" for="genreCriterionBean_searchManuscripts" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_manuscript}" for="genreCriterionBean_searchManuscriptsMultiple" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchPapersMultiple" value="#{genreCriterionBean.searchPaper}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_paper}" for="genreCriterionBean_searchPapers" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_paper}" for="genreCriterionBean_searchPapersMultiple" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchPostersMultiple" value="#{genreCriterionBean.searchPoster}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_poster}" for="genreCriterionBean_searchPosters" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_poster}" for="genreCriterionBean_searchPostersMultiple" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchProceedingsMultiple" value="#{genreCriterionBean.searchProceedings}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_proceedings}" for="genreCriterionBean_searchProceedingss" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_proceedings}" for="genreCriterionBean_searchProceedingsMultiple" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchReportsMultiple" value="#{genreCriterionBean.searchReport}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_report}" for="genreCriterionBean_searchReports" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_report}" for="genreCriterionBean_searchReportsMultiple" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchSeriesMultiple" value="#{genreCriterionBean.searchSeries}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_series}" for="genreCriterionBean_searchSeriess" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_series}" for="genreCriterionBean_searchSeriesMultiple" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchTalkAtEventsMultiple" value="#{genreCriterionBean.searchTalkAtEvent}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_talkatevent}" for="genreCriterionBean_searchTalkAtEvents" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_talkatevent}" for="genreCriterionBean_searchTalkAtEventsMultiple" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchThesisMultiple" value="#{genreCriterionBean.searchThesis}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_thesis}" for="genreCriterionBean_searchThesiss" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_thesis}" for="genreCriterionBean_searchThesisMultiple" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchOthersMultiple" value="#{genreCriterionBean.searchOther}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_other}" for="genreCriterionBean_searchOthers" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_other}" for="genreCriterionBean_searchOthersMultiple" />
 						</span>
 						<a class="large_area0 tiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>
