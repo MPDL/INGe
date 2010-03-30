@@ -160,9 +160,9 @@ public class TransformAffiliationIntegrationTest extends TestBase
             }
             logger.debug(sb.toString());
         }
-        // There are 4 fields that are must have changed:
-        // 4: reference, creationDate, creator and publicStatus
-        assertEquals(6, difflist.size());
+        // There are 7 fields that must have changed:
+        // 7: reference, creationDate, creator and publicStatus
+        assertEquals(7, difflist.size());
 
         // delete the created affiliation
         ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).delete(affiliationVOPostCreate.getReference().getObjectId());

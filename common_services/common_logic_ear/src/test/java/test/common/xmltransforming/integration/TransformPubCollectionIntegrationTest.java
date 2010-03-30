@@ -34,6 +34,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -158,14 +159,15 @@ public class TransformPubCollectionIntegrationTest extends TestBase
         adminDescriptorVO.setContactEmail("");
         expected.getAdminDescriptors().add(adminDescriptorVO);
         
-        
-        MdsPublicationVO.Genre[] allowed =
-            new MdsPublicationVO.Genre[]{MdsPublicationVO.Genre.ARTICLE, MdsPublicationVO.Genre.BOOK, MdsPublicationVO.Genre.BOOK_ITEM, MdsPublicationVO.Genre.PROCEEDINGS, MdsPublicationVO.Genre.CONFERENCE_PAPER, MdsPublicationVO.Genre.TALK_AT_EVENT, MdsPublicationVO.Genre.CONFERENCE_REPORT, MdsPublicationVO.Genre.POSTER, MdsPublicationVO.Genre.COURSEWARE_LECTURE, MdsPublicationVO.Genre.THESIS, MdsPublicationVO.Genre.PAPER, MdsPublicationVO.Genre.REPORT, MdsPublicationVO.Genre.JOURNAL, MdsPublicationVO.Genre.ISSUE, MdsPublicationVO.Genre.SERIES, MdsPublicationVO.Genre.OTHER};
-        for (int i = 0; i < allowed.length; i++)
+        for (MdsPublicationVO.Genre genre : MdsPublicationVO.Genre.values())
         {
-            adminDescriptorVO.getAllowedGenres().add(allowed[i]);
+            if (genre != MdsPublicationVO.Genre.MANUSCRIPT)
+            {
+                adminDescriptorVO.getAllowedGenres().add(genre);
+            }
         }
-        
+        adminDescriptorVO.getAllowedSubjectClassifications().add(MdsPublicationVO.SubjectClassification.DDC);
+        adminDescriptorVO.getAllowedSubjectClassifications().add(MdsPublicationVO.SubjectClassification.MPIPKS);
         return expected;
     }
 }
