@@ -181,7 +181,7 @@
 			function checkOutputFormat()
 			{
 				var efv = document.form.exportFormat.value;
-				document.form.outputFormat.disabled =  ! (efv == "APA" || efv == "AJP" ); 
+				document.form.outputFormat.disabled =  ! (efv == "APA" || efv == "AJP" || efv == "JUS" ); 
 			}
 							
 			function setFeedAnchor(type)
@@ -339,24 +339,25 @@
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="exportFormat">Export Format</label>
 											<select class="double_select" name="exportFormat" onchange="checkOutputFormat()">
-							                    <option value="APA">APA</option>
-												<option value="AJP">AJP</option>
 												<option value="ENDNOTE">EndNote</option>
 												<option value="BIBTEX">BibTeX</option>
 												<option value="XML">eSciDoc XML v5.x</option>
 												<option value="ESCIDOC_XML">eSciDoc XML v6.x</option>
+							                    <option value="APA">APA</option>
+												<option value="AJP">AJP</option>
+												<option value="JUS">JUS</option>
 							                </select>
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="outputFormat">Output Format</label>
 											<select class="double_select" name="outputFormat">
-							                    <option value="pdf">PDF</option>
-												<option value="html_plain">plain HTML</option>
-												<option value="html_styled">styled HTML</option>
-												<option value="rtf">RTF</option>
-												<option value="odt">ODT</option>
-												<option value="snippet">SNIPPET v5.x</option>
-												<option value="escidoc_snippet">SNIPPET v6.x</option>
+							                    <option value="pdf">pdf</option>
+												<option value="odt">odt</option>
+												<option value="rtf">rft</option>
+												<option value="html_plain">html (plain)</option>
+												<option value="html_styled">html (styled)</option>
+												<option value="snippet">snippet v5.x</option>
+												<option value="escidoc_snippet">snippet v6.x</option>
 							                </select>
 										</span>
 									</span>
