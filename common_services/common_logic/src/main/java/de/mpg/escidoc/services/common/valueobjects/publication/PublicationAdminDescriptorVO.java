@@ -147,5 +147,50 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
     {
         this.contactEmail = contactEmail;
     }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        else if (!(other instanceof PublicationAdminDescriptorVO))
+        {
+            return false;
+        }
+        else 
+        {
+            PublicationAdminDescriptorVO otherPublicationAdminDescriptorVO = (PublicationAdminDescriptorVO) other;
+            if (otherPublicationAdminDescriptorVO.allowedGenres.containsAll(this.allowedGenres)
+                && this.allowedGenres.containsAll(otherPublicationAdminDescriptorVO.allowedGenres)
+                && otherPublicationAdminDescriptorVO.allowedSubjectClassifications.containsAll(this.allowedSubjectClassifications)
+                && this.allowedSubjectClassifications.containsAll(otherPublicationAdminDescriptorVO.allowedSubjectClassifications)
+                && ((otherPublicationAdminDescriptorVO.contactEmail == null && this.contactEmail == null)
+                    || otherPublicationAdminDescriptorVO.contactEmail.equals(this.contactEmail)
+                    )
+                && ((otherPublicationAdminDescriptorVO.templateItem == null && this.templateItem == null)
+                        || otherPublicationAdminDescriptorVO.templateItem.equals(this.templateItem)
+                    )
+                && ((otherPublicationAdminDescriptorVO.validationSchema == null && this.validationSchema == null)
+                        || otherPublicationAdminDescriptorVO.validationSchema.equals(this.validationSchema)
+                    )
+                && ((otherPublicationAdminDescriptorVO.visibilityOfReferences == null && this.visibilityOfReferences == null)
+                        || otherPublicationAdminDescriptorVO.visibilityOfReferences.equals(this.visibilityOfReferences)
+                    )
+                && otherPublicationAdminDescriptorVO.workflow == this.workflow
+                )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+            
+        
+    }
+    
     
 }

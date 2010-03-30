@@ -58,6 +58,7 @@ public class ObjectComparator
     private static final MessageFormat DIFFERENT_LIST_SIZE = new MessageFormat("Difference in field {1} ({0}): List size [{2}] [{3}]");
     private static final MessageFormat DIFFERENT_FIELD_VALUE = new MessageFormat("Difference in field {1} ({0}): [{2}] [{3}]");
     private static final MessageFormat DIFFERENT_FIELD_VALUE_IN_LIST = new MessageFormat("Difference in list element of field {1} ({0}) at position {4}: [{2}] [{3}]");
+    private static final MessageFormat DIFFERENT_FIELD_VALUE_IN_ARRAY = new MessageFormat("Difference in array element of field {1} ({0}) at position {4}: [{2}] [{3}]");
     private static final MessageFormat FIRST_VALUE_NULL = new MessageFormat("First object is null, second object is {0}.");
     private static final MessageFormat SECOND_VALUE_NULL = new MessageFormat("First object is {0}, second object is null.");
 
@@ -177,7 +178,7 @@ public class ObjectComparator
     private void compareObjects(Object fieldValue1, Object fieldValue2, String fieldname, String enclosingClass) throws IllegalAccessException
     {
         
-        logger.debug("Comparing: " + fieldValue1 + " and " + fieldValue2 + " (Field: " + fieldname + ")");
+        logger.info("Comparing: " + fieldValue1 + " and " + fieldValue2 + " (Field: " + fieldname + ")");
         
         if (fieldValue1 == fieldValue2)
         {
@@ -230,21 +231,12 @@ public class ObjectComparator
                 if (list1.size() > 0)
                 {
                     Object listObject = list1.get(0);
-                    boolean isSimpleTypeList = isSimpleComparableType(listObject);
+                    //boolean isSimpleTypeList = isSimpleComparableType(listObject);
                     for (int i = 0; i < list1.size(); i++)
                     {
-                        Object listObject1 = list1.get(i);
-                        Object listObject2 = list2.get(i);
-                        if (isSimpleTypeList)
+                        if (!list2.contains(list1.get(i)))
                         {
-                            if (!equals(listObject1, listObject2))
-                            {
-                                diffs.add(DIFFERENT_FIELD_VALUE_IN_LIST.format(new Object[] { enclosingClass, getFieldNames(), listObject1, listObject2, i }));
-                            }
-                        }
-                        else
-                        {
-                            compareObjects(listObject1, listObject2, "[" + i + "]", enclosingClass);
+                            diffs.add(DIFFERENT_FIELD_VALUE_IN_LIST.format(new Object[] { enclosingClass, getFieldNames(), list1, list2, i }));
                         }
                     }
                 }
@@ -269,7 +261,7 @@ public class ObjectComparator
                         {
                             if (!equals(listObject1, listObject2))
                             {
-                                diffs.add(DIFFERENT_FIELD_VALUE_IN_LIST.format(new Object[] { enclosingClass, getFieldNames(), listObject1, listObject2, i }));
+                                diffs.add(DIFFERENT_FIELD_VALUE_IN_ARRAY.format(new Object[] { enclosingClass, getFieldNames(), listObject1, listObject2, i }));
                             }
                         }
                         else

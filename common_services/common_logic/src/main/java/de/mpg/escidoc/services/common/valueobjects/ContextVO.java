@@ -306,4 +306,89 @@ public class ContextVO extends ValueObject
     {
         this.type = type;
     }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        else if (!(other instanceof ContextVO))
+        {
+            return false;
+        }
+        else 
+        {
+            ContextVO otherContextVO = (ContextVO) other;
+            if (otherContextVO.adminDescriptors.containsAll(this.adminDescriptors)
+                && this.adminDescriptors.containsAll(otherContextVO.adminDescriptors)
+                && ((otherContextVO.creator == null && this.creator == null)
+                    || otherContextVO.creator.equals(this.creator)
+                    )
+                && ((otherContextVO.defaultMetadata == null && this.defaultMetadata == null)
+                        || otherContextVO.defaultMetadata.equals(this.defaultMetadata)
+                    )
+                && ((otherContextVO.description == null && this.description == null)
+                        || otherContextVO.description.equals(this.description)
+                    )
+                && ((otherContextVO.name == null && this.name == null)
+                        || otherContextVO.name.equals(this.name)
+                    )            
+                && ((otherContextVO.reference == null && this.reference == null)
+                        || otherContextVO.reference.equals(this.reference)
+                    )            
+                && otherContextVO.responsibleAffiliations.containsAll(this.responsibleAffiliations)
+                && this.responsibleAffiliations.containsAll(otherContextVO.responsibleAffiliations)
+                && otherContextVO.state == this.state
+                && ((otherContextVO.type == null && this.type == null)
+                        || otherContextVO.type.equals(this.type)
+                    )
+                && ((otherContextVO.type == null && this.type == null)
+                        || otherContextVO.type.equals(this.type)
+                    )
+                && otherContextVO.validationPoints.containsAll(this.validationPoints)
+                && this.validationPoints.containsAll(otherContextVO.validationPoints)
+                )
+            {
+                System.out.println("Contexts are equal");
+                return true;
+            }
+            else
+            {
+                System.out.println(otherContextVO.adminDescriptors.containsAll(this.adminDescriptors));
+                System.out.println(this.adminDescriptors.containsAll(otherContextVO.adminDescriptors));
+                System.out.println(otherContextVO.creator == null && this.creator == null);
+                System.out.println(otherContextVO.creator.equals(this.creator));
+                
+                System.out.println(otherContextVO.defaultMetadata == null && this.defaultMetadata == null);
+                System.out.println(otherContextVO.defaultMetadata.equals(this.defaultMetadata));
+
+                System.out.println(otherContextVO.description == null && this.description == null);
+                System.out.println(otherContextVO.description.equals(this.description));
+
+                System.out.println(otherContextVO.name == null && this.name == null);
+                System.out.println(otherContextVO.name.equals(this.name));
+
+                System.out.println(otherContextVO.reference == null && this.reference == null);
+                System.out.println(otherContextVO.reference.equals(this.reference));
+            
+                System.out.println(otherContextVO.responsibleAffiliations.containsAll(this.responsibleAffiliations));
+                System.out.println(this.responsibleAffiliations.containsAll(otherContextVO.responsibleAffiliations));
+                System.out.println(otherContextVO.state == this.state);
+                System.out.println(otherContextVO.type == null && this.type == null);
+                System.out.println(otherContextVO.type.equals(this.type));
+
+                System.out.println(otherContextVO.type == null && this.type == null);
+                System.out.println(otherContextVO.type.equals(this.type));
+
+                System.out.println(otherContextVO.validationPoints.containsAll(this.validationPoints));
+                System.out.println(this.validationPoints.containsAll(otherContextVO.validationPoints));
+                return false;
+            }
+        }
+    }
+    
+    
+    
 }

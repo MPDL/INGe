@@ -158,6 +158,7 @@ public class TransformContextTest extends TestBase
     @Test
     public void testTransformToContextList() throws Exception
     {
+        logger.info("## testTransformToContextList ##");
         // read pubCollection list [XML] from file
         String contextList = readFile(CONTEXT_LIST_SAMPLE_FILE);
         assertNotNull(contextList);
