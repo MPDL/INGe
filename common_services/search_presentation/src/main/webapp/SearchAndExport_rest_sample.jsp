@@ -350,7 +350,7 @@
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="outputFormat">Output Format</label>
-											<select class="double_select" name="outputFormat">
+											<select class="double_select" disabled="disabled"  name="outputFormat">
 							                    <option value="pdf">pdf</option>
 												<option value="odt">odt</option>
 												<option value="rtf">rft</option>
