@@ -49,20 +49,6 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<tr:inputFile id="inpFileUploaded" styleClass="fileInput" value="#{EasySubmission.uploadedFile}" valueChangeListener="#{EasySubmission.fileUploaded}" />
-					<%--
-					<span class="quad_area0 tiny_marginRIncl">
-						<h:outputLabel id="lblPath" styleClass="quad_label" value="#{lbl.EditItem_lblPath}"/>
-						<span class="xDouble_area0 tiny_marginRIncl">
-							<input id="inp" class="xDouble_txtInput fileLocation" type="text" readonly="readonly"/>
-						</span>
-						<span class="large_area0 large_negMarginRIncl">
-							<span class="large_area0 fileInputPositioner">
-								<tr:inputFile id="inpUploadedFile" styleClass="fileInput" value="#{EasySubmission.uploadedFile}" valueChangeListener="#{EasySubmission.fileUploaded}" onchange="$(this).parents('.fileSection').find('.fileLocation').val($(this).val()); if($(this).val()!=''){$(this).parents('.fileSection').find('.fileUploadBtn').removeAttr('disabled');} else {$(this).parents('.fileSection').find('.fileUploadBtn').attr('disabled','disabled');};" />
-							</span>
-						</span>
-						<h:outputLabel id="lblChooseFile" styleClass="large_label endline fileLabel groupBtn" value="#{lbl.EditItem_btChooseFile}" />
-					</span>
-					--%>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{lbl.easy_submission_btnUploadFile}" partialSubmit="false"/>
@@ -75,23 +61,9 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<tr:inputFile id="inpUploadedFile" styleClass="fileInput" value="#{EasySubmission.uploadedFile}" valueChangeListener="#{EasySubmission.fileUploaded}" />
-					<%--
-					<span class="quad_area0 tiny_marginRIncl">
-						<h:outputLabel id="lblEditItemPath" styleClass="quad_label" value="#{lbl.EditItem_lblPath}"/>
-						<span class="xDouble_area0 tiny_marginRIncl">
-							<input id="inp" class="xDouble_txtInput fileLocation" type="text" readonly="readonly"/>
-						</span>
-						<span class="large_area0 large_negMarginRIncl">
-							<span class="large_area0 fileInputPositioner" >
-								<tr:inputFile id="inpUploadedFile" styleClass="fileInput" value="#{EasySubmission.uploadedFile}" valueChangeListener="#{EasySubmission.fileUploaded}" onchange="$(this).parents('.fileSection').find('.fileLocation').val($(this).val()); if($(this).val()!=''){$(this).parents('.fileSection').find('.fileUploadBtn').removeAttr('disabled');} else {$(this).parents('.fileSection').find('.fileUploadBtn').attr('disabled','disabled');};" />
-							</span>
-						</span>
-						<label class="large_label endline fileLabel groupBtn">Choose File</label>
-					</span>
-					--%>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnEasySubmissionUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{lbl.easy_submission_btnUploadFile}" partialSubmit="false"/>
+					<tr:commandButton id="btnEasySubmissionUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{lbl.EditItem_btUpload_File}" partialSubmit="false"/>
 				</span>
 			</h:panelGroup>
 		</h:panelGroup>
@@ -101,11 +73,11 @@
 						&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel id="lblEditItemURL" styleClass="quad_label" value="#{lbl.EditItem_lblURL}" />
+					<h:outputLabel id="lblEditItemURL" styleClass="quad_label" value="#{lbl.EditItem_lblFileURL}" />
 					<h:inputText id="inpLocatorUpload" styleClass="quad_txtInput" value="#{EasySubmission.locatorUpload}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnEditItemUpload" styleClass="free_txtBtn groupBtn" text="#{tip.EditItem_btUpload}" shortDesc="#{tip.EditItem_btUploadLocator}" action="#{EasySubmission.uploadLocator}" />
+					<tr:commandButton id="btnEditItemUpload" styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btUpload_URL}"  shortDesc="#{tip.EditItem_btUploadLocator}" action="#{EasySubmission.uploadLocator}" />
 				</span>
 			</h:panelGroup>
 <%-- Real filename --%>
