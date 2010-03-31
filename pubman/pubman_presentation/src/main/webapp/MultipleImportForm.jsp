@@ -80,7 +80,7 @@
 												</h:commandLink>
 												<h:outputText styleClass="seperator void" />
 												<h:commandLink id="lnkImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
-													<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+													<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 												</h:commandLink>
 												<h:outputText styleClass="seperator void" />
 												<span>

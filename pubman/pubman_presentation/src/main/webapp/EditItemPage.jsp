@@ -98,10 +98,10 @@
 									</h:panelGroup>
 									<h:outputText styleClass="seperator void" />
 									<h:commandLink title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}" rendered="#{EditItemSessionBean.currentSubmission  != 'IMPORT'}">
-										<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+										<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass=" " rendered="#{EditItemSessionBean.currentSubmission  == 'IMPORT'}">
-										<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+										<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 									</h:panelGroup>
 									<h:outputText styleClass="seperator void"  rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 									<h:commandLink title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">

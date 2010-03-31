@@ -85,7 +85,7 @@
 												</h:commandLink>
 												<h:outputText styleClass="seperator void" />
 												<h:commandLink id="lnkImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
-													<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+													<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 												</h:commandLink>
 												<h:outputText styleClass="seperator void" />
 												<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
@@ -244,7 +244,7 @@
 											      		<span class="large_area0_p8 detailsLinkArea">
 															<h:inputHidden id="inpImportItemsLink" value="#{import.itemsLink}" />
 															<a onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())} else {$(this).parents('tr').next('.importDetails').remove();}">
-									 							<b><h:outputText value="#{lbl.import_workspace_details}"/></b>
+									 							<b><h:outputText value="#{lbl.import_workspace_detailsView}"/></b>
 										 					</a>
 											      		</span>
 											      	</td>

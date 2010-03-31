@@ -201,7 +201,7 @@
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" />
 									<h:outputLink id="lnkViewItemPage" styleClass="free_area0 actual" value="#contentSkipLinkAnchor">
-										<h:outputText value="#{lbl.ViewItemPage}"/>
+										<h:outputText value="#{lbl.ViewItemFull_btnItemView}"/>
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" />
 								</span>

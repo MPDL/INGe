@@ -36,7 +36,7 @@
 	<span class="free_area0_p8 endline itemHeadline">
 		<b>
 			<h:commandLink id="lnkOrg" title="" action="#{BrowseByPage.loadAffiliationTree}">
-				<h:outputText value="#{lbl.EditItem_lblOrganization }" />
+				<h:outputText value="#{lbl.BrowseByOrg }" />
 			</h:commandLink>
 		</b>
 	</span>
@@ -65,7 +65,7 @@
 	<span class="free_area0_p8 endline itemHeadline">
 		<b>
 			<h:commandLink id="lnkCreator" title=""  action="#{BrowseByPage.loadBrowseByCreator}" immediate="true">
-				<h:outputText value="#{lbl.ViewItemFull_lblCreator}" />
+				<h:outputText value="#{lbl.BrowseByCreator}" />
 			</h:commandLink>
 		</b>
 	</span>
@@ -93,7 +93,7 @@
 	<span class="seperator"></span>
 	<span class="free_area0_p8 endline itemHeadline">
 		<b>
-			<h:outputText value="#{lbl.lblSubject}"/>
+			<h:outputText value="#{lbl.BrowseBySubject}"/>
 		</b>
 	</span>
 </div>
