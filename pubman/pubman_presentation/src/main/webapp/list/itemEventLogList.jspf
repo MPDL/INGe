@@ -31,13 +31,13 @@ All rights reserved. Use is subject to license terms.
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
 
-<tr:iterator value="#{ItemVersionListSessionBean.versionList}" binding="#{ItemVersionListSessionBean.versionIterator}" var="versionEntry" varStatus="index">
+<tr:iterator id="itemVersionIterator" value="#{ItemVersionListSessionBean.versionList}" binding="#{ItemVersionListSessionBean.versionIterator}" var="versionEntry" varStatus="index">
 
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock">
 		<h3 class="xLarge_area0_p8 endline blockHeader">
 			<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{versionEntry.reference.versionNumber}"/>
-			<br/>
-			<tr:commandLink id="lnkRollback" action="#{versionEntry.rollback}" text="#{lbl.ViewItemFull_lblRollback}" rendered="#{ItemVersionListSessionBean.versionIterator.rowIndex > 0}" onmousedown='if (!confirm("123"))return false;'/>
+			<br/>CCC
+			<tr:commandLink id="lnkRollback" action="#{versionEntry.rollback}" useWindow="true" text="#{lbl.ViewItemFull_lblRollback}" rendered="#{ItemVersionListSessionBean.versionIterator.rowIndex > 0}" onclick="if(!confirm('#{msg.ConfirmRollbackItemVersion}')){return false;}" />
 		</h3>
 		<h:panelGroup styleClass="seperator" />
 		<div class="free_area0 itemBlockContent endline">
