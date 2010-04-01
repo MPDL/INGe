@@ -562,7 +562,7 @@
 				<!--<escidoc.import.database.connection.url>jdbc:postgresql://$1:$2/$3</escidoc.import.database.connection.url>-->
 				<escidoc.import.database.connection.url>jdbc:hsqldb:$3</escidoc.import.database.connection.url>
 				
-				<escidoc.import.task.content-model>escidoc:importtask1</escidoc.import.task.content-model>
+				<escidoc.import.task.content-model>escidoc:45001</escidoc.import.task.content-model>
 				
 				<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
 				
@@ -795,7 +795,7 @@
 				<!--<escidoc.import.database.connection.url>jdbc:postgresql://$1:$2/$3</escidoc.import.database.connection.url>-->
 				<escidoc.import.database.connection.url>jdbc:hsqldb:$3</escidoc.import.database.connection.url>
 				
-				<escidoc.import.task.content-model>escidoc:importtask1</escidoc.import.task.content-model>
+				<escidoc.import.task.content-model>escidoc:45001</escidoc.import.task.content-model>
 				
 				<escidoc.import.surveyor.interval>15</escidoc.import.surveyor.interval>
 				
