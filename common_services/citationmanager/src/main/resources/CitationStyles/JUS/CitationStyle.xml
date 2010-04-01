@@ -144,7 +144,20 @@
 				</layout-element>
 			</elements>
 		</layout-element>
-
+		
+		<!-- second or more creators with dot -->
+		<layout-element name="second-or-more-creators-with-dot">
+				<parameters>
+					<valid-if><![CDATA[
+					$creatorsCount>1
+					]]></valid-if>
+					<ends-with value="." />
+				</parameters>
+				<elements>
+					<layout-element ref="$second-or-more-creators" />
+				</elements>
+			</layout-element>
+			
 		<layout-element name="secondOrMoreSourceCreators">
 			<elements>
 				<layout-element ref="$sourceCreatorsCount" />
@@ -336,6 +349,89 @@
 					</elements>
 				</layout-element>
 
+			<!--	<layout-element>
+					<parameters>
+						<valid-if><![CDATA[exists (pub:publication/source:source[1]/e:volume/text()) 
+						or exists(pub:publication/source:source[1]/e:issue/text())]]></valid-if>
+						<starts-with value="(" />
+						<ends-with value=")" />
+					</parameters>
+					<elements>
+						<layout-element ref="$date" />
+					</elements>
+				</layout-element>
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[not(pub:publication/source:source[1]/e:volume/text()) 
+						and not(pub:publication/source:source[1]/e:issue/text())]]></valid-if>
+					</parameters>
+					<elements>
+						<layout-element ref="$date" />
+					</elements>
+				</layout-element>
+				-->
+			</elements>
+		</layout-element>
+		
+		<!-- Volume-Issue-Year for ONLINE Journal Article -->
+		<layout-element name="volume-issue-year-online-journal">
+			<parameters>
+			<valid-if><![CDATA[$genre = $l_article and exists($onlineIdType)]]>
+			</valid-if>
+			</parameters>
+			<elements>
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[ exists (pub:publication/source:source[1]/e:volume/text()) 
+						or exists(pub:publication/source:source[1]/e:issue/text())
+						]]></valid-if>
+						<delimiter value="." />
+					</parameters>
+					<elements>
+						<layout-element ref="$firstSourceVolume" />
+						<layout-element ref="$firstSourceIssue" />
+					</elements>
+				</layout-element>
+				
+			<!--	<layout-element>
+					<parameters>
+						<valid-if><![CDATA[exists (pub:publication/source:source[1]/e:volume/text()) 
+						or exists(pub:publication/source:source[1]/e:issue/text())]]></valid-if>
+						<starts-with value="(" />
+						<ends-with value=")" />
+					</parameters>
+					<elements>
+						<layout-element ref="$date" />
+					</elements>
+				</layout-element>
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[not(pub:publication/source:source[1]/e:volume/text()) 
+						and not(pub:publication/source:source[1]/e:issue/text())]]></valid-if>
+					</parameters>
+					<elements>
+						<layout-element ref="$date" />
+					</elements>
+				</layout-element>-->
+			</elements>
+		</layout-element>
+		
+		<layout-element name="volue-issue-default-and-online-journal">
+			<parameters>
+			<valid-if><![CDATA[ exists (pub:publication/source:source[1]/e:volume/text()) 
+						or exists(pub:publication/source:source[1]/e:issue/text())
+						]]></valid-if>
+			</parameters>
+			<elements>
+				<layout-element>
+					<parameters>
+					</parameters>
+				</layout-element>
+			</elements>
+		</layout-element>
+		
+		<layout-element  name="year-default-and-online-journal">
+			<elements>
 				<layout-element>
 					<parameters>
 						<valid-if><![CDATA[exists (pub:publication/source:source[1]/e:volume/text()) 
@@ -358,7 +454,7 @@
 				</layout-element>
 			</elements>
 		</layout-element>
-
+		
 		<!-- Source-Title-Volume for Monograph -->
 		<layout-element name="source-title-volume">
 			<parameters>
@@ -402,7 +498,34 @@
 
 			</elements>
 		</layout-element>
-
+		
+		<layout-element name="online-journal-article-id">
+			<parameters>
+				<valid-if><![CDATA[$genre = $l_article and exists($onlineIdType)]]></valid-if>
+				<starts-with value=", "/>
+			</parameters>
+			<elements>
+				<layout-element>
+				<parameters>
+					<valid-if><![CDATA[$onlineIdType = 'DOI']]></valid-if>
+				</parameters>
+				<elements>
+					<layout-element ref="$doi-prefix"/>
+				</elements>
+			</layout-element>
+			<layout-element ref="$onlineIdValue"/>
+			</elements>
+		</layout-element>
+		
+		<layout-element name="online-journal-article-date">
+			<parameters>
+				<starts-with value=", "/>
+			</parameters>
+			<elements>
+				<layout-element ref="func:get_reverse_date(pub:publication/e:published-online/text())"/>
+			</elements>
+		</layout-element>
+		
 		<layout-element name="title">
 			<parameters>
 				<starts-with value=", " />
@@ -556,6 +679,7 @@
 							</elements>
 						</layout-element>
 						<layout-element ref="$volume-issue-year-journal" />
+						<layout-element ref="$year-default-and-online-journal"/>
 					</elements>
 				</layout-element>
 				<!-- Common journal elements -->
@@ -568,9 +692,10 @@
 
 	<!-- Layout definitions of citation styles -->
 
-	<!--
+	<!--  and not($onlineIdType)
 		JOURNAL ARTICLE Sceleton Citation Style
-	-->
+	-->	
+	
 	<cs-layout-definition name="journal-article-sceleton">
 		<parameters>
 			<valid-if><![CDATA[$genre = $l_article]]>
@@ -583,7 +708,29 @@
 			<layout-element ref="$journal-citation-style" />
 		</elements>
 	</cs-layout-definition>
-
+	
+	<!--
+		JOURNAL ARTICLE published online
+	-->
+	<!-- <cs-layout-definition name="online-journal-article">
+		<parameters>
+			<valid-if><![CDATA[$genre = $l_article and exists($onlineIdType)]]>
+			</valid-if>
+			<ends-with value="."/>
+		</parameters>
+		<elements>
+			<layout-element ref="$first-creator" />
+			<layout-element ref="$title" />
+			<layout-element ref="$source-title"/>
+			<layout-element ref="$volume-issue-year-online-journal"/>
+			<layout-element ref="$year-default-and-online-journal"/>
+			<layout-element ref="$start-end-page" />
+			<layout-element ref="$online-journal-article-id"/>
+			<layout-element ref="$online-journal-article-date"/>
+			<layout-element ref="$second-or-more-creators" />
+			
+		</elements>
+	</cs-layout-definition> -->
 	<!--
 		CONTRIBUTION TO COLLECTED EDITION Citation Style
 	-->
@@ -626,7 +773,9 @@
 			<layout-element ref="$place-publisher" />
 			<layout-element ref="$date" />
 			<layout-element ref="$pages" />
-			<layout-element>
+			<layout-element ref="$second-or-more-creators-with-dot" />
+			
+			<!--  <layout-element>
 				<parameters>
 					<valid-if><![CDATA[
 					$creatorsCount>1
@@ -636,7 +785,7 @@
 				<elements>
 					<layout-element ref="$second-or-more-creators" />
 				</elements>
-			</layout-element>
+			</layout-element>-->
 		</elements>
 
 	</cs-layout-definition>
@@ -657,6 +806,39 @@
 			<layout-element ref="$first-creator" />
 			<layout-element ref="$legal-case" />
 			<layout-element ref="$journal-citation-style" />
+		</elements>
+	</cs-layout-definition>
+	
+	<!--
+		OPINION Citation Style This publication is publisehd on the 
+		Institute's web page. There is no publisher and no source. 
+		See: http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Opinion
+	-->
+	<cs-layout-definition name="opinion">
+		<parameters>
+			<valid-if><![CDATA[
+				$genre = $l_opinion
+			]]>
+			</valid-if>
+		</parameters>
+		<elements>
+			<layout-element ref="$first-creator" />
+			<layout-element ref="$title" />
+			<layout-element ref="$date" />
+			<layout-element ref="$pages" />
+			<layout-element ref="$second-or-more-creators-with-dot" />
+			<!--  <layout-element>
+				<parameters>
+					<valid-if><![CDATA[
+					$creatorsCount>1
+					]]></valid-if>
+					<ends-with value="." />
+				</parameters>
+				<elements>
+					<layout-element ref="$second-or-more-creators" />
+				</elements>
+			</layout-element>
+			-->
 		</elements>
 	</cs-layout-definition>
 
