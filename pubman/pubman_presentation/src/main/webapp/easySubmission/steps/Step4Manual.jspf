@@ -141,10 +141,19 @@
 		<%-- DDC Subject (List -> first element) --%>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'easy-submission' || genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblDDCSubject}"/><span class="noDisplay">: </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblClassifiedSubject}"/><span class="noDisplay">: </span>
 					</b>
-					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:inputText id="inpSubject" styleClass="quad_txtInput subjectSuggest" value="#{EasySubmission.subject}" />
+					<span class="xHuge_area0 xTiny_marginLExcl endline subjectArea">
+						<h:panelGroup styleClass="large_area0 largeFormPush">
+							<h:outputLabel id="lblSelectIdentifierType" styleClass="large_area0 xTiny_marginRIncl" value="#{genre.content_item_subject_item_subject_type_label}" converter="GenreLabelConverter"/>
+							<h:selectOneMenu id="selSelectIdentifierType" styleClass="large_select replace vocabulary" value="#{EasySubmission.subject.type}">
+								<f:selectItems value="#{EditItem.subjectTypes}"/>
+							</h:selectOneMenu>
+						</h:panelGroup>
+						<h:panelGroup styleClass="xDouble_area0">
+							<h:outputLabel id="lblSubjectValue" value="#{genre.content_item_subject_item_subject_value_label}" converter="GenreLabelConverter"/>
+							<h:inputText id="inpSubjectValue" styleClass="xDouble_txtInput subjectSuggest" value="#{EasySubmission.subject.value}" />
+						</h:panelGroup>
 					</span>
 				</h:panelGroup>
 		

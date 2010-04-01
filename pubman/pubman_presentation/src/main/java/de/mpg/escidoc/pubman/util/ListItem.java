@@ -10,7 +10,7 @@ public class ListItem
 	private String value;
 	private List<String> stringList;
 	private List<ListItem> itemList;
-	
+
 	public int getIndex() {
 		return index;
 	}
@@ -36,7 +36,12 @@ public class ListItem
 		this.itemList = itemList;
 	}
 	
-	public void valueChanged(ValueChangeEvent event)
+    public String getAlternativeValue() throws Exception
+    {
+        return CommonUtils.getConeLanguageName(value);
+    }
+
+    public void valueChanged(ValueChangeEvent event)
 	{
 		
 		String newVal = "";
@@ -56,7 +61,8 @@ public class ListItem
     	item.setStringList(stringList);
     	item.setItemList(itemList);
     	itemList.add(index + 1, item);
-    	for (int i = index + 2; i < itemList.size(); i++) {
+    	for (int i = index + 2; i < itemList.size(); i++)
+    	{
 			itemList.get(i).setIndex(i);
 		}
     	return null;
@@ -71,7 +77,7 @@ public class ListItem
 		}
     	return null;
     }
-
+    
     public boolean getMoreThanOne()
     {
     	return (stringList.size() > 1);

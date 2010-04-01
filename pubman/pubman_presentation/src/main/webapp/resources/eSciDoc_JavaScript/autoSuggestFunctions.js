@@ -43,6 +43,7 @@
 	var journalSuggestCommonParentClass = 'sourceArea';
 	var journalSuggestTrigger = 'JOURNAL';
 	var subjectSuggestCommonParentClass = 'parentArea';
+	var languageSuggestCommonParentClass = 'languageArea';
 	
 	var globalId = '';
 
@@ -290,13 +291,16 @@
 	function selectLanguage()
 	{
 		$input = $(this);
-		$.getJSON(languageDetailsBaseURL.replace('$1', this.resultID), selectLanguageDetails);
+		var lang = document.getElementsByTagName('body')[0].lang;
+		$.getJSON(languageDetailsBaseURL.replace('$1', this.resultID).replace('$2', lang), selectLanguageDetails);
 	}
 	
 	function selectLanguageDetails(details)
 	{
 		var identifier = (typeof details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_identifier != 'undefined' ?
 				details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_identifier : null);
+		var name = (typeof details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_identifier != 'undefined' ?
+				details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_title : null);
 		var id3;
 		if (identifier != null && !(typeof identifier.splice === 'function') && identifier.length == 3)
 		{
@@ -313,6 +317,6 @@
 			}
 		}
 		
-		$input.siblings('select').val(id3);
-		$input.siblings('span.replace').replaceValue(id3);
+		$input.val(id3);
+		$input.parents('.'+languageSuggestCommonParentClass).find('.languageText').val(name);
 	}

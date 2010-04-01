@@ -86,7 +86,7 @@
 				});
 				languageSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />iso639-1/query?format=json';
 				journalSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />journals/query?format=json';
-				subjectSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />ddc/query?format=json';
+				subjectSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>$1/query';
 				personSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>persons/query?format=json';
 				journalDetailsBaseURL = '$1?format=json';
 				personDetailsBaseURL = '$1?format=json';

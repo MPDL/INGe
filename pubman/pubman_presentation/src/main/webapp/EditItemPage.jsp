@@ -186,6 +186,9 @@
 						 	<jsp:directive.include file="editItem/BasicGroup.jspf" />
 							<jsp:directive.include file="editItem/FilesGroup.jspf" />
 							<jsp:directive.include file="editItem/LocatorsGroup.jspf" />
+							<div class="noDisplay affiliationTreeForm">
+								<jsp:directive.include file="affiliation/AffiliationTreeForm.jspf" />
+							</div>
 							<jsp:directive.include file="editItem/PersOrgGroup.jspf" />
 							<jsp:directive.include file="editItem/ContentGroup.jspf" />
 							<jsp:directive.include file="editItem/DetailGroup.jspf" />
@@ -236,7 +239,7 @@
 				personSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>persons/query';
 				journalDetailsBaseURL = '$1?format=json';
 				personDetailsBaseURL = '$1?format=json';
-				languageDetailsBaseURL = '$1?format=json';
+				languageDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
 				journalSuggestCommonParentClass = 'itemBlock';
 				personSuggestCommonParentClass = 'suggestAnchor';
 				journalSuggestTrigger = 'JOURNAL';

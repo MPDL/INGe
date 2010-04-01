@@ -50,6 +50,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItem;
@@ -62,6 +64,8 @@ import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
@@ -408,6 +412,36 @@ public class CommonUtils extends InternationalizedImpl
         return langMap;
     }
 
+    public static String getConeLanguageName(String code) throws Exception
+    {
+        if (code != null && !"".equals(code.trim()))
+        {
+            String locale = Locale.getDefault().getLanguage();
+            if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja")))
+            {
+                locale = "en";
+            }
+            HttpClient client = new HttpClient();
+            GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url") + "iso639-3/resource/" + code + "?format=json&lang=" + locale);
+            client.executeMethod(getMethod);
+            String response = getMethod.getResponseBodyAsString();
+            Pattern pattern = Pattern.compile("\"http_purl_org_dc_elements_1_1_title\" : \\[?\\s*\"(.+)\"");
+            Matcher matcher = pattern.matcher(response);
+            if (matcher.find())
+            {
+                return matcher.group(1);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
     /**
      * Returns the current value of a comboBox. Used in UIs.
      * @param comboBox the comboBox for which the value should be returned

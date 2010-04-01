@@ -40,15 +40,13 @@
 
 <%-- Language of Publication --%>
 		<tr:iterator var="language" id="lgTable" value="#{EditItem.languages}" binding="#{EditItem.pubLangIterator}" varStatus="index" rendered="#{!(genre.details_item_language_display == 'false' && genre.details_item_language_form_id == 'full-submission' || genre.details_item_language_display == 'false' && genre.details_item_language_form_id == 'all')}">
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'full-submission' || genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'all')}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder languageArea" rendered="#{!(genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'full-submission' || genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'all')}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{language.index == 0 && genre.details_item_language_optional != 'true'}" /><h:outputText value="#{genre.details_item_language_item_language_label}" rendered="#{language.index == 0 && !(genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'full-submission' || genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'all')}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<input type="text" class="large_txtInput tiny_marginRIncl languageSuggest" />
-					<h:selectOneMenu id="selectLanguageOfPublication" styleClass="xDouble_select replace" value="#{language.value}" valueChangeListener="#{language.valueChanged}" onchange="$(this).parents('.itemLine').find('.languageSuggest').val('');">
-						<f:selectItems value="#{EditItem.languageOptions}"/>
-					</h:selectOneMenu>
+					<h:inputText styleClass="large_txtInput tiny_marginRIncl languageSuggest" id="selectLanguageOfPublication" value="#{language.value}" valueChangeListener="#{language.valueChanged}"/>
+					<h:inputText styleClass="xDouble_txtInput tiny_marginRIncl languageText readonlyInput" value="#{language.alternativeValue}" readonly="true"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAddLanguageOfPublication" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addLang}" action="#{language.addItem}" rendered="#{genre.details_item_language_item_language_repeatable != 'false'}"/>

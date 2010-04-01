@@ -2029,9 +2029,9 @@ public class EasySubmission extends FacesBean
     /**
      * returns the value of the first subject of the publication
      * 
-     * @return String the value of the first subject of the publication
+     * @return TextVO the value of the first subject of the publication
      */
-    public String getSubject()
+    public TextVO getSubject()
     {
         if (this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects() == null
                 || this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects().size() < 1)
@@ -2039,7 +2039,7 @@ public class EasySubmission extends FacesBean
             TextVO newSubject = new TextVO();
             this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects().add(newSubject);
         }
-        return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects().get(0).getValue();
+        return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects().get(0);
     }
 
     public void setSubject(String publicationSubject)
