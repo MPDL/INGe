@@ -33,7 +33,10 @@ package de.mpg.escidoc.pubman.multipleimport.processor;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -115,7 +118,50 @@ public class EndnoteProcessor extends FormatProcessor
             
             String inputString = new String(this.originalData, this.encoding);
 
-            items = inputString.split("(\\r\\n){2,10}|\\n{2,10}|\\r{2,10}");
+            //replace first empty lines and BOM
+            inputString = Pattern.compile("^.*?%", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(inputString).replaceFirst("%");
+        	
+        	BufferedReader reader = new BufferedReader(new StringReader(inputString));
+        	
+        	String buff;
+        	boolean firstItem = true;
+        	StringBuffer sb = null;
+        	List<String> l = new ArrayList<String>();
+        	
+        	while ((buff = reader.readLine()) != null)
+    		{
+    			if ( buff.trim().equals("") )
+    			{
+    				counter++; 
+    			}
+    			else
+    			{
+    				//first item handling
+    				if ( firstItem )
+    				{
+    					firstItem = false;
+    					sb = new StringBuffer();
+    				}
+    				// new item 
+    				else if ( counter >= 1 && buff.startsWith("%0") ) 
+    				{
+    					l.add(sb.toString().trim());
+    					counter = 0;
+    					sb = new StringBuffer();
+    				}
+    				sb.append(buff).append("\n");    						
+    			}
+
+    		}
+    		//add last item
+    		if ( sb != null )
+    		{
+    			l.add(sb.toString().trim());
+    		}
+
+    		reader.close();
+            
+    		items = (String[])l.toArray(new String[l.size()]);
             
             this.length = items.length;
             
