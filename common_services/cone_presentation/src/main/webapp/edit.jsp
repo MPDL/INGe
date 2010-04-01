@@ -237,7 +237,6 @@
 									    }
 									}
 			                	}
-		            	    out.append("</span>");
 	                
 			                if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
 			                {
@@ -245,6 +244,8 @@
 	        		            out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":" + counter + ":",((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()));
 	            		        out.append("</span>");
 	            	    	}
+			                
+		            	    out.append("</span>");
 	                
 	                		counter++;
 	            		}

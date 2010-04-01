@@ -105,7 +105,7 @@
 			function remove(element)
 			{
 				var parent = $(element).parents(".singleItem");
-				var listSize = $(parent).parent().find(".singleItem").length;
+				var listSize = $(parent).parent().children(".singleItem").length;
 				if (listSize > 1)
 				{
 					$(parent).remove();
