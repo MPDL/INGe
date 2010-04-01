@@ -245,10 +245,13 @@ public class Util
         for (int i = 0; i < allFormatsV.size(); i++)
         {
             tmpA = allFormatsV.get(i);
-            for (int x = 0; x < tmpA.length; x++)
+            if (tmpA != null)
             {
-                tmpV.add(tmpA[x]);
-                //System.out.println(tmpA[x].getName());
+	            for (int x = 0; x < tmpA.length; x++)
+	            {
+	                tmpV.add(tmpA[x]);
+	                //System.out.println(tmpA[x].getName());
+	            }
             }
         }
         tmpV = this.getRidOfDuplicatesInVector(tmpV);

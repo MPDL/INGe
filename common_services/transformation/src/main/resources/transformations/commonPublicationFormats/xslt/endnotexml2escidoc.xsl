@@ -28,7 +28,8 @@
 -->
 <!-- 
 	Transformations from EndNote Item to eSciDoc PubItem 
-	see: http://colab.mpdl.mpg.de/mediawiki/Talk:PubMan_Func_Spec_Endnote_Mapping#revised_mapping
+	See http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Endnote_Mapping and
+	http://colab.mpdl.mpg.de/mediawiki/Talk:PubMan_Func_Spec_Endnote_Mapping#revised_mapping
 	Author: Vlad Makarenko (initial creation) 
 	$Author: mfranke $ (last changed)
 	$Revision: 2750 $ 

@@ -15,12 +15,15 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Util;
+import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
-public class EndNoteTransformation 
+@TransformationModule
+public class EndNoteTransformation implements Transformation
 {
 	
 	private Logger logger = Logger.getLogger(getClass());
@@ -103,5 +106,83 @@ fos.close();
             throw new RuntimeException("Error getting file content", e);
         }
     }
+
+
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.transformation.Transformation#getSourceFormats()
+	 */
+	public Format[] getSourceFormats() throws RuntimeException {
+		return new Format[]{ENDNOTE_FORMAT, ENDNOTE_ICE_FORMAT};
+	}
+
+
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.transformation.Transformation#getSourceFormats(de.mpg.escidoc.services.transformation.valueObjects.Format)
+	 */
+	public Format[] getSourceFormats(Format trg) throws RuntimeException {
+		if (ESCIDOC_ITEM_FORMAT.equals(trg) || ESCIDOC_ITEM_LIST_FORMAT.equals(trg))
+		{
+			return new Format[]{ENDNOTE_FORMAT, ENDNOTE_ICE_FORMAT};
+		}
+		else
+		{
+			return new Format[]{};
+		}
+	}
+
+
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.transformation.Transformation#getSourceFormatsAsXml()
+	 */
+	public String getSourceFormatsAsXml() throws RuntimeException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.transformation.Transformation#getTargetFormats(de.mpg.escidoc.services.transformation.valueObjects.Format)
+	 */
+	public Format[] getTargetFormats(Format src) throws RuntimeException {
+		if (ENDNOTE_FORMAT.equals(src) || ENDNOTE_ICE_FORMAT.equals(src))
+		{
+			return new Format[]{ESCIDOC_ITEM_FORMAT, ESCIDOC_ITEM_LIST_FORMAT};
+		}
+		else
+		{
+			return new Format[]{};
+		}
+	}
+
+
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.transformation.Transformation#getTargetFormatsAsXml(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	public String getTargetFormatsAsXml(String srcFormatName, String srcType,
+			String srcEncoding) throws RuntimeException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.transformation.Transformation#transform(byte[], de.mpg.escidoc.services.transformation.valueObjects.Format, de.mpg.escidoc.services.transformation.valueObjects.Format, java.lang.String)
+	 */
+	public byte[] transform(byte[] src, Format srcFormat, Format trgFormat,
+			String service) throws TransformationNotSupportedException,
+			RuntimeException {
+		return endnoteTransform(src, srcFormat, trgFormat, service);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.transformation.Transformation#transform(byte[], java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
+	public byte[] transform(byte[] src, String srcFormatName, String srcType,
+			String srcEncoding, String trgFormatName, String trgType,
+			String trgEncoding, String service)
+			throws TransformationNotSupportedException, RuntimeException {
+		return transform(src, new Format(srcFormatName, srcType, srcEncoding), new Format(trgFormatName, trgType, trgEncoding), service);
+	}
 
 }

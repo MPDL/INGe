@@ -72,7 +72,7 @@
 			<Encoding>UTF-8</Encoding>
 		</Target>
 	</Transformation>	
-	<Transformation>
+<!-- 	<Transformation>
 		<Source>
 			<Name>EndNote</Name>
 			<Type>text/plain</Type>
@@ -107,5 +107,5 @@
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Target>
-	</Transformation>
+	</Transformation> -->
 </Transformations>
