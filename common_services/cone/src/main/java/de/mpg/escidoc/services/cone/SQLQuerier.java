@@ -561,7 +561,7 @@ public class SQLQuerier implements Querier
             for (Predicate predicate : predicates)
             {
                 if (predicate.getId().equals(predicateValue))
-                {System.out.print("SQLQUERIER "+predicate.getName()+" loggedIn :"+loggedIn);
+                {
                 	if(!predicate.isRestricted() || loggedIn){
 	                    if (predicate.isResource() && !(idStack.contains(object)))
 	                    {
