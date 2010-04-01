@@ -168,6 +168,11 @@ public class XsltHelper {
 		if (idType.equals("")) {
 			citationStyle = "default";
 		} else {
+			// set the idType from to CONE to SFX and cut the SFX-Id from the URL
+			if (idType.equals("CONE")){
+				idValue = idValue.substring(idValue.lastIndexOf("/")+1);
+				idType = "SFX";
+			}
 			Pair keyValue = new Pair(idType, idValue);
 			if (citationMap.size() == 0) {
 				getJournalsXML();
@@ -196,8 +201,7 @@ public class XsltHelper {
 		HttpClient client = new HttpClient();
 
 		String coneQuery = 
-			PropertyReader.getProperty("escidoc.cone.service.url") 
-			+ "journals/query?format=rdf&escidoc:citation-style=*&m=full&l=0";
+			PropertyReader.getProperty("escidoc.cone.service.url") + "journals/query?format=rdf&escidoc:citation-style=*&m=full&l=0";
 		logger.info("cone query:" + coneQuery);
 		GetMethod getMethod = new GetMethod(coneQuery);
 
