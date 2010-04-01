@@ -413,8 +413,8 @@
 	<!-- subjects should be from the matching vocabulary -->
 	<iso:pattern name="classified_keywords" id="classified_keywords">
 		<iso:rule context="publication:publication/dc:subject">
-			<iso:assert test="not(exists($ddcSubjects/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:DDC' or . = $ddcSubjects/var/rdf:RDF/rdf:Description/dc:title">IncorrectClassification</iso:assert>
-			<iso:assert test="not(exists($mpipksSubjects/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:MPIPKS' or . = $mpipksSubjects/var/rdf:RDF/rdf:Description/dc:title">IncorrectClassification</iso:assert>
+			<iso:assert test="not(exists($ddcSubjects/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:DDC' or . = $ddcSubjects/var/rdf:RDF/rdf:Description/dc:title">IncorrectDDCClassification</iso:assert>
+			<iso:assert test="not(exists($mpipksSubjects/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:MPIPKS' or . = $mpipksSubjects/var/rdf:RDF/rdf:Description/dc:title">IncorrectMPIPKSClassification</iso:assert>
 			<iso:assert test="not(exists($iso639-3/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:ISO639-3' or . = $iso639-3/var/rdf:RDF/rdf:Description/dc:title">IncorrectClassification</iso:assert>
 		</iso:rule>
 	</iso:pattern>
