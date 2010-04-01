@@ -63,7 +63,7 @@ public class QuerierFactory
             Object querierImpl = Class.forName(querier).newInstance();
             if (querierImpl instanceof Querier)
             {
-            	((Querier)querierImpl).setLoggedIn(loggedIn);
+            	((Querier)querierImpl).setLoggedIn(loggedIn);            	
                 return (Querier) querierImpl;
             }
             else

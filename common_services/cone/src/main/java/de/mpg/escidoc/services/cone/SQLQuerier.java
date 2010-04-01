@@ -561,27 +561,27 @@ public class SQLQuerier implements Querier
             for (Predicate predicate : predicates)
             {
                 if (predicate.getId().equals(predicateValue))
-                {
+                {System.out.print("SQLQUERIER "+predicate.getName()+" loggedIn :"+loggedIn);
                 	if(!predicate.isRestricted() || loggedIn){
-                    if (predicate.isResource() && !(idStack.contains(object)))
-                    {
-                        idStack.push(object);
-                        localizedTripleObject = details(predicate.getResourceModel(), object, language, idStack, connection);
-                        idStack.pop();
-                        localizedTripleObject.setLanguage(lang);
-                    }
-                    else if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
-                    {
-                        localizedTripleObject = details(null, predicate.getPredicates(), object, language, idStack, connection);
-                        localizedTripleObject.setLanguage(lang);
-                    }
-                    else
-                    {
-                        localizedTripleObject = new LocalizedString(object, lang);
-                    }
-                    found = true;
-                    break;
-                }
+	                    if (predicate.isResource() && !(idStack.contains(object)))
+	                    {
+	                        idStack.push(object);
+	                        localizedTripleObject = details(predicate.getResourceModel(), object, language, idStack, connection);
+	                        idStack.pop();
+	                        localizedTripleObject.setLanguage(lang);
+	                    }
+	                    else if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
+	                    {
+	                        localizedTripleObject = details(null, predicate.getPredicates(), object, language, idStack, connection);
+	                        localizedTripleObject.setLanguage(lang);
+	                    }
+	                    else
+	                    {
+	                        localizedTripleObject = new LocalizedString(object, lang);
+	                    }
+	                    found = true;
+	                    break;
+                	}
                 }
             }
             if (!found)
@@ -916,11 +916,11 @@ public class SQLQuerier implements Querier
     }
     
     public void setLoggedIn(boolean loggedIn){
-    	loggedIn = loggedIn;
+    	this.loggedIn = loggedIn;
     }
     
     public boolean getLoggedIn(){
-    	return loggedIn;
+    	return this.loggedIn;
     }
     
 }

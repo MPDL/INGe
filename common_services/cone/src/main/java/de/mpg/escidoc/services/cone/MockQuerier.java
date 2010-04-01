@@ -375,11 +375,11 @@ public class MockQuerier implements Querier
     }
     
     public void setLoggedIn(boolean loggedIn){
-    	loggedIn = loggedIn;
+    	this.loggedIn = loggedIn;
     }
     
     public boolean getLoggedIn(){
-    	return loggedIn;
+    	return this.loggedIn;
     }
     
 }
