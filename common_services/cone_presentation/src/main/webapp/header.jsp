@@ -155,7 +155,8 @@
 			
 			function fillId()
 			{
-				$(this).val(this.resultID);
+				var id = this.resultID.replace(/^.+\/(.+\/resource\/.+)$/, '$1');
+				$(this).val(id);
 			}
 			
 	</script>
