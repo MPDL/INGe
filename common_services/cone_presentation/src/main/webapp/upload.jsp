@@ -33,9 +33,13 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
+	
+	
 %>
 
 <%@page import="java.util.List"%>
+<%@ page import="java.util.Arrays" %>
+<%@ page import="java.util.ArrayList" %>
 <%@page import="de.mpg.escidoc.services.cone.ModelList.Model"%>
 <%@page import="de.mpg.escidoc.services.cone.ModelList"%>
 <%@page import="java.util.Set"%>
@@ -56,24 +60,12 @@
 <%@page import="de.mpg.escidoc.services.cone.ModelList.Model"%>
 <%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
 <%@page import="java.util.regex.Pattern"%>
-<%@page import="java.util.regex.Matcher"%><html xmlns="http://www.w3.org/1999/xhtml">
-	<jsp:include page="header.jsp"/>
-	<body>
-		<div class="full wrapper">
-			<jsp:include page="navigation.jsp"/>
-			<div id="content" class="full_area0 clear">
-			<!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
-				<div class="clear">
-					<div id="headerSection">
-						<div id="headLine" class="clear headLine">
-							<!-- Headline starts here -->
-							<h1>Importing...</h1>
-							<!-- Headline ends here -->
-						</div>
-					</div>
-				</div>
-				<div class="full_area0">
-					<%
+<%@page import="java.util.regex.Matcher"%>
+<% List<String> errors = new ArrayList<String>();%>
+
+<%
+						errors = new ArrayList<String>();
+					
 						boolean isMigrateNamespace = true;
 					
 						boolean isMultipart = ServletFileUpload.isMultipartContent(request);
@@ -104,7 +96,11 @@
 						
 						SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
 						RDFHandler rdfHandler = new RDFHandler(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
-						parser.parse(uploadedStream, rdfHandler);
+						try {
+							parser.parse(uploadedStream, rdfHandler);
+						}catch(Exception e){	errors.add("Invalid file!");}
+							
+						
 						
 						Querier querier = QuerierFactory.newQuerier(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
 						List<LocalizedTripleObject> results = rdfHandler.getResult();
@@ -154,8 +150,50 @@
 								throw new RuntimeException("Wrong RDF structure at " + result);
 							}
 						}
-
+						
+						
 					%>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<jsp:include page="header.jsp"/>
+	<body>
+		<div class="full wrapper">
+			<jsp:include page="navigation.jsp"/>
+			<div id="content" class="full_area0 clear">
+			<!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
+				<div class="clear">
+					<div id="headerSection">
+						<div id="headLine" class="clear headLine">
+							<!-- Headline starts here -->
+							<h1>Importing...</h1>
+							<!-- Headline ends here -->
+						</div>
+						<div class="small_marginLIncl subHeaderSection">
+							<div class="contentMenu">
+								<div class="free_area0 sub">
+									&nbsp;
+								</div>
+							</div>
+							<div class="subHeader">
+								
+								<% 
+								
+									if (errors!=null && errors.size() > 0) { %>
+									<ul>
+										<% for (String error : errors) { %>
+											<li class="messageError"><b>Error: </b><%= error %></li>
+										<% } %>
+									</ul>
+								<% } %>
+								&nbsp;
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="full_area0">
+				
+					
 				</div>
 			</div>
 		</div>
