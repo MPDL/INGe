@@ -61,7 +61,7 @@
 
 	<xsl:param name="is-item-list" select="true()"/>
 
-	<xsl:variable name="vm" select="document('ves-mapping.xml')/mappings"/>
+	<xsl:variable name="vm" select="document('../../ves-mapping.xml')/mappings"/>
 
 	<xsl:template match="/">
 		<xsl:choose>

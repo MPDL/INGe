@@ -28,6 +28,7 @@
 -->
 <!-- 
 	Transformations from EndNote Item to eSciDoc PubItem 
+	see: http://colab.mpdl.mpg.de/mediawiki/Talk:PubMan_Func_Spec_Endnote_Mapping#revised_mapping
 	Author: Vlad Makarenko (initial creation) 
 	$Author: mfranke $ (last changed)
 	$Revision: 2750 $ 
@@ -63,6 +64,7 @@
    
 
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
+	
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
@@ -75,6 +77,9 @@
 	<xsl:param name="source-name" select="''"/>
 	
 	<xsl:param name="refType" />
+
+	<xsl:variable name="vm" select="document('../../ves-mapping.xml')/mappings"/>
+
 
 	<xsl:variable name="genreMap">
 			<m key="Book">book</m>
@@ -191,12 +196,43 @@
 			
 			
 			<!-- LANGUAGE -->
+			<!-- 
+25: %G English 
+62: %G Englisch 
+91: %G Language: eng 
+120: %G Language: eng 
+148: %G eng 
+172: %G Language: eng 
+202: %G French; Summaries in English. 
+245: %G eng 
+282: %G Language: eng 
+308: %G English 
+329: %G English 
+377: %G eng 
+418: %G Language: eng 
+463: %G eng 
+499: %G eng 
+543: %G de 
+579: %G english 
+607: %G eng 
+639: %G eng 
+673: %G eng 
+709: %G eng 
+743: %G eng 
+773: %G Language: eng 
+798: %G eng 
+826: %G de 	
+ -->		
 			<xsl:if test="G">
-				<xsl:element name="dc:language">
-					<xsl:attribute name="xsi:type">dcterms:RFC3066</xsl:attribute>
-					<xsl:value-of select="G"/>
-				</xsl:element>
+				<xsl:variable name="g" select="G"/>
+				<xsl:if test="$vm/language/v1-to-v2/map[$g=.]!=''">
+					<xsl:element name="dc:language">
+						<xsl:attribute name="xsi:type">dcterms:RFC3066</xsl:attribute>
+						<xsl:value-of select="G"/>
+					</xsl:element>
+				</xsl:if>
 			</xsl:if> 
+
 			
 			
 			<!--ALTTITLE -->
@@ -281,42 +317,32 @@
 			
 			
 			<!-- PUBLISHING INFO -->
-			<xsl:variable name="publisher">
-				<xsl:choose>
-					<xsl:when test="B and I and $refType = 'Thesis'">
-						<xsl:value-of select="string-join((B, I), ', ')" />
-					</xsl:when>
-					<xsl:when test="I and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Generic' )">
-						<xsl:value-of select="I" />
-					</xsl:when>
-					<xsl:when test="(I or Y or QUESTION) and $refType = 'Report'">
-						<xsl:value-of select="string-join((I, Y, QUESTION), ', ')" />
-					</xsl:when>
-				</xsl:choose>
-			</xsl:variable>
-			<xsl:variable name="place">
-				<xsl:if test="C and $refType = ('Book', 'Edited Book', 'Electronic Book', 'Manuscript', 'Report', 'Thesis', 'Magazine Article', 'Generic')">
-					<xsl:value-of select="C" />
-				</xsl:if>
-			</xsl:variable>
-			<xsl:variable name="edition" select="
-				if (NUM_7 and $sourceGenre='' and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Generic', 'Report')) then NUM_7
-				else if (ROUND_RIGHT_BRACKET and not(NUM_7)and $refType = ('Book', 'Edited Book', 'Generic')) then ROUND_RIGHT_BRACKET
+			<xsl:variable name="publisher" select="
+				if (B and I and $refType = 'Thesis') then string-join((B, I), ', ')
+				else if (I and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Generic' )) then I
+				else if ((I or Y or QUESTION) and $refType = 'Report') then string-join((I, Y, QUESTION), ', ')
 				else ''
 			"/>
-			
-			<xsl:if test="concat($publisher, $place, $edition)!=''">
+			 
+			<xsl:if test="$publisher!=''">
 				<xsl:element name="eterms:publishing-info">
-					<xsl:if test="$publisher!=''">
-						<xsl:element name="dc:publisher">
-							<xsl:value-of select="$publisher"/>
-						</xsl:element>
-					</xsl:if>
+					<xsl:element name="dc:publisher">
+						<xsl:value-of select="$publisher"/>
+					</xsl:element>
+					<xsl:variable name="place" select="
+						if (C and $refType = ('Book', 'Edited Book', 'Electronic Book', 'Manuscript', 'Report', 'Thesis', 'Magazine Article', 'Generic')) then C
+						else ''
+					"/>
 					<xsl:if test="$place!=''">
 						<xsl:element name="eterms:place">
 							<xsl:value-of select="$place"/>
 						</xsl:element>
 					</xsl:if>
+					<xsl:variable name="edition" select="
+						if (NUM_7 and $sourceGenre='' and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Generic', 'Report')) then NUM_7
+						else if (ROUND_RIGHT_BRACKET and not(NUM_7)and $refType = ('Book', 'Edited Book', 'Generic')) then ROUND_RIGHT_BRACKET
+						else ''
+					"/>
 					<xsl:if test="$edition!=''">
 						<xsl:element name="eterms:edition">
 							<xsl:value-of select="$edition"/>
@@ -328,84 +354,30 @@
 			
 			
 			<!-- DATES -->
-<!--			<xsl:variable name="year">-->
-<!--				<xsl:if test="D and (-->
-<!--					   $refType = (-->
-<!--						      'Generic'-->
-<!--							, 'Book' -->
-<!--							, 'Book Section' -->
-<!--							, 'Conference Paper' -->
-<!--						    , 'Conference Proceedings'-->
-<!--							, 'Edited Book' -->
-<!--							, 'Electronic Article' -->
-<!--							, 'Electronic Book' -->
-<!--							, 'Journal Article' -->
-<!--							, 'Magazine Article' -->
-<!--							, 'Manuscript' -->
-<!--							, 'Newspaper Article' -->
-<!--							, 'Report' -->
-<!--							, 'Thesis'-->
-<!--						)	-->
-<!--					)">-->
-<!--					<xsl:value-of select="D"/>-->
-<!--				</xsl:if>-->
-<!--			</xsl:variable>-->
-
-			<xsl:variable name="year">
-				<xsl:if test="D and (
-					   $refType = (
-						      'Generic'
-						    , 'Conference Proceedings'
-							, 'Journal Article' 
-							, 'Magazine Article' 
-							, 'Manuscript' 
-							, 'Newspaper Article' 
-							, 'Patent'  
-							, 'Electronic Article' 
-							, 'Electronic Book' 
-							, 'Thesis'
-							, 'Book' 
-							, 'Book Section' 
-							, 'Edited Book' 
-							, 'Conference Paper' 
-							, 'Report' 
-						)	
-					)">
-					<xsl:value-of select="D"/>
-				</xsl:if>
-			</xsl:variable>
+			<xsl:variable name="dateCreated" select="
+				if (D) then escidoc:normalizeDate(D)
+				else if (NUM_8) then escidoc:normalizeDate(NUM_8)
+				else ''
+			"/>
 			
-			<xsl:variable name="date">
-				<xsl:if test="NUM_8 and 
-					   $refType = (
-						     'Book'
-						   , 'Edited Book'
-						   , 'Generic'
-						   , 'Journal Article'
-						   , 'Magazine Article'
-						   , 'Newspaper Article'						   
-						   , 'Manuscript'
-						   , 'Patent'
-						   , 'Thesis' 
-						   , 'Conference Proceedings'
-						   , 'Report' 
-					)">
-				<xsl:value-of select="escidoc:getMonthAndDate(NUM_8)"/>					
-				</xsl:if>
-			</xsl:variable>
-			
-			<xsl:if test="$year">
-				<dcterms:created xsi:type="dcterms:W3CDTF"><xsl:value-of select="concat($year, if ($year!='' and $date!='') then '-' else '', $date)"/></dcterms:created>				
+			<xsl:if test="$dateCreated!=''">
+				<dcterms:created xsi:type="dcterms:W3CDTF"><xsl:value-of select="$dateCreated"/></dcterms:created>				
 			</xsl:if>
 			
-			<!-- TODO: CHECK! -->
-			<xsl:if test="NUM_7 and (
-				   $refType = 'Journal Article' 
-				)">
-				<eterms:published-online xsi:type="dcterms:W3CDTF"><xsl:value-of select="NUM_7"/></eterms:published-online>
+			<xsl:variable name="datePublishedOnline" select="
+				if (NUM_7 and $refType = 'Journal Article') then escidoc:normalizeDate(NUM_7)
+				else ''
+			"/>
+			<xsl:if test="$datePublishedOnline!=''">
+				<eterms:published-online xsi:type="dcterms:W3CDTF"><xsl:value-of select="$datePublishedOnline"/></eterms:published-online>			
 			</xsl:if>
-			<xsl:if test="EQUAL">
-				<dcterms:modified xsi:type="dcterms:W3CDTF"><xsl:value-of select="EQUAL"/></dcterms:modified>
+			
+			<xsl:variable name="dateModified" select="
+				if (EQUAL) then escidoc:normalizeDate(EQUAL)
+				else ''
+			"/>
+			<xsl:if test="$dateModified!=''">
+				<dcterms:modified xsi:type="dcterms:W3CDTF"><xsl:value-of select="$dateModified"/></dcterms:modified>
 			</xsl:if>
           	<!-- end of DATES -->
 
@@ -661,26 +633,24 @@
 			<xsl:variable name="publisher" select="
 				if (I and $refType = ('Book Section', 'Conference Paper', 'Electronic Article', 'Magazine Article', 'Newspaper Article')) then I else ''
 			"/>
-			<xsl:variable name="place" select="
-				if (C and $refType = ('Book Section', 'Newspaper Article')) then C else ''
-			"/>
-			<xsl:variable name="edition" select="
-				if (NUM_7 and $refType = ('Book Section', 'Electronic Article', 'Magazine Article', 'Newspaper Article', 'Report')) then NUM_7
-				else if (ROUND_RIGHT_BRACKET and not(NUM_7) and $refType = ('Book Section', 'Magazine Article')) then ROUND_RIGHT_BRACKET 
-				else ''
-			"/>
-			<xsl:if test="concat($publisher, $place, $edition)!=''">
+			<xsl:if test="$publisher!=''">
 				<xsl:element name="eterms:publishing-info">
-					<xsl:if test="$publisher!=''">
-						<xsl:element name="dc:publisher">
-							<xsl:value-of select="$publisher"/>
-						</xsl:element>
-					</xsl:if>
+					<xsl:element name="dc:publisher">
+						<xsl:value-of select="$publisher"/>
+					</xsl:element>
+					<xsl:variable name="place" select="
+						if (C and $refType = ('Book Section', 'Newspaper Article')) then C else ''
+					"/>
 					<xsl:if test="$place!=''">
 						<xsl:element name="eterms:place">
 							<xsl:value-of select="$place"/>
 						</xsl:element>
 					</xsl:if>
+					<xsl:variable name="edition" select="
+						if (NUM_7 and $refType = ('Book Section', 'Electronic Article', 'Magazine Article', 'Newspaper Article', 'Report')) then NUM_7
+						else if (ROUND_RIGHT_BRACKET and not(NUM_7) and $refType = ('Book Section', 'Magazine Article')) then ROUND_RIGHT_BRACKET 
+						else ''
+					"/>
 					<xsl:if test="$edition!=''">
 						<xsl:element name="eterms:edition">
 							<xsl:value-of select="$edition"/>
@@ -804,8 +774,6 @@
 	<xsl:template name="createPerson">
 		<xsl:param name="isSource"/>
 		<xsl:param name="pos" select="0"/>
-		<xsl:message select="."/>
-		<xsl:message select="AuthorDecoder:parseAsNode(.)"/>
 		
 		<xsl:variable name="person" select="AuthorDecoder:parseAsNode(.)/authors/author[1]"/>
 		
@@ -946,70 +914,80 @@
 		</xsl:choose>
 	</xsl:function>
 	
-	<xsl:function name="escidoc:getMonthAndDate">
-		<xsl:param name="d"/>
-		<xsl:choose>
-			<xsl:when test="matches($d,'\d{4}[.-]\d{2}[.-]\d{2}')">
-				<xsl:value-of select="
-					 string-join ( ( tokenize($d, '[.-]')[position()>1] ), '-') 
-				"/>
-			</xsl:when>
-			<xsl:when test="matches($d,'\d{4}[.-]\d{2}')">
-				<xsl:value-of select="
-					 tokenize($d, '[.-]')[2] 
-				"/>
-			</xsl:when>
-			<xsl:when test="matches($d,'\w{3,}\s+\d{2}')">
-				<xsl:variable name="s" select="tokenize($d, '\s+')"/>
-				<xsl:variable name="m" select="substring($s[1],1,3)"/>
-				<xsl:value-of select="
-					string-join ( 
-						(
-						  	if ($m='Jan') then '01' else
-						  	if ($m='Feb') then '02' else
-						  	if ($m='Mar') then '03' else
-						  	if ($m='Apr') then '04' else
-						  	if ($m='May') then '05' else
-						  	if ($m='Jun') then '06' else
-						  	if ($m='Jul') then '07' else
-						  	if ($m='Aug') then '08' else
-						  	if ($m='Sep') then '09' else
-						  	if ($m='Oct') then '10' else
-						  	if ($m='Nov') then '11' else
-						  	if ($m='Dec') then '12' else
-						  	error(QName('http://www.escidoc.de', 'err:MonthNotRecognized' ), concat('Do not know the month ', $d))
-						  	, 
-							$s[2] 
-						)
-					  	, '-'
-					  )
-				"/>
-			</xsl:when>
-		</xsl:choose>
+	<!--
+		see http://colab.mpdl.mpg.de/mediawiki/Talk:PubMan_Func_Spec_Endnote_Mapping#Date_proper_formats 		
+	
+	 --> 		
+
+	<xsl:function name="escidoc:normalizeDate">
+		<xsl:param name="d" />
+		<xsl:variable name="d" select="replace(replace(normalize-space($d), '^\s+', ''), '\s+$', '')"/>
+		<xsl:variable name="nd" as="item()*">
+			<xsl:choose>
+				<xsl:when test="matches($d,'^\d{1,2}[-.]\d{1,2}[-.]\d{4}$')">
+					<xsl:variable name="dmy" select="tokenize($d, '[-.]')"/>
+					<xsl:copy-of select="$dmy[3], escidoc:add0($dmy[2]), escidoc:add0($dmy[1])" />
+				</xsl:when>
+				<xsl:when test="matches($d,'^\d{4}[-.]\d{1,2}[-.]\d{1,2}$')">
+					<xsl:variable name="dmy" select="tokenize($d, '[-.]')"/>
+					<xsl:copy-of select="$dmy[1], escidoc:add0($dmy[2]), escidoc:add0($dmy[3])"/>
+				</xsl:when>
+				<xsl:when test="matches($d,'^\d{4}[-.]\d{1,2}$')">
+					<xsl:variable name="dmy" select="tokenize($d, '[-.]')"/>
+					<xsl:copy-of select="$dmy[1], escidoc:add0($dmy[2])"/>
+				</xsl:when>
+				<xsl:when test="matches($d,'^\d{4}$')">
+					<xsl:copy-of select="$d"/>
+				</xsl:when>
+				<xsl:when test="matches($d,'^\w{3,}\s+\d{1,2}\s*,\s*\d{4}$')">
+					<xsl:analyze-string regex="(\w{{3,}})\s+(\d{{1,2}})\s*,\s*(\d{{4}})" select="$d">
+						<xsl:matching-substring>
+							<xsl:variable name="m" select="lower-case(substring(regex-group(1),1,3))"/>
+							<xsl:variable name="m" select="
+							  	if ($m='jan') then '01' else
+							  	if ($m='feb') then '02' else
+							  	if ($m='mar') then '03' else
+							  	if ($m='apr') then '04' else
+							  	if ($m='may') then '05' else
+							  	if ($m='jun') then '06' else
+							  	if ($m='jul') then '07' else
+							  	if ($m='aug') then '08' else
+							  	if ($m='sep') then '09' else
+							  	if ($m='oct') then '10' else
+							  	if ($m='nov') then '11' else
+							  	if ($m='dec') then '12' else
+								''
+							"/>
+							<xsl:copy-of select="
+								if ($m!='') then 
+								(
+									regex-group(3),
+									$m,
+									escidoc:add0(regex-group(2))
+								)
+								else ()	 
+							"/>
+							
+						</xsl:matching-substring>
+					</xsl:analyze-string>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:copy-of select="()"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
 		
-<!-- 		
-133: %8 2010-08 
-159: %8 13.08.2009 
-188: %8 January 13 
-229: %8 July 28 
-295: %8 April 19, 2005 
-319: %8 April 22, 2004 
-353: %8 2007-08-12 
-395: %8 2009-08-12 
-442: %8 2007-09-12 
-479: %8 23 
-516: %8 2010 
-559: %8 2009-12-23 
-592: %8 July 9 
-623: %8 March 15 
-657: %8 2009-08-12 
-691: %8 Mar 12 
-723: %8 January 6 
-754: %8 2009-11-23 
-786: %8 2010-01-01 
-813: %8 1998-12-23
- --> 		
+		<xsl:value-of select="
+			if (exists($nd)) then string-join( $nd[.!=''], '-' ) else ''
+		"/>
+
 	</xsl:function>
+	
+	<xsl:function name="escidoc:add0">
+		<xsl:param name="d" />
+		<xsl:value-of select="if (string-length($d)=1) then concat('0', $d) else $d"/>
+	</xsl:function>
+
 	
 	<xsl:function name="escidoc:normalizeDegree">
 		<xsl:param name="d" />

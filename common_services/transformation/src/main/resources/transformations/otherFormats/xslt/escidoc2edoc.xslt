@@ -70,11 +70,11 @@
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
 <!--	<xsl:param name="pubman_instance">${escidoc.pubman.instance.url}</xsl:param>-->
-	<xsl:param name="pubman_instance">http://qa-pubman.mpdl.mpg.de:8080/pubman</xsl:param>
+	<xsl:param name="pubman_instance">http://pubman.mpdl.mpg.de/pubman</xsl:param>
 <!--	<xsl:param name="fw_instance">${escidoc.common.framework.url}</xsl:param>-->
 	<xsl:param name="coreservice_instance">http://coreservice.mpdl.mpg.de:8080</xsl:param>
 	
-	<xsl:variable name="vm" select="document('ves-mapping.xml')/mappings"/>
+	<xsl:variable name="vm" select="document('../../ves-mapping.xml')/mappings"/>
 	
 	<xsl:variable name="mpipl-daffs">
 		<map escd="escidoc:55201">11683</map> 	 
@@ -230,26 +230,51 @@
 	<!-- PUBLICATION -->
 	<xsl:template name="publication">
 		
+		<xsl:variable name="objid" select="../../../@objid"/>
 		
 		<xsl:element name="publication">
 		
 			<!-- PUBLISHER -->
-			<xsl:if test="
-				not(@type=(
+			<xsl:if test="eterms:publishing-info/dc:publisher!=''">
+				<xsl:element name="publisher">
+					<xsl:value-of select="eterms:publishing-info/dc:publisher" />
+				</xsl:element>
+			</xsl:if>
+			<xsl:if test="not(@type=(
 					'http://purl.org/eprint/type/ConferencePaper', 
 					'http://purl.org/escidoc/metadata/ves/publication-types/webpage', 
 					'http://purl.org/escidoc/metadata/ves/publication-types/issue', 
 					'http://purl.org/escidoc/metadata/ves/publication-types/paper', 
 					'http://purl.org/eprint/type/Report'
 					)
-				) 
-				and eterms:publishing-info">
+				) and eterms:publishing-info/dc:publisher=''">
+				<xsl:message select="concat('YB: publisher should be defined for genre: ', @type, ', item id: ', $objid)"/>
+			</xsl:if>
+			<!-- MPIPL specific, genre InBook: publisher from source -->
+			<xsl:if test="@type=(
+					'http://purl.org/eprint/type/BookItem', 
+					'http://purl.org/eprint/type/ConferencePaper'
+				) and source:source[1]/eterms:publishing-info/dc:publisher!=''
+			">
 				<xsl:element name="publisher">
-					<xsl:value-of select="eterms:publishing-info/dc:publisher" />
+					<xsl:value-of select="source:source[1]/eterms:publishing-info/dc:publisher" />
 				</xsl:element>
 			</xsl:if>
-			
+			<xsl:if test="@type=(
+					'http://purl.org/eprint/type/BookItem', 
+					'http://purl.org/eprint/type/ConferencePaper'
+				) and source:source[1]/eterms:publishing-info/dc:publisher=''
+			">
+				<xsl:message select="concat('YB: publisher should be defined in source for genre: ', @type ,', item id: ', $objid)"/>
+			</xsl:if>
+
+
 			<!-- PUBLISHERADD -->
+			<xsl:if test="eterms:publishing-info/eterms:place[1]!=''">
+				<xsl:element name="publisheradd">
+					<xsl:value-of select="eterms:publishing-info/eterms:place[1]" />
+				</xsl:element>
+			</xsl:if>
 			<xsl:if test="
 				@type=(
 					'http://purl.org/eprint/type/BookItem',
@@ -259,48 +284,81 @@
 					'http://purl.org/escidoc/metadata/ves/publication-types/journal',
 					'http://purl.org/eprint/type/Thesis'
 				) 
-				and eterms:publishing-info/eterms:place">
+				and eterms:publishing-info/eterms:place[1]=''">
+				<xsl:message select="concat('YB: publishing places should be defined for genre: ', @type, ', item id: ', $objid)"/>
+			</xsl:if>
+			<!-- MPIPL specific, genre InBook: publisheradd from source -->
+			<xsl:if test="@type=(
+					'http://purl.org/eprint/type/BookItem', 
+					'http://purl.org/eprint/type/ConferencePaper'
+				) and source:source[1]/eterms:publishing-info/eterms:place[1]!=''
+			">
 				<xsl:element name="publisheradd">
-					<xsl:value-of select="eterms:publishing-info/eterms:place[1]" />
+					<xsl:value-of select="source:source[1]/eterms:publishing-info/eterms:place[1]" />
 				</xsl:element>
 			</xsl:if>
-			
-			<!-- DATEACCEPTED -->
-			<xsl:if test="eterms:published-online!=''">
-				<xsl:element name="dateaccepted">
-					<xsl:value-of select="func:getDate(eterms:published-online)" />
-				</xsl:element>
+			<xsl:if test="@type=(
+					'http://purl.org/eprint/type/BookItem', 
+					'http://purl.org/eprint/type/ConferencePaper'
+				) and source:source[1]/eterms:publishing-info/eterms:place[1]=''
+			">
+				<xsl:message select="concat('YB: publisheradd should be defined in source for genre: ', @type,', item id: ', $objid)"/>
 			</xsl:if>
-			<xsl:if test="eterms:published-online='' and dcterms:dateAccepted!=''">
-				<xsl:element name="dateaccepted">
-					<xsl:value-of select="func:getDate(dcterms:dateAccepted)" />
-				</xsl:element>
-			</xsl:if>
-			
-							
-			<!-- DATEPUBLISHED -->
+
+			<!-- MPIPL specific -->
 			<xsl:if test="
-					not(@type=(
-						'http://purl.org/escidoc/metadata/ves/publication-types/series',
-						'http://purl.org/escidoc/metadata/ves/publication-types/journal',
-						'http://purl.org/eprint/type/Thesis'
-					))
-					and dcterms:issued
+				@type='http://purl.org/eprint/type/Thesis'
+				and dcterms:issued!='' 
 				">
-				<xsl:element name="datepublished">
+				<xsl:element name="dateaccepted">
 					<xsl:value-of select="func:getDate(dcterms:issued)" />
 				</xsl:element>
 			</xsl:if>
+			<xsl:if test="not(
+					@type='http://purl.org/eprint/type/Thesis'
+					and dcterms:issued!='') 
+				">
+				<!-- DATEACCEPTED -->
+				<xsl:if test="dcterms:dateAccepted!=''">
+					<xsl:element name="dateaccepted">
+						<xsl:value-of select="func:getDate(dcterms:dateAccepted)" />
+					</xsl:element>
+				</xsl:if>
+								
+				<!-- DATEPUBLISHED -->
+				<xsl:variable name="dp" select="
+					if (dcterms:issued!='') 
+					then dcterms:issued
+					else if (eterms:published-online!='')
+					then eterms:published-online
+					else '' 
+				"/>
+				<xsl:if test="$dp!=''">
+					<xsl:element name="datepublished">
+						<xsl:value-of select="func:getDate($dp)" />
+					</xsl:element>
+				</xsl:if>
+				<xsl:if test="
+						not(@type=(
+							'http://purl.org/escidoc/metadata/ves/publication-types/series',
+							'http://purl.org/escidoc/metadata/ves/publication-types/journal',
+							'http://purl.org/eprint/type/Thesis'
+						))
+						and $dp=''
+					">
+					<xsl:message select="concat('YB: datepublished should be defined for genre: ', @type, ', item id: ', $objid)"/>
+				</xsl:if>
+				
+			</xsl:if>
+			
 			
 			<!-- ENDDATEOFEVENT -->
 			<xsl:if test="event:event/eterms:end-date!='' or event:event/eterms:start-date!=''">
 				<xsl:element name="enddateofevent">
 					<xsl:value-of select="
-						func:getDate(
-							if (event:event/eterms:end-date!='') 
-							then event:event/eterms:end-date 
-							else event:event/eterms:start-date
-						)
+						if (event:event/eterms:end-date!='') 
+						then event:event/eterms:end-date 
+						else event:event/eterms:start-date
 					"/>
 				</xsl:element>
 			</xsl:if>
@@ -324,53 +382,61 @@
 					'http://purl.org/eprint/type/Report'
 				))"/>
 				
-			<!-- ARTNUM, ISSUENR  -->
-			<xsl:if test="$g1">
-				<!-- ARTNUM -->
-				<xsl:if test="source:source[1]/eterms:sequence-number">
-					<xsl:element name="artnum">
-						<xsl:value-of select="source:source[1]/eterms:sequence-number" />
-					</xsl:element>
-				</xsl:if>
+			<!-- ARTNUM -->
+			<xsl:if test="source:source[1]/eterms:sequence-number!=''">
+				<xsl:element name="artnum">
+					<xsl:value-of select="source:source[1]/eterms:sequence-number" />
+				</xsl:element>
+			</xsl:if>
+			<xsl:if test="$g1 and source:source[1]/eterms:sequence-number=''">
+				<xsl:message select="concat('YB: artnum should be defined for genre: ', @type, ', item id: ', $objid)"/>
+			</xsl:if>
 				
-				<!-- ISSUENR -->
-				<xsl:if test="source:source[1]/eterms:issue">
-					<xsl:element name="issuenr">
-						<xsl:value-of select="source:source[1]/eterms:issue" />
-					</xsl:element>
-				</xsl:if>
-				
+			<!-- ISSUENR -->
+			<xsl:if test="source:source[1]/eterms:issue!=''">
+				<xsl:element name="issuenr">
+					<xsl:value-of select="source:source[1]/eterms:issue" />
+				</xsl:element>
+			</xsl:if>
+			<xsl:if test="$g1 and source:source[1]/eterms:issue=''">
+				<xsl:message select="concat('YB: issuenr should be defined for genre: ', @type, ', item id: ', $objid)"/>
 			</xsl:if>
 			
 			<!-- VOLUME -->
+			<xsl:if test="source:source[1]/eterms:volume!=''">
+				<xsl:element name="volume">
+					<xsl:value-of select="source:source[1]/eterms:volume" />
+				</xsl:element>
+			</xsl:if>
 			<xsl:if test="
 				@type=(
 					'http://purl.org/escidoc/metadata/ves/publication-types/article',
 					'http://purl.org/eprint/type/Report'
-				)">
-				<xsl:if test="source:source[1]/eterms:volume">
-					<xsl:element name="volume">
-						<xsl:value-of select="source:source[1]/eterms:volume" />
-					</xsl:element>
-				</xsl:if>
+				) and source:source[1]/eterms:volume=''">
+				<xsl:message select="concat('YB: volume should be defined for genre: ', @type, ', item id: ', $objid)"/>
 			</xsl:if>
+			
 	
-			<!-- SPAGE, EPAGE -->
-			<xsl:if test="$g1">
-				<!-- SPAGE -->
-				<xsl:if test="source:source[1]/eterms:start-page">
-					<xsl:element name="spage">
-						<xsl:value-of select="source:source[1]/eterms:start-page" />
-					</xsl:element>
-				</xsl:if>
-				
-				<!-- EPAGE -->
-				<xsl:if test="source:source[1]/eterms:end-page">
-					<xsl:element name="epage">
-						<xsl:value-of select="source:source[1]/eterms:end-page" />
-					</xsl:element>
-				</xsl:if>
+			<!-- SPAGE -->
+			<xsl:if test="source:source[1]/eterms:start-page!=''">
+				<xsl:element name="spage">
+					<xsl:value-of select="source:source[1]/eterms:start-page" />
+				</xsl:element>
 			</xsl:if>
+			<xsl:if test="$g1 and source:source[1]/eterms:start-page=''">
+				<xsl:message select="concat('YB: spage should be defined for genre: ', @type, ', item id: ', $objid)"/>
+			</xsl:if>
+			
+			<!-- EPAGE -->
+			<xsl:if test="source:source[1]/eterms:end-page!=''">
+				<xsl:element name="epage">
+					<xsl:value-of select="source:source[1]/eterms:end-page" />
+				</xsl:element>
+			</xsl:if>
+			<xsl:if test="$g1 and source:source[1]/eterms:end-page=''">
+				<xsl:message select="concat('YB: epage should be defined for genre: ', @type, ', item id: ', $objid)"/>
+			</xsl:if>
+			
 		
 			<xsl:for-each select="(source:source[1])">
 				<xsl:call-template name="source"/>
@@ -581,7 +647,7 @@
 			<!-- DATEOFEVENT -->
 			<xsl:if test="event:event/eterms:start-date!=''">
 				<xsl:element name="dateofevent">
-					<xsl:value-of select="func:getDate(event:event/eterms:start-date)" />
+					<xsl:value-of select="event:event/eterms:start-date" />
 				</xsl:element>
 			</xsl:if>
 	
@@ -728,6 +794,12 @@
 		
 	<!-- IDENTIFIERS -->	
 	<xsl:template name="identifiers">
+
+		<!-- ESCIDOC direct link as identifier -->
+		<xsl:element name="identifier">
+			<xsl:attribute name="type" select="'url'"/>
+			<xsl:value-of select="concat($pubman_instance, '/item/', ../../../@objid)"/>
+		</xsl:element>
 	
 		<!-- IDENTIFIERS from dc:identifier elements -->
 		<xsl:for-each select="dc:identifier">
@@ -738,7 +810,7 @@
 				<xsl:element name="identifier">
 					<xsl:attribute name="type" select="$edt"/>
 					<xsl:value-of select="."/>
-				</xsl:element> 
+				</xsl:element>
 			</xsl:if>
 		</xsl:for-each>
 		
