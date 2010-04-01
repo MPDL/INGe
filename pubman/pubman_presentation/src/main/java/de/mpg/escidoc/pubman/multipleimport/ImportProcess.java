@@ -570,7 +570,7 @@ public class ImportProcess extends Thread
             log.close();
     
             taskItemXml = taskItemXml.replace("$3", log.toXML());
-
+            
             return taskItemXml;
         }
         catch (Exception e)

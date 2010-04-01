@@ -53,7 +53,7 @@
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{EasySubmissionPage.beanName}" styleClass="noDisplay" />
-			<tr:form usesUpload="true">
+			<tr:form usesUpload="true" onsubmit="fullItemReload();">
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
@@ -65,14 +65,13 @@
                         <jsp:directive.include file="header/Breadcrumb.jspf" />
                     </div>
                  </div>       
-
+				
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
-
 					<jsp:directive.include file="./easySubmission/EasySubmission.jspf"/>
-
 				<!-- end: content section -->
 				</div>
+				
 			</div>
 			<jsp:directive.include file="footer/Footer.jspf" />
 			</tr:form>
@@ -94,6 +93,16 @@
 				journalSuggestCommonParentClass = 'itemBlock';
 				personSuggestCommonParentClass = 'suggestAnchor';
 				journalSuggestTrigger = 'JOURNAL';
+			</script>
+			<script type="text/javascript">
+				function fullItemReload()
+				{
+					document.getElementById('content').style.opacity='0.4';
+					document.getElementById('content').style.bg='FFF';
+					document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea half_marginLIncl smallThrobber');
+					$('#fullItem :input :text').attr('readonly', true);
+				    $('#fullItem :textarea').attr('readonly', true);
+				}
 			</script>
 			<h:inputHidden id="CCScriptTag" value="#{EasySubmission.ccScriptTag}"/>
 			</body>
