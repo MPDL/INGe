@@ -56,6 +56,13 @@ OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/term
 AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
 &lt;http://purl.org/dc/terms/publisher&gt;
 			</pattern>
+			<pattern>
+&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;
+AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:; 
+AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation}:&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation}:&lt;http://purl.org/dc/terms/publisher&gt;
+			</pattern>
 		</result>
 	</model>
 	<model>
@@ -119,7 +126,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 				<predicate name="Description" value="http://purl.org/dc/elements/1.1/description" multiple="false" mandatory="true" localized="true" searchable="false"/>
 			</predicate>
 			<predicate name="Keywords of research fields and interests" value="http://purl.org/dc/terms/subject" multiple="false" mandatory="false" localized="true" searchable="false" restricted="false"/>
-			<predicate name="Subject (DDC)" value="http://purl.org/dc/elements/1.1/subject" multiple="true" mandatory="false" localized="true" resourceModel="ddc" searchable="false" restricted="false"/>
+			<predicate name="Subject (DDC)" value="http://purl.org/dc/elements/1.1/subject" multiple="true" mandatory="false" localized="false" resourceModel="ddc" searchable="true" restricted="false"/>
 			<predicate name="Degree" value="http://purl.org/escidoc/metadata/terms/0.1/degree" multiple="false" mandatory="false" localized="true" searchable="false" restricted="false"/>
 			<predicate name="Awards" value="http://purl.org/escidoc/metadata/terms/0.1/award" multiple="false" mandatory="false" localized="true" searchable="false" restricted="false"/>
 			<!-- changed namespace, no data in cone-->
