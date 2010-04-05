@@ -26,7 +26,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:eprints="http://purl.org/eprint/terms/" xmlns:escidoc="http://www.escidoc.de/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:foaf="http://xmlns.com/foaf/0.1/">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:eprints="http://purl.org/eprint/terms/" xmlns:escidoc="http://www.escidoc.de/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:ddc="http://dewey.info/">
 	
 	<xsl:output method="xml" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" 
      doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" encoding="UTF-8" media-type="text/html"/>
@@ -422,18 +422,21 @@
 												</span>
 											</div>
 										</xsl:if>
-										<xsl:if test="exists(dc:subject)">	
+										
+										<xsl:if test="exists(dc:subject)">
 											<div class="free_area0 endline itemLine noTopBorder">
 												<b class="xLarge_area0 endline labelLine">
 													<xsl:value-of select="escidoc:label('subject')"/><span class="noDisplay">: </span>
 												</b>
 												<span class="xHuge_area0 xTiny_marginLExcl endline">
 													<xsl:for-each select="dc:subject/rdf:Description">
-														-<xsl:text> </xsl:text><xsl:value-of select="dc:identifier"/> - <xsl:value-of select="dc:title"/> <br />
+													<xsl:text></xsl:text> <xsl:value-of select="ddc:class"/>-<xsl:value-of select="dc:title"/><br/>
 													</xsl:for-each>
 												</span>
 											</div>
 										</xsl:if>
+										
+										
 	
 	
 									</div>
