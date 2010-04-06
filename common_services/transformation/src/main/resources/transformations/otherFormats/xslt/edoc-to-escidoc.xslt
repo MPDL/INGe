@@ -51,7 +51,7 @@
 		xmlns:version="${xsd.soap.common.version}"
 		xmlns:release="${xsd.soap.common.release}"
 		xmlns:file="${xsd.metadata.file}"
-		xmlns:pub="${xsd.metadata.publication}"  
+		xmlns:pub="${xsd.metadata.publication}"
 		xmlns:person="${xsd.metadata.person}"
 		xmlns:source="${xsd.metadata.source}"
 		xmlns:eterms="${xsd.metadata.terms}"
@@ -96,7 +96,7 @@
 	</xsl:variable>
 	
 	<xsl:variable name="collection-mapping">
-
+		
 		<mapping ou="AEI">
 			<edoc-collection>MPI für Gravitationsphysik</edoc-collection>
 			<escidoc-ou>MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
@@ -471,7 +471,7 @@
 	
 	<xsl:function name="escidocFunctions:ou-name">
 		<xsl:param name="name"/>
-
+		
 		<xsl:choose>
 			<xsl:when test="$name = 'root'">
 				<!-- TODO: Externalize MPS name -->
@@ -479,7 +479,7 @@
 			</xsl:when>
 			<xsl:when test="$organizational-units//ou[@name = $name or @alias = $name]">
 				<xsl:value-of select="$organizational-units//ou[@name = $name or @alias = $name]/@name"/>
-
+				
 				<xsl:if test="$organizational-units//ou[@name = $name or @alias = $name]/../@name != $name">
 					<xsl:text>, </xsl:text>
 					<xsl:value-of select="escidocFunctions:ou-name($organizational-units//ou[@name = $name or @alias = $name]/../@name)"/>
@@ -489,7 +489,7 @@
 				<xsl:value-of select="'External Organizations'"/>
 			</xsl:otherwise>
 		</xsl:choose>
-		
+	
 	</xsl:function>
 	
 	<xsl:function name="escidocFunctions:ou-id">
@@ -503,7 +503,7 @@
 				<xsl:value-of select="$organizational-units//ou[@name = 'root']/@id"/>
 			</xsl:otherwise>
 		</xsl:choose>
-		
+	
 	</xsl:function>
 	
 	<xsl:template match="/*">
@@ -609,7 +609,7 @@
 						
 			<!-- fturl-comment as content-category? -->
 			<xsl:variable name="comment" select="@comment"/>
-				
+			
 			<ec:properties>
 				<xsl:choose>
 					<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
@@ -624,8 +624,12 @@
 					</xsl:otherwise>
 				</xsl:choose>
 				
-				<xsl:comment><xsl:value-of select="$comment"/></xsl:comment>
-				<xsl:comment><xsl:value-of select="$genre-mapping/genres/genre[edoc-genre = $comment]"/></xsl:comment>
+				<xsl:comment>
+					<xsl:value-of select="$comment"/>
+				</xsl:comment>
+				<xsl:comment>
+					<xsl:value-of select="$genre-mapping/genres/genre[edoc-genre = $comment]"/>
+				</xsl:comment>
 				
 				<xsl:choose>
 					<!-- Customized - AEI: prop:content-category -->
@@ -640,21 +644,29 @@
 								<xsl:when test="@comment = '' or not(exists(@comment))">publisher-version</xsl:when>
 								<xsl:otherwise>any-fulltext</xsl:otherwise>
 							</xsl:choose>
-							</xsl:variable>
-						<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/></prop:content-category>
+						</xsl:variable>
+						<prop:content-category>
+							<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
+						</prop:content-category>
 					</xsl:when>
 					<xsl:when test="$genre-mapping/genres/genre[edoc-genre = $comment]">
 						<xsl:variable name="content-category" select="$genre-mapping/genres/genre[edoc-genre = $comment]/pubman-genre"/>
-						<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/></prop:content-category>
+						<prop:content-category>
+							<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
+						</prop:content-category>
 					</xsl:when>
 					<!-- Default: prop:content-category -->
 					<xsl:otherwise>
 						<xsl:choose>
 							<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
-								<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/></prop:content-category>
+								<prop:content-category>
+									<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+								</prop:content-category>
 							</xsl:when>
 							<xsl:when test="$access='PUBLIC'">
-								<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/></prop:content-category>
+								<prop:content-category>
+									<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
+								</prop:content-category>
 							</xsl:when>
 							<xsl:otherwise>
 								<!-- ERROR -->
@@ -676,41 +688,49 @@
 							<xsl:value-of select="@filename"/>
 						</xsl:element>
 						<xsl:choose>
-					<!-- Customized - AEI: prop:content-category -->
-					<xsl:when test="$source-name = 'eDoc-AEI'">
-						<xsl:variable name="content-category">
-							<xsl:choose>
-								<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'online journal')">publisher-version</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'open access journal')">publisher-version</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'open access article')">publisher-version</xsl:when>
-								<xsl:when test="@comment = '' or not(exists(@comment))">publisher-version</xsl:when>
-								<xsl:otherwise>any-fulltext</xsl:otherwise>
-							</xsl:choose>
-						</xsl:variable>
-						<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/></eterms:content-category>
-					</xsl:when>
-					<xsl:when test="$genre-mapping/genres/genre[edoc-genre = $comment]">
-						<xsl:variable name="content-category" select="$genre-mapping/genres/genre[edoc-genre = $comment]/pubman-genre"/>
-						<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/></eterms:content-category>
-					</xsl:when>
-					<!-- Default: eterms:content-category -->
-					<xsl:otherwise>
-						<xsl:choose>
-							<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
-								<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/></eterms:content-category>
+							<!-- Customized - AEI: prop:content-category -->
+							<xsl:when test="$source-name = 'eDoc-AEI'">
+								<xsl:variable name="content-category">
+									<xsl:choose>
+										<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
+										<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
+										<xsl:when test="contains(lower-case(@comment), 'online journal')">publisher-version</xsl:when>
+										<xsl:when test="contains(lower-case(@comment), 'open access journal')">publisher-version</xsl:when>
+										<xsl:when test="contains(lower-case(@comment), 'open access article')">publisher-version</xsl:when>
+										<xsl:when test="@comment = '' or not(exists(@comment))">publisher-version</xsl:when>
+										<xsl:otherwise>any-fulltext</xsl:otherwise>
+									</xsl:choose>
+								</xsl:variable>
+								<eterms:content-category>
+									<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
+								</eterms:content-category>
 							</xsl:when>
-							<xsl:when test="$access='PUBLIC'">
-								<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/></eterms:content-category>
+							<xsl:when test="$genre-mapping/genres/genre[edoc-genre = $comment]">
+								<xsl:variable name="content-category" select="$genre-mapping/genres/genre[edoc-genre = $comment]/pubman-genre"/>
+								<eterms:content-category>
+									<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
+								</eterms:content-category>
 							</xsl:when>
+							<!-- Default: eterms:content-category -->
 							<xsl:otherwise>
+								<xsl:choose>
+									<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
+										<eterms:content-category>
+											<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+										</eterms:content-category>
+									</xsl:when>
+									<xsl:when test="$access='PUBLIC'">
+										<eterms:content-category>
+											<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
+										</eterms:content-category>
+									</xsl:when>
+									<xsl:otherwise>
 								<!-- ERROR -->
-								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+										<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+									</xsl:otherwise>
+								</xsl:choose>
 							</xsl:otherwise>
 						</xsl:choose>
-					</xsl:otherwise>
-				</xsl:choose>
 						<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
 						<dcterms:extent>
 							<xsl:value-of select="@size"/>
@@ -733,7 +753,9 @@
 			<ec:properties>
 				<!-- <prop:valid-status>valid</prop:valid-status> -->
 				<prop:visibility>public</prop:visibility>
-				<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'supplementary-material']/@uri"/></prop:content-category>
+				<prop:content-category>
+					<xsl:value-of select="$contentCategory-ves/enum[. = 'supplementary-material']/@uri"/>
+				</prop:content-category>
 			</ec:properties>
 			<xsl:element name="ec:content">
 				<xsl:attribute name="xlink:href" select="."/>
@@ -1159,9 +1181,9 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:element>
-			
+		
 		</xsl:if>
-			
+	
 	</xsl:template>
 	
 <!-- ***********************************************SOURCE TEMPLATES ***************************************************************** -->	
@@ -1200,15 +1222,15 @@
 				<xsl:call-template name="createPublishinginfo"/>
 			</xsl:element>
 		</xsl:if>
-
+		
 		<xsl:call-template name="createSourceIdentifiers"/>
-
+	
 	</xsl:template>
 	
 	<!-- SOURCE IDENTIFIERS -->
 	<xsl:template name="createSourceIdentifiers">
 		<xsl:for-each select="../identifiers/identifier[@type = 'issn' or @type = 'isbn']">
-
+			
 			<xsl:element name="dc:identifier">
 				<xsl:choose>
 					<xsl:when test="@type='issn'">
@@ -1221,7 +1243,7 @@
 					</xsl:when>
 				</xsl:choose>
 			</xsl:element>
-			
+		
 		</xsl:for-each>
 	</xsl:template>
 	
@@ -1248,7 +1270,7 @@
 		<xsl:apply-templates select="artnum"/>
 		
 		<xsl:call-template name="createSourceIdentifiers"/>
-		
+	
 	</xsl:template>
 	
 	<!-- BOOK TEMPLATE -->
@@ -1290,7 +1312,7 @@
 		</xsl:if>
 		
 		<xsl:call-template name="createSourceIdentifiers"/>
-		
+	
 	</xsl:template>
 	
 	<xsl:template name="phydescPubl">
@@ -1344,7 +1366,7 @@
 		<xsl:apply-templates select="volume"/>
 		
 		<xsl:call-template name="createSourceIdentifiers"/>
-		
+	
 	</xsl:template>
 	
 	<!-- PROCEEDINGS TEMPLATE -->
@@ -1386,7 +1408,7 @@
 		<xsl:apply-templates select="spage"/>
 		<!-- END-PAGE -->
 		<xsl:apply-templates select="epage"/>
-	
+		
 		<xsl:call-template name="createSourceIdentifiers"/>
 	
 	</xsl:template>
@@ -1457,7 +1479,7 @@
 		</xsl:variable>
 		<xsl:choose>
 			<xsl:when test="@creatorType='individual'">
-			
+				
 				<xsl:variable name="coneCreator">
 					<xsl:choose>
 						<xsl:when test="$source-name = 'eDoc-AEI'">
@@ -1470,7 +1492,7 @@
 				</xsl:variable>
 				
 				<xsl:variable name="multiplePersonsFound" select="exists($coneCreator/cone/rdf:RDF/rdf:Description[@rdf:about != $coneCreator/cone/rdf:RDF/rdf:Description/@rdf:about])"/>
-			
+				
 				<xsl:choose>
 					<xsl:when test="$multiplePersonsFound">
 						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching --', concat($creatornfamily, ', ', creatorngiven), '--'))"/>
@@ -1511,16 +1533,16 @@
 									<xsl:with-param name="value" select="/record/docaff/affiliation/mpgunit"/>
 								</xsl:call-template>
 							</xsl:variable>
-
+							
 							<xsl:if test="not($source)">
 								<xsl:choose>
 									<xsl:when test="@internextern='mpg' and exists(../../../docaff/affiliation) and ($is-mpgsunit = true()) or ($is-mpgunit = true())">
-	
+										
 										<xsl:for-each select="../../../docaff/affiliation">
 											<xsl:variable name="mpgunit" select="normalize-space(mpgunit)"/>
 											<xsl:variable name="mpgsunit" select="normalize-space(mpgsunit)"/>
-
-											<xsl:if test="($is-mpgsunit = true()) or ($is-mpgunit = true())">											
+											
+											<xsl:if test="($is-mpgsunit = true()) or ($is-mpgunit = true())">
 												<xsl:comment> Case 1 </xsl:comment>
 												<xsl:element name="organization:organization">
 													<xsl:element name="dc:title">
@@ -1568,10 +1590,10 @@
 												<xsl:value-of select="$root-ou"/>
 											</dc:identifier>
 										</xsl:element>
-	
+									
 									</xsl:when>
 									<xsl:when test=". = ../creator[1] and @internextern='unknown' and not(../creator[@internextern = 'mpg']) and ../../../docaff/affiliation and not(../../../docaff_external)">
-	
+										
 										<xsl:for-each select="../../../docaff/affiliation">
 											<xsl:variable name="mpgunit" select="normalize-space(mpgunit)"/>
 											<xsl:variable name="mpgsunit" select="normalize-space(mpgsunit)"/>
@@ -1654,7 +1676,7 @@
 							<dc:identifier xsi:type="eterms:CONE">
 								<xsl:value-of select="$coneCreator/cone/rdf:RDF[1]/rdf:Description/@rdf:about"/>
 							</dc:identifier>
-
+							
 							<xsl:for-each select="$coneCreator/cone/rdf:RDF[1]/rdf:Description/escidoc:position">
 								<xsl:comment> Case 8 </xsl:comment>
 								<organization:organization>
@@ -1666,7 +1688,7 @@
 									</dc:identifier>
 								</organization:organization>
 							</xsl:for-each>
-
+						
 						</person:person>
 					</xsl:otherwise>
 				</xsl:choose>
@@ -1941,7 +1963,7 @@
 				<xsl:value-of select="false()"/>
 			</xsl:otherwise>
 		</xsl:choose>
-		
-	</xsl:template>
 	
+	</xsl:template>
+
 </xsl:stylesheet>
