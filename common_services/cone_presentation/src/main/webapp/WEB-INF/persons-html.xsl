@@ -26,7 +26,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:eprints="http://purl.org/eprint/terms/" xmlns:escidoc="http://www.escidoc.de/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:ddc="http://dewey.info/">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance/"  xmlns:eprints="http://purl.org/eprint/terms/" xmlns:escidoc="http://www.escidoc.de/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:ddc="http://dewey.info/">
 	
 	<xsl:output method="xml" encoding="UTF-8" media-type="text/html"/>
 
@@ -398,7 +398,7 @@
 												<span class="xHuge_area0 xTiny_marginLExcl endline">
 													<xsl:for-each select="dc:identifier/rdf:Description">
 														<xsl:if test="position() &gt; 1"> <br /> </xsl:if>
-														<xsl:value-of select="eterms:idtype"/>: <xsl:value-of select="rdf:value"/>
+														<xsl:value-of select="xsi:type"/>: <xsl:value-of select="rdf:value"/>
 													</xsl:for-each>
 												</span>
 											</div>
