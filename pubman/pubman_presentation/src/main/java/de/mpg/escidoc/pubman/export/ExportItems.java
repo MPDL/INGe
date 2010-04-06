@@ -69,25 +69,10 @@ public class ExportItems extends FacesBean
     private HtmlMessages valMessage = new HtmlMessages();
     //private HtmlSelectOneMenu cboLayoutCitStyles = new HtmlSelectOneMenu();
 
-    // constants for comboBoxes and HtmlSelectOneRadios
-    public SelectItem EXPORTFORMAT_ENDNOTE = new SelectItem("ENDNOTE", getLabel("Export_ExportFormat_ENDNOTE"));
-    public SelectItem EXPORTFORMAT_BIBTEX = new SelectItem("BIBTEX", getLabel("Export_ExportFormat_BIBTEX"));
-    public SelectItem EXPORTFORMAT_ESCIDOC_XML = new SelectItem("ESCIDOC_XML", getLabel("Export_ExportFormat_ESCIDOC_XML"));
-    public SelectItem EXPORTFORMAT_APA = new SelectItem("APA", getLabel("Export_ExportFormat_APA"));
-    public SelectItem EXPORTFORMAT_AJP = new SelectItem("AJP", getLabel("Export_ExportFormat_AJP"));
-    // JUS
-    public SelectItem EXPORTFORMAT_JUS = new SelectItem("JUS", getLabel("Export_ExportFormat_JUS"));
     
 //    public SelectItemGroup CITATIONSTYLES_GROUP = new SelectItemGroup(getLabel("Export_CitationStyles_Group"), "", false, new SelectItem[]{EXPORTFORMAT_APA, EXPORTFORMAT_AJP});
 //    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_XML, CITATIONSTYLES_GROUP};
-    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP,EXPORTFORMAT_JUS};
-    public SelectItem FILEFORMAT_PDF = new SelectItem("pdf", getLabel("Export_FileFormat_PDF"));
-    public SelectItem FILEFORMAT_ODT = new SelectItem("odt", getLabel("Export_FileFormat_ODT"));
-    public SelectItem FILEFORMAT_RTF = new SelectItem("rtf", getLabel("Export_FileFormat_RTF"));
-    public SelectItem FILEFORMAT_HTML_PLAIN = new SelectItem("html_plain", getLabel("Export_FileFormat_HTML_PLAIN"));
-    public SelectItem FILEFORMAT_HTML_STYLED = new SelectItem("html_styled", getLabel("Export_FileFormat_HTML_STYLED"));
-    public SelectItem FILEFORMAT_ESCIDOC_SNIPPET = new SelectItem("escidoc_snippet", getLabel("Export_FileFormat_ESCIDOC_SNIPPET"));
-    public SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[]{FILEFORMAT_PDF, FILEFORMAT_ODT, FILEFORMAT_RTF, FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_STYLED, FILEFORMAT_ESCIDOC_SNIPPET};
+    
  
     // constants for error and status messages
     public static final String MESSAGE_NO_ITEM_FOREXPORT_SELECTED = "exportItems_NoItemSelected";
@@ -166,12 +151,28 @@ public class ExportItems extends FacesBean
     
     public SelectItem[] getEXPORTFORMAT_OPTIONS()
     {
-        return this.EXPORTFORMAT_OPTIONS;
+        // constants for comboBoxes and HtmlSelectOneRadios
+        SelectItem EXPORTFORMAT_ENDNOTE = new SelectItem("ENDNOTE", getLabel("Export_ExportFormat_ENDNOTE"));
+        SelectItem EXPORTFORMAT_BIBTEX = new SelectItem("BIBTEX", getLabel("Export_ExportFormat_BIBTEX"));
+        SelectItem EXPORTFORMAT_ESCIDOC_XML = new SelectItem("ESCIDOC_XML", getLabel("Export_ExportFormat_ESCIDOC_XML"));
+        SelectItem EXPORTFORMAT_APA = new SelectItem("APA", getLabel("Export_ExportFormat_APA"));
+        SelectItem EXPORTFORMAT_AJP = new SelectItem("AJP", getLabel("Export_ExportFormat_AJP"));
+        // JUS
+        SelectItem EXPORTFORMAT_JUS = new SelectItem("JUS", getLabel("Export_ExportFormat_JUS"));
+    	SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP,EXPORTFORMAT_JUS};
+        return EXPORTFORMAT_OPTIONS;
     }
  
     public SelectItem[] getFILEFORMAT_OPTIONS()
     {
-        return this.FILEFORMAT_OPTIONS;
+        SelectItem FILEFORMAT_PDF = new SelectItem("pdf", getLabel("Export_FileFormat_PDF"));
+        SelectItem FILEFORMAT_ODT = new SelectItem("odt", getLabel("Export_FileFormat_ODT"));
+        SelectItem FILEFORMAT_RTF = new SelectItem("rtf", getLabel("Export_FileFormat_RTF"));
+        SelectItem FILEFORMAT_HTML_PLAIN = new SelectItem("html_plain", getLabel("Export_FileFormat_HTML_PLAIN"));
+        SelectItem FILEFORMAT_HTML_STYLED = new SelectItem("html_styled", getLabel("Export_FileFormat_HTML_STYLED"));
+        SelectItem FILEFORMAT_ESCIDOC_SNIPPET = new SelectItem("escidoc_snippet", getLabel("Export_FileFormat_ESCIDOC_SNIPPET"));
+        SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[]{FILEFORMAT_PDF, FILEFORMAT_ODT, FILEFORMAT_RTF, FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_STYLED, FILEFORMAT_ESCIDOC_SNIPPET};
+        return FILEFORMAT_OPTIONS;
     }
 
 
