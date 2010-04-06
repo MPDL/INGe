@@ -848,11 +848,11 @@ public class SQLQuerier implements Querier
             }
             else
             {
-                uid = model + maxId;
+                uid = model + "/resource/" + model + maxId;
             }
             
             result.close();
-            query = "select * from triples where subject = '" + model + "/resource/" + uid + "' limit 1";
+            query = "select * from triples where subject = '" + uid + "' limit 1";
             result = statement.executeQuery(query);
 
             if (result.next())
