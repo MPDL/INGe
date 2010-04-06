@@ -68,8 +68,7 @@ public class MultipleImport extends FacesBean
     public static final String LOAD_MULTIPLE_IMPORT = "loadMultipleImport";
     public static final String LOAD_MULTIPLE_IMPORT_FORM = "loadMultipleImportForm";
     
-    public static final Format ESCIDOC_FORMAT = new Format("escidoc-publication-item", "application/xml", "UTF-8");
-    
+    public static final Format ESCIDOC_FORMAT = new Format("escidoc-publication-item", "application/xml", "UTF-8");   
     public static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "UTF-8");
     public static final Format ENDNOTE_ICE_FORMAT = new Format("endnote-ice", "text/plain", "UTF-8");
     public static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "UTF-8");
@@ -77,7 +76,7 @@ public class MultipleImport extends FacesBean
     public static final Format EDOC_FORMAT_AEI = new Format("eDoc-AEI", "application/xml", "UTF-8");
     public static final Format RIS_FORMAT = new Format("ris", "text/plain", "UTF-8");
     public static final Format WOS_FORMAT = new Format("wos", "text/plain", "UTF-8");
-    private static final Format MAB_FORMAT = new Format("mab", "text/plain", "UTF-8");
+    public static final Format MAB_FORMAT = new Format("mab", "text/plain", "UTF-8");
 
     private List<SelectItem> importFormats = new ArrayList<SelectItem>();
     private UploadedFile uploadedImportFile;
@@ -130,17 +129,17 @@ public class MultipleImport extends FacesBean
     public MultipleImport()
     {
         //Standard formats
-        importFormats.add(new SelectItem(ENDNOTE_FORMAT, "Endnote"));
-        importFormats.add(new SelectItem(BIBTEX_FORMAT, "BibTeX"));
-        importFormats.add(new SelectItem(RIS_FORMAT, "RIS"));
-        importFormats.add(new SelectItem(WOS_FORMAT, "WoS"));
-        importFormats.add(new SelectItem(MAB_FORMAT, "MAB"));
-        importFormats.add(new SelectItem(EDOC_FORMAT, "eDoc"));
-        importFormats.add(new SelectItem(ESCIDOC_FORMAT, "eSciDoc"));
+        importFormats.add(new SelectItem(ENDNOTE_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ENDNOTE")));
+        importFormats.add(new SelectItem(BIBTEX_FORMAT, getLabel("ENUM_IMPORT_FORMAT_BIBTEX")));
+        importFormats.add(new SelectItem(RIS_FORMAT, getLabel("ENUM_IMPORT_FORMAT_RIS")));
+        importFormats.add(new SelectItem(WOS_FORMAT, getLabel("ENUM_IMPORT_FORMAT_WOS")));
+        importFormats.add(new SelectItem(MAB_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MAB")));
+        importFormats.add(new SelectItem(EDOC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_EDOC")));
+        importFormats.add(new SelectItem(ESCIDOC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ESCIDOC")));
         
         //Specialized formats
-        importFormats.add(new SelectItem(ENDNOTE_ICE_FORMAT, "Endnote-ICE"));
-        importFormats.add(new SelectItem(EDOC_FORMAT_AEI, "eDoc-AEI"));
+        importFormats.add(new SelectItem(ENDNOTE_ICE_FORMAT,getLabel("ENUM_IMPORT_FORMAT_ENDNOTEICE")));
+        importFormats.add(new SelectItem(EDOC_FORMAT_AEI, getLabel("ENUM_IMPORT_FORMAT_EDOCAEI")));
     }
         
     public String uploadFile()

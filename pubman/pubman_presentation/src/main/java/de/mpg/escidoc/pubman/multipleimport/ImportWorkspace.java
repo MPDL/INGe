@@ -34,6 +34,8 @@ import java.util.List;
 
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.component.UIXIterator;
+
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.SortColumn;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.SortDirection;
@@ -56,6 +58,8 @@ public class ImportWorkspace extends FacesBean
     
     private List<ImportLog> imports = null;
     
+    private UIXIterator importIterator = new UIXIterator();
+
     /**
      * Default constructor.
      * 
@@ -161,6 +165,43 @@ public class ImportWorkspace extends FacesBean
     public void setSortDirection(ImportLog.SortDirection sortDirection)
     {
         this.sortDirection = sortDirection;
+    }
+    
+    
+    public UIXIterator getImportIterator()
+    {
+        return importIterator;
+    }
+
+    public void setImportIterator(UIXIterator importIterator)
+    {
+        this.importIterator = importIterator;
+    }
+    
+    public String getFormatLabel()
+    {
+        String label = "n/a";
+        ImportLog currentImport = null;
+        
+        if (importIterator.getRowIndex() != -1)
+        {
+            int index = this.importIterator.getRowIndex();
+            currentImport = (ImportLog) this.importIterator.getRowData(index);
+        }
+        
+        if (currentImport != null)
+        {
+            if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.ENDNOTE_FORMAT.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_ENDNOTE");}
+            if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.ENDNOTE_ICE_FORMAT.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_ENDNOTEICE");}
+            if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.BIBTEX_FORMAT.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_BIBTEX");}
+            if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.EDOC_FORMAT.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_EDOC");}
+            if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.EDOC_FORMAT_AEI.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_EDOCAEI");}
+            if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.RIS_FORMAT.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_RIS");}
+            if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.WOS_FORMAT.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_WOS");}
+            if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.MAB_FORMAT.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_MAB");}
+            if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.ESCIDOC_FORMAT.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_ESCIDOC");}
+        }
+        return label;
     }
     
 }

@@ -191,7 +191,7 @@
 									    </tr>
 									  </thead>
 									  <tbody style="text-align: left; vertical-align:top;">
-										<tr:iterator var="import" rows="0" value="#{ImportWorkspace.imports}">
+										<tr:iterator var="import" rows="0" value="#{ImportWorkspace.imports}" binding="#{ImportWorkspace.importIterator}">
 											<h:panelGroup>
 											    <tr class="full_area0 listItem">
 											      	<td class="free_area0 endline">
@@ -224,7 +224,7 @@
 											      	<td class="free_area0 endline">
 											      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 											      		<span class="large_area0_p8">
-											      			<h:outputText value="#{import.format}"/>&#160;
+											      			<h:outputText value="#{ImportWorkspace.formatLabel}"/>&#160;
 											      		</span>
 											      	</td>
 											      	<td class="free_area0 endline">
