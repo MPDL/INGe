@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <%--
 
  CDDL HEADER START
@@ -29,7 +28,6 @@
 --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
@@ -101,8 +99,10 @@
 						}catch(Exception e){	errors.add("Invalid file!");}
 							
 						
+						boolean loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
 						
-						Querier querier = QuerierFactory.newQuerier(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
+						Querier querier = QuerierFactory.newQuerier(loggedIn);
+						
 						List<LocalizedTripleObject> results = rdfHandler.getResult();
 						
 						for (LocalizedTripleObject result : results)

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!--
+<%--
 
  CDDL HEADER START
 
@@ -26,7 +25,7 @@
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
--->
+--%>
 
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -55,7 +54,6 @@
 <%@ page import="java.io.StringWriter" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashSet" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <%!
 	List<String> errors;
@@ -396,7 +394,7 @@
 	
 	private void mapFormValues(Model model, List<Predicate> predicates, HttpServletRequest request, Enumeration<String> paramNames, TreeFragment results, String prefix)
 	{
-	    
+	    	    
         for (Predicate predicate : predicates)
         {
             String paramName = prefix + predicate.getId().replaceAll("[/:.]", "_");
@@ -549,7 +547,9 @@
 
 	Enumeration<String> paramNames = request.getParameterNames();
 	
-	querier = QuerierFactory.newQuerier(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
+	boolean loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
+	
+	querier = QuerierFactory.newQuerier(loggedIn);
 	
 	if (modelName != null && !"".equals(modelName))
 	{
@@ -558,6 +558,11 @@
     
 	if ("true".equals(request.getParameter("form")))
 	{
+	    if (!model.isControlled() && !model.isGenerateIdentifier() && model.getIdentifier() == null && request.getParameter("cone_identifier") != null)
+	    {
+	        results.setSubject(request.getParameter("cone_identifier"));
+	    }
+
 		mapFormValues(model, model.getPredicates(), request, paramNames, results, "");
 	}
 	
@@ -655,7 +660,7 @@
 	}
 %>
 
-<%@page import="de.mpg.escidoc.services.cone.ModelList.Event"%><html xmlns="http://www.w3.org/1999/xhtml">
+<%@page import="de.mpg.escidoc.services.cone.ModelList.Event"%><html>
 	<jsp:include page="header.jsp"/>
 	<body>
 		<div class="full wrapper">
@@ -743,7 +748,14 @@
 								                else
 								                {
 								                    out.append("<label class=\"free_area0\">"+model.getSubjectPrefix()+"</label>");
-								                    out.append("<input type=\"text\" name=\"cone_identifier\" class=\"double_txtInput\" value=\"\" />");
+								                    
+								                    String subject = "";
+								                    if (results.getSubject() != null)
+								                    {
+								                        subject = results.getSubject();
+								                    }
+								                    
+								                    out.append("<input type=\"text\" name=\"cone_identifier\" class=\"double_txtInput\" value=\"" + subject + "\" />");
 								                }
 								            }
 											else

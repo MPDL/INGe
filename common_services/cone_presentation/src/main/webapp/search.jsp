@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!--
 
  CDDL HEADER START
@@ -32,7 +31,7 @@
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	
-%><?xml version="1.0" encoding="UTF-8" ?>
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="de.mpg.escidoc.services.cone.ModelList" %>
@@ -43,7 +42,7 @@
 <%@ page import="de.mpg.escidoc.services.cone.ModelList.Model" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.util.Enumeration" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <%
 	
 	List<? extends Describable> results = null;
@@ -69,7 +68,9 @@
 	
 	if (request.getParameter("searchterm") != null && !"".equals(request.getParameter("searchterm")))
 	{
-	    Querier querier = QuerierFactory.newQuerier(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
+	    boolean loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
+		
+		Querier querier = QuerierFactory.newQuerier(loggedIn);
 	   
 	    if (request.getParameter("lang") != null && !"".equals(request.getParameter("lang")))
 	    {
@@ -85,7 +86,7 @@
 
 
 <%@page import="de.mpg.escidoc.services.cone.Querier.ModeType"%>
-<%@page import="de.mpg.escidoc.services.cone.util.Describable"%><html xmlns="http://www.w3.org/1999/xhtml">
+<%@page import="de.mpg.escidoc.services.cone.util.Describable"%><html>
 	<jsp:include page="header.jsp"/>
 	<body>
 		<div class="full wrapper">

@@ -28,8 +28,7 @@
 -->
 <xsl:stylesheet version="2.0" xmlns:escidoc="urn:escidoc:functions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
 	
-	<xsl:output method="xml" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" 
-     doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" encoding="UTF-8" media-type="text/html"/>
+	<xsl:output method="html" encoding="UTF-8" media-type="text/html"/>
 
 	<xsl:template match="/">
 		<html xmlns="http://www.w3.org/1999/xhtml">

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!--
+<%--
 
  CDDL HEADER START
 
@@ -26,7 +25,7 @@
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
--->
+--%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="de.mpg.escidoc.services.cone.Querier" %>
@@ -111,14 +110,15 @@
 	
 	if (uri != null && !"".equals(uri) && modelName != null && !"".equals(modelName))
 	{
-	    Querier querier = QuerierFactory.newQuerier(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
+	    boolean loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
+		
+		Querier querier = QuerierFactory.newQuerier(loggedIn);
+		
 	    results = querier.details(modelName, uri, "*");
 		querier.release();
 	}
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 	<jsp:include page="header.jsp"/>
 	<body>
 		<div class="full wrapper">
