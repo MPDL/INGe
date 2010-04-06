@@ -228,6 +228,7 @@ class JusXmlHandler extends DefaultHandler {
 	private static final Logger logger = Logger.getLogger(JusXmlHandler.class);
 	String currentElement = null;
 	String citationStyle = null;
+	String sfxValue = null;
 	String idType = null;
 	private Map<Pair, String> citationStyleMap;
 	int counter = 0;
@@ -249,10 +250,16 @@ class JusXmlHandler extends DefaultHandler {
 	@Override
 	public void startElement(String uri, String localName, String name,
 			Attributes attributes) throws SAXException {
+		
 		if ("".equals(uri)) {
 			currentElement = name;
 		} else {
 			currentElement = localName;
+		}
+		//gets the attribute with the URL of the item and cuts the SFXValue
+		if (currentElement.equals("Description")&& attributes.getLength()!=0){
+			sfxValue =  attributes.getValue("rdf:about");
+			sfxValue = sfxValue.substring(sfxValue.lastIndexOf("/") + 1);
 		}
 	}
 
@@ -278,9 +285,14 @@ class JusXmlHandler extends DefaultHandler {
 	 */
 	public void characters(char ch[], int start, int length) {
 		String tempString = new String(ch, start, length);
-
 		if (currentElement.equals("citation-style")& !tempString.trim().equals("")) {
+			// sets the SFX-Id and type
 			citationStyle = tempString;
+			journalIdTypeValue = new Pair();
+			journalIdTypeValue.setKey("SFX");
+			journalIdTypeValue.setValue(sfxValue);
+			citationStyleMap.put(journalIdTypeValue, citationStyle);
+			
 		} else if (currentElement.equals("type")& !tempString.trim().equals("")) {
 
 			idType = tempString.substring(tempString.lastIndexOf("/") + 1);
