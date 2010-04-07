@@ -33,20 +33,28 @@
 					</xsl:element>
 				</xsl:element>
 			</xsl:element>
-			<xsl:for-each select="./groups/group">
+			<xsl:if test="exists(./groups/group)">
+				<xsl:for-each select="./groups/group">
+					<xsl:call-template name="position"/>
+				</xsl:for-each>
+			</xsl:if>
+			<xsl:if test="not(exists(./groups/group))">
 				<xsl:call-template name="position"/>
-			</xsl:for-each>
+			</xsl:if>
 		</xsl:element>
 	</xsl:template>
 	
 	<xsl:template name="position">
 		<xsl:variable name="ou-code" select="name"/>
 		<xsl:variable name="ou-name" select="normalize-space($ou-file/units/unit[code=$ou-code]/name_en)"/>
-		
 		<xsl:variable name="escidoc-ou">
-			<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou-name]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid"/>
+			<xsl:if test="$ou-name != ''">
+				<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou-name]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid"/>
+			</xsl:if>
+			<xsl:if test="$ou-name = ''">
+				<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = 'MPI for Chemical Ecology']/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid"/>
+			</xsl:if>
 		</xsl:variable>
-		
 		<xsl:variable name="ou-path">
 			<xsl:call-template name="get-ou-path">
 				<xsl:with-param name="id" select="$escidoc-ou"/>
@@ -64,9 +72,11 @@
 					<xsl:variable name="ou-code" select="name"/>
 					<xsl:value-of select="$ou-path"/>
 				</xsl:element>
-				<xsl:element name="escidoc:end-date">
-					<xsl:value-of select="substring(until, 1, 4)"/>-<xsl:value-of select="substring(until, 5, 2)"/>-<xsl:value-of select="substring(until, 7, 2)"/>
-				</xsl:element>
+				<xsl:if test="until != ''">
+					<xsl:element name="escidoc:end-date">
+						<xsl:value-of select="substring(until, 1, 4)"/>-<xsl:value-of select="substring(until, 5, 2)"/>-<xsl:value-of select="substring(until, 7, 2)"/>
+					</xsl:element>
+				</xsl:if>
 			</xsl:element>
 		</xsl:element>
 	</xsl:template>

@@ -565,12 +565,13 @@
 	<xsl:template name="createID">
 		<xsl:param name="idtype"/>
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type" select="$idtype"/>
 			<xsl:choose>
 				<xsl:when test="contains(replace(normalize-space(.), ' ', ''), normalize-space($localIdentifier))">
+					<xsl:attribute name="xsi:type" select="'eterms:OTHER'"/>
 					<xsl:value-of select="escidoc:substring-after-last(., '/')"/>
 				</xsl:when>
 				<xsl:otherwise>
+					<xsl:attribute name="xsi:type" select="$idtype"/>
 					<xsl:value-of select="."/>
 				</xsl:otherwise>
 			</xsl:choose>
