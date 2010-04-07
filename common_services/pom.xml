@@ -4,7 +4,7 @@
     <groupId>de.mpg.escidoc.services</groupId>
     <artifactId>common_services</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.41-SNAPSHOT</version>
+    <version>1.0.40-SNAPSHOT</version>
     <name>common_services</name>
     <url>http://escidoc1.escidoc.mpg.de/projects/common_services</url>
     <description>The Common Services project provides all the basic services (such as framework access, endnotemanager etc.) used by applications like Faces or PubMan.</description>
@@ -375,13 +375,13 @@
                     <targetJdk>${jdk.version}</targetJdk>
                 </configuration>
             </plugin>
-            <!--<plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <configuration>
                     <configLocation>http://escidoc1.escidoc.mpg.de/resources/checkstyle/checkstyle.xml</configLocation>
                 </configuration>
-            </plugin>-->
+            </plugin>
             <plugin>
                 <!--                 JavaNCSS - A Source Measurement Suite for Java-->
                 <!--                    http://www.kclee.de/clemens/java/javancss/ -->
