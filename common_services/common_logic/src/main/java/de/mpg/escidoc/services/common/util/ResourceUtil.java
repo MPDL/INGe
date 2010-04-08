@@ -244,19 +244,29 @@ public class ResourceUtil
      */
     public static String resolveFileName (String name)
     {
-        if (name.contains("/.."))
+        if (name.contains("/..") || name.contains("\\.."))
         {
-            int pos1 = name.indexOf("/..");
-            Pattern pattern = Pattern.compile("\\\\|/[^\\\\/]*");
-            Matcher matcher = pattern.matcher(name.substring(0, pos1));
-            if (matcher.find())
+            Pattern pattern1 = Pattern.compile("(\\\\|/)\\.\\.");
+            Matcher matcher1 = pattern1.matcher(name);
+            if (matcher1.find())
             {
-                int pos2 = matcher.start();
-                return resolveFileName(name.substring(0, pos2) + name.substring(pos1 + 3));
+                int pos1 = matcher1.start();
+                Pattern pattern2 = Pattern.compile("(\\\\|/)[^\\\\/]*$");
+                Matcher matcher2 = pattern2.matcher(name.substring(0, pos1));
+                if (matcher2.find())
+                {
+                    int pos2 = matcher2.start();
+                    return resolveFileName(name.substring(0, pos2) + name.substring(pos1 + 3));
+                }
             }
         }
         
         return name;
     }
 
+    public static void main(String[] args)
+    {
+        System.out.println(resolveFileName("transformations\\commonPublicationFormats\\xslt\\..\\..\\vocabulary-mappings.xsl"));
+    }
+    
 }
