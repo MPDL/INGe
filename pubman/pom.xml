@@ -879,7 +879,7 @@
 				<escidoc.pubman.statistics.nims.context.ids />
 				
 				<!-- Pid cache properties -->
-				<escidoc.pidcache.cache.size.max>100</escidoc.pidcache.cache.size.max>
+				<escidoc.pidcache.cache.size.max>1000</escidoc.pidcache.cache.size.max>
 				<escidoc.pidcache.refresh.interval>120</escidoc.pidcache.refresh.interval>
 				<escidoc.pidcache.dummy.url>http://pubman.mpdl.mpg.de/pubman/faces/PidNotResolved.jsp?id=</escidoc.pidcache.dummy.url>
 				<escidoc.pid.gwdg.service.url>http://handle.gwdg.de:8080/pidservice</escidoc.pid.gwdg.service.url>
