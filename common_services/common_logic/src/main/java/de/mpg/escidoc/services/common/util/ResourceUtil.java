@@ -44,6 +44,8 @@ import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
+
 /**
  * Utility class to deal with resources such as files and directories. Either on the file system or in jar files.
  *
@@ -243,8 +245,8 @@ public class ResourceUtil
         if (name.contains("/.."))
         {
             int pos1 = name.indexOf("/..");
-            int pos2 = name.substring(0, pos1).lastIndexOf("/");
-            return resolveFileName(name.substring(0, pos2) + name.substring(pos1 +3));
+            int pos2 = name.substring(0, pos1).lastIndexOf(System.getProperty("file.separator"));
+            return resolveFileName(name.substring(0, pos2) + name.substring(pos1 + 3));
         }
         
         return name;
