@@ -147,6 +147,8 @@ public class ViewItemFull extends FacesBean
     public final static String ISI_KNOWLEDGE_BASE_LINK = "http://gateway.isiknowledge.com/gateway/Gateway.cgi?GWVersion=2&SrcAuth=SFX&SrcApp=SFX&DestLinkType=FullRecord&KeyUT=";
     public final static String ISI_KNOWLEDGE_DEST_APP = "&DestApp=WOS";
     
+    private int defaultSize = 20;
+    
     public boolean isDepositor = false;
     public boolean isModerator = false;
     public boolean isPrivilegedViewer=false;
@@ -312,7 +314,14 @@ public class ViewItemFull extends FacesBean
         {
             throw new RuntimeException("Validation service not initialized", ne);
         }
-       
+        try
+        {
+        	this.defaultSize = Integer.parseInt(PropertyReader.getProperty("escidoc.pubman_presentation.viewFullItem.defaultSize"));
+        }
+        catch (Exception e)
+        {
+        	throw new RuntimeException("Property escidoc.pubman_presentation.viewFullItem.defaultSize size not found", e);
+        }
         
         boolean logViewAction = false;
         // Try to get a pubitem either via the controller session bean or an URL Parameter
@@ -1853,6 +1862,11 @@ public class ViewItemFull extends FacesBean
 	{
 		this.creatorArray = creatorArray;
 	}
+	
+	public int getCreatorArraySize()
+	{
+		return this.getCreatorArray().size();
+	}
 
 	public ArrayList<ViewItemCreatorOrganization> getCreatorOrganizationsArray()
 	{
@@ -2573,4 +2587,15 @@ public class ViewItemFull extends FacesBean
           	return false;
         }
 	}
+	
+    
+    public void setDefaultSize(int defaultSize)
+    {
+    	this.defaultSize = defaultSize;
+    }
+    
+    public int getDefaultSize()
+    {
+    	return defaultSize;
+    }
 }    
