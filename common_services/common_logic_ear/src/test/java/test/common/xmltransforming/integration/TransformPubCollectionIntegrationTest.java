@@ -40,6 +40,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import test.common.TestBase;
@@ -119,6 +120,7 @@ public class TransformPubCollectionIntegrationTest extends TestBase
      * @throws Exception
      */
     @Test
+    @Ignore
     public void testTransformToPubCollection() throws Exception
     {
         logger.info("### testTransformToPubCollection ###");
