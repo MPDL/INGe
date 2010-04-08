@@ -41,6 +41,8 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
@@ -245,8 +247,13 @@ public class ResourceUtil
         if (name.contains("/.."))
         {
             int pos1 = name.indexOf("/..");
-            int pos2 = name.substring(0, pos1).lastIndexOf(System.getProperty("file.separator"));
-            return resolveFileName(name.substring(0, pos2) + name.substring(pos1 + 3));
+            Pattern pattern = Pattern.compile("\\\\|/[^\\\\/]*");
+            Matcher matcher = pattern.matcher(name.substring(0, pos1));
+            if (matcher.find())
+            {
+                int pos2 = matcher.start();
+                return resolveFileName(name.substring(0, pos2) + name.substring(pos1 + 3));
+            }
         }
         
         return name;
