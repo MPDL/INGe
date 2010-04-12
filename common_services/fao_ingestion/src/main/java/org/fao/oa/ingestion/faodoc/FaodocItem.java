@@ -247,7 +247,31 @@ public class FaodocItem
         ArrayList<ITEMType> filteredFaodocList = new ArrayList<ITEMType>();
         for (String name : filenames)
         {
+            if (filter != null)
+            {
             if (name.startsWith(filter) || name.startsWith("updated_100120/" + filter))
+            {
+                File faodocFile = new File(FAODOC_BASE_DIR + name);
+                try
+                {
+                    ResourcesDocument resDoc = ResourcesDocument.Factory.parse(faodocFile);
+                    ITEMType[] items = resDoc.getResources().getITEMArray();
+                    for (ITEMType item : items)
+                    {
+                        filteredFaodocList.add(item);
+                    }
+                }
+                catch (XmlException e)
+                {
+                    e.printStackTrace();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            }
+            else
             {
                 File faodocFile = new File(FAODOC_BASE_DIR + name);
                 try
