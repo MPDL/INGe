@@ -3,7 +3,7 @@
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>6.1.1-SNAPSHOT</version>
+	<version>6.0.2-SNAPSHOT</version>
 	<name>pubman</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/pubman</url>
 	<description>
@@ -390,13 +390,13 @@
 					<targetJdk>1.5</targetJdk>
 				</configuration>
 			</plugin>
-			<!--<plugin>
+			<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-checkstyle-plugin</artifactId>
 			<configuration>
 				<configLocation>http://escidoc1.escidoc.mpg.de/resources/checkstyle/checkstyle.xml</configLocation>
 			</configuration>
-		</plugin>-->
+		</plugin>
 		<plugin>
 				<!-- JavaNCSS - A Source Measurement Suite for Java
 					http://www.kclee.de/clemens/java/javancss/ -->
