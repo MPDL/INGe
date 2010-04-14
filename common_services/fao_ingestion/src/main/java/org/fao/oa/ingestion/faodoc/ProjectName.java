@@ -7,6 +7,11 @@ import noNamespace.FAOProjectDocument.FAOProject;
 import org.fao.oa.ingestion.uris.FaoUris;
 import org.fao.oa.ingestion.uris.FaoUris.URI_TYPE;
 
+/**
+ * utility class to get the label, href and language for projects from a controlled vocabulary.
+ * @author Wilhelm Frank (MPDL)
+ *
+ */
 public class ProjectName
 {
     public ProjectName()

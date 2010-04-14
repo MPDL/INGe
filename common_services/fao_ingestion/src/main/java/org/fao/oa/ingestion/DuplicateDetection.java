@@ -1,33 +1,22 @@
 package org.fao.oa.ingestion;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
-import java.util.Map.Entry;
-
-import org.apache.log4j.Logger;
-import org.apache.xmlbeans.XmlException;
-import org.fao.oa.ingestion.eimscdr.EimsCdrItem;
-import org.fao.oa.ingestion.faodoc.FaodocItem;
-import org.fao.oa.ingestion.foxml.ModsDatastream;
-import org.fao.oa.ingestion.utils.IngestionProperties;
 
 import noNamespace.ITEMType;
 import noNamespace.ItemType;
-import noNamespace.ResourcesDocument;
 import noNamespace.TitleType;
 
+import org.apache.log4j.Logger;
+import org.fao.oa.ingestion.eimscdr.EimsCdrItem;
+import org.fao.oa.ingestion.faodoc.FaodocItem;
+import org.fao.oa.ingestion.utils.IngestionProperties;
+
+/**
+ * @author Wilhelm Frank (MPDL)
+ * @version
+ * 
+ * class to perform duplicates detection.
+ */
 public class DuplicateDetection
 {
     /**
@@ -39,20 +28,17 @@ public class DuplicateDetection
 
     ArrayList<ITEMType> faodocItems = null;
     ArrayList<ItemType> eimsItems = null;
-    HashMap<String, String> duplicates = null;
     boolean hasDuplicate = false;
     Logger logger = Logger.getLogger("ingestion");
 
     /**
-     * compare all FAODOC items with BIBLEVEL 'M' or 'MS' with all EIMS_CDR items of maintype 'publication' or
-     * 'meeting'.
+     * compare all FAODOC items with BIBLEVEL 'M' or 'MS' with all EIMS_CDR items of maintype 'publication'.
      */
     public void checkMMS()
     {
-        duplicates = new HashMap<String, String>();
         String[] faodoc_filenames = IngestionProperties.get("faodoc.export.file.names").split(" ");
         String[] eims_filenames = IngestionProperties.get("eims.export.file.names").split(" ");
-        faodocItems = FaodocItem.filteredList(faodoc_filenames, null);
+        faodocItems = FaodocItem.filteredList(faodoc_filenames, "M");
         eimsItems = EimsCdrItem.allEIMSItemsAsList(eims_filenames);
         int recordCounter = 0;
         for (ITEMType faodoc : faodocItems)
@@ -100,7 +86,6 @@ public class DuplicateDetection
                                 message.append("[" + jn + " " + lang + "]\t[" + eims_jobno + " " + eims_langkey + "]");
                                 logger.info(message);
                                 hasDuplicate = true;
-                                duplicates.put(eims.getIdentifier(), faodoc.getARNArray(0));
                             }
                         }
                     }
@@ -116,14 +101,10 @@ public class DuplicateDetection
             }
         }
         System.out.println("Successfully parsed " + faodocItems.size() + " FAODOC items");
-        System.out.println("we found " + duplicates.size() + " duplicated records:");
-        LinkedHashMap<String, String> sorted = sortHashMapByValues(duplicates);
-        // System.out.println(sorted.toString());
-        // System.out.println(duplicates.toString());
     }
 
     /**
-     * compare a FAODOC item with an EIMS_CDR item. check if any FAODOC URL equals EIMS_CDR html or pdf URL
+     * compare a FAODOC item with an EIMS_CDR item. check if any FAODOC URL equals EIMS_CDR html or pdf URL.
      */
     public void checkURL(ITEMType faodoc, ItemType eims)
     {
@@ -167,7 +148,7 @@ public class DuplicateDetection
     }
 
     /**
-     * compare a FAODOC item with an EIMS_CDR item. check if any FAODOC TITLE equals EIMS_CDR title
+     * compare a FAODOC item with an EIMS_CDR item. check if any FAODOC TITLE equals EIMS_CDR title(s).
      */
     public void checkTitles(ITEMType faodoc, ItemType eims)
     {
@@ -273,119 +254,5 @@ public class DuplicateDetection
                 }
             }
         }
-        /*
-         * else { System.out.println("NO DATES !!! " + faodoc.getARNArray(0) + faodocDates + "  " +
-         * eims.getIdentifier()); }
-         */
-    }
-
-    /**
-     * compare all FAODOC items with BIBLEVEL 'M' or 'MS' with all EIMS_CDR items of maintype 'publication' or
-     * 'meeting'.
-     */
-    public void checkURL()
-    {
-        duplicates = new HashMap<String, String>();
-        String[] faodoc_filenames = IngestionProperties.get("faodoc.export.file.names").split(" ");
-        String[] eims_filenames = IngestionProperties.get("eims.export.file.names").split(" ");
-        faodocItems = FaodocItem.filteredList(faodoc_filenames, "M");
-        eimsItems = EimsCdrItem.allEIMSItemsAsList(eims_filenames);
-        int recordCounter = 0;
-        for (ITEMType faodoc : faodocItems)
-        {
-            ArrayList<String> faodocURLs = null;
-            if (faodoc.sizeOfURLArray() > 0)
-            {
-                faodocURLs = new ArrayList<String>();
-                for (String url : faodoc.getURLArray())
-                {
-                    faodocURLs.add(url);
-                }
-            }
-            for (ItemType eims : eimsItems)
-            {
-                String eims_html = null;
-                String eims_pdf = null;
-                if (eims.getURL() != null)
-                {
-                    eims_html = eims.getURL().getStringValue();
-                }
-                if (eims.getPDFURL() != null)
-                {
-                    eims_pdf = eims.getPDFURL().getStringValue();
-                }
-                if (faodocURLs != null && (eims_html != null || eims_pdf != null))
-                {
-                    for (String url : faodocURLs)
-                    {
-                        if (url.equalsIgnoreCase(eims_html) || url.equalsIgnoreCase(eims_pdf))
-                        {
-                            recordCounter++;
-                            logger.info("====== duplicated record number: " + recordCounter + " ======");
-                            logger.info("  EIMS record:\t" + eims.getIdentifier() + "\t" + eims_html + "\t" + eims_pdf
-                                    + "\t" + eims.getMaintype().getStringValue());
-                            logger.info("FAODOC record:\t" + faodoc.getARNArray(0) + "\t" + url + "\t" + "\t"
-                                    + faodoc.getBIBLEVELArray(0));
-                            duplicates.put(eims.getIdentifier(), faodoc.getARNArray(0));
-                        }
-                    }
-                }
-            }
-        }
-        System.out.println("Successfully parsed " + faodocItems.size() + " FAODOC items");
-        System.out.println("we found " + duplicates.size() + " duplicated records:");
-        LinkedHashMap<String, String> sorted = sortHashMapByValues(duplicates);
-        // System.out.println(sorted.toString());
-        // System.out.println(duplicates.toString());
-    }
-
-    public LinkedHashMap<String, String> sortHashMapByValues(HashMap<String, String> passedMap)
-    {
-        List<String> mapKeys = new ArrayList<String>(passedMap.keySet());
-        List<String> mapValues = new ArrayList<String>(passedMap.values());
-        Collections.sort(mapValues);
-        Collections.sort(mapKeys);
-        LinkedHashMap<String, String> sortedMap = new LinkedHashMap<String, String>();
-        Iterator<String> valueIt = mapValues.iterator();
-        while (valueIt.hasNext())
-        {
-            Object val = valueIt.next();
-            Iterator<String> keyIt = mapKeys.iterator();
-            while (keyIt.hasNext())
-            {
-                Object key = keyIt.next();
-                String comp1 = passedMap.get(key).toString();
-                String comp2 = val.toString();
-                if (comp1.equals(comp2))
-                {
-                    passedMap.remove(key);
-                    mapKeys.remove(key);
-                    sortedMap.put((String)key, (String)val);
-                    break;
-                }
-            }
-        }
-        return sortedMap;
-    }
-
-    public String comparableURL(String urlString)
-    {
-        try
-        {
-            URL url = new URL(urlString);
-            if (url.getQuery() != null)
-            {
-                return url.getQuery();
-            }
-            else
-            {
-                return url.getFile();
-            }
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

@@ -7,8 +7,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.Buffer;
 
+/**
+ * utility class to change the root element of the EIMS_CDR files.
+ * @author Wilhelm Frank (MPDL)
+ *
+ */
 public class ChangeEimsResources
 {
     static String eimsDir = IngestionProperties.get("eims.export.file.location");

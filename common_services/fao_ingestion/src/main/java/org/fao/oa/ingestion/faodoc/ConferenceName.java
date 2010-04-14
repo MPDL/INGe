@@ -2,13 +2,17 @@ package org.fao.oa.ingestion.faodoc;
 
 import java.util.ArrayList;
 
+import noNamespace.CONFERENCEType;
+import noNamespace.FAOConferenceDocument.FAOConference;
+
 import org.fao.oa.ingestion.uris.FaoUris;
 import org.fao.oa.ingestion.uris.FaoUris.URI_TYPE;
 
-import noNamespace.CONFERENCEType;
-import noNamespace.ITEMType;
-import noNamespace.FAOConferenceDocument.FAOConference;
-
+/**
+ * utility class to get the (re)formatted name and hrefs for conferences from a controlled vocabulary.
+ * @author Wilhelm Frank (MPDL)
+ *
+ */
 public class ConferenceName
 {
     public ConferenceName()
@@ -214,6 +218,12 @@ public class ConferenceName
         return null;
     }
 
+    /**
+     * utility method to format the conference name.
+     * @param conference {@link CONFERENCEType}
+     * @param name {@link String}
+     * @return {@link String}
+     */
     public String conferenceName(CONFERENCEType conference, String name)
     {
         StringBuilder sb = new StringBuilder(name);

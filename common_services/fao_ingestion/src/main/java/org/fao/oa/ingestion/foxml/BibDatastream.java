@@ -1,20 +1,19 @@
 package org.fao.oa.ingestion.foxml;
 
-import org.apache.xmlbeans.XmlString;
-
 import noNamespace.BibDocument;
 import noNamespace.ITEMType;
 import noNamespace.BibDocument.Bib;
 import noNamespace.BibDocument.Bib.Cataloguer;
 import noNamespace.BibDocument.Bib.FileAssignment;
-import noNamespace.BibDocument.Bib.FileAssignment.FileAssignmentDescr;
+
+import org.apache.xmlbeans.XmlString;
 
 public class BibDatastream
 {
     Bib bib = null;
 
     /**
-     * create BIB datastream with value from FAODOC
+     * create BIB datastream with values from FAODOC
      * 
      * @param faodoc {@link ITEMType}
      * @return {@link BibDocument}

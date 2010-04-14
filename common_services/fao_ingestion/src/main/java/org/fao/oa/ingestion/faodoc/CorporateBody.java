@@ -7,6 +7,11 @@ import noNamespace.FAOCorporateBodyDocument.FAOCorporateBody;
 import org.fao.oa.ingestion.uris.FaoUris;
 import org.fao.oa.ingestion.uris.FaoUris.URI_TYPE;
 
+/**
+ * utility class to get the label, href and description for corporate bodies from a controlled vocabulary.
+ * @author Wilhelm Frank (MPDL)
+ *
+ */
 public class CorporateBody
 {
     public CorporateBody()

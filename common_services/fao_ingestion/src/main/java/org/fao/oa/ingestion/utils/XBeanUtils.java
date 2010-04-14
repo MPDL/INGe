@@ -7,9 +7,13 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlObject;
-import org.apache.xmlbeans.XmlOptionCharEscapeMap;
 import org.apache.xmlbeans.XmlOptions;
 
+/**
+ * utility class to format and validate the generated xml files.
+ * @author Wilhelm Frank (MPDL)
+ *
+ */
 public class XBeanUtils
 {
     private static XmlOptions modsOpts = null;

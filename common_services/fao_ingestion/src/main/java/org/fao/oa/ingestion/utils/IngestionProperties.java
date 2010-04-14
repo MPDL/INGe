@@ -4,13 +4,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
-
+/**
+ * utility class to access the properties file.
+ * @author Wilhelm Frank (MPDL)
+ *
+ */
 public class IngestionProperties
 {
     private static Properties properties;

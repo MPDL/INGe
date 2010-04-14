@@ -1,16 +1,10 @@
 package org.fao.oa.ingestion.foxml;
 
-import java.io.File;
-import java.io.IOException;
-
 import noNamespace.AGRISType;
 import noNamespace.ITEMType;
 import noNamespace.ItemType;
 
-import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlString;
-import org.fao.oa.ingestion.utils.XBeanUtils;
-import org.mulgara.itql.node.AFromClause;
 import org.purl.agmes.x11.ResourcesDocument;
 import org.purl.agmes.x11.ResourceDocument.Resource;
 import org.purl.agmes.x11.ResourceDocument.Resource.Subject;

@@ -1,14 +1,12 @@
 package org.fao.oa.ingestion.foxml;
 
-import java.io.IOException;
+import noNamespace.ITEMType;
+import noNamespace.ItemType;
 
 import org.apache.xmlbeans.XmlException;
-import org.apache.xmlbeans.XmlOptions;
 import org.fao.oa.ingestion.utils.XBeanUtils;
 import org.purl.agmes.x11.ResourcesDocument;
 
-import noNamespace.ITEMType;
-import noNamespace.ItemType;
 import fedora.fedoraSystemDef.foxml.DatastreamType;
 import fedora.fedoraSystemDef.foxml.DatastreamVersionType;
 import fedora.fedoraSystemDef.foxml.DigitalObjectDocument;
@@ -20,10 +18,21 @@ import fedora.fedoraSystemDef.foxml.XmlContentType;
 import fedora.fedoraSystemDef.foxml.DigitalObjectDocument.DigitalObject;
 import gov.loc.mods.v3.ModsDocument;
 
+/**
+ * main class to create FOXML files.
+ * @author Wilhelm Frank (MPDL)
+ *
+ */
 public class Foxml
 {
     DigitalObject foxml = null;
 
+    /**
+     * create the DigitalObjectDocument object (= FOXML).
+     * @param faodocItem {@link ITEMType} or null
+     * @param eimscdrItem {@link ItemType} or null
+     * @return {@link DigitalObjectDocument}
+     */
     public DigitalObjectDocument merge(ITEMType faodocItem, ItemType eimscdrItem)
     {
         // ARN and identifier of merged resource items
@@ -40,7 +49,7 @@ public class Foxml
                 eimscdrID = eimscdrItem.getIdentifier();
             }
         }
-        // create new FOXML1.2 digital object
+        // create new FOXML1.1 digital object
         DigitalObjectDocument foxmlObject = DigitalObjectDocument.Factory.newInstance();
         foxml = foxmlObject.addNewDigitalObject();
         foxml.setVERSION(DigitalObjectType.VERSION.X_1_1);

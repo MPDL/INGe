@@ -2,13 +2,16 @@ package org.fao.oa.ingestion.faodoc;
 
 import java.util.ArrayList;
 
-import noNamespace.FAOCorporateBodyDocument.FAOCorporateBody;
 import noNamespace.FAOJournalDocument.FAOJournal;
-import noNamespace.FAOSERIESDocument2.FAOSERIES;
 
 import org.fao.oa.ingestion.uris.FaoUris;
 import org.fao.oa.ingestion.uris.FaoUris.URI_TYPE;
 
+/**
+ * utility class to get the label, href and language for journals from a controlled vocabulary.
+ * @author Wilhelm Frank (MPDL)
+ *
+ */
 public class JournalName
 {
     public JournalName()

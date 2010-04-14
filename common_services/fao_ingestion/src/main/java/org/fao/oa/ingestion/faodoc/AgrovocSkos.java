@@ -9,8 +9,6 @@ import org.mulgara.connection.ConnectionException;
 import org.mulgara.connection.ConnectionFactory;
 import org.mulgara.connection.JenaConnection;
 import org.mulgara.connection.SessionConnection;
-import org.mulgara.jena.JenaMulgara;
-import org.mulgara.query.QueryException;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -18,9 +16,7 @@ import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.rdf.arp.ARPErrorNumbers;
 import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFReader;
 import com.hp.hpl.jena.rdf.model.ResIterator;
@@ -28,9 +24,13 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.rdf.model.impl.PropertyImpl;
-import com.hp.hpl.jena.util.FileManager;
-import com.ibm.icu.impl.CalendarAstronomer.Horizon;
 
+/**
+ * utolity class to extract URIs and labels from the ag_skos_080422.rdf file.
+ * requires a running instance of the Mulgara Triple Store server.
+ * @author Wilhelm Frank (MPDL)
+ *
+ */
 public class AgrovocSkos
 {
     public final String AGROVOC_RDF = IngestionProperties.get("fao.agrovoc.skos");
@@ -38,6 +38,11 @@ public class AgrovocSkos
     public final String SKOS_PREFLABEL = "<http://www.w3.org/2004/02/skos/core#prefLabel>";
     Model model;
     
+    /**
+     * public constructor.
+     * connects to a running instance of the Mulgara Triple Store server
+     * and establishes a JenaConnection to the agrovoc model.
+     */
     public AgrovocSkos()
     {
         // create the mulgara connection factory
@@ -92,6 +97,11 @@ public class AgrovocSkos
         
     }
     
+    /**
+     * utility method to search a given label.
+     * @param label {@link String}
+     * @return {@link String}
+     */
     public String search(String label)
     {
         String uri = null;
@@ -105,14 +115,16 @@ public class AgrovocSkos
         return uri;
     }
     
+    /**
+     * utility method to get the URI for a given label.
+     * @param label {@link String}
+     * @return {@link String}
+     */
     public String getURI(String label)
     {
         String resURI = null;
-        // String qry = "SELECT ?S ?P ?O WHERE {?S <http://www.w3.org/2004/02/skos/core#prefLabel> \"" + label + "\"@en}";
-        //String qry = "SELECT ?S ?P ?O WHERE {?S <http://www.w3.org/2004/02/skos/core#prefLabel> ?O FILTER regex(str(?O), \"^"+ label +"$\", \"i\")}";
 
         String qry = "SELECT ?S WHERE {?S <http://www.w3.org/2004/02/skos/core#prefLabel> \"" + label + "\"@en}";
-        //System.out.println(qry);
         Query q = QueryFactory.create(qry);
         QueryExecution qexec = QueryExecutionFactory.create(q, model);
         ResultSet results = qexec.execSelect();
@@ -128,6 +140,11 @@ public class AgrovocSkos
         return resURI;
     }
     
+    /**
+     * utility method to get all labels for a given URI.
+     * @param uri {@link String}
+     * @return {@link ArrayList} of labels.
+     */
     public ArrayList<String> getLabels(String uri)
     {
         Resource res = model.getResource(uri);

@@ -3,47 +3,37 @@ package org.fao.oa.ingestion;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import noNamespace.BibDocument;
-import noNamespace.EimsDocument;
 import noNamespace.ITEMType;
 import noNamespace.ItemType;
-import noNamespace.KosDocument;
-import noNamespace.FAOCorporateBodyDocument.FAOCorporateBody;
-import noNamespace.FAOJournalDocument.FAOJournal;
 
 import org.fao.oa.ingestion.eimscdr.EimsCdrItem;
-import org.fao.oa.ingestion.faodoc.AgrovocSkos;
-import org.fao.oa.ingestion.faodoc.ConferenceName;
 import org.fao.oa.ingestion.faodoc.FaodocItem;
-import org.fao.oa.ingestion.faodoc.JournalName;
-import org.fao.oa.ingestion.faodoc.LanguageCodes;
-import org.fao.oa.ingestion.faodoc.SeriesName;
-import org.fao.oa.ingestion.foxml.AgrisAPDatastream;
-import org.fao.oa.ingestion.foxml.BibDatastream;
-import org.fao.oa.ingestion.foxml.EimsDatastream;
 import org.fao.oa.ingestion.foxml.Foxml;
-import org.fao.oa.ingestion.foxml.KosDatastream;
-import org.fao.oa.ingestion.foxml.ModsDatastream;
-import org.fao.oa.ingestion.uris.FaoUris;
-import org.fao.oa.ingestion.uris.FaoUris.URI_TYPE;
 import org.fao.oa.ingestion.utils.IngestionProperties;
 import org.fao.oa.ingestion.utils.XBeanUtils;
-import org.purl.agmes.x11.ResourcesDocument;
 
 import fedora.fedoraSystemDef.foxml.DigitalObjectDocument;
-import gov.loc.mods.v3.ModsDocument;
 
+/**
+ * @author Wilhelm Frank (MPDL)
+ * @version
+ * 
+ * Main class to either perform the duplicate detection
+ * or the creation of FOXML files.
+ */
 public class Main
 {
+    /**
+     * defines the destination directory to store the created FOXML files. 
+     */
     public static final String FOXML_DESTINATION_DIR = IngestionProperties.get("fao.foxml.destination.location");
     
+    /**
+     * @param args duplicates / foxml [all / start-end].
+     */
     public static void main(String[] args)
     {
         
@@ -53,14 +43,6 @@ public class Main
         }
         else
         {
-            if (args.length == 1 && args[0].equalsIgnoreCase("test"))
-            {
-                testObjectMerge();
-            }
-            if (args.length == 2 && args[0].equalsIgnoreCase("lang"))
-            {
-                testLanguageCodes(args[1]);
-            }
             if (args.length == 1 && args[0].equalsIgnoreCase("duplicates"))
             {
                 DuplicateDetection dd = new DuplicateDetection();
@@ -76,24 +58,15 @@ public class Main
         }
     }
 
-   
-    
-
-    public static void testURIFiles()
-    {
-        FaoUris uris = new FaoUris();
-        ArrayList<Object> uriList = uris.getUriList(URI_TYPE.CORPORATEBODIES);
-        for (Object o : uriList)
-        {
-            String uri = ((FAOCorporateBody)o).getURI();
-            String desc = ((FAOCorporateBody)o).getIsComponentOf1();
-            System.out.println(uri + "   " + desc);
-        }
-    }
-
+    /**
+     * Utility method to read the logfile created by the duplicates detection.
+     * @param arg all / range
+     * @return {@link String[]}
+     * @throws Exception
+     */
     public static List<String[]> parseLogFile(String arg) throws Exception
     {
-        File logfile = new File("ingestion.log_MS");
+        File logfile = new File("ingestion.log");
         BufferedReader reader = new BufferedReader(new FileReader(logfile));
         ArrayList<String[]> dups = new ArrayList<String[]>();
         List<String[]> subList = null;
@@ -104,7 +77,6 @@ public class Main
             dups.add(values);
         }
         
-        System.out.println(dups.size() + " items !!!");
         if (arg.equalsIgnoreCase("all"))
         {
             subList = dups;
@@ -114,212 +86,25 @@ public class Main
             String[] indices = arg.split("-");
             subList = dups.subList(Integer.valueOf(indices[0]), Integer.valueOf(indices[1]));
         }
-        System.out.println(subList.size());
-        for (String[] vals : subList)
-        {
-            //System.out.println(vals[0] + "  " + vals[1] + "  " + vals[2]);
-            if (vals.length > 1)
-            {
-                System.out.println(vals[0].substring(vals[0].length() -12, vals[0].length()) + "  " + vals[1] + "  " + vals[2]);
-            }
-            else
-            {
-                System.out.println(vals[0].substring(vals[0].length() -12, vals[0].length()));
-            }
-        }
+        
         return subList;
     }
 
-    public static <T> List getDuplicate(Collection<T> list)
-    {
-        final List<T> duplicatedObjects = new ArrayList<T>();
-        Set<T> set = new HashSet<T>()
-        {
-            @Override
-            public boolean add(T e)
-            {
-                if (contains(e))
-                {
-                    duplicatedObjects.add(e);
-                }
-                return super.add(e);
-            }
-        };
-        for (T t : list)
-        {
-            set.add(t);
-        }
-        return duplicatedObjects;
-    }
-    
-    public static void testObjectMerge()
-    {
-        String[] faodocFiles = IngestionProperties.get("faodoc.export.file.names").split(" ");
-        String filter = "MS";
-        ArrayList<ITEMType> faodocList = FaodocItem.filteredList(faodocFiles, filter);
-        String arn = "XF2002407817";
-        ITEMType faodoc = FaodocItem.getByARN(faodocList, arn);
-        String[] eimsFiles = IngestionProperties.get("eims.export.file.names").split(" ");
-        ArrayList<ItemType> eimsList = EimsCdrItem.allEIMSItemsAsList(eimsFiles);
-        String id = "67246";
-        ItemType eims = EimsCdrItem.getById(eimsList, id);
-        
-        System.out.println(faodoc.xmlText(XBeanUtils.getDefaultOpts()));
-        System.out.println(eims.xmlText(XBeanUtils.getDefaultOpts()));
-        
-        ModsDocument merged = new ModsDatastream().merge(eims, faodoc);
-        if (XBeanUtils.validation(merged))
-        {
-            System.out.println(merged.xmlText(XBeanUtils.getModsOpts()));
-        }
-        else
-        {
-            System.out.println("INVALID MODS");
-            System.out.println(merged.xmlText(XBeanUtils.getModsOpts()));
-        }
-        ResourcesDocument agris;
-        agris = new AgrisAPDatastream().merge(faodoc, eims);
-        if (XBeanUtils.validation(agris))
-        {
-            System.out.println(agris.xmlText(XBeanUtils.getAgrisOpts()));
-        }
-        else
-        {
-            System.out.println("INVALID AGRIS_AP");
-            System.out.println(agris.xmlText(XBeanUtils.getAgrisOpts()));
-        }
-        EimsDocument eimsDoc;
-        eimsDoc = new EimsDatastream().merge(eims, faodoc);
-        if (XBeanUtils.validation(eimsDoc))
-        {
-            System.out.println(eimsDoc.xmlText(XBeanUtils.getDefaultOpts()));
-        }
-        else
-        {
-            System.out.println("INVALID EIMS!!!");
-            System.out.println(eimsDoc.xmlText(XBeanUtils.getDefaultOpts()));
-        }
-        
-        BibDocument bibDoc;
-        bibDoc = new BibDatastream().create(faodoc);
-        if (XBeanUtils.validation(bibDoc))
-        {
-            System.out.println(bibDoc.xmlText(XBeanUtils.getDefaultOpts()));
-        }
-        else
-        {
-            System.out.println("INVALID BIB!!!");
-            System.out.println(bibDoc.xmlText(XBeanUtils.getDefaultOpts()));
-        }
-        
-        KosDocument kosDoc;
-        kosDoc = new KosDatastream().merge(faodoc, eims);
-        if (XBeanUtils.validation(kosDoc))
-        {
-            System.out.println(kosDoc.xmlText(XBeanUtils.getDefaultOpts()));
-        }
-        else
-        {
-            System.out.println("INVALID BIB!!!");
-            System.out.println(kosDoc.xmlText(XBeanUtils.getDefaultOpts()));
-        }
-        
-        
-    }
-    
-    public static void testObjectCreation()
-    {
-        String[] faodocFiles = IngestionProperties.get("faodoc.export.file.names").split(" ");
-        String filter = "M";
-        ArrayList<ITEMType> faodocList = FaodocItem.filteredList(faodocFiles, filter);
-        String arn = "XF2006219523";
-        new FaodocItem();
-        ITEMType faodoc = FaodocItem.getByARN(faodocList, arn);
-        String[] eimsFiles = IngestionProperties.get("eims.export.file.names").split(" ");
-        ArrayList<ItemType> eimsList = EimsCdrItem.allEIMSItemsAsList(eimsFiles);
-        String id = "137824";
-        ItemType eims = EimsCdrItem.getById(eimsList, id);
-        
-        
-        ModsDocument merged = new ModsDatastream().faodoc(faodoc);
-        if (XBeanUtils.validation(merged))
-        {
-            System.out.println(merged.xmlText(XBeanUtils.getModsOpts()));
-        }
-        else
-        {
-            System.out.println("INVALID MODS");
-        }
-        ResourcesDocument agris;
-        agris = new AgrisAPDatastream().create4Faodoc(faodoc);
-        if (XBeanUtils.validation(agris))
-        {
-            System.out.println(agris.xmlText(XBeanUtils.getAgrisOpts()));
-        }
-        else
-        {
-            System.out.println("INVALID AGRIS_AP");
-            System.out.println(agris.xmlText(XBeanUtils.getAgrisOpts()));
-        }
-        
-        BibDocument bibDoc;
-        bibDoc = new BibDatastream().create(faodoc);
-        if (XBeanUtils.validation(bibDoc))
-        {
-            System.out.println(bibDoc.xmlText(XBeanUtils.getDefaultOpts()));
-        }
-        else
-        {
-            System.out.println("INVALID BIB!!!");
-            System.out.println(bibDoc.xmlText(XBeanUtils.getDefaultOpts()));
-        }
-        
-        KosDocument kosDoc;
-        kosDoc = new KosDatastream().create4Faodoc(faodoc);
-        if (XBeanUtils.validation(kosDoc))
-        {
-            System.out.println(kosDoc.xmlText(XBeanUtils.getDefaultOpts()));
-        }
-        else
-        {
-            System.out.println("INVALID BIB!!!");
-            System.out.println(kosDoc.xmlText(XBeanUtils.getDefaultOpts()));
-        }
-        
-        
-    }
-    public static void testControlledVocab()
-    {
-        SeriesName sname = new SeriesName();
-        String[] vals = sname.getSpanish("Serie Tecnica. Manual Tecnico - Centro Agronomico Tropical de Investigacion y Ensenanza (Costa Rica)");
-        System.out.println(vals[0] + " " + vals[1] + " " + vals[2]);
-        JournalName jname = new JournalName();
-        String[] jvals = jname.get("Boletim de Informacao (OAM)");
-        System.out.println(jvals[0] + " " + jvals[1] + " " + jvals[2]);
-        String[] filenames = IngestionProperties.get("faodoc.export.file.names").split(" ");
-        String filter = "M";
-        ArrayList<ITEMType> itemList = FaodocItem.filteredList(filenames, filter);
-        String id = "XF2006361095";
-        ITEMType faodoc = FaodocItem.getByARN(itemList, id);
-        System.out.println(faodoc.getCONFERENCEArray(0).getCONFEN());
-        ConferenceName cname = new ConferenceName();
-        String[] cvals = cname.getEnglish(faodoc.getCONFERENCEArray(0), faodoc.getCONFERENCEArray(0).getCONFEN());
-        System.out.println(cvals[0] + " " + cvals[1]);
-      //LanguageCodes lc = new LanguageCodes();
-        //String[] codes = lc.getIso639Codes2("ar");
-        //System.out.println(codes[0] + "  " + codes[1] + "  " + codes[2]);
-    }
-    
+    /**
+     * create FOXML files.
+     * @param arg to be passed 2 parseLogFile() method.
+     */
     public static void createFoxml(String arg)
     {
         String[] faodocFiles = IngestionProperties.get("faodoc.export.file.names").split(" ");
-        String filter = "MS";
+        String filter = "M";
         ArrayList<ITEMType> faodocList = FaodocItem.filteredList(faodocFiles, filter);
         String[] eimsFiles = IngestionProperties.get("eims.export.file.names").split(" ");
         ArrayList<ItemType> eimsList = EimsCdrItem.allEIMSItemsAsList(eimsFiles);
         try
         {
             List<String[]> duplicates = parseLogFile(arg);
+            ArrayList<String> mergedEimsRecords = new ArrayList<String>();
             for (String[] duplicate : duplicates)
             {
                 String arn = null;
@@ -332,6 +117,7 @@ public class Main
                 if (size > 1)
                 {
                     id = duplicate[1];
+                    mergedEimsRecords.add(id);
                     eims = EimsCdrItem.getById(eimsList, id);
                 }
                 if (arn != null && id != null)
@@ -340,7 +126,6 @@ public class Main
                     DigitalObjectDocument fox = new Foxml().merge(faodoc, eims);
                     fox.save(new File(FOXML_DESTINATION_DIR + arn + "_" + id), XBeanUtils.getFoxmlOpts());
                 }
-                /*
                 else
                 {
                     if (arn != null)
@@ -350,25 +135,26 @@ public class Main
                         fox.save(new File(FOXML_DESTINATION_DIR + arn), XBeanUtils.getFoxmlOpts());
                     }
                 }
-                */
-                //DigitalObjectDocument fox = new Foxml().merge(faodoc, eims);
-                //fox.save(new File(FOXML_DESTINATION_DIR + arn + "_" + id), XBeanUtils.getFoxmlOpts());
-                //System.out.println("file name " + FOXML_DESTINATION_DIR + arn + "_" + id);
+                // create FOXMLs for the remaining EIMS records
+                for (ItemType it : eimsList)
+                {
+                    String eims_id = it.getIdentifier();
+                    if (mergedEimsRecords.contains(eims_id))
+                    {
+                        
+                    }
+                    else
+                    {
+                        System.out.println("Creating FOXML for " + eims_id);
+                        DigitalObjectDocument fox = new Foxml().merge(null, it);
+                        fox.save(new File(FOXML_DESTINATION_DIR + eims_id), XBeanUtils.getFoxmlOpts());
+                    }
+                }
             }
         }
         catch (Exception e1)
         {
             e1.printStackTrace();
-        }
-    }
-    
-    public static void testLanguageCodes(String lang)
-    {
-        LanguageCodes lc = new LanguageCodes();
-        String[] codes = lc.getIso639Codes(lang);
-        for (String code : codes)
-        {
-            System.out.println(code);
         }
     }
 }

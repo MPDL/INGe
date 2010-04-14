@@ -18,6 +18,11 @@ import noNamespace.FAOSERIESDocument2.FAOSERIES;
 import org.apache.xmlbeans.XmlException;
 import org.fao.oa.ingestion.utils.IngestionProperties;
 
+/**
+ * utility class to access the controlled vocabulary.
+ * @author Wilhelm Frank (MPDL)
+ *
+ */
 public class FaoUris
 {
     public static final String FAO_URIS_BASEDIR = IngestionProperties.get("fao.uris.file.location");
