@@ -133,6 +133,27 @@ public class ServiceLocator
         return url;
     }
     
+    /**
+     * Get the configured URL of the running framework instance.
+     *
+     * @return The url as a String.
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    public static String getLoginUrl() throws ServiceException, URISyntaxException
+    {
+        String url;
+        try
+        {
+            url = PropertyReader.getProperty("escidoc.framework_access.login.url");
+        }
+        catch (IOException e)
+        {
+            throw new ServiceException(e);
+        }
+        return url;
+    }
+    
     public static UserManagementWrapper getUserManagementWrapper(String userHandle) throws ServiceException, URISyntaxException
     {
         try
