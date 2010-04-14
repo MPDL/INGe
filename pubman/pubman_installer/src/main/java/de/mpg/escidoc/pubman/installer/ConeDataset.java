@@ -204,7 +204,7 @@ public class ConeDataset
     
     public void processConeData() throws Exception
     {
-    	Querier querier = QuerierFactory.newQuerier();
+    	Querier querier = QuerierFactory.newQuerier(true);
 		Set<Model> models = ModelList.getInstance().getList();
 
 		for (Model model : models)
