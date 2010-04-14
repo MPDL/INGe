@@ -169,13 +169,13 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>validation_presentation</artifactId>
-            <version>1.0.41</version>
+            <version>1.0.46</version>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>framework_access</artifactId>
-            <version>1.0.38</version>
+            <version>1.0.43</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -198,13 +198,13 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>cone</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.6</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.35</version>
+			<version>1.1.40</version>
 			<scope>compile</scope>
 		</dependency>
 
