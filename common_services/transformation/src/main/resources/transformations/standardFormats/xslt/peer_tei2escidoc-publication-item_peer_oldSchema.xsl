@@ -484,6 +484,10 @@
 							</xsl:for-each>
 						</xsl:variable>					
 						<e:address>
+							<xsl:variable name="country" 
+							select="if(count($addr/addr/t:country > 0)) 
+										then $addr/addr/t:country[1]
+										else ''"/>
 							<xsl:value-of select="
 								replace(
 									normalize-space(
@@ -492,7 +496,7 @@
 												  $addr/t:addrLine
 												, if (exists($addr/t:postCode)) then concat(', ',$addr/t:postCode) else ''
 												, $addr/t:settlement
-												, if (exists($addr/t:country)) then concat(', ', $addr/t:country) else '' 
+												, if (exists($addr/t:country)) then concat(', ', $country) else ''
 												, if (exists($emails)) then concat(' (', $emails, ')') else '' 
 											)
 											, ' '
@@ -501,7 +505,7 @@
 									'\s+,',
 									','	
 								)"/>
-						</e:address>
+						</e:address> 
 					</xsl:if>
 					<e:identifier>epeer:2001</e:identifier>
 				</e:organization>
