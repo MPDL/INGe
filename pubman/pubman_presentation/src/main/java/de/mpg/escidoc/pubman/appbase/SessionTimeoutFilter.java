@@ -101,7 +101,7 @@ public class SessionTimeoutFilter implements Filter
                         && !httpServletRequest.isRequestedSessionIdValid())
                 {
                     // Deactivated because of import tool.
-                    httpServletResponse.sendRedirect(ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target=" + URLEncoder.encode(homePage + "?expired=true", "UTF-8"));
+                    httpServletResponse.sendRedirect(ServiceLocator.getLoginUrl() + LOGOUT_URL + "?target=" + URLEncoder.encode(homePage + "?expired=true", "UTF-8"));
                     //httpServletResponse.sendRedirect(homePage + "?expired=true");
                     return;
                     

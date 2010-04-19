@@ -86,7 +86,7 @@
 	      		<span class="large_area0_p8 detailsLinkArea">
 					<h:inputHidden id="inpImportItemsLink" value="#{ImportData.import.itemsLink}" />
 					<a onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())} else {$(this).parents('tr').next('.importDetails').remove();}">
-							<b><h:outputText value="#{lbl.import_workspace_details}"/></b>
+							<b><h:outputText value="#{lbl.import_workspace_detailsView}"/></b>
  					</a>
 	      		</span>
 	      	</td>

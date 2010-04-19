@@ -1301,5 +1301,12 @@
 			</group>
 		</genre>
 		<!-- Jus-specific Publication types END-->
+		<genre id="WORKING_PAPER" label="ENUM_GENRE_WORKING_PAPER"/>
+		<genre id="ENCYCLOPEDIA" label="ENUM_GENRE_ENCYCLOPEDIA"/>
+		<genre id="NEWSPAPER" label="ENUM_GENRE_NEWSPAPER"/>
+		<genre id="MANUAL" label="ENUM_GENRE_MANUAL"/>
+		<genre id="WEB_PAGE" label="ENUM_GENRE_WEB_PAGE"/>
+		<genre id="MULTI_VOLUME" label="ENUM_GENRE_MULTI_VOLUME"/>
+
 	</configuration>
 </configuration-settings>

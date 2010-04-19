@@ -152,7 +152,7 @@ public class Login extends FacesBean
         FacesContext fc = FacesContext.getCurrentInstance();
         // Deactivated because of import tool
         fc.getExternalContext().redirect(
-                ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target="
+                ServiceLocator.getLoginUrl() + LOGOUT_URL + "?target="
                 + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
                 + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
                 + "?logout=true", "UTF-8"));
@@ -172,7 +172,7 @@ public class Login extends FacesBean
         {
             
             fc.getExternalContext().redirect(
-                    ServiceLocator.getFrameworkUrl() + LOGIN_URL + "?target=" + request.getRequestURL().toString());
+                    ServiceLocator.getLoginUrl() + LOGIN_URL + "?target=" + request.getRequestURL().toString());
                     
             //fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
            
@@ -205,7 +205,7 @@ public class Login extends FacesBean
         try
         {
             fc.getExternalContext().redirect(
-                    ServiceLocator.getFrameworkUrl() + LOGIN_URL + "?target=" + request.getRequestURL() + "?itemId=" + itemID);      
+                    ServiceLocator.getLoginUrl() + LOGIN_URL + "?target=" + request.getRequestURL() + "?itemId=" + itemID);      
             //fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
            
         }
@@ -289,7 +289,7 @@ public class Login extends FacesBean
         if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
         
         //Use double URL encoding here because the login mechanism gives back the decoded URL parameters.
-        String url =  ServiceLocator.getFrameworkUrl() + LOGIN_URL + "?target=" + pubmanUrl + "faces/" + URLEncoder.encode(URLEncoder.encode(breadCrumbHistory.getCurrentItem().getPage(), "UTF-8"),"UTF-8");
+        String url =  ServiceLocator.getLoginUrl() + LOGIN_URL + "?target=" + pubmanUrl + "faces/" + URLEncoder.encode(URLEncoder.encode(breadCrumbHistory.getCurrentItem().getPage(), "UTF-8"),"UTF-8");
         return url;
     }
 }
