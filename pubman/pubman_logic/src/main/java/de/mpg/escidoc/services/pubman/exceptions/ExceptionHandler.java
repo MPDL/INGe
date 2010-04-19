@@ -79,7 +79,7 @@ public class ExceptionHandler
         if (e instanceof SecurityException)
         {
             // TODO MUJ: Was tun?
-            throw (SecurityException)e;            
+            throw (SecurityException)e;
         }
         else if (e instanceof SystemException || e instanceof MissingContentException
                 || e instanceof ComponentNotFoundException || e instanceof ReadonlyAttributeViolationException
