@@ -30,9 +30,7 @@
 
 package de.mpg.escidoc.pubman.search.bean.criterion;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;

@@ -248,6 +248,10 @@ public class ItemControllerSessionBean extends FacesBean
                 logger.error("Could not save item because it has been changed by another user in the meantime." + "\n" + tE.toString(), tE);
                 throw new RuntimeException("Could not save item because it has been changed by another user in the meantime.", tE);
             }
+            else
+            {
+                throw new RuntimeException("Technical exception during the saving of the item", tE);
+            }
         }
         catch (Exception e)
         {
@@ -674,6 +678,7 @@ public class ItemControllerSessionBean extends FacesBean
                         + context.getReference().getObjectId() + ")");
             }
             
+            editItemSessionBean.clean();
             return EditItem.LOAD_EDITITEM;
         }
         else
@@ -692,6 +697,7 @@ public class ItemControllerSessionBean extends FacesBean
             CreateItem createItem = (CreateItem) getSessionBean(CreateItem.class);
             createItem.setMethod(SubmissionMethod.FULL_SUBMISSION);
             
+            editItemSessionBean.clean();
             return CreateItem.LOAD_CREATEITEM;
         }
     }

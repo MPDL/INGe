@@ -8,14 +8,11 @@ import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
-import de.mpg.escidoc.pubman.appbase.Internationalized;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -76,12 +73,12 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         String xmlItemNewVersion = xmlTransforming.transformToItem(pubItemVOLatestVersion);
         xmlItemNewVersion = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).update(this.getReference().getObjectId(), xmlItemNewVersion);
         PubItemVO pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
-        ViewItemFull viewItemFull = (ViewItemFull) FacesContext
+        ItemControllerSessionBean itemControllerSessionBean = (ItemControllerSessionBean) FacesContext
             .getCurrentInstance()
             .getExternalContext()
-            .getRequestMap()
-            .get(ViewItemFull.BEAN_NAME);
-        viewItemFull.setPubItem(new PubItemVOPresentation(pubItemVONewVersion));
+            .getSessionMap()
+            .get(ItemControllerSessionBean.BEAN_NAME);
+        itemControllerSessionBean.setCurrentPubItem(new PubItemVOPresentation(pubItemVONewVersion));
         return ViewItemFull.LOAD_VIEWITEM;
     }
 }

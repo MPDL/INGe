@@ -36,14 +36,16 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
-import de.mpg.escidoc.pubman.editItem.bean.CreatorBean.PersonOrganisationManager;
+import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Keeps all attributes that are used for the whole session by the EditItem.
@@ -55,12 +57,15 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 public class EditItemSessionBean extends FacesBean 
 {
 	public static final String BEAN_NAME = "EditItemSessionBean";
+	
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(EditItemSessionBean.class);
 
 	private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
 	
 	private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
+	
+	private List<OrganizationVOPresentation> creatorOrganizations = new ArrayList<OrganizationVOPresentation>();
 	
 	private String genreBundle = "Genre_ARTICLE";
 	
@@ -120,6 +125,7 @@ public class EditItemSessionBean extends FacesBean
 	{
 		this.files.clear();
 		this.locators.clear();
+		this.creatorOrganizations.clear();
 		this.genreBundle = "";
 		this.offset="";
 		this.showAuthorCopyPaste = "";
@@ -231,6 +237,49 @@ public class EditItemSessionBean extends FacesBean
         setShowAuthorCopyPaste("");
     }
 
+    public void initOrganizationsFromCreators(PubItemVO pubItem)
+    {
+        List<OrganizationVOPresentation> creatorOrganizations = new ArrayList<OrganizationVOPresentation>();
+        int counter = 1;
+        for (CreatorVO creator : pubItem.getMetadata().getCreators())
+        {
+            if (creator.getType() == CreatorType.PERSON)
+            {
+                for (OrganizationVO organization : creator.getPerson().getOrganizations())
+                {
+                    if (!creatorOrganizations.contains(organization))
+                    {
+                        OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation(organization);
+                        organizationPresentation.setNumber(counter);
+                        organizationPresentation.setList(creatorOrganizations);
+                        if (organizationPresentation.getIdentifier() == null)
+                        {
+                            try
+                            {
+                                organizationPresentation.setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+                            }
+                            catch (Exception e)
+                            {
+                                throw new RuntimeException("Property escidoc.pubman.external.organisation.id not found", e);
+                            }
+                        }
+                        if (organizationPresentation.getName() ==  null)
+                        {
+                            organizationPresentation.setName(new TextVO());
+                        }
+                        creatorOrganizations.add(organizationPresentation);
+                        counter++;
+                    }
+                }
+            }
+        }
+        this.creatorOrganizations = creatorOrganizations;
+    }
+
+    public int getOrganizationCount()
+    {
+        return getCreatorOrganizations().size();
+    }
 
     /**
      * Sets the CreatorBean that manages the author copy&paste organizations.
@@ -292,4 +341,20 @@ public class EditItemSessionBean extends FacesBean
 	public void setCurrentSubmission(String currentSubmission) {
 		this.currentSubmission = currentSubmission;
 	}
+
+    /**
+     * @return the creatorOrganizations
+     */
+    public List<OrganizationVOPresentation> getCreatorOrganizations()
+    {
+        return creatorOrganizations;
+    }
+
+    /**
+     * @param creatorOrganizations the creatorOrganizations to set
+     */
+    public void setCreatorOrganizations(List<OrganizationVOPresentation> creatorOrganizations)
+    {
+        this.creatorOrganizations = creatorOrganizations;
+    }
 }

@@ -30,7 +30,6 @@
 
 package de.mpg.escidoc.pubman.desktop;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 

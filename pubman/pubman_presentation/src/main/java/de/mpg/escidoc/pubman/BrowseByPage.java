@@ -46,7 +46,6 @@ import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.browseBy.BrowseBySessionBean;
-import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 

@@ -1,8 +1,6 @@
 package de.mpg.escidoc.pubman.search.bean;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.DateCriterion;

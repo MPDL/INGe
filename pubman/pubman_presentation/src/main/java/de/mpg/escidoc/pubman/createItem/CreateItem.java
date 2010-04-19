@@ -141,7 +141,7 @@ public class CreateItem extends FacesBean
             // re-init the edit item bean to make sure that all data is removed
             if(this.getItemControllerSessionBean().getCurrentPubItem() != null)
             {
-            	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(Genre.ARTICLE);
+            	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(contextVO.getAdminDescriptor().getAllowedGenres().get(0));
             	this.getEditItemSessionBean().setGenreBundle(genreBundle);
             	this.getEditItem().setItem(null);
             	this.getEditItem().getGenreSelect().resetValue();

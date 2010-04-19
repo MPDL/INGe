@@ -393,9 +393,14 @@ public class ApplicationBean extends FacesBean
      */
     public String getAppContext()
     {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        this.appContext = fc.getExternalContext().getRequestContextPath() + "/faces/";
-
+        try
+        {
+            this.appContext = PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "/faces/";
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Property escidoc.pubman.instance.context.path not found", e);
+        }
         return appContext;
     }
 

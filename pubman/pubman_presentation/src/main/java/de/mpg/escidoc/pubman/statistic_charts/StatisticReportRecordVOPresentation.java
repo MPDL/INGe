@@ -1,7 +1,6 @@
 package de.mpg.escidoc.pubman.statistic_charts;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordParamVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;

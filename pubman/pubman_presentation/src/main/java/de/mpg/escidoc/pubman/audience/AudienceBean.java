@@ -48,8 +48,6 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.GrantList;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.CurrentGrants.UserType;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroupList;
 import de.mpg.escidoc.services.framework.PropertyReader;
 

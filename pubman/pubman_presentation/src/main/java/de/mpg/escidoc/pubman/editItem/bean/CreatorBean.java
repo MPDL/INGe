@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.pubman.editItem.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.event.AbortProcessingException;
@@ -42,6 +43,9 @@ import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
+import de.mpg.escidoc.pubman.editItem.EditItem;
+import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
+import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
@@ -64,6 +68,8 @@ public class CreatorBean extends FacesBean
 
     private boolean personType, organisationType;
     private OrganizationVO currentOrgaForSelection = null;
+    
+    private String ouNumber = null;
 
     public CreatorBean()
     {
@@ -368,4 +374,36 @@ public class CreatorBean extends FacesBean
             getCreator().getPerson().setIdentifier(null);
         }
     }
+    
+    public String getOuNumbers()
+    {
+        if (this.personType && this.ouNumber == null)
+        {
+            EditItemSessionBean editItemSessionBean = (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+            List<OrganizationVOPresentation> creatorOrganizations = editItemSessionBean.getCreatorOrganizations();
+            for (OrganizationVO organization : this.creator.getPerson().getOrganizations())
+            {
+                if (ouNumber == null)
+                {
+                    ouNumber = "";
+                }
+                else
+                {
+                    ouNumber += ",";
+                }
+                ouNumber += creatorOrganizations.indexOf(organization) + 1;
+            }
+        }
+        return ouNumber;
+    }
+
+    /**
+     * @param ouNumber the ouNumber to set
+     */
+    public void setOuNumbers(String ouNumber)
+    {
+        this.ouNumber = ouNumber;
+    }
+    
+    
 }

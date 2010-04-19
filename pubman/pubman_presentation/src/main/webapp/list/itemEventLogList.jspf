@@ -36,7 +36,7 @@ All rights reserved. Use is subject to license terms.
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock">
 		<h3 class="xLarge_area0_p8 endline blockHeader">
 			<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{versionEntry.reference.versionNumber}"/>
-			<br/>CCC
+			<br/>
 			<tr:commandLink id="lnkRollback" action="#{versionEntry.rollback}" useWindow="true" text="#{lbl.ViewItemFull_lblRollback}" rendered="#{ItemVersionListSessionBean.versionIterator.rowIndex > 0}" onclick="if(!confirm('#{msg.ConfirmRollbackItemVersion}')){return false;}" />
 		</h3>
 		<h:panelGroup styleClass="seperator" />

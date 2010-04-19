@@ -43,7 +43,6 @@ import de.mpg.escidoc.pubman.util.VersionHistoryVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO.EventType;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the ReleaseHistory, the Item Log and the Revision History.

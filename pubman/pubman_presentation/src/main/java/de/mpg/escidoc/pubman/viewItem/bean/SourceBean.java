@@ -32,14 +32,12 @@ package de.mpg.escidoc.pubman.viewItem.bean;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.MissingResourceException;
 
 import javax.faces.context.FacesContext;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
-import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.CreatorDisplay;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
@@ -49,7 +47,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
-import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Bean for creating the source section of a pubitem to be used in the ViewItemFullUI.

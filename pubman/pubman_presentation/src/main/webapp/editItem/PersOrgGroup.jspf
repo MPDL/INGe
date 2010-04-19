@@ -60,8 +60,7 @@
 					</span>
 				</h:panelGroup>
 	
-						<%--Copy&Paste Organisations for Authors--%>
-							
+				<%--Copy&Paste Organisations for Authors--%>	
 				<tr:iterator id="iterCopyPasteOrganisationAuthors" var="pasteOrga" value="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.objectDM}">
 						<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 							<b class="xLarge_area0_p8 endline labelLine clear">
@@ -97,164 +96,99 @@
 					<h:commandButton id="btnAddAuthors" title="#{tip.EditItem_btnAddAuthors}" styleClass="free_txtBtn groupBtn sectionTool" value="#{lbl.EditItem_btnAddAuthors}" action="#{EditItem.addCreatorString}" />
 				</h:panelGroup>
 			</h:panelGroup>
-				<tr:iterator id="iterCreatorOrganisationAuthors" var="creatorBean" value="#{EditItem.creatorCollection.creatorManager.objectDM}" rows="0">
-					<h:panelGroup layout="block" styleClass="suggestAnchor">
+
+			<h:panelGroup styleClass="large_area0_p8 lineToolSection endline">
+				<input id="btnShowMultipleAuthors" type="button" class="free_txtBtn groupBtn showMultipleAuthors" value="<h:outputText value='#{lbl.submission_lblAuthorCopyPasteLabel}'/>" />
+			</h:panelGroup>
+			
+			<h:panelGroup rendered="#{!(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
+				<span class="large_area0">&nbsp;</span>
+				<span class="seperator"></span>
+				<h:outputText styleClass="small_area0" value="#{genre.creator_person_organization_creator_select_roles_label}" converter="GenreLabelConverter"/>
+				<span class="seperator"></span>
+				<h:outputText styleClass="small_area0" value="#{genre.creator_person_organization_creator_select_roles_creator_type_label}" converter="GenreLabelConverter"/>
+				<span class="seperator"></span>
+				<h:outputText styleClass="large_area0" value="#{genre.creator_person_organization_creator_persons_person_family_name_label}" converter="GenreLabelConverter" rendered="#{!(genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'all')}"/>
+				<span class="seperator"></span>
+				<h:outputText styleClass="large_area0" value="#{genre.creator_person_organization_creator_persons_person_given_name_label}" converter="GenreLabelConverter" rendered="#{!(genre.creator_person_organization_creator_persons_person_given_name_display == 'false' && genre.creator_person_organization_creator_persons_person_given_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_given_name_display == 'false' && genre.creator_person_organization_creator_persons_person_given_name_form_id == 'all')}"/>
+				<span class="seperator"></span>
+				<h:outputText styleClass="medium_area0" value="#{lbl.organizationNumbers}" rendered="#{!(genre.creator_person_organization_creator_organizations_display == 'false' && genre.creator_person_organization_creator_organizations_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_display == 'false' && genre.creator_person_organization_creator_organizations_form_id == 'all')}"/>
+				<span class="seperator"></span>
+				<h:outputText styleClass="medium_area0" value="#{lbl.EditItem_btAdd}"/>
+			</h:panelGroup>
+
+			<tr:iterator id="iterCreatorOrganisationAuthors" var="creatorBean" value="#{EditItem.creatorCollection.creatorManager.objectDM}" rows="0">
+				<h:panelGroup layout="block" styleClass="suggestAnchor">
+				
+
+					<%-- Creator person family name, Creator person given name --%>
+					<h:panelGroup layout="block" rendered="#{creatorBean.personType and !(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
+						<span class="large_area0 clear">&nbsp;</span>
 						<%-- Creator role --%>
-						<h:panelGroup layout="block" rendered="#{!(genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'all')}">
-							<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstCreator noTopBorder" rendered="#{EditItem.creatorCollection.creatorManager.objectDM.rowIndex == 0 }">
-								<b class="xLarge_area0_p8 endline labelLine clear">
-							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_select_roles_optional != 'true'}" />
-									<h:outputText value="#{genre.creator_person_organization_creator_select_roles_label}" converter="GenreLabelConverter"/>
-									<span class="noDisplay">: </span>
-								</b>
-								<span class="xHuge_area0 xTiny_marginLExcl endline">
-									<h:selectOneMenu id="selCreatorRoleString" styleClass="large_select replace" value="#{creatorBean.creator.roleString}">
-										<f:selectItems value="#{creatorBean.creatorRoles}"/>
-									</h:selectOneMenu>
-								</span>
-								<h:panelGroup styleClass="large_area0_p8 lineToolSection">
-									<input id="btnShowMultipleAuthors" type="button" class="free_txtBtn groupBtn showMultipleAuthors" value="<h:outputText value='#{lbl.submission_lblAuthorCopyPasteLabel}'/>" />
-								</h:panelGroup>
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EditItem.creatorCollection.creatorManager.objectDM.rowIndex > 0 }">
-								<b class="xLarge_area0_p8 endline labelLine clear">
-							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_select_roles_optional != 'true'}" />
-									<h:outputText value="#{genre.creator_person_organization_creator_select_roles_label}" converter="GenreLabelConverter"/>
-									<span class="noDisplay">: </span>
-								</b>
-								<span class="xHuge_area0 xTiny_marginLExcl endline">
-									<h:selectOneMenu id="selMultiCreatorRoles" styleClass="large_select replace" value="#{creatorBean.creator.roleString}">
-										<f:selectItems value="#{creatorBean.creatorRoles}"/>
-									</h:selectOneMenu>
-								</span>
-							</h:panelGroup>
-						</h:panelGroup>
-		
-										<%-- Creator type --%>
-						<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
-							<b class="xLarge_area0_p8 endline labelLine clear">
-							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_select_roles_creator_type_optional !='true'}" />
-								<h:outputText value="#{genre.creator_person_organization_creator_select_roles_creator_type_label}" converter="GenreLabelConverter"/>
-								<span class="noDisplay">: </span>
-							</b>
-							<span class="xHuge_area0 xTiny_marginLExcl endline">
-								<tr:selectOneRadio id="selcreatorTypeString" styleClass="medium_radioBtn double_area0" layout="horizontal" simple="true" value="#{creatorBean.creator.typeString}" valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onclick="submit();fullItemReload();">
-									<f:selectItems value="#{creatorBean.creatorTypes}"/>
-								</tr:selectOneRadio>
-							</span>
-											
-						</h:panelGroup>
-		
-											<%-- Creator person family name, Creator person given name --%>
-						<h:panelGroup layout="block" rendered="#{!(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
-							<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.personType}">
-								<b class="xLarge_area0_p8 endline labelLine clear">
-							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
-									<span class="noDisplay"></span>
-								</b>
-								<span class="xHuge_area0 xTiny_marginLExcl endline">
-									<span class="free_area0 endline itemLine noTopBorder">
-									<h:panelGroup styleClass="free_area0" rendered="#{!(genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'all')}">
-										<span class="double_area0 xTiny_marginRIncl">
-											<h:panelGroup styleClass="double_area0">
-												<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_persons_person_family_name_optional != 'true'}" />
-												<h:outputText value="#{genre.creator_person_organization_creator_persons_person_family_name_label}" converter="GenreLabelConverter"/>
-											</h:panelGroup>
-											<h:inputText id="inpcreator_persons_person_family_name_optional" styleClass="double_txtInput personSuggest familyName" value="#{creatorBean.creator.person.familyName}" onchange="removeConeId(this)"/>
-										</span>
-									</h:panelGroup>
-									<h:panelGroup styleClass="free_area0" rendered="#{!(genre.creator_person_organization_creator_persons_person_given_name_display == 'false' && genre.creator_person_organization_creator_persons_person_given_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_given_name_display == 'false' && genre.creator_person_organization_creator_persons_person_given_name_form_id == 'all')}">
-										<span class="double_area0">
-											<h:panelGroup styleClass="double_area0">
-												<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_persons_person_given_name_optional != 'true'}" />
-												<h:outputText value="#{genre.creator_person_organization_creator_persons_person_given_name_label}" converter="GenreLabelConverter"/>
-											</h:panelGroup>
-											<h:inputText id="inppersons_person_given_name_optional" styleClass="double_txtInput givenName" value="#{creatorBean.creator.person.givenName}" onchange="removeConeId(this)"/>
-										</span>
-									</h:panelGroup>
-									</span>
-									<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{creatorBean.identifierValue}"/>
-								</span>
-							</h:panelGroup>
-						</h:panelGroup>
-		
-												<%-- Creator person affiliation --%>
-						<h:panelGroup layout="block" rendered="#{!(genre.creator_person_organization_creator_organizations_display == 'false' && genre.creator_person_organization_creator_organizations_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_display == 'false' && genre.creator_person_organization_creator_organizations_form_id == 'all')}">
-							<tr:iterator id="iterCreatorPersonAffiliation" var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
-									<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.creator_person_organization_creator_organizations_organization_name_display == 'false' && genre.creator_person_organization_creator_organizations_organization_name_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_organization_name_display == 'false' && genre.creator_person_organization_creator_organizations_organization_name_form_id == 'all')}">
-										<b class="xLarge_area0_p8 endline labelLine clear">
-								&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
-											<span class="noDisplay"></span>
-										</b>
-										<span class="xHuge_area0 xTiny_marginLExcl endline">
-											<h:panelGroup styleClass="quad_area0">
-												<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_name_optional != 'true'}" />
-												<h:outputText value="#{genre.creator_person_organization_creator_organizations_organization_name_label}" converter="GenreLabelConverter" />
-											</h:panelGroup>
-											<h:inputText id="inporganizations_organization_name_optional" styleClass="quad_txtInput orgName" value="#{persOrga.name.value}"/>
-											<h:inputText id="inporganizations_organization_name_optionalIdentifier" styleClass="noDisplay orgIdentifier" value="#{persOrga.identifier}"/>
-										</span>
-										<span class="large_area0_p8 lineToolSection">
-											<tr:commandButton id="btnSelectOrganisationCreatorPerson" styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" action="#{creatorBean.selectPersonOrganisation}" />
-										</span>
-									</h:panelGroup>
-									<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.creator_person_organization_creator_organizations_organization_address_display == 'false' && genre.creator_person_organization_creator_organizations_organization_address_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_organization_address_display == 'false' && genre.creator_person_organization_creator_organizations_organization_address_form_id == 'all')}">
-										<b class="xLarge_area0_p8 endline labelLine clear">
-								&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_address_optional != 'true'}" />
-											<span class="noDisplay"></span>
-										</b>
-										<span class="xHuge_area0 xTiny_marginLExcl endline">
-											<h:inputTextarea id="inporganizations_organization_name_address" styleClass="quad_txtArea inputTxtArea" value="#{persOrga.address}" cols="15" rows="3" />
-										</span>
-										<span class="large_area0_p8 lineToolSection">
-											<tr:commandButton id="btnAddCreatorPersonAffiliation" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addOrga}" action="#{creatorBean.personOrganisationManager.addObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
-											<tr:commandButton id="btnRemoveCreatorPersonAffiliation" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" disabled="#{creatorBean.personOrganisationManager.size == 1}" action="#{creatorBean.personOrganisationManager.removeObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
-										</span>
-									</h:panelGroup>
-							</tr:iterator>
-		
-														<%-- Creator organisation affiliation --%>
-							<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
-								<b class="xLarge_area0_p8 endline labelLine clear">
-							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
-									<span class="noDisplay"></span>
-								</b>
-								<h:panelGroup layout="block" rendered="#{!(genre.creator_person_organization_creator_organizations_organization_name_display == 'false' && genre.creator_person_organization_creator_organizations_organization_name_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_organization_name_display == 'false' && genre.creator_person_organization_creator_organizations_organization_name_form_id == 'all')}">
-									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<h:panelGroup styleClass="quad_area0">
-											<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_name_optional != 'true'}" />
-											<h:outputText value="#{genre.creator_person_organization_creator_organizations_organization_name_label}" converter="GenreLabelConverter" />
-										</h:panelGroup>
-										<h:inputText id="inpcreator_organizations_organization_name_optional" styleClass="quad_txtInput" value="#{creatorBean.creator.organization.name.value}"/>
-									</span>
-									<span class="large_area0_p8 lineToolSection">
-										<tr:commandButton id="btnSelectOrganisationAffiliation" styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
-									</span>
-								</h:panelGroup>
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
-								<h:panelGroup layout="block" rendered="#{!(genre.creator_person_organization_creator_organizations_organization_address_display == 'false' && genre.creator_person_organization_creator_organizations_organization_address_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_organization_address_display == 'false' && genre.creator_person_organization_creator_organizations_organization_address_form_id == 'all')}">
-									<b class="xLarge_area0_p8 endline labelLine clear">
-								&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_address_optional != 'true'}" />
-										<span class="noDisplay"></span>
-									</b>
-									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<h:inputTextarea id="inpCreator_organizations_organization_address_optional" styleClass="quad_txtArea inputTxtArea" value="#{creatorBean.creator.organization.address}" cols="15" rows="3" />
-									</span>
-								</h:panelGroup>
-							</h:panelGroup>
-															
-							<h:panelGroup styleClass="large_area0_p8 sectionToolSection">
-								<tr:commandButton id="btnAddCreator" shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn sectionTool remove" disabled="#{EditItem.creatorCollection.creatorManager.size == 1}" action="#{EditItem.creatorCollection.creatorManager.removeObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
-								<tr:commandButton id="btnRemoveCreator" shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn sectionTool add" action="#{EditItem.creatorCollection.creatorManager.addObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
-							</h:panelGroup>
+						<h:selectOneMenu id="selCreatorRoleString" styleClass="small_select replace" value="#{creatorBean.creator.roleString}" rendered="#{!(genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'all')}">
+							<f:selectItems value="#{creatorBean.creatorRoles}"/>
+						</h:selectOneMenu>
+						<span class="seperator"></span>
+						<h:selectOneMenu id="selcreatorTypeString" styleClass="small_select" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}" value="#{creatorBean.creator.typeString}" valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onchange="submit();fullItemReload();">
+							<f:selectItems value="#{creatorBean.creatorTypes}"/>
+						</h:selectOneMenu>
+						<span class="seperator"></span>
+						<h:inputText id="inpcreator_persons_person_family_name_optional" styleClass="large_txtInput personSuggest familyName" value="#{creatorBean.creator.person.familyName}" onchange="removeConeId(this)" rendered="#{!(genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'all')}"/>
+						<span class="seperator"></span>
+						<h:inputText id="inppersons_person_given_name_optional" styleClass="large_txtInput givenName" value="#{creatorBean.creator.person.givenName}" onchange="removeConeId(this)"/>
+						<span class="seperator"></span>
+						<h:inputText id="inppersons_person_ous_optional" styleClass="small_txtInput" value="#{creatorBean.ouNumbers}"/>
+						<span class="seperator"></span>
+						<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{creatorBean.identifierValue}"/>
+						<span class="seperator"></span>
+						<h:outputLink styleClass="small_area0 authorCard" value="#{creatorBean.identifierValue}" rendered="#{creatorBean.identifierValue != null}" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
+						<h:panelGroup rendered="#{creatorBean.identifierValue == null}" styleClass="xSmall_area0">&nbsp;</h:panelGroup>
+						<span class="seperator"></span>
+						<h:panelGroup styleClass="medium_area0">
+							<tr:commandButton id="btnRemoveCreator" shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn sectionTool remove" disabled="#{EditItem.creatorCollection.creatorManager.size == 1}" immediate="true" action="#{EditItem.creatorCollection.creatorManager.removeObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
+							<tr:commandButton id="btnAddCreator" shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn sectionTool add" immediate="true" action="#{EditItem.creatorCollection.creatorManager.addObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
 						</h:panelGroup>
 					</h:panelGroup>
-				</tr:iterator>
+
+				</h:panelGroup>
+			</tr:iterator>
+			
+			<!-- Creator Organizations - Headline -->
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
+				<span class="large_area0 clear">&nbsp;</span>
+				<span class="seperator"></span>
+				<h:outputText styleClass="small_area0" value="#{lbl.organizationNumbers}"/>
+				<span class="seperator"></span>
+				<h:outputText styleClass="xLarge_area0" value="#{lbl.EditItem_lblOrganization}"/>
+				<span class="seperator"></span>
+				<h:outputText styleClass="huge_area0" value="#{lbl.EditItem_lblOrganizationAddress}"/>
+				<span class="seperator"></span>
+				<h:outputText styleClass="medium_area0" value="#{lbl.EditItem_btAdd}"/>
+			</h:panelGroup>
+
+			<tr:iterator id="iterCreatorOrganisation" var="organization" value="#{EditItemSessionBean.creatorOrganizations}" rows="0" rendered="#{!(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
+				<h:panelGroup layout="block" styleClass="suggestAnchor">
+				
+					<span class="large_area0 clear">&nbsp;</span>
+					<h:outputText styleClass="small_area0" value="#{organization.number}"/>
+					<span class="seperator"></span>
+					<h:inputText id="ngvhbbfcgfcffgg" styleClass="xLarge_txtInput organizationSuggest" value="#{organization.name.value}"/>
+					<span class="seperator"></span>
+					<h:inputText id="hmgfjhtdghdgfdg" styleClass="huge_txtInput" value="#{organization.address}"/>
+					<span class="seperator"></span>
+					<h:panelGroup styleClass="medium_area0">
+						<tr:commandButton id="btnAddCreatorPersonAffiliation" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addOrga}" action="#{organization.add}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
+						<tr:commandButton id="btnRemoveCreatorPersonAffiliation" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" disabled="#{EditItemSessionBean.organizationCount == 1}" action="#{organization.remove}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
+					</h:panelGroup>
+
+				</h:panelGroup>
+			</tr:iterator>
+
 			<a class="free_area0 collapse">
 				<h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " />
 				<h:outputText value="#{genre.creator_person_organization_label}" converter="GenreLabelConverter" />
 			</a>
+			
 		</div>
 		<a class="free_area0 expand">
 			<h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " />

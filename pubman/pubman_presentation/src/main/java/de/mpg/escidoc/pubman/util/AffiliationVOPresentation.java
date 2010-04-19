@@ -36,7 +36,6 @@ import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
@@ -58,6 +57,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
     private AffiliationVOPresentation parent = null;
     private String namePath;
     private String idPath;
+    private boolean selectedForAuthor = false;
     
     private List<AffiliationVO> predecessors = new java.util.ArrayList<AffiliationVO>();
     
@@ -326,6 +326,22 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
         return this.successors;
     }
     
+    /**
+     * @return the selectedForAuthor
+     */
+    public boolean getSelectedForAuthor()
+    {
+        return selectedForAuthor;
+    }
+
+    /**
+     * @param selectedForAuthor the selectedForAuthor to set
+     */
+    public void setSelectedForAuthor(boolean selectedForAuthor)
+    {
+        this.selectedForAuthor = selectedForAuthor;
+    }
+
     private void fetchSuccessors() 
     {
         if( this.successors == null )

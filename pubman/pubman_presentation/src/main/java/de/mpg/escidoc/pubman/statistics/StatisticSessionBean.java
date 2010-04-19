@@ -1,17 +1,11 @@
 package de.mpg.escidoc.pubman.statistics;
 
-import java.util.UUID;
-
 import javax.naming.InitialContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.common.StatisticLogger;
-import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
-import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
 import de.mpg.escidoc.services.pubman.util.AdminHelper;
 
 

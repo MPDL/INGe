@@ -30,37 +30,15 @@
 
 package de.mpg.escidoc.pubman;
 
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.rmi.RemoteException;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.core.common.exceptions.application.invalid.InvalidSqlException;
-import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
-import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
-import de.escidoc.core.common.exceptions.application.notfound.ReportDefinitionNotFoundException;
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.core.common.exceptions.system.SystemException;
-import de.escidoc.www.services.sm.ReportHandler;
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.pubman.desktop.Search;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportParamsVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordParamVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
-import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * BackingBean for HomePage.jsp.

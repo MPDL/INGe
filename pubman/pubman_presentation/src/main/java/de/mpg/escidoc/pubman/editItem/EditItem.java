@@ -84,6 +84,7 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
 import de.mpg.escidoc.pubman.util.ListItem;
 import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
@@ -105,6 +106,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
@@ -183,6 +185,8 @@ public class EditItem extends FacesBean
     private UIXIterator identifierIterator = new UIXIterator();
     private UIXIterator sourceIterator = new UIXIterator();
     private UIXIterator sourceIdentifierIterator = new UIXIterator();
+    
+    private ArrayList<OrganizationVOPresentation> creatorOrganizations = new ArrayList<OrganizationVOPresentation>();
 
     private CoreTable fileTable = new CoreTable();
     
@@ -238,8 +242,6 @@ public class EditItem extends FacesBean
         // initializes the (new) item if necessary
         this.initializeItem();
 
-        
-        
 //      FIXME provide access to parts of my VO to specialized POJO's
         this.titleCollection = new TitleCollection(this.getPubItem().getMetadata());
         this.eventTitleCollection = new TitleCollection(this.getPubItem().getMetadata().getEvent());
@@ -264,8 +266,7 @@ public class EditItem extends FacesBean
 
         // fetch the name of the pub context
         this.contextName = this.getContextName();
-        
-        
+
     }
 
     public String getAttributes()
@@ -338,11 +339,36 @@ public class EditItem extends FacesBean
         		this.getEditItemSessionBean().setGenreBundle("Genre_" + pubItem.getMetadata().getGenre().name());
         	}
         	this.getItemControllerSessionBean().initializeItem(pubItem);
-        
+            
             if(this.getEditItemSessionBean().getFiles().size() == 0 || this.getEditItemSessionBean().getLocators().size() == 0)
             {
                 bindFiles();
             }
+            
+            if(this.getEditItemSessionBean().getCreatorOrganizations().size() == 0)
+            {
+                this.getEditItemSessionBean().initOrganizationsFromCreators(pubItem);
+            }
+            
+            if (pubItem.getMetadata() != null && pubItem.getMetadata().getCreators() != null)
+            for (CreatorVO creatorVO : pubItem.getMetadata().getCreators())
+            {
+                if (creatorVO.getType() == CreatorType.PERSON && creatorVO.getPerson().getOrganizations() != null)
+                {
+                    for (OrganizationVO organizationVO : creatorVO.getPerson().getOrganizations())
+                    {
+                        if (organizationVO.getName() == null)
+                        {
+                            organizationVO.setName(new TextVO());
+                        }
+                    }
+                }
+                else if (creatorVO.getType() == CreatorType.ORGANIZATION && creatorVO.getOrganization() != null && creatorVO.getOrganization().getName() == null)
+                {
+                    creatorVO.getOrganization().setName(new TextVO());
+                }
+            }
+            
         }
         else
         {
@@ -552,7 +578,7 @@ public class EditItem extends FacesBean
         return (getPubItem().getMetadata().getLanguages().size() > 1);
     }
 
-    public List<ListItem> getLanguages()
+    public List<ListItem> getLanguages() throws Exception
     {
         if (this.languages == null)
         {
@@ -562,7 +588,8 @@ public class EditItem extends FacesBean
                 getPubItem().getMetadata().getLanguages().add("");
             }
             int counter = 0;
-            for (Iterator<String> iterator = getPubItem().getMetadata().getLanguages().iterator(); iterator.hasNext();) {
+            for (Iterator<String> iterator = getPubItem().getMetadata().getLanguages().iterator(); iterator.hasNext();)
+            {
                 String value = (String) iterator.next();
                 ListItem item = new ListItem();
                 item.setValue(value);
@@ -621,6 +648,9 @@ public class EditItem extends FacesBean
     {
         // bind the temporary uploaded files to the files in the current item
         bindUploadedFilesAndLocators();
+        
+        // bind Organizations To Creators
+        bindOrganizationsToCreators();
         
         //  cleanup item according to genre specific MD specification
         GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(), GenreSecificItemManager.SUBMISSION_METHOD_FULL);
@@ -738,6 +768,34 @@ public class EditItem extends FacesBean
             this.showValidationMessages(report);
             return null;
         }        
+    }
+
+    private void bindOrganizationsToCreators()
+    {
+        for (CreatorBean creator : getCreatorCollection().getCreatorManager().getObjectList())
+        {
+            if (creator.isPersonType())
+            {
+                PersonVO person = creator.getCreator().getPerson();
+                List<OrganizationVO> personOrgs = person.getOrganizations();
+                personOrgs.clear();
+                String[] orgArr = creator.getOuNumbers().split(",");
+                try
+                {
+                    for (String org : orgArr)
+                    {
+                        int orgNr = Integer.parseInt(org);
+                        personOrgs.add(getEditItemSessionBean().getCreatorOrganizations().get(orgNr));
+                    }
+                }
+                catch (Exception e)
+                {
+                    logger.error("Error", e);
+                    error("XXX");
+                }
+            }
+        }
+        
     }
 
     /**
@@ -2320,5 +2378,6 @@ public class EditItem extends FacesBean
     {
         this.locatorUpload = locatorUpload;
     }
+
     
 }

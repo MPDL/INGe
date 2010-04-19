@@ -2291,7 +2291,7 @@ public class EasySubmission extends FacesBean
     // source identifier
     public void setSourceIdentifierType(String typeString)
     {
-    	logger.info("typeSTring " + typeString);
+    	logger.debug("typeString " + typeString);
         PubItemVO pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
         pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setTypeString(typeString);
     }

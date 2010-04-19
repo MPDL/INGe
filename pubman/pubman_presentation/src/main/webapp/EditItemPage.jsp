@@ -186,9 +186,6 @@
 						 	<jsp:directive.include file="editItem/BasicGroup.jspf" />
 							<jsp:directive.include file="editItem/FilesGroup.jspf" />
 							<jsp:directive.include file="editItem/LocatorsGroup.jspf" />
-							<div class="noDisplay affiliationTreeForm">
-								<jsp:directive.include file="affiliation/AffiliationTreeForm.jspf" />
-							</div>
 							<jsp:directive.include file="editItem/PersOrgGroup.jspf" />
 							<jsp:directive.include file="editItem/ContentGroup.jspf" />
 							<jsp:directive.include file="editItem/DetailGroup.jspf" />
