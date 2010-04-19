@@ -68,10 +68,10 @@
 	
 	
 	<xsl:param name="user" select="'dummy-user'"/>
-	<xsl:param name="context" select="'escidoc:37005'"/>
+	<xsl:param name="context" select="'dummy-context'"/>
 	<xsl:param name="is-item-list" select="true()"/>
 	<xsl:param name="localIdentifier" select="'xserveg5.eva.mpg.de'"/>
-	<xsl:param name="localPrefix" select="'http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/'"/>
+	<xsl:param name="localPrefix"/>
 	<xsl:param name="localSuffix" select="'.pdf'"/>
 	<xsl:param name="locator-filename-substitute" select="'external resource'"/>
 	

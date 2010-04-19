@@ -137,6 +137,7 @@ public class MABTransformation implements Transformation{
                     throw new TransformationNotSupportedException("The requested target format (" + trgFormat.toString() + ") is not supported");
                 }
                 
+                transformer.setParameter("localPrefix", PropertyReader.getProperty("escidoc.transformation.mab.content.url.prefix"));
                 transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
                 
         		transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
