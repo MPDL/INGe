@@ -36,20 +36,13 @@
 	</h3>
 	<span class="seperator"></span>
 	<span class="free_area0_p8 endline itemHeadline">
-		<b>
-			<h:outputText value="#{lbl.ExportEmail_lblItemsAttached}" />
-		</b>
+		&#160;
 	</span>
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		&#160;
 	</h3>
 	<div class="free_area0 itemBlockContent endline">
-		<div class="free_area0 endline itemLine noTopBorder">
-			<span class="quad_area0 xTiny_marginLExcl endline">
-				
-				<h:outputText styleClass="quad_area0" value="#{ExportItemsSessionBean.attExportFileName}" />
-			</span>
-		</div>
+		
 		<div class="free_area0 endline itemLine noTopBorder">
 			<span class="quad_area0 xTiny_marginLExcl endline">
 				<h:outputLabel id="lblToRecipient" styleClass="quad_label" value="#{lbl.ExportEmail_lblToRecipient}" />
@@ -60,7 +53,7 @@
 			<span class="quad_area0 xTiny_marginLExcl endline">
 				<h:outputLabel id="lblCCRecipient" styleClass="quad_label" value="#{lbl.ExportEmail_lblCCRecipient}" />
 				<h:inputText id="inpEmailCCRecipients" styleClass="quad_txtInput" value="#{ExportItemsSessionBean.emailCCRecipients}" />
-			</span>
+			</span> 
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<span class="quad_area0 xTiny_marginLExcl endline">
@@ -70,7 +63,6 @@
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<span class="quad_area0 xTiny_marginLExcl endline">
-				<h:outputLabel id="lblBody" styleClass="quad_label" value="Body" />
 				<h:outputText styleClass="quad_area0" value="#{ExportItemsSessionBean.exportEmailTxt}" />
 			</span>
 		</div>
