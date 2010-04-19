@@ -575,6 +575,8 @@
                 
                  <xsd.soap.searchRetrieveResponse>http://www.loc.gov/zing/srw/</xsd.soap.searchRetrieveResponse>
 
+                 <escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
+                 
             </properties>
 
             <distributionManagement>
@@ -717,18 +719,18 @@
                 <xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
                 <xsd.soap.result.result>http://www.escidoc.de/schemas/result/0.1</xsd.soap.result.result>
                 
-				<xsd.metadata.organization>http://purl.org/escidoc/metadata/profiles/0.1/organization</xsd.metadata.organization>
-				<xsd.metadata.organizationalunit>http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit</xsd.metadata.organizationalunit>
-				<xsd.metadata.file>http://purl.org/escidoc/metadata/profiles/0.1/file</xsd.metadata.file>
-				<xsd.metadata.publication>http://purl.org/escidoc/metadata/profiles/0.1/publication</xsd.metadata.publication>
-				<xsd.metadata.face>http://purl.org/escidoc/metadata/profiles/0.1/face</xsd.metadata.face>
-				<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
-				<xsd.metadata.escidocprofile.types>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.escidocprofile.types>
-				<xsd.metadata.terms>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.terms>
-				<xsd.metadata.escidocprofile.idtypes>http://purl.org/escidoc/metadata/terms/0.1/idtypes/</xsd.metadata.escidocprofile.idtypes>				
-				<xsd.metadata.source>http://purl.org/escidoc/metadata/profiles/0.1/source</xsd.metadata.source>
-				<xsd.metadata.event>http://purl.org/escidoc/metadata/profiles/0.1/event</xsd.metadata.event>
-				<xsd.metadata.person>http://purl.org/escidoc/metadata/profiles/0.1/person</xsd.metadata.person>
+		<xsd.metadata.organization>http://purl.org/escidoc/metadata/profiles/0.1/organization</xsd.metadata.organization>
+		<xsd.metadata.organizationalunit>http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit</xsd.metadata.organizationalunit>
+		<xsd.metadata.file>http://purl.org/escidoc/metadata/profiles/0.1/file</xsd.metadata.file>
+		<xsd.metadata.publication>http://purl.org/escidoc/metadata/profiles/0.1/publication</xsd.metadata.publication>
+		<xsd.metadata.face>http://purl.org/escidoc/metadata/profiles/0.1/face</xsd.metadata.face>
+		<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
+		<xsd.metadata.escidocprofile.types>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.escidocprofile.types>
+		<xsd.metadata.terms>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.terms>
+		<xsd.metadata.escidocprofile.idtypes>http://purl.org/escidoc/metadata/terms/0.1/idtypes/</xsd.metadata.escidocprofile.idtypes>				
+		<xsd.metadata.source>http://purl.org/escidoc/metadata/profiles/0.1/source</xsd.metadata.source>
+		<xsd.metadata.event>http://purl.org/escidoc/metadata/profiles/0.1/event</xsd.metadata.event>
+		<xsd.metadata.person>http://purl.org/escidoc/metadata/profiles/0.1/person</xsd.metadata.person>
 				
                 <escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
                 <escidoc.validation.source.classname>de.mpg.escidoc.services.validation.FrameworkValidationSchemaSource</escidoc.validation.source.classname>                <!-- syndication service -->
@@ -741,6 +743,8 @@
                 
                  <xsd.soap.searchRetrieveResponse>http://www.loc.gov/zing/srw/</xsd.soap.searchRetrieveResponse>
 
+                 <escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
+                 
             </properties>
 
             <distributionManagement>
