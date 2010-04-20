@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.httpclient.Header;
+import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pidcache.PidCacheService;
@@ -55,6 +56,8 @@ import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
 public class MainServlet extends HttpServlet
 {
 
+	Logger logger = Logger.getLogger(MainServlet.class);
+	
     /* (non-Javadoc)
      * @see javax.servlet.http.HttpServlet#doDelete(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
@@ -69,13 +72,14 @@ public class MainServlet extends HttpServlet
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
     	
-    	
+    	logger.info("PID cache GET request");
     	
     	try 
     	{
     		
         	if (!authenticate(req, resp))
         	{
+        		logger.warn("Unauthorized request from " + req.getRemoteHost());
         		return;
         	}
 
@@ -118,7 +122,10 @@ public class MainServlet extends HttpServlet
      * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-    {        
+    {   
+    	
+    	logger.info("PID cache POST request");
+    	
     	if (req.getParameter("url") == null) 
         {
         	resp.sendError(HttpServletResponse.SC_NO_CONTENT, "URL parameter failed.");
@@ -128,6 +135,7 @@ public class MainServlet extends HttpServlet
         	
         	if (!authenticate(req, resp))
         	{
+        		logger.warn("Unauthorized request from " + req.getRemoteHost());
         		return;
         	}
         	
