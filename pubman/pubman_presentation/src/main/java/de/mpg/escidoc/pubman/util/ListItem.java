@@ -1,8 +1,11 @@
 package de.mpg.escidoc.pubman.util;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.faces.event.ValueChangeEvent;
+
+import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 
 public class ListItem
 {
@@ -38,12 +41,12 @@ public class ListItem
 	
     public String getAlternativeValue() throws Exception
     {
-        return CommonUtils.getConeLanguageName(value);
+    	String locale = ((InternationalizationHelper)InternationalizedImpl.getSessionBean(InternationalizationHelper.class)).getLocale();
+    	return CommonUtils.getConeLanguageName(value, locale);
     }
 
     public void valueChanged(ValueChangeEvent event)
 	{
-		
 		String newVal = "";
 		if(event != null && event.getNewValue() != null)
 		{

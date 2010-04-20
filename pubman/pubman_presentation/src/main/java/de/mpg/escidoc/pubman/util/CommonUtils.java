@@ -412,11 +412,10 @@ public class CommonUtils extends InternationalizedImpl
         return langMap;
     }
 
-    public static String getConeLanguageName(String code) throws Exception
+    public static String getConeLanguageName(String code, String locale) throws Exception
     {
         if (code != null && !"".equals(code.trim()))
         {
-            String locale = Locale.getDefault().getLanguage();
             if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja")))
             {
                 locale = "en";

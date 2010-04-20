@@ -3,11 +3,15 @@
  */
 package de.mpg.escidoc.pubman.search.bean;
 
+import java.util.Locale;
+
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.LanguageCriterion;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 
 /**
  * @author endres
@@ -17,7 +21,7 @@ public class LanguageCriterionBean extends CriterionBean {
 
 public static final String BEAN_NAME = "LanguageCriterionBean";
 	
-	private LanguageCriterion languageCriterionVO;
+	private LanguageCriterion languageCriterionVO = new LanguageCriterion();
 	
 	private String languageProposal = "";
 	
@@ -26,8 +30,7 @@ public static final String BEAN_NAME = "LanguageCriterionBean";
 	
     public LanguageCriterionBean()
 	{
-		// ensure the parentVO is never null;
-		this(new LanguageCriterion());
+
 	}
 
 	public LanguageCriterionBean(LanguageCriterion languageCriterionVO)
@@ -83,5 +86,22 @@ public static final String BEAN_NAME = "LanguageCriterionBean";
     public void setLanguageProposal(String languageProposal)
     {
         this.languageProposal = languageProposal;
+    }
+    
+    public void valueChanged(ValueChangeEvent event)
+    {
+    	String newVal = "";
+    	if(event != null && event.getNewValue() != null)
+		{
+			newVal = event.getNewValue().toString();
+		}
+    	languageProposal = newVal;
+    	languageCriterionVO.setSearchString(newVal);
+    }
+    
+    public String getAlternativeValue() throws Exception
+    {
+    	String locale = ((InternationalizationHelper) getSessionBean(InternationalizationHelper.class)).getLocale();
+    	return CommonUtils.getConeLanguageName(languageCriterionVO.getSearchString(), locale);
     }
 }
