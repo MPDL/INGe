@@ -37,8 +37,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.httpclient.Header;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pidcache.PidCacheService;
 import de.mpg.escidoc.services.pidcache.gwdg.GwdgPidService;
 
@@ -66,8 +68,17 @@ public class MainServlet extends HttpServlet
      */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
+    	
+    	
+    	
     	try 
     	{
+    		
+        	if (!authenticate(req, resp))
+        	{
+        		return;
+        	}
+
     		PidCacheService pidCacheService = new PidCacheService();
     		
     		if (GwdgPidService.GWDG_PIDSERVICE_VIEW.equals(req.getPathInfo())
@@ -99,7 +110,7 @@ public class MainServlet extends HttpServlet
 		} 
     	catch (Exception e) 
     	{
-    		throw new RuntimeException(e);
+    		throw new ServletException("Error processing request", e);
 		}
     }
 
@@ -114,6 +125,12 @@ public class MainServlet extends HttpServlet
 		}
         try 
         {
+        	
+        	if (!authenticate(req, resp))
+        	{
+        		return;
+        	}
+        	
         	PidCacheService cacheService = new PidCacheService();
         	String xmlOutput = null;
         	
@@ -141,7 +158,7 @@ public class MainServlet extends HttpServlet
 		} 
         catch (Exception e) 
         {
-        	throw new RuntimeException(e);
+        	throw new ServletException("Error processing request", e);
 		}
     }
 
@@ -151,6 +168,43 @@ public class MainServlet extends HttpServlet
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
     	resp.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED, "PUT method not supported for this service");
+    }
+    
+    private boolean authenticate(HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+    	String auth = request.getHeader("authorization");
+		if (auth == null)
+		{
+			response.addHeader("WWW-Authenticate", "Basic realm=\"PID Cache\"");
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			return false;
+		}
+		else
+		{
+			auth = auth.substring(6);
+			String cred = new String(Base64.decodeBase64(auth.getBytes()));
+			if (cred.contains(":"))
+			{
+				String[] userPass = cred.split(":");
+				String userName = PropertyReader.getProperty("escidoc.pidcache.user.name");
+				String password = PropertyReader.getProperty("escidoc.pidcache.user.password");
+				
+				if (!userPass[0].equals(userName) || !userPass[1].equals(password))
+				{
+					response.sendError(HttpServletResponse.SC_FORBIDDEN);
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+			else
+			{
+				response.sendError(HttpServletResponse.SC_FORBIDDEN);
+				return false;
+			}
+		}
     }
     
 }
