@@ -65,6 +65,7 @@
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+
 	
 	<xsl:param name="user" select="'dummy:user'"/>
 	<xsl:param name="context" select="'dummy:context'"/>
@@ -73,6 +74,8 @@
 	<xsl:param name="is-item-list" select="true()"/>
 	
 	<xsl:param name="refType" />
+	
+	<xsl:variable name="vm" select="document('../../ves-mapping.xml')/mappings"/>
 	
 	<xsl:variable name="genreMap">
 			<m key="article">article</m>
@@ -181,10 +184,12 @@
 			</xsl:element>
 			
 			<!-- LANGUAGE -->
-			<xsl:if test="exists($pDesc/t:langUsage/t:language/@ident)">
+			<xsl:variable name="tei" select="$pDesc/t:langUsage/t:language/@ident"/>
+			<xsl:variable name="escdc" select="$vm/language/v1-to-v2/map[@v1=$tei]"/>
+			<xsl:if test="$escdc!=''">
 				<xsl:element name="dc:language">
-					<xsl:attribute name="xsi:type">dcterms:RFC3066</xsl:attribute>
-					<xsl:value-of select="$pDesc/t:langUsage/t:language/@ident"/>
+					<xsl:attribute name="xsi:type">dcterms:ISO639-3</xsl:attribute>
+					<xsl:value-of select="$escdc"/>
 				</xsl:element>
 			</xsl:if> 
 			
