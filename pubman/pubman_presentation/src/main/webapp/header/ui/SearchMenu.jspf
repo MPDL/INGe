@@ -47,7 +47,7 @@
 	</h:commandLink>
 
 	<h:commandLink styleClass="small_area0_p3 organisationSearchMenu endline" id="lnkBrowseBy" title="#{tip.BrowseBy}" immediate="true" action="#{BrowseByPage.loadBrowseBy}">
-		<h:outputText value="Browse"/>
+		<h:outputText value="#{lbl.mainMenu_lblBrowse}"/>
 	</h:commandLink>
 	<!-- search Menu ends here -->
 </div>
