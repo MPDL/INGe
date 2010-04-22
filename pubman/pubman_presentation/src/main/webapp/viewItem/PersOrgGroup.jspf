@@ -45,9 +45,9 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<span class="free_area0 authorsGroup">
-					
+					<!-- Display {ViewItemFull.defaultSize} creators by default -->
 					<tr:iterator var="creatorPerson" value="#{ViewItemFull.creatorArray}" rows="#{ViewItemFull.defaultSize}" varStatus="creatorStatus"> 
-						<h:panelGroup id="txtCreatorPersonFormattedDisplay" styleClass="free_area0 creatorDisplayed clear">
+						<h:panelGroup id="txtCreatorPersonFormattedDisplay" styleClass="free_area0 creator clear">
 							<h:outputText value="#{creatorPerson.formattedDisplay}" escape="false"/>
 							<h:panelGroup rendered="#{creatorPerson.portfolioLink != null}">
 								&#160;
@@ -57,8 +57,9 @@
 						<br/>
 					</tr:iterator>
 					
+					<!-- Hidden creators, visible after clicking on more -->
 					<tr:iterator var="creatorPerson" value="#{ViewItemFull.creatorArray}" varStatus="creatorStatus" first="#{ViewItemFull.defaultSize}" rows="#{ViewItemFull.creatorArraySize}" rendered="#{ViewItemFull.creatorArraySize > ViewItemFull.defaultSize}"> 
-						<h:panelGroup id="txtCreatorPersonFormattedDisplay" styleClass="free_area0 creator tiny_marginRIncl">
+						<h:panelGroup id="txtCreatorPersonFormattedHidden" styleClass="free_area0 creator creatorHidden tiny_marginRIncl">
 							<h:outputText value="#{creatorPerson.formattedDisplay}" escape="false"/>
 							<h:panelGroup rendered="#{creatorPerson.portfolioLink != null}">
 								&#160;
