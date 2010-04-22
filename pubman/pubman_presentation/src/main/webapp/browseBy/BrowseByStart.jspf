@@ -103,16 +103,17 @@
 	</h3>
 	<div class="free_area0 itemBlockContent endline">	
 		<tr:iterator var="subjectVocab" id="subjectVocabIter" value="#{BrowseBySessionBean.controlledVocabs}" binding="#{BrowseByPage.subjectIterator}" varStatus="index" rows="0">
-			<div class="free_area0 firstLine">
+			<div class="xHuge_area0 firstLine">
 				<b class="xLarge_area0 labelLine">
 					<tr:commandButton id="lnkSubject" styleClass="medium_marginLExcl free_area0 groupBtn" text="#{subjectVocab}" action="#{BrowseByPage.loadBrowseBySubject}" immediate="true">
 					</tr:commandButton>
 					<span class="noDisplay">: </span>
 				</b>
-				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl" rendered="#{subjectVocab == 'ddc'}">
+				
+				<h:panelGroup  rendered="#{subjectVocab == 'ddc'}">
 					<h:outputText value="#{lbl.ddcDesc}" />
 				</h:panelGroup>
-				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl" rendered="#{subjectVocab == 'mpipks'}">
+				<h:panelGroup rendered="#{subjectVocab == 'mpipks'}">
 					<h:outputText value="#{lbl.mpipksDesc}" />
 				</h:panelGroup>
 			</div>			
