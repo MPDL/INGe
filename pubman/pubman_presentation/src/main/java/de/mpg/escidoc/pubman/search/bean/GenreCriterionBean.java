@@ -23,7 +23,7 @@ public class GenreCriterionBean extends CriterionBean
 	private boolean searchProceedings, searchReport, searchSeries, searchTalkAtEvent, searchThesis;
 	// JUS
 	private boolean searchContributionToCollectedEdition, searchMonograph, searchContributionToCommentary, searchCaseNote;
-	private boolean searchBookReview, searchContributionToFestschrift, searchCommentary, searchCollectedEdition, searchFestschrift;
+	private boolean searchBookReview, searchContributionToFestschrift, searchCommentary, searchCollectedEdition, searchFestschrift, searchHandbook;
 	private boolean searchContributionToEncyclopedia, searchNewspaperArticle, searchCaseStudy, searchOpinion, searchEditorial, searchContributionToHandbook;
 	
 
@@ -124,6 +124,8 @@ public class GenreCriterionBean extends CriterionBean
 				 searchEditorial = true; 
 			else if (MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK.equals(genre))
 				 searchContributionToHandbook = true;
+			else if (MdsPublicationVO.Genre.HANDBOOK.equals(genre))
+				 searchHandbook = true;
 		}
 	}
 	
@@ -879,6 +881,26 @@ public class GenreCriterionBean extends CriterionBean
 		else 
 		{
 			genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK);
+		}
+		
+	}
+	
+	public boolean isSearchHandbook(){
+		return searchHandbook;
+	}
+	
+	public void setSearchHandbook(boolean searchHandbook) 
+	{
+		this.searchHandbook = searchHandbook;
+		if (searchHandbook == true)
+		{
+			if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.HANDBOOK)){
+				genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.HANDBOOK);
+			}
+		}
+		else 
+		{
+			genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.HANDBOOK);
 		}
 		
 	}
