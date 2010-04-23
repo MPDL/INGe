@@ -36,6 +36,7 @@
 	var journalSuggestURL = '';
 	var subjectSuggestURL = '';
 	var personSuggestURL = '';
+	var organizationSuggestURL = '';
 	var journalDetailsBaseURL = '';
 	var languageDetailsBaseURL = '';
 	var autopasteDelimiter = ' ||##|| ';
@@ -44,6 +45,7 @@
 	var journalSuggestTrigger = 'JOURNAL';
 	var subjectSuggestCommonParentClass = 'parentArea';
 	var languageSuggestCommonParentClass = 'languageArea';
+	var commonParentClass = 'suggestAnchor'
 	
 	var globalId = '';
 
@@ -207,13 +209,65 @@
 		}
 		var personId = $input.resultID;
 
-		fillField('familyName', familyName, parent);
-		fillField('givenName', givenName, parent);
+		fillField('familyName', familyName, parent, true);
+		fillField('givenName', givenName, parent, true);
 		fillField('orgName', orgName, parent);
-		fillField('orgIdentifier', orgId, parent);
+		fillField('orgIdentifier', orgId, parent, true);
 		$input.blur();
 		$input.focus();
-		fillField('personIdentifier', personId, parent);
+		fillField('personIdentifier', personId, parent, true);
+		
+		if (personId != null && personId != '')
+		{
+			$(parent).find('.authorLink').replaceWith('<a href="' + personId + '" class="small_area0 authorCard authorLink" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+			
+		}
+
+		var counter = 1;
+		var found = false;
+		var empty = true;
+		
+		var orgIdString = (orgId == null ? '' : orgId);
+		
+		
+		$.each($input.parents('.itemBlockContent').find('.organizationName'),
+			function ()
+			{
+				var otherOrgName = $(this).val();
+				var otherOrgId = $(this).siblings('.organizationIdentifier').val();
+
+				alert(orgName + ' = ' + otherOrgName + " ? " + (orgName == otherOrgName));
+				alert(orgIdString + ' = ' + otherOrgId + " ? " + (orgIdString == otherOrgId));
+				
+				if (orgName == otherOrgName && orgIdString == otherOrgId)
+				{
+					fillField('ouNumber', counter + '', parent);
+					found = true;
+				}
+				else if (otherOrgName != '')
+				{
+					empty = false;
+				}
+					
+				counter++;
+			}
+		);
+
+		if (!found)
+		{
+
+			if (counter == 2 && empty)
+			{
+				$input.parents('.itemBlockContent').find('.organizationName').val(orgName);
+				$input.parents('.itemBlockContent').find('.organizationIdentifier').val(orgIdString);
+			}
+			else
+			{
+				$input.siblings('.organizationPasteField').val(orgIdString + autopasteInnerDelimiter + orgName);
+				$('.hiddenButtonPasteOrganizations').click();
+			}
+		}
+		
 	}
 	
 	function removeConeId(element)
@@ -226,10 +280,14 @@
 		}
 	}
 	
-	function fillField(name, value, commonParent)
+	function fillField(name, value, commonParent, readonly)
 	{
-
-		$(commonParent).find('.' + name).val(value);
+		var field = $(commonParent).find('.' + name)
+		field.val(value);
+		if (typeof readonly != 'undefined')
+		{
+			$(field).attr('readonly', true);
+		}
 	}
 	
 	function fillFields()
@@ -245,6 +303,21 @@
 		$input.resultValue = this.resultValue;
 		$input.resultID = this.resultID;
 		$.getJSON(personDetailsBaseURL.replace('$1', this.resultID), getPersonDetails);
+	}
+	
+	function fillOrganizationFields()
+	{
+		$input = $(this);
+		var parent = $input.parents('.' + commonParentClass);
+		fillField('organizationName', this.resultValue, parent);
+		fillField('organizationIdentifier', this.resultID, parent);
+		
+		if (this.resultID != null && this.resultID != '')
+		{
+			$(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+			
+		}
+		
 	}
 	
 	function bindJournalSuggest()
@@ -291,6 +364,8 @@
 				$(ele).suggest(subjectSuggestURL, { vocab: $(ele).parents('.subjectArea').find('.vocabulary'), onSelect: function() {$(this).val(this.currentResult)}});
 			});
 		$('.personSuggest').suggest(personSuggestURL, { onSelect: fillPersonFields });
+		
+		$('.organizationSuggest').suggest(organizationSuggestURL, { onSelect: fillOrganizationFields });
 
 	};
 	

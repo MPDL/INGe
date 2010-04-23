@@ -564,8 +564,8 @@
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>BackingTest</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.BackingTest</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
+		<managed-bean-name>OrganizationSuggest</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.OrganizationSuggest</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 </faces-config>

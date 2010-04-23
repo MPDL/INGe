@@ -357,4 +357,10 @@ public class EditItemSessionBean extends FacesBean
     {
         this.creatorOrganizations = creatorOrganizations;
     }
+    
+    public String readPastedOrganizations()
+    {
+    	return "";
+    }
+    
 }

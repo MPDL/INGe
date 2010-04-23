@@ -744,7 +744,7 @@ public class ItemControllerSessionBean extends FacesBean
      * 
      * @return the initialized item.
      */
-    public PubItemVO initializeItem(PubItemVO newPubItem)
+    public PubItemVO initializeItem(PubItemVO newPubItem) throws Exception
     {
         if (logger.isDebugEnabled())
         {
@@ -788,6 +788,7 @@ public class ItemControllerSessionBean extends FacesBean
             PersonVO newPerson = new PersonVO();
             newPerson.setIdentifier(new IdentifierVO());
             OrganizationVO newPersonOrganization = new OrganizationVO();
+            newPersonOrganization.setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
             newPerson.getOrganizations().add(newPersonOrganization);
             
             newCreator.setOrganization(null);

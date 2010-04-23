@@ -125,4 +125,8 @@ public class OrganizationVOPresentation extends OrganizationVO
         }
     }
     
+    public boolean getLast()
+    {
+    	return (this.equals(list.get(list.size() - 1)));
+    }
 }

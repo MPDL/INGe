@@ -83,7 +83,8 @@ public class AffiliationDetailPage extends FacesBean
         }
         catch (Exception e)
         {
-            error(getMessage("AffiliationDetailPage_detailsNotRetrieved"));
+        	error(getMessage("AffiliationDetailPage_detailsNotRetrieved"));
+        	throw new RuntimeException("Error getting affiliation details", e);
         }
     }
 
@@ -91,9 +92,9 @@ public class AffiliationDetailPage extends FacesBean
     public void init(){}
 
 
-    public void setAffiliation(AffiliationVOPresentation affilitation)
+    public void setAffiliation(AffiliationVOPresentation affiliation)
     {
-        this.affiliation = affilitation;
+        this.affiliation = affiliation;
     }
 
 

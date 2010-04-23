@@ -51,6 +51,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 
 /**
@@ -296,12 +297,12 @@ public class CreatorBean extends FacesBean
 
     public boolean isPersonType()
     {
-        return personType;
+        return (creator.getType() == CreatorType.PERSON);
     }
 
     public void setPersonType(final boolean personType)
     {
-        this.personType = personType;
+        creator.setType(CreatorType.PERSON);
     }
 
     public OrganizationVO getCurrentOrgaForSelection()
@@ -316,12 +317,12 @@ public class CreatorBean extends FacesBean
 
     public boolean isOrganisationType()
     {
-        return organisationType;
+    	return (creator.getType() == CreatorType.ORGANIZATION);
     }
 
     public void setOrganisationType(final boolean organisationType)
     {
-        this.organisationType = organisationType;
+    	creator.setType(CreatorType.ORGANIZATION);
     }
 
     /**
@@ -391,7 +392,10 @@ public class CreatorBean extends FacesBean
                 {
                     ouNumber += ",";
                 }
-                ouNumber += creatorOrganizations.indexOf(organization) + 1;
+                if (creatorOrganizations.indexOf(organization) >= 0)
+                {
+                	ouNumber += creatorOrganizations.indexOf(organization) + 1;
+                }
             }
         }
         return ouNumber;
@@ -405,5 +409,24 @@ public class CreatorBean extends FacesBean
         this.ouNumber = ouNumber;
     }
     
+    public String getAutoPasteValue()
+    {
+    	return "";
+    }
     
+    public void setAutoPasteValue(String value)
+    {
+    	if (!"".equals(value))
+    	{
+	    	String[] values = value.split(EditItem.AUTOPASTE_INNER_DELIMITER);
+	    	EditItemSessionBean editItemSessionBean = (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+	        List<OrganizationVOPresentation> creatorOrganizations = editItemSessionBean.getCreatorOrganizations();
+	        OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
+	        newOrg.setName(new TextVO(values[1]));
+	        newOrg.setIdentifier(values[0]);
+	        newOrg.setNumber(creatorOrganizations.size() + 1);
+	        creatorOrganizations.add(newOrg);
+	        this.ouNumber = creatorOrganizations.size() + "";
+    	}
+    }
 }

@@ -136,6 +136,9 @@ public class EditItem extends FacesBean
     private static final long serialVersionUID = 1L;
     public static final String BEAN_NAME = "EditItem";
     private static Logger logger = Logger.getLogger(EditItem.class);
+    
+    public static final String AUTOPASTE_INNER_DELIMITER = " @@~~@@ ";
+    public static final String AUTOPASTE_DELIMITER = " ||##|| ";
 
     // Faces navigation string
     public final static String LOAD_EDITITEM = "loadEditItem";
@@ -240,7 +243,13 @@ public class EditItem extends FacesBean
 
         
         // initializes the (new) item if necessary
-        this.initializeItem();
+        try
+        {
+        	this.initializeItem();
+        }
+        catch (Exception e) {
+			throw new RuntimeException("Error initializing item", e);
+		}
 
 //      FIXME provide access to parts of my VO to specialized POJO's
         this.titleCollection = new TitleCollection(this.getPubItem().getMetadata());
@@ -321,7 +330,7 @@ public class EditItem extends FacesBean
     /**
      * Adds sub-ValueObjects to an item initially to be able to bind uiComponents to them.
      */
-    private void initializeItem()
+    private void initializeItem() throws Exception
     {
         // get the item that is currently edited
         PubItemVO pubItem = this.getPubItem();
@@ -784,8 +793,11 @@ public class EditItem extends FacesBean
                 {
                     for (String org : orgArr)
                     {
-                        int orgNr = Integer.parseInt(org);
-                        personOrgs.add(getEditItemSessionBean().getCreatorOrganizations().get(orgNr));
+                    	if (!"".equals(org))
+                    	{
+                    		int orgNr = Integer.parseInt(org);
+                    		personOrgs.add(getEditItemSessionBean().getCreatorOrganizations().get(orgNr - 1));
+                    	}
                     }
                 }
                 catch (Exception e)
@@ -2086,7 +2098,7 @@ public class EditItem extends FacesBean
         {
             CreatorBean lastCreatorBean = creatorManager.getObjectList().get(creatorManager.getObjectList().size() - 1);
             CreatorVO creatorVO  = lastCreatorBean.getCreator();
-            if (creatorVO.getPerson()!=null && creatorVO.getPerson().getFamilyName().equals("") && creatorVO.getPerson().getGivenName().equals("") && creatorVO.getPerson().getOrganizations().get(0).getName().getValue().equals(""))
+            if (creatorVO.getPerson() != null && "".equals(creatorVO.getPerson().getFamilyName()) && "".equals(creatorVO.getPerson().getGivenName()) && (creatorVO.getPerson().getOrganizations().get(0).getName().getValue() == null || "".equals(creatorVO.getPerson().getOrganizations().get(0).getName().getValue())))
             {
                 creatorManager.getObjectList().remove(lastCreatorBean);
                 creatorCollection.getParentVO().remove(creatorCollection.getParentVO().size() - 1);

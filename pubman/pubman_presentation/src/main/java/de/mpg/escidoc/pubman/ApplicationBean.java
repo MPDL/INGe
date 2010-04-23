@@ -32,10 +32,14 @@ package de.mpg.escidoc.pubman;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -46,6 +50,8 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.exceptions.PubManStylesheetNotAvailableException;
 import de.mpg.escidoc.pubman.exceptions.PubManVersionNotAvailableException;
 import de.mpg.escidoc.services.common.util.CommonUtils;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
@@ -93,6 +99,8 @@ public class ApplicationBean extends FacesBean
     private Transformation transformationService;
     
     private Map<String, SelectItem[]> languageSelectItems;
+    
+    private Set<AffiliationVO> ouList = new HashSet<AffiliationVO>();
 
     /**
      * Public constructor.
@@ -494,6 +502,14 @@ public class ApplicationBean extends FacesBean
 
 	public Map<String, SelectItem[]> getLanguageSelectItems() {
 		return languageSelectItems;
+	}
+
+	public Set<AffiliationVO> getOuList() {
+		return ouList;
+	}
+
+	public void setOuList(Set<AffiliationVO> ouList) {
+		this.ouList = ouList;
 	}
 
 }

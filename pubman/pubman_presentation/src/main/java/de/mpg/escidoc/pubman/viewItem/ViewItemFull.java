@@ -639,8 +639,7 @@ public class ViewItemFull extends FacesBean
     {
         // clear the list of  locators and files when start editing an item
     	EditItemSessionBean editItemSessionBean = this.getEditItemSessionBean();
-        editItemSessionBean.getFiles().clear();
-        editItemSessionBean.getLocators().clear();
+        editItemSessionBean.clean();
     	return EditItem.LOAD_EDITITEM;
     }
 
@@ -665,8 +664,7 @@ public class ViewItemFull extends FacesBean
     {
         // clear the list of  locators and files when start modifying an item
     	EditItemSessionBean editItemSessionBean = this.getEditItemSessionBean();
-        editItemSessionBean.getFiles().clear();
-        editItemSessionBean.getLocators().clear();
+        editItemSessionBean.clean();
     	return EditItem.LOAD_EDITITEM;
     }
 
