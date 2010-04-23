@@ -341,8 +341,8 @@
 								<h:inputText id="inpSourceDetailIdentifier" styleClass="xDouble_txtInput identifierValue" value="#{identifier.id}" rendered="#{!(genre.sources_source_identifiers_source_identifier_value_display == 'false' && genre.sources_source_identifiers_source_identifier_value_form_id == 'full-submission' || genre.sources_source_identifiers_source_identifier_value_display == 'false' && genre.sources_source_identifiers_source_identifier_value_form_id == 'all')}" />
 							</span>
 							<span class="large_area0_p8 lineToolSection">
-								<tr:commandButton id="btnAddSourceDetailIdentifier" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd} #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.addObject}" rendered="#{genre.sources_source_identifiers_repeatable != 'false'}"/>
-								<tr:commandButton id="btnRemoveSourceDetailIdentifier" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.removeObject}" disabled="#{sourceBean.identifierCollection.identifierManager.size == 1}" rendered="#{genre.sources_source_identifiers_repeatable != 'false'}"/>
+								<tr:commandButton id="btnAddSourceDetailIdentifier" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addID}" action="#{sourceBean.identifierCollection.identifierManager.addObject}" rendered="#{genre.sources_source_identifiers_repeatable != 'false'}"/>
+								<tr:commandButton id="btnRemoveSourceDetailIdentifier" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeID}" action="#{sourceBean.identifierCollection.identifierManager.removeObject}" disabled="#{sourceBean.identifierCollection.identifierManager.size == 1}" rendered="#{genre.sources_source_identifiers_repeatable != 'false'}"/>
 							</span>
 						</h:panelGroup>
 						</h:column>
