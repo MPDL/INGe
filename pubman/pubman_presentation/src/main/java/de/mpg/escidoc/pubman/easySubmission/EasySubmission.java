@@ -2329,7 +2329,18 @@ public class EasySubmission extends FacesBean
         SelectItem GENRE_PROCEEDINGS = new SelectItem(SourceVO.Genre.PROCEEDINGS, bundleLabel
                 .getString("ENUM_GENRE_PROCEEDINGS"));
         SelectItem GENRE_SERIES = new SelectItem(SourceVO.Genre.SERIES, bundleLabel.getString("ENUM_GENRE_SERIES"));
-        return new SelectItem[] { NO_ITEM_SET, GENRE_BOOK, GENRE_ISSUE, GENRE_JOURNAL, GENRE_PROCEEDINGS, GENRE_SERIES };
+     // JUS BEGING
+        SelectItem GENRE_COLLECTED_EDITION = new SelectItem(SourceVO.Genre.COLLECTED_EDITION, bundleLabel.getString("ENUM_GENRE_COLLECTED_EDITION"));
+        SelectItem GENRE_HANDBOOK = new SelectItem(SourceVO.Genre.HANDBOOK, bundleLabel.getString("ENUM_GENRE_HANDBOOK"));
+        SelectItem GENRE_FESTSCHRIFT = new SelectItem(SourceVO.Genre.FESTSCHRIFT, bundleLabel.getString("ENUM_GENRE_FESTSCHRIFT"));
+        SelectItem GENRE_COMMENTARY = new SelectItem(SourceVO.Genre.COMMENTARY, bundleLabel.getString("ENUM_GENRE_COMMENTARY"));
+        SelectItem GENRE_NEWSPAPER = new SelectItem(SourceVO.Genre.NEWSPAPER, bundleLabel.getString("ENUM_GENRE_NEWSPAPER"));
+        SelectItem GENRE_ENCYCLOPEDIA = new SelectItem(SourceVO.Genre.ENCYCLOPEDIA, bundleLabel.getString("ENUM_GENRE_ENCYCLOPEDIA"));
+        SelectItem GENRE_MULTI_VOLUME = new SelectItem(SourceVO.Genre.MULTI_VOLUME, bundleLabel.getString("ENUM_GENRE_MULTI_VOLUME"));
+        // JUS END
+        
+        return new SelectItem[] { NO_ITEM_SET, GENRE_BOOK, GENRE_ISSUE, GENRE_JOURNAL, GENRE_PROCEEDINGS, GENRE_SERIES,
+        		GENRE_COLLECTED_EDITION,GENRE_HANDBOOK, GENRE_FESTSCHRIFT, GENRE_COMMENTARY, GENRE_NEWSPAPER, GENRE_ENCYCLOPEDIA, GENRE_MULTI_VOLUME};
     }
 
     public SourceVO getSource()
