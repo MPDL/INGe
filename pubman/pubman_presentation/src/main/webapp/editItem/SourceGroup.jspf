@@ -58,7 +58,7 @@
 				</h:panelGroup>
 	
 		<%-- Source title --%>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.sources_source_basic_source_title_display == 'false' && genre.sources_source_basic_source_title_form_id == 'full-submission' || genre.sources_source_basic_source_title_display == 'false' && genre.sources_source_basic_source_title_form_id == 'all')}">
+				<h:panelGroup layout="block" styleClass="free_area0 endline ite mLine noTopBorder" rendered="#{!(genre.sources_source_basic_source_title_display == 'false' && genre.sources_source_basic_source_title_form_id == 'full-submission' || genre.sources_source_basic_source_title_display == 'false' && genre.sources_source_basic_source_title_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_basic_optional != 'true' && genre.sources_source_basic_source_title_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
@@ -66,11 +66,11 @@
 						<h:inputTextarea id="inpSourceTitle" styleClass="quad_txtArea inputTxtArea sourceTitle" value="#{sourceBean.titleCollection.titleIF.title.value}" cols="15" rows="3" />
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton id="btnAddSourceTitle" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.addTitle}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
-						<tr:commandButton id="btnRemoveSourceTitle" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.removeTitle}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
+						<tr:commandButton id="btnAddSourceTitle" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btAdd}" action="#{sourceBean.titleCollection.addTitle}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}" disabled="#{!((genre.sources_source_basic_source_title_alternative_repeatable != 'false') || (genre.sources_source_basic_source_title_alternative_repeatable != 'true' && sourceBean.titleCollection.alternativeTitleManager.size != 1))}"/>
+						<tr:commandButton id="btnRemoveSourceTitle" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btRemove}" action="#{sourceBean.titleCollection.removeTitle}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}" />
 					</span>
 				</h:panelGroup>
-	
+				
 		<%-- Source alternative title copy&paste --%>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder noDisplay">
 					<b class="xLarge_area0_p8 endline labelLine clear">
@@ -101,8 +101,8 @@
 							</h:panelGroup>
 						</span>
 						<span class="large_area0_p8 lineToolSection">
-							<tr:commandButton id="btnAddDetails" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.addTitle}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
-							<tr:commandButton id="btnRemoveDetails" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.removeTitle}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
+							<tr:commandButton id="btnAddDetails" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btAdd}" action="#{sourceBean.titleCollection.addTitle}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}" disabled="#{!(genre.sources_source_basic_source_title_alternative_repeatable == 'true')}"/>
+							<tr:commandButton id="btnRemoveDetails" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btRemove}" action="#{sourceBean.titleCollection.removeTitle}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}" />
 						</span>
 					</h:panelGroup>
 				</tr:iterator>
