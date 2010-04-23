@@ -235,9 +235,6 @@
 			{
 				var otherOrgName = $(this).val();
 				var otherOrgId = $(this).siblings('.organizationIdentifier').val();
-
-				alert(orgName + ' = ' + otherOrgName + " ? " + (orgName == otherOrgName));
-				alert(orgIdString + ' = ' + otherOrgId + " ? " + (orgIdString == otherOrgId));
 				
 				if (orgName == otherOrgName && orgIdString == otherOrgId)
 				{
