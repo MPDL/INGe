@@ -1368,6 +1368,15 @@ public class ItemControllerSessionBean extends FacesBean
         {
             pubItem.getMetadata().setEvent(null);
         }
+        
+     // delete unfilled LegalCase
+		if (pubItem.getMetadata().getLegalCase() != null
+				&& (pubItem.getMetadata().getLegalCase().getTitle() == null || 
+						pubItem.getMetadata().getLegalCase().getTitle().length() == 0)
+				&& (pubItem.getMetadata().getLegalCase().getIdentifier() == null || 
+						pubItem.getMetadata().getLegalCase().getIdentifier().length() == 0)) {
+			pubItem.getMetadata().setLegalCase(null);
+		}
 
         // delete unfilled Identifier
         if (pubItem.getMetadata().getIdentifiers() != null)
