@@ -120,7 +120,7 @@
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" />
 									<h:outputLink id="lnkCitationURL" styleClass="free_area0" value="#{ViewItemFull.citationURL}">
-										<h:outputText value="#{lbl.ViewItemPage}"/>
+										<h:outputText value="#{lbl.ViewItemFull_btnItemView}"/>
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" />
 								</span>
