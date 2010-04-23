@@ -173,7 +173,10 @@
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchContributionToHandbook" value="#{genreCriterionBean.searchContributionToHandbook}" />
 							<h:outputLabel title="#{tip.adv_search_lblChkGenre_contrhandbook}" value="#{lbl.adv_search_lblChkGenre_contrhandbook}" for="genreCriterionBean_searchContributionToHandbook" />
 						</span>
-						
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchHandbook" value="#{genreCriterionBean.searchHandbook}" />
+							<h:outputLabel title="#{tip.adv_search_lblChkGenre_handbook}" value="#{lbl.adv_search_lblChkGenre_handbook}" for="genreCriterionBean_searchHandbook" />
+						</span>
 						
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchOther" value="#{genreCriterionBean.searchOther}" />
@@ -321,6 +324,10 @@
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchContributionToHandbookMultiple" value="#{genreCriterionBean.searchContributionToHandbook}" />
 							<h:outputLabel title="#{tip.adv_search_lblChkGenre_contrhandbook}" value="#{lbl.adv_search_lblChkGenre_contrhandbook}" for="genreCriterionBean_searchContributionToHandbook" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchHandbookMultiple" value="#{genreCriterionBean.searchHandbook}" />
+							<h:outputLabel title="#{tip.adv_search_lblChkGenre_handbook}" value="#{lbl.adv_search_lblChkGenre_handbook}" for="genreCriterionBean_searchHandbook" />
 						</span>
 						
 						<span class="large_checkbox tiny_marginRIncl">
