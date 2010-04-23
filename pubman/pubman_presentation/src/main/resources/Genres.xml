@@ -12,24 +12,24 @@
 						      <group id="item_language" repeatable="false" display="true" optional="true" form-id="all" label="g_item_language">
 							      <group id="item_toc" repeatable="false" display="true" optional="true" form-id="all" label="g_item_toc">
 								      
-								      Probably this change will have no efect, as single field groups in genre specific configurations are only listed when they are not to be displayed. 
+								      Probably this change will have no effect, as single field groups in genre specific configurations are only listed when they are not to be displayed. 
 								      
 								      4.  on purpose left language of publication in full submission displayed in genre courseware_lecture , TODO: check with SvM
 								      
 								      5. Language is always present in full submission
 								      
-								      6. Genre POSTER added, not in sync with Colab spec for identifiers, as probably Colab spec is not complete (added identifier fieldsin FS)
+								      6. Genre POSTER added, not in sync with Colab spec for identifiers, as probably Colab spec is not complete (added identifier fields in FS)
 								      
 								      7. General Rule: In ES alternative title of basic item metadata is many times not allowed. 
 								      As it is anyway optional display (add "+" sign and is part of the basic component)  it is not considered in the configuration at all.
 								      
 								      8. THIS CONFIGURATION DOES NOT YET DEAL WITH GENRE SPECIFIC LABELS
-								      SYNTAX FOR FIELDS IS. lowercase genre id _ standard label
-								      SYNTAX FOR GROUPS IS lowercase g_lowercase genreid_standard label
+								      SYNTAX FOR FIELDS IS. lower-case genre id _ standard label
+								      SYNTAX FOR GROUPS IS lower-case g_lowercase genreid_standard label
 								      
 								      9. DEFAULT 	setting and assumption is that default configuration is default for all forms and genres
 								      IN FUTURE RELEASES WE CAN CHECK IF DEFAULT CONFIGURATION CAN BE FORM-TYPE-SPECIFIC and can contain different default 
-								      settings for specificaly both easy and full submission 
+								      settings for specifically both easy and full submission 
 								      
 								      10. LOGIC for setting of OPTIONAL:
 								      *if the group-level setting optional='true' and the field-level setting optional='false': the group is optional, but when any of the group metadata is created, all fields that are marked with optional="false" must have a value provided (example: see group "sources" or "events",  "item_identifiers", "source_identifiers")
@@ -150,11 +150,12 @@
 				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="all">
 					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre" class-attribute="metadata.sources.genre"/>
 					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title" class-attribute="metadata.sources.title"/>
-					<group id="source_title_alternative" repeatable="true" display="true" optional="true" label="source_title_alternative" class-attribute="metadata.sources.alternativeTitles" form-id="all">
+					<group id="source_title_alternative" repeatable="true" display="true" optional="true" label="source_title_alternative" class-attribute="metadata.sources.alternativeTitles" form-id="full-submission">
 						<field id="source_title_alternative_type" repeatable="false" display="true" optional="false" label="source_title_alternative_type" class-attribute="metadata.sources.alternativeTitles.type"/>
 						<field id="source_title_alternative_value" repeatable="false" display="true" optional="false" label="source_title_alternative_value" class-attribute="metadata.sources.alternativeTitles.value"/>
 					</group>
 				</group>
+					
 				<group id="source_person_organization" repeatable="true" display="true" optional="true" label="g_source_person_organization" form-id="all" class-attribute="metadata.sources.creators">
 					<group id="select_roles" repeatable="false" display="true" optional="true" label="g_select_roles" form-id="all" class-attribute="metadata.sources.creators.role">
 						<field id="creator_type" repeatable="false" display="true" optional="true" default-value="author" label="creator_type" class-attribute="metadata.sources.creators.type"/>
@@ -211,16 +212,6 @@
 			</group>
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all" label="g_events"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
-				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="full-submission">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre"/>
-					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title"/>
-					<field id="source_title_alternative" repeatable="true" display="true" optional="true" label="source_title_alternative"/>
-				</group>
-				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre"/>
-					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title"/>
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
-				</group>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="true" label="g_source_publishing_info" optional="true" form-id="full-submission">
@@ -286,7 +277,7 @@
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all" label="g_events"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
 				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
+					<group id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
 				</group>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
 				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
@@ -351,7 +342,7 @@
 			</group>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
 				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
+					<group id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
 				</group>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
@@ -640,7 +631,7 @@
 				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
 					<field id="source_genre" repeatable="false" display="true" optional="true" label="source_genre" class-attribute="metadata.sources.genre"/>
 					<field id="source_title" repeatable="false" display="true" optional="true" label="source_title" class-attribute="metadata.sources.title"/>
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
+					<group id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
 				</group>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
@@ -756,16 +747,6 @@
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all" label="g_events"/>
 			<group id="legal_case" repeatable="false" display="true" optional="true" form-id="all" label="g_legal_case"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
-				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="full-submission">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre"/>
-					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title"/>
-					<field id="source_title_alternative" repeatable="true" display="true" optional="true" label="source_title_alternative"/>
-				</group>
-				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre"/>
-					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title"/>
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
-				</group>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="true" label="g_source_publishing_info" optional="true" form-id="full-submission">
@@ -796,16 +777,6 @@
 			</group>
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all" label="g_events"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
-				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="full-submission">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre"/>
-					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title"/>
-					<field id="source_title_alternative" repeatable="true" display="true" optional="true" label="source_title_alternative"/>
-				</group>
-				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre"/>
-					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title"/>
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
-				</group>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="true" label="g_source_publishing_info" optional="true" form-id="full-submission">
@@ -837,14 +808,7 @@
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all" label="g_events"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
 				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="full-submission">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre"/>
-					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title"/>
-					<field id="source_title_alternative" repeatable="true" display="true" optional="true" label="source_title_alternative"/>
-				</group>
-				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre"/>
-					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title"/>
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
+					<group id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
 				</group>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="all"/>
@@ -873,16 +837,6 @@
 			</group>
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all" label="g_events"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
-				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="full-submission">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre"/>
-					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title"/>
-					<field id="source_title_alternative" repeatable="true" display="true" optional="true" label="source_title_alternative"/>
-				</group>
-				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre"/>
-					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title"/>
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
-				</group>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="true" label="g_source_publishing_info" optional="true" form-id="full-submission">
@@ -913,16 +867,6 @@
 			</group>
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all" label="g_events"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
-				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="full-submission">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre"/>
-					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title"/>
-					<field id="source_title_alternative" repeatable="true" display="true" optional="true" label="source_title_alternative"/>
-				</group>
-				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre"/>
-					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title"/>
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
-				</group>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="true" label="g_source_publishing_info" optional="true" form-id="full-submission">
@@ -1108,7 +1052,7 @@
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all" label="g_events"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
 				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="all">
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative" form-id="easy-submission"/>
+					<group id="source_title_alternative" repeatable="false" display="true" optional="true" label="source_title_alternative" class-attribute="metadata.sources.alternativeTitles" form-id="full-submission"/>
 				</group>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="true" label="g_source_publishing_info" optional="true" form-id="easy-submission">
@@ -1140,8 +1084,7 @@
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all" label="g_events"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
 				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="all">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre" />
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative" form-id="easy-submission"/>
+					<group id="source_title_alternative" repeatable="false" display="true" optional="true" label="source_title_alternative" class-attribute="metadata.sources.alternativeTitles" form-id="full-submission"/>
 				</group>
 				<group id="source_person_organization" repeatable="true" display="true" optional="true" label="g_source_person_organization" form-id="full-submission"/>
 				
@@ -1174,8 +1117,7 @@
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all" label="g_events"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
 				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="all">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre" />
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative" form-id="easy-submission"/>
+					<group id="source_title_alternative" repeatable="false" display="true" optional="true" label="source_title_alternative" class-attribute="metadata.sources.alternativeTitles" form-id="full-submission"/>
 				</group>
 				<group id="source_person_organization" repeatable="true" display="true" optional="true" label="g_source_person_organization" form-id="full-submission"/>
 				
@@ -1208,8 +1150,7 @@
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all" label="g_events"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
 				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="all">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre" />
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative" form-id="easy-submission"/>
+					<group id="source_title_alternative" repeatable="false" display="true" optional="true" label="source_title_alternative" class-attribute="metadata.sources.alternativeTitles" form-id="full-submission"/>
 				</group>
 				<group id="source_person_organization" repeatable="true" display="true" optional="true" label="g_source_person_organization" form-id="full-submission"/>
 				
@@ -1242,8 +1183,7 @@
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all" label="g_events"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
 				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="all">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre" />
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative" form-id="easy-submission"/>
+					<group id="source_title_alternative" repeatable="false" display="true" optional="true" label="source_title_alternative" class-attribute="metadata.sources.alternativeTitles" form-id="full-submission"/>
 				</group>
 				<group id="source_person_organization" repeatable="true" display="true" optional="true" label="g_source_person_organization" form-id="full-submission"/>
 				
@@ -1274,16 +1214,6 @@
 			</group>
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all" label="g_events"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
-				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="full-submission">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre"/>
-					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title"/>
-					<field id="source_title_alternative" repeatable="true" display="true" optional="true" label="source_title_alternative"/>
-				</group>
-				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
-					<field id="source_genre" repeatable="false" display="true" optional="false" label="source_genre"/>
-					<field id="source_title" repeatable="false" display="true" optional="false" label="source_title"/>
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
-				</group>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="true" label="g_source_publishing_info" optional="true" form-id="full-submission">
