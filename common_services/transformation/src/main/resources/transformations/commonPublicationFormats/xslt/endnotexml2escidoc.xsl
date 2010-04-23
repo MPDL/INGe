@@ -244,11 +244,11 @@
 				|
 				Q
 				|
-				EXCLAMATION[.!=T]
+				EXCLAMATION[../T!=.]
 				|
 				S[$refType = ('Generic')]
 				| 
-				STAR[$refType = ('Generic', 'Book Section', 'Journal Article', 'Newspaper Article')]
+				STAR[$refType = ('Generic', 'Book Section', 'Journal Article', 'Magazine Article', 'Newspaper Article')]
 				">
 				<xsl:element name="dcterms:alternative">
 					<xsl:value-of select="if (name(.)='STAR') then concat('Review of: ', .) else ."/>
@@ -264,9 +264,13 @@
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
-			<xsl:for-each select="M and (substring(., 1, 4) = ('ISI:', 'WOS:')) ">
+			<xsl:for-each select="M">
 				<xsl:element name="dc:identifier">
-					<xsl:attribute name="xsi:type">eterms:ISI</xsl:attribute>
+					<xsl:attribute name="xsi:type" select="
+						if (substring(., 1, 4) = 'ISI:') then 'eterms:ISI' 
+						else if (substring(., 1, 4) = 'WOS:') then 'eterms:WOS'
+						else  'eterms:OTHER'
+					"/>
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
@@ -392,7 +396,7 @@
 			
 			
 			<!-- TOTAL NUMBER OF PAGES -->
-			<xsl:if test="P and $refType = ('Book', 'Edited Book', 'Electronic Book', 'Thesis', 'Generic', 'Conference Proceeding', 'Manuscript', 'Report')">
+			<xsl:if test="P and $refType = ('Book', 'Edited Book', 'Electronic Book', 'Thesis', 'Generic', 'Conference Proceedings', 'Manuscript', 'Report')">
 				<xsl:element name="eterms:total-number-of-pages">
 					<xsl:value-of select="P"/>
 				</xsl:element>
@@ -454,9 +458,14 @@
 			
 			
 			<!-- tableOfContents-->
-			<xsl:if test="ROUND_LEFT_BRACKET and $refType='Report'">
+<!--			<xsl:if test="ROUND_LEFT_BRACKET and $refType='Report'">-->
+<!--				<xsl:element name="dcterms:tableOfContents">-->
+<!--					<xsl:value-of select="ROUND_LEFT_BRACKET"/>-->
+<!--				</xsl:element>-->
+<!--			</xsl:if>-->
+			<xsl:if test="SLASH and $refType='Report'">
 				<xsl:element name="dcterms:tableOfContents">
-					<xsl:value-of select="ROUND_LEFT_BRACKET"/>
+					<xsl:value-of select="SLASH"/>
 				</xsl:element>
 			</xsl:if>
 			
@@ -503,14 +512,12 @@
 			<!-- SOURCE ALTTITLE -->
 			<xsl:for-each select="
 				J[
-					exists(B)
+					exists(../B)
 						and
 					$refType = ('Journal Article', 'Magazine Article') 
 				]
 				|
 				O[
-					exists(B)
-						and
 					$refType = ('Journal Article', 'Magazine Article')				
 				]
 				">
@@ -578,8 +585,8 @@
 			</xsl:if>
 
 			
-			<!-- SOURCE ISSUE -->
-			<xsl:if test="N and $refType = ('Magazine Article')">
+			<!-- SOURCE ISSUE -->  
+			<xsl:if test="N and $refType = ('Magazine Article', 'Electronic Article', 'Journal Article')">
 				<xsl:element name="eterms:issue">
 					<xsl:value-of select="N"/>
 				</xsl:element>
@@ -613,14 +620,9 @@
 
 			
 			<!-- SOURCE SEQUENCE NUMBER -->
-			<xsl:if test="N and B and $refType = 'Report'">
+			<xsl:if test="N and B and $refType = ('Report', 'Manuscript')">
 				<xsl:element name="eterms:sequence-number">
 					<xsl:value-of select="N"/>
-				</xsl:element>
-			</xsl:if>
-			<xsl:if test="M and B and $refType = 'Manuscript'">
-				<xsl:element name="eterms:sequence-number">
-					<xsl:value-of select="M"/>
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="AMPERSAND and $refType = 'Book Section'">
@@ -632,7 +634,7 @@
 					
 			<!-- SOURCE PUBLISHINGINFO -->
 			<xsl:variable name="publisher" select="
-				if (I and $refType = ('Book Section', 'Conference Paper', 'Electronic Article', 'Magazine Article', 'Newspaper Article')) then I else ''
+				if (I and $refType = ('Book Section', 'Conference Paper', 'Electronic Article', 'Magazine Article', 'Newspaper Article', 'Journal Article')) then I else ''
 			"/>
 			<xsl:if test="$publisher!=''">
 				<xsl:element name="eterms:publishing-info">
@@ -943,22 +945,7 @@
 				<xsl:when test="matches($d,'^\w{3,}\s+\d{1,2}\s*,\s*\d{4}$')">
 					<xsl:analyze-string regex="(\w{{3,}})\s+(\d{{1,2}})\s*,\s*(\d{{4}})" select="$d">
 						<xsl:matching-substring>
-							<xsl:variable name="m" select="lower-case(substring(regex-group(1),1,3))"/>
-							<xsl:variable name="m" select="
-							  	if ($m='jan') then '01' else
-							  	if ($m='feb') then '02' else
-							  	if ($m='mar') then '03' else
-							  	if ($m='apr') then '04' else
-							  	if ($m='may') then '05' else
-							  	if ($m='jun') then '06' else
-							  	if ($m='jul') then '07' else
-							  	if ($m='aug') then '08' else
-							  	if ($m='sep') then '09' else
-							  	if ($m='oct') then '10' else
-							  	if ($m='nov') then '11' else
-							  	if ($m='dec') then '12' else
-								''
-							"/>
+							<xsl:variable name="m" select="escidoc:getMonthNum(regex-group(1))"/>
 							<xsl:copy-of select="
 								if ($m!='') then 
 								(
@@ -972,16 +959,55 @@
 						</xsl:matching-substring>
 					</xsl:analyze-string>
 				</xsl:when>
+				<xsl:when test="matches($d,'^\w{3,}\s+\d{4}$')">
+					<xsl:analyze-string regex="(\w{{3,}})\s+(\d{{4}})" select="$d">
+						<xsl:matching-substring>
+							<xsl:variable name="m" select="escidoc:getMonthNum(regex-group(1))"/>
+							<xsl:copy-of select="
+								if ($m!='') then 
+								(
+									regex-group(2),
+									$m
+								)
+								else ()	 
+							"/>
+							
+						</xsl:matching-substring>
+					</xsl:analyze-string>
+				</xsl:when>
 				<xsl:otherwise>
 					<xsl:copy-of select="()"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
 		
+<!--		<xsl:message select="-->
+<!--			concat('I am here, inp:', $d, ', out:', if (exists($nd)) then string-join( $nd[.!=''], '-' ) else '' )-->
+<!--		"/>-->
 		<xsl:value-of select="
 			if (exists($nd)) then string-join( $nd[.!=''], '-' ) else ''
 		"/>
 
+	</xsl:function>
+
+	<xsl:function name="escidoc:getMonthNum">
+		<xsl:param name="m" />
+		<xsl:variable name="m" select="lower-case(substring($m, 1, 3))"/>
+		<xsl:value-of select="
+		  	if ($m='jan') then '01' else
+		  	if ($m='feb') then '02' else
+		  	if ($m='mar') then '03' else
+		  	if ($m='apr') then '04' else
+		  	if ($m='may') then '05' else
+		  	if ($m='jun') then '06' else
+		  	if ($m='jul') then '07' else
+		  	if ($m='aug') then '08' else
+		  	if ($m='sep') then '09' else
+		  	if ($m='oct') then '10' else
+		  	if ($m='nov') then '11' else
+		  	if ($m='dec') then '12' else
+			''
+		" />
 	</xsl:function>
 	
 	<xsl:function name="escidoc:add0">
