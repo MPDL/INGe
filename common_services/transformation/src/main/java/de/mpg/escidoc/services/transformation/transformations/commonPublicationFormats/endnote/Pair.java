@@ -34,6 +34,7 @@ public class Pair{
 	    		put("%L", "L");  
 	    		put("%M", "M");  
 	    		put("%N", "N");  
+	    		put("%O", "O");  
 	    		put("%P", "P");  
 	    		put("%Q", "Q");  
 	    		put("%R", "R");  
@@ -63,6 +64,7 @@ public class Pair{
 	    		put("%&", "AMPERSAND");  
 	    		put("%(", "ROUND_LEFT_BRACKET");  
 	    		put("%)", "ROUND_RIGHT_BRACKET");  
+	    		put("%/", "SLASH");  
 	    		put("%*", "STAR");  
 	    		put("%+", "PLUS");  
 	    		put("%^", "CARET");  
