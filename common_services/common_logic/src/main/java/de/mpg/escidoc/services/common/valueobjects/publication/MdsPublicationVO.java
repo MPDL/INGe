@@ -163,9 +163,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
         HANDBOOK("http://purl.org/escidoc/metadata/ves/publication-types/handbook"),
         COLLECTED_EDITION("http://purl.org/escidoc/metadata/ves/publication-types/collected-edition"),
         FESTSCHRIFT("http://purl.org/escidoc/metadata/ves/publication-types/festschrift"),
-        WORKING_PAPER("http://purl.org/escidoc/metadata/ves/publication-types/working-paper"),
-        MANUAL("http://purl.org/escidoc/metadata/ves/publication-types/manual"),
-        WEB_PAGE("http://purl.org/escidoc/metadata/ves/publication-types/webpage");
+        MANUAL("http://purl.org/escidoc/metadata/ves/publication-types/manual");
         
         
         private String uri;
