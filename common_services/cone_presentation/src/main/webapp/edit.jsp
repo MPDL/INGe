@@ -69,7 +69,7 @@
     
 	    for (Predicate predicate : predicates)
 	    {
-	        out.append("\n<span class=\"full_area0 endline itemLine noTopBorder\">");
+	        out.append("\n<span class=\"free_area0 endline itemLine noTopBorder\">");
 	        
 				out.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
 	        		if (predicate.isMandatory())
@@ -78,7 +78,7 @@
 	        		}
 	        		out.append(predicate.getName()+"<span class=\"noDisplay\">: </span>");
 	        	out.append("</b>");
-	        	out.append("\n<span class=\"xDouble_area0 endline\" style=\"overflow: visible;\">");
+	        	out.append("\n<span class=\"xHuge_area0 singleItem endline\" style=\"overflow: visible;\">");
 
 	        	if (model != null && predicate.getId().equals(model.getIdentifier()))
 	        	{
@@ -113,7 +113,7 @@
 	    		        int counter = 0;
 	        		    for (LocalizedTripleObject object : results.get(predicate.getId()))
 	            		{
-			                out.append("\n<span class=\"xDouble_area0 singleItem endline\">");
+			                out.append("\n<span class=\"xHuge_area0 singleItem endline\" style=\"overflow: visible;\">");
 			                	if (predicate.isModify())
 			                	{
 				                	out.append("\n<input type=\"");
@@ -169,7 +169,7 @@
 			                
 				                	if (predicate.isMultiple())
 				    		        {
-			    			            out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
+			    			            out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add \" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
 		    			    	        if (predicate.isGenerateObject())
 		    		    	    	    {
 		    	    	    	    	    out.append(", true");
@@ -207,7 +207,7 @@
 	                
 				        	        if (results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())))
 				            	    {
-					            	    out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove\" value=\" \" onclick=\"remove(this)\"/>");
+					            	    out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove \" value=\" \" onclick=\"remove(this)\"/>");
 		        		        	}
 			                	}
 			                	else
@@ -238,9 +238,10 @@
 	                
 			                if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
 			                {
+	        		            out.append("<br/>");
 	    		                out.append("\n<span class=\"free_area0 large_negMarginLExcl\">");
 	        		            out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":" + counter + ":",((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()));
-	            		        out.append("</span>");
+	        		            out.append("</span>");
 	            	    	}
 			                
 		            	    out.append("</span>");
