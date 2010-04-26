@@ -562,7 +562,8 @@ public class SQLQuerier implements Querier
             {
                 if (predicate.getId().equals(predicateValue))
                 {
-                	if(!predicate.isRestricted() || loggedIn){
+                	if (!predicate.isRestricted() || loggedIn)
+                	{
 	                    if (predicate.isResource() && !(idStack.contains(object)))
 	                    {
 	                        idStack.push(object);
@@ -580,6 +581,23 @@ public class SQLQuerier implements Querier
 	                        localizedTripleObject = new LocalizedString(object, lang);
 	                    }
 	                    found = true;
+	                    
+	                    if (resultMap.containsKey(predicateValue))
+	                    {
+	                        resultMap.get(predicateValue).add(localizedTripleObject);
+	                    }
+	                    else
+	                    {
+	                        ArrayList<LocalizedTripleObject> newEntry = new ArrayList<LocalizedTripleObject>();
+	                        newEntry.add(localizedTripleObject);
+	                        resultMap.put(predicateValue, newEntry);
+	                    }
+	                    
+	                    break;
+                	}
+                	else
+                	{
+                		found = true;
 	                    break;
                 	}
                 }
@@ -588,19 +606,6 @@ public class SQLQuerier implements Querier
             {
                 logger.error("Predicate '" + predicateValue + "' (subject = '" + id + "') not found in model '" + modelName + "'");
                 //throw new RuntimeException("Predicate '" + predicateValue + "' not found in model.");
-            }
-            else
-            {
-                if (resultMap.containsKey(predicateValue))
-                {
-                    resultMap.get(predicateValue).add(localizedTripleObject);
-                }
-                else
-                {
-                    ArrayList<LocalizedTripleObject> newEntry = new ArrayList<LocalizedTripleObject>();
-                    newEntry.add(localizedTripleObject);
-                    resultMap.put(predicateValue, newEntry);
-                }
             }
         }
         

@@ -40,69 +40,20 @@
 <%@ page import="de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean" %>
 <%@ page import="java.util.List" %>
 <%@ page import="de.mpg.escidoc.services.common.valueobjects.GrantVO" %>
+<%@ page import="de.mpg.escidoc.services.cone.web.Login"%>
 
 <%
-	XmlTransforming xmlTransforming = new XmlTransformingBean();
-	boolean showWarning = false;
+	
 	if(request.getSession().getAttribute("logged_in") == null){request.getSession().setAttribute("logged_in", Boolean.FALSE);}
+	
+	boolean showWarning = false;
 	
 	if (request.getParameter("eSciDocUserHandle") != null)
 	{
-	    String userHandle = new String(Base64.decode(request.getParameter("eSciDocUserHandle")), "UTF-8");
-	    UserAccountHandler userAccountHandler = ServiceLocator.getUserAccountHandler(userHandle);
-	    String xmlUser = ServiceLocator.getUserAccountHandler(userHandle).retrieve(userHandle);
-	    
-	    AccountUserVO accountUser = xmlTransforming.transformToAccountUser(xmlUser);
-	    // add the user handle to the transformed account user
-	    accountUser.setHandle(userHandle);
-	    request.getSession().setAttribute("user_handle_exist",Boolean.TRUE);
-	    String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(accountUser.getReference().getObjectId());
-	    List<GrantVO> grants = xmlTransforming.transformToGrantVOList(userGrantXML);
-	    
-	    request.getSession().setAttribute("logged_in", Boolean.TRUE);
-        showWarning = true;
-        
-	    for (GrantVO grant : grants)
-	    {
-	        accountUser.getGrants().add(grant);
-	        if ("escidoc:role-system-administrator".equals(grant.getRole()))
-	        {
-	            request.getSession().setAttribute("user", accountUser);
-	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
-	    		request.getSession().setAttribute("edit_open_vocabulary", Boolean.TRUE);
-	    		request.getSession().setAttribute("edit_closed_vocabulary", Boolean.TRUE);
-	    		showWarning = false;
-	    		break;
-	        }
-	        if ("escidoc:role-cone-editor".equals(grant.getRole()))
-	        {
-	        	request.getSession().setAttribute("user", accountUser);
-	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
-	    		request.getSession().setAttribute("edit_open_vocabulary", Boolean.TRUE);
-	    		request.getSession().setAttribute("edit_closed_vocabulary", Boolean.TRUE);
-	        	showWarning = false;
-	        	break;
-	        }
-	        if ("escidoc:role-cone-open-vocabulary-editor".equals(grant.getRole()))
-	        {
-	        	request.getSession().setAttribute("user", accountUser);
-	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
-	    		request.getSession().setAttribute("edit_open_vocabulary", Boolean.TRUE);	    		
-	        	showWarning = false;
-	        	break;
-	        }
-	        if ("escidoc:role-cone-closed-vocabulary-editor".equals(grant.getRole()))
-	        {
-	        	request.getSession().setAttribute("user", accountUser);
-	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
-	    		request.getSession().setAttribute("edit_closed_vocabulary", Boolean.TRUE);	    		
-	        	showWarning = false;
-	        	break;
-	        }
-	    }
-	}else{
+	    showWarning = Login.checkLogin(request, request.getParameter("eSciDocUserHandle"), true);
 	}
 %>
+
 <div class="full_area0 header clear">
 <!-- start: header section -->
 	<span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu">
@@ -124,7 +75,7 @@
 				<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
 					<a class="medium_area0_p8 endline" href="logout.jsp?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Logout</a>
 				<% } else { %>
-					<a class="medium_area0_p8 endline" href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") %>/aa/login?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Login</a>
+					<a class="medium_area0_p8 endline" href="<%= PropertyReader.getProperty("escidoc.framework_access.login.url") %>/aa/login?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Login</a>
 				<% } %>
 				<span class="seperator"></span>
 		

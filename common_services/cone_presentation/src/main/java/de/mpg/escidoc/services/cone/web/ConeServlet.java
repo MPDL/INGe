@@ -64,6 +64,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +74,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.apache.log4j.lf5.util.ResourceUtils;
 
@@ -85,6 +87,7 @@ import de.mpg.escidoc.services.cone.formatter.Formatter;
 import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Servlet to answer calls from various calls.
@@ -115,10 +118,14 @@ public class ConeServlet extends HttpServlet
         
         PrintWriter out = response.getWriter();
         
-//        System.out.println("request.getPathInfo() " + request.getPathInfo());
-//        System.out.println("getPathTranslated() " + request.getPathTranslated());
-//        System.out.println("getRequestURI() " + request.getRequestURI());
-//        System.out.println("getServletPath() " + request.getServletPath());
+        System.out.println("request.getPathInfo() " + request.getPathInfo());
+        System.out.println("getPathTranslated() " + request.getPathTranslated());
+        System.out.println("getRequestURI() " + request.getRequestURI());
+        System.out.println("getServletPath() " + request.getServletPath());
+        System.out.println("getLocalAddr() " + request.getLocalAddr());
+        System.out.println("getLocalName() " + request.getLocalName());
+        System.out.println("getLocalPort() " + request.getLocalPort());
+        System.out.println("getLocalPort() " + request.getLocalPort());
         
         // Read the model name and action from the URL
         String[] path = request.getServletPath().split("/", 4);
@@ -131,6 +138,31 @@ public class ConeServlet extends HttpServlet
         if (request.getSession().getAttribute("logged_in") != null)
         {
             loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
+        }
+        String userHandle = request.getParameter("eSciDocUserHandle");
+        if (!loggedIn && userHandle != null)
+        {
+        	try
+        	{
+        		userHandle = new String(Base64.decodeBase64(userHandle.getBytes()), "UTF-8");
+        		loggedIn = Login.checkLogin(request, userHandle, false);
+        	}
+        	catch (Exception e)
+        	{
+				logger.error("Error decoding user handle", e);
+			}
+        	
+        }
+        else if (!loggedIn && "true".equals(request.getParameter("l")))
+        {
+        	try
+        	{
+        		response.sendRedirect(PropertyReader.getProperty("escidoc.framework_access.login.url") + "/aa/login?target=" + URLEncoder.encode(PropertyReader.getProperty("escidoc.cone.service.url") + request.getServletPath() + "?" + request.getQueryString(), "ASCII"));
+        	}
+        	catch (Exception e)
+        	{
+				throw new ServletException("Error redirecting to Login", e);
+			}
         }
         
         if (path.length == 3 && "".equals(path[2]))
