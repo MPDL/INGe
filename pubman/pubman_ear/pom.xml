@@ -497,7 +497,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>cone_presentation</artifactId>
-            <version>1.1.6</version>
+            <version>1.1.7-SNAPSHOT</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
