@@ -103,6 +103,28 @@ public class OrganizationSuggest extends FacesBean
         		{
         			OrganizationVOPresentation organizationVOPresentation = new OrganizationVOPresentation();
             		organizationVOPresentation.setIdentifier(affiliationVO.getReference().getObjectId());
+            		
+            		String city = affiliationVO.getDefaultMetadata().getCity();
+            		String countryCode = affiliationVO.getDefaultMetadata().getCountryCode();
+            		
+            		String address = "";
+            		if (city != null)
+            		{
+            			address += city;
+            		}
+            		if (city != null && countryCode != null)
+            		{
+            			address += ", ";
+            		}
+            		if (countryCode != null)
+            		{
+            			address += countryCode;
+            		}
+            		
+            		// TODO: remove this if address is wanted
+            		//address = "";
+            		
+            		organizationVOPresentation.setAddress(address);
             		String name = "";
             		for (AffiliationVO affVO : path)
             		{

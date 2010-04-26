@@ -230,7 +230,7 @@
 		var orgIdString = (orgId == null ? '' : orgId);
 		
 		
-		$.each($input.parents('.itemBlockContent').find('.organizationName'),
+		$.each($input.parents('.itemBlockContent').find('.personOrganizations').find('.organizationName'),
 			function ()
 			{
 				var otherOrgName = $(this).val();

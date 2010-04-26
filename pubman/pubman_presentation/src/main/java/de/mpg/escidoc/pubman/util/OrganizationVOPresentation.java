@@ -129,4 +129,20 @@ public class OrganizationVOPresentation extends OrganizationVO
     {
     	return (this.equals(list.get(list.size() - 1)));
     }
+    
+    public boolean isEmpty()
+    {
+    	if (this.getAddress() != null && !"".equals(this.getAddress()))
+    	{
+    		return false;
+    	}
+    	else if (this.getName() != null && this.getName().getValue() != null && !"".equals(this.getName().getValue()))
+    	{
+    		return false;
+    	}
+    	else
+    	{
+    		return true;
+    	}
+    }
 }

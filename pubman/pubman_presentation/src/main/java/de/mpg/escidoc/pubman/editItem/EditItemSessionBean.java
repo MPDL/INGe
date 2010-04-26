@@ -253,14 +253,17 @@ public class EditItemSessionBean extends FacesBean
                     if (!creatorOrganizations.contains(organization))
                     {
                         OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation(organization);
-                        organizationPresentation.setNumber(counter);
-                        organizationPresentation.setList(creatorOrganizations);
-                        if (organizationPresentation.getName() ==  null)
+                        if (!organizationPresentation.isEmpty() || (creatorOrganizations.isEmpty() && creator == pubItem.getMetadata().getCreators().get(pubItem.getMetadata().getCreators().size() - 1)))
                         {
-                            organizationPresentation.setName(new TextVO());
+	                        organizationPresentation.setNumber(counter);
+	                        organizationPresentation.setList(creatorOrganizations);
+	                        if (organizationPresentation.getName() ==  null)
+	                        {
+	                            organizationPresentation.setName(new TextVO());
+	                        }
+	                        creatorOrganizations.add(organizationPresentation);
+	                        counter++;
                         }
-                        creatorOrganizations.add(organizationPresentation);
-                        counter++;
                     }
                 }
             }

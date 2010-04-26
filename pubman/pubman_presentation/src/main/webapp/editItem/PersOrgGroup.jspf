@@ -114,7 +114,7 @@
 				<span class="seperator"></span>
 				<h:outputText styleClass="medium_area0" value="#{lbl.organizationNumbers}" rendered="#{!(genre.creator_person_organization_creator_organizations_display == 'false' && genre.creator_person_organization_creator_organizations_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_display == 'false' && genre.creator_person_organization_creator_organizations_form_id == 'all')}"/>
 				<span class="seperator"></span>
-				<h:outputText styleClass="medium_area0" value="#{lbl.EditItem_btAdd}"/>
+				<h:outputText styleClass="medium_area0" value="#{lbl.EditItem_lblAddRemove}"/>
 			</h:panelGroup>
 
 			<tr:iterator id="iterCreatorOrganisationAuthors" var="creatorBean" value="#{EditItem.creatorCollection.creatorManager.objectDM}" rows="0">
@@ -145,8 +145,8 @@
 						<h:panelGroup rendered="#{creatorBean.identifierValue == null}" styleClass="xSmall_area0 authorLink">&nbsp;</h:panelGroup>
 						<span class="seperator"></span>
 						<h:panelGroup styleClass="medium_area0">
-							<tr:commandButton id="btnRemoveCreator" shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn sectionTool remove" disabled="#{EditItem.creatorCollection.creatorManager.size == 1}" action="#{EditItem.creatorCollection.creatorManager.removeObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
-							<tr:commandButton id="btnAddCreator" shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn sectionTool add" action="#{EditItem.creatorCollection.creatorManager.addObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
+							<tr:commandButton id="btnAddCreator" shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn groupTool add" action="#{EditItem.creatorCollection.creatorManager.addObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
+							<tr:commandButton id="btnRemoveCreator" shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn groupTool remove" disabled="#{EditItem.creatorCollection.creatorManager.size == 1}" action="#{EditItem.creatorCollection.creatorManager.removeObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
 						</h:panelGroup>
 					</h:panelGroup>
 					
@@ -169,8 +169,8 @@
 						<h:panelGroup rendered="#{creatorBean.creator.organization.identifier == null}" styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>
 						<span class="seperator"></span>
 						<h:panelGroup styleClass="medium_area0">
-							<tr:commandButton id="btnRemoveCreatorOrg" shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn sectionTool remove" disabled="#{EditItem.creatorCollection.creatorManager.size == 1}" action="#{EditItem.creatorCollection.creatorManager.removeObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
-							<tr:commandButton id="btnAddCreatorOrg" shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn sectionTool add" action="#{EditItem.creatorCollection.creatorManager.addObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
+							<tr:commandButton id="btnAddCreatorOrg" shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn groupTool add" action="#{EditItem.creatorCollection.creatorManager.addObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
+							<tr:commandButton id="btnRemoveCreatorOrg" shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn groupTool remove" disabled="#{EditItem.creatorCollection.creatorManager.size == 1}" action="#{EditItem.creatorCollection.creatorManager.removeObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
 						</h:panelGroup>
 					</h:panelGroup>
 
@@ -189,19 +189,21 @@
 				<span class="seperator"></span>
 				<h:outputText styleClass="huge_area0" value="#{lbl.EditItem_lblOrganizationAddress}"/>
 				<span class="seperator"></span>
-				<h:outputText styleClass="medium_area0" value="#{lbl.EditItem_btAdd}"/>
+				<h:outputText styleClass="medium_area0" value="#{lbl.EditItem_lblAddRemove}"/>
 			</h:panelGroup>
 
 			<tr:iterator id="iterCreatorOrganisation" var="organization" value="#{EditItemSessionBean.creatorOrganizations}" rows="0" rendered="#{!(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
-				<h:panelGroup layout="block" styleClass="suggestAnchor">
+				<h:panelGroup layout="block" styleClass="suggestAnchor personOrganizations">
 				
 					<span class="large_area0 clear">&nbsp;</span>
 					<h:outputText styleClass="small_area0" value="#{organization.number}"/>
 					<span class="seperator"></span>
-					<h:inputText id="inporganizations_organization_name" styleClass="xLarge_txtInput organizationSuggest organizationName" value="#{organization.name.value}"/>
+					<h:inputText id="inporganizations_organization_name" styleClass="large_txtInput organizationSuggest organizationName" value="#{organization.name.value}"/>
 					<h:inputText id="inporganizations_organization_identifier" styleClass="noDisplay organizationIdentifier" value="#{organization.identifier}"/>
 					<span class="seperator"></span>
 					<h:inputText id="inporganizations_organization_address" styleClass="huge_txtInput organizationAddress" value="#{organization.address}"/>
+					<h:outputLink styleClass="small_area0 ouCard ouLink" rendered="#{organization.identifier != null}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{organization.identifier}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
+					<h:panelGroup rendered="#{organization.identifier == null}" styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>					
 					<span class="seperator"></span>
 					<h:panelGroup styleClass="medium_area0">
 						<tr:commandButton id="btnAddCreatorPersonAffiliation" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addOrga}" action="#{organization.add}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
