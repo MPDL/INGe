@@ -118,14 +118,14 @@ public class ConeServlet extends HttpServlet
         
         PrintWriter out = response.getWriter();
         
-        System.out.println("request.getPathInfo() " + request.getPathInfo());
-        System.out.println("getPathTranslated() " + request.getPathTranslated());
-        System.out.println("getRequestURI() " + request.getRequestURI());
-        System.out.println("getServletPath() " + request.getServletPath());
-        System.out.println("getLocalAddr() " + request.getLocalAddr());
-        System.out.println("getLocalName() " + request.getLocalName());
-        System.out.println("getLocalPort() " + request.getLocalPort());
-        System.out.println("getLocalPort() " + request.getLocalPort());
+//        System.out.println("request.getPathInfo() " + request.getPathInfo());
+//        System.out.println("getPathTranslated() " + request.getPathTranslated());
+//        System.out.println("getRequestURI() " + request.getRequestURI());
+//        System.out.println("getServletPath() " + request.getServletPath());
+//        System.out.println("getLocalAddr() " + request.getLocalAddr());
+//        System.out.println("getLocalName() " + request.getLocalName());
+//        System.out.println("getLocalPort() " + request.getLocalPort());
+//        System.out.println("getLocalPort() " + request.getLocalPort());
         
         // Read the model name and action from the URL
         String[] path = request.getServletPath().split("/", 4);
