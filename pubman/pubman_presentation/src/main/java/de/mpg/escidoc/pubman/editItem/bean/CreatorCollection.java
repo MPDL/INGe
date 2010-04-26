@@ -104,14 +104,14 @@ public class CreatorCollection
             CreatorBean creatorBean = new CreatorBean(newVO);
             // we do not have direct access to the original list
             // so we have to add the new VO on our own
-            if (parentVO.size() > 0)
-            {
-                parentVO.add(i + 1, newVO);
-            }
-            else
-            {
+//            if (parentVO.size() > 0)
+//            {
+//                parentVO.add(i + 1, newVO);
+//            }
+//            else
+//            {
                 parentVO.add(newVO);
-            }
+//            }
             return creatorBean;
         }
         

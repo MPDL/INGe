@@ -659,7 +659,10 @@ public class EditItem extends FacesBean
         bindUploadedFilesAndLocators();
         
         // bind Organizations To Creators
-        bindOrganizationsToCreators();
+        if (!bindOrganizationsToCreators())
+        {
+        	return "";
+        }
         
         //  cleanup item according to genre specific MD specification
         GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(), GenreSecificItemManager.SUBMISSION_METHOD_FULL);
@@ -779,36 +782,59 @@ public class EditItem extends FacesBean
         }        
     }
 
-    private void bindOrganizationsToCreators()
+    public boolean bindOrganizationsToCreators()
     {
         for (CreatorBean creator : getCreatorCollection().getCreatorManager().getObjectList())
         {
-            if (creator.isPersonType())
+            if (!bindOrganizationsToCreator(creator))
             {
-                PersonVO person = creator.getCreator().getPerson();
-                List<OrganizationVO> personOrgs = person.getOrganizations();
-                personOrgs.clear();
-                String[] orgArr = creator.getOuNumbers().split(",");
-                try
-                {
-                    for (String org : orgArr)
-                    {
-                    	if (!"".equals(org))
-                    	{
-                    		int orgNr = Integer.parseInt(org);
-                    		personOrgs.add(getEditItemSessionBean().getCreatorOrganizations().get(orgNr - 1));
-                    	}
-                    }
-                }
-                catch (Exception e)
-                {
-                    logger.error("Error", e);
-                    error("XXX");
-                }
+            	return false;
             }
         }
-        
+        return true;
     }
+
+	/**
+	 * @param creator
+	 */
+	public boolean bindOrganizationsToCreator(CreatorBean creator)
+	{
+		if (creator.isPersonType())
+		{
+		    PersonVO person = creator.getCreator().getPerson();
+		    List<OrganizationVO> personOrgs = person.getOrganizations();
+		    personOrgs.clear();
+		    String[] orgArr = creator.getOuNumbers().split(",");
+		    try
+		    {
+		        for (String org : orgArr)
+		        {
+		        	if (!"".equals(org))
+		        	{
+		        		int orgNr = Integer.parseInt(org);
+		        		personOrgs.add(getEditItemSessionBean().getCreatorOrganizations().get(orgNr - 1));
+		        	}
+		        }
+		    }
+		    catch (NumberFormatException nfe)
+		    {
+		        error(getMessage("EntryIsNotANumber").replace("$1", creator.getOuNumbers()));
+		        return false;
+		    }
+		    catch (IndexOutOfBoundsException ioobe)
+		    {
+		    	error(getMessage("EntryIsNotInValidRange").replace("$1", creator.getOuNumbers()));
+		    	return false;
+		    }
+		    catch (Exception e)
+		    {
+		    	logger.error("Unexpected error evaluation creator organizations", e);
+		    	error(getMessage("ErrorInOrganizationAssignment").replace("$1", creator.getOuNumbers()));
+		    	return false;
+			}
+		}
+		return true;
+	}
 
     /**
      * Saves the item, even if there are informative validation messages.
@@ -2076,7 +2102,7 @@ public class EditItem extends FacesBean
      * @param overwrite Indicates if the already exisiting creators sshould be overwritten
      * @throws Exception
      */
-    public static void parseCreatorString(String creatorString, CreatorCollection creatorCollection, List<OrganizationVO> orgs, boolean overwrite) throws Exception
+    public void parseCreatorString(String creatorString, CreatorCollection creatorCollection, List<OrganizationVO> orgs, boolean overwrite) throws Exception
     {
         AuthorDecoder authDec = new AuthorDecoder(creatorString);
         List<Author> authorList = authDec.getBestAuthorList();
@@ -2123,23 +2149,28 @@ public class EditItem extends FacesBean
             creatorBean.getCreator().setRole(CreatorRole.AUTHOR);
             creatorBean.getCreator().setType(CreatorType.PERSON);
             
+            
             //set organization
             if (orgs != null && orgs.size() > 0)
             {
-                creatorBean.getPersonOrganisationManager().getObjectList().clear();
-               // creatorBean.getPersonOrganisationManager().getDataListFromVO().clear();
-                for (OrganizationVO orgVO : orgs)
-                {
-                    OrganizationVO newOrgVO = (OrganizationVO) orgVO.clone();
-                    creatorBean.getPersonOrganisationManager().getObjectList().add(newOrgVO);
-                    //creatorBean.getPersonOrganisationManager().getDataListFromVO().add(newOrgVO);
-                    
-                }
-                
+            	if (!(orgs.size() == 1 && (orgs.get(0).getName() == null || orgs.get(0).getName().getValue() == null || "".equals(orgs.get(0).getName().getValue()))
+            			&& (orgs.get(0).getAddress() == null || "".equals(orgs.get(0).getAddress()))))
+    			{
+	                creatorBean.getPersonOrganisationManager().getObjectList().clear();
+	               // creatorBean.getPersonOrganisationManager().getDataListFromVO().clear();
+	                for (OrganizationVO orgVO : orgs)
+	                {
+	                    OrganizationVO newOrgVO = (OrganizationVO) orgVO.clone();
+	                    creatorBean.getPersonOrganisationManager().getObjectList().add(newOrgVO);
+	                    //creatorBean.getPersonOrganisationManager().getDataListFromVO().add(newOrgVO);
+	                    
+	                }
+    			}
             }
             creatorManager.getObjectList().add(creatorBean);
         }
-           
+        EditItemSessionBean editItemSessionBean = getEditItemSessionBean();
+        editItemSessionBean.initOrganizationsFromCreators(getItem());
     }
     
     public String addCreatorString()
@@ -2151,7 +2182,7 @@ public class EditItem extends FacesBean
                 .getAuthorCopyPasteOrganizationsCreatorBean()
                 .getPersonOrganisationManager()
                 .getObjectList();
-            EditItem.parseCreatorString(
+            parseCreatorString(
                     eisb.getCreatorParseString(),
                     getCreatorCollection(),
                     orgs,
@@ -2235,7 +2266,7 @@ public class EditItem extends FacesBean
     public String changeGenre()
     {
       
-    	String newGenre = this.genreSelect.getSubmittedValue().toString();
+    	String newGenre = getItem().getMetadata().getGenre().name();
     	
     	Genre[] possibleGenres = MdsPublicationVO.Genre.values();
     	for(int i = 0; i < possibleGenres.length; i++)

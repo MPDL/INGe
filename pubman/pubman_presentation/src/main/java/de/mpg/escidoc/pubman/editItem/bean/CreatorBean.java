@@ -407,6 +407,8 @@ public class CreatorBean extends FacesBean
     public void setOuNumbers(String ouNumber)
     {
         this.ouNumber = ouNumber;
+        EditItem editItem = (EditItem) getRequestBean(EditItem.class);
+        editItem.bindOrganizationsToCreator(this);
     }
     
     public String getAutoPasteValue()

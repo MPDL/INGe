@@ -1406,11 +1406,12 @@ public class ItemControllerSessionBean extends FacesBean
             }
         }
         
-        
+        // TODO MF: Check specification for this behaviour: Always when an organization does not have an identifier, make it "external".
         // assign the external org id to default organisation
         try
         {
-            for (CreatorVO creator : pubItem.getMetadata().getCreators()) {
+            for (CreatorVO creator : pubItem.getMetadata().getCreators())
+            {
                 if (creator.getPerson() != null)
                 {
                     for (OrganizationVO organization : creator.getPerson().getOrganizations()) {

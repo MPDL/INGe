@@ -189,11 +189,13 @@ public class EditItemSessionBean extends FacesBean
 		this.files = files;
 	}
 
-	public List<PubFileVOPresentation> getLocators() {
+	public List<PubFileVOPresentation> getLocators()
+	{
 		return locators;
 	}
 
-	public void setLocators(List<PubFileVOPresentation> locators) {
+	public void setLocators(List<PubFileVOPresentation> locators)
+	{
 		this.locators = locators;
 	}
 
@@ -201,7 +203,8 @@ public class EditItemSessionBean extends FacesBean
 		return genreBundle;
 	}
 
-	public void setGenreBundle(String genreBundle) {
+	public void setGenreBundle(String genreBundle)
+	{
 		this.genreBundle = genreBundle;
 	}
 
@@ -252,17 +255,6 @@ public class EditItemSessionBean extends FacesBean
                         OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation(organization);
                         organizationPresentation.setNumber(counter);
                         organizationPresentation.setList(creatorOrganizations);
-                        if (organizationPresentation.getIdentifier() == null)
-                        {
-                            try
-                            {
-                                organizationPresentation.setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
-                            }
-                            catch (Exception e)
-                            {
-                                throw new RuntimeException("Property escidoc.pubman.external.organisation.id not found", e);
-                            }
-                        }
                         if (organizationPresentation.getName() ==  null)
                         {
                             organizationPresentation.setName(new TextVO());

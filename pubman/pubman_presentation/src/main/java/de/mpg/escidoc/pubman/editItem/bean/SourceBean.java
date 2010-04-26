@@ -342,7 +342,8 @@ public class SourceBean extends FacesBean
     {
         try
         {
-            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), null, getOverwriteCreators());
+        	EditItem editItem = (EditItem) getRequestBean(EditItem.class);
+        	editItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), null, getOverwriteCreators());
             setCreatorParseString("");
             return null;
         }

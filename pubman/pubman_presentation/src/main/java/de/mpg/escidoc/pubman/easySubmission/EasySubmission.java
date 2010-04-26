@@ -2395,7 +2395,8 @@ public class EasySubmission extends FacesBean
     {
         try
         {
-            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), getEasySubmissionSessionBean().getAuthorCopyPasteOrganizationsCreatorBean().getPersonOrganisationManager().getObjectList(), getOverwriteCreators());
+        	EditItem editItem = (EditItem) getRequestBean(EditItem.class);
+            editItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), getEasySubmissionSessionBean().getAuthorCopyPasteOrganizationsCreatorBean().getPersonOrganisationManager().getObjectList(), getOverwriteCreators());
             setCreatorParseString("");
             
             getEasySubmissionSessionBean().initAuthorCopyPasteCreatorBean();
