@@ -45,6 +45,7 @@ IGNORE_UNTRANSLATED = {
    /^ENUM_MIMETYPE_\w+$/ => nil,
    /^ENUM_LANGUAGE_[A-Z][A-Z]$/ => nil,
    "EditItem_NO_ITEM_SET" => "-",
+   "EditItem_lblDDCSubject" => "DDC",
    "Export_ExportFormat_AJP" => "AJP",
    "Export_ExportFormat_APA" => "APA",
    "Export_ExportFormat_BIBTEX" => "BibTeX",
@@ -83,6 +84,7 @@ IGNORE_UNTRANSLATED = {
    "EditItem_lblDimension" => "KB",
    "EditItem_lblURL" => "URL",
    "ViewItem_lblRelation1" => "Relation:",
+   "ViewItemFull_lblDDCSubject" => "DDC",
 }
 
 def parse_resource_file( filename )
