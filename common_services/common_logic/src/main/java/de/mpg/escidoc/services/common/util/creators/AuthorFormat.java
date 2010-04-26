@@ -296,6 +296,11 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
 
             logger.debug("Limit " + limit);
 
+            if (limit == -1)
+            {
+            	return null;
+            }
+            
             Author author = new Author();
             author.setInitial(authorString.substring(0, limit + 1));
             author.setSurname(authorString.substring(limit + 2));
