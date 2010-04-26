@@ -175,8 +175,8 @@
 									<h:outputLink id="lnkViewLocalTagsPage" styleClass="free_area0" value="#{ApplicationBean.appContext}ViewLocalTagsPage.jsp" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
 										<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
 									</h:outputLink>
-									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.hasAudience}"/>
-									<h:commandLink id="lnkManageAudience" styleClass="free_area0" action="#{AudienceBean.manageAudience}" rendered="#{ViewItemFull.hasAudience}">
+									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.hasAudience and !ViewItemFull.isStateWithdrawn}"/>
+									<h:commandLink id="lnkManageAudience" styleClass="free_area0" action="#{AudienceBean.manageAudience}" rendered="#{ViewItemFull.hasAudience and !ViewItemFull.isStateWithdrawn}">
 										<h:outputText value="#{lbl.AudiencePage}" />
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="false"/>
