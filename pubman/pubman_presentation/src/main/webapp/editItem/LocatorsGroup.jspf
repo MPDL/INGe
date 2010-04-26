@@ -63,7 +63,7 @@
 					<h:inputText id="inpMultiAddUrl" styleClass="quad_txtInput" value="#{locator.locator}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnMultiSaveUrl" styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSave}" shortDesc="#{tip.EditItem_lnkSave}" action="#{EditItem.saveLocator}" />
+					<tr:commandButton id="btnMultiSaveUrl" styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSaveURL}" shortDesc="#{tip.EditItem_lnkSave}" action="#{EditItem.saveLocator}" />
 				</span>
 			</h:panelGroup>
 
