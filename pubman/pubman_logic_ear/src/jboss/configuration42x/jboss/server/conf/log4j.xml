@@ -260,11 +260,11 @@
 	-->
 
 	<category name="de.mpg">
-		<priority value="DEBUG"/>
+		<priority value="INFO"/>
 	</category>
 
 	<category name="test">
-		<priority value="DEBUG"/>
+		<priority value="INFO"/>
 	</category>
 	
 	<!-- ======================= -->
