@@ -193,10 +193,11 @@ public class MainServlet extends HttpServlet
 			String cred = new String(Base64.decodeBase64(auth.getBytes()));
 			if (cred.contains(":"))
 			{
+
 				String[] userPass = cred.split(":");
 				String userName = PropertyReader.getProperty("escidoc.pidcache.user.name");
 				String password = PropertyReader.getProperty("escidoc.pidcache.user.password");
-				
+
 				if (!userPass[0].equals(userName) || !userPass[1].equals(password))
 				{
 					response.sendError(HttpServletResponse.SC_FORBIDDEN);

@@ -3,6 +3,8 @@ package test.pidcache;
 import static org.junit.Assert.*;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.naming.InitialContext;
 
@@ -78,6 +80,33 @@ public class PidCacheServiceTest
 		logger.info("TEST ASSIGN PID for url: " + testUrl);
 		PostMethod method = new PostMethod(CACHE_PIDSERVICE.concat(PIDSERVICE_CREATE));
 		method.setParameter("url", testUrl);
+		
+		// Basic authentication
+		int port = 80;
+		String domain;
+		Pattern pattern = Pattern.compile("[^:/]+:/*([^:/]+)(:(\\d+))?(/.*)?");
+		Matcher matcher = pattern.matcher(CACHE_PIDSERVICE);
+		if (matcher.find())
+		{
+			domain = matcher.group(1);
+			try
+			{
+				port = Integer.parseInt(matcher.group(3));
+			}
+			catch (NumberFormatException nfe)
+			{
+				port = 80;
+			}
+			logger.info("Pointing to '" + domain + "' at port " + port);
+		}
+		else
+		{
+			throw new RuntimeException("PID cache URL '" + CACHE_PIDSERVICE + "' not parsable.");
+		}
+
+		client.getState().setCredentials(new AuthScope(domain, port), new UsernamePasswordCredentials(PropertyReader.getProperty("escidoc.pidcache.user.name"), PropertyReader.getProperty("escidoc.pidcache.user.password")));
+		method.setDoAuthentication(true);
+		
     	client.executeMethod(method);
 		PidServiceResponseVO pidServiceResponseVO = xmlTransforming.transformToPidServiceResponse(method.getResponseBodyAsString());
 		assertNotNull(method.getResponseHeader("Location").getValue());
