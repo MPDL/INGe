@@ -119,7 +119,7 @@
 
 			function add(element, predicate, hidden, lang)
 			{
-				var parent = $(element).parents('.itemLine');
+				var parent = $(element).parents('.itemLine:eq(0)');
 				var singleItem = $(parent).find('.singleItem')[0];
 				var lastItem = $(parent).find('.singleItem:last');
 
