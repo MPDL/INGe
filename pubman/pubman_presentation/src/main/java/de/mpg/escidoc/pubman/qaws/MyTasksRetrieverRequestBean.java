@@ -151,11 +151,11 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
                 filter.getFilterList().add(f10);
             }
             
-//            if (!getSelectedOrgUnit().toLowerCase().equals("all"))
-//            {
-//                AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
-//                addOrgFiltersRecursive(affTree.getAffiliationMap().get(getSelectedOrgUnit()), filter);
-//            }
+            if (!getSelectedOrgUnit().toLowerCase().equals("all"))
+            {
+                AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
+                addOrgFiltersRecursive(affTree.getAffiliationMap().get(getSelectedOrgUnit()), filter);
+            }
             
             if (!getSelectedImport().toLowerCase().equals("all"))
             {
@@ -525,7 +525,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     }
 
     public void setSelectedOrgUnit(String selectedOrgUnit)
-    {
+    {        
         this.getQAWSSessionBean().setSelectedOrgUnit(selectedOrgUnit);
         getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedOrgUnit, selectedOrgUnit);
     }
