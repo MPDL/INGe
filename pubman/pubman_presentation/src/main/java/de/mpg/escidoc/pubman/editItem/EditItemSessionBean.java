@@ -121,14 +121,9 @@ public class EditItemSessionBean extends FacesBean
 	/**
 	 * This method clears the file and the locator list
 	 */
-	public void clean()
+	public void initEmptyComponents()
 	{
-		this.files.clear();
-		this.locators.clear();
-		this.creatorOrganizations.clear();
-		this.genreBundle = "";
-		this.offset="";
-		this.showAuthorCopyPaste = "";
+		clean();
 		
 		// make sure that at least one locator and one file is stored in the  EditItemSessionBean
     	if(this.getFiles().size() < 1)
@@ -147,6 +142,18 @@ public class EditItemSessionBean extends FacesBean
     	}
     	
     	initAuthorCopyPasteCreatorBean();
+	}
+
+	/**
+	 * 
+	 */
+	public void clean() {
+		this.files.clear();
+		this.locators.clear();
+		this.creatorOrganizations.clear();
+		this.genreBundle = "";
+		this.offset="";
+		this.showAuthorCopyPaste = "";
 	}
 	
 	/**
