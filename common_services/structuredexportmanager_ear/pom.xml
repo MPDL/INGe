@@ -2,19 +2,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.41-SNAPSHOT</version>
+		<version>1.0.41</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>structuredexportmanager_ear</artifactId>
 	<name>structuredexportmanager_ear</name>
 	<packaging>ear</packaging>
-	<version>1.0.43-SNAPSHOT</version>
+	<version>1.0.43</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/structuredexportmanager_ear</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/structuredexportmanager_ear</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.41/structuredexportmanager_ear</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.41/structuredexportmanager_ear</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.41</url>
 	</scm>
 
 	<build>
@@ -225,20 +225,20 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.44-SNAPSHOT</version>
+			<version>1.0.44</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.44-SNAPSHOT</version>
+			<version>1.0.44</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.41-SNAPSHOT</version>
+			<version>1.1.41</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
