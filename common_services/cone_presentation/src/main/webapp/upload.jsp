@@ -62,100 +62,122 @@
 <% List<String> errors = new ArrayList<String>();%>
 
 <%
-						errors = new ArrayList<String>();
-					
-						boolean isMigrateNamespace = true;
-					
-						boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-						// Create a factory for disk-based file items
-						FileItemFactory factory = new DiskFileItemFactory();
+	errors = new ArrayList<String>();
+
+	boolean isMigrateNamespace = true;
+
+	boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+	// Create a factory for disk-based file items
+	FileItemFactory factory = new DiskFileItemFactory();
+	
+	// Create a new file upload handler
+	ServletFileUpload upload = new ServletFileUpload(factory);
+	
+	// Parse the request
+	List<FileItem> items = upload.parseRequest(request);
+	InputStream uploadedStream = null;
+	ModelList.Model model = null;
+	for (FileItem item : items)
+	{
+		if (item.isFormField())
+		{
+			if ("model".equals(item.getFieldName()))
+			{
+				model = ModelList.getInstance().getModelByAlias(item.getString());
+			}
+		}
+		else
+		{
+			uploadedStream = item.getInputStream();
+		}
+	}
+	
+	SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+	RDFHandler rdfHandler = new RDFHandler(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
+	try {
+		parser.parse(uploadedStream, rdfHandler);
+	}catch(Exception e){	errors.add("Invalid file!");}
+		
+	
+	boolean loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
+	
+	Querier querier = QuerierFactory.newQuerier(loggedIn);
+	
+	List<LocalizedTripleObject> results = rdfHandler.getResult();
+	
+	for (LocalizedTripleObject result : results)
+	{
+		if (result instanceof TreeFragment)
+		{
+			String id;
+			if ((((TreeFragment) result).getSubject() == null) && model.isGenerateIdentifier())
+			{
+				id = model.getSubjectPrefix() + querier.createUniqueIdentifier(model.getName());
+			}
+			else if (((TreeFragment) result).getSubject() != null)
+			{
+			    if (((TreeFragment) result).getSubject().startsWith(PropertyReader.getProperty("escidoc.cone.service.url")))
+			    {
+			        id = ((TreeFragment) result).getSubject().substring(PropertyReader.getProperty("escidoc.cone.service.url").length());
+			    }
+			    else if (isMigrateNamespace)
+			    {
+			        Pattern pattern = Pattern.compile("[^/]+/resource/.+$");
+			        Matcher matcher = pattern.matcher(((TreeFragment) result).getSubject());
+			        if (matcher.find())
+			        {
+			            id = matcher.group();
+			        }
+			        else
+			        {
+			            throw new RuntimeException("Identifier '" + ((TreeFragment) result).getSubject() + "' does not match required format");
+			        }
+			    }
+			    else
+			    {
+			        throw new RuntimeException("Identifier '" + ((TreeFragment) result).getSubject() + "' is no local URL, but migration is no allowed");
+			    }
+			}
+			else
+			{
+				throw new RuntimeException("Identifier expected");
+			}
+			
+			removeIdentifierPrefixes((TreeFragment) result);
+			
+			querier.delete(model.getName(), id);
+			querier.create(model.getName(), id, (TreeFragment) result);
+		}
+		else
+		{
+			throw new RuntimeException("Wrong RDF structure at " + result);
+		}
+	}
 						
-						// Create a new file upload handler
-						ServletFileUpload upload = new ServletFileUpload(factory);
 						
-						// Parse the request
-						List<FileItem> items = upload.parseRequest(request);
-						InputStream uploadedStream = null;
-						ModelList.Model model = null;
-						for (FileItem item : items)
-						{
-							if (item.isFormField())
-							{
-								if ("model".equals(item.getFieldName()))
-								{
-									model = ModelList.getInstance().getModelByAlias(item.getString());
-								}
-							}
-							else
-							{
-								uploadedStream = item.getInputStream();
-							}
-						}
-						
-						SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-						RDFHandler rdfHandler = new RDFHandler(((Boolean)request.getSession().getAttribute("logged_in")).booleanValue());
-						try {
-							parser.parse(uploadedStream, rdfHandler);
-						}catch(Exception e){	errors.add("Invalid file!");}
-							
-						
-						boolean loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
-						
-						Querier querier = QuerierFactory.newQuerier(loggedIn);
-						
-						List<LocalizedTripleObject> results = rdfHandler.getResult();
-						
-						for (LocalizedTripleObject result : results)
-						{
-							if (result instanceof TreeFragment)
-							{
-								String id;
-								if ((((TreeFragment) result).getSubject() == null) && model.isGenerateIdentifier())
-								{
-									id = model.getSubjectPrefix() + querier.createUniqueIdentifier(model.getName());
-								}
-								else if (((TreeFragment) result).getSubject() != null)
-								{
-								    if (((TreeFragment) result).getSubject().startsWith(PropertyReader.getProperty("escidoc.cone.service.url")))
-								    {
-								        id = ((TreeFragment) result).getSubject().substring(PropertyReader.getProperty("escidoc.cone.service.url").length());
-								    }
-								    else if (isMigrateNamespace)
-								    {
-								        Pattern pattern = Pattern.compile("[^/]+/resource/.+$");
-								        Matcher matcher = pattern.matcher(((TreeFragment) result).getSubject());
-								        if (matcher.find())
-								        {
-								            id = matcher.group();
-								        }
-								        else
-								        {
-								            throw new RuntimeException("Identifier '" + ((TreeFragment) result).getSubject() + "' does not match required format");
-								        }
-								    }
-								    else
-								    {
-								        throw new RuntimeException("Identifier '" + ((TreeFragment) result).getSubject() + "' is no local URL, but migration is no allowed");
-								    }
-								}
-								else
-								{
-									throw new RuntimeException("Identifier expected");
-								}
-								querier.delete(model.getName(), id);
-								querier.create(model.getName(), id, (TreeFragment) result);
-							}
-							else
-							{
-								throw new RuntimeException("Wrong RDF structure at " + result);
-							}
-						}
-						
-						
-					%>
+%>
+<%!
+	private void removeIdentifierPrefixes(TreeFragment fragment) throws Exception
+	{
+		for (String nodeName : fragment.keySet())
+		{
+			if ("http://purl.org/dc/elements/1.1/relation".equals(nodeName))
+			{
+				for (LocalizedTripleObject listItem : fragment.get(nodeName))
+				{
+					if (listItem instanceof TreeFragment && ((TreeFragment) listItem).getSubject().startsWith(PropertyReader.getProperty("escidoc.cone.service.url")))
+				    {
+						((TreeFragment) listItem).setSubject(((TreeFragment) listItem).getSubject().substring(PropertyReader.getProperty("escidoc.cone.service.url").length()));
+				    }
+				}
+			}
+		}
+	}
+%>
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+<%@page import="de.mpg.escidoc.services.cone.util.LocalizedString"%><html xmlns="http://www.w3.org/1999/xhtml">
 	<jsp:include page="header.jsp"/>
 	<body>
 		<div class="full wrapper">
