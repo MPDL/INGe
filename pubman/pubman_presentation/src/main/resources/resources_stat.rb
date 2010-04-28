@@ -140,6 +140,8 @@ if $0 == __FILE__
                   else
                      count[ "untranslated" ] << k
                   end
+               elsif k == new[ k ]
+               	  count[ "untranslated" ] << k
                else
                   count[ "translated" ] += 1
                end
