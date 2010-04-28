@@ -678,7 +678,7 @@ public class ItemControllerSessionBean extends FacesBean
                         + context.getReference().getObjectId() + ")");
             }
             
-            editItemSessionBean.clean();
+            editItemSessionBean.initEmptyComponents();
             return EditItem.LOAD_EDITITEM;
         }
         else
@@ -697,7 +697,7 @@ public class ItemControllerSessionBean extends FacesBean
             CreateItem createItem = (CreateItem) getSessionBean(CreateItem.class);
             createItem.setMethod(SubmissionMethod.FULL_SUBMISSION);
             
-            editItemSessionBean.clean();
+            editItemSessionBean.initEmptyComponents();
             return CreateItem.LOAD_CREATEITEM;
         }
     }
