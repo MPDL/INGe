@@ -37,7 +37,7 @@
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
-		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" binding="#{EditItem.fileIterator}" varStatus="index">
+		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" varStatus="index">
 
 <%-- Add File from local system--%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder fileSection"  rendered="#{component.index == 0 && (component.file.name == null || component.file.name == '')}">
@@ -64,7 +64,7 @@
 					<tr:commandButton id="btnMultiUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{lbl.EditItem_btUpload_File}"/>
 				</span>
 			</h:panelGroup>
-
+			
 <%-- Add File from url--%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"  rendered="#{component.file.name == null || component.file.name == ''}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
