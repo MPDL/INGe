@@ -44,6 +44,7 @@ import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 
 /**
@@ -114,7 +115,7 @@ public class CreateItem extends FacesBean
         }
         
         // first clear the EditItemSessionBean
-        this.getEditItemSessionBean().clean();
+        this.getEditItemSessionBean().initEmptyComponents();
         
         // set the current submission method for edit item to full submission (for GUI purpose)
         this.getEditItemSessionBean().setCurrentSubmission(EditItemSessionBean.SUBMISSION_METHOD_FULL_SUBMISSION);
@@ -141,7 +142,14 @@ public class CreateItem extends FacesBean
             // re-init the edit item bean to make sure that all data is removed
             if(this.getItemControllerSessionBean().getCurrentPubItem() != null)
             {
-            	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(contextVO.getAdminDescriptor().getAllowedGenres().get(0));
+            	if (!contextVO.getAdminDescriptor().getAllowedGenres().contains(MdsPublicationVO.Genre.ARTICLE))
+            	{
+            		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(contextVO.getAdminDescriptor().getAllowedGenres().get(0));
+            	}
+            	else
+            	{
+            		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(MdsPublicationVO.Genre.ARTICLE);
+            	}
             	this.getEditItemSessionBean().setGenreBundle(genreBundle);
             	this.getEditItem().setItem(null);
             	this.getEditItem().getGenreSelect().resetValue();
