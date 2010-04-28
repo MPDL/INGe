@@ -71,12 +71,8 @@ public class AffiliationDetailPage extends FacesBean
             this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
             
             String affiliationId = getFacesContext().getExternalContext().getRequestParameterMap().get("id");
-            
-            // TODO tendres: This admin login is neccessary because of bug 
-            // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597
-            // If the org tree structure is fetched via search, this is obsolete
-            String userHandle = AdminHelper.getAdminUserHandle();
-            OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler(userHandle);
+
+            OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
             String ouXml = ouHandler.retrieve(affiliationId);
             AffiliationVO affVO = this.xmlTransforming.transformToAffiliation(ouXml);
             this.affiliation = new AffiliationVOPresentation(affVO);
