@@ -171,7 +171,9 @@ public class AdminHelper
     public static String getAdminUserHandle()
     {
         Date now = new Date();
-        if (adminUserHandle == null || loginTime == null || loginTime.getTime() < now.getTime() - 12 * 60 * 60 * 1000)
+        
+        // Renew every hour
+        if (adminUserHandle == null || loginTime == null || loginTime.getTime() < now.getTime() - 1 * 60 * 60 * 1000)
         {
             try
             {
