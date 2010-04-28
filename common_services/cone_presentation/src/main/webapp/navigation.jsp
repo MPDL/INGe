@@ -32,7 +32,7 @@
 <%@ page import="de.mpg.escidoc.services.cone.ModelList" %>
 <%@ page import="de.mpg.escidoc.services.framework.PropertyReader" %>
 <%@ page import="java.net.URLEncoder" %>
-<%@ page import="org.apache.axis.encoding.Base64" %>
+<%@page import="org.apache.commons.codec.binary.Base64"%>
 <%@ page import="de.mpg.escidoc.services.framework.ServiceLocator" %>
 <%@ page import="de.escidoc.www.services.aa.UserAccountHandler" %>
 <%@ page import="de.mpg.escidoc.services.common.valueobjects.AccountUserVO" %>
@@ -50,9 +50,11 @@
 	
 	if (request.getParameter("eSciDocUserHandle") != null)
 	{
-	    showWarning = Login.checkLogin(request, request.getParameter("eSciDocUserHandle"), true);
+		String userHandle = new String(Base64.decodeBase64(request.getParameter("eSciDocUserHandle").getBytes()));
+	    showWarning = Login.checkLogin(request, userHandle, true);
 	}
 %>
+
 
 <div class="full_area0 header clear">
 <!-- start: header section -->
