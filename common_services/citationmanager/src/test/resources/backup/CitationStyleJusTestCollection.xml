@@ -571,7 +571,7 @@
 					</source:source>
 					<eterms:total-number-of-pages
 						xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" />
-					<dcterms:abstract><![CDATA[JUS: <span class="Italic">Jessel-Holst, Christa</span>, Bosnien-Herzegowina, in: Internationales Ehe- und Kindschaftsrecht (Hamburg Studies on maritime affairs, 10), Vol. 1, 2. <localized class="edition">ed.</localized>, Springer, Berlin 2008, 19 - 25 (<localized class="togetherWith">together with</localized> Dieter Henrich et al.).]]></dcterms:abstract>
+					<dcterms:abstract><![CDATA[JUS: <span class="Italic">Jessel-Holst, Christa</span>, Bosnien-Herzegowina, in: Internationales Ehe- und Kindschaftsrecht (Hamburg Studies on maritime affairs, 10), vol. 1, 2. <localized class="edition">ed.</localized>, Springer, Berlin 2008, 19 - 25 (<localized class="togetherWith">together with</localized> Dieter Henrich et al.).]]></dcterms:abstract>
 					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" />
 					<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" />
 					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" />
@@ -790,108 +790,4 @@
 		<escidocComponents:components xml:base="http://localhost:8080" />
 	</escidocItem:item>
 	
-	<!-- OPINION escidoc:39782  -->
-	<escidocItem:item objid="escidoc:39782" last-modification-date="2010-03-24T10:31:21.052Z">
-    <escidocItem:properties>
-      <prop:creation-date>2010-03-24T10:30:35.749Z</prop:creation-date>
-      <srel:created-by objid="escidoc:9229"/>
-      <prop:public-status>released</prop:public-status>
-      <prop:public-status-comment>zum testen und exportieren</prop:public-status-comment>
-      <srel:context objid="escidoc:6719"/>
-      <srel:content-model objid="escidoc:persistent4"/>
-      <prop:lock-status>unlocked</prop:lock-status>
-      <prop:pid>hdl:11858/00-ZZZZ-0000-0000-4433-5</prop:pid>
-      <prop:version objid="escidoc:39782:1">
-        <version:number>1</version:number>
-        <version:date>2010-03-24T10:31:21.052Z</version:date>
-        <version:status>released</version:status>
-        <srel:modified-by objid="escidoc:9229"/>
-        <version:comment>zum testen und exportieren</version:comment>
-        <version:pid>hdl:11858/00-ZZZZ-0000-0000-4434-3</version:pid>
-      </prop:version>
-      <prop:latest-version objid="escidoc:39782:1">
-        <version:number>1</version:number>
-        <version:date>2010-03-24T10:31:21.052Z</version:date>
-      </prop:latest-version>
-      <prop:latest-release objid="escidoc:39782:1">
-        <release:number>1</release:number>
-        <release:date>2010-03-24T10:31:21.052Z</release:date>
-        <release:pid>hdl:11858/00-ZZZZ-0000-0000-4434-3</release:pid>
-      </prop:latest-release>
-      <prop:content-model-specific>
-        <local-tags>
-          <local-tag/>
-        </local-tags>
-      </prop:content-model-specific>
-    </escidocItem:properties>
-    <escidocMetadataRecords:md-records>
-      <escidocMetadataRecords:md-record name="escidoc">
-        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/opinion">
-            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
-            <person:person>
-              <eterms:complete-name/>
-              <eterms:family-name>von Lewinski</eterms:family-name>
-              <eterms:given-name>Silke</eterms:given-name>
-              <organization:organization>
-                <dc:title>Geistige Eigentum und Wettbewerbsrecht, Max-Planck-Institut für Geistiges Eigentum, Wettbewerbs- und Steuerrecht</dc:title>
-                <eterms:address>München, Deutschland</eterms:address>
-                <dc:identifier>escidoc:40002</dc:identifier>
-              </organization:organization>
-            </person:person>
-          </eterms:creator>
-          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
-            <person:person>
-              <eterms:complete-name/>
-              <eterms:family-name>Klass</eterms:family-name>
-              <eterms:given-name>Nadine</eterms:given-name>
-              <organization:organization>
-                <dc:title>Geistige Eigentum und Wettbewerbsrecht, Max-Planck-Institut für Geistiges Eigentum, Wettbewerbs- und Steuerrecht</dc:title>
-                <eterms:address>München, Deutschland</eterms:address>
-                <dc:identifier>escidoc:40002</dc:identifier>
-              </organization:organization>
-            </person:person>
-          </eterms:creator>
-          
-         <!-- <eterms:creator
-						role="http://www.loc.gov/loc.terms/relators/AUT">
-						<organization:organization> <dc:title>European Max-Planck Group on Conflict of Laws in Intelectual Property</dc:title>
-						<eterms:address/> <dc:identifier>escidoc:2222</dc:identifier>
-						</organization:organization> </eterms:creator>-->
-          <dc:title>Stakeholder Consultation on Copyright Levies in a Converging World - Antworten des Max Planck Instituts</dc:title>
-          <dc:identifier xsi:type="eterms:URI">http://www.ip.mpg.de/shared/data/pdf/stakeholder_consultation_on_copyright_levies_in_a_converging_world.pdf</dc:identifier>
-          <dcterms:issued xsi:type="dcterms:W3CDTF">2006-10-19</dcterms:issued>
-          <eterms:total-number-of-pages>21</eterms:total-number-of-pages>
-          <dcterms:abstract><![CDATA[JUS: <span class="Italic">von Lewinski, Silke</span>, Stakeholder Consultation on Copyright Levies in a Converging World - Antworten des Max Planck Instituts 2006, 21 <localized class="page">pp.</localized> (<localized class="togetherWith">together with</localized> Nadine Klass).]]></dcterms:abstract>
-          <dcterms:subject></dcterms:subject>
-          <dc:subject xsi:type="eterms:DDC"> - Laws, regulations &amp; cases</dc:subject>
-          <dcterms:tableOfContents></dcterms:tableOfContents>
-        </publication:publication>
-      </escidocMetadataRecords:md-record>
-    </escidocMetadataRecords:md-records>
-    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de">
-      <escidocComponents:component objid="escidoc:39781">
-        <escidocComponents:properties>
-          <prop:creation-date>2010-03-24T10:30:35.468Z</prop:creation-date>
-          <prop:valid-status>valid</prop:valid-status>
-          <prop:visibility>public</prop:visibility>
-          <prop:pid>hdl:11858/00-ZZZZ-0000-0000-4435-1</prop:pid>
-          <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
-          <prop:file-name>http://www.ip.mpg.de/shared/data/pdf/stakeholder_consultation_on_copyright_levies_in_a_converging_world.pdf</prop:file-name>
-          <prop:mime-type>application/octet-stream</prop:mime-type>
-          <prop:checksum>1da0ab0f7237d0b3905e837a2fcef67c</prop:checksum>
-          <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
-        </escidocComponents:properties>
-        <escidocComponents:content xlink:type="simple" xlink:title="http://www.ip.mpg.de/shared/data/pdf/stakeholder_consultation_on_copyright_levies_in_a_converging_world.pdf" xlink:href="http://www.ip.mpg.de/shared/data/pdf/stakeholder_consultation_on_copyright_levies_in_a_converging_world.pdf" storage="external-url"/>
-        <escidocMetadataRecords:md-records>
-          <escidocMetadataRecords:md-record name="escidoc">
-            <file:file xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case">
-              <dc:title>http://www.ip.mpg.de/shared/data/pdf/stakeholder_consultation_on_copyright_levies_in_a_converging_world.pdf</dc:title>
-            </file:file>
-          </escidocMetadataRecords:md-record>
-        </escidocMetadataRecords:md-records>
-      </escidocComponents:component>
-    </escidocComponents:components>
-  </escidocItem:item>
-	
-
 </escidocItemList:item-list>
