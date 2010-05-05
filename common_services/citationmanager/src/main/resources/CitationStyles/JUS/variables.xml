@@ -68,9 +68,14 @@
 		<variable name="l_contr-to-collect-ed"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition']]></variable>
 		<variable name="l_case-note"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/case-note']]></variable>
 		<variable name="l_opinion"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/opinion']]></variable>
-		<variable name="l_case-study"><![CDATA['	 http://purl.org/escidoc/metadata/ves/publication-types/case-study']]></variable>
-		<variable name="l_book_review"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/book-review']]></variable>
+		<variable name="l_case-study"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/case-study']]></variable>
+		<variable name="l_book-review"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/book-review']]></variable>
 		<variable name="l_contr-to-commentary"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary']]></variable>
+		<variable name="l_newspaper-article"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article']]></variable>
+		<variable name="l_collected-edition"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/collected-edition']]></variable>
+		<variable name="l_commentary"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/commentary']]></variable>
+		<variable name="l_festschrift"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/festschrift']]></variable>
+		<variable name="l_handbook"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/handbook']]></variable>
 		
 		<!-- source specific data-->
 		<variable name="sourceGenre"><![CDATA[pub:publication/source:source[1]/@type]]></variable>
@@ -176,7 +181,7 @@
 		</variable>
 		
 		<!-- prefix -->
-		<variable name="volum-prefix"><![CDATA['Vol.']]></variable>
+		<variable name="volum-prefix"><![CDATA['vol.']]></variable>
 		<variable name="together-prefix"><![CDATA['together with']]></variable>
 		<variable name="in-prefix"><![CDATA[', in:']]></variable>
 		<variable name="doi-prefix"><![CDATA['DOI:']]></variable>
@@ -187,6 +192,7 @@
 		<variable name="etAll-postfix"><![CDATA['et al.']]></variable>
 		<variable name="edition-postfix"><![CDATA['ed.']]></variable>
 		<variable name="pages-postfix"><![CDATA['pp.']]></variable>
+		<variable name="instalment-postfix"><![CDATA['instl.']]></variable>
 		
 		<!-- test variables -->
 		<variable name="objid"><![CDATA[../../@objid]]></variable>
