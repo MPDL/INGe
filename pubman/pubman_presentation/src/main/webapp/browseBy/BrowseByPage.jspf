@@ -49,14 +49,16 @@
 			<h:outputText value="#{lbl.BrowseByChooseYear }"/>
 		</span>
 		<h:panelGroup styleClass="seperator" />
-		<span class="full_area0_p0 itemHeadline">
-		<span class="full_area0_p0">
-			&#160;
-		</span>
-			<h:selectOneRadio id="selSelectDate" styleClass="large_radioBtn tiny_marginRIncl xHuge_area0"  value="published" binding="#{BrowseBySessionBean.dateSelect}" 
-							  valueChangeListener="#{BrowseByPage.dateTypeChanged}" onclick="submit(); fullItemReload();">										
-				<f:selectItems id="selDateOptions" value="#{BrowseBySessionBean.DATE_OPTIONS}"/>
-			</h:selectOneRadio>
+		<span class="xHuge_area0_p8 itemHeadline">
+			<span class="full_area0_p0">
+				&#160;
+			</span> 
+			<span class="huge_radioBtn full_area0">
+				<h:selectOneRadio id="selSelectDate"  value="published" binding="#{BrowseBySessionBean.dateSelect}" 
+							 valueChangeListener="#{BrowseByPage.dateTypeChanged}" onclick="submit(); fullItemReload();">										
+						<f:selectItems id="selDateOptions" value="#{BrowseBySessionBean.DATE_OPTIONS}"/> 
+				</h:selectOneRadio>
+			</span> 
 		</span>
 		<span class="full_area0_p0 itemHeadline">
 			&#160;
