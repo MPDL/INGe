@@ -32,16 +32,12 @@
 package de.mpg.escidoc.services.transformation.transformations.otherFormats.escidoc;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.StringWriter;
 
 import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
@@ -51,6 +47,7 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -174,7 +171,7 @@ public class eSciDocVer1ToeSciDocVer2 extends DefaultHandler implements Transfor
             //The path is needed to resolve the ves-mapping.xml in xslt  
 //            String path = ResourceUtil.getResourceAsFile(XSLT_PATH).getAbsolutePath();
 //            path = path.replaceFirst("\\/[\\w_.-]+$", "");
-            transformer.setURIResolver(new myURIResolver());
+            transformer.setURIResolver(new LocalUriResolver());
 //            transformer.setParameter("path", path);
             
             transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
@@ -190,36 +187,6 @@ public class eSciDocVer1ToeSciDocVer2 extends DefaultHandler implements Transfor
         }
         
     }
-
-    /**
-     * URIResolver for the documnet() in the XSLT 
-     *
-     */
-    class myURIResolver implements URIResolver 
-    {
-    	public String absPath;
-    	
-    	public myURIResolver() throws FileNotFoundException 
-    	{
-    		absPath = ResourceUtil.getResourceAsFile(XSLT_PATH).getParent();
-		}
-    	
-		public Source resolve(String href, String base) throws TransformerException {
-//			System.out.println("resolving stylesheet ref " + href);
-//			System.out.println("abs path:" + absPath);
-			Source src = null;
-			try 
-			{
-				src = new StreamSource(ResourceUtil.getResourceAsStream(absPath + "/" + href));
-			} 
-			catch (FileNotFoundException e) 
-			{
-				// TODO Auto-generated catch block
-				throw new TransformerException("cannot find path to the document:" + href, e);
-			} 
-			return src;
-		}
-	}
 
     
     

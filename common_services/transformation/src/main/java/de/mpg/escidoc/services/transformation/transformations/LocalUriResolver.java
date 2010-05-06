@@ -53,6 +53,8 @@ public class LocalUriResolver implements URIResolver
 
     private String base = "";
     
+	private static final String TRANS_PATH = "transformations/";
+    
     /**
      * Default constructor.
      */
@@ -76,6 +78,9 @@ public class LocalUriResolver implements URIResolver
      */
     public final Source resolve(String href, String altBase) throws TransformerException
     {
+    	
+    	String path = null;
+    	
         if (altBase == null)
         {
             altBase = "";
@@ -83,15 +88,23 @@ public class LocalUriResolver implements URIResolver
         
         try
         {
-            //Source source = new StreamSource(ResourceUtil.getResourceAsStream(href));
-            Source source = new StreamSource(ResourceUtil.getResourceAsStream(this.base + altBase + "/" + href));
 
-            return source;
+            if ( "ves-mapping.xml".equals(href) || "vocabulary-mappings.xsl".equals(href) ) 
+			{
+            	path = TRANS_PATH + href;
+			}
+            else 
+            {
+            	path = this.base + altBase + "/" + href;
+            }
+            
+            return 
+            	new StreamSource(ResourceUtil.getResourceAsStream(path));
         }
         catch (FileNotFoundException e)
         {
             //throw new TransformerException("Cannot resolve URI: " + href);
-            throw new TransformerException("Cannot resolve URI: " + this.base + altBase + "/" + href, e);
+            throw new TransformerException("Cannot resolve URI: " + path, e);
         }
     }
 }

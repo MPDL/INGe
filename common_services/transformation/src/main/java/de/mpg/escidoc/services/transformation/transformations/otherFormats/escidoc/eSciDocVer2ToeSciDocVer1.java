@@ -32,16 +32,12 @@
 package de.mpg.escidoc.services.transformation.transformations.otherFormats.escidoc;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.StringWriter;
 
 import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
@@ -51,6 +47,7 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -172,7 +169,7 @@ public class eSciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfor
                 throw new TransformationNotSupportedException("The requested target format (" + trgFormat.toString() + ") is not supported");
             }
             
-            transformer.setURIResolver(new myURIResolver());
+            transformer.setURIResolver(new LocalUriResolver());
             
             transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
             transformer.transform(new StreamSource(new ByteArrayInputStream(src)), new StreamResult(result));
@@ -188,28 +185,7 @@ public class eSciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfor
         
     }
 
-    /**
-     * URIResolver for the document() in the XSLT 
-     *
-     */
-    class myURIResolver implements URIResolver 
-    {
-    	
-		public Source resolve(String href, String base) throws TransformerException {
-//			System.out.println("resolving stylesheet ref " + href);
-			Source src = null;
-			try 
-			{
-				src = new StreamSource(ResourceUtil.getResourceAsStream(PATH + "/" + href));
-			} 
-			catch (FileNotFoundException e) 
-			{
-				throw new TransformerException("cannot find path to the document:" + PATH + "/" + href, e);
-			} 
-			return src;
-		}
-	}
-    
+   
 
     
 }
