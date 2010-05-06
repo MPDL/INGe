@@ -43,6 +43,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlSelectOneMenu;
@@ -858,6 +860,38 @@ public class EasySubmission extends FacesBean
         return contentURL;
     }
 
+    
+  
+    /**
+     * check if proxy has to get used for given url.
+     * If yes, set ProxyHost in httpClient
+     *
+     * @param url url
+     *
+     * @throws Exception
+     */
+	private void setProxy(final HttpClient httpClient, final String url) throws Exception {
+		String proxyHost = System.getProperty("http.proxyHost");
+		String proxyPort = System.getProperty("http.proxyPort");
+		if (proxyHost != null) {
+			String nonProxyHosts = System.getProperty("http.nonProxyHosts");
+			if (nonProxyHosts != null && !nonProxyHosts.trim().equals("")) {
+				nonProxyHosts = nonProxyHosts.replaceAll("\\.", "\\\\.");
+				nonProxyHosts = nonProxyHosts.replaceAll("\\*", "");
+				nonProxyHosts = nonProxyHosts.replaceAll("\\?", "\\\\?");
+				Pattern nonProxyPattern = Pattern.compile(nonProxyHosts);
+				Matcher nonProxyMatcher = nonProxyPattern.matcher(url);
+				if (nonProxyMatcher.find()) {
+					httpClient.getHostConfiguration().setProxyHost(null);
+				} else {
+					httpClient.getHostConfiguration().setProxy(proxyHost, Integer.valueOf(proxyPort));
+				}
+			} else {
+				httpClient.getHostConfiguration().setProxy(proxyHost, Integer.valueOf(proxyPort));
+			}
+		}
+	}    	
+    
     /**
      * Uploads a file to the staging servlet and returns the corresponding URL.
      * 
@@ -877,13 +911,7 @@ public class EasySubmission extends FacesBean
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
         // Execute the method with HttpClient.
         HttpClient client = new HttpClient();
-        String proxyHost = System.getProperty("http.proxyHost");
-        String proxyPortS = System.getProperty("http.proxyPort");
-        if (proxyHost != null && proxyPortS != null)
-        {
-            int proxyPort = Integer.valueOf(proxyPortS);
-            client.getHostConfiguration().setProxy(proxyHost, proxyPort);
-        } 
+        setProxy(client, fwUrl);
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
         InitialContext context = new InitialContext();
