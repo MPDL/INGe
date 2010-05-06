@@ -91,6 +91,24 @@ public class ResourceUtil
     //the hash of the export-formats explain
     private static Map<String, Map<String, String>> exportFormatsHash = null;
 
+    //file extensions hash
+    private static final Map<String, String> formatExtensions =   
+    	new HashMap<String, String>()   
+    	{  
+			{  
+                put("txt", "txt");
+                put("pdf", "pdf");
+                put("rtf", "rtf");
+                put("html_plain", "html");
+                put("html_styled", "html");
+                put("odt", "odt");
+                put("snippet", "xml");
+                put("escidoc_snippet", "xml");
+                put("xml", "xml");
+                put("escidoc_xml", "xml");
+	    	}  
+    	};    
+    
     //TransformationBean placeholder
     private static TransformationBean tb = null; 
 
@@ -127,6 +145,16 @@ public class ResourceUtil
     	return tb == null ? tb = new TransformationBean(true) : tb;
     }
 
+	
+	 /**
+     * Returns the name of the selected file according to name of format.
+     */
+    public static String getExtensionByName(String name)
+    {
+    	name = name == null || name.trim().equals("") ? "" : name.trim();  
+    	return formatExtensions.containsKey(name) ? formatExtensions.get(name) : formatExtensions.get("pdf");   
+    }
+    
 	
 	
     /**
