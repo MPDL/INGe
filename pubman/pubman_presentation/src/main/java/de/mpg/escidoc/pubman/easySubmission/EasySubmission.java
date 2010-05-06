@@ -69,6 +69,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
+import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
@@ -76,6 +77,7 @@ import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation.ContentCategory;
@@ -98,6 +100,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
@@ -1426,11 +1429,43 @@ public class EasySubmission extends FacesBean
 
     public String loadStep5Manual()
     {
-        // validate
         try
-        {
-            ValidationReportVO report = this.itemValidating.validateItemObject(new PubItemVO(this
+        {        	
+        	// START: The following should be removed as soon the easy submission get the same author mask as the full submission
+        	// Set ou numbers used in full submission mask
+        	EditItemSessionBean eisb = this.getEditItemSessionBean();
+        	eisb.getCreatorOrganizations().clear();
+        	List<String> ouIdentifierList = new ArrayList<String>();
+        	
+        	// Create list of Affiliations
+        	for (CreatorBean creatorBean: creatorCollection.getCreatorManager().getObjectList()) 
+        	{
+        		for (OrganizationVO organization : creatorBean.getCreator().getPerson().getOrganizations())
+				{
+        			if (ouIdentifierList.indexOf(organization.getIdentifier()) != 0) 
+        			{
+        				eisb.getCreatorOrganizations().add(new OrganizationVOPresentation(organization));
+        				ouIdentifierList.add(organization.getIdentifier());
+					}
+				}
+			}
+        	
+        	// Set OUs number
+        	int number = 1;
+        	for (OrganizationVOPresentation ou :  eisb.getCreatorOrganizations()) 
+        	{
+				if (ou.getNumber() == 0) 
+				{
+					ou.setNumber(number);
+					number++;
+				}
+			}
+        	//END
+        	
+        	// validate
+        	ValidationReportVO report = this.itemValidating.validateItemObject(new PubItemVO(this
                     .getItemControllerSessionBean().getCurrentPubItem()), "easy_submission_step_4");
+        	
             if (!report.isValid())
             {
                 for (ValidationReportItemVO item : report.getItems())
@@ -1451,7 +1486,6 @@ public class EasySubmission extends FacesBean
         {
             logger.error("Validation error", e);
         }
-        
         
         
         this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP5);

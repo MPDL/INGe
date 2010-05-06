@@ -275,7 +275,6 @@ public class EditItem extends FacesBean
 
         // fetch the name of the pub context
         this.contextName = this.getContextName();
-
     }
 
     public String getAttributes()
@@ -2167,6 +2166,7 @@ public class EditItem extends FacesBean
 	                }
     			}
             }
+            bindOrganizationsToCreator(creatorBean);
             creatorManager.getObjectList().add(creatorBean);
         }
         EditItemSessionBean editItemSessionBean = getEditItemSessionBean();
