@@ -47,6 +47,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.BrowseByPage;
 import de.mpg.escidoc.pubman.BrowseByPage.LinkVO;
+import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
@@ -99,6 +100,7 @@ public class BrowseBySessionBean extends FacesBean
         try
         {
             this.pubContentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+            ((AffiliationBean)getSessionBean(AffiliationBean.class)).setSource("BrowseBy");
         }
         catch (Exception e)
         {
