@@ -171,6 +171,10 @@ public class AffiliationBean extends FacesBean
             }
             return "displaySearchPage";
         }
+        else if ("BrowseBy".equals(source))
+        {
+            return "loadBrowseByPage";
+        }
         else if (selectedAffiliation != null)
         {
             // start search by affiliation
