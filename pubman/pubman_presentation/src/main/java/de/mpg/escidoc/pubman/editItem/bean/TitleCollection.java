@@ -65,14 +65,16 @@ public class TitleCollection
 	{
 		setTitleIF(titleIF);
 	}
-
+	
 	public String removeTitle()
 	{
 		// when the title is removed, the first alternative title will become the title
-		TextVO newTitle = getTitleIF().getAlternativeTitles().remove(0);
-		getTitleIF().setTitle(newTitle);
+		//TextVO newTitle = getTitleIF().getAlternativeTitles().remove(0);
+		
+		// when the title is removed, the title is cleaned
+		getTitleIF().setTitle(null);
 		return null;
-	}
+	}	
 
 	public String addTitle()
 	{
