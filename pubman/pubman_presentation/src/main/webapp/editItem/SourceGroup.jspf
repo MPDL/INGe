@@ -101,8 +101,8 @@
 							</h:panelGroup>
 						</span>
 						<span class="large_area0_p8 lineToolSection">
-							<tr:commandButton id="btnAddDetails" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btAdd}" action="#{sourceBean.titleCollection.addTitle}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}" disabled="#{!(genre.sources_source_basic_source_title_alternative_repeatable == 'true')}"/>
-							<tr:commandButton id="btnRemoveDetails" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btRemove}" action="#{sourceBean.titleCollection.removeTitle}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}" />
+							<tr:commandButton id="btnAddDetails" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btAdd}" action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}" disabled="#{!(genre.sources_source_basic_source_title_alternative_repeatable == 'true')}"/>
+							<tr:commandButton id="btnRemoveDetails" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btRemove}" action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}" />
 						</span>
 					</h:panelGroup>
 				</tr:iterator>
