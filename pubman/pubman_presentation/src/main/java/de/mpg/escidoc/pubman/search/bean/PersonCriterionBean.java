@@ -20,8 +20,9 @@ public class PersonCriterionBean extends CriterionBean
 	
 	// selection fields for the CreatorVO.CreatorRole enum
 	private boolean searchAuthor, searchEditor, searchAdvisor, searchArtist, searchCommentator, searchContributor;
-	private boolean searchIllustrator, searchPainter, searchPhotographer, searchTranscriber, searchTranslator;
-	
+	private boolean searchIllustrator, searchPainter, searchPhotographer, searchTranscriber, searchTranslator, searchReferee, searchHonoree;
+
+
     public PersonCriterionBean()
 	{
 		// ensure the parentVO is never null;
@@ -356,5 +357,48 @@ public class PersonCriterionBean extends CriterionBean
 			personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.TRANSLATOR);
 		}
 	}
+	
+	   
+    public boolean isSearchReferee()
+    {
+        return searchReferee;
+    }
+
+    public void setSearchReferee(boolean searchReferee)
+    {
+        this.searchReferee = searchReferee;
+        if (searchReferee == true)
+        {
+            if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.REFEREE))
+            {
+                personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.REFEREE);
+            }
+        }
+        else
+        {
+            personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.REFEREE);
+        }
+    }
+
+    public boolean isSearchHonoree()
+    {
+        return searchHonoree;
+    }
+
+    public void setSearchHonoree(boolean searchHonoree)
+    {
+        this.searchHonoree = searchHonoree;
+        if (searchHonoree == true)
+        {
+            if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.HONOREE))
+            {
+                personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.HONOREE);
+            }
+        }
+        else
+        {
+            personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.HONOREE);
+        }
+    }
 
 }

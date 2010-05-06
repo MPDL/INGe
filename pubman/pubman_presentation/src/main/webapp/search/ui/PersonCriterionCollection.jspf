@@ -124,6 +124,14 @@
 							<h:selectBooleanCheckbox id="personCriterionBean_searchTranslator" value="#{personCriterionBean.searchTranslator}" />
 							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_TRANSLATOR}" for="personCriterionBean_searchTranslator" />
 						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="personCriterionBean_searchReferee" value="#{personCriterionBean.searchReferee}" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_REFEREE}" for="personCriterionBean_searchReferee" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="personCriterionBean_searchHonoree" value="#{personCriterionBean.searchHonoree}" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_HONOREE}" for="personCriterionBean_searchHonoree" />
+						</span>
 						<a class="large_area0 tiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>
 				</span>
