@@ -14,6 +14,7 @@ import noNamespace.EimsresourcesDocument;
 import noNamespace.ItemType;
 import noNamespace.SubtitleType;
 import noNamespace.TitleType;
+import noNamespace.URLType;
 
 import org.apache.xmlbeans.XmlException;
 import org.fao.oa.ingestion.utils.IngestionProperties;
@@ -27,6 +28,7 @@ import org.fao.oa.ingestion.utils.IngestionProperties;
 public class EimsCdrItem
 {
     public static final String EIMS_BASE_DIR = IngestionProperties.get("eims.export.file.location");
+    public static final String EIMS_BASE_DIR_ARTICLES = IngestionProperties.get("eims.export.file.location.articles");
 
     /**
      * only used for testing purposes.
@@ -36,7 +38,11 @@ public class EimsCdrItem
     public static void main(String... strings)
     {
         String[] filenames = IngestionProperties.get("eims.export.file.names").split(" ");
-        parseTest(filenames);
+        String[] filenames_articles = IngestionProperties.get("eims.export.file.names.articles").split(" ");
+        parseTest(filenames_articles);
+        //ArrayList<ItemType> itemList = allEIMSItemsAsList(filenames_articles, "articles");
+        //ItemType item = getById(itemList, "43364");
+        //System.out.println(item.xmlText());
     }
 
     /**
@@ -66,20 +72,11 @@ public class EimsCdrItem
     public static void parseTest(String[] names)
     {
         int eimsitems = 0;
-        BufferedWriter writer = null;
-        ;
-        try
-        {
-            writer = new BufferedWriter(new FileWriter("/home/frank/data/AGRIS_FAO/url_variations_EIMS"));
-        }
-        catch (IOException e1)
-        {
-            e1.printStackTrace();
-        }
-        int noDate = 0;
+        int invalid = 0;
+        int noUrl = 0;
         for (String name : names)
         {
-            File eimsItemFile = new File(EIMS_BASE_DIR + name);
+            File eimsItemFile = new File(EIMS_BASE_DIR_ARTICLES + name);
             System.out.println("Attempt to parse file " + eimsItemFile.getName());
             try
             {
@@ -89,29 +86,15 @@ public class EimsCdrItem
                 eimsitems = eimsitems + items.length;
                 for (ItemType i : items)
                 {
-                    if (i.sizeOfTitleArray() > 0 && i.sizeOfSubtitleArray() > 0)
+                    if (i.getDateCreated() != null)
                     {
-                        for (TitleType t : i.getTitleArray())
-                        {
-                            System.out
-                                    .println(i.getIdentifier() + " Title " + t.getStringValue() + "   " + t.getLang());
-                            for (SubtitleType s : i.getSubtitleArray())
-                            {
-                                if (t.getLang().equalsIgnoreCase(s.getLang()))
-                                {
-                                    System.out.println(i.getIdentifier() + " Sub " + s.getStringValue() + "   "
-                                            + s.getLang());
-                                }
-                                else
-                                {
-                                    System.out.println("no subtitle in title language");
-                                }
-                            }
-                        }
+                        String date = i.getDateCreated();
+                            System.out.println(i.getIdentifier() + " has date created " + date.substring(date.length() - 4, date.length()));
+                        
                     }
                     else
                     {
-                        noDate++;
+                        noUrl++;
                     }
                 }
             }
@@ -125,7 +108,8 @@ public class EimsCdrItem
             }
         }
         System.out.println("total number of eimsitems " + eimsitems);
-        System.out.println("items without date: " + noDate);
+        System.out.println("items without url: " + noUrl);
+        System.out.println("items with invalid url: " + invalid);
     }
 
     /**
@@ -134,25 +118,39 @@ public class EimsCdrItem
      * @param filenames {@link String[]}
      * @return {@link ArrayList} of ItemType objects.
      */
-    public static ArrayList<ItemType> allEIMSItemsAsList(String[] filenames)
+    public static ArrayList<ItemType> allEIMSItemsAsList(String[] filenames, String genretype)
     {
         ArrayList<ItemType> allEIMSItemsList = new ArrayList<ItemType>();
         Set<String> maintypeList = new HashSet<String>();
         Set<String> genreList = new HashSet<String>();
+        File eimsFile = null;
         for (String name : filenames)
         {
-            File eimsFile = new File(EIMS_BASE_DIR + name);
+            if (genretype.equalsIgnoreCase("publications"))
+            {
+                eimsFile = new File(EIMS_BASE_DIR + name);
+            }
+            else
+            {
+                if (genretype.equalsIgnoreCase("articles"))
+                {
+                    eimsFile = new File(EIMS_BASE_DIR_ARTICLES + name);
+                }
+            }
             try
             {
-                EimsresourcesDocument resDoc = EimsresourcesDocument.Factory.parse(eimsFile);
-                ItemType[] items = resDoc.getEimsresources().getItemArray();
-                for (ItemType item : items)
+                if (eimsFile != null)
                 {
-                    allEIMSItemsList.add(item);
-                    String maintype = item.getMaintype().getStringValue();
-                    maintypeList.add(maintype);
-                    String genre = item.getGenre().getStringValue();
-                    genreList.add(genre);
+                    EimsresourcesDocument resDoc = EimsresourcesDocument.Factory.parse(eimsFile);
+                    ItemType[] items = resDoc.getEimsresources().getItemArray();
+                    for (ItemType item : items)
+                    {
+                        allEIMSItemsList.add(item);
+                        String maintype = item.getMaintype().getStringValue();
+                        maintypeList.add(maintype);
+                        String genre = item.getGenre().getStringValue();
+                        genreList.add(genre);
+                    }
                 }
             }
             catch (XmlException e)

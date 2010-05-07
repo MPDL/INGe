@@ -33,7 +33,10 @@ public class FaodocItem
     public static void main(String... strings)
     {
         String[] filenames = IngestionProperties.get("faodoc.export.file.names").split(" ");
-        parseTest(filenames);
+        //parseTest(filenames);
+        ArrayList<ITEMType> items = filteredList(filenames, null);
+        ITEMType item = getByARN(items, "XF2006236883");
+        System.out.println(item.xmlText());
     }
 
     /**
@@ -81,11 +84,11 @@ public class FaodocItem
                 {
                     if (item.getBIBLEVELArray(0).equals(pattern))
                     {
-                        if (item.sizeOfCOLLINFOArray() > 0)
+                        if (item.getBIBLEVELArray(0).equalsIgnoreCase("AS"))
                         {
-                            for (String tit : item.getCOLLINFOArray())
+                            for (String url : item.getURLArray())
                             {
-                                System.out.println(item.getARNArray(0) + "  has COLL_INFO " + tit);
+                                System.out.println(item.getARNArray(0) + "  has URL " + url);
                             }
                         }
                     }
