@@ -168,7 +168,6 @@ public class AdvancedSearchEdit extends FacesBean
         genreCriterionCollection.clearAllForms();
         degreeCriterionCollection.clearAllForms();
         dateCriterionCollection.clearAllForms();
-        degreeCriterionCollection.clearAllForms();
         sourceCriterionCollection.clearAllForms();
         eventCriterionCollection.clearAllForms();
         identifierCriterionCollection.clearAllForms();

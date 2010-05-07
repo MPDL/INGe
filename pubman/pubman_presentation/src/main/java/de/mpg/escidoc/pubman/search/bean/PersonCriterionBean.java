@@ -77,6 +77,10 @@ public class PersonCriterionBean extends CriterionBean
 				searchTranscriber = true;
 			else if (CreatorVO.CreatorRole.TRANSLATOR.equals(role))
 				searchTranslator = true;
+	        else if (CreatorVO.CreatorRole.REFEREE.equals(role))
+	            searchReferee = true;
+	        else if (CreatorVO.CreatorRole.HONOREE.equals(role))
+                searchHonoree= true;
 		}
 	}
 	
@@ -97,6 +101,8 @@ public class PersonCriterionBean extends CriterionBean
 		setSearchPhotographer(true);
 		setSearchTranscriber(true);
 		setSearchTranslator(true);
+		setSearchHonoree(true);
+		setSearchReferee(true);
 
 		// navigation refresh
 		return null;
@@ -119,6 +125,8 @@ public class PersonCriterionBean extends CriterionBean
 		setSearchPhotographer(false);
 		setSearchTranscriber(false);
 		setSearchTranslator(false);
+		setSearchHonoree(false);
+		setSearchReferee(false);
 
 		personCriterionVO.getCreatorRole().clear();
 		personCriterionVO.setSearchString("");
