@@ -287,8 +287,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
             xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
             for( AffiliationRO affiliation : affiliations )
             {
-                String userHandle = AdminHelper.getAdminUserHandle();
-                OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler(userHandle);
+                OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
                 String ouXml = ouHandler.retrieve(affiliation.getObjectId());
                 AffiliationVO affVO = xmlTransforming.transformToAffiliation(ouXml);
                 transformedAffs.add(affVO);

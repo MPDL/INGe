@@ -36,7 +36,7 @@
 	<span class="free_area0_p8 endline itemHeadline">
 		<b>
 			<h:commandLink id="lnkOrg" title="" action="#{BrowseByPage.loadAffiliationTree}">
-				<h:outputText value="#{lbl.BrowseByOrg }" />
+				<h:outputText value="#{lbl.BrowseByOrg}" />
 			</h:commandLink>
 		</b>
 	</span>

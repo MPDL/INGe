@@ -2054,12 +2054,8 @@ public class ItemControllerSessionBean extends FacesBean
         String xmlChildAffiliationList = "";        
         try
         {
-            // TODO FrM: Remove userHandle when Bug: 
-            // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597
-            // is fixed
-            String userHandle = AdminHelper.getAdminUserHandle();
             xmlChildAffiliationList = ServiceLocator
-                    .getOrganizationalUnitHandler(userHandle)
+                    .getOrganizationalUnitHandler()
                     .retrieveChildObjects(parentAffiliation.getReference().getObjectId());
         }
         catch (AuthenticationException e)

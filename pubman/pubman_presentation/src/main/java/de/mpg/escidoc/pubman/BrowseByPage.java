@@ -44,6 +44,7 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
+import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.browseBy.BrowseBySessionBean;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -222,6 +223,7 @@ public class BrowseByPage extends BreadcrumbPage
     public String loadAffiliationTree()
     {       
         this.setSelectedValue("org");
+        ((AffiliationBean)getSessionBean(AffiliationBean.class)).setSource("BrowseBy");
         return "loadAffiliationTree";
     }
 
