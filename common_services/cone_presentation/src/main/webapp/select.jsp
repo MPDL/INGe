@@ -64,43 +64,28 @@
 
 					<div class="full_area0 fullItem">
 						
-					<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
-					<% if (request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue()){ %>
-						<% for (Model model : ModelList.getInstance().getList()) { %>
-							<% if (model.isOpen()){ %>
-								<div class="full_area0 itemHeader">
-									<span class="xLarge_area0 endline">
-										&nbsp;
-									</span>
-									<span class="seperator"></span>
-									<span class="free_area0_p8 endline itemHeadline">
-										<b>
-											<a href="edit.jsp?model=<%= model.getName() %>" class="free_area0 xTiny_marginRIncl"><%= model.getName() %></a>
-										</b>
-									</span>
-								</div>
+						<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) {
+						
+							boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue());
+							boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue());
+							
+							%>
+							<% for (Model model : ModelList.getInstance().getList()) { %>
+								<% if ((model.isOpen() && editOpen) || (!model.isOpen() && editClosed)) { %>
+									<div class="full_area0 itemHeader">
+										<span class="xLarge_area0 endline">
+											&nbsp;
+										</span>
+										<span class="seperator"></span>
+										<span class="free_area0_p8 endline itemHeadline">
+											<b>
+												<a href="edit.jsp?model=<%= model.getName() %>" class="free_area0 xTiny_marginRIncl"><%= model.getName() %></a>
+											</b>
+										</span>
+									</div>
+								<% } %>
 							<% } %>
 						<% } %>
-					<% } %>
-					
-					<% if (request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue()){ %>
-						<% for (Model model : ModelList.getInstance().getList()) { %>
-							<% if (!model.isOpen()){ %>
-								<div class="full_area0 itemHeader">
-									<span class="xLarge_area0 endline">
-										&nbsp;
-									</span>
-									<span class="seperator"></span>
-									<span class="free_area0_p8 endline itemHeadline">
-										<b>
-											<a href="edit.jsp?model=<%= model.getName() %>" class="free_area0 xTiny_marginRIncl"><%= model.getName() %></a>
-										</b>
-									</span>
-								</div>
-							<% } %>
-						<% } %>
-					<% } %>
-					<% } %>
 					</div>
 				</div>
 			</div>

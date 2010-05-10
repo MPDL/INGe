@@ -58,15 +58,23 @@
 						</div>
 					</div>
 					<div class="full_area0">
-					
-						<select name="model" size="1">
-							<% for (ModelList.Model model : ModelList.getInstance().getList()) { %>
-								<option value="<%= model.getName() %>"><%= model.getName() %></option>
-							<% } %>
-						</select>
-						<br/>
-						<input type="file" name="file"/>
-						<input type="submit" name="submit"/>
+						<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) {
+							
+							boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue());
+							boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue());
+
+							%>
+							<select name="model" size="1">
+								<% for (ModelList.Model model : ModelList.getInstance().getList()) { %>
+									<% if ((model.isOpen() && editOpen) || (!model.isOpen() && editClosed)) { %>
+										<option value="<%= model.getName() %>"><%= model.getName() %></option>
+									<% } %>
+								<% } %>
+							</select>
+							<br/>
+							<input type="file" name="file"/>
+							<input type="submit" name="submit"/>
+						<% } %>
 					</div>
 				</div>
 			</div>

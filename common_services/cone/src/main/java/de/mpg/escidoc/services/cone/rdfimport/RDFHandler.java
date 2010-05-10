@@ -84,7 +84,7 @@ public class RDFHandler extends ShortContentHandler
         if ("RDF/Description".equals(getLocalStack().toString()))
         {
             // New element
-            String subject = attributes.getValue("rdf:about").replace(this.instanceUrl, "");
+            String subject = attributes.getValue("rdf:about");
             this.stack.push(new TreeFragment(subject));
         }
         else if (!"RDF".equals(getLocalStack().toString()))

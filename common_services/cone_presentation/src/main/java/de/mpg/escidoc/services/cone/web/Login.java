@@ -49,22 +49,13 @@ public class Login
 	    		showWarning = false;
 	    		break;
 	        }
-	        if ("escidoc:role-cone-editor".equals(grant.getRole()))
-	        {
-	        	request.getSession().setAttribute("user", accountUser);
-	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
-	    		request.getSession().setAttribute("edit_open_vocabulary", Boolean.TRUE);
-	    		request.getSession().setAttribute("edit_closed_vocabulary", Boolean.TRUE);
-	        	showWarning = false;
-	        	break;
-	        }
 	        if ("escidoc:role-cone-open-vocabulary-editor".equals(grant.getRole()))
 	        {
 	        	request.getSession().setAttribute("user", accountUser);
 	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
 	    		request.getSession().setAttribute("edit_open_vocabulary", Boolean.TRUE);	    		
 	        	showWarning = false;
-	        	break;
+	        	continue;
 	        }
 	        if ("escidoc:role-cone-closed-vocabulary-editor".equals(grant.getRole()))
 	        {
@@ -72,7 +63,7 @@ public class Login
 	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
 	    		request.getSession().setAttribute("edit_closed_vocabulary", Boolean.TRUE);	    		
 	        	showWarning = false;
-	        	break;
+	        	continue;
 	        }
 	    }
 
