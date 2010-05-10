@@ -100,7 +100,7 @@
 	<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;"></div>
 </div>
 	
-<div class="full_area0">
+<div id="fullItem" class="full_area0">
 	<div class="full_area0 fullItem">
 
 		<jsp:directive.include file="../contextList.jspf"/>

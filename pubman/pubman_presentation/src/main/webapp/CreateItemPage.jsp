@@ -125,7 +125,7 @@
 						</div>
 					</div>			
 					<div class="full_area0">
-						<div class="full_area0 fullItem">
+						<div class="full_area0 fullItem" id="fullItem">
 
 							<jsp:directive.include file="createItem/CreateItem.jspf"/>
 

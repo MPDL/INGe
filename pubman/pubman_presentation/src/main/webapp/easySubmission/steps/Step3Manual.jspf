@@ -95,7 +95,7 @@
 <div id="ImgFullItem">
 	<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed; z-index:1"></div>
 </div>
-<div id=fullItem class="full_area0">
+<div id="fullItem" class="full_area0">
 	<div class="full_area0 fullItem">
 		<h:panelGroup layout="block" styleClass="full_area0 easySubmissionHeader" >
 			<span class="small_area0 endline">
