@@ -802,8 +802,8 @@ public class EditItem extends FacesBean
 		{
 		    PersonVO person = creator.getCreator().getPerson();
 		    List<OrganizationVO> personOrgs = person.getOrganizations();
-		    personOrgs.clear();
 		    String[] orgArr = creator.getOuNumbers().split(",");
+		    personOrgs.clear();
 		    try
 		    {
 		        for (String org : orgArr)
