@@ -35,7 +35,7 @@
 		</aliases>
 		<open>true</open>
 		<description>Journal Names</description>
-		<primary-identifier control="false" generate-cone-id="false" subject-prefix="journals/resource/"></primary-identifier>
+		<primary-identifier control="false" generate-cone-id="false"></primary-identifier>
 		<predicates>
 			<predicate name="Journal Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true"/>
 			<predicate name="Alternative Journal Name" value="http://purl.org/dc/terms/alternative" multiple="true" mandatory="false" localized="false" searchable="true"/>
@@ -71,7 +71,7 @@ AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation}:&lt;http://purl.org
 			<alias>iso639-3</alias>
 		</aliases>
 		<open>false</open>
-		<primary-identifier control="true" generate-cone-id="false" subject-prefix="iso639-3/resource/" identifier-prefix=""/>
+		<primary-identifier control="true" generate-cone-id="false"/>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true"/>
 			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="true" localized="false" searchable="true"/>
@@ -89,7 +89,7 @@ AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation}:&lt;http://purl.org
 			<alias>iso639-1</alias>
 		</aliases>
 		<open>false</open>
-		<primary-identifier control="false" generate-cone-id="false" subject-prefix="iso639-1/resource/"></primary-identifier>
+		<primary-identifier control="false" generate-cone-id="false"></primary-identifier>
 		<predicates>
 			<predicate name="ISO639-3 Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" searchable="true" generateObject="false" resourceModel="iso639-3"/>
 		</predicates>
@@ -107,7 +107,7 @@ AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation}:&lt;http://purl.org
 			<alias>persons</alias>
 		</aliases>
 		<open>true</open>
-		<primary-identifier control="false" generate-cone-id="true" subject-prefix="persons/resource/"/>
+		<primary-identifier control="false" generate-cone-id="true"/>
 		<predicates>
 			<predicate name="Complete Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="true" searchable="true" restricted="false"/>
 			<!-- <predicate name="Cone-ID" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false"/> -->
@@ -170,7 +170,7 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 			<alias>ddc</alias>
 		</aliases>
 		<open>false</open>
-		<primary-identifier control="true" generate-cone-id="false" subject-prefix="ddc/resource/" identifier-prefix="">http://dewey.info/class</primary-identifier>
+		<primary-identifier control="true" generate-cone-id="false">http://dewey.info/class</primary-identifier>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true"/>
 			<predicate name="DDC Code" value="http://dewey.info/class" multiple="false" mandatory="true" localized="false" searchable="true"/>
@@ -189,7 +189,7 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 		<aliases>
 			<alias>mpipks</alias>
 		</aliases>
-		<primary-identifier control="true" generate-cone-id="false" subject-prefix="mpipks/resource/" identifier-prefix=""></primary-identifier>
+		<primary-identifier control="true" generate-cone-id="false"></primary-identifier>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true"/>
 		</predicates>
@@ -206,7 +206,7 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 			<alias>mimetypes</alias>
 		</aliases>
 		<open>false</open>
-		<primary-identifier control="true" generate-cone-id="false" subject-prefix="mimetypes/resource/" identifier-prefix="">http://purl.org/dc/elements/1.1/title</primary-identifier>
+		<primary-identifier control="true" generate-cone-id="false">http://purl.org/dc/elements/1.1/title</primary-identifier>
 		<predicates>
 			<predicate name="Type" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true"/>
 		</predicates>
@@ -223,7 +223,7 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 			<alias>escidocmimetypes</alias>
 		</aliases>
 		<open>false</open>
-		<primary-identifier control="true" generate-cone-id="false" subject-prefix="escidocmimetypes/resource/" identifier-prefix="mimetypes/resource/">http://purl.org/dc/elements/1.1/relation</primary-identifier>
+		<primary-identifier control="true" generate-cone-id="false">http://purl.org/dc/elements/1.1/relation</primary-identifier>
 		<predicates>
 			<predicate name="Type" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" resourceModel="mimetypes" searchable="true"/>
 			<predicate name="File Ending" value="http://purl.org/escidoc/metadata/terms/0.1/suffix" multiple="false" mandatory="false" localized="false" searchable="true" default=".abc" overwrite="false"/>
@@ -242,7 +242,7 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 			<alias>cclicences</alias>
 		</aliases>
 		<open>false</open>
-		<primary-identifier control="true" generate-cone-id="false" subject-prefix="cclicenses/resource/" identifier-prefix="http://creativecommons.org/licenses/">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
+		<primary-identifier control="true" generate-cone-id="false" identifier-prefix="http://creativecommons.org/licenses/">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
 		<predicates>
 			<predicate name="Version" value="urn:cone:version" multiple="false" mandatory="true" localized="false" searchable="true"/>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true"/>

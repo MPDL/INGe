@@ -138,13 +138,20 @@
 
 			function bindSuggest(element, model, cutId)
 			{
-				if (typeof cutId != 'undefined' && cutId)
+				if (typeof pageLoaded != 'undefined' && pageLoaded)
 				{
-					$('.' + element).suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=en&format=json", {onSelect: fillSmallId});
+					if (typeof cutId != 'undefined' && cutId)
+					{
+						$('.' + element).suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=en&format=json", {onSelect: fillSmallId});
+					}
+					else
+					{
+						$('.' + element).suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=en&format=json", {onSelect: fillId});
+					}
 				}
 				else
 				{
-					$('.' + element).suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=en&format=json", {onSelect: fillId});
+					setTimeout('bindSuggest(\'' + element + '\', \'' + model + '\', \'' + (typeof cutId != 'undefined' && cutId) + '\')', 100);
 				}
 			};
 

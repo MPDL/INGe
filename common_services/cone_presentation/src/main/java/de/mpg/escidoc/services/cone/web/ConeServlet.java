@@ -257,7 +257,7 @@ public class ConeServlet extends HttpServlet
             
             if (path.length >= 4)
             {
-                id = path[3];
+                id = path[1] + "/" + path[2] + "/" + path[3];
             }
             
             try

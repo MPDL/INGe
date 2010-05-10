@@ -228,8 +228,8 @@ public class ModelList
             else if ("models/model/primary-identifier".equals(stack.toString()))
             {
                 currentService.setGenerateIdentifier(Boolean.parseBoolean(attributes.getValue("generate-cone-id")));
-                currentService.setIdentifierPrefix(attributes.getValue("identifier-prefix"));
-                currentService.setSubjectPrefix(attributes.getValue("subject-prefix"));
+                currentService.setIdentifierPrefix((attributes.getValue("identifier-prefix") == null ? "" : attributes.getValue("identifier-prefix")));
+                currentService.setSubjectPrefix((attributes.getValue("subject-prefix") == null ? "" : attributes.getValue("subject-prefix")));
                 currentService.setControlled(Boolean.parseBoolean(attributes.getValue("control")));
             }
             else if ("models/config/default-namespace".equals(stack.toString()))

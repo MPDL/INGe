@@ -663,7 +663,7 @@
 
 <%@page import="de.mpg.escidoc.services.cone.ModelList.Event"%><html>
 	<jsp:include page="header.jsp"/>
-	<body>
+	<body onload="self.pageLoaded = true">
 		<div class="full wrapper">
 			<jsp:include page="navigation.jsp"/>
 			<div id="content" class="full_area0 clear">
