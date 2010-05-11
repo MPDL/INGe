@@ -151,7 +151,7 @@
 				}
 				else
 				{
-					setTimeout('bindSuggest(\'' + element + '\', \'' + model + '\', \'' + (typeof cutId != 'undefined' && cutId) + '\')', 100);
+					setTimeout('bindSuggest(\'' + element + '\', \'' + model + '\', ' + (typeof cutId != 'undefined' && cutId) + ')', 100);
 				}
 			};
 
