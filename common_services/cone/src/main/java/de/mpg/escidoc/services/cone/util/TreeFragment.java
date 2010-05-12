@@ -35,6 +35,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import de.mpg.escidoc.services.cone.ModelList;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -50,6 +52,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> implements LocalizedTripleObject
 {
     private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.";
+    private Pattern NAMESPACE_PATTERN = Pattern.compile("([\\S]+)(([/#])| )([^/# ]+)");
     
     private String subject;
     private String language;
@@ -104,7 +107,14 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
         this.language = language;
     }
 
-    
+    // Add predicates of other if this predicate does not exist yet, otherwise overwrite it.
+    public void merge(TreeFragment other)
+    {
+    	for (String predicateName : other.keySet())
+    	{
+    		put(predicateName, other.get(predicateName));
+    	}
+    }
     
     /**
      * {@inheritDoc}
@@ -184,15 +194,11 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
             
             for (String predicate : keySet())
             {
-                int lastSlash = predicate.lastIndexOf("/");
-                if (lastSlash >= 0)
+                Matcher matcher = NAMESPACE_PATTERN.matcher(predicate);
+                if (matcher.find())
                 {
-                    String namespace = predicate.substring(0, lastSlash);
-                    if (!namespace.endsWith("#"))
-                    {
-                        namespace += "/";
-                    }
-                    
+                    String namespace = matcher.group(1) + (matcher.group(3) == null ? "" : matcher.group(3));
+
                     if (!namespaces.containsKey(namespace))
                     {
                         String prefix;
@@ -218,19 +224,15 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
             
             for (String predicate : keySet())
             {
-                int lastSlash = predicate.lastIndexOf("/");
+                Matcher matcher = NAMESPACE_PATTERN.matcher(predicate);
                 String namespace = null;
                 String tagName = null;
                 String prefix = null;
-                if (lastSlash >= 0)
+                if (matcher.find())
                 {
-                    namespace = predicate.substring(0, lastSlash);
-                    if (!namespace.endsWith("#"))
-                    {
-                        namespace += "/";
-                    }
+                    namespace = matcher.group(1) + (matcher.group(3) == null ? "" : matcher.group(3));
                     prefix = namespaces.get(namespace);
-                    tagName = predicate.substring(lastSlash + 1);
+                    tagName = matcher.group(4);
                 }
                 else
                 {

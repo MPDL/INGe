@@ -97,9 +97,9 @@ public class RDFHandler extends ShortContentHandler
                 String nsPrefix = name.split(":")[0];
                 namespace = namespaces.get(nsPrefix);
                 tagName = name.split(":")[1];
-                if (!namespace.endsWith("/"))
+                if (!namespace.endsWith("/") && !namespace.endsWith("#"))
                 {
-                    predicate = namespace + "/" + tagName;
+                    predicate = namespace + " " + tagName;
                 }
                 else
                 {
@@ -109,9 +109,9 @@ public class RDFHandler extends ShortContentHandler
             else if (namespaces.get("") != null)
             {
                 namespace = namespaces.get("");
-                if (!namespace.endsWith("/"))
+                if (!namespace.endsWith("/") && !namespace.endsWith("#"))
                 {
-                    predicate = namespace + "/" + name;
+                    predicate = namespace + " " + name;
                 }
                 else
                 {

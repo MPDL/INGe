@@ -62,11 +62,11 @@
 <%@page import="de.mpg.escidoc.services.cone.util.LocalizedString"%>
 
 <%!
-	private void removeIdentifierPrefixes(TreeFragment fragment) throws Exception
+	private void removeIdentifierPrefixes(TreeFragment fragment, Model model) throws Exception
 	{
 		for (String nodeName : fragment.keySet())
 		{
-			if ("http://purl.org/dc/elements/1.1/relation".equals(nodeName))
+			if (model.getPredicate(nodeName).isResource())
 			{
 				for (LocalizedTripleObject listItem : fragment.get(nodeName))
 				{
@@ -119,6 +119,8 @@
 									List<FileItem> items = upload.parseRequest(request);
 									InputStream uploadedStream = null;
 									ModelList.Model model = null;
+									String workflow = "SKIP";
+									boolean createRelations = false;
 									for (FileItem item : items)
 									{
 										if (item.isFormField())
@@ -126,6 +128,14 @@
 											if ("model".equals(item.getFieldName()))
 											{
 												model = ModelList.getInstance().getModelByAlias(item.getString());
+											}
+											else if ("workflow".equals(item.getFieldName()))
+											{
+												workflow = item.getString();
+											}
+											else if ("create-relations".equals(item.getFieldName()))
+											{
+												createRelations = ("true".equals(item.getString()));
 											}
 										}
 										else
@@ -141,7 +151,7 @@
 									}
 									catch(Exception e)
 									{
-										errors.add("Invalid file!");
+										errors.add("Invalid RDF file!<br/>" + e.getMessage());
 									}
 
 									boolean loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
@@ -166,7 +176,27 @@
 											    if (((TreeFragment) result).getSubject().startsWith(PropertyReader.getProperty("escidoc.cone.service.url")))
 											    {
 											        id = ((TreeFragment) result).getSubject().substring(PropertyReader.getProperty("escidoc.cone.service.url").length());
-											        out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id + " (imported)");
+											        TreeFragment existingObject = querier.details(model.getName(), id);
+											        if (existingObject != null && "skip".equals(workflow))
+											        {
+										        		out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id + " (skipped)");
+										        		continue;
+											        }
+											        else if (existingObject != null && "overwrite".equals(workflow))
+													{
+											        	out.println(" ... deleting existing object ...");
+														querier.delete(model.getName(), id);
+														out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id + " (replaced)");
+													}
+											        else if (existingObject != null && "update".equals(workflow))
+													{
+											        	out.println(" ... updating existing object ...");
+											        	existingObject.merge((TreeFragment) result);
+											        	result = existingObject;
+														querier.delete(model.getName(), id);
+														out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id + " (updated)");
+													}
+										            
 											    }
 											    else if (isMigrateNamespace)
 											    {
@@ -175,7 +205,26 @@
 											        if (matcher.find())
 											        {
 											            id = matcher.group();
-											            out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id + " (migrated)");
+												        TreeFragment existingObject = querier.details(model.getName(), id);
+												        if (existingObject != null && "skip".equals(workflow))
+												        {
+											        		out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id + " (skipped)");
+											        		continue;
+												        }
+												        else if (existingObject != null && "overwrite".equals(workflow))
+														{
+												        	out.println(" ... deleting existing object ...");
+															querier.delete(model.getName(), id);
+															out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id + " (replaced)");
+														}
+												        else if (existingObject != null && "update".equals(workflow))
+														{
+												        	out.println(" ... updating existing object ...");
+												        	existingObject.merge((TreeFragment) result);
+												        	result = existingObject;
+															querier.delete(model.getName(), id);
+															out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id + " (updated)");
+														}
 											        }
 											        else
 											        {
@@ -192,9 +241,8 @@
 												throw new RuntimeException("Identifier expected");
 											}
 											
-											removeIdentifierPrefixes((TreeFragment) result);
+											removeIdentifierPrefixes((TreeFragment) result, model);
 											
-											querier.delete(model.getName(), id);
 											querier.create(model.getName(), id, (TreeFragment) result);
 											out.println(" ...done!<br/>");
 										}

@@ -64,6 +64,8 @@
 							boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue());
 
 							%>
+							Model:
+							<br/>
 							<select name="model" size="1">
 								<% for (ModelList.Model model : ModelList.getInstance().getList()) { %>
 									<% if ((model.isOpen() && editOpen) || (!model.isOpen() && editClosed)) { %>
@@ -72,7 +74,24 @@
 								<% } %>
 							</select>
 							<br/>
+							<br/>
+							RDF File:
+							<br/>
 							<input type="file" name="file"/>
+							<br/>
+							<br/>
+							If an object already exists:
+							<br/>
+							<input type="radio" name="workflow" value="overwrite"/>
+							Replace it with the imported object
+							<br/>
+							<input type="radio" name="workflow" value="update"/>
+							Update it with the imported object
+							<br/>
+							<input type="radio" name="workflow" value="skip" checked=""/>
+							Do not import it
+							<br/>
+							<br/>
 							<input type="submit" name="submit"/>
 						<% } %>
 					</div>

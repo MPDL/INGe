@@ -26,23 +26,23 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<models>
+<models xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="models.xsd">
 	<model>
 		<name>journals</name>
 		<aliases>
 			<alias>jnar</alias>
 			<alias>journals</alias>
 		</aliases>
-		<open>true</open>
 		<description>Journal Names</description>
+		<open>true</open>
 		<primary-identifier control="false" generate-cone-id="false"></primary-identifier>
 		<predicates>
 			<predicate name="Journal Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true"/>
 			<predicate name="Alternative Journal Name" value="http://purl.org/dc/terms/alternative" multiple="true" mandatory="false" localized="false" searchable="true"/>
 			<predicate name="Abbreviation" value="http://purl.org/escidoc/metadata/terms/0.1/abbreviation" multiple="false" mandatory="false" localized="false" searchable="true"/>
 			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true">
-				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#/value" multiple="false" mandatory="true" localized="false" searchable="true"/>
-				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance/type" multiple="false" mandatory="true" localized="false" searchable="false"/>
+				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="true"/>
+				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance type" multiple="false" mandatory="true" localized="false" searchable="false"/>
 			</predicate>
 			<predicate name="Publisher" value="http://purl.org/dc/elements/1.1/publisher" multiple="false" mandatory="false" localized="false" searchable="true"/>
 			<predicate name="Publisher Place" value="http://purl.org/dc/terms/publisher" multiple="false" mandatory="false" localized="true" searchable="true"/>
@@ -70,6 +70,7 @@ AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation}:&lt;http://purl.org
 		<aliases>
 			<alias>iso639-3</alias>
 		</aliases>
+		<description>Languages</description>
 		<open>false</open>
 		<primary-identifier control="true" generate-cone-id="false"/>
 		<predicates>
@@ -81,13 +82,13 @@ AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation}:&lt;http://purl.org
 				&lt;http://purl.org/dc/elements/1.1/title&gt;
 			</pattern>
 		</result>
-		<description>Languages</description>
 	</model>
 	<model>
 		<name>iso639-1</name>
 		<aliases>
 			<alias>iso639-1</alias>
 		</aliases>
+		<description>Languages</description>
 		<open>false</open>
 		<primary-identifier control="false" generate-cone-id="false"></primary-identifier>
 		<predicates>
@@ -98,7 +99,6 @@ AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation}:&lt;http://purl.org
 &lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
 			</pattern>
 		</result>
-		<description>Languages</description>
 	</model>
 	<model>
 		<name>persons</name>
@@ -106,6 +106,7 @@ AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation}:&lt;http://purl.org
 			<alias>authors</alias>
 			<alias>persons</alias>
 		</aliases>
+		<description>Persons</description>
 		<open>true</open>
 		<primary-identifier control="false" generate-cone-id="true"/>
 		<predicates>
@@ -117,12 +118,12 @@ AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation}:&lt;http://purl.org
 			<predicate name="Given Name" value="http://xmlns.com/foaf/0.1/givenname" multiple="false" mandatory="true" localized="true" searchable="true" restricted="false"/>
 			<predicate name="Photo-URL" value="http://xmlns.com/foaf/0.1/depiction" multiple="false" mandatory="false" localized="false" searchable="false" restricted="false"/>
 			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true" restricted="false">
-				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#/value" multiple="false" mandatory="true" localized="false" searchable="true"/>
-				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance/type" multiple="false" mandatory="true" localized="false" searchable="false"/>
+				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="true"/>
+				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance type" multiple="false" mandatory="true" localized="false" searchable="false"/>
 				<!-- changed idtype namespace-->
 			</predicate>
 			<predicate name="Researcher URL" value="http://xmlns.com/foaf/0.1/homepage" multiple="true" mandatory="false" localized="true" generateObject="true" searchable="false" restricted="false">
-				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#/value" multiple="false" mandatory="true" localized="false" searchable="false"/>
+				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="false"/>
 				<predicate name="Description" value="http://purl.org/dc/elements/1.1/description" multiple="false" mandatory="true" localized="true" searchable="false"/>
 			</predicate>
 			<predicate name="Keywords of research fields and interests" value="http://purl.org/dc/terms/subject" multiple="false" mandatory="false" localized="true" searchable="false" restricted="false"/>
@@ -162,13 +163,13 @@ OR{&lt;http://purl.org/dc/terms/alternative&gt;}:&lt;http://purl.org/escidoc/met
 AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/metadata/terms/0.1/position|http://purl.org/eprint/terms/affiliatedInstitution&gt;}:)
 			</pattern>
 		</result>
-		<description>Persons</description>
 	</model>
 	<model>
 		<name>ddc</name>
 		<aliases>
 			<alias>ddc</alias>
 		</aliases>
+		<description>DDC Subjects</description>
 		<open>false</open>
 		<primary-identifier control="true" generate-cone-id="false">http://dewey.info/class</primary-identifier>
 		<predicates>
@@ -182,13 +183,13 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 &lt;http://dewey.info/class&gt;
 			</pattern>
 		</result>
-		<description>DDC Subjects</description>
 	</model>
 	<model>
 		<name>mpipks</name>
 		<aliases>
 			<alias>mpipks</alias>
 		</aliases>
+		<description>MPI PKS Subject Classification</description>
 		<primary-identifier control="true" generate-cone-id="false"></primary-identifier>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true"/>
@@ -198,13 +199,13 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 &lt;http://purl.org/dc/elements/1.1/title&gt;
 			</pattern>
 		</result>
-		<description>MPI PKS Subject Classification</description>
 	</model>
 	<model>
 		<name>mimetypes</name>
 		<aliases>
 			<alias>mimetypes</alias>
 		</aliases>
+		<description>IANA Mimetypes</description>
 		<open>false</open>
 		<primary-identifier control="true" generate-cone-id="false">http://purl.org/dc/elements/1.1/title</primary-identifier>
 		<predicates>
@@ -215,13 +216,13 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 &lt;http://purl.org/dc/elements/1.1/title&gt;
 			</pattern>
 		</result>
-		<description>IANA Mimetypes</description>
 	</model>
 	<model>
 		<name>escidocmimetypes</name>
 		<aliases>
 			<alias>escidocmimetypes</alias>
 		</aliases>
+		<description>Allowed eSciDoc Mimetypes</description>
 		<open>false</open>
 		<primary-identifier control="true" generate-cone-id="false">http://purl.org/dc/elements/1.1/relation</primary-identifier>
 		<predicates>
@@ -233,7 +234,6 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 &lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
 			</pattern>
 		</result>
-		<description>Allowed eSciDoc Mimetypes</description>
 	</model>
 	<model>
 		<name>cclicenses</name>
@@ -241,6 +241,7 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 			<alias>cclicenses</alias>
 			<alias>cclicences</alias>
 		</aliases>
+		<description>CreativeCommons licenses</description>
 		<open>false</open>
 		<primary-identifier control="true" generate-cone-id="false" identifier-prefix="http://creativecommons.org/licenses/">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
 		<predicates>
@@ -263,7 +264,6 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 &lt;http://purl.org/dc/elements/1.1/title&gt;
 			</pattern>
 		</result>
-		<description>CreativeCommons licenses</description>
 	</model>
 	<config>
 		<default-namespace uri="http://purl.org/dc/elements/1.1/" prefix="dc"/>
@@ -273,6 +273,6 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 		<default-namespace uri="http://purl.org/escidoc/metadata/terms/0.1/" prefix="escidoc"/>
 		<default-namespace uri="http://purl.org/eprint/terms/" prefix="eprints"/>
 		<default-namespace uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#" prefix="rdf"/>
-		<default-namespace uri="http://www.w3.org/2001/XMLSchema-instance/" prefix="xsi"/>
+		<default-namespace uri="http://www.w3.org/2001/XMLSchema-instance" prefix="xsi"/>
 	</config>
 </models>
