@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:model="http://purl.org/escidoc/metadata/profiles/0.1/model"  elementFormDefault="qualified">
+
+    <xs:element name="models">
+    	<xs:complexType>
+    		<xs:sequence minOccurs="1" maxOccurs="1">
+    			<xs:element name="model" maxOccurs="unbounded">
+    				<xs:complexType>
+    					<xs:sequence>
+    						<xs:element name="name" type="xs:NCName"/>
+    						<xs:element name="aliases">
+    							<xs:complexType>
+    								<xs:sequence>
+    									<xs:element name="alias" minOccurs="1" maxOccurs="unbounded" type="xs:NCName"/>
+    								</xs:sequence>
+    							</xs:complexType>
+    						</xs:element>
+    						<xs:element name="description" minOccurs="0" type="xs:string"/>
+    						<xs:element name="open" minOccurs="0" type="xs:boolean" default="true"/>
+    						<xs:element name="primary-identifier" minOccurs="1" maxOccurs="1">
+    							<xs:complexType>
+	    							<xs:simpleContent>
+	    								<xs:extension base="xs:anyURI">
+	    									<xs:attribute name="control" type="xs:boolean" default="true"/>
+	    									<xs:attribute name="generate-cone-id" type="xs:boolean" default="true"/>
+	    									<xs:attribute name="identifier-prefix" type="xs:anyURI"/>
+	    								</xs:extension>
+	    							</xs:simpleContent>
+    								
+    							</xs:complexType>
+    						</xs:element>
+    						<xs:element name="predicates">
+    							<xs:complexType>
+    								<xs:sequence>
+    									<xs:element name="predicate" type="PredicateType" minOccurs="1" maxOccurs="unbounded"/>
+    								</xs:sequence>
+    							</xs:complexType>
+    						</xs:element>
+    						<xs:element name="result" minOccurs="1" maxOccurs="1">
+    							<xs:complexType>
+    								<xs:sequence>
+    									<xs:element name="pattern" minOccurs="1" maxOccurs="unbounded" type="xs:string"/>
+    								</xs:sequence>
+    							</xs:complexType>
+    						</xs:element>
+    					</xs:sequence>
+    				</xs:complexType>
+    			</xs:element>
+    			<xs:element name="config" minOccurs="1" maxOccurs="1">
+    				<xs:complexType>
+    					<xs:sequence>
+    						<xs:element name="default-namespace" maxOccurs="unbounded">
+    							<xs:complexType>
+    								<xs:attribute name="uri" type="xs:anyURI" use="required"/>
+    								<xs:attribute name="prefix" type="xs:QName" use="required"/>
+    							</xs:complexType>
+    						</xs:element>
+    					</xs:sequence>
+    				</xs:complexType>
+    			</xs:element>
+    		</xs:sequence>
+    	</xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="PredicateType">
+    	<xs:sequence>
+			<xs:element name="predicate" type="PredicateType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="value" type="xs:anyURI" use="required"/>
+		<xs:attribute name="multiple" type="xs:boolean" default="false" use="optional"/>
+		<xs:attribute name="mandatory" type="xs:boolean" default="false" use="optional"/>
+		<xs:attribute name="localized" type="xs:boolean" default="false" use="optional"/>
+		<xs:attribute name="searchable" type="xs:boolean" default="true" use="optional"/>
+		<xs:attribute name="generateObject" type="xs:boolean" default="true" use="optional"/>
+		<xs:attribute name="resourceModel" type="xs:NCName" use="optional"/>
+		<xs:attribute name="default" type="xs:string" default="" use="optional"/>
+		<xs:attribute name="overwrite" type="xs:boolean" use="optional"/>
+		<xs:attribute name="event" type="EventType" use="optional"/>
+		<xs:attribute name="modify" type="xs:boolean" default="true" use="optional"/>
+		<xs:attribute name="restricted" type="xs:boolean" default="false" use="optional"/>
+    </xs:complexType>
+    
+    <xs:simpleType name="EventType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="onload"/>
+			<xs:enumeration value="onsave"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
