@@ -10,6 +10,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 public class GenreServlet extends HttpServlet 
 {
@@ -19,8 +20,9 @@ public class GenreServlet extends HttpServlet
 		try 
 		{
 			
-			File file = ResourceUtil.getResourceAsFile("WEB-INF/classes/Genres.xml");
-			String dir = file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf(File.separator));
+			File file = ResourceUtil.getResourceAsFile(PropertyReader.getProperty("escidoc.pubman.genres.configuration"));
+			File defaultFile = ResourceUtil.getResourceAsFile("WEB-INF/classes/Genres.xml");
+			String dir = defaultFile.getAbsolutePath().substring(0, defaultFile.getAbsolutePath().lastIndexOf(File.separator));
 			
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser parser = factory.newSAXParser();

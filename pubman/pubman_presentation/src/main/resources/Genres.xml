@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration-settings metadata-profile-version="1" xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publicationform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://escidoc.mpg.de/metadataprofile/schema/0.1/publicationform E:\Repository\04_Design\01_System\MetadataHandling\XML_Schema\escidoc_publication_display_profile.xsd">
+<configuration-settings metadata-profile-version="1" xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publicationform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<!--IMPORTANT INFORMATION
 		      1. group name "source_details_1" changed to "source_volume_issue_pages", label changed to "g_source_volume_issue_pages"
 		      2. group name "source_details_2" changed to "source_sequence_number", label changed to "g_source_sequence_number"
