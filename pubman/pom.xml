@@ -577,8 +577,8 @@
 				<escidoc.pubman.blog.baseUrl>http://pubman.blogs.mpdl.mpg.de/</escidoc.pubman.blog.baseUrl>
 				<escidoc.pubman.blog.news>http://pubman.blogs.mpdl.mpg.de/feed/</escidoc.pubman.blog.news>
     
-                <!-- defines the type of the target system; the logo on the homepage changes on 'dev', 'test' and 'qa' -->
-                <escidoc.systemtype>workstation</escidoc.systemtype>
+				<!-- defines the type of the target system; the logo on the homepage changes on 'dev', 'test' and 'qa' -->
+				<escidoc.systemtype>workstation</escidoc.systemtype>
 				
 				<!-- Current XSD Schema versions -->
 				<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
@@ -657,6 +657,8 @@
 				
 				<escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
 				
+				<escidoc.pubman.genres.configuration>WEB-INF/classes/Genres.xml</escidoc.pubman.genres.configuration>
+				
 			</properties>
 			
 				<distributionManagement>
@@ -722,37 +724,37 @@
 				<escidoc.pubman.item.pattern>/item/$1</escidoc.pubman.item.pattern>
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
                 
-                <!-- Links from PubMan -->
-                <escidoc.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Repository_Policy</escidoc.pubman.policy.url>
-                <escidoc.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</escidoc.pubman.contact.url>
-                
-                <!-- Properties for PubMan standard theme-->
-                <escidoc.pubman.stylesheet.standard.url>./resources/eSciDoc_CSS_v2/themes/skin_PubMan/styles/theme.css</escidoc.pubman.stylesheet.standard.url>
-                <escidoc.pubman.stylesheet.standard.type>stylesheet</escidoc.pubman.stylesheet.standard.type>
-                <escidoc.pubman.stylesheet.standard.apply>true</escidoc.pubman.stylesheet.standard.apply>
-                
-                <!-- Properties for PubMan contrast theme-->
-                <escidoc.pubman.stylesheet.contrast.url>./resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css</escidoc.pubman.stylesheet.contrast.url>
-                <escidoc.pubman.stylesheet.contrast.type>alternate stylesheet</escidoc.pubman.stylesheet.contrast.type>
-                <escidoc.pubman.stylesheet.contrast.apply>true</escidoc.pubman.stylesheet.contrast.apply>
-                
-                <!-- Properties for PubMan classic theme-->
-                <escidoc.pubman.stylesheet.classic.url>./resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css</escidoc.pubman.stylesheet.classic.url>
-                <escidoc.pubman.stylesheet.classic.type>alternate stylesheet</escidoc.pubman.stylesheet.classic.type>
-                <escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
-                
-                <!-- Properties of the favicon-->
-                <escidoc.pubman.favicon.url>./resources/pubman_favicon.ico</escidoc.pubman.favicon.url>
-                <escidoc.pubman.favicon.apply>true</escidoc.pubman.favicon.apply>
-                
-                <!-- version of the pubman cookie (has to be changed if style information is changed)-->
-				<escidoc.pubman.cookie.version>1.0</escidoc.pubman.cookie.version>
-                
-                <!-- Sitemaps -->
-                <escidoc.pubman.sitemap.task.interval>1440</escidoc.pubman.sitemap.task.interval>
-                <escidoc.pubman.sitemap.max.items>50000</escidoc.pubman.sitemap.max.items>
-                <escidoc.pubman.sitemap.retrieve.items>100</escidoc.pubman.sitemap.retrieve.items>
-                <escidoc.pubman.sitemap.retrieve.timeout>20</escidoc.pubman.sitemap.retrieve.timeout>
+				<!-- Links from PubMan -->
+				<escidoc.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Repository_Policy</escidoc.pubman.policy.url>
+				<escidoc.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</escidoc.pubman.contact.url>
+				
+				<!-- Properties for PubMan standard theme-->
+				<escidoc.pubman.stylesheet.standard.url>./resources/eSciDoc_CSS_v2/themes/skin_PubMan/styles/theme.css</escidoc.pubman.stylesheet.standard.url>
+				<escidoc.pubman.stylesheet.standard.type>stylesheet</escidoc.pubman.stylesheet.standard.type>
+				<escidoc.pubman.stylesheet.standard.apply>true</escidoc.pubman.stylesheet.standard.apply>
+				
+				<!-- Properties for PubMan contrast theme-->
+				<escidoc.pubman.stylesheet.contrast.url>./resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css</escidoc.pubman.stylesheet.contrast.url>
+				<escidoc.pubman.stylesheet.contrast.type>alternate stylesheet</escidoc.pubman.stylesheet.contrast.type>
+				<escidoc.pubman.stylesheet.contrast.apply>true</escidoc.pubman.stylesheet.contrast.apply>
+				
+				<!-- Properties for PubMan classic theme-->
+				<escidoc.pubman.stylesheet.classic.url>./resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css</escidoc.pubman.stylesheet.classic.url>
+				<escidoc.pubman.stylesheet.classic.type>alternate stylesheet</escidoc.pubman.stylesheet.classic.type>
+				<escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
+				
+				<!-- Properties of the favicon-->
+				<escidoc.pubman.favicon.url>./resources/pubman_favicon.ico</escidoc.pubman.favicon.url>
+				<escidoc.pubman.favicon.apply>true</escidoc.pubman.favicon.apply>
+				
+				<!-- version of the pubman cookie (has to be changed if style information is changed)-->
+						<escidoc.pubman.cookie.version>1.0</escidoc.pubman.cookie.version>
+				
+				<!-- Sitemaps -->
+				<escidoc.pubman.sitemap.task.interval>1440</escidoc.pubman.sitemap.task.interval>
+				<escidoc.pubman.sitemap.max.items>50000</escidoc.pubman.sitemap.max.items>
+				<escidoc.pubman.sitemap.retrieve.items>100</escidoc.pubman.sitemap.retrieve.items>
+				<escidoc.pubman.sitemap.retrieve.timeout>20</escidoc.pubman.sitemap.retrieve.timeout>
 
 				<!-- URL of the FIZ framework instance -->
 				<escidoc.common.framework.url>http://dev-coreservice.mpdl.mpg.de:80</escidoc.common.framework.url>
@@ -817,13 +819,13 @@
 				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
 				<escidoc.unapi.download.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
 				
-                <!-- Blog integration -->
-                <escidoc.pubman.blog.baseUrl>http://pubman.blogs.mpdl.mpg.de/</escidoc.pubman.blog.baseUrl>
-                <escidoc.pubman.blog.news>http://pubman.blogs.mpdl.mpg.de/feed/</escidoc.pubman.blog.news>
-                
-                <!-- defines the type of the target system; the logo on the homepage changes on 'dev', 'test' and 'qa' -->
-                <escidoc.systemtype>dev</escidoc.systemtype>
-    
+				<!-- Blog integration -->
+				<escidoc.pubman.blog.baseUrl>http://pubman.blogs.mpdl.mpg.de/</escidoc.pubman.blog.baseUrl>
+				<escidoc.pubman.blog.news>http://pubman.blogs.mpdl.mpg.de/feed/</escidoc.pubman.blog.news>
+				
+				<!-- defines the type of the target system; the logo on the homepage changes on 'dev', 'test' and 'qa' -->
+				<escidoc.systemtype>dev</escidoc.systemtype>
+		    
 				<!-- Current XSD Schema versions -->
 				<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
 				<xsd.soap.common.srel>http://escidoc.de/core/01/structural-relations/</xsd.soap.common.srel>
@@ -900,6 +902,8 @@
 				<escidoc.pid.service.search.path>/read/search</escidoc.pid.service.search.path>
 				
 				<escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
+				
+				<escidoc.pubman.genres.configuration>WEB-INF/classes/Genres.xml</escidoc.pubman.genres.configuration>
 				
 			</properties>
 				<distributionManagement>
