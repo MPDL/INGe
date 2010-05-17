@@ -263,7 +263,7 @@ public class EditItemSessionBean extends FacesBean
                         if (!organizationPresentation.isEmpty() || (creatorOrganizations.isEmpty() && creator == pubItem.getMetadata().getCreators().get(pubItem.getMetadata().getCreators().size() - 1)))
                         {
 	                        organizationPresentation.setNumber(counter);
-	                        organizationPresentation.setList(creatorOrganizations);
+	                        organizationPresentation.setBean(this);
 	                        if (organizationPresentation.getName() ==  null)
 	                        {
 	                            organizationPresentation.setName(new TextVO());

@@ -34,6 +34,8 @@ import java.util.List;
 
 import javax.faces.event.ValueChangeEvent;
 
+import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
@@ -48,7 +50,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 public class OrganizationVOPresentation extends OrganizationVO
 {
     private int number;
-    private List<OrganizationVOPresentation> list;
+    private EditItemSessionBean bean;
 
     public OrganizationVOPresentation()
     {
@@ -66,21 +68,21 @@ public class OrganizationVOPresentation extends OrganizationVO
     public String add()
     {
         OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation();
-        organizationPresentation.setList(list);
-        list.add(number, organizationPresentation);
-        for (int i = number; i < list.size(); i++)
+        organizationPresentation.setBean(bean);
+        bean.getCreatorOrganizations().add(number, organizationPresentation);
+        for (int i = number; i < bean.getCreatorOrganizations().size(); i++)
         {
-            list.get(i).setNumber(i + 1);
+        	bean.getCreatorOrganizations().get(i).setNumber(i + 1);
         }
         return "";
     }
 
     public String remove()
     {
-        list.remove(this);
-        for (int i = number - 1; i < list.size(); i++)
+    	bean.getCreatorOrganizations().remove(this);
+        for (int i = number - 1; i < bean.getCreatorOrganizations().size(); i++)
         {
-            list.get(i).setNumber(i + 1);
+        	bean.getCreatorOrganizations().get(i).setNumber(i + 1);
         }
         return "";
     }
@@ -106,15 +108,15 @@ public class OrganizationVOPresentation extends OrganizationVO
      */
     public List<OrganizationVOPresentation> getList()
     {
-        return list;
+        return bean.getCreatorOrganizations();
     }
 
     /**
      * @param list the list to set
      */
-    public void setList(List<OrganizationVOPresentation> list)
+    public void setBean(EditItemSessionBean bean)
     {
-        this.list = list;
+        this.bean = bean;
     }
     
     public void nameListener(ValueChangeEvent event)
@@ -127,7 +129,7 @@ public class OrganizationVOPresentation extends OrganizationVO
     
     public boolean getLast()
     {
-    	return (this.equals(list.get(list.size() - 1)));
+    	return (this.equals(bean.getCreatorOrganizations().get(bean.getCreatorOrganizations().size() - 1)));
     }
     
     public boolean isEmpty()

@@ -41,6 +41,7 @@ import javax.naming.NamingException;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
@@ -138,8 +139,8 @@ public class OrganizationSuggest extends FacesBean
 
             		}
             		organizationVOPresentation.setName(new TextVO(name));
-
-            		organizationVOPresentation.setList(result);
+            		EditItemSessionBean editItemSessionBean = (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+            		organizationVOPresentation.setBean(editItemSessionBean);
             		
             		result.add(organizationVOPresentation);
         		}
