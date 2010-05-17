@@ -77,11 +77,10 @@ public class CitationStyleManagerImpl implements CitationStyleManager
  
 		try 
 		{
-			String csPath = ResourceUtil.getPathToCitationStyle(cs);
-			
 			Transformer transformer = XmlHelper.tryTemplCache(
-				ResourceUtil.getPathToClasses() + ResourceUtil.TRANSFORMATIONS_DIRECTORY  
-				+ "escidoc-cscl2cs-processing.xsl"
+				ResourceUtil.getPathToClasses() 
+				+ ResourceUtil.TRANSFORMATIONS_DIRECTORY  
+				+ ResourceUtil.CITATION_STYLE_PROCESSING_XSL 
 			).newTransformer();
 			
 			transformer.setURIResolver( new compilationURIResolver() );
@@ -91,13 +90,12 @@ public class CitationStyleManagerImpl implements CitationStyleManager
 			transformer.transform(
 					new StreamSource(
 						ResourceUtil.getResourceAsStream(
-							csPath + "CitationStyle.xml"
-//							"target/classes/CitationStyles/APA/CitationStyle.xml"
+							ResourceUtil.getPathToCitationStyleXML(cs)
 						)
 					), 
 					new StreamResult(
 						new FileOutputStream(
-							csPath + "CitationStyle.xsl"	
+								ResourceUtil.getPathToCitationStyleXSL(cs)	
 						)
 					)
 			);
@@ -166,8 +164,7 @@ public class CitationStyleManagerImpl implements CitationStyleManager
 	{
 		Utils.checkName(cs, "Citaion Style is not defined");
 		
-		String csUrl = ResourceUtil.getPathToCitationStyle(cs) + "/CitationStyle.xml";
-		return xh.validateCitationStyleXML( csUrl );
+		return xh.validateCitationStyleXML(cs);
 	}
 
 	public static void main(String args[]) throws IOException, CitationStyleManagerException, JRException 
@@ -236,7 +233,7 @@ public class CitationStyleManagerImpl implements CitationStyleManager
     {
         System.out.println( "CitationStyleManagerImpl usage:" );
         System.out.println( "\tjava CitationStyleManagerImpl -Ttask -CScitationstyle -ILitemlist" );
-        System.out.println( "\tTasks : compile | pdf | rtf | odt | txt | html_plain | html_styled | snippet | escidoc_snippet" );
+        System.out.println( "\tTasks : validate | compile | pdf | rtf | odt | txt | html_plain | html_styled | snippet | escidoc_snippet" );
 
     }	
 	

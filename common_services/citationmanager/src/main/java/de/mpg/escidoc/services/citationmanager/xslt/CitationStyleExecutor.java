@@ -148,10 +148,10 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 			
 			StringWriter sw = new StringWriter();
 			
-			String path = ResourceUtil.getPathToCitationStyle(cs) + "CitationStyle.xsl"; 
+			String csXslPath = ResourceUtil.getPathToCitationStyleXSL(cs); 
 			
 			/* get xslt from the templCache */
-			transformer = XmlHelper.tryTemplCache(path).newTransformer();
+			transformer = XmlHelper.tryTemplCache(csXslPath).newTransformer();
 			
 			//set parameters
 			transformer.setParameter("pubman_instance", getPubManUrl());

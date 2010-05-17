@@ -71,11 +71,15 @@ public class ResourceUtil
 {
 	private static final Logger logger = Logger.getLogger(ResourceUtil.class);
 	
+	public final static String CLASS_DIRECTORY = "target/classes/";
+	
     public final static String RESOURCES_DIRECTORY_LOCAL = "src/main/resources/";
 //    public final static String RESOURCES_DIRECTORY_LOCAL = "target/classes/";
 //    public final static String RESOURCES_DIRECTORY_JAR = "resources/";
     public final static String RESOURCES_DIRECTORY_JAR = "";
-    public final static String CLASS_DIRECTORY = "target/classes/";
+
+//    public final static String TEST_RESOURCES_DIRECTORY_LOCAL = "src/test/resources/";
+    public final static String TEST_RESOURCES_DIRECTORY_LOCAL = "target/test-classes/";
 
     
     public final static String DATASOURCES_DIRECTORY = "DataSources/";
@@ -87,6 +91,13 @@ public class ResourceUtil
     public final static String FONTSTYLES_FILENAME = "FontStyles";
     
     public final static String EXPLAIN_FILE = "explain-styles.xml";
+    
+    public final static String CITATION_STYLE_PROCESSING_XSL = "escidoc-cscl2cs-processing.xsl";
+    
+    public final static String CITATION_STYLE_XML = "CitationStyle.xml";
+    
+    public final static String CITATION_STYLE_XSL = "CitationStyle.xsl";
+    
     
     //the hash of the export-formats explain
     private static Map<String, Map<String, String>> exportFormatsHash = null;
@@ -339,6 +350,31 @@ public class ResourceUtil
     		getPathToClasses().replace(CLASS_DIRECTORY, RESOURCES_DIRECTORY_LOCAL);
     }
     
+    /**
+     * Returns path to the test resources directory 
+     *     
+     * @return path
+     * @throws IOException 
+     */
+    public static String getPathToTestResources() throws IOException
+    {
+    	return
+    	getPathToClasses().replace(CLASS_DIRECTORY, TEST_RESOURCES_DIRECTORY_LOCAL);
+    }
+    
+    
+    /**
+     * Returns path to the test resources directory of the citation style 
+     *     
+     * @param cs - CItation Style ID
+     * @return
+     * @throws IOException
+     */
+    public static String getPathToCitationStyleTestResources(String cs) throws IOException
+    {
+    	return getPathToTestResources() + CITATIONSTYLES_DIRECTORY + cs + "/";
+    }
+    
     
     /**
      * Returns path to the Citation Styles directory 
@@ -362,6 +398,30 @@ public class ResourceUtil
     {
     	return 
     		getPathToCitationStyles() + cs + "/";
+    }
+    
+    /**
+     * Returns path to the Citation Style Definition XML 
+     * @param cs
+     * @return
+     * @throws IOException
+     */
+    public static String getPathToCitationStyleXML(String cs) throws IOException 
+    {
+    	return 
+    	getPathToCitationStyle(cs) + CITATION_STYLE_XML;
+    }
+    
+    /**
+     * Returns path to the Citation Style compiled XSL 
+     * @param cs
+     * @return
+     * @throws IOException
+     */
+    public static String getPathToCitationStyleXSL(String cs) throws IOException 
+    {
+    	return 
+    	getPathToCitationStyle(cs) + CITATION_STYLE_XSL;
     }
 
 

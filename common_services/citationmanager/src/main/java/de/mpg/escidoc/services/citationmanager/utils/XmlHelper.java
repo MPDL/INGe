@@ -424,9 +424,10 @@ public class XmlHelper {
      * @param xmlDocumentUrl is URI to XML to be validated 
      * @throws IOException 
      */
-    public String validateCitationStyleXML(final String xmlDocumentUrl) throws IOException
+    public String validateCitationStyleXML(final String cs) throws IOException
     {
-    	logger.info("Document to be validated: " + xmlDocumentUrl );
+    	String csFile = ResourceUtil.getPathToCitationStyleXML(cs);
+    	logger.info("Document to be validated: " + csFile);
     	
     	// XML Schema validation
     	logger.info("XML Schema validation...");
@@ -435,7 +436,7 @@ public class XmlHelper {
     			ResourceUtil.getUriToResources()
     			+ ResourceUtil.SCHEMAS_DIRECTORY
     			+ CITATIONSTYLE_XML_SCHEMA_FILE
-    			, xmlDocumentUrl
+    			, csFile
     		);
     	if ( report != null )
     	{
@@ -455,7 +456,7 @@ public class XmlHelper {
         validator.setBaseXML(true);
         try {
 			report = validator.validate(
-					xmlDocumentUrl,
+					csFile,
 					ResourceUtil.getPathToSchemas()
 					+ SCHEMATRON_FILE
 			);
