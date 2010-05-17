@@ -132,8 +132,8 @@
 		<dc:creator></dc:creator>
 	</export-format>		
 	<export-format type="layout" context="PubMan">
-		<dc:title>Test Citation Style</dc:title>
-		<dc:identifier>Test</dc:identifier>
+		<dc:title>Default Citation Style</dc:title>
+		<dc:identifier>Default</dc:identifier>
 		<output-format>
 			<dc:title>pdf</dc:title>
 			<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
@@ -162,7 +162,6 @@
 			<dc:title>escidoc_snippet</dc:title>
 			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
 		</output-format>
-		
-		<dc:creator></dc:creator>
+		<dc:creator>vmakarenko</dc:creator>
 	</export-format>		
 </export-formats>
