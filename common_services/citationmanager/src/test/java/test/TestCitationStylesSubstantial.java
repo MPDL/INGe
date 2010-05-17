@@ -31,7 +31,6 @@ package test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -52,7 +51,6 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -65,16 +63,11 @@ import de.escidoc.www.services.aa.UserAccountHandler;
 import de.escidoc.www.services.adm.AdminHandler;
 import de.escidoc.www.services.om.ContextHandler;
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
-import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-
-import test.TestHelper;
 
 /**
  * Test class for citation manager processing component
@@ -117,12 +110,10 @@ public class TestCitationStylesSubstantial {
 	
 	private static final String LMD_FORMAT = "<param last-modification-date=\"%s\"/>";
 
-	private static final String CITATION_STYLE_TEST_XMLS_DIRECTORY = "target/test-classes/backup";
-	private static final String CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME = "CitationStyleTestUserAccount.xml"; 
-	private static final String CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME = "CitationStyleTestUserGrants.xml"; 
-	private static final String CITATION_STYLE_TEST_CONTEXTS_FILE_NAME = "CitationStyleTestContexts.xml"; 
-	private static final String CITATION_STYLE_TEST_COLLECTION_FILE_NAME = "CitationStyleTestCollection.xml"; 
-	private static final String CITATION_STYLE_JUS_TEST_COLLECTION_FILE_NAME = "CitationStyleJusTestCollection.xml"; 
+	private static final String CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME = "backup/CitationStyleTestUserAccount.xml"; 
+	private static final String CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME = "backup/CitationStyleTestUserGrants.xml"; 
+	private static final String CITATION_STYLE_TEST_CONTEXTS_FILE_NAME = "backup/CitationStyleTestContexts.xml"; 
+	private static final String CITATION_STYLE_TEST_COLLECTION_FILE_NAME = "backup/CitationStyleTestCollection.xml"; 
 	
 	
 	private static String userHandle, adminHandle;   
@@ -150,9 +141,26 @@ public class TestCitationStylesSubstantial {
      * 
      * @throws Exception
      */
-    @Test
-//    @Ignore
-    public final void testCitationStyleSnippetGeneration() throws Exception  {
+	 @Test
+	 @Ignore
+	 public final void testCitationStylesSnippetGeneration() throws Exception  {
+
+		 for ( String cs: cse.getStyles() ) 
+		 {
+			 testCitationStyleSnippetGeneration(cs);
+		 }
+	 }
+
+	 
+	 @Test
+	 public final void testCitationStyleTestSnippetGeneration() throws Exception  {
+
+		 testCitationStyleSnippetGeneration("Test");
+
+	 }
+	 
+	 
+    public final void testCitationStyleSnippetGeneration(String cs) throws Exception  {
 
     	int FAILED = 0;
     	String generatedCit;
@@ -161,35 +169,27 @@ public class TestCitationStylesSubstantial {
     	String itemList;
     	
 
-    	// for all citation styles
-    	for (String cs : 
-    		cse.getStyles() 
-//    		new String[]{"APA", "AJP"} 
-    	)    	
+    	logger.info("Citation Style: " + cs);
+    	Properties tp = TestHelper.getTestProperties(cs);
+    	
+    	if ("false".equalsIgnoreCase(tp.getProperty("substantial.skip.test")))
     	{
+    		boolean IS_IGNORE_MULTIPLY_SPACES = "true".equalsIgnoreCase(tp.getProperty("ignore.multiply.spaces"));
+    		String FILE_NAME = tp.getProperty("substantial.test.xml");
+    		String EXPECTED_KEY = tp.getProperty("substantial.expected.key");
+    		String EXPECTED_XPATH = tp.getProperty("substantial.expected.xpath");
+    		String SNIPPET_XPATH = tp.getProperty("substantial.snippet.placeholder.xpath");
 
-    		logger.info("Citation Style: " + cs);
-    		Properties tp = TestHelper.getTestProperties(cs);
-    		
-    		//get item list from file
-//    		boolean IS_IGNORE_MULTIPLY_SPACES = tp.getProperty("ignore.multiply.spaces").equals("yes");
-    		//    	
-    		String FILE_NAME = tp.getProperty("data.source.filename");
-    		String EXPECTED_KEY = tp.getProperty("data.source.expected.key");
-    		String EXPECTED_XPATH = tp.getProperty("data.source.expected.xpath");
-    		String SNIPPET_XPATH = tp.getProperty("snippet.placeholder.xpath");
-    		
     		//get items from file
-    		//itemList = getFileAsString(CITATION_STYLE_TEST_COLLECTION_FILE_NAME);
-    		itemList = getFileAsString(FILE_NAME);
-    		
+    		itemList = TestHelper.getCitationStyleTestXmlAsString(FILE_NAME);
+
     		Document doc = XmlHelper.createDocument(itemList);
     		Element root = doc.getDocumentElement();
-    		
+
     		Node[] itemsArr = TestHelper.getItemNodes(root);
 
     		assertFalse("No items have been found", itemsArr.length==0);
-    		
+
     		for ( int i = 0; i < itemsArr.length; i++ )
     		{
     			root.appendChild(itemsArr[i]);
@@ -198,11 +198,13 @@ public class TestCitationStylesSubstantial {
     			logger.info("item: " + i + ", " + objid);
 
     			//generate text citation form the current item
-//    			logger.info( "item:" + XmlHelper.outputString(doc));
-    			
+    			//    			logger.info( "item:" + XmlHelper.outputString(doc));
+
     			String snippet = new String(cse.getOutput(cs, "escidoc_snippet", XmlHelper.outputString(doc)));
+    			logger.info( "snippet:" + snippet);
+
     			Node snippetNode = xpathNode(SNIPPET_XPATH, snippet);
-    			
+
     			generatedCit = snippetNode.getTextContent();
     			logger.info( "generated citation:" + generatedCit );
 
@@ -213,7 +215,7 @@ public class TestCitationStylesSubstantial {
     			expectedCit = checkNode.getTextContent();
     			assertNotNull("expected citation element is empty for " + comment, checkNode);
     			expectedCit = expectedCit.replaceFirst("^" + EXPECTED_KEY , "");
-//    			 logger.info( "expected citation:" + expectedCit );
+    			//    			 logger.info( "expected citation:" + expectedCit );
 
     			//compare generated and expected items
     			if ( !diffStrings(generatedCit, expectedCit) )
@@ -233,12 +235,16 @@ public class TestCitationStylesSubstantial {
     		if (FAILED != 0)
     		{
     			logger.info("I found " + FAILED + " wrong generated citation(s):" 
-        				+ failedCits.toString());
+    					+ failedCits.toString());
     			Assert.fail();
     		}
-    		
-
+    	} 
+    	else 
+    	{
+    		logger.info("Ignore substantial test for citation style: " + cs);
     	}
+
+
     }
     
 	/* CITATION STYLE TEST COLLECTION MANAGEMENT BLOCK */
@@ -306,7 +312,7 @@ public class TestCitationStylesSubstantial {
     	
     	//user does not exist, create them
     	//get saved xml 
-    	userXml = getFileAsString(CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME); 
+    	userXml = TestHelper.getFileAsString(CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME); 
     	if ( !Utils.checkVal(userXml) )
     	{
     		logger.info("empty user account xml");
@@ -347,7 +353,7 @@ public class TestCitationStylesSubstantial {
     private boolean restoreItems() throws Exception 
     {
 		//load from file
-    	String itemList = getFileAsString(CITATION_STYLE_TEST_COLLECTION_FILE_NAME);
+    	String itemList = TestHelper.getFileAsString(CITATION_STYLE_TEST_COLLECTION_FILE_NAME);
     	if ( !Utils.checkVal(itemList) )
     	{
     		//file is empty
@@ -484,7 +490,7 @@ public class TestCitationStylesSubstantial {
     	}
     	
     	//context does not exist, create it 
-    	String contextXml = getFileAsString(CITATION_STYLE_TEST_CONTEXTS_FILE_NAME);
+    	String contextXml = TestHelper.getFileAsString(CITATION_STYLE_TEST_CONTEXTS_FILE_NAME);
     	if ( !Utils.checkVal(contextXml) )
     	{
     		//file is empty
@@ -561,7 +567,7 @@ public class TestCitationStylesSubstantial {
 		logger.info("context_name:" + CONTEXT + ", context_id: " + context_id);
 
 
-		String grantsXml = getFileAsString(CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME);
+		String grantsXml = TestHelper.getFileAsString(CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME);
 
 		Document document = createDocument(grantsXml);
 
@@ -775,24 +781,16 @@ private static void administration(String userHandle) throws Exception
     	);
     }
     
-    private String getFileAsString(String fileName) throws IOException
-    {
-    	return ResourceUtil.getResourceAsString(getPathToTestResources() + fileName);
-    }
     
     private void writeToFile(String fileName, String content) throws IOException
     {
     	TestHelper.writeToFile(
-    			getPathToTestResources() + 
+    			ResourceUtil.getPathToTestResources() + 
     			fileName, 
     			content.getBytes()
     	);     	
     }
     
-    private String getPathToTestResources()
-    {
-    	return CITATION_STYLE_TEST_XMLS_DIRECTORY + "/";
-    }
     
     /**
      * Compares two strings 

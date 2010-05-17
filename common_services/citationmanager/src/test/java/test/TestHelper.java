@@ -98,23 +98,6 @@ public class TestHelper
 	public static final String CONTEXT = "Citation Style Testing Context";
 	public static final String SEARCH_CONTEXT = "escidoc.context.name=%22Citation%20Style%20Testing%20Context%22";
 	
-    private static final Map<String, String> formatExtensions =   
-    	new HashMap<String, String>()   
-    	{  
-			{  
-                put("txt", "txt");
-                put("pdf", "pdf");
-                put("rtf", "rtf");
-                put("html_plain", "html");
-                put("html_styled", "html");
-                put("odt", "odt");
-                put("snippet", "xml");
-                put("escidoc_snippet", "xml");
-                put("xml", "xml");
-                put("escidoc_xml", "xml");
-	    	}  
-    	};
-	
 	
     public static String getTestItemListFromFramework() throws IOException, ServiceException, URISyntaxException
     {
@@ -198,13 +181,12 @@ public class TestHelper
     }
 
     
-    public static Properties getTestProperties(String csName) throws FileNotFoundException, IOException 
+    public static Properties getTestProperties(String cs) throws FileNotFoundException, IOException 
     {
     	String path_to_props = 
-    		ResourceUtil.getPathToCitationStyles() 
-			+ csName
-			+ "/test.properties"; 
-    	logger.info("path_to_props:" + path_to_props);
+    		ResourceUtil.getPathToCitationStyleTestResources(cs)
+			+ "test.properties"; 
+//    	logger.info("path_to_props:" + path_to_props);
     	InputStream is = ResourceUtil.getResourceAsStream(path_to_props); 
     	Properties props = new Properties();
 		props.load(is);
@@ -212,6 +194,18 @@ public class TestHelper
 		return props;
     }
         
+    public static String getCitationStyleTestXmlAsString(String fileName) throws IOException
+    {
+    	return getFileAsString(ResourceUtil.CITATIONSTYLES_DIRECTORY + fileName);
+    }
+
+    
+    public static String getFileAsString(String fileName) throws IOException
+    {
+    	logger.info("test XML" +  ResourceUtil.getPathToTestResources() + fileName);
+    	return ResourceUtil.getResourceAsString(ResourceUtil.getPathToTestResources() + fileName);
+    }
+
     
     public static String getItemListFromFrameworkBase(String USER, String PASSWD, String filter) throws IOException, ServiceException, URISyntaxException
     {
@@ -445,14 +439,5 @@ public class TestHelper
 		return extractTag(xml, "dcterms:abstract"); 
 	}    
 	
-	 /**
-     * Delivers the name of the selected file according to name of format.
-     */
-    public static String getExtensionByName(String name)
-    {
-    	name = name == null || name.trim().equals("") ? "" : name.trim();  
-    	return formatExtensions.containsKey(name) ? formatExtensions.get(name) : formatExtensions.get("pdf");   
-    }
-    
 }
 

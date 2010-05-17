@@ -1,0 +1,2980 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItemList:item-list xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.9" xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.7" xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.7" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:idtype="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.9">
+    <escidocItem:item objid="escidoc:64657" last-modification-date="2009-11-09T10:44:20.361Z">
+        <escidocItem:properties>
+            <prop:creation-date>2009-04-24T09:14:22.208Z</prop:creation-date>
+            <srel:created-by objid="escidoc:53274"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:54203"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:64657:3</prop:pid>
+            <prop:version objid="escidoc:64657:7">
+                <version:number>7</version:number>
+                <version:date>2009-11-09T10:44:20.361Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:53213"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:64657:7</version:pid>
+            </prop:version>
+            <prop:latest-version objid="escidoc:64657:7">
+                <version:number>7</version:number>
+                <version:date>2009-11-09T10:44:20.361Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release objid="escidoc:64657:7">
+                <release:number>7</release:number>
+                <release:date>2009-11-09T10:44:20.361Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:64657:7</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags>
+                    <local-tag>staffmeeting-2009-march</local-tag>
+                </local-tags>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/eprint/type/BookItem">
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Gentner</eterms:family-name>
+                            <eterms:given-name>Dedre</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Bowerman</eterms:family-name>
+                            <eterms:given-name>Melissa</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>Language Acquisition Group, MPI for Psycholinguistics,
+									Max Planck Society</dc:title>
+                                <eterms:address/>
+                                <dc:identifier>escidoc:55202</dc:identifier>
+                            </organization:organization>
+                            <organization:organization>
+                                <dc:title>Categories across Language and Cognition, MPI for
+									Psycholinguistics, Max Planck Society</dc:title>
+                                <eterms:address>Nijmegen, NL</eterms:address>
+                                <dc:identifier>escidoc:55211</dc:identifier>
+                            </organization:organization>
+                            <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons12
+							</dc:identifier>
+                        </person:person>
+                    </eterms:creator>
+                    <dc:title>Why some spatial semantic categories are harder to learn
+						than others: The typological prevalence hypothesis</dc:title>
+                    <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2009</dcterms:issued>
+                    <source:source type="http://purl.org/eprint/type/Book">
+                        <dc:title>Crosslinguistic approaches to the psychology of
+							language: Research in the tradition of Dan Isaac Slobin
+						</dc:title>
+                        <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                            <person:person>
+                                <eterms:complete-name/>
+                                <eterms:family-name>Guo</eterms:family-name>
+                                <eterms:given-name>Jiansheng</eterms:given-name>
+                            </person:person>
+                        </eterms:creator>
+                        <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                            <person:person>
+                                <eterms:complete-name/>
+                                <eterms:family-name>Lieven</eterms:family-name>
+                                <eterms:given-name>Elena</eterms:given-name>
+                            </person:person>
+                        </eterms:creator>
+                        <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                            <person:person>
+                                <eterms:complete-name/>
+                                <eterms:family-name>Budwig</eterms:family-name>
+                                <eterms:given-name>Nancy</eterms:given-name>
+                            </person:person>
+                        </eterms:creator>
+                        <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                            <person:person>
+                                <eterms:complete-name/>
+                                <eterms:family-name>Ervin-Tripp</eterms:family-name>
+                                <eterms:given-name>Susan</eterms:given-name>
+                            </person:person>
+                        </eterms:creator>
+                        <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                            <person:person>
+                                <eterms:complete-name/>
+                                <eterms:family-name>Nakamura</eterms:family-name>
+                                <eterms:given-name>Keiko</eterms:given-name>
+                            </person:person>
+                        </eterms:creator>
+                        <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                            <person:person>
+                                <eterms:complete-name/>
+                                <eterms:family-name>Ozcaliskan</eterms:family-name>
+                                <eterms:given-name>Seyda</eterms:given-name>
+                            </person:person>
+                        </eterms:creator>
+                        <eterms:volume/>
+                        <eterms:start-page>465</eterms:start-page>
+                        <eterms:end-page>480</eterms:end-page>
+                        <eterms:sequence-number/>
+                        <eterms:total-number-of-pages/>
+                        <eterms:publishing-info>
+                            <dc:publisher>Psychology Press</dc:publisher>
+                            <eterms:place>New York</eterms:place>
+                            <eterms:edition/>
+                        </eterms:publishing-info>
+                        <dc:identifier xsi:type="eterms:ISBN">978-0-8058-5998-0
+						</dc:identifier>
+                    </source:source>
+                    <eterms:total-number-of-pages/>
+                    <dc:subject/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                </publication:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components xml:base="http://coreservice.mpdl.mpg.de">
+            <escidocComponents:component objid="escidoc:102108">
+                <escidocComponents:properties>
+                    <prop:creation-date>2009-10-08T14:36:24.980Z</prop:creation-date>
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>public</prop:visibility>
+                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
+					</prop:content-category>
+                    <prop:file-name>Gentner&amp;Bowerman_2009.pdf</prop:file-name>
+                    <prop:mime-type>application/pdf</prop:mime-type>
+                    <prop:checksum>b5a998c4b578e91919d1144488b92bdf</prop:checksum>
+                    <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+                </escidocComponents:properties>
+                <escidocComponents:content xlink:type="simple" xlink:title="Gentner&amp;Bowerman_2009.pdf" xlink:href="/ir/item/escidoc:64657/components/component/escidoc:102108/content" storage="internal-managed"/>
+                <escidocMetadataRecords:md-records>
+                    <escidocMetadataRecords:md-record name="escidoc">
+                        <file:file>
+                            <dc:title>Gentner&amp;Bowerman_2009.pdf</dc:title>
+                            <dc:description/>
+                            <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+                            <dcterms:extent>1422904</dcterms:extent>
+                            <dcterms:dateCopyrighted/>
+                            <dc:rights/>
+                            <dcterms:license/>
+                        </file:file>
+                    </escidocMetadataRecords:md-record>
+                </escidocMetadataRecords:md-records>
+            </escidocComponents:component>
+        </escidocComponents:components>
+    </escidocItem:item>
+    <escidocItem:item objid="escidoc:67079" last-modification-date="2009-09-11T09:40:50.722Z">
+        <escidocItem:properties>
+            <prop:creation-date>2009-06-08T12:01:19.737Z</prop:creation-date>
+            <srel:created-by objid="escidoc:53307"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:54203"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:67079:3</prop:pid>
+            <prop:version objid="escidoc:67079:6">
+                <version:number>6</version:number>
+                <version:date>2009-09-11T09:40:50.722Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:53218"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:67079:6</version:pid>
+            </prop:version>
+            <prop:latest-version objid="escidoc:67079:6">
+                <version:number>6</version:number>
+                <version:date>2009-09-11T09:40:50.722Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release objid="escidoc:67079:6">
+                <release:number>6</release:number>
+                <release:date>2009-09-11T09:40:50.722Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:67079:6</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags>
+                    <local-tag>ro-2009-june</local-tag>
+                </local-tags>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/eprint/type/BookItem">
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Levinson</eterms:family-name>
+                            <eterms:given-name>Stephen C.</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>Language and Cognition Group, MPI for
+									Psycholinguistics, Max Planck Society</dc:title>
+                                <eterms:address/>
+                                <dc:identifier>escidoc:55204</dc:identifier>
+                            </organization:organization>
+                            <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons116
+							</dc:identifier>
+                        </person:person>
+                    </eterms:creator>
+                    <dc:title>Language and mind: Let's get the issues straight!
+					</dc:title>
+                    <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2009</dcterms:issued>
+                    <source:source type="http://purl.org/eprint/type/Book">
+                        <dc:title>Making sense of language: Readings in culture and
+							communication</dc:title>
+                        <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                            <person:person>
+                                <eterms:complete-name/>
+                                <eterms:family-name>Blum</eterms:family-name>
+                                <eterms:given-name>S. D.</eterms:given-name>
+                            </person:person>
+                        </eterms:creator>
+                        <eterms:volume/>
+                        <eterms:start-page>95</eterms:start-page>
+                        <eterms:end-page>104</eterms:end-page>
+                        <eterms:sequence-number/>
+                        <eterms:total-number-of-pages/>
+                        <eterms:publishing-info>
+                            <dc:publisher>Oxford University Press</dc:publisher>
+                            <eterms:place>Oxford</eterms:place>
+                            <eterms:edition/>
+                        </eterms:publishing-info>
+                    </source:source>
+                    <eterms:total-number-of-pages/>
+                    <dc:subject/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                </publication:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components xml:base="http://coreservice.mpdl.mpg.de">
+            <escidocComponents:component objid="escidoc:95152">
+                <escidocComponents:properties>
+                    <prop:creation-date>2009-09-10T16:11:02.065Z</prop:creation-date>
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>public</prop:visibility>
+                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
+					</prop:content-category>
+                    <prop:file-name>2003_Language_and_mind.pdf</prop:file-name>
+                    <prop:mime-type>application/octet-stream</prop:mime-type>
+                    <prop:checksum>f21248acabe7abfb8cfce59d54866945</prop:checksum>
+                    <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+                </escidocComponents:properties>
+                <escidocComponents:content xlink:type="simple" xlink:title="2003_Language_and_mind.pdf" xlink:href="/ir/item/escidoc:67079/components/component/escidoc:95152/content" storage="internal-managed"/>
+                <escidocMetadataRecords:md-records>
+                    <escidocMetadataRecords:md-record name="escidoc">
+                        <file:file>
+                            <dc:title>2003_Language_and_mind.pdf</dc:title>
+                            <dc:description/>
+                            <dc:format xsi:type="dcterms:IMT">application/octet-stream
+							</dc:format>
+                            <dcterms:extent>1100544</dcterms:extent>
+                            <dcterms:dateCopyrighted/>
+                            <dc:rights/>
+                            <dcterms:license/>
+                        </file:file>
+                    </escidocMetadataRecords:md-record>
+                </escidocMetadataRecords:md-records>
+            </escidocComponents:component>
+        </escidocComponents:components>
+    </escidocItem:item>
+    <escidocItem:item objid="escidoc:66205" last-modification-date="2010-02-25T08:53:30.149Z">
+        <escidocItem:properties>
+            <prop:creation-date>2009-05-06T09:33:51.768Z</prop:creation-date>
+            <srel:created-by objid="escidoc:53640"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:54203"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:66205:10</prop:pid>
+            <prop:version objid="escidoc:66205:17">
+                <version:number>17</version:number>
+                <version:date>2010-02-25T08:53:30.149Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:53222"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:66205:17</version:pid>
+            </prop:version>
+            <prop:latest-version objid="escidoc:66205:17">
+                <version:number>17</version:number>
+                <version:date>2010-02-25T08:53:30.149Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release objid="escidoc:66205:17">
+                <release:number>17</release:number>
+                <release:date>2010-02-25T08:53:30.149Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:66205:17</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags>
+                    <local-tag>staffmeeting-2009-may</local-tag>
+                    <local-tag>staffmeeting-2009-dec</local-tag>
+                </local-tags>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/eprint/type/BookItem">
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Scott</eterms:family-name>
+                            <eterms:given-name>Sophie K</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>Institute of Cognitive Neuroscience, University
+									College London, UK</dc:title>
+                                <eterms:address/>
+                                <dc:identifier>escidoc:persistent22</dc:identifier>
+                            </organization:organization>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Sauter</eterms:family-name>
+                            <eterms:given-name>Disa</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>Comparative Cognitive Anthropology , MPI for
+									Psycholinguistics, Max Planck Society</dc:title>
+                                <eterms:address>Nijmegen, NL</eterms:address>
+                                <dc:identifier>escidoc:55209</dc:identifier>
+                            </organization:organization>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>McGettigan</eterms:family-name>
+                            <eterms:given-name>Carolyn</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>Institute of Cognitive Neuroscience, University
+									College London, UK</dc:title>
+                                <eterms:address/>
+                                <dc:identifier>escidoc:persistent22</dc:identifier>
+                            </organization:organization>
+                        </person:person>
+                    </eterms:creator>
+                    <dc:title>Brain mechanisms for processing perceived emotional
+						vocalizations in humans</dc:title>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF">2009
+					</dcterms:dateAccepted>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2009-10-13</dcterms:issued>
+                    <source:source type="http://purl.org/eprint/type/Book">
+                        <dc:title>Handbook of mammalian vocalization: An integrative
+							neuroscience approach </dc:title>
+                        <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                            <person:person>
+                                <eterms:complete-name/>
+                                <eterms:family-name>Brudzynski </eterms:family-name>
+                                <eterms:given-name>Stefan M</eterms:given-name>
+                            </person:person>
+                        </eterms:creator>
+                        <eterms:volume/>
+                        <eterms:start-page>187</eterms:start-page>
+                        <eterms:end-page>198</eterms:end-page>
+                        <eterms:sequence-number/>
+                        <eterms:total-number-of-pages>600</eterms:total-number-of-pages>
+                        <eterms:publishing-info>
+                            <dc:publisher>Academic Press</dc:publisher>
+                            <eterms:place>London</eterms:place>
+                            <eterms:edition/>
+                        </eterms:publishing-info>
+                        <dc:identifier xsi:type="eterms:ISBN">978-0-12-374593-4
+						</dc:identifier>
+                    </source:source>
+                    <eterms:total-number-of-pages/>
+                    <dcterms:abstract>Humans express emotional information in their
+						facial expressions and body movements, as well as in their voice.
+						In this chapter we consider the neural processing of a specific
+						kind of vocal expressions, non-verbal emotional vocalizations e.g.
+						laughs and sobs. We outline evidence, from patient studies and
+						functional imaging studies, for both emotion specific and more
+						general processing of emotional information in the voice. We
+						relate these findings to evidence for both basic and dimensional
+						accounts of the representations of emotion. We describe in detail
+						an fMRI study of positive and negative non-verbal expressions of
+						emotion, which revealed that prefrontal areas involved in the
+						control of oro-facial movements were also sensitive to different
+						kinds of vocal emotional information.</dcterms:abstract>
+                    <dc:subject/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                </publication:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components xml:base="http://coreservice.mpdl.mpg.de">
+            <escidocComponents:component objid="escidoc:102137">
+                <escidocComponents:properties>
+                    <prop:creation-date>2009-10-13T12:03:01.733Z</prop:creation-date>
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>public</prop:visibility>
+                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
+					</prop:content-category>
+                    <prop:file-name>scott,sauter,mcgettigan-handbook.pdf
+					</prop:file-name>
+                    <prop:mime-type>application/pdf</prop:mime-type>
+                    <prop:checksum>5bb32def00683e65d599d41fad00e00a</prop:checksum>
+                    <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+                </escidocComponents:properties>
+                <escidocComponents:content xlink:type="simple" xlink:title="scott,sauter,mcgettigan-handbook.pdf" xlink:href="/ir/item/escidoc:66205/components/component/escidoc:102137/content" storage="internal-managed"/>
+                <escidocMetadataRecords:md-records>
+                    <escidocMetadataRecords:md-record name="escidoc">
+                        <file:file>
+                            <dc:title>scott,sauter,mcgettigan-handbook.pdf</dc:title>
+                            <dc:description/>
+                            <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+                            <dcterms:extent>547455</dcterms:extent>
+                            <dcterms:dateCopyrighted/>
+                            <dc:rights/>
+                            <dcterms:license/>
+                        </file:file>
+                    </escidocMetadataRecords:md-record>
+                </escidocMetadataRecords:md-records>
+            </escidocComponents:component>
+        </escidocComponents:components>
+    </escidocItem:item>
+    <escidocItem:item objid="escidoc:399942" last-modification-date="2010-03-30T11:55:13.909Z">
+        <escidocItem:properties>
+            <prop:creation-date>2010-03-29T11:13:04.440Z</prop:creation-date>
+            <srel:created-by objid="escidoc:386229"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:61348"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:399942</prop:pid>
+            <prop:version objid="escidoc:399942:2">
+                <version:number>2</version:number>
+                <version:date>2010-03-30T11:55:13.909Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:53218"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:399942:2</version:pid>
+            </prop:version>
+            <prop:latest-version objid="escidoc:399942:2">
+                <version:number>2</version:number>
+                <version:date>2010-03-30T11:55:13.909Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release objid="escidoc:399942:2">
+                <release:number>2</release:number>
+                <release:date>2010-03-30T11:55:13.909Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:399942:2</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags>
+                    <local-tag/>
+                </local-tags>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/eprint/type/BookItem">
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Broersma</eterms:family-name>
+                            <eterms:given-name>Mirjam</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>Radboud University Nijmegen</dc:title>
+                                <eterms:address/>
+                                <dc:identifier>escidoc:persistent22</dc:identifier>
+                            </organization:organization>
+                            <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons1652
+							</dc:identifier>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Isurin</eterms:family-name>
+                            <eterms:given-name>L.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Bultena</eterms:family-name>
+                            <eterms:given-name>S,</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>De Bot</eterms:family-name>
+                            <eterms:given-name>K.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <dc:title>Triggered code-switching: Evidence from Dutch-English and
+						Russian-English bilinguals</dc:title>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2009</dcterms:issued>
+                    <source:source type="http://purl.org/eprint/type/Book">
+                        <dc:title>Multidisciplinary approaches to code switching
+						</dc:title>
+                        <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                            <person:person>
+                                <eterms:complete-name/>
+                                <eterms:family-name>Isurin</eterms:family-name>
+                                <eterms:given-name>L.</eterms:given-name>
+                            </person:person>
+                        </eterms:creator>
+                        <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                            <person:person>
+                                <eterms:complete-name/>
+                                <eterms:family-name>Winford</eterms:family-name>
+                                <eterms:given-name>D.</eterms:given-name>
+                            </person:person>
+                        </eterms:creator>
+                        <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                            <person:person>
+                                <eterms:complete-name/>
+                                <eterms:family-name>De Bot</eterms:family-name>
+                                <eterms:given-name>K.</eterms:given-name>
+                            </person:person>
+                        </eterms:creator>
+                        <eterms:volume/>
+                        <eterms:start-page>85</eterms:start-page>
+                        <eterms:end-page>102</eterms:end-page>
+                        <eterms:sequence-number/>
+                        <eterms:total-number-of-pages/>
+                        <eterms:publishing-info>
+                            <dc:publisher>Benjamins</dc:publisher>
+                            <eterms:place>Amsterdam</eterms:place>
+                            <eterms:edition/>
+                        </eterms:publishing-info>
+                        <dc:identifier xsi:type="eterms:ISBN">978 90 272 4178 8
+						</dc:identifier>
+                    </source:source>
+                    <dc:subject/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                </publication:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components xml:base="http://coreservice.mpdl.mpg.de"/>
+    </escidocItem:item>
+    <escidocItem:item objid="escidoc:236884" last-modification-date="2010-04-13T07:25:36.505Z">
+        <escidocItem:properties>
+            <prop:creation-date>2010-02-02T13:02:21.578Z</prop:creation-date>
+            <srel:created-by objid="escidoc:158886"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:160876"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:236884</prop:pid>
+            <prop:version objid="escidoc:236884:1">
+                <version:number>1</version:number>
+                <version:date>2010-04-13T07:25:36.505Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:158886"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:236884:1</version:pid>
+            </prop:version>
+            <prop:latest-version objid="escidoc:236884:1">
+                <version:number>1</version:number>
+                <version:date>2010-04-13T07:25:36.505Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release objid="escidoc:236884:1">
+                <release:number>1</release:number>
+                <release:date>2010-04-13T07:25:36.505Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:236884:1</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags>
+                    <local-tag/>
+                </local-tags>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/eprint/type/BookItem">
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ivlev</eterms:family-name>
+                            <eterms:given-name>Alexey V.</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>Theory and Complex Plasmas, MPI for Extraterrestrial
+									Physics, Max Planck Society</dc:title>
+                                <eterms:address>Garching, DE</eterms:address>
+                                <dc:identifier>escidoc:159894</dc:identifier>
+                            </organization:organization>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Morfill</eterms:family-name>
+                            <eterms:given-name>Gregor E.</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>Theory and Complex Plasmas, MPI for Extraterrestrial
+									Physics, Max Planck Society</dc:title>
+                                <eterms:address>Garching, DE</eterms:address>
+                                <dc:identifier>escidoc:159894</dc:identifier>
+                            </organization:organization>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Khrapak</eterms:family-name>
+                            <eterms:given-name>Sergey A.</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>Theory and Complex Plasmas, MPI for Extraterrestrial
+									Physics, Max Planck Society</dc:title>
+                                <eterms:address>Garching, DE</eterms:address>
+                                <dc:identifier>escidoc:159894</dc:identifier>
+                            </organization:organization>
+                        </person:person>
+                    </eterms:creator>
+                    <dc:title>Kinetic studies of fluids and solids with complex plasmas
+					</dc:title>
+                    <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
+                    <dc:identifier xsi:type="eterms:OTHER">LOCALID: PH 60/409, p.239-290
+					</dc:identifier>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2010</dcterms:issued>
+                    <source:source type="http://purl.org/eprint/type/Book">
+                        <dc:title>Complex and Dusty Plasmas: From Laboratory to Space
+						</dc:title>
+                        <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                            <person:person>
+                                <eterms:complete-name/>
+                                <eterms:family-name>Fortov</eterms:family-name>
+                                <eterms:given-name>Vladimir E.</eterms:given-name>
+                            </person:person>
+                        </eterms:creator>
+                        <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                            <person:person>
+                                <eterms:complete-name/>
+                                <eterms:family-name>Morfill</eterms:family-name>
+                                <eterms:given-name>Gregor E.</eterms:given-name>
+                                <organization:organization>
+                                    <dc:title>Theory and Complex Plasmas, MPI for Extraterrestrial
+										Physics, Max Planck Society</dc:title>
+                                    <eterms:address>Garching, DE</eterms:address>
+                                    <dc:identifier>escidoc:159894</dc:identifier>
+                                </organization:organization>
+                            </person:person>
+                        </eterms:creator>
+                        <eterms:volume/>
+                        <eterms:start-page>239</eterms:start-page>
+                        <eterms:end-page>290</eterms:end-page>
+                        <eterms:sequence-number>5</eterms:sequence-number>
+                        <eterms:total-number-of-pages>418</eterms:total-number-of-pages>
+                        <eterms:publishing-info>
+                            <dc:publisher>CRC Press</dc:publisher>
+                            <eterms:place>Boca Raton</eterms:place>
+                            <eterms:edition/>
+                        </eterms:publishing-info>
+                        <dc:identifier xsi:type="eterms:ISBN">978-1-4200-8311-8
+						</dc:identifier>
+                    </source:source>
+                    <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/series">
+                        <dc:title>Series in Plasma Physics</dc:title>
+                        <eterms:volume>25</eterms:volume>
+                        <eterms:start-page/>
+                        <eterms:end-page/>
+                        <eterms:sequence-number/>
+                        <eterms:total-number-of-pages/>
+                    </source:source>
+                    <eterms:total-number-of-pages>418</eterms:total-number-of-pages>
+                    <dc:subject/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                </publication:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components xml:base="http://coreservice.mpdl.mpg.de"/>
+    </escidocItem:item>
+    <escidocItem:item objid="escidoc:357855" last-modification-date="2010-03-30T08:10:36.398Z">
+        <escidocItem:properties>
+            <prop:creation-date>2010-02-26T13:09:29.614Z</prop:creation-date>
+            <srel:created-by objid="escidoc:53386"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:54203"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:357855</prop:pid>
+            <prop:version objid="escidoc:357855:5">
+                <version:number>5</version:number>
+                <version:date>2010-03-30T08:10:36.398Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:53218"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:357855:5</version:pid>
+            </prop:version>
+            <prop:latest-version objid="escidoc:357855:5">
+                <version:number>5</version:number>
+                <version:date>2010-03-30T08:10:36.398Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release objid="escidoc:357855:5">
+                <release:number>5</release:number>
+                <release:date>2010-03-30T08:10:36.398Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:357855:5</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags>
+                    <local-tag>staffmeeting-2010-mar</local-tag>
+                    <local-tag>staffmeeting-2010-jun</local-tag>
+                    <local-tag>ro-2010-mar</local-tag>
+                </local-tags>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Bürki</eterms:family-name>
+                            <eterms:given-name>Audrey </eterms:given-name>
+                            <organization:organization>
+                                <dc:title>Laboratoire de Psycholinguistique Expérimentale,
+									University of Geneva, Switzerland</dc:title>
+                                <eterms:address/>
+                                <dc:identifier>escidoc:persistent22</dc:identifier>
+                            </organization:organization>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ernestus</eterms:family-name>
+                            <eterms:given-name>Mirjam</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>Center for Language Studies, External organization
+								</dc:title>
+                                <eterms:address/>
+                                <dc:identifier>escidoc:55238</dc:identifier>
+                            </organization:organization>
+                            <organization:organization>
+                                <dc:title>MPI for Psycholinguistics, Max Planck Society
+								</dc:title>
+                                <eterms:address>Nijmegen, NL</eterms:address>
+                                <dc:identifier>escidoc:55201</dc:identifier>
+                            </organization:organization>
+                            <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons1469
+							</dc:identifier>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Frauenfelder</eterms:family-name>
+                            <eterms:given-name>Ulrich H. </eterms:given-name>
+                            <organization:organization>
+                                <dc:title>Laboratoire de Psycholinguistique Expérimentale,
+									University of Geneva, Switzerland</dc:title>
+                                <eterms:address/>
+                                <dc:identifier>escidoc:persistent22</dc:identifier>
+                            </organization:organization>
+                            <organization:organization>
+                                <dc:title>Formation Universitaire à Distance, Centre d’Etudes de
+									Sierre, TechnoArk, Sierre, Switzerland</dc:title>
+                                <eterms:address/>
+                                <dc:identifier>escidoc:persistent22</dc:identifier>
+                            </organization:organization>
+                        </person:person>
+                    </eterms:creator>
+                    <dc:title>Is there only one "fenêtre" in the production lexicon?
+						On-line evidence on the nature of phonological representations of
+						pronunciation variants for French schwa words </dc:title>
+                    <dc:identifier xsi:type="eterms:DOI">10.1016/j.jml.2010.01.002
+					</dc:identifier>
+                    <eterms:published-online xsi:type="dcterms:W3CDTF">2010
+					</eterms:published-online>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2010</dcterms:issued>
+                    <eterms:review-method>http://purl.org/eprint/status/PeerReviewed
+					</eterms:review-method>
+                    <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+                        <dc:title>Journal of Memory and Language</dc:title>
+                        <eterms:volume>62</eterms:volume>
+                        <eterms:issue/>
+                        <eterms:start-page>421</eterms:start-page>
+                        <eterms:end-page>437</eterms:end-page>
+                        <eterms:sequence-number/>
+                        <eterms:total-number-of-pages/>
+                        <eterms:publishing-info>
+                            <dc:publisher>Academic Press</dc:publisher>
+                            <eterms:place>New York</eterms:place>
+                        </eterms:publishing-info>
+                        <dc:identifier xsi:type="eterms:OTHER">954928495417</dc:identifier>
+                        <dc:identifier xsi:type="eterms:OTHER">0749-596X</dc:identifier>
+                    </source:source>
+                    <eterms:total-number-of-pages/>
+                    <dcterms:abstract>This study examines whether the production of
+						words with two phonological variants involves single or multiple
+						lexical phonological representations. Three production experiments
+						investigated the roles of the relative frequencies of the two
+						pronunciation variants of French words with schwa: the schwa
+						variant (e.g., Image ) and the reduced variant (e.g., Image ). In
+						two naming tasks and in a symbol–word association learning task,
+						variants with higher relative frequencies were produced faster.
+						This suggests that the production lexicon keeps a frequency count
+						for each variant and hence that schwa words are represented in the
+						production lexicon with two different lexemes. In addition, the
+						advantage for schwa variants over reduced variants in the naming
+						tasks but not in the learning task and the absence of a variant
+						relative frequency effect for schwa variants produced in isolation
+						support the hypothesis that context affects the variants’ lexical
+						activation and modulates the effect of variant relative frequency.
+					</dcterms:abstract>
+                    <dc:subject/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                </publication:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components xml:base="http://coreservice.mpdl.mpg.de">
+            <escidocComponents:component objid="escidoc:399969">
+                <escidocComponents:properties>
+                    <prop:creation-date>2010-03-30T08:09:44.662Z</prop:creation-date>
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>public</prop:visibility>
+                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
+					</prop:content-category>
+                    <prop:file-name>Burki_Is_There_only_Jou_Memo_Lang_2010_pdf.pdf
+					</prop:file-name>
+                    <prop:mime-type>application/pdf</prop:mime-type>
+                    <prop:checksum>a9de780e10c8fd4bb2e7b43ac60a8593</prop:checksum>
+                    <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+                </escidocComponents:properties>
+                <escidocComponents:content xlink:type="simple" xlink:title="Burki_Is_There_only_Jou_Memo_Lang_2010_pdf.pdf" xlink:href="/ir/item/escidoc:357855/components/component/escidoc:399969/content" storage="internal-managed"/>
+                <escidocMetadataRecords:md-records>
+                    <escidocMetadataRecords:md-record name="escidoc">
+                        <file:file>
+                            <dc:title>Burki_Is_There_only_Jou_Memo_Lang_2010_pdf.pdf
+							</dc:title>
+                            <dc:description/>
+                            <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+                            <dcterms:extent>5771477</dcterms:extent>
+                            <dcterms:dateCopyrighted/>
+                            <dc:rights/>
+                            <dcterms:license/>
+                        </file:file>
+                    </escidocMetadataRecords:md-record>
+                </escidocMetadataRecords:md-records>
+            </escidocComponents:component>
+        </escidocComponents:components>
+    </escidocItem:item>
+    <escidocItem:item objid="escidoc:408415" last-modification-date="2010-04-13T07:17:20.733Z">
+        <escidocItem:properties>
+            <prop:creation-date>2010-04-13T06:32:02.262Z</prop:creation-date>
+            <srel:created-by objid="escidoc:158886"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:160875"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:152758</prop:pid>
+            <prop:version objid="escidoc:408415:1">
+                <version:number>1</version:number>
+                <version:date>2010-04-13T07:17:20.733Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:158886"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:408415:1</version:pid>
+            </prop:version>
+            <prop:latest-version objid="escidoc:408415:1">
+                <version:number>1</version:number>
+                <version:date>2010-04-13T07:17:20.733Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release objid="escidoc:408415:1">
+                <release:number>1</release:number>
+                <release:date>2010-04-13T07:17:20.733Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:408415:1</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags>
+                    <local-tag>multiple_import</local-tag>
+                    <local-tag>AEI eDoc Import D 2009-12-16 18:31</local-tag>
+                </local-tags>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Goodger</eterms:family-name>
+                            <eterms:given-name>J. L.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Hardcastle</eterms:family-name>
+                            <eterms:given-name>M. J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Croston</eterms:family-name>
+                            <eterms:given-name>J. H.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Kraft</eterms:family-name>
+                            <eterms:given-name>R. P.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Birkinshaw</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Evans</eterms:family-name>
+                            <eterms:given-name>D. A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Jordán</eterms:family-name>
+                            <eterms:given-name>A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Nulsen</eterms:family-name>
+                            <eterms:given-name>P. E. J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Sivakoff</eterms:family-name>
+                            <eterms:given-name>G. R.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Worrall</eterms:family-name>
+                            <eterms:given-name>D. M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Brassington</eterms:family-name>
+                            <eterms:given-name>N. J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Forman</eterms:family-name>
+                            <eterms:given-name>W. R.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Gilfanov</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>High Energy Astrophysics, MPI for Astrophysics, Max
+									Planck Society</dc:title>
+                                <eterms:address>Garching, DE</eterms:address>
+                                <dc:identifier>escidoc:159881</dc:identifier>
+                            </organization:organization>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Jones</eterms:family-name>
+                            <eterms:given-name>C.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Murray</eterms:family-name>
+                            <eterms:given-name>S. S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Raychaudhury</eterms:family-name>
+                            <eterms:given-name>S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Sarazin</eterms:family-name>
+                            <eterms:given-name>C. L.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Voss</eterms:family-name>
+                            <eterms:given-name>R.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Woodley</eterms:family-name>
+                            <eterms:given-name>K. A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <dc:title>Long-term monitoring of the dynamics and particle
+						acceleration of knots in the jet of Centaurus A </dc:title>
+                    <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
+                    <dc:identifier xsi:type="eterms:DOI">10.1088/0004-637X/708/1/675
+					</dc:identifier>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2010-01-01</dcterms:issued>
+                    <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+                        <dc:title>The Astrophysical Journal</dc:title>
+                        <eterms:volume>708</eterms:volume>
+                        <eterms:issue>1</eterms:issue>
+                        <eterms:start-page>675</eterms:start-page>
+                        <eterms:end-page>697</eterms:end-page>
+                        <eterms:sequence-number/>
+                        <eterms:total-number-of-pages/>
+                        <dc:identifier xsi:type="eterms:ISSN">0004-637x</dc:identifier>
+                    </source:source>
+                    <eterms:total-number-of-pages/>
+                    <dc:subject/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                </publication:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components xml:base="http://coreservice.mpdl.mpg.de">
+            <escidocComponents:component objid="escidoc:408414">
+                <escidocComponents:properties>
+                    <prop:creation-date>2010-04-13T06:32:01.774Z</prop:creation-date>
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>private</prop:visibility>
+                    <prop:pid>hdl:someHandle/test/escidoc:408414</prop:pid>
+                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext
+					</prop:content-category>
+                    <prop:file-name>goodger.pdf</prop:file-name>
+                    <prop:mime-type>application/pdf</prop:mime-type>
+                    <prop:checksum>2890bb192710bea8b249e7da5fe6c3d2</prop:checksum>
+                    <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+                </escidocComponents:properties>
+                <escidocComponents:content xlink:type="simple" xlink:title="goodger.pdf" xlink:href="/ir/item/escidoc:408415/components/component/escidoc:408414/content" storage="internal-managed"/>
+                <escidocMetadataRecords:md-records>
+                    <escidocMetadataRecords:md-record name="escidoc">
+                        <file:file>
+                            <dc:title>goodger.pdf</dc:title>
+                            <dc:description/>
+                            <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+                            <dcterms:extent>1618936</dcterms:extent>
+                            <dcterms:available/>
+                            <dcterms:dateCopyrighted/>
+                            <dc:rights/>
+                            <dcterms:license/>
+                        </file:file>
+                    </escidocMetadataRecords:md-record>
+                </escidocMetadataRecords:md-records>
+            </escidocComponents:component>
+        </escidocComponents:components>
+    </escidocItem:item>
+    <escidocItem:item objid="escidoc:277899" last-modification-date="2010-04-22T08:06:49.275Z">
+        <escidocItem:properties>
+            <prop:creation-date>2010-02-15T09:15:52.528Z</prop:creation-date>
+            <srel:created-by objid="escidoc:144932"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:23042"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:277899</prop:pid>
+            <prop:version objid="escidoc:277899:6">
+                <version:number>6</version:number>
+                <version:date>2010-04-22T08:06:49.275Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:144932"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:277899:6</version:pid>
+            </prop:version>
+            <prop:latest-version objid="escidoc:277899:6">
+                <version:number>6</version:number>
+                <version:date>2010-04-22T08:06:49.275Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release objid="escidoc:277899:6">
+                <release:number>6</release:number>
+                <release:date>2010-04-22T08:06:49.275Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:277899:6</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags>
+                    <local-tag/>
+                </local-tags>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Beisert</eterms:family-name>
+                            <eterms:given-name>Niklas</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>Duality &amp; Integrable Structures, AEI-Golm, MPI for
+									Gravitational Physics, Max Planck Society</dc:title>
+                                <eterms:address>Golm, DE</eterms:address>
+                                <dc:identifier>escidoc:24016</dc:identifier>
+                            </organization:organization>
+                            <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons20678
+							</dc:identifier>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Henn</eterms:family-name>
+                            <eterms:given-name>Johannes</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>McLoughlin</eterms:family-name>
+                            <eterms:given-name>Tristan</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>Duality &amp; Integrable Structures, AEI-Golm, MPI for
+									Gravitational Physics, Max Planck Society</dc:title>
+                                <eterms:address>Golm, DE</eterms:address>
+                                <dc:identifier>escidoc:24016</dc:identifier>
+                            </organization:organization>
+                            <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons20681
+							</dc:identifier>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Plefka</eterms:family-name>
+                            <eterms:given-name>Jan</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>Quantum Gravity &amp; Unified Theories, AEI-Golm, MPI
+									for Gravitational Physics, Max Planck Society</dc:title>
+                                <eterms:address>Golm, DE</eterms:address>
+                                <dc:identifier>escidoc:24014</dc:identifier>
+                            </organization:organization>
+                        </person:person>
+                    </eterms:creator>
+                    <dc:title>One-Loop Superconformal and Yangian Symmetries of
+						Scattering Amplitudes
+						in N=4 Super Yang-Mills</dc:title>
+                    <dc:identifier xsi:type="eterms:ARXIV">1002.1733</dc:identifier>
+                    <dc:identifier xsi:type="eterms:DOI">10.1007/JHEP04(2010)085
+					</dc:identifier>
+                    <dcterms:created xsi:type="dcterms:W3CDTF">2010-02-09
+					</dcterms:created>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2010</dcterms:issued>
+                    <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+                        <dc:title>Journal of High Energy Physics</dc:title>
+                        <eterms:volume>04</eterms:volume>
+                        <eterms:issue/>
+                        <eterms:start-page/>
+                        <eterms:end-page/>
+                        <eterms:sequence-number>085 </eterms:sequence-number>
+                        <eterms:total-number-of-pages/>
+                        <eterms:publishing-info>
+                            <dc:publisher>Società italiana di fisica</dc:publisher>
+                            <eterms:place>Bologna, Italy</eterms:place>
+                        </eterms:publishing-info>
+                        <dc:identifier xsi:type="eterms:OTHER">111021927548002
+						</dc:identifier>
+                        <dc:identifier xsi:type="eterms:OTHER">1126-6708</dc:identifier>
+                    </source:source>
+                    <eterms:total-number-of-pages>64 pages
+					</eterms:total-number-of-pages>
+                    <dcterms:abstract> Recently it has been argued that tree-level
+						scattering amplitudes in N=4
+						Yang-Mills theory are uniquely determined by a careful study of their
+						superconformal and Yangian symmetries. However, at one-loop order
+						these
+						symmetries are known to become anomalous due to infrared divergences. We
+						compute these one-loop anomalies for amplitudes defined through
+						dimensional
+						regularisation by studying the tree-level symmetry transformations of the
+						unitarity branch cuts, keeping track of the crucial collinear
+						terms arising
+						from the holomorphic anomaly. We extract the superconformal anomalies
+						and show
+						that they may be cancelled through a universal one-loop deformation of
+						the
+						tree-level symmetry generators which involves only tree-level data.
+						Specialising to the planar theory we also obtain the analogous
+						deformation for
+						the level-one Yangian generator of momentum. Explicit checks of our
+						one-loop
+						deformation are performed for MHV and the 6-point NMHV amplitudes.
+					</dcterms:abstract>
+                    <dc:subject>High Energy Physics - Theory, hep-th
+					</dc:subject>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <eterms:location/>
+                </publication:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components xml:base="http://coreservice.mpdl.mpg.de">
+            <escidocComponents:component objid="escidoc:277898">
+                <escidocComponents:properties>
+                    <prop:creation-date>2010-02-15T09:15:52.358Z</prop:creation-date>
+                    <prop:description>File downloaded from arXiv at 2010-02-15 10:15
+					</prop:description>
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>public</prop:visibility>
+                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/pre-print
+					</prop:content-category>
+                    <prop:file-name>1002.1733</prop:file-name>
+                    <prop:mime-type>application/pdf</prop:mime-type>
+                    <prop:checksum>4f9800e646c230b93be59532e81fd907</prop:checksum>
+                    <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+                </escidocComponents:properties>
+                <escidocComponents:content xlink:type="simple" xlink:title="1002.1733" xlink:href="/ir/item/escidoc:277899/components/component/escidoc:277898/content" storage="internal-managed"/>
+                <escidocMetadataRecords:md-records>
+                    <escidocMetadataRecords:md-record name="escidoc">
+                        <file:file>
+                            <dc:title>1002.1733</dc:title>
+                            <dc:description>File downloaded from arXiv at 2010-02-15 10:15
+							</dc:description>
+                            <dc:format/>
+                            <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+                            <dcterms:extent>816835</dcterms:extent>
+                            <dcterms:dateCopyrighted/>
+                            <dc:rights/>
+                            <dcterms:license>http://arxiv.org/licenses/nonexclusive-distrib/1.0/
+							</dcterms:license>
+                        </file:file>
+                    </escidocMetadataRecords:md-record>
+                </escidocMetadataRecords:md-records>
+            </escidocComponents:component>
+        </escidocComponents:components>
+    </escidocItem:item>
+    <escidocItem:item objid="escidoc:417665" last-modification-date="2010-04-22T14:27:24.891Z">
+        <escidocItem:properties>
+            <prop:creation-date>2010-04-22T14:26:09.613Z</prop:creation-date>
+            <srel:created-by objid="escidoc:158886"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:160876"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:152758</prop:pid>
+            <prop:version objid="escidoc:417665:1">
+                <version:number>1</version:number>
+                <version:date>2010-04-22T14:27:24.891Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:158886"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:417665:1</version:pid>
+            </prop:version>
+            <prop:latest-version objid="escidoc:417665:1">
+                <version:number>1</version:number>
+                <version:date>2010-04-22T14:27:24.891Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release objid="escidoc:417665:1">
+                <release:number>1</release:number>
+                <release:date>2010-04-22T14:27:24.891Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:417665:1</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags>
+                    <local-tag>multiple_import</local-tag>
+                    <local-tag>AEI eDoc Import D 2009-12-16 18:31</local-tag>
+                </local-tags>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Abdo</eterms:family-name>
+                            <eterms:given-name>A. A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ackermann</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ajello</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Atwood</eterms:family-name>
+                            <eterms:given-name>W. B.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Axelsson</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Baldini</eterms:family-name>
+                            <eterms:given-name>L.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ballet</eterms:family-name>
+                            <eterms:given-name>J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Barbiellini</eterms:family-name>
+                            <eterms:given-name>G.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Bastieri</eterms:family-name>
+                            <eterms:given-name>D.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Baughman</eterms:family-name>
+                            <eterms:given-name>B. M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Bechtol</eterms:family-name>
+                            <eterms:given-name>K.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Bellazzini</eterms:family-name>
+                            <eterms:given-name>R.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Berenji</eterms:family-name>
+                            <eterms:given-name>B.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Bloom</eterms:family-name>
+                            <eterms:given-name>E. D.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Bogaert</eterms:family-name>
+                            <eterms:given-name>G.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Bonamente</eterms:family-name>
+                            <eterms:given-name>E.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Borgland</eterms:family-name>
+                            <eterms:given-name>A. W.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Bregeon</eterms:family-name>
+                            <eterms:given-name>J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Brez</eterms:family-name>
+                            <eterms:given-name>A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Brigida</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Bruel</eterms:family-name>
+                            <eterms:given-name>P.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Burnett</eterms:family-name>
+                            <eterms:given-name>T. H.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Caliandro</eterms:family-name>
+                            <eterms:given-name>G. A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Cameron</eterms:family-name>
+                            <eterms:given-name>R. A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Caraveo</eterms:family-name>
+                            <eterms:given-name>P. A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Casandjian</eterms:family-name>
+                            <eterms:given-name>J. M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Cavazzuti</eterms:family-name>
+                            <eterms:given-name>E.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Cecchi</eterms:family-name>
+                            <eterms:given-name>C.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Çelik</eterms:family-name>
+                            <eterms:given-name>Ö.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Chekhtman</eterms:family-name>
+                            <eterms:given-name>A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Cheung</eterms:family-name>
+                            <eterms:given-name>C. C.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Chiang</eterms:family-name>
+                            <eterms:given-name>J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ciprini</eterms:family-name>
+                            <eterms:given-name>S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Claus</eterms:family-name>
+                            <eterms:given-name>R.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Cohen-Tanugi</eterms:family-name>
+                            <eterms:given-name>J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Conrad</eterms:family-name>
+                            <eterms:given-name>J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Cutini</eterms:family-name>
+                            <eterms:given-name>S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Dermer</eterms:family-name>
+                            <eterms:given-name>C. D.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>de Angelis</eterms:family-name>
+                            <eterms:given-name>A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>de Palma</eterms:family-name>
+                            <eterms:given-name>F.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Digel</eterms:family-name>
+                            <eterms:given-name>S. W.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>do Couto e Silva</eterms:family-name>
+                            <eterms:given-name>E. </eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Drell</eterms:family-name>
+                            <eterms:given-name>P. S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Dubois</eterms:family-name>
+                            <eterms:given-name>R.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Dumora</eterms:family-name>
+                            <eterms:given-name>D.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Farnier</eterms:family-name>
+                            <eterms:given-name>C.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Favuzzi</eterms:family-name>
+                            <eterms:given-name>C.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Fegan</eterms:family-name>
+                            <eterms:given-name>S. J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ferrara</eterms:family-name>
+                            <eterms:given-name>E. C.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Focke</eterms:family-name>
+                            <eterms:given-name>W. B.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Frailis</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Fuhrmann</eterms:family-name>
+                            <eterms:given-name>L.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Fukazawa</eterms:family-name>
+                            <eterms:given-name>Y.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Funk</eterms:family-name>
+                            <eterms:given-name>S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Fusco</eterms:family-name>
+                            <eterms:given-name>P.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Gargano</eterms:family-name>
+                            <eterms:given-name>F.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Gasparrini</eterms:family-name>
+                            <eterms:given-name>D.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Gehrels</eterms:family-name>
+                            <eterms:given-name>N.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Germani</eterms:family-name>
+                            <eterms:given-name>S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Giebels</eterms:family-name>
+                            <eterms:given-name>B.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Giglietto</eterms:family-name>
+                            <eterms:given-name>N.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Giordano</eterms:family-name>
+                            <eterms:given-name>F.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Giroletti</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Glanzman</eterms:family-name>
+                            <eterms:given-name>T.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Godfrey</eterms:family-name>
+                            <eterms:given-name>G.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Grenier</eterms:family-name>
+                            <eterms:given-name>I. A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Grondin</eterms:family-name>
+                            <eterms:given-name>M.-H.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Grove</eterms:family-name>
+                            <eterms:given-name>J. E.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Guillemot</eterms:family-name>
+                            <eterms:given-name>L.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Guiriec</eterms:family-name>
+                            <eterms:given-name>S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Hanabata</eterms:family-name>
+                            <eterms:given-name>Y.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Harding</eterms:family-name>
+                            <eterms:given-name>A. K.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Hayashida</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Hays</eterms:family-name>
+                            <eterms:given-name>E.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Hughes</eterms:family-name>
+                            <eterms:given-name>R. E.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Jóhannesson</eterms:family-name>
+                            <eterms:given-name>G.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Johnson</eterms:family-name>
+                            <eterms:given-name>A. S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Johnson</eterms:family-name>
+                            <eterms:given-name>R. P.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Johnson</eterms:family-name>
+                            <eterms:given-name>W. N.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Kadler</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Kamae</eterms:family-name>
+                            <eterms:given-name>T.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Katagiri</eterms:family-name>
+                            <eterms:given-name>H.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Kataoka</eterms:family-name>
+                            <eterms:given-name>J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Kerr</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Knödlseder</eterms:family-name>
+                            <eterms:given-name>J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Kocian</eterms:family-name>
+                            <eterms:given-name>M. L.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Kuehn</eterms:family-name>
+                            <eterms:given-name>F.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Kuss</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Lande</eterms:family-name>
+                            <eterms:given-name>J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Latronico</eterms:family-name>
+                            <eterms:given-name>L.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Lemoine-Goumard</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Longo</eterms:family-name>
+                            <eterms:given-name>F.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Loparco</eterms:family-name>
+                            <eterms:given-name>F.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Lott</eterms:family-name>
+                            <eterms:given-name>B.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Lovellette</eterms:family-name>
+                            <eterms:given-name>M. N.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Lubrano</eterms:family-name>
+                            <eterms:given-name>P.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Madejski</eterms:family-name>
+                            <eterms:given-name>G. M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Makeev</eterms:family-name>
+                            <eterms:given-name>A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Marelli</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Massaro</eterms:family-name>
+                            <eterms:given-name>E.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Max-Moerbeck</eterms:family-name>
+                            <eterms:given-name>W.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Mazziotta</eterms:family-name>
+                            <eterms:given-name>M. N.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>McConville</eterms:family-name>
+                            <eterms:given-name>W.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>McEnery</eterms:family-name>
+                            <eterms:given-name>J. E.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Meurer</eterms:family-name>
+                            <eterms:given-name>C.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Michelson</eterms:family-name>
+                            <eterms:given-name>P. F.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Mitthumsiri</eterms:family-name>
+                            <eterms:given-name>W.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Mizuno</eterms:family-name>
+                            <eterms:given-name>T.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Moiseev</eterms:family-name>
+                            <eterms:given-name>A. A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Monte</eterms:family-name>
+                            <eterms:given-name>C.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Monzani</eterms:family-name>
+                            <eterms:given-name>M. E.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Morselli</eterms:family-name>
+                            <eterms:given-name>A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Moskalenko</eterms:family-name>
+                            <eterms:given-name>I. V.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Murgia</eterms:family-name>
+                            <eterms:given-name>S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Nolan</eterms:family-name>
+                            <eterms:given-name>P. L.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Norris</eterms:family-name>
+                            <eterms:given-name>J. P.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Nuss</eterms:family-name>
+                            <eterms:given-name>E.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ohsugi</eterms:family-name>
+                            <eterms:given-name>T.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Omodei</eterms:family-name>
+                            <eterms:given-name>N.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Orlando</eterms:family-name>
+                            <eterms:given-name>E.</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>High Energy Astrophysics, MPI for Extraterrestrial
+									Physics, Max Planck Society</dc:title>
+                                <eterms:address>Garching, DE</eterms:address>
+                                <dc:identifier>escidoc:159890</dc:identifier>
+                            </organization:organization>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ormes</eterms:family-name>
+                            <eterms:given-name>J. F.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ozaki</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Paneque</eterms:family-name>
+                            <eterms:given-name>D.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Panetta</eterms:family-name>
+                            <eterms:given-name>J. H.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Parent</eterms:family-name>
+                            <eterms:given-name>D.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Pavlidou</eterms:family-name>
+                            <eterms:given-name>V.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Pearson</eterms:family-name>
+                            <eterms:given-name>T. J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Pelassa</eterms:family-name>
+                            <eterms:given-name>V.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Pepe</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Pesce-Rollins</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Piron</eterms:family-name>
+                            <eterms:given-name>F.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Porter</eterms:family-name>
+                            <eterms:given-name>T. A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Rainò</eterms:family-name>
+                            <eterms:given-name>S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Rando</eterms:family-name>
+                            <eterms:given-name>R.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Razzano</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Razzaque</eterms:family-name>
+                            <eterms:given-name>S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Readhead</eterms:family-name>
+                            <eterms:given-name>A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Reimer</eterms:family-name>
+                            <eterms:given-name>A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Reimer</eterms:family-name>
+                            <eterms:given-name>O.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Reposeur</eterms:family-name>
+                            <eterms:given-name>T.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Richards</eterms:family-name>
+                            <eterms:given-name>J. L.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ritz</eterms:family-name>
+                            <eterms:given-name>S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Rochester</eterms:family-name>
+                            <eterms:given-name>L. S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Rodriguez</eterms:family-name>
+                            <eterms:given-name>A. Y.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Romani</eterms:family-name>
+                            <eterms:given-name>R. W.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Roth</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ryde</eterms:family-name>
+                            <eterms:given-name>F.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Sadrozinski</eterms:family-name>
+                            <eterms:given-name>H. F.-W.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Sanchez</eterms:family-name>
+                            <eterms:given-name>D.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Sander</eterms:family-name>
+                            <eterms:given-name>A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Saz Parkinson</eterms:family-name>
+                            <eterms:given-name>P. M. </eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Scargle</eterms:family-name>
+                            <eterms:given-name>J. D.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Sgrò</eterms:family-name>
+                            <eterms:given-name>C.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Shaw</eterms:family-name>
+                            <eterms:given-name>M. S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Siskind</eterms:family-name>
+                            <eterms:given-name>E. J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Smith</eterms:family-name>
+                            <eterms:given-name>D. A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Smith</eterms:family-name>
+                            <eterms:given-name>P. D.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Spandre</eterms:family-name>
+                            <eterms:given-name>G.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Spinelli</eterms:family-name>
+                            <eterms:given-name>P.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Stevenson</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Strickman</eterms:family-name>
+                            <eterms:given-name>M. S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Suson</eterms:family-name>
+                            <eterms:given-name>D. J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Tajima</eterms:family-name>
+                            <eterms:given-name>H.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Takahashi</eterms:family-name>
+                            <eterms:given-name>H.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Tanaka</eterms:family-name>
+                            <eterms:given-name>T.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Thayer</eterms:family-name>
+                            <eterms:given-name>J. B.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Thayer</eterms:family-name>
+                            <eterms:given-name>J. G.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Thompson</eterms:family-name>
+                            <eterms:given-name>D. J.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Tibaldo</eterms:family-name>
+                            <eterms:given-name>L.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Tibolla</eterms:family-name>
+                            <eterms:given-name>O.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Torres</eterms:family-name>
+                            <eterms:given-name>D. F.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Tosti</eterms:family-name>
+                            <eterms:given-name>G.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Tramacere</eterms:family-name>
+                            <eterms:given-name>A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ubertini</eterms:family-name>
+                            <eterms:given-name>P.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Uchiyama</eterms:family-name>
+                            <eterms:given-name>Y.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Usher</eterms:family-name>
+                            <eterms:given-name>T. L.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Vasileiou</eterms:family-name>
+                            <eterms:given-name>V.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Vilchez</eterms:family-name>
+                            <eterms:given-name>N.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Vitale</eterms:family-name>
+                            <eterms:given-name>V.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Waite</eterms:family-name>
+                            <eterms:given-name>A. P.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Wang</eterms:family-name>
+                            <eterms:given-name>P.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Winer</eterms:family-name>
+                            <eterms:given-name>B. L.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Wood</eterms:family-name>
+                            <eterms:given-name>K. S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Yasuda</eterms:family-name>
+                            <eterms:given-name>H.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ylinen</eterms:family-name>
+                            <eterms:given-name>T.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Zensus</eterms:family-name>
+                            <eterms:given-name>J. A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ziegler</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Angelakis</eterms:family-name>
+                            <eterms:given-name>E.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Hovatta</eterms:family-name>
+                            <eterms:given-name>T.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Hoversten</eterms:family-name>
+                            <eterms:given-name>E.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ikejiri</eterms:family-name>
+                            <eterms:given-name>Y.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Kawabata</eterms:family-name>
+                            <eterms:given-name>K. S.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Kovalev</eterms:family-name>
+                            <eterms:given-name>Y. Y.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Kovalev</eterms:family-name>
+                            <eterms:given-name>Yu. A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Krichbaum</eterms:family-name>
+                            <eterms:given-name>T. P.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Lister</eterms:family-name>
+                            <eterms:given-name>M. L.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Lähteenmäki</eterms:family-name>
+                            <eterms:given-name>A.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Marchili</eterms:family-name>
+                            <eterms:given-name>N.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Ogle</eterms:family-name>
+                            <eterms:given-name>P.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Pagani</eterms:family-name>
+                            <eterms:given-name>C.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Pushkarev</eterms:family-name>
+                            <eterms:given-name>A. B.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Sakimoto</eterms:family-name>
+                            <eterms:given-name>K.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Sasada</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Tornikoski</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Uemura</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Yamanaka</eterms:family-name>
+                            <eterms:given-name>M.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Yamashita</eterms:family-name>
+                            <eterms:given-name>T.</eterms:given-name>
+                        </person:person>
+                    </eterms:creator>
+                    <dc:title>PKS 1502+106: a new and distant gamma-ray blazar in
+						outburst discovered by the Fermi large area telescope </dc:title>
+                    <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
+                    <dc:identifier xsi:type="eterms:DOI">10.1088/0004-637X/710/1/810
+					</dc:identifier>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2010-02-10</dcterms:issued>
+                    <eterms:review-method>http://purl.org/eprint/status/PeerReviewed
+					</eterms:review-method>
+                    <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+                        <dc:title>The Astrophysical Journal</dc:title>
+                        <dcterms:alternative>Astrophys. J.</dcterms:alternative>
+                        <eterms:volume>710</eterms:volume>
+                        <eterms:issue>1</eterms:issue>
+                        <eterms:start-page>810</eterms:start-page>
+                        <eterms:end-page>827</eterms:end-page>
+                        <eterms:sequence-number/>
+                        <eterms:total-number-of-pages/>
+						<dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978976477977</dc:identifier>
+<!--                         <dc:identifier xsi:type="eterms:ISSN">0004-637x</dc:identifier>
+ -->                    </source:source>
+                    <eterms:total-number-of-pages/>
+                    <dc:subject/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                </publication:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components xml:base="http://coreservice.mpdl.mpg.de">
+            <escidocComponents:component objid="escidoc:417664">
+                <escidocComponents:properties>
+                    <prop:creation-date>2010-04-22T14:26:04.035Z</prop:creation-date>
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>private</prop:visibility>
+                    <prop:pid>hdl:someHandle/test/escidoc:417664</prop:pid>
+                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext
+					</prop:content-category>
+                    <prop:file-name>abdo-pks.pdf</prop:file-name>
+                    <prop:mime-type>application/pdf</prop:mime-type>
+                    <prop:checksum>486d3dae20fd8fc2d1b61becbd58a946</prop:checksum>
+                    <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+                </escidocComponents:properties>
+                <escidocComponents:content xlink:type="simple" xlink:title="abdo-pks.pdf" xlink:href="/ir/item/escidoc:417665/components/component/escidoc:417664/content" storage="internal-managed"/>
+                <escidocMetadataRecords:md-records>
+                    <escidocMetadataRecords:md-record name="escidoc">
+                        <file:file>
+                            <dc:title>abdo-pks.pdf</dc:title>
+                            <dc:description/>
+                            <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+                            <dcterms:extent>1264637</dcterms:extent>
+                            <dcterms:available/>
+                            <dcterms:dateCopyrighted/>
+                            <dc:rights/>
+                            <dcterms:license/>
+                        </file:file>
+                    </escidocMetadataRecords:md-record>
+                </escidocMetadataRecords:md-records>
+            </escidocComponents:component>
+        </escidocComponents:components>
+    </escidocItem:item>
+    <escidocItem:item objid="escidoc:420912" last-modification-date="2010-05-04T11:43:35.909Z">
+        <escidocItem:properties>
+            <prop:creation-date>2010-05-04T11:41:21.315Z</prop:creation-date>
+            <srel:created-by objid="escidoc:399307"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:54203"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:417544</prop:pid>
+            <prop:version objid="escidoc:420912:2">
+                <version:number>2</version:number>
+                <version:date>2010-05-04T11:43:35.909Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:53218"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:420912:2</version:pid>
+            </prop:version>
+            <prop:latest-version objid="escidoc:420912:2">
+                <version:number>2</version:number>
+                <version:date>2010-05-04T11:43:35.909Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release objid="escidoc:420912:2">
+                <release:number>2</release:number>
+                <release:date>2010-05-04T11:43:35.909Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:420912:2</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags>
+                    <local-tag/>
+                </local-tags>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <publication:publication xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Acheson</eterms:family-name>
+                            <eterms:given-name>Daniel J.</eterms:given-name>
+                            <organization:organization>
+                                <dc:title>University of Wisconsin, Madison, Wisconsin</dc:title>
+                                <eterms:address/>
+                                <dc:identifier>escidoc:persistent22</dc:identifier>
+                            </organization:organization>
+                            <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons2693
+							</dc:identifier>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>Postle</eterms:family-name>
+                            <eterms:given-name>Bradley R. </eterms:given-name>
+                            <organization:organization>
+                                <dc:title>University of Wisconsin, Madison, Wisconsin</dc:title>
+                                <eterms:address/>
+                                <dc:identifier>escidoc:persistent22</dc:identifier>
+                            </organization:organization>
+                        </person:person>
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <person:person>
+                            <eterms:complete-name/>
+                            <eterms:family-name>MacDonald</eterms:family-name>
+                            <eterms:given-name>Maryellen C. </eterms:given-name>
+                            <organization:organization>
+                                <dc:title>University of Wisconsin, Madison, Wisconsin</dc:title>
+                                <eterms:address/>
+                                <dc:identifier>escidoc:persistent22</dc:identifier>
+                            </organization:organization>
+                        </person:person>
+                    </eterms:creator>
+                    <dc:title>The interaction of concreteness and phonological
+						similarity in verbal working memory</dc:title>
+                    <dc:identifier xsi:type="eterms:DOI">10.1037/a0017679
+					</dc:identifier>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2010</dcterms:issued>
+                    <eterms:review-method>http://purl.org/eprint/status/PeerReviewed
+					</eterms:review-method>
+                    <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+                        <dc:title>Journal of Experimental Psychology: Learning, Memory,
+							and Cognition</dc:title>
+                        <eterms:volume>36</eterms:volume>
+                        <eterms:issue>1</eterms:issue>
+                        <eterms:start-page>17</eterms:start-page>
+                        <eterms:end-page>36</eterms:end-page>
+                        <eterms:sequence-number/>
+                        <eterms:total-number-of-pages/>
+                        <eterms:publishing-info>
+                            <dc:publisher>American Psychological Association (PsycARTICLES)
+							</dc:publisher>
+                            <eterms:place>Washington, D.C.</eterms:place>
+                        </eterms:publishing-info>
+                        <dc:identifier xsi:type="eterms:OTHER">954927606766</dc:identifier>
+                        <dc:identifier xsi:type="eterms:OTHER">0278-7393</dc:identifier>
+                    </source:source>
+                    <eterms:total-number-of-pages/>
+                    <dcterms:abstract>Although phonological representations have been a
+						primary focus of verbal working memory research, lexical-semantic
+						manipulations also influence performance. In the present study,
+						the authors investigated whether a classic phenomenon in verbal
+						working memory, the phonological similarity effect (PSE), is
+						modulated by a lexical-semantic variable, word concreteness.
+						Phonological overlap and concreteness were factorially manipulated
+						in each of four experiments across which presentation modality
+						(Experiments 1 and 2: visual presentation; Experiments 3 and 4:
+						auditory presentation) and concurrent articulation (present in
+						Experiments 2 and 4) were manipulated. In addition to main effects
+						of each variable, results show a Phonological Overlap x
+						Concreteness interaction whereby the magnitude of the PSE is
+						greater for concrete word lists relative to abstract word lists.
+						This effect is driven by superior item memory for nonoverlapping,
+						concrete lists and is robust to the modality of presentation and
+						concurrent articulation. These results demonstrate that in verbal
+						working memory tasks, there are multiple routes to the
+						phonological form of a word and that maintenance and retrieval
+						occur over more than just a phonological level.</dcterms:abstract>
+                    <dc:subject>working memory, language production, serial
+						recall, phonological similarity, concrete, lexical-semantic
+						manipulations</dc:subject>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                </publication:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components xml:base="http://coreservice.mpdl.mpg.de">
+            <escidocComponents:component objid="escidoc:420913">
+                <escidocComponents:properties>
+                    <prop:creation-date>2010-05-04T11:42:15.620Z</prop:creation-date>
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>public</prop:visibility>
+                    <prop:pid>hdl:someHandle/test/escidoc:420913</prop:pid>
+                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
+					</prop:content-category>
+                    <prop:file-name>Acheson,Postle&amp;MacDonald_JEPLMC_2010.pdf
+					</prop:file-name>
+                    <prop:mime-type>application/pdf</prop:mime-type>
+                    <prop:checksum>f93f146371d625a041af3af17e2dcce7</prop:checksum>
+                    <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+                </escidocComponents:properties>
+                <escidocComponents:content xlink:type="simple" xlink:title="Acheson,Postle&amp;MacDonald_JEPLMC_2010.pdf" xlink:href="/ir/item/escidoc:420912/components/component/escidoc:420913/content" storage="internal-managed"/>
+                <escidocMetadataRecords:md-records>
+                    <escidocMetadataRecords:md-record name="escidoc">
+                        <file:file>
+                            <dc:title>Acheson,Postle&amp;MacDonald_JEPLMC_2010.pdf</dc:title>
+                            <dc:description/>
+                            <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+                            <dcterms:extent>277427</dcterms:extent>
+                            <dcterms:dateCopyrighted/>
+                            <dc:rights/>
+                            <dcterms:license/>
+                        </file:file>
+                    </escidocMetadataRecords:md-record>
+                </escidocMetadataRecords:md-records>
+            </escidocComponents:component>
+        </escidocComponents:components>
+    </escidocItem:item>
+</escidocItemList:item-list>

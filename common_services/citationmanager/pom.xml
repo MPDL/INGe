@@ -1,4 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project 
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
@@ -9,7 +12,7 @@
 	<artifactId>citationmanager</artifactId>
 	<packaging>ejb</packaging>
 	<name>citationmanager</name>
-	<version>1.0.48-SNAPSHOT</version>
+	<version>1.0.47-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager</connection>
@@ -37,17 +40,21 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<skip>false</skip>
-					<test>TestCitationManagerSuite</test>
+					<includes>
+						<include>**/TestCitationManager.java</include>
+<!--						<include>**/TestCitationStylesSubstantial.java</include>-->
+					</includes>
 				</configuration>
 			</plugin>
 			<!-- the plugin creates executable jar with all deps in it -->
-			<!-- plugin>
+			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.2-beta-2</version>
 				<executions>
 					<execution>
 						<id>create-executable-jar</id>
-						<phase>package</phase>
+<!--						<phase>package</phase>-->
+						<phase>none</phase>
 						<goals>
 							<goal>single</goal>
 						</goals>
@@ -63,7 +70,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin-->
+			</plugin>
 		</plugins> 
 		<resources>
 			<resource>
@@ -215,8 +222,8 @@
 			<artifactId>xalan</artifactId>
 			<version>2.7.1</version>
 			<!--			Do not forget to change to the provided!!! -->
-						<scope>provided</scope>
-<!--			<scope>compile</scope>-->
+<!--						<scope>provided</scope> -->
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>serializer</groupId>
@@ -241,6 +248,6 @@
 			<version>1.0.30-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
-
 	</dependencies>
+	
 </project>

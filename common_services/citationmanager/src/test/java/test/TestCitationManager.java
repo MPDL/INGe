@@ -8,20 +8,27 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
+import de.mpg.escidoc.services.citationmanager.CitationStyleManager;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
+import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleManagerImpl;
+import de.mpg.escidoc.services.transformation.TransformationBean;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
  * @author endres 
@@ -33,18 +40,12 @@ public class TestCitationManager {
     
     private XmlHelper xh = new XmlHelper(); 
     
-    private final static String dsFileName = "target/test-classes/backup/CitationStyleTestCollection.xml"; 
-//    private final static String dsFileName = "target/test-classes/testFiles/temp_items.xml"; 
-    	//"target/test-classes/testFiles/1_JournalArticle.xml"; 
-    // 2_ContrToCollectedEdition.xml
-    // 
-    //target/test-classes/backup/CitationStyleTestCollection.xml
-    private static String itemList;
-     
-    private CitationStyleHandler cse = new CitationStyleExecutor();
-
-    private static int itemsNumber;
+    private static HashMap<String, String> itemLists;
     
+     
+    private static CitationStyleExecutor cse = new CitationStyleExecutor();
+    private CitationStyleManagerImpl csm = new CitationStyleManagerImpl();
+
     /**
      * Tests CitationStyle.xml (APA by default)
      * TODO: At the moment only the Validation method is being tested, 
@@ -59,20 +60,19 @@ public class TestCitationManager {
      * @throws Exception 
      */
     @BeforeClass 
-    public static void getItemList() throws Exception
+    public static void getItemLists() throws Exception
     {
-        String ds = dsFileName; 
-        itemList = ResourceUtil.getResourceAsString(ds);
-        assertNotNull("Item list xml is not found:", ds);
-//        itemsNumber =  TestHelper.getItemsNumber(ds);
-        
-////        itemList = TestHelper.getItemsFromFramework_APA();
-//      itemList = TestHelper.getTestItemListFromFramework();
-//      assertTrue("item list from framework is empty", Utils.checkVal(itemList) );
-//      logger.info("item list from framework:\n" + itemList);
-           
-        
-//      TestHelper.writeToFile("porverka.xml", itemList.getBytes());
+    	
+    	itemLists = new HashMap<String, String>();
+    	
+        for ( String cs: cse.getStyles() ) 
+        {
+        	String itemList =  TestHelper.getCitationStyleTestXmlAsString(
+        			TestHelper.getTestProperties(cs).getProperty("plain.test.xml") 
+        	); 
+        	assertNotNull("Item list xml is not found", itemList);
+        	itemLists.put(cs, itemList);
+        }
 
     }   
     
@@ -81,6 +81,7 @@ public class TestCitationManager {
      * @throws Exception Any exception.
      */
     @Test
+    @Ignore
     public final void testGetStyles() throws Exception {
         logger.info("List of citation styles: " );
         for (String s : cse.getStyles() )
@@ -92,6 +93,7 @@ public class TestCitationManager {
      * @throws Exception Any exception.
      */
     @Test
+    @Ignore
     public final void testExplainStuff() throws Exception 
     {
         String explain = cse.explainStyles();
@@ -111,28 +113,76 @@ public class TestCitationManager {
         }   
     }       
     
+
     /**
-     * Validates DataSource against XML Schema  
-     * @throws IOException 
+     * Test Citation Style Test
+     * @throws Exception
      */
-   // @Test
-//    public final void testDataSourceValidation() throws IOException{
-//        
-//        //TODO: always recent schema should be provided
-//        long start = 0;
-//        String dsName = dsFileName;
-//          
-//        try { 
-//            start = System.currentTimeMillis();
-//            xh.validateDataSourceXML(dsName);
-//            logger.info("DataSource file:" + dsName + " is valid.");
-//            
-//        }catch (CitationStyleManagerException e){ 
-//            logger.info("DataSource file:" + dsName + " is not valid.\n", e);
-//            fail();
-//        }
-//        logger.info("Data Source Validation time : " + (System.currentTimeMillis() - start));
-//    }
+    @Test
+//    @Ignore
+    public final void testCitationStyleTest() throws Exception
+    {
+    	testValidation("Test");
+    	testCompilation("Test");
+    	testOutput("Test", "pdf", "");
+    	testOutput("Test", "escidoc_snippet", "");
+    }
+
+    /**
+     * Test complete scope of Citation Styles
+     * @throws Exception
+     */
+    
+    @Test
+    @Ignore
+    public final void testCitationStyles() throws Exception
+    {
+        for (String cs: cse.getStyles() )
+        {
+	    	testValidation(cs);
+	    	testCompilation(cs);
+	    	testOutput(cs);
+        }
+    }
+    
+    @Test
+    @Ignore
+    public final void testOutputs() throws Exception {
+        
+     for ( String cs: cse.getStyles() ) 
+     {
+    	 for ( String format: cse.getOutputFormats(cs) ) 
+            {
+                testOutput(cs, format);                
+            }
+            
+        }
+    }
+    
+    
+    /**
+     * Test Sengbusch Collection output  
+     * @throws Exception Any exception.
+     */
+//    @Test
+    public final void testSengbuschCollectionOutput() throws Exception {
+    	
+
+    	//It is in old MD set
+    	Format out = new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8");
+    	Format in = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
+    	TransformationBean trans = ResourceUtil.getTransformationBean();
+
+    	byte[] v2 = trans.transform(
+    			ResourceUtil.getResourceAsString("target/test-classes/testFiles/Sengbusch.xml")
+    			.getBytes("UTF-8"), in, out, "escidoc"
+    	);
+    	
+   	
+    	testOutput("APA", "pdf", "Sengbusch", new String(v2, "UTF-8"));
+    	
+    }
+    
     
     /**
      * Validates CitationStyle against XML Schema and Schematron Schema  
@@ -141,95 +191,85 @@ public class TestCitationManager {
      * @throws ParserConfigurationException 
      * @throws CitationStyleManagerException 
      */
-    @Test
-    public final void testCitationStyleValidation() throws IOException, CitationStyleManagerException, ParserConfigurationException, SAXException
+    public final void testValidation(String cs) throws IOException, CitationStyleManagerException, ParserConfigurationException, SAXException
     {
-        
-      for (String cs : cse.getStyles() )
-//        for (String cs : new String[]{"APA","AJP"} )
-        {
-            logger.info("Validate Citation Style: " + cs);
-            String csName = 
-                 ResourceUtil.getPathToCitationStyles() + cs + "/CitationStyle.xml";;
-            logger.info("CitationStyle URI: " + csName);
-            long start = 0;
-            start = -System.currentTimeMillis();
-            String report = xh.validateCitationStyleXML(csName);
-            logger.info("Citation Style XML Validation time : " + (start + System.currentTimeMillis()));
-            if (report == null)
-            	logger.info("CitationStyle XML file: " + csName + " is valid.");
-            else
-            {
-            	logger.info("CitationStyle XML file: " + csName + " is not valid:\n" + report + "\n");
-                fail();
-            }    
-        }
+
+		logger.info("Validate Citation Style: " + cs);
+		long start = -System.currentTimeMillis();
+		String report = csm.validate(cs);
+		logger.info("Citation Style XML Validation time : " + (start + System.currentTimeMillis()));
+		if (report == null)
+			logger.info("CitationStyle XML file: " + cs + " is valid.");
+		else
+		{
+			logger.info("CitationStyle XML file: " + cs + " is not valid:\n" + report + "\n");
+			fail();
+		}    
     }
 
 
     /**
+     * Test service for citation style compilation 
+     * @throws Exception Any exception.
+     */
+    public final void testCompilation(String cs) throws Exception {
+       logger.info("Compilation of citation style: " + cs + "...");
+       csm.compile(cs);
+       logger.info("OK");
+    } 
+    
+    /**
      * Test service for all citation styles and all output formats 
      * @throws Exception Any exception.
      */
-    @Test
-    public final void testCitManOutput() throws Exception {
-        
-     for (
-    		 String cs : 
-////    			 new String[]{"APA","AJP"}
-//    			 new String[]{"APA"}
-     			cse.getStyles()
-     ) {
-            long start;
-            byte[] result;
-            for ( String format : 
-                  cse.getOutputFormats(cs)
-//                  new String[]{"escidoc_snippet", "snippet" , "html"}
-//            		new String[]{"html_plain", "html_styled"}
-            ) {
-                logger.info("Test Citation Style: " + cs);
-                
-                start = System.currentTimeMillis();
-                result = cse.getOutput(cs, format, itemList);
-                
-//              logger.info("ItemList\n: " + itemList);
-//              logger.info("Result\n: " + new String(result));
-                
-                logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
-                assertTrue(format + " output should not be empty", result.length > 0);
-                
-                logger.info("Number of proceeded items: " + itemsNumber);
-                logger.info(format + " length: " + result.length);
-                logger.info(format + " is OK");
-                 
-                TestHelper.writeToFile("target/" + cs + "_" + format + "." + TestHelper.getExtensionByName(format), result); 
-                
-            }
-            
-        }
+
+
+    
+    /*
+     * outPrefix == null:  omit output file generation
+     * outPrefix == "": generate output file, file name by default  
+     * outPrefix.length>0 == "": generate output file, use outPrefix as file name prefix   
+     * */
+    public final void testOutput(String cs, String ouf, String outPrefix, String il) throws Exception 
+    {
+
+    	long start;
+    	byte[] result;
+    	logger.info("Test Citation Style: " + cs);
+
+    	start = System.currentTimeMillis();
+    	result = cse.getOutput(cs, ouf, il);
+
+    	logger.info("Output to " + ouf + ", time: " + (System.currentTimeMillis() - start));
+    	assertTrue(ouf + " output should not be empty", result.length > 0);
+
+    	logger.info(ouf + " length: " + result.length);
+    	logger.info(ouf + " is OK");
+
+    	if ( outPrefix != null)
+    		TestHelper.writeToFile("target/" 
+    				+ ( ! outPrefix.equals("") ? outPrefix + "_" : "")
+    				+ cs + "_" + ouf + "." + ResourceUtil.getExtensionByName(ouf), result); 
+
     }
     
-
-//  @Test
-    // @Ignore
-//     public final void testJusOutput() throws Exception {
-//       	
-//       	CitationStyleExecutor cse = new CitationStyleExecutor();
-//         
-////       for (String cs : pcs.getStyles() )
-//             byte[] result;
-//         	
-//         	result = cse.getOutput("JUS", "snippet", itemList);
-//         	
-//         	System.out.println(new String(result, "UTF-8"));
-//             
-////         TestHelper.writeToFile(cs + "." + format, result);
-//
-//         	
-//             
-//     }
+    public final void testOutput(String cs, String ouf, String outPrefix) throws Exception
+    {
+    	testOutput(cs, ouf, outPrefix, itemLists.get(cs));
+    }
     
-
- 
+    public final void testOutput(String cs, String ouf) throws Exception
+    {
+    	testOutput(cs, ouf, null);
+    }
+    
+    public final void testOutput(String cs) throws Exception
+    {
+    	for ( String format: cse.getOutputFormats(cs) ) 
+        {
+            testOutput(cs, format);                
+        }
+    	
+    }
     
 }
