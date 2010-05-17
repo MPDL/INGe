@@ -3190,9 +3190,9 @@
 	       <xsl:sequence select="       if (exists($arg))      then $arg      else $value   "/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_reverse_date">
-		      <xsl:param name="date"/>
-		      <xsl:if test="$date[.!=''] ">
-			         <xsl:value-of select="concat(substring($date,9,2),'.',substring($date,6,2),'.',substring($date,1,4))"/>
+		      <xsl:param name="input_date"/>
+		      <xsl:if test="$input_date[.!=''] ">
+			         <xsl:value-of select="concat(substring($input_date,9,2),'.',substring($input_date,6,2),'.',substring($input_date,1,4))"/>
 		      </xsl:if>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle"
@@ -3200,5 +3200,9 @@
 		      <xsl:param name="idType"/>
 		      <xsl:param name="idValue"/>
 		      <xsl:value-of select="jfunc:getCitationStyleForJournal($idType,$idValue)"/>
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:substringAfterWhitespace">
+		      <xsl:param name="inputWithSpace"/>
+		      <xsl:value-of select="substring-after($inputWithSpace,' ')"/>
 	   </xsl:function>
 </xsl:stylesheet>

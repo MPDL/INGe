@@ -18,6 +18,7 @@
                 xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
                 xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
                 xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case"
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -1663,7 +1664,7 @@
     	   <xsl:element name="{name(.)}">
     		      <xsl:copy-of select="@*[name(.)!='xlink:href']"/>
     		      <xsl:attribute name="xlink:href"
-                           select="concat(         $pubman_instance,          '/item/',          ../../../ei:properties/prop:version/@objid,         '/component/',         ../@objid,         '/',         ../escidocComponents:properties/prop:file-name        )"/>
+                           select="concat(         $pubman_instance,         '/item/',          ../../../ei:properties/prop:version/@objid,         '/component/',         ../@objid,         '/',         ../escidocComponents:properties/prop:file-name        )"/>
     	   </xsl:element>
     </xsl:template>
     <xsl:template name="applyDelimiter">
@@ -1731,6 +1732,21 @@
 	       <xsl:param name="value" as="item()*"/> 
 	 
 	       <xsl:sequence select="       if (exists($arg))      then $arg      else $value   "/>
-	   
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_reverse_date">
+		      <xsl:param name="input_date"/>
+		      <xsl:if test="$input_date[.!=''] ">
+			         <xsl:value-of select="concat(substring($input_date,9,2),'.',substring($input_date,6,2),'.',substring($input_date,1,4))"/>
+		      </xsl:if>
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle"
+                  name="func:getCitationStyleForJournal">
+		      <xsl:param name="idType"/>
+		      <xsl:param name="idValue"/>
+		      <xsl:value-of select="jfunc:getCitationStyleForJournal($idType,$idValue)"/>
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:substringAfterWhitespace">
+		      <xsl:param name="inputWithSpace"/>
+		      <xsl:value-of select="substring-after($inputWithSpace,' ')"/>
 	   </xsl:function>
 </xsl:stylesheet>
