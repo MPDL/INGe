@@ -120,12 +120,12 @@ public class TestCitationManager {
      */
     @Test
 //    @Ignore
-    public final void testCitationStyleTest() throws Exception
+    public final void testDefaultCitationStyle() throws Exception
     {
-    	testValidation("Test");
-    	testCompilation("Test");
-    	testOutput("Test", "pdf", "");
-    	testOutput("Test", "escidoc_snippet", "");
+    	testValidation("Default");
+    	testCompilation("Default");
+    	testOutput("Default", "pdf", "");
+    	testOutput("Default", "escidoc_snippet", "");
     }
 
     /**
