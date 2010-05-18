@@ -398,8 +398,8 @@
                 <!-- A Java package dependency analyzer that generates
                       design quality metrics http://clarkware.com/software/JDepend.html -->
                 <!--<groupId>org.codehaus.mojo</groupId>
-                <artifactId>jdepend-maven-plugin</artifactId>-->
-            </plugin>
+                <artifactId>jdepend-maven-plugin</artifactId>
+            </plugin>-->
         </plugins>
     </reporting>
 
