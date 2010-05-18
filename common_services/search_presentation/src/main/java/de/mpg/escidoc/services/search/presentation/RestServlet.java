@@ -45,7 +45,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
+import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.search.Search;
@@ -80,13 +82,13 @@ public class RestServlet extends HttpServlet
     private static final int MAX_SEARCHES_NUMBER = 30;
     
     
-    private static ProcessCitationStyles pcs;
+    private static CitationStyleHandler cse;
     private static StructuredExport se;
     
     
     public RestServlet()
     {
-        pcs = new ProcessCitationStyles();
+        cse = new CitationStyleExecutor();
         se = new StructuredExport();
     }
     
@@ -126,7 +128,12 @@ public class RestServlet extends HttpServlet
                 return;
             }
 
-            exportFormat = req.getParameter("exportFormat").toUpperCase();
+            // TODO: Case sensitive exportFormats ?  
+            exportFormat = req.getParameter("exportFormat");
+            exportFormat = 	"Default".equalsIgnoreCase(exportFormat) ? "Default" : 
+            				"Test".equalsIgnoreCase(exportFormat) ? "Test" :   	
+            				exportFormat.toUpperCase();
+            
             exportFormat = !checkVal(exportFormat) ? "" : exportFormat.trim();
 
             if (exportFormat.equals(""))
@@ -135,7 +142,10 @@ public class RestServlet extends HttpServlet
                 exportFormat = "ENDNOTE";
                 // if exportFormat is ENDNOTE set outputFormat forced to the
                 // txt
-            } else if (!(pcs.isCitationStyle(exportFormat) || se.isStructuredFormat(exportFormat)))
+            } else if ( ! ( 
+            			cse.isCitationStyle(exportFormat) 
+            		|| 	se.isStructuredFormat(exportFormat) 
+            ))
             {
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong export format: " + exportFormat);
                 return;
@@ -160,7 +170,7 @@ public class RestServlet extends HttpServlet
                     outputFormat = FileFormatVO.DEFAULT_NAME;
                 }
                 // check output format consistency
-                else if (pcs.getMimeType(exportFormat, outputFormat) == null)
+                else if (cse.getMimeType(exportFormat, outputFormat) == null)
                 {
                     resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "File output format: " + outputFormat
                             + " is not supported for the export format: " + exportFormat);
@@ -169,7 +179,7 @@ public class RestServlet extends HttpServlet
             }
 
             //check the max number of the concurrent searches
-            if (pcs.isCitationStyle(exportFormat))
+            if (cse.isCitationStyle(exportFormat))
             {
             	isCitationStyle = true;
             	LOGGER.debug("Number of the concurrent searches 1:" + searchCounter);
@@ -229,10 +239,13 @@ public class RestServlet extends HttpServlet
             String fileName = exportFormat + "_output" + getFileExtension(outputFormat);
             LOGGER.debug("fileName: " + fileName);
             String contentType = getContentType(outputFormat);
-            resp.setContentType(contentType);
             LOGGER.debug("contentType: " + contentType);
 
+//            resp.setContentType(contentType);
+//            resp.setCharacterEncoding(getCharset(outputFormat).toUpperCase());
+
             ServletOutputStream os = resp.getOutputStream();
+            
 
             resp.addHeader("x-total-number-of-results", queryResult.getTotalNumberOfResults().toString());
 
@@ -295,6 +308,17 @@ public class RestServlet extends HttpServlet
     {
         return FileFormatVO.getMimeTypeByName(outputFormat);
     }
+    
+    /**
+     * get output format charset
+     * 
+     * @param outputFormat
+     * @return charset according to the outputFormat
+     */
+//    private String getCharset(final String outputFormat)
+//    {
+//    	return FileFormatVO.getCharsetByName(outputFormat);
+//    }
 
     /**
      * Mapping of the outputType file to the correct file extension. TODO: Get
@@ -307,6 +331,7 @@ public class RestServlet extends HttpServlet
     {
         return "." + FileFormatVO.getExtensionByName(outputFormat);
     }
+    
 
     /**
      * Take care on an incoming exception.
