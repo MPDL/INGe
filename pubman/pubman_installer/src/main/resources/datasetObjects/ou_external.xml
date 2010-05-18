@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<escidocOrganizationalUnit:organizational-unit xmlns:escidocOrganizationalUnit="http://www.escidoc.de/schemas/organizationalunit/0.7">
+<escidocOrganizationalUnit:organizational-unit xmlns:escidocOrganizationalUnit="${xsd.soap.ou.ou}" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}">
     <escidocOrganizationalUnit:properties>
-        <prop:has-children xmlns:prop="http://escidoc.de/core/01/properties/">false</prop:has-children>
+        <prop:has-children>false</prop:has-children>
     </escidocOrganizationalUnit:properties>
-    <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4">
+    <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
         <escidocMetadataRecords:md-record name="escidoc">
-            <organizational-unit xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+            <organizational-unit xmlns:eterms="${xsd.metadata.terms}"
                                  xmlns:kml="http://www.opengis.net/kml/2.2"
                                  xmlns:dc="http://purl.org/dc/elements/1.1/"
                                  xmlns:dcterms="http://purl.org/dc/terms/"
-                                 xmlns="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+                                 xmlns="${xsd.metadata.organizationalunit}">
                 <dc:title>External Organisation</dc:title>
                 <dcterms:alternative>EO</dcterms:alternative>
                 <dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI"/>
                 <dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">4711</dc:identifier>
                 <dc:description>This is the default external organisation.</dc:description>
-                <eterms:city>München</eterms:city>
                 <eterms:country>NO</eterms:country>
+                <eterms:city>München</eterms:city>
             </organizational-unit>
         </escidocMetadataRecords:md-record>
     </escidocMetadataRecords:md-records>

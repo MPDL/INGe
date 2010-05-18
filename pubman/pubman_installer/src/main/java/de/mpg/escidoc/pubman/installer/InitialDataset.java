@@ -98,20 +98,22 @@ public class InitialDataset
 
     public String loginToCoreservice(String userid, String password) throws ServiceException, IOException
     {
-        StringTokenizer tokens = new StringTokenizer(frameworkUrl.toString(), "//");
-        if (tokens.countTokens() != NUMBER_OF_URL_TOKENS)
+        int delim1 = frameworkUrl.toString().indexOf("//");
+        int delim2 = frameworkUrl.toString().indexOf(":", delim1);
+        
+        String host;
+        int port;
+        
+        if (delim2 > 0)
         {
-            throw new IOException("Url in the config file is in the wrong format, needs to be http://<host>:<port>");
+            host = frameworkUrl.toString().substring(delim1 + 2, delim2);
+            port = Integer.parseInt(frameworkUrl.toString().substring(delim2 + 1));
         }
-        tokens.nextToken();
-        StringTokenizer hostPort = new StringTokenizer(tokens.nextToken(), ":");
-
-        if (hostPort.countTokens() != NUMBER_OF_URL_TOKENS)
+        else
         {
-            throw new IOException("Url in the config file is in the wrong format, needs to be http://<host>:<port>");
+            host = frameworkUrl.toString().substring(delim1 + 2);
+            port = 80;
         }
-        String host = hostPort.nextToken();
-        int port = Integer.parseInt(hostPort.nextToken());
 
         HttpClient client = new HttpClient();
         client.getHostConfiguration().setHost(host, port, "http");
