@@ -2,19 +2,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.42-SNAPSHOT</version>
+		<version>1.0.42</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>citationmanager_ear</artifactId>
 	<name>citationmanager_ear</name>
 	<packaging>ear</packaging>
-	<version>1.0.47-SNAPSHOT</version>
+	<version>1.0.47</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager_ear</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager_ear</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.42/citationmanager_ear</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.42/citationmanager_ear</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.42</url>
 	</scm>
 
 	<build>
@@ -180,7 +180,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.45-SNAPSHOT</version>
+			<version>1.0.45</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -193,7 +193,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.42-SNAPSHOT</version>
+			<version>1.1.42</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -272,7 +272,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.30-SNAPSHOT</version>
+			<version>1.0.30</version>
 			<type>ejb</type>
 		</dependency>
 <!--		<dependency>-->
