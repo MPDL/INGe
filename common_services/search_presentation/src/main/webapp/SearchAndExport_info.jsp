@@ -53,12 +53,12 @@
 				<strong>cqlQuery</strong> defines CQL search request (required).  
 			</li>
 			<li>
-				<strong>exportFormat</strong> can be <i>APA</i>, <i>AJP</i>, <i>BIBTEX</i>, <i>ENDNOTE</i> or <i>eSciDoc XML</i>. (Default: <i>ENDNOTE</i>)  
+				<strong>exportFormat</strong> can be <i>APA</i>, <i>AJP</i>, <i>JUS</i>, <i>BIBTEX</i>, <i>ENDNOTE</i> or <i>eSciDoc XML</i>. (Default: <i>ENDNOTE</i>)  
 			</li>
 
 			<li>
-				<strong>outputFormat</strong> is only relevant for <i>APA</i>, <i>AJP</i> exportFormat and can be <i>pdf, html, rtf, odt, snippet</i>. (Default: <i>pdf</i>). 
-				<i>ENDNOTE</i> will be always returned as plain text.  				 
+				<strong>outputFormat</strong> is only relevant for <i>APA</i>, <i>AJP</i> and <i>JUS</i> exportFormats and can be <i>pdf, html_plain, html_styled, rtf, odt, snippet_escidoc, snippet</i>. (Default: <i>pdf</i>). 
+				<i>ENDNOTE</i> and <i>BIBTEX</i> will be always returned as plain text.  				 
 			</li>
 		</ul>
 		</div>

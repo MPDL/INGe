@@ -181,7 +181,7 @@
 			function checkOutputFormat()
 			{
 				var efv = document.form.exportFormat.value;
-				document.form.outputFormat.disabled =  ! (efv == "APA" || efv == "AJP" || efv == "JUS" ); 
+				document.form.outputFormat.disabled =  ! (efv == "APA" || efv == "AJP" || efv == "JUS" || efv == "Default" || efv == "Test"); 
 			}
 							
 			function setFeedAnchor(type)
@@ -346,6 +346,8 @@
 							                    <option value="APA">APA</option>
 												<option value="AJP">AJP</option>
 												<option value="JUS">JUS</option>
+												<option value="Default">DEFAULT</option>
+												<option value="Test">Test</option>
 							                </select>
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
@@ -353,7 +355,7 @@
 											<select class="double_select" disabled="disabled"  name="outputFormat">
 							                    <option value="pdf">pdf</option>
 												<option value="odt">odt</option>
-												<option value="rtf">rft</option>
+												<option value="rtf">rtf</option>
 												<option value="html_plain">html (plain)</option>
 												<option value="html_styled">html (styled)</option>
 												<option value="snippet">snippet v5.x</option>
