@@ -18,10 +18,28 @@
 		Use is subject to license terms.
 	-->
 <!--
-	Specifications: http://colab.mpdl.mpg.de/mediawiki/New_Citation_Style_HowTo	
+    Default Citation Style Configuration XML
+    
+    New Citation Style detailed HowTo:  
+	http://colab.mpdl.mpg.de/mediawiki/New_Citation_Style_HowTo
+	
+	Input DataSource should be in eSciDoc item-list namespace:  
+	http://www.escidoc.de/schemas/itemlist/0.9 
+	
+	Metadata profile namespace:
+	http://purl.org/escidoc/metadata/profiles/0.1/publication
+
+    Included configurational files:
+    ../font-styles.xml - global font styles 
+    ../functions.xml - global functions
+    	../variables.xml - global variables (optional)
+    	variables.xml -  local variables (optional)
 -->
 
+
+
 <!-- 
+    Header attributes:
     @name is a citation style name
     @read-only is set to "yes" for the template styles and to "no" for all other     
     @md-path is xpath to the publication metadata container, relative to the @source-placeholder-tag
@@ -87,6 +105,9 @@
 	-->
     <predefined-layout-elements>
 
+        <!-- 
+            Repeatable layout elements allow to render sequences of the repeated metadata like authors, identifiers, etc.
+        -->
 		<!-- Authors -->
         <layout-element name="authors">
             <parameters>
@@ -123,7 +144,8 @@
                 </layout-element>
             </elements>
         </layout-element>
-
+        
+        <!-- Year is date, surrounded with brackets and postfixed with dot --> 
         <layout-element name="year" ref="$date">
             <parameters>
                 <starts-with value=" (" />
