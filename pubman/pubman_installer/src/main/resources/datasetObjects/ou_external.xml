@@ -5,11 +5,11 @@
     </escidocOrganizationalUnit:properties>
     <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
         <escidocMetadataRecords:md-record name="escidoc">
-            <organizational-unit xmlns:eterms="${xsd.metadata.terms}"
+            <ou:organizational-unit xmlns:eterms="${xsd.metadata.terms}"
                                  xmlns:kml="http://www.opengis.net/kml/2.2"
                                  xmlns:dc="http://purl.org/dc/elements/1.1/"
                                  xmlns:dcterms="http://purl.org/dc/terms/"
-                                 xmlns="${xsd.metadata.organizationalunit}">
+                                 xmlns:ou="${xsd.metadata.organizationalunit}">
                 <dc:title>External Organisation</dc:title>
                 <dcterms:alternative>EO</dcterms:alternative>
                 <dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI"/>
@@ -17,7 +17,7 @@
                 <dc:description>This is the default external organisation.</dc:description>
                 <eterms:country>NO</eterms:country>
                 <eterms:city>München</eterms:city>
-            </organizational-unit>
+            </ou:organizational-unit>
         </escidocMetadataRecords:md-record>
     </escidocMetadataRecords:md-records>
 </escidocOrganizationalUnit:organizational-unit>

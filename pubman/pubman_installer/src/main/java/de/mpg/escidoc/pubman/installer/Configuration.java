@@ -61,6 +61,7 @@ public class Configuration
     public static final String KEY_MAILUSERPW = "escidoc.pubman_presentation.email.authenticationpwd";
     public static final String KEY_INSTANCEURL = "escidoc.pubman.instance.url";
     public static final String KEY_CORESERVICE_URL = "escidoc.framework_access.framework.url";
+    public static final String KEY_CORESERVICE_LOGIN_URL = "escidoc.framework_access.login.url";
     public static final String KEY_CORESERVICE_ADMINUSERNAME = "framework.admin.username";
     public static final String KEY_CORESERVICE_ADMINPW = "framework.admin.password";
     public static final String KEY_EXTERNAL_OU = "escidoc.pubman.external.organisation.id";

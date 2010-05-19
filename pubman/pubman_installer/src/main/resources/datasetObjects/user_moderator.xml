@@ -5,8 +5,5 @@
         <prop:name>PubMan Moderator</prop:name>
         <prop:login-name>pubman_moderator</prop:login-name>
         <prop:active>true</prop:active>
-        <prop:organizational-units>
-            <srel:organizational-unit objid="template_objectid_substituted_by_installer" />
-        </prop:organizational-units>
     </user-account:properties>
 </user-account:user-account>

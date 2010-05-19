@@ -102,8 +102,10 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 
 	private void storeConfiguration() throws IOException, URISyntaxException {
 		Map<String, String> userConfigValues = new HashMap<String, String>();
-		userConfigValues.put(Configuration.KEY_CORESERVICE_URL, idata
-				.getVariable("CoreserviceUrl"));
+        userConfigValues.put(Configuration.KEY_CORESERVICE_URL, idata
+                .getVariable("CoreserviceUrl"));
+        userConfigValues.put(Configuration.KEY_CORESERVICE_LOGIN_URL, idata
+                .getVariable("CoreserviceUrl"));
 		userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINUSERNAME, idata
 				.getVariable("CoreserviceAdminUser"));
 		userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINPW, idata
