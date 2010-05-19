@@ -62,9 +62,11 @@
 					</h:panelGroup>
 				</h:panelGroup>
 			</tr:iterator>
-			<tr:commandButton action="#{AudienceBean.applyForAll}" styleClass="medium_txtBtn endline groupBtn" text="#{lbl.AudiencePage_applyAll}"/>
+				<h:panelGroup styleClass="large_area0_p8 sectionToolSection">
+				<tr:commandButton action="#{AudienceBean.applyForAll}" styleClass="free_txtBtn groupBtn sectionTool" text="#{lbl.AudiencePage_applyAll}"/>
+				</h:panelGroup>
 		</h:panelGroup>
-
+		
 <%-- Single Files --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 			<tr:iterator var="file" id="allFiles" value="#{AudienceBean.fileList}" >
