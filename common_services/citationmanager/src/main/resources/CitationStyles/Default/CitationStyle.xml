@@ -99,14 +99,14 @@
 
 	<!-- 
 	    Predefined Layout Elements contain a list of layout elements which will 
-	    be multiply reused in CSLDs, E.g. Authors, year, etc.
+	    be multiply reused in CSLDs, e.g. authors, year, etc.
 	    Layout elements contain not only values, but also the formatting 
 	    parameters. 
 	-->
     <predefined-layout-elements>
 
         <!-- 
-            Repeatable layout elements allow to render sequences of the repeated metadata like authors, identifiers, etc.
+            Repeatable layout elements allow to render sequences of the repeated metadata elements like authors, identifiers, etc.
         -->
 		<!-- Authors -->
         <layout-element name="authors">
@@ -115,16 +115,31 @@
             </parameters>
             <elements>
                 <layout-element name="authors-NotEqual2" ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
+                    <!-- 
+                        Parameters with defined @position will be applied
+                        to the layout element with the pointed position.
+                        Default parameters will be overriden.
+                    -->  
                     <parameters position="last">
                         <delimiter value=", and " />
                     </parameters>
+                    <!--
+                        Default layout element parameters
+                    -->
                     <parameters>
+                        <!--
+                            valid-if triggers complete layout element on hand of boolean expression
+                        -->
                         <valid-if><![CDATA[$authorsCount!=2]]></valid-if>
                         <delimiter value=", " />
                         <internal-delimiter value=", " />
                     </parameters>
                     <elements>
                         <layout-element ref="person:person/eterms:family-name/text()" />
+                        <!-- 
+                            An example of function usage.
+                            All custom functions are defined globally in ../functions.xml
+                        -->
                         <layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
                     </elements>
                 </layout-element>
@@ -145,7 +160,9 @@
             </elements>
         </layout-element>
         
-        <!-- Year is date, surrounded with brackets and postfixed with dot --> 
+        <!-- 
+            Year is date, surrounded with brackets and postfixed with dot 
+        --> 
         <layout-element name="year" ref="$date">
             <parameters>
                 <starts-with value=" (" />
@@ -240,7 +257,7 @@
             
             <!-- 
                 An expample of the CoNE vocabulary usage for 
-                distinguish layout element processing
+                selective layout element processing
             -->
 <!--             
             <layout-element ref="pub:publication/dc:title/text()">
