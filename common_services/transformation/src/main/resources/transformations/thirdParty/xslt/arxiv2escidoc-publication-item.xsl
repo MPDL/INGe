@@ -96,15 +96,17 @@
 									<eterms:given-name>
 										<xsl:value-of select="arxiv:forenames" />
 									</eterms:given-name>
-									<organization:organization>
-										<dc:title>
-											<xsl:value-of select="arxiv:affiliation" />
-										</dc:title>
-										<eterms:address />
-										<dc:identifier>
-											<xsl:value-of select="$external_organization_id" />
-										</dc:identifier>
-									</organization:organization>
+									<xsl:if test="position() = 1">
+										<organization:organization>
+											<dc:title>
+												<xsl:value-of select="arxiv:affiliation" />
+											</dc:title>
+											<eterms:address />
+											<dc:identifier>
+												<xsl:value-of select="$external_organization_id" />
+											</dc:identifier>
+										</organization:organization>
+									</xsl:if>
 								</person:person>							
 							</xsl:element>
 						</xsl:for-each>
