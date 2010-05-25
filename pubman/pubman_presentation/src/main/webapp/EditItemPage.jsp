@@ -234,6 +234,7 @@
 				journalSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>journals/query';
 				subjectSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>$1/query';
 				personSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>persons/query';
+				publisherSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>publishers/query';
 				organizationSuggestURL = 'OrganizationSuggest.jsp';
 				journalDetailsBaseURL = '$1?format=json';
 				personDetailsBaseURL = '$1?format=json';

@@ -1286,8 +1286,7 @@ public class EasySubmission extends FacesBean
         if (uploadResult == null)
         { return null;}
       }
-      this.getEditItemSessionBean().getFiles().clear();
-      this.getEditItemSessionBean().getLocators().clear();
+      this.getEditItemSessionBean().clean();
       return "loadEditItem";
     }
 

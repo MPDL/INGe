@@ -73,12 +73,21 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         String xmlItemNewVersion = xmlTransforming.transformToItem(pubItemVOLatestVersion);
         xmlItemNewVersion = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).update(this.getReference().getObjectId(), xmlItemNewVersion);
         PubItemVO pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
+        
         ItemControllerSessionBean itemControllerSessionBean = (ItemControllerSessionBean) FacesContext
             .getCurrentInstance()
             .getExternalContext()
             .getSessionMap()
             .get(ItemControllerSessionBean.BEAN_NAME);
         itemControllerSessionBean.setCurrentPubItem(new PubItemVOPresentation(pubItemVONewVersion));
+        
+        ViewItemFull viewItemFull = (ViewItemFull) FacesContext
+        .getCurrentInstance()
+        .getExternalContext()
+        .getRequestMap()
+        .get(ViewItemFull.BEAN_NAME);
+        viewItemFull.setPubItem(new PubItemVOPresentation(pubItemVONewVersion));
+        
         return ViewItemFull.LOAD_VIEWITEM;
     }
 }

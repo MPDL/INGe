@@ -111,7 +111,7 @@
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="#{!(genre.details_publishing_info_publishing_info_publisher_display == 'false' && genre.details_publishing_info_publishing_info_publisher_form_id == 'full-submission' || genre.details_publishing_info_publishing_info_publisher_display == 'false' && genre.details_publishing_info_publishing_info_publisher_form_id == 'all')}">
 					<h:outputLabel styleClass="xDouble_label" id="lblPublisher" for="txtaPublisher" value="#{genre.details_publishing_info_publishing_info_publisher_label}" converter="GenreLabelConverter" />
-					<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" id="txtaPublisher" value="#{EditItem.pubItem.metadata.publishingInfo.publisher}" cols="15" rows="3" />
+					<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea publisherSuggest" id="txtaPublisher" value="#{EditItem.pubItem.metadata.publishingInfo.publisher}" cols="15" rows="3" />
 				</h:panelGroup>
 				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_publishing_info_publishing_info_place_display == 'false' && genre.details_publishing_info_publishing_info_place_form_id == 'full-submission' || genre.details_publishing_info_publishing_info_place_display == 'false' && genre.details_publishing_info_publishing_info_place_form_id == 'all')}">
 					<h:outputLabel styleClass="large_label" id="lblPlace" for="txtPlace" value="#{genre.details_publishing_info_publishing_info_place_label}" converter="GenreLabelConverter" />

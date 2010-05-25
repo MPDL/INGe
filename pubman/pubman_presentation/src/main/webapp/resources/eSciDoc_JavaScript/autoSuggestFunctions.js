@@ -39,6 +39,7 @@
 	var organizationSuggestURL = '';
 	var journalDetailsBaseURL = '';
 	var languageDetailsBaseURL = '';
+	var publisherSuggestURL = '';
 	var autopasteDelimiter = ' ||##|| ';
 	var autopasteInnerDelimiter = ' @@~~@@ ';
 	var journalSuggestCommonParentClass = 'sourceArea';
@@ -363,6 +364,8 @@
 		$('.personSuggest').suggest(personSuggestURL, { onSelect: fillPersonFields });
 		
 		$('.organizationSuggest').suggest(organizationSuggestURL, { onSelect: fillOrganizationFields });
+		
+		$('.publisherSuggest').suggest(publisherSuggestURL);
 
 	};
 	
