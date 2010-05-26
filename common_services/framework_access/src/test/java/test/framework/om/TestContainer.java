@@ -265,7 +265,7 @@ public class TestContainer extends TestItemBase
         "    <url>http://localhost/" + System.currentTimeMillis() + "</url>" +
         "</param>";
         logger.info("param(" + param + ")");
-        ServiceLocator.getContainerHandler(userHandle).assignVersionPid(id+":1", param);
+        ServiceLocator.getContainerHandler(userHandle).assignVersionPid(id+":3", param);
         container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
         md = getModificationDate(container);
         String param2 = "<param last-modification-date=\"" + md + "\">" +
