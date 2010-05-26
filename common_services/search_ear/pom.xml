@@ -329,7 +329,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.45-SNAPSHOT</version>
+			<version>1.0.46-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
