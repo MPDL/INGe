@@ -63,6 +63,7 @@ public class EmailHandlingTest extends TestBase
     private static final Logger logger = Logger.getLogger(EmailHandlingTest.class);
 
     private static EmailHandling emailHandling;
+    private static String withAuth;
     private static String username;
     private static String password ;
     private static String smtpHost;
@@ -86,6 +87,8 @@ public class EmailHandlingTest extends TestBase
     	
         // sets the handler
         emailHandling = getEmailHandling();
+        
+        withAuth = PropertyReader.getProperty("escidoc.pubman_presentation.email.withauthentication");
         username = PropertyReader.getProperty("escidoc.pubman_presentation.email.authenticationuser");
         password = PropertyReader.getProperty("escidoc.pubman_presentation.email.authenticationpwd");
         smtpHost = PropertyReader.getProperty("escidoc.pubman_presentation.email.mailservername");
@@ -111,7 +114,7 @@ public class EmailHandlingTest extends TestBase
         assertNotNull(file);
         file.getAbsolutePath();
         attachments = new String[]{file.getAbsolutePath()};
-        emailHandling.sendMail(smtpHost, username, password, senderAddress, recipientsAddresses, null, null, replyToAddresses, 
+        emailHandling.sendMail(smtpHost, withAuth, username, password, senderAddress, recipientsAddresses, null, null, replyToAddresses, 
                                subject, text, attachments);
     }
 
