@@ -86,7 +86,7 @@ public class EmailHandlingBean implements EmailHandling
     /**
      * {@inheritDoc}
      */
-    public String sendMail(String smtpHost,String usr,String pwd,
+    public String sendMail(String smtpHost, String withAuth, String usr,String pwd,
                 String senderAddress, 
                 String[] recipientsAddresses,
                 String[] recipientsCCAddresses,
@@ -104,8 +104,8 @@ public class EmailHandlingBean implements EmailHandling
                                             
            // Setup mail server
              Properties props = System.getProperties();
-            props.put("mail.smtp.host", smtpHost); 
-           props.put("mail.smtp.auth", "true");
+             props.put("mail.smtp.host", smtpHost); 
+             props.put("mail.smtp.auth", withAuth);
             //props.put("mail.transport.protocol", "smtp");
             //props.put("mail.from", senderAddress);
             //props.put("mail.user", usr);

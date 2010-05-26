@@ -53,6 +53,7 @@ public interface EmailHandling
      * The sending requires authentication.
      * 
      * @param smtpHost   the outgoing smpt mail server
+     * @param withAuth   use authentication (true/false)
      * @param usr        the user authorized to the server
      * @param pwd        the password of the user
      * @param senderAddress    the email address of the sender
@@ -64,11 +65,14 @@ public interface EmailHandling
      * @param subject    the subject of the email
      * @param attachments    the names/paths of the files to be attached
      */
-    public String sendMail(String smtpHost,String usr,String pwd,
-                         String senderAddress, 
-                         String[] recipientsAddresses,
-                         String[] recipientsCCAddresses,                         
-                         String[] recipientsBCCAddresses,                         
-                         String[] replytoAddresses,
-                         String subject,String text, String[] attachments) throws TechnicalException ;
+    public String sendMail(
+    					String smtpHost,
+    					String withAuth,
+    					String usr, String pwd,
+                        String senderAddress, 
+                        String[] recipientsAddresses,
+                        String[] recipientsCCAddresses,                         
+                        String[] recipientsBCCAddresses,                         
+                        String[] replytoAddresses,
+                        String subject,String text, String[] attachments) throws TechnicalException ;
 } 
