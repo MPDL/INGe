@@ -108,14 +108,9 @@ public class AdminHelper
             port = 80;
         }
         HttpClient client = new HttpClient();
-        String proxyHost = System.getProperty("http.proxyHost");
-        String proxyPortS = System.getProperty("http.proxyPort");
-        if (proxyHost != null && proxyPortS != null)
-        {
-                int proxyPort = Integer.valueOf(proxyPortS);
-                client.getHostConfiguration().setProxy(proxyHost, proxyPort);
-        }
-        client.getHostConfiguration().setHost( host, port, "http");
+        
+        ProxyHelper.setProxy(client, frameworkUrl);
+        
         client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
         
         PostMethod login = new PostMethod( frameworkUrl + "/aa/j_spring_security_check");
