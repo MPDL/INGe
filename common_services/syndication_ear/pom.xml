@@ -24,7 +24,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ear-plugin</artifactId>
                 <configuration>
-                    <displayName>syndication_ear</displayName>
+                    <displayName>syndication_ears</displayName>
                     <description>syndication_ear integration testing ear</description>
                     <resourcesDir>target/classes/in_ear</resourcesDir>
                     <version>5</version>
@@ -312,7 +312,7 @@
         <dependency>
         	<groupId>de.mpg.escidoc.services</groupId>
         	<artifactId>search_presentation</artifactId>
-        	<version>1.0.41-SNAPSHOT</version>
+        	<version>1.0.43-SNAPSHOT</version>
         	<scope>test</scope>
         	<type>war</type>
         </dependency>
@@ -333,7 +333,7 @@
         <dependency>
         	<groupId>de.mpg.escidoc.services</groupId>
         	<artifactId>structuredexportmanager</artifactId>
-        	<version>1.0.45-SNAPSHOT</version>
+        	<version>1.0.46-SNAPSHOT</version>
             <scope>test</scope>
         	<type>ejb</type>
         </dependency>
