@@ -311,6 +311,7 @@ public class ExportItems extends FacesBean
             logger.debug(">>>  sendEMail");
             String status = "not sent";
             String smtpHost = this.getSessionBean().getEmailServernameProp();
+            String withAuth = this.getSessionBean().getEmailWithAuthProp();
             String usr = this.getSessionBean().getEmailAuthUserProp();
             String pwd = this.getSessionBean().getEmailAuthPwdProp();
             String senderAddress =this.getSessionBean().getEmailSenderProp();//someone@web.de
@@ -346,7 +347,7 @@ public class ExportItems extends FacesBean
            String[] recipientsCCAddresses = recipientsCCAddressesStr.split(",");
            
             try { 
-                 status =  this.getItemControllerSessionBean().sendEmail(smtpHost, usr, pwd,
+                 status =  this.getItemControllerSessionBean().sendEmail(smtpHost, withAuth, usr, pwd,
                          senderAddress, 
                          recipientsAddresses, 
                          recipientsCCAddresses,

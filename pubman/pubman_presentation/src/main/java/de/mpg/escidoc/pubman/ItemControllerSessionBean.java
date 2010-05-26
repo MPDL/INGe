@@ -1922,6 +1922,7 @@ public class ItemControllerSessionBean extends FacesBean
      * 
      * @author:  StG
      * @param smtpHost   the outgoing smpt mail server
+     * @param withAuth   use authentication (true/false)
      * @param usr        the user authorized to the server
      * @param pwd        the password of the user
      * @param senderAddress    the email address of the sender
@@ -1933,7 +1934,7 @@ public class ItemControllerSessionBean extends FacesBean
      * @param attachments    the names/paths of the files to be attached
      * @throws Exception if wrong pws or user or emailing data 
     */
-   public String  sendEmail(String smtpHost,String usr,String pwd,
+   public String  sendEmail(String smtpHost, String withAuth, String usr,String pwd,
            String senderAddress,String[] recipientsAddresses,
            String[] recipientsCCAddresses,
            String[] recipientsBCCAddresses,
@@ -1942,7 +1943,7 @@ public class ItemControllerSessionBean extends FacesBean
  
        logger.debug("sendEmail....");        
        String status = "not sent";
-       status = emailHandling.sendMail(smtpHost, usr, pwd, senderAddress, recipientsAddresses, recipientsCCAddresses, recipientsBCCAddresses, replyToAddresses, 
+       status = emailHandling.sendMail(smtpHost, withAuth, usr, pwd, senderAddress, recipientsAddresses, recipientsCCAddresses, recipientsBCCAddresses, replyToAddresses, 
                               subject, text, attachments);
        logger.debug("status " + status);        
       
