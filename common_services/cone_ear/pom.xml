@@ -313,7 +313,7 @@
 	    <dependency>
 	    	<groupId>de.mpg.escidoc.services</groupId>
 	    	<artifactId>cone</artifactId>
-	    	<version>1.2.1-SNAPSHOT</version>
+	    	<version>1.2.2-SNAPSHOT</version>
 	    	<scope>compile</scope>
 	    </dependency>
 	    <dependency>
