@@ -640,7 +640,7 @@ public class Util
             String line = "";
             while ((line = bReader.readLine()) != null)
             {
-                if (line.contains("suffix"))
+                if (line.contains("<suffix>"))
                 {
                     suffix = line.substring(line.indexOf("<suffix>") + "<suffix>".length(), line.indexOf("</suffix>"));
                 }
