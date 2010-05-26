@@ -393,6 +393,7 @@ public class PubItemDepositingTest extends TestBase
      * 
      * @throws Exception
      */
+    @Ignore
     @Test(expected = ItemNotFoundException.class)
     public void testDeletePubItem() throws Exception
     {
