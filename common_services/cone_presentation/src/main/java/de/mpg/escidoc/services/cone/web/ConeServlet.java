@@ -66,7 +66,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -105,6 +107,25 @@ public class ConeServlet extends HttpServlet
     private static final String DEFAULT_ENCODING = "UTF-8";
     private static final String DEFAULT_FORMAT = "html";
     
+    private static final Set<String> RESERVED_PARAMETERS = new HashSet<String>()
+    {
+    	{
+    		this.add("m");
+    		this.add("mode");
+    		this.add("n");
+    		this.add("number");
+    		this.add("l");
+    		this.add("lang");
+    		this.add("r");
+    		this.add("redirect");
+    		this.add("q");
+    		this.add("query");
+    		this.add("h");
+    		this.add("eSciDocUserHandle");
+    	}
+    };
+    
+    
     Formatter formatter;
     
     /**
@@ -133,13 +154,13 @@ public class ConeServlet extends HttpServlet
         String model = null;
         String action = null;
         String format = DEFAULT_FORMAT;
-        String lang = request.getParameter("lang");
+        String lang = (request.getParameter("lang") != null ? request.getParameter("lang") : request.getParameter("l"));
         boolean loggedIn = false;
         if (request.getSession().getAttribute("logged_in") != null)
         {
             loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
         }
-        String userHandle = request.getParameter("eSciDocUserHandle");
+        String userHandle = (request.getParameter("eSciDocUserHandle") != null ? request.getParameter("eSciDocUserHandle") : request.getParameter("h"));
         if (!loggedIn && userHandle != null)
         {
         	try
@@ -153,7 +174,7 @@ public class ConeServlet extends HttpServlet
 			}
         	
         }
-        else if (!loggedIn && "true".equals(request.getParameter("l")))
+        else if (!loggedIn && "true".equals((request.getParameter("redirect") != null ? request.getParameter("redirect") : request.getParameter("r"))))
         {
         	try
         	{
@@ -178,9 +199,9 @@ public class ConeServlet extends HttpServlet
             }
         }
         
-        if (request.getParameter("format") != null)
+        if (request.getParameter("format") != null || request.getParameter("f") != null)
         {
-            format = request.getParameter("format");
+            format = (request.getParameter("format") != null ? request.getParameter("format") : request.getParameter("f"));
         }
         else
         {
@@ -198,9 +219,9 @@ public class ConeServlet extends HttpServlet
         
         if ("query".equals(action))
         {
-            String query = request.getParameter("q");
+            String query = (request.getParameter("query") != null ? request.getParameter("query") : request.getParameter("q"));
             int limit = -1;
-            String mode = request.getParameter("m");
+            String mode = (request.getParameter("mode") != null ? request.getParameter("mode") : request.getParameter("m"));
             Querier.ModeType modeType = Querier.ModeType.FAST;
             
             if (mode != null && "full".equals(mode.toLowerCase()))
@@ -209,11 +230,11 @@ public class ConeServlet extends HttpServlet
             }
             try
             {
-                limit = Integer.parseInt(request.getParameter("l"));
+                limit = Integer.parseInt((request.getParameter("number") != null ? request.getParameter("number") : request.getParameter("n")));
             }
             catch (Exception e)
             {
-                // Ignore l(imit) parameter as it is no number.
+                // Ignore n(umber) parameter as it is no number.
             }
             
             try
@@ -227,7 +248,7 @@ public class ConeServlet extends HttpServlet
                     ArrayList<Pair> searchFields = new ArrayList<Pair>();
                     for (Object key : request.getParameterMap().keySet())
                     {
-                        if (!"l".equals(key) && !"lang".equals(key) && !"m".equals(key))
+                        if (!RESERVED_PARAMETERS.contains(key))
                         {
                             searchFields.add(new Pair(key.toString(), request.getParameter(key.toString())));
                         }
