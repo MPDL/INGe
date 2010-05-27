@@ -21,7 +21,7 @@
  */
 
 /*
- * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
  * für wissenschaftlich-technische Information mbH and Max-Planck-
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
@@ -96,7 +96,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * Methods which are used in mostly all test cases.
  * 
  * @author Peter Broszeit (initial creation)
- * @author $Author: wfrank $ (last modification)
+ * @author $Author$ (last modification)
  * @version $Revision:60 $ $LastChangedDate:2007-01-25 13:08:48 +0100 (Do, 25 Jan 2007) $
  * Revised by FrW: 10.03.2008
  */

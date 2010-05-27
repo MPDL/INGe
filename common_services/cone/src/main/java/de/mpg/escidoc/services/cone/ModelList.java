@@ -8,7 +8,7 @@
  * information: Portions Copyright [yyyy] [name of copyright owner] CDDL HEADER END
  */
 /*
- * Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische Information mbH
+ * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische Information mbH
  * and Max-Planck- Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved. Use is subject to license
  * terms.
  */
@@ -43,8 +43,8 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * A SAX parser that reads in the servieces.xml configuration file.
  * 
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 2605 $ $LastChangedDate: 2009-12-22 15:28:27 +0100 (Di, 22 Dez 2009) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  */
 public class ModelList
 {
@@ -135,8 +135,8 @@ public class ModelList
      * SAX handler.
      * 
      * @author franke (initial creation)
-     * @author $Author: mfranke $ (last modification)
-     * @version $Revision: 2605 $ $LastChangedDate: 2009-12-22 15:28:27 +0100 (Di, 22 Dez 2009) $
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
      */
     private class ServiceListHandler extends ShortContentHandler
     {
@@ -378,8 +378,8 @@ public class ModelList
      * this class should always call super() at the beginning of an overridden method.
      * 
      * @author franke (initial creation)
-     * @author $Author: mfranke $ (last modification)
-     * @version $Revision: 2605 $ $LastChangedDate: 2009-12-22 15:28:27 +0100 (Di, 22 Dez 2009) $
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
      */
     private class ShortContentHandler extends DefaultHandler
     {
@@ -425,8 +425,8 @@ public class ModelList
          * A {@link Stack} extension to facilitate XML navigation.
          * 
          * @author franke (initial creation)
-         * @author $Author: mfranke $ (last modification)
-         * @version $Revision: 2605 $ $LastChangedDate: 2009-12-22 15:28:27 +0100 (Di, 22 Dez 2009) $
+         * @author $Author$ (last modification)
+         * @version $Revision$ $LastChangedDate$
          */
         private class XMLStack extends Stack<String>
         {
@@ -455,8 +455,8 @@ public class ModelList
      * A bean holding data of a CoNE service.
      * 
      * @author franke (initial creation)
-     * @author $Author: mfranke $ (last modification)
-     * @version $Revision: 2605 $ $LastChangedDate: 2009-12-22 15:28:27 +0100 (Di, 22 Dez 2009) $
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
      */
     public class Model
     {
@@ -755,8 +755,8 @@ public class ModelList
      * Inner VO class to define the data structure inside a model.
      *
      * @author franke (initial creation)
-     * @author $Author: mfranke $ (last modification)
-     * @version $Revision: 2605 $ $LastChangedDate: 2009-12-22 15:28:27 +0100 (Di, 22 Dez 2009) $
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
      *
      */
     public class Predicate

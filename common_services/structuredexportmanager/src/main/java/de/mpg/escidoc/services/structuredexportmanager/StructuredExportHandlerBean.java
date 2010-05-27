@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -45,8 +45,8 @@ import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerEx
 * This class provides the ejb implementation of the {@link StructuredExportHandler} interface.
 * 
 * @author Vladislav Makarenko  (initial creation)
-* @author $Author: vmakarenko $ (last modification)
-* @version $Revision:$,  $LastChangedDate:$
+* @author $Author$ (last modification)
+* @version $Revision$,  $LastChangedDate$
 */
 
 @Stateless

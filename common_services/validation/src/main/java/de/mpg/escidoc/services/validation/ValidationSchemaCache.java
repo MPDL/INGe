@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -72,8 +72,8 @@ import de.mpg.escidoc.services.validation.xmltransforming.ConeContentHandler;
  * Class to deal with validation schemas.
  *
  * @author mfranke
- * @author $Author: mfranke $
- * @version $Revision: 146 $$LastChangedDate: 2007-12-18 14:42:42 +0100 (Tue, 18 Dec 2007) $
+ * @author $Author$
+ * @version $Revision$$LastChangedDate$
  */
 public final class ValidationSchemaCache
 {

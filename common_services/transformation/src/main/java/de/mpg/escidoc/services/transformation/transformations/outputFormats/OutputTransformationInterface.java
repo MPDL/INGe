@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -47,8 +47,8 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 /**
  * Implementation of the transformation interface for output formats.
  * @author Friederike Kleinfercher (initial creation)
- * @author $Author: kleinfercher $ (last modification)
- * @version $Revision: 2285 $ $LastChangedDate: 2009-09-07 15:17:02 +0200 (Mo, 07 Sep 2009) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */
 @TransformationModule

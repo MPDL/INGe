@@ -14,8 +14,8 @@ import org.apache.log4j.Logger;
 /**
  * provides the import of a EndNote file 
  * 
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 2391 $ $LastChangedDate: 2009-11-20 16:08:07 +0100 (Fr, 20 Nov 2009) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */
 public class EndNoteImport

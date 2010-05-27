@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -45,8 +45,8 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * A representation of a tree-like structure built of s-p-o triples.
  *
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 2605 $ $LastChangedDate: 2009-12-22 15:28:27 +0100 (Di, 22 Dez 2009) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */
 public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> implements LocalizedTripleObject

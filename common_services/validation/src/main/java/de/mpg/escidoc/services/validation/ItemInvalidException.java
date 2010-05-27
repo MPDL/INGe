@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -35,8 +35,8 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * Exception thrown when an item breaks restrictive validation rules.
  *
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 106 $ $LastChangedDate: 2007-11-07 13:14:06 +0100 (Wed, 07 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  */
 @SuppressWarnings("serial")
 public class ItemInvalidException extends Exception

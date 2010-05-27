@@ -21,7 +21,7 @@
  */
 
 /*
- * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
  * für wissenschaftlich-technische Information mbH and Max-Planck-
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
@@ -39,8 +39,8 @@ import test.framework.oum.CleanupOrgUnitData;
  * Test of the eSciDoc-Framework services.
  * 
  * @author Peter Broszeit (initial creation)
- * @author $Author: pbroszei $ (last modification)
- * @version $Revision: 281 $ $LastChangedDate: 2007-09-04 11:35:30 +0200 (Di, 04 Sep 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * @revised by BrP: 03.09.2007
  */
 @RunWith(Suite.class)

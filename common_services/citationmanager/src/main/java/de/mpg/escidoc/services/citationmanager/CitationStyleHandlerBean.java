@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -48,8 +48,8 @@ import java.io.IOException;
  * It can be considered as a wrapper of the external package.
  * 
  * @author Galina Stancheva (initial creation)
- * @author $Author: vdm $ (last modification)
- * @version $Revision: 146 $ $LastChangedDate: 2007-07-17 12:19:12 +0200 (Di, 17 Jul 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * Revised by StG: 24.08.2007
  */
 @Stateless

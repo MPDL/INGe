@@ -21,7 +21,7 @@ roject* CDDL HEADER START
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -41,8 +41,8 @@ import java.util.Map;
 /**
  * JUnit test class for Structured Export component   
  * @author Author: Vlad Makarenko (initial creation) 
- * @author $Author: vdm $ (last modification) 
- * @version $Revision: 68 $ $LastChangedDate: 2007-12-11 12:41:20 +0100 (Tue, 11 Dec 2007) $
+ * @author $Author$ (last modification) 
+ * @version $Revision$ $LastChangedDate$
  */
 import org.apache.log4j.Logger;
 import org.junit.Before;

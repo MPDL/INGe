@@ -21,7 +21,7 @@
  */
 
 /*
- * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
  * für wissenschaftlich-technische Information mbH and Max-Planck-
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
@@ -55,8 +55,8 @@ import org.apache.log4j.Logger;
  * </ul>
  *
  * @author Peter Broszeit (initial creation)
- * @author $Author: pbroszei $ (last modification)
- * @version $Revision: 320 $ $LastChangedDate: 2007-11-14 18:10:58 +0100 (Wed, 14 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * @revised by BrP: 03.09.2007
  */
 public class PropertyReader

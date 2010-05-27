@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -37,8 +37,8 @@ import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 /**
  * @author Full Access
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 126 $ $LastChangedDate: 2007-11-15 11:36:15 +0100 (Thu, 15 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  */
 public class ValidationReportVO extends ValueObject
 {

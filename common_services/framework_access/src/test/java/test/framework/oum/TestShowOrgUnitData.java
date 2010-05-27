@@ -21,7 +21,7 @@
  */
 
 /*
- * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
  * für wissenschaftlich-technische Information mbH and Max-Planck-
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
@@ -43,8 +43,8 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * Testcases to show all stored organizational units.
  *
  * @author Peter (initial creation)
- * @author $Author: wfrank $ (last modification)
- * @version $Revision: 314 $ $LastChangedDate: 2007-11-07 13:12:14 +0100 (Wed, 07 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * @revised by FrW: 10.03.2008
  */
 public class TestShowOrgUnitData extends TestBase

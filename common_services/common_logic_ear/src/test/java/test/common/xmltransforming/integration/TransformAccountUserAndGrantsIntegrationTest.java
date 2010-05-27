@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -62,8 +62,8 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * Test cases for the transformToAccountUser method of the XmlTransforming interface.
  * 
  * @author Peter Broszeit (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 651 $ $LastChangedDate: 2007-12-04 14:16:08 +0100 (Tue, 04 Dec 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 03.09.2007
  */
 public class TransformAccountUserAndGrantsIntegrationTest extends TestBase

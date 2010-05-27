@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -63,8 +63,8 @@ import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
  * <li><code>test.[i].result</code>     
  *    
  * @author Vladislav Makarenko (initial)
- * @author $Author: vdm $ (last change)
- * @version $Revision: 146 $ $LastChangedDate: 2007-11-12 20:58:08 +0100 (Mon, 12 Nov 2007) $
+ * @author $Author$ (last change)
+ * @version $Revision$ $LastChangedDate$
  */ 
 
 public class ProcessCitationStyleTest extends TestCase {

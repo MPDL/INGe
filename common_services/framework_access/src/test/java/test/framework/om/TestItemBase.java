@@ -21,7 +21,7 @@
  */
 
 /*
- * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
  * für wissenschaftlich-technische Information mbH and Max-Planck-
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
@@ -34,8 +34,8 @@ import test.framework.TestBase;
  * Base class for item testcases.
  *
  * @author Peter (initial creation)
- * @author $Author: wfrank $ (last modification)
- * @version $Revision: 329 $ $LastChangedDate: 2007-12-06 09:44:45 +0100 (Thu, 06 Dec 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * @revised by BrP: 04.09.2007
  */
 public class TestItemBase extends TestBase

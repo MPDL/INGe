@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -68,8 +68,8 @@ import javax.ejb.EJB;
  * Test class for simple search.
  * 
  * @author Miriam Doelle (initial creation)
- * @author $Author: pbroszei $ (last modification)
- * @version $Revision: 451 $ $LastChangedDate: 2007-11-29 13:58:00 +0100 (Thu, 29 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * Revised by NiH: 22.08.2007
  */
 public class SimpleSearchTest extends TestBase

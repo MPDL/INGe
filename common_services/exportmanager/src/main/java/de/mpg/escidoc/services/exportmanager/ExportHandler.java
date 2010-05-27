@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -37,9 +37,9 @@ import java.io.IOException;
  * and CitationStyleHandler 
  * in the structured format.
  * @author Vlad Makarenko  (initial creation) 
- * @author $Author: vdm $ (last modification)
- * @ $Revision: 63 $
- *  $LastChangedDate: 2007-11-13 15:40:28 +0100 (Tue, 13 Nov 2007) $ 
+ * @author $Author$ (last modification)
+ * @ $Revision$
+ *  $LastChangedDate$ 
  */
 
 

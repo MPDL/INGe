@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -52,8 +52,8 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * JUnit tests for the encoding of the communication between the framework and the common logic
  * and inside the transforming.
  * @author Michael Franke (initial creation)
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 436 $ $LastChangedDate: 2007-09-04 11:39:58 +0200 (Di, 04 Sep 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */
 public class EncodingTest extends TestBase

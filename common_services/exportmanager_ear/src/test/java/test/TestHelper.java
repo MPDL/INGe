@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -64,8 +64,8 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * Helper class for all test classes.
  *
  * @author Johannes M&uuml;ller (initial)
- * @author $Author: vdm $ (last change)
- * @version $Revision: 69 $ $LastChangedDate: 2007-12-11 12:41:58 +0100 (Tue, 11 Dec 2007) $
+ * @author $Author$ (last change)
+ * @version $Revision$ $LastChangedDate$
  */
 public class TestHelper
 {

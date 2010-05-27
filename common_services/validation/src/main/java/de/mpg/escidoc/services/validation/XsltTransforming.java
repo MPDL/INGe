@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -51,8 +51,8 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
  * Utility class for XSLT transformations.
  *
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 123 $ $LastChangedDate: 2007-11-14 10:58:02 +0100 (Wed, 14 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */
 public final class XsltTransforming

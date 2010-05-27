@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -50,8 +50,8 @@ import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming
 /**
  *
  * @author Michael Franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 119 $ $LastChangedDate: 2007-11-09 17:37:29 +0100 (Fri, 09 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  */
 public class ValidationReportTransformingTest
 {

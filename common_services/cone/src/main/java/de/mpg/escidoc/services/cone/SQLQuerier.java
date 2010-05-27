@@ -8,7 +8,7 @@
  * information: Portions Copyright [yyyy] [name of copyright owner] CDDL HEADER END
  */
 /*
- * Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische Information mbH
+ * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische Information mbH
  * and Max-Planck- Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved. Use is subject to license
  * terms.
  */
@@ -49,8 +49,8 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * relational databases like HSQL, MySQL. For Oracle and SQL Server, maybe some modifications will be needed.
  * 
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 2609 $ $LastChangedDate: 2009-12-23 10:47:02 +0100 (Mi, 23 Dez 2009) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  */
 public class SQLQuerier implements Querier
 {

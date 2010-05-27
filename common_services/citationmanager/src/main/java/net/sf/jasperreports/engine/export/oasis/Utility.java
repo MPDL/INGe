@@ -40,7 +40,7 @@ import java.util.StringTokenizer;
 
 /**
  * @author Teodor Danciu (teodord@users.sourceforge.net)
- * @version $Id: Utility.java 2695 2009-03-24 18:14:25Z teodord $
+ * @version $Id$
  */
 public class Utility {
 

@@ -7,8 +7,8 @@ import java.util.Map;
  * A key-value pair.
  * 
  * @author kurt (initial creation)
- * @author $Author: vmakarenko $ (last modification)
- * @version $Revision: 1881 $ $LastChangedDate: 2009-04-28 12:39:33 +0200 (Di, 28 Apr 2009) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */
 public class Pair{

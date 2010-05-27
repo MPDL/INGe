@@ -8,7 +8,7 @@
  * information: Portions Copyright [yyyy] [name of copyright owner] CDDL HEADER END
  */
 /*
- * Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische Information mbH
+ * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische Information mbH
  * and Max-Planck- Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved. Use is subject to license
  * terms.
  */
@@ -37,8 +37,8 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * Helper class to fill the Mulgara triple store with RDF data.
  * 
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 1952 $ $LastChangedDate: 2009-05-07 10:33:48 +0200 (Do, 07 Mai 2009) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  */
 public class CreateTripleStore
 {

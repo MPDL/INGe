@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -37,8 +37,8 @@ import net.sf.saxon.functions.Contains;
  * Parser for comma seperated author strings (surname first, semicolon, given name(s)), mixed given names and initials
  *
  * @author Markus Haarlaender (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 2014 $ $LastChangedDate: 2009-05-25 15:49:47 +0200 (Mo, 25 Mai 2009) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */
 public class EndnoteFormat extends AuthorFormat {

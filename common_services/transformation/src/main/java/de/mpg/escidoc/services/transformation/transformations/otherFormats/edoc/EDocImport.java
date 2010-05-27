@@ -23,7 +23,7 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -67,8 +67,8 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
  * @author kurt (initial creation)
- * @author $Author: tendres $ (last modification)
- * @version $Revision: 2419 $ $LastChangedDate: 2009-04-01 09:41:19 +0200 (Mi, 01 Apr 2009) $ 
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$ 
  *
  */
 @TransformationModule

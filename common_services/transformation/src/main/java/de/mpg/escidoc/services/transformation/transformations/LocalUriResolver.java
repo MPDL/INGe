@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * fr wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Fderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -45,8 +45,8 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
  * Without this URIResolver it is not possible to work with import statements.
  *
  * @author mfranke
- * @author $Author: mfranke $
- * @version $Revision: 1951 $$LastChangedDate: 2009-05-07 10:27:06 +0200 (Do, 07 Mai 2009) $
+ * @author $Author$
+ * @version $Revision$$LastChangedDate$
  */
 public class LocalUriResolver implements URIResolver
 {

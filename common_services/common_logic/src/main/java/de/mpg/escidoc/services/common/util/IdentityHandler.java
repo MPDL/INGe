@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -42,8 +42,8 @@ import org.xml.sax.SAXException;
  * Might be useful to make small modifications in an XML.
  *
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 1743 $ $LastChangedDate: 2009-03-25 11:12:45 +0100 (Mi, 25 Mrz 2009) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */
 public class IdentityHandler extends ShortContentHandler

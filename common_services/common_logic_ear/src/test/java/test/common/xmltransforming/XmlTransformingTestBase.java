@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -41,8 +41,8 @@ import test.common.TestBase;
  * This class enriches the TestBase class with XML-specific methods.
  * 
  * @author Johannes Mueller (initial creation)
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ @revised by MuJ: 28.08.2007
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$ @revised by MuJ: 28.08.2007
  */
 public class XmlTransformingTestBase extends TestBase
 {

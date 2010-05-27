@@ -11,7 +11,7 @@
 		license/ESCIDOC.LICENSE. If applicable, add the following below this
 		CDDL HEADER, with the fields enclosed by brackets "[]" replaced with
 		your own identifying information: Portions Copyright [yyyy] [name of
-		copyright owner] CDDL HEADER END Copyright 2006-2007
+		copyright owner] CDDL HEADER END Copyright 2006-2010
 		Fachinformationszentrum Karlsruhe Gesellschaft für
 		wissenschaftlich-technische Information mbH and Max-Planck-
 		Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved.

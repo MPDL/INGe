@@ -4,8 +4,8 @@ package de.mpg.escidoc.services.transformation.transformations.otherFormats.mab;
  * A key-value pair.
  * 
  * @author kurt (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 1953 $ $LastChangedDate: 2009-05-07 10:40:57 +0200 (Do, 07. Mai 2009) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */
 public class Pair{

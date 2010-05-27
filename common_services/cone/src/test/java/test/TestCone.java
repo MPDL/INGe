@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -40,7 +40,7 @@ import test.UtilTest;
  * Component test suite for common_logic.
  *
  * @author Peter Broszeit (initial creation)
- * @version $Revision: 1951 $ $LastChangedDate: 2009-05-07 10:27:06 +0200 (Do, 07 Mai 2009) $ by $Author: mfranke $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 06.09.2007
  */
 @RunWith(Suite.class)

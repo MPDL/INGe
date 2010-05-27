@@ -12,8 +12,8 @@ import org.apache.log4j.Logger;
  * provides the import of a MAB file 
  * 
  * @author kurt (initial creation)
- * @author $Author: jkurt $ (last modification)
- * @version $Revision: 2312 $ $LastChangedDate: 2009-09-16 11:40:26 +0200 (Mi, 16 Sep 2009) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */
 public class MABImport{

@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -39,8 +39,8 @@ import test.validation.WebServiceTest;
 /**
  * Component test suite for common_logic.
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 113 $ $LastChangedDate: 2007-11-08 18:23:27 +0100 (Thu, 08 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
