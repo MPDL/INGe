@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 /**
  * Utility class to deal with resources such as files and directories. Either on the file system or in jar files.
  *
- * @version $Revision: 1951 $ $LastChangedDate: 2009-05-07 10:27:06 +0200 (Do, 07 Mai 2009) $
+ * @version $Revision$ $LastChangedDate$
  */
 public class ResourceUtil 
 {

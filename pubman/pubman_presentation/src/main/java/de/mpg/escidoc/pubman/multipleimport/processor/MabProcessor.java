@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -43,8 +43,8 @@ import org.apache.axis.encoding.Base64;
  * TODO Description
  *
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 2599 $ $LastChangedDate: 2009-05-05 10:18:03 +0200 (Di, 05 Mai 2009) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */
 public class MabProcessor extends FormatProcessor
