@@ -81,6 +81,7 @@ import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation.ContentCategory;
+
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -109,6 +110,7 @@ import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableExce
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.pubman.util.ProxyHelper;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 import de.mpg.escidoc.services.validation.ItemValidating;
@@ -864,36 +866,6 @@ public class EasySubmission extends FacesBean
     }
 
     
-  
-    /**
-     * check if proxy has to get used for given url.
-     * If yes, set ProxyHost in httpClient
-     *
-     * @param url url
-     *
-     * @throws Exception
-     */
-	private void setProxy(final HttpClient httpClient, final String url) throws Exception {
-		String proxyHost = System.getProperty("http.proxyHost");
-		String proxyPort = System.getProperty("http.proxyPort");
-		if (proxyHost != null) {
-			String nonProxyHosts = System.getProperty("http.nonProxyHosts");
-			if (nonProxyHosts != null && !nonProxyHosts.trim().equals("")) {
-				nonProxyHosts = nonProxyHosts.replaceAll("\\.", "\\\\.");
-				nonProxyHosts = nonProxyHosts.replaceAll("\\*", "");
-				nonProxyHosts = nonProxyHosts.replaceAll("\\?", "\\\\?");
-				Pattern nonProxyPattern = Pattern.compile(nonProxyHosts);
-				Matcher nonProxyMatcher = nonProxyPattern.matcher(url);
-				if (nonProxyMatcher.find()) {
-					httpClient.getHostConfiguration().setProxyHost(null);
-				} else {
-					httpClient.getHostConfiguration().setProxy(proxyHost, Integer.valueOf(proxyPort));
-				}
-			} else {
-				httpClient.getHostConfiguration().setProxy(proxyHost, Integer.valueOf(proxyPort));
-			}
-		}
-	}    	
     
     /**
      * Uploads a file to the staging servlet and returns the corresponding URL.
@@ -914,7 +886,7 @@ public class EasySubmission extends FacesBean
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
         // Execute the method with HttpClient.
         HttpClient client = new HttpClient();
-        setProxy(client, fwUrl);
+        ProxyHelper.setProxy(client, fwUrl);
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
         InitialContext context = new InitialContext();

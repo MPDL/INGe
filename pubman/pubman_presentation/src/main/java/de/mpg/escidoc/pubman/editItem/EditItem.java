@@ -118,6 +118,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.util.AdminHelper;
+import de.mpg.escidoc.services.pubman.util.ProxyHelper;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -554,13 +555,7 @@ public class EditItem extends FacesBean
 
         // Execute the method with HttpClient.
         HttpClient client = new HttpClient();
-        String proxyHost = System.getProperty("http.proxyHost");
-        String proxyPortS = System.getProperty("http.proxyPort");
-        if (proxyHost != null && proxyPortS != null)
-        {
-                int proxyPort = Integer.valueOf(proxyPortS);
-                client.getHostConfiguration().setProxy(proxyHost, proxyPort);
-        }
+        ProxyHelper.setProxy(client, fwUrl);
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
         InitialContext context = new InitialContext();
