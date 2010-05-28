@@ -109,7 +109,7 @@ public class StatisticRecordVO extends IntelligentVO
             }
             catch (Exception e)
             {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Error creating statistical record", e);
             }
         }
     }
