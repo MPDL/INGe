@@ -89,7 +89,7 @@ public class AdminHelper
      */
     protected static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
     {
-        String frameworkUrl = ServiceLocator.getFrameworkUrl();
+        String frameworkUrl = ServiceLocator.getLoginUrl();
 
         int delim1 = frameworkUrl.indexOf("//");
         int delim2 = frameworkUrl.indexOf(":", delim1);
@@ -127,7 +127,7 @@ public class AdminHelper
         
         Cookie sessionCookie = logoncookies[0];
         
-        PostMethod postMethod = new PostMethod("/aa/login");
+        PostMethod postMethod = new PostMethod( frameworkUrl + "/aa/login");
         postMethod.addParameter("target", frameworkUrl);
         client.getState().addCookie(sessionCookie);
         client.executeMethod(postMethod);
