@@ -47,6 +47,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.common.util.ProxyHelper;
 
 /**
  * A servlet for retrieving and redirecting the content objects urls.
@@ -104,6 +105,7 @@ public class RedirectServlet extends HttpServlet
                     }
                     // Execute the method with HttpClient.
                     HttpClient client = new HttpClient();
+                    ProxyHelper.setProxy(client, frameworkUrl);
                     client.executeMethod(method);
                     InputStream input;
                     OutputStream out = resp.getOutputStream();
