@@ -63,7 +63,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.pubman.util.ProxyHelper;
+import de.mpg.escidoc.services.common.util.ProxyHelper;
 
 /**
  * Bean for storing the information of files attached to items.
