@@ -346,8 +346,6 @@
 							                    <option value="APA">APA</option>
 												<option value="AJP">AJP</option>
 												<option value="JUS">JUS</option>
-												<option value="Default">DEFAULT</option>
-												<option value="Test">Test</option>
 							                </select>
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
