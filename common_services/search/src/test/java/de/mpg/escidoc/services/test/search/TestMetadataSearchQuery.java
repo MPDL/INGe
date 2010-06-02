@@ -36,6 +36,7 @@ import org.apache.log4j.Logger;
 
 import org.junit.Test;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.query.MetadataDateSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
@@ -62,12 +63,12 @@ public class TestMetadataSearchQuery
         logger.info("Testing simple metadata search query transformation");
         
         ArrayList<String> contentTypes = new ArrayList<String>();
-        contentTypes.add("escidoc:persistent4");
+        contentTypes.add(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
         msq.addCriterion(new MetadataSearchCriterion(CriterionType.TITLE, "test"));
         String query = msq.getCqlQuery();
         // ( escidoc.any-title=\"test\" )  and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) 
-        String expected = "( ( escidoc.publication.title=\"test\" ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        String expected = "( ( escidoc.publication.title=\"test\" ) ) and  ( escidoc.content-model.objid=\"" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication") + "\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);
         
@@ -79,14 +80,14 @@ public class TestMetadataSearchQuery
         logger.info("Testing simple metadata search query transformation with logical operator");
         
         ArrayList<String> contentTypes = new ArrayList<String>();
-        contentTypes.add("escidoc:persistent4");
+        contentTypes.add(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
         msq.addCriterion(new MetadataSearchCriterion(CriterionType.TITLE, "test"));
         msq.addCriterion(new MetadataSearchCriterion(CriterionType.CREATED_BY_OBJECTID, "user1234", LogicalOperator.AND));
         msq.addCriterion(new MetadataSearchCriterion(CriterionType.LANGUAGE, "de", LogicalOperator.OR));
         msq.addCriterion(new MetadataSearchCriterion(CriterionType.GENRE, "journal", LogicalOperator.NOT));
         String query = msq.getCqlQuery();
-        String expected = "( ( escidoc.publication.title=\"test\" )  and  ( escidoc.component.created-by.objid=\"user1234\" )  or  ( escidoc.publication.language=\"de\" )  not  ( escidoc.publication.type=\"journal\" ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        String expected = "( ( escidoc.publication.title=\"test\" )  and  ( escidoc.component.created-by.objid=\"user1234\" )  or  ( escidoc.publication.language=\"de\" )  not  ( escidoc.publication.type=\"journal\" ) ) and  ( escidoc.content-model.objid=\"" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication") + "\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);
         
@@ -98,7 +99,7 @@ public class TestMetadataSearchQuery
         logger.info("Testing simple metadata search query transformation with dates and boolean operators");
         
         ArrayList<String> contentTypes = new ArrayList<String>();
-        contentTypes.add("escidoc:persistent4");
+        contentTypes.add(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
         
         ArrayList<CriterionType> criterions = new ArrayList<CriterionType>();
@@ -107,7 +108,7 @@ public class TestMetadataSearchQuery
         
         String query = msq.getCqlQuery();
         logger.debug(query);
-        String expected = "( (  ( escidoc.publication.dateAccepted>=\"2008\\-05\\-15\" and ( escidoc.publication.dateAccepted<=\"2008\\-10\\-08\" not ( escidoc.publication.dateAccepted=\"2008\" )  not ( escidoc.publication.dateAccepted=\"2008\\-10\" )  ) )  ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        String expected = "( (  ( escidoc.publication.dateAccepted>=\"2008\\-05\\-15\" and ( escidoc.publication.dateAccepted<=\"2008\\-10\\-08\" not ( escidoc.publication.dateAccepted=\"2008\" )  not ( escidoc.publication.dateAccepted=\"2008\\-10\" )  ) )  ) ) and  ( escidoc.content-model.objid=\"" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication") + "\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);
         
@@ -118,7 +119,7 @@ public class TestMetadataSearchQuery
         logger.info("Testing simple metadata search for components");
         
         ArrayList<String> contentTypes = new ArrayList<String>();
-        contentTypes.add("escidoc:persistent4");
+        contentTypes.add(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
         
         ArrayList<CriterionType> criterions = new ArrayList<CriterionType>();
@@ -129,7 +130,7 @@ public class TestMetadataSearchQuery
         
         String query = msq.getCqlQuery();
         logger.debug(query);
-        String expected = "( ( (escidoc.component.visibility=\"argument\" or escidoc.component.creation-date=\"argument\" or escidoc.component.content-category=\"argument\") ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        String expected = "( ( (escidoc.component.visibility=\"argument\" or escidoc.component.creation-date=\"argument\" or escidoc.component.content-category=\"argument\") ) ) and  ( escidoc.content-model.objid=\"" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication") + "\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);
         
@@ -142,14 +143,14 @@ public class TestMetadataSearchQuery
         logger.info("Testing simple metadata search query transformation with dates and boolean operators");
         
         ArrayList<String> contentTypes = new ArrayList<String>();
-        contentTypes.add("escidoc:persistent4");
+        contentTypes.add(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
         
         msq.addCriterion(new MetadataSearchCriterion(CriterionType.COMPONENT_ACCESSABILITY));
         
         String query = msq.getCqlQuery();
         logger.debug(query);
-        String expected = "( ( escidoc.component.creation-date>\"''\" ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        String expected = "( ( escidoc.component.creation-date>\"''\" ) ) and  ( escidoc.content-model.objid=\"" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication") + "\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);
         
@@ -161,7 +162,7 @@ public class TestMetadataSearchQuery
         logger.info("Testing simple metadata search query transformation with dates and boolean operators");
         
         ArrayList<String> contentTypes = new ArrayList<String>();
-        contentTypes.add("escidoc:persistent4");
+        contentTypes.add(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
         
         msq.addCriterion(new MetadataSearchCriterion(CriterionType.COMPONENT_ACCESSABILITY, "test1"));
@@ -184,7 +185,7 @@ public class TestMetadataSearchQuery
         
         String query = msq.getCqlQuery();
         logger.debug(query);
-        String expected = "( ( escidoc.component.creation-date=\"test1\" )  or  ( escidoc.component.visibility=\"test2\" ) and (  ( escidoc.metadata=\"subtest1\" ) and (  ( escidoc.metadata=\"subsubtest1\" )  or  ( escidoc.metadata=\"subsubtest2\" )  )  or  ( escidoc.metadata=\"subtest2\" )  ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        String expected = "( ( escidoc.component.creation-date=\"test1\" )  or  ( escidoc.component.visibility=\"test2\" ) and (  ( escidoc.metadata=\"subtest1\" ) and (  ( escidoc.metadata=\"subsubtest1\" )  or  ( escidoc.metadata=\"subsubtest2\" )  )  or  ( escidoc.metadata=\"subtest2\" )  ) ) and  ( escidoc.content-model.objid=\"" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication") + "\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);
         
@@ -196,7 +197,7 @@ public class TestMetadataSearchQuery
         logger.info("Testing simple metadata search query transformation with dates and boolean operators");
         
         ArrayList<String> contentTypes = new ArrayList<String>();
-        contentTypes.add("escidoc:persistent4");
+        contentTypes.add(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
         
         msq.addCriterion(new MetadataSearchCriterion(CriterionType.COMPONENT_ACCESSABILITY, "test1"));
@@ -215,7 +216,7 @@ public class TestMetadataSearchQuery
         
         String query = msq.getCqlQuery();
         logger.debug(query);
-        String expected = "( ( escidoc.component.creation-date=\"test1\" )  or  ( escidoc.component.visibility=\"test2\" ) and (  ( escidoc.metadata=\"subtest1\" ) and (  ( escidoc.metadata=\"subsubtest1\" )  )  ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        String expected = "( ( escidoc.component.creation-date=\"test1\" )  or  ( escidoc.component.visibility=\"test2\" ) and (  ( escidoc.metadata=\"subtest1\" ) and (  ( escidoc.metadata=\"subsubtest1\" )  )  ) ) and  ( escidoc.content-model.objid=\"" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication") + "\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);
         
@@ -227,14 +228,14 @@ public class TestMetadataSearchQuery
         logger.info("Testing copyright index");
         
         ArrayList<String> contentTypes = new ArrayList<String>();
-        contentTypes.add("escidoc:persistent4");
+        contentTypes.add(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
         
         msq.addCriterion(new MetadataSearchCriterion(CriterionType.COPYRIGHT_DATE, "testing" ));
         
         String query = msq.getCqlQuery();
         logger.debug(query);
-        String expected = "( ( escidoc.component.file.dateCopyrighted=\"testing\" ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        String expected = "( ( escidoc.component.file.dateCopyrighted=\"testing\" ) ) and  ( escidoc.content-model.objid=\"" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication") + "\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);       
     }

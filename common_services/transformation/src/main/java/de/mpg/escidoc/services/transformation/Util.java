@@ -64,6 +64,7 @@ import org.w3c.dom.Node;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsType;
+import de.mpg.escidoc.services.common.util.ProxyHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
@@ -317,6 +318,9 @@ public class Util
             String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                 + model + "/resource/$1?format=rdf";
             HttpClient client = new HttpClient();
+            
+            ProxyHelper.setProxy(client, queryUrl);
+            
             GetMethod method = new GetMethod(queryUrl);
             client.executeMethod(method);
             if (method.getStatusCode() == 200)
@@ -328,6 +332,9 @@ public class Util
                     {
                         String id = result.split("\\|")[1];
                         GetMethod detailMethod = new GetMethod(detailsUrl.replace("$1", id));
+                        
+                        ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
+                        
                         client.executeMethod(detailMethod);
                         if (detailMethod.getStatusCode() == 200)
                         {

@@ -40,6 +40,7 @@ import org.apache.log4j.Logger;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import de.mpg.escidoc.services.common.util.ProxyHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.util.IdentityHandler;
 
@@ -71,7 +72,11 @@ public class ConeContentHandler extends IdentityHandler
             try
             {
                 String url = PropertyReader.getProperty("escidoc.cone.service.url") + params + "/all?format=rdf";
+
                 HttpClient client = new HttpClient();
+                
+                ProxyHelper.setProxy(client, url);
+                
                 GetMethod method = new GetMethod(url);
                 client.executeMethod(method);
                 if (method.getStatusCode() == 200)
