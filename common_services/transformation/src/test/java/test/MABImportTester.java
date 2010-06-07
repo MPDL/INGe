@@ -23,7 +23,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 public class MABImportTester {
     
-    private final Logger logger = Logger.getLogger(MABImportTester.class);
+    private static final Logger logger = Logger.getLogger(MABImportTester.class);
     private Util util = new Util();
     MABTransformation mapTransformer = new MABTransformation();
 
@@ -52,9 +52,9 @@ public class MABImportTester {
     	String out = imp.transformMAB2XML(new String(baos.toByteArray(),"utf-8"));
     	
     	
-    	System.out.print(new String(out.getBytes(),"utf-8"));
-    	System.out.print("\n\n\n\n\n\n********************");
-    	System.out.print(new String(result,"UTF-8"));
+    	logger.debug(new String(out.getBytes(),"utf-8"));
+    	logger.debug("\n\n\n\n\n\n********************");
+    	logger.debug(new String(result,"UTF-8"));
     	
 	}
 	

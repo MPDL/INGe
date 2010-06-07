@@ -61,6 +61,18 @@ fos.write(output.getBytes("UTF-8"));
 fos.close();
 */            	            	
             	TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
+            	
+            	String fileName;
+            	
+            	if (util.isFormatEqual(srcFormat, ENDNOTE_ICE_FORMAT))
+            	{
+            		fileName = PropertyReader.getProperty("escidoc.transformation.endnote.ice.stylesheet.filename");
+            	}
+            	else
+            	{
+            		fileName = PropertyReader.getProperty("escidoc.transformation.endnote.stylesheet.filename");
+            	}
+            	
             	InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/commonPublicationFormats/xslt/" +
             			"endnote" +
             			( util.isFormatEqual(srcFormat, ENDNOTE_ICE_FORMAT) ? "ice" : "" ) +

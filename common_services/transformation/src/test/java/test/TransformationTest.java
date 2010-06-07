@@ -93,7 +93,7 @@ public class TransformationTest
 
 //        result = this.trans.transform(this.util.getResourceAsString("testFiles/tei/Springer-351-S2.tei")
 //                .getBytes("UTF-8"), teiFormat, escidocComponentFormat, "escidoc");    
-        this.logger.info(new String(result, "UTF-8"));
+        this.logger.debug(new String(result, "UTF-8"));
    
         XmlTransformingBean xmlTransforming = new XmlTransformingBean();
         PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result));
@@ -110,7 +110,7 @@ public class TransformationTest
          
         byte[] result;
         result = this.trans.transform(this.util.getResourceAsString("testFiles/bmc_article.xml").getBytes(), xml, html, "escidoc");
-        this.logger.info(new String(result));
+        this.logger.debug(new String(result));
      }
      
      @Test
@@ -199,7 +199,7 @@ public class TransformationTest
          
          byte[] result;
          result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/escidocItem_newFormat.xml").getBytes(), escidoc, bibtex, "escidoc");
-         this.logger.info(new String(result));     
+         this.logger.debug(new String(result));     
      }
      
      @Test
@@ -227,7 +227,7 @@ public class TransformationTest
          
          byte[] result;
          result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/escidocItem_newFormat.xml").getBytes(), escidoc, endnote, "escidoc");
-         this.logger.info(new String(result));     
+         this.logger.debug(new String(result));     
      }
      
      @Test
@@ -264,7 +264,7 @@ public class TransformationTest
          
          byte[] result;
          result = this.trans.transform(this.util.getResourceAsString("testFiles/mods/mods2.xml").getBytes("UTF-8"), mods, oai, "escidoc");
-         logger.info("Result: "+ new String (result, "UTF-8"));
+         logger.debug("Result: "+ new String (result, "UTF-8"));
          
 //         String referenceItem = this.normalizeString(this.util.getResourceAsString("testFiles/testResults/modsAsOaidc.xml"));
 //         String actualItem = this.normalizeString(new String(result, "UTF-8"));        
@@ -282,7 +282,7 @@ public class TransformationTest
          
          byte[] result;
          result = this.trans.transform(this.util.getResourceAsString("testFiles/mods/mods.xml").getBytes("UTF-8"), mods, marc, "escidoc");
-         this.logger.info(new String(result, "UTF-8"));
+         this.logger.debug(new String(result, "UTF-8"));
      }
      
      @Test
@@ -314,7 +314,7 @@ public class TransformationTest
         
          byte[] result;
          result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/escidocItem_newFormat.xml").getBytes("UTF-8"), escidoc, oai, "escidoc");
-         logger.info("Result: "+ new String (result, "UTF-8"));
+         logger.debug("Result: "+ new String (result, "UTF-8"));
          
 //         String referenceItem = this.normalizeString(this.util.getResourceAsString("testFiles/testResults/escidocAsOaidc.xml"));
 //         String actualItem = this.normalizeString(new String(result, "UTF-8"));        

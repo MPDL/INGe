@@ -54,7 +54,7 @@ public class EndNoteImportTest
     	}
     	byte[] result = transformation.transform(baos.toByteArray(), inputFormat, outputFormat, "escidoc");
     	
-    	logger.info(new String(result,"UTF-8"));
+    	logger.debug(new String(result,"UTF-8"));
 	}
 	
 	@Test

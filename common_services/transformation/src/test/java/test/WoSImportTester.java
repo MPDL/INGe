@@ -25,7 +25,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 public class WoSImportTester {
 
-	private final Logger logger = Logger.getLogger(WoSImportTester.class);
+	private static final Logger logger = Logger.getLogger(WoSImportTester.class);
     private Util util = new Util();
     WoSTransformation wosTransformer = new WoSTransformation();
 	
@@ -52,12 +52,8 @@ public class WoSImportTester {
     	String out = imp.transformWoS2XML(new String(baos.toByteArray(),"UTF-8"));
     	//String out = imp.transformWoS2XML(str);
     	byte[] result = transformation.transform(baos.toByteArray(), inputFormat, outputFormat, "escidoc");
-    	
-    	
-    	
-    	
-    	System.out.print(new String(result,"UTF-8"));
-    	//System.out.print(out);
+
+    	logger.debug(new String(result,"UTF-8"));
 	}
 	
 

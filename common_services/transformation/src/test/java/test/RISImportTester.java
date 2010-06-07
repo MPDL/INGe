@@ -48,18 +48,9 @@ public class RISImportTester {
     		baos.write(buffer, 0, read);
     	}
     	byte[] result = transformation.transform(baos.toByteArray(), inputFormat, outputFormat, "escidoc");
-    	
-    	
-    	   	
-    	
-    	
-    	
+
     	String out = imp.transformRIS2XML(new String(baos.toByteArray(),"utf-8"));
-    	
-    	
-    	
-    	//System.out.print(new String(result,"UTF-8"));
-    	//System.out.print(out);
+
 	}
 	
     @Test
