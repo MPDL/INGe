@@ -92,7 +92,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO.InvitationSt
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.pubman.util.ProxyHelper;
+import de.mpg.escidoc.services.common.util.ProxyHelper;
 
 /**
  * Base class for pubman logic tests.
