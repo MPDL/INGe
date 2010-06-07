@@ -240,8 +240,8 @@ public class RestServlet extends HttpServlet
             LOGGER.debug("fileName: " + fileName);
             String contentType = getContentType(outputFormat);
             LOGGER.debug("contentType: " + contentType);
-
-//            resp.setContentType(contentType);
+            resp.setContentType(contentType);
+            
 //            resp.setCharacterEncoding(getCharset(outputFormat).toUpperCase());
 
             ServletOutputStream os = resp.getOutputStream();
