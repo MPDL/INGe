@@ -59,7 +59,7 @@
 		    				'/item/', 
 		    				../../../escidocItem:properties/prop:version/@objid
 			    			)"
-			    		/>link</xsl:element>			
+			    		/>PubMan item</xsl:element>			
 				<xsl:for-each select="
 					../../../escidocComponents:components/escidocComponents:component/escidocComponents:content
 					">
