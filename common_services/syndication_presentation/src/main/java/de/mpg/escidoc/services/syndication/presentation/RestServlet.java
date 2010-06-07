@@ -165,6 +165,8 @@ public class RestServlet extends HttpServlet
      */
     private void handleException(final Exception e, final HttpServletResponse resp) throws IOException 
     {
+    	logger.error(e.getMessage(), e);
+    	
         PrintWriter pw;
         pw = resp.getWriter();
         pw.print("Error: ");
