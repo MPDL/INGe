@@ -42,6 +42,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
+import de.mpg.escidoc.pubman.qaws.QAWSSessionBean;
 import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
@@ -147,7 +148,6 @@ public class OrganizationSuggest extends FacesBean
         		
         	}
         }
-		
 	}
 
 	private List<List<AffiliationVO>> getPaths(List<AffiliationVO> currentPath) throws Exception

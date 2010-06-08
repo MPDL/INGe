@@ -401,3 +401,4 @@
 		$input.val(id3);
 		$input.parents('.'+languageSuggestCommonParentClass).find('.languageText').val(name);
 	}
+	

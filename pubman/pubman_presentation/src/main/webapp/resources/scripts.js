@@ -372,3 +372,39 @@ function toggleErrorMessage()
 	}
 }
 */
+
+function throb()
+{
+	var text = document.getElementById('selSelectedOrgUnit').options[1].text;
+	if (text.indexOf('>--->--->--->--->--->--->--->---') >= 0)
+	{
+		document.getElementById('selSelectedOrgUnit').options[1].text = text.replace('>--->--->--->--->--->--->--->---', '->--->--->--->--->--->--->--->--');
+	}
+	else if (text.indexOf('->--->--->--->--->--->--->--->--') >= 0)
+	{
+		document.getElementById('selSelectedOrgUnit').options[1].text = text.replace('->--->--->--->--->--->--->--->--', '-->--->--->--->--->--->--->--->-');
+	}
+	else if (text.indexOf('-->--->--->--->--->--->--->--->-') >= 0)
+	{
+		document.getElementById('selSelectedOrgUnit').options[1].text = text.replace('-->--->--->--->--->--->--->--->-', '--->--->--->--->--->--->--->--->');
+	}
+	else if (text.indexOf('--->--->--->--->--->--->--->--->') >= 0)
+	{
+		document.getElementById('selSelectedOrgUnit').options[1].text = text.replace('--->--->--->--->--->--->--->--->', '>--->--->--->--->--->--->--->---');
+	}
+	else
+	{
+		return
+	}
+	setTimeout('throb()', 100);
+}
+
+function loadAffiliations(list)
+{
+	var element = document.getElementById('selSelectedOrgUnit');
+
+	for (var i = 0; i < list.length - 1; i++)
+	{
+		element.options[i] = new Option(list[i].value, list[i].id);
+	}
+}

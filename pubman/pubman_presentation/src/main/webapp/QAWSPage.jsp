@@ -203,13 +203,21 @@
 			<jsp:directive.include file="footer/Footer.jspf" />
 			</tr:form>
 			<script type="text/javascript">
-				$("input[id$='offset']").submit(function() {
-					$(this).val($(window).scrollTop());
-				});
-				$(document).ready(function () {
-					$(window).scrollTop($("input[id$='offset']").val());
-					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
-				});
+				<![CDATA[
+					$("input[id$='offset']").submit(function() {
+						$(this).val($(window).scrollTop());
+					});
+					$(document).ready(function () {
+						$(window).scrollTop($("input[id$='offset']").val());
+						$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
+						var element = document.getElementById('selSelectedOrgUnit');
+						if (element.options != null && element.options.length == 2)
+						{
+							throb();
+							$.getJSON('AffiliationsAsJSON.jsp', loadAffiliations);
+						}
+					});
+				]]>
 			</script>
 			</body>
 		</html>

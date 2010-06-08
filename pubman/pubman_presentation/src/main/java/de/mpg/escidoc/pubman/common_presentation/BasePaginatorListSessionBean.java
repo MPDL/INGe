@@ -170,11 +170,11 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     {
 
         
-        String elemetsPerP = getExternalContext().getRequestParameterMap().get(parameterElementsPerPage);
+        String elementsPerP = getExternalContext().getRequestParameterMap().get(parameterElementsPerPage);
         
-        if (elemetsPerP!=null)
+        if (elementsPerP!=null)
         {
-            setElementsPerPage(Integer.parseInt(elemetsPerP));
+            setElementsPerPage(Integer.parseInt(elementsPerP));
         }
         else
         {
@@ -643,7 +643,10 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         {
             try
             {
-                parameterUrl = parameterUrl + URLEncoder.encode(entrySet.getKey(), "ISO-8859-1") + "=" + URLEncoder.encode(entrySet.getValue(), "ISO-8859-1") + "&";
+            	if (entrySet.getValue() != null)
+            	{
+            		parameterUrl = parameterUrl + URLEncoder.encode(entrySet.getKey(), "ISO-8859-1") + "=" + URLEncoder.encode(entrySet.getValue(), "ISO-8859-1") + "&";
+            	}
             }
             catch (UnsupportedEncodingException e)
             {

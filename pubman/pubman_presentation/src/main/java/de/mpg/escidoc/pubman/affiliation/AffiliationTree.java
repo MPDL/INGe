@@ -39,6 +39,7 @@ import javax.faces.model.SelectItem;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.qaws.QAWSSessionBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 
@@ -57,6 +58,8 @@ public class AffiliationTree extends FacesBean
     private long timestamp;
     private List<SelectItem> affiliationSelectItems;
     private Map<String, AffiliationVOPresentation> affiliationMap;
+    
+    boolean started = false;
 
     /**
      * Default constructor.
@@ -123,17 +126,38 @@ public class AffiliationTree extends FacesBean
      */
     public List<SelectItem> getAffiliationSelectItems() throws Exception
     {
+    	
+    	
+    	
         if (affiliationSelectItems == null)
         {
-            affiliationSelectItems = new ArrayList<SelectItem>();
-            affiliationSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
-            
-            
-            List<AffiliationVOPresentation> topLevelAffs = getAffiliations();
-            addChildAffiliationsToMenu(topLevelAffs, affiliationSelectItems, 0);
-            
-         
+        	
+        	if (started)
+        	{
+        		while (affiliationSelectItems == null)
+        		{
+        			System.out.println("Waiting");
+        			Thread.sleep(1000);
+        		}
+        	}
+        	else
+        	{
+	        	started = true;
+	        	
+	        	List<SelectItem> list = new ArrayList<SelectItem>();
+	        	list.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+	            
+	        	System.out.println("Creating");
+	        	
+	            List<AffiliationVOPresentation> topLevelAffs = getAffiliations();
+	            addChildAffiliationsToMenu(topLevelAffs, list, 0);
+	            
+	            affiliationSelectItems = list;
+	            
+	            ((QAWSSessionBean) getSessionBean(QAWSSessionBean.class)).setOrgUnitSelectItems(affiliationSelectItems);
+        	}
         }
+
         return affiliationSelectItems;
     }
     
@@ -155,9 +179,9 @@ public class AffiliationTree extends FacesBean
             prefix += '\u00A0';
         }
         //1 right angle
-        prefix+='\u2514';
+        prefix += '└';
         for(AffiliationVOPresentation aff : affs){
-            affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix+" "+aff.getName()));
+            affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
             affiliationMap.put(aff.getReference().getObjectId(), aff);
             addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level+1);
         }

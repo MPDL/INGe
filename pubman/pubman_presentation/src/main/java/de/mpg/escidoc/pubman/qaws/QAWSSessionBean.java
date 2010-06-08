@@ -39,6 +39,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
@@ -92,16 +93,6 @@ public class QAWSSessionBean extends FacesBean
     public QAWSSessionBean()
     {
     	
-        //this.init();
-        AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
-        try
-        {
-            this.setOrgUnitSelectItems(affTree.getAffiliationSelectItems());
-        }
-        catch (Exception e)
-        {
-            LOGGER.error("Error in retrieving organizations", e);
-        }
     }
 
     /**
@@ -173,7 +164,6 @@ public class QAWSSessionBean extends FacesBean
 		this.selectedOrgUnit = selectedOrgUnit;
 	}
 	
-
     public List<SelectItem> getOrgUnitSelectItems()
     {
         return orgUnitSelectItems;
@@ -183,4 +173,14 @@ public class QAWSSessionBean extends FacesBean
     {
         this.orgUnitSelectItems = orgUnitSelectItems;
     }
+    
+//    public void setOrgUnitList(List<OrganizationVOPresentation> list)
+//    {
+//    	this.orgUnitSelectItems = new ArrayList<SelectItem>();
+//    	this.orgUnitSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+//    	for (OrganizationVOPresentation org : list)
+//    	{
+//    		this.orgUnitSelectItems.add(new SelectItem(org.getIdentifier(), org.getName().getValue()));
+//    	}
+//    }
 }

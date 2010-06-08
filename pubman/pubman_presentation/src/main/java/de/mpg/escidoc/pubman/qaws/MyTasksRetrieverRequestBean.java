@@ -240,7 +240,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         */
         super.readOutParameters();
         
-        String context = getExternalContext().getRequestParameterMap().get(parameterSelectedContext); 
+        String context = getExternalContext().getRequestParameterMap().get(parameterSelectedContext);
         if (context==null)
         {
             //select first context as default, if there's only one
@@ -262,7 +262,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
         if (orgUnit==null)
         {
-            setSelectedOrgUnit((String)getOrgUnitSelectItems().get(0).getValue());
+            setSelectedOrgUnit("all");
         }
         else
         {
@@ -323,13 +323,13 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     }
     
     /**
-     * Returns a label for the selected context.
+     * Returns a label for the selected org unit.
      * @return
      */
     public String getSelectedOrgUnitLabel()
     {
         AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
-        return affTree.getAffiliationMap().get(getSelectedOrgUnit()).getNamePath();
+        return (getSelectedOrgUnit() == null ? "" : affTree.getAffiliationMap().get(getSelectedOrgUnit()).getNamePath());
     
     }
     
@@ -521,7 +521,17 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 
     public List<SelectItem> getOrgUnitSelectItems()
     {
-        return this.getQAWSSessionBean().getOrgUnitSelectItems();
+    	if (getQAWSSessionBean().getOrgUnitSelectItems() != null)
+    	{
+    		return this.getQAWSSessionBean().getOrgUnitSelectItems();
+    	}
+    	else
+    	{
+    		List<SelectItem> list = new ArrayList<SelectItem>();
+    		list.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+    		list.add(new SelectItem("", getLabel("qaws_lblLoading") + " >--->--->--->--->--->--->--->---"));
+    		return list;
+    	}
     }
 
     public void setSelectedOrgUnit(String selectedOrgUnit)
