@@ -1,5 +1,7 @@
 import java.util.Date;
 
+import javax.swing.text.html.parser.ContentModel;
+
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
@@ -18,7 +20,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
-public class eSciDocPerformanceTest
+public class ESciDocSoapPerformanceTest
 {
     private static long start = 0;
     private static long end = 0;
@@ -75,7 +77,7 @@ public class eSciDocPerformanceTest
       
 
       start = new Date().getTime();     
-      int count = 100;
+      int count = 1;
       
       System.out.println("-- START "+ count +" ITEMS --");
       for (int i = 0; i<count; i++)
@@ -115,12 +117,13 @@ public class eSciDocPerformanceTest
         creator.setRole(CreatorRole.AUTHOR);
         creator.setType(CreatorType.PERSON);
         md.getCreators().add(creator);
-        md.setTitle(new TextVO("Performance Test Item " + new Date()));
+        md.setTitle(new TextVO("SOAP Performance Test Item " + new Date()));
         md.setGenre(Genre.ARTICLE);
         item.setMetadata(md);
         ContextRO ctx = new ContextRO();
         ctx.setObjectId("escidoc:31126");
         item.setContext(ctx);
+        item.setContentModel("escidoc:persistent4");
         
         //Create item
         startCreate = new Date().getTime();
