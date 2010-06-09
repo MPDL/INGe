@@ -2,6 +2,7 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
+import de.escidoc.www.services.adm.AdminHandler;
 import de.escidoc.www.services.om.IngestHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
@@ -30,6 +31,7 @@ public class ESciDocIngestPerformanceTest {
 	private String itemXml;
 	private IngestHandler ih;
 	private String userHdl;
+	private AdminHandler ah;
 	
 	
 	public ESciDocIngestPerformanceTest(int amount, ItemVO item) throws Exception
@@ -37,6 +39,7 @@ public class ESciDocIngestPerformanceTest {
 		Login login = new Login();
 	    userHdl = login.login("roland", "dnalor");
 	    ih = ServiceLocator.getIngestHandler(userHdl);
+	    ah = ServiceLocator.getAdminHandler(userHdl);
 	    
 	    XmlTransforming xmlt = new XmlTransformingBean();
 	    itemXml = xmlt.transformToItem(item);
@@ -51,12 +54,17 @@ public class ESciDocIngestPerformanceTest {
 			
 		}
 		
-		
+		/*
+		long indexStart = System.currentTimeMillis();
+		ah.reindex("false", null);
+		long indexStop = System.currentTimeMillis();
+		*/
 		stop = System.currentTimeMillis();
 		logger.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ End performance tests ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		logger.info("Total: " + String.valueOf(stop-start) + " for " + amount + "items");
 		logger.info("Minimum Ingestion Time: " + minIngest);
 		logger.info("Maximum Ingestion Time: " + maxIngest);
+		//logger.info("Indexing time: " + String.valueOf(indexStop-indexStart));
 		
 		
 	}
@@ -66,11 +74,12 @@ public class ESciDocIngestPerformanceTest {
 	{
 
 		long startIngest = System.currentTimeMillis(); 
-		ih.ingest(itemXml);
+		String returnXml = ih.ingest(itemXml);
 		long stopIngest = System.currentTimeMillis();
 		
 		long ingestTime = stopIngest - startIngest;
 		
+		logger.info(returnXml);
 		logger.info("Ingested item in time: " + ingestTime);
 		
 		maxIngest = Math.max(maxIngest, ingestTime);
@@ -82,7 +91,7 @@ public class ESciDocIngestPerformanceTest {
 	
 	public static void main(String[] args) throws Exception
 	{
-		new ESciDocIngestPerformanceTest(20, getItemVO());
+		new ESciDocIngestPerformanceTest(1, getItemVO());
 
 	}
 	
@@ -102,14 +111,15 @@ public class ESciDocIngestPerformanceTest {
         creator.setRole(CreatorRole.AUTHOR);
         creator.setType(CreatorType.PERSON);
         md.getCreators().add(creator);
-        md.setTitle(new TextVO("SOAP Performance Test Item " + new Date()));
+        md.setTitle(new TextVO("Ingest Performance Test Item " + new Date()));
         md.setGenre(Genre.ARTICLE);
         item.setMetadata(md);
         ContextRO ctx = new ContextRO();
         ctx.setObjectId("escidoc:31126");
         item.setContext(ctx);
         item.setContentModel("escidoc:persistent4");
-        item.setPublicStatus(State.PENDING);
+        item.setPublicStatus(State.RELEASED);
+        item.setPid("test pid");
         return item;
 	}
 
