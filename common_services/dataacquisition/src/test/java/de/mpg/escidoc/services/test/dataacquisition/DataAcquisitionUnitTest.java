@@ -29,10 +29,19 @@
 */ 
 
 package de.mpg.escidoc.services.test.dataacquisition;
-import org.apache.log4j.Logger;
-import org.junit.Test;
+import java.util.List;
+import java.util.Vector;
 
+import org.apache.log4j.Logger;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
+import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.Util;
+import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
+import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
 
 /**
  * Test suite for unit test of dataAcquisition service.
@@ -43,16 +52,77 @@ public class DataAcquisitionUnitTest
 {
 
     private Logger logger = Logger.getLogger(DataAcquisitionUnitTest.class);
+    private DataHandlerBean datahandler = new DataHandlerBean();
+    
+    private String arxivId = "arXiv:0904.3933";
+    private String pmcId = "PMC2043518";
+    private String bmcId = "1472-6890-9-1";
+    private String spiresId ="hep-ph/0001001 ";
+    private String escidocId = "http://pubman.mpdl.mpg.de/pubman/item/escidoc:441123";
 
     @Test
+    @Ignore
     public void fetchFromCone() throws Exception
     {
         Util util = new Util();
         String fileEnding = util.retrieveFileEndingFromCone("application/pdf");
-        
-        this.logger.info("Suffix: " + fileEnding);
-        
+        Assert.assertNotNull(fileEnding);
     }
     
+    @Test
+    public void fetchArxiv() throws Exception
+    {
+        byte[] test = this.datahandler.doFetch("arxiv", this.arxivId);
+        Assert.assertNotNull(test);
+    }
+    
+    @Test
+    public void fetchPmc() throws Exception
+    {
+        byte[] test = this.datahandler.doFetch("PubMedCentral", this.pmcId);
+        Assert.assertNotNull(test);
+    }
+    
+    @Test
+    public void fetchBmc() throws Exception
+    {
+        byte[] test = this.datahandler.doFetch("BioMed Central", this.bmcId);
+        Assert.assertNotNull(test);
+    }
+    
+    @Test
+    public void fetchSpires() throws Exception
+    {
+        byte[] test = this.datahandler.doFetch("spires", this.spiresId);
+        Assert.assertNotNull(test);
+    }
+    
+    @Test
+    @Ignore
+    public void fetcheSciDoc() throws Exception
+    {
+        byte[] test = this.datahandler.doFetch("escidoc", this.escidocId);
+        Assert.assertNotNull(test);
+    }
+    
+    /**
+     * This test fetches an arxiv item in all formats the sources provides.
+     * @throws Exception
+     */
+    @Test
+    public void fetchItemInSpecificFormatTest() throws Exception
+    {
+        DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();        
+        DataSourceVO test = sourceHandler.getSourceByIdentifier("arXiv");
+        
+        List <MetadataVO> formats = test.getMdFormats();
+        
+        for (int i = 0; i < formats.size(); i++)
+        {
+            byte[] ret = this.datahandler.doFetch("arxiv", this.arxivId, formats.get(i).getName());
+            Assert.assertNotNull(ret);
+        }       
+    }
+
 }
 

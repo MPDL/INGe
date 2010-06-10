@@ -48,13 +48,13 @@
 
 	<build>
 		<plugins>
-		  <plugin>
-        	<groupId>org.apache.maven.plugins</groupId>
-        	<artifactId>maven-ejb-plugin</artifactId>
-        	<configuration>
-          		<ejbVersion>3.0</ejbVersion>
-        	</configuration>
-          </plugin>
+		  	<plugin>
+	        	<groupId>org.apache.maven.plugins</groupId>
+	        	<artifactId>maven-ejb-plugin</artifactId>
+	        	<configuration>
+	          		<ejbVersion>3.0</ejbVersion>
+	        	</configuration>
+          	</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -83,7 +83,11 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<test>DataAcquisitionUnitTest</test>
+					<includes>
+						<include>**/DataAcquisitionUnitTest.java</include>
+						<include>**/DataSourceHandlerTest.java</include>
+						<include>**/UnapiTest.java</include>
+					</includes>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -104,6 +108,17 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+			<groupId>bcel</groupId>
+			<artifactId>bcel</artifactId>
+			<version>5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.0.4</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
@@ -113,12 +128,6 @@
 			<groupId>saxon</groupId>
 			<artifactId>saxon</artifactId>
 			<version>8.7</version>
-		</dependency>
-		<dependency>
-			<groupId>jboss-ejb3-client</groupId>
-			<artifactId>jboss-ejb-client</artifactId>
-			<version>4.2.2</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>jboss-ejb3x</groupId>
@@ -173,6 +182,21 @@
 			<artifactId>unapiformats</artifactId>
 			<version>1.1</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>xmlunit</groupId>
+			<artifactId>xmlunit</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>commons-httpclient</groupId>
+		    <artifactId>commons-httpclient</artifactId>
+		    <version>3.1</version>
 		</dependency>
 	</dependencies>
 </project>
