@@ -191,7 +191,7 @@
 			<h:outputText value="#{genre.creator_person_organization_label}" converter="GenreLabelConverter" />
 		</a>
 	</h:panelGroup>
-	<a class="free_area0 expand" style="float:left; margin-left:15.5em;">
+	<a class="free_area0 expand" style="float:left;text-align:left; margin-left:15.5em;">
 		<h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" />
 		<h:outputText value="#{genre.creator_person_organization_label}" converter="GenreLabelConverter" />
 	</a>
