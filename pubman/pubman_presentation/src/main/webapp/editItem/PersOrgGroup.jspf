@@ -111,11 +111,11 @@
 			<h:outputText styleClass="xSmall_area0" value="#{lbl.organizationNumbers}" rendered="#{!(genre.creator_person_organization_creator_organizations_display == 'false' && genre.creator_person_organization_creator_organizations_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_display == 'false' && genre.creator_person_organization_creator_organizations_form_id == 'all')}"/>
 			<h:outputText styleClass="medium_area0" value=" "/>
 		</h:panelGroup>
-					<span class="free_area0 clear">&nbsp;</span>
+
 		<tr:iterator id="iterCreatorOrganisationAuthors" var="creatorBean" value="#{EditItem.creatorCollection.creatorManager.objectDM}" rows="0">
 			<h:panelGroup layout="block" styleClass="suggestAnchor xSmall_marginLExcl">
 				<%-- Creator person family name, Creator person given name --%>
-				<h:panelGroup layout="block" rendered="#{creatorBean.personType and !(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
+				<h:panelGroup layout="block" styleClass="full_area0 endline" rendered="#{creatorBean.personType and !(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
 					<span class="large_area0 clear">&nbsp;</span>
 					<%-- Creator role --%>
 					<h:selectOneMenu id="selCreatorRoleString" styleClass="small_select replace" value="#{creatorBean.creator.roleString}" rendered="#{!(genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'all')}">
@@ -130,13 +130,13 @@
 					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{creatorBean.identifierValue}"/>
 					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" value="#{creatorBean.autoPasteValue}"/>
 					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{creatorBean.identifierValue}" rendered="#{creatorBean.identifierValue != null}" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
-					<h:panelGroup rendered="#{creatorBean.identifierValue == null}" styleClass="xSmall_area0 authorLink">&nbsp;</h:panelGroup>
-					<h:panelGroup styleClass="large_area0_p8 lineToolSection">
+					<h:panelGroup rendered="#{creatorBean.identifierValue == null}" styleClass="xSmall_area0 authorLink">
+					</h:panelGroup>
+					<h:panelGroup styleClass="xSmall_marginLExcl">
 						<tr:commandButton id="btnAddCreator" shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn groupTool add" action="#{EditItem.creatorCollection.creatorManager.addObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
 						<tr:commandButton id="btnRemoveCreator" shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn groupTool remove" disabled="#{EditItem.creatorCollection.creatorManager.size == 1}" action="#{EditItem.creatorCollection.creatorManager.removeObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
 					</h:panelGroup>
 				</h:panelGroup>
-				
 		<%-- If Organization is Creator --%>
 				<h:panelGroup styleClass="full_area0 endline suggestAnchor" layout="block" rendered="#{creatorBean.organisationType and !(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
 					<%-- Creator role --%>
