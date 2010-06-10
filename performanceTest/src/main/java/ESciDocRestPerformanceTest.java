@@ -39,11 +39,12 @@ public class ESciDocRestPerformanceTest
     private static long maxRelease = 0;
     
     private static String userHdl;
+    private static String itemXml = "";
     
     public static void main (String[] args) throws Exception
     {
         start = new Date().getTime();     
-        int count = 100;
+        int count = 1000;
         
         Login login = new Login();
         userHdl = login.loginPubManUser();
@@ -53,6 +54,7 @@ public class ESciDocRestPerformanceTest
         
         for (int i = 0; i<count; i++)
         {
+            itemXml = itemXmlOrg;
             createItem();
             updateItem();
             submitItem();
@@ -241,7 +243,7 @@ public class ESciDocRestPerformanceTest
         return date;
     }
     
-    private static String itemXml = "" +
+    private static String itemXmlOrg = "" +
     		"<?xml version='1.0' encoding='UTF-8'?> " +
             "<escidocItem:item  xmlns:escidocContext='http://www.escidoc.de/schemas/context/0.7' " +
             "                   xmlns:escidocContextList='http://www.escidoc.de/schemas/contextlist/0.7' " +
