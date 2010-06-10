@@ -173,9 +173,7 @@
 		</h:panelGroup>
 
 		<tr:iterator id="iterCreatorOrganisation" var="organization" value="#{EditItemSessionBean.creatorOrganizations}" rows="0" rendered="#{!(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
-			<h:panelGroup layout="block" styleClass="suggestAnchor personOrganizations">
-			
-				<span class="large_area0 clear">&nbsp;</span>
+			<h:panelGroup layout="block" styleClass="suggestAnchor personOrganizations large_marginLExcl clear">
 				<h:outputText styleClass="xSmall_area0" value="#{organization.number}"/>
 				<h:inputText id="inporganizations_organization_name" styleClass="huge_txtInput organizationSuggest organizationName" value="#{organization.name.value}"/>
 				<h:inputText id="inporganizations_organization_identifier" styleClass="noDisplay organizationIdentifier" value="#{organization.identifier}"/>
