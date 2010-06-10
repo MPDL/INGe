@@ -37,7 +37,7 @@ public class ESciDocIngestPerformanceTest {
 	public ESciDocIngestPerformanceTest(int amount, ItemVO item) throws Exception
 	{
 		Login login = new Login();
-	    userHdl = login.login("roland", "dnalor");
+	    userHdl = login.loginPubManUser();
 	    ih = ServiceLocator.getIngestHandler(userHdl);
 	    ah = ServiceLocator.getAdminHandler(userHdl);
 	    
