@@ -113,12 +113,11 @@
 			<h:outputText styleClass="medium_area0" value=" "/>
 
 		</h:panelGroup>
-
+					<span class="full_area0 clear">&nbsp;</span>
 		<tr:iterator id="iterCreatorOrganisationAuthors" var="creatorBean" value="#{EditItem.creatorCollection.creatorManager.objectDM}" rows="0">
 			<h:panelGroup layout="block" styleClass="suggestAnchor xSmall_marginLExcl">
 				<%-- Creator person family name, Creator person given name --%>
 				<h:panelGroup layout="block" rendered="#{creatorBean.personType and !(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
-					<span class="large_area0 clear">&nbsp;</span>
 					<%-- Creator role --%>
 					<h:selectOneMenu id="selCreatorRoleString" styleClass="small_select replace" value="#{creatorBean.creator.roleString}" rendered="#{!(genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'all')}">
 						<f:selectItems value="#{creatorBean.creatorRoles}"/>
