@@ -176,7 +176,7 @@
 			<h:panelGroup layout="block" styleClass="suggestAnchor personOrganizations">
 			
 				<span class="large_area0 clear">&nbsp;</span>
-				<span style="text-align: right";><h:outputText styleClass="xSmall_area0" value="#{organization.number}"/></span>
+				<h:outputText styleClass="xSmall_area0" value="#{organization.number}"/>
 				<h:inputText id="inporganizations_organization_name" styleClass="huge_txtInput organizationSuggest organizationName" value="#{organization.name.value}"/>
 				<h:inputText id="inporganizations_organization_identifier" styleClass="noDisplay organizationIdentifier" value="#{organization.identifier}"/>
 				<h:inputText id="inporganizations_organization_address" styleClass="xLarge_txtInput organizationAddress" value="#{organization.address}"/>
@@ -193,7 +193,7 @@
 			<h:outputText value="#{genre.creator_person_organization_label}" converter="GenreLabelConverter" />
 		</a>
 	</h:panelGroup>
-	<a class="free_area0 expand">
+	<a class="free_area0 expand" style="float:left; margin-left:15.5em;">
 		<h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" />
 		<h:outputText value="#{genre.creator_person_organization_label}" converter="GenreLabelConverter" />
 	</a>
