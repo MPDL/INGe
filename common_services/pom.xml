@@ -501,6 +501,8 @@
 		<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
 		<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 		<escidoc.cone.modelsxml.path>models.xml</escidoc.cone.modelsxml.path>
+		
+		<escidoc.cone.mimetype.pattern>application/vnd.cone-(.+)</escidoc.cone.mimetype.pattern>
 
 		<!-- unAPI -->
 		<escidoc.unapi.download.server>http://localhost:8080/dataacquisition/download/unapi</escidoc.unapi.download.server>
