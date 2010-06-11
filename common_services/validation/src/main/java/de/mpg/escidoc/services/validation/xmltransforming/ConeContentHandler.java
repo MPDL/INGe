@@ -30,18 +30,16 @@
 
 package de.mpg.escidoc.services.validation.xmltransforming;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import de.mpg.escidoc.services.common.util.ProxyHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.util.IdentityHandler;
 
 /**
