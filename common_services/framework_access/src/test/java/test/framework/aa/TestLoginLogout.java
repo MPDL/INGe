@@ -46,6 +46,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -74,89 +75,6 @@ public class TestLoginLogout
     private static Logger logger = Logger.getLogger(TestLoginLogout.class);
     
 
-    private static String loginUser(String userid, String password) throws ServiceException, HttpException, IOException, URISyntaxException
-    {
-        String frameworkUrl = ServiceLocator.getFrameworkUrl();
-
-        int delim1 = frameworkUrl.indexOf("//");
-        int delim2 = frameworkUrl.indexOf(":", delim1);
-        
-        String host;
-        int port;
-        
-        if (delim2 > 0)
-        {
-            host = frameworkUrl.substring(delim1 + 2, delim2);
-            port = Integer.parseInt(frameworkUrl.substring(delim2 + 1));
-        }
-        else
-        {
-            host = frameworkUrl.substring(delim1 + 2);
-            port = 80;
-        }
-    	
-        HttpClient client = new HttpClient();
-        client.getHostConfiguration().setHost( host, port, "http");
-        client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-        
-        PostMethod login = new PostMethod( frameworkUrl + "/aa/j_spring_security_check");
-        login.addParameter("j_username", userid);
-        login.addParameter("j_password", password);
-        
-        client.executeMethod(login);
-        //System.out.println("Login form post: " + login.getStatusLine().toString());
-                
-        login.releaseConnection();
-        CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
-        Cookie[] logoncookies = cookiespec.match(
-        		host, port, "/", false, 
-                client.getState().getCookies());
-        
-        //System.out.println("Logon cookies:");
-        Cookie sessionCookie = logoncookies[0];
-        
-/*        if (logoncookies.length == 0) {
-            
-            System.out.println("None");
-            
-        } else {
-            for (int i = 0; i < logoncookies.length; i++) {
-                System.out.println("- " + logoncookies[i].toString());
-            }
-        }*/
-        
-        PostMethod postMethod = new PostMethod("/aa/login");
-        postMethod.addParameter("target", frameworkUrl);
-        client.getState().addCookie(sessionCookie);
-        client.executeMethod(postMethod);
-        //System.out.println("Login second post: " + postMethod.getStatusLine().toString());
-      
-        if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
-        {
-            throw new HttpException("Wrong status code: " + login.getStatusCode());
-        }
-        
-        String userHandle = null;
-        Header headers[] = postMethod.getResponseHeaders();
-        for (int i = 0; i < headers.length; ++i)
-        {
-            if ("Location".equals(headers[i].getName()))
-            {
-                String location = headers[i].getValue();
-                int index = location.indexOf('=');
-                userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
-                //System.out.println("location: "+location);
-                //System.out.println("handle: "+userHandle);
-            }
-        }
-        
-        if (userHandle == null)
-        {
-            throw new ServiceException("User not logged in.");
-        }
-        return userHandle;
-    }
-    
     /**
      * Logs the default user in.
      */
@@ -164,7 +82,7 @@ public class TestLoginLogout
     public void login() throws Exception
     {
         long zeit = -System.currentTimeMillis();
-        loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
+        AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
         zeit += System.currentTimeMillis(); 
         logger.info("login->" + zeit + "ms");
     }
@@ -175,9 +93,9 @@ public class TestLoginLogout
     @Test
     public void loginTwice() throws Exception
     {
-        String handle1 = loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
+        String handle1 = AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
         String user = ServiceLocator.getUserAccountHandler(handle1).retrieve("escidoc:user1"); 
-        String handle2 = loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
+        String handle2 = AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
         
         user = ServiceLocator.getUserAccountHandler(handle2).retrieve("escidoc:user1"); 
         // handle1 must still be valid
@@ -194,7 +112,7 @@ public class TestLoginLogout
     @Test
     public void logout() throws Exception
     {
-        String userHandle = loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
+        String userHandle = AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
         long zeit = -System.currentTimeMillis();
         ServiceLocator.getUserManagementWrapper(userHandle).logout();
         zeit += System.currentTimeMillis(); 

@@ -89,6 +89,7 @@ import org.xml.sax.SAXParseException;
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
+import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -169,100 +170,7 @@ public class TestBase
     
     private static final int NUMBER_OF_URL_TOKENS = 2;
 
-    /**
-     * Logs in the given user with the given password.
-     * 
-     * @param userid The id of the user to log in.
-     * @param password The password of the user to log in.
-     * @return The handle for the logged in user.
-     * @throws HttpException
-     * @throws IOException
-     * @throws ServiceException
-     * @throws URISyntaxException 
-     */
-    protected String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
-    {
-        String frameworkUrl = ServiceLocator.getFrameworkUrl();
-
-        int delim1 = frameworkUrl.indexOf("//");
-        int delim2 = frameworkUrl.indexOf(":", delim1);
-        
-        String host;
-        int port;
-        
-        if (delim2 > 0)
-        {
-            host = frameworkUrl.substring(delim1 + 2, delim2);
-            port = Integer.parseInt(frameworkUrl.substring(delim2 + 1));
-        }
-        else
-        {
-            host = frameworkUrl.substring(delim1 + 2);
-            port = 80;
-        }
-    	
-        HttpClient client = new HttpClient();
-        client.getHostConfiguration().setHost( host, port, "http");
-        client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-        
-        PostMethod login = new PostMethod( frameworkUrl + "/aa/j_spring_security_check");
-        login.addParameter("j_username", userid);
-        login.addParameter("j_password", password);
-        
-        client.executeMethod(login);
-        //System.out.println("Login form post: " + login.getStatusLine().toString());
-                
-        login.releaseConnection();
-        CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
-        Cookie[] logoncookies = cookiespec.match(
-        		host, port, "/", false, 
-                client.getState().getCookies());
-        
-        //System.out.println("Logon cookies:");
-        Cookie sessionCookie = logoncookies[0];
-        
-/*        if (logoncookies.length == 0) {
-            
-            System.out.println("None");
-            
-        } else {
-            for (int i = 0; i < logoncookies.length; i++) {
-                System.out.println("- " + logoncookies[i].toString());
-            }
-        }*/
-        
-        PostMethod postMethod = new PostMethod("/aa/login");
-        postMethod.addParameter("target", frameworkUrl);
-        client.getState().addCookie(sessionCookie);
-        client.executeMethod(postMethod);
-        //System.out.println("Login second post: " + postMethod.getStatusLine().toString());
-      
-        if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
-        {
-            throw new HttpException("Wrong status code: " + login.getStatusCode());
-        }
-        
-        String userHandle = null;
-        Header headers[] = postMethod.getResponseHeaders();
-        for (int i = 0; i < headers.length; ++i)
-        {
-            if ("Location".equals(headers[i].getName()))
-            {
-                String location = headers[i].getValue();
-                int index = location.indexOf('=');
-                userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
-                //System.out.println("location: "+location);
-                //System.out.println("handle: "+userHandle);
-            }
-        }
-        
-        if (userHandle == null)
-        {
-            throw new ServiceException("User not logged in.");
-        }
-        return userHandle;
-    }
-   
+  
     /**
      * Reads contents from text file and returns it as String.
      * 
@@ -573,7 +481,7 @@ public class TestBase
      */
     protected String loginScientist() throws ServiceException, HttpException, IOException, URISyntaxException
     {
-    	return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
+    	return AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
     }
 
     /**
@@ -587,7 +495,7 @@ public class TestBase
      */
     protected String loginLibrarian() throws ServiceException, HttpException, IOException, URISyntaxException
     {
-    	return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_LIBRARIAN), PropertyReader.getProperty(PROPERTY_PASSWORD_LIBRARIAN));
+    	return AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_LIBRARIAN), PropertyReader.getProperty(PROPERTY_PASSWORD_LIBRARIAN));
     }
 
     /**
@@ -598,7 +506,7 @@ public class TestBase
      */
     protected String loginSystemAdministrator() throws Exception
     {
-    	return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN));
+    	return AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN));
     }
 
     /**
@@ -609,7 +517,7 @@ public class TestBase
      */
     protected String loginAuthor() throws Exception
     {
-    	return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_AUTHOR), PropertyReader.getProperty(PROPERTY_PASSWORD_AUTHOR));
+    	return AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_AUTHOR), PropertyReader.getProperty(PROPERTY_PASSWORD_AUTHOR));
     }
 
     /**
@@ -637,7 +545,7 @@ public class TestBase
     @Before
     public void setUp() throws Exception
     {
-    	userHandle = loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
+    	userHandle = AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
     }
 
     /**
