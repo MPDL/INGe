@@ -132,6 +132,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
+import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -161,6 +162,7 @@ public class TestBase
             + "responsible affiliation for this collection. Please contact\n"
             + "u.tschida@zim.mpg.de for any questions.";
     private static final int NUMBER_OF_URL_TOKENS = 2;
+
     /**
      * The default scientist password property.
      */
@@ -200,8 +202,7 @@ public class TestBase
     /**
      * The default admin password property.
      */
-    protected static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
-    
+    protected static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";       
     /**
      * The default faces test container property.
      */
@@ -230,75 +231,6 @@ public class TestBase
         return serviceInstance;
     }
 
-    /**
-     * Logs in the given user with the given password.
-     * 
-     * @param userid The id of the user to log in.
-     * @param password The password of the user to log in.
-     * @return The handle for the logged in user.
-     * @throws HttpException
-     * @throws IOException
-     * @throws ServiceException
-     * @throws URISyntaxException
-     */
-    protected static String loginUser(String userid, String password) throws HttpException, IOException,
-            ServiceException, URISyntaxException
-    {
-        String frameworkUrl = ServiceLocator.getFrameworkUrl();
-        int delim1 = frameworkUrl.indexOf("//");
-        int delim2 = frameworkUrl.indexOf(":", delim1);
-        
-        String host;
-        int port;
-        
-        if (delim2 > 0)
-        {
-            host = frameworkUrl.substring(delim1 + 2, delim2);
-            port = Integer.parseInt(frameworkUrl.substring(delim2 + 1));
-        }
-        else
-        {
-            host = frameworkUrl.substring(delim1 + 2);
-            port = 80;
-        }
-        HttpClient client = new HttpClient();
-        client.getHostConfiguration().setHost(host, port, "http");
-        client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-        PostMethod login = new PostMethod(frameworkUrl + "/aa/j_spring_security_check");
-        login.addParameter("j_username", userid);
-        login.addParameter("j_password", password);
-        client.executeMethod(login);
-        login.releaseConnection();
-        CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
-        Cookie[] logoncookies = cookiespec.match(host, port, "/", false, client.getState().getCookies());
-        Cookie sessionCookie = logoncookies[0];
-        PostMethod postMethod = new PostMethod("/aa/login");
-        postMethod.addParameter("target", frameworkUrl);
-        client.getState().addCookie(sessionCookie);
-        client.executeMethod(postMethod);
-        if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
-        {
-            throw new HttpException("Wrong status code: " + login.getStatusCode());
-        }
-        String userHandle = null;
-        Header[] headers = postMethod.getResponseHeaders();
-        for (int i = 0; i < headers.length; ++i)
-        {
-            if ("Location".equals(headers[i].getName()))
-            {
-                String location = headers[i].getValue();
-                int index = location.indexOf('=');
-                userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
-                // System.out.println("location: "+location);
-                // System.out.println("handle: "+userHandle);
-            }
-        }
-        if (userHandle == null)
-        {
-            throw new ServiceException("User not logged in.");
-        }
-        return userHandle;
-    }
 
     /**
      * Logs the user test_dep_scientist in and returns the corresponding user handle.
@@ -310,7 +242,7 @@ public class TestBase
      */
     protected static String loginScientist() throws ServiceException, HttpException, IOException, URISyntaxException
     {
-        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader
+        return AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader
                 .getProperty(PROPERTY_PASSWORD_SCIENTIST));
     }
 
@@ -324,7 +256,7 @@ public class TestBase
      */
     protected static String loginAuthor() throws ServiceException, HttpException, IOException, URISyntaxException
     {
-        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_AUTHOR), PropertyReader
+        return AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_AUTHOR), PropertyReader
                 .getProperty(PROPERTY_PASSWORD_AUTHOR));
     }
     
@@ -338,7 +270,7 @@ public class TestBase
      */
     protected static String loginEditor() throws ServiceException, HttpException, IOException, URISyntaxException
     {
-        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_EDITOR), PropertyReader
+        return AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_EDITOR), PropertyReader
                 .getProperty(PROPERTY_PASSWORD_EDITOR));
     }
 
@@ -352,7 +284,7 @@ public class TestBase
      */
     protected static String loginLibrarian() throws ServiceException, HttpException, IOException, URISyntaxException
     {
-        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_LIBRARIAN), PropertyReader
+        return AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_LIBRARIAN), PropertyReader
                 .getProperty(PROPERTY_PASSWORD_LIBRARIAN));
     }
 
@@ -364,7 +296,7 @@ public class TestBase
      */
     protected static String loginSystemAdministrator() throws Exception
     {
-        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader
+        return AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader
                 .getProperty(PROPERTY_PASSWORD_ADMIN));
     }
 
