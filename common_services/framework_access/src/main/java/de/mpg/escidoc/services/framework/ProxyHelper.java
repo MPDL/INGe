@@ -28,8 +28,11 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.common.util;
+package de.mpg.escidoc.services.framework;
 
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.SocketAddress;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,7 +40,6 @@ import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  *
@@ -48,15 +50,25 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * @version $Revision: 3675 $ $LastChangedDate: 2010-05-27 16:13:35 +0200 (Do, 27 Mai 2010) $
  *
  */
+/**
+ * @author vlad
+ *
+ */
 public class ProxyHelper
 {
-
     /**
      * Logger for this class.
      */
     private static final Logger LOGGER = Logger.getLogger(ProxyHelper.class);
 
-    /**
+    static String proxyHost = null;
+    static String proxyPort = null;
+    static String nonProxyHosts = null;    
+    static Pattern nonProxyPattern = null;
+    
+    static boolean flag = false;  
+
+	/**
      * check if proxy has to get used for given url.
      * If yes, set ProxyHost in httpClient
      *
@@ -66,43 +78,102 @@ public class ProxyHelper
      */
 	public static void setProxy(final HttpClient httpClient, final String url) 
 	{
-		String proxyHost;
-		String proxyPort;
-		String nonProxyHosts;
-		try {
-			proxyHost = PropertyReader.getProperty("http.proxyHost");
-			proxyPort = PropertyReader.getProperty("http.proxyPort");
-			nonProxyHosts = PropertyReader.getProperty("http.nonProxyHosts");
-		} 
-		catch (Exception e) 
-		{
-			throw new RuntimeException("Cannot read proxy configuration:", e);
-		}
+		
+		getProxyProperties();
 		
 		if (proxyHost != null) 
 		{
 			
 			HostConfiguration hc = httpClient.getHostConfiguration();
-			if (nonProxyHosts != null && !nonProxyHosts.trim().equals("")) 
+			
+			if ( findUrlInNonProxyHosts( url ) )
 			{
-				nonProxyHosts = nonProxyHosts.replaceAll("\\.", "\\\\.");
-				nonProxyHosts = nonProxyHosts.replaceAll("\\*", "");
-				nonProxyHosts = nonProxyHosts.replaceAll("\\?", "\\\\?");
-				Pattern nonProxyPattern = Pattern.compile(nonProxyHosts);
-				Matcher nonProxyMatcher = nonProxyPattern.matcher(url);
-				if (nonProxyMatcher.find()) 
-				{
-					hc.setProxyHost(null);
-				} 
-				else 
-				{
-					hc.setProxy(proxyHost, Integer.valueOf(proxyPort));
-				}
-			} 
+				hc.setProxyHost(null);
+			}
 			else 
 			{
 				hc.setProxy(proxyHost, Integer.valueOf(proxyPort));
 			}
 		}
-	}    	
-}
+	}
+	
+    /**
+     * Returns <code>java.net.Proxy</code> class for <code>java.net.URL.openConnection</code>
+     * creation
+     *
+     * @param url url
+     *
+     * @throws Exception
+     */	
+	public static Proxy getProxy(final String url) 
+	{
+		Proxy proxy = Proxy.NO_PROXY;
+		
+		getProxyProperties();
+		
+		if (proxyHost != null) 
+		{
+			if ( ! findUrlInNonProxyHosts( url ) )
+			{
+				SocketAddress proxyAddress = new InetSocketAddress( proxyHost, Integer.valueOf(proxyPort) );
+				proxy = new Proxy(Proxy.Type.HTTP, proxyAddress);
+			}
+		}
+		
+		return proxy;
+	}
+	
+	
+	/**
+	 * Read proxy properties, set nonProxyPattern   
+	 */
+	private static void getProxyProperties()
+	{
+		if (flag) return;
+		try 
+		{
+			proxyHost = PropertyReader.getProperty("http.proxyHost");
+			proxyPort = PropertyReader.getProperty("http.proxyPort");
+			nonProxyHosts = PropertyReader.getProperty("http.nonProxyHosts");
+			if (nonProxyHosts != null && !nonProxyHosts.trim().equals(""))
+			{
+				String nph = nonProxyHosts; 
+				nph = nph
+						.replaceAll("\\.", "\\\\.")
+						.replaceAll("\\*", "")
+						.replaceAll("\\?", "\\\\?");
+				nonProxyPattern = Pattern.compile(nph);
+				
+			}
+			flag = true;			
+		} 
+		catch (Exception e) 
+		{
+			throw new RuntimeException("Cannot read proxy configuration:", e);
+		}
+	}
+	
+
+	/**
+	 * Find  <code>url</code> in the list of the nonProxyHosts 
+	 * @param url
+	 * @return <code>true</code> if <code>url</code> is found, <code>false</code> otherwise
+	 */
+	private static boolean findUrlInNonProxyHosts(String url)
+	{
+		getProxyProperties();
+		
+		if (nonProxyPattern != null) 
+		{
+			Matcher nonProxyMatcher = nonProxyPattern.matcher(url);
+			
+			return nonProxyMatcher.find(); 
+		}	
+		else
+		{
+			return false;
+		}
+		
+	}
+	
+}	
