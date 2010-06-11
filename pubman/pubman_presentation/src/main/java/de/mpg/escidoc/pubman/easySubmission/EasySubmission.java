@@ -110,7 +110,7 @@ import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableExce
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.common.util.ProxyHelper;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 import de.mpg.escidoc.services.validation.ItemValidating;

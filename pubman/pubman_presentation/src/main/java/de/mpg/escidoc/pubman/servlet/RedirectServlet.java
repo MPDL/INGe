@@ -47,7 +47,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.common.util.ProxyHelper;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 
 /**
  * A servlet for retrieving and redirecting the content objects urls.
