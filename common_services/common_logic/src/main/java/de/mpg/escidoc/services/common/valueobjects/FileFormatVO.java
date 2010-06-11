@@ -88,6 +88,8 @@ public class FileFormatVO extends ValueObject
     public static final String DEFAULT_NAME = PDF_NAME;
     public static final String DEFAULT_MIMETYPE = PDF_MIMETYPE;
     
+    public static final String DEFAULT_CHARSET = "utf-8";
+    
     private static final Map<String, String> formatExtensions =   
     	new HashMap<String, String>()   
     	{  
@@ -122,6 +124,19 @@ public class FileFormatVO extends ValueObject
     			put(DEFAULT_NAME, DEFAULT_MIMETYPE);
     		}  
 		};
+	private static final Map<String, String> formatCharsets =   
+		new HashMap<String, String>()   
+		{  
+			{  
+				put(TEXT_NAME, DEFAULT_CHARSET);
+				put(HTML_PLAIN_NAME, DEFAULT_CHARSET);
+				put(HTML_STYLED_NAME, DEFAULT_CHARSET);
+				put(SNIPPET_NAME, DEFAULT_CHARSET);
+				put(ESCIDOC_SNIPPET_NAME, DEFAULT_CHARSET);
+				put(XML_NAME, DEFAULT_CHARSET);
+				put(ESCIDOC_XML_NAME, DEFAULT_CHARSET);
+			}  
+		};
     
     
     
@@ -153,6 +168,15 @@ public class FileFormatVO extends ValueObject
     {
     	name = name == null || name.trim().equals("") ? "" : name.trim();  
     	return formatExtensions.containsKey(name) ? formatExtensions.get(name) : formatExtensions.get(DEFAULT_NAME);   
+    }
+    
+    /**
+     * Delivers the charset of the selected file according to name of format.
+     */
+    public static String getCharsetByName(String name)
+    {
+    	name = name == null || name.trim().equals("") ? "" : name.trim();  
+    	return formatCharsets.containsKey(name) ? formatCharsets.get(name) : "";   
     }
 
     // workaround to find out whether the output format is presented  
