@@ -40,6 +40,7 @@ package de.mpg.escidoc.services.syndication.feed;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -83,6 +84,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.syndication.SyndicationException;
 import de.mpg.escidoc.services.syndication.Utils;
 
@@ -131,9 +133,9 @@ public class Feed extends SyndFeedImpl
 	
 	//Hash of the parameters/values
 	private Map<String, String> paramHash = new HashMap<String, String>();
-	
+
 	//XML transformation bean
-	private XmlTransforming xt = new XmlTransformingBean();
+	private static XmlTransforming xt = new XmlTransformingBean();
 	
 	/**
 	 * Query getter.
@@ -596,7 +598,7 @@ public class Feed extends SyndFeedImpl
 		URLConnection uconn;
 		try 
 		{
-			uconn = url.openConnection();
+			uconn = url.openConnection(ProxyHelper.getProxy(url.toString())); 
 			if ( !(uconn instanceof HttpURLConnection) )
 	            throw new IllegalArgumentException(
 	                "URL protocol must be HTTP." 

@@ -69,10 +69,10 @@ public class Syndication implements SyndicationHandler
     
 	
     /* Explain XML variable */    
-	private String explainXML;
+	private static String explainXML;
 	
 	/* Placeholder for the feed definitions */
-	private Feeds feeds;
+	private static Feeds feeds;
 
 	/**
 	 * Constructor always loads feed collection class 
