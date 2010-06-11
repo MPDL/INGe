@@ -17,6 +17,16 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+/**
+ * These tests check the unapi interface for the dataaquisition service.
+ * Please make sure that dev-pubman is running!
+ * (Otherwise change the 'location' path or skip this test)
+ *
+ * @author kleinfe1 (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
 public class UnapiTest
 {
     
