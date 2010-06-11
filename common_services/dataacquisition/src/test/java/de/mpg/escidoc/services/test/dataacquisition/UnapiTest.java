@@ -9,6 +9,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -29,6 +30,7 @@ import org.xml.sax.InputSource;
  */
 public class UnapiTest
 {
+    private Logger logger = Logger.getLogger(UnapiTest.class);
     
     private String location = "http://dev-pubman.mpdl.mpg.de/dataacquisition/download/unapi";
     private String arxivId = "arXiv:0904.3933";
@@ -47,28 +49,28 @@ public class UnapiTest
         url = this.location + "?id=" + this.arxivId + "&format=arxiv";
         GetMethod getMethod = new GetMethod(url);            
         code = client.executeMethod(getMethod);
-        System.out.println("Fetch: " + url + "    Response: " + code);
+        this.logger.info("Fetch: " + url + "    Response: " + code);
         Assert.assertEquals(200, code);
         
         //pmc
         url = this.location + "?id=" + this.pmcId + "&format=pmc";
         getMethod = new GetMethod(url);            
         code = client.executeMethod(getMethod);
-        System.out.println("Fetch: " + url + "    Response: " + code);
+        this.logger.info("Fetch: " + url + "    Response: " + code);
         Assert.assertEquals(200, code);
         
         //bmc
         url = this.location + "?id=" + this.bmcId + "&format=bmc";
         getMethod = new GetMethod(url);            
         code = client.executeMethod(getMethod);
-        System.out.println("Fetch: " + url + "    Response: " + code);
+        this.logger.info("Fetch: " + url + "    Response: " + code);
         Assert.assertEquals(200, code);
         
         //spires
         url = this.location + "?id=" + this.spiresId + "&format=spires";
         getMethod = new GetMethod(url);            
         code = client.executeMethod(getMethod);
-        System.out.println("Fetch: " + url + "    Response: " + code);
+        this.logger.info("Fetch: " + url + "    Response: " + code);
         Assert.assertEquals(200, code);
     }
     
@@ -93,7 +95,7 @@ public class UnapiTest
             url = this.location + "?id=" + this.arxivId + "&format=" + formatsList.get(i);
             getMethod = new GetMethod(url);            
             int code = client.executeMethod(getMethod);
-            System.out.println("Fetch: " + url + "    Response: " + code);
+            this.logger.info("Fetch: " + url + "    Response: " + code);
             Assert.assertEquals(200, code);
         }
     }

@@ -30,11 +30,7 @@
 
 package de.mpg.escidoc.services.test.dataacquisition;
 import java.util.List;
-import java.util.Vector;
-
-import org.apache.log4j.Logger;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
@@ -50,8 +46,6 @@ import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
  */           
 public class DataAcquisitionUnitTest 
 {
-
-    private Logger logger = Logger.getLogger(DataAcquisitionUnitTest.class);
     private DataHandlerBean datahandler = new DataHandlerBean();
     
     private String arxivId = "arXiv:0904.3933";
