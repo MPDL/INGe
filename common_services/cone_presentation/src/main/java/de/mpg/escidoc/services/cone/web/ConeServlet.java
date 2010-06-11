@@ -69,6 +69,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -106,6 +108,7 @@ public class ConeServlet extends HttpServlet
     private static final String DB_ERROR_MESSAGE = "Error querying database.";
     private static final String DEFAULT_ENCODING = "UTF-8";
     private static final String DEFAULT_FORMAT = "html";
+    private static String MIME_TYPE_PATTERN;
     
     private static final Set<String> RESERVED_PARAMETERS = new HashSet<String>()
     {
@@ -125,8 +128,12 @@ public class ConeServlet extends HttpServlet
     	}
     };
     
-    
     Formatter formatter;
+    
+    public ConeServlet() throws Exception
+    {
+        MIME_TYPE_PATTERN = PropertyReader.getProperty("escidoc.cone.mimetype.pattern");
+    }
     
     /**
      * {@inheritDoc}
@@ -203,9 +210,29 @@ public class ConeServlet extends HttpServlet
         {
             format = (request.getParameter("format") != null ? request.getParameter("format") : request.getParameter("f"));
         }
-        else
+        else 
         {
-            format = DEFAULT_FORMAT;
+            boolean found = false;
+            String acceptHeader = request.getHeader("Accept");
+            if (acceptHeader != null)
+            {
+                Pattern pattern = Pattern.compile(MIME_TYPE_PATTERN);
+                String[] types = acceptHeader.split(",");
+                for (String type : types)
+                {
+                    Matcher matcher = pattern.matcher(type.trim());
+                    if (matcher.find())
+                    {
+                        format = matcher.group(1);
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            if (!found)
+            {
+                format = DEFAULT_FORMAT;
+            }
         }
         
         formatter = Formatter.getFormatter(format);
