@@ -46,6 +46,24 @@
     					</xs:sequence>
     				</xs:complexType>
     			</xs:element>
+    			<xs:element name="formats" minOccurs="1" maxOccurs="1">
+    				<xs:complexType>
+    					<xs:sequence>
+    						<xs:element name="format" minOccurs="1" maxOccurs="unbounded">
+    							<xs:complexType>
+    								<xs:sequence>
+			    						<xs:element name="mime-type" minOccurs="1" maxOccurs="unbounded">
+			    							<xs:complexType>
+			    								<xs:attribute name="id" type="xs:string" use="required"/>
+			    							</xs:complexType>
+			    						</xs:element>
+			    					</xs:sequence>
+    								<xs:attribute name="id" type="xs:QName" use="required"/>
+    							</xs:complexType>
+    						</xs:element>
+    					</xs:sequence>
+    				</xs:complexType>
+    			</xs:element>
     			<xs:element name="config" minOccurs="1" maxOccurs="1">
     				<xs:complexType>
     					<xs:sequence>

@@ -108,8 +108,7 @@ public class ConeServlet extends HttpServlet
     private static final String DB_ERROR_MESSAGE = "Error querying database.";
     private static final String DEFAULT_ENCODING = "UTF-8";
     private static final String DEFAULT_FORMAT = "html";
-    private static String MIME_TYPE_PATTERN;
-    
+
     private static final Set<String> RESERVED_PARAMETERS = new HashSet<String>()
     {
     	{
@@ -129,11 +128,6 @@ public class ConeServlet extends HttpServlet
     };
     
     Formatter formatter;
-    
-    public ConeServlet() throws Exception
-    {
-        MIME_TYPE_PATTERN = PropertyReader.getProperty("escidoc.cone.mimetype.pattern");
-    }
     
     /**
      * {@inheritDoc}
@@ -212,20 +206,30 @@ public class ConeServlet extends HttpServlet
         }
         else 
         {
+            ModelList modelList;
+            try
+            {
+                modelList =  ModelList.getInstance();
+            }
+            catch (Exception e) {
+                throw new ServletException(e);
+            }
             boolean found = false;
             String acceptHeader = request.getHeader("Accept");
             if (acceptHeader != null)
             {
-                Pattern pattern = Pattern.compile(MIME_TYPE_PATTERN);
                 String[] types = acceptHeader.split(",");
                 for (String type : types)
                 {
-                    Matcher matcher = pattern.matcher(type.trim());
-                    if (matcher.find())
+                    for (String key : modelList.getFormatMimetypes().keySet())
                     {
-                        format = matcher.group(1);
-                        found = true;
-                        break;
+                        Set<String> formatTypes = modelList.getFormatMimetypes().get(key);
+                        if (formatTypes.contains(type))
+                        {
+                            format = key;
+                            found = true;
+                            break;
+                        }
                     }
                 }
             }

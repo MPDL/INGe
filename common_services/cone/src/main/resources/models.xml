@@ -265,6 +265,28 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 			</pattern>
 		</result>
 	</model>
+	<formats>
+		<format id="html">
+			<mime-type id="text/html"/>
+			<mime-type id="application/vnd.cone-html"/>
+		</format>
+		<format id="rdf">
+			<mime-type id="text/rdf+xml"/>
+			<mime-type id="application/rdf+xml"/>
+			<mime-type id="application/vnd.cone-rdf"/>
+		</format>
+		<format id="json">
+			<mime-type id="application/json"/>
+			<mime-type id="application/vnd.cone-json"/>
+		</format>
+		<format id="jquery">
+			<mime-type id="application/vnd.cone-jquery"/>
+		</format>
+		<format id="options">
+			<mime-type id="text/plain"/>
+			<mime-type id="application/vnd.cone-options"/>
+		</format>
+	</formats>
 	<config>
 		<default-namespace uri="http://purl.org/dc/elements/1.1/" prefix="dc"/>
 		<default-namespace uri="http://dewey.info/" prefix="ddc"/>

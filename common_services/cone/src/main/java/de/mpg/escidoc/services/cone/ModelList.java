@@ -58,6 +58,7 @@ public class ModelList
     private static final Logger logger = Logger.getLogger(ModelList.class);
     private Set<Model> list = new HashSet<Model>();
     private Map<String, String> defaultNamepaces = new HashMap<String, String>();
+    private Map<String, Set<String>> formatMimetypes = new HashMap<String, Set<String>>();
 
     private ModelList() throws Exception
     {
@@ -131,6 +132,16 @@ public class ModelList
         this.defaultNamepaces = defaultNamepaces;
     }
 
+    public Map<String, Set<String>> getFormatMimetypes()
+    {
+        return formatMimetypes;
+    }
+
+    public void setFormatMimetypes(Map<String, Set<String>> formatMimetypes)
+    {
+        this.formatMimetypes = formatMimetypes;
+    }
+
     /**
      * SAX handler.
      * 
@@ -143,6 +154,7 @@ public class ModelList
         private Set<Model> list = new LinkedHashSet<Model>();
         private Model currentService = null;
         private Stack<List<Predicate>> predicateStack = new Stack<List<Predicate>>();
+        private Set<String> currentFormat = null;
 
         @Override
         public void content(String uri, String localName, String name, String content)
@@ -235,6 +247,15 @@ public class ModelList
             else if ("models/config/default-namespace".equals(stack.toString()))
             {
                 defaultNamepaces.put(attributes.getValue("uri"), attributes.getValue("prefix"));
+            }
+            else if ("models/formats/format".equals(stack.toString()))
+            {
+                currentFormat = new HashSet<String>();
+                formatMimetypes.put(attributes.getValue("id"), currentFormat);
+            }
+            else if ("models/formats/format/mime-type".equals(stack.toString()))
+            {
+                currentFormat.add(attributes.getValue("id"));
             }
         }
 
