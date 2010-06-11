@@ -29,7 +29,7 @@
 
 package test; 
 
-import gov.loc.www.zing.srw.RecordType; 
+import gov.loc.www.zing.srw.RecordType;
 import gov.loc.www.zing.srw.SearchRetrieveRequestType;
 import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 import gov.loc.www.zing.srw.StringOrXmlFragment;
@@ -41,32 +41,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
-import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.util.JRXmlUtils;
 
-import org.apache.axis.encoding.Base64;
 import org.apache.axis.message.MessageElement;
-import org.apache.commons.httpclient.Cookie;
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
-import org.apache.commons.httpclient.cookie.CookieSpec;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -75,6 +61,7 @@ import org.w3c.dom.NodeList;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
+import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 // import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
@@ -210,79 +197,14 @@ public class TestHelper
     public static String getItemListFromFrameworkBase(String USER, String PASSWD, String filter) throws IOException, ServiceException, URISyntaxException
     {
     	logger.info("Retrieve USER, PASSWD:" + USER + ", " + PASSWD);
-    	String userHandle = loginUser(USER, PASSWD); 
+    	String userHandle = AdminHelper.loginUser(USER, PASSWD);
     	logger.info("Retrieve filter:" + filter);
     	// see here for filters: https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
     	ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
     	return ch.retrieveItems(filter);
     }
 
-    public static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
-    {
-    	String frameworkUrl = ServiceLocator.getFrameworkUrl();
-    	logger.info("frameworkUrl:" + frameworkUrl);
-    	StringTokenizer tokens = new StringTokenizer( frameworkUrl, "//" );
-    	if( tokens.countTokens() != 2 ) {
-    		throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
-    	}
-    	tokens.nextToken();
-    	StringTokenizer hostPort = new StringTokenizer(tokens.nextToken(), ":");
 
-    	if( hostPort.countTokens() != 2 ) {
-    		throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
-    	}
-    	String host = hostPort.nextToken();
-    	int port = Integer.parseInt( hostPort.nextToken() );
-
-    	HttpClient client = new HttpClient();
-
-    	client.getHostConfiguration().setHost( host, port, "http");
-    	client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-
-    	PostMethod login = new PostMethod( frameworkUrl + "/aa/j_spring_security_check");
-    	login.addParameter("j_username", userid);
-    	login.addParameter("j_password", password);
-
-    	client.executeMethod(login);
-
-    	login.releaseConnection();
-    	CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
-    	Cookie[] logoncookies = cookiespec.match(
-    			host, port, "/", false, 
-    			client.getState().getCookies());
-
-    	Cookie sessionCookie = logoncookies[0];
-
-    	PostMethod postMethod = new PostMethod("/aa/login");
-    	postMethod.addParameter("target", frameworkUrl);
-    	client.getState().addCookie(sessionCookie);
-    	client.executeMethod(postMethod);
-
-    	if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
-    	{
-    		throw new HttpException("Wrong status code: " + login.getStatusCode());
-    	}
-
-    	String userHandle = null;
-    	Header headers[] = postMethod.getResponseHeaders();
-    	for (int i = 0; i < headers.length; ++i)
-    	{
-    		if ("Location".equals(headers[i].getName()))
-    		{
-    			String location = headers[i].getValue();
-    			int index = location.indexOf('=');
-    			userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
-    		}
-    	}
-
-    	if (userHandle == null)
-    	{
-    		throw new ServiceException("User not logged in.");
-    	}
-    	return userHandle;
-    }
-    
-    
     public static String getItemsFromFramework(String cql) throws Exception {
     	
 //    	http://localhost:8080/search/SearchAndExport?cqlQuery=escidoc.abstract=%22APA:%22%20AND%20escidoc.context.name=%22Citation%20Style%20Testing%20Context%22&exportFormat=APA_revised&outputFormat=pdf&language=all&sortKeys=&sortOrder=ascending&startRecord=&maximumRecords=
