@@ -524,6 +524,8 @@
 				<!-- Vocabularies which wil be integrated inot Borwse by, seperator is ;-->
 				<escidoc.cone.subjectVocab>ddc;mpipks</escidoc.cone.subjectVocab>
 				
+				<escidoc.cone.mimetype.pattern>application/vnd.cone-(.+)</escidoc.cone.mimetype.pattern>
+				
 				<!-- Import database -->
 				<escidoc.import.database.driver.class>org.hsqldb.jdbcDriver</escidoc.import.database.driver.class>
 				<escidoc.import.database.server.name />
