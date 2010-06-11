@@ -43,7 +43,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({test.framework.aa.TestUserManagement.class
                     ,test.framework.oum.TestOrganizationalUnitManager.class
                     ,test.framework.cmm.TestContentTypeModeller.class
-                    ,test.framework.om.TestObjectManager.class
+//                    ,test.framework.om.TestObjectManager.class
                     ,test.framework.st.TestStagingService.class
                     ,test.framework.sb.TestSearch.class
                     //,DeleteObjectsTest.class
