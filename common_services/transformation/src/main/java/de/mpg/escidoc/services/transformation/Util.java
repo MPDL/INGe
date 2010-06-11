@@ -64,8 +64,8 @@ import org.w3c.dom.Node;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsType;
-import de.mpg.escidoc.services.common.util.ProxyHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
