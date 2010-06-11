@@ -2,12 +2,12 @@
   <parent>
     <artifactId>common_services</artifactId>
     <groupId>de.mpg.escidoc.services</groupId>
-    <version>1.0.16-SNAPSHOT</version>
+    <version>1.0.44-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.mpg.escidoc.services</groupId>
   <artifactId>edoc_migration</artifactId>
-  <packaging>jar</packaging>
+  <packaging>jar</packaging> 
   <name>edoc_migration Maven Webapp</name>
   <version>0.0.1-SNAPSHOT</version>
   <url>http://maven.apache.org</url>
@@ -33,14 +33,20 @@
     <dependency>
     	<groupId>de.mpg.escidoc.services</groupId>
     	<artifactId>common_logic</artifactId>
-    	 <version>1.1.12-SNAPSHOT</version>
+    	 <version>1.1.44-SNAPSHOT</version>
       	<scope>compile</scope>
     </dependency>
     <dependency>
     	<groupId>de.mpg.escidoc.services</groupId>
     	<artifactId>validation</artifactId>
-    	<version>1.0.15</version>
+    	<version>1.0.50-SNAPSHOT</version>
     	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>de.mpg.escidoc.services</groupId>
+    	<artifactId>framework_access</artifactId>
+    	<version>1.0.47-SNAPSHOT</version>
+    	<type>pom</type>
     </dependency>
   </dependencies>
 </project>
