@@ -61,6 +61,7 @@ import org.apache.log4j.Logger;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
+import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -229,7 +230,7 @@ public class TestHelper
     public static String getItemListFromFrameworkBase(String USER, String PASSWD, String filter) throws IOException, ServiceException, URISyntaxException
     {
     	logger.info("Retrieve USER, PASSWD:" + USER + ", " + PASSWD);
-    	String userHandle = loginUser(USER, PASSWD); 
+    	String userHandle = AdminHelper.loginUser(USER, PASSWD); 
     	logger.info("Retrieve filter:" + filter);
     	// see here for filters: https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
     	ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
@@ -238,76 +239,6 @@ public class TestHelper
     
     
     
-    protected static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
-    {
-       String frameworkUrl = ServiceLocator.getFrameworkUrl();
-        int delim1 = frameworkUrl.indexOf("//");
-        int delim2 = frameworkUrl.indexOf(":", delim1);
-        
-        String host;
-        int port;
-        
-        if (delim2 > 0)
-        {
-            host = frameworkUrl.substring(delim1 + 2, delim2);
-            port = Integer.parseInt(frameworkUrl.substring(delim2 + 1));
-        }
-        else
-        {
-            host = frameworkUrl.substring(delim1 + 2);
-            port = 80;
-        }
-
-    	HttpClient client = new HttpClient();
-
-    	client.getHostConfiguration().setHost( host, port, "http");
-    	client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-
-    	PostMethod login = new PostMethod( frameworkUrl + "/aa/j_spring_security_check");
-    	login.addParameter("j_username", userid);
-    	login.addParameter("j_password", password);
-
-    	client.executeMethod(login);
-
-    	login.releaseConnection();
-    	CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
-    	Cookie[] logoncookies = cookiespec.match(
-    			host, port, "/", false, 
-    			client.getState().getCookies());
-
-    	Cookie sessionCookie = logoncookies[0];
-
-    	PostMethod postMethod = new PostMethod("/aa/login");
-    	postMethod.addParameter("target", frameworkUrl);
-    	client.getState().addCookie(sessionCookie);
-    	client.executeMethod(postMethod);
-
-    	if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
-    	{
-    		throw new HttpException("Wrong status code: " + login.getStatusCode());
-    	}
-
-    	String userHandle = null;
-    	Header headers[] = postMethod.getResponseHeaders();
-    	for (int i = 0; i < headers.length; ++i)
-    	{
-    		if ("Location".equals(headers[i].getName()))
-    		{
-    			String location = headers[i].getValue();
-    			int index = location.indexOf('=');
-    			userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
-    			//System.out.println("location: "+location);
-    			//System.out.println("handle: "+userHandle);
-    		}
-    	}
-
-    	if (userHandle == null)
-    	{
-    		throw new ServiceException("User not logged in.");
-    	}
-    	return userHandle;
-    }    
-
     
 
 }
