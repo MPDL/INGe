@@ -69,7 +69,6 @@ import de.mpg.escidoc.services.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.escidoc.services.pubman.logging.ApplicationLog;
 import de.mpg.escidoc.services.pubman.logging.PMLogicMessages;
-import de.mpg.escidoc.services.pubman.util.AdminHelper;
 
 /**
  * This class provides the ejb implementation of the {@link PubItemPublishing} interface.
