@@ -14,6 +14,8 @@ import java.net.URLEncoder;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.framework.ProxyHelper;
+
 import sun.net.www.protocol.http.HttpURLConnection;
 
 /**
@@ -67,7 +69,7 @@ public class GWDGPidService implements MigrationConstants
         {
             body = "<param><limit>100</limit><offset>0</offset></param>";
             URL url = new URL("http://coreservice.mpdl.mpg.de:8080/oai/set-definitions/filter");
-            conn = (HttpURLConnection) url.openConnection();
+            conn = (HttpURLConnection) ProxyHelper.openConnection(url);
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", URL_ENCODING_FORMAT);
             conn.setRequestProperty("Content-Length", "" + Integer.toString(body.getBytes().length));
@@ -121,7 +123,7 @@ public class GWDGPidService implements MigrationConstants
             urlParameter = "?url=" + URLEncoder.encode(url2find, URL_ENCODING_SCHEME);
             URL url = new URL(GWDG_PIDSERVICE_FIND + urlParameter);
             System.out.println(url.toExternalForm());
-            conn = (HttpURLConnection) url.openConnection();
+            conn = (HttpURLConnection) ProxyHelper.openConnection(url);
             conn.setRequestMethod("GET");
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK)
             {
@@ -175,7 +177,7 @@ public class GWDGPidService implements MigrationConstants
         {
             urlParameter = "url=" + URLEncoder.encode(url2register, URL_ENCODING_SCHEME);
             URL url = new URL(GWDG_PIDSERVICE_CREATE);
-            conn = (HttpURLConnection) url.openConnection();
+            conn = (HttpURLConnection) ProxyHelper.openConnection(url);
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", URL_ENCODING_FORMAT);
             conn.setRequestProperty("Content-Length", "" + Integer.toString(urlParameter.getBytes().length));
