@@ -504,6 +504,7 @@
 		
 		<escidoc.cone.mimetype.pattern>application/vnd.cone-(.+)</escidoc.cone.mimetype.pattern>
 
+		<escidoc.dataacquisition.service.url>http://localhost:8080/dataacquisition/</escidoc.dataacquisition.service.url>
 		<!-- unAPI -->
 		<escidoc.unapi.download.server>http://localhost:8080/dataacquisition/download/unapi</escidoc.unapi.download.server>
 		<escidoc.unapi.view.server>http://localhost:8080/dataacquisition/view/unapi</escidoc.unapi.view.server>
