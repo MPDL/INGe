@@ -101,7 +101,7 @@ public class QuerierTest
         
         for (Describable pair : results)
         {
-            assertTrue("Result does not contain query string 'of': " + ((Pair) pair).getValue(), ((Pair) pair).getValue().contains("of"));
+            assertTrue("Result does not contain query string 'of': " + ((Pair) pair).getValue(), ((Pair) pair).getValue().toString().contains("of"));
         }
     }
 
@@ -117,7 +117,7 @@ public class QuerierTest
         
         for (Describable pair : results)
         {
-            assertTrue("Result does not contain query string 'of': " + ((Pair) pair).getValue(), ((Pair) pair).getValue().contains("of"));
+            assertTrue("Result does not contain query string 'of': " + ((Pair) pair).getValue(), ((Pair) pair).getValue().toString().contains("of"));
         }
     }
 

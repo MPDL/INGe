@@ -157,7 +157,7 @@ public class JsonFormatter extends Formatter
                 {
                     result.append("\t{\n");
                     String key = ((Pair) pair).getKey();
-                    String value = ((Pair) pair).getValue();
+                    Object value = ((Pair) pair).getValue();
                     
                     result.append("\t\t\"id\" : \"");
                     try
@@ -171,7 +171,7 @@ public class JsonFormatter extends Formatter
                     result.append("\",\n");
                     
                     result.append("\t\t\"value\" : \"");
-                    result.append(value.replace("\"", "\\\""));
+                    result.append(value.toString().replace("\"", "\\\""));
                     result.append("\"\n");
                     
                     result.append("\t}");

@@ -38,10 +38,10 @@ package de.mpg.escidoc.services.cone.util;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class Pair implements Describable
+public class Pair<T> implements Describable
 {
     private String key;
-    private String value;
+    private T value;
 
     /**
      * Default constructor.
@@ -56,7 +56,7 @@ public class Pair implements Describable
      * @param key The key
      * @param value The value
      */
-    public Pair(String key, String value)
+    public Pair(String key, T value)
     {
         this.key = key;
         this.value = value;
@@ -70,11 +70,11 @@ public class Pair implements Describable
     {
         this.key = key;
     }
-    public String getValue()
+    public T getValue()
     {
         return value;
     }
-    public void setValue(String value)
+    public void setValue(T value)
     {
         this.value = value;
     }

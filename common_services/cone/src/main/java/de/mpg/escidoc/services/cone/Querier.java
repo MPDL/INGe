@@ -21,7 +21,6 @@ import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
-import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 
 /**
  * Interface between the CoNE data storage and the presentation.
@@ -83,7 +82,7 @@ public interface Querier
      * @return A {@link List} of key-value pairs containing the matching results.
      * @throws Exception Any exception
      */
-    public List<? extends Describable> query(String model, Pair[] searchFields, String lang, ModeType modeType) throws Exception;
+    public List<? extends Describable> query(String model, Pair<String>[] searchFields, String lang, ModeType modeType) throws Exception;
 
     /**
      * Retrieve a list of objects matching the given search fields and the given language.
@@ -96,7 +95,7 @@ public interface Querier
      * @return A {@link List} of key-value pairs containing the matching results.
      * @throws Exception Any exception
      */
-    public List<? extends Describable> query(String model, Pair[] searchFields, String lang, ModeType modeType, int limit) throws Exception;
+    public List<? extends Describable> query(String model, Pair<String>[] searchFields, String lang, ModeType modeType, int limit) throws Exception;
 
     /**
      * Retrieves details about an entity identified by the given id.

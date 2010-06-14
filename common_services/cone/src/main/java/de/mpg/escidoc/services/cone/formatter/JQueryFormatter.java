@@ -153,8 +153,8 @@ public class JQueryFormatter extends Formatter
                 if (pair instanceof Pair)
                 {
                     String key = ((Pair) pair).getKey();
-                    String value = ((Pair) pair).getValue();
-                    result.append(value);
+                    Object value = ((Pair) pair).getValue();
+                    result.append(value.toString());
                     result.append("|");
                     try
                     {

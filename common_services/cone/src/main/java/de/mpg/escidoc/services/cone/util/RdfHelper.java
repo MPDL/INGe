@@ -75,12 +75,24 @@ public class RdfHelper
                 if (pair instanceof Pair)
                 {
                     String key = ((Pair) pair).getKey();
-                    String value = ((Pair) pair).getValue();
-                    
                     try
                     {
                         result.append("\t<rdf:Description rdf:about=\"" + PropertyReader.getProperty("escidoc.cone.service.url") + key.replace("\"", "\\\"") + "\">\n");
-                        result.append("\t\t<dc:title>" + xmlEscape(value) + "</dc:title>\n");
+                        if (((Pair) pair).getValue() instanceof LocalizedString)
+                        {
+                            if (((LocalizedString)((Pair) pair).getValue()).getLanguage() != null)
+                            {
+                                result.append("\t\t<dc:title xml:lang=\"" + ((LocalizedString)((Pair) pair).getValue()).getLanguage() + "\">" + xmlEscape(((LocalizedString)((Pair) pair).getValue()).getValue()) + "</dc:title>\n");
+                            }
+                            else
+                            {
+                                result.append("\t\t<dc:title>" + xmlEscape(((LocalizedString)((Pair) pair).getValue()).getValue()) + "</dc:title>\n");
+                            }
+                        }
+                        else
+                        {
+                            result.append("\t\t<dc:title>" + xmlEscape(((Pair) pair).getValue().toString()) + "</dc:title>\n");
+                        }
                         result.append("\t</rdf:Description>\n");
                     }
                     catch (Exception exception)

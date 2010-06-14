@@ -125,7 +125,7 @@ public class OptionsFormatter extends Formatter
                 if (pair instanceof Pair)
                 {
                     String key = ((Pair) pair).getKey();
-                    String value = ((Pair) pair).getValue();
+                    Object value = ((Pair) pair).getValue();
                     try
                     {
                         result.append(key.substring(key.lastIndexOf("/") + 1));
@@ -135,7 +135,7 @@ public class OptionsFormatter extends Formatter
                         throw new RuntimeException(e);
                     }
                     result.append("|");
-                    result.append(value);
+                    result.append(value.toString());
                 }
                 else if (pair instanceof TreeFragment)
                 {

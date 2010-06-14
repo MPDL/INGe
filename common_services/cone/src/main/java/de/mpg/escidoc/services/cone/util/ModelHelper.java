@@ -55,9 +55,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  */
 public class ModelHelper
 {
-    
-    private static final String test = "";
-    
+
     private static final Logger logger = Logger.getLogger(ModelHelper.class);
     
     private static final String REGEX_BRACKETS = "<[^>]+>";
@@ -79,14 +77,14 @@ public class ModelHelper
      * @return A list of {@link Pair} containing the results in different languages.
      * @throws Exception Any exception.
      */
-    public static List<Pair> buildObjectFromPattern(String modelName, String currentSubject, TreeFragment poMap, boolean loggedIn) throws Exception
+    public static List<Pair<LocalizedString>> buildObjectFromPattern(String modelName, String currentSubject, TreeFragment poMap, boolean loggedIn) throws Exception
     {
      
         Model model = ModelList.getInstance().getModelByAlias(modelName);
         
         Set<String> languages = getLanguagesForResults(model, poMap, loggedIn);
         
-        List<Pair> results = new ArrayList<Pair>();
+        List<Pair<LocalizedString>> results = new ArrayList<Pair<LocalizedString>>();
         
         for (String pattern : model.getResultPattern())
         {
@@ -159,7 +157,7 @@ public class ModelHelper
                 }
                 for (String string : result)
                 {
-                    results.add(new Pair(null, string));
+                    results.add(new Pair<LocalizedString>(null, new LocalizedString(string)));
                 }
                 
             }
@@ -243,7 +241,7 @@ public class ModelHelper
                         {
                             if (!"".equals(string))
                             {
-                                results.add(new Pair(lang, string));
+                                results.add(new Pair<LocalizedString>(lang, new LocalizedString(string)));
                             }
                         }
                     }
@@ -253,7 +251,7 @@ public class ModelHelper
                         {
                             if (!"".equals(string))
                             {
-                                results.add(new Pair(null, string));
+                                results.add(new Pair<LocalizedString>(null, new LocalizedString(string)));
                             }
                         }
                     }
@@ -452,19 +450,19 @@ public class ModelHelper
         return result.replace("'", "\\'");
     }
 
-    public static List<Pair> buildMatchStringFromModel(String modelName, String id, TreeFragment values, boolean loggedIn) throws Exception
+    public static List<Pair<LocalizedString>> buildMatchStringFromModel(String modelName, String id, TreeFragment values, boolean loggedIn) throws Exception
     {
         Set<String> languages = new HashSet<String>();
         Model model = ModelList.getInstance().getModelByAlias(modelName);
         
-        List<Pair> results = new ArrayList<Pair>();
+        List<Pair<LocalizedString>> results = new ArrayList<Pair<LocalizedString>>();
         
         languages = getLanguagesForMatches(model, values, loggedIn);
 
         for (String lang : languages)
         {
             String matchString = id + getMatchString(model.getPredicates(), values, lang, loggedIn);
-            Pair pair = new Pair(lang, matchString);
+            Pair<LocalizedString> pair = new Pair<LocalizedString>(lang, new LocalizedString(matchString));
             results.add(pair);
         }
         

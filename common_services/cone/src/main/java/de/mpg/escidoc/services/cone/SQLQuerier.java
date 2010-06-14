@@ -21,15 +21,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
@@ -39,8 +36,8 @@ import de.mpg.escidoc.services.cone.ModelList.Predicate;
 import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
-import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.ModelHelper;
+import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -56,7 +53,6 @@ public class SQLQuerier implements Querier
 {
     private static final String ESCIDOC_CONE_LANGUAGE_DEFAULT = "escidoc.cone.language.default";
     private static final Logger logger = Logger.getLogger(SQLQuerier.class);
-    private DataSource dataSource = null;
     private Connection connection;
     protected boolean loggedIn;
 
@@ -102,7 +98,7 @@ public class SQLQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public List<? extends Describable> query(String model, Pair[] searchFields, String language, ModeType modeType) throws Exception
+    public List<? extends Describable> query(String model, Pair<String>[] searchFields, String language, ModeType modeType) throws Exception
     {
         String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
         return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
@@ -158,8 +154,12 @@ public class SQLQuerier implements Querier
         }
         String query = "select distinct r1.id, r1.value, r1.lang"
             + " from results r1 where id in (" + subQuery;
-        query += ") and (lang = '" + language + "' or (lang is null and '" + language +
-            "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+        query += ")";
+        if (!"*".equals(language))
+        {
+            query += "and (lang = '" + language + "' or (lang is null and '" + language
+                + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+        }
         query += " order by value, id";
         if (limit > 0)
         {
@@ -174,12 +174,13 @@ public class SQLQuerier implements Querier
         long now = new Date().getTime();
         ResultSet result = statement.executeQuery(query);
         logger.debug("Took " + (new Date().getTime() - now) + " ms.");
-        List<Pair> resultSet = new ArrayList<Pair>();
+        List<Pair<LocalizedString>> resultSet = new ArrayList<Pair<LocalizedString>>();
         while (result.next())
         {
             String id = result.getString("id");
             String value = result.getString("value");
-            Pair pair = new Pair(id, value);
+            String lang = result.getString("lang");
+            Pair<LocalizedString> pair = new Pair<LocalizedString>(id, new LocalizedString(value, lang));
             resultSet.add(pair);
         }
         
@@ -219,8 +220,12 @@ public class SQLQuerier implements Querier
         }
         String query = "select distinct r1.id, r1.value, r1.lang"
             + " from results r1 where id in (" + subQuery;
-        query += ") and (lang = '" + language + "' or (lang is null and '" + language +
-            "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+        query += ")";
+        if (!"*".equals(language))
+        {
+            query += "and (lang = '" + language + "' or (lang is null and '" + language
+                + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+        }
         query += " order by value, id";
         
         if (limit > 0)
@@ -253,7 +258,7 @@ public class SQLQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public List<? extends Describable> query(String modelName, Pair[] searchPairs, String language, ModeType modeType, int limit) throws Exception
+    public List<? extends Describable> query(String modelName, Pair<String>[] searchPairs, String language, ModeType modeType, int limit) throws Exception
     {
         if (modeType == ModeType.FAST)
         {
@@ -269,7 +274,7 @@ public class SQLQuerier implements Querier
         }
     }
     
-    public List<? extends Describable> queryFast(String modelName, Pair[] searchPairs, String language, int limit) throws Exception
+    public List<? extends Describable> queryFast(String modelName, Pair<String>[] searchPairs, String language, int limit) throws Exception
     {
         if (connection.isClosed())
         {
@@ -283,8 +288,8 @@ public class SQLQuerier implements Querier
 
         language = language.replace("'", "''");
         
-        ArrayList<Pair> allPairs = new ArrayList<Pair>();
-        for (Pair pair : searchPairs)
+        ArrayList<Pair<String>> allPairs = new ArrayList<Pair<String>>();
+        for (Pair<String> pair : searchPairs)
         {
             String[] predicatePieces = pair.getKey().split(":");
             if (predicatePieces.length != 2)
@@ -307,11 +312,11 @@ public class SQLQuerier implements Querier
             String[] results = formatSearchString(pair.getValue());
             for (String result : results)
             {
-                allPairs.add(new Pair(pair.getKey(), result));
+                allPairs.add(new Pair<String>(pair.getKey(), result));
             }
         }
         String subQuery = "select subject from triples where model = '" + modelName + "'";
-        for (Pair pair : allPairs)
+        for (Pair<String> pair : allPairs)
         {
             subQuery += " and (predicate = '" + pair.getKey() + "' and ";
             if (pair.getValue().startsWith("\"") && pair.getValue().endsWith("\""))
@@ -341,12 +346,13 @@ public class SQLQuerier implements Querier
         long now = new Date().getTime();
         ResultSet result = statement.executeQuery(query);
         logger.debug("Took " + (new Date().getTime() - now) + " ms.");
-        List<Pair> resultSet = new ArrayList<Pair>();
+        List<Pair<LocalizedString>> resultSet = new ArrayList<Pair<LocalizedString>>();
         while (result.next())
         {
             String id = result.getString("id");
             String value = result.getString("value");
-            Pair pair = new Pair(id, value);
+            String lang = result.getString("lang");
+            Pair<LocalizedString> pair = new Pair<LocalizedString>(id, new LocalizedString(value, lang));
             resultSet.add(pair);
         }
         
@@ -356,7 +362,7 @@ public class SQLQuerier implements Querier
         return resultSet;
     }
     
-    public List<? extends Describable> queryFull(String modelName, Pair[] searchPairs, String language, int limit) throws Exception
+    public List<? extends Describable> queryFull(String modelName, Pair<String>[] searchPairs, String language, int limit) throws Exception
     {
         if (connection.isClosed())
         {
@@ -370,8 +376,8 @@ public class SQLQuerier implements Querier
 
         language = language.replace("'", "''");
         
-        ArrayList<Pair> allPairs = new ArrayList<Pair>();
-        for (Pair pair : searchPairs)
+        ArrayList<Pair<String>> allPairs = new ArrayList<Pair<String>>();
+        for (Pair<String> pair : searchPairs)
         {
             String[] predicatePieces = pair.getKey().split(":");
             if (predicatePieces.length != 2)
@@ -394,11 +400,11 @@ public class SQLQuerier implements Querier
             String[] results = formatSearchString(pair.getValue());
             for (String result : results)
             {
-                allPairs.add(new Pair(pair.getKey(), result));
+                allPairs.add(new Pair<String>(pair.getKey(), result));
             }
         }
         String subQuery = "select subject from triples where model = '" + modelName + "'";
-        for (Pair pair : allPairs)
+        for (Pair<String> pair : allPairs)
         {
             subQuery += " and (predicate = '" + pair.getKey() + "' and ";
             if (pair.getValue().startsWith("\"") && pair.getValue().endsWith("\""))
@@ -712,13 +718,13 @@ public class SQLQuerier implements Querier
             
             statement.setString(1, id);
             
-            List<Pair> results = ModelHelper.buildObjectFromPattern(modelName, id, values, loggedIn);
+            List<Pair<LocalizedString>> results = ModelHelper.buildObjectFromPattern(modelName, id, values, loggedIn);
             
-            for (Pair pair : results)
+            for (Pair<LocalizedString> pair : results)
             {
                 if (pair.getValue() != null && !"".equals(pair.getValue()))
                 {
-                    statement.setString(2, pair.getValue());
+                    statement.setString(2, pair.getValue().getValue());
                     if (pair.getKey() != null && "".equals(pair.getKey()))
                     {
                         statement.setString(3, null);
@@ -740,11 +746,11 @@ public class SQLQuerier implements Querier
             
             results = ModelHelper.buildMatchStringFromModel(modelName, id, values, loggedIn);
             
-            for (Pair pair : results)
+            for (Pair<LocalizedString> pair : results)
             {
                 if (pair.getValue() != null && !"".equals(pair.getValue()))
                 {
-                    statement.setString(2, pair.getValue());
+                    statement.setString(2, pair.getValue().getValue());
                     if (pair.getKey() != null && "".equals(pair.getKey()))
                     {
                         statement.setString(3, null);
