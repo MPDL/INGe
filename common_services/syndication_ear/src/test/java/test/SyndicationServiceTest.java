@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 
 
 /**
@@ -21,8 +22,8 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * Integration JUnit test for PubMan Syndication Service
  * 
  * @author vmakarenko (initial creation)
- * @author $Author:$ (last modification)
- * @version $Revision:$ $LastChangedDate:$
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * 
  */
 public class SyndicationServiceTest 
@@ -78,7 +79,7 @@ public class SyndicationServiceTest
 		logger.info("Search URL:" + url);
 		Object content;
 		URLConnection uconn;
-			uconn = new URL(url).openConnection();
+			uconn = ProxyHelper.openConnection(new URL(url));
 			if ( !(uconn instanceof HttpURLConnection) )
 	            throw new IllegalArgumentException(
 	                "URL protocol must be HTTP." 
