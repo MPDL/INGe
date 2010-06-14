@@ -28,8 +28,9 @@
  */
 package de.mpg.escidoc.services.test.search;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -38,11 +39,10 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.xml.sax.helpers.DefaultHandler;
-import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import static org.junit.Assert.*;
+import org.xml.sax.helpers.DefaultHandler;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 
@@ -91,19 +91,21 @@ public class TestIndices
     @Test
     public void testCheckIndicesAgainstCoreserver() throws Exception {
         
+
+//    	TestSearchBase.createTestItem();
         // 
         String urlPostfix = "/srw/search/escidoc_all?operation=explain";
         
-        InputStream instream = TestIndices.class.getClassLoader().getResource("test.properties").openStream();
-        Properties properties = new Properties();
-        properties.load(instream);
+//        InputStream instream = TestIndices.class.getClassLoader().getResource("common.properties").openStream();
+//        Properties properties = new Properties();
+//        properties.load(instream);
 
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser saxParser = factory.newSAXParser();
         
         IndexHandler handler = new IndexHandler();
         
-        String completeUrl = properties.getProperty("escidoc.framework_access.framework.url") + urlPostfix;
+        String completeUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url") + urlPostfix;
         
         logger.info("Fetching indices from URL: " + completeUrl);
         saxParser.parse(completeUrl, handler);
@@ -112,7 +114,7 @@ public class TestIndices
         MetadataSearchCriterion criterion = new MetadataSearchCriterion(CriterionType.ANY);
         for( String index : criterion.getAllSupportedIndicesAsString() ) {
             logger.info("Checking index '" + index + "'");
-            logger.info("Index found: " + handler.getIndices().contains(index));
+            assertTrue(handler.getIndices().contains(index));
         }
     }    
 }

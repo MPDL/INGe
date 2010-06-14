@@ -14,19 +14,23 @@ import org.junit.runners.Suite;
  */
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ 
-//                    TestMetadataSearch.class,
-//                    TestSearchAndExport.class
-//					 BracketsTest.class
-//                     ,ConstantsTest.class
-//                     ,ExpressionsTest.class                    
-//                     ,OperationsTest.class
-//                     ,PhrasesTest.class
-//                     ,QueryParserTest.class                    
-//                     ,SearchPubItemsByAffiliationTest.class
-//                     SimpleSearchTest.class
-//                     ,AdvancedSearchTest.class
-//                     ,SearchAndOutputTest.class
+@Suite.SuiteClasses({
+//					TestSearchBase.class
+//					TestIndices.class
+					
+					
+//                  ,TestMetadataSearch.class
+//                  ,TestSearchAndExport.class
+//					,BracketsTest.class
+//                  ,ConstantsTest.class
+//                  ,ExpressionsTest.class                    
+//                  ,OperationsTest.class
+//                  ,PhrasesTest.class
+//                  ,QueryParserTest.class                    
+//                  ,SearchPubItemsByAffiliationTest.class
+//                  ,SimpleSearchTest.class
+//                  ,AdvancedSearchTest.class
+//                  ,SearchAndOutputTest.class
                         TestIndices.class
                     })
 public class SearchTest {
