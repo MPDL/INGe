@@ -16,6 +16,7 @@ import org.w3c.dom.NodeList;
 
 import de.escidoc.www.services.aa.UserGroupHandler;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /** 
@@ -133,7 +134,7 @@ public class UserGroupList extends IntelligentVO
                 method.addRequestHeader("Cookie", "escidocCookie=" + userHandle);
 
                 method.setRequestEntity(new StringRequestEntity(filter));
-                httpClient.executeMethod(method);
+                ProxyHelper.executeMethod(httpClient, method);
                 if (method.getStatusCode() != 200)
                 {
                     throw new RuntimeException("Error: " + method.getResponseBodyAsString());
