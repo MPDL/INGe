@@ -134,6 +134,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -1450,7 +1451,7 @@ public class TestBase
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
         // Execute the method with HttpClient.
         HttpClient client = new HttpClient();
-        client.executeMethod(method);
+        ProxyHelper.executeMethod(client, method);
         String response = method.getResponseBodyAsString();
         assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
         return ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformUploadResponseToFileURL(response);
@@ -1472,7 +1473,7 @@ public class TestBase
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
         // Execute the method with HttpClient.
         HttpClient client = new HttpClient();
-        client.executeMethod(method);
+        ProxyHelper.executeMethod(client, method);
         logger.debug("Status=" + method.getStatusCode()); // >= HttpServletResponse.SC_MULTIPLE_CHOICE 300 ???
         assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
         String response = method.getResponseBodyAsString();

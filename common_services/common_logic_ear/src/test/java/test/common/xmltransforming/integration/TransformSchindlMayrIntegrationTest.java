@@ -51,6 +51,7 @@ import test.common.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 
@@ -153,7 +154,7 @@ public class TransformSchindlMayrIntegrationTest extends TestBase
     
             // Execute the method with HttpClient.
             HttpClient client = new HttpClient();
-            client.executeMethod(method);
+            ProxyHelper.executeMethod(client, method);
             logger.debug("Status=" + method.getStatusCode());
             assertEquals(HttpServletResponse.SC_OK,method.getStatusCode());
             
