@@ -72,11 +72,8 @@ public class ConeContentHandler extends IdentityHandler
                 String url = PropertyReader.getProperty("escidoc.cone.service.url") + params + "/all?format=rdf";
 
                 HttpClient client = new HttpClient();
-                
-                ProxyHelper.setProxy(client, url);
-                
                 GetMethod method = new GetMethod(url);
-                client.executeMethod(method);
+                ProxyHelper.executeMethod(client, method);
                 if (method.getStatusCode() == 200)
                 {
                     InputStream inputStream = method.getResponseBodyAsStream();
