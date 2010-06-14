@@ -1,6 +1,7 @@
 package test.pidcache;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -8,19 +9,18 @@ import java.util.regex.Pattern;
 
 import javax.naming.InitialContext;
 
-import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 
 
 
@@ -107,7 +107,7 @@ public class PidCacheServiceTest
 		client.getState().setCredentials(new AuthScope(domain, port), new UsernamePasswordCredentials(PropertyReader.getProperty("escidoc.pidcache.user.name"), PropertyReader.getProperty("escidoc.pidcache.user.password")));
 		method.setDoAuthentication(true);
 		
-    	client.executeMethod(method);
+    	ProxyHelper.executeMethod(client, method);
 		PidServiceResponseVO pidServiceResponseVO = xmlTransforming.transformToPidServiceResponse(method.getResponseBodyAsString());
 		assertNotNull(method.getResponseHeader("Location").getValue());
 		logger.info("Location: " +  method.getResponseHeader("Location").getValue());
@@ -123,7 +123,7 @@ public class PidCacheServiceTest
 		logger.info("TEST UPDATE PID " + testIdentifier + " with new URL: " + testUrl);
 		PostMethod method = new PostMethod(CACHE_PIDSERVICE.concat(PIDSERVICE_EDIT).concat("?pid=").concat(testIdentifier));
 		method.setParameter("url", testUrl);
-    	client.executeMethod(method);
+    	ProxyHelper.executeMethod(client, method);
 		PidServiceResponseVO pidServiceResponseVO = xmlTransforming.transformToPidServiceResponse(method.getResponseBodyAsString());
 		assertNotNull(method.getResponseHeader("Location").getValue());
 		logger.info("Location: " +  method.getResponseHeader("Location").getValue());
