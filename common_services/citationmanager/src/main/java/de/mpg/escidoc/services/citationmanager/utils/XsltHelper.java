@@ -53,6 +53,7 @@ import de.mpg.escidoc.services.citationmanager.data.FontStyle;
 import de.mpg.escidoc.services.citationmanager.data.FontStylesCollection;
 import de.mpg.escidoc.services.citationmanager.data.Pair;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 
 /**
  * Function extensions for the citationmanager XSLTs
@@ -205,8 +206,8 @@ public class XsltHelper {
 		logger.info("cone query:" + coneQuery);
 		GetMethod getMethod = new GetMethod(coneQuery);
 
-		client.executeMethod(getMethod);
-
+		ProxyHelper.executeMethod(client, getMethod);
+		
 		XMLReader xr;
 
 		xr = XMLReaderFactory.createXMLReader();
