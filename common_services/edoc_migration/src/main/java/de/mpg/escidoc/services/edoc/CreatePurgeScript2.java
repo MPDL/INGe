@@ -33,27 +33,14 @@ package de.mpg.escidoc.services.edoc;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.StringTokenizer;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.rpc.ServiceException;
-
-import org.apache.axis.encoding.Base64;
-import org.apache.commons.httpclient.Cookie;
-import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
-import org.apache.commons.httpclient.cookie.CookieSpec;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 
 
 /**
@@ -90,7 +77,7 @@ public class CreatePurgeScript2
         postMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
         postMethod.setRequestBody(filter);
         
-        httpClient.executeMethod(postMethod);
+        ProxyHelper.executeMethod(httpClient, postMethod);
         String response = postMethod.getResponseBodyAsString();
         logger.info("...done!");
         

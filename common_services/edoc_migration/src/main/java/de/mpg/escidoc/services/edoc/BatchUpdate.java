@@ -38,6 +38,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 
 
 /**
@@ -78,11 +79,10 @@ public class BatchUpdate
         
         postMethod.setRequestBody(filter);
         
-        httpClient.executeMethod(postMethod);
+        ProxyHelper.executeMethod(httpClient, postMethod);
         
 //        GetMethod getMethod = new GetMethod(CORESERVICES_URL + "/ir/item/escidoc:100220");
-//        getMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
-//        httpClient.executeMethod(getMethod);
+//        getMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle)ProxyHelper.executeMethod(httpClient, getMethod)hod(httpClient, getMethod);
         
         String response = postMethod.getResponseBodyAsString();
         logger.info("...done!");
@@ -114,8 +114,7 @@ public class BatchUpdate
                 
                 putMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
                 putMethod.setRequestEntity(new StringRequestEntity(item));
-                
-                httpClient.executeMethod(putMethod);
+                ProxyHelper.executeMethod(httpClient, putMethod);
                 
                 String result = putMethod.getResponseBodyAsString();
                 
@@ -129,7 +128,7 @@ public class BatchUpdate
                 postMethod = new PostMethod(CORESERVICES_URL + objId + "/assign-version-pid");
                 postMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
                 postMethod.setRequestEntity(new StringRequestEntity(param));
-                httpClient.executeMethod(postMethod);
+                ProxyHelper.executeMethod(httpClient, postMethod);
                 result = postMethod.getResponseBodyAsString();
                 //System.out.println("Result: " + result);
                 
@@ -141,7 +140,7 @@ public class BatchUpdate
                 postMethod = new PostMethod(CORESERVICES_URL + objId + "/submit");
                 postMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
                 postMethod.setRequestEntity(new StringRequestEntity(param));
-                httpClient.executeMethod(postMethod);
+                ProxyHelper.executeMethod(httpClient, postMethod);
                 result = postMethod.getResponseBodyAsString();
                 //System.out.println("Result: " + result);
                 
@@ -153,7 +152,7 @@ public class BatchUpdate
                 postMethod = new PostMethod(CORESERVICES_URL + objId + "/release");
                 postMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
                 postMethod.setRequestEntity(new StringRequestEntity(param));
-                httpClient.executeMethod(postMethod);
+                ProxyHelper.executeMethod(httpClient, postMethod);
                 result = postMethod.getResponseBodyAsString();
                 //System.out.println("Result: " + result);
                 System.out.println("...changed");

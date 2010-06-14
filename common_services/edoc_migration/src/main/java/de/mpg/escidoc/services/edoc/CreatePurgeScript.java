@@ -38,6 +38,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 
 
 /**
@@ -67,7 +68,7 @@ public class CreatePurgeScript
         logger.info("Querying core-services...");
         HttpClient httpClient = new HttpClient();
         GetMethod getMethod = new GetMethod(CORESERVICES_URL + "/srw/search/escidoc_all?maximumRecords=10000&query=escidoc.context.objid=" + IMPORT_CONTEXT);
-        httpClient.executeMethod(getMethod);
+        ProxyHelper.executeMethod(httpClient, getMethod);
         String response = getMethod.getResponseBodyAsString();
         logger.info("...done!");
         

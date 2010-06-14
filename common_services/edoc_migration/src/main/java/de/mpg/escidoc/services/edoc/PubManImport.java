@@ -32,27 +32,15 @@ package de.mpg.escidoc.services.edoc;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import javax.naming.InitialContext;
-import javax.servlet.http.HttpServletResponse;
-import javax.swing.plaf.SliderUI;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import javax.xml.rpc.ServiceException;
 
-import org.apache.axis.encoding.Base64;
-import org.apache.commons.httpclient.Cookie;
-import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
-import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
@@ -63,8 +51,8 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.AdminHelper;
-import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.validation.ItemValidating;
 
 /**
@@ -191,7 +179,7 @@ public class PubManImport extends Thread
         String body = "<param last-modification-date=\"" + lastModificationDate + "\"><comment>Release comment.</comment></param>";
 
         postMethod.setRequestEntity(new StringRequestEntity(body));
-        httpClient.executeMethod(postMethod);
+        ProxyHelper.executeMethod(httpClient, postMethod);
         
         String response = postMethod.getResponseBodyAsString();
         
@@ -211,7 +199,7 @@ public class PubManImport extends Thread
         String body = "<param last-modification-date=\"" + lastModificationDate + "\"><url>http://localhost:8080/album/core/ir/item/" + id + "</url></param>";
 
         postMethod.setRequestEntity(new StringRequestEntity(body));
-        httpClient.executeMethod(postMethod);
+        ProxyHelper.executeMethod(httpClient, postMethod);
         
         String response = postMethod.getResponseBodyAsString();
         
@@ -231,8 +219,8 @@ public class PubManImport extends Thread
         String body = "<param last-modification-date=\"" + lastModificationDate + "\"><url>http://qa-pubman.mpdl.mpg.de:8080/faces/item/" + id + "</url></param>";
 
         postMethod.setRequestEntity(new StringRequestEntity(body));
-        httpClient.executeMethod(postMethod);
-        
+        ProxyHelper.executeMethod(httpClient, postMethod);
+                
         String response = postMethod.getResponseBodyAsString();
         
         if (postMethod.getStatusCode() != 200)
@@ -251,8 +239,8 @@ public class PubManImport extends Thread
         String body = "<param last-modification-date=\"" + lastModificationDate + "\"><comment>Submit comment.</comment></param>";
 
         postMethod.setRequestEntity(new StringRequestEntity(body));
-        httpClient.executeMethod(postMethod);
-        
+        ProxyHelper.executeMethod(httpClient, postMethod);
+                
         String response = postMethod.getResponseBodyAsString();
         
         if (postMethod.getStatusCode() != 200)
@@ -289,7 +277,9 @@ public class PubManImport extends Thread
         method.addRequestHeader("Cookie", "escidocCookie=" + userHandle);
 
         method.setRequestEntity(new StringRequestEntity(itemXml));
-        httpClient.executeMethod(method);
+        ProxyHelper.executeMethod(httpClient, method);
+        
+        
         String response = method.getResponseBodyAsString();
         
         if (method.getStatusCode() != 200)
