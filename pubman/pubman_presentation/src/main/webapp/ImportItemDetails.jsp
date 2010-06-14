@@ -37,7 +37,7 @@
 			
 		<div class="xHuge_area2_p8 messageArea" style="height: 28.37em; overflow-y: auto;">
 
-			<input type="button" id="btnClose" onclick="$.closeDialog()" value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn" style="position: fixed;"/>
+			<input type="button" id="btnClose" onclick="$.closeDialog()" value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
 
 			<h2><h:outputText value="#{lbl.import_workspace_details}"/></h2>
 			
