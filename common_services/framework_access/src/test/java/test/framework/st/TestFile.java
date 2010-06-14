@@ -50,6 +50,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 
 import test.framework.TestBase;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -77,7 +78,7 @@ public class TestFile extends TestBase
         method.setRequestHeader("Cookie", "escidocCookie=" + handle);
         // Execute the method with HttpClient.
         HttpClient client = new HttpClient();
-        client.executeMethod(method);
+        ProxyHelper.executeMethod(client, method);
         logger.debug("Status=" + method.getStatusCode()); // >= HttpServletResponse.SC_MULTIPLE_CHOICE 300 ???
         assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
         String response = method.getResponseBodyAsString();
@@ -134,7 +135,7 @@ public class TestFile extends TestBase
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
         // Execute the method with HttpClient.
         HttpClient client = new HttpClient();
-        client.executeMethod(method);
+        ProxyHelper.executeMethod(client, method);
         logger.debug("Status=" + method.getStatusCode());
         assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
         Header contentTypeHeader = method.getResponseHeader("Content-Type");

@@ -30,14 +30,20 @@
 
 package de.mpg.escidoc.services.framework;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.SocketAddress;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.URIException;
 import org.apache.log4j.Logger;
 
 
@@ -122,6 +128,37 @@ public class ProxyHelper
 		
 		return proxy;
 	}
+	
+	/**
+	 *
+	 * Wrapper for executeMethod with Proxy
+	 *  
+	 * @param client, methopd
+	 * @throws IOException 
+	 * @throws HttpException 
+	 */	
+	public static int executeMethod(HttpClient client, HttpMethod method) throws HttpException, IOException  
+	{
+		setProxy(client, method.getURI().toString());
+		return ProxyHelper.executeMethod(client, method);
+	}
+	
+	/**
+	 * Returns <code>java.net.URLConnection</code> with the Proxy settings
+	 * creation
+	 *
+	 * @param url url
+	 * @throws IOException 
+	 *
+	 * @throws Exception
+	 * @return URLConnection
+	 */	
+	public static URLConnection openConnection(final URL url) throws IOException 
+	{
+		
+		return url.openConnection(getProxy(url.toString()));
+	}	
+	
 	
 	
 	/**

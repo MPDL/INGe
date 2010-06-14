@@ -111,15 +111,13 @@ public class AdminHelper
         }
         HttpClient client = new HttpClient();
         
-        ProxyHelper.setProxy(client, frameworkUrl);
-        
         client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
         
         PostMethod login = new PostMethod( frameworkUrl + "/aa/j_spring_security_check");
         login.addParameter("j_username", userid);
         login.addParameter("j_password", password);
         
-        client.executeMethod(login);
+        ProxyHelper.executeMethod(client, login);
                 
         login.releaseConnection();
         CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
@@ -132,7 +130,7 @@ public class AdminHelper
         PostMethod postMethod = new PostMethod( frameworkUrl + "/aa/login");
         postMethod.addParameter("target", frameworkUrl);
         client.getState().addCookie(sessionCookie);
-        client.executeMethod(postMethod);
+        ProxyHelper.executeMethod(client, postMethod);
       
         if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
         {

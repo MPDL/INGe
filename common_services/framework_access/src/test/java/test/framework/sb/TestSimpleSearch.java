@@ -45,6 +45,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 
 import test.framework.om.TestItemBase;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -374,7 +375,7 @@ public class TestSimpleSearch extends TestItemBase
 
         // Execute the method with HttpClient.
         HttpClient client = new HttpClient();
-        client.executeMethod(method);
+        ProxyHelper.executeMethod(client, method);
         logger.debug("Status=" + method.getStatusCode()); // >= HttpServletResponse.SC_MULTIPLE_CHOICE 300 ???
         assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
         String response = method.getResponseBodyAsString();

@@ -43,6 +43,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -82,7 +83,7 @@ public class FrameworkEncodingTest
         GetMethod getMethod = new GetMethod(ServiceLocator.getFrameworkUrl()
                 + "/oum/organizational-unit/escidoc:persistent1");
         HttpClient client = new HttpClient();
-        client.executeMethod(getMethod);
+        ProxyHelper.executeMethod(client, getMethod);
 
         int statusCode = getMethod.getStatusCode();
         String responseBody = getMethod.getResponseBodyAsString();

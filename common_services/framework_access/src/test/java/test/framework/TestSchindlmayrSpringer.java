@@ -71,6 +71,7 @@ import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.escidoc.core.common.exceptions.system.XmlParserSystemException;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -98,7 +99,7 @@ public class TestSchindlmayrSpringer extends TestItemBase
         method.setRequestHeader("Content-Type", MIME_TYPE);
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
         HttpClient client = new HttpClient();
-        client.executeMethod(method);
+        ProxyHelper.executeMethod(client, method);
         logger.debug("Status=" + method.getStatusCode());
         assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
         String response = method.getResponseBodyAsString();
@@ -137,7 +138,7 @@ public class TestSchindlmayrSpringer extends TestItemBase
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
         // Execute the method with HttpClient.
         HttpClient client = new HttpClient();
-        client.executeMethod(method);
+        ProxyHelper.executeMethod(client, method);
         logger.debug("Status=" + method.getStatusCode());
         assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
         Header contentTypeHeader = method.getResponseHeader("Content-Type");
