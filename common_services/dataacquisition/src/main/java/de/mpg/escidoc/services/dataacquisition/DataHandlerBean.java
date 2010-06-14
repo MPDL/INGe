@@ -68,6 +68,7 @@ import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableExce
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.exceptions.FormatNotSupportedException;
@@ -448,7 +449,7 @@ public class DataHandlerBean implements DataHandler
         ZipOutputStream zos = new ZipOutputStream(baos);
         try
         {
-            conn = url.openConnection();
+            conn = ProxyHelper.openConnection(url);
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
@@ -471,7 +472,7 @@ public class DataHandlerBean implements DataHandler
                     // Fetch file
                     GetMethod method = new GetMethod(url.toString());
                     HttpClient client = new HttpClient();
-                    client.executeMethod(method);
+                    ProxyHelper.executeMethod(client, method);
                     input = method.getResponseBody();
                     httpConn.disconnect();
                     // Create zip file with fetched file
@@ -619,7 +620,7 @@ public class DataHandlerBean implements DataHandler
         byte[] input = null;
         try
         {
-            conn = fulltext.getFtUrl().openConnection();
+            conn = ProxyHelper.openConnection(fulltext.getFtUrl());
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
@@ -638,7 +639,7 @@ public class DataHandlerBean implements DataHandler
                     this.logger.info("Source responded with 200.");
                     GetMethod method = new GetMethod(fulltext.getFtUrl().toString());
                     HttpClient client = new HttpClient();
-                    client.executeMethod(method);
+                    ProxyHelper.executeMethod(client, method);
                     input = method.getResponseBody();
                     httpConn.disconnect();
                     break;
@@ -697,7 +698,7 @@ public class DataHandlerBean implements DataHandler
         BufferedReader bReader;
         try
         {
-            conn = md.getMdUrl().openConnection();
+            conn = ProxyHelper.openConnection(md.getMdUrl());
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
@@ -827,7 +828,7 @@ public class DataHandlerBean implements DataHandler
             }  
             
             PubItemVO itemVO = xmlTransforming.transformToPubItem(itemXML);
-            contentUrl = new URL(coreservice + itemVO.getFiles().get(0).getContent()).openConnection();
+            contentUrl = ProxyHelper.openConnection(new URL(coreservice + itemVO.getFiles().get(0).getContent()));
             HttpURLConnection httpConn = (HttpURLConnection) contentUrl;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
@@ -844,7 +845,7 @@ public class DataHandlerBean implements DataHandler
                     this.logger.info("Source responded with 200.");
                     GetMethod method = new GetMethod(coreservice + itemVO.getFiles().get(0).getContent());
                     HttpClient client = new HttpClient();
-                    client.executeMethod(method);
+                    ProxyHelper.executeMethod(client, method);
                     input = method.getResponseBody();
                     httpConn.disconnect();
                     break;
@@ -889,7 +890,7 @@ public class DataHandlerBean implements DataHandler
         BufferedReader bReader;
         try
         {
-            conn = md.getMdUrl().openConnection();
+            conn = ProxyHelper.openConnection(md.getMdUrl());
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
@@ -971,7 +972,7 @@ public class DataHandlerBean implements DataHandler
 
         try
         {
-            contentUrl = new URL(coreservice + url).openConnection();
+            contentUrl = ProxyHelper.openConnection(new URL(coreservice + url));
             HttpURLConnection httpConn = (HttpURLConnection) contentUrl;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
@@ -984,7 +985,7 @@ public class DataHandlerBean implements DataHandler
                     this.logger.info("Source responded with 200.");
                     GetMethod method = new GetMethod(coreservice + url);
                     HttpClient client = new HttpClient();
-                    client.executeMethod(method);
+                    ProxyHelper.executeMethod(client, method);
                     input = method.getResponseBody();
                     httpConn.disconnect();
                     break;
@@ -1021,7 +1022,7 @@ public class DataHandlerBean implements DataHandler
         
         try
         {
-            conn = ft.getFtUrl().openConnection();
+            conn = ProxyHelper.openConnection(ft.getFtUrl());
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
@@ -1038,7 +1039,7 @@ public class DataHandlerBean implements DataHandler
                     this.logger.info("Source responded with 200.");
                     GetMethod method = new GetMethod(ft.getFtUrl().toString());
                     HttpClient client = new HttpClient();
-                    client.executeMethod(method);
+                    ProxyHelper.executeMethod(client, method);
                     input = method.getResponseBody();
                     httpConn.disconnect();
                     break;

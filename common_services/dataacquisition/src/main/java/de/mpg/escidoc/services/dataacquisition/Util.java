@@ -53,6 +53,7 @@ import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
@@ -623,7 +624,7 @@ public class Util
 
             URL coneUrl = new URL(PropertyReader.getProperty("escidoc.cone.service.url") + "/" 
                     + this.coneMethod + this.coneRel1 + mimeType + this.coneRel2);
-            conn = coneUrl.openConnection();
+            conn = ProxyHelper.openConnection(coneUrl);
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
