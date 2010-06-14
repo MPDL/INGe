@@ -14,6 +14,7 @@ public class UserAgentAnalyser
                 if (c == ' ' || c=='/') break;
                 if (c == ';' || c==')') return "";
                 status = 1;
+                break;
               case 1: // Version number in progress
                 if (c == ';' || c=='/' || c==')' || c=='(' || c=='[') return res.toString().trim();
                 if (c == ' ') status = 2;
