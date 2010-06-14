@@ -40,30 +40,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
 import java.util.Random;
-import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.rpc.ServiceException;
 
-import org.apache.axis.encoding.Base64;
-import org.apache.commons.httpclient.Cookie;
-import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
-import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 import org.apache.tools.tar.TarEntry;
 import org.apache.tools.tar.TarOutputStream;
@@ -80,6 +69,7 @@ import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
@@ -789,7 +779,7 @@ public class Export implements ExportHandler {
 		    
 		          // Execute the method with HttpClient.
 		          HttpClient client = new HttpClient();
-		          client.executeMethod(method);
+		          ProxyHelper.executeMethod(client, method);
 		          
 		          int status = method.getStatusCode();
 		          logger.info("Status=" + status);
