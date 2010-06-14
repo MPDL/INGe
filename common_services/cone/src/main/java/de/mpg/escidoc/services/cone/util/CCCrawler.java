@@ -41,6 +41,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
+import de.mpg.escidoc.services.framework.ProxyHelper;
 
 /**
  * TODO Description
@@ -112,7 +113,7 @@ public class CCCrawler
                         + "&lang=de_DE";
                     System.out.println(licenceUrl);
                     GetMethod method = new GetMethod(licenceUrl);
-                    httpClient.executeMethod(method);
+                    ProxyHelper.executeMethod(httpClient, method);
                     
                     if (method.getStatusCode() == 200)
                     {
@@ -161,7 +162,7 @@ public class CCCrawler
                             }
                             
                             GetMethod method2 = new GetMethod(url);
-                            httpClient.executeMethod(method2);
+                            ProxyHelper.executeMethod(httpClient, method2);
                             String page = method2.getResponseBodyAsString();
                             
                             Pattern namePattern = Pattern.compile("<h2 property=\"dc:title\">([^<]+)</h2>");
@@ -223,7 +224,7 @@ public class CCCrawler
             treeFragment.put("urn:cone:locale", list);
             
             GetMethod method = new GetMethod(url);
-            httpClient.executeMethod(method);
+            ProxyHelper.executeMethod(httpClient, method);
             String translation = method.getResponseBodyAsString();
             
             Pattern namePattern = Pattern.compile("<h2 property=\"dc:title\">([^<]+)</h2>");
