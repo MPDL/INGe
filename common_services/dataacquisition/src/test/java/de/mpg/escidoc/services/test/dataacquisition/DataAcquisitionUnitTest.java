@@ -110,10 +110,12 @@ public class DataAcquisitionUnitTest
         DataSourceVO test = sourceHandler.getSourceByIdentifier("arXiv");
         
         List <MetadataVO> formats = test.getMdFormats();
+        byte[] ret;
         
         for (int i = 0; i < formats.size(); i++)
         {
-            byte[] ret = this.datahandler.doFetch("arxiv", this.arxivId, formats.get(i).getName());
+            ret = null;
+            ret = this.datahandler.doFetch("arxiv", this.arxivId, formats.get(i).getName());
             Assert.assertNotNull(ret);
         }       
     }
