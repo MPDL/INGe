@@ -489,7 +489,7 @@ public class METSTransformation
                 get.setFollowRedirects(false);
                 get.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
                 HttpClient client = new HttpClient();
-                client.executeMethod(get);
+                ProxyHelper.executeMethod(client, get);
                 if (get.getStatusCode() == HttpServletResponse.SC_OK)
                 {
                     toc = TocDocument.Factory.parse(get.getResponseBodyAsStream());

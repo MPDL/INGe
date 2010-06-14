@@ -318,11 +318,8 @@ public class Util
             String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                 + model + "/resource/$1?format=rdf";
             HttpClient client = new HttpClient();
-            
-            ProxyHelper.setProxy(client, queryUrl);
-            
             GetMethod method = new GetMethod(queryUrl);
-            client.executeMethod(method);
+            ProxyHelper.executeMethod(client, method);
             if (method.getStatusCode() == 200)
             {
                 String[] results = method.getResponseBodyAsString().split("\n");
@@ -334,7 +331,6 @@ public class Util
                         GetMethod detailMethod = new GetMethod(detailsUrl.replace("$1", id));
                         
                         ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
-                        
                         client.executeMethod(detailMethod);
                         if (detailMethod.getStatusCode() == 200)
                         {
@@ -375,7 +371,7 @@ public class Util
         try
         {
             logger.info("Getting size of " + url);
-            httpClient.executeMethod(headMethod);
+            ProxyHelper.executeMethod(httpClient, headMethod);
             
             if (headMethod.getStatusCode() != 200)
             {
@@ -415,7 +411,7 @@ public class Util
                 + "json/escidocmimetypes/details/";
             HttpClient client = new HttpClient();
             GetMethod method = new GetMethod(queryUrl);
-            client.executeMethod(method);
+            ProxyHelper.executeMethod(client, method);
             if (method.getStatusCode() == 200)
             {
                 String[] results = method.getResponseBodyAsString().split("\n");
@@ -425,7 +421,7 @@ public class Util
                     {
                         String id = result.split("\\|")[1];
                         GetMethod detailMethod = new GetMethod(detailsUrl + id);
-                        client.executeMethod(detailMethod);
+                        ProxyHelper.executeMethod(client, detailMethod);
                         if (detailMethod.getStatusCode() == 200)
                         {
                             String response = detailMethod.getResponseBodyAsString();

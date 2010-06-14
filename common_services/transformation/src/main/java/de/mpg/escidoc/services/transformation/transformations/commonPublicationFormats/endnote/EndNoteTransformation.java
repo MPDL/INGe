@@ -56,10 +56,10 @@ public class EndNoteTransformation implements Transformation
             	EndNoteImport endnote = new EndNoteImport();
             	output = endnote.transformEndNote2XML(endnoteSource);
             	
-/*FileOutputStream fos = new FileOutputStream("target/endnote.xml");
-fos.write(output.getBytes("UTF-8"));
-fos.close();
-*/            	            	
+//FileOutputStream fos = new FileOutputStream("endnote.xml");
+//fos.write(output.getBytes("UTF-8"));
+//fos.close();
+            	            	
             	TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
             	
             	String fileName;
