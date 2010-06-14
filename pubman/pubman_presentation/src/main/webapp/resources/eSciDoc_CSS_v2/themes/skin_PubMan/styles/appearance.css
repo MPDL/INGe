@@ -574,6 +574,7 @@ FORM BG			#FFFFFF
 	
 	.fixMessageBlockBtn, .fixErrorMessageBlockBtn, .fixSuccessMessageBlockBtn {
 		float: right;
+		overflow: auto;
 		background-color: #FFFFFF;
 	}
 	
