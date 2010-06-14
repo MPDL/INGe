@@ -598,7 +598,7 @@ public class Feed extends SyndFeedImpl
 		URLConnection uconn;
 		try 
 		{
-			uconn = url.openConnection(ProxyHelper.getProxy(url.toString())); 
+			uconn = ProxyHelper.openConnection(url); 
 			if ( !(uconn instanceof HttpURLConnection) )
 	            throw new IllegalArgumentException(
 	                "URL protocol must be HTTP." 
