@@ -150,13 +150,21 @@
 						var vocab = $(options.vocab).val().toLowerCase();
 						vocab = vocab.substring(vocab.lastIndexOf("/"));
 						
+						var source = options.source;
+						var data = "format=json&lang="+lang+"&q="+escape(q)
+						if (source.indexOf('?') >= 0)
+						{
+							data = source.substring(source.indexOf('?') + 1) + '&' + data;
+							source = source.substring(0, source.indexOf('?'));
+						}
+
 						$.ajax({
 							processData: false,
 							type: "GET",
 							dataType: "json",
-							url: (options.vocab == null ? options.source : options.source.replace('\$1', vocab)),
-							data: "format=json&lang="+lang+"&q="+escape(q),
-							success: function(result){
+							url: (options.vocab == null ? source : source.replace('\$1', vocab)),
+							data: data,
+							success: function(result) {
 									$results.hide();
 									var items = parseJSON(result, q);
 									displayItems(items);
@@ -235,27 +243,27 @@
 							
 			}
 			
-			function parseJSON(jsonObject, q){
+			function parseJSON(jsonObject, q) {
 				var items = [];
 
 				var queryParts = q.split(' ');
-				
+
 				var expression = "";
 				for(var i = 0; i < queryParts.length; i++) {
 					if(queryParts[i] != ""){
 						expression =  expression + queryParts[i] + "|";
 					}
 				}
-				
+
 				for (var i = 0; i < jsonObject.length; i++) {
 					jsonObject[i].value = jsonObject[i].value.replace(
 							new RegExp(expression, 'ig'), 
 							function(q) { return '<span class="' + options.matchClass + '">' + q + '</span>' }
 							);
 
-					items[items.length] = new Array(jsonObject[i].value, jsonObject[i].id);
+					items[items.length] = new Array(jsonObject[i].value, jsonObject[i].id, jsonObject.language);
 				}
-				
+
 				return items;
 			}
 			
@@ -317,7 +325,7 @@
 						item[0] = $.trim(item[0]);
 						//alert(item[0] + '==' + result + " : " + (item[0]==result));
 						if (item[0] == result) {
-							id = item[1];
+							id = new Array(item[1], item[2]);
 							break;
 						}
 					}
@@ -333,7 +341,9 @@
 			
 				if ($currentResult) {
 					$input.val($currentResult.text());
-					$input.resultID = getResultID($currentResult.text());
+					var resultArr = getResultID($currentResult.text());
+					$input.resultID = resultArr[0];
+					$input.resultLanguage = resultArr[1];
 					$input.resultValue = $currentResult.text();
 					$results.hide();
 					

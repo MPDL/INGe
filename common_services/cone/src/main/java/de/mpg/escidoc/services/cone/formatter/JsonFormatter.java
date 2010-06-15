@@ -54,6 +54,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.Describable;
+import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -169,6 +170,13 @@ public class JsonFormatter extends Formatter
                         throw new RuntimeException(e);
                     }
                     result.append("\",\n");
+                    
+                    if  (value instanceof LocalizedString && ((LocalizedString) value).getLanguage() != null)
+                    {
+                        result.append("\t\t\"language\" : \"");
+                        result.append(((LocalizedString) value).getLanguage().replace("\"", "\\\""));
+                        result.append("\",\n");
+                    }
                     
                     result.append("\t\t\"value\" : \"");
                     result.append(value.toString().replace("\"", "\\\""));

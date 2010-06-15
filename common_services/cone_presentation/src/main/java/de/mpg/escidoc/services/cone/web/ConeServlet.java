@@ -62,6 +62,7 @@ package de.mpg.escidoc.services.cone.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
@@ -112,8 +113,10 @@ public class ConeServlet extends HttpServlet
     private static final Set<String> RESERVED_PARAMETERS = new HashSet<String>()
     {
     	{
-    		this.add("m");
-    		this.add("mode");
+            this.add("f");
+            this.add("format");
+            this.add("m");
+            this.add("mode");
     		this.add("n");
     		this.add("number");
     		this.add("l");
@@ -250,7 +253,7 @@ public class ConeServlet extends HttpServlet
         
         if ("query".equals(action))
         {
-            String query = (request.getParameter("query") != null ? request.getParameter("query") : request.getParameter("q"));
+            String query = fixURLEncoding(request.getParameter("query") != null ? request.getParameter("query") : request.getParameter("q"));
             int limit = -1;
             String mode = (request.getParameter("mode") != null ? request.getParameter("mode") : request.getParameter("m"));
             Querier.ModeType modeType = Querier.ModeType.FAST;
@@ -276,12 +279,12 @@ public class ConeServlet extends HttpServlet
                 }
                 else
                 {
-                    ArrayList<Pair> searchFields = new ArrayList<Pair>();
+                    ArrayList<Pair<String>> searchFields = new ArrayList<Pair<String>>();
                     for (Object key : request.getParameterMap().keySet())
                     {
                         if (!RESERVED_PARAMETERS.contains(key))
                         {
-                            searchFields.add(new Pair(key.toString(), request.getParameter(key.toString())));
+                            searchFields.add(new Pair<String>(key.toString(), fixURLEncoding(request.getParameter(key.toString()))));
                         }
                     }
                     queryFieldsAction(searchFields.toArray(new Pair[]{}), limit, lang, modeType, response, model, loggedIn);
@@ -328,6 +331,31 @@ public class ConeServlet extends HttpServlet
         }
     }
 
+    /**
+     * Transforms broken ISO-8859-1 strings into (hopefully) correct UTF-8 strings.
+     * 
+     * @param brokenValue
+     * @return
+     */
+    private String fixURLEncoding(String brokenValue)
+    {
+        if (brokenValue != null)
+        {
+            try
+            {
+                return new String(brokenValue.getBytes("ISO-8859-1"), "UTF-8");
+            }
+            catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
+    
     /**
      * Retrieve the whole list of entities.
      * 

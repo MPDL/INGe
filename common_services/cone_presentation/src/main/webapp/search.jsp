@@ -27,6 +27,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
+<%@page import="de.mpg.escidoc.services.cone.util.LocalizedString"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
@@ -158,7 +159,7 @@
 													<div class="free_area0 endline itemLine">
 												<% }; i++; %>
 													<b class="xHuge_area0 large_marginLIncl endline clear">
-														<a href="view.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>"><%= pair.getValue() %></a>
+														<a href="view.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>"><%= pair.getValue().toString() %></a>
 													</b>
 													
 													<%	for (ModelList.Model model : ModelList.getInstance().getList()) {
