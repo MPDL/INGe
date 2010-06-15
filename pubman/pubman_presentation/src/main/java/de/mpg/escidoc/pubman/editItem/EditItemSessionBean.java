@@ -336,11 +336,13 @@ public class EditItemSessionBean extends FacesBean
         this.showAuthorCopyPaste = showAuthorCopyPaste;
     }
 
-	public String getCurrentSubmission() {
+	public String getCurrentSubmission()
+	{
 		return currentSubmission;
 	}
 
-	public void setCurrentSubmission(String currentSubmission) {
+	public void setCurrentSubmission(String currentSubmission)
+	{
 		this.currentSubmission = currentSubmission;
 	}
 

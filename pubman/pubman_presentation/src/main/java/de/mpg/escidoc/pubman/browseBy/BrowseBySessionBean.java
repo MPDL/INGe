@@ -37,7 +37,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.model.SelectItem;
@@ -86,6 +91,8 @@ public class BrowseBySessionBean extends FacesBean
     private String query ="q";
     private String dateType = "published";
     private String pubContentModel = "";
+    
+    Character[] characters = null;
 
     private List<String> browseByYears;
     private HtmlSelectOneRadio dateSelect = new HtmlSelectOneRadio();
@@ -186,8 +193,22 @@ public class BrowseBySessionBean extends FacesBean
     {
         if (!this.selectedValue.equals("year"))
         {
-            if (this.getConeAll().size() > this.getMaxDisplay())
+            List<LinkVO> all = this.getConeAll();
+            if (all.size() > this.getMaxDisplay())
             {
+                SortedSet<Character> characters = new TreeSet<Character>();
+                for (LinkVO linkVO : all)
+                {
+                    Character chr = new Character(linkVO.getLabel().toUpperCase().charAt(0));
+                    if (!characters.contains(chr))
+                    {
+                        logger.info("new character: " + linkVO.getLabel());
+                        characters.add(chr);
+                    }
+                }
+                
+                this.characters = characters.toArray(new Character[]{});
+                
                 this.showChars = true;
             }
             else this.showChars = false;
@@ -206,7 +227,7 @@ public class BrowseBySessionBean extends FacesBean
         
         try
         {
-            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url") +this.selectedValue + "/all?format=options");           
+            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url") +this.selectedValue + "/all?format=options&lang=*");           
             URLConnection conn = coneUrl.openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
@@ -502,6 +523,16 @@ public class BrowseBySessionBean extends FacesBean
     public String getPubContentModel()
     {
         return pubContentModel;
+    }
+
+    public Character[] getCharacters()
+    {
+        return characters;
+    }
+
+    public void setCharacters(Character[] characters)
+    {
+        this.characters = characters;
     }
 
 }

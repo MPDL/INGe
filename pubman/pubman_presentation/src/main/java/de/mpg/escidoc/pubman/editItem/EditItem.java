@@ -362,6 +362,15 @@ public class EditItem extends FacesBean
             if (pubItem.getMetadata() != null && pubItem.getMetadata().getCreators() != null)
             for (CreatorVO creatorVO : pubItem.getMetadata().getCreators())
             {
+                if (creatorVO.getType() == CreatorType.PERSON && creatorVO.getPerson() == null)
+                {
+                    creatorVO.setPerson(new PersonVO());
+                }
+                else if (creatorVO.getType() == CreatorType.ORGANIZATION && creatorVO.getOrganization() == null)
+                {
+                    creatorVO.setOrganization(new OrganizationVO());
+                }
+                    
                 if (creatorVO.getType() == CreatorType.PERSON && creatorVO.getPerson().getOrganizations() != null)
                 {
                     for (OrganizationVO organizationVO : creatorVO.getPerson().getOrganizations())
@@ -2108,7 +2117,6 @@ public class EditItem extends FacesBean
         if (overwrite)
         {
             creatorCollection.getCreatorManager().getObjectList().clear();
-            creatorCollection.getParentVO().clear();
         }
         
         CreatorManager creatorManager = creatorCollection.getCreatorManager();
@@ -2121,7 +2129,6 @@ public class EditItem extends FacesBean
             if (creatorVO.getPerson() != null && "".equals(creatorVO.getPerson().getFamilyName()) && "".equals(creatorVO.getPerson().getGivenName()) && (creatorVO.getPerson().getOrganizations().get(0).getName().getValue() == null || "".equals(creatorVO.getPerson().getOrganizations().get(0).getName().getValue())))
             {
                 creatorManager.getObjectList().remove(lastCreatorBean);
-                creatorCollection.getParentVO().remove(creatorCollection.getParentVO().size() - 1);
             }
         }
         

@@ -31,6 +31,7 @@
 package de.mpg.escidoc.pubman.editItem.bean;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -53,28 +54,10 @@ public class CreatorCollection
     
     private List<CreatorVO> parentVO;
     private CreatorManager creatorManager;
-    
-    public CreatorCollection()
-    {
-        // ensure the parentVO is never null;
-        this(new ArrayList<CreatorVO>());
-    }
 
-    public CreatorCollection(List<CreatorVO> parentVO)
+    public CreatorCollection(List<CreatorVO> list)
     {
-        setParentVO(parentVO);
-    }
-
-    public List<CreatorVO> getParentVO()
-    {
-        return parentVO;
-    }
-
-    public void setParentVO(List<CreatorVO> parentVO)
-    {
-        this.parentVO = parentVO;
-        // ensure proper initialization of our DataModelManager
-        creatorManager = new CreatorManager(parentVO);
+        creatorManager = new CreatorManager(list);
     }
     
     /**
@@ -83,16 +66,19 @@ public class CreatorCollection
      */
     public class CreatorManager extends DataModelManager<CreatorBean>
     {
-        protected List<CreatorVO> parentVO;
-        
-        public CreatorManager(List<CreatorVO> parentVO)
+
+        public CreatorManager(List<CreatorVO> list)
         {
-            setParentVO(parentVO);
+            this.objectList = new ArrayList<CreatorBean>();
+            for (CreatorVO creatorVO : list)
+            {
+                CreatorBean creatorBean = new CreatorBean(creatorVO);
+                this.objectList.add(creatorBean);
+            }
         }
         
         public CreatorBean createNewObject()
         {
-            int i = objectDM.getRowIndex();
             CreatorVO newVO = new CreatorVO();
             newVO.setPerson(new PersonVO());
             // create a new Organization for this person
@@ -102,16 +88,7 @@ public class CreatorCollection
             newVO.getPerson().getOrganizations().add(newPersonOrganization);
 
             CreatorBean creatorBean = new CreatorBean(newVO);
-            // we do not have direct access to the original list
-            // so we have to add the new VO on our own
-//            if (parentVO.size() > 0)
-//            {
-//                parentVO.add(i + 1, newVO);
-//            }
-//            else
-//            {
-                parentVO.add(newVO);
-//            }
+
             return creatorBean;
         }
         
@@ -140,19 +117,6 @@ public class CreatorCollection
             return beanList;
             */
         //}
-
-        
-        public void setParentVO(List<CreatorVO> parentVO)
-        {
-            this.parentVO = parentVO;
-            // we have to wrap all VO's into a nice CreatorBean
-            List<CreatorBean> beanList = new ArrayList<CreatorBean>();
-            for (CreatorVO creatorVO : parentVO)
-            {
-                beanList.add(new CreatorBean(creatorVO));
-            }
-            setObjectList(beanList);
-        }
         
         public int getSize()
         {

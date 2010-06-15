@@ -791,7 +791,6 @@ public class ItemControllerSessionBean extends FacesBean
             newPersonOrganization.setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
             newPerson.getOrganizations().add(newPersonOrganization);
             
-            newCreator.setOrganization(null);
             newCreator.setPerson(newPerson);
             newPubItem.getMetadata().getCreators().add(newCreator);
         }

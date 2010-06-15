@@ -432,4 +432,24 @@ public class CreatorBean extends FacesBean
 	        this.ouNumber = creatorOrganizations.size() + "";
     	}
     }
+    
+    public String getCreatorPersonFamilyName()
+    {
+        return getCreator().getPerson().getFamilyName();
+    }
+    
+    public void setCreatorPersonFamilyName(String name)
+    {
+        getCreator().getPerson().setFamilyName(name);
+    }
+    
+    public String getCreatorPersonGivenName()
+    {
+        return getCreator().getPerson().getGivenName();
+    }
+    
+    public void setCreatorPersonGivenName(String name)
+    {
+        getCreator().getPerson().setGivenName(name);
+    }
 }

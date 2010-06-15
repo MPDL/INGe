@@ -46,6 +46,7 @@
 	var journalSuggestTrigger = 'JOURNAL';
 	var subjectSuggestCommonParentClass = 'parentArea';
 	var languageSuggestCommonParentClass = 'languageArea';
+	var personSuggestCommonParentClass = 'personArea';
 	var commonParentClass = 'suggestAnchor'
 	
 	var globalId = '';
@@ -167,6 +168,12 @@
 			familyName = chosenName.split(',')[0].replace(/^\s*(.*\S)\s*$/, '$1');
 			givenName = chosenName.split(',')[1].replace(/^\s*(.*\S)\s*$/, '$1');
 		}
+		else if (chosenName.indexOf(' ') >= 0)
+		{
+			var firstIndex = chosenName.indexOf(' ');
+			familyName = chosenName.substring(0, firstIndex).replace(/^\s*(.*\S)\s*$/, '$1');
+			givenName = chosenName.substring(firstIndex + 1).replace(/^\s*(.*\S)\s*$/, '$1');
+		}
 		else
 		{
 			familyName = chosenName;
@@ -258,10 +265,12 @@
 			{
 				$input.parents('.itemBlockContent').find('.organizationName').val(orgName);
 				$input.parents('.itemBlockContent').find('.organizationIdentifier').val(orgIdString);
+				fillField('ouNumber', '1', parent);
 			}
 			else
 			{
 				$input.siblings('.organizationPasteField').val(orgIdString + autopasteInnerDelimiter + orgName);
+				fillField('ouNumber', '' + counter, parent);
 				$('.hiddenButtonPasteOrganizations').click();
 			}
 		}
@@ -300,7 +309,8 @@
 		$input = $(this);
 		$input.resultValue = this.resultValue;
 		$input.resultID = this.resultID;
-		$.getJSON(personDetailsBaseURL.replace('$1', this.resultID), getPersonDetails);
+		$input.resultLanguage = this.resultLanguage;
+		$.getJSON(personDetailsBaseURL.replace('$1', this.resultID).replace('$2', this.resultLanguage), getPersonDetails);
 	}
 	
 	function fillOrganizationFields()

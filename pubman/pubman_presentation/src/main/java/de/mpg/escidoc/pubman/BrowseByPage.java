@@ -34,6 +34,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -82,10 +83,6 @@ public class BrowseByPage extends BreadcrumbPage
     private String currentCharacter = "A";
     private List <String> creators;
     private List <String> subjects;
-
-    public String[] browseByCharacters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
-            "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-
 
     /**
      * Public constructor
@@ -149,8 +146,8 @@ public class BrowseByPage extends BreadcrumbPage
             {
                 localLang = "en";
             }
-            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+type + "/query?format=options&"+
-                    this.bbBean.getQuery()+"=\"" + startChar + "*\"&l=0&lang="+localLang);
+            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+type + "/query?f=options&"+
+                    this.bbBean.getQuery()+"=\"" + URLEncoder.encode(startChar, "UTF-8") + "*\"&n=0&lang=*");
             URLConnection conn = coneUrl.openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
@@ -174,7 +171,10 @@ public class BrowseByPage extends BreadcrumbPage
                 if (parts.length == 2)
                 {
                     LinkVO link = new LinkVO(parts[1], parts[0]);
-                    links.add(link);
+                    if (parts[1].startsWith(startChar) && (links.isEmpty() || !link.equals(links.get(links.size() - 1))))
+                    {
+                        links.add(link);
+                    }
                 }
             }
             isReader.close();
@@ -336,18 +336,6 @@ public class BrowseByPage extends BreadcrumbPage
     {
         this.currentCharacter = currentCharacter;
     }
-    
-    
-    public String[] getBrowseByCharacters()
-    {
-        return browseByCharacters;
-    }
-
-    public void setBrowseByCharacters(String[] browseByCharacters)
-    {
-        this.browseByCharacters = browseByCharacters;
-    }
-    
 
     public List<String> getCreators()
     {
@@ -398,10 +386,6 @@ public class BrowseByPage extends BreadcrumbPage
         try
         {
             String link = PropertyReader.getProperty("escidoc.cone.service.url");
-            if (link.contains(":8080"))
-            {
-                link = link.replace(":8080","");
-            }
             return link;
         }
         catch (Exception e)
@@ -480,18 +464,41 @@ public class BrowseByPage extends BreadcrumbPage
         {
             return this.label;
         }
+        
         public void setLabel(String label)
         {
             this.label = label;
         }
+        
         public String getValue()
         {
             return this.value;
         }
+        
         public void setValue(String value)
         {
             this.value = value;
         }
-    }
 
+        @Override
+        public boolean equals(Object obj)
+        {
+            if (!(obj instanceof LinkVO))
+            {
+                return false;
+            }
+            else if (!label.equals(((LinkVO) obj).getLabel()))
+            {
+                return false;
+            }
+            else if (!value.equals(((LinkVO) obj).getValue()))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
 }

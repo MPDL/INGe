@@ -35,7 +35,7 @@
 		</span>
 		<h:panelGroup styleClass="seperator" />
 		<span class="free_area0_p8 itemHeadline">
-			<tr:iterator var="char" id="charIter" value="#{BrowseByPage.browseByCharacters}" binding="#{BrowseByPage.characterIterator}" varStatus="index" rows="0">
+			<tr:iterator var="char" id="charIter" value="#{BrowseBySessionBean.characters}" binding="#{BrowseByPage.characterIterator}" varStatus="index" rows="0">
 				<b>
 					<tr:commandButton id="lnkChar" styleClass="free_txtBtn groupBtn" text="#{char}" action="#{BrowseByPage.startCharacterSearch}" immediate="true"/>
 				</b>
