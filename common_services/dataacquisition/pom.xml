@@ -78,7 +78,6 @@
 					<includes>
 						<include>**/DataAcquisitionUnitTest.java</include>
 						<include>**/DataSourceHandlerTest.java</include>
-<!--						<include>**/UnapiTest.java</include>-->
 					</includes>
 				</configuration>
 			</plugin>
