@@ -622,8 +622,9 @@ public class Util
         try
         {
 
-            URL coneUrl = new URL(PropertyReader.getProperty("escidoc.cone.service.url") + "/" 
+            URL coneUrl = new URL(PropertyReader.getProperty("escidoc.cone.service.url")  
                     + this.coneMethod + this.coneRel1 + mimeType + this.coneRel2);
+            logger.info(coneUrl.toString());
             conn = ProxyHelper.openConnection(coneUrl);
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
