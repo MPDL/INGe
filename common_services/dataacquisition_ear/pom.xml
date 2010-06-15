@@ -50,7 +50,7 @@
 				<artifactId>maven-ear-plugin</artifactId>
 				<configuration>
 					<displayName>dataacquisition</displayName>
-					<description>Data Acquisition Service</description>
+					<description>Data Acquisition Service integration testing ear</description>
 					<resourcesDir>target/classes/in_ear</resourcesDir>
 					<version>5</version>
 					<modules>
@@ -123,13 +123,65 @@
 							<artifactId>transformation</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<jarModule>
+							<groupId>com.maxmind.geoip</groupId>
+							<artifactId>geoip</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>						
 					</modules>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+						<configuration>
+							<source>${jdk.version}</source>
+							<target>${jdk.version}</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- disables the unittests, enables the integration tests -->
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>false</skip>
+							<test>UnapiTest</test>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- enables the process test resources feature in the ear -->
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>testResources</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>			
+		
 		</plugins>
 	</build>
+	
 	<profiles>
-		
 		<profile>
 			<id>jboss42</id>
 			<build>
