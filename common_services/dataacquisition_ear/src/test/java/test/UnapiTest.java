@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.test.dataacquisition_ear;
+package test;
 
 import java.io.IOException;
 import java.io.StringReader;
