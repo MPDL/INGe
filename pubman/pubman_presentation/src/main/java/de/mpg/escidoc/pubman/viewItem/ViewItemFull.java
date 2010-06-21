@@ -1089,8 +1089,8 @@ public class ViewItemFull extends FacesBean
                 creatorOrganization.setOrganizationName(formattedCreator);
                 creatorOrganization.setPosition(new Integer(counterOrganization).toString());
                 creatorOrganization.setOrganizationAddress(creator.getOrganization().getAddress());
-                creatorOrganization.setOrganizationInfoPage(formattedCreator, creator.getOrganization()
-                        .getAddress());
+                creatorOrganization.setOrganizationInfoPage(formattedCreator, creator.getOrganization().getAddress());
+                creatorOrganization.setIdentifier(creator.getOrganization().getIdentifier());
                 this.creatorOrganizationsArray.add(creatorOrganization);
                 counterOrganization++;
             }

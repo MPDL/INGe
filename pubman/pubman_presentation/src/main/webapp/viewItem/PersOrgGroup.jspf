@@ -73,10 +73,14 @@
 					</h:panelGroup>
 					
 					<tr:iterator var="creatorOrganization" value="#{ViewItemFull.creatorOrganizationsArray}" >
-						<h:panelGroup id="txtCreatorOrganizationOrganizationName" styleClass="free_area0 creator">
-							<h:outputText value="#{creatorOrganization.organizationName}"/>
+						<h:panelGroup styleClass="free_area0 creator">
+							<h:panelGroup id="txtCreatorOrganizationOrganizationName">
+								<h:outputText value="#{creatorOrganization.organizationName}"/>
+							</h:panelGroup>
+							&#160;
+							<h:outputLink id="lnkCreatorOrganizationLink" styleClass="small_area0 ouCard ouLink" rendered="#{creatorOrganization.identifier != null and creatorOrganization.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creatorOrganization.identifier}', 980, 400, 'Details');return false"></h:outputLink>
+							<br/>
 						</h:panelGroup>
-						<h:outputText value="<br />" escape="false"/>
 					</tr:iterator>
 				</span>		
 			</span>

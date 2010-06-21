@@ -219,8 +219,8 @@
 
 		fillField('familyName', familyName, parent, true);
 		fillField('givenName', givenName, parent, true);
-		fillField('orgName', orgName, parent);
-		fillField('orgIdentifier', orgId, parent, true);
+//		fillField('orgName', orgName, parent);
+//		fillField('orgIdentifier', orgId, parent, true);
 		$input.blur();
 		$input.focus();
 		fillField('personIdentifier', personId, parent, true);
@@ -263,8 +263,15 @@
 
 			if (counter == 2 && empty)
 			{
+				
 				$input.parents('.itemBlockContent').find('.organizationName').val(orgName);
 				$input.parents('.itemBlockContent').find('.organizationIdentifier').val(orgIdString);
+
+				if (orgIdString != null && orgIdString != '')
+				{
+					$input.parents('.itemBlockContent').find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'AffiliationDetailPage.jsp?id=' + orgIdString + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+					
+				}
 				fillField('ouNumber', '1', parent);
 			}
 			else
@@ -310,7 +317,14 @@
 		$input.resultValue = this.resultValue;
 		$input.resultID = this.resultID;
 		$input.resultLanguage = this.resultLanguage;
-		$.getJSON(personDetailsBaseURL.replace('$1', this.resultID).replace('$2', this.resultLanguage), getPersonDetails);
+		if (typeof this.resultLanguage != 'undefined')
+		{
+			$.getJSON(personDetailsBaseURL.replace('$1', this.resultID).replace('$2', this.resultLanguage), getPersonDetails);
+		}
+		else
+		{
+			$.getJSON(personDetailsBaseURL.replace('$1', this.resultID).replace('$1', this.resultID).replace('$2', '*'), getPersonDetails);
+		}
 	}
 	
 	function fillOrganizationFields()

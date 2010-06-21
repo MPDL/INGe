@@ -203,7 +203,7 @@
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnRemoveFile" styleClass="min_imgBtn sectionTool remove" text=" " shortDesc="#{tip.EditItem_removeFile}" action="#{component.removeFile}" rendered="#{genre.files_repeatable != 'false'}"/>
-					<tr:commandButton id="btnAddFile" styleClass="min_imgBtn sectionTool add" text=" " shortDesc="#{tip.EditItem_addFile}" action="#{EditItem.addFile}" disabled="#{EditItem.files[EditItem.numberOfFiles-1].size == 0}" rendered="#{genre.files_repeatable != 'false'}"/>
+					<tr:commandButton id="btnAddFile" styleClass="min_imgBtn sectionTool add" text=" " shortDesc="#{tip.EditItem_addFile}" action="#{EditItem.addFile}" rendered="#{genre.files_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
 

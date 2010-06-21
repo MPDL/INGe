@@ -37,7 +37,6 @@
 
 	<!-- Set default locale and add supported locales here... -->
 	<application>
-
 		<message-bundle>Label</message-bundle>
 		<message-bundle>Messages</message-bundle>
 		<message-bundle>Tooltip</message-bundle>
@@ -54,12 +53,10 @@
     	</default-render-kit-id>
 	</application>
 
-
 	<lifecycle>
 		<phase-listener id="debugRenderResponse">de.mpg.escidoc.pubman.util.RenderResponsePhaseListener</phase-listener>
 		<phase-listener id="facesMessagesListener">de.mpg.escidoc.pubman.appbase.FacesMessagesPhaseListener</phase-listener>
 	</lifecycle>
-
 
 	<converter>
 		<converter-id>EnumConverter</converter-id>

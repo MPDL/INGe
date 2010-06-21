@@ -33,19 +33,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
+import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
 import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Keeps all attributes that are used for the whole session by the EditItem.
@@ -65,6 +65,8 @@ public class EditItemSessionBean extends FacesBean
 	
 	private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
 	
+	private List<CreatorVOPresentation> creators = new ArrayList<CreatorVOPresentation>();
+
 	private List<OrganizationVOPresentation> creatorOrganizations = new ArrayList<OrganizationVOPresentation>();
 	
 	private String genreBundle = "Genre_ARTICLE";
@@ -151,9 +153,11 @@ public class EditItemSessionBean extends FacesBean
 		this.files.clear();
 		this.locators.clear();
 		this.creatorOrganizations.clear();
+		this.creators.clear();
 		this.genreBundle = "";
 		this.offset="";
 		this.showAuthorCopyPaste = "";
+		this.creatorParseString = "";
 	}
 	
 	/**
@@ -232,26 +236,14 @@ public class EditItemSessionBean extends FacesBean
     {
         CreatorVO newVO = new CreatorVO();
        
-        /*
-        newVO.setPerson(new PersonVO());
-        OrganizationVO newPersonOrganization = new OrganizationVO();
-        newPersonOrganization.setName(new TextVO());
-        newPersonOrganization.setAddress("");
-        newPersonOrganization.setIdentifier("");
-        newVO.getPerson().getOrganizations().add(newPersonOrganization);
-        */
-        
-        CreatorBean dummyCreatorBean = new CreatorBean(newVO);
-        this.authorCopyPasteOrganizationsCreatorBean = dummyCreatorBean;
-        setCreatorParseString("");
-        setShowAuthorCopyPaste("");
+        // TODO MF.
     }
 
-    public void initOrganizationsFromCreators(PubItemVO pubItem)
+    public void initOrganizationsFromCreators()
     {
         List<OrganizationVOPresentation> creatorOrganizations = new ArrayList<OrganizationVOPresentation>();
         int counter = 1;
-        for (CreatorVO creator : pubItem.getMetadata().getCreators())
+        for (CreatorVOPresentation creator : creators)
         {
             if (creator.getType() == CreatorType.PERSON)
             {
@@ -260,7 +252,7 @@ public class EditItemSessionBean extends FacesBean
                     if (!creatorOrganizations.contains(organization))
                     {
                         OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation(organization);
-                        if (!organizationPresentation.isEmpty() || (creatorOrganizations.isEmpty() && creator == pubItem.getMetadata().getCreators().get(pubItem.getMetadata().getCreators().size() - 1)))
+                        if (!organizationPresentation.isEmpty() || (creatorOrganizations.isEmpty() && creator.isLast()))
                         {
 	                        organizationPresentation.setNumber(counter);
 	                        organizationPresentation.setBean(this);
@@ -366,5 +358,20 @@ public class EditItemSessionBean extends FacesBean
     {
     	return "";
     }
+
+    public int getCreatorsSize()
+    {
+        return creators.size();
+    }
     
+    public List<CreatorVOPresentation> getCreators()
+    {
+        return creators;
+    }
+
+    public void setCreators(List<CreatorVOPresentation> creators)
+    {
+        this.creators = creators;
+    }
+
 }

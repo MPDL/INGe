@@ -403,6 +403,9 @@ public class FacesBean extends InternationalizedImpl implements Serializable
         for (Iterator<FacesMessage> i = getFacesContext().getMessages(); i.hasNext();)
         {
             FacesMessage fm = i.next();
+            
+            logger.info("Message (" + fm.getSeverity() + "): " + fm.getSummary() + ":\n" + fm.getDetail());
+            
             if (fm.getSeverity().equals(FacesMessage.SEVERITY_ERROR) || fm.getSeverity().equals(FacesMessage.SEVERITY_WARN) || fm.getSeverity().equals(FacesMessage.SEVERITY_FATAL))
             {
             	return true;

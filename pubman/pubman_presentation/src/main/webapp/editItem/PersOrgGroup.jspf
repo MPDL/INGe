@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
-            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -60,38 +60,6 @@
 					</span>
 				</h:panelGroup>
 	
-				<%--Copy&Paste Organisations for Authors--%>
-				<tr:iterator id="iterCopyPasteOrganisationAuthors" var="pasteOrga" value="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.objectDM}">
-					<h:panelGroup styleClass="suggestAnchor">
-						<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-							<b class="xLarge_area0_p8 endline labelLine clear">
-							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
-								<span class="noDisplay"></span>
-							</b>
-							<span class="xHuge_area0 xTiny_marginLExcl endline">
-								<h:panelGroup styleClass="quad_area0">
-									<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_name_optional != 'true'}" />
-									<h:outputText value="#{genre.creator_person_organization_creator_organizations_organization_name_label}" converter="GenreLabelConverter" />
-								</h:panelGroup>
-								<h:inputText id="inpPasteOrgaName" styleClass="quad_txtInput organizationSuggest organizationName" value="#{pasteOrga.name.value}"/>
-								<h:inputText id="inpPasteOrgaIdentifier" styleClass="noDisplay organizationIdentifier" value="#{pasteOrga.identifier}"/>
-							</span>
-						</h:panelGroup>
-						<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-							<b class="xLarge_area0_p8 endline labelLine clear">
-							&#160;<h:outputText styleClass="mandatory organizationAddress" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_address_optional != 'true'}" />
-								<span class="noDisplay"></span>
-							</b>
-							<span class="xHuge_area0 xTiny_marginLExcl endline">
-								<h:inputTextarea id="inpPasteOrganisation" styleClass="quad_txtArea inputTxtArea" value="#{pasteOrga.address}" cols="15" rows="3" />
-							</span>
-							<span class="large_area0_p8 lineToolSection">
-								<h:commandButton id="btnAddOrganisation" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addOrga}" action="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.addObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
-								<h:commandButton id="btnRemoveOrganisation" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeOrga}" disabled="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.size == 1}" action="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.removeObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
-							</span>
-						</h:panelGroup>
-					</h:panelGroup>
-				</tr:iterator>
 				<h:panelGroup styleClass="large_area0_p8 sectionToolSection">
 					<h:commandButton id="btnAddAuthors" title="#{tip.EditItem_btnAddAuthors}" styleClass="free_txtBtn groupBtn sectionTool" value="#{lbl.EditItem_btnAddAuthors}" action="#{EditItem.addCreatorString}" />
 				</h:panelGroup>
@@ -112,53 +80,53 @@
 			<h:outputText styleClass="medium_area0" value=" "/>
 		</h:panelGroup>
 
-		<tr:iterator id="iterCreatorOrganisationAuthors" var="creatorBean" value="#{EditItem.creatorCollection.creatorManager.objectDM}" rows="0">
+		<tr:iterator id="iterCreatorOrganisationAuthors" var="creator" value="#{EditItemSessionBean.creators}" rows="0">
 			<h:panelGroup layout="block" styleClass="suggestAnchor xSmall_marginLExcl">
 				<%-- Creator person family name, Creator person given name --%>
-				<h:panelGroup layout="block" styleClass="full_area0 endline personArea" rendered="#{creatorBean.personType and !(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
+				<h:panelGroup layout="block" styleClass="full_area0 endline personArea" rendered="#{creator.personType and !(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
 					<span class="large_area0 clear">&nbsp;</span>
 					<%-- Creator role --%>
-					<h:selectOneMenu id="selCreatorRoleString" styleClass="small_select replace" value="#{creatorBean.creator.roleString}" rendered="#{!(genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'all')}">
-						<f:selectItems value="#{creatorBean.creatorRoles}"/>
+					<h:selectOneMenu id="selCreatorRoleString" styleClass="small_select replace" value="#{creator.roleString}" rendered="#{!(genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'all')}">
+						<f:selectItems value="#{EditItem.creatorRoles}"/>
 					</h:selectOneMenu>
-					<h:selectOneMenu id="selcreatorTypeString" value="#{creatorBean.creator.type}" styleClass="small_select" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}" onchange="$('.hiddenButtonPasteOrganizations').click();">
-						<f:selectItems value="#{creatorBean.creatorTypes}"/>
+					<h:selectOneMenu id="selcreatorTypeString" value="#{creator.typeString}" styleClass="small_select" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}" onchange="$('.hiddenButtonPasteOrganizations').click();">
+						<f:selectItems value="#{EditItem.creatorTypes}"/>
 					</h:selectOneMenu>
-					<h:inputText id="inpcreator_persons_person_family_name_optional" readonly="#{creatorBean.identifierValue != null}" styleClass="large_txtInput personSuggest familyName" value="#{creatorBean.creatorPersonFamilyName}" rendered="#{!(genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'all')}"/>
-					<h:inputText id="inppersons_person_given_name_optional" readonly="#{creatorBean.identifierValue != null}" styleClass="large_txtInput givenName" value="#{creatorBean.creatorPersonGivenName}"/>
-					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" value="#{creatorBean.autoPasteValue}"/>
-					<h:inputText id="inppersons_person_ous_optional" styleClass="xSmall_txtInput ouNumber" value="#{creatorBean.ouNumbers}"/>
-					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{creatorBean.identifierValue}"/>
-					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{creatorBean.identifierValue}" rendered="#{creatorBean.identifierValue != null}" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
-					<h:panelGroup rendered="#{creatorBean.identifierValue == null}" styleClass="xSmall_area0 authorLink">
+					<h:inputText id="inpcreator_persons_person_family_name_optional" readonly="#{creator.person.identifier.id != null and creator.person.identifier.id != ''}" styleClass="large_txtInput personSuggest familyName" value="#{creator.person.familyName}" rendered="#{!(genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'all')}"/>
+					<h:inputText id="inppersons_person_given_name_optional" readonly="#{creator.person.identifier.id != null and creator.person.identifier.id != ''}" styleClass="large_txtInput givenName" value="#{creator.person.givenName}"/>
+					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" value="#{creator.autoPasteValue}"/>
+					<h:inputText id="inppersons_person_ous_optional" styleClass="xSmall_txtInput ouNumber" value="#{creator.ouNumbers}"/>
+					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{creator.person.identifier.id}"/>
+					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{creator.person.identifier.id}" rendered="#{creator.person.identifier.id != null and creator.person.identifier.id != ''}" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
+					<h:panelGroup rendered="#{creator.person.identifier.id == null || creator.person.identifier.id == ''}" styleClass="xSmall_area0 authorLink">
 					</h:panelGroup>
 					<h:panelGroup styleClass="xSmall_marginLExcl">
-						<tr:commandButton id="btnAddCreator" shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn groupTool add" action="#{EditItem.creatorCollection.creatorManager.addObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
-						<tr:commandButton id="btnRemoveCreator" shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn groupTool remove" disabled="#{EditItem.creatorCollection.creatorManager.size == 1}" action="#{EditItem.creatorCollection.creatorManager.removeObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
+						<tr:commandButton id="btnAddCreator" shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn groupTool add" action="#{creator.add}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
+						<tr:commandButton id="btnRemoveCreator" shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn groupTool remove" disabled="#{creator.singleCreator}" action="#{creator.remove}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
 					</h:panelGroup>
 				</h:panelGroup>
 		<%-- If Organization is Creator --%>
-				<h:panelGroup styleClass="full_area0 endline suggestAnchor" layout="block" rendered="#{creatorBean.organisationType and !(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
+				<h:panelGroup styleClass="full_area0 endline suggestAnchor" layout="block" rendered="#{creator.organizationType and !(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
 					<%-- Creator role --%>
 					<span class="large_area0">&nbsp;</span>
-					<h:selectOneMenu id="selCreatorOrgRoleString" styleClass="small_select replace" value="#{creatorBean.creator.roleString}" rendered="#{!(genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'all')}">
-						<f:selectItems value="#{creatorBean.creatorRoles}"/>
+					<h:selectOneMenu id="selCreatorOrgRoleString" styleClass="small_select replace" value="#{creator.roleString}" rendered="#{!(genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'all')}">
+						<f:selectItems value="#{EditItem.creatorRoles}"/>
 					</h:selectOneMenu>
-					<h:selectOneMenu id="selcreatorOrgTypeString" styleClass="small_select" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}" value="#{creatorBean.creator.typeString}" onchange="$('.hiddenButtonPasteOrganizations').click();">
-						<f:selectItems value="#{creatorBean.creatorTypes}"/>
+					<h:selectOneMenu id="selcreatorOrgTypeString" styleClass="small_select" value="#{creator.typeString}" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}" onchange="$('.hiddenButtonPasteOrganizations').click();">
+						<f:selectItems value="#{EditItem.creatorTypes}"/>
 					</h:selectOneMenu>
-					<h:inputText id="inpcreator_organization_name_optional" styleClass="huge_txtInput organizationSuggest organizationName xSmall_marginRExcl" value="#{creatorBean.creator.organization.name.value}" rendered="#{!(genre.creator_person_organization_creator_organizations_organization_name_display == 'false' && genre.creator_person_organization_creator_organizations_organization_name_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_organization_name_display == 'false' && genre.creator_person_organization_creator_organizations_organization_name_form_id == 'all')}"/>
-					<h:inputText id="inpcreator_organization_identifier_optional" styleClass="noDisplay organizationIdentifier small_marginRExcl" value="#{creatorBean.creator.organization.identifier}"/>
+					<h:inputText id="inpcreator_organization_name_optional" styleClass="huge_txtInput organizationSuggest organizationName xSmall_marginRExcl" value="#{creator.organization.name.value}" rendered="#{!(genre.creator_person_organization_creator_organizations_organization_name_display == 'false' && genre.creator_person_organization_creator_organizations_organization_name_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_organization_name_display == 'false' && genre.creator_person_organization_creator_organizations_organization_name_form_id == 'all')}"/>
+					<h:inputText id="inpcreator_organization_identifier_optional" styleClass="noDisplay organizationIdentifier small_marginRExcl" value="#{creator.organization.identifier}"/>
 				
-					<h:outputLink styleClass="small_area0 ouCard ouLink" rendered="#{creatorBean.creator.organization.identifier != null and creatorBean.creator.organization.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creatorBean.creator.organization.identifier}', 980, 400, 'Details');return false"></h:outputLink>
-						<h:panelGroup rendered="#{creatorBean.creator.organization.identifier == null}" styleClass="xSmall_area0 ouLink">
+					<h:outputLink styleClass="small_area0 ouCard ouLink" rendered="#{creator.organization.identifier != null and creator.organization.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.organization.identifier}', 980, 400, 'Details');return false"></h:outputLink>
+						<h:panelGroup rendered="#{creator.organization.identifier == null || creator.organization.identifier == ''}" styleClass="xSmall_area0 ouLink">
 						</h:panelGroup>
 					<h:panelGroup styleClass="xSmall_marginLExcl">
-						<tr:commandButton id="btnAddCreatorOrg" shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn groupTool add" action="#{EditItem.creatorCollection.creatorManager.addObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
-						<tr:commandButton id="btnRemoveCreatorOrg" shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn groupTool remove" disabled="#{EditItem.creatorCollection.creatorManager.size == 1}" action="#{EditItem.creatorCollection.creatorManager.removeObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
+						<tr:commandButton id="btnAddCreatorOrg" shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn groupTool add" action="#{creator.add}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
+						<tr:commandButton id="btnRemoveCreatorOrg" shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn groupTool remove" disabled="#{creator.singleCreator}" action="#{creator.remove}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
 					</h:panelGroup>
 				</h:panelGroup>
-
+	
 			</h:panelGroup>
 		</tr:iterator>
 		<span class="large_area0 clear">&nbsp;</span>				
@@ -178,8 +146,8 @@
 				<h:inputText id="inporganizations_organization_name" styleClass="huge_txtInput organizationSuggest organizationName" value="#{organization.name.value}"/>
 				<h:inputText id="inporganizations_organization_identifier" styleClass="noDisplay organizationIdentifier" value="#{organization.identifier}"/>
 				<h:inputText id="inporganizations_organization_address" styleClass="xLarge_txtInput organizationAddress" value="#{organization.address}"/>
-				<h:outputLink styleClass="small_area0 ouCard ouLink" rendered="#{organization.identifier != null}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{organization.identifier}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
-				<h:panelGroup rendered="#{organization.identifier == null}" styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>					
+				<h:outputLink styleClass="small_area0 ouCard ouLink" rendered="#{organization.identifier != null and organization.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{organization.identifier}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
+				<h:panelGroup rendered="#{organization.identifier == null || organization.identifier == ''}" styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>					
 				<h:panelGroup styleClass="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAddCreatorPersonAffiliation" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addOrga}" action="#{organization.add}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
 					<tr:commandButton id="btnRemoveCreatorPersonAffiliation" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" disabled="#{EditItemSessionBean.organizationCount == 1}" action="#{organization.remove}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>

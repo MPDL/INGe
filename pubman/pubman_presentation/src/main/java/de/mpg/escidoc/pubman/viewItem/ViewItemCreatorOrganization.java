@@ -52,6 +52,8 @@ public class ViewItemCreatorOrganization
     private String organizationAddress;
     // the html code of the organization info page popup window
     private String organizationInfoPage;
+    
+    private String identifier;
 
     public ViewItemCreatorOrganization()
     {
@@ -93,6 +95,16 @@ public class ViewItemCreatorOrganization
         return organizationInfoPage;
     }
 
+    public String getIdentifier()
+    {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier)
+    {
+        this.identifier = identifier;
+    }
+
     // the information page (popup window)
     public void setOrganizationInfoPage(String organizationName, String organizationAddress)
     {
@@ -101,7 +113,7 @@ public class ViewItemCreatorOrganization
         {
             addr = organizationAddress;
         }
-        this.organizationInfoPage = "'<html><head><title>Organisationp</title></head><body scroll=no bgcolor=#FFFFFC><br/><p style=font-family:verdana,arial;font-size:12px>"
+        this.organizationInfoPage = "'<html><head><title>Organisation</title></head><body scroll=no bgcolor=#FFFFFC><br/><p style=font-family:verdana,arial;font-size:12px>"
                 + CommonUtils.htmlEscape(organizationName)
                 + "</p><p style=font-family:verdana,arial;font-size:12px>"
                 + CommonUtils.htmlEscape(addr) + "</p></body></html>'";

@@ -72,6 +72,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.LegalCaseVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
@@ -787,6 +788,7 @@ public class ItemControllerSessionBean extends FacesBean
             // create a new Organization for this person
             PersonVO newPerson = new PersonVO();
             newPerson.setIdentifier(new IdentifierVO());
+            newPerson.getIdentifier().setType(IdType.CONE);
             OrganizationVO newPersonOrganization = new OrganizationVO();
             newPersonOrganization.setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
             newPerson.getOrganizations().add(newPersonOrganization);

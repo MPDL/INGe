@@ -72,19 +72,19 @@ import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.escidoc.pubman.editItem.bean.ContentAbstractCollection;
 import de.mpg.escidoc.pubman.editItem.bean.ContentSubjectCollection;
-import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
+import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection.CreatorManager;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceCollection;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
-import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection.CreatorManager;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
 import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
+import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.ListItem;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
@@ -98,23 +98,24 @@ import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.SubjectClassification;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
@@ -189,8 +190,6 @@ public class EditItem extends FacesBean
     private UIXIterator identifierIterator = new UIXIterator();
     private UIXIterator sourceIterator = new UIXIterator();
     private UIXIterator sourceIdentifierIterator = new UIXIterator();
-    
-    private ArrayList<OrganizationVOPresentation> creatorOrganizations = new ArrayList<OrganizationVOPresentation>();
 
     private CoreTable fileTable = new CoreTable();
     
@@ -257,10 +256,10 @@ public class EditItem extends FacesBean
         this.eventTitleCollection = new TitleCollection(this.getPubItem().getMetadata().getEvent());
         this.contentAbstractCollection = new ContentAbstractCollection(this.getPubItem().getMetadata().getAbstracts());
         this.contentSubjectCollection = new ContentSubjectCollection(this.getPubItem().getMetadata().getSubjects());
-        this.creatorCollection = new CreatorCollection(this.getPubItem().getMetadata().getCreators());
+        
         this.identifierCollection = new IdentifierCollection(this.getPubItem().getMetadata().getIdentifiers());
         this.sourceCollection = new SourceCollection(this.getPubItem().getMetadata().getSources());
-
+        
         if (logger.isDebugEnabled())
         {
             if (this.getPubItem() != null && this.getPubItem().getVersion() != null)
@@ -354,11 +353,6 @@ public class EditItem extends FacesBean
                 bindFiles();
             }
             
-            if(this.getEditItemSessionBean().getCreatorOrganizations().size() == 0)
-            {
-                this.getEditItemSessionBean().initOrganizationsFromCreators(pubItem);
-            }
-            
             if (pubItem.getMetadata() != null && pubItem.getMetadata().getCreators() != null)
             for (CreatorVO creatorVO : pubItem.getMetadata().getCreators())
             {
@@ -385,6 +379,16 @@ public class EditItem extends FacesBean
                 {
                     creatorVO.getOrganization().setName(new TextVO());
                 }
+            }
+
+            if(this.getEditItemSessionBean().getCreators().size() == 0)
+            {
+                bindCreatorsToBean();
+            }
+            
+            if(this.getEditItemSessionBean().getCreatorOrganizations().size() == 0)
+            {
+                this.getEditItemSessionBean().initOrganizationsFromCreators();
             }
             
         }
@@ -628,6 +632,16 @@ public class EditItem extends FacesBean
         try
         {
             bindUploadedFilesAndLocators();
+            
+            // bind Organizations To Creators
+            if (!bindOrganizationsToCreators())
+            {
+                return "";
+            }
+            
+            // write creators back to VO
+            bindCreatorsToVO();
+
             PubItemVO item = this.getPubItem();
             this.getItemControllerSessionBean().validate(item, EditItem.VALIDATIONPOINT_SUBMIT);
             if (this.getItemControllerSessionBean().getCurrentItemValidationReport().hasItems())
@@ -666,6 +680,9 @@ public class EditItem extends FacesBean
         {
         	return "";
         }
+        
+        // write creators back to VO
+        bindCreatorsToVO();
         
         //  cleanup item according to genre specific MD specification
         GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(), GenreSecificItemManager.SUBMISSION_METHOD_FULL);
@@ -784,10 +801,10 @@ public class EditItem extends FacesBean
             return null;
         }        
     }
-
+    
     public boolean bindOrganizationsToCreators()
     {
-        for (CreatorBean creator : getCreatorCollection().getCreatorManager().getObjectList())
+        for (CreatorVOPresentation creator : getEditItemSessionBean().getCreators())
         {
             if (!bindOrganizationsToCreator(creator))
             {
@@ -797,14 +814,45 @@ public class EditItem extends FacesBean
         return true;
     }
 
+    private void bindCreatorsToBean()
+    {
+        List<CreatorVOPresentation> creators = this.getEditItemSessionBean().getCreators();
+        creators.clear();
+        
+        for (CreatorVO creator : this.item.getMetadata().getCreators())
+        {
+            creators.add(new CreatorVOPresentation(creators, creator));
+        }
+        
+    }
+
+    private void bindCreatorsToVO()
+    {
+        List<CreatorVO> creators = getItem().getMetadata().getCreators();
+        creators.clear();
+        for (CreatorVOPresentation creatorVOPresentation : getEditItemSessionBean().getCreators())
+        {
+            CreatorVO creatorVO;
+            if (CreatorType.ORGANIZATION == creatorVOPresentation.getType())
+            {
+                creatorVO = new CreatorVO(creatorVOPresentation.getOrganization(), creatorVOPresentation.getRole());
+            }
+            else
+            {
+                creatorVO = new CreatorVO(creatorVOPresentation.getPerson(), creatorVOPresentation.getRole());
+            } 
+            creators.add(creatorVO);
+        }
+    }
+
 	/**
 	 * @param creator
 	 */
-	public boolean bindOrganizationsToCreator(CreatorBean creator)
+	public boolean bindOrganizationsToCreator(CreatorVOPresentation creator)
 	{
 		if (creator.isPersonType())
 		{
-		    PersonVO person = creator.getCreator().getPerson();
+		    PersonVO person = creator.getPerson();
 		    List<OrganizationVO> personOrgs = person.getOrganizations();
 		    String[] orgArr = creator.getOuNumbers().split(",");
 		    personOrgs.clear();
@@ -2116,19 +2164,17 @@ public class EditItem extends FacesBean
         
         if (overwrite)
         {
-            creatorCollection.getCreatorManager().getObjectList().clear();
+            getEditItemSessionBean().getCreators().clear();
         }
         
-        CreatorManager creatorManager = creatorCollection.getCreatorManager();
-
         //check if last existing author is empty, then remove it
-        if (creatorManager.getObjectList().size() >= 1)
+        if (getEditItemSessionBean().getCreators().size() >= 1)
         {
-            CreatorBean lastCreatorBean = creatorManager.getObjectList().get(creatorManager.getObjectList().size() - 1);
-            CreatorVO creatorVO  = lastCreatorBean.getCreator();
+            CreatorVOPresentation creatorVO = getEditItemSessionBean().getCreators().get(getEditItemSessionBean().getCreators().size() - 1);
+
             if (creatorVO.getPerson() != null && "".equals(creatorVO.getPerson().getFamilyName()) && "".equals(creatorVO.getPerson().getGivenName()) && (creatorVO.getPerson().getOrganizations().get(0).getName().getValue() == null || "".equals(creatorVO.getPerson().getOrganizations().get(0).getName().getValue())))
             {
-                creatorManager.getObjectList().remove(lastCreatorBean);
+                getEditItemSessionBean().getCreators().remove(creatorVO);
             }
         }
         
@@ -2136,43 +2182,44 @@ public class EditItem extends FacesBean
         //add authors to creator collection
         for (Author author : authorList)
         {
-            CreatorBean creatorBean = creatorManager.createNewObject();
+            CreatorVOPresentation creator = new CreatorVOPresentation(getEditItemSessionBean().getCreators());
+            creator.setPerson(new PersonVO());
+            creator.getPerson().setIdentifier(new IdentifierVO());
+            creator.setOuNumbers("");
+            getEditItemSessionBean().getCreators().add(creator);
+            
             if (author.getPrefix() != null && !"".equals(author.getPrefix()))
             {
-                creatorBean.getCreator().getPerson().setFamilyName(author.getPrefix() + " " + author.getSurname());
+                creator.getPerson().setFamilyName(author.getPrefix() + " " + author.getSurname());
             }
             else
             {
-                creatorBean.getCreator().getPerson().setFamilyName(author.getSurname());
+                creator.getPerson().setFamilyName(author.getSurname());
             }
-            creatorBean.getCreator().getPerson().setGivenName(author.getGivenName());
+            creator.getPerson().setGivenName(author.getGivenName());
 
-            creatorBean.getCreator().setRole(CreatorRole.AUTHOR);
-            creatorBean.getCreator().setType(CreatorType.PERSON);
+            creator.setRole(CreatorRole.AUTHOR);
+            creator.setType(CreatorType.PERSON);
             
             
+            // no longer needed for new creator section
             //set organization
-            if (orgs != null && orgs.size() > 0)
-            {
-            	if (!(orgs.size() == 1 && (orgs.get(0).getName() == null || orgs.get(0).getName().getValue() == null || "".equals(orgs.get(0).getName().getValue()))
-            			&& (orgs.get(0).getAddress() == null || "".equals(orgs.get(0).getAddress()))))
-    			{
-	                creatorBean.getPersonOrganisationManager().getObjectList().clear();
-	               // creatorBean.getPersonOrganisationManager().getDataListFromVO().clear();
-	                for (OrganizationVO orgVO : orgs)
-	                {
-	                    OrganizationVO newOrgVO = (OrganizationVO) orgVO.clone();
-	                    creatorBean.getPersonOrganisationManager().getObjectList().add(newOrgVO);
-	                    //creatorBean.getPersonOrganisationManager().getDataListFromVO().add(newOrgVO);
-	                    
-	                }
-    			}
-            }
-            bindOrganizationsToCreator(creatorBean);
-            creatorManager.getObjectList().add(creatorBean);
+//            if (orgs != null && orgs.size() > 0)
+//            {
+//            	if (!(orgs.size() == 1 && (orgs.get(0).getName() == null || orgs.get(0).getName().getValue() == null || "".equals(orgs.get(0).getName().getValue()))
+//            			&& (orgs.get(0).getAddress() == null || "".equals(orgs.get(0).getAddress()))))
+//    			{
+//	                creator.getPerson().getOrganizations().clear();
+//	                for (OrganizationVO orgVO : orgs)
+//                    {
+//	                    creator.getPerson().getOrganizations().add(orgVO);
+//                    }
+//    			}
+//            }
+//            bindOrganizationsToCreator(creator);
         }
-        EditItemSessionBean editItemSessionBean = getEditItemSessionBean();
-        editItemSessionBean.initOrganizationsFromCreators(getItem());
+//        EditItemSessionBean editItemSessionBean = getEditItemSessionBean();
+//        editItemSessionBean.initOrganizationsFromCreators();
     }
     
     public String addCreatorString()
@@ -2180,14 +2227,10 @@ public class EditItem extends FacesBean
         try
         {
             EditItemSessionBean eisb = getEditItemSessionBean();
-            List<OrganizationVO> orgs = eisb
-                .getAuthorCopyPasteOrganizationsCreatorBean()
-                .getPersonOrganisationManager()
-                .getObjectList();
             parseCreatorString(
                     eisb.getCreatorParseString(),
                     getCreatorCollection(),
-                    orgs,
+                    null,
                     eisb.getOverwriteCreators());
             eisb.initAuthorCopyPasteCreatorBean();
 
@@ -2307,7 +2350,25 @@ public class EditItem extends FacesBean
         return null;
     }
 
-   
+    /**
+     * localized creation of SelectItems for the creator roles available.
+     * @return SelectItem[] with Strings representing creator roles.
+     */
+    public SelectItem[] getCreatorRoles()
+    {
+        return ((InternationalizationHelper) EditItem.getSessionBean(InternationalizationHelper.class)).getSelectItemsCreatorRole(true);
+    }
+
+    /**
+     * localized creation of SelectItems for the creator types available.
+     * @return SelectItem[] with Strings representing creator types.
+     */
+    public SelectItem[] getCreatorTypes()
+    {
+
+        return ((InternationalizationHelper) EditItem.getSessionBean(InternationalizationHelper.class)).getSelectItemsCreatorType(false);
+    }
+    
     public UIXIterator getFileIterator()
     {
         return this.fileIterator;

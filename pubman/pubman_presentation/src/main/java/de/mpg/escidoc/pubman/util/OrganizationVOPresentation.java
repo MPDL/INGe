@@ -74,15 +74,65 @@ public class OrganizationVOPresentation extends OrganizationVO
         {
         	bean.getCreatorOrganizations().get(i).setNumber(i + 1);
         }
+        for (CreatorVOPresentation creator : bean.getCreators())
+        {
+            int[] ous = creator.getOus();
+            String newOuNumbers = "";
+            for (int i = 0; i < ous.length; i++)
+            {
+                if (ous[i] <= number)
+                {
+                    if (!"".equals(newOuNumbers))
+                    {
+                        newOuNumbers += ",";
+                    }
+                    newOuNumbers += ous[i];
+                }
+                else if (ous[i] > number)
+                {
+                    if (!"".equals(newOuNumbers))
+                    {
+                        newOuNumbers += ",";
+                    }
+                    newOuNumbers += (ous[i] + 1);
+                }
+            }
+            creator.setOuNumbers(newOuNumbers);
+        }
         return "";
     }
 
     public String remove()
     {
     	bean.getCreatorOrganizations().remove(this);
-        for (int i = number - 1; i < bean.getCreatorOrganizations().size(); i++)
+        for (int i = number - 1; i < getList().size(); i++)
         {
-        	bean.getCreatorOrganizations().get(i).setNumber(i + 1);
+        	getList().get(i).setNumber(i + 1);
+        }
+        for (CreatorVOPresentation creator : bean.getCreators())
+        {
+            int[] ous = creator.getOus();
+            String newOuNumbers = "";
+            for (int i = 0; i < ous.length; i++)
+            {
+                if (ous[i] < number)
+                {
+                    if (!"".equals(newOuNumbers))
+                    {
+                        newOuNumbers += ",";
+                    }
+                    newOuNumbers += ous[i];
+                }
+                else if (ous[i] > number)
+                {
+                    if (!"".equals(newOuNumbers))
+                    {
+                        newOuNumbers += ",";
+                    }
+                    newOuNumbers += (ous[i] - 1);
+                }
+            }
+            creator.setOuNumbers(newOuNumbers);
         }
         return "";
     }
