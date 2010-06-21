@@ -699,7 +699,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
      */
     protected String normalize(String authors)
     {
-        return authors.replaceAll("[ \t]+", " ").replaceAll("\\n+", "\\n").trim();
+        return authors.replaceAll("[ \t]+", " ").replaceAll("(\\n)+", "\n").trim();
     }
     
 }

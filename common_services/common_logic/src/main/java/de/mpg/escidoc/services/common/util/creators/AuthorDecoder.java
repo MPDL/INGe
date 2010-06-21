@@ -138,26 +138,21 @@ public class AuthorDecoder
         for (AuthorFormat authorFormat : authorFormats)
         {
 
-            logger.debug(authorFormat.getName() + ": " + authorFormat.getPattern());
+            logger.debug(authorFormat.getName());
             try
             {
                 //Pattern pattern = Pattern.compile(authorFormat.getPattern());
                 //Matcher matcher = pattern.matcher(authors);
 
-                if (true)
+                List<Author> authorList = authorFormat.getAuthors(authorFormat.normalize(authors));
+                if (authorList != null)
                 {
                     logger.debug("Pattern found!");
-
-                    List<Author> authorList = authorFormat.getAuthors(authorFormat.normalize(authors));
-                    if (authorList != null)
+                    authorListList.add(authorList);
+                    if (bestFormat == null)
                     {
-                        authorListList.add(authorList);
-                        if (bestFormat == null)
-                        {
-                            bestFormat = authorFormat;
-                        }
+                        bestFormat = authorFormat;
                     }
-
                 }
             }
             catch (StackOverflowError e)

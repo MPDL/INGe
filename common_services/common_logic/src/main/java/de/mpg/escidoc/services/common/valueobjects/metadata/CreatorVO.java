@@ -175,9 +175,12 @@ public class CreatorVO extends ValueObject implements Cloneable
      */
     public void setOrganization(OrganizationVO newVal)
     {
-        // DiT, 13.08.2007: set type newly and delete counterpart
-        this.type = CreatorType.ORGANIZATION;
-        this.person = null;
+//        if (newVal != null)
+//        {
+            // DiT, 13.08.2007: set type newly and delete counterpart
+            this.type = CreatorType.ORGANIZATION;
+            this.person = null;
+//        }
         organization = newVal;
     }
 
@@ -189,9 +192,12 @@ public class CreatorVO extends ValueObject implements Cloneable
      */
     public void setPerson(PersonVO newVal)
     {
-        // DiT, 13.08.2007: set type newly and delete counterpart
-        this.type = CreatorType.PERSON;
-        this.organization = null;
+//        if (newVal != null)
+//        {
+            // DiT, 13.08.2007: set type newly and delete counterpart
+            this.type = CreatorType.PERSON;
+            this.organization = null;
+//        }
         person = newVal;
     }
 
@@ -207,7 +213,9 @@ public class CreatorVO extends ValueObject implements Cloneable
 
     public void setType(CreatorType newVal)
     {
+        
         type = newVal;
+        
     }
 
     /**
