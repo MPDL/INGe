@@ -254,7 +254,6 @@ public class EditItemSessionBean extends FacesBean
                         OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation(organization);
                         if (!organizationPresentation.isEmpty() || (creatorOrganizations.isEmpty() && creator.isLast()))
                         {
-	                        organizationPresentation.setNumber(counter);
 	                        organizationPresentation.setBean(this);
 	                        if (organizationPresentation.getName() ==  null)
 	                        {

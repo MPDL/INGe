@@ -2285,23 +2285,6 @@ public class EditItem extends FacesBean
         
         return null;
         
-// First try: Take vocabs from the properties
-//        String typesProperty = PropertyReader.getProperty("escidoc.cone.subjectVocab");
-//        if (typesProperty != null && !"".equals(typesProperty))
-//        {
-//            ArrayList<SelectItem> list = new ArrayList<SelectItem>();
-//            String[] types = typesProperty.split(",");
-//            for (int i = 0; i < types.length; i++)
-//            {
-//                SelectItem selectItem = new SelectItem(types[i], types[i].toUpperCase());
-//                list.add(selectItem);
-//            }
-//            return list.toArray(new SelectItem[]{});
-//        }
-//        else
-//        {
-//            throw new RuntimeException("Property \"escidoc.cone.subjectVocab\" not set.");
-//        }
     }
     
     /**

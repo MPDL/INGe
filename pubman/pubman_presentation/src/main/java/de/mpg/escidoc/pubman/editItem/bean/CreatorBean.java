@@ -426,7 +426,6 @@ public class CreatorBean extends FacesBean
 	        OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
 	        newOrg.setName(new TextVO(values[1]));
 	        newOrg.setIdentifier(values[0]);
-	        newOrg.setNumber(creatorOrganizations.size() + 1);
 	        newOrg.setBean(editItemSessionBean);
 	        creatorOrganizations.add(newOrg);
 	        this.ouNumber = creatorOrganizations.size() + "";

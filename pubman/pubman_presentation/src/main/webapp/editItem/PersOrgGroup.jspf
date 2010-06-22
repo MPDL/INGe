@@ -97,10 +97,9 @@
 					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" value="#{creator.autoPasteValue}"/>
 					<h:inputText id="inppersons_person_ous_optional" styleClass="xSmall_txtInput ouNumber" value="#{creator.ouNumbers}"/>
 					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{creator.person.identifier.id}"/>
-					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{creator.person.identifier.id}" rendered="#{creator.person.identifier.id != null and creator.person.identifier.id != ''}" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
-					<h:panelGroup rendered="#{creator.person.identifier.id == null || creator.person.identifier.id == ''}" styleClass="xSmall_area0 authorLink">
-					</h:panelGroup>
-					<h:panelGroup styleClass="xSmall_marginLExcl">
+					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{creator.person.identifier.id}" rendered="#{creator.person.identifier.id != null and creator.person.identifier.id != ''}" target="_blank">&nbsp;</h:outputLink>
+					<h:panelGroup rendered="#{creator.person.identifier.id == null || creator.person.identifier.id == ''}" styleClass="xSmall_area0 authorLink">&nbsp;</h:panelGroup>
+					<h:panelGroup styleClass="large_area0_p8">
 						<tr:commandButton id="btnAddCreator" shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn groupTool add" action="#{creator.add}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
 						<tr:commandButton id="btnRemoveCreator" shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn groupTool remove" disabled="#{creator.singleCreator}" action="#{creator.remove}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
 					</h:panelGroup>
@@ -119,9 +118,8 @@
 					<h:inputText id="inpcreator_organization_identifier_optional" styleClass="noDisplay organizationIdentifier small_marginRExcl" value="#{creator.organization.identifier}"/>
 				
 					<h:outputLink styleClass="small_area0 ouCard ouLink" rendered="#{creator.organization.identifier != null and creator.organization.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.organization.identifier}', 980, 400, 'Details');return false"></h:outputLink>
-						<h:panelGroup rendered="#{creator.organization.identifier == null || creator.organization.identifier == ''}" styleClass="xSmall_area0 ouLink">
-						</h:panelGroup>
-					<h:panelGroup styleClass="xSmall_marginLExcl">
+						<h:panelGroup rendered="#{creator.organization.identifier == null || creator.organization.identifier == ''}" styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>
+					<h:panelGroup styleClass="large_area0_p8">
 						<tr:commandButton id="btnAddCreatorOrg" shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn groupTool add" action="#{creator.add}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
 						<tr:commandButton id="btnRemoveCreatorOrg" shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn groupTool remove" disabled="#{creator.singleCreator}" action="#{creator.remove}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
 					</h:panelGroup>

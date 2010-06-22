@@ -1427,7 +1427,6 @@ public class EasySubmission extends FacesBean
         	{
 				if (ou.getNumber() == 0) 
 				{
-					ou.setNumber(number);
 					number++;
 				}
 			}

@@ -103,7 +103,7 @@
 				for(var i = 0; i<identifier.length; i++) {
 					
 					var identifierType = identifier[i]['http_www_w3_org_2001_XMLSchema_instance_type'];
-					var identifierValue = identifier[i]['http_www_w3_org_1999_02_22_rdf_syntax_ns#_value'];
+					var identifierValue = identifier[i]['http_www_w3_org_1999_02_22_rdf_syntax_ns_value'];
 					
 					if (i > 0)
 					{
@@ -118,7 +118,7 @@
 			} else{
 				
 				var identifierType = identifier['http_www_w3_org_2001_XMLSchema_instance_type'];
-				var identifierValue = identifier['http_www_w3_org_1999_02_22_rdf_syntax_ns#_value'];
+				var identifierValue = identifier['http_www_w3_org_1999_02_22_rdf_syntax_ns_value'];
 			
 				if (typeof identifierType != null && identifierType != 'undefined')
 				{
@@ -333,6 +333,7 @@
 		var parent = $input.parents('.' + commonParentClass);
 		fillField('organizationName', this.resultValue, parent);
 		fillField('organizationIdentifier', this.resultID, parent);
+		fillField('organizationAddress', this.result.address, parent);
 		
 		if (this.resultID != null && this.resultID != '')
 		{

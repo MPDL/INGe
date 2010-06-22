@@ -78,12 +78,16 @@ public class CreatorVOPresentation extends CreatorVO
         }
     }
     
+    /**
+     * Add a new creator to the list after this creator.
+     * 
+     * @return Always empty
+     */
     public String add()
     {
         CreatorVOPresentation creatorVOPresentation = new CreatorVOPresentation(this.list);
         creatorVOPresentation.init(getType());
         int index = this.list.indexOf(this);
-        //((EditItemSessionBean) EditItemSessionBean.getSessionBean(EditItemSessionBean.class)).getCreators().add(index + 1, creatorVOPresentation);
         this.list.add(index + 1, creatorVOPresentation);
         return "";
     }
@@ -164,7 +168,6 @@ public class CreatorVOPresentation extends CreatorVO
             OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
             newOrg.setName(new TextVO(values[1]));
             newOrg.setIdentifier(values[0]);
-            newOrg.setNumber(creatorOrganizations.size() + 1);
             newOrg.setBean(editItemSessionBean);
             creatorOrganizations.add(newOrg);
             this.ouNumbers = creatorOrganizations.size() + "";

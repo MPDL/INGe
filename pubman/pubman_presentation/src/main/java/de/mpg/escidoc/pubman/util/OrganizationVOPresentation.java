@@ -49,7 +49,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  */
 public class OrganizationVOPresentation extends OrganizationVO
 {
-    private int number;
     private EditItemSessionBean bean;
 
     public OrganizationVOPresentation()
@@ -65,22 +64,24 @@ public class OrganizationVOPresentation extends OrganizationVO
         this.setName(organizationVO.getName());
     }
     
+    /**
+     * Adds an organization to the list after this organization.
+     * 
+     * @return Always empty
+     */
     public String add()
     {
         OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation();
         organizationPresentation.setBean(bean);
-        bean.getCreatorOrganizations().add(number, organizationPresentation);
-        for (int i = number; i < bean.getCreatorOrganizations().size(); i++)
-        {
-        	bean.getCreatorOrganizations().get(i).setNumber(i + 1);
-        }
+        bean.getCreatorOrganizations().add(getNumber(), organizationPresentation);
+
         for (CreatorVOPresentation creator : bean.getCreators())
         {
             int[] ous = creator.getOus();
             String newOuNumbers = "";
             for (int i = 0; i < ous.length; i++)
             {
-                if (ous[i] <= number)
+                if (ous[i] <= getNumber() || ous[i] >= getList().size())
                 {
                     if (!"".equals(newOuNumbers))
                     {
@@ -88,7 +89,7 @@ public class OrganizationVOPresentation extends OrganizationVO
                     }
                     newOuNumbers += ous[i];
                 }
-                else if (ous[i] > number)
+                else if (ous[i] > getNumber())
                 {
                     if (!"".equals(newOuNumbers))
                     {
@@ -102,20 +103,21 @@ public class OrganizationVOPresentation extends OrganizationVO
         return "";
     }
 
+    /**
+     * Removes this organization from the list.
+     * 
+     * @return Always empty
+     */
     public String remove()
     {
-    	bean.getCreatorOrganizations().remove(this);
-        for (int i = number - 1; i < getList().size(); i++)
-        {
-        	getList().get(i).setNumber(i + 1);
-        }
+        getList().remove(this);
         for (CreatorVOPresentation creator : bean.getCreators())
         {
             int[] ous = creator.getOus();
             String newOuNumbers = "";
             for (int i = 0; i < ous.length; i++)
             {
-                if (ous[i] < number)
+                if (ous[i] < getNumber())
                 {
                     if (!"".equals(newOuNumbers))
                     {
@@ -123,7 +125,7 @@ public class OrganizationVOPresentation extends OrganizationVO
                     }
                     newOuNumbers += ous[i];
                 }
-                else if (ous[i] > number)
+                else if (ous[i] > getNumber())
                 {
                     if (!"".equals(newOuNumbers))
                     {
@@ -138,19 +140,11 @@ public class OrganizationVOPresentation extends OrganizationVO
     }
     
     /**
-     * @return the number
+     * @return the position in the list, starting with 1.
      */
     public int getNumber()
     {
-        return number;
-    }
-
-    /**
-     * @param number the number to set
-     */
-    public void setNumber(int number)
-    {
-        this.number = number;
+        return getList().indexOf(this) + 1;
     }
 
     /**
@@ -196,5 +190,16 @@ public class OrganizationVOPresentation extends OrganizationVO
     	{
     		return true;
     	}
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        return (this == obj);
     }
 }
