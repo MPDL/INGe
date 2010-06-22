@@ -26,8 +26,6 @@ import de.mpg.escidoc.services.framework.ProxyHelper;
 
 /**
  * These tests check the unapi interface for the dataaquisition service.
- * Please make sure that dev-pubman is running!
- * (Otherwise change the 'location' path or skip this test)
  *
  * @author kleinfe1 (initial creation)
  * @author $Author$ (last modification)
@@ -50,7 +48,7 @@ public class UnapiTest
     	location = PropertyReader.getProperty("escidoc.dataacquisition.service.url") + "download/unapi";
     }
     
-    @Test
+    //@Test
     public void unapiTestAllSources() throws Exception
     {
         HttpClient client = new HttpClient();
@@ -58,7 +56,7 @@ public class UnapiTest
         int code = 0;
         
         //arxiv
-        url = this.location + "?id=" + this.arxivId + "&format=arxiv";
+        url = location + "?id=" + this.arxivId + "&format=arxiv";
         GetMethod getMethod = new GetMethod(url); 
         
         
@@ -67,21 +65,21 @@ public class UnapiTest
         Assert.assertEquals(200, code);
         
         //pmc
-        url = this.location + "?id=" + this.pmcId + "&format=pmc";
+        url = location + "?id=" + this.pmcId + "&format=pmc";
         getMethod = new GetMethod(url);            
         code = ProxyHelper.executeMethod(client, getMethod);
         this.logger.info("Fetch: " + url + "    Response: " + code);
         Assert.assertEquals(200, code);
         
         //bmc
-        url = this.location + "?id=" + this.bmcId + "&format=bmc";
+        url = location + "?id=" + this.bmcId + "&format=bmc";
         getMethod = new GetMethod(url);            
         code = ProxyHelper.executeMethod(client, getMethod);
         this.logger.info("Fetch: " + url + "    Response: " + code);
         Assert.assertEquals(200, code);
         
         //spires
-        url = this.location + "?id=" + this.spiresId + "&format=spires";
+        url = location + "?id=" + this.spiresId + "&format=spires";
         getMethod = new GetMethod(url);            
         code = ProxyHelper.executeMethod(client, getMethod);
         this.logger.info("Fetch: " + url + "    Response: " + code);
@@ -89,27 +87,28 @@ public class UnapiTest
     }
     
     @Test
-    //On arxiv example
+    //On BioMed Central example
+    
     public void unapiTestOneSourceFull() throws Exception
     {
         HttpClient client = new HttpClient();
         String url = "";
         List <String> formatsList = new ArrayList<String> ();
         
-        //Get all formats for arxiv
-        url = this.location + "?id=arxiv";
+        //Get all formats for BioMed Central
+        url = location + "?id=bmc";
         GetMethod getMethod = new GetMethod(url); 
         ProxyHelper.executeMethod(client, getMethod);
         String formatsXml = new String (getMethod.getResponseBody(), "UTF-8");
         formatsList = this.formatsHelper(formatsXml);
-        logger.info(url);
-        logger.info(formatsXml);
+//        logger.info(url);
+//        logger.info(formatsXml);
 
         
         //Retrieve item in all formats
         for (int i = 0; i < formatsList.size(); i ++)
         {
-            url = this.location + "?id=" + this.arxivId + "&format=" + formatsList.get(i);
+            url = location + "?id=" + this.bmcId + "&format=" + formatsList.get(i);
             getMethod = new GetMethod(url);            
             int code = ProxyHelper.executeMethod(client, getMethod);
             this.logger.info("Fetch: " + url + "    Response: " + code);
