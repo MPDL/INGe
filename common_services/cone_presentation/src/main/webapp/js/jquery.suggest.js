@@ -261,7 +261,7 @@
 							function(q) { return '<span class="' + options.matchClass + '">' + q + '</span>' }
 							);
 
-					items[items.length] = new Array(jsonObject[i].value, jsonObject[i].id, jsonObject.language);
+					items[items.length] = new Array(jsonObject[i].value, jsonObject[i]);
 				}
 
 				return items;
@@ -314,7 +314,7 @@
 
 			}
 			
-			function getResultID(result) {
+			function getResult(result) {
 				var id = 'test';
 				var span = '<span class="' + options.matchClass + '">';
 				for (var j = 0; j < cache.length; j++) {
@@ -325,12 +325,12 @@
 						item[0] = $.trim(item[0]);
 						//alert(item[0] + '==' + result + " : " + (item[0]==result));
 						if (item[0] == result) {
-							id = new Array(item[1], item[2]);
+							obj =item[1];
 							break;
 						}
 					}
 				}
-				return id;
+				return obj;
 			}
 			
 			function selectCurrentResult() {
@@ -341,17 +341,13 @@
 			
 				if ($currentResult) {
 					$input.val($currentResult.text());
-					var resultArr = getResultID($currentResult.text());
-					$input.resultID = resultArr[0];
-					$input.resultLanguage = resultArr[1];
+					var resultObj = getResult($currentResult.text());
+					$input.resultID = resultObj['id'];
+					$input.resultLanguage = resultObj['language'];
 					$input.resultValue = $currentResult.text();
+					$input.result = resultObj;
 					$results.hide();
-					
-					if (options.onSelect)
-					/*	options.onSelect.apply(getResultID($currentResult.text())); */
-						var args = new Array( getResultID($currentResult.text()) );
-						
-						options.onSelect.apply($input);
+					options.onSelect.apply($input);
 				}
 			
 			}

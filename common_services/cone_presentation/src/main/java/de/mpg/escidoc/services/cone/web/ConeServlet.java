@@ -343,9 +343,18 @@ public class ConeServlet extends HttpServlet
         {
             try
             {
-                return new String(brokenValue.getBytes("ISO-8859-1"), "UTF-8");
+                String utf8 = new String(brokenValue.getBytes("ISO-8859-15"), "UTF-8");
+                if (utf8.equals(brokenValue) || utf8.length() == brokenValue.length())
+                {
+                    return brokenValue;
+                }
+                else
+                {
+                    return utf8;
+                }
             }
-            catch (UnsupportedEncodingException e) {
+            catch (UnsupportedEncodingException e)
+            {
                 throw new RuntimeException(e);
             }
         }
