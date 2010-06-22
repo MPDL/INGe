@@ -51,7 +51,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  */
 public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> implements LocalizedTripleObject
 {
-    private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.";
+    private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.# ";
     private static final Pattern NAMESPACE_PATTERN = Pattern.compile("([\\S]+)(([/#])| )([^/# ]+)");
     
     private String subject;
