@@ -70,6 +70,7 @@ public class PidCacheServiceTest
 	@Test
 	public void init() throws Exception
 	{	
+	    Thread.sleep(2000);
 		testUrl = ITEM_TEST_URL.concat(Long.toString(new Date().getTime())).concat("/test");
 		this.testAssignPid();
 		this.testUpdatePid();
