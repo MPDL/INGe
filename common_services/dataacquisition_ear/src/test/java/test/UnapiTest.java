@@ -48,7 +48,7 @@ public class UnapiTest
     	location = PropertyReader.getProperty("escidoc.dataacquisition.service.url") + "download/unapi";
     }
     
-    //@Test
+    @Test
     public void unapiTestAllSources() throws Exception
     {
         HttpClient client = new HttpClient();
