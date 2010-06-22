@@ -23,6 +23,8 @@ import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
+import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.TransformationBean;
 
 /**
  * These tests check the unapi interface for the dataaquisition service.
@@ -46,6 +48,8 @@ public class UnapiTest
     public static void Init() throws IOException, URISyntaxException
     {	
     	location = PropertyReader.getProperty("escidoc.dataacquisition.service.url") + "download/unapi";
+    	//init trans service
+    	TransformationBean transformer = new TransformationBean();
     }
     
     @Test
@@ -56,7 +60,7 @@ public class UnapiTest
         int code = 0;
         
         //arxiv
-        url = location + "?id=" + this.arxivId + "%26format=arxiv";
+        url = location + "?id=" + this.arxivId + "&format=arxiv";
         GetMethod getMethod = new GetMethod(url); 
         
         
@@ -65,21 +69,21 @@ public class UnapiTest
         Assert.assertEquals(200, code);
         
         //pmc
-        url = location + "?id=" + this.pmcId + "%26format=pmc";
+        url = location + "?id=" + this.pmcId + "&format=pmc";
         getMethod = new GetMethod(url);            
         code = ProxyHelper.executeMethod(client, getMethod);
         this.logger.info("Fetch: " + url + "    Response: " + code);
         Assert.assertEquals(200, code);
         
         //bmc
-        url = location + "?id=" + this.bmcId + "%26format=bmc";
+        url = location + "?id=" + this.bmcId + "&format=bmc";
         getMethod = new GetMethod(url);            
         code = ProxyHelper.executeMethod(client, getMethod);
         this.logger.info("Fetch: " + url + "    Response: " + code);
         Assert.assertEquals(200, code);
         
         //spires
-        url = location + "?id=" + this.spiresId + "%26format=spires";
+        url = location + "?id=" + this.spiresId + "&format=spires";
         getMethod = new GetMethod(url);            
         code = ProxyHelper.executeMethod(client, getMethod);
         this.logger.info("Fetch: " + url + "    Response: " + code);
@@ -108,7 +112,7 @@ public class UnapiTest
         //Retrieve item in all formats
         for (int i = 0; i < formatsList.size(); i ++)
         {
-            url = location + "?id=" + this.bmcId + "%26format=" + formatsList.get(i);
+            url = location + "?id=" + this.bmcId + "&format=" + formatsList.get(i);
             getMethod = new GetMethod(url);            
             int code = ProxyHelper.executeMethod(client, getMethod);
             this.logger.info("Fetch: " + url + "    Response: " + code);
