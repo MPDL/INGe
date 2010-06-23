@@ -1071,7 +1071,7 @@ public class ViewItemFull extends FacesBean
             {
                 CreatorDisplay creatorDisplay = new CreatorDisplay();
                 creatorDisplay.setFormattedDisplay(formattedCreator);
-                if (creator.getPerson() != null && creator.getPerson().getIdentifier() != null && (creator.getPerson().getIdentifier().getType() == IdType.CONE || creator.getPerson().getIdentifier().getId().startsWith("urn:cone:")))
+                if (creator.getPerson() != null && creator.getPerson().getIdentifier() != null && (creator.getPerson().getIdentifier().getType() == IdType.CONE))
                 {
                     try
                     {

@@ -75,6 +75,16 @@ public class CreatorVOPresentation extends CreatorVO
             this.setPerson(creatorVO.getPerson());
             this.setRole(creatorVO.getRole());
             this.setType(creatorVO.getType());
+            
+            if (this.getOrganization() != null && this.getOrganization().getName() == null)
+            {
+                this.getOrganization().setName(new TextVO());
+            }
+            
+            if (this.getPerson() != null && this.getPerson().getIdentifier() == null)
+            {
+                this.getPerson().setIdentifier(new IdentifierVO());
+            }
         }
     }
     
@@ -295,6 +305,12 @@ public class CreatorVOPresentation extends CreatorVO
     public void setOrganization(OrganizationVO surrogateOrganization)
     {
         this.surrogateOrganization = surrogateOrganization;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return (this == obj);
     }
     
     
