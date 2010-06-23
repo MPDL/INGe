@@ -200,7 +200,7 @@
 		<open>false</open>
 		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
 	</export-format>		
-	<export-format type="layout" context="PubMan">
+	<!-- export-format type="layout" context="PubMan">
 		<dc:title>Test Citation Style</dc:title>
 		<dc:identifier>Test</dc:identifier>
 		<output-format>
@@ -242,7 +242,7 @@
 		<dc:creator></dc:creator>
 		<open>false</open>
 		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
-	</export-format>
+	</export-format -->
 	<output-formats>
 		<output-format>
 			<dc:title>pdf</dc:title>
