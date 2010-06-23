@@ -70,7 +70,8 @@ public class PidCacheServiceTest
 	@Test
 	public void init() throws Exception
 	{	
-	    Thread.sleep(2000);
+	    // Wait until pid cache is surely filled
+	    Thread.sleep(5000);
 		testUrl = ITEM_TEST_URL.concat(Long.toString(new Date().getTime())).concat("/test");
 		this.testAssignPid();
 		this.testUpdatePid();
