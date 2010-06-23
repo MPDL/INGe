@@ -108,8 +108,8 @@
 			<FT-fetch-setting default="true">
 				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=bmc_article</dc:identifier>
 				<dc:format>text/html</dc:format>
-				<label>html</label>
-				<name>bmcarticle</name>
+				<label>text/html</label>
+				<name>bmcarticleFullTextHtml</name>
 				<encoding>*</encoding>
 				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</content-categorie>
 				<visibility>PUBLIC</visibility>
@@ -117,8 +117,8 @@
 			<FT-fetch-setting default="false">
 				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=bmc_article</dc:identifier>
 				<dc:format>application/xml</dc:format>
-				<label>xml</label>
-				<name>bmcarticle_xml</name>
+				<label>application/xml</label>
+				<name>bmcarticleFullTextXml</name>
 				<encoding>*</encoding>
 				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</content-categorie>
 				<visibility>PUBLIC</visibility>

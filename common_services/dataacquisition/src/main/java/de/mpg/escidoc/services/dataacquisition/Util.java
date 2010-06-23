@@ -124,7 +124,7 @@ public class Util
         { return "application/pdf"; } 
         if (formatName.equalsIgnoreCase("ps")) 
         { return "application/gzip"; } 
-        if (formatName.equalsIgnoreCase("bmcarticle")) 
+        if (formatName.equalsIgnoreCase("bmcarticleFullTextHtml")) 
         { return "text/html"; } 
         
         return "application/xml";
@@ -624,14 +624,13 @@ public class Util
 
             URL coneUrl = new URL(PropertyReader.getProperty("escidoc.cone.service.url")  
                     + this.coneMethod + this.coneRel1 + mimeType + this.coneRel2);
-            logger.info(coneUrl.toString());
             conn = ProxyHelper.openConnection(coneUrl);
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
             {
                 case 200:
-                    this.logger.info("Cone Service responded with 200.");
+                    this.logger.debug("Cone Service responded with 200.");
                     break;
                 default:
                     throw new RuntimeException("An error occurred while calling Cone Service: "
