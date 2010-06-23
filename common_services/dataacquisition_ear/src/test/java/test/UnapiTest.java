@@ -56,17 +56,17 @@ public class UnapiTest
         int code = 0;
         
         //arxiv
-        url = location + "?id=" + this.arxivId + "&format=arxiv";
-        GetMethod getMethod = new GetMethod(url); 
+        //url = location + "?id=" + this.arxivId + "&format=arxiv";
+        //GetMethod getMethod = new GetMethod(url); 
         
         
-        code = ProxyHelper.executeMethod(client, getMethod);
-        this.logger.info("Fetch: " + url + "    Response: " + code);
-        Assert.assertEquals(200, code);
+        //code = ProxyHelper.executeMethod(client, getMethod);
+        //this.logger.info("Fetch: " + url + "    Response: " + code);
+        //Assert.assertEquals(200, code);
         
         //pmc
         url = location + "?id=" + this.pmcId + "&format=pmc";
-        getMethod = new GetMethod(url);            
+        GetMethod getMethod = new GetMethod(url);            
         code = ProxyHelper.executeMethod(client, getMethod);
         this.logger.info("Fetch: " + url + "    Response: " + code);
         Assert.assertEquals(200, code);
