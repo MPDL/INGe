@@ -44,6 +44,10 @@
 			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
 		</output-format>
 		<output-format>
+			<dc:title>html_linked</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
 			<dc:title>html_styled</dc:title>
 			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
 		</output-format>
@@ -81,6 +85,10 @@
 			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
 		</output-format>
 		<output-format>
+			<dc:title>html_linked</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
 			<dc:title>html_styled</dc:title>
 			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
 		</output-format>
@@ -114,6 +122,10 @@
 			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
 		</output-format>
 		<output-format>
+			<dc:title>html_linked</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
 			<dc:title>html_styled</dc:title>
 			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
 		</output-format>
@@ -144,6 +156,10 @@
 		</output-format>
 		<output-format>
 			<dc:title>html_plain</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_linked</dc:title>
 			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
 		</output-format>
 		<output-format>
