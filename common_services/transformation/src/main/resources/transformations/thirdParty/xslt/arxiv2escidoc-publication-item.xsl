@@ -47,7 +47,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" 
 	xmlns:arxiv="http://arxiv.org/OAI/arXiv/"
-	xmlns:dcterms="${xsd.metadata.dcterms}">
+	xmlns:dcterms="${xsd.metadata.dcterms}"
+	xmlns:eterms="${xsd.metadata.terms}">
 
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 
@@ -113,9 +114,9 @@
 						<dc:title>
 							<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:title" />
 						</dc:title>
-						<dc:identifier xsi:type="eidt:arxiv"><xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:id" /></dc:identifier>
+						<dc:identifier xsi:type="eterms:ARXIV"><xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:id" /></dc:identifier>
 						<xsl:if test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:doi != ''">
-							<dc:identifier xsi:type="eidt:DOI">
+							<dc:identifier xsi:type="eterms:DOI">
 								<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:doi" />
 							</dc:identifier>
 						</xsl:if>
