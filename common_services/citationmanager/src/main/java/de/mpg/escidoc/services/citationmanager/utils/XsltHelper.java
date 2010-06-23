@@ -119,11 +119,11 @@ public class XsltHelper {
 		FontStyle fs;
 
 		StringBuffer sb = new StringBuffer();
-		String regexp = "(<span\\s+class=\"(\\w+)\".*?>)";
+		String regexp = "<span\\s+class=\"(\\w+)\".*?>(.*?)</span>";
 		Matcher m = Pattern.compile(regexp,
 				Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(snippet);
 		while (m.find()) {
-			fs = fsc.getFontStyleByCssClass(m.group(2));
+			fs = fsc.getFontStyleByCssClass(m.group(1));
 			// logger.info("fs:" + fs);
 
 			// Rigorous: if at list once no css class has been found return str
@@ -131,13 +131,12 @@ public class XsltHelper {
 			if (fs == null) {
 				return snippet;
 			} else {
-				m.appendReplacement(sb, "<style" + fs.getStyleAttributes()
-						+ ">");
+				m.appendReplacement(sb, "<style" + fs.getStyleAttributes() + ">$2</style>");
 			}
 		}
 		snippet = m.appendTail(sb).toString();
 
-		snippet = Utils.replaceAllTotal(snippet, "</span>", "</style>");
+//		snippet = Utils.replaceAllTotal(snippet, "</span>", "</style>");
 		
 		//replace all non-escaped & 
 		snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
@@ -146,6 +145,72 @@ public class XsltHelper {
 
 		return snippet;
 	}
+	
+	/**
+	 * Converts snippet &lt;span&gt; tags to the HTML formatting, 
+	 * i.e. <code><b>, <i>, <u>, <s></code>
+	 * Text. Note: If at least one &lt;span&gt; css class will not match
+	 * FontStyle css, the snippet will be returned without any changes.
+	 * 
+	 * @param snippet
+	 * @return converted snippet
+	 * @throws CitationStyleManagerException
+	 */
+	public static String convertSnippetToHtml(String snippet)
+			throws CitationStyleManagerException {
+
+//		snippet = removeI18N(snippet);
+
+		loadFontStylesCollection();
+
+		if (!Utils.checkVal(snippet) || fsc == null)
+			return snippet;
+
+//		logger.info("passed str:" + snippet);
+
+		FontStyle fs;
+
+		StringBuffer sb = new StringBuffer();
+		String regexp = "<span\\s+class=\"(\\w+)\".*?>(.*?)</span>";
+		Matcher m = Pattern.compile(regexp,
+				Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(snippet);
+		while (m.find()) {
+			String cssClass = m.group(1);
+			fs = fsc.getFontStyleByCssClass(cssClass);
+			// logger.info("fs:" + fs);
+
+			// Rigorous: if at list once no css class has been found return str
+			// as it is
+			if (fs == null) {
+				return snippet;
+			} else {
+				String str = "$2";
+				if (fs.getIsStrikeThrough()) {
+					str = "<s>" + str + "</s>";
+				}
+				if (fs.getIsUnderline()) {
+					str = "<u>" + str + "</u>";
+				}
+				if (fs.getIsItalic()) {
+					str = "<i>" + str + "</i>";
+				}
+				if (fs.getIsBold()) {
+					str = "<b>" + str + "</b>";
+				}
+				str = "<span class=\""+ cssClass + "\">" + str + "</span>";				
+				m.appendReplacement(sb, str);
+				
+			}
+		}
+		snippet = m.appendTail(sb).toString();
+
+		//replace all non-escaped & 
+		snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
+
+//		 logger.info("processed str:" + snippet);
+
+		return snippet;
+	}	
 
 	public static String removeI18N(String snippet) {
 		return Utils.replaceAllTotal(snippet, "<" + I18N_TAG

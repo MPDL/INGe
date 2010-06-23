@@ -217,7 +217,7 @@ public class CitationStyleManagerImpl implements CitationStyleManager
         //all other tasks
         else if ( TASKS.valueOf(task) != null )
         {
-        	String outFile = cs + "_output_" + task + "." + ResourceUtil.getExtensionByName(task);  
+        	String outFile = cs + "_output_" + task + "." + XmlHelper.getExtensionByName(task);  
         	System.out.println(cs + " Citation Style output in " + task + " format. File: " + outFile);
         	byte[] result = cse.getOutput(cs, task, ResourceUtil.getResourceAsString(il));
         	FileOutputStream fos = new FileOutputStream(outFile);

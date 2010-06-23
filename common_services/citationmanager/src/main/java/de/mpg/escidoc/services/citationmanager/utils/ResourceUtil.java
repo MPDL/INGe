@@ -41,6 +41,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -99,53 +101,10 @@ public class ResourceUtil
     public final static String CITATION_STYLE_XSL = "CitationStyle.xsl";
     
     
-    //the hash of the export-formats explain
-    private static Map<String, Map<String, String>> exportFormatsHash = null;
-
-    //file extensions hash
-    private static final Map<String, String> formatExtensions =   
-    	new HashMap<String, String>()   
-    	{  
-			{  
-                put("txt", "txt");
-                put("pdf", "pdf");
-                put("rtf", "rtf");
-                put("html_plain", "html");
-                put("html_styled", "html");
-                put("odt", "odt");
-                put("snippet", "xml");
-                put("escidoc_snippet", "xml");
-                put("xml", "xml");
-                put("escidoc_xml", "xml");
-	    	}  
-    	};    
     
     //TransformationBean placeholder
     private static TransformationBean tb = null; 
 
-    
-	/**
-	 * Populates exportFormatsHash (only once)
-	 * @return populated exportFormatsHash
-	 * @throws CitationStyleManagerException 
-	 */
-	private static Map<String, Map<String, String>> getOutputFormatsHash() throws CitationStyleManagerException
-    {
-    	if (exportFormatsHash == null) 
-    	{
-    		exportFormatsHash = new HashMap<String, Map<String,String>>();
-    		for (String cs: XmlHelper.getListOfStyles())
-    		{
-    			Map<String, String> ofh = new HashMap<String, String>();
-    			for (String[] of: XmlHelper.getOutputFormatList(cs))
-    			{
-    				ofh.put(of[0], of[1]);  
-    			}
-    			exportFormatsHash.put(cs, ofh);
-    		}
-    	}
-    	return exportFormatsHash;
-    }
     
 	/**
 	 * Returns TransformationBean (singleton)
@@ -157,84 +116,10 @@ public class ResourceUtil
     }
 
 	
-	 /**
-     * Returns the name of the selected file according to name of format.
-     */
-    public static String getExtensionByName(String name)
-    {
-    	name = name == null || name.trim().equals("") ? "" : name.trim();  
-    	return formatExtensions.containsKey(name) ? formatExtensions.get(name) : formatExtensions.get("pdf");   
-    }
+	
+	
+
     
-	
-	
-    /**
-     * Checks whether the csName is in the list of Citation Styles
-     * @param cs - Citation Style name 
-     * @return <code>true</code> or <code>false</code>
-     * @throws CitationStyleManagerException
-     */
-    public static boolean isCitationStyle(String cs) throws CitationStyleManagerException 
-	{
-		Utils.checkCondition( !Utils.checkVal(cs), "Empty name of the citation style");
-		 
-		return getOutputFormatsHash().containsKey(cs);
-		
-	}    
-	
-    /**
-     * Checks Output Format (<code>of</code>) availability for  Citation Style (<code>cs</code>) 
-     * @param cs - Citation Style name
-     * @param of - Output Format name
-     * @return <code>true</code> or <code>false</code>
-     * @throws CitationStyleManagerException
-     */
-    public static boolean citationStyleHasOutputFormat(String cs, String of) throws CitationStyleManagerException 
-    {
-		Utils.checkCondition( !Utils.checkVal(cs), "Empty name of the citation style");
-		
-		Utils.checkCondition( !Utils.checkVal(of), "Empty name of the output format");
-		
-    	return  getOutputFormatsHash().get(cs).containsKey(of);
-    }
-    
-	/**
-	 * Returns the list of the output formats
-	 * for the citation style <code>csName</code> 
-	 * @param csName is name of citation style
-	 * @return list of the output formats 
-	 * @throws CitationStyleManagerException
-	 */
-	public static String[] getOutputFormats(String csName) throws CitationStyleManagerException 
-	{
-		Utils.checkCondition( !Utils.checkVal(csName), "Empty name of the citation style");
-		
-//		Map<String, String> ofh = getOutputFormatsHash().get(csName);
-//		String[] ofl = new String[ ofh.size() ];
-//		int i = 0;
-//		for (String f: ofh.keySet())
-//		{
-//			ofl[i++] = f;
-//		}
-		return (String[]) getOutputFormatsHash().get(csName).keySet().toArray(new String[0]);	    
-	}
-	
-	/**
-	 * Returns the mime-type for output format of the citation style
-	 * @param csName is name of citation style
-	 * @param outFormat is the output format 
-	 * @return mime-type, or <code>null</code>, if no <code>mime-type</code> has been found    
-	 * @throws CitationStyleManagerException if no <code>csName</code> or <code>outFormat</code> are defined 
-	 */ 
-	public static String getMimeType(String csName, String outFormat) throws CitationStyleManagerException{
-		
-		Utils.checkCondition( !Utils.checkVal(csName), "Empty name of the citation style");
-		
-		Utils.checkCondition( !Utils.checkVal(outFormat), "Empty name of the output format");
-		
-    	return  getOutputFormatsHash().get(csName).get(outFormat);
-	}
-        
     
     
     /**

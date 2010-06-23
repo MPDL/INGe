@@ -108,7 +108,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 	 */	
 	public String[] getOutputFormats(String cs) throws CitationStyleManagerException
 	{
-		return ResourceUtil.getOutputFormats(cs);
+		return XmlHelper.getOutputFormatsArray(cs); 
 	}
 	
 	/* (non-Javadoc)
@@ -116,7 +116,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 	 */	
 	public String getMimeType(String cs, String ouf) throws CitationStyleManagerException
 	{
-		return ResourceUtil.getMimeType(cs, ouf);
+		return XmlHelper.getMimeType(cs, ouf);
 	}
 
 	
@@ -132,7 +132,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		Utils.checkCondition( !Utils.checkVal(itemList), "Empty item-list");
 		
 		
-		if ( ! ResourceUtil.citationStyleHasOutputFormat(cs, outputFormat) )
+		if ( ! XmlHelper.citationStyleHasOutputFormat(cs, outputFormat) )
 		{
 			throw new CitationStyleManagerException( "Output format: " + outputFormat + " is not supported for Citation Style: " + cs );
 		}		
@@ -186,9 +186,9 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		    	 } 
 				result = v1;
 			}
-			else if ("html_plain".equals(outputFormat))
+			else if ("html_plain".equals(outputFormat) || "html_linked".equals(outputFormat))
 			{
-				result = generateHtmlOutput(snippet).getBytes("UTF-8");
+				result = generateHtmlOutput(snippet, outputFormat).getBytes("UTF-8");
 			}
 			else
 			{
@@ -322,12 +322,18 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 	 */	
 	public String[] getStyles() throws CitationStyleManagerException
 	{
-		return XmlHelper.getListOfStyles();
+		try {
+			return XmlHelper.getListOfStyles();
+		} catch (Exception e) 
+		{
+			// TODO Auto-generated catch block
+			throw new CitationStyleManagerException("Cannot get list of citation styles:", e);
+		}
 	}
 
 	public boolean isCitationStyle(String cs)
 			throws CitationStyleManagerException {
-		return ResourceUtil.isCitationStyle(cs);
+		return XmlHelper.isCitationStyle(cs);
 	}
 
 	/**
@@ -355,15 +361,20 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 	/**
 	 * Generates custom HTML output
 	 * @param snippets
+	 * @param html_format is linked format trigger, <code>false</code> by default  
 	 * @return String 
 	 */	
-	private String generateHtmlOutput(String snippets)
+	private String generateHtmlOutput(String snippets, String html_format)
 	{
 		StringWriter result = new StringWriter();
 		try 
 		{ 
 			Transformer transformer = XmlHelper.tryTemplCache(ResourceUtil.getPathToTransformations() + "escidoc-publication-snippet2html.xsl").newTransformer();
 			transformer.setParameter("pubman_instance", getPubManUrl());
+			if ("html_linked".equals(html_format))
+			{
+				transformer.setParameter("html_linked", Boolean.TRUE);
+			}
 			transformer.transform(new StreamSource(new StringReader(snippets)), new StreamResult(result));
 		} 
 		catch (Exception e) 

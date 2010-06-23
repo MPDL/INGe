@@ -38,7 +38,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,6 +58,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import net.sf.jasperreports.engine.JRException;
@@ -69,6 +72,7 @@ import net.sf.saxon.event.SaxonOutputKeys;
 import org.apache.log4j.Logger;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.traversal.DocumentTraversal;
@@ -114,15 +118,20 @@ public class XmlHelper {
 	public static HashMap<String, Templates> templCache = new HashMap<String, Templates>(20);
 	public static HashMap<String, JasperReport> jasperCache = new HashMap<String, JasperReport>(20);
 	
+	//List of all available output formats
+	public static HashMap<String, String[]> outputFormatsHash = null;
+	
 	
     private static XPath xpath = XPathFactory.newInstance().newXPath();
+
+	private static HashMap<String, HashMap<String, String[]>> citationStylesHash = null;
     
     /**
      * Builds new DocumentBuilder
      * @return DocumentBuilder
      * @throws CitationStyleManagerException
      */
-    public static DocumentBuilder createDocumentBuilder() throws CitationStyleManagerException
+    public static DocumentBuilder createDocumentBuilder()
     {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setValidating(false);
@@ -135,7 +144,7 @@ public class XmlHelper {
         }
         catch (ParserConfigurationException e)
         {
-            throw new CitationStyleManagerException("Failed to create a document builder factory", e);
+            throw new RuntimeException("Failed to create a document builder factory", e);
         }
     }
     
@@ -144,7 +153,7 @@ public class XmlHelper {
      * @return org.w3c.dom.Document
      * @throws CitationStyleManagerException
      */
-    public static Document createDocument() throws CitationStyleManagerException
+    public static Document createDocument()
     {
     	return createDocumentBuilder().newDocument(); 
     }
@@ -153,25 +162,39 @@ public class XmlHelper {
      * Creates new org.w3c.dom.Document 
      * @param xml
      * @return org.w3c.dom.Document
-     * @throws Exception
+     * @throws RuntimeException
      */
-    public static Document createDocument(String xml) throws Exception
+    public static Document createDocument(String xml)
     {
-    	return createDocument(xml.getBytes("UTF-8")); 
+    	try {
+			return createDocument(xml.getBytes("UTF-8"));
+		} catch (Exception e) {
+            throw new RuntimeException("Cannot create Document", e);
+		} 
     }
     
     /**
      * Creates new org.w3c.dom.Document 
      * @param xml
      * @return org.w3c.dom.Document
+     * @throws CitationStyleManagerException 
+     * @throws IOException 
+     * @throws SAXException 
      * @throws Exception
      */
-    public static Document createDocument(byte[] xml) throws Exception
+    public static Document createDocument(byte[] xml) 
     {
     	DocumentBuilder db = createDocumentBuilder();
-    	return db.parse(
-    			new ByteArrayInputStream(xml), "UTF-8" 
-    	); 
+    	try {
+			return db.parse(
+					new ByteArrayInputStream(xml), "UTF-8" 
+			);
+		}
+    	catch (Exception e) 
+		{
+            throw new RuntimeException("Cannot create Document", e);
+		} 
+
     }
     
     /**
@@ -507,7 +530,7 @@ public class XmlHelper {
     	{
     		doc = parseDocumentForTraversing(
     				new InputSource(
-    						ResourceUtil.getResourceAsStream(
+    						ResourceUtil.getResourceAsStream( 
     								ResourceUtil.getPathToSchemas() 
     								+ ResourceUtil.EXPLAIN_FILE
     						)  
@@ -525,48 +548,267 @@ public class XmlHelper {
 	/* 
 	 * Returns list of Citation Styles 
 	 */
-	public static String[] getListOfStyles() throws CitationStyleManagerException {
+	public static String[] getListOfStyles()
+	{
 
-		NodeIterator ni = getFilteredNodes(new ExportFormatNodeFilter(), getExplainDocument());
-		ArrayList<String> lof = new ArrayList<String>();
-		Node n;
-		while ((n = ni.nextNode()) != null)
-		{
-			lof.add(n.getTextContent());
-		}		
-		return lof.size()==0 ? null : lof.toArray(new String[lof.size()]);
+		Object[] oa =  getCitationStylesHash().keySet().toArray(); 
+		return Arrays.copyOf(oa, oa.length, String[].class);
+		
 	}
 
+    /**
+     * Checks whether the csName is in the list of Citation Styles
+     * @param cs - Citation Style name 
+     * @return <code>true</code> or <code>false</code>
+     * @throws CitationStyleManagerException
+     */
+    public static boolean isCitationStyle(String cs) throws CitationStyleManagerException 
+	{
+		Utils.checkCondition( !Utils.checkVal(cs), "Empty name of the citation style");
+		 
+		return getCitationStylesHash().containsKey(cs);
+		
+	}    
+	
+    /**
+     * Checks Output Format (<code>of</code>) availability for  Citation Style (<code>cs</code>) 
+     * @param cs - Citation Style name
+     * @param of - Output Format name
+     * @return <code>true</code> or <code>false</code>
+     * @throws CitationStyleManagerException
+     */
+    public static boolean citationStyleHasOutputFormat(String cs, String of) throws CitationStyleManagerException 
+    {
+		Utils.checkCondition( !Utils.checkVal(cs), "Empty name of the citation style");
+		
+		Utils.checkCondition( !Utils.checkVal(of), "Empty name of the output format");
+		
+    	return getCitationStylesHash().get(cs).containsKey(of);
+    }
 	
 
 	/**
-	 * Returns the list of the output formats (first element of the array) and mime-types 
-	 * (second element) for the citation style <code>csName</code>.  
+	 * Returns the list of the output formats (first element of the array)  
+	 * for the citation style <code>csName</code>.  
 	 * @param csName is name of citation style
 	 * @return list of the output formats  
-	 * @throws CitationStyleManagerException
+	 * @throws CitationStyleManagerException 
+	 * @throws Exception 
+	 * @throws IOException 
 	 */
-	public static List<String[]> getOutputFormatList(String csName) throws CitationStyleManagerException 
+	public static String[] getOutputFormatsArray(String csName) throws CitationStyleManagerException 
 	{
 		Utils.checkCondition( !Utils.checkVal(csName), "Empty name of the citation style");
-		
-		NodeIterator ni = getFilteredNodes(new OutputFormatNodeFilter(csName), getExplainDocument());
-
-		ArrayList<String[]> ofal = new ArrayList<String[]>();
-		Node n;
-		while ((n = ni.nextNode()) != null)
-		{
-			Node fc = n.getFirstChild().getNextSibling();
-			ofal.add(new String[] {
-					fc.getTextContent(), //here should be name of output format 
-					fc.getNextSibling()  //here is mime-type of the output format
-					.getNextSibling()  
-					.getTextContent() 
-					});
-		}
-		return ofal;	    
+		Object[] oa =  getCitationStylesHash().get(csName).keySet().toArray(); 
+		return Arrays.copyOf(oa, oa.length, String[].class);
 	}
-    
+
+	/**
+	 * Returns the mime-type for output format of the citation style
+	 * @param csName is name of citation style
+	 * @param outFormat is the output format 
+	 * @return mime-type, or <code>null</code>, if no <code>mime-type</code> has been found    
+	 * @throws CitationStyleManagerException if no <code>csName</code> or <code>outFormat</code> are defined 
+	 */ 
+	public static String getMimeType(String csName, String outFormat) throws CitationStyleManagerException{
+		
+		Utils.checkCondition( !Utils.checkVal(csName), "Empty name of the citation style");
+		
+		Utils.checkCondition( !Utils.checkVal(outFormat), "Empty name of the output format");
+		
+		HashMap<String, HashMap<String, String[]>> csh = getCitationStylesHash();
+		
+		Utils.checkCondition( !csh.containsKey(csName), "No citation style is defined: " + csName);
+		
+		Utils.checkCondition ( !csh.get(csName).containsKey(outFormat), "No output Format:  " + outFormat + " for citation style: " + csName + " is defined" );
+		
+    	return  csh.get(csName).get(outFormat)[0];
+	}
+        	
+	
+	 /**
+     * Returns the file extension according to format name.
+	 * @throws CitationStyleManagerException 
+     */
+    public static String getExtensionByName(String outputFormat) throws CitationStyleManagerException
+    {
+    	Utils.checkCondition( !Utils.checkVal(outputFormat), "Empty output format name");
+    	
+    	outputFormat = outputFormat.trim();
+    	
+    	HashMap <String, String[]> of = getOutputFormatsHash(); 
+    	
+    	return of.containsKey(outputFormat) ? of.get(outputFormat)[1] : of.get("pdf")[1];   
+    }
+	
+	
+	
+	/**
+	 * Get outputFormatsHash, where
+	 * keys: names of output format 
+	 * values: array of {mime-type, file-extension} for the output format
+	 * @return outputFormatsHash
+	 */
+	public static HashMap<String, String[]> getOutputFormatsHash()    
+	{
+		
+		if (outputFormatsHash == null) 
+		{
+			NodeList nl = null;
+			try
+			{
+				nl = xpathNodeList(
+						"/export-formats/output-formats/output-format",
+						ResourceUtil.getResourceAsString(
+								ResourceUtil.getPathToSchemas() 
+							 	+ "explain-styles_new.xml"
+						)
+				);
+			}
+			catch (Exception e) 
+			{
+				throw new RuntimeException("Cannot process expain file:", e);
+			}
+
+				outputFormatsHash = new HashMap<String, String[]>();
+//				logger.info("items:" + nl.getLength());
+				for (int i = 0; i < nl.getLength(); i++)
+				{
+					Node n = nl.item(i);
+					NodeList nll = n.getChildNodes();
+					
+					
+					String name = null, format = null, ext = null;
+					for ( int ii=0; ii < nll.getLength(); ii++)
+					{	
+						Node nn = nll.item(ii);
+						
+						if (nn.getNodeType() == Node.ELEMENT_NODE)
+						{
+							String nodeName = nn.getNodeName();
+							if ("dc:title".equals(nodeName))
+							{
+								name = nn.getTextContent();
+							}
+							if ("dc:format".equals(nodeName))
+							{
+								format = nn.getTextContent();
+							}
+							if ("file-ext".equals(nodeName))
+							{
+								ext = nn.getTextContent();
+							}
+						}
+					}
+					outputFormatsHash.put(
+							name, //key: output format key
+							new String[]
+							{
+								format,//mime-type 
+								ext //extension
+							}
+							
+					);
+				}
+				return outputFormatsHash;
+			
+		}
+		else
+		{
+			return outputFormatsHash;
+		}
+
+	}
+	
+	/**
+	 * Return citationStylesHash 
+	 * keys: citation style id
+	 * value: hash of supported output formats
+	 * @return citationStylesHash
+	 */	
+	public static HashMap<String, HashMap<String, String[]>> getCitationStylesHash() 
+	{
+		
+		if (citationStylesHash == null) 
+		{
+			NodeList nl;
+			try {
+				nl = xpathNodeList(
+						"/export-formats/export-format/identifier",
+						ResourceUtil.getResourceAsString(
+								ResourceUtil.getPathToSchemas() 
+							 	+ "explain-styles_new.xml"
+						)
+				);
+			}
+			catch (Exception e) 
+			{
+				throw new RuntimeException("Cannot process expain file:", e);
+			}
+			citationStylesHash = new HashMap<String, HashMap<String, String[]>>();
+			//for all export formats take identifiers
+			for (int i = 0; i < nl.getLength(); i++)
+			{
+				Node n = nl.item(i);
+				
+				String exportFormat =  n.getTextContent();
+				
+				//find output formats
+				NodeList exportFormatChildren =  n.getParentNode().getChildNodes();
+				
+				
+				//find output formats element
+				Node outputFormatsNode = findNode(exportFormatChildren, "output-formats");
+				
+				
+				//if no export format identifier found, continue for
+				HashMap<String, String[]> formatsHash = new HashMap<String, String[]>();
+				if ( !(outputFormatsNode == null || outputFormatsNode.getTextContent() == null) )
+				{
+					String refs = outputFormatsNode.getAttributes().getNamedItem("refs").getTextContent();
+					
+					for (String outputFormat: refs.split("\\s+"))
+					{
+						//check outputFormat availability
+						if ( getOutputFormatsHash().containsKey(outputFormat) )
+							formatsHash.put(outputFormat, getOutputFormatsHash().get(outputFormat));
+					}
+				}
+				
+				citationStylesHash.put(exportFormat, formatsHash);
+				
+			}
+			return citationStylesHash;
+			
+		}
+		else
+		{
+			return citationStylesHash;
+		}
+		
+	}
+	
+	
+	/**
+	 * Search for the first <code>Node</code> with the nodeName().equals(nodeName)
+	 * in the nodeList   
+	 * @param nodeList
+	 * @param nodeName
+	 * @return Node or null if no Node has been found 
+	 */
+	private static Node findNode(NodeList nodeList, String nodeName)
+	{
+		Node curNode;
+		for (int i=0; i < nodeList.getLength(); i++)
+		{
+			curNode = nodeList.item(i);
+			if ( curNode.getNodeType() == Node.ELEMENT_NODE && nodeName.equals(curNode.getNodeName()) )
+			{
+				return curNode;
+			}
+		}
+		return null;
+	}
     
 
 	/**
@@ -588,30 +830,89 @@ public class XmlHelper {
 	/*****************/
 	/** XPATH Utils **/
 	/*****************/
-    public static NodeList xpathNodeList(String expr, String xml) throws Exception
+	public static String xpathString(String expr, String xml)
+    {
+    	return xpathString(expr, createDocument(xml)); 
+    }
+    
+    public static String xpathString(String expr, Document doc)
+    {
+    	try {
+			return (String) xpath.evaluate(
+						expr, 
+						doc, 
+						XPathConstants.STRING
+					);
+		} 
+    	catch (Exception e) 
+		{
+            throw new RuntimeException("Cannot evaluate XPath:", e);
+		} 
+
+    }
+    
+    public static Double xpathNumber(String expr, String xml)
+    {
+    	return xpathNumber(expr, createDocument(xml)); 
+    }
+    
+    public static Double xpathNumber(String expr, Document doc)
+    {
+    	try {
+			return (Double) xpath.evaluate(
+					expr, 
+					doc,
+				
+					XPathConstants.NUMBER
+			);
+    	}
+		catch (Exception e) 
+		{
+            throw new RuntimeException("Cannot evaluate XPath:", e);
+		} 
+    }
+    
+    public static NodeList xpathNodeList(String expr, String xml)
     {
     	return xpathNodeList(expr, createDocument(xml)); 
     }
     
-    public static NodeList xpathNodeList(String expr, Document doc) throws Exception
+    public static NodeList xpathNodeList(String expr, Document doc) 
     {
-    	return (NodeList) xpath.evaluate(
-    			expr, 
-    			doc, 
-    			XPathConstants.NODESET
-    	);
-    }    
+    	try {
+			return (NodeList) xpath.evaluate(
+					expr, 
+					doc, 
+					XPathConstants.NODESET
+			);
+    	} 
+    	catch (Exception e) 
+		{
+            throw new RuntimeException("Cannot evaluate XPath:", e);
+		} 
+    }
     
-    public static String xpathString(String expr, Document doc) throws Exception
+    public static Node xpathNode(String expr, String xml)
     {
-    	return (String) xpath.evaluate(
-    				expr, 
-    				doc, 
-    				XPathConstants.STRING
-    	);
-    } 	
-	
-	
+    	return xpathNode(expr, createDocument(xml)); 
+    }
+    
+    public static Node xpathNode(String expr, Document doc)
+    {
+    	try {
+			return (Node) xpath.evaluate(
+					expr, 
+					doc, 
+					XPathConstants.NODE
+			);
+    	}
+    	catch (Exception e) 
+		{
+            throw new RuntimeException("Cannot evaluate XPath:", e);
+		} 
+    }
+
+
 }
 
 class OutputFormatNodeFilter implements NodeFilter {
@@ -649,6 +950,8 @@ class OutputFormatNodeFilter implements NodeFilter {
 		return FILTER_SKIP;
 	}
 }
+
+
 
 
 class ExportFormatNodeFilter implements NodeFilter {

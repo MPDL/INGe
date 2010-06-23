@@ -1502,7 +1502,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	 */
 	public boolean isCitationStyle(String citationStyle) throws CitationStyleManagerException 
 	{
-		return ResourceUtil.isCitationStyle(citationStyle);
+		return XmlHelper.isCitationStyle(citationStyle);
 	}
 
 	/* (non-Javadoc)
@@ -1519,7 +1519,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	 */	
 	public String[] getOutputFormats(String cs) throws CitationStyleManagerException
 	{
-		return ResourceUtil.getOutputFormats(cs);
+		return XmlHelper.getOutputFormatsArray(cs);
 	}
 	
 	/* (non-Javadoc)
@@ -1527,7 +1527,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	 */	
 	public String getMimeType(String cs, String ouf) throws CitationStyleManagerException
 	{
-		return ResourceUtil.getMimeType(cs, ouf);
+		return XmlHelper.getMimeType(cs, ouf);
 	}
 	
 	
