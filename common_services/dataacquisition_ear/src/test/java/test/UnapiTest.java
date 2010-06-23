@@ -13,6 +13,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -44,12 +45,10 @@ public class UnapiTest
     private String bmcId = "bmc:1472-6890-9-1";
     private String spiresId ="spires:hep-ph/0001001";
 
-    @BeforeClass
-    public static void Init() throws IOException, URISyntaxException
+    @Before
+    public void init() throws IOException, URISyntaxException
     {	
     	location = PropertyReader.getProperty("escidoc.dataacquisition.service.url") + "download/unapi";
-    	//init trans service
-    	TransformationBean transformer = new TransformationBean();
     }
     
     @Test
