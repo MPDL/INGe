@@ -52,7 +52,7 @@ public class DataAcquisitionUnitTest
     private String pmcId = "PMC2043518";
     private String bmcId = "1472-6890-9-1";
     private String spiresId ="hep-ph/0001001 ";
-    private String escidocId = "http://pubman.mpdl.mpg.de/pubman/item/escidoc:441123";
+    private String escidocId = "TODO";
 
     @Test
     @Ignore
@@ -93,6 +93,7 @@ public class DataAcquisitionUnitTest
     
     @Test
     @Ignore
+    //TODO: test with item after update of metadata on live server
     public void fetcheSciDoc() throws Exception
     {
         byte[] test = this.datahandler.doFetch("escidoc", this.escidocId);
