@@ -31,19 +31,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.44-SNAPSHOT</version>
+		<version>1.0.44</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>cone_ear</artifactId>
 	<name>cone_ear</name>
 	<packaging>ear</packaging>
-	<version>1.2.3-SNAPSHOT</version>
+	<version>1.2.3</version>
 	
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/cone_ear</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/cone_ear</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.44</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.44</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.44</url>
 	</scm>
 	
 	<build>
@@ -241,7 +241,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.44-SNAPSHOT</version>
+			<version>1.1.44</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -254,14 +254,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>cone_presentation</artifactId>
-			<version>1.2.3-SNAPSHOT</version>
+			<version>1.2.3</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.47-SNAPSHOT</version>
+			<version>1.0.47</version>
 			<scope>compile</scope>
 			<type>jar</type>
 		</dependency>
@@ -341,7 +341,7 @@
 	    <dependency>
 	    	<groupId>de.mpg.escidoc.services</groupId>
 	    	<artifactId>cone</artifactId>
-	    	<version>1.2.3-SNAPSHOT</version>
+	    	<version>1.2.3</version>
 	    	<scope>compile</scope>
 	    </dependency>
 	    <dependency>
