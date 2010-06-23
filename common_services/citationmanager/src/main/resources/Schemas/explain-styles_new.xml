@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!--
+		CDDL HEADER START The contents of this file are subject to the terms
+		of the Common Development and Distribution License, Version 1.0 only
+		(the "License"). You may not use this file except in compliance with
+		the License. You can obtain a copy of the license at
+		license/ESCIDOC.LICENSE or http://www.escidoc.de/license. See the
+		License for the specific language governing permissions and
+		limitations under the License. When distributing Covered Code, include
+		this CDDL HEADER in each file and include the License file at
+		license/ESCIDOC.LICENSE. If applicable, add the following below this
+		CDDL HEADER, with the fields enclosed by brackets "[]" replaced with
+		your own identifying information: Portions Copyright [yyyy] [name of
+		copyright owner] CDDL HEADER END Copyright 2006-2010
+		Fachinformationszentrum Karlsruhe Gesellschaft für
+		wissenschaftlich-technische Information mbH and Max-Planck-
+		Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved.
+		Use is subject to license terms.
+	-->
+	<!--
+		Citation Styles explain XML Initial creation: bsaquet $Author$
+		$Revision$ $LastChangedDate: 2007-11-12 15:55:12 +0100 (Mon, 12
+		Nov 2007) $
+	-->
+<export-formats
+	xmlns="http://escidoc.mpg.de/export/schema/0.1/explain-formats"
+	xmlns:dc="http://purl.org/dc/elements/1.1/" 
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://escidoc.mpg.de/export/schema/0.1/explain-formats explain-export-formats.xsd">
+	<export-format type="layout" context="PubMan">
+		<dc:title>APA Citation Style</dc:title>
+		<dc:identifier>APA</dc:identifier>
+		<output-format>
+			<dc:title>pdf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>rtf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_plain</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_linked</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_styled</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>odt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.oasis.opendocument.text</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>snippet</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>escidoc_snippet</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>txt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/plain</dc:format>
+		</output-format>		
+		<dc:creator>vmakarenko</dc:creator>
+		<open>true</open>
+		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
+	</export-format>
+	<export-format type="layout" context="PubMan">
+		<dc:title>AJP Citation Style</dc:title>
+		<dc:identifier>AJP</dc:identifier>
+		<output-format>
+			<dc:title>pdf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>rtf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_plain</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_linked</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_styled</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>odt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.oasis.opendocument.text</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>snippet</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>escidoc_snippet</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>txt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/plain</dc:format>
+		</output-format>		
+		<dc:creator>vmakarenko</dc:creator>
+		<open>true</open>
+		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
+	</export-format>
+	<export-format type="layout" context="PubMan">
+		<dc:title>JUS Citation Style</dc:title>
+		<dc:identifier>JUS</dc:identifier>
+		<output-format>
+			<dc:title>pdf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>rtf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_plain</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_linked</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_styled</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>odt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.oasis.opendocument.text</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>snippet</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>escidoc_snippet</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>txt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/plain</dc:format>
+		</output-format>		
+		<dc:creator></dc:creator>
+		<open>true</open>
+		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
+	</export-format>		
+	<export-format type="layout" context="PubMan">
+		<dc:title>Default Citation Style</dc:title>
+		<dc:identifier>Default</dc:identifier>
+		<output-format>
+			<dc:title>pdf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>rtf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_plain</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_linked</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_styled</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>odt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.oasis.opendocument.text</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>snippet</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>escidoc_snippet</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>txt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/plain</dc:format>
+		</output-format>		
+		<dc:creator>vmakarenko</dc:creator>
+		<open>false</open>
+		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
+	</export-format>		
+	<export-format type="layout" context="PubMan">
+		<dc:title>Test Citation Style</dc:title>
+		<dc:identifier>Test</dc:identifier>
+		<output-format>
+			<dc:title>pdf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>rtf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_plain</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_linked</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_styled</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>odt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.oasis.opendocument.text</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>snippet</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>escidoc_snippet</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>txt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/plain</dc:format>
+		</output-format>		
+		<dc:creator></dc:creator>
+		<open>false</open>
+		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
+	</export-format>
+	<output-formats>
+		<output-format>
+			<dc:title>pdf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+			<file-ext>pdf</file-ext>
+		</output-format>
+		<output-format>
+			<dc:title>rtf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
+			<file-ext>rtf</file-ext>
+		</output-format>
+		<output-format>
+			<dc:title>html_plain</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+			<file-ext>html</file-ext>
+		</output-format>
+		<output-format>
+			<dc:title>html_linked</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+			<file-ext>html</file-ext>
+		</output-format>
+		<output-format>
+			<dc:title>html_styled</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+			<file-ext>html</file-ext>
+		</output-format>
+		<output-format>
+			<dc:title>odt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.oasis.opendocument.text</dc:format>
+			<file-ext>odt</file-ext>
+		</output-format>
+		<output-format>
+			<dc:title>snippet</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+			<file-ext>xml</file-ext>
+		</output-format>
+		<output-format>
+			<dc:title>escidoc_snippet</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+			<file-ext>xml</file-ext>
+		</output-format>
+		<output-format>
+			<dc:title>txt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/plain</dc:format>
+			<file-ext>txt</file-ext>
+		</output-format>
+	</output-formats>				
+</export-formats>
