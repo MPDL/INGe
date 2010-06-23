@@ -836,11 +836,24 @@ public class EditItem extends FacesBean
             if (CreatorType.ORGANIZATION == creatorVOPresentation.getType())
             {
                 creatorVO = new CreatorVO(creatorVOPresentation.getOrganization(), creatorVOPresentation.getRole());
+                if (creatorVO.getOrganization() != null && creatorVO.getOrganization().getName() != null
+                        && (creatorVO.getOrganization().getName().getValue() == null
+                        || "".equals(creatorVO.getOrganization().getName().getValue())))
+                {
+                    creatorVO.getOrganization().setName(null);
+                }
             }
             else
             {
                 creatorVO = new CreatorVO(creatorVOPresentation.getPerson(), creatorVOPresentation.getRole());
-            } 
+                if (creatorVO.getPerson() != null && creatorVO.getPerson().getIdentifier() != null
+                        && (creatorVO.getPerson().getIdentifier().getId() == null
+                        || "".equals(creatorVO.getPerson().getIdentifier().getId())))
+                {
+                    creatorVO.getPerson().setIdentifier(null);
+                }
+            }
+
             creators.add(creatorVO);
         }
     }
