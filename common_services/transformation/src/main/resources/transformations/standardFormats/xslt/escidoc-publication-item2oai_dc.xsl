@@ -27,17 +27,19 @@
 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:dc="http://purl.org/dc/elements/1.1/"
-	xmlns:dcterms="http://purl.org/dc/terms/" 
-	xmlns:dcmitype="http://purl.org/dc/dcmitype/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 
+	xmlns:dc="${xsd.metadata.dc}"
+	xmlns:dcterms="${xsd.metadata.dcterms}" 
+	xmlns:dcmitype="${xsd.metadata.dcmitype}"
 
-	xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
-	xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
-	xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
-	xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
-	xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
-	xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+	xmlns:pub="${xsd.metadata.publication}"
+	xmlns:eterms="${xsd.metadata.terms}"
+	xmlns:source="${xsd.metadata.source}"
+	xmlns:event="${xsd.metadata.event}"
+	xmlns:person="${xsd.metadata.person}"
+	xmlns:organization="${xsd.metadata.organization}"
+	>
 
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	
@@ -52,9 +54,14 @@
 	<xsl:template name="createItem">
 
 		<xsl:for-each select="//pub:publication">
-			<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
-				xmlns:prefix-dc="http://purl.org/dc/elements/1.1/">
-
+		
+			<xsl:element name="oai_dc:dc" 
+				namespace="http://www.openarchives.org/OAI/2.0/oai_dc/" 
+				>
+				<xsl:namespace name="xsi">http://www.w3.org/2001/XMLSchema-instance</xsl:namespace>
+				<xsl:namespace name="dc">${xsd.metadata.dc}</xsl:namespace>
+				<xsl:namespace name="dcterms">${xsd.metadata.dcterms}</xsl:namespace>
+				<xsl:namespace name="dcmitype">${xsd.metadata.dcmitype}</xsl:namespace>
 
 				<!-- dc:type +	-->
 				<xsl:element name="dc:type">
@@ -68,23 +75,22 @@
 				
 				<xsl:if test="eterms:degree!=''">
 					<xsl:element name="dc:type">
-						<xsl:value-of select="$degree-ves/enum[@uri=eterms:degree]" />
+						<xsl:value-of select="eterms:degree" />
 					</xsl:element>
 				</xsl:if>
-
 				
 				<!-- CREATORS -->
 				<xsl:for-each select="eterms:creator">
+					<xsl:variable name="author_uri" select="$creator-ves/enum[.='author']/@uri" />
 					<xsl:variable name="role-uri" select="@role" />
 					<xsl:variable name="role" select="$creator-ves/enum[@uri=$role-uri]" />
 					
-					<xsl:variable name="creatorType"
-						select="
-				if ($role='author') then 'dc:creator' 
-				else if ($role = ('advisor', 'contributor', 'transcriber', translator, 'honoree')) then 'dc:contributor'
-				else if (empty(preceding-sibling::*/@role-uri='author')) then 'dc:creator'
-				else 'dc:contributor'
-			" />
+					<xsl:variable name="creatorType" select="
+						if ($role='author') then 'dc:creator' 
+						else if ($role = ('advisor', 'contributor', 'transcriber', translator, 'honoree')) then 'dc:contributor'
+						else if (empty(following-sibling::*[@role=$author_uri]|preceding-sibling::*[@role=$author_uri])) then 'dc:creator'
+						else 'dc:contributor'
+					"/>
 
 					<xsl:if test="person:person!=''">
 						<xsl:if test="person:person/eterms:complete-name!=''">
@@ -130,7 +136,7 @@
 				<xsl:for-each select="dc:identifier">
 					<xsl:element name="dc:identifier">
 						<xsl:if test="@xsi:type!=''">
-							<xsl:value-of select="concat(@xsi:type, ':')" />
+							<xsl:value-of select="concat(@xsi:type, ': ')" />
 						</xsl:if>
 						<xsl:value-of select="." />
 					</xsl:element>
@@ -141,31 +147,33 @@
 					copy-namespaces="no" />
 
 				<!-- dc:date +-->
-				<xsl:variable name="date"
-					select="
-				if (dcterms:issued!='') then dcterms:issued
-				else if (eterms:published-online!='') then eterms:published-online 
-				else if (dcterms:dateAccepted!='') then dcterms:dateAccepted 
-				else if (dcterms:dateSubmitted!='') then dcterms:dateSubmitted 
-				else if (dcterms:modified!='') then dcterms:modified 
-				else if (dcterms:created!='') then dcterms:created
-				else '' 
-			" />
+				<xsl:variable name="date" select="
+					if (dcterms:issued!='') then dcterms:issued
+					else if (eterms:published-online!='') then eterms:published-online 
+					else if (dcterms:dateAccepted!='') then dcterms:dateAccepted 
+					else if (dcterms:dateSubmitted!='') then dcterms:dateSubmitted 
+					else if (dcterms:modified!='') then dcterms:modified 
+					else if (dcterms:created!='') then dcterms:created
+					else '' 
+				" />
 				<xsl:if test="$date!=''">
 					<xsl:element name="dc:date">
+						<xsl:attribute name="xsi:type">dcterms:W3CDTF</xsl:attribute>
 						<xsl:value-of select="$date" />
 					</xsl:element>
 				</xsl:if>
+				
 				<xsl:variable name="stype-uri" select="source:source/@type"/>
 				<xsl:variable name="stype" select="$genre-ves/enum[@uri=$stype-uri]"/>
+				
 				<!-- dc:sources +? -->
 				<xsl:variable name="source">
 					<xsl:value-of select="eterms:publishing-info/eterms:place" />
 					<xsl:value-of
 						select="concat(' ', eterms:publishing-info/eterms:edition)" />
-					<xsl:value-of select="concat(' ', source:source/dc:title)" />
+					<xsl:value-of select="concat(' ', source:source[1]/dc:title)" />
 					<xsl:for-each
-						select="source:source[$stype=('book', 'proceedings', 'issue', 'other')]/eterms:creator">
+						select="source:source[1][$stype=('book', 'proceedings', 'issue', 'other')]/eterms:creator">
 						<xsl:if test="./person:person!=''">
 							<xsl:if test="./person:person/eterms:complete-name!=''">
 								<xsl:value-of
@@ -180,10 +188,10 @@
 							<xsl:value-of select="concat(' ', ./organization:organization/dc:title)" />
 						</xsl:if>
 					</xsl:for-each>
-					<xsl:value-of select="concat(' ', source:source/eterms:volume)" />
-					<xsl:value-of select="concat(' ', source:source/eterms:issue)" />
+					<xsl:value-of select="concat(' ', source:source[1]/eterms:volume)" />
+					<xsl:value-of select="concat(' ', source:source[1]/eterms:issue)" />
 					<xsl:for-each
-						select="source:source[@type=('journal', 'series')]/eterms:publishing-info">
+						select="source:source[1][@type=('journal', 'series')]/eterms:publishing-info">
 						<xsl:value-of select="concat(' ', ./dc:publisher, ' ', ./eterms:place, ' ', ./eterms:edition)" />
 					</xsl:for-each>
 				</xsl:variable>
@@ -197,7 +205,7 @@
 				<!-- dc:format + -->
 				<xsl:variable name="format">
 					<xsl:value-of
-						select="concat(string-join((source:source/eterms:start-page, source:source/eterms:end-page), '-'), ' ', source:source/eterms:total-number-of-pages )" />
+						select="concat(string-join((source:source[1]/eterms:start-page, source:source[1]/eterms:end-page), '-'), ' ', source:source[1]/eterms:total-number-of-pages )" />
 				</xsl:variable>
 				<xsl:variable name="format" select="normalize-space($format)" />
 				<xsl:if test="$format!='' and $format!='-'">
@@ -233,8 +241,7 @@
 				<!-- dc:subject -->
 				<xsl:copy-of select="dc:subject" copy-namespaces="no" />
 
-			</oai_dc:dc>
-
+			</xsl:element>
 
 		</xsl:for-each>
 
