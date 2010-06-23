@@ -30,9 +30,11 @@
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:fn="http://www.w3.org/2005/xpath-functions" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:dc="http://purl.org/dc/elements/1.1/" 
-	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:func="http://www.escidoc.de/citationstyle/functions" 
+	xmlns:jfunc="java:de.mpg.escidoc.services.citationmanager.utils.XsltHelper"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:prop="${xsd.soap.common.prop}"
 	xmlns:escidocComponents="${xsd.soap.item.components}"
 	xmlns:escidocItem="${xsd.soap.item.item}"
@@ -40,38 +42,50 @@
 	<xsl:output method="html" encoding="UTF-8" indent="yes"/>
 	
 	<xsl:param name="pubman_instance"/>
+	
+	<xsl:param name="html_linked" select="false()"/>
 
 	<xsl:template match="/">
-		<xsl:element name="div">
-			<xsl:apply-templates select="//dcterms:bibliographicCitation"/>
+		<xsl:element name="html">
+			<xsl:element name="head">
+				<xsl:element name="meta">
+					<xsl:attribute name="http-equiv" select="'Content-Type'"/>
+					<xsl:attribute name="content" select="'text/html; charset=utf-8'"/>
+				</xsl:element>
+			</xsl:element>
+			<xsl:element name="body">
+				<xsl:element name="div">
+					<xsl:attribute name="class" select="'Pubman'"/>
+					<xsl:apply-templates select="//dcterms:bibliographicCitation"/>
+				</xsl:element>
+			</xsl:element>
 		</xsl:element>
 	</xsl:template>
 	
 	<xsl:template match="dcterms:bibliographicCitation">
-		<xsl:element name="div">
-			<xsl:value-of select="." disable-output-escaping="yes"/>
-			<xsl:element name="div">
-				<xsl:text>PubMan </xsl:text>
+		<xsl:element name="p">
+			<xsl:value-of select="jfunc:convertSnippetToHtml(.)" disable-output-escaping="yes"/>
+			<xsl:variable name="item" select="../../.."/>			
+			<xsl:if test="$html_linked">
+				<xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
 				 <xsl:element name="a">
 					<xsl:attribute name="href" select="
 						concat(
 							$pubman_instance,
 		    				'/item/', 
-		    				../../../escidocItem:properties/prop:version/@objid
+		    				$item/escidocItem:properties/prop:version/@objid
 			    			)"
-			    		/>PubMan item</xsl:element>			
-				<xsl:for-each select="
-					../../../escidocComponents:components/escidocComponents:component/escidocComponents:content
-					">
-					<xsl:value-of select="
-						if (@storage='internal-managed')
-						then ', FullText '
-						else ', External '
-					"/> <xsl:element name="a"><xsl:attribute name="href" select="@xlink:href"/>link <xsl:value-of select="position()"/></xsl:element>
+			    		/>
+					<xsl:attribute name="class" select="'Item'"/>[Item] </xsl:element>
+				<xsl:variable name="con" select="$item/escidocComponents:components/escidocComponents:component/escidocComponents:content"/>				
+				<xsl:for-each select="$con[@storage='internal-managed']">
+					<xsl:element name="a"><xsl:attribute name="href" select="@xlink:href"/><xsl:attribute name="class" select="'File'"/><xsl:value-of select="concat('[File ', position(), ']')"/></xsl:element>
 				</xsl:for-each>
-			</xsl:element>
+				<xsl:for-each select="$con[@storage!='internal-managed']">
+					<xsl:element name="a"><xsl:attribute name="href" select="@xlink:href"/><xsl:attribute name="class" select="'Locator'"/><xsl:value-of select="concat('[Locator ', position(), ']')"/></xsl:element>
+				</xsl:for-each>
+			</xsl:if>
 		</xsl:element>
-		<xsl:text disable-output-escaping="yes">&lt;br/&gt;</xsl:text>
 	</xsl:template>
 	
 </xsl:stylesheet>
