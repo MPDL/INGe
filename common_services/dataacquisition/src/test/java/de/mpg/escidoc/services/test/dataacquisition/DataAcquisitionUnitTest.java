@@ -64,6 +64,7 @@ public class DataAcquisitionUnitTest
     }
     
     @Test
+    @Ignore
     public void fetchArxiv() throws Exception
     {
         byte[] test = this.datahandler.doFetch("arxiv", this.arxivId);
@@ -105,6 +106,7 @@ public class DataAcquisitionUnitTest
      * @throws Exception
      */
     @Test
+    @Ignore
     public void fetchItemInSpecificFormatTest() throws Exception
     {
         DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();        
