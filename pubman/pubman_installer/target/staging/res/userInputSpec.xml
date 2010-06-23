@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+<userInput>
+    <!-- Install -->
+    <panel order="0">
+        <!-- Coreservice credentials -->
+        <createForPack name="PubMan" />
+        <field type="title" txt="Coreservice connectivity" bold="true" size="1" />
+        <field type="staticText" align="left"
+            txt="Used to connect to the Core Service Instance." />
+        <field type="divider" align="top" />
+        <field type="staticText" align="left"
+            txt="The URL to access the Core Service Instance. The installer requires an 'up and running' Core Service Instance." />
+        <field type="staticText" align="left" txt="Please use this form: http://hostname.domain" />
+        <field type="text" align="left" variable="CoreserviceUrl">
+            <spec txt="URL:" size="25" set="${CoreserviceUrl}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="URL must not be empty string." />
+        </field>
+        <field type="staticText" align="left" txt="Please provide a User with Admin Rights on the Core Service Instance." />
+        <field type="text" align="left" variable="CoreserviceAdminUser">
+            <spec txt="Admin Username:" size="25" set="${CoreserviceAdminUser}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Admin Username must not be empty string." />
+        </field>
+        <field type="password" align="left" variable="CoreserviceAdminPassword">
+            <spec>
+                <pwd txt="Admin Password:" size="25" set="" />
+                <pwd txt="Retype Admin Password:" size="25" set=""/>
+            </spec>
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Admin Password must not be empty string." />
+            <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Both passwords must match." />
+        </field>
+        <field type="divider" align="bottom" />
+    </panel>
+    <panel order="1">
+        <!-- General settings -->
+        <createForPack name="PubMan" />
+        <field type="title" txt="General settings" bold="true" size="1" />
+         <field type="staticText" align="left"
+            txt="General settings for PubMan." />
+        <field type="divider" align="top" />
+        <field type="staticText" align="left"
+            txt="The URL of your PubMan Instance. This value can't be defined here. It is given by the JBoss Configuration. The initial value of JBoss Instance is 'http://host.domain:8080'." />
+        <field type="text" align="left" variable="InstanceUrl">
+            <spec txt="URL of this JBoss Instance:" size="25" set="${InstanceUrl}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="JBoss Instance URL must not be empty string." />
+        </field>
+        <field type="divider" align="bottom" />
+    </panel>
+    <panel order="2">
+        <createForPack name="PubMan" />
+        <field type="title" txt="Mail Server Settings" bold="true" size="1" />
+         <field type="staticText" align="left"
+            txt="(Optionally) PubMan can be configured with Mail Server in order to allow delivering e-mails to the users." />
+        <field type="divider" align="top" />
+        <field type="text" align="left" variable="MailHost">
+            <spec txt="Mail Server Hostname:" size="25" set="${MailHost}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Mail Server Hostname must not be empty string." />
+        </field>
+        <field type="text" align="left" variable="MailSenderAdress">
+            <spec txt="Mail Server Sender Address:" size="25" set="${MailSenderAdress}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Sender Address must not be empty string." />
+        </field>
+        <field type="combo" variable="MailUseAuthentication">
+            <description>Does the server needs authorization credentials?</description>
+            <spec txt="Authorization on Mail Server needed?">
+                <choice txt="yes" value="true" set="true" />
+                <choice txt="no" value="false"/>
+            </spec>
+        </field>
+        <field type="text" align="left" variable="MailUsername">
+            <spec txt="Mail Server Username:" size="25" set="${MailUsername}" />
+        </field>
+        <field type="password" align="left" variable="MailPassword">
+            <spec>
+	            <pwd txt="Mail Server Password:" size="25" set=""/>
+	    		<pwd txt="Retype Mail Server Password:" size="25" set=""/>
+            </spec>
+            <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Both passwords must match." />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Mail Server Password must not be empty string." />
+        </field>
+        <field type="divider" align="bottom" />
+    </panel>
+    <panel order="3">
+        <createForPack name="PubMan" />
+        <field type="title" txt="CoNE Settings" bold="true" size="1" />
+         <field type="staticText" align="left"
+            txt="CoNE (Control-Of-Named-Entities Service). The purpose of this Service is to provide controlled lists of named entities to assure data quality and facilitate data access and data entry. It requires a PostgreSQL Database, where the data is stored. A dump can be downloaded here: 
+            https://zim02.gwdg.de/repos/common/trunk/common_services/cone_presentation/src/test/resources/database.sql" />
+        <field type="divider" align="top" />
+        <field type="space" />
+        <field type="text" align="left" variable="ConeHost">
+            <spec txt="Database Hostname:" size="25" set="${ConeHost}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Database Hostname must not be empty string." />
+        </field>
+        <field type="text" align="left" variable="ConeDatabase">
+            <spec txt="Database Name:" size="25" set="${ConeDatabase}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Database Name must not be empty string." />
+        </field>
+        <field type="text" align="left" variable="ConePort">
+            <spec txt="Database Port:" size="25" set="${ConePort}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Database Port must not be empty string." />
+        </field>
+        <field type="text" align="left" variable="ConeUser">
+            <spec txt="Database Username:" size="25" set="${ConeUser}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Database Username must not be empty string." />
+        </field>
+        <field type="password" align="left" variable="ConePassword">
+            <spec>
+	            <pwd txt="Database Password:" size="25" set=""/>
+            </spec>
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Database Password must not be empty string." />
+        </field>
+        <field type="space" />
+        <field type="divider" align="bottom" />
+    </panel>
+    <panel order="4">
+        <createForPack name="Initial Dataset" />
+         <field type="staticText" align="left"
+            txt="Here information for the initial dataset on coreservice is collected. E.g initial user passwords etc." />
+        <field type="title" txt="Dataset settings" bold="true" size="1" />
+        <field type="divider" align="top" />
+        <field type="text" align="left" variable="InitialUserPassword">
+            <spec txt="Initial user passwords:" size="25" set="${InitialUserPassword}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Initial user password must not be empty string." />
+        </field>
+        <field type="divider" align="bottom" />
+    </panel>
+     <panel order="5">
+        <createForUnselectedPack name="Initial Dataset" />
+         <field type="staticText" align="left"
+            txt="PubMan needs to know which Organisation on Core Service should be treated as the External Organisation. " />
+        <field type="title" txt="The ID of the External Organisation in eSciDoc on Core Service Repository" bold="true" size="1" />
+        <field type="divider" align="top" />
+        <field type="text" align="left" variable="ExternalOrganisationID">
+            <spec txt="ID of External Organisation:" size="25" set="${ExternalOrganisationID}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="ID of External Organisation must not be empty string." />
+        </field>
+        <field type="divider" align="bottom" />
+    </panel>
+    <panel order="6">
+        <createForPack name="PubMan" />
+         <field type="staticText" align="left"
+            txt="External Stylesheets and an external FavIcon can be specified here by entering absolute or relative URLs. The Stylesheet or FavIcon can also be switched off completely by deselecting the checkbox. For Stylesheets one has to be set to 'stylesheet' (rel tag). The others have to be 'alternate stylesheet'. If nothing is changed here, PubMan will come with its standard Stylesheets and FavIcon." />
+        <field type="title" txt="PubMan Style Information" bold="true" size="1" />
+        <field type="divider" align="top" />
+        <field type="check" variable="StyleSheetStandardApply" align="left">
+		  <spec txt="Apply PubMan Stylesheet" true="true" false="false" set="${StyleSheetStandardApply}"/>
+		</field>
+        <field type="text" align="left" variable="StyleSheetStandardURL">
+            <spec txt="URL of the standard PubMan Style:" size="25" set="${StyleSheetStandardURL}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Stylesheet URL must not be empty string." />
+        </field>
+        <field type="text" align="left" variable="StyleSheetStandardType">
+            <spec txt="Type of the standard PubMan Style (rel tag):" size="25" set="${StyleSheetStandardType}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Stylesheet Type must not be empty string." />
+        </field>
+        <field type="divider" align="bottom" />
+        <field type="check" variable="StyleSheetContrastApply">
+		  <spec txt="Apply High Contrast Stylesheet" true="true" false="false" set="${StyleSheetContrastApply}"/>
+		</field>
+        <field type="text" align="left" variable="StyleSheetContrastURL">
+            <spec txt="URL of the high contrast Style:" size="25" set="${StyleSheetContrastURL}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Stylesheet URL must not be empty string." />
+        </field>
+        <field type="text" align="left" variable="StyleSheetContrastType">
+            <spec txt="Type of the high contrast Style (rel tag):" size="25" set="${StyleSheetContrastType}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Stylesheet Type must not be empty string." />
+        </field>
+        <field type="divider" align="bottom" />
+        <field type="check" variable="StyleSheetClassicApply">
+		  <spec txt="Apply Classic Stylesheet" true="true" false="false" set="${StyleSheetClassicApply}"/>
+		</field>
+        <field type="text" align="left" variable="StyleSheetClassicURL">
+            <spec txt="URL of the classic Style:" size="25" set="${StyleSheetClassicURL}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Stylesheet URL must not be empty string." />
+        </field>
+        <field type="text" align="left" variable="StyleSheetClassicType">
+            <spec txt="Type of the classic Style (rel tag):" size="25" set="${StyleSheetClassicType}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Stylesheet Type must not be empty string." />
+        </field>
+        <field type="divider" align="bottom" />
+        <field type="check" variable="FavIconApply">
+		  <spec txt="Use FavIcon" true="true" false="false" set="${FavIconApply}" size="25"/>
+		</field>
+        <field type="text" align="left" variable="FavIconURL">
+            <spec txt="URL of the FavIcon:" size="25" set="${FavIconURL}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="FavIcon URL must not be empty string." />
+        </field>
+        <field type="divider" align="bottom" />
+    </panel>
+</userInput>

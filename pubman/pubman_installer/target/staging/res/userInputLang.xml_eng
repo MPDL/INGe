@@ -1,0 +1,4 @@
+﻿<langpack>
+  <str id="hallo" txt="Relational Database:"/>
+  <str id="authentication" txt="Authentication Method:"/>
+</langpack>
