@@ -355,6 +355,7 @@
 												<option value="odt">odt</option>
 												<option value="rtf">rtf</option>
 												<option value="html_plain">html (plain)</option>
+												<option value="html_linked">html (linked)</option>
 												<option value="html_styled">html (styled)</option>
 												<option value="snippet">snippet v5.x</option>
 												<option value="escidoc_snippet">snippet v6.x</option>

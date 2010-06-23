@@ -43,6 +43,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.axis.handlers.http.HTTPActionHandler;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
@@ -238,14 +239,14 @@ public class RestServlet extends HttpServlet
 
             String fileName = exportFormat + "_output" + getFileExtension(outputFormat);
             LOGGER.debug("fileName: " + fileName);
-            String contentType = getContentType(outputFormat);
-            LOGGER.debug("contentType: " + contentType);
-            resp.setContentType(contentType);
-            
-//            resp.setCharacterEncoding(getCharset(outputFormat).toUpperCase());
 
-            ServletOutputStream os = resp.getOutputStream();
+            setContentType(resp, outputFormat);
+            LOGGER.debug("contentType: " + resp.getContentType());
             
+            setCharacterEncoding(resp, outputFormat);
+            LOGGER.debug("charset: " + resp.getCharacterEncoding());
+            
+            ServletOutputStream os = resp.getOutputStream();
 
             resp.addHeader("x-total-number-of-results", queryResult.getTotalNumberOfResults().toString());
 
@@ -296,29 +297,33 @@ public class RestServlet extends HttpServlet
             throw new ServletException(e);
         }
     }
-
-    /**
+ 
+	/**
      * Mapping of outputFormat to mime-type. TODO: Get the mapping directly from
      * ItemExportingBean
      * 
+     * @param resp
      * @param outputFormat
-     * @return mime-type according to the outputFormat
      */
-    private String getContentType(final String outputFormat)
+    private void setContentType(final HttpServletResponse resp, final String outputFormat)
     {
-        return FileFormatVO.getMimeTypeByName(outputFormat);
+        resp.setContentType(FileFormatVO.getMimeTypeByName(outputFormat));
     }
     
     /**
-     * get output format charset
+     * set output format charset
      * 
+     * @param resp
      * @param outputFormat
-     * @return charset according to the outputFormat
      */
-//    private String getCharset(final String outputFormat)
-//    {
-//    	return FileFormatVO.getCharsetByName(outputFormat);
-//    }
+    private void setCharacterEncoding(final HttpServletResponse resp, final String outputFormat)
+    {
+    	String cs = FileFormatVO.getCharsetByName(outputFormat);
+    	if ( cs != null )
+    	{
+    		resp.setCharacterEncoding(cs);
+    	}
+    }
 
     /**
      * Mapping of the outputType file to the correct file extension. TODO: Get

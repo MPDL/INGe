@@ -236,7 +236,7 @@
 										outputFormat<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										is only relevant for <i>APA</i>, <i>AJP</i>, <i>JUS</i> exportFormat and can be <i>pdf, html (plain and styled), rtf, odt, snippet v5.x (escidoc xml metadata set before v6.0), snippet v6.x (escidoc xml metadata set v6.0 and higher)</i>. (Default:&#160;<i>pdf</i>). 
+										is only relevant for <i>APA</i>, <i>AJP</i>, <i>JUS</i> exportFormat and can be <i>pdf, html (plain, linked and styled), rtf, odt, snippet v5.x (escidoc xml metadata set before v6.0), snippet v6.x (escidoc xml metadata set v6.0 and higher)</i>. (Default:&#160;<i>pdf</i>). 
 										<i>ENDNOTE</i> will be always returned as plain text.
 									</span>
 								</div>
