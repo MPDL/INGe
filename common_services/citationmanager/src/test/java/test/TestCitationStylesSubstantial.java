@@ -142,7 +142,7 @@ public class TestCitationStylesSubstantial {
      * @throws Exception
      */
 	 @Test
-	 @Ignore
+//	 @Ignore
 	 public final void testCitationStylesSnippetGeneration() throws Exception  {
 
 		 for ( String cs: cse.getStyles() ) 
@@ -153,6 +153,7 @@ public class TestCitationStylesSubstantial {
 
 	 
 	 @Test
+	 @Ignore
 	 public final void testCitationStyleTestSnippetGeneration() throws Exception  {
 
 		 testCitationStyleSnippetGeneration("Test");
@@ -203,13 +204,13 @@ public class TestCitationStylesSubstantial {
     			String snippet = new String(cse.getOutput(cs, "escidoc_snippet", XmlHelper.outputString(doc)));
     			logger.info( "snippet:" + snippet);
 
-    			Node snippetNode = xpathNode(SNIPPET_XPATH, snippet);
+    			Node snippetNode = XmlHelper.xpathNode(SNIPPET_XPATH, snippet); 
 
     			generatedCit = snippetNode.getTextContent();
     			logger.info( "generated citation:" + generatedCit );
 
     			//get expected result from the abstract field 
-    			Node checkNode = xpathNode(EXPECTED_XPATH, doc);
+    			Node checkNode = XmlHelper.xpathNode(EXPECTED_XPATH, doc);
     			String comment = objid + ", xpath:" + EXPECTED_XPATH + ", item:" + XmlHelper.outputString(doc);
     			assertNotNull("expected citation has not been found for " + comment, checkNode);
     			expectedCit = checkNode.getTextContent();
@@ -332,8 +333,8 @@ public class TestCitationStylesSubstantial {
     	
     	//change password
     	userXml = uah_admin.retrieve(USER_NAME);
-    	String user_id = xpathString("/user-account/@objid", userXml);
-    	String ldm = xpathString("/user-account/@last-modification-date", userXml);;
+    	String user_id = XmlHelper.xpathString("/user-account/@objid", userXml);
+    	String ldm = XmlHelper.xpathString("/user-account/@last-modification-date", userXml);;
     	
 //    	DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.'SSS'Z'");
 //    	df.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -373,11 +374,11 @@ public class TestCitationStylesSubstantial {
     	logger.info("context for user:" + context_id);
     	
     	//get namespaces of the root element 
-    	NamedNodeMap namespaces = xpathNode("/item-list", itemList).getAttributes() ;
+    	NamedNodeMap namespaces = XmlHelper.xpathNode("/item-list", itemList).getAttributes() ;
     	namespaces.removeNamedItem("xmlns:escidocItemList");
     	
     	
-    	NodeList nodes = xpathNodeList("/item-list/item", itemList);
+    	NodeList nodes = XmlHelper.xpathNodeList("/item-list/item", itemList);
     	
     	if ( nodes == null || nodes.getLength()==0  )
     	{
@@ -411,14 +412,14 @@ public class TestCitationStylesSubstantial {
     				"version"
     		} )
     		{
-        		Node nnn = xpathNode("/item/properties/" + expr, tmpDoc);
+        		Node nnn = XmlHelper.xpathNode("/item/properties/" + expr, tmpDoc);
         		logger.info("xpath:" + "/item/properties/" + expr);
         		if ( nnn != null )
         			nnn.getParentNode().removeChild(nnn);
     		}
     		
     		//set context_id
-    		xpathNode("/item/properties/context/@objid", tmpDoc).setNodeValue(context_id);
+    		XmlHelper.xpathNode("/item/properties/context/@objid", tmpDoc).setNodeValue(context_id);
     		
     		String itemXml = XmlHelper.outputString(tmpDoc);
     		logger.info("item to be created: " + itemXml);
@@ -427,17 +428,17 @@ public class TestCitationStylesSubstantial {
     		String createdItemXml = ih.create(itemXml);
     		logger.info("created item: " + createdItemXml);
 
-    		String item_id = xpathString("/item/@objid", createdItemXml);
-    		String last_modification_date = xpathString("/item/@last-modification-date", createdItemXml);
+    		String item_id = XmlHelper.xpathString("/item/@objid", createdItemXml);
+    		String last_modification_date = XmlHelper.xpathString("/item/@last-modification-date", createdItemXml);
     		//submit item
-    		last_modification_date = xpathString(
+    		last_modification_date = XmlHelper.xpathString(
     				"/result/@last-modification-date", 
     				ih.submit(item_id, String.format(LMD_FORMAT, last_modification_date))
     		);
     		
     		//assignObjectPid
     		String pid = "CIT_COL_PID_" + System.currentTimeMillis() ;
-    		last_modification_date = xpathString(
+    		last_modification_date = XmlHelper.xpathString(
     				"/result/@last-modification-date", 
     				ih.assignObjectPid(
     						item_id, 
@@ -448,7 +449,7 @@ public class TestCitationStylesSubstantial {
     	    		)    				
     		);
     		//assignVersionPid
-    		last_modification_date = xpathString(
+    		last_modification_date = XmlHelper.xpathString(
     				"/result/@last-modification-date", 
     				ih.assignVersionPid(item_id + ":1", 
     	    				"<param last-modification-date=\"" + last_modification_date + "\">" + 
@@ -481,7 +482,7 @@ public class TestCitationStylesSubstantial {
 //    	//check test context
     	ContextHandler ch = ServiceLocator.getContextHandler(userHandle);
     	String contextList = ch.retrieveContexts(FILTER_CITATION_STYLE_CONTEXT);
-    	Double count =  xpathNumber("/context-list/@number-of-records", contextList);
+    	Double count =  XmlHelper.xpathNumber("/context-list/@number-of-records", contextList);
     	if ( count > 0 )
     	{
     		//already exists, go away
@@ -498,7 +499,7 @@ public class TestCitationStylesSubstantial {
     		return false;
     	}
     	
-    	Document doc = JRXmlUtils.createDocument(xpathNode("/context-list/context", contextXml));
+    	Document doc = JRXmlUtils.createDocument(XmlHelper.xpathNode("/context-list/context", contextXml));
     	
     	//clean up xml for creation 
     	Element root = doc.getDocumentElement();  
@@ -514,7 +515,7 @@ public class TestCitationStylesSubstantial {
 				"public-status-comment",
 		})
 		{
-    		Node nnn = xpathNode("/context/properties/" + expr, doc);
+    		Node nnn = XmlHelper.xpathNode("/context/properties/" + expr, doc);
     		nnn.getParentNode().removeChild(nnn);
 		}    	
     	
@@ -530,8 +531,8 @@ public class TestCitationStylesSubstantial {
     	contextXml = ch.create(contextXml);
     	
     	doc = createDocument(contextXml);
-    	String new_objid = xpathString("/context/@objid", doc);
-    	String last_modification_date = xpathString("/context/@last-modification-date", doc);
+    	String new_objid = XmlHelper.xpathString("/context/@objid", doc);
+    	String last_modification_date = XmlHelper.xpathString("/context/@last-modification-date", doc);
 
     	//open context
 		String result = ch.open(new_objid, String.format(LMD_FORMAT, last_modification_date));
@@ -574,7 +575,7 @@ public class TestCitationStylesSubstantial {
 		//get namespaces from the root element
 		NamedNodeMap nnm = document.getDocumentElement().getAttributes();
 
-		NodeList nodes = xpathNodeList("/current-grants/grant", document);
+		NodeList nodes = XmlHelper.xpathNodeList("/current-grants/grant", document);
 
 		for (int i = 0; i < nodes.getLength(); i++) 
 		{
@@ -591,9 +592,9 @@ public class TestCitationStylesSubstantial {
 			}
 
 			//set new user_id
-			xpathNode("/grant/properties/assigned-on/@objid", tmpDoc).setNodeValue(context_id);
+			XmlHelper.xpathNode("/grant/properties/assigned-on/@objid", tmpDoc).setNodeValue(context_id);
 			//set user creator id
-			xpathNode("/grant/properties/created-by/@objid", tmpDoc).setNodeValue(user_creator_id);
+			XmlHelper.xpathNode("/grant/properties/created-by/@objid", tmpDoc).setNodeValue(user_creator_id);
 
 			String grantXml = XmlHelper.outputString(tmpDoc);
 			//		grantXml = Utils.replaceAllTotal(grantXml, "(<([\\w]+:)?assigned-on\\s+objid=\")[^\"]+(\"\\s*/>)", "$1" + context_id + "$3");
@@ -636,7 +637,7 @@ public class TestCitationStylesSubstantial {
      * @throws Exception
      */
     public void backupUser() throws Exception
-    {
+    { 
     	//GET USER ACCOUNT INFO 
     	String userXml = uah_user.retrieve(USER_NAME);
     	writeToFile(CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME + ".xml", userXml);
@@ -693,7 +694,7 @@ private static void administration(String userHandle) throws Exception
     {
     	ContextHandler ch = ServiceLocator.getContextHandler(userHandle);
     	String contextList = ch.retrieveContexts(FILTER_CITATION_STYLE_CONTEXT);
-    	return xpathString("/context-list/context/@objid", contextList);
+    	return XmlHelper.xpathString("/context-list/context/@objid", contextList);
 	}
     
 	/**
@@ -704,7 +705,7 @@ private static void administration(String userHandle) throws Exception
      */
     private String getUserId(String userXml) throws Exception
     {
-        return xpathString("//user-account[1]/@objid", userXml); 
+        return XmlHelper.xpathString("//user-account[1]/@objid", userXml); 
     }
     
 	/**
@@ -715,70 +716,13 @@ private static void administration(String userHandle) throws Exception
      */
     private String getCreatorOfUserId(String userXml) throws Exception
     {
-        return xpathString("//user-account[1]/properties/created-by/@objid", userXml); 
+        return XmlHelper.xpathString("//user-account[1]/properties/created-by/@objid", userXml); 
     }
     
     
     private Document createDocument(String xml) throws Exception
     {
     	return JRXmlUtils.parse(new ByteArrayInputStream(xml.getBytes()));
-    }
-    
-    
-    private String xpathString(String expr, String xml) throws Exception
-    {
-    	return xpathString(expr, createDocument(xml)); 
-    }
-    
-    private String xpathString(String expr, Document doc) throws Exception
-    {
-    	return (String) xpath.evaluate(
-    				expr, 
-    				doc, 
-    				XPathConstants.STRING
-    			);
-    }
-    
-    private Double xpathNumber(String expr, String xml) throws Exception
-    {
-    	return xpathNumber(expr, createDocument(xml)); 
-    }
-    
-    private Double xpathNumber(String expr, Document doc) throws Exception
-    {
-    	return (Double) xpath.evaluate(
-    			expr, 
-    			doc, 
-    			XPathConstants.NUMBER
-    	);
-    }
-    
-    private NodeList xpathNodeList(String expr, String xml) throws Exception
-    {
-    	return xpathNodeList(expr, createDocument(xml)); 
-    }
-    
-    private NodeList xpathNodeList(String expr, Document doc) throws Exception
-    {
-    	return (NodeList) xpath.evaluate(
-    			expr, 
-    			doc, 
-    			XPathConstants.NODESET
-    	);
-    }
-    
-    private Node xpathNode(String expr, String xml) throws Exception
-    {
-    	return xpathNode(expr, createDocument(xml)); 
-    }
-    
-    private Node xpathNode(String expr, Document doc) throws Exception
-    {
-    	return (Node) xpath.evaluate(
-    			expr, 
-    			doc, 
-    			XPathConstants.NODE
-    	);
     }
     
     

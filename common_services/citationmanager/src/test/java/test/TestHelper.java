@@ -147,8 +147,8 @@ public class TestHelper
         		+ "</il:item-list>"; 
     }
      
-    
-  
+     
+   
     
     protected static void writeToFile(String fileName, byte[] content) throws IOException
     {
@@ -360,6 +360,9 @@ public class TestHelper
 	{
 		return extractTag(xml, "dcterms:abstract"); 
 	}    
+	
+	
+	
 	
 }
 
