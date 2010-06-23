@@ -86,9 +86,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 		add(welcomeLabel, NEXT_LINE);
 		getLayoutHelper().completeLayout();
 		configuration = new Configuration("pubman.properties");
-
-		
-		
 	}
 
 	/**
@@ -265,7 +262,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 		// textArea.append("The 'Next' button will be activated after all data has been inserted.\n");
 		// textArea.append("\n\n");
 
-		LabelPanel contentModelPanel = new LabelPanel("Checking content model in coreservice", false);
+		LabelPanel contentModelPanel = new LabelPanel("Checking for existence of a Content Model in the Core Service Repository", false);
 		add(contentModelPanel, NEXT_LINE);
 
 		LabelPanel propertiesModelPanel = new LabelPanel("Writing configuration (pubman.properties)", false);

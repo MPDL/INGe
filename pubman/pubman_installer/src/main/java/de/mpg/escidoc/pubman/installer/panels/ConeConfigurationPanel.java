@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.swing.JCheckBox;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JSeparator;
 
 import com.izforge.izpack.gui.IzPanelLayout;
@@ -31,7 +32,7 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	private static final long serialVersionUID = -4676947351443726470L;
 
 	
-	private Configuration configuration = null;
+   private Configuration configuration = null;
    private String ouExternalObjectId = null;
    boolean isValid = true;
    private JLabel emptyLabel = LabelFactory.create(" ", LEADING);
@@ -76,9 +77,9 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	       checkBoxCCLicenses = null;
 	       // We create and put the labels
 	       String str;
-	       str = "Collecting Information for CoNE configuration...";
+	       str = "Collecting Information for CoNE Configuration...";
 	       JLabel welcomeLabel = LabelFactory.create(str, parent.icons.getImageIcon("information"), LEADING);
-	      
+	       
 	       add(welcomeLabel, NEXT_LINE);
 	       add(emptyLabel, NEXT_LINE);
 	       add(emptyLabel, NEXT_LINE);
@@ -101,7 +102,7 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	   
 	   public void panelActivate() {
 	       
-	       JLabel label = LabelFactory.create("Please select the data types you want to have installed into CoNE.", parent.icons.getImageIcon("host"), LEADING);
+	       JLabel label = LabelFactory.create("Please select the Data Types you want to have installed into CoNE.", parent.icons.getImageIcon("host"), LEADING);
 	       add(label, NEXT_LINE);
 	       add(emptyLabel, NEXT_LINE);
 	       checkBoxJournals = new JCheckBox("Journals");

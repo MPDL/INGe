@@ -113,7 +113,7 @@
             <file src="jboss/jboss_license.txt" overwrite="true" targetdir="$INSTALL_PATH/jboss-4.2.2.GA/"/>
         </pack>
         <pack name="Initial dataset" required="no" id="pack_dataset">
-            <description>Creates an initial dataset on the coreservice instance</description>
+            <description>Creates an Initial Dataset on the Core Service Instance</description>
         </pack>
     </packs>
 
@@ -134,11 +134,11 @@
     
     <variables>
         <!-- Hostname of the installation server -->
-        <variable name="CoreserviceUrl" value="http://"/>
+        <variable name="CoreserviceUrl" value=""/>
         <variable name="CoreserviceAdminUser" value="sysadmin"/>
         <variable name="CoreserviceAdminPassword" value=""/>
         <variable name="InitialUserPassword" value=""/>
-        <variable name="InstanceUrl" value="http://"/>
+        <variable name="InstanceUrl" value=""/>
         <variable name="MailHost" value=""/>
         <variable name="MailSenderAdress" value=""/>
         <variable name="MailUseAuthentication" value=""/>
