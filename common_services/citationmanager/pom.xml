@@ -68,7 +68,7 @@
 					<skip>false</skip>
 					<includes>
 						<include>**/TestCitationManager.java</include>
-<!--						<include>**/TestCitationStylesSubstantial.java</include>-->
+<!--						<include>**/TestC itationStylesSubstantial.java</include>-->
 					</includes>
 				</configuration>
 			</plugin>
