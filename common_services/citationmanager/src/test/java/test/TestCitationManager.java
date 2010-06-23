@@ -9,7 +9,6 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -19,8 +18,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
-import de.mpg.escidoc.services.citationmanager.CitationStyleManager;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
@@ -68,7 +65,7 @@ public class TestCitationManager {
         for ( String cs: cse.getStyles() ) 
         {
         	String itemList =  TestHelper.getCitationStyleTestXmlAsString(
-        			TestHelper.getTestProperties(cs).getProperty("plain.test.xml") 
+        			TestHelper.getTestProperties(cs).getProperty("plain.test.xml")   
         	); 
         	assertNotNull("Item list xml is not found", itemList);
         	itemLists.put(cs, itemList);
@@ -81,7 +78,7 @@ public class TestCitationManager {
      * @throws Exception Any exception.
      */
     @Test
-    @Ignore
+//    @Ignore
     public final void testGetStyles() throws Exception {
         logger.info("List of citation styles: " );
         for (String s : cse.getStyles() )
@@ -93,7 +90,7 @@ public class TestCitationManager {
      * @throws Exception Any exception.
      */
     @Test
-    @Ignore
+//    @Ignore
     public final void testExplainStuff() throws Exception 
     {
         String explain = cse.explainStyles();
@@ -118,8 +115,23 @@ public class TestCitationManager {
      * Test Citation Style Test
      * @throws Exception
      */
-    @Test
+//    @Test
 //    @Ignore
+    public final void testTestCitationStyle() throws Exception
+    { 
+    	testValidation("Test");
+    	testCompilation("Test");
+    	testOutput("Test", "pdf", "");
+    	testOutput("Test", "escidoc_snippet", "");
+    }
+    
+    
+    /**
+     * Test Citation Style Test
+     * @throws Exception
+     */
+    @Test
+    @Ignore
     public final void testDefaultCitationStyle() throws Exception
     {
     	testValidation("Default");
@@ -146,7 +158,7 @@ public class TestCitationManager {
     }
     
     @Test
-    @Ignore
+//    @Ignore
     public final void testOutputs() throws Exception {
         
      for ( String cs: cse.getStyles() ) 
@@ -182,6 +194,18 @@ public class TestCitationManager {
     	testOutput("APA", "pdf", "Sengbusch", new String(v2, "UTF-8"));
     	
     }
+    
+//    @Test
+    public final void testArxiv() throws Exception {
+    	
+    	
+    	
+    	testOutput("APA", "snippet", "arxiv", 
+    			ResourceUtil.getResourceAsString("src/test/resources/testFiles/arXiv:0904-2.3933.xml")
+    		);
+    	
+    }
+    
     
     
     /**
@@ -249,7 +273,7 @@ public class TestCitationManager {
     	if ( outPrefix != null)
     		TestHelper.writeToFile("target/" 
     				+ ( ! outPrefix.equals("") ? outPrefix + "_" : "")
-    				+ cs + "_" + ouf + "." + ResourceUtil.getExtensionByName(ouf), result); 
+    				+ cs + "_" + ouf + "." + XmlHelper.getExtensionByName(ouf), result); 
 
     }
     
