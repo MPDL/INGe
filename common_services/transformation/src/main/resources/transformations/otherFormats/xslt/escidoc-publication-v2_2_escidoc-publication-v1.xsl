@@ -127,7 +127,7 @@
 	</xsl:template>
 	
 
-	<xsl:template match="publication:publication">
+	<xsl:template match="publication:publication[@type!='']">
 		<xsl:variable name="v2" select="@type"/> 
 		<xsl:variable name="v1" select="$vm/publication-type/v2-to-v1/map[@v2=$v2]"/>
 		<xsl:element name="escidocMetadataProfile:publication" >
@@ -144,7 +144,7 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<xsl:template match="eterms:creator" priority="999">
+	<xsl:template match="eterms:creator[@role!='']" priority="999">
 		<xsl:variable name="v2" select="@role"/>
 		<xsl:variable name="v1" select="$vm/creator-role/v2-to-v1/map[@v2=$v2]"/>
 		<xsl:element name="publication:creator" namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
@@ -214,7 +214,7 @@
 	</xsl:template>
 	
 	
-	<xsl:template match="eterms:review-method" priority="999">
+	<xsl:template match="eterms:review-method[.!='']" priority="999">
 		<xsl:variable name="v2" select="normalize-space(.)"/>
 		<xsl:variable name="v1" select="$vm/review-method/v2-to-v1/map[@v2=$v2]"/>
 		<!-- review method from the ves -->	
@@ -252,7 +252,7 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<xsl:template match="dc:language">
+	<xsl:template match="dc:language[.!='']">
 		<xsl:variable name="v2" select="normalize-space(.)"/>
 		<xsl:variable name="v1" select="$vm/language/v2-to-v1/map[@v2=$v2]"/>
 		<xsl:element name="{name()}">
@@ -274,7 +274,7 @@
 		</xsl:element>
 	</xsl:template>
 		
-	<xsl:template match="eterms:content-category" priority="999">
+	<xsl:template match="eterms:content-category[.!='']" priority="999">
 		<xsl:variable name="v2" select="normalize-space(lower-case(.))"/>
 		<xsl:variable name="v1" select="$vm/content-category/v2-to-v1/map[@v2=$v2]"/>
 		<xsl:element name="file:content-category" namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
@@ -287,7 +287,7 @@
 		</xsl:element>
 	</xsl:template>
 		
-	<xsl:template match="prop:content-category" priority="999">
+	<xsl:template match="prop:content-category[.!='']" priority="999">
 		<xsl:variable name="v2" select="normalize-space(lower-case(.))"/>
 		<xsl:variable name="v1" select="$vm/content-category/v2-to-v1/map[@v2=$v2]"/>
 		<xsl:element name="prop:content-category" namespace="http://escidoc.de/core/01/properties/">
@@ -314,7 +314,7 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<xsl:template match="eterms:degree" priority="999">
+	<xsl:template match="eterms:degree[.!='']" priority="999">
 		<xsl:variable name="v2" select="normalize-space(.)"/>
 		<xsl:variable name="v1" select="$vm/academic-degree/v2-to-v1/map[@v2=$v2]"/>
 		<xsl:element name="publication:degree" namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
