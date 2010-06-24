@@ -296,6 +296,6 @@ public class TestCitationManager {
     	
     }
     
-//    I want to test merging
+//    I want to test merging 2
     
 }
