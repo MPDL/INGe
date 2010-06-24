@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" targetNamespace="http://purl.org/escidoc/metadata/terms/0.1/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://purl.org/escidoc/metadata/terms/0.1/" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:annotation>
 		<xs:documentation xml:lang="en">
 
@@ -207,7 +207,6 @@
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>
-	
 	<xs:annotation>
 		<xs:documentation xml:lang="en">
 
@@ -221,6 +220,7 @@
 				<xs:simpleType>
 					<xs:restriction base="xs:string"/>
 				</xs:simpleType>
+				<xs:attribute ref="xml:lang" use="prohibited"/>
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -230,6 +230,7 @@
 				<xs:simpleType>
 					<xs:restriction base="xs:string"/>
 				</xs:simpleType>
+				<xs:attribute ref="xml:lang" use="prohibited"/>
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -239,6 +240,7 @@
 				<xs:simpleType>
 					<xs:restriction base="xs:string"/>
 				</xs:simpleType>
+				<xs:attribute ref="xml:lang" use="prohibited"/>
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -248,10 +250,10 @@
 				<xs:simpleType>
 					<xs:restriction base="xs:string"/>
 				</xs:simpleType>
+				<xs:attribute ref="xml:lang" use="prohibited"/>
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>
-	
 	<xs:annotation>
 		<xs:documentation xml:lang="en">
 
@@ -265,6 +267,7 @@
 				<xs:simpleType>
 					<xs:restriction base="xs:string"/>
 				</xs:simpleType>
+				<xs:attribute ref="xml:lang" use="prohibited"/>
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -274,6 +277,7 @@
 				<xs:simpleType>
 					<xs:restriction base="xs:string"/>
 				</xs:simpleType>
+               <xs:attribute ref="xml:lang" use="prohibited"/>
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -283,17 +287,8 @@
 				<xs:simpleType>
 					<xs:restriction base="xs:string"/>
 				</xs:simpleType>
+               <xs:attribute ref="xml:lang" use="prohibited"/>
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType> -->
-	<xs:complexType name="OTHER">
-		<xs:simpleContent>
-			<xs:restriction base="dc:SimpleLiteral">
-				<xs:simpleType>
-					<xs:restriction base="xs:string"/>
-				</xs:simpleType>
-			</xs:restriction>
-		</xs:simpleContent>
-	</xs:complexType>
-
 </xs:schema>
