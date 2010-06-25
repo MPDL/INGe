@@ -31,19 +31,19 @@
     <parent>
         <artifactId>pubman</artifactId>
         <groupId>de.mpg.escidoc.pubman</groupId>
-        <version>6.1.5-SNAPSHOT</version>
+        <version>6.1.5</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.mpg.escidoc.pubman</groupId>
     <artifactId>pubman_installer</artifactId>
     <name>pubman_installer</name>
     <packaging>jar</packaging>
-    <version>6.1.5-SNAPSHOT</version>
+    <version>6.1.5</version>
 
     <scm>
-        <connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_installer</connection>
-        <developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_installer</developerConnection>
-        <url>https://zim02.gwdg.de/repos/pubman/</url>
+        <connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-6.1.5/pubman_installer</connection>
+        <developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-6.1.5/pubman_installer</developerConnection>
+        <url>https://zim02.gwdg.de/repos/pubman/tags/pubman-6.1.5</url>
     </scm>
 
     <build>
@@ -203,20 +203,20 @@
         <dependency>
             <groupId>de.mpg.escidoc.pubman</groupId>
             <artifactId>pubman_ear</artifactId>
-            <version>6.1.5-SNAPSHOT</version>
+            <version>6.1.5</version>
             <scope>provided</scope>
             <type>ear</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>validation_presentation</artifactId>
-            <version>1.0.46</version>
+            <version>1.0.50</version>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>framework_access</artifactId>
-            <version>1.0.43</version>
+            <version>1.0.47</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -239,13 +239,13 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>cone</artifactId>
-            <version>1.1.6</version>
+            <version>1.2.3</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.40</version>
+			<version>1.1.44</version>
 			<scope>compile</scope>
 		</dependency>
 
