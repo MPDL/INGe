@@ -179,7 +179,7 @@ public class JsonFormatter extends Formatter
                     }
                     
                     result.append("\t\t\"value\" : \"");
-                    result.append(value.toString().replace("\"", "\\\""));
+                    result.append(value.toString().replace("\"", "\\\"").replace("\n", "\\n"));
                     result.append("\"\n");
                     
                     result.append("\t}");
