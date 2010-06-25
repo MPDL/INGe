@@ -43,8 +43,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlSelectOneMenu;
@@ -69,7 +67,6 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
-import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
@@ -77,11 +74,9 @@ import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
-import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation.ContentCategory;
-
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -89,19 +84,22 @@ import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
@@ -246,12 +244,12 @@ public class EasySubmission extends FacesBean
         this.locatorVisibilities = this.i18nHelper.getSelectItemsVisibility(true);
         // if the user has reached Step 3, an item has already been created and must be set in the
         // EasySubmissionSessionBean for further manipulation
-        if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP2) || this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP3))
+        if (essb.getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP2) || essb.getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP3))
         {
             //this.getEasySubmissionSessionBean().setCurrentItem(this.getItemControllerSessionBean().getCurrentPubItem()
             // );
             // bindFiles();
-            if (this.getEasySubmissionSessionBean().getFiles() == null)
+            if (essb.getFiles() == null)
             {
                 // add a locator
                 FileVO newLocator = new FileVO();
@@ -269,7 +267,7 @@ public class EasySubmission extends FacesBean
                 newFile.getDefaultMetadata().setTitle(new TextVO());
                 this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
             }
-            if (this.getEasySubmissionSessionBean().getFiles().size() < 1)
+            if (essb.getFiles().size() < 1)
             {
                 // add a file
                 FileVO newFile = new FileVO();
@@ -279,7 +277,7 @@ public class EasySubmission extends FacesBean
                 newFile.getDefaultMetadata().setTitle(new TextVO());
                 this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
             }
-            if (this.getEasySubmissionSessionBean().getLocators().size() < 1)
+            if (essb.getLocators().size() < 1)
             {
                 // add a locator
                 FileVO newLocator = new FileVO();
@@ -292,9 +290,49 @@ public class EasySubmission extends FacesBean
             }
             
         }
-        if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP4))
+        if (essb.getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP4))
         {
-            this.creatorCollection = new CreatorCollection(this.getItem().getMetadata().getCreators());
+            
+            if (getItem().getMetadata() != null && getItem().getMetadata().getCreators() != null)
+            {
+                for (CreatorVO creatorVO : getItem().getMetadata().getCreators())
+                {
+                    if (creatorVO.getType() == CreatorType.PERSON && creatorVO.getPerson() == null)
+                    {
+                        creatorVO.setPerson(new PersonVO());
+                    }
+                    else if (creatorVO.getType() == CreatorType.ORGANIZATION && creatorVO.getOrganization() == null)
+                    {
+                        creatorVO.setOrganization(new OrganizationVO());
+                    }
+                        
+                    if (creatorVO.getType() == CreatorType.PERSON && creatorVO.getPerson().getOrganizations() != null)
+                    {
+                        for (OrganizationVO organizationVO : creatorVO.getPerson().getOrganizations())
+                        {
+                            if (organizationVO.getName() == null)
+                            {
+                                organizationVO.setName(new TextVO());
+                            }
+                        }
+                    }
+                    else if (creatorVO.getType() == CreatorType.ORGANIZATION && creatorVO.getOrganization() != null && creatorVO.getOrganization().getName() == null)
+                    {
+                        creatorVO.getOrganization().setName(new TextVO());
+                    }
+                }
+            }
+
+            if (essb.getCreators().size() == 0)
+            {
+                essb.bindCreatorsToBean(getItem());
+            }
+            
+            if (essb.getCreatorOrganizations().size() == 0)
+            {
+                essb.initOrganizationsFromCreators();
+            }
+
         }
         
         if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP5))
@@ -605,7 +643,7 @@ public class EasySubmission extends FacesBean
         parseAndSetAlternativeSourceTitlesAndIds();
         this.setFromEasySubmission(true);
         //info(getMessage("easy_submission_preview_hint"));
-        if (validateStep5("validate") == null)
+        if (validate("easy_submission_step_5", "validate") == null)
         {
             return null;
         }
@@ -1368,31 +1406,8 @@ public class EasySubmission extends FacesBean
         */
         FacesContext fc = FacesContext.getCurrentInstance();
         // validate
-        try
-        {
-            PubItemVO itemVO = this.getItemControllerSessionBean().getCurrentPubItem();
-            ValidationReportVO report = this.itemValidating.validateItemObject(new PubItemVO(itemVO),
-                    "easy_submission_step_3");
-            if (!report.isValid())
-            {
-                for (ValidationReportItemVO item : report.getItems())
-                {
-                    if (item.isRestrictive())
-                    {
-                        error(getMessage(item.getContent()));
-                    }
-                    else
-                    {
-                        warn(getMessage(item.getContent()));
-                    }
-                }
-                return null;
-            }
-        }
-        catch (Exception e)
-        {
-            logger.error("Validation error", e);
-        }
+        validate("easy_submission_step_3", null);
+        
         this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP4);
         this.init();
         return "loadNewEasySubmission";
@@ -1400,64 +1415,10 @@ public class EasySubmission extends FacesBean
 
     public String loadStep5Manual()
     {
-        try
-        {        	
-        	// START: The following should be removed as soon the easy submission get the same author mask as the full submission
-        	// Set ou numbers used in full submission mask
-        	EditItemSessionBean eisb = this.getEditItemSessionBean();
-        	eisb.getCreatorOrganizations().clear();
-        	List<String> ouIdentifierList = new ArrayList<String>();
-        	
-        	// Create list of Affiliations
-        	for (CreatorBean creatorBean: creatorCollection.getCreatorManager().getObjectList()) 
-        	{
-        		for (OrganizationVO organization : creatorBean.getCreator().getPerson().getOrganizations())
-				{
-        			if (ouIdentifierList.indexOf(organization.getIdentifier()) != 0) 
-        			{
-        				eisb.getCreatorOrganizations().add(new OrganizationVOPresentation(organization));
-        				ouIdentifierList.add(organization.getIdentifier());
-					}
-				}
-			}
-        	
-        	// Set OUs number
-        	int number = 1;
-        	for (OrganizationVOPresentation ou :  eisb.getCreatorOrganizations()) 
-        	{
-				if (ou.getNumber() == 0) 
-				{
-					number++;
-				}
-			}
-        	//END
-        	
-        	// validate
-        	ValidationReportVO report = this.itemValidating.validateItemObject(new PubItemVO(this
-                    .getItemControllerSessionBean().getCurrentPubItem()), "easy_submission_step_4");
-        	
-            if (!report.isValid())
-            {
-                for (ValidationReportItemVO item : report.getItems())
-                {
-                    if (item.isRestrictive())
-                    {
-                        error(getMessage(item.getContent()));
-                    }
-                    else
-                    {
-                        warn(getMessage(item.getContent()));
-                    }
-                }
-                return null;
-            }
-        }
-        catch (Exception e)
-        {
-            logger.error("Validation error", e);
-        }
-        
-        
+
+    	// validate
+    	validate("easy_submission_step_4", null);
+
         this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP5);
         this.init();
         return "loadNewEasySubmission";
@@ -1467,15 +1428,33 @@ public class EasySubmission extends FacesBean
     {
         parseAndSetAlternativeSourceTitlesAndIds();
         // validate
-        return validateStep5("loadEditItem");
+        return validate("easy_submission_step_5", "loadEditItem");
     }
-
-    private String validateStep5(String navigateTo)
+    
+    /**
+     * Validates the item.
+     * @return string, identifying the page that should be navigated to after this methodcall
+     */
+    public String validate(String validationPoint, String navigateTo)
     {
         try
         {
-            ValidationReportVO report = this.itemValidating.validateItemObject(new PubItemVO(this
-                    .getItemControllerSessionBean().getCurrentPubItem()), "easy_submission_step_5");
+
+            // bind Organizations To Creators
+            if (!this.getEasySubmissionSessionBean().bindOrganizationsToCreators())
+            {
+                return "";
+            }
+            
+            PubItemVO pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+            
+            // write creators back to VO
+            if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep() == EasySubmissionSessionBean.ES_STEP4)
+            {
+                this.getEasySubmissionSessionBean().bindCreatorsToVO(pubItem);
+            }
+
+            ValidationReportVO report = this.itemValidating.validateItemObject(new PubItemVO(pubItem), validationPoint);
             if (!report.isValid())
             {
                 for (ValidationReportItemVO item : report.getItems())
@@ -1928,16 +1907,6 @@ public class EasySubmission extends FacesBean
     public void setLocatorIterator(UIXIterator locatorIterator)
     {
         this.locatorIterator = locatorIterator;
-    }
-
-    public CreatorCollection getCreatorCollection()
-    {
-        return this.creatorCollection;
-    }
-
-    public void setCreatorCollection(CreatorCollection creatorCollection)
-    {
-        this.creatorCollection = creatorCollection;
     }
 
     public String getSelectedDate()
@@ -2427,8 +2396,7 @@ public class EasySubmission extends FacesBean
     {
         try
         {
-        	EditItem editItem = (EditItem) getRequestBean(EditItem.class);
-            editItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), getEasySubmissionSessionBean().getAuthorCopyPasteOrganizationsCreatorBean().getPersonOrganisationManager().getObjectList(), getOverwriteCreators());
+        	getEasySubmissionSessionBean().parseCreatorString(getCreatorParseString(), getEasySubmissionSessionBean().getAuthorCopyPasteOrganizationsCreatorBean().getPersonOrganisationManager().getObjectList(), getOverwriteCreators());
             setCreatorParseString("");
             
             getEasySubmissionSessionBean().initAuthorCopyPasteCreatorBean();

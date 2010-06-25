@@ -42,6 +42,7 @@ import org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
+import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection.IdentifierManager;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection.AlternativeTitleManager;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
@@ -342,8 +343,8 @@ public class SourceBean extends FacesBean
     {
         try
         {
-        	EditItem editItem = (EditItem) getRequestBean(EditItem.class);
-        	editItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), null, getOverwriteCreators());
+        	EditItemSessionBean editItemSessionBean = (EditItemSessionBean) getRequestBean(EditItemSessionBean.class);
+        	editItemSessionBean.parseCreatorString(getCreatorParseString(), null, getOverwriteCreators());
             setCreatorParseString("");
             return null;
         }

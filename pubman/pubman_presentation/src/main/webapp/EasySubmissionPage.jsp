@@ -87,6 +87,7 @@
 				journalSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />journals/query?format=json';
 				subjectSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>$1/query';
 				personSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>persons/query?format=json';
+				organizationSuggestURL = 'OrganizationSuggest.jsp';
 				journalDetailsBaseURL = '$1?format=json';
 				personDetailsBaseURL = '$1?format=json';
 				languageDetailsBaseURL = '$1?format=json';

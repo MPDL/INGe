@@ -34,6 +34,7 @@ import java.util.List;
 
 import javax.faces.event.ValueChangeEvent;
 
+import de.mpg.escidoc.pubman.EditItemBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
@@ -49,7 +50,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  */
 public class OrganizationVOPresentation extends OrganizationVO
 {
-    private EditItemSessionBean bean;
+    private EditItemBean bean;
 
     public OrganizationVOPresentation()
     {
@@ -110,7 +111,6 @@ public class OrganizationVOPresentation extends OrganizationVO
      */
     public String remove()
     {
-        getList().remove(this);
         for (CreatorVOPresentation creator : bean.getCreators())
         {
             int[] ous = creator.getOus();
@@ -136,6 +136,7 @@ public class OrganizationVOPresentation extends OrganizationVO
             }
             creator.setOuNumbers(newOuNumbers);
         }
+        getList().remove(this);
         return "";
     }
     
@@ -158,7 +159,7 @@ public class OrganizationVOPresentation extends OrganizationVO
     /**
      * @param list the list to set
      */
-    public void setBean(EditItemSessionBean bean)
+    public void setBean(EditItemBean bean)
     {
         this.bean = bean;
     }

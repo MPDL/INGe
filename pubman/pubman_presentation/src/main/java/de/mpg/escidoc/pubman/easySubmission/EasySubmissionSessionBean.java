@@ -38,12 +38,17 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.EditItemBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
+import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
+import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 
 /**
  * Fragment class for the easy submission. This class provides all functionality for editing, saving and submitting a
@@ -52,7 +57,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
  * @author: Tobias Schraut, created 04.04.2008
  * @version: $Revision$ $LastChangedDate$
  */
-public class EasySubmissionSessionBean extends FacesBean
+public class EasySubmissionSessionBean extends EditItemBean
 {
     public static final String BEAN_NAME = "EasySubmissionSessionBean";
     private static Logger logger = Logger.getLogger(EasySubmissionSessionBean.class);
@@ -89,7 +94,7 @@ public class EasySubmissionSessionBean extends FacesBean
     private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
     
     private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
-    
+
     private String selectedDate;
     
     //For import service
@@ -137,34 +142,43 @@ public class EasySubmissionSessionBean extends FacesBean
      */
     public void cleanup()
     {
+        super.clean();
+        
     	this.getFiles().clear();
     	this.getLocators().clear();
     	this.setGenreBundle("Genre_ARTICLE");
     	this.setSelectedDate("");
     	this.initAuthorCopyPasteCreatorBean();
+    	this.setCurrentSubmissionStep(ES_STEP3);
     }
     
-	public String getCurrentSubmissionMethod() {
+	public String getCurrentSubmissionMethod()
+	{
 		return currentSubmissionMethod;
 	}
 
-	public void setCurrentSubmissionMethod(String currentSubmissionMethod) {
+	public void setCurrentSubmissionMethod(String currentSubmissionMethod)
+	{
 		this.currentSubmissionMethod = currentSubmissionMethod;
 	}
 
-	public String getCurrentSubmissionStep() {
+	public String getCurrentSubmissionStep()
+	{
 		return currentSubmissionStep;
 	}
 
-	public void setCurrentSubmissionStep(String currentSubmissionStep) {
+	public void setCurrentSubmissionStep(String currentSubmissionStep)
+	{
 		this.currentSubmissionStep = currentSubmissionStep;
 	}
 
-	public ContextVO getContext() {
+	public ContextVO getContext()
+	{
 		return context;
 	}
 
-	public void setContext(ContextVO context) {
+	public void setContext(ContextVO context)
+	{
 		this.context = context;
 	}
 
@@ -350,22 +364,7 @@ public class EasySubmissionSessionBean extends FacesBean
      */
     public void initAuthorCopyPasteCreatorBean()
     {
-        CreatorVO newVO = new CreatorVO();
-       
-        /*
-        newVO.setPerson(new PersonVO());
-        OrganizationVO newPersonOrganization = new OrganizationVO();
-        newPersonOrganization.setName(new TextVO());
-        newPersonOrganization.setAddress("");
-        newPersonOrganization.setIdentifier("");
-        newVO.getPerson().getOrganizations().add(newPersonOrganization);
-        */
-        
-        CreatorBean dummyCreatorBean = new CreatorBean(newVO);
-        this.authorCopyPasteOrganizationsCreatorBean = dummyCreatorBean;
         setShowAuthorCopyPaste("");
     }
-    
-  
 
 }

@@ -35,6 +35,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
+import de.mpg.escidoc.pubman.EditItemBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
 import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
@@ -54,7 +55,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  * @version: $Revision$ $LastChangedDate: 2007-11-13 10:54:07 +0100 (Di, 13
  *           Nov 2007) $
  */
-public class EditItemSessionBean extends FacesBean 
+public class EditItemSessionBean extends EditItemBean 
 {
 	public static final String BEAN_NAME = "EditItemSessionBean";
 	
@@ -65,31 +66,16 @@ public class EditItemSessionBean extends FacesBean
 	
 	private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
 	
-	private List<CreatorVOPresentation> creators = new ArrayList<CreatorVOPresentation>();
-
-	private List<OrganizationVOPresentation> creatorOrganizations = new ArrayList<OrganizationVOPresentation>();
-	
 	private String genreBundle = "Genre_ARTICLE";
 	
 	 /**The offset of the page where to jump back*/
     private String offset;
     
-    /**The string with authors to parse for author copy&paste.*/
-    private String creatorParseString;
-    
-    /**Checkbox if existing authors should be overwritten with the ones from author copy/paste*/
-    private boolean overwriteCreators;
-    
     /**
      * A creator bean that holds the data from the author copy&paste organizations
      */
     private CreatorBean authorCopyPasteOrganizationsCreatorBean;
-   
-    /**
-     * Stores a string from a hidden input field (set by javascript) that indicates whether the author copy&paste elements are to be displayed or not.
-     */
-    private String showAuthorCopyPaste;
-    
+
     public static final String SUBMISSION_METHOD_FULL_SUBMISSION = "FULL_SUBMISSION";
     public static final String SUBMISSION_METHOD_EASY_SUBMISSION = "EASY_SUBMISSION";
     public static final String SUBMISSION_METHOD_IMPORT = "IMPORT";
@@ -149,15 +135,14 @@ public class EditItemSessionBean extends FacesBean
 	/**
 	 * 
 	 */
-	public void clean() {
-		this.files.clear();
+	public void clean()
+	{
+		super.clean();
+	    
+	    this.files.clear();
 		this.locators.clear();
-		this.creatorOrganizations.clear();
-		this.creators.clear();
 		this.genreBundle = "";
 		this.offset="";
-		this.showAuthorCopyPaste = "";
-		this.creatorParseString = "";
 	}
 	
 	/**
@@ -239,41 +224,6 @@ public class EditItemSessionBean extends FacesBean
         // TODO MF.
     }
 
-    public void initOrganizationsFromCreators()
-    {
-        List<OrganizationVOPresentation> creatorOrganizations = new ArrayList<OrganizationVOPresentation>();
-        int counter = 1;
-        for (CreatorVOPresentation creator : creators)
-        {
-            if (creator.getType() == CreatorType.PERSON)
-            {
-                for (OrganizationVO organization : creator.getPerson().getOrganizations())
-                {
-                    if (!creatorOrganizations.contains(organization))
-                    {
-                        OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation(organization);
-                        if (!organizationPresentation.isEmpty() || (creatorOrganizations.isEmpty() && creator.isLast()))
-                        {
-	                        organizationPresentation.setBean(this);
-	                        if (organizationPresentation.getName() ==  null)
-	                        {
-	                            organizationPresentation.setName(new TextVO());
-	                        }
-	                        creatorOrganizations.add(organizationPresentation);
-	                        counter++;
-                        }
-                    }
-                }
-            }
-        }
-        this.creatorOrganizations = creatorOrganizations;
-    }
-
-    public int getOrganizationCount()
-    {
-        return getCreatorOrganizations().size();
-    }
-
     /**
      * Sets the CreatorBean that manages the author copy&paste organizations.
      * @param authorCopyPasteOrganizationsCreatorBean
@@ -292,41 +242,6 @@ public class EditItemSessionBean extends FacesBean
         return authorCopyPasteOrganizationsCreatorBean;
     }
 
-    public void setCreatorParseString(String creatorParseString)
-    {
-        this.creatorParseString = creatorParseString;
-    }
-
-    public String getCreatorParseString()
-    {
-        return creatorParseString;
-    }
-
-    public void setOverwriteCreators(boolean overwriteCreators)
-    {
-        this.overwriteCreators = overwriteCreators;
-    }
-
-    public boolean getOverwriteCreators()
-    {
-        return overwriteCreators;
-    }
-    
-    /**
-     * Returns the content(set by javascript) from a hidden input field  that indicates whether the author copy&paste elements are to be displayed or not.
-     */
-    public  String getShowAuthorCopyPaste()
-    {
-        return showAuthorCopyPaste;
-    }
-
-    /**Sets the content from a hidden input field  that indicates whether the author copy&paste elements are to be displayed or not.
-     */
-    public void setShowAuthorCopyPaste(String showAuthorCopyPaste)
-    {
-        this.showAuthorCopyPaste = showAuthorCopyPaste;
-    }
-
 	public String getCurrentSubmission()
 	{
 		return currentSubmission;
@@ -336,41 +251,4 @@ public class EditItemSessionBean extends FacesBean
 	{
 		this.currentSubmission = currentSubmission;
 	}
-
-    /**
-     * @return the creatorOrganizations
-     */
-    public List<OrganizationVOPresentation> getCreatorOrganizations()
-    {
-        return creatorOrganizations;
-    }
-
-    /**
-     * @param creatorOrganizations the creatorOrganizations to set
-     */
-    public void setCreatorOrganizations(List<OrganizationVOPresentation> creatorOrganizations)
-    {
-        this.creatorOrganizations = creatorOrganizations;
-    }
-    
-    public String readPastedOrganizations()
-    {
-    	return "";
-    }
-
-    public int getCreatorsSize()
-    {
-        return creators.size();
-    }
-    
-    public List<CreatorVOPresentation> getCreators()
-    {
-        return creators;
-    }
-
-    public void setCreators(List<CreatorVOPresentation> creators)
-    {
-        this.creators = creators;
-    }
-
 }

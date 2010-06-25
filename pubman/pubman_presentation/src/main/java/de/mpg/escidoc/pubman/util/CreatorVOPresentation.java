@@ -35,6 +35,7 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
+import de.mpg.escidoc.pubman.EditItemBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
@@ -55,20 +56,23 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  */
 public class CreatorVOPresentation extends CreatorVO
 {
+    private EditItemBean bean;
     private List<CreatorVOPresentation> list;
     private String ouNumbers;
     
     private PersonVO surrogatePerson;
     private OrganizationVO surrogateOrganization;
     
-    public CreatorVOPresentation(List<CreatorVOPresentation> list)
+    public CreatorVOPresentation(List<CreatorVOPresentation> list, EditItemBean bean)
     {
         this.list = list;
+        this.bean = bean;
     }
     
-    public CreatorVOPresentation(List<CreatorVOPresentation> list, CreatorVO creatorVO)
+    public CreatorVOPresentation(List<CreatorVOPresentation> list, EditItemBean bean, CreatorVO creatorVO)
     {
         this.list = list;
+        this.bean = bean;
         if (creatorVO != null)
         {
             this.setOrganization(creatorVO.getOrganization());
@@ -95,7 +99,7 @@ public class CreatorVOPresentation extends CreatorVO
      */
     public String add()
     {
-        CreatorVOPresentation creatorVOPresentation = new CreatorVOPresentation(this.list);
+        CreatorVOPresentation creatorVOPresentation = new CreatorVOPresentation(this.list, this.bean);
         creatorVOPresentation.init(getType());
         int index = this.list.indexOf(this);
         this.list.add(index + 1, creatorVOPresentation);
@@ -173,12 +177,11 @@ public class CreatorVOPresentation extends CreatorVO
         if (!"".equals(value))
         {
             String[] values = value.split(EditItem.AUTOPASTE_INNER_DELIMITER);
-            EditItemSessionBean editItemSessionBean = (EditItemSessionBean) EditItemSessionBean.getSessionBean(EditItemSessionBean.class);
-            List<OrganizationVOPresentation> creatorOrganizations = editItemSessionBean.getCreatorOrganizations();
+            List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
             OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
             newOrg.setName(new TextVO(values[1]));
             newOrg.setIdentifier(values[0]);
-            newOrg.setBean(editItemSessionBean);
+            newOrg.setBean(this.bean);
             creatorOrganizations.add(newOrg);
             this.ouNumbers = creatorOrganizations.size() + "";
         }
