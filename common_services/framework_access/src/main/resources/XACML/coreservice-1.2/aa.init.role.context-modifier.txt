@@ -1,0 +1,5 @@
+INSERT INTO aa.escidoc_role(
+            id, role_name, description, creator_id, creation_date, modified_by_id, 
+            last_modification_date)
+values
+( 'escidoc:role-context-modifier','Context-Modifier','','escidoc:user42','2010-06-25 10:27:10.685354','escidoc:user42','2010-06-25 10:27:10.685354')

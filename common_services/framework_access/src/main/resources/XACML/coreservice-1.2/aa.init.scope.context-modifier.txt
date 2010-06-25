@@ -1,0 +1,5 @@
+insert into aa.scope_def
+(id, role_id, object_type, attribute_id)
+values
+(
+'escidoc:scope-def-role-context-modifier','escidoc:role-context-modifier','context','info:escidoc/names:aa:1.0:resource:context-id')
