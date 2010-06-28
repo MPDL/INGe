@@ -67,6 +67,9 @@ public class FileFormatVO extends ValueObject
     public static final String HTML_PLAIN_NAME = "html_plain";
     public static final String HTML_PLAIN_MIMETYPE = "text/html";
     
+    public static final String HTML_LINKED_NAME = "html_linked";
+    public static final String HTML_LINKED_MIMETYPE = "text/html";
+    
     public static final String HTML_STYLED_NAME = "html_styled";
     public static final String HTML_STYLED_MIMETYPE = "text/html";
     
@@ -98,6 +101,7 @@ public class FileFormatVO extends ValueObject
                 put(PDF_NAME, "pdf");
                 put(RTF_NAME, "rtf");
                 put(HTML_PLAIN_NAME, "html");
+                put(HTML_LINKED_NAME, "html");
                 put(HTML_STYLED_NAME, "html");
                 put(ODT_NAME, "odt");
                 put(SNIPPET_NAME, "xml");
@@ -115,6 +119,7 @@ public class FileFormatVO extends ValueObject
     			put(PDF_NAME, PDF_MIMETYPE);
     			put(RTF_NAME, RTF_MIMETYPE);
     			put(HTML_PLAIN_NAME, HTML_PLAIN_MIMETYPE);
+    			put(HTML_LINKED_NAME, HTML_LINKED_MIMETYPE);
     			put(HTML_STYLED_NAME, HTML_STYLED_MIMETYPE);
     			put(ODT_NAME, ODT_MIMETYPE);
     			put(SNIPPET_NAME, SNIPPET_MIMETYPE);
@@ -130,6 +135,7 @@ public class FileFormatVO extends ValueObject
 			{  
 				put(TEXT_NAME, DEFAULT_CHARSET);
 				put(HTML_PLAIN_NAME, DEFAULT_CHARSET);
+				put(HTML_LINKED_NAME, DEFAULT_CHARSET);
 				put(HTML_STYLED_NAME, DEFAULT_CHARSET);
 				put(SNIPPET_NAME, DEFAULT_CHARSET);
 				put(ESCIDOC_SNIPPET_NAME, DEFAULT_CHARSET);
@@ -176,7 +182,7 @@ public class FileFormatVO extends ValueObject
     public static String getCharsetByName(String name)
     {
     	name = name == null || name.trim().equals("") ? "" : name.trim();  
-    	return formatCharsets.containsKey(name) ? formatCharsets.get(name) : "";   
+    	return formatCharsets.containsKey(name) ? formatCharsets.get(name) : null;   
     }
 
     // workaround to find out whether the output format is presented  
