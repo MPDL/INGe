@@ -147,7 +147,7 @@
 						
 					} else {
 
-						var vocab = $(options.vocab).val().toLowerCase();
+						var vocab = $(options.vocab).val().toLowerCase().replace('_', '-');
 						vocab = vocab.substring(vocab.lastIndexOf("/"));
 						
 						var source = options.source;
