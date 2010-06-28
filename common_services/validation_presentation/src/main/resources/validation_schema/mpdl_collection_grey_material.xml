@@ -429,7 +429,7 @@
 	<!-- The language codes of the publication must be in ISO639-3 -->
 	<iso:pattern name="language_code" id="language_code">
 		<iso:rule context="publication:publication/dc:language">
-			<iso:assert test="not(exists($iso639-3/var/rdf:RDF)) or . = '' or escidoc:contains($iso639-3/var/rdf:RDF/rdf:Description/@rdf:about, .)">UnknownLanguageCode</iso:assert>
+			<iso:assert test="not(exists($iso639-3/var/rdf:RDF)) or . = '' or escidoc:contains($iso639-3/var/rdf:RDF/rdf:Description/@rdf:about, concat('iso639-3/resource/', .))">UnknownLanguageCode</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 

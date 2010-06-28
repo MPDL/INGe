@@ -73,7 +73,7 @@
 		<axsl:function name="escidoc:contains" as="xs:boolean">
 			<axsl:param name="list"/>
 			<axsl:param name="value"/>
-			<axsl:value-of select="exists($list[contains(., $value)])"/>
+			<axsl:value-of select="exists($list[ends-with(., $value)])"/>
 		</axsl:function>
 	</xsl:template>
 	
