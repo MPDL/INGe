@@ -174,9 +174,10 @@ public class ExportItems extends FacesBean
         SelectItem FILEFORMAT_ODT = new SelectItem("odt", getLabel("Export_FileFormat_ODT"));
         SelectItem FILEFORMAT_RTF = new SelectItem("rtf", getLabel("Export_FileFormat_RTF"));
         SelectItem FILEFORMAT_HTML_PLAIN = new SelectItem("html_plain", getLabel("Export_FileFormat_HTML_PLAIN"));
+        SelectItem FILEFORMAT_HTML_LINKED = new SelectItem("html_linked", getLabel("Export_FileFormat_HTML_LINKED"));
         SelectItem FILEFORMAT_HTML_STYLED = new SelectItem("html_styled", getLabel("Export_FileFormat_HTML_STYLED"));
         SelectItem FILEFORMAT_ESCIDOC_SNIPPET = new SelectItem("escidoc_snippet", getLabel("Export_FileFormat_ESCIDOC_SNIPPET"));
-        SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[]{FILEFORMAT_PDF, FILEFORMAT_ODT, FILEFORMAT_RTF, FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_STYLED, FILEFORMAT_ESCIDOC_SNIPPET};
+        SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[]{FILEFORMAT_PDF, FILEFORMAT_ODT, FILEFORMAT_RTF, FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_LINKED, FILEFORMAT_HTML_STYLED, FILEFORMAT_ESCIDOC_SNIPPET};
         return FILEFORMAT_OPTIONS;
     }
 
