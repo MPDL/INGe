@@ -24,6 +24,7 @@
 	    									<xs:attribute name="control" type="xs:boolean" default="true"/>
 	    									<xs:attribute name="generate-cone-id" type="xs:boolean" default="true"/>
 	    									<xs:attribute name="identifier-prefix" type="xs:anyURI"/>
+	    									<xs:attribute name="subject-prefix" type="xs:anyURI"/>
 	    								</xs:extension>
 	    							</xs:simpleContent>
     								

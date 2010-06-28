@@ -440,10 +440,6 @@ public class ConeServlet extends HttpServlet
             try
             {
                 URI uri = new URI(id);
-                if (!uri.isAbsolute())
-                {
-                    throw new URISyntaxException(id, "no urn");
-                }
             }
             catch (URISyntaxException e)
             {
