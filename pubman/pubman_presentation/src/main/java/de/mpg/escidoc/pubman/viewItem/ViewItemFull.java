@@ -833,7 +833,8 @@ public class ViewItemFull extends FacesBean
         }
         logger.debug("Validation Report: " + report);
         
-        if (report.isValid() && !report.hasItems()) {
+        if (report.isValid() && !report.hasItems())
+        {
        
             if (logger.isDebugEnabled())
             {

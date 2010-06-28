@@ -1117,7 +1117,7 @@ public class EditItem extends FacesBean
         GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(), GenreSecificItemManager.SUBMISSION_METHOD_FULL);
         try 
         {
-			this.item = (PubItemVOPresentation)itemManager.cleanupItem();
+			this.item = (PubItemVOPresentation) itemManager.cleanupItem();
 		} catch (Exception e) 
 		{
 			throw new RuntimeException("Error while cleaning up item genre specifcly", e);

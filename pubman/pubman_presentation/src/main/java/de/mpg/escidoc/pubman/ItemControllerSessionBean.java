@@ -61,6 +61,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
@@ -775,7 +776,17 @@ public class ItemControllerSessionBean extends FacesBean
         // Genre
         if (newPubItem.getMetadata().getGenre() == null)
         {
-            newPubItem.getMetadata().setGenre(Genre.ARTICLE);
+            ContextVO contextVO = retrieveContext(newPubItem.getContext().getObjectId());
+            PublicationAdminDescriptorVO adminDescriptorVO = contextVO.getAdminDescriptor();
+            if (adminDescriptorVO.getAllowedGenres().contains(Genre.ARTICLE))
+            {
+                newPubItem.getMetadata().setGenre(Genre.ARTICLE);
+            }
+            else if (!adminDescriptorVO.getAllowedGenres().isEmpty())
+            {
+                newPubItem.getMetadata().setGenre(adminDescriptorVO.getAllowedGenres().get(0));
+            }
+            
         }
         // File
 //        if (newPubItem.getFiles().size() == 0)
