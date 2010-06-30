@@ -1,4 +1,4 @@
-﻿SET client_encoding = 'UTF8';
+SET client_encoding = 'UTF8';
 SET standard_conforming_strings = off;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
@@ -35,6 +35,11 @@ CURRENT_TIMESTAMP);
 INSERT INTO escidoc_role (id, role_name, description, creator_id, creation_date, modified_by_id, last_modification_date) VALUES 
 ('escidoc:role-user-account-inspector', 'User-Account-Inspector', NULL, 'escidoc:user42', CURRENT_TIMESTAMP, 'escidoc:user42', 
 CURRENT_TIMESTAMP);
+INSERT INTO escidoc_role (id, role_name, description, creator_id, creation_date, modified_by_id, last_modification_date) VALUES 
+('escidoc:role-cone-open-vocabulary-editor', 'CoNE-Open-Vocabulary-Editor', NULL, 'escidoc:user42', CURRENT_TIMESTAMP, 'escidoc:user42', CURRENT_TIMESTAMP);
+INSERT INTO escidoc_role (id, role_name, description, creator_id, creation_date, modified_by_id, last_modification_date) VALUES 
+('escidoc:role-cone-closed-vocabulary-editor', 'CoNE-Closed-Vocabulary-Editor', NULL, 'escidoc:user42', CURRENT_TIMESTAMP, 'escidoc:user42', CURRENT_TIMESTAMP);
+
 
 
 /*ESCIDOC_POLICIES
@@ -1629,6 +1634,82 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:policy-user-gro
 				<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:user-group:created-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 			</Apply>
 		</Condition>
+	</Rule>
+</Policy>
+');
+
+INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:role-cone-open-vocabulary-editor-policy-1', 'escidoc:role-cone-open-vocabulary-editor', '<Policy PolicyId="Cone-User-policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:ordered-permit-overrides">
+	<Target>
+		<Subjects>
+			<AnySubject/>
+		</Subjects>
+		<Resources>
+			<AnyResource/>
+		</Resources>
+		<Actions>
+			<Action>
+				<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info						info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account</AttributeValue>
+					<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				</ActionMatch>
+			</Action>
+		</Actions>
+	</Target>
+	<Rule RuleId="Default-User-policy-rule-0" Effect="Permit">
+		<Target>
+			<Subjects>
+				<AnySubject/>
+			</Subjects>
+			<Resources>
+				<AnyResource/>
+			</Resources>
+			<Actions>
+				<Action>
+					<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                         info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info						info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account                         </AttributeValue>
+						<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</ActionMatch>
+				</Action>
+			</Actions>
+		</Target>
+	</Rule>
+</Policy>
+');
+
+INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:role-cone-closed-vocabulary-editor-policy-2', 'escidoc:role-cone-closed-vocabulary-editor', '<Policy PolicyId="Cone-User-closed-policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:ordered-permit-overrides">
+	<Target>
+		<Subjects>
+			<AnySubject/>
+		</Subjects>
+		<Resources>
+			<AnyResource/>
+		</Resources>
+		<Actions>
+			<Action>
+				<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info						info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account</AttributeValue>
+					<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				</ActionMatch>
+			</Action>
+		</Actions>
+	</Target>
+	<Rule RuleId="Default-User-policy-rule-0" Effect="Permit">
+		<Target>
+			<Subjects>
+				<AnySubject/>
+			</Subjects>
+			<Resources>
+				<AnyResource/>
+			</Resources>
+			<Actions>
+				<Action>
+					<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                         info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info						info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account                         </AttributeValue>
+						<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</ActionMatch>
+				</Action>
+			</Actions>
+		</Target>
 	</Rule>
 </Policy>
 ');
