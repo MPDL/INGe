@@ -157,7 +157,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:collaborator-po
           <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
                                 info:escidoc/names:aa:1.0:action:retrieve-item 
                                 info:escidoc/names:aa:1.0:action:retrieve-container 
-                                info:escidoc/names:aa:1.0:action:retrieve-content
+                                info:escidoc/names:aa:1.0:action:retrieve-content 
           </AttributeValue>
           <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 
@@ -242,7 +242,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:collaborator-mo
                                 info:escidoc/names:aa:1.0:action:unlock-container 
                                 info:escidoc/names:aa:1.0:action:retrieve-item 
                                 info:escidoc/names:aa:1.0:action:retrieve-content 
-                                info:escidoc/names:aa:1.0:action:add-members-to-container
+                                info:escidoc/names:aa:1.0:action:add-members-to-container 
           </AttributeValue>
           <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 
@@ -282,7 +282,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:collaborator-mo
                                 info:escidoc/names:aa:1.0:action:update-container 
                                 info:escidoc/names:aa:1.0:action:lock-container 
                                 info:escidoc/names:aa:1.0:action:unlock-container 
-                                info:escidoc/names:aa:1.0:action:add-members-to-container
+                                info:escidoc/names:aa:1.0:action:add-members-to-container 
           </AttributeValue>
           <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 
@@ -327,7 +327,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:collaborator-mo
                                 info:escidoc/names:aa:1.0:action:update-container 
                                 info:escidoc/names:aa:1.0:action:lock-container 
                                 info:escidoc/names:aa:1.0:action:unlock-container 
-                                info:escidoc/names:aa:1.0:action:add-members-to-container
+                                info:escidoc/names:aa:1.0:action:add-members-to-container 
           </AttributeValue>
           <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 
@@ -372,7 +372,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:collaborator-mo
                                 info:escidoc/names:aa:1.0:action:update-container 
                                 info:escidoc/names:aa:1.0:action:lock-container 
                                 info:escidoc/names:aa:1.0:action:unlock-container 
-                                info:escidoc/names:aa:1.0:action:add-members-to-container
+                                info:escidoc/names:aa:1.0:action:add-members-to-container 
           </AttributeValue>
           <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 
@@ -505,7 +505,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:depositor-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:create-staging-file
+                        info:escidoc/names:aa:1.0:action:create-staging-file 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -556,7 +556,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:depositor-polic
                         info:escidoc/names:aa:1.0:action:submit-item 
                         info:escidoc/names:aa:1.0:action:withdraw-item 
                         info:escidoc/names:aa:1.0:action:release-item 
-                        info:escidoc/names:aa:1.0:action:release-container
+                        info:escidoc/names:aa:1.0:action:release-container 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -576,7 +576,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:depositor-polic
                         <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                             <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
                             info:escidoc/names:aa:1.0:action:create-container 
-                            info:escidoc/names:aa:1.0:action:create-item
+                            info:escidoc/names:aa:1.0:action:create-item 
                             </AttributeValue>
                             <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                         </ActionMatch>
@@ -596,7 +596,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:depositor-polic
                     <Action>
                         <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                             <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                            info:escidoc/names:aa:1.0:action:retrieve-container
+                            info:escidoc/names:aa:1.0:action:retrieve-container 
                             </AttributeValue>
                             <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                         </ActionMatch>
@@ -624,7 +624,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:depositor-polic
                     <Action>
                         <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                             <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                            info:escidoc/names:aa:1.0:action:retrieve-item
+                            info:escidoc/names:aa:1.0:action:retrieve-item 
                             </AttributeValue>
                             <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                         </ActionMatch>
@@ -652,7 +652,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:depositor-polic
                     <Action>
                         <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                             <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                            info:escidoc/names:aa:1.0:action:delete-container
+                            info:escidoc/names:aa:1.0:action:delete-container 
                             </AttributeValue>
                             <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                         </ActionMatch>
@@ -715,7 +715,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:depositor-polic
                             info:escidoc/names:aa:1.0:action:update-container 
                             info:escidoc/names:aa:1.0:action:add-members-to-container 
                             info:escidoc/names:aa:1.0:action:remove-members-from-container 
-                            info:escidoc/names:aa:1.0:action:lock-container
+                            info:escidoc/names:aa:1.0:action:lock-container 
                             </AttributeValue>
                             <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                         </ActionMatch>
@@ -757,7 +757,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:depositor-polic
                     <Action>
                         <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                             <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                            info:escidoc/names:aa:1.0:action:delete-item
+                            info:escidoc/names:aa:1.0:action:delete-item 
                             </AttributeValue>
                             <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                         </ActionMatch>
@@ -819,7 +819,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:depositor-polic
                             <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
                             info:escidoc/names:aa:1.0:action:update-item 
                             info:escidoc/names:aa:1.0:action:delete-item 
-                            info:escidoc/names:aa:1.0:action:lock-item
+                            info:escidoc/names:aa:1.0:action:lock-item 
                             </AttributeValue>
                             <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                         </ActionMatch>
@@ -861,7 +861,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:depositor-polic
                     <Action>
                         <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                             <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                            info:escidoc/names:aa:1.0:action:retrieve-content
+                            info:escidoc/names:aa:1.0:action:retrieve-content 
                             </AttributeValue>
                             <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                         </ActionMatch>
@@ -891,7 +891,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:depositor-polic
                             <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
                             info:escidoc/names:aa:1.0:action:submit-container 
                             info:escidoc/names:aa:1.0:action:withdraw-container 
-                            info:escidoc/names:aa:1.0:action:release-container
+                            info:escidoc/names:aa:1.0:action:release-container 
                             </AttributeValue>
                             <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                         </ActionMatch>
@@ -921,7 +921,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:depositor-polic
                             <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
                             info:escidoc/names:aa:1.0:action:submit-item 
                             info:escidoc/names:aa:1.0:action:withdraw-item 
-                            info:escidoc/names:aa:1.0:action:release-item
+                            info:escidoc/names:aa:1.0:action:release-item 
                             </AttributeValue>
                             <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                         </ActionMatch>
@@ -996,7 +996,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:md-editor-polic
                     info:escidoc/names:aa:1.0:action:revise-item 
                     info:escidoc/names:aa:1.0:action:revise-container 
                     info:escidoc/names:aa:1.0:action:add-members-to-container 
-                    info:escidoc/names:aa:1.0:action:remove-members-from-container
+                    info:escidoc/names:aa:1.0:action:remove-members-from-container 
                     </AttributeValue>
                     <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                 </ActionMatch>
@@ -1057,7 +1057,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:md-editor-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:retrieve-item
+                        info:escidoc/names:aa:1.0:action:retrieve-item 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1092,7 +1092,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:md-editor-polic
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
                         info:escidoc/names:aa:1.0:action:update-item 
-                        info:escidoc/names:aa:1.0:action:lock-item
+                        info:escidoc/names:aa:1.0:action:lock-item 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1126,7 +1126,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:md-editor-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:revise-item
+                        info:escidoc/names:aa:1.0:action:revise-item 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1160,7 +1160,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:md-editor-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:retrieve-content
+                        info:escidoc/names:aa:1.0:action:retrieve-content 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1188,7 +1188,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:md-editor-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:submit-container
+                        info:escidoc/names:aa:1.0:action:submit-container 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1230,7 +1230,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:md-editor-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:retrieve-container
+                        info:escidoc/names:aa:1.0:action:retrieve-container 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1267,7 +1267,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:md-editor-polic
                         info:escidoc/names:aa:1.0:action:update-container 
                         info:escidoc/names:aa:1.0:action:lock-container 
                         info:escidoc/names:aa:1.0:action:add-members-to-container 
-                        info:escidoc/names:aa:1.0:action:remove-members-from-container
+                        info:escidoc/names:aa:1.0:action:remove-members-from-container 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1301,7 +1301,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:md-editor-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:revise-container
+                        info:escidoc/names:aa:1.0:action:revise-container 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1388,7 +1388,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:statistics-edit
                                     info:escidoc/names:aa:1.0:action:retrieve-report-definition 
                                     info:escidoc/names:aa:1.0:action:update-scope 
                                     info:escidoc/names:aa:1.0:action:update-report-definition 
-                                    info:escidoc/names:aa:1.0:action:preprocess-statistics</AttributeValue>
+                                    info:escidoc/names:aa:1.0:action:preprocess-statistics </AttributeValue>
           <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
         </ActionMatch>
       </Action>
@@ -1614,7 +1614,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:policy-system-a
                             info:escidoc/names:aa:1.0:action:load-examples 
     			    info:escidoc/names:aa:1.0:action:create-set-definition 
     			    info:escidoc/names:aa:1.0:action:update-set-definition 
-			    info:escidoc/names:aa:1.0:action:delete-set-definition
+			    info:escidoc/names:aa:1.0:action:delete-set-definition 
           </AttributeValue>
           <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
         </ActionMatch>
@@ -1682,7 +1682,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:submit-item
+                        info:escidoc/names:aa:1.0:action:submit-item 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1724,7 +1724,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:revise-item
+                        info:escidoc/names:aa:1.0:action:revise-item 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1758,7 +1758,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:release-item
+                        info:escidoc/names:aa:1.0:action:release-item 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1800,7 +1800,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:retrieve-item
+                        info:escidoc/names:aa:1.0:action:retrieve-item 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1835,7 +1835,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
                         info:escidoc/names:aa:1.0:action:update-item 
-                        info:escidoc/names:aa:1.0:action:lock-item
+                        info:escidoc/names:aa:1.0:action:lock-item 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1887,7 +1887,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:retrieve-content
+                        info:escidoc/names:aa:1.0:action:retrieve-content 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1915,7 +1915,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:submit-container
+                        info:escidoc/names:aa:1.0:action:submit-container 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1957,7 +1957,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:revise-container
+                        info:escidoc/names:aa:1.0:action:revise-container 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -1991,7 +1991,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:release-container
+                        info:escidoc/names:aa:1.0:action:release-container 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -2033,7 +2033,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
                 <Action>
                     <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                        info:escidoc/names:aa:1.0:action:retrieve-container
+                        info:escidoc/names:aa:1.0:action:retrieve-container 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -2070,7 +2070,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
                         info:escidoc/names:aa:1.0:action:update-container 
                         info:escidoc/names:aa:1.0:action:lock-container 
                         info:escidoc/names:aa:1.0:action:add-members-to-container 
-                        info:escidoc/names:aa:1.0:action:remove-members-from-container
+                        info:escidoc/names:aa:1.0:action:remove-members-from-container 
                         </AttributeValue>
                         <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                     </ActionMatch>
@@ -2176,7 +2176,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
                         <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
                             <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
                             info:escidoc/names:aa:1.0:action:retrieve-user-account 
-                            info:escidoc/names:aa:1.0:action:retrieve-role
+                            info:escidoc/names:aa:1.0:action:retrieve-role 
                             </AttributeValue>
                             <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
                         </ActionMatch>
@@ -2332,7 +2332,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:policy-context-
 		<Actions>
 			<Action>
 				<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">            info:escidoc/names:aa:1.0:action:create-context             info:escidoc/names:aa:1.0:action:retrieve-context             info:escidoc/names:aa:1.0:action:update-context             info:escidoc/names:aa:1.0:action:delete-context             info:escidoc/names:aa:1.0:action:close-context             info:escidoc/names:aa:1.0:action:open-context  info:escidoc/names:aa:1.0:action:retrieve-role</AttributeValue>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">            info:escidoc/names:aa:1.0:action:create-context              info:escidoc/names:aa:1.0:action:retrieve-context              info:escidoc/names:aa:1.0:action:update-context              info:escidoc/names:aa:1.0:action:delete-context              info:escidoc/names:aa:1.0:action:close-context              info:escidoc/names:aa:1.0:action:open-context   info:escidoc/names:aa:1.0:action:retrieve-role </AttributeValue>
 					<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 				</ActionMatch>
 			</Action>
@@ -2394,7 +2394,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:policy-context-
 				<Action>
 					<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
 						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                  info:escidoc/names:aa:1.0:action:retrieve-role
+                  info:escidoc/names:aa:1.0:action:retrieve-role 
                   </AttributeValue>
 						<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</ActionMatch>
@@ -2456,7 +2456,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:default-policy-
 		<Actions>
 			<Action>
 				<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                     info:escidoc/names:aa:1.0:action:retrieve-container                     info:escidoc/names:aa:1.0:action:retrieve-context                     info:escidoc/names:aa:1.0:action:retrieve-item                     info:escidoc/names:aa:1.0:action:retrieve-content                     info:escidoc/names:aa:1.0:action:retrieve-organizational-unit                     info:escidoc/names:aa:1.0:action:retrieve-children-of-organizational-unit                     info:escidoc/names:aa:1.0:action:retrieve-parents-of-organizational-unit                     info:escidoc/names:aa:1.0:action:retrieve-content-model                     info:escidoc/names:aa:1.0:action:retrieve-content-relation                     info:escidoc/names:aa:1.0:action:unlock-container                     info:escidoc/names:aa:1.0:action:unlock-item                     info:escidoc/names:aa:1.0:action:logout                     info:escidoc/names:aa:1.0:action:retrieve-user-account                     info:escidoc/names:aa:1.0:action:retrieve-current-user-account                     info:escidoc/names:aa:1.0:action:update-user-account                     info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                     info:escidoc/names:aa:1.0:action:retrieve-staging-file                     info:escidoc/names:aa:1.0:action:query-semantic-store                     info:escidoc/names:aa:1.0:action:retrieve-report                     info:escidoc/names:aa:1.0:action:retrieve-set-definition                     info:escidoc/names:aa:1.0:action:get-repository-info                     info:escidoc/names:aa:1.0:action:retrieve-grant                     info:escidoc/names:aa:1.0:action:create-grant                     info:escidoc/names:aa:1.0:action:revoke-grant                     info:escidoc/names:aa:1.0:action:retrieve-user-group-grant                     info:escidoc/names:aa:1.0:action:create-user-group-grant                     info:escidoc/names:aa:1.0:action:revoke-user-group-grant 					info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                    info:escidoc/names:aa:1.0:action:retrieve-content-relation info:escidoc/names:aa:1.0:action:retrieve-role info:escidoc/names:aa:1.0:action:retrieve-user-group</AttributeValue>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                     info:escidoc/names:aa:1.0:action:retrieve-container                     info:escidoc/names:aa:1.0:action:retrieve-context                     info:escidoc/names:aa:1.0:action:retrieve-item                     info:escidoc/names:aa:1.0:action:retrieve-content                     info:escidoc/names:aa:1.0:action:retrieve-organizational-unit                     info:escidoc/names:aa:1.0:action:retrieve-children-of-organizational-unit                     info:escidoc/names:aa:1.0:action:retrieve-parents-of-organizational-unit                     info:escidoc/names:aa:1.0:action:retrieve-content-model                     info:escidoc/names:aa:1.0:action:retrieve-content-relation                     info:escidoc/names:aa:1.0:action:unlock-container                     info:escidoc/names:aa:1.0:action:unlock-item                     info:escidoc/names:aa:1.0:action:logout                     info:escidoc/names:aa:1.0:action:retrieve-user-account                     info:escidoc/names:aa:1.0:action:retrieve-current-user-account                     info:escidoc/names:aa:1.0:action:update-user-account                     info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                     info:escidoc/names:aa:1.0:action:retrieve-staging-file                     info:escidoc/names:aa:1.0:action:query-semantic-store                     info:escidoc/names:aa:1.0:action:retrieve-report                     info:escidoc/names:aa:1.0:action:retrieve-set-definition                     info:escidoc/names:aa:1.0:action:get-repository-info                     info:escidoc/names:aa:1.0:action:retrieve-grant                     info:escidoc/names:aa:1.0:action:create-grant                     info:escidoc/names:aa:1.0:action:revoke-grant                     info:escidoc/names:aa:1.0:action:retrieve-user-group-grant                     info:escidoc/names:aa:1.0:action:create-user-group-grant                     info:escidoc/names:aa:1.0:action:revoke-user-group-grant  					info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                    info:escidoc/names:aa:1.0:action:retrieve-content-relation info:escidoc/names:aa:1.0:action:retrieve-role info:escidoc/names:aa:1.0:action:retrieve-user-group </AttributeValue>
 					<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 				</ActionMatch>
 			</Action>
@@ -2473,7 +2473,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:default-policy-
 			<Actions>
 				<Action>
 					<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                         info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info						info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account                         </AttributeValue>
+						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                         info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info 						info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account                         </AttributeValue>
 						<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</ActionMatch>
 				</Action>
@@ -2775,7 +2775,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:default-policy-
 			<Actions>
 				<Action>
 					<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                         info:escidoc/names:aa:1.0:action:retrieve-user-group</AttributeValue>
+						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                         info:escidoc/names:aa:1.0:action:retrieve-user-group </AttributeValue>
 						<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</ActionMatch>
 				</Action>
@@ -3011,7 +3011,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:policy-user-gro
 		<Actions>
 			<Action>
 				<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">            info:escidoc/names:aa:1.0:action:create-user-group             info:escidoc/names:aa:1.0:action:retrieve-user-group             info:escidoc/names:aa:1.0:action:update-user-group             info:escidoc/names:aa:1.0:action:delete-user-group             info:escidoc/names:aa:1.0:action:activate-user-group             info:escidoc/names:aa:1.0:action:deactivate-user-group             info:escidoc/names:aa:1.0:action:retrieve-user-group-grant info:escidoc/names:aa:1.0:action:create-user-group-grant             info:escidoc/names:aa:1.0:action:revoke-user-group-grant             info:escidoc/names:aa:1.0:action:add-user-group-selectors             info:escidoc/names:aa:1.0:action:remove-user-group-selectors            info:escidoc/names:aa:1.0:action:retrieve-role          </AttributeValue>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">            info:escidoc/names:aa:1.0:action:create-user-group             info:escidoc/names:aa:1.0:action:retrieve-user-group             info:escidoc/names:aa:1.0:action:update-user-group             info:escidoc/names:aa:1.0:action:delete-user-group             info:escidoc/names:aa:1.0:action:activate-user-group             info:escidoc/names:aa:1.0:action:deactivate-user-group             info:escidoc/names:aa:1.0:action:retrieve-user-group-grant  info:escidoc/names:aa:1.0:action:create-user-group-grant             info:escidoc/names:aa:1.0:action:revoke-user-group-grant             info:escidoc/names:aa:1.0:action:add-user-group-selectors             info:escidoc/names:aa:1.0:action:remove-user-group-selectors            info:escidoc/names:aa:1.0:action:retrieve-role          </AttributeValue>
 					<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 				</ActionMatch>
 			</Action>
@@ -3072,7 +3072,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:policy-user-gro
 			<Actions>
 				<Action>
 					<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">info:escidoc/names:aa:1.0:action:retrieve-role</AttributeValue>
+						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string"> info:escidoc/names:aa:1.0:action:retrieve-role </AttributeValue>
 						<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</ActionMatch>
 				</Action>
@@ -3096,7 +3096,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:policy-user-gro
 			<Actions>
 				<Action>
 					<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">info:escidoc/names:aa:1.0:action:create-user-group-grant</AttributeValue>
+						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string"> info:escidoc/names:aa:1.0:action:create-user-group-grant </AttributeValue>
 						<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</ActionMatch>
 				</Action>
@@ -3233,9 +3233,9 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:policy-context-
             info:escidoc/names:aa:1.0:action:delete-context 
             info:escidoc/names:aa:1.0:action:close-context 
             info:escidoc/names:aa:1.0:action:open-context 
-            info:escidoc/names:aa:1.0:action:retrieve-role
-            info:escidoc/names:aa:1.0:action:create-grant
-            info:escidoc/names:aa:1.0:action:create-user-group-grant
+            info:escidoc/names:aa:1.0:action:retrieve-role 
+            info:escidoc/names:aa:1.0:action:create-grant 
+            info:escidoc/names:aa:1.0:action:create-user-group-grant 
           </AttributeValue>
 					<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 				</ActionMatch>
@@ -3352,7 +3352,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:role-cone-open-
 		<Actions>
 			<Action>
 				<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info						info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account</AttributeValue>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string"> info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info 						info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account </AttributeValue>
 					<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 				</ActionMatch>
 			</Action>
@@ -3369,7 +3369,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:role-cone-open-
 			<Actions>
 				<Action>
 					<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                         info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info						info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account                         </AttributeValue>
+						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                         info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info 						info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account                         </AttributeValue>
 						<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</ActionMatch>
 				</Action>
@@ -3389,7 +3389,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:role-cone-close
 		<Actions>
 			<Action>
 				<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info						info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account</AttributeValue>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string"> info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info 						info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account </AttributeValue>
 					<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 				</ActionMatch>
 			</Action>
@@ -3406,7 +3406,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:role-cone-close
 			<Actions>
 				<Action>
 					<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                         info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info						info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account                         </AttributeValue>
+						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                         info:escidoc/names:aa:1.0:action:retrieve-content-model                         info:escidoc/names:aa:1.0:action:logout                         info:escidoc/names:aa:1.0:action:retrieve-objects-filtered                         info:escidoc/names:aa:1.0:action:retrieve-staging-file                         info:escidoc/names:aa:1.0:action:retrieve-report                         info:escidoc/names:aa:1.0:action:retrieve-set-definition                         info:escidoc/names:aa:1.0:action:get-repository-info 		info:escidoc/names:aa:1.0:action:retrieve-registered-predicates                         info:escidoc/names:aa:1.0:action:retrieve-current-user-account                         </AttributeValue>
 						<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</ActionMatch>
 				</Action>
@@ -3421,4 +3421,5 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:role-cone-close
 --
 -- PostgreSQL database dump complete
 --
+
 
