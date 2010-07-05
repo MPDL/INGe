@@ -128,7 +128,7 @@
 			<div class="free_area0 itemBlockContent endline">
 
 		<%-- Language of Publication --%>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_item_language_display == 'false' && genre.details_item_language_form_id == 'easy-submission' || genre.files_component_content_display == 'false' && genre.details_item_language_form_id == 'all')}">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_item_language_display == 'false' && genre.details_item_language_form_id == 'easy-submission' || genre.details_item_language_display == 'false' && genre.details_item_language_form_id == 'all')}">
 					<h:panelGroup rendered="#{!(genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'easy-submission' || genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_language_item_language_optional != 'true'}"/><h:outputText value="#{genre.details_item_language_item_language_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
