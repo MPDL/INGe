@@ -93,29 +93,26 @@ public class ItemExportingBean implements ItemExporting
     private StructuredExportHandler structuredExportHandler;
     
 
-    private java.lang.String structuredFormat = "ENDNOTE";
+//    private java.lang.String structuredFormat = "ENDNOTE";
 
     /**
      * {@inheritDoc}
      */
     public List<ExportFormatVO> explainExportFormats() throws TechnicalException
     {
-        String layoutFormats;
-        try{
+        String layoutFormats, structuredFormats;
+        try
+        {
             layoutFormats = citationStyleHandler.explainStyles();
-             
+            structuredFormats = structuredExportHandler.explainFormats();
         }
-        catch (CitationStyleManagerException e) 
+        catch (Exception e) 
         {
-            throw new TechnicalException(e);
-        }catch (IOException e) 
-        {
-            throw new TechnicalException(e);
-         }
-        List<ExportFormatVO> result = null;
-        result = xmlTransforming.transformToExportFormatVOList(layoutFormats);                
-        appendStructuredFormat(result);
-        return result;
+            throw new TechnicalException("Cannot read export formats explain:", e);
+        }        
+        List<ExportFormatVO> efl = xmlTransforming.transformToExportFormatVOList(layoutFormats);
+        efl.addAll(xmlTransforming.transformToExportFormatVOList(structuredFormats));
+        return efl;
     }
 
     /**
@@ -136,7 +133,7 @@ public class ItemExportingBean implements ItemExporting
        byte[] exportData = null;
        try{
            exportData = getOutput(
-                   exportFormat.getName(), 
+                   exportFormat.getId(), 
                    exportFormat.getFormatType(), 
                    exportFormat.getSelectedFileFormat().getName(), 
                    itemList 
@@ -181,18 +178,17 @@ public class ItemExportingBean implements ItemExporting
      byte[] exportData = null;
      
      //structured export
-     if ( formatType == FormatType.LAYOUT )
+     if ( formatType == FormatType.layout )
      {   
            if (logger.isDebugEnabled()) logger.debug(">>> start citationStyleHandler " + itemList);
            exportData = citationStyleHandler.getOutput( exportFormat, outputFormat, itemList );
      }  
-     else if ( formatType == FormatType.STRUCTURED )
+     else if ( formatType == FormatType.structured )
      {
         if (logger.isDebugEnabled()) logger.debug(">>> start structuredExportHandler " + itemList);
         exportData = structuredExportHandler.getOutput( itemList, exportFormat );
      }  
      else 
-        // no export format found!!!
         throw new TechnicalException("format Type: " + formatType + " is not supported");
 
      return exportData;
@@ -200,44 +196,25 @@ public class ItemExportingBean implements ItemExporting
         
     /**
      * {@inheritDoc}
-     */     
+     */
     public String explainExportFormatsXML() throws TechnicalException {
         String structuredFormats;
+        
         try 
         {
+            /**
+             * TODO: Implement unmarschalling transformation complete List<ExportFormatVO>  
+             * For the moment: only  structuredExportHandler explain export formats are implemented 
+             */
             structuredFormats = structuredExportHandler.explainFormats();
         } 
-        catch (StructuredExportManagerException e) 
+        catch (Exception e) 
         {
-            throw new TechnicalException(e);
-        }
-        catch (IOException e) 
-        {
-            throw new TechnicalException(e);
+            throw new TechnicalException("Cannot load export format explain", e);
         }
         return structuredFormats;
     }
     
-    /**
-     *  Appends an export structured format to a list of ExportFormatVOs and returns it.
-     *  @param listExportFormatVO the list of export formats to which a structured export format 
-     *          should be added.
-     */
-     private List<ExportFormatVO> appendStructuredFormat(List<ExportFormatVO> listExportFormatVO)
-    {
-      
-      ExportFormatVO exportFormat = new ExportFormatVO();
-      exportFormat.setName(structuredFormat);
-      FileFormatVO fileFormat = new FileFormatVO();
-      fileFormat.setName(FileFormatVO.TEXT_NAME);
-      fileFormat.setMimeType(FileFormatVO.TEXT_MIMETYPE);
-      exportFormat.setSelectedFileFormat(fileFormat);
-      exportFormat.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
-      
-      listExportFormatVO.add(exportFormat);
-      
-      return listExportFormatVO;
-    }
-     
+
      
 }
