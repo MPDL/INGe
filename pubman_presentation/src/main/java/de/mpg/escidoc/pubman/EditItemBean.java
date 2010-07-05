@@ -69,14 +69,17 @@ public class EditItemBean extends FacesBean
         int counter = 1;
         for (CreatorVOPresentation creator : creators)
         {
+        	logger.info("Creator: " + creator.getTypeString());
             if (creator.getType() == CreatorType.PERSON)
             {
+            	logger.info("-- Name: " + creator.getPerson().getFamilyName());
                 for (OrganizationVO organization : creator.getPerson().getOrganizations())
                 {
+                	logger.info("-- Org Unit: " + organization.getName() + " ---- " + organization.getAddress());
                     if (!creatorOrganizations.contains(organization))
                     {
                         OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation(organization);
-                        if (!organizationPresentation.isEmpty() || (creatorOrganizations.isEmpty() && creator.isLast()))
+                        if (!organizationPresentation.isEmpty())
                         {
                             organizationPresentation.setBean(this);
                             if (organizationPresentation.getName() ==  null)
@@ -85,10 +88,19 @@ public class EditItemBean extends FacesBean
                             }
                             creatorOrganizations.add(organizationPresentation);
                             counter++;
+                            logger.info("-- Added!!!");
                         }
                     }
                 }
             }
+        }
+        
+        //if ther is still no organization add a new one
+        if(creatorOrganizations.isEmpty())
+        {
+        	OrganizationVOPresentation org = new OrganizationVOPresentation();
+        	org.setBean(this);
+        	creatorOrganizations.add(org);
         }
         this.creatorOrganizations = creatorOrganizations;
     }

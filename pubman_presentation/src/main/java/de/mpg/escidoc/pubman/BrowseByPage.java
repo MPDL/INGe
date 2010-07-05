@@ -142,7 +142,7 @@ public class BrowseByPage extends BreadcrumbPage
         try
         {
             String localLang = Locale.getDefault().getLanguage();
-            if (!(localLang.equals("en") || localLang.equals("de") || localLang.equals("fr") || localLang.equals("ja")))
+            if (!(localLang.equals("en") || localLang.equals("de") || localLang.equals("fr") || localLang.equals("ja") || localLang.equals("es")))
             {
                 localLang = "en";
             }

@@ -72,6 +72,7 @@
 
 .infoPage h2, .infoPage .mainSection h2, .infoPage .sideSection h2{
 	font-size: 150%;
+	line-height: 130%;
 	margin: 0px;
 	padding-top: 0.28em;
 	margin-left: -0.74em;

@@ -160,3 +160,46 @@
 	<span>各APIインタフェースは以下のサイトで詳しく紹介しています:</span>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
 </h:panelGroup>
+
+<!-- HOMEPAGE SPANISH VERSION -->
+<h:panelGroup rendered="#{PubManSessionBean.locale =='es'}">
+	<h2>
+	PubMan <h:outputText value="#{ApplicationBean.shortVersion}"/> - eSciDoc文献管理ソリューション
+	</h2>
+	<p>
+	研究成果文献と関連資料を半永久的に保存提供できます。<br/>
+	研究者個人の“研究者ポートフォリオ”として論文情報を一箇所にまとめておくことができます。<br/>
+	マックスプランク研究所が提供する長期保存アーカイヴのサービスを存分にお使いください。
+	</p>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank"><b>詳しく知るには</b></a>
+	<h:outputText value="|"/>
+    <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><b><h:outputText value="#{lbl.Home_Link_Support }"/></b></a>
+	<br/><br/>
+	<h3>文献検索</h3>
+	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
+		<span class="quickSearchMenu">
+			<input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text">
+		</span>
+		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
+	</p>
+	<br/><br/>
+	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>
+	<br/><br/>
+	<h2>
+	PubMan紹介ビデオ
+	</h2>
+	<a href="http://pubman.blogs.mpdl.mpg.de/2009/02/13/introduction-into-pubman-via-screencast-availabel-now/" target="_blank"><img src="/pubman/images/screencast.jpg" class="huge videoPreview"/></a>
+	<br/><br/>
+	<h2>
+	PubManインタフェース
+	</h2>
+		<ul>
+			<li>検索&エクスポートサービス: 利用者毎のニーズに沿った検索を実行して、手元のシステムに取り込む等の連携が可能です。 <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST インタフェース</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">検索実行例</a></li>
+			<li>データ取得サービス: <a href="/dataacquisition" target="_blank">unAPI インタフェース</a> arXivのような外部システムからデータを取得するなどのunAPIインターフェースが用意されています。</li>
+			<li><a href="/validation/" target="_blank">検証サービス</a>: XMLメタデータの検証とレポート</li>
+			<li><a href="/cone/" target="_blank">名称典拠サービス; Control of Named Entities Service (CoNE)</a>: 雑誌名、言語名、著者名などの固有名称辞書に対する検索により、たとえば研究者総覧サービス(Researcher Portfolio)の提供が可能です。</li>
+			<li><a href="/sword-app" target="_blank">SWORD</a>: 自動登録用インタフェース</li>
+		</ul>
+	<span>各APIインタフェースは以下のサイトで詳しく紹介しています:</span>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
+</h:panelGroup>

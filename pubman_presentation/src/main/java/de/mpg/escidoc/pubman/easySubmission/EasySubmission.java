@@ -1428,7 +1428,16 @@ public class EasySubmission extends FacesBean
     {
         parseAndSetAlternativeSourceTitlesAndIds();
         // validate
-        return validate("easy_submission_step_5", "loadEditItem");
+        if ("".equals(validate("easy_submission_step_5", "loadEditItem")))
+        {
+            return "";
+        }
+        else
+        {
+            this.getEasySubmissionSessionBean().cleanup();
+            this.getEditItemSessionBean().clean();
+            return "loadEditItem";
+        }
     }
     
     /**
