@@ -35,17 +35,19 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.ErrorPage;
+import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
- * Superclass for keeping the attributes used d�ring the session by ExportItems.
+ * Superclass for keeping the attributes used during the session by ExportItems.
  * @author:  Galina Stancheva, created 02.08.2007
  * @version: $Revision$ $LastChangedDate$
- * Revised by StG: 28.09.2007 - Comments for the get- and set-methods are missing! ToDo StG.
  */
 public class ExportItemsSessionBean extends FacesBean
 {
@@ -54,11 +56,15 @@ public class ExportItemsSessionBean extends FacesBean
     private String message = null;
     List<ExportFormatVO> listExportFormatVO  = new ArrayList<ExportFormatVO>();   
     
-    private String exportFormatType = "LAYOUT";
-    private String exportFormatName = "APA";
-    private String fileFormat = FileFormatVO.PDF_NAME;
-    private ExportFormatVO curExportFormatVO = new ExportFormatVO();        
-    private FileFormatVO curFileFormatVO = new FileFormatVO();
+    //default export format settings format
+    public final String DEFAULT_EXPORT_FORMAT = "APA";
+    
+    private String exportFormatName = DEFAULT_EXPORT_FORMAT;
+    private String exportFormatType;
+    private String fileFormat;
+    
+    private ExportFormatVO curExportFormatVO;        
+	private FileFormatVO curFileFormatVO;
     
     private boolean enableFileFormats = true;
     private boolean enableExport = true;
@@ -107,22 +113,7 @@ public class ExportItemsSessionBean extends FacesBean
         // Perform initializations inherited from our superclass
         super.init();
         
-        if (exportFormatType.equals("LAYOUT"))
-        { 
-        	this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
-            // default format for STRUCTURED is pdf
-            curFileFormatVO.setName(FileFormatVO.PDF_NAME);
-            curFileFormatVO.setMimeType(FileFormatVO.PDF_MIMETYPE);
-        }
-        else 
-        {
-            this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
-            // default format for STRUCTURED is TEXT
-            curFileFormatVO.setName(FileFormatVO.TEXT_NAME);
-            curFileFormatVO.setMimeType(FileFormatVO.TEXT_MIMETYPE);
-        }
-        this.curExportFormatVO.setName(exportFormatName);
-        this.curExportFormatVO.setSelectedFileFormat(curFileFormatVO);
+        initializeExportFormats();
         
         try
         {
@@ -138,10 +129,90 @@ public class ExportItemsSessionBean extends FacesBean
         }
     }
 
-    public ExportFormatVO getCurExportFormatVO(){
-                return this.curExportFormatVO;
-     }    
-    public String getMessage()
+    /**
+     * Returns a reference to the scoped data bean (the ItemControllerSessionBean). 
+     * @return a reference to the scoped data bean
+     */
+    protected ItemControllerSessionBean getItemControllerSessionBean()
+    {
+        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+    }
+    
+    
+    public String initializeExportFormats()
+    {
+        logger.debug(">>> initializeExportFormats "); 
+        try
+        {
+            //get the existing export formats from the external service 
+            setListExportFormatVO(this.getItemControllerSessionBean().retrieveExportFormats());
+            setCurVOsByExportFormatName(DEFAULT_EXPORT_FORMAT);
+
+       }        
+        catch (TechnicalException e)
+        {
+            logger.error("Could not set export formats." + "\n" + e.toString(), e);
+            ((ErrorPage)getSessionBean(ErrorPage.class)).setException(e);
+        
+            return ErrorPage.LOAD_ERRORPAGE;
+        }
+         return "OK";
+    }    
+
+    
+    private void setCurVOsByExportFormatName(String exportFormatName)
+    {
+    	//set curExportFormatVO
+        for (ExportFormatVO ef: getListExportFormatVO())
+        {
+        	if ( exportFormatName.equals(ef.getId()) )
+        	{
+        		setCurExportFormatVO(ef);
+        		break;
+        	}
+        }
+        ExportFormatVO cef = getCurExportFormatVO(); 
+        //formatType (layout|structured)
+        setExportFormatType(cef.getFormatType().toString());
+        //curFileFormatVO 
+        setCurFileFormatVO(cef.getSelectedFileFormat());
+        //fileFormat name
+        setFileFormat(getCurFileFormatVO().getName());
+        //formatType switcher, true for layout
+        setEnableFileFormats(cef.getFormatType() == FormatType.layout);
+        
+    }
+    
+    public ExportFormatVO getCurExportFormatVO()
+    {
+       return this.curExportFormatVO;
+    }
+    /**
+	 * @param curExportFormatVO the curExportFormatVO to set
+	 */
+	public void setCurExportFormatVO(ExportFormatVO curExportFormatVO) 
+	{
+		this.curExportFormatVO = curExportFormatVO;
+	}
+
+    
+    /**
+	 * @return the curFileFormatVO
+	 */
+	public FileFormatVO getCurFileFormatVO() {
+		return curFileFormatVO;
+	}
+
+
+	/**
+	 * @param curFileFormatVO the curFileFormatVO to set
+	 */
+	public void setCurFileFormatVO(FileFormatVO curFileFormatVO) {
+		this.curFileFormatVO = curFileFormatVO;
+	}
+
+
+	public String getMessage()
     {
         return this.message;
     }
@@ -174,60 +245,39 @@ public class ExportItemsSessionBean extends FacesBean
  
     public String getExportFormatName()
     {       
-        return this.curExportFormatVO.getName();
+        return this.curExportFormatVO.getId();
     }
 
     public void setExportFormatName(String exportFormatName)
     {
-//        if ( exportFormatName == null || exportFormatName.trim().equals("") )
-//        	exportFormatName = "APA";
-        this.exportFormatName = exportFormatName; 
-        this.curExportFormatVO.setName(exportFormatName);
-    	if  ( 
-    				"APA".equalsIgnoreCase(exportFormatName) 
-    			|| 	"AJP".equalsIgnoreCase(exportFormatName) 
-    			|| 	"JUS".equalsIgnoreCase(exportFormatName) 
-    			|| 	"DEFAULT".equalsIgnoreCase(exportFormatName) 
-    			|| 	"TEST".equalsIgnoreCase(exportFormatName) 
-    			)
-    	{
-    		curExportFormatVO.setFormatType(FormatType.LAYOUT);
-            this.exportFormatType = FormatType.LAYOUT.toString();
-    		setEnableFileFormats(true);
-    	}
-    	else
-    	{
-    		curExportFormatVO.setFormatType(FormatType.STRUCTURED);
-            this.exportFormatType = FormatType.STRUCTURED.toString();
-            setEnableFileFormats(false);
-    	}
+        this.exportFormatName = exportFormatName;
+    	setCurVOsByExportFormatName(exportFormatName);
     }
     
     public String getFileFormat()
     {
-        return this.curExportFormatVO.getSelectedFileFormat().getName();
+//        return this.curExportFormatVO.getSelectedFileFormat().getName();
+        return this.fileFormat;
     }
 
     public void setFileFormat(String fileFormat)    
     {
-        if ( 
-        		fileFormat == null || fileFormat.trim().equals("")
-        		|| getExportFormatName().equalsIgnoreCase("ENDNOTE")
-        		|| getExportFormatName().equalsIgnoreCase("BIBTEX")
-//        		|| getCurExportFormatVO().getFormatType() == FormatType.STRUCTURED 
-        )
-        	fileFormat = FileFormatVO.TEXT_NAME;
-        
-        this.fileFormat = fileFormat;
-        
-        curFileFormatVO.setName(fileFormat);
-        curFileFormatVO.setMimeType(FileFormatVO.getMimeTypeByName(fileFormat));
-        this.curExportFormatVO.setSelectedFileFormat(curFileFormatVO);
-        
+    	for (FileFormatVO ff: getCurExportFormatVO().getFileFormats())
+    	{
+    		if (fileFormat.equals(ff.getName()))
+    		{
+    			setCurFileFormatVO(ff);
+    			getCurExportFormatVO().setSelectedFileFormat(ff);
+    			break;
+    		}
+    	}
+    	this.fileFormat = fileFormat;
         logger.debug("setFileFormat.....:" + this.curExportFormatVO.getSelectedFileFormat().getName() + ";" + this.curExportFormatVO.getSelectedFileFormat().getMimeType());
         
    }
 
+    
+    
     
 
     //////////////////////////////////////////////////////////////////////////////////////////7

@@ -974,7 +974,8 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             // save selected file format on the web interface
             String selectedFileFormat = sb.getFileFormat();
             // for the display export data the file format should be always HTML
-            sb.setFileFormat(FileFormatVO.HTML_STYLED_NAME);
+            // TODO: ??????????????????????????????? property ????????????????????????
+            sb.setFileFormat("html_styled");
             ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
             try
             {
@@ -986,7 +987,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
                 ((ErrorPage)this.getSessionBean(ErrorPage.class)).setException(e);
                 return ErrorPage.LOAD_ERRORPAGE;
             }
-            if (curExportFormat.getFormatType() == ExportFormatVO.FormatType.STRUCTURED)
+            if (curExportFormat.getFormatType() == ExportFormatVO.FormatType.structured)
             {
                 displayExportData =  "<pre>" + displayExportData + "</pre>";
             }
@@ -1048,7 +1049,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             try
             {
                 exportAttFile = File.createTempFile("eSciDoc_Export_" + curExportFormat.getName() + "_" + date, "."
-                        + FileFormatVO.getExtensionByName(sb.getFileFormat()));
+                        + sb.getCurFileFormatVO().getFileExt() );
                 FileOutputStream fos = new FileOutputStream(exportAttFile);
                 fos.write(exportFileData);
                 fos.close();
@@ -1103,7 +1104,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
             String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
             response.setContentType(contentType);
-    	    String fileName = "export_" + curExportFormat.getName().toLowerCase() + "." + FileFormatVO.getExtensionByName(sb.getFileFormat());
+    	    String fileName = "export_" + curExportFormat.getId().toLowerCase() + "." + sb.getCurFileFormatVO().getFileExt();
 	    	response.setHeader("Content-disposition", "attachment; filename=" + fileName);
     	    try
     	    {

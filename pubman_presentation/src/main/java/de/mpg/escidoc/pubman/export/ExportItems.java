@@ -30,6 +30,7 @@
 package de.mpg.escidoc.pubman.export;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.component.html.HtmlMessages;
@@ -64,6 +65,12 @@ public class ExportItems extends FacesBean
  
     // constant for the function export to check the rights and/or if the function has to be disabled (DiT)
     private final String FUNCTION_EXPORT = "export";
+    
+    // ordered list of export formats 
+    private static final String[] EXPORT_FORMATS = new String[]{"ENDNOTE", "BIBTEX", "ESCIDOC_XML", "APA", "AJP", "JUS"};
+    
+    // ordered list of file formats 
+    private static final String[] FILE_FORMATS =  new String[]{"pdf", "odt", "rtf", "html_plain", "html_linked", "html_styled","escidoc_snippet"};
 
     // binded components in JSP
     private HtmlMessages valMessage = new HtmlMessages();
@@ -72,7 +79,6 @@ public class ExportItems extends FacesBean
     
 //    public SelectItemGroup CITATIONSTYLES_GROUP = new SelectItemGroup(getLabel("Export_CitationStyles_Group"), "", false, new SelectItem[]{EXPORTFORMAT_APA, EXPORTFORMAT_AJP});
 //    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_XML, CITATIONSTYLES_GROUP};
-    
  
     // constants for error and status messages
     public static final String MESSAGE_NO_ITEM_FOREXPORT_SELECTED = "exportItems_NoItemSelected";
@@ -102,10 +108,8 @@ public class ExportItems extends FacesBean
         if (logger.isDebugEnabled())
         {
             logger.info(" init ExportItems >>>");                     
-        }   
+        }
        super.init();
-       setExportFormats();
-
     }
    
     
@@ -129,56 +133,54 @@ public class ExportItems extends FacesBean
         return !this.getRightsManagementSessionBean().isDisabled(getRightsManagementSessionBean().PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + this.FUNCTION_EXPORT);
     }    
     
-    public String setExportFormats(){
-        logger.debug(">>> setExportFormats "); 
-        try
-        {
-            //get the existing export formats from the external service 
-            List<ExportFormatVO> listExportFormatVO = this.getItemControllerSessionBean().retrieveExportFormats();
-            this.getSessionBean().setListExportFormatVO(listExportFormatVO);
-       }        
-        catch (TechnicalException e)
-        {
-            logger.error("Could not ser the export formats." + "\n" + e.toString(), e);
-            ((ErrorPage)getSessionBean(ErrorPage.class)).setException(e);
-        
-            return ErrorPage.LOAD_ERRORPAGE;
-        }
-         return "OK";
-    }
-    
 
-    
-    public SelectItem[] getEXPORTFORMAT_OPTIONS()
+	public SelectItem[] getEXPORTFORMAT_OPTIONS()
     {
-        // constants for comboBoxes and HtmlSelectOneRadios
-        SelectItem EXPORTFORMAT_ENDNOTE = new SelectItem("ENDNOTE", getLabel("Export_ExportFormat_ENDNOTE"));
-        SelectItem EXPORTFORMAT_BIBTEX = new SelectItem("BIBTEX", getLabel("Export_ExportFormat_BIBTEX"));
-        SelectItem EXPORTFORMAT_ESCIDOC_XML = new SelectItem("ESCIDOC_XML", getLabel("Export_ExportFormat_ESCIDOC_XML"));
-        SelectItem EXPORTFORMAT_APA = new SelectItem("APA", getLabel("Export_ExportFormat_APA"));
-        SelectItem EXPORTFORMAT_AJP = new SelectItem("AJP", getLabel("Export_ExportFormat_AJP"));
-        // JUS
-        SelectItem EXPORTFORMAT_JUS = new SelectItem("JUS", getLabel("Export_ExportFormat_JUS"));
-        // Test citation styles
-//        SelectItem EXPORTFORMAT_DEFAULT = new SelectItem("Default", getLabel("Export_ExportFormat_DEFAULT"));
-//        SelectItem EXPORTFORMAT_TEST = new SelectItem("Test", getLabel("Export_ExportFormat_TEST"));
-        
-//    	SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS, EXPORTFORMAT_DEFAULT, EXPORTFORMAT_TEST};
-    	SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS};
-        return EXPORTFORMAT_OPTIONS;
+
+		List<SelectItem> efol = new ArrayList<SelectItem>();
+		for (String efn: EXPORT_FORMATS)
+		{
+			ExportFormatVO ef = getExportFormatVObyName(efn);
+			//take only export formats in the pubman context
+			if ( ef != null )
+			{
+				SelectItem si = new SelectItem(efn, getLabel("Export_ExportFormat_" + efn));
+				efol.add(si);
+			}
+		}
+		SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[efol.size()];
+		return efol.toArray(EXPORTFORMAT_OPTIONS);
     }
+	
  
-    public SelectItem[] getFILEFORMAT_OPTIONS()
+    /**
+     * Return exportFormatVO by name
+     * export format should be open in the current application context  
+     * @param efn - export format name
+     * @return exportFormatVO
+     */
+    private ExportFormatVO getExportFormatVObyName(String efn) 
     {
-        SelectItem FILEFORMAT_PDF = new SelectItem("pdf", getLabel("Export_FileFormat_PDF"));
-        SelectItem FILEFORMAT_ODT = new SelectItem("odt", getLabel("Export_FileFormat_ODT"));
-        SelectItem FILEFORMAT_RTF = new SelectItem("rtf", getLabel("Export_FileFormat_RTF"));
-        SelectItem FILEFORMAT_HTML_PLAIN = new SelectItem("html_plain", getLabel("Export_FileFormat_HTML_PLAIN"));
-        SelectItem FILEFORMAT_HTML_LINKED = new SelectItem("html_linked", getLabel("Export_FileFormat_HTML_LINKED"));
-        SelectItem FILEFORMAT_HTML_STYLED = new SelectItem("html_styled", getLabel("Export_FileFormat_HTML_STYLED"));
-        SelectItem FILEFORMAT_ESCIDOC_SNIPPET = new SelectItem("escidoc_snippet", getLabel("Export_FileFormat_ESCIDOC_SNIPPET"));
-        SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[]{FILEFORMAT_PDF, FILEFORMAT_ODT, FILEFORMAT_RTF, FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_LINKED, FILEFORMAT_HTML_STYLED, FILEFORMAT_ESCIDOC_SNIPPET};
-        return FILEFORMAT_OPTIONS;
+    	for (ExportFormatVO ef: this.getSessionBean().getListExportFormatVO())
+    	{
+    		if (efn.equals(ef.getId()) && ef.getContext().toLowerCase().contains("pubman") && "true".equals(ef.getOpen()) )
+    		{
+    			return ef;
+    		}
+    	}
+		return null;
+	}
+
+	public SelectItem[] getFILEFORMAT_OPTIONS()
+    {
+    	List<SelectItem> ffol = new ArrayList<SelectItem>();
+    	for (String ff: FILE_FORMATS)
+    	{
+    		ffol.add(new SelectItem(ff, getLabel("Export_FileFormat_" + ff.toUpperCase())));
+    	}
+		SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[ffol.size()];
+		
+        return ffol.toArray(FILEFORMAT_OPTIONS);
     }
 
 
@@ -205,11 +207,11 @@ public class ExportItems extends FacesBean
     /*
      * Updates the GUI relatively the selected export format. 
      */
+    // DO WE REALLY need the stuff ???
     public void updateExportFormats(){
         
         // get the selected export format by the FacesBean
         
-
         ExportItemsSessionBean sb = this.getSessionBean(); 
 //        String selExportFormat = sb.getExportFormatType(); 
         String selExportFormat = sb.getExportFormatName(); 
@@ -219,33 +221,9 @@ public class ExportItems extends FacesBean
             logger.debug(">>>  New export format: " + selExportFormat);                     
             logger.debug("curExportFormat:" + this.getSessionBean().getCurExportFormatVO());
         }
-
+        
         sb.setExportFormatName(selExportFormat);
         
-        if ( 
-        			"APA"		.equalsIgnoreCase(selExportFormat) 
-        		||	"AJP"		.equalsIgnoreCase(selExportFormat) 
-        		||	"JUS"		.equalsIgnoreCase(selExportFormat) 
-        		||	"DEFAULT"	.equalsIgnoreCase(selExportFormat) 
-        		||	"TEST"		.equalsIgnoreCase(selExportFormat) 
-        )
-        {
-            //set default fileFormat for APA or AJP to pdf 
-            String fileFormat = sb.getFileFormat();  
-            if ( fileFormat != null || fileFormat.trim().equals("") || 
-                    fileFormat.trim().equals(FileFormatVO.TEXT_NAME)
-                )
-                sb.setFileFormat(FileFormatVO.DEFAULT_NAME); 
-        }
-        else
-        {
-                sb.setFileFormat(
-                        "ESCIDOC_XML".equals(selExportFormat) ?
-                            FileFormatVO.ESCIDOC_XML_NAME : 
-                            //txt for all other
-                            FileFormatVO.TEXT_NAME
-                );
-        }
         
     }
 
