@@ -670,23 +670,22 @@
 		</xsl:if>
 		<!-- CREATOR -->
 		<xsl:if test="not($genre='article')">
-			<xsl:variable name="creators">
-				<xsl:for-each select="eterms:creator/person:person">
-					<xsl:value-of select="
-						string-join(
-							(
-								eterms:family-name[.!=''], 
-								eterms:given-name[.!='']
-							), 
-							', '
-						)
-					"/>
-					<xsl:value-of select="if (position()!=last()) then '; ' else ''" />
-				</xsl:for-each>
-			</xsl:variable>
 			<xsl:call-template name="print-line">
 				<xsl:with-param name="tag">E</xsl:with-param>
-				<xsl:with-param name="value" select="$creators"/>
+				<xsl:with-param name="value">
+					<xsl:for-each select="eterms:creator/person:person">
+						<xsl:value-of select="
+							string-join(
+								(
+									eterms:family-name[.!=''], 
+									eterms:given-name[.!='']
+								), 
+								', '
+							)
+						"/>
+						<xsl:value-of select="if (position()!=last()) then '; ' else ''" />
+					</xsl:for-each>
+				</xsl:with-param>
 			</xsl:call-template>
 		</xsl:if>
 		<!-- VOLUME -->
