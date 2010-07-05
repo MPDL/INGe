@@ -76,8 +76,7 @@ public class StructuredExportTest
 		    		//put("BIBTEX", "src/test/resources/item_thesis.xml"); 
                     put("BIBTEX", "src/test/resources/publicationItems/metadataV2/item_book.xml");
                     put("ENDNOTE", "src/test/resources/publicationItems/metadataV2/item_book.xml");
-                    put("BIBTEX", "src/test/resources/publicationItems/metadataV2/item_thesis.xml");
-                    put("ENDNOTE", "src/test/resources/publicationItems/metadataV2/item_thesis.xml");
+//                    put("ENDNOTE", "src/test/resources/publicationItems/metadataV2/source-creators-bug.xml");
 //		    		put("ENDNOTE", "src/test/resources/test.xml");  
 //		    		put("BIBTEX", "src/test/resources/item_test_bibtex.xml");  
 //		    		put("BIBTEX", "src/test/resources/escidoc.xml");  
@@ -173,11 +172,6 @@ public class StructuredExportTest
 	    		String itemList = ResourceUtil.getResourceAsString(ITEM_LISTS_FILE_MAMES.get(f));    		
 	    		//logger.info("Test item list:\n" + itemList);
 	    		
-	    		XmlTransforming xmlTransforming = new XmlTransformingBean();
-                PubItemVO itemVO = xmlTransforming.transformToPubItem(itemList);
-                List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-                itemList = xmlTransforming.transformToItemList(pubitemList);
-	    		
 		    	start = System.currentTimeMillis();
 		    	byte[] result = export.getOutput(itemList, f);
 	    		logger.info("Processing time: " + (System.currentTimeMillis() - start) );
@@ -190,6 +184,7 @@ public class StructuredExportTest
 	    }
 	    
 	    @Test
+//	    @Ignore
 	    public void doExportTest() throws Exception
 	    {
             String itemList = ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_book.xml");            
