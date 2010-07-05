@@ -327,7 +327,13 @@ public class ConeServlet extends HttpServlet
         else if ("explain".equals(action))
         {
             response.setContentType("text/xml");
-            out.print(ResourceUtil.getResourceAsString("models.xml"));
+            try
+            {
+                out.print(ResourceUtil.getResourceAsString(PropertyReader.getProperty("escidoc.cone.modelsxml.path")));
+            }
+            catch (Exception e) {
+                new ServletException(e);
+            }
         }
     }
 
@@ -344,7 +350,7 @@ public class ConeServlet extends HttpServlet
             try
             {
                 String utf8 = new String(brokenValue.getBytes("ISO-8859-15"), "UTF-8");
-                if (utf8.equals(brokenValue) || utf8.length() == brokenValue.length())
+                if (utf8.equals(brokenValue) || utf8.contains("�") || utf8.length() == brokenValue.length())
                 {
                     return brokenValue;
                 }
