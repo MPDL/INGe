@@ -92,7 +92,7 @@ public class OrganizationSuggest extends FacesBean
         		{
         			queryString += " and ";
         		}
-        		queryString += "(escidoc.any-title=\"" + snippet + "*\"  or escidoc.alternative=\"" + snippet + "*\")";
+        		queryString += "(escidoc.title=\"" + snippet + "*\"  or escidoc.alternative=\"" + snippet + "*\")";
         	}
         	SearchQuery searchQuery = new PlainCqlQuery(queryString);
         	OrgUnitsSearchResult searchResult = this.search.searchForOrganizationalUnits(searchQuery);

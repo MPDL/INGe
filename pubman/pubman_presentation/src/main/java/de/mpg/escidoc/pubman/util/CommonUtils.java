@@ -181,7 +181,7 @@ public class CommonUtils extends InternationalizedImpl
     	ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
     	String locale = Locale.getDefault().getLanguage();
     	
-    	 if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja")))
+    	 if (!(locale.equals("en") || locale.equals("de") || locale.equals("ja") || locale.equals("es")))
          {
          	locale = "en";
          }
@@ -199,8 +199,8 @@ public class CommonUtils extends InternationalizedImpl
     	
     }
     /**
-     * Returns all Languages from Cone Service, with "de","en" and "ja" at the first positions.
-     * @return all Languages from Cone Service, with "de","en" and "ja" at the first positions
+     * Returns all Languages from Cone Service, with "de","en","es" and "ja" at the first positions.
+     * @return all Languages from Cone Service, with "de","en","es" and "ja" at the first positions
      */
     public static SelectItem[] retrieveLanguageOptions(String locale)
     {
@@ -222,24 +222,35 @@ public class CommonUtils extends InternationalizedImpl
             options[1] = new SelectItem("eng", "eng - Englisch");  
             options[2] = new SelectItem("deu", "deu - Deutsch");  
             options[3] = new SelectItem("jpn", "jpn - Japanisch"); 
+            options[4] = new SelectItem("spa", "spa - Spanisch"); 
         }
         else if (locale.equals("en"))
         {
             options[1] = new SelectItem("eng", "eng - English");  
             options[2] = new SelectItem("deu", "deu - German");  
             options[3] = new SelectItem("jpn", "jpn - Japanese"); 
+            options[4] = new SelectItem("spa", "spa - Spanish"); 
         }
         else if (locale.equals("fr"))
         {
             options[1] = new SelectItem("eng", "eng - Anglais");  
             options[2] = new SelectItem("deu", "deu - Allemand");  
             options[3] = new SelectItem("jpn", "jpn - Japonais"); 
+            options[4] = new SelectItem("spa", "spa - Espagnol"); 
         }
         else if (locale.equals("ja"))
         {
             options[1] = new SelectItem("eng", "eng - 英語");
             options[2] = new SelectItem("deu", "deu - ドイツ語");
             options[3] = new SelectItem("jpn", "jpn - 日本語");
+            options[4] = new SelectItem("spa", "spa - スペイン語"); 
+        }
+        else if (locale.equals("es"))
+        {
+            options[1] = new SelectItem("eng", "eng - Inglés");
+            options[2] = new SelectItem("deu", "deu - Alemán");
+            options[3] = new SelectItem("jpn", "jpn - Japonés");
+            options[4] = new SelectItem("spa", "spa - Español"); 
         }
         else
         {
@@ -248,8 +259,9 @@ public class CommonUtils extends InternationalizedImpl
             options[1] = new SelectItem("eng", "eng - English");  
             options[2] = new SelectItem("deu", "deu - German");  
             options[3] = new SelectItem("jpn", "jpn - Japanese");
+            options[4] = new SelectItem("spa", "spa - Spanish"); 
         }
-        options[4] = new SelectItem("", NO_ITEM_SET);
+        options[5] = new SelectItem("", NO_ITEM_SET);
 
         int i = 0;
         List<String> langLabels = new ArrayList<String>(coneLanguagesIso639_1.keySet());
@@ -265,110 +277,12 @@ public class CommonUtils extends InternationalizedImpl
         return options;
     }
     
-    
-    /**
-     * Retrievs an array of all languages from the cone service in format abbr - language name.
-     * @return Object array of languages
-     * @throws RuntimeException
-     */
-    /*
-    private static Object[] getConeLanguages() throws RuntimeException
-    {
-        Vector <String> langVec = new Vector<String>();
-        InputStreamReader isReader;
-        BufferedReader bReader;
-        CommonUtils.localLang = Locale.getDefault().getLanguage();
-        if (!(localLang.equals("en") || localLang.equals("de") || localLang.equals("fr") || localLang.equals("ja")))
-        {
-            localLang = "en";
-        }
-        
-        try
-        {
-            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+"iso639-1/all?format=jquery&lang="+localLang);
-            URLConnection conn = coneUrl.openConnection();
-            HttpURLConnection httpConn = (HttpURLConnection) conn;
-            int responseCode = httpConn.getResponseCode();
-            
-            switch (responseCode)
-            {
-                case 200:
-                    logger.debug("Cone Service responded with 200.");
-                    break;
-                default:
-                    throw new RuntimeException("An error occurred while calling Cone Service: "
-                            + responseCode + ": " + httpConn.getResponseMessage());
-            }
-            
-            isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
-            bReader = new BufferedReader(isReader);
-            String line = "";
-            while ((line = bReader.readLine()) != null)
-            {
-                String[] parts = line.split("\\|");
-                if (parts.length == 2)
-                {
-                    URL coneUrl2 = new URL(parts[1] + "?format=jquery");
-                    HttpURLConnection conn2 = (HttpURLConnection) coneUrl2.openConnection();
-                    responseCode = conn2.getResponseCode();
-                    
-                    switch (responseCode)
-                    {
-                        case 200:
-                            logger.info("Cone Service responded with 200.");
-                            break;
-                        default:
-                            throw new RuntimeException("An error occurred while calling Cone Service: "
-                                    + responseCode + ": " + httpConn.getResponseMessage());
-                    }
-                    InputStreamReader isReader2 = new InputStreamReader(coneUrl2.openStream(), "UTF-8");
-                    StringWriter writer = new StringWriter();
-                    char[] chars = new char[1024];
-                    int read;
-                    while ((read = isReader2.read(chars)) >= 0)
-                    {
-                        writer.write(chars, 0, read);
-                    }
-                    Pattern pattern = Pattern.compile("\"http_purl_org_dc_elements_1_1_identifier\"\\s*:\\s*\\[([^\\]]*)\\]");
-                    Matcher matcher = pattern.matcher(writer.toString());
-                    if (matcher.find())
-                    {
-                        String[] ids = matcher.group(1).trim().replace("\"", "").split("\\s*,\\s*");
-                        String id2 = null;
-                        String id3 = null;
-                        for (String id : ids)
-                        {
-                            if (id.length() == 2)
-                            {
-                                id2 = id;
-                            }
-                            else if (id.length() == 3)
-                            {
-                                id3 = id;
-                            }
-                        }
-                        langVec.add(id3 + " - " + id2 + " - " + parts[0]);
-                    }
-                }
-            }
-            isReader.close();
-            httpConn.disconnect();
-            
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException("An error occurred while calling the Cone service.",e);
-        }
-        return langVec.toArray();
-    }
-    */
-    
     public static Map<String, String> getConeLanguages(String type, String locale)
     {
     	Map<String, String> langMap = new HashMap<String, String>();
         
         
-        if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja")))
+        if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja") || locale.equals("es")))
         {
         	locale = "en";
         }
@@ -416,7 +330,7 @@ public class CommonUtils extends InternationalizedImpl
     {
         if (code != null && !"".equals(code.trim()))
         {
-            if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja")))
+            if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja") || locale.equals("es")))
             {
                 locale = "en";
             }
