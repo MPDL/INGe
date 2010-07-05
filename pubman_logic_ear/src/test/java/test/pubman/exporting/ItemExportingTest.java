@@ -46,6 +46,7 @@ import test.pubman.TestBase;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 //import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -80,20 +81,20 @@ public class ItemExportingTest extends TestBase
         itemExporting  = (ItemExporting)getService(ItemExporting.SERVICE_NAME);
         
         FileFormatVO fileFormat = new FileFormatVO();
-        fileFormat.setName(FileFormatVO.PDF_NAME);
-        fileFormat.setMimeType(FileFormatVO.PDF_MIMETYPE);
+        fileFormat.setName("pdf");
+        fileFormat.setMimeType("application/pdf");
         	
         exportLayoutFormat = new ExportFormatVO();
-        exportLayoutFormat.setFormatType(ExportFormatVO.FormatType.LAYOUT);
+        exportLayoutFormat.setFormatType(FormatType.layout);
         exportLayoutFormat.setName("APA");
         exportLayoutFormat.setSelectedFileFormat(fileFormat);
 
                 
         fileFormat = new FileFormatVO();
-        fileFormat.setName(FileFormatVO.TEXT_NAME);
-        fileFormat.setMimeType(FileFormatVO.TEXT_MIMETYPE);
+        fileFormat.setName("txt");
+        fileFormat.setMimeType("text/plain");
         exportStructuredFormat = new ExportFormatVO();
-        exportStructuredFormat.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
+        exportStructuredFormat.setFormatType(FormatType.structured);
         exportStructuredFormat.setName("ENDNOTE");
         exportStructuredFormat.setSelectedFileFormat(fileFormat);
     }
