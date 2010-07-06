@@ -278,5 +278,74 @@ There are following limitations for the feeds:
 		</caching>	
 			
 	</feed>
+	<feed>
+		<title>Recent Open Access Publications</title>
+		<description>Feed for the Open Access Homepage of the MPG</description>
+		<!-- supported output feed formats-->
+		<feedTypes>rss_0.91N,rss_0.93,rss_0.92,rss_1.0,rss_0.94,rss_2.0,rss_0.91U,rss_0.9,atom_1.0,atom_0.3</feedTypes>
+		<!--
+			Permanent link to the originated site, e.g. http://pubman.mpdl.mpg.de
+		-->
+		<link>${baseUrl}/pubman?entry=feed&amp;name=oa&amp;type=${feedType}</link>
+		<!--
+			Permanent link to the feed under the link to the originated site
+		-->
+		<uri>${baseUrl}/syndication/feed/${feedType}/oa</uri>
+		<!--
+			html rel link template   
+		-->
+		<relLink>eSciDoc Syndication Service | Open Access Publications | ${feedType}</relLink>
+		
+		<!-- Categories of the feed-->
+		<category>MPG</category>
+		<category>PubMan</category>
+		
+		<!-- Copyright -->
+		<copyright>Copyright</copyright>
+		
+		<author>
+			<name>Michael Franke</name>
+			<email>franke @ mpdl.mpg.de</email>
+			<uri>http://www.mpdl.mpg.de/</uri>
+		</author>
+
+		<!-- Image of the feed -->
+		<image>
+		
+			<!--			Text alternative if image cannot be dispalyed-->
+			<title>Recent Open Access Publications</title>
+			
+			<!--			Location of the image file-->
+			<url>${baseUrl}/syndication/resources/escidoc-css/images/about.gif</url>
+			
+			<!--			Link back to the site-->
+			<link>${baseUrl}/pubman?entry=feed&amp;name=oa&amp;type=${feedType}</link>
+			
+			<!--			Tooltip for the image -->
+			<description>Recent Open Access Publications</description>
+		</image>
+
+		<!-- Language of the feed's content -->
+		<language>en-US</language>
+		
+		<!-- Definition of the feed's entries retrieval -->
+		<entries context="cql">
+			<!-- CQL query which fetches required items-->
+			<!-- 
+				TODO: escidoc.context.objid&lt;&gt;escidoc:persistent3 
+				should be removed after fixing of the transformation problem with some testing items 
+			-->
+			<query>escidoc.component.visibility="public" and escidoc.component.content.storage="internal-managed" and escidoc.content-model.objid=escidoc:persistent4</query>
+			<sortKeys>escidoc.most-recent-date,,0</sortKeys>
+			<maximumRecords>10</maximumRecords>
+		</entries>
+		
+		<caching>
+			<status>true</status>
+			<ttl>${escidoc.syndication.ttl}</ttl>
+		</caching>	
+			
+	</feed>
+
 
 </feeds>
