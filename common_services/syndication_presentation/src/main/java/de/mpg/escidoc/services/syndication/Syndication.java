@@ -57,6 +57,7 @@ import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedOutput;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.syndication.feed.Feed;
 
 public class Syndication implements SyndicationHandler 
@@ -64,8 +65,9 @@ public class Syndication implements SyndicationHandler
 
     private Logger logger = Logger.getLogger(Syndication.class);
     
-    private static final String FEEDS_DEFINITION_FILE = "./resources/feeds.xml";  
-    private static final String FEEDS_DEFINITION_DIGESTER_RULES_FILE = "./resources/feeds-digester-rules.xml";  
+    private static final String FEEDS_DEFINITION_PROPERTY = "escidoc.syndication.feeds.xml.path";  
+    private static String FEEDS_DEFINITION_FILE;  
+    private static final String FEEDS_DEFINITION_DIGESTER_RULES_FILE = "resources/feeds-digester-rules.xml";  
     
 	
     /* Explain XML variable */    
@@ -81,9 +83,16 @@ public class Syndication implements SyndicationHandler
 	 */
 	public Syndication() throws IOException, SyndicationException 
 	{
-		explainXML = Utils.getResourceAsString(
-				FEEDS_DEFINITION_FILE
-		);
+		try
+		{
+			FEEDS_DEFINITION_FILE = PropertyReader.getProperty(FEEDS_DEFINITION_PROPERTY);
+		}
+		catch (Exception e) 
+		{
+			throw new SyndicationException(e);
+		}
+		
+		explainXML = Utils.getResourceAsString(FEEDS_DEFINITION_FILE);
 		feeds = Feeds.readFeedsFromXml(
 				FEEDS_DEFINITION_DIGESTER_RULES_FILE,
 				FEEDS_DEFINITION_FILE
