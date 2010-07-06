@@ -49,6 +49,8 @@
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition">collected-edition</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">festschrift</enum>		
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/journal-article">journal-article</enum>
+		
+		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/patent">patent</enum>
 	</xsl:variable>
 	
 	<xsl:variable name="creator-ves">
@@ -67,6 +69,8 @@
 		<enum uri="http://purl.org/escidoc/metadata/ves/creator-roles/publisher">publisher</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/HNR">honoree</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/creator-roles/founder">founder</enum>
+		<enum uri="http://www.loc.gov/loc.terms/relators/INV">inventor</enum>
+        <enum uri="http://www.loc.gov/loc.terms/relators/APP">applicant</enum>
 	</xsl:variable>
 	
 	<xsl:variable name="degree-ves">

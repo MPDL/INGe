@@ -98,7 +98,9 @@
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/commentary">other</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/handbook">other</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition">other</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">other</map>	
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">other</map>
+			
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/patent">other</map>	
 		</v2-to-v1>
 				
 		<v2-to-edoc>
@@ -122,7 +124,9 @@
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/paper" edoc="Paper">44</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/webpage" ed="Interactive Resource">19</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/manuscript" edoc="Other">41</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/monograph" edoc="Book">1</map>	
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/monograph" edoc="Book">1</map>
+			
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/patent" edoc="Other">41</map>	
 		</v2-to-edoc>		
 	</publication-type>
 	
@@ -159,6 +163,9 @@
 			<map v2="http://www.loc.gov/loc.terms/relators/HNR">honoree</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/founder">contributor</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/referee">contributor</map>
+			
+			<map v2="http://www.loc.gov/loc.terms/relators/INV">contributor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/APP">contributor</map>
 		</v2-to-v1>
 		<v2-to-edoc>
 			<map v2="http://www.loc.gov/loc.terms/relators/AUT">author</map>
@@ -176,6 +183,9 @@
 			<map v2="http://www.loc.gov/loc.terms/relators/THS">advisor</map>
 			<map v2="http://www.loc.gov/loc.terms/relators/TRC">contributor</map>
 			<map v2="http://www.loc.gov/loc.terms/relators/TRL">translator</map>
+			
+			<map v2="http://www.loc.gov/loc.terms/relators/INV">contributor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/APP">contributor</map>
 		</v2-to-edoc>
 	</creator-role>
 	
