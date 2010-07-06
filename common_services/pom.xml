@@ -548,6 +548,7 @@
 
 		<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
 		<xsd.metadata.dcterms>http://purl.org/dc/terms/</xsd.metadata.dcterms>
+		<xsd.metadata.dcmitype>http://purl.org/dc/dcmitype/</xsd.metadata.dcmitype>
 
 		<xsd.soap.toc.toc>http://www.escidoc.de/schemas/toc/0.6</xsd.soap.toc.toc>
 		<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
@@ -565,10 +566,17 @@
 		<xsd.metadata.source>http://purl.org/escidoc/metadata/profiles/0.1/source</xsd.metadata.source>
 		<xsd.metadata.event>http://purl.org/escidoc/metadata/profiles/0.1/event</xsd.metadata.event>
 		<xsd.metadata.person>http://purl.org/escidoc/metadata/profiles/0.1/person</xsd.metadata.person>
+		
 		<!-- syndication service -->
 		<escidoc.syndication.service.url>http://localhost:8080/syndication/</escidoc.syndication.service.url>
 		<escidoc.syndication.maximum.records>50</escidoc.syndication.maximum.records>
 		<escidoc.syndication.ttl>0</escidoc.syndication.ttl>
+		<escidoc.syndication.feeds.xml.path>resources/feeds.xml</escidoc.syndication.feeds.xml.path>
+		
+		<!-- searchAndExport service -->
+		<escidoc.search.and.export.start.record>1</escidoc.search.and.export.start.record>
+		<escidoc.search.and.export.maximum.records>50</escidoc.search.and.export.maximum.records>
+
 
 		<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
 
