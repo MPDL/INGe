@@ -322,14 +322,14 @@
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<span class="double_area0 xTiny_marginRIncl">
-											<label class="double_label" for="startRecord">Start Record (default is first)</label>
-											<input class="double_txtInput" type="text" name="startRecord" value="" />
+											<label class="double_label" for="startRecord">Start Record</label>
+											<input class="double_txtInput" type="text" name="startRecord" value="<%= PropertyReader.getProperty("escidoc.search.and.export.start.record") %>" />
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
-											<label class="double_label" for="maximumRecords">End Record (default is all) </label>
-											<input class="double_txtInput" type="text" name="maximumRecords" value="" />
+											<label class="double_label" for="maximumRecords">Maximum Records</label>
+											<input class="double_txtInput" type="text" name="maximumRecords" value="<%= PropertyReader.getProperty("escidoc.search.and.export.maximum.records") %>" />
 										</span>
-									</span>
+									</span> 
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
