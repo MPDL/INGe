@@ -35,6 +35,10 @@
 	String searchPath = urlBase + "/search/SearchAndExport";
 	String feedPath = urlBase + "/syndication/feed";
 	String feedImage = "<img src=\""+ urlBase +"/syndication/resources/Live_bookmarks.png\" />";
+	String sortKeys = PropertyReader.getProperty("escidoc.search.and.export.default.sort.keys");
+	sortKeys = sortKeys != null ? sortKeys.trim() : ""; 
+	String sortOrder = PropertyReader.getProperty("escidoc.search.and.export.default.sort.order");
+	sortOrder = sortOrder != null ? sortOrder.trim() : ""; 
 %>
 
 <jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
@@ -287,15 +291,15 @@
 										CQL search query<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<input class="quad_txtInput" type="text" name="cqlQuery" value="escidoc.metadata=&#34;test&#34; and escidoc.content-model.objid=escidoc:persistent4" />
+										<input class="quad_txtInput" type="text" name="cqlQuery" value="<%= PropertyReader.getProperty("escidoc.search.and.export.default.sql.query") %>" />
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
 										Indexes<span class="noDisplay">: </span>
 									</b>
-									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										You can find <a href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") %>/srw/search/escidoc_all?operation=explain" target="_blank" >here</a> all indexes are allowed.
+									<span class="xHuge_area0 xTiny_marginLExcl endline"> escidoc.search.and.export.search.indexes.url
+										You can find <a href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") + PropertyReader.getProperty("escidoc.search.and.export.indexes.explain.query") %>" target="_blank" >here</a> all indexes are allowed.
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
@@ -305,13 +309,13 @@
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="sortKeys">Sorting Key</label>
-											<input class="double_txtInput" type="text" name="sortKeys" value="" />
+											<input class="double_txtInput" type="text" name="sortKeys" value="<%= sortKeys %>" />
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="sortOrder">Sorting Order</label>
 											<select class="double_select" name="sortOrder">
-							                    <option value="ascending">ascending</option>
-							                    <option value="descending">descending</option>
+							                    <option value="ascending" <%= sortOrder.equalsIgnoreCase("ascending") ? "selected" : "" %>>ascending</option>
+							                    <option value="descending" <%= sortOrder.equalsIgnoreCase("descending") ? "selected" : "" %>>descending</option>
 							                </select>
 										</span>
 									</span>
