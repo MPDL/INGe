@@ -521,6 +521,10 @@
 				<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
 				<escidoc.cone.modelsxml.path>models.xml</escidoc.cone.modelsxml.path>
 				
+				<!-- searchAndExport service -->
+				<escidoc.search.and.export.start.record>1</escidoc.search.and.export.start.record>
+				<escidoc.search.and.export.maximum.records>50</escidoc.search.and.export.maximum.records>
+				
 				<!-- Vocabularies which wil be integrated inot Borwse by, seperator is ;-->
 				<escidoc.cone.subjectVocab>ddc;mpipks</escidoc.cone.subjectVocab>
 				
