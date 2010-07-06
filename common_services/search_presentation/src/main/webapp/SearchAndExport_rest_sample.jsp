@@ -298,8 +298,8 @@
 									<b class="xLarge_area0_p8 endline labelLine clear">
 										Indexes<span class="noDisplay">: </span>
 									</b>
-									<span class="xHuge_area0 xTiny_marginLExcl endline"> escidoc.search.and.export.search.indexes.url
-										You can find <a href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") + PropertyReader.getProperty("escidoc.search.and.export.indexes.explain.query") %>" target="_blank" >here</a> all indexes are allowed.
+									<span class="xHuge_area0 xTiny_marginLExcl endline">
+										You can find <a href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") + PropertyReader.getProperty("escidoc.search.and.export.indexes.explain.query") %>" target="_blank" >here</a> all allowed indexes.
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
