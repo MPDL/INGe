@@ -173,7 +173,12 @@ public class EditItemBean extends FacesBean
         
         for (CreatorVO creator : creatorList)
         {
-            creators.add(new CreatorVOPresentation(creators, this, creator));
+            CreatorVOPresentation beanCreator = new CreatorVOPresentation(creators, this, creator);
+            if (beanCreator.getPerson() != null && beanCreator.getPerson().getIdentifier() == null)
+            {
+                beanCreator.getPerson().setIdentifier(new IdentifierVO());
+            }
+            creators.add(beanCreator);
         }
         
     }
@@ -198,12 +203,6 @@ public class EditItemBean extends FacesBean
             else
             {
                 creatorVO = new CreatorVO(creatorVOPresentation.getPerson(), creatorVOPresentation.getRole());
-                if (creatorVO.getPerson() != null && creatorVO.getPerson().getIdentifier() != null
-                        && (creatorVO.getPerson().getIdentifier().getId() == null
-                        || "".equals(creatorVO.getPerson().getIdentifier().getId())))
-                {
-                    creatorVO.getPerson().setIdentifier(null);
-                }
             }
 
             creators.add(creatorVO);

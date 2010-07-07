@@ -1263,6 +1263,11 @@ public class ItemControllerSessionBean extends FacesBean
                     }
                 }
             }
+            // delete unfilled PersonIdentifiers
+            if (creator.getPerson() != null && creator.getPerson().getIdentifier() != null && (creator.getPerson().getIdentifier().getId() == null || "".equals(creator.getPerson().getIdentifier().getId())))
+            {
+                creator.getPerson().setIdentifier(null);
+            }
         }
 
         // delete unfilled publishingInfo
