@@ -80,6 +80,12 @@ public class ResourceUtil
     {
         URL url = ResourceUtil.class.getClassLoader().getResource(resolveFileName(fileName));
         
+        // Maybe it's in a WAR file
+        if (url == null)
+        {
+            url = ResourceUtil.class.getClassLoader().getResource(resolveFileName("WEB-INF/classes/" + fileName));
+        }
+        
         File file = null;
         if (url != null)
         {
@@ -91,7 +97,7 @@ public class ResourceUtil
             }
             catch(UnsupportedEncodingException e){logger.warn(e);}
         }
-
+        
         if (file == null)
         {
 
@@ -119,6 +125,7 @@ public class ResourceUtil
         InputStream fileIn;
         fileIn = ResourceUtil.class.getClassLoader().getResourceAsStream(resolveFileName(fileName));
 
+        // Maybe it's in a WAR file
         if (fileIn == null)
         {
             fileIn = ResourceUtil.class.getClassLoader().getResourceAsStream(resolveFileName("WEB-INF/classes/" + fileName));
