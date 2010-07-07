@@ -480,6 +480,18 @@ public class BrowseByPage extends BreadcrumbPage
             this.value = value;
         }
 
+        public String getEncodedLabel()
+        {
+            try
+            {
+                return URLEncoder.encode(this.label, "UTF-8");
+            }
+            catch (Exception e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
+        
         @Override
         public boolean equals(Object obj)
         {

@@ -166,12 +166,12 @@ public class EditItemBean extends FacesBean
         return true;
     }
 
-    public void bindCreatorsToBean(PubItemVO item)
+    public void bindCreatorsToBean(List<CreatorVO> creatorList)
     {
         List<CreatorVOPresentation> creators = getCreators();
         creators.clear();
         
-        for (CreatorVO creator : item.getMetadata().getCreators())
+        for (CreatorVO creator : creatorList)
         {
             creators.add(new CreatorVOPresentation(creators, this, creator));
         }

@@ -83,7 +83,7 @@
 					</h:panelGroup>	
 					<!-- Link for other values then persons -->	
 					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.selectedValue != 'persons'}">									
-						<h:outputLink id="lnkLink2" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{link.label}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)">								
+						<h:outputLink id="lnkLink2" value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{link.encodedLabel}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)">								
 							<h:outputText value="#{link.label}"/>
 						</h:outputLink>
 					</h:panelGroup>					

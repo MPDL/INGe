@@ -325,7 +325,7 @@ public class EasySubmission extends FacesBean
 
             if (essb.getCreators().size() == 0)
             {
-                essb.bindCreatorsToBean(getItem());
+                essb.bindCreatorsToBean(getItem().getMetadata().getCreators());
             }
             
             if (essb.getCreatorOrganizations().size() == 0)

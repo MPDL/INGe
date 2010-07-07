@@ -202,7 +202,7 @@ public class BrowseBySessionBean extends FacesBean
                     Character chr = new Character(linkVO.getLabel().toUpperCase().charAt(0));
                     if (!characters.contains(chr))
                     {
-                        logger.info("new character: " + linkVO.getLabel());
+                        logger.debug("new character: " + linkVO.getLabel());
                         characters.add(chr);
                     }
                 }

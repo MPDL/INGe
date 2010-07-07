@@ -384,7 +384,7 @@ public class EditItem extends FacesBean
 
             if(this.getEditItemSessionBean().getCreators().size() == 0)
             {
-                this.getEditItemSessionBean().bindCreatorsToBean(pubItem);
+                this.getEditItemSessionBean().bindCreatorsToBean(pubItem.getMetadata().getCreators());
             }
             
             if(this.getEditItemSessionBean().getCreatorOrganizations().size() == 0)

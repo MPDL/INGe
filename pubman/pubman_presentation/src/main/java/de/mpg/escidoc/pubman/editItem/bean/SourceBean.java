@@ -40,6 +40,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton;
 
+import de.mpg.escidoc.pubman.EditItemBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
@@ -57,7 +58,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
  * 
  * @author Mario Wagner
  */
-public class SourceBean extends FacesBean
+public class SourceBean extends EditItemBean
 {
     public static final String HIDDEN_DELIMITER = " \\|\\|##\\|\\| ";
     public static final String HIDDEN_INNER_DELIMITER = " @@~~@@ ";
@@ -112,7 +113,7 @@ public class SourceBean extends FacesBean
     {
         this.source = source;
         // initialize embedded collections
-        creatorCollection = new CreatorCollection(source.getCreators());
+        bindCreatorsToBean(source.getCreators());
         identifierCollection = new IdentifierCollection(source.getIdentifiers());
         titleCollection = new TitleCollection(source);
         if (source.getPublishingInfo() == null)
@@ -298,15 +299,15 @@ public class SourceBean extends FacesBean
             else if (idParts.length == 2)
             {
                 IdType idType = IdType.OTHER;
-                
-                for(IdType id : IdType.values())
+
+                for (IdType id : IdType.values())
                 {
                 	if (id.getUri().equals(idParts[0]))
                 	{
                 		idType = id;
                 	}
                 }
-                
+
                 IdentifierVO idVO = new IdentifierVO(idType, idParts[1].trim());
                 list.add(idVO);
             }
@@ -332,46 +333,5 @@ public class SourceBean extends FacesBean
     public String getHiddenAlternativeTitlesField()
     {
         return hiddenAlternativeTitlesField;
-    }
-
-    /**
-     * Parse the copy&paste creators string into CreatorVOs.
-     * 
-     * @return null
-     */
-    public String addCreatorString()
-    {
-        try
-        {
-        	EditItemSessionBean editItemSessionBean = (EditItemSessionBean) getRequestBean(EditItemSessionBean.class);
-        	editItemSessionBean.parseCreatorString(getCreatorParseString(), null, getOverwriteCreators());
-            setCreatorParseString("");
-            return null;
-        }
-        catch (Exception e)
-        {
-            error(getMessage("ErrorParsingCreatorString"));
-            return null;
-        }
-    }
-
-    public void setCreatorParseString(String creatorParseString)
-    {
-        this.creatorParseString = creatorParseString;
-    }
-
-    public String getCreatorParseString()
-    {
-        return creatorParseString;
-    }
-
-    public void setOverwriteCreators(boolean overwriteCreators)
-    {
-        this.overwriteCreators = overwriteCreators;
-    }
-
-    public boolean getOverwriteCreators()
-    {
-        return overwriteCreators;
     }
 }
