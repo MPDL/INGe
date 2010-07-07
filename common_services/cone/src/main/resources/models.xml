@@ -190,7 +190,7 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 			<alias>mpipks</alias>
 		</aliases>
 		<description>MPI PKS Subject Classification</description>
-		<primary-identifier control="true" generate-cone-id="false"></primary-identifier>
+		<primary-identifier control="true" generate-cone-id="false" subject-prefix="mpipks/resource/"></primary-identifier>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true"/>
 		</predicates>
