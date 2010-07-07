@@ -133,6 +133,11 @@
                             <artifactId>search_presentation</artifactId>
                             <contextRoot>/search</contextRoot>
                         </webModule>
+                        <jarModule>
+                            <groupId>com.maxmind.geoip</groupId>
+                            <artifactId>geoip</artifactId>
+                            <includeInApplicationXml>true</includeInApplicationXml>
+                        </jarModule>
                     </modules>
                 </configuration>
             </plugin>
