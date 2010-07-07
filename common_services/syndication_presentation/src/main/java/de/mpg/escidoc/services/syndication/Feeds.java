@@ -38,6 +38,7 @@
 
 package de.mpg.escidoc.services.syndication;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList; 
 import java.util.List; 
@@ -46,6 +47,7 @@ import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.log4j.Logger; 
  
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.syndication.feed.Feed;
 
 public class Feeds 
@@ -161,10 +163,10 @@ public class Feeds
 		Digester digester = DigesterLoader.createDigester( rules );
 		digester.setNamespaceAware(false);
 		
-		URL input = Feeds.class.getClassLoader().getResource( feedsFileName );
 		Feeds fs = null;
 		try 
 		{
+	        InputStream input = ResourceUtil.getResourceAsStream( feedsFileName );
 			fs = (Feeds) digester.parse( input  );
 		} 
 		catch (Exception e) 

@@ -57,6 +57,7 @@ import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedOutput;
 
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.syndication.feed.Feed;
 
@@ -92,7 +93,7 @@ public class Syndication implements SyndicationHandler
 			throw new SyndicationException(e);
 		}
 		
-		explainXML = Utils.getResourceAsString(FEEDS_DEFINITION_FILE);
+		explainXML = ResourceUtil.getResourceAsString(FEEDS_DEFINITION_FILE);
 		feeds = Feeds.readFeedsFromXml(
 				FEEDS_DEFINITION_DIGESTER_RULES_FILE,
 				FEEDS_DEFINITION_FILE
