@@ -115,61 +115,20 @@ public class ResourceUtil
      */
     public static InputStream getResourceAsStream(final String fileName) throws FileNotFoundException
     {
-        // TODO: When the calling class is defined in a war file, this method
-        // is unable to find a class loader for it. The commented-out code below was an attempt
-        // to manage this behaviour but wasn't successful. Maybe it gives some ideas for the next
-        // to try it.
         
         InputStream fileIn;
         fileIn = ResourceUtil.class.getClassLoader().getResourceAsStream(resolveFileName(fileName));
-//        try
-//        {
-            if (fileIn == null)
-            {
-                fileIn = new FileInputStream(fileName);
-            }
-//        }
-//        catch (FileNotFoundException fnfe) {
-//            
-//            StackTraceElement[] elements = fnfe.getStackTrace();
-//            
-//            for (int i = 0; i < elements.length; i++)
-//            {
-//                
-//                logger.debug("Element method: " + elements[i].getMethodName());
-//                logger.debug("Element class: " + elements[i].getClassName());
-//                logger.debug("ResourceUtil class: " + ResourceUtil.class.getName());
-//                
-//                if (elements[i].getClassName().equals(ResourceUtil.class.getName())
-//                        && "getResourceAsStream".equals(elements[i].getMethodName()))
-//                {
-//                    while (i < elements.length && elements[i].getClassName().equals(ResourceUtil.class.getName()))
-//                    {
-//                        i++;
-//                    }
-//                    if (i < elements.length)
-//                    {
-//                        try
-//                        {
-//                            Class cls = Class.forName(elements[i].getClassName());
-//                            fileIn = cls.getClassLoader().getResourceAsStream(fileName);
-//                        }
-//                        catch (ClassNotFoundException cnfe) {
-//                            logger.error("Error creating caller class", cnfe);
-//                        }
-//                        if (fileIn == null)
-//                        {
-//                            throw new FileNotFoundException(fileName + " not found");
-//                        }
-//                    }
-//                    else
-//                    {
-//                        throw new FileNotFoundException(fileName + " not found");
-//                    }
-//                }
-//            }
-//            
-//        }
+
+        if (fileIn == null)
+        {
+            fileIn = ResourceUtil.class.getClassLoader().getResourceAsStream(resolveFileName("WEB-INF/classes/" + fileName));
+        }
+
+        if (fileIn == null)
+        {
+            fileIn = new FileInputStream(resolveFileName(fileName));
+        }
+
         return fileIn;
     }
 
@@ -182,7 +141,7 @@ public class ResourceUtil
      */
     public static String getResourceAsString(final String fileName) throws IOException
     {
-        InputStream fileIn = getResourceAsStream(resolveFileName(fileName));
+        InputStream fileIn = getResourceAsStream(fileName);
         BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
         String line = null;
         StringWriter result = new StringWriter();
