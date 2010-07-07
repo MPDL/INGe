@@ -54,7 +54,7 @@
 				<structure name="last-modification-date" ns="${xsd.soap.useraccount.useraccount}" usage="optional" />
 				<structure name="creator" ns="${xsd.soap.useraccount.useraccount}" usage="optional" /-->
 			
-			<structure name="organizational-units" ns="${xsd.soap.common.prop}" usage="optional">
+			<!-- <structure name="organizational-units" ns="${xsd.soap.common.prop}" usage="optional">
 				<collection field="affiliations" item-type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO"
 					factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationROListFactory" usage="optional">			
 					<structure name="organizational-unit" ns="${xsd.soap.common.srel}" type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO">
@@ -62,7 +62,7 @@
 						set-method="setObjectId" usage="optional" />
 					</structure>			
 				</collection>
-			</structure>
+			</structure> -->
 				
 		</structure>
 
