@@ -1348,7 +1348,7 @@ public class ItemControllerSessionBean extends FacesBean
                             {
                                 pubItem.getMetadata().getSources().get(i).getIdentifiers().remove(j);
                             }
-                        }                
+                        }
                     }
 
                     // delete unfilled source creators
@@ -1366,7 +1366,7 @@ public class ItemControllerSessionBean extends FacesBean
                                             || creator.getPerson().getFamilyName().length() == 0))
                                     || (creator.getOrganization() != null
                                             && (creator.getOrganization().getName() == null
-                                                    || creator.getOrganization().getName().getValue() == null 
+                                                    || creator.getOrganization().getName().getValue() == null
                                                     || creator.getOrganization().getName().getValue().length() == 0)))
                             {
                                 pubItem.getMetadata().getSources().get(i).getCreators().remove(j);
@@ -1375,7 +1375,7 @@ public class ItemControllerSessionBean extends FacesBean
                             {
                                 this.cleanUpCreator(creator);
                             }
-                        }                
+                        }
                     }
                 }
             }

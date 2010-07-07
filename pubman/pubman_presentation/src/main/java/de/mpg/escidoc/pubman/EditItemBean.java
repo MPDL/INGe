@@ -183,9 +183,8 @@ public class EditItemBean extends FacesBean
         
     }
 
-    public void bindCreatorsToVO(PubItemVO item)
+    public void bindCreatorsToVO(List<CreatorVO> creators)
     {
-        List<CreatorVO> creators = item.getMetadata().getCreators();
         creators.clear();
         for (CreatorVOPresentation creatorVOPresentation : getCreators())
         {

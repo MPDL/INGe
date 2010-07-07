@@ -75,6 +75,7 @@ import de.mpg.escidoc.pubman.editItem.bean.ContentSubjectCollection;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection.CreatorManager;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
+import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
 import de.mpg.escidoc.pubman.editItem.bean.SourceCollection;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
@@ -110,6 +111,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
@@ -245,6 +247,7 @@ public class EditItem extends FacesBean
         // initializes the (new) item if necessary
         try
         {
+            this.sourceCollection = new SourceCollection(this.getPubItem().getMetadata().getSources());
         	this.initializeItem();
         }
         catch (Exception e)
@@ -259,7 +262,6 @@ public class EditItem extends FacesBean
         this.contentSubjectCollection = new ContentSubjectCollection(this.getPubItem().getMetadata().getSubjects());
         
         this.identifierCollection = new IdentifierCollection(this.getPubItem().getMetadata().getIdentifiers());
-        this.sourceCollection = new SourceCollection(this.getPubItem().getMetadata().getSources());
         
         if (logger.isDebugEnabled())
         {
@@ -355,33 +357,35 @@ public class EditItem extends FacesBean
             }
             
             if (pubItem.getMetadata() != null && pubItem.getMetadata().getCreators() != null)
-            for (CreatorVO creatorVO : pubItem.getMetadata().getCreators())
             {
-                if (creatorVO.getType() == CreatorType.PERSON && creatorVO.getPerson() == null)
+                for (CreatorVO creatorVO : pubItem.getMetadata().getCreators())
                 {
-                    creatorVO.setPerson(new PersonVO());
-                }
-                else if (creatorVO.getType() == CreatorType.ORGANIZATION && creatorVO.getOrganization() == null)
-                {
-                    creatorVO.setOrganization(new OrganizationVO());
-                }
-                    
-                if (creatorVO.getType() == CreatorType.PERSON && creatorVO.getPerson().getOrganizations() != null)
-                {
-                    for (OrganizationVO organizationVO : creatorVO.getPerson().getOrganizations())
+                    if (creatorVO.getType() == CreatorType.PERSON && creatorVO.getPerson() == null)
                     {
-                        if (organizationVO.getName() == null)
+                        creatorVO.setPerson(new PersonVO());
+                    }
+                    else if (creatorVO.getType() == CreatorType.ORGANIZATION && creatorVO.getOrganization() == null)
+                    {
+                        creatorVO.setOrganization(new OrganizationVO());
+                    }
+                        
+                    if (creatorVO.getType() == CreatorType.PERSON && creatorVO.getPerson().getOrganizations() != null)
+                    {
+                        for (OrganizationVO organizationVO : creatorVO.getPerson().getOrganizations())
                         {
-                            organizationVO.setName(new TextVO());
+                            if (organizationVO.getName() == null)
+                            {
+                                organizationVO.setName(new TextVO());
+                            }
                         }
                     }
-                }
-                else if (creatorVO.getType() == CreatorType.ORGANIZATION && creatorVO.getOrganization() != null && creatorVO.getOrganization().getName() == null)
-                {
-                    creatorVO.getOrganization().setName(new TextVO());
+                    else if (creatorVO.getType() == CreatorType.ORGANIZATION && creatorVO.getOrganization() != null && creatorVO.getOrganization().getName() == null)
+                    {
+                        creatorVO.getOrganization().setName(new TextVO());
+                    }
                 }
             }
-
+            
             if(this.getEditItemSessionBean().getCreators().size() == 0)
             {
                 this.getEditItemSessionBean().bindCreatorsToBean(pubItem.getMetadata().getCreators());
@@ -390,6 +394,54 @@ public class EditItem extends FacesBean
             if(this.getEditItemSessionBean().getCreatorOrganizations().size() == 0)
             {
                 this.getEditItemSessionBean().initOrganizationsFromCreators();
+            }
+            
+            // Source creators
+            for (SourceBean sourceBean : getSourceCollection().getSourceManager().getObjectList())
+            {
+                
+                SourceVO source = sourceBean.getSource();
+                
+                if (source.getCreators() != null)
+                {
+                    for (CreatorVO creatorVO : source.getCreators())
+                    {
+                        if (creatorVO.getType() == CreatorType.PERSON && creatorVO.getPerson() == null)
+                        {
+                            creatorVO.setPerson(new PersonVO());
+                        }
+                        else if (creatorVO.getType() == CreatorType.ORGANIZATION && creatorVO.getOrganization() == null)
+                        {
+                            creatorVO.setOrganization(new OrganizationVO());
+                        }
+                            
+                        if (creatorVO.getType() == CreatorType.PERSON && creatorVO.getPerson().getOrganizations() != null)
+                        {
+                            for (OrganizationVO organizationVO : creatorVO.getPerson().getOrganizations())
+                            {
+                                if (organizationVO.getName() == null)
+                                {
+                                    organizationVO.setName(new TextVO());
+                                }
+                            }
+                        }
+                        else if (creatorVO.getType() == CreatorType.ORGANIZATION && creatorVO.getOrganization() != null && creatorVO.getOrganization().getName() == null)
+                        {
+                            creatorVO.getOrganization().setName(new TextVO());
+                        }
+                    }
+                }
+                
+                if(sourceBean.getCreators().size() == 0)
+                {
+                    sourceBean.bindCreatorsToBean(source.getCreators());
+                }
+                
+                if(sourceBean.getCreatorOrganizations().size() == 0)
+                {
+                    sourceBean.initOrganizationsFromCreators();
+                }
+
             }
             
         }
@@ -641,7 +693,12 @@ public class EditItem extends FacesBean
             }
             
             // write creators back to VO
-            this.getEditItemSessionBean().bindCreatorsToVO(item);
+            this.getEditItemSessionBean().bindCreatorsToVO(item.getMetadata().getCreators());
+            
+            for (SourceBean sourceBean : getSourceCollection().getSourceManager().getObjectList())
+            {
+                sourceBean.bindCreatorsToVO(sourceBean.getSource().getCreators());
+            }
 
             PubItemVO item = this.getPubItem();
             this.getItemControllerSessionBean().validate(item, EditItem.VALIDATIONPOINT_SUBMIT);
@@ -683,13 +740,13 @@ public class EditItem extends FacesBean
         }
         
         // write creators back to VO
-        this.getEditItemSessionBean().bindCreatorsToVO(item);
+        this.getEditItemSessionBean().bindCreatorsToVO(item.getMetadata().getCreators());
         
         //  cleanup item according to genre specific MD specification
         GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(), GenreSecificItemManager.SUBMISSION_METHOD_FULL);
         try 
         {
-			this.item = (PubItemVOPresentation)itemManager.cleanupItem();
+			this.item = (PubItemVOPresentation) itemManager.cleanupItem();
 		} catch (Exception e) 
 		{
 			throw new RuntimeException("Error while cleaning up item genre specifcly", e);
@@ -726,6 +783,7 @@ public class EditItem extends FacesBean
             }
             catch (RuntimeException rE)
             {
+                logger.error("Error saving item", rE);
             	String message = getMessage("itemHasBeenChangedInTheMeantime");
                 fatal(message);
                 this.valMessage.setRendered(true);

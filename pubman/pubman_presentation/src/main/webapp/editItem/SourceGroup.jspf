@@ -110,7 +110,6 @@
 			</h:panelGroup>
 	<%-- Source creator --%>
 		
-			<h:panelGroup layout="block" styleClass="full_area0 xLarge_marginLExcl itemBlockContent endline">
 				<h3 class="xLarge_area0_p8 endline blockHeader clear">
 					<h:outputText value="" />
 				</h3>
@@ -195,7 +194,6 @@
 						</h:panelGroup>
 					</h:panelGroup>
 				</tr:iterator>
-			</h:panelGroup>
 	
 	<%-- Source Details --%>
 	
