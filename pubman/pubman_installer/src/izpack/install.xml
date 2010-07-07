@@ -68,7 +68,6 @@
         <panel classname="UserInputPanel" id="UserInputPanel.4"/>
         <panel classname="UserInputPanel" id="UserInputPanel.5" condition="not_dataset_selected"/>
         <panel classname="UserInputPanel" id="UserInputPanel.6"/>
-<!--        <panel classname="JDKPathPanel" id="CommonJDKPath" />-->
         <panel classname="TargetPanel"/>
         <panel classname="InstallPanel"/>
         <!-- <panel classname="de.mpg.escidoc.pubman.installer.panels.DatasetConfigurationCreatorPanel" condition="dataset_selected"/>-->

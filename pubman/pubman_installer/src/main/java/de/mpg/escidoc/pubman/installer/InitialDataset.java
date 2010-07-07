@@ -63,6 +63,7 @@ import de.escidoc.core.common.exceptions.application.violated.OrganizationalUnit
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.sm.AggregationDefinitionHandler;
 import de.escidoc.www.services.sm.ReportDefinitionHandler;
+import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -87,93 +88,13 @@ public class InitialDataset
         
     }
 
-    public InitialDataset(URL frameworkUrl, String username, String password) throws ServiceException, IOException
+    public InitialDataset(URL frameworkUrl, String username, String password) throws ServiceException, IOException, URISyntaxException
     {
         logger = Logger.getLogger(Installer.class);
         this.frameworkUrl = frameworkUrl;
-        this.userHandle = loginToCoreservice(username, password);
+        this.userHandle = AdminHelper.loginUser(username, password);
         logger.info("Connection to coreservice <" + frameworkUrl.toString() +"> established, using handle" +
         		" <" + userHandle + ">.");
-    }
-
-    public String loginToCoreservice(String userid, String password) throws ServiceException, IOException
-    {
-        int delim1 = frameworkUrl.toString().indexOf("//");
-        int delim2 = frameworkUrl.toString().indexOf(":", delim1);
-        
-        String host;
-        int port;
-        
-        if (delim2 > 0)
-        {
-            host = frameworkUrl.toString().substring(delim1 + 2, delim2);
-            port = Integer.parseInt(frameworkUrl.toString().substring(delim2 + 1));
-        }
-        else
-        {
-            host = frameworkUrl.toString().substring(delim1 + 2);
-            port = 80;
-        }
-
-        HttpClient client = new HttpClient();
-        client.getHostConfiguration().setHost(host, port, "http");
-        client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-
-        PostMethod login = new PostMethod(frameworkUrl + "/aa/j_spring_security_check");
-        login.addParameter("j_username", userid);
-        login.addParameter("j_password", password);
-
-        client.executeMethod(login);
-        // System.out.println("Login form post: " +
-        // login.getStatusLine().toString());
-
-        login.releaseConnection();
-        CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
-        Cookie[] logoncookies = cookiespec.match(host, port, "/", false, client.getState().getCookies());
-
-        // System.out.println("Logon cookies:");
-        Cookie sessionCookie = logoncookies[0];
-
-        /*
-         * if (logoncookies.length == 0) {
-         * 
-         * System.out.println("None");
-         * 
-         * } else { for (int i = 0; i < logoncookies.length; i++) {
-         * System.out.println("- " + logoncookies[i].toString()); } }
-         */
-
-        PostMethod postMethod = new PostMethod("/aa/login");
-        postMethod.addParameter("target", frameworkUrl.toString());
-        client.getState().addCookie(sessionCookie);
-        client.executeMethod(postMethod);
-        // System.out.println("Login second post: " +
-        // postMethod.getStatusLine().toString());
-
-        if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
-        {
-            throw new HttpException("Wrong status code: " + login.getStatusCode());
-        }
-
-        String userHandle = null;
-        Header headers[] = postMethod.getResponseHeaders();
-        for (int i = 0; i < headers.length; ++i)
-        {
-            if ("Location".equals(headers[i].getName()))
-            {
-                String location = headers[i].getValue();
-                int index = location.indexOf('=');
-                userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
-                // System.out.println("location: "+location);
-                // System.out.println("handle: "+userHandle);
-            }
-        }
-
-        if (userHandle == null)
-        {
-            throw new ServiceException("User not logged in.");
-        }
-        return userHandle;
     }
 
     public String getResourceAsXml(final String fileName) throws FileNotFoundException, Exception
@@ -210,6 +131,23 @@ public class InitialDataset
         }
 
         return buffer.toString();
+    }
+    public String createPublicationContentModel(String fileName) throws Exception
+    {
+        String cmXml = getResourceAsXml(fileName);
+        String frameworkReturnXml =
+            ServiceLocator.getContentModelHandler(userHandle, frameworkUrl).create(cmXml);
+        if(frameworkReturnXml == null) {
+            throw new Exception("content-model creation error");
+        }
+        logger.info("Creation data from framework: " + frameworkReturnXml);
+        String objectId = getValueFromXml("objid=\"", frameworkReturnXml);
+        String lastmodDate = "<param last-modification-date=\""+getValueFromXml("last-modification-date=\"", frameworkReturnXml)+"\"/>";
+        logger.info("Created content-model with last modification-date: " + lastmodDate);     
+        logger.info("Created content-model with objectid: " + objectId);
+
+        return objectId;
+        
     }
     
     public String createAndOpenOrganizationalUnit(String fileName) throws Exception

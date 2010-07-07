@@ -257,6 +257,10 @@ public class Installer extends InstallerBase
         
         config.setProperty(Configuration.KEY_EXTERNAL_OU, ouExternalObjectId);
         
+        String publicationContentModelId = dataset.createPublicationContentModel("datasetObjects/cm_publication.xml");
+        
+        config.setProperty(Configuration.KEY_PUBLICATION_CM, publicationContentModelId);
+
         String contextObjectId = dataset.createAndOpenContext("datasetObjects/context.xml", ouDefaultObjectId);
         
         String userModeratorId = dataset.createUser("datasetObjects/user_moderator.xml", 

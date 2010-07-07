@@ -65,6 +65,7 @@ public class Configuration
     public static final String KEY_CORESERVICE_ADMINUSERNAME = "framework.admin.username";
     public static final String KEY_CORESERVICE_ADMINPW = "framework.admin.password";
     public static final String KEY_EXTERNAL_OU = "escidoc.pubman.external.organisation.id";
+    public static final String KEY_PUBLICATION_CM = "escidoc.framework_access.content-model.id.publication";
     public static final String KEY_CONE_SERVER = "escidoc.cone.database.server.name";
     public static final String KEY_CONE_DATABASE = "escidoc.cone.database.name";
     public static final String KEY_CONE_PORT = "escidoc.cone.database.server.port";
@@ -88,6 +89,7 @@ public class Configuration
         InputStream inStream = getClass().getClassLoader().getResourceAsStream(fileName);
         properties = new Properties();
         properties.load(inStream);
+        System.getProperties().putAll(properties);
         logger.info("Created Configuration instance with following attributes: " + properties.toString());
     }
     
@@ -107,7 +109,9 @@ public class Configuration
     
     public void setProperty( String key, String value)
     {
+        logger.info("Setting property " +  key + "=" + value);
         properties.setProperty(key, value);
+        System.setProperty(key, value);
     }
     
     public String getProperty( String key )
@@ -116,10 +120,7 @@ public class Configuration
     }
     
     public void setProperties(Map<String, String> props) {
-    	Iterator<Map.Entry<String, String>> it = props.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<String, String> pairs = it.next();
-            setProperty(pairs.getKey(), pairs.getValue());
-        }
+    	properties.putAll(props);
+    	System.getProperties().putAll(props);
     }
 }

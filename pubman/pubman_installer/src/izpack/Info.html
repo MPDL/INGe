@@ -18,34 +18,24 @@ It is based on a Service-oriented Architecture (escidoc.org) and comprises sever
 <h3>PubMan Requirements:</h3>
 <ul>
     <li>Java 1.6 JRE</li>
-    <li>eSciDoc Core Service Version 1.2 Please make sure it is running under own (separate) JBoss Instance (<a href="https://www.escidoc.org/JSPWiki/en/InstallationForRelease1.2">Installation Instructions</a>)</li>
-    <li>JBoss Application Server 4.2.3 GA (included with this Installer)</li>
+    <li>eSciDoc Core Service Version 1.2</li>
+    <li>JBoss Application Server 4.2.2 GA (included with this Installer)</li>
     <li>PostgreSQL Database (CoNE Service)</li>
-    <li>Ingested PubMan Content Model <i>'escidoc:persistent4'</i> (check the instructions below)</li>
-</ul>
-
-<h3>Ingest needed PubMan Content Model into Core Service Instance</h3>
-<ul>
-    <li>Copy the file named <i>'escidoc_persistent4.xml'</i> to the Server (you can find this file in the root folder of the PubMan installation path, where you have installed the Fedora Commons Instance for the eSciDoc Core Services</li> 
-    <li>Login to Core Service Instance</li>
-    <li>Ingest the Content Model with this command into the Fedora Commons Repository:<br/>
-  <font size="-2"><i>${FEDORA_HOME}/client/bin/fedora-ingest.sh  
-  f escidoc_persistent4.xml info:fedora/fedora-system:FOXML-1.1 localhost:8082 
-  ${FEDORA_USER} ${FEDORA_PASSWORD} http ""</i></font></li>
 </ul>
 
 <h3>Initial Dataset</h3>
 <p>
-If you have selected this package option, the Installer creates an Initial Dataset on the Core Service Instance.
-This Initial Dataset consists of the following example data objects:
+If you have selected this package option, the installer creates an initial dataset on the Core Service instance.
+This initial dataset consists of the following sample data objects:
 </p>
 <ul>
-<li>2 Users: <i>'pubman_depositor'</i> and <i>'pubman_moderator'</i></li>
-<li>2 Organisational Units: <i>'PubMan Default Organisation'</i> and <i>'External Organisation'</i></li>
-<li>1 Context: <i>'PubMan Default Context'</i> with a Simple Workflow</li>
+<li>1 content model for publications</li>
+<li>2 users: <i>'pubman_depositor'</i> and <i>'pubman_moderator'</i></li>
+<li>2 organizational units: <i>'PubMan Default Organization'</i> and <i>'External Organization'</i></li>
+<li>1 context: <i>'PubMan Default Context'</i> with a simple workflow</li>
 </ul>
 
-<h3>Interesting Web resources:</h3>
+<h3>Interesting Web Resources:</h3>
 <p>  
 An overview of current functionalities can be found here:<br/>
 <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Functionalities">http://colab.mpdl.mpg.de/mediawiki/PubMan_Functionalities</a>

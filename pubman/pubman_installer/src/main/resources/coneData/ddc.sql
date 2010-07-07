@@ -1,2012 +1,2714 @@
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/000', 'http://dewey.info/class', '000', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/000', 'http://purl.org/dc/elements/1.1/title', 'Computer science, information & general works', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/001', 'http://dewey.info/class', '001', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/001', 'http://purl.org/dc/elements/1.1/title', 'Knowledge', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/002', 'http://dewey.info/class', '002', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/002', 'http://purl.org/dc/elements/1.1/title', 'The book', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/003', 'http://dewey.info/class', '003', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/003', 'http://purl.org/dc/elements/1.1/title', 'Systems', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/004', 'http://dewey.info/class', '004', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/004', 'http://purl.org/dc/elements/1.1/title', 'Data processing & computer science', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/005', 'http://dewey.info/class', '005', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/005', 'http://purl.org/dc/elements/1.1/title', 'Computer programming, programs & data', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/006', 'http://dewey.info/class', '006', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/006', 'http://purl.org/dc/elements/1.1/title', 'Special computer methods', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/007', 'http://dewey.info/class', '007', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/007', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/008', 'http://dewey.info/class', '008', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/008', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/009', 'http://dewey.info/class', '009', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/009', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/010', 'http://dewey.info/class', '010', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/010', 'http://purl.org/dc/elements/1.1/title', 'Bibliography', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/011', 'http://dewey.info/class', '011', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/011', 'http://purl.org/dc/elements/1.1/title', 'Bibliographies', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/012', 'http://dewey.info/class', '012', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/012', 'http://purl.org/dc/elements/1.1/title', 'Bibliographies of individuals', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/013', 'http://dewey.info/class', '013', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/013', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/014', 'http://dewey.info/class', '014', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/014', 'http://purl.org/dc/elements/1.1/title', 'Bibliographies of anonymous & pseudonymous works', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/014', 'http://purl.org/dc/elements/1.1/title', 'Of anonymous & pseudonymous works', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/015', 'http://dewey.info/class', '015', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/015', 'http://purl.org/dc/elements/1.1/title', 'Bibliographies of works from specific places', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/016', 'http://dewey.info/class', '016', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/016', 'http://purl.org/dc/elements/1.1/title', 'Bibliographies of works on specific subjects', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/017', 'http://dewey.info/class', '017', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/017', 'http://purl.org/dc/elements/1.1/title', 'General subject catalogs', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/018', 'http://dewey.info/class', '018', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/018', 'http://purl.org/dc/elements/1.1/title', 'Catalogs arranged by author, date, etc.', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/019', 'http://dewey.info/class', '019', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/019', 'http://purl.org/dc/elements/1.1/title', 'Dictionary catalogs', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/020', 'http://dewey.info/class', '020', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/020', 'http://purl.org/dc/elements/1.1/title', 'Library & information sciences', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/021', 'http://dewey.info/class', '021', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/021', 'http://purl.org/dc/elements/1.1/title', 'Library relationships', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/022', 'http://dewey.info/class', '022', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/022', 'http://purl.org/dc/elements/1.1/title', 'Administration of physical plant', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/023', 'http://dewey.info/class', '023', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/023', 'http://purl.org/dc/elements/1.1/title', 'Personnel management', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/024', 'http://dewey.info/class', '024', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/024', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/025', 'http://dewey.info/class', '025', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/025', 'http://purl.org/dc/elements/1.1/title', 'Library operations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/026', 'http://dewey.info/class', '026', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/026', 'http://purl.org/dc/elements/1.1/title', 'Libraries for specific subjects', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/027', 'http://dewey.info/class', '027', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/027', 'http://purl.org/dc/elements/1.1/title', 'General libraries', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/028', 'http://dewey.info/class', '028', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/028', 'http://purl.org/dc/elements/1.1/title', 'Reading & use of other information media', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/029', 'http://dewey.info/class', '029', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/029', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/030', 'http://dewey.info/class', '030', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/030', 'http://purl.org/dc/elements/1.1/title', 'General encyclopedic works', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/031', 'http://dewey.info/class', '031', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/031', 'http://purl.org/dc/elements/1.1/title', 'Encyclopedias in American English', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/032', 'http://dewey.info/class', '032', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/032', 'http://purl.org/dc/elements/1.1/title', 'Encyclopedias in English', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/033', 'http://dewey.info/class', '033', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/033', 'http://purl.org/dc/elements/1.1/title', 'Encyclopedias in other Germanic languages', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/033', 'http://purl.org/dc/elements/1.1/title', 'In other Germanic languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/034', 'http://dewey.info/class', '034', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/034', 'http://purl.org/dc/elements/1.1/title', 'Encyclopedias in French, Occitan & Catalan', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/035', 'http://dewey.info/class', '035', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/035', 'http://purl.org/dc/elements/1.1/title', 'Encyclopedias in Italian, Romanian & related languages', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/035', 'http://purl.org/dc/elements/1.1/title', 'In Italian, Romanian & related languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/036', 'http://dewey.info/class', '036', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/036', 'http://purl.org/dc/elements/1.1/title', 'Encyclopedias in Spanish & Portuguese', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/037', 'http://dewey.info/class', '037', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/037', 'http://purl.org/dc/elements/1.1/title', 'Encyclopedias in Slavic languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/038', 'http://dewey.info/class', '038', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/038', 'http://purl.org/dc/elements/1.1/title', 'Encyclopedias in Scandinavian languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/039', 'http://dewey.info/class', '039', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/039', 'http://purl.org/dc/elements/1.1/title', 'Encyclopedias in other languages', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/040', 'http://dewey.info/class', '040', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/040', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/041', 'http://dewey.info/class', '041', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/041', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/042', 'http://dewey.info/class', '042', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/042', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/043', 'http://dewey.info/class', '043', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/043', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/044', 'http://dewey.info/class', '044', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/044', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/045', 'http://dewey.info/class', '045', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/045', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/046', 'http://dewey.info/class', '046', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/046', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/047', 'http://dewey.info/class', '047', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/047', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/048', 'http://dewey.info/class', '048', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/048', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/049', 'http://dewey.info/class', '049', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/049', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/050', 'http://dewey.info/class', '050', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/050', 'http://purl.org/dc/elements/1.1/title', 'General serial publications', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/051', 'http://dewey.info/class', '051', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/051', 'http://purl.org/dc/elements/1.1/title', 'Serials in American English', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/052', 'http://dewey.info/class', '052', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/052', 'http://purl.org/dc/elements/1.1/title', 'Serials in English', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/053', 'http://dewey.info/class', '053', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/053', 'http://purl.org/dc/elements/1.1/title', 'Serials in other Germanic languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/054', 'http://dewey.info/class', '054', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/054', 'http://purl.org/dc/elements/1.1/title', 'Serials in French, Occitan & Catalan', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/055', 'http://dewey.info/class', '055', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/055', 'http://purl.org/dc/elements/1.1/title', 'Serials in Italian, Romanian & related languages', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/055', 'http://purl.org/dc/elements/1.1/title', 'In Italian, Romanian & related languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/056', 'http://dewey.info/class', '056', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/056', 'http://purl.org/dc/elements/1.1/title', 'Serials in Spanish & Portuguese', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/057', 'http://dewey.info/class', '057', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/057', 'http://purl.org/dc/elements/1.1/title', 'Serials in Slavic languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/058', 'http://dewey.info/class', '058', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/058', 'http://purl.org/dc/elements/1.1/title', 'Serials in Scandinavian languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/059', 'http://dewey.info/class', '059', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/059', 'http://purl.org/dc/elements/1.1/title', 'Serials in other languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/060', 'http://dewey.info/class', '060', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/060', 'http://purl.org/dc/elements/1.1/title', 'General organizations & museum science', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/061', 'http://dewey.info/class', '061', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/061', 'http://purl.org/dc/elements/1.1/title', 'Organizations in North America', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/062', 'http://dewey.info/class', '062', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/062', 'http://purl.org/dc/elements/1.1/title', '"Organizations in British Isles; in England"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/062', 'http://purl.org/dc/elements/1.1/title', 'Organizations in British Isles; in England', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/063', 'http://dewey.info/class', '063', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/063', 'http://purl.org/dc/elements/1.1/title', '"Organizations in central Europe; in Germany"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/063', 'http://purl.org/dc/elements/1.1/title', 'Organizations in central Europe; in Germany', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/064', 'http://dewey.info/class', '064', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/064', 'http://purl.org/dc/elements/1.1/title', 'Organizations in France & Monaco', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/065', 'http://dewey.info/class', '065', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/065', 'http://purl.org/dc/elements/1.1/title', 'Organizations in Italy & adjacent islands', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/066', 'http://dewey.info/class', '066', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/066', 'http://purl.org/dc/elements/1.1/title', 'Organizations in Iberian Peninsula & adjacent islands', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/066', 'http://purl.org/dc/elements/1.1/title', 'In Iberian Peninsula & adjacent islands', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/067', 'http://dewey.info/class', '067', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/067', 'http://purl.org/dc/elements/1.1/title', '"Organizations in eastern Europe; in Russia"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/067', 'http://purl.org/dc/elements/1.1/title', 'Organizations in eastern Europe; in Russia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/068', 'http://dewey.info/class', '068', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/068', 'http://purl.org/dc/elements/1.1/title', 'Organizations in other geographic areas', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/069', 'http://dewey.info/class', '069', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/069', 'http://purl.org/dc/elements/1.1/title', 'Museum science', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/070', 'http://dewey.info/class', '070', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/070', 'http://purl.org/dc/elements/1.1/title', 'News media, journalism & publishing', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/071', 'http://dewey.info/class', '071', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/071', 'http://purl.org/dc/elements/1.1/title', 'Newspapers in North America', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/072', 'http://dewey.info/class', '072', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/072', 'http://purl.org/dc/elements/1.1/title', '"Newspapers in British Isles; in England"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/072', 'http://purl.org/dc/elements/1.1/title', 'Newspapers in British Isles; in England', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/073', 'http://dewey.info/class', '073', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/073', 'http://purl.org/dc/elements/1.1/title', '"Newspapers in central Europe; in Germany"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/073', 'http://purl.org/dc/elements/1.1/title', 'Newspapers in central Europe; in Germany', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/074', 'http://dewey.info/class', '074', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/074', 'http://purl.org/dc/elements/1.1/title', 'Newspapers in France & Monaco', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/075', 'http://dewey.info/class', '075', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/075', 'http://purl.org/dc/elements/1.1/title', 'Newspapers in Italy & adjacent islands', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/076', 'http://dewey.info/class', '076', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/076', 'http://purl.org/dc/elements/1.1/title', 'Newspapers in Iberian Peninsula & adjacent islands', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/076', 'http://purl.org/dc/elements/1.1/title', 'In Iberian Peninsula & adjacent islands', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/077', 'http://dewey.info/class', '077', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/077', 'http://purl.org/dc/elements/1.1/title', '"Newspapers in eastern Europe; in Russia"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/077', 'http://purl.org/dc/elements/1.1/title', 'Newspapers in eastern Europe; in Russia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/078', 'http://dewey.info/class', '078', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/078', 'http://purl.org/dc/elements/1.1/title', 'Newspapers in Scandinavia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/079', 'http://dewey.info/class', '079', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/079', 'http://purl.org/dc/elements/1.1/title', 'Newspapers in other geographic areas', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/080', 'http://dewey.info/class', '080', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/080', 'http://purl.org/dc/elements/1.1/title', 'General collections', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/081', 'http://dewey.info/class', '081', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/081', 'http://purl.org/dc/elements/1.1/title', 'Collections in American English', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/082', 'http://dewey.info/class', '082', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/082', 'http://purl.org/dc/elements/1.1/title', 'Collections in English', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/083', 'http://dewey.info/class', '083', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/083', 'http://purl.org/dc/elements/1.1/title', 'Collections in other Germanic languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/084', 'http://dewey.info/class', '084', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/084', 'http://purl.org/dc/elements/1.1/title', 'Collections in French, Occitan & Catalan', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/085', 'http://dewey.info/class', '085', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/085', 'http://purl.org/dc/elements/1.1/title', 'Collections in Italian, Romanian & related languages', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/085', 'http://purl.org/dc/elements/1.1/title', 'In Italian, Romanian & related languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/086', 'http://dewey.info/class', '086', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/086', 'http://purl.org/dc/elements/1.1/title', 'Collections in Spanish & Portuguese', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/087', 'http://dewey.info/class', '087', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/087', 'http://purl.org/dc/elements/1.1/title', 'Collections in Slavic languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/088', 'http://dewey.info/class', '088', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/088', 'http://purl.org/dc/elements/1.1/title', 'Collections in Scandinavian languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/089', 'http://dewey.info/class', '089', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/089', 'http://purl.org/dc/elements/1.1/title', 'Collections in other languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/090', 'http://dewey.info/class', '090', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/090', 'http://purl.org/dc/elements/1.1/title', 'Manuscripts & rare books', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/091', 'http://dewey.info/class', '091', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/091', 'http://purl.org/dc/elements/1.1/title', 'Manuscripts', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/092', 'http://dewey.info/class', '092', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/092', 'http://purl.org/dc/elements/1.1/title', 'Block books', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/093', 'http://dewey.info/class', '093', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/093', 'http://purl.org/dc/elements/1.1/title', 'Incunabula', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/094', 'http://dewey.info/class', '094', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/094', 'http://purl.org/dc/elements/1.1/title', 'Printed books', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/095', 'http://dewey.info/class', '095', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/095', 'http://purl.org/dc/elements/1.1/title', 'Books notable for bindings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/096', 'http://dewey.info/class', '096', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/096', 'http://purl.org/dc/elements/1.1/title', 'Books notable for illustrations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/097', 'http://dewey.info/class', '097', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/097', 'http://purl.org/dc/elements/1.1/title', 'Books notable for ownership or origin', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/098', 'http://dewey.info/class', '098', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/098', 'http://purl.org/dc/elements/1.1/title', 'Prohibited works, forgeries & hoaxes', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/099', 'http://dewey.info/class', '099', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/099', 'http://purl.org/dc/elements/1.1/title', 'Books notable for format', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/100', 'http://dewey.info/class', '100', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/100', 'http://purl.org/dc/elements/1.1/title', 'Philosophy & psychology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/101', 'http://dewey.info/class', '101', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/101', 'http://purl.org/dc/elements/1.1/title', 'Theory of philosophy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/102', 'http://dewey.info/class', '102', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/102', 'http://purl.org/dc/elements/1.1/title', 'Miscellany', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/103', 'http://dewey.info/class', '103', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/103', 'http://purl.org/dc/elements/1.1/title', 'Dictionaries & encyclopedias', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/104', 'http://dewey.info/class', '104', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/104', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/105', 'http://dewey.info/class', '105', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/105', 'http://purl.org/dc/elements/1.1/title', 'Serial publications', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/106', 'http://dewey.info/class', '106', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/106', 'http://purl.org/dc/elements/1.1/title', 'Organizations & management', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/107', 'http://dewey.info/class', '107', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/107', 'http://purl.org/dc/elements/1.1/title', 'Education, research & related topics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/108', 'http://dewey.info/class', '108', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/108', 'http://purl.org/dc/elements/1.1/title', 'Kinds of persons treatment', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/109', 'http://dewey.info/class', '109', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/109', 'http://purl.org/dc/elements/1.1/title', 'Historical & collected persons treatment', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/110', 'http://dewey.info/class', '110', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/110', 'http://purl.org/dc/elements/1.1/title', 'Metaphysics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/111', 'http://dewey.info/class', '111', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/111', 'http://purl.org/dc/elements/1.1/title', 'Ontology', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/112', 'http://dewey.info/class', '112', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/112', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/113', 'http://dewey.info/class', '113', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/113', 'http://purl.org/dc/elements/1.1/title', 'Cosmology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/114', 'http://dewey.info/class', '114', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/114', 'http://purl.org/dc/elements/1.1/title', 'Space', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/115', 'http://dewey.info/class', '115', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/115', 'http://purl.org/dc/elements/1.1/title', 'Time', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/116', 'http://dewey.info/class', '116', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/116', 'http://purl.org/dc/elements/1.1/title', 'Change', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/117', 'http://dewey.info/class', '117', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/117', 'http://purl.org/dc/elements/1.1/title', 'Structure', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/118', 'http://dewey.info/class', '118', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/118', 'http://purl.org/dc/elements/1.1/title', 'Force & energy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/119', 'http://dewey.info/class', '119', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/119', 'http://purl.org/dc/elements/1.1/title', 'Number & quantity', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/120', 'http://dewey.info/class', '120', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/120', 'http://purl.org/dc/elements/1.1/title', 'Epistemology, causation & humankind', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/121', 'http://dewey.info/class', '121', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/121', 'http://purl.org/dc/elements/1.1/title', 'Epistemology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/122', 'http://dewey.info/class', '122', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/122', 'http://purl.org/dc/elements/1.1/title', 'Causation', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/123', 'http://dewey.info/class', '123', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/123', 'http://purl.org/dc/elements/1.1/title', 'Determinism & indeterminism', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/124', 'http://dewey.info/class', '124', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/124', 'http://purl.org/dc/elements/1.1/title', 'Teleology', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/125', 'http://dewey.info/class', '125', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/125', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/126', 'http://dewey.info/class', '126', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/126', 'http://purl.org/dc/elements/1.1/title', 'The self', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/127', 'http://dewey.info/class', '127', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/127', 'http://purl.org/dc/elements/1.1/title', 'The unconscious & the subconscious', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/128', 'http://dewey.info/class', '128', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/128', 'http://purl.org/dc/elements/1.1/title', 'Humankind', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/129', 'http://dewey.info/class', '129', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/129', 'http://purl.org/dc/elements/1.1/title', 'Origin & destiny of individual souls', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/130', 'http://dewey.info/class', '130', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/130', 'http://purl.org/dc/elements/1.1/title', 'Parapsychology & occultism', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/131', 'http://dewey.info/class', '131', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/131', 'http://purl.org/dc/elements/1.1/title', 'Parapsychological & occult methods', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/132', 'http://dewey.info/class', '132', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/132', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/133', 'http://dewey.info/class', '133', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/133', 'http://purl.org/dc/elements/1.1/title', 'Specific topics in parapsychology & occultism', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/134', 'http://dewey.info/class', '134', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/134', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/135', 'http://dewey.info/class', '135', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/135', 'http://purl.org/dc/elements/1.1/title', 'Dreams & mysteries', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/136', 'http://dewey.info/class', '136', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/136', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/137', 'http://dewey.info/class', '137', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/137', 'http://purl.org/dc/elements/1.1/title', 'Divinatory graphology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/138', 'http://dewey.info/class', '138', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/138', 'http://purl.org/dc/elements/1.1/title', 'Physiognomy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/139', 'http://dewey.info/class', '139', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/139', 'http://purl.org/dc/elements/1.1/title', 'Phrenology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/140', 'http://dewey.info/class', '140', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/140', 'http://purl.org/dc/elements/1.1/title', 'Specific philosophical schools', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/141', 'http://dewey.info/class', '141', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/141', 'http://purl.org/dc/elements/1.1/title', 'Idealism & related systems', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/142', 'http://dewey.info/class', '142', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/142', 'http://purl.org/dc/elements/1.1/title', 'Critical philosophy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/143', 'http://dewey.info/class', '143', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/143', 'http://purl.org/dc/elements/1.1/title', 'Bergsonism & intuitionism', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/144', 'http://dewey.info/class', '144', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/144', 'http://purl.org/dc/elements/1.1/title', 'Humanism & related systems', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/145', 'http://dewey.info/class', '145', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/145', 'http://purl.org/dc/elements/1.1/title', 'Sensationalism', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/146', 'http://dewey.info/class', '146', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/146', 'http://purl.org/dc/elements/1.1/title', 'Naturalism & related systems', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/147', 'http://dewey.info/class', '147', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/147', 'http://purl.org/dc/elements/1.1/title', 'Pantheism & related systems', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/148', 'http://dewey.info/class', '148', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/148', 'http://purl.org/dc/elements/1.1/title', 'Eclecticism, liberalism & traditionalism', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/149', 'http://dewey.info/class', '149', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/149', 'http://purl.org/dc/elements/1.1/title', 'Other philosophical systems', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/150', 'http://dewey.info/class', '150', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/150', 'http://purl.org/dc/elements/1.1/title', 'Psychology', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/151', 'http://dewey.info/class', '151', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/151', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/152', 'http://dewey.info/class', '152', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/152', 'http://purl.org/dc/elements/1.1/title', 'Perception, movement, emotions & drives', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/153', 'http://dewey.info/class', '153', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/153', 'http://purl.org/dc/elements/1.1/title', 'Mental processes & intelligence', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/154', 'http://dewey.info/class', '154', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/154', 'http://purl.org/dc/elements/1.1/title', 'Subconscious & altered states', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/155', 'http://dewey.info/class', '155', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/155', 'http://purl.org/dc/elements/1.1/title', 'Differential & developmental psychology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/156', 'http://dewey.info/class', '156', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/156', 'http://purl.org/dc/elements/1.1/title', 'Comparative psychology', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/157', 'http://dewey.info/class', '157', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/157', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/158', 'http://dewey.info/class', '158', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/158', 'http://purl.org/dc/elements/1.1/title', 'Applied psychology', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/159', 'http://dewey.info/class', '159', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/159', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/160', 'http://dewey.info/class', '160', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/160', 'http://purl.org/dc/elements/1.1/title', 'Logic', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/161', 'http://dewey.info/class', '161', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/161', 'http://purl.org/dc/elements/1.1/title', 'Induction', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/162', 'http://dewey.info/class', '162', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/162', 'http://purl.org/dc/elements/1.1/title', 'Deduction', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/163', 'http://dewey.info/class', '163', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/163', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/164', 'http://dewey.info/class', '164', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/164', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/165', 'http://dewey.info/class', '165', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/165', 'http://purl.org/dc/elements/1.1/title', 'Fallacies & sources of error', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/166', 'http://dewey.info/class', '166', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/166', 'http://purl.org/dc/elements/1.1/title', 'Syllogisms', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/167', 'http://dewey.info/class', '167', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/167', 'http://purl.org/dc/elements/1.1/title', 'Hypotheses', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/168', 'http://dewey.info/class', '168', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/168', 'http://purl.org/dc/elements/1.1/title', 'Argument & persuasion', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/169', 'http://dewey.info/class', '169', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/169', 'http://purl.org/dc/elements/1.1/title', 'Analogy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/170', 'http://dewey.info/class', '170', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/170', 'http://purl.org/dc/elements/1.1/title', 'Ethics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/171', 'http://dewey.info/class', '171', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/171', 'http://purl.org/dc/elements/1.1/title', 'Ethical systems', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/172', 'http://dewey.info/class', '172', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/172', 'http://purl.org/dc/elements/1.1/title', 'Political ethics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/173', 'http://dewey.info/class', '173', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/173', 'http://purl.org/dc/elements/1.1/title', 'Ethics of family relationships', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/174', 'http://dewey.info/class', '174', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/174', 'http://purl.org/dc/elements/1.1/title', 'Occupational ethics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/175', 'http://dewey.info/class', '175', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/175', 'http://purl.org/dc/elements/1.1/title', 'Ethics of recreation & leisure', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/176', 'http://dewey.info/class', '176', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/176', 'http://purl.org/dc/elements/1.1/title', 'Ethics of sex & reproduction', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/177', 'http://dewey.info/class', '177', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/177', 'http://purl.org/dc/elements/1.1/title', 'Ethics of social relations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/178', 'http://dewey.info/class', '178', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/178', 'http://purl.org/dc/elements/1.1/title', 'Ethics of consumption', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/179', 'http://dewey.info/class', '179', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/179', 'http://purl.org/dc/elements/1.1/title', 'Other ethical norms', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/180', 'http://dewey.info/class', '180', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/180', 'http://purl.org/dc/elements/1.1/title', 'Ancient, medieval & eastern philosophy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/181', 'http://dewey.info/class', '181', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/181', 'http://purl.org/dc/elements/1.1/title', 'Eastern philosophy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/182', 'http://dewey.info/class', '182', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/182', 'http://purl.org/dc/elements/1.1/title', 'Pre-Socratic Greek philosophies', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/183', 'http://dewey.info/class', '183', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/183', 'http://purl.org/dc/elements/1.1/title', 'Socratic & related philosophies', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/184', 'http://dewey.info/class', '184', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/184', 'http://purl.org/dc/elements/1.1/title', 'Platonic philosophy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/185', 'http://dewey.info/class', '185', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/185', 'http://purl.org/dc/elements/1.1/title', 'Aristotelian philosophy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/186', 'http://dewey.info/class', '186', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/186', 'http://purl.org/dc/elements/1.1/title', 'Skeptic & Neoplatonic philosophies', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/187', 'http://dewey.info/class', '187', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/187', 'http://purl.org/dc/elements/1.1/title', 'Epicurean philosophy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/188', 'http://dewey.info/class', '188', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/188', 'http://purl.org/dc/elements/1.1/title', 'Stoic philosophy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/189', 'http://dewey.info/class', '189', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/189', 'http://purl.org/dc/elements/1.1/title', 'Medieval western philosophy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/190', 'http://dewey.info/class', '190', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/190', 'http://purl.org/dc/elements/1.1/title', 'Modern western philosophy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/191', 'http://dewey.info/class', '191', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/191', 'http://purl.org/dc/elements/1.1/title', 'Philosophy of United States & Canada', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/192', 'http://dewey.info/class', '192', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/192', 'http://purl.org/dc/elements/1.1/title', 'Philosophy of British Isles', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/193', 'http://dewey.info/class', '193', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/193', 'http://purl.org/dc/elements/1.1/title', 'Philosophy of Germany & Austria', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/194', 'http://dewey.info/class', '194', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/194', 'http://purl.org/dc/elements/1.1/title', 'Philosophy of France', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/195', 'http://dewey.info/class', '195', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/195', 'http://purl.org/dc/elements/1.1/title', 'Philosophy of Italy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/196', 'http://dewey.info/class', '196', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/196', 'http://purl.org/dc/elements/1.1/title', 'Philosophy of Spain & Portugal', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/197', 'http://dewey.info/class', '197', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/197', 'http://purl.org/dc/elements/1.1/title', 'Philosophy of former Soviet Union', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/198', 'http://dewey.info/class', '198', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/198', 'http://purl.org/dc/elements/1.1/title', 'Philosophy of Scandinavia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/199', 'http://dewey.info/class', '199', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/199', 'http://purl.org/dc/elements/1.1/title', 'Philosophy in other geographic areas', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/200', 'http://dewey.info/class', '200', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/200', 'http://purl.org/dc/elements/1.1/title', 'Religion', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/201', 'http://dewey.info/class', '201', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/201', 'http://purl.org/dc/elements/1.1/title', 'Religious mythology & social theology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/202', 'http://dewey.info/class', '202', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/202', 'http://purl.org/dc/elements/1.1/title', 'Doctrines', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/203', 'http://dewey.info/class', '203', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/203', 'http://purl.org/dc/elements/1.1/title', 'Public worship & other practices', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/204', 'http://dewey.info/class', '204', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/204', 'http://purl.org/dc/elements/1.1/title', 'Religious experience, life & practice', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/205', 'http://dewey.info/class', '205', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/205', 'http://purl.org/dc/elements/1.1/title', 'Religious ethics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/206', 'http://dewey.info/class', '206', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/206', 'http://purl.org/dc/elements/1.1/title', 'Leaders & organization', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/207', 'http://dewey.info/class', '207', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/207', 'http://purl.org/dc/elements/1.1/title', 'Missions & religious education', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/208', 'http://dewey.info/class', '208', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/208', 'http://purl.org/dc/elements/1.1/title', 'Sources', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/209', 'http://dewey.info/class', '209', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/209', 'http://purl.org/dc/elements/1.1/title', 'Sects & reform movements', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/210', 'http://dewey.info/class', '210', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/210', 'http://purl.org/dc/elements/1.1/title', 'Philosophy & theory of religion', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/211', 'http://dewey.info/class', '211', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/211', 'http://purl.org/dc/elements/1.1/title', 'Concepts of God', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/212', 'http://dewey.info/class', '212', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/212', 'http://purl.org/dc/elements/1.1/title', 'Existence, knowability & attributes of God', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/213', 'http://dewey.info/class', '213', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/213', 'http://purl.org/dc/elements/1.1/title', 'Creation', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/214', 'http://dewey.info/class', '214', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/214', 'http://purl.org/dc/elements/1.1/title', 'Theodicy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/215', 'http://dewey.info/class', '215', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/215', 'http://purl.org/dc/elements/1.1/title', 'Science & religion', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/216', 'http://dewey.info/class', '216', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/216', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/217', 'http://dewey.info/class', '217', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/217', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/218', 'http://dewey.info/class', '218', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/218', 'http://purl.org/dc/elements/1.1/title', 'Humankind', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/219', 'http://dewey.info/class', '219', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/219', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/220', 'http://dewey.info/class', '220', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/220', 'http://purl.org/dc/elements/1.1/title', 'Bible', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/221', 'http://dewey.info/class', '221', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/221', 'http://purl.org/dc/elements/1.1/title', 'Old Testament (Tanakh)', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/222', 'http://dewey.info/class', '222', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/222', 'http://purl.org/dc/elements/1.1/title', 'Historical books of Old Testament', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/223', 'http://dewey.info/class', '223', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/223', 'http://purl.org/dc/elements/1.1/title', 'Poetic books of Old Testament', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/224', 'http://dewey.info/class', '224', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/224', 'http://purl.org/dc/elements/1.1/title', 'Prophetic books of Old Testament', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/225', 'http://dewey.info/class', '225', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/225', 'http://purl.org/dc/elements/1.1/title', 'New Testament', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/226', 'http://dewey.info/class', '226', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/226', 'http://purl.org/dc/elements/1.1/title', 'Gospels & Acts', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/227', 'http://dewey.info/class', '227', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/227', 'http://purl.org/dc/elements/1.1/title', 'Epistles', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/228', 'http://dewey.info/class', '228', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/228', 'http://purl.org/dc/elements/1.1/title', 'Revelation (Apocalypse)', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/229', 'http://dewey.info/class', '229', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/229', 'http://purl.org/dc/elements/1.1/title', 'Apocrypha & pseudepigrapha', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/230', 'http://dewey.info/class', '230', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/230', 'http://purl.org/dc/elements/1.1/title', 'Christianity & Christian theology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/231', 'http://dewey.info/class', '231', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/231', 'http://purl.org/dc/elements/1.1/title', 'God', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/232', 'http://dewey.info/class', '232', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/232', 'http://purl.org/dc/elements/1.1/title', 'Jesus Christ & his family', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/233', 'http://dewey.info/class', '233', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/233', 'http://purl.org/dc/elements/1.1/title', 'Humankind', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/234', 'http://dewey.info/class', '234', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/234', 'http://purl.org/dc/elements/1.1/title', 'Salvation & grace', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/235', 'http://dewey.info/class', '235', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/235', 'http://purl.org/dc/elements/1.1/title', 'Spiritual beings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/236', 'http://dewey.info/class', '236', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/236', 'http://purl.org/dc/elements/1.1/title', 'Eschatology', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/237', 'http://dewey.info/class', '237', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/237', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/238', 'http://dewey.info/class', '238', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/238', 'http://purl.org/dc/elements/1.1/title', 'Creeds & catechisms', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/239', 'http://dewey.info/class', '239', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/239', 'http://purl.org/dc/elements/1.1/title', 'Apologetics & polemics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/240', 'http://dewey.info/class', '240', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/240', 'http://purl.org/dc/elements/1.1/title', 'Christian moral & devotional theology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/241', 'http://dewey.info/class', '241', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/241', 'http://purl.org/dc/elements/1.1/title', 'Christian ethics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/242', 'http://dewey.info/class', '242', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/242', 'http://purl.org/dc/elements/1.1/title', 'Devotional literature', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/243', 'http://dewey.info/class', '243', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/243', 'http://purl.org/dc/elements/1.1/title', 'Evangelistic writings for individuals', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/244', 'http://dewey.info/class', '244', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/244', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/245', 'http://dewey.info/class', '245', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/245', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/246', 'http://dewey.info/class', '246', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/246', 'http://purl.org/dc/elements/1.1/title', 'Use of art in Christianity', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/247', 'http://dewey.info/class', '247', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/247', 'http://purl.org/dc/elements/1.1/title', 'Church furnishings & articles', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/248', 'http://dewey.info/class', '248', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/248', 'http://purl.org/dc/elements/1.1/title', 'Christian experience, practice & life', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/249', 'http://dewey.info/class', '249', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/249', 'http://purl.org/dc/elements/1.1/title', 'Christian observances in family life', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/250', 'http://dewey.info/class', '250', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/250', 'http://purl.org/dc/elements/1.1/title', 'Christian orders & local church', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/251', 'http://dewey.info/class', '251', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/251', 'http://purl.org/dc/elements/1.1/title', 'Preaching', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/252', 'http://dewey.info/class', '252', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/252', 'http://purl.org/dc/elements/1.1/title', 'Texts of sermons', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/253', 'http://dewey.info/class', '253', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/253', 'http://purl.org/dc/elements/1.1/title', 'Pastoral office & work', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/254', 'http://dewey.info/class', '254', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/254', 'http://purl.org/dc/elements/1.1/title', 'Parish administration', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/255', 'http://dewey.info/class', '255', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/255', 'http://purl.org/dc/elements/1.1/title', 'Religious congregations & orders', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/256', 'http://dewey.info/class', '256', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/256', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/257', 'http://dewey.info/class', '257', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/257', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/258', 'http://dewey.info/class', '258', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/258', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/259', 'http://dewey.info/class', '259', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/259', 'http://purl.org/dc/elements/1.1/title', 'Pastoral care of families & kinds of persons', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/260', 'http://dewey.info/class', '260', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/260', 'http://purl.org/dc/elements/1.1/title', 'Social & ecclesiastical theology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/261', 'http://dewey.info/class', '261', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/261', 'http://purl.org/dc/elements/1.1/title', 'Social theology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/262', 'http://dewey.info/class', '262', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/262', 'http://purl.org/dc/elements/1.1/title', 'Ecclesiology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/263', 'http://dewey.info/class', '263', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/263', 'http://purl.org/dc/elements/1.1/title', 'Days, times & places of observance', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/264', 'http://dewey.info/class', '264', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/264', 'http://purl.org/dc/elements/1.1/title', 'Public worship', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/265', 'http://dewey.info/class', '265', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/265', 'http://purl.org/dc/elements/1.1/title', 'Sacraments, other rites & acts', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/266', 'http://dewey.info/class', '266', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/266', 'http://purl.org/dc/elements/1.1/title', 'Missions', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/267', 'http://dewey.info/class', '267', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/267', 'http://purl.org/dc/elements/1.1/title', 'Associations for religious work', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/268', 'http://dewey.info/class', '268', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/268', 'http://purl.org/dc/elements/1.1/title', 'Religious education', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/269', 'http://dewey.info/class', '269', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/269', 'http://purl.org/dc/elements/1.1/title', 'Spiritual renewal', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/270', 'http://dewey.info/class', '270', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/270', 'http://purl.org/dc/elements/1.1/title', 'History of Christianity & Christian church', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/271', 'http://dewey.info/class', '271', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/271', 'http://purl.org/dc/elements/1.1/title', 'Religious orders in church history', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/272', 'http://dewey.info/class', '272', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/272', 'http://purl.org/dc/elements/1.1/title', 'Persecutions in church history', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/273', 'http://dewey.info/class', '273', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/273', 'http://purl.org/dc/elements/1.1/title', 'Doctrinal controversies & heresies', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/274', 'http://dewey.info/class', '274', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/274', 'http://purl.org/dc/elements/1.1/title', 'History of Christianity in Europe', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/275', 'http://dewey.info/class', '275', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/275', 'http://purl.org/dc/elements/1.1/title', 'History of Christianity in Asia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/276', 'http://dewey.info/class', '276', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/276', 'http://purl.org/dc/elements/1.1/title', 'History of Christianity in Africa', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/277', 'http://dewey.info/class', '277', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/277', 'http://purl.org/dc/elements/1.1/title', 'History of Christianity in North America', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/278', 'http://dewey.info/class', '278', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/278', 'http://purl.org/dc/elements/1.1/title', 'History of Christianity in South America', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/279', 'http://dewey.info/class', '279', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/279', 'http://purl.org/dc/elements/1.1/title', 'History of Christianity in other areas', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/280', 'http://dewey.info/class', '280', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/280', 'http://purl.org/dc/elements/1.1/title', 'Christian denominations & sects', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/281', 'http://dewey.info/class', '281', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/281', 'http://purl.org/dc/elements/1.1/title', 'Early church & Eastern churches', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/282', 'http://dewey.info/class', '282', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/282', 'http://purl.org/dc/elements/1.1/title', 'Roman Catholic Church', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/283', 'http://dewey.info/class', '283', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/283', 'http://purl.org/dc/elements/1.1/title', 'Anglican churches', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/284', 'http://dewey.info/class', '284', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/284', 'http://purl.org/dc/elements/1.1/title', 'Protestants of Continental origin', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/285', 'http://dewey.info/class', '285', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/285', 'http://purl.org/dc/elements/1.1/title', 'Presbyterian, Reformed & Congregational', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/286', 'http://dewey.info/class', '286', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/286', 'http://purl.org/dc/elements/1.1/title', 'Baptist, Disciples of Christ & Adventist', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/287', 'http://dewey.info/class', '287', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/287', 'http://purl.org/dc/elements/1.1/title', 'Methodist & related churches', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/288', 'http://dewey.info/class', '288', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/288', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/289', 'http://dewey.info/class', '289', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/289', 'http://purl.org/dc/elements/1.1/title', 'Other denominations & sects', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/290', 'http://dewey.info/class', '290', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/290', 'http://purl.org/dc/elements/1.1/title', 'Other religions', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/291', 'http://dewey.info/class', '291', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/291', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/292', 'http://dewey.info/class', '292', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/292', 'http://purl.org/dc/elements/1.1/title', 'Greek & Roman religion', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/293', 'http://dewey.info/class', '293', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/293', 'http://purl.org/dc/elements/1.1/title', 'Germanic religion', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/294', 'http://dewey.info/class', '294', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/294', 'http://purl.org/dc/elements/1.1/title', 'Religions of Indic origin', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/295', 'http://dewey.info/class', '295', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/295', 'http://purl.org/dc/elements/1.1/title', 'Zoroastrianism', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/296', 'http://dewey.info/class', '296', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/296', 'http://purl.org/dc/elements/1.1/title', 'Judaism', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/297', 'http://dewey.info/class', '297', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/297', 'http://purl.org/dc/elements/1.1/title', 'Islam, Babism & Bahai Faith', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/298', 'http://dewey.info/class', '298', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/298', 'http://purl.org/dc/elements/1.1/title', '(Optional number)', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/299', 'http://dewey.info/class', '299', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/299', 'http://purl.org/dc/elements/1.1/title', 'Religions not provided for elsewhere', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/300', 'http://dewey.info/class', '300', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/300', 'http://purl.org/dc/elements/1.1/title', 'Social sciences', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/301', 'http://dewey.info/class', '301', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/301', 'http://purl.org/dc/elements/1.1/title', 'Sociology & anthropology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/302', 'http://dewey.info/class', '302', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/302', 'http://purl.org/dc/elements/1.1/title', 'Social interaction', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/303', 'http://dewey.info/class', '303', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/303', 'http://purl.org/dc/elements/1.1/title', 'Social processes', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/304', 'http://dewey.info/class', '304', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/304', 'http://purl.org/dc/elements/1.1/title', 'Factors affecting social behavior', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/305', 'http://dewey.info/class', '305', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/305', 'http://purl.org/dc/elements/1.1/title', 'Social groups', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/306', 'http://dewey.info/class', '306', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/306', 'http://purl.org/dc/elements/1.1/title', 'Culture & institutions', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/307', 'http://dewey.info/class', '307', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/307', 'http://purl.org/dc/elements/1.1/title', 'Communities', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/308', 'http://dewey.info/class', '308', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/308', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/309', 'http://dewey.info/class', '309', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/309', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/310', 'http://dewey.info/class', '310', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/310', 'http://purl.org/dc/elements/1.1/title', 'Collections of general statistics', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/311', 'http://dewey.info/class', '311', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/311', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/312', 'http://dewey.info/class', '312', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/312', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/313', 'http://dewey.info/class', '313', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/313', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/314', 'http://dewey.info/class', '314', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/314', 'http://purl.org/dc/elements/1.1/title', 'General statistics of Europe', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/315', 'http://dewey.info/class', '315', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/315', 'http://purl.org/dc/elements/1.1/title', 'General statistics of Asia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/316', 'http://dewey.info/class', '316', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/316', 'http://purl.org/dc/elements/1.1/title', 'General statistics of Africa', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/317', 'http://dewey.info/class', '317', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/317', 'http://purl.org/dc/elements/1.1/title', 'General statistics of North America', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/318', 'http://dewey.info/class', '318', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/318', 'http://purl.org/dc/elements/1.1/title', 'General statistics of South America', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/319', 'http://dewey.info/class', '319', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/319', 'http://purl.org/dc/elements/1.1/title', 'General statistics of other areas', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/320', 'http://dewey.info/class', '320', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/320', 'http://purl.org/dc/elements/1.1/title', 'Political science', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/321', 'http://dewey.info/class', '321', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/321', 'http://purl.org/dc/elements/1.1/title', 'Systems of governments & states', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/322', 'http://dewey.info/class', '322', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/322', 'http://purl.org/dc/elements/1.1/title', 'Relation of state to organized groups', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/323', 'http://dewey.info/class', '323', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/323', 'http://purl.org/dc/elements/1.1/title', 'Civil & political rights', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/324', 'http://dewey.info/class', '324', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/324', 'http://purl.org/dc/elements/1.1/title', 'The political process', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/325', 'http://dewey.info/class', '325', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/325', 'http://purl.org/dc/elements/1.1/title', 'International migration & colonization', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/326', 'http://dewey.info/class', '326', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/326', 'http://purl.org/dc/elements/1.1/title', 'Slavery & emancipation', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/327', 'http://dewey.info/class', '327', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/327', 'http://purl.org/dc/elements/1.1/title', 'International relations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/328', 'http://dewey.info/class', '328', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/328', 'http://purl.org/dc/elements/1.1/title', 'The legislative process', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/329', 'http://dewey.info/class', '329', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/329', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/330', 'http://dewey.info/class', '330', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/330', 'http://purl.org/dc/elements/1.1/title', 'Economics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/331', 'http://dewey.info/class', '331', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/331', 'http://purl.org/dc/elements/1.1/title', 'Labor economics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/332', 'http://dewey.info/class', '332', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/332', 'http://purl.org/dc/elements/1.1/title', 'Financial economics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/333', 'http://dewey.info/class', '333', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/333', 'http://purl.org/dc/elements/1.1/title', 'Economics of land & energy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/334', 'http://dewey.info/class', '334', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/334', 'http://purl.org/dc/elements/1.1/title', 'Cooperatives', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/335', 'http://dewey.info/class', '335', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/335', 'http://purl.org/dc/elements/1.1/title', 'Socialism & related systems', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/336', 'http://dewey.info/class', '336', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/336', 'http://purl.org/dc/elements/1.1/title', 'Public finance', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/337', 'http://dewey.info/class', '337', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/337', 'http://purl.org/dc/elements/1.1/title', 'International economics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/338', 'http://dewey.info/class', '338', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/338', 'http://purl.org/dc/elements/1.1/title', 'Production', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/339', 'http://dewey.info/class', '339', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/339', 'http://purl.org/dc/elements/1.1/title', 'Macroeconomics & related topics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/340', 'http://dewey.info/class', '340', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/340', 'http://purl.org/dc/elements/1.1/title', 'Law', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/341', 'http://dewey.info/class', '341', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/341', 'http://purl.org/dc/elements/1.1/title', 'Law of nations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/342', 'http://dewey.info/class', '342', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/342', 'http://purl.org/dc/elements/1.1/title', 'Constitutional & administrative law', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/343', 'http://dewey.info/class', '343', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/343', 'http://purl.org/dc/elements/1.1/title', 'Military, tax, trade & industrial law', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/344', 'http://dewey.info/class', '344', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/344', 'http://purl.org/dc/elements/1.1/title', 'Labor, social, education & cultural law', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/345', 'http://dewey.info/class', '345', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/345', 'http://purl.org/dc/elements/1.1/title', 'Criminal law', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/346', 'http://dewey.info/class', '346', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/346', 'http://purl.org/dc/elements/1.1/title', 'Private law', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/347', 'http://dewey.info/class', '347', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/347', 'http://purl.org/dc/elements/1.1/title', 'Civil procedure & courts', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/348', 'http://dewey.info/class', '348', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/348', 'http://purl.org/dc/elements/1.1/title', 'Laws, regulations & cases', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/349', 'http://dewey.info/class', '349', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/349', 'http://purl.org/dc/elements/1.1/title', 'Law of specific jurisdictions & areas', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/350', 'http://dewey.info/class', '350', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/350', 'http://purl.org/dc/elements/1.1/title', 'Public administration & military science', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/351', 'http://dewey.info/class', '351', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/351', 'http://purl.org/dc/elements/1.1/title', 'Public administration', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/352', 'http://dewey.info/class', '352', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/352', 'http://purl.org/dc/elements/1.1/title', 'General considerations of public administration', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/353', 'http://dewey.info/class', '353', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/353', 'http://purl.org/dc/elements/1.1/title', 'Specific fields of public administration', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/354', 'http://dewey.info/class', '354', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/354', 'http://purl.org/dc/elements/1.1/title', 'Administration of economy & environment', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/355', 'http://dewey.info/class', '355', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/355', 'http://purl.org/dc/elements/1.1/title', 'Military science', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/356', 'http://dewey.info/class', '356', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/356', 'http://purl.org/dc/elements/1.1/title', 'Infantry forces & warfare', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/357', 'http://dewey.info/class', '357', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/357', 'http://purl.org/dc/elements/1.1/title', 'Mounted forces & warfare', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/358', 'http://dewey.info/class', '358', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/358', 'http://purl.org/dc/elements/1.1/title', 'Air & other specialized forces', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/359', 'http://dewey.info/class', '359', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/359', 'http://purl.org/dc/elements/1.1/title', 'Sea forces & warfare', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/360', 'http://dewey.info/class', '360', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/360', 'http://purl.org/dc/elements/1.1/title', '"Social problems & services; associations"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/360', 'http://purl.org/dc/elements/1.1/title', 'Social problems & services; associations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/361', 'http://dewey.info/class', '361', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/361', 'http://purl.org/dc/elements/1.1/title', 'Social problems & social welfare in general', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/362', 'http://dewey.info/class', '362', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/362', 'http://purl.org/dc/elements/1.1/title', 'Social welfare problems & services', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/363', 'http://dewey.info/class', '363', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/363', 'http://purl.org/dc/elements/1.1/title', 'Other social problems & services', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/364', 'http://dewey.info/class', '364', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/364', 'http://purl.org/dc/elements/1.1/title', 'Criminology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/365', 'http://dewey.info/class', '365', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/365', 'http://purl.org/dc/elements/1.1/title', 'Penal & related institutions', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/366', 'http://dewey.info/class', '366', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/366', 'http://purl.org/dc/elements/1.1/title', 'Associations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/367', 'http://dewey.info/class', '367', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/367', 'http://purl.org/dc/elements/1.1/title', 'General clubs', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/368', 'http://dewey.info/class', '368', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/368', 'http://purl.org/dc/elements/1.1/title', 'Insurance', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/369', 'http://dewey.info/class', '369', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/369', 'http://purl.org/dc/elements/1.1/title', 'Miscellaneous kinds of associations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/370', 'http://dewey.info/class', '370', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/370', 'http://purl.org/dc/elements/1.1/title', 'Education', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/371', 'http://dewey.info/class', '371', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/371', 'http://purl.org/dc/elements/1.1/title', '"Schools & their activities; special education"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/371', 'http://purl.org/dc/elements/1.1/title', 'Schools & their activities; special education', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/372', 'http://dewey.info/class', '372', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/372', 'http://purl.org/dc/elements/1.1/title', 'Elementary education', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/373', 'http://dewey.info/class', '373', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/373', 'http://purl.org/dc/elements/1.1/title', 'Secondary education', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/374', 'http://dewey.info/class', '374', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/374', 'http://purl.org/dc/elements/1.1/title', 'Adult education', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/375', 'http://dewey.info/class', '375', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/375', 'http://purl.org/dc/elements/1.1/title', 'Curricula', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/376', 'http://dewey.info/class', '376', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/376', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/377', 'http://dewey.info/class', '377', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/377', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/378', 'http://dewey.info/class', '378', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/378', 'http://purl.org/dc/elements/1.1/title', 'Higher education', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/379', 'http://dewey.info/class', '379', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/379', 'http://purl.org/dc/elements/1.1/title', 'Public policy issues in education', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/380', 'http://dewey.info/class', '380', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/380', 'http://purl.org/dc/elements/1.1/title', 'Commerce, communications & transportation', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/381', 'http://dewey.info/class', '381', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/381', 'http://purl.org/dc/elements/1.1/title', 'Commerce', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/382', 'http://dewey.info/class', '382', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/382', 'http://purl.org/dc/elements/1.1/title', 'International commerce', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/383', 'http://dewey.info/class', '383', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/383', 'http://purl.org/dc/elements/1.1/title', 'Postal communication', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/384', 'http://dewey.info/class', '384', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/384', 'http://purl.org/dc/elements/1.1/title', '"Communications; telecommunication"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/384', 'http://purl.org/dc/elements/1.1/title', 'Communications; telecommunication', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/385', 'http://dewey.info/class', '385', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/385', 'http://purl.org/dc/elements/1.1/title', 'Railroad transportation', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/386', 'http://dewey.info/class', '386', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/386', 'http://purl.org/dc/elements/1.1/title', 'Inland waterway & ferry transportation', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/387', 'http://dewey.info/class', '387', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/387', 'http://purl.org/dc/elements/1.1/title', 'Water, air & space transportation', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/388', 'http://dewey.info/class', '388', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/388', 'http://purl.org/dc/elements/1.1/title', '"Transportation; ground transportation"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/388', 'http://purl.org/dc/elements/1.1/title', 'Transportation; ground transportation', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/389', 'http://dewey.info/class', '389', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/389', 'http://purl.org/dc/elements/1.1/title', 'Metrology & standardization', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/390', 'http://dewey.info/class', '390', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/390', 'http://purl.org/dc/elements/1.1/title', 'Customs, etiquette & folklore', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/391', 'http://dewey.info/class', '391', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/391', 'http://purl.org/dc/elements/1.1/title', 'Costume & personal appearance', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/392', 'http://dewey.info/class', '392', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/392', 'http://purl.org/dc/elements/1.1/title', 'Customs of life cycle & domestic life', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/393', 'http://dewey.info/class', '393', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/393', 'http://purl.org/dc/elements/1.1/title', 'Death customs', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/394', 'http://dewey.info/class', '394', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/394', 'http://purl.org/dc/elements/1.1/title', 'General customs', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/395', 'http://dewey.info/class', '395', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/395', 'http://purl.org/dc/elements/1.1/title', 'Etiquette (Manners)', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/396', 'http://dewey.info/class', '396', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/396', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/397', 'http://dewey.info/class', '397', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/397', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/398', 'http://dewey.info/class', '398', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/398', 'http://purl.org/dc/elements/1.1/title', 'Folklore', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/399', 'http://dewey.info/class', '399', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/399', 'http://purl.org/dc/elements/1.1/title', 'Customs of war & diplomacy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/400', 'http://dewey.info/class', '400', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/400', 'http://purl.org/dc/elements/1.1/title', 'Language', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/401', 'http://dewey.info/class', '401', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/401', 'http://purl.org/dc/elements/1.1/title', 'Philosophy & theory', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/402', 'http://dewey.info/class', '402', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/402', 'http://purl.org/dc/elements/1.1/title', 'Miscellany', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/403', 'http://dewey.info/class', '403', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/403', 'http://purl.org/dc/elements/1.1/title', 'Dictionaries & encyclopedias', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/404', 'http://dewey.info/class', '404', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/404', 'http://purl.org/dc/elements/1.1/title', 'Special topics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/405', 'http://dewey.info/class', '405', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/405', 'http://purl.org/dc/elements/1.1/title', 'Serial publications', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/406', 'http://dewey.info/class', '406', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/406', 'http://purl.org/dc/elements/1.1/title', 'Organizations & management', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/407', 'http://dewey.info/class', '407', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/407', 'http://purl.org/dc/elements/1.1/title', 'Education, research & related topics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/408', 'http://dewey.info/class', '408', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/408', 'http://purl.org/dc/elements/1.1/title', 'Kinds of persons treatment', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/409', 'http://dewey.info/class', '409', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/409', 'http://purl.org/dc/elements/1.1/title', 'Geographic & persons treatment', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/410', 'http://dewey.info/class', '410', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/410', 'http://purl.org/dc/elements/1.1/title', 'Linguistics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/411', 'http://dewey.info/class', '411', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/411', 'http://purl.org/dc/elements/1.1/title', 'Writing systems', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/412', 'http://dewey.info/class', '412', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/412', 'http://purl.org/dc/elements/1.1/title', 'Etymology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/413', 'http://dewey.info/class', '413', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/413', 'http://purl.org/dc/elements/1.1/title', 'Dictionaries', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/414', 'http://dewey.info/class', '414', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/414', 'http://purl.org/dc/elements/1.1/title', 'Phonology & phonetics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/415', 'http://dewey.info/class', '415', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/415', 'http://purl.org/dc/elements/1.1/title', 'Grammar', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/416', 'http://dewey.info/class', '416', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/416', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/417', 'http://dewey.info/class', '417', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/417', 'http://purl.org/dc/elements/1.1/title', 'Dialectology & historical linguistics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/418', 'http://dewey.info/class', '418', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/418', 'http://purl.org/dc/elements/1.1/title', 'Standard usage & applied linguistics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/419', 'http://dewey.info/class', '419', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/419', 'http://purl.org/dc/elements/1.1/title', 'Sign languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/420', 'http://dewey.info/class', '420', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/420', 'http://purl.org/dc/elements/1.1/title', 'English & Old English', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/421', 'http://dewey.info/class', '421', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/421', 'http://purl.org/dc/elements/1.1/title', 'English writing system & phonology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/422', 'http://dewey.info/class', '422', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/422', 'http://purl.org/dc/elements/1.1/title', 'English etymology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/423', 'http://dewey.info/class', '423', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/423', 'http://purl.org/dc/elements/1.1/title', 'English dictionaries', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/424', 'http://dewey.info/class', '424', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/424', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/425', 'http://dewey.info/class', '425', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/425', 'http://purl.org/dc/elements/1.1/title', 'English grammar', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/426', 'http://dewey.info/class', '426', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/426', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/427', 'http://dewey.info/class', '427', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/427', 'http://purl.org/dc/elements/1.1/title', 'English language variations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/428', 'http://dewey.info/class', '428', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/428', 'http://purl.org/dc/elements/1.1/title', 'Standard English usage', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/429', 'http://dewey.info/class', '429', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/429', 'http://purl.org/dc/elements/1.1/title', 'Old English (Anglo-Saxon)', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/430', 'http://dewey.info/class', '430', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/430', 'http://purl.org/dc/elements/1.1/title', '"Germanic languages; German"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/430', 'http://purl.org/dc/elements/1.1/title', 'Germanic languages; German', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/431', 'http://dewey.info/class', '431', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/431', 'http://purl.org/dc/elements/1.1/title', 'German writing systems & phonology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/432', 'http://dewey.info/class', '432', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/432', 'http://purl.org/dc/elements/1.1/title', 'German etymology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/433', 'http://dewey.info/class', '433', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/433', 'http://purl.org/dc/elements/1.1/title', 'German dictionaries', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/434', 'http://dewey.info/class', '434', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/434', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/435', 'http://dewey.info/class', '435', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/435', 'http://purl.org/dc/elements/1.1/title', 'German grammar', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/436', 'http://dewey.info/class', '436', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/436', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/437', 'http://dewey.info/class', '437', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/437', 'http://purl.org/dc/elements/1.1/title', 'German language variations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/438', 'http://dewey.info/class', '438', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/438', 'http://purl.org/dc/elements/1.1/title', 'Standard German usage', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/439', 'http://dewey.info/class', '439', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/439', 'http://purl.org/dc/elements/1.1/title', 'Other Germanic languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/440', 'http://dewey.info/class', '440', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/440', 'http://purl.org/dc/elements/1.1/title', '"Romance languages; French"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/440', 'http://purl.org/dc/elements/1.1/title', 'Romance languages; French', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/441', 'http://dewey.info/class', '441', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/441', 'http://purl.org/dc/elements/1.1/title', 'French writing systems & phonology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/442', 'http://dewey.info/class', '442', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/442', 'http://purl.org/dc/elements/1.1/title', 'French etymology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/443', 'http://dewey.info/class', '443', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/443', 'http://purl.org/dc/elements/1.1/title', 'French dictionaries', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/444', 'http://dewey.info/class', '444', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/444', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/445', 'http://dewey.info/class', '445', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/445', 'http://purl.org/dc/elements/1.1/title', 'French grammar', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/446', 'http://dewey.info/class', '446', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/446', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/447', 'http://dewey.info/class', '447', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/447', 'http://purl.org/dc/elements/1.1/title', 'French language variations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/448', 'http://dewey.info/class', '448', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/448', 'http://purl.org/dc/elements/1.1/title', 'Standard French usage', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/449', 'http://dewey.info/class', '449', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/449', 'http://purl.org/dc/elements/1.1/title', 'Occitan & Catalan', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/450', 'http://dewey.info/class', '450', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/450', 'http://purl.org/dc/elements/1.1/title', 'Italian, Romanian & related languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/451', 'http://dewey.info/class', '451', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/451', 'http://purl.org/dc/elements/1.1/title', 'Italian writing systems & phonology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/452', 'http://dewey.info/class', '452', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/452', 'http://purl.org/dc/elements/1.1/title', 'Italian etymology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/453', 'http://dewey.info/class', '453', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/453', 'http://purl.org/dc/elements/1.1/title', 'Italian dictionaries', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/454', 'http://dewey.info/class', '454', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/454', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/455', 'http://dewey.info/class', '455', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/455', 'http://purl.org/dc/elements/1.1/title', 'Italian grammar', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/456', 'http://dewey.info/class', '456', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/456', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/457', 'http://dewey.info/class', '457', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/457', 'http://purl.org/dc/elements/1.1/title', 'Italian language variations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/458', 'http://dewey.info/class', '458', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/458', 'http://purl.org/dc/elements/1.1/title', 'Standard Italian usage', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/459', 'http://dewey.info/class', '459', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/459', 'http://purl.org/dc/elements/1.1/title', 'Romanian & related languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/460', 'http://dewey.info/class', '460', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/460', 'http://purl.org/dc/elements/1.1/title', 'Spanish & Portuguese languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/461', 'http://dewey.info/class', '461', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/461', 'http://purl.org/dc/elements/1.1/title', 'Spanish writing systems & phonology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/462', 'http://dewey.info/class', '462', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/462', 'http://purl.org/dc/elements/1.1/title', 'Spanish etymology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/463', 'http://dewey.info/class', '463', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/463', 'http://purl.org/dc/elements/1.1/title', 'Spanish dictionaries', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/464', 'http://dewey.info/class', '464', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/464', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/465', 'http://dewey.info/class', '465', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/465', 'http://purl.org/dc/elements/1.1/title', 'Spanish grammar', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/466', 'http://dewey.info/class', '466', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/466', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/467', 'http://dewey.info/class', '467', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/467', 'http://purl.org/dc/elements/1.1/title', 'Spanish language variations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/468', 'http://dewey.info/class', '468', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/468', 'http://purl.org/dc/elements/1.1/title', 'Standard Spanish usage', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/469', 'http://dewey.info/class', '469', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/469', 'http://purl.org/dc/elements/1.1/title', 'Portuguese', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/470', 'http://dewey.info/class', '470', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/470', 'http://purl.org/dc/elements/1.1/title', '"Italic languages; Latin"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/470', 'http://purl.org/dc/elements/1.1/title', 'Italic languages; Latin', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/471', 'http://dewey.info/class', '471', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/471', 'http://purl.org/dc/elements/1.1/title', 'Classical Latin writing & phonology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/472', 'http://dewey.info/class', '472', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/472', 'http://purl.org/dc/elements/1.1/title', 'Classical Latin etymology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/473', 'http://dewey.info/class', '473', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/473', 'http://purl.org/dc/elements/1.1/title', 'Classical Latin dictionaries', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/474', 'http://dewey.info/class', '474', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/474', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/475', 'http://dewey.info/class', '475', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/475', 'http://purl.org/dc/elements/1.1/title', 'Classical Latin grammar', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/476', 'http://dewey.info/class', '476', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/476', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/477', 'http://dewey.info/class', '477', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/477', 'http://purl.org/dc/elements/1.1/title', 'Old, postclassical & Vulgar Latin', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/478', 'http://dewey.info/class', '478', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/478', 'http://purl.org/dc/elements/1.1/title', 'Classical Latin usage', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/479', 'http://dewey.info/class', '479', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/479', 'http://purl.org/dc/elements/1.1/title', 'Other Italic languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/480', 'http://dewey.info/class', '480', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/480', 'http://purl.org/dc/elements/1.1/title', '"Hellenic languages; classical Greek"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/480', 'http://purl.org/dc/elements/1.1/title', 'Hellenic languages; classical Greek', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/481', 'http://dewey.info/class', '481', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/481', 'http://purl.org/dc/elements/1.1/title', 'Classical Greek writing & phonology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/482', 'http://dewey.info/class', '482', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/482', 'http://purl.org/dc/elements/1.1/title', 'Classical Greek etymology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/483', 'http://dewey.info/class', '483', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/483', 'http://purl.org/dc/elements/1.1/title', 'Classical Greek dictionaries', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/484', 'http://dewey.info/class', '484', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/484', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/485', 'http://dewey.info/class', '485', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/485', 'http://purl.org/dc/elements/1.1/title', 'Classical Greek grammar', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/486', 'http://dewey.info/class', '486', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/486', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/487', 'http://dewey.info/class', '487', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/487', 'http://purl.org/dc/elements/1.1/title', 'Preclassical & postclassical Greek', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/488', 'http://dewey.info/class', '488', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/488', 'http://purl.org/dc/elements/1.1/title', 'Classical Greek usage', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/489', 'http://dewey.info/class', '489', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/489', 'http://purl.org/dc/elements/1.1/title', 'Other Hellenic languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/490', 'http://dewey.info/class', '490', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/490', 'http://purl.org/dc/elements/1.1/title', 'Other languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/491', 'http://dewey.info/class', '491', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/491', 'http://purl.org/dc/elements/1.1/title', 'East Indo-European & Celtic languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/492', 'http://dewey.info/class', '492', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/492', 'http://purl.org/dc/elements/1.1/title', '"Afro-Asiatic languages; Semitic languages"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/492', 'http://purl.org/dc/elements/1.1/title', 'Afro-Asiatic languages; Semitic languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/493', 'http://dewey.info/class', '493', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/493', 'http://purl.org/dc/elements/1.1/title', 'Non-Semitic Afro-Asiatic languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/494', 'http://dewey.info/class', '494', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/494', 'http://purl.org/dc/elements/1.1/title', 'Altaic, Uralic, Hyperborean & Dravidian', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/495', 'http://dewey.info/class', '495', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/495', 'http://purl.org/dc/elements/1.1/title', 'Languages of East & Southeast Asia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/496', 'http://dewey.info/class', '496', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/496', 'http://purl.org/dc/elements/1.1/title', 'African languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/497', 'http://dewey.info/class', '497', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/497', 'http://purl.org/dc/elements/1.1/title', 'North American native languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/498', 'http://dewey.info/class', '498', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/498', 'http://purl.org/dc/elements/1.1/title', 'South American native languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/499', 'http://dewey.info/class', '499', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/499', 'http://purl.org/dc/elements/1.1/title', 'Austronesian & other languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/500', 'http://dewey.info/class', '500', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/500', 'http://purl.org/dc/elements/1.1/title', 'Natural sciences & mathematics', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/500', 'http://purl.org/dc/elements/1.1/title', 'Natural Sciences and Mathemetics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/501', 'http://dewey.info/class', '501', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/501', 'http://purl.org/dc/elements/1.1/title', 'Philosophy & theory', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/502', 'http://dewey.info/class', '502', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/502', 'http://purl.org/dc/elements/1.1/title', 'Miscellany', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/503', 'http://dewey.info/class', '503', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/503', 'http://purl.org/dc/elements/1.1/title', 'Dictionaries & encyclopedias', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/504', 'http://dewey.info/class', '504', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/504', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/505', 'http://dewey.info/class', '505', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/505', 'http://purl.org/dc/elements/1.1/title', 'Serial publications', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/506', 'http://dewey.info/class', '506', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/506', 'http://purl.org/dc/elements/1.1/title', 'Organizations & management', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/507', 'http://dewey.info/class', '507', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/507', 'http://purl.org/dc/elements/1.1/title', 'Education, research & related topics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/508', 'http://dewey.info/class', '508', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/508', 'http://purl.org/dc/elements/1.1/title', 'Natural history', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/509', 'http://dewey.info/class', '509', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/509', 'http://purl.org/dc/elements/1.1/title', 'Historical, geographic & persons treatment', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/510', 'http://dewey.info/class', '510', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/510', 'http://purl.org/dc/elements/1.1/title', 'Mathematics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/511', 'http://dewey.info/class', '511', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/511', 'http://purl.org/dc/elements/1.1/title', 'General principles of mathematics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/512', 'http://dewey.info/class', '512', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/512', 'http://purl.org/dc/elements/1.1/title', 'Algebra', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/513', 'http://dewey.info/class', '513', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/513', 'http://purl.org/dc/elements/1.1/title', 'Arithmetic', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/514', 'http://dewey.info/class', '514', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/514', 'http://purl.org/dc/elements/1.1/title', 'Topology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/515', 'http://dewey.info/class', '515', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/515', 'http://purl.org/dc/elements/1.1/title', 'Analysis', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/516', 'http://dewey.info/class', '516', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/516', 'http://purl.org/dc/elements/1.1/title', 'Geometry', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/517', 'http://dewey.info/class', '517', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/517', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/518', 'http://dewey.info/class', '518', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/518', 'http://purl.org/dc/elements/1.1/title', 'Numerical analysis', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/519', 'http://dewey.info/class', '519', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/519', 'http://purl.org/dc/elements/1.1/title', 'Probabilities & applied mathematics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/520', 'http://dewey.info/class', '520', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/520', 'http://purl.org/dc/elements/1.1/title', 'Astronomy & allied sciences', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/521', 'http://dewey.info/class', '521', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/521', 'http://purl.org/dc/elements/1.1/title', 'Celestial mechanics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/522', 'http://dewey.info/class', '522', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/522', 'http://purl.org/dc/elements/1.1/title', 'Techniques, equipment & materials', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/523', 'http://dewey.info/class', '523', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/523', 'http://purl.org/dc/elements/1.1/title', 'Specific celestial bodies & phenomena', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/524', 'http://dewey.info/class', '524', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/524', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/525', 'http://dewey.info/class', '525', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/525', 'http://purl.org/dc/elements/1.1/title', 'Earth (Astronomical geography)', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/526', 'http://dewey.info/class', '526', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/526', 'http://purl.org/dc/elements/1.1/title', 'Mathematical geography', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/527', 'http://dewey.info/class', '527', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/527', 'http://purl.org/dc/elements/1.1/title', 'Celestial navigation', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/528', 'http://dewey.info/class', '528', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/528', 'http://purl.org/dc/elements/1.1/title', 'Ephemerides', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/529', 'http://dewey.info/class', '529', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/529', 'http://purl.org/dc/elements/1.1/title', 'Chronology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/530', 'http://dewey.info/class', '530', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/530', 'http://purl.org/dc/elements/1.1/title', 'Physics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/531', 'http://dewey.info/class', '531', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/531', 'http://purl.org/dc/elements/1.1/title', '"Classical mechanics; solid mechanics"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/531', 'http://purl.org/dc/elements/1.1/title', 'Classical mechanics; solid mechanics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/532', 'http://dewey.info/class', '532', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/532', 'http://purl.org/dc/elements/1.1/title', '"Fluid mechanics; liquid mechanics"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/532', 'http://purl.org/dc/elements/1.1/title', 'Fluid mechanics; liquid mechanics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/533', 'http://dewey.info/class', '533', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/533', 'http://purl.org/dc/elements/1.1/title', 'Gas mechanics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/534', 'http://dewey.info/class', '534', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/534', 'http://purl.org/dc/elements/1.1/title', 'Sound & related vibrations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/535', 'http://dewey.info/class', '535', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/535', 'http://purl.org/dc/elements/1.1/title', 'Light & infrared & ultraviolet phenomena', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/536', 'http://dewey.info/class', '536', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/536', 'http://purl.org/dc/elements/1.1/title', 'Heat', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/537', 'http://dewey.info/class', '537', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/537', 'http://purl.org/dc/elements/1.1/title', 'Electricity & electronics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/538', 'http://dewey.info/class', '538', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/538', 'http://purl.org/dc/elements/1.1/title', 'Magnetism', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/539', 'http://dewey.info/class', '539', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/539', 'http://purl.org/dc/elements/1.1/title', 'Modern physics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/540', 'http://dewey.info/class', '540', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/540', 'http://purl.org/dc/elements/1.1/title', 'Chemistry & allied sciences', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/541', 'http://dewey.info/class', '541', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/541', 'http://purl.org/dc/elements/1.1/title', 'Physical chemistry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/542', 'http://dewey.info/class', '542', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/542', 'http://purl.org/dc/elements/1.1/title', 'Techniques, equipment & materials', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/543', 'http://dewey.info/class', '543', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/543', 'http://purl.org/dc/elements/1.1/title', 'Analytical chemistry', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/544', 'http://dewey.info/class', '544', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/544', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/545', 'http://dewey.info/class', '545', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/545', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/546', 'http://dewey.info/class', '546', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/546', 'http://purl.org/dc/elements/1.1/title', 'Inorganic chemistry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/547', 'http://dewey.info/class', '547', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/547', 'http://purl.org/dc/elements/1.1/title', 'Organic chemistry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/548', 'http://dewey.info/class', '548', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/548', 'http://purl.org/dc/elements/1.1/title', 'Crystallography', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/549', 'http://dewey.info/class', '549', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/549', 'http://purl.org/dc/elements/1.1/title', 'Mineralogy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/550', 'http://dewey.info/class', '550', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/550', 'http://purl.org/dc/elements/1.1/title', 'Earth sciences', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/551', 'http://dewey.info/class', '551', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/551', 'http://purl.org/dc/elements/1.1/title', 'Geology, hydrology & meteorology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/552', 'http://dewey.info/class', '552', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/552', 'http://purl.org/dc/elements/1.1/title', 'Petrology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/553', 'http://dewey.info/class', '553', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/553', 'http://purl.org/dc/elements/1.1/title', 'Economic geology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/554', 'http://dewey.info/class', '554', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/554', 'http://purl.org/dc/elements/1.1/title', 'Earth sciences of Europe', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/555', 'http://dewey.info/class', '555', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/555', 'http://purl.org/dc/elements/1.1/title', 'Earth sciences of Asia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/556', 'http://dewey.info/class', '556', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/556', 'http://purl.org/dc/elements/1.1/title', 'Earth sciences of Africa', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/557', 'http://dewey.info/class', '557', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/557', 'http://purl.org/dc/elements/1.1/title', 'Earth sciences of North America', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/558', 'http://dewey.info/class', '558', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/558', 'http://purl.org/dc/elements/1.1/title', 'Earth sciences of South America', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/559', 'http://dewey.info/class', '559', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/559', 'http://purl.org/dc/elements/1.1/title', 'Earth sciences of other areas', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/560', 'http://dewey.info/class', '560', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/560', 'http://purl.org/dc/elements/1.1/title', '"Paleontology; paleozoology"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/560', 'http://purl.org/dc/elements/1.1/title', 'Paleontology; paleozoology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/561', 'http://dewey.info/class', '561', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/561', 'http://purl.org/dc/elements/1.1/title', '"Paleobotany; fossil microorganisms"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/561', 'http://purl.org/dc/elements/1.1/title', 'Paleobotany; fossil microorganisms', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/562', 'http://dewey.info/class', '562', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/562', 'http://purl.org/dc/elements/1.1/title', 'Fossil invertebrates', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/563', 'http://dewey.info/class', '563', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/563', 'http://purl.org/dc/elements/1.1/title', 'Fossil marine & seashore invertebrates', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/564', 'http://dewey.info/class', '564', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/564', 'http://purl.org/dc/elements/1.1/title', 'Fossil mollusks & molluscoids', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/565', 'http://dewey.info/class', '565', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/565', 'http://purl.org/dc/elements/1.1/title', 'Fossil arthropods', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/566', 'http://dewey.info/class', '566', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/566', 'http://purl.org/dc/elements/1.1/title', 'Fossil chordates', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/567', 'http://dewey.info/class', '567', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/567', 'http://purl.org/dc/elements/1.1/title', '"Fossil cold-blooded vertebrates; fossil fishes"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/567', 'http://purl.org/dc/elements/1.1/title', 'Fossil cold-blooded vertebrates; fossil fishes', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/568', 'http://dewey.info/class', '568', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/568', 'http://purl.org/dc/elements/1.1/title', 'Fossil birds', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/569', 'http://dewey.info/class', '569', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/569', 'http://purl.org/dc/elements/1.1/title', 'Fossil mammals', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/570', 'http://dewey.info/class', '570', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/570', 'http://purl.org/dc/elements/1.1/title', '"Life sciences; biology"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/570', 'http://purl.org/dc/elements/1.1/title', 'Life sciences; biology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/571', 'http://dewey.info/class', '571', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/571', 'http://purl.org/dc/elements/1.1/title', 'Physiology & related subjects', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/572', 'http://dewey.info/class', '572', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/572', 'http://purl.org/dc/elements/1.1/title', 'Biochemistry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/573', 'http://dewey.info/class', '573', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/573', 'http://purl.org/dc/elements/1.1/title', 'Specific physiological systems in animals', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/574', 'http://dewey.info/class', '574', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/574', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/575', 'http://dewey.info/class', '575', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/575', 'http://purl.org/dc/elements/1.1/title', 'Specific parts of & systems in plants', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/576', 'http://dewey.info/class', '576', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/576', 'http://purl.org/dc/elements/1.1/title', 'Genetics & evolution', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/577', 'http://dewey.info/class', '577', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/577', 'http://purl.org/dc/elements/1.1/title', 'Ecology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/578', 'http://dewey.info/class', '578', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/578', 'http://purl.org/dc/elements/1.1/title', 'Natural history of organisms', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/579', 'http://dewey.info/class', '579', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/579', 'http://purl.org/dc/elements/1.1/title', 'Microorganisms, fungi & algae', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/580', 'http://dewey.info/class', '580', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/580', 'http://purl.org/dc/elements/1.1/title', 'Plants (Botany)', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/581', 'http://dewey.info/class', '581', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/581', 'http://purl.org/dc/elements/1.1/title', 'Specific topics in natural history', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/582', 'http://dewey.info/class', '582', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/582', 'http://purl.org/dc/elements/1.1/title', 'Plants noted for characteristics & flowers', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/583', 'http://dewey.info/class', '583', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/583', 'http://purl.org/dc/elements/1.1/title', 'Dicotyledons', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/584', 'http://dewey.info/class', '584', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/584', 'http://purl.org/dc/elements/1.1/title', 'Monocotyledons', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/585', 'http://dewey.info/class', '585', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/585', 'http://purl.org/dc/elements/1.1/title', '"Gymnosperms; conifers"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/585', 'http://purl.org/dc/elements/1.1/title', 'Gymnosperms; conifers', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/586', 'http://dewey.info/class', '586', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/586', 'http://purl.org/dc/elements/1.1/title', 'Seedless plants', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/587', 'http://dewey.info/class', '587', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/587', 'http://purl.org/dc/elements/1.1/title', 'Vascular seedless plants', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/588', 'http://dewey.info/class', '588', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/588', 'http://purl.org/dc/elements/1.1/title', 'Bryophytes', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/589', 'http://dewey.info/class', '589', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/589', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/590', 'http://dewey.info/class', '590', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/590', 'http://purl.org/dc/elements/1.1/title', 'Animals (Zoology)', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/591', 'http://dewey.info/class', '591', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/591', 'http://purl.org/dc/elements/1.1/title', 'Specific topics in natural history', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/592', 'http://dewey.info/class', '592', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/592', 'http://purl.org/dc/elements/1.1/title', 'Invertebrates', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/593', 'http://dewey.info/class', '593', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/593', 'http://purl.org/dc/elements/1.1/title', 'Marine & seashore invertebrates', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/594', 'http://dewey.info/class', '594', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/594', 'http://purl.org/dc/elements/1.1/title', 'Mollusks & molluscoids', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/595', 'http://dewey.info/class', '595', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/595', 'http://purl.org/dc/elements/1.1/title', 'Arthropods', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/596', 'http://dewey.info/class', '596', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/596', 'http://purl.org/dc/elements/1.1/title', 'Chordates', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/597', 'http://dewey.info/class', '597', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/597', 'http://purl.org/dc/elements/1.1/title', '"Cold-blooded vertebrates; fishes"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/597', 'http://purl.org/dc/elements/1.1/title', 'Cold-blooded vertebrates; fishes', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/598', 'http://dewey.info/class', '598', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/598', 'http://purl.org/dc/elements/1.1/title', 'Birds', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/599', 'http://dewey.info/class', '599', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/599', 'http://purl.org/dc/elements/1.1/title', 'Mammals', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/600', 'http://dewey.info/class', '600', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/600', 'http://purl.org/dc/elements/1.1/title', 'Technology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/601', 'http://dewey.info/class', '601', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/601', 'http://purl.org/dc/elements/1.1/title', 'Philosophy & theory', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/602', 'http://dewey.info/class', '602', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/602', 'http://purl.org/dc/elements/1.1/title', 'Miscellany', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/603', 'http://dewey.info/class', '603', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/603', 'http://purl.org/dc/elements/1.1/title', 'Dictionaries & encyclopedias', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/604', 'http://dewey.info/class', '604', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/604', 'http://purl.org/dc/elements/1.1/title', 'Special topics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/605', 'http://dewey.info/class', '605', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/605', 'http://purl.org/dc/elements/1.1/title', 'Serial publications', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/606', 'http://dewey.info/class', '606', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/606', 'http://purl.org/dc/elements/1.1/title', 'Organizations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/607', 'http://dewey.info/class', '607', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/607', 'http://purl.org/dc/elements/1.1/title', 'Education, research & related topics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/608', 'http://dewey.info/class', '608', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/608', 'http://purl.org/dc/elements/1.1/title', 'Inventions & patents', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/609', 'http://dewey.info/class', '609', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/609', 'http://purl.org/dc/elements/1.1/title', 'Historical, geographic & persons treatment', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/610', 'http://dewey.info/class', '610', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/610', 'http://purl.org/dc/elements/1.1/title', 'Medicine & health', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/611', 'http://dewey.info/class', '611', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/611', 'http://purl.org/dc/elements/1.1/title', 'Human anatomy, cytology & histology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/612', 'http://dewey.info/class', '612', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/612', 'http://purl.org/dc/elements/1.1/title', 'Human physiology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/613', 'http://dewey.info/class', '613', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/613', 'http://purl.org/dc/elements/1.1/title', 'Personal health & safety', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/614', 'http://dewey.info/class', '614', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/614', 'http://purl.org/dc/elements/1.1/title', 'Incidence & prevention of disease', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/615', 'http://dewey.info/class', '615', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/615', 'http://purl.org/dc/elements/1.1/title', 'Pharmacology & therapeutics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/616', 'http://dewey.info/class', '616', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/616', 'http://purl.org/dc/elements/1.1/title', 'Diseases', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/617', 'http://dewey.info/class', '617', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/617', 'http://purl.org/dc/elements/1.1/title', 'Surgery & related medical specialties', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/618', 'http://dewey.info/class', '618', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/618', 'http://purl.org/dc/elements/1.1/title', 'Gynecology, obstetrics, pediatrics & geriatrics', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/619', 'http://dewey.info/class', '619', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/619', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/620', 'http://dewey.info/class', '620', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/620', 'http://purl.org/dc/elements/1.1/title', 'Engineering & allied operations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/621', 'http://dewey.info/class', '621', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/621', 'http://purl.org/dc/elements/1.1/title', 'Applied physics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/622', 'http://dewey.info/class', '622', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/622', 'http://purl.org/dc/elements/1.1/title', 'Mining & related operations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/623', 'http://dewey.info/class', '623', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/623', 'http://purl.org/dc/elements/1.1/title', 'Military & nautical engineering', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/624', 'http://dewey.info/class', '624', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/624', 'http://purl.org/dc/elements/1.1/title', 'Civil engineering', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/625', 'http://dewey.info/class', '625', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/625', 'http://purl.org/dc/elements/1.1/title', 'Engineering of railroads & roads', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/626', 'http://dewey.info/class', '626', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/626', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/627', 'http://dewey.info/class', '627', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/627', 'http://purl.org/dc/elements/1.1/title', 'Hydraulic engineering', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/628', 'http://dewey.info/class', '628', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/628', 'http://purl.org/dc/elements/1.1/title', 'Sanitary & municipal engineering', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/629', 'http://dewey.info/class', '629', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/629', 'http://purl.org/dc/elements/1.1/title', 'Other branches of engineering', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/630', 'http://dewey.info/class', '630', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/630', 'http://purl.org/dc/elements/1.1/title', 'Agriculture & related technologies', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/631', 'http://dewey.info/class', '631', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/631', 'http://purl.org/dc/elements/1.1/title', 'Techniques, equipment & materials', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/632', 'http://dewey.info/class', '632', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/632', 'http://purl.org/dc/elements/1.1/title', 'Plant injuries, diseases & pests', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/633', 'http://dewey.info/class', '633', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/633', 'http://purl.org/dc/elements/1.1/title', 'Field & plantation crops', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/634', 'http://dewey.info/class', '634', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/634', 'http://purl.org/dc/elements/1.1/title', 'Orchards, fruits & forestry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/635', 'http://dewey.info/class', '635', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/635', 'http://purl.org/dc/elements/1.1/title', 'Garden crops (Horticulture)', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/636', 'http://dewey.info/class', '636', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/636', 'http://purl.org/dc/elements/1.1/title', 'Animal husbandry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/637', 'http://dewey.info/class', '637', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/637', 'http://purl.org/dc/elements/1.1/title', 'Processing dairy & related products', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/638', 'http://dewey.info/class', '638', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/638', 'http://purl.org/dc/elements/1.1/title', 'Insect culture', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/639', 'http://dewey.info/class', '639', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/639', 'http://purl.org/dc/elements/1.1/title', 'Hunting, fishing & conservation', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/640', 'http://dewey.info/class', '640', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/640', 'http://purl.org/dc/elements/1.1/title', 'Home & family management', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/641', 'http://dewey.info/class', '641', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/641', 'http://purl.org/dc/elements/1.1/title', 'Food & drink', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/642', 'http://dewey.info/class', '642', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/642', 'http://purl.org/dc/elements/1.1/title', 'Meals & table service', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/643', 'http://dewey.info/class', '643', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/643', 'http://purl.org/dc/elements/1.1/title', 'Housing & household equipment', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/644', 'http://dewey.info/class', '644', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/644', 'http://purl.org/dc/elements/1.1/title', 'Household utilities', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/645', 'http://dewey.info/class', '645', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/645', 'http://purl.org/dc/elements/1.1/title', 'Household furnishings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/646', 'http://dewey.info/class', '646', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/646', 'http://purl.org/dc/elements/1.1/title', 'Sewing, clothing & personal living', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/647', 'http://dewey.info/class', '647', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/647', 'http://purl.org/dc/elements/1.1/title', 'Management of public households', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/648', 'http://dewey.info/class', '648', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/648', 'http://purl.org/dc/elements/1.1/title', 'Housekeeping', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/649', 'http://dewey.info/class', '649', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/649', 'http://purl.org/dc/elements/1.1/title', 'Child rearing & home care of persons', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/650', 'http://dewey.info/class', '650', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/650', 'http://purl.org/dc/elements/1.1/title', 'Management & auxiliary services', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/651', 'http://dewey.info/class', '651', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/651', 'http://purl.org/dc/elements/1.1/title', 'Office services', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/652', 'http://dewey.info/class', '652', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/652', 'http://purl.org/dc/elements/1.1/title', 'Processes of written communication', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/653', 'http://dewey.info/class', '653', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/653', 'http://purl.org/dc/elements/1.1/title', 'Shorthand', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/654', 'http://dewey.info/class', '654', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/654', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/655', 'http://dewey.info/class', '655', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/655', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/656', 'http://dewey.info/class', '656', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/656', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/657', 'http://dewey.info/class', '657', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/657', 'http://purl.org/dc/elements/1.1/title', 'Accounting', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/658', 'http://dewey.info/class', '658', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/658', 'http://purl.org/dc/elements/1.1/title', 'General management', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/659', 'http://dewey.info/class', '659', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/659', 'http://purl.org/dc/elements/1.1/title', 'Advertising & public relations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/660', 'http://dewey.info/class', '660', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/660', 'http://purl.org/dc/elements/1.1/title', 'Chemical engineering', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/661', 'http://dewey.info/class', '661', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/661', 'http://purl.org/dc/elements/1.1/title', 'Industrial chemicals', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/662', 'http://dewey.info/class', '662', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/662', 'http://purl.org/dc/elements/1.1/title', 'Explosives, fuels & related products', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/663', 'http://dewey.info/class', '663', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/663', 'http://purl.org/dc/elements/1.1/title', 'Beverage technology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/664', 'http://dewey.info/class', '664', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/664', 'http://purl.org/dc/elements/1.1/title', 'Food technology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/665', 'http://dewey.info/class', '665', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/665', 'http://purl.org/dc/elements/1.1/title', 'Industrial oils, fats, waxes & gases', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/666', 'http://dewey.info/class', '666', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/666', 'http://purl.org/dc/elements/1.1/title', 'Ceramic & allied technologies', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/667', 'http://dewey.info/class', '667', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/667', 'http://purl.org/dc/elements/1.1/title', 'Cleaning, color & coating technologies', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/668', 'http://dewey.info/class', '668', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/668', 'http://purl.org/dc/elements/1.1/title', 'Technology of other organic products', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/669', 'http://dewey.info/class', '669', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/669', 'http://purl.org/dc/elements/1.1/title', 'Metallurgy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/670', 'http://dewey.info/class', '670', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/670', 'http://purl.org/dc/elements/1.1/title', 'Manufacturing', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/671', 'http://dewey.info/class', '671', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/671', 'http://purl.org/dc/elements/1.1/title', 'Metalworking & primary metal products', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/672', 'http://dewey.info/class', '672', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/672', 'http://purl.org/dc/elements/1.1/title', 'Iron, steel & other iron alloys', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/673', 'http://dewey.info/class', '673', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/673', 'http://purl.org/dc/elements/1.1/title', 'Nonferrous metals', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/674', 'http://dewey.info/class', '674', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/674', 'http://purl.org/dc/elements/1.1/title', 'Lumber processing, wood products & cork', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/675', 'http://dewey.info/class', '675', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/675', 'http://purl.org/dc/elements/1.1/title', 'Leather & fur processing', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/676', 'http://dewey.info/class', '676', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/676', 'http://purl.org/dc/elements/1.1/title', 'Pulp & paper technology', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/677', 'http://dewey.info/class', '677', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/677', 'http://purl.org/dc/elements/1.1/title', 'Textiles', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/678', 'http://dewey.info/class', '678', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/678', 'http://purl.org/dc/elements/1.1/title', 'Elastomers & elastomer products', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/679', 'http://dewey.info/class', '679', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/679', 'http://purl.org/dc/elements/1.1/title', 'Other products of specific materials', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/680', 'http://dewey.info/class', '680', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/680', 'http://purl.org/dc/elements/1.1/title', 'Manufacture for specific uses', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/681', 'http://dewey.info/class', '681', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/681', 'http://purl.org/dc/elements/1.1/title', 'Precision instruments & other devices', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/682', 'http://dewey.info/class', '682', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/682', 'http://purl.org/dc/elements/1.1/title', 'Small forge work (Blacksmithing)', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/683', 'http://dewey.info/class', '683', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/683', 'http://purl.org/dc/elements/1.1/title', 'Hardware & household appliances', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/684', 'http://dewey.info/class', '684', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/684', 'http://purl.org/dc/elements/1.1/title', 'Furnishings & home workshops', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/685', 'http://dewey.info/class', '685', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/685', 'http://purl.org/dc/elements/1.1/title', 'Leather, fur goods & related products', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/686', 'http://dewey.info/class', '686', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/686', 'http://purl.org/dc/elements/1.1/title', 'Printing & related activities', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/687', 'http://dewey.info/class', '687', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/687', 'http://purl.org/dc/elements/1.1/title', 'Clothing & accessories', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/688', 'http://dewey.info/class', '688', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/688', 'http://purl.org/dc/elements/1.1/title', 'Other final products & packaging', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/689', 'http://dewey.info/class', '689', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/689', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/690', 'http://dewey.info/class', '690', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/690', 'http://purl.org/dc/elements/1.1/title', 'Buildings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/691', 'http://dewey.info/class', '691', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/691', 'http://purl.org/dc/elements/1.1/title', 'Building materials', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/692', 'http://dewey.info/class', '692', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/692', 'http://purl.org/dc/elements/1.1/title', 'Auxiliary construction practices', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/693', 'http://dewey.info/class', '693', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/693', 'http://purl.org/dc/elements/1.1/title', 'Specific materials & purposes', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/694', 'http://dewey.info/class', '694', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/694', 'http://purl.org/dc/elements/1.1/title', 'Wood construction & carpentry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/695', 'http://dewey.info/class', '695', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/695', 'http://purl.org/dc/elements/1.1/title', 'Roof covering', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/696', 'http://dewey.info/class', '696', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/696', 'http://purl.org/dc/elements/1.1/title', 'Utilities', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/697', 'http://dewey.info/class', '697', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/697', 'http://purl.org/dc/elements/1.1/title', 'Heating, ventilating & air-conditioning', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/698', 'http://dewey.info/class', '698', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/698', 'http://purl.org/dc/elements/1.1/title', 'Detail finishing', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/699', 'http://dewey.info/class', '699', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/699', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/700', 'http://dewey.info/class', '700', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/700', 'http://purl.org/dc/elements/1.1/title', '"The arts; fine & decorative arts"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/700', 'http://purl.org/dc/elements/1.1/title', 'The arts; fine & decorative arts', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/701', 'http://dewey.info/class', '701', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/701', 'http://purl.org/dc/elements/1.1/title', 'Philosophy of fine & decorative arts', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/702', 'http://dewey.info/class', '702', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/702', 'http://purl.org/dc/elements/1.1/title', 'Miscellany of fine & decorative arts', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/703', 'http://dewey.info/class', '703', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/703', 'http://purl.org/dc/elements/1.1/title', 'Dictionaries of fine & decorative arts', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/704', 'http://dewey.info/class', '704', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/704', 'http://purl.org/dc/elements/1.1/title', 'Special topics in fine & decorative arts', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/705', 'http://dewey.info/class', '705', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/705', 'http://purl.org/dc/elements/1.1/title', 'Serial publications of fine & decorative arts', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/706', 'http://dewey.info/class', '706', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/706', 'http://purl.org/dc/elements/1.1/title', 'Organizations & management', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/707', 'http://dewey.info/class', '707', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/707', 'http://purl.org/dc/elements/1.1/title', 'Education, research & related topics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/708', 'http://dewey.info/class', '708', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/708', 'http://purl.org/dc/elements/1.1/title', 'Galleries, museums & private collections', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/709', 'http://dewey.info/class', '709', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/709', 'http://purl.org/dc/elements/1.1/title', 'Historical, geographic & persons treatment', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/710', 'http://dewey.info/class', '710', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/710', 'http://purl.org/dc/elements/1.1/title', 'Civic & landscape art', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/711', 'http://dewey.info/class', '711', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/711', 'http://purl.org/dc/elements/1.1/title', 'Area planning', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/712', 'http://dewey.info/class', '712', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/712', 'http://purl.org/dc/elements/1.1/title', 'Landscape architecture', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/713', 'http://dewey.info/class', '713', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/713', 'http://purl.org/dc/elements/1.1/title', 'Landscape architecture of trafficways', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/714', 'http://dewey.info/class', '714', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/714', 'http://purl.org/dc/elements/1.1/title', 'Water features', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/715', 'http://dewey.info/class', '715', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/715', 'http://purl.org/dc/elements/1.1/title', 'Woody plants', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/716', 'http://dewey.info/class', '716', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/716', 'http://purl.org/dc/elements/1.1/title', 'Herbaceous plants', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/717', 'http://dewey.info/class', '717', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/717', 'http://purl.org/dc/elements/1.1/title', 'Structures in landscape architecture', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/718', 'http://dewey.info/class', '718', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/718', 'http://purl.org/dc/elements/1.1/title', 'Landscape design of cemeteries', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/719', 'http://dewey.info/class', '719', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/719', 'http://purl.org/dc/elements/1.1/title', 'Natural landscapes', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/720', 'http://dewey.info/class', '720', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/720', 'http://purl.org/dc/elements/1.1/title', 'Architecture', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/721', 'http://dewey.info/class', '721', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/721', 'http://purl.org/dc/elements/1.1/title', 'Architectural structure', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/722', 'http://dewey.info/class', '722', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/722', 'http://purl.org/dc/elements/1.1/title', 'Architecture to ca. 300', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/723', 'http://dewey.info/class', '723', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/723', 'http://purl.org/dc/elements/1.1/title', 'Architecture from ca. 300 to 1399', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/724', 'http://dewey.info/class', '724', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/724', 'http://purl.org/dc/elements/1.1/title', 'Architecture from 1400', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/725', 'http://dewey.info/class', '725', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/725', 'http://purl.org/dc/elements/1.1/title', 'Public structures', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/726', 'http://dewey.info/class', '726', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/726', 'http://purl.org/dc/elements/1.1/title', 'Buildings for religious purposes', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/727', 'http://dewey.info/class', '727', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/727', 'http://purl.org/dc/elements/1.1/title', 'Buildings for education & research', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/728', 'http://dewey.info/class', '728', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/728', 'http://purl.org/dc/elements/1.1/title', 'Residential & related buildings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/729', 'http://dewey.info/class', '729', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/729', 'http://purl.org/dc/elements/1.1/title', 'Design & decoration', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/730', 'http://dewey.info/class', '730', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/730', 'http://purl.org/dc/elements/1.1/title', '"Plastic arts; sculpture"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/730', 'http://purl.org/dc/elements/1.1/title', 'Plastic arts; sculpture', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/731', 'http://dewey.info/class', '731', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/731', 'http://purl.org/dc/elements/1.1/title', 'Processes, forms & subjects of sculpture', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/732', 'http://dewey.info/class', '732', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/732', 'http://purl.org/dc/elements/1.1/title', 'Sculpture to ca. 500', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/733', 'http://dewey.info/class', '733', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/733', 'http://purl.org/dc/elements/1.1/title', 'Greek, Etruscan & Roman sculpture', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/734', 'http://dewey.info/class', '734', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/734', 'http://purl.org/dc/elements/1.1/title', 'Sculpture from ca. 500 to 1399', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/735', 'http://dewey.info/class', '735', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/735', 'http://purl.org/dc/elements/1.1/title', 'Sculpture from 1400', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/736', 'http://dewey.info/class', '736', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/736', 'http://purl.org/dc/elements/1.1/title', 'Carving & carvings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/737', 'http://dewey.info/class', '737', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/737', 'http://purl.org/dc/elements/1.1/title', 'Numismatics & sigillography', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/738', 'http://dewey.info/class', '738', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/738', 'http://purl.org/dc/elements/1.1/title', 'Ceramic arts', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/739', 'http://dewey.info/class', '739', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/739', 'http://purl.org/dc/elements/1.1/title', 'Art metalwork', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/740', 'http://dewey.info/class', '740', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/740', 'http://purl.org/dc/elements/1.1/title', 'Drawing & decorative arts', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/741', 'http://dewey.info/class', '741', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/741', 'http://purl.org/dc/elements/1.1/title', 'Drawing & drawings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/742', 'http://dewey.info/class', '742', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/742', 'http://purl.org/dc/elements/1.1/title', 'Perspective', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/743', 'http://dewey.info/class', '743', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/743', 'http://purl.org/dc/elements/1.1/title', 'Drawing & drawings by subject', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/744', 'http://dewey.info/class', '744', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/744', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/745', 'http://dewey.info/class', '745', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/745', 'http://purl.org/dc/elements/1.1/title', 'Decorative arts', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/746', 'http://dewey.info/class', '746', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/746', 'http://purl.org/dc/elements/1.1/title', 'Textile arts', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/747', 'http://dewey.info/class', '747', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/747', 'http://purl.org/dc/elements/1.1/title', 'Interior decoration', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/748', 'http://dewey.info/class', '748', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/748', 'http://purl.org/dc/elements/1.1/title', 'Glass', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/749', 'http://dewey.info/class', '749', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/749', 'http://purl.org/dc/elements/1.1/title', 'Furniture & accessories', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/750', 'http://dewey.info/class', '750', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/750', 'http://purl.org/dc/elements/1.1/title', 'Painting & paintings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/751', 'http://dewey.info/class', '751', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/751', 'http://purl.org/dc/elements/1.1/title', 'Techniques, equipment, materials & forms', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/752', 'http://dewey.info/class', '752', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/752', 'http://purl.org/dc/elements/1.1/title', 'Color', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/753', 'http://dewey.info/class', '753', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/753', 'http://purl.org/dc/elements/1.1/title', 'Symbolism, allegory, mythology & legend', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/754', 'http://dewey.info/class', '754', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/754', 'http://purl.org/dc/elements/1.1/title', 'Genre paintings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/755', 'http://dewey.info/class', '755', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/755', 'http://purl.org/dc/elements/1.1/title', 'Religion', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/756', 'http://dewey.info/class', '756', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/756', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/757', 'http://dewey.info/class', '757', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/757', 'http://purl.org/dc/elements/1.1/title', 'Human figures', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/758', 'http://dewey.info/class', '758', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/758', 'http://purl.org/dc/elements/1.1/title', 'Other subjects', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/759', 'http://dewey.info/class', '759', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/759', 'http://purl.org/dc/elements/1.1/title', 'Historical, geographic & persons treatment', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/760', 'http://dewey.info/class', '760', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/760', 'http://purl.org/dc/elements/1.1/title', '"Graphic arts; printmaking & prints"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/760', 'http://purl.org/dc/elements/1.1/title', 'Graphic arts; printmaking & prints', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/761', 'http://dewey.info/class', '761', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/761', 'http://purl.org/dc/elements/1.1/title', 'Relief processes (Block printing)', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/762', 'http://dewey.info/class', '762', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/762', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/763', 'http://dewey.info/class', '763', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/763', 'http://purl.org/dc/elements/1.1/title', 'Lithographic processes', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/764', 'http://dewey.info/class', '764', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/764', 'http://purl.org/dc/elements/1.1/title', 'Chromolithography & serigraphy', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/765', 'http://dewey.info/class', '765', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/765', 'http://purl.org/dc/elements/1.1/title', 'Metal engraving', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/766', 'http://dewey.info/class', '766', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/766', 'http://purl.org/dc/elements/1.1/title', 'Mezzotinting, aquatinting & related processes', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/767', 'http://dewey.info/class', '767', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/767', 'http://purl.org/dc/elements/1.1/title', 'Etching & drypoint', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/768', 'http://dewey.info/class', '768', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/768', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/769', 'http://dewey.info/class', '769', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/769', 'http://purl.org/dc/elements/1.1/title', 'Prints', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/770', 'http://dewey.info/class', '770', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/770', 'http://purl.org/dc/elements/1.1/title', 'Photography, photographs & computer art', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/771', 'http://dewey.info/class', '771', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/771', 'http://purl.org/dc/elements/1.1/title', 'Techniques, equipment & materials', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/772', 'http://dewey.info/class', '772', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/772', 'http://purl.org/dc/elements/1.1/title', 'Metallic salt processes', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/773', 'http://dewey.info/class', '773', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/773', 'http://purl.org/dc/elements/1.1/title', 'Pigment processes of printing', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/774', 'http://dewey.info/class', '774', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/774', 'http://purl.org/dc/elements/1.1/title', 'Holography', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/775', 'http://dewey.info/class', '775', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/775', 'http://purl.org/dc/elements/1.1/title', 'Digital photography', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/776', 'http://dewey.info/class', '776', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/776', 'http://purl.org/dc/elements/1.1/title', 'Computer art (Digital art)', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/777', 'http://dewey.info/class', '777', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/777', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/778', 'http://dewey.info/class', '778', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/778', 'http://purl.org/dc/elements/1.1/title', 'Fields & kinds of photography', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/779', 'http://dewey.info/class', '779', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/779', 'http://purl.org/dc/elements/1.1/title', 'Photographs', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/780', 'http://dewey.info/class', '780', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/780', 'http://purl.org/dc/elements/1.1/title', 'Music', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/781', 'http://dewey.info/class', '781', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/781', 'http://purl.org/dc/elements/1.1/title', 'General principles & musical forms', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/782', 'http://dewey.info/class', '782', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/782', 'http://purl.org/dc/elements/1.1/title', 'Vocal music', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/783', 'http://dewey.info/class', '783', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/783', 'http://purl.org/dc/elements/1.1/title', '"Music for single voices; the voice"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/783', 'http://purl.org/dc/elements/1.1/title', 'Music for single voices; the voice', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/784', 'http://dewey.info/class', '784', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/784', 'http://purl.org/dc/elements/1.1/title', 'Instruments & instrumental ensembles', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/785', 'http://dewey.info/class', '785', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/785', 'http://purl.org/dc/elements/1.1/title', 'Ensembles with one instrument per part', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/786', 'http://dewey.info/class', '786', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/786', 'http://purl.org/dc/elements/1.1/title', 'Keyboard & other instruments', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/787', 'http://dewey.info/class', '787', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/787', 'http://purl.org/dc/elements/1.1/title', 'Stringed instruments', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/788', 'http://dewey.info/class', '788', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/788', 'http://purl.org/dc/elements/1.1/title', 'Wind instruments', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/789', 'http://dewey.info/class', '789', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/789', 'http://purl.org/dc/elements/1.1/title', '(Optional number)', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/790', 'http://dewey.info/class', '790', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/790', 'http://purl.org/dc/elements/1.1/title', 'Recreational & performing arts', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/791', 'http://dewey.info/class', '791', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/791', 'http://purl.org/dc/elements/1.1/title', 'Public performances', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/792', 'http://dewey.info/class', '792', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/792', 'http://purl.org/dc/elements/1.1/title', 'Stage presentations', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/793', 'http://dewey.info/class', '793', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/793', 'http://purl.org/dc/elements/1.1/title', 'Indoor games & amusements', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/794', 'http://dewey.info/class', '794', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/794', 'http://purl.org/dc/elements/1.1/title', 'Indoor games of skill', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/795', 'http://dewey.info/class', '795', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/795', 'http://purl.org/dc/elements/1.1/title', 'Games of chance', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/796', 'http://dewey.info/class', '796', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/796', 'http://purl.org/dc/elements/1.1/title', 'Athletic & outdoor sports & games', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/797', 'http://dewey.info/class', '797', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/797', 'http://purl.org/dc/elements/1.1/title', 'Aquatic & air sports', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/798', 'http://dewey.info/class', '798', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/798', 'http://purl.org/dc/elements/1.1/title', 'Equestrian sports & animal racing', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/799', 'http://dewey.info/class', '799', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/799', 'http://purl.org/dc/elements/1.1/title', 'Fishing, hunting & shooting', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/800', 'http://dewey.info/class', '800', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/800', 'http://purl.org/dc/elements/1.1/title', 'Literature & rhetoric', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/801', 'http://dewey.info/class', '801', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/801', 'http://purl.org/dc/elements/1.1/title', 'Philosophy & theory', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/802', 'http://dewey.info/class', '802', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/802', 'http://purl.org/dc/elements/1.1/title', 'Miscellany', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/803', 'http://dewey.info/class', '803', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/803', 'http://purl.org/dc/elements/1.1/title', 'Dictionaries & encyclopedias', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/804', 'http://dewey.info/class', '804', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/804', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/805', 'http://dewey.info/class', '805', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/805', 'http://purl.org/dc/elements/1.1/title', 'Serial publications', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/806', 'http://dewey.info/class', '806', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/806', 'http://purl.org/dc/elements/1.1/title', 'Organizations & management', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/807', 'http://dewey.info/class', '807', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/807', 'http://purl.org/dc/elements/1.1/title', 'Education, research & related topics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/808', 'http://dewey.info/class', '808', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/808', 'http://purl.org/dc/elements/1.1/title', 'Rhetoric & collections of literature', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/809', 'http://dewey.info/class', '809', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/809', 'http://purl.org/dc/elements/1.1/title', 'History, description & criticism', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/810', 'http://dewey.info/class', '810', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/810', 'http://purl.org/dc/elements/1.1/title', 'American literature in English', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/811', 'http://dewey.info/class', '811', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/811', 'http://purl.org/dc/elements/1.1/title', 'American poetry in English', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/812', 'http://dewey.info/class', '812', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/812', 'http://purl.org/dc/elements/1.1/title', 'American drama in English', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/813', 'http://dewey.info/class', '813', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/813', 'http://purl.org/dc/elements/1.1/title', 'American fiction in English', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/814', 'http://dewey.info/class', '814', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/814', 'http://purl.org/dc/elements/1.1/title', 'American essays in English', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/815', 'http://dewey.info/class', '815', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/815', 'http://purl.org/dc/elements/1.1/title', 'American speeches in English', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/816', 'http://dewey.info/class', '816', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/816', 'http://purl.org/dc/elements/1.1/title', 'American letters in English', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/817', 'http://dewey.info/class', '817', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/817', 'http://purl.org/dc/elements/1.1/title', 'American humor & satire in English', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/818', 'http://dewey.info/class', '818', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/818', 'http://purl.org/dc/elements/1.1/title', 'American miscellaneous writings', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/819', 'http://dewey.info/class', '819', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/819', 'http://purl.org/dc/elements/1.1/title', '(Optional number)', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/820', 'http://dewey.info/class', '820', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/820', 'http://purl.org/dc/elements/1.1/title', 'English & Old English literatures', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/821', 'http://dewey.info/class', '821', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/821', 'http://purl.org/dc/elements/1.1/title', 'English poetry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/822', 'http://dewey.info/class', '822', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/822', 'http://purl.org/dc/elements/1.1/title', 'English drama', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/823', 'http://dewey.info/class', '823', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/823', 'http://purl.org/dc/elements/1.1/title', 'English fiction', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/824', 'http://dewey.info/class', '824', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/824', 'http://purl.org/dc/elements/1.1/title', 'English essays', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/825', 'http://dewey.info/class', '825', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/825', 'http://purl.org/dc/elements/1.1/title', 'English speeches', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/826', 'http://dewey.info/class', '826', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/826', 'http://purl.org/dc/elements/1.1/title', 'English letters', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/827', 'http://dewey.info/class', '827', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/827', 'http://purl.org/dc/elements/1.1/title', 'English humor & satire', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/828', 'http://dewey.info/class', '828', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/828', 'http://purl.org/dc/elements/1.1/title', 'English miscellaneous writings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/829', 'http://dewey.info/class', '829', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/829', 'http://purl.org/dc/elements/1.1/title', 'Old English (Anglo-Saxon)', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/830', 'http://dewey.info/class', '830', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/830', 'http://purl.org/dc/elements/1.1/title', 'Literatures of Germanic languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/831', 'http://dewey.info/class', '831', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/831', 'http://purl.org/dc/elements/1.1/title', 'German poetry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/832', 'http://dewey.info/class', '832', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/832', 'http://purl.org/dc/elements/1.1/title', 'German drama', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/833', 'http://dewey.info/class', '833', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/833', 'http://purl.org/dc/elements/1.1/title', 'German fiction', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/834', 'http://dewey.info/class', '834', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/834', 'http://purl.org/dc/elements/1.1/title', 'German essays', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/835', 'http://dewey.info/class', '835', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/835', 'http://purl.org/dc/elements/1.1/title', 'German speeches', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/836', 'http://dewey.info/class', '836', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/836', 'http://purl.org/dc/elements/1.1/title', 'German letters', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/837', 'http://dewey.info/class', '837', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/837', 'http://purl.org/dc/elements/1.1/title', 'German humor & satire', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/838', 'http://dewey.info/class', '838', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/838', 'http://purl.org/dc/elements/1.1/title', 'German miscellaneous writings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/839', 'http://dewey.info/class', '839', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/839', 'http://purl.org/dc/elements/1.1/title', 'Other Germanic literatures', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/840', 'http://dewey.info/class', '840', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/840', 'http://purl.org/dc/elements/1.1/title', 'Literatures of Romance languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/841', 'http://dewey.info/class', '841', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/841', 'http://purl.org/dc/elements/1.1/title', 'French poetry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/842', 'http://dewey.info/class', '842', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/842', 'http://purl.org/dc/elements/1.1/title', 'French drama', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/843', 'http://dewey.info/class', '843', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/843', 'http://purl.org/dc/elements/1.1/title', 'French fiction', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/844', 'http://dewey.info/class', '844', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/844', 'http://purl.org/dc/elements/1.1/title', 'French essays', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/845', 'http://dewey.info/class', '845', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/845', 'http://purl.org/dc/elements/1.1/title', 'French speeches', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/846', 'http://dewey.info/class', '846', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/846', 'http://purl.org/dc/elements/1.1/title', 'French letters', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/847', 'http://dewey.info/class', '847', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/847', 'http://purl.org/dc/elements/1.1/title', 'French humor & satire', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/848', 'http://dewey.info/class', '848', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/848', 'http://purl.org/dc/elements/1.1/title', 'French miscellaneous writings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/849', 'http://dewey.info/class', '849', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/849', 'http://purl.org/dc/elements/1.1/title', 'Occitan & Catalan literatures', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/850', 'http://dewey.info/class', '850', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/850', 'http://purl.org/dc/elements/1.1/title', 'Italian, Romanian & related literatures', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/851', 'http://dewey.info/class', '851', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/851', 'http://purl.org/dc/elements/1.1/title', 'Italian poetry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/852', 'http://dewey.info/class', '852', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/852', 'http://purl.org/dc/elements/1.1/title', 'Italian drama', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/853', 'http://dewey.info/class', '853', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/853', 'http://purl.org/dc/elements/1.1/title', 'Italian fiction', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/854', 'http://dewey.info/class', '854', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/854', 'http://purl.org/dc/elements/1.1/title', 'Italian essays', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/855', 'http://dewey.info/class', '855', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/855', 'http://purl.org/dc/elements/1.1/title', 'Italian speeches', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/856', 'http://dewey.info/class', '856', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/856', 'http://purl.org/dc/elements/1.1/title', 'Italian letters', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/857', 'http://dewey.info/class', '857', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/857', 'http://purl.org/dc/elements/1.1/title', 'Italian humor & satire', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/858', 'http://dewey.info/class', '858', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/858', 'http://purl.org/dc/elements/1.1/title', 'Italian miscellaneous writings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/859', 'http://dewey.info/class', '859', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/859', 'http://purl.org/dc/elements/1.1/title', 'Romanian & related literatures', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/860', 'http://dewey.info/class', '860', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/860', 'http://purl.org/dc/elements/1.1/title', 'Spanish & Portuguese literatures', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/861', 'http://dewey.info/class', '861', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/861', 'http://purl.org/dc/elements/1.1/title', 'Spanish poetry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/862', 'http://dewey.info/class', '862', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/862', 'http://purl.org/dc/elements/1.1/title', 'Spanish drama', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/863', 'http://dewey.info/class', '863', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/863', 'http://purl.org/dc/elements/1.1/title', 'Spanish fiction', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/864', 'http://dewey.info/class', '864', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/864', 'http://purl.org/dc/elements/1.1/title', 'Spanish essays', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/865', 'http://dewey.info/class', '865', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/865', 'http://purl.org/dc/elements/1.1/title', 'Spanish speeches', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/866', 'http://dewey.info/class', '866', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/866', 'http://purl.org/dc/elements/1.1/title', 'Spanish letters', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/867', 'http://dewey.info/class', '867', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/867', 'http://purl.org/dc/elements/1.1/title', 'Spanish humor & satire', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/868', 'http://dewey.info/class', '868', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/868', 'http://purl.org/dc/elements/1.1/title', 'Spanish miscellaneous writings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/869', 'http://dewey.info/class', '869', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/869', 'http://purl.org/dc/elements/1.1/title', 'Portuguese literature', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/870', 'http://dewey.info/class', '870', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/870', 'http://purl.org/dc/elements/1.1/title', '"Italic literatures; Latin literature"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/870', 'http://purl.org/dc/elements/1.1/title', 'Italic literatures; Latin literature', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/871', 'http://dewey.info/class', '871', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/871', 'http://purl.org/dc/elements/1.1/title', 'Latin poetry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/872', 'http://dewey.info/class', '872', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/872', 'http://purl.org/dc/elements/1.1/title', 'Latin dramatic poetry & drama', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/873', 'http://dewey.info/class', '873', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/873', 'http://purl.org/dc/elements/1.1/title', 'Latin epic poetry & fiction', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/874', 'http://dewey.info/class', '874', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/874', 'http://purl.org/dc/elements/1.1/title', 'Latin lyric poetry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/875', 'http://dewey.info/class', '875', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/875', 'http://purl.org/dc/elements/1.1/title', 'Latin speeches', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/876', 'http://dewey.info/class', '876', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/876', 'http://purl.org/dc/elements/1.1/title', 'Latin letters', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/877', 'http://dewey.info/class', '877', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/877', 'http://purl.org/dc/elements/1.1/title', 'Latin humor & satire', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/878', 'http://dewey.info/class', '878', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/878', 'http://purl.org/dc/elements/1.1/title', 'Latin miscellaneous writings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/879', 'http://dewey.info/class', '879', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/879', 'http://purl.org/dc/elements/1.1/title', 'Literatures of other Italic languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/880', 'http://dewey.info/class', '880', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/880', 'http://purl.org/dc/elements/1.1/title', '"Hellenic literatures; classical Greek"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/880', 'http://purl.org/dc/elements/1.1/title', 'Hellenic literatures; classical Greek', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/881', 'http://dewey.info/class', '881', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/881', 'http://purl.org/dc/elements/1.1/title', 'Classical Greek poetry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/882', 'http://dewey.info/class', '882', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/882', 'http://purl.org/dc/elements/1.1/title', 'Classical Greek dramatic poetry & drama', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/883', 'http://dewey.info/class', '883', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/883', 'http://purl.org/dc/elements/1.1/title', 'Classical Greek epic poetry & fiction', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/884', 'http://dewey.info/class', '884', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/884', 'http://purl.org/dc/elements/1.1/title', 'Classical Greek lyric poetry', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/885', 'http://dewey.info/class', '885', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/885', 'http://purl.org/dc/elements/1.1/title', 'Classical Greek speeches', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/886', 'http://dewey.info/class', '886', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/886', 'http://purl.org/dc/elements/1.1/title', 'Classical Greek letters', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/887', 'http://dewey.info/class', '887', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/887', 'http://purl.org/dc/elements/1.1/title', 'Classical Greek humor & satire', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/888', 'http://dewey.info/class', '888', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/888', 'http://purl.org/dc/elements/1.1/title', 'Classical Greek miscellaneous writings', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/889', 'http://dewey.info/class', '889', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/889', 'http://purl.org/dc/elements/1.1/title', 'Modern Greek literature', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/890', 'http://dewey.info/class', '890', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/890', 'http://purl.org/dc/elements/1.1/title', 'Literatures of other languages', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/891', 'http://dewey.info/class', '891', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/891', 'http://purl.org/dc/elements/1.1/title', 'East Indo-European & Celtic literatures', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/892', 'http://dewey.info/class', '892', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/892', 'http://purl.org/dc/elements/1.1/title', '"Afro-Asiatic literatures; Semitic literatures"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/892', 'http://purl.org/dc/elements/1.1/title', 'Afro-Asiatic literatures; Semitic literatures', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/893', 'http://dewey.info/class', '893', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/893', 'http://purl.org/dc/elements/1.1/title', 'Non-Semitic Afro-Asiatic literatures', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/894', 'http://dewey.info/class', '894', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/894', 'http://purl.org/dc/elements/1.1/title', 'Altaic, Uralic, Hyperborean & Dravidian', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/895', 'http://dewey.info/class', '895', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/895', 'http://purl.org/dc/elements/1.1/title', 'Literatures of East & Southeast Asia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/896', 'http://dewey.info/class', '896', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/896', 'http://purl.org/dc/elements/1.1/title', 'African literatures', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/897', 'http://dewey.info/class', '897', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/897', 'http://purl.org/dc/elements/1.1/title', 'North American native literatures', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/898', 'http://dewey.info/class', '898', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/898', 'http://purl.org/dc/elements/1.1/title', 'South American native literatures', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/899', 'http://dewey.info/class', '899', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/899', 'http://purl.org/dc/elements/1.1/title', 'Austronesian & other literatures', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/900', 'http://dewey.info/class', '900', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/900', 'http://purl.org/dc/elements/1.1/title', 'History & geography', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/901', 'http://dewey.info/class', '901', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/901', 'http://purl.org/dc/elements/1.1/title', 'Philosophy & theory', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/902', 'http://dewey.info/class', '902', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/902', 'http://purl.org/dc/elements/1.1/title', 'Miscellany', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/903', 'http://dewey.info/class', '903', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/903', 'http://purl.org/dc/elements/1.1/title', 'Dictionaries & encyclopedias', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/904', 'http://dewey.info/class', '904', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/904', 'http://purl.org/dc/elements/1.1/title', 'Collected accounts of events', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/905', 'http://dewey.info/class', '905', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/905', 'http://purl.org/dc/elements/1.1/title', 'Serial publications', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/906', 'http://dewey.info/class', '906', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/906', 'http://purl.org/dc/elements/1.1/title', 'Organizations & management', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/907', 'http://dewey.info/class', '907', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/907', 'http://purl.org/dc/elements/1.1/title', 'Education, research & related topics', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/908', 'http://dewey.info/class', '908', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/908', 'http://purl.org/dc/elements/1.1/title', 'Kinds of persons treatment', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/909', 'http://dewey.info/class', '909', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/909', 'http://purl.org/dc/elements/1.1/title', 'World history', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/910', 'http://dewey.info/class', '910', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/910', 'http://purl.org/dc/elements/1.1/title', 'Geography & travel', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/911', 'http://dewey.info/class', '911', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/911', 'http://purl.org/dc/elements/1.1/title', 'Historical geography', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/912', 'http://dewey.info/class', '912', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/912', 'http://purl.org/dc/elements/1.1/title', 'Atlases, maps, charts & plans', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/913', 'http://dewey.info/class', '913', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/913', 'http://purl.org/dc/elements/1.1/title', 'Geography of & travel in ancient world', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/914', 'http://dewey.info/class', '914', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/914', 'http://purl.org/dc/elements/1.1/title', 'Geography of & travel in Europe', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/915', 'http://dewey.info/class', '915', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/915', 'http://purl.org/dc/elements/1.1/title', 'Geography of & travel in Asia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/916', 'http://dewey.info/class', '916', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/916', 'http://purl.org/dc/elements/1.1/title', 'Geography of & travel in Africa', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/917', 'http://dewey.info/class', '917', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/917', 'http://purl.org/dc/elements/1.1/title', 'Geography of & travel in North America', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/918', 'http://dewey.info/class', '918', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/918', 'http://purl.org/dc/elements/1.1/title', 'Geography of & travel in South America', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/919', 'http://dewey.info/class', '919', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/919', 'http://purl.org/dc/elements/1.1/title', 'Geography of & travel in other areas', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/920', 'http://dewey.info/class', '920', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/920', 'http://purl.org/dc/elements/1.1/title', 'Biography, genealogy & insignia', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/921', 'http://dewey.info/class', '921', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/921', 'http://purl.org/dc/elements/1.1/title', '(Optional number)', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/922', 'http://dewey.info/class', '922', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/922', 'http://purl.org/dc/elements/1.1/title', '(Optional number)', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/923', 'http://dewey.info/class', '923', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/923', 'http://purl.org/dc/elements/1.1/title', '(Optional number)', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/924', 'http://dewey.info/class', '924', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/924', 'http://purl.org/dc/elements/1.1/title', '(Optional number)', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/925', 'http://dewey.info/class', '925', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/925', 'http://purl.org/dc/elements/1.1/title', '(Optional number)', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/926', 'http://dewey.info/class', '926', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/926', 'http://purl.org/dc/elements/1.1/title', '(Optional number)', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/927', 'http://dewey.info/class', '927', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/927', 'http://purl.org/dc/elements/1.1/title', '(Optional number)', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/928', 'http://dewey.info/class', '928', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/928', 'http://purl.org/dc/elements/1.1/title', '(Optional number)', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/929', 'http://dewey.info/class', '929', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/929', 'http://purl.org/dc/elements/1.1/title', 'Genealogy, names & insignia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/930', 'http://dewey.info/class', '930', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/930', 'http://purl.org/dc/elements/1.1/title', 'History of ancient world to ca. 499', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/931', 'http://dewey.info/class', '931', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/931', 'http://purl.org/dc/elements/1.1/title', 'China to 420', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/932', 'http://dewey.info/class', '932', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/932', 'http://purl.org/dc/elements/1.1/title', 'Egypt to 640', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/933', 'http://dewey.info/class', '933', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/933', 'http://purl.org/dc/elements/1.1/title', 'Palestine to 70', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/934', 'http://dewey.info/class', '934', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/934', 'http://purl.org/dc/elements/1.1/title', 'India to 647', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/935', 'http://dewey.info/class', '935', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/935', 'http://purl.org/dc/elements/1.1/title', 'Mesopotamia & Iranian Plateau to 637', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/936', 'http://dewey.info/class', '936', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/936', 'http://purl.org/dc/elements/1.1/title', 'Europe north & west of Italy to ca. 499', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/937', 'http://dewey.info/class', '937', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/937', 'http://purl.org/dc/elements/1.1/title', 'Italy & adjacent territories to 476', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/938', 'http://dewey.info/class', '938', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/938', 'http://purl.org/dc/elements/1.1/title', 'Greece to 323', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/939', 'http://dewey.info/class', '939', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/939', 'http://purl.org/dc/elements/1.1/title', 'Other parts of ancient world to ca. 640', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/940', 'http://dewey.info/class', '940', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/940', 'http://purl.org/dc/elements/1.1/title', 'History of Europe', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/941', 'http://dewey.info/class', '941', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/941', 'http://purl.org/dc/elements/1.1/title', 'British Isles', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/942', 'http://dewey.info/class', '942', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/942', 'http://purl.org/dc/elements/1.1/title', 'England & Wales', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/943', 'http://dewey.info/class', '943', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/943', 'http://purl.org/dc/elements/1.1/title', '"Central Europe; Germany"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/943', 'http://purl.org/dc/elements/1.1/title', 'Central Europe; Germany', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/944', 'http://dewey.info/class', '944', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/944', 'http://purl.org/dc/elements/1.1/title', 'France & Monaco', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/945', 'http://dewey.info/class', '945', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/945', 'http://purl.org/dc/elements/1.1/title', 'Italian Peninsula & adjacent islands', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/946', 'http://dewey.info/class', '946', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/946', 'http://purl.org/dc/elements/1.1/title', 'Iberian Peninsula & adjacent islands', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/947', 'http://dewey.info/class', '947', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/947', 'http://purl.org/dc/elements/1.1/title', '"Eastern Europe; Russia"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/947', 'http://purl.org/dc/elements/1.1/title', 'Eastern Europe; Russia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/948', 'http://dewey.info/class', '948', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/948', 'http://purl.org/dc/elements/1.1/title', 'Scandinavia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/949', 'http://dewey.info/class', '949', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/949', 'http://purl.org/dc/elements/1.1/title', 'Other parts of Europe', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/950', 'http://dewey.info/class', '950', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/950', 'http://purl.org/dc/elements/1.1/title', '"History of Asia; Far East"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/950', 'http://purl.org/dc/elements/1.1/title', 'History of Asia; Far East', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/951', 'http://dewey.info/class', '951', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/951', 'http://purl.org/dc/elements/1.1/title', 'China & adjacent areas', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/952', 'http://dewey.info/class', '952', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/952', 'http://purl.org/dc/elements/1.1/title', 'Japan', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/953', 'http://dewey.info/class', '953', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/953', 'http://purl.org/dc/elements/1.1/title', 'Arabian Peninsula & adjacent areas', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/954', 'http://dewey.info/class', '954', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/954', 'http://purl.org/dc/elements/1.1/title', '"South Asia; India"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/954', 'http://purl.org/dc/elements/1.1/title', 'South Asia; India', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/955', 'http://dewey.info/class', '955', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/955', 'http://purl.org/dc/elements/1.1/title', 'Iran', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/956', 'http://dewey.info/class', '956', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/956', 'http://purl.org/dc/elements/1.1/title', 'Middle East (Near East)', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/957', 'http://dewey.info/class', '957', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/957', 'http://purl.org/dc/elements/1.1/title', 'Siberia (Asiatic Russia)', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/958', 'http://dewey.info/class', '958', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/958', 'http://purl.org/dc/elements/1.1/title', 'Central Asia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/959', 'http://dewey.info/class', '959', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/959', 'http://purl.org/dc/elements/1.1/title', 'Southeast Asia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/960', 'http://dewey.info/class', '960', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/960', 'http://purl.org/dc/elements/1.1/title', 'History of Africa', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/961', 'http://dewey.info/class', '961', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/961', 'http://purl.org/dc/elements/1.1/title', 'Tunisia & Libya', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/962', 'http://dewey.info/class', '962', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/962', 'http://purl.org/dc/elements/1.1/title', 'Egypt & Sudan', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/963', 'http://dewey.info/class', '963', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/963', 'http://purl.org/dc/elements/1.1/title', 'Ethiopia & Eritrea', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/964', 'http://dewey.info/class', '964', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/964', 'http://purl.org/dc/elements/1.1/title', 'Northwest African coast & offshore islands', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/965', 'http://dewey.info/class', '965', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/965', 'http://purl.org/dc/elements/1.1/title', 'Algeria', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/966', 'http://dewey.info/class', '966', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/966', 'http://purl.org/dc/elements/1.1/title', 'West Africa & offshore islands', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/967', 'http://dewey.info/class', '967', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/967', 'http://purl.org/dc/elements/1.1/title', 'Central Africa & offshore islands', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/968', 'http://dewey.info/class', '968', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/968', 'http://purl.org/dc/elements/1.1/title', '"Southern Africa; Republic of South Africa"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/968', 'http://purl.org/dc/elements/1.1/title', 'Southern Africa; Republic of South Africa', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/969', 'http://dewey.info/class', '969', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/969', 'http://purl.org/dc/elements/1.1/title', 'South Indian Ocean islands', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/970', 'http://dewey.info/class', '970', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/970', 'http://purl.org/dc/elements/1.1/title', 'History of North America', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/971', 'http://dewey.info/class', '971', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/971', 'http://purl.org/dc/elements/1.1/title', 'Canada', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/972', 'http://dewey.info/class', '972', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/972', 'http://purl.org/dc/elements/1.1/title', '"Middle America; Mexico"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/972', 'http://purl.org/dc/elements/1.1/title', 'Middle America; Mexico', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/973', 'http://dewey.info/class', '973', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/973', 'http://purl.org/dc/elements/1.1/title', 'United States', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/974', 'http://dewey.info/class', '974', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/974', 'http://purl.org/dc/elements/1.1/title', 'Northeastern United States', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/975', 'http://dewey.info/class', '975', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/975', 'http://purl.org/dc/elements/1.1/title', 'Southeastern United States', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/976', 'http://dewey.info/class', '976', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/976', 'http://purl.org/dc/elements/1.1/title', 'South central United States', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/977', 'http://dewey.info/class', '977', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/977', 'http://purl.org/dc/elements/1.1/title', 'North central United States', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/978', 'http://dewey.info/class', '978', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/978', 'http://purl.org/dc/elements/1.1/title', 'Western United States', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/979', 'http://dewey.info/class', '979', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/979', 'http://purl.org/dc/elements/1.1/title', 'Great Basin & Pacific Slope region', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/980', 'http://dewey.info/class', '980', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/980', 'http://purl.org/dc/elements/1.1/title', 'History of South America', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/981', 'http://dewey.info/class', '981', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/981', 'http://purl.org/dc/elements/1.1/title', 'Brazil', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/982', 'http://dewey.info/class', '982', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/982', 'http://purl.org/dc/elements/1.1/title', 'Argentina', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/983', 'http://dewey.info/class', '983', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/983', 'http://purl.org/dc/elements/1.1/title', 'Chile', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/984', 'http://dewey.info/class', '984', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/984', 'http://purl.org/dc/elements/1.1/title', 'Bolivia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/985', 'http://dewey.info/class', '985', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/985', 'http://purl.org/dc/elements/1.1/title', 'Peru', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/986', 'http://dewey.info/class', '986', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/986', 'http://purl.org/dc/elements/1.1/title', 'Colombia & Ecuador', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/987', 'http://dewey.info/class', '987', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/987', 'http://purl.org/dc/elements/1.1/title', 'Venezuela', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/988', 'http://dewey.info/class', '988', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/988', 'http://purl.org/dc/elements/1.1/title', 'Guiana', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/989', 'http://dewey.info/class', '989', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/989', 'http://purl.org/dc/elements/1.1/title', 'Paraguay & Uruguay', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/990', 'http://dewey.info/class', '990', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/990', 'http://purl.org/dc/elements/1.1/title', 'History of other areas', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/991', 'http://dewey.info/class', '991', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/991', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/992', 'http://dewey.info/class', '992', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/992', 'http://purl.org/dc/elements/1.1/title', '[Unassigned]', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/993', 'http://dewey.info/class', '993', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/993', 'http://purl.org/dc/elements/1.1/title', 'New Zealand', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/994', 'http://dewey.info/class', '994', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/994', 'http://purl.org/dc/elements/1.1/title', 'Australia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/995', 'http://dewey.info/class', '995', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/995', 'http://purl.org/dc/elements/1.1/title', '"Melanesia; New Guinea"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/995', 'http://purl.org/dc/elements/1.1/title', 'Melanesia; New Guinea', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/996', 'http://dewey.info/class', '996', NULL, 'ddc');
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/996', 'http://purl.org/dc/elements/1.1/title', '"Other parts of Pacific; Polynesia"', NULL, 'ddc');
+INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/996', 'http://purl.org/dc/elements/1.1/title', 'Other parts of Pacific; Polynesia', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/997', 'http://dewey.info/class', '997', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/997', 'http://purl.org/dc/elements/1.1/title', 'Atlantic Ocean islands', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/998', 'http://dewey.info/class', '998', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/998', 'http://purl.org/dc/elements/1.1/title', 'Arctic islands & Antarctica', NULL, 'ddc');
+
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/999', 'http://dewey.info/class', '999', NULL, 'ddc');
 INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('ddc/resource/999', 'http://purl.org/dc/elements/1.1/title', 'Extraterrestrial worlds', NULL, 'ddc');
-
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.005', 'http://purl.org/dc/elements/1.1/identifier', '000.000.005', NULL, NULL);
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.005', 'http://purl.org/dc/elements/1.1/identifier', '000.000.005', NULL, NULL);
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.005', 'http://purl.org/dc/elements/1.1/title', 'Computer programming, programs & data', NULL, NULL);
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.005', 'http://purl.org/dc/elements/1.1/title', 'Computer programming, programs & data', NULL, NULL);
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.006', 'http://purl.org/dc/elements/1.1/identifier', '000.000.006', NULL, NULL);
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.006', 'http://purl.org/dc/elements/1.1/identifier', '000.000.006', NULL, NULL);
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.006', 'http://purl.org/dc/elements/1.1/title', 'Special computer methods', NULL, NULL);
-INSERT INTO triples (subject, predicate, object, lang, model) VALUES ('http://dewey.info/class/000.000.006', 'http://purl.org/dc/elements/1.1/title', 'Special computer methods', NULL, NULL);
-
 
 INSERT INTO results (id, value, lang) VALUES ('ddc/resource/000', '000 - Computer science, information & general works', NULL);
 INSERT INTO results (id, value, lang) VALUES ('ddc/resource/001', '001 - Knowledge', NULL);

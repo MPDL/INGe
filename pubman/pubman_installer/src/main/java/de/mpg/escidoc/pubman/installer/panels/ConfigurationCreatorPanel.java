@@ -163,14 +163,6 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 
 	}
 
-	private void checkContentModel() throws Exception {
-		InitialDataset dataset = new InitialDataset(new URL(idata
-				.getVariable("CoreserviceUrl")), idata
-				.getVariable("CoreserviceAdminUser"), idata
-				.getVariable("CoreserviceAdminPassword"));
-		dataset.retrieveContentModel(Installer.CHECK_CONTENT_MODEL);
-	}
-	
 	private void createDataset() throws Exception {
 			String ouExternalObjectId = null;
 			InitialDataset dataset = new InitialDataset( new URL(idata.getVariable("CoreserviceUrl") ), 
@@ -262,25 +254,20 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 		// textArea.append("The 'Next' button will be activated after all data has been inserted.\n");
 		// textArea.append("\n\n");
 
-		LabelPanel contentModelPanel = new LabelPanel("Checking for existence of a Content Model in the Core Service Repository", false);
-		add(contentModelPanel, NEXT_LINE);
-
 		LabelPanel propertiesModelPanel = new LabelPanel("Writing configuration (pubman.properties)", false);
 		add(propertiesModelPanel, NEXT_LINE);
 		
+        try {
+            storeConfiguration();
+            propertiesModelPanel.setEndLabel("Configuration written successfully!", LabelPanel.ICON_SUCCESS);
+        } catch (Exception e) {
+            propertiesModelPanel.setEndLabel("Error. Property file could not be written!", LabelPanel.ICON_ERROR);
+            propertiesModelPanel.addToTextArea(e.toString() + ": " + e.getMessage());
+            success = false;
+        }
+        
+        revalidate();
 
-		try {
-			checkContentModel();
-			contentModelPanel.setEndLabel("Content model found!", LabelPanel.ICON_SUCCESS);
-		} catch (Exception e) {
-			contentModelPanel.setEndLabel("Content model (" + Installer.CHECK_CONTENT_MODEL + ") not found.", LabelPanel.ICON_WARNING);
-			String hint = "Please ingest content model after installation, as described on first installer information page. If the content model was already available during this installation, please re-run the installation and ensure that the coreservice is up and running and the correct coreservice credentials are provided in the installer.";
-			contentModelPanel.addToTextArea(e.toString() + ": " + e.getMessage() + "\n" + hint);
-		}
-		
-		revalidate();
-		
-		
 		if(haveToInstallInitialDataset())
 		{
 			
@@ -294,24 +281,12 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel {
 		    	datasetPanel.setEndLabel("Error while creating initial dataset!", LabelPanel.ICON_ERROR);
 		    	String hint = "Please rerun installation and ensure that the eSciDoc coreservice is running and the correct coreservice credentials are provided in the installer.";
 		    	datasetPanel.addToTextArea(e.toString() + ": " + e.getMessage() + "\n" + hint);
+		    	e.printStackTrace();
 			    success = false;
 		       }
 		    
 		    revalidate();
 		}
-		
-		try {
-			storeConfiguration();
-			propertiesModelPanel.setEndLabel("Configuration written successfully!", LabelPanel.ICON_SUCCESS);
-		} catch (Exception e) {
-			propertiesModelPanel.setEndLabel("Error. Property file could not be written!", LabelPanel.ICON_ERROR);
-			propertiesModelPanel.addToTextArea(e.toString() + ": " + e.getMessage());
-			success = false;
-		}
-		
-		revalidate();
-		
-		
 		
 		if(haveToInsertConeData())
 		{
