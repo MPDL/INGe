@@ -640,8 +640,7 @@ public class ItemControllerSessionBean extends FacesBean
     {
         // clear the list of  locators and files when start creating  a new revision
         EditItemSessionBean editItemSessionBean = this.getEditItemSessionBean();
-        editItemSessionBean.getFiles().clear();
-        editItemSessionBean.getLocators().clear();
+        editItemSessionBean.clean();
         
         // Changed by DiT, 29.11.2007: only show contexts when user has privileges for more than one context
         // if there is only one context for this user we can skip the CreateItem-Dialog and create the new item directly
@@ -705,8 +704,9 @@ public class ItemControllerSessionBean extends FacesBean
         }
     }
     
-    private ContextListSessionBean getContextListSessionBean() {
-        return (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+    private ContextListSessionBean getContextListSessionBean()
+    {
+        return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
     }
     
     /**
@@ -716,7 +716,7 @@ public class ItemControllerSessionBean extends FacesBean
      */
     protected EditItemSessionBean getEditItemSessionBean()
     {
-        return (EditItemSessionBean)getSessionBean(EditItemSessionBean.class);
+        return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
     }
 
     /**

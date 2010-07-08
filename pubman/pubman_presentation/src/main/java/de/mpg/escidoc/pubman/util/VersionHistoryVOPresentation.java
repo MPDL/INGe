@@ -87,6 +87,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         .getRequestMap()
         .get(ViewItemFull.BEAN_NAME);
         viewItemFull.setPubItem(new PubItemVOPresentation(pubItemVONewVersion));
+        viewItemFull.init();
         
         return ViewItemFull.LOAD_VIEWITEM;
     }
