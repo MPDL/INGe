@@ -38,6 +38,7 @@ import org.apache.myfaces.trinidad.component.UIXIterator;
 import de.mpg.escidoc.pubman.EditItemBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
+import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
 import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
 import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
@@ -46,6 +47,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
 /**
@@ -75,6 +77,8 @@ public class EditItemSessionBean extends EditItemBean
      * A creator bean that holds the data from the author copy&paste organizations
      */
     private CreatorBean authorCopyPasteOrganizationsCreatorBean;
+    
+    private List<SourceBean> sources = new ArrayList<SourceBean>();
 
     public static final String SUBMISSION_METHOD_FULL_SUBMISSION = "FULL_SUBMISSION";
     public static final String SUBMISSION_METHOD_EASY_SUBMISSION = "EASY_SUBMISSION";
@@ -141,9 +145,30 @@ public class EditItemSessionBean extends EditItemBean
 	    
 	    this.files.clear();
 		this.locators.clear();
+		this.sources.clear();
 		this.genreBundle = "";
 		this.offset="";
 	}
+	
+	public void bindSourcesToBean(List<SourceVO> sourceList)
+	{
+	    for (SourceVO sourceVO : sourceList)
+        {
+            this.sources.add(new SourceBean(sourceVO, this.sources));
+        }
+	}
+
+    public void bindSourcesToVO(List<SourceVO> sourceList)
+    {
+        sourceList.clear();
+        for (SourceBean sourceBean : getSources())
+        {
+            SourceVO sourceVO = sourceBean.getSource();
+
+            sourceList.add(sourceVO);
+        }
+    }
+
 	
 	/**
      * This method reorganizes the index property in PubFileVOPresentation after removing one element of the list.
@@ -214,6 +239,16 @@ public class EditItemSessionBean extends EditItemBean
         return offset;
     }
     
+    public List<SourceBean> getSources()
+    {
+        return sources;
+    }
+
+    public void setSources(List<SourceBean> sources)
+    {
+        this.sources = sources;
+    }
+
     /**
      * (Re)-initializes the PersonOPrganisationManager that manages the author copy&paste organizations.
      */

@@ -32,11 +32,10 @@
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
 <h:panelGroup rendered="#{!(genre.sources_display == 'false' && genre.sources_form_id == 'full-submission' || genre.sources_display == 'false' && genre.sources_form_id == 'all')}">
-	<h:dataTable id="editSource" styleClass="free_area0" var="sourceBean" value="#{EditItem.sourceCollection.sourceManager.objectDM}">
-	    <h:column>
-		<h:panelGroup layout="block" styleClass="full_area0 itemBlock" >
+	<tr:iterator id="editSource" var="sourceBean" value="#{EditItemSessionBean.sources}">
+		<h:panelGroup layout="block" styleClass="full_area0 itemBlock free_area0" >
 			<h3 class="xLarge_area0_p8 endline blockHeader">
-				<h:outputText value="#{genre.sources_label}" converter="GenreLabelConverter"/> <h:outputText value="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" />
+				<h:outputText value="#{genre.sources_label}" converter="GenreLabelConverter"/> <h:outputText value="#{sourceBean.position + 1}" />
 			</h3>
 			<span class="seperator"></span>
 			<div class="free_area0 itemBlockContent endline">
@@ -52,8 +51,8 @@
 						</h:selectOneMenu>
 					</span>
 					<span class="huge_area0_p8 lineToolSection sourcesControls">
-						<tr:commandButton id="btnAddEditItem_btRemoveSource" styleClass="min_imgBtn groupBtn remove sectionTool" text=" " shortDesc="#{tip.EditItem_btRemoveSource}" action="#{EditItem.sourceCollection.sourceManager.removeObject}" disabled="#{EditItem.sourceCollection.sourceManager.size == 1}" rendered="#{genre.sources_repeatable != 'false'}"/>
-						<tr:commandButton id="btnRemoveEditItem_btRemoveSource" styleClass="min_imgBtn groupBtn add sectionTool" text=" " shortDesc="#{tip.EditItem_btAddSource}" action="#{EditItem.sourceCollection.sourceManager.addObject}" rendered="#{genre.sources_repeatable != 'false'}"/>
+						<tr:commandButton id="btnAddEditItem_btRemoveSource" styleClass="min_imgBtn groupBtn remove sectionTool" text=" " shortDesc="#{tip.EditItem_btRemoveSource}" action="#{sourceBean.remove}" disabled="#{sourceBean.singleElement}" rendered="#{genre.sources_repeatable != 'false'}"/>
+						<tr:commandButton id="btnRemoveEditItem_btRemoveSource" styleClass="min_imgBtn groupBtn add sectionTool" text=" " shortDesc="#{tip.EditItem_btAddSource}" action="#{sourceBean.add}" rendered="#{genre.sources_repeatable != 'false'}"/>
 					</span>
 				</h:panelGroup>
 	
@@ -356,11 +355,10 @@
 					</span>
 				</h:panelGroup>
 				
-				<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /> <h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter"/> <h:outputText value="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" /></a>	
+				<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /> <h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter"/> <h:outputText value="#{sourceBean.position + 1}" /></a>	
 	
 			</div>
-			<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /> <h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter"/> <h:outputText value="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" /></a>
+			<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /> <h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter"/> <h:outputText value="#{sourceBean.position + 1}" /></a>
 		</h:panelGroup>
-		</h:column>
-	</h:dataTable>
+	</tr:iterator>
 </h:panelGroup>

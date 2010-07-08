@@ -71,26 +71,17 @@ public class SourceBean extends EditItemBean
     private CoreCommandButton btnChooseCollection = new CoreCommandButton();
     private String hiddenAlternativeTitlesField;
     private String hiddenIdsField;
-    private String creatorParseString;
-    private boolean overwriteCreators;
-
-    /**
-     * Default constructor.
-     */
-    public SourceBean()
-    {
-        // ensure the parentVO is never null;
-        this(new SourceVO());
-        this.btnChooseCollection.setId("Source1");
-    }
+    
+    private List<SourceBean> list;
 
     /**
      * Create a source bean using a given {@link SourceVO}.
      * 
      * @param source The original source vo.
      */
-    public SourceBean(SourceVO source)
+    public SourceBean(SourceVO source, List<SourceBean> list)
     {
+        this.list = list;
         setSource(source);
         this.btnChooseCollection.setId("Source1");
         if (source.getGenre() != null && source.getGenre().equals(SourceVO.Genre.JOURNAL))
@@ -113,7 +104,10 @@ public class SourceBean extends EditItemBean
     {
         this.source = source;
         // initialize embedded collections
-        bindCreatorsToBean(source.getCreators());
+        if (getCreators().size() == 0)
+        {
+            bindCreatorsToBean(source.getCreators());
+        }
         identifierCollection = new IdentifierCollection(source.getIdentifiers());
         titleCollection = new TitleCollection(source);
         if (source.getPublishingInfo() == null)
@@ -315,6 +309,36 @@ public class SourceBean extends EditItemBean
         return list;
     }
 
+    public int getPosition()
+    {
+        for (int i = 0; i < list.size(); i++)
+        {
+            if (list.get(i) == this)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    public String add()
+    {
+        SourceBean newSourceBean = new SourceBean(new SourceVO(), this.list);
+        list.add(getPosition() + 1, newSourceBean);
+        return "";
+    }
+    
+    public String remove()
+    {
+        list.remove(this);
+        return "";
+    }
+    
+    public boolean isSingleElement()
+    {
+        return (this.list.size() == 1);
+    }
+    
     public void setHiddenIdsField(String hiddenIdsField)
     {
         this.hiddenIdsField = hiddenIdsField;
@@ -334,4 +358,15 @@ public class SourceBean extends EditItemBean
     {
         return hiddenAlternativeTitlesField;
     }
+
+    public List<SourceBean> getList()
+    {
+        return list;
+    }
+
+    public void setList(List<SourceBean> list)
+    {
+        this.list = list;
+    }
+    
 }

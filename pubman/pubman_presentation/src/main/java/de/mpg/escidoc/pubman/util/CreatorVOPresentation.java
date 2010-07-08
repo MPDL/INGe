@@ -192,8 +192,7 @@ public class CreatorVOPresentation extends CreatorVO
     {
         if (isPersonType() && this.ouNumbers == null)
         {
-            EditItemSessionBean editItemSessionBean = (EditItemSessionBean) EditItemSessionBean.getSessionBean(EditItemSessionBean.class);
-            List<OrganizationVOPresentation> creatorOrganizations = editItemSessionBean.getCreatorOrganizations();
+            List<OrganizationVOPresentation> creatorOrganizations = bean.getCreatorOrganizations();
             for (OrganizationVO organization : getPerson().getOrganizations())
             {
                 if (ouNumbers == null)
