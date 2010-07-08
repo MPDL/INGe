@@ -623,13 +623,13 @@
 		
 		<escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
 		
-		<escidoc.pubman.genres.configuration>WEB-INF/classes/Genres.xml</escidoc.pubman.genres.configuration>
+		<escidoc.pubman.genres.configuration>Genres.xml</escidoc.pubman.genres.configuration>
 		
 
 		<!-- syndication service -->
 		<escidoc.syndication.maximum.records>50</escidoc.syndication.maximum.records>
 		<escidoc.syndication.ttl>0</escidoc.syndication.ttl>
-		<escidoc.syndication.feeds.xml.path>WEB-INF/classes/resources/feeds.xml</escidoc.syndication.feeds.xml.path>
+		<escidoc.syndication.feeds.xml.path>resources/feeds.xml</escidoc.syndication.feeds.xml.path>
 	
 		<organization.logo>http://www.mpdl.mpg.de/mpdl/sys/css/screen/images/logo.gif</organization.logo>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
