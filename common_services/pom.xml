@@ -503,6 +503,7 @@
 		<escidoc.cone.modelsxml.path>models.xml</escidoc.cone.modelsxml.path>
 		
 		<escidoc.cone.mimetype.pattern>application/vnd.cone-(.+)</escidoc.cone.mimetype.pattern>
+		<escidoc.pubman.genres.configuration>Genres.xml</escidoc.pubman.genres.configuration>
 
 		<escidoc.dataacquisition.service.url>http://localhost:8080/dataacquisition/</escidoc.dataacquisition.service.url>
 		<!-- unAPI -->
