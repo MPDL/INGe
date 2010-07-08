@@ -100,6 +100,7 @@ public class ImportProcess extends Thread
     private Search search;
     private Format format;
     private ContextRO escidocContext;
+    private String publicationContentModel;
     private AccountUserVO user;
     private FormatProcessor formatProcessor;
     private String fileName;
@@ -122,6 +123,14 @@ public class ImportProcess extends Thread
     public ImportProcess(String name, String fileName, InputStream inputStream, Format format,
             ContextRO escidocContext, AccountUserVO user, boolean rollback, int duplicateStrategy)
     {
+        try
+        {
+            this.publicationContentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Error getting property 'escidoc.framework_access.content-model.id.publication'", e);
+        }
+        
         log = new ImportLog("import", user.getReference().getObjectId(), format.getName());
         log.setPercentage(5);
         // Say Hello
@@ -533,6 +542,7 @@ public class ImportProcess extends Thread
             log.addDetail(ErrorLevel.FINE, "import_process_transformation_done");
             PubItemVO pubItemVO = xmlTransforming.transformToPubItem(esidocXml);
             pubItemVO.setContext(escidocContext);
+            pubItemVO.setContentModel(publicationContentModel);
             pubItemVO.getVersion().setObjectId(null);
             pubItemVO.getLocalTags().add("multiple_import");
             pubItemVO.getLocalTags().add(log.getMessage() + " " + log.getStartDateFormatted());
