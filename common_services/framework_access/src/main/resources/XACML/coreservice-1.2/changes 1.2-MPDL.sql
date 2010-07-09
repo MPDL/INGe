@@ -1701,6 +1701,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
                     info:escidoc/names:aa:1.0:action:submit-item 
                     info:escidoc/names:aa:1.0:action:revise-item 
                     info:escidoc/names:aa:1.0:action:release-item 
+                    info:escidoc/names:aa:1.0:action:withdraw-item 
                     info:escidoc/names:aa:1.0:action:retrieve-content 
                     info:escidoc/names:aa:1.0:action:retrieve-container 
                     info:escidoc/names:aa:1.0:action:update-container 
@@ -1709,6 +1710,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
                     info:escidoc/names:aa:1.0:action:remove-members-from-container  
                     info:escidoc/names:aa:1.0:action:submit-container 
                     info:escidoc/names:aa:1.0:action:revise-container 
+                    info:escidoc/names:aa:1.0:action:withdraw-container 
                     info:escidoc/names:aa:1.0:action:release-container 
                     info:escidoc/names:aa:1.0:action:create-grant 
                     info:escidoc/names:aa:1.0:action:create-user-group-grant 
@@ -1836,6 +1838,73 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
             </Apply>
         </Condition>
     </Rule>
+
+		<Rule RuleId="Moderator-policy-rule-wi" Effect="Permit">
+		<Target>
+			<Subjects>
+				<AnySubject/>
+			</Subjects>
+			<Resources>
+				<AnyResource/>
+			</Resources>
+			<Actions>
+				<Action>
+					<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:withdraw-item                         </AttributeValue>
+						<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</ActionMatch>
+				</Action>
+			</Actions>
+		</Target>
+		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</Apply>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</AttributeValue>
+				</Apply>
+			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				</Apply>
+				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</AttributeValue>
+			</Apply>
+		</Condition>
+	</Rule>
+
+		<Rule RuleId="Moderator-policy-rule-wc" Effect="Permit">
+		<Target>
+			<Subjects>
+				<AnySubject/>
+			</Subjects>
+			<Resources>
+				<AnyResource/>
+			</Resources>
+			<Actions>
+				<Action>
+					<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:withdraw-container                         </AttributeValue>
+						<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</ActionMatch>
+				</Action>
+			</Actions>
+		</Target>
+		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</Apply>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</AttributeValue>
+				</Apply>
+			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				</Apply>
+				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</AttributeValue>
+			</Apply>
+		</Condition>
+	</Rule>
+
     <Rule RuleId="Moderator-policy-rule-retrievei" Effect="Permit">
         <Target>
             <Subjects>
@@ -2209,30 +2278,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
             </Apply>
             <SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="info:escidoc/names:aa:1.0:subject:role-grant:escidoc:role-moderator:assigned-on" DataType="http://www.w3.org/2001/XMLSchema#string"/>
         </Condition>
-    </Rule>
-    <!-- not needed any longer, some roles can be retrieved by default policies. User accounts can be retrieved in any case if this user has user-account-admin privileges. Not part of the moderator policy 
-    <Rule RuleId="Moderator-policy-rule-cregrpandgrnts" Effect="Permit">
-            <Target>
-                <Subjects>
-                    <AnySubject/>
-                </Subjects>
-                <Resources>
-                    <AnyResource/>
-                </Resources>
-                <Actions>
-                    <Action>
-                        <ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
-                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
-                            info:escidoc/names:aa:1.0:action:retrieve-user-account 
-                            info:escidoc/names:aa:1.0:action:retrieve-role 
-                            </AttributeValue>
-                            <ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-                        </ActionMatch>
-                    </Action>
-                </Actions>
-            </Target>
-        </Rule>
--->
+    </Rule> 
 </Policy>
 ');
 INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:policy-system-inspector', 'escidoc:role-system-inspector', '<Policy PolicyId="System-Inspector-policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:ordered-permit-overrides">
