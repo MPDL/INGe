@@ -30,7 +30,7 @@
 
 	<issueManagement>
 		<system>Jira</system>
-		<url>http://zim01.gwdg.de:8080/BrowseProject.jspa?id=10025</url>
+		<url>http://jira.mpdl.mpg.de/</url>
 	</issueManagement>
 
 	<developers>

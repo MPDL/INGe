@@ -35,6 +35,8 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.EditItemBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
@@ -56,6 +58,9 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  */
 public class CreatorVOPresentation extends CreatorVO
 {
+    
+    private static final Logger logger = Logger.getLogger(CreatorVOPresentation.class);
+    
     private EditItemBean bean;
     private List<CreatorVOPresentation> list;
     private String ouNumbers;
@@ -176,6 +181,12 @@ public class CreatorVOPresentation extends CreatorVO
     {
         if (!"".equals(value))
         {
+            logger.debug("Trying to create new OU from: " + value);
+        }
+        if (!"".equals(value) && !bean.isOrganizationPasted())
+        {
+            logger.debug("Creating new OU from: " + value);
+            bean.setOrganizationPasted(true);
             String[] values = value.split(EditItem.AUTOPASTE_INNER_DELIMITER);
             List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
             OrganizationVOPresentation newOrg = new OrganizationVOPresentation();

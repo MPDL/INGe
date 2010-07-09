@@ -41,6 +41,8 @@ public class EditItemBean extends FacesBean
     
     /**The string with authors to parse for author copy&paste.*/
     private String creatorParseString;
+    
+    private boolean organizationPasted = false;
 
     public List<CreatorVOPresentation> getCreators()
     {
@@ -257,9 +259,21 @@ public class EditItemBean extends FacesBean
     
     public String readPastedOrganizations()
     {
+        logger.debug("readPastedOrganizations");
+        this.organizationPasted = false;
         return "";
     }
     
+    public boolean isOrganizationPasted()
+    {
+        return organizationPasted;
+    }
+
+    public void setOrganizationPasted(boolean organizationPasted)
+    {
+        this.organizationPasted = organizationPasted;
+    }
+
     public void clean()
     {
         this.getCreatorOrganizations().clear();
