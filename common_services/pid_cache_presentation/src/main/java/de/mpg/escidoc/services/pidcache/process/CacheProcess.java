@@ -38,7 +38,7 @@ public class CacheProcess
 	{
 		DUMMY_URL = PropertyReader.getProperty("escidoc.pidcache.dummy.url");
 		context = new InitialContext();
-		xmlTransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
+		xmlTransforming = (XmlTransforming) context.lookup(XmlTransforming.SERVICE_NAME);
 	}
 
 	/**
