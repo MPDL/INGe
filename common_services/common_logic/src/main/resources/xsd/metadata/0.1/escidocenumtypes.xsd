@@ -76,7 +76,8 @@
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/commentary"/>
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/handbook"/>
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition"/>
-			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/festschrift"/>	
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/festschrift"/>
+			<xs:enumeration value="http://purl.org/eprint/type/Patent"/>		
 		</xs:restriction>
 	</xs:simpleType>
 	<!--*******************************
@@ -122,6 +123,8 @@
 			<xs:enumeration value="http://www.loc.gov/loc.terms/relators/HNR"/>
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/creator-roles/founder"/>
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/creator-roles/referee"/>
+			<xs:enumeration value="http://www.loc.gov/loc.terms/relators/INV"/>
+			<xs:enumeration value="http://www.loc.gov/loc.terms/relators/APP"/>
 		</xs:restriction>
 	</xs:simpleType>
 	
