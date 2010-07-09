@@ -50,7 +50,7 @@
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">festschrift</enum>		
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/journal-article">journal-article</enum>
 		
-		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/patent">patent</enum>
+		<enum uri="http://purl.org/eprint/type/Patent">patent</enum>
 	</xsl:variable>
 	
 	<xsl:variable name="creator-ves">
