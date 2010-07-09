@@ -21,7 +21,7 @@ public class PersonCriterionBean extends CriterionBean
 	// selection fields for the CreatorVO.CreatorRole enum
 	private boolean searchAuthor, searchEditor, searchAdvisor, searchArtist, searchCommentator, searchContributor;
 	private boolean searchIllustrator, searchPainter, searchPhotographer, searchTranscriber, searchTranslator, searchReferee, searchHonoree;
-
+	private boolean searchInventor, searchApplicant;
 
     public PersonCriterionBean()
 	{
@@ -81,6 +81,10 @@ public class PersonCriterionBean extends CriterionBean
 	            searchReferee = true;
 	        else if (CreatorVO.CreatorRole.HONOREE.equals(role))
                 searchHonoree= true;
+	        else if (CreatorVO.CreatorRole.INVENTOR.equals(role))
+                searchInventor= true;
+	        else if (CreatorVO.CreatorRole.APPLICANT.equals(role))
+                searchApplicant= true;
 		}
 	}
 	
@@ -408,5 +412,43 @@ public class PersonCriterionBean extends CriterionBean
             personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.HONOREE);
         }
     }
+
+	public void setSearchInventor(boolean searchInventor) {
+		this.searchInventor = searchInventor;
+        if (searchInventor)
+        {
+            if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.INVENTOR))
+            {
+                personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.INVENTOR);
+            }
+        }
+        else
+        {
+            personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.INVENTOR);
+        }
+	}
+
+	public boolean isSearchInventor() {
+		return searchInventor;
+	}
+
+	public void setSearchApplicant(boolean searchApplicant) {
+		this.searchApplicant = searchApplicant;
+		 if (searchApplicant)
+	        {
+	            if (!personCriterionVO.getCreatorRole().contains(CreatorVO.CreatorRole.APPLICANT))
+	            {
+	                personCriterionVO.getCreatorRole().add(CreatorVO.CreatorRole.APPLICANT);
+	            }
+	        }
+	        else
+	        {
+	            personCriterionVO.getCreatorRole().remove(CreatorVO.CreatorRole.APPLICANT);
+	        }
+	}
+
+	public boolean isSearchApplicant() {
+		return searchApplicant;
+	}
 
 }

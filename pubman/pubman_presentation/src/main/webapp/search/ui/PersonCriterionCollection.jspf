@@ -132,6 +132,14 @@
 							<h:selectBooleanCheckbox id="personCriterionBean_searchHonoree" value="#{personCriterionBean.searchHonoree}" />
 							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_HONOREE}" for="personCriterionBean_searchHonoree" />
 						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="personCriterionBean_searchInventor" value="#{personCriterionBean.searchInventor}" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_INVENTOR}" for="personCriterionBean_searchInventor" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="personCriterionBean_searchApplicant" value="#{personCriterionBean.searchApplicant}" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_APPLICANT}" for="personCriterionBean_searchApplicant" />
+						</span>
 						<a class="large_area0 tiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>
 				</span>

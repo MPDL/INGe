@@ -25,7 +25,8 @@ public class GenreCriterionBean extends CriterionBean
 	private boolean searchContributionToCollectedEdition, searchMonograph, searchContributionToCommentary, searchCaseNote;
 	private boolean searchBookReview, searchContributionToFestschrift, searchCommentary, searchCollectedEdition, searchFestschrift, searchHandbook;
 	private boolean searchContributionToEncyclopedia, searchNewspaperArticle, searchCaseStudy, searchOpinion, searchEditorial, searchContributionToHandbook;
-	
+	//NIMS
+	private boolean searchPatent;
 
     public GenreCriterionBean()
 	{
@@ -126,6 +127,9 @@ public class GenreCriterionBean extends CriterionBean
 				 searchContributionToHandbook = true;
 			else if (MdsPublicationVO.Genre.HANDBOOK.equals(genre))
 				 searchHandbook = true;
+			//NIMS
+			else if (MdsPublicationVO.Genre.PATENT.equals(genre))
+				 searchPatent = true;
 		}
 	}
 	
@@ -903,6 +907,24 @@ public class GenreCriterionBean extends CriterionBean
 			genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.HANDBOOK);
 		}
 		
+	}
+
+	public void setSearchPatent(boolean searchPatent) {
+		this.searchPatent = searchPatent;
+		if (searchPatent)
+		{
+			if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.PATENT)){
+				genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.PATENT);
+			}
+		}
+		else 
+		{
+			genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.PATENT);
+		}
+	}
+
+	public boolean isSearchPatent() {
+		return searchPatent;
 	}
 	
 

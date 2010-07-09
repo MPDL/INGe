@@ -177,6 +177,10 @@
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchHandbook" value="#{genreCriterionBean.searchHandbook}" />
 							<h:outputLabel title="#{tip.adv_search_lblChkGenre_handbook}" value="#{lbl.adv_search_lblChkGenre_handbook}" for="genreCriterionBean_searchHandbook" />
 						</span>
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchPatent" value="#{genreCriterionBean.searchPatent}" />
+							<h:outputLabel title="#{tip.adv_search_lblChkGenre_patent}" value="#{lbl.adv_search_lblChkGenre_patent}" for="genreCriterionBean_searchHandbook" />
+						</span>
 						
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchOther" value="#{genreCriterionBean.searchOther}" />
