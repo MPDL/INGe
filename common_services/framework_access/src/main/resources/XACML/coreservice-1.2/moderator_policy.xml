@@ -9,7 +9,9 @@
 		<Actions>
 			<Action>
 				<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                    info:escidoc/names:aa:1.0:action:retrieve-item                     info:escidoc/names:aa:1.0:action:update-item                     info:escidoc/names:aa:1.0:action:lock-item                     info:escidoc/names:aa:1.0:action:submit-item                     info:escidoc/names:aa:1.0:action:revise-item                     info:escidoc/names:aa:1.0:action:release-item                     info:escidoc/names:aa:1.0:action:retrieve-content                     info:escidoc/names:aa:1.0:action:retrieve-container                     info:escidoc/names:aa:1.0:action:update-container                     info:escidoc/names:aa:1.0:action:lock-container                     info:escidoc/names:aa:1.0:action:add-members-to-container                     info:escidoc/names:aa:1.0:action:remove-members-from-container                      info:escidoc/names:aa:1.0:action:submit-container                     info:escidoc/names:aa:1.0:action:revise-container                     info:escidoc/names:aa:1.0:action:release-container                     info:escidoc/names:aa:1.0:action:create-grant                     info:escidoc/names:aa:1.0:action:create-user-group-grant                     </AttributeValue>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                    info:escidoc/names:aa:1.0:action:retrieve-item                     info:escidoc/names:aa:1.0:action:update-item                     info:escidoc/names:aa:1.0:action:lock-item                     info:escidoc/names:aa:1.0:action:submit-item                     info:escidoc/names:aa:1.0:action:revise-item                     info:escidoc/names:aa:1.0:action:release-item                     info:escidoc/names:aa:1.0:action:retrieve-content                     info:escidoc/names:aa:1.0:action:retrieve-container                     info:escidoc/names:aa:1.0:action:update-container                     info:escidoc/names:aa:1.0:action:lock-container                     info:escidoc/names:aa:1.0:action:add-members-to-container                     info:escidoc/names:aa:1.0:action:remove-members-from-container                      info:escidoc/names:aa:1.0:action:submit-container                     info:escidoc/names:aa:1.0:action:revise-container                  
+					info:escidoc/names:aa:1.0:action:withdraw-container  info:escidoc/names:aa:1.0:action:withdraw-item    
+					 info:escidoc/names:aa:1.0:action:release-container                     info:escidoc/names:aa:1.0:action:create-grant                     info:escidoc/names:aa:1.0:action:create-user-group-grant                     </AttributeValue>
 					<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 				</ActionMatch>
 			</Action>
@@ -127,6 +129,74 @@
 			</Apply>
 		</Condition>
 	</Rule>
+	
+		<Rule RuleId="Moderator-policy-rule-wi" Effect="Permit">
+		<Target>
+			<Subjects>
+				<AnySubject/>
+			</Subjects>
+			<Resources>
+				<AnyResource/>
+			</Resources>
+			<Actions>
+				<Action>
+					<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:withdraw-item                         </AttributeValue>
+						<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</ActionMatch>
+				</Action>
+			</Actions>
+		</Target>
+		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</Apply>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</AttributeValue>
+				</Apply>
+			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				</Apply>
+				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</AttributeValue>
+			</Apply>
+		</Condition>
+	</Rule>
+
+		<Rule RuleId="Moderator-policy-rule-wc" Effect="Permit">
+		<Target>
+			<Subjects>
+				<AnySubject/>
+			</Subjects>
+			<Resources>
+				<AnyResource/>
+			</Resources>
+			<Actions>
+				<Action>
+					<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">                        info:escidoc/names:aa:1.0:action:withdraw-container                         </AttributeValue>
+						<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</ActionMatch>
+				</Action>
+			</Actions>
+		</Target>
+		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</Apply>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</AttributeValue>
+				</Apply>
+			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				</Apply>
+				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</AttributeValue>
+			</Apply>
+		</Condition>
+	</Rule>
+
+
 	<Rule RuleId="Moderator-policy-rule-retrievei" Effect="Permit">
 		<Target>
 			<Subjects>
