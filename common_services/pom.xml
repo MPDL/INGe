@@ -32,7 +32,7 @@
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>common_services</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.45-SNAPSHOT</version>
+	<version>1.0.45</version>
 	<name>common_services</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/common_services</url>
 	<description>The Common Services project provides all the basic services (such as framework access, endnotemanager etc.) used by applications like Faces or PubMan.</description>
@@ -230,9 +230,9 @@
 	</modules>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.42</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.42</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.42</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.45</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.45</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.45</url>
 	</scm>
 
 	<repositories>
@@ -577,7 +577,7 @@
 		<!-- searchAndExport service -->
 		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test and escidoc.content-model.objid=escidoc:persistent4</escidoc.search.and.export.default.sql.query>
 		<escidoc.search.and.export.indexes.explain.query>/srw/search/escidoc_all?operation=explain</escidoc.search.and.export.indexes.explain.query>
-		<escidoc.search.and.export.default.sort.keys></escidoc.search.and.export.default.sort.keys>
+		<escidoc.search.and.export.default.sort.keys />
 		<escidoc.search.and.export.default.sort.order>ascending</escidoc.search.and.export.default.sort.order>
 		<escidoc.search.and.export.start.record>1</escidoc.search.and.export.start.record>
 		<escidoc.search.and.export.maximum.records>50</escidoc.search.and.export.maximum.records>
