@@ -62,6 +62,15 @@
 	<xsl:param name="is-item-list" select="true()"/>
 
 	<xsl:variable name="vm" select="document('ves-mapping.xml')/mappings"/>
+	
+	<!-- Temporarily OUs mapping -->
+	<!-- xsl:variable name="ous">
+		<map v1="escidoc:4001">escidoc:274892</map>
+		<map v1="escidoc:4002">escidoc:274893</map>
+		<map v1="escidoc:4005">escidoc:274894</map>
+		<map v1="escidoc:4003">escidoc:274895</map>
+		<map v1="escidoc:4007">escidoc:274896</map>
+	</xsl:variable -->
 
 	<xsl:template match="/">
 		<xsl:choose>
@@ -185,6 +194,7 @@
 		</xsl:element>
 	</xsl:template>
 	
+	
 	<!-- person and organization identifiers, see http://colab.mpdl.mpg.de/mediawiki/Checklist_for_Metadata_Changes#Identifiers_from_CONE_in_Publication_Metadata  -->
 	<xsl:template match="escidoc:identifier" priority="999">
 		<xsl:element name="dc:identifier">
@@ -198,6 +208,11 @@
 				"/>
 			</xsl:if>
 			<xsl:if test="not(@xsi:type)">
+				<!-- xsl:variable name="ou" select="."/>
+				<xsl:value-of select="
+					if ($ous/map[@v1=$ou]) then $ous/map[@v1=$ou]
+					else . 
+				"/ -->
 				<xsl:value-of select="."/>
 			</xsl:if>
 			<xsl:apply-templates select="*/*"/>
@@ -382,9 +397,9 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<!-- changes file namespace from http://escidoc.mpg.de/metadataprofile/schema/0.1/file to http://purl.org/metadata/profiles/0.1/file -->
+	<!-- changes file namespace from http://escidoc.mpg.de/metadataprofile/schema/0.1/file to ${xsd.metadata.file} -->
 	<xsl:template match="*[namespace-uri()='http://escidoc.mpg.de/metadataprofile/schema/0.1/file']" priority="1">
-		<xsl:element name="{name()}" namespace="http://purl.org/metadata/profiles/0.1/file">
+		<xsl:element name="{name()}" namespace="${xsd.metadata.file}">
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
 		</xsl:element>
