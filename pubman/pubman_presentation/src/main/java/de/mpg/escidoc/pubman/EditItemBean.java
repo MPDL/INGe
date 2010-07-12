@@ -71,13 +71,13 @@ public class EditItemBean extends FacesBean
         int counter = 1;
         for (CreatorVOPresentation creator : creators)
         {
-        	logger.info("Creator: " + creator.getTypeString());
+
             if (creator.getType() == CreatorType.PERSON)
             {
-            	logger.info("-- Name: " + creator.getPerson().getFamilyName());
+
                 for (OrganizationVO organization : creator.getPerson().getOrganizations())
                 {
-                	logger.info("-- Org Unit: " + organization.getName() + " ---- " + organization.getAddress());
+
                     if (!creatorOrganizations.contains(organization))
                     {
                         OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation(organization);
@@ -90,7 +90,7 @@ public class EditItemBean extends FacesBean
                             }
                             creatorOrganizations.add(organizationPresentation);
                             counter++;
-                            logger.info("-- Added!!!");
+
                         }
                     }
                 }
