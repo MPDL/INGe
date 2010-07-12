@@ -31,14 +31,14 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.45</version>
+		<version>1.0.46-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>pid_cache_ear</artifactId>
 	<packaging>ear</packaging>
 	<name>pid_cache_ear</name>
-	<version>0.1.8</version>
+	<version>0.1.9-SNAPSHOT</version>
 	<build>
 		<plugins>
 			<plugin>
@@ -244,20 +244,20 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.48</version>
+			<version>1.0.49-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>pid_cache_presentation</artifactId>
-			<version>0.1.8</version>
+			<version>0.1.9-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.45</version>
+			<version>1.1.46-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
