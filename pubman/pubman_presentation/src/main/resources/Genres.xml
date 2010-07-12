@@ -1237,12 +1237,16 @@
 		<genre id="MULTI_VOLUME" label="ENUM_GENRE_MULTI_VOLUME"/>
 		
 		<!-- NIMS-specific publication types -->
-		<genre id="PATENT" label="ENUM_GENRE_EDITORIAL">
+		<genre id="PATENT" label="ENUM_GENRE_PATENT">
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="all">
 				<field id="item_title_alternative" repeatable="false" display="true" optional="true" label="item_title_alternative"/>
 			</group>
+			<!-- Display files because otherwise locators are cleaned up during save method -->
+			<!-- 
 			<group id="files" display="false" repeatable="true" optional="true" label="g_files" form-id="all" class-attribute="files">
 			</group>
+			-->
+			
 			<group id="locators" display="true" repeatable="true" optional="true" label="g_locators" form-id="all" class-attribute="files">
 				<field id="component_name" repeatable="false" display="true" label="locator_name" optional="false" class-attribute="files.name"/>
 				<field id="component_content-category" repeatable="false" display="true" optional="false" label="locator_content-category" class-attribute="files.contentCategory"/>
