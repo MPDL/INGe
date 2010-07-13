@@ -177,16 +177,18 @@
 											    {
 											        id = ((TreeFragment) result).getSubject().substring(PropertyReader.getProperty("escidoc.cone.service.url").length());
 											        TreeFragment existingObject = querier.details(model.getName(), id);
-											        if (existingObject != null && "skip".equals(workflow))
+											        out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id);
+											        
+											        if (existingObject != null && !existingObject.isEmpty() && "skip".equals(workflow))
 											        {
-										        		out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id + " (skipped)");
+										        		out.println(" (skipped)<br/>");
 										        		continue;
 											        }
-											        else if (existingObject != null && "overwrite".equals(workflow))
+											        else if (existingObject != null && !existingObject.isEmpty() && "overwrite".equals(workflow))
 													{
 											        	out.println(" ... deleting existing object ...");
 														querier.delete(model.getName(), id);
-														out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id + " (replaced)");
+														out.println(" (replaced)");
 													}
 											        else if (existingObject != null && "update".equals(workflow))
 													{
@@ -194,7 +196,7 @@
 											        	existingObject.merge((TreeFragment) result);
 											        	result = existingObject;
 														querier.delete(model.getName(), id);
-														out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id + " (updated)");
+														out.println(" (updated)");
 													}
 										            
 											    }
@@ -206,16 +208,19 @@
 											        {
 											            id = matcher.group();
 												        TreeFragment existingObject = querier.details(model.getName(), id);
-												        if (existingObject != null && "skip".equals(workflow))
+												        
+												        out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id);
+												        
+												        if (existingObject != null && !existingObject.isEmpty() && "skip".equals(workflow))
 												        {
-											        		out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id + " (skipped)");
+											        		out.println(" (skipped)<br/>");
 											        		continue;
 												        }
-												        else if (existingObject != null && "overwrite".equals(workflow))
+												        else if (existingObject != null && !existingObject.isEmpty() && "overwrite".equals(workflow))
 														{
 												        	out.println(" ... deleting existing object ...");
 															querier.delete(model.getName(), id);
-															out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id + " (replaced)");
+															out.println(" (replaced)");
 														}
 												        else if (existingObject != null && "update".equals(workflow))
 														{
@@ -223,7 +228,7 @@
 												        	existingObject.merge((TreeFragment) result);
 												        	result = existingObject;
 															querier.delete(model.getName(), id);
-															out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id + " (updated)");
+															out.println(" (updated)");
 														}
 											        }
 											        else
