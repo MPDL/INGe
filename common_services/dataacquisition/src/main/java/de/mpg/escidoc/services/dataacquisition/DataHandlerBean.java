@@ -33,6 +33,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.rmi.AccessException;
@@ -47,6 +49,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.naming.InitialContext;
+import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -762,10 +765,15 @@ public class DataHandlerBean implements DataHandler
      * @return itemXML as String
      * @throws IdentifierNotRecognisedException
      * @throws RuntimeException
+     * @throws URISyntaxException 
+     * @throws ServiceException 
+     * @throws MalformedURLException 
      */
     private String fetchEjbRecord(MetadataVO md, String identifier) 
-        throws IdentifierNotRecognisedException, RuntimeException
+        throws IdentifierNotRecognisedException, RuntimeException, ServiceException, URISyntaxException, MalformedURLException
     {
+    	String defaultUrl = ServiceLocator.getFrameworkUrl();
+    	
         try
         {
             if (this.currentSource.getName().equalsIgnoreCase("escidoc"))
@@ -779,9 +787,8 @@ public class DataHandlerBean implements DataHandler
             {
                 //return ServiceLocator.getItemHandler(md.getMdUrl()).retrieve("escidoc:" + identifier);
                 
-            	String defaultUrl = ServiceLocator.getFrameworkUrl();
+            	
             	String xml = ServiceLocator.getItemHandler(md.getMdUrl()).retrieve(identifier);
-            	ServiceLocator.getItemHandler(new URL(defaultUrl));
                 return xml;
             }    
         }
@@ -794,6 +801,10 @@ public class DataHandlerBean implements DataHandler
         {
             this.logger.error("An error occurred while retrieving the item " + identifier + ".");
             throw new RuntimeException(e);
+        }
+        finally
+        {
+        	ServiceLocator.getItemHandler(new URL(defaultUrl));
         }
         
         return null;
