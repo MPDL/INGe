@@ -639,23 +639,12 @@ public class EditItem extends FacesBean
     {
         try
         {
-            bindUploadedFilesAndLocators();
-            // bind Organizations To Creators
-            if (!this.getEditItemSessionBean().bindOrganizationsToCreators())
+            
+            if (!restoreVO())
             {
                 return "";
             }
-            for (SourceBean sourceBean : getEditItemSessionBean().getSources())
-            {
-                if (!sourceBean.bindOrganizationsToCreators())
-                {
-                    return "";
-                }
-            }
-            // write creators back to VO
-            this.getEditItemSessionBean().bindCreatorsToVO(item.getMetadata().getCreators());
-            // write creators back to VO
-            this.getEditItemSessionBean().bindSourcesToVO(item.getMetadata().getSources());
+            
             PubItemVO item = this.getPubItem();
             this.getItemControllerSessionBean().validate(item, EditItem.VALIDATIONPOINT_SUBMIT);
             if (this.getItemControllerSessionBean().getCurrentItemValidationReport().hasItems())
