@@ -804,6 +804,7 @@ public class DataHandlerBean implements DataHandler
         }
         finally
         {
+        	//reset ServiceLocator to standard url
         	ServiceLocator.getItemHandler(new URL(defaultUrl));
         }
         
