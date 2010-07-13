@@ -23,8 +23,8 @@
 
 /*
 * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
-* f�r wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur F�rderung der Wissenschaft e.V.
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */ 
 

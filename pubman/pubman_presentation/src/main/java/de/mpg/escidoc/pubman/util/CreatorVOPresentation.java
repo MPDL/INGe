@@ -68,6 +68,8 @@ public class CreatorVOPresentation extends CreatorVO
     private PersonVO surrogatePerson;
     private OrganizationVO surrogateOrganization;
     
+    private String autoPasteValue;
+    
     public CreatorVOPresentation(List<CreatorVOPresentation> list, EditItemBean bean)
     {
         this.list = list;
@@ -174,20 +176,21 @@ public class CreatorVOPresentation extends CreatorVO
     public String getAutoPasteValue()
     {
         // Always empty
-        return "";
+        return this.autoPasteValue;
     }
     
     public void setAutoPasteValue(String value)
     {
-        if (!"".equals(value))
+        this.autoPasteValue = value;
+    }
+    
+    public void addOrganization()
+    {
+        if (!"".equals(this.autoPasteValue))
         {
-            logger.debug("Trying to create new OU from: " + value);
-        }
-        if (!"".equals(value) && !bean.isOrganizationPasted())
-        {
-            logger.debug("Creating new OU from: " + value);
+            logger.debug("Creating new OU from: " + this.autoPasteValue);
             bean.setOrganizationPasted(true);
-            String[] values = value.split(EditItem.AUTOPASTE_INNER_DELIMITER);
+            String[] values = this.autoPasteValue.split(EditItem.AUTOPASTE_INNER_DELIMITER);
             List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
             OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
             newOrg.setName(new TextVO(values[1]));
@@ -195,6 +198,7 @@ public class CreatorVOPresentation extends CreatorVO
             newOrg.setBean(this.bean);
             creatorOrganizations.add(newOrg);
             this.ouNumbers = creatorOrganizations.size() + "";
+            this.autoPasteValue = "";
         }
 
     }

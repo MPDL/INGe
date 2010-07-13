@@ -278,7 +278,7 @@
 			{
 				$input.siblings('.organizationPasteField').val(orgIdString + autopasteInnerDelimiter + orgName);
 				fillField('ouNumber', '' + counter, parent);
-				$('.hiddenButtonPasteOrganizations').click();
+				$input.siblings('.hiddenButtonPasteOrganizations').click();
 			}
 		}
 		
