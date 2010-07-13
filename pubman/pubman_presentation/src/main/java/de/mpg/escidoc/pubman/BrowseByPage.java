@@ -100,9 +100,15 @@ public class BrowseByPage extends BreadcrumbPage
     {
         // Perform initializations inherited from our superclass
         super.init();
-        this.bbBean = (BrowseBySessionBean)getSessionBean(BrowseBySessionBean.class);
+        this.bbBean = (BrowseBySessionBean) getSessionBean(BrowseBySessionBean.class);
         this.creators = new ArrayList<String>();
         this.subjects = new ArrayList<String>();
+        
+        if ("year".equals(getSelectedValue()))
+        {
+            loadBrowseByYear();
+        }
+        
     }
 
     /**
@@ -223,7 +229,7 @@ public class BrowseByPage extends BreadcrumbPage
     public String loadAffiliationTree()
     {       
         this.setSelectedValue("org");
-        ((AffiliationBean)getSessionBean(AffiliationBean.class)).setSource("BrowseBy");
+        ((AffiliationBean) getSessionBean(AffiliationBean.class)).setSource("BrowseBy");
         return "loadAffiliationTree";
     }
 
@@ -285,7 +291,19 @@ public class BrowseByPage extends BreadcrumbPage
         this.bbBean.setBrowseByYears(this.bbBean.getYearRange());
         this.bbBean.setDATE_OPTIONS(new SelectItem[]{new SelectItem("published", getLabel("dateOptionPublished")) , 
                 new SelectItem("any",getLabel("dateOptionAny"))});
-        this.bbBean.getDateSelect().setSubmittedValue("published");
+        
+        if ("any".equals(this.bbBean.getDateMode()))
+        {
+            this.bbBean.setYearStartAny();
+            this.bbBean.setDateType("any");
+        }
+        else
+        {
+            this.bbBean.setYearPublished();
+            this.bbBean.setDateType("published");
+        }
+        this.bbBean.setBrowseByYears(this.bbBean.getYearRange());
+        
         return "loadBrowseByPage";
     }
 
@@ -394,26 +412,6 @@ public class BrowseByPage extends BreadcrumbPage
         }
         return "";
     }
-    
-    /**
-     * ValueChangeListener method to handle changes in date type. 
-     * @param event
-     */
-    public void dateTypeChanged(ValueChangeEvent event) 
-    {
-        if (event.getNewValue().equals("any"))
-        {
-            this.bbBean.setYearStartAny();
-            this.bbBean.setDateType("any");
-        }
-        else
-        {
-            this.bbBean.setYearPublished();
-            this.bbBean.setDateType("published");
-        }
-        this.bbBean.setBrowseByYears(this.bbBean.getYearRange());
-    }
-
 
     public UIXIterator getYearIterator()
     {

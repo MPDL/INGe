@@ -95,9 +95,10 @@ public class BrowseBySessionBean extends FacesBean
     Character[] characters = null;
 
     private List<String> browseByYears;
-    private HtmlSelectOneRadio dateSelect = new HtmlSelectOneRadio();
-    private SelectItem[] DATE_OPTIONS;
 
+    private SelectItem[] DATE_OPTIONS;
+    
+    private String dateMode = "published";
 
     /**
      * Public constructor.
@@ -489,16 +490,6 @@ public class BrowseBySessionBean extends FacesBean
         this.browseByYears = browseByYears;
     }
 
-    public HtmlSelectOneRadio getDateSelect()
-    {
-        return dateSelect;
-    }
-
-    public void setDateSelect(HtmlSelectOneRadio dateSelect)
-    {
-        this.dateSelect = dateSelect;
-    }
-
     public SelectItem[] getDATE_OPTIONS()
     {
         return DATE_OPTIONS;
@@ -533,6 +524,16 @@ public class BrowseBySessionBean extends FacesBean
     public void setCharacters(Character[] characters)
     {
         this.characters = characters;
+    }
+
+    public String getDateMode()
+    {
+        return dateMode;
+    }
+
+    public void setDateMode(String dateMode)
+    {
+        this.dateMode = dateMode;
     }
 
 }

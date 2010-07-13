@@ -126,11 +126,7 @@ public class CreatorVOPresentation extends CreatorVO
     
     public void setTypeString(String value)
     {
-        if (value == null)
-        {
-            this.setType(null);
-        }
-        else if (getType() != CreatorType.valueOf(value))
+        if (value != null)
         {
             init(CreatorType.valueOf(value));
         }

@@ -264,8 +264,8 @@
 			if (counter == 2 && empty)
 			{
 				
-				$input.parents('.itemBlockContent').find('.organizationName').val(orgName);
-				$input.parents('.itemBlockContent').find('.organizationIdentifier').val(orgIdString);
+				$input.parents('.itemBlockContent').find('.organizationName').val(orgName == null ? "" : orgName);
+				$input.parents('.itemBlockContent').find('.organizationIdentifier').val(orgIdString == null ? "" : orgIdString);
 
 				if (orgIdString != null && orgIdString != '')
 				{
@@ -276,7 +276,7 @@
 			}
 			else
 			{
-				$input.siblings('.organizationPasteField').val(orgIdString + autopasteInnerDelimiter + orgName);
+				$input.siblings('.organizationPasteField').val(orgIdString + autopasteInnerDelimiter + (orgName == null ? "" : orgName));
 				fillField('ouNumber', '' + counter, parent);
 				$input.siblings('.hiddenButtonPasteOrganizations').click();
 			}
