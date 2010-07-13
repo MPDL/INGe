@@ -778,7 +778,11 @@ public class DataHandlerBean implements DataHandler
                     || this.currentSource.getName().equalsIgnoreCase("escidoctest"))
             {
                 //return ServiceLocator.getItemHandler(md.getMdUrl()).retrieve("escidoc:" + identifier);
-                return ServiceLocator.getItemHandler(md.getMdUrl()).retrieve(identifier);
+                
+            	String defaultUrl = ServiceLocator.getFrameworkUrl();
+            	String xml = ServiceLocator.getItemHandler(md.getMdUrl()).retrieve(identifier);
+            	ServiceLocator.getItemHandler(new URL(defaultUrl));
+                return xml;
             }    
         }
         catch (ItemNotFoundException e)
