@@ -33,6 +33,7 @@ package test.exportmanager;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.FileOutputStream;
 
 
 /**
@@ -43,6 +44,7 @@ import java.io.File;
  */
 import org.apache.log4j.Logger;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test; 
 
@@ -59,11 +61,12 @@ import javax.naming.InitialContext;
 
 public class ExportIntegrationTest 
 {
-		private ExportHandler export;
-	    private String pubManItemList;
-	    private String facesItemList;
+		private static Logger logger = Logger.getLogger(ExportIntegrationTest.class);
+		
+		private static ExportHandler export;
+	    private static String pubManItemList;
+	    private static String facesItemList;
 
-	    private Logger logger = Logger.getLogger(getClass());
 	    
         long start = 0;
 
@@ -71,8 +74,8 @@ public class ExportIntegrationTest
 	     * Init  Export bean.
 	     * @throws Exception Any Exception.
 	     */
-	    @Before
-	    public final void getExport() throws Exception
+	    @BeforeClass
+	    public static final void getExport() throws Exception
 	    {
 	        InitialContext ctx = new InitialContext();
 	        export = (ExportHandler) ctx.lookup(ExportHandler.SERVICE_NAME);
@@ -83,20 +86,24 @@ public class ExportIntegrationTest
 	     * Get test item list from XML 
 	     * @throws Exception
 	     */
-	    @Before
-	    public final void getItemList() throws Exception
+	    @BeforeClass
+	    public static final void getItemList() throws Exception
 	    {
 	    	pubManItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_PUBMAN, TestHelper.ITEMS_LIMIT);
 			assertFalse("PubMan item list from framework is empty", pubManItemList == null || pubManItemList.trim().equals("") );
 			logger.info("PubMan item list from framework:\n" + pubManItemList);
 			
-//			FileOutputStream fos = new FileOutputStream("pubManItemList.xml");
+//			FileOutputStream fos = new FileOutputStream("target/pubManItemList.xml");
 //			fos.write(pubManItemList.getBytes());				
 //			fos.close();	        
 			
-			facesItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_FACES, "10");
+			facesItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_FACES, "2");
 			assertFalse("Faces item list from framework is empty", facesItemList == null || facesItemList.trim().equals("") );
 			logger.info("Faces item list from framework:\n" + facesItemList);
+			
+//			FileOutputStream fos = new FileOutputStream("target/FacesItemList.xml");
+//			fos.write(facesItemList.getBytes());				
+//			fos.close();	        
 	    }
 
 	    
@@ -143,7 +150,7 @@ public class ExportIntegrationTest
 
 	    	logger.info("Exports to the byte[]:");    
 	    	byte [] ba;
-	    	//		FileOutputStream fos;
+	    	FileOutputStream fos;
 	    	for (ArchiveFormats af : ArchiveFormats.values())
 	    	{
 	    		String afString = af.toString();
@@ -154,10 +161,12 @@ public class ExportIntegrationTest
 	    		logger.info(afString + " generation is OK (" + (start) + "ms), " +
 	    				"byte array size:" + ba.length 
 	    		);
-	    		//			afString = afString.equals(ArchiveFormats.gzip.toString()) ? "tar.gz" : afString; 
-	    		//			fos = new FileOutputStream("output." + afString);
-	    		//			fos.write(ba);				
-	    		//			fos.close();	        
+	    		
+//				afString = afString.equals(ArchiveFormats.gzip.toString()) ? "tar.gz" : afString; 
+//				fos = new FileOutputStream("target/output." + afString);
+//				fos.write(ba);				
+//				fos.close();
+				
 	    	}
 	    	logger.info("End of the exports to the byte[].");    
 
@@ -179,7 +188,7 @@ public class ExportIntegrationTest
 		        start = -System.currentTimeMillis();
 		    	result = export.getOutput(
 		    			ef,
-		    			ef.equals("APA") ? "snippet" : null,	
+		    			ef.equals("APA") ? "escidoc_snippet" : null,	
 		    			null, 
 		    			pubManItemList
 		    	);
