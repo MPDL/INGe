@@ -72,16 +72,17 @@ public class StructuredExportTest
 	    public static final Map<String, String> ITEM_LISTS_FILE_MAMES =   
 	    	new HashMap<String, String>()   
 	    	{  
+	    		String pref = "target/test-classes/";
 				{  
-		    		//put("BIBTEX", "src/test/resources/item_thesis.xml"); 
-                    put("BIBTEX", "src/test/resources/publicationItems/metadataV2/item_book.xml");
-                    put("ENDNOTE", "src/test/resources/publicationItems/metadataV2/item_book.xml");
+                    put("BIBTEX", pref + "publicationItems/metadataV2/item_book.xml");
+                    put("ENDNOTE", pref + "publicationItems/metadataV2/item_book.xml");
+					put("CSV", pref + "facesItems/item-list.xml");
+					
 //                    put("ENDNOTE", "src/test/resources/publicationItems/metadataV2/source-creators-bug.xml");
 //		    		put("ENDNOTE", "src/test/resources/test.xml");  
 //		    		put("BIBTEX", "src/test/resources/item_test_bibtex.xml");  
 //		    		put("BIBTEX", "src/test/resources/escidoc.xml");  
 //		    		put("XML", "src/test/resources/escidoc-item-ver2.xml");  
-//		    		put("CSV", "src/test/resources/faces_item-list.xml");  
 //		    		put("BAD_ITEM_LIST", "src/test/resources/item_publication_bad.xml");  
 		    	}  
 	    	};
@@ -131,7 +132,7 @@ public class StructuredExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
-	    @Ignore
+//	    @Ignore
 	    public final void testExplainExport() throws Exception
 	    {
 	    	String result = export.explainFormats();
@@ -144,7 +145,7 @@ public class StructuredExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
-	    @Ignore
+//	    @Ignore
 	    public final void testFormatList() throws Exception
 	    {
 	    	String[] fl = export.getFormatsList();
@@ -160,7 +161,7 @@ public class StructuredExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
-	    @Ignore
+//	    @Ignore
 	    public final void testStructuredExports() throws Exception
 	    {
 	    	long start;
@@ -184,7 +185,7 @@ public class StructuredExportTest
 	    }
 	    
 	    @Test
-//	    @Ignore
+	    @Ignore
 	    public void doExportTest() throws Exception
 	    {
             String itemList = ResourceUtil.getResourceAsString("publicationItems/metadataV2/item_book.xml");            
