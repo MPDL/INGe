@@ -20,8 +20,9 @@
 	<!--
 		Transformations from eSciDoc FacesItem to CSV 
 		Author: Julia Kurt (initial creation)
-		 
-		$Revision$
+		$Author$ (last changed)
+		$Revision$ 
+		$LastChangedDate$
 	-->
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema"

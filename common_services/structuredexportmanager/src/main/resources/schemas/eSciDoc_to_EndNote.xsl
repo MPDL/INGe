@@ -30,7 +30,7 @@
 	Transformations from eSciDoc PubItem Schema to EndNote format 10/11
 	Author: Julia Kurt (initial creation) 
 	$Author$ (last changed)
-	$Revision$ 
+	$Revision$  
 	$LastChangedDate$
 -->
 <xsl:stylesheet version="2.0"
