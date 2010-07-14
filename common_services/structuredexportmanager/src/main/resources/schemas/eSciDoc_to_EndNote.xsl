@@ -79,8 +79,8 @@
 	<xsl:template match="/*">			
 		<!-- create entry for each item -->
 		<xsl:choose>
-			<xsl:when test="count(ei:item/mdr:md-records/mdr:md-record/pub:publication)>0">
-				<xsl:apply-templates select="ei:item/mdr:md-records/mdr:md-record/pub:publication"/>	
+			<xsl:when test="count(//pub:publication)>0">
+				<xsl:apply-templates select="//pub:publication"/>	
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoItemsForTransforamtion' ), 'Empty item list')"/>
@@ -89,7 +89,7 @@
 	</xsl:template>	
 	
 	<!-- create entry -->
-	<xsl:template match="ei:item/mdr:md-records/mdr:md-record/pub:publication">	
+	<xsl:template match="pub:publication">	
 		<xsl:variable name="genre-uri" select="@type"/>	
 		<xsl:variable name="genre" select="$genre-ves/enum[@uri=$genre-uri]"/>
 		

@@ -29,7 +29,9 @@
 <!-- 
 	Transformations from eSciDoc PubItem Schema to BibTeX
 	Author: Julia Kurt (initial creation) 
-	$Author: jkurt $ 
+	$Author: vmakarenko $ (last changed)
+	$Revision: $ 
+	$LastChangedDate: $
 -->
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
@@ -60,11 +62,11 @@
 	
 	<xsl:template match="/*">			
 		<!-- create entry for each item -->
-			<xsl:apply-templates select="//ei:item/mdr:md-records/mdr:md-record/pub:publication"/>				
+			<xsl:apply-templates select="//pub:publication"/>				
 	</xsl:template>	
 	
 	<!-- create bibTeX entry -->
-	<xsl:template match="//ei:item/mdr:md-records/mdr:md-record/pub:publication">
+	<xsl:template match="pub:publication">
 	
 		<xsl:variable name="gen" select="@type"/>
 		<xsl:variable name="genre" select="$genre-ves/enum[@uri=$gen]"/>
