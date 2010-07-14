@@ -18,8 +18,10 @@
 		Use is subject to license terms.
 	-->
 	<!--
-		Transformations from eSciDoc FacesItem to CSV Author: Julia Kurt
-		(initial creation) $Revision: 1 $
+		Transformations from eSciDoc FacesItem to CSV 
+		Author: Julia Kurt (initial creation)
+		 
+		$Revision$
 	-->
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -37,9 +39,7 @@
 
 		
 		<xsl:variable name="all-lines" >
-			<line>
-				<xsl:value-of select="'filename,person ID,age,age group,gender,emotion,picture group'" />
-			</line>		
+			<line>filename,person ID,age,age group,gender,emotion,picture group</line>		
 			<xsl:for-each
 				select="//escidocItem:item/escidocComponents:components/escidocComponents:component">
 				<xsl:variable name="md"
