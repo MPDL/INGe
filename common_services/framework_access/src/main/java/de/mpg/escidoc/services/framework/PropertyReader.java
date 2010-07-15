@@ -116,7 +116,6 @@ public class PropertyReader
         try
         {
             solution = PropertyReader.class.getClassLoader().getResource("solution.properties");
-            Logger.getLogger(PropertyReader.class).debug("solution.properties file found.");
         }
         catch (Exception e)
         {
