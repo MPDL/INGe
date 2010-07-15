@@ -166,11 +166,7 @@ public class SearchBean implements Search
             ItemContainerSearchResult result = new ItemContainerSearchResult(resultList, cqlQuery, searchResult
                     .getNumberOfRecords());
             return result;
-        } 
-        catch (ParseException f)
-        {
-            throw new ParseException();
-        } 
+        }
         catch (Exception e)
         {
             throw new TechnicalException(e);
