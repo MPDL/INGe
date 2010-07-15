@@ -3516,6 +3516,7 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:role-cone-close
 SCOPE_DEF
 --removed scope_def
  "escidoc:scope-def-role-moderator-7";"escidoc:role-moderator";"user-account";""
+
 --new scope-defs
  "escidoc:scope-def-role-context-modifier";"escidoc:role-context-modifier";"context";"info:escidoc/names:aa:1.0:resource:context-id"
  "escidoc:scope-def-role-context-modifier-5";"escidoc:role-context-modifier";"user-account";""
@@ -3523,6 +3524,7 @@ SCOPE_DEF
  "escidoc:scope-def-role-user-account-inspector";"escidoc:role-user-account-inspector";"user-account";"urn:oasis:names:tc:xacml:1.0:resource:resource-id"
 
 */
+
 delete from aa.scope_def where id='escidoc:scope-def-role-moderator-7' and role_id='escidoc:role-moderator';
 INSERT INTO scope_def (id, role_id, object_type, attribute_id) VALUES ('escidoc:scope-def-role-user-account-inspector', 'escidoc:role-user-account-inspector', 'user-account', 'urn:oasis:names:tc:xacml:1.0:resource:resource-id');
 INSERT INTO scope_def (id, role_id, object_type, attribute_id) VALUES ('escidoc:scope-def-role-context-modifier', 'escidoc:role-context-modifier', 'context', 'info:escidoc/names:aa:1.0:resource:context-id');
