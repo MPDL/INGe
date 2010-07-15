@@ -1405,8 +1405,11 @@ public class EasySubmission extends FacesBean
         }
         */
         FacesContext fc = FacesContext.getCurrentInstance();
-        // validate
-        validate("easy_submission_step_3", null);
+     // validate
+        if (validate("easy_submission_step_3", "loadNewEasySubmission") == null)
+        {
+            return "";
+        }
         
         this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP4);
         this.init();
@@ -1417,7 +1420,10 @@ public class EasySubmission extends FacesBean
     {
 
     	// validate
-    	validate("easy_submission_step_4", null);
+        if (validate("easy_submission_step_4", "loadNewEasySubmission") == null)
+        {
+            return "";
+        }
 
         this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP5);
         this.init();
@@ -1428,12 +1434,14 @@ public class EasySubmission extends FacesBean
     {
         parseAndSetAlternativeSourceTitlesAndIds();
         // validate
-        if ("".equals(validate("easy_submission_step_5", "loadEditItem")))
+        if (validate("easy_submission_step_5", "loadEditItem") == null)
         {
             return "";
         }
         else
         {
+            //this.getEasySubmissionSessionBean().bindOrganizationsToCreators();
+            //this.getEasySubmissionSessionBean().bindCreatorsToVO( this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getCreators());
             this.getEasySubmissionSessionBean().cleanup();
             this.getEditItemSessionBean().clean();
             return "loadEditItem";
@@ -1452,7 +1460,7 @@ public class EasySubmission extends FacesBean
             // bind Organizations To Creators
             if (!this.getEasySubmissionSessionBean().bindOrganizationsToCreators())
             {
-                return "";
+                return null;
             }
             
             PubItemVO pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
@@ -2405,7 +2413,7 @@ public class EasySubmission extends FacesBean
     {
         try
         {
-        	getEasySubmissionSessionBean().parseCreatorString(getCreatorParseString(), getEasySubmissionSessionBean().getAuthorCopyPasteOrganizationsCreatorBean().getPersonOrganisationManager().getObjectList(), getOverwriteCreators());
+        	getEasySubmissionSessionBean().parseCreatorString(getCreatorParseString(), null, getEasySubmissionSessionBean().getOverwriteCreators());
             setCreatorParseString("");
             
             getEasySubmissionSessionBean().initAuthorCopyPasteCreatorBean();

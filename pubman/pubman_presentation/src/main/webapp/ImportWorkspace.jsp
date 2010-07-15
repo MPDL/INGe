@@ -262,11 +262,7 @@
 																<tr:commandLink id="lnkDeleteAll" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.deleteAll}" rendered="#{import.importedItems}">
 																	<h:outputText value="#{lbl.import_workspace_delete_items}"/>
 																</tr:commandLink>
-	
-																<tr:commandLink id="lnkSubmitAll" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.submitAll}" rendered="#{import.importedItems and !import.simpleWorkflow}">
-																	<h:outputText value="#{lbl.import_workspace_submit_items}"/>
-																</tr:commandLink>
-	
+
 																<tr:commandLink id="lnkSubmitAndReleaseAll" styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitAndReleaseAll}" rendered="#{import.importedItems}">
 																	<h:outputText value="#{lbl.import_workspace_submit_release_items}"/>
 																</tr:commandLink>

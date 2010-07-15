@@ -76,7 +76,7 @@ import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
+import de.mpg.escidoc.pubman.util.GenreSpecificItemManager;
 import de.mpg.escidoc.pubman.util.ListItem;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
@@ -680,8 +680,8 @@ public class EditItem extends FacesBean
         }
         
         // cleanup item according to genre specific MD specification
-        GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(),
-                GenreSecificItemManager.SUBMISSION_METHOD_FULL);
+        GenreSpecificItemManager itemManager = new GenreSpecificItemManager(getPubItem(),
+                GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
         try
         {
             this.item = (PubItemVOPresentation)itemManager.cleanupItem();
@@ -944,8 +944,8 @@ public class EditItem extends FacesBean
         }
         // end: check if the item has been changed
         // cleanup item according to genre specific MD specification
-        GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(),
-                GenreSecificItemManager.SUBMISSION_METHOD_FULL);
+        GenreSpecificItemManager itemManager = new GenreSpecificItemManager(getPubItem(),
+                GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
         try
         {
             this.item = (PubItemVOPresentation)itemManager.cleanupItem();
@@ -1130,11 +1130,11 @@ public class EditItem extends FacesBean
         }
 
         // cleanup item according to genre specific MD specification
-        GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(),
-                GenreSecificItemManager.SUBMISSION_METHOD_FULL);
+        GenreSpecificItemManager itemManager = new GenreSpecificItemManager(getPubItem(),
+                GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
         try
         {
-            this.item = (PubItemVOPresentation)itemManager.cleanupItem();
+            this.item = (PubItemVOPresentation) itemManager.cleanupItem();
         }
         catch (Exception e)
         {

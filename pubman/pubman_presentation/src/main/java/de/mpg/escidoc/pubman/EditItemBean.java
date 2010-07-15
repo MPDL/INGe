@@ -298,13 +298,14 @@ public class EditItemBean extends FacesBean
      * 
      * @param creatorString The String to be parsed
      * @param creatorCollection The collection to which the creators should be added
-     * @param orgs A lsit of organizations that should be added to every creator. null if no organizations should be added.
-     * @param overwrite Indicates if the already exisiting creators sshould be overwritten
+     * @param orgs A list of organizations that should be added to every creator. null if no organizations should be added.
+     * @param overwrite Indicates if the already existing creators should be overwritten
      * @throws Exception
      */
     public void parseCreatorString(String creatorString, List<OrganizationVO> orgs, boolean overwrite) throws Exception
     {
         AuthorDecoder authDec = new AuthorDecoder(creatorString);
+        
         List<Author> authorList = authDec.getBestAuthorList();
         if (authorList == null || authorList.size() == 0)
         {

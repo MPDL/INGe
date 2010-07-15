@@ -192,15 +192,5 @@ public class OrganizationVOPresentation extends OrganizationVO
     		return true;
     	}
     }
-    
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object obj)
-    {
-        return (this == obj);
-    }
+
 }
