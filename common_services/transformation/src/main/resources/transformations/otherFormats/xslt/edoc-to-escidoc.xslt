@@ -1064,12 +1064,12 @@
 			<!-- DEGREE -->
 			<xsl:if test="genre='PhD-Thesis'">
 				<xsl:element name="eterms:degree">
-					<xsl:value-of select="'phd'"/>
+					<xsl:value-of select="$degree-ves/enum[. = 'phd']/@uri"/>
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="genre='Habilitation'">
 				<xsl:element name="eterms:degree">
-					<xsl:value-of select="'habilitation'"/>
+					<xsl:value-of select="$degree-ves/enum[. = 'habilitation']/@uri"/>
 				</xsl:element>
 			</xsl:if>
 			<!-- ABSTRACT -->
