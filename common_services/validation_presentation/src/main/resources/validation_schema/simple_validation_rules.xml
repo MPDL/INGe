@@ -206,7 +206,7 @@
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
 		<iso:rule context="source:source">
-			<iso:assert test="dc:title != '' or not(normalize-space(.) != '' or .//*/@* != '')">SourceTitleNotProvided</iso:assert>
+			<iso:assert test="dc:title != '' or not(normalize-space(.) != '')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
