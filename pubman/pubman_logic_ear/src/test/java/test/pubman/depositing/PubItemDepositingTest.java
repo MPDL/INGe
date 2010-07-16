@@ -66,6 +66,7 @@ import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.escidoc.services.pubman.logging.ApplicationLog;
 import de.mpg.escidoc.services.pubman.logging.PMLogicMessages;
+import de.mpg.escidoc.services.validation.ItemInvalidException;
 
 /**
  * Test class for {@link PubItemDepositing}
@@ -206,6 +207,10 @@ public class PubItemDepositingTest extends TestBase
         catch (AssertionError e)
         {
             fail("This failure is due to FIZ bug #288");
+        }
+        catch (ItemInvalidException iie)
+        {
+            fail("Invalid item: " + iie.getMessage());
         }
     }
 
