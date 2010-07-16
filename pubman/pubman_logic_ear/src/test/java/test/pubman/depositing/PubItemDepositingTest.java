@@ -210,6 +210,7 @@ public class PubItemDepositingTest extends TestBase
         }
         catch (ItemInvalidException iie)
         {
+            logger.error("Invalid item: ", iie);
             fail("Invalid item: " + iie.getMessage());
         }
     }
