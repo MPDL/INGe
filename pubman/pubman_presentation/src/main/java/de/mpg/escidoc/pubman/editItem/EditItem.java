@@ -2177,18 +2177,6 @@ public class EditItem extends FacesBean
     {
     }
 
-    public String getCcScriptTag()
-    {
-        return EditItem.getCcScriptTagForAll();
-    }
-
-    public static String getCcScriptTagForAll()
-    {
-        PubManSessionBean sessionBean = EditItem.getPubManSessionBean();
-        return "<script type='text/javascript' src='http://api.creativecommons.org/jswidget/tags/0.97/complete.js?locale="
-                + sessionBean.getLocale() + "&amp;want_a_license=definitely'>;</script>";
-    }
-
     public void setSuggestConeUrl(String suggestConeUrl)
     {
         this.suggestConeUrl = suggestConeUrl;

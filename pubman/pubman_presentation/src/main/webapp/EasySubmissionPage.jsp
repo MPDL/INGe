@@ -47,7 +47,7 @@
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
-
+				<script type='text/javascript' src='http://api.creativecommons.org/jswidget/tags/0.96/complete.js?locale=#{PubManSessionBean.locale}&amp;want_a_license=definitely'>;</script>
 				<link rel="stylesheet" href="http://labs.creativecommons.org/demos/jswidget/tags/0.97/example_web_app/example-widget-style.css" />
 
 			</head>
@@ -103,9 +103,8 @@
 					document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea half_marginLIncl smallThrobber');
 				    $('*').attr('readonly', true);
 				    $(':input : file').attr('disabled', true);
-				}
+				}								
 			</script>
-			<h:inputHidden id="CCScriptTag" value="#{EasySubmission.ccScriptTag}"/>
 			</body>
 		</html>
 	</f:view>

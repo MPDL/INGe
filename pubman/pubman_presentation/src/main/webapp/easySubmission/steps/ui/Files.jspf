@@ -42,28 +42,36 @@
 		<tr:iterator var="component" id="fileUploads" value="#{EasySubmission.files}" binding="#{EasySubmission.fileIterator}" varStatus="index">
 
 <%-- Add File --%>
-		<h:panelGroup layout="block" rendered="#{!(genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'easy-submission' || genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'all')}">
+		<h:panelGroup layout="block" styleClass="files" rendered="#{!(genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'easy-submission' || genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder fileSection"  rendered="#{component.index == 0 && component.size == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblFile}"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" />
+						  <h:outputText value="#{lbl.EditItem_lblFile}"/>
+						  <span class="noDisplay">: </span>
 				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<tr:inputFile id="inpFileUploaded" styleClass="fileInput" value="#{EasySubmission.uploadedFile}" valueChangeListener="#{EasySubmission.fileUploaded}" />
+				<div id="ccContentHelper" class="ccContentHelper noDisplay">&#160;</div>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">					
+					<tr:inputFile id="inpFileUploaded" styleClass="fileInput" value="#{EasySubmission.uploadedFile}" valueChangeListener="#{EasySubmission.fileUploaded}"
+								  onchange=""/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{lbl.easy_submission_btnUploadFile}" partialSubmit="false"/>
+					<tr:commandButton id="btnUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" 
+									  text="#{lbl.easy_submission_btnUploadFile}" partialSubmit="false"/>
 				</span>
 			</h:panelGroup>
 			
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine fileSection" rendered="#{component.index > 0 && component.size == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_btAddFile}" /><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" />
+						  <h:outputText value="#{lbl.EditItem_btAddFile}" />
+						  <span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<tr:inputFile id="inpUploadedFile" styleClass="fileInput" value="#{EasySubmission.uploadedFile}" valueChangeListener="#{EasySubmission.fileUploaded}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnEasySubmissionUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{lbl.EditItem_btUpload_File}" partialSubmit="false"/>
+					<tr:commandButton id="btnEasySubmissionUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" 
+									  text="#{lbl.EditItem_btUpload_File}" partialSubmit="false"/>
 				</span>
 			</h:panelGroup>
 		</h:panelGroup>
@@ -77,7 +85,8 @@
 					<h:inputText id="inpLocatorUpload" styleClass="quad_txtInput" value="#{EasySubmission.locatorUpload}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnEditItemUpload" styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btUpload_URL}"  shortDesc="#{tip.EditItem_btUploadLocator}" action="#{EasySubmission.uploadLocator}" />
+					<tr:commandButton id="btnEditItemUpload" styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btUpload_URL}"  
+									  shortDesc="#{tip.EditItem_btUploadLocator}" action="#{EasySubmission.uploadLocator}" />
 				</span>
 			</h:panelGroup>
 <%-- Real filename --%>
@@ -102,7 +111,9 @@
 		<h:panelGroup layout="block" rendered="#{!(genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'easy-submission' || genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.files_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" />
+						  <h:outputText value="#{genre.files_component_content_category_label}" converter="GenreLabelConverter"/>
+						  <span class="noDisplay">: </span>
 				</b>
 				<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
 					<h:selectOneMenu id="selContentCategory" styleClass="double_select replace" value="#{component.file.contentCategory}" >
@@ -120,7 +131,12 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup rendered="#{!(genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'easy-submission' || genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'all')}">
 						<span class="quad_area0 tiny_marginRIncl">
-							<label class="quad_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.files_component_name_optional != 'true'}"/></span><h:outputText value="#{genre.files_component_name_label}" converter="GenreLabelConverter"/></label>
+							<label class="quad_label">
+								<span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />">
+									<h:outputText value="*" rendered="#{genre.files_component_name_optional != 'true'}"/>
+								</span>
+								<h:outputText value="#{genre.files_component_name_label}" converter="GenreLabelConverter"/>
+							</label>
 							<h:inputText id="inpComponentFileDefaultMetadataTitle" styleClass="quad_txtInput" value="#{component.file.defaultMetadata.title.value}" />
 						</span>
 					</h:panelGroup>
@@ -142,7 +158,11 @@
 						</span>
 					</h:panelGroup>
 					<h:panelGroup styleClass="large_area0 tiny_marginLIncl" rendered="#{component.showEmbargoDate}">
-						<label class="large_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="#{lbl.easy_submission_lblFileEmbargo}"/></label>
+						<label class="large_label">
+							<span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />">
+								<h:outputText value="*" rendered="false"/>
+							</span><h:outputText value="#{lbl.easy_submission_lblFileEmbargo}"/>
+						</label>
 						<h:inputText id="fileEmbargoDate" styleClass="large_txtInput dateJSInput" value="#{component.file.defaultMetadata.embargoUntil}"/>
 					</h:panelGroup>
 				</span>
@@ -163,15 +183,17 @@
 					</h:panelGroup>
 					<span class="large_area0 xTiny_marginRIncl">
 						<h:outputLabel id="lblEditItemMimeType" styleClass="large_label labelToTextAreaBottom" value="#{lbl.EditItem_lblMimeType}" />
-						<h:inputText id="inpComponentFileMimeType" styleClass="large_txtInput" value="#{component.mimeType}" />
+						<h:inputText id="inpComponentFileMimeType" styleClass="large_txtInput" value="#{component.mimeType}"/>
 					</span>
 				</span>
 			</h:panelGroup>
 
 <%-- Copyright Statement, Copyright Date, File Licence --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder copyrightArea" rendered="#{component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.easy_submission_lblRights}" /><span class="noDisplay">:</span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
+						  <h:outputText value="#{lbl.easy_submission_lblRights}" />
+						  <span class="noDisplay">:</span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="true">
@@ -187,28 +209,47 @@
 					</span>
 				</span>
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">:</span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
+						  <span class="noDisplay">:</span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl licenseArea endline">
-					<h:panelGroup styleClass="quad_area0" rendered="true">
-						<label class="quad_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="#{lbl.easy_submission_lblLicencingInfo}"/></label>
-						<h:inputText id="inpComponentFileDefaultMetadataLicense" styleClass="xDouble_txtInput tiny_marginRIncl licenseURL" value="#{component.file.defaultMetadata.license}"/>
-						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicense}" styleClass="large_txtBtn groupBtn ccLicense" onclick="$(this).parents('.licenseArea').find('.messageArea').find('.ccContent').html($('#CCScriptTag').val()); var actualCCContent = $(this).parents('.licenseArea').find('.messageArea').find('.ccContent'); window.setTimeout(function (){ $(actualCCContent).append($('head').children('div')); $(actualCCContent).parents('.messageArea').removeClass('noDisplay');},1000);"/>
+					<h:panelGroup styleClass="quad_area0">
+						<label class="quad_label">
+							<span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />">
+								<h:outputText value="*" rendered="false"/>
+							</span>
+							<h:outputText value="#{lbl.easy_submission_lblLicencingInfo}"/>
+						</label>
+						<h:inputText id="inpComponentFileDefaultMetadataLicense" styleClass="xDouble_txtInput tiny_marginRIncl licenseURL" 
+									 value="#{component.file.defaultMetadata.license}"/>
+
+						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicense}" styleClass="large_txtBtn groupBtn ccLicense" 
+									onclick="var actualCCContent = $(this).parents('.licenseArea').find('.messageArea').find('.ccContent');
+											 $(actualCCContent).append($('head').children('div')); 
+											 $(actualCCContent).parents('.messageArea').removeClass('noDisplay');"
+									ondblclick="return false;"/>
 					</h:panelGroup>
 					<h:panelGroup id="cc_js_widget_container" styleClass="xHuge_area2_p8 messageArea noDisplay" style="margin-top: -1.82em;">
 						<input type="button" onclick="$(this).parents('.messageArea').addClass('noDisplay');" 
 							   value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
 						<div class="ccContent">&#160;</div>
 						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicenseApply}" styleClass="activeButton" 
-									  onclick="$(this).parents('.licenseArea').find('.licenseURL').val($(this).parents('.messageArea').find('#cc_js_result_uri').val()); $(this).parents('.messageArea').find('.ccContent').html('&nbsp;'); $(this).parents('.messageArea').addClass('noDisplay');"/>
+									 onclick="$(this).parents('.licenseArea').find('.licenseURL').val($(this).parents('.messageArea').find('#cc_js_result_uri').val()); 									  		   
+									  		  $(this).parents('.messageArea').addClass('noDisplay');"/>
 				     </h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnRemoveFileEasySubmission" styleClass="min_imgBtn sectionTool remove" text=" " action="#{component.removeFileEasySubmission}" rendered="#{genre.files_repeatable != 'false'}"/>
-					<tr:commandButton id="btnAddFile" styleClass="min_imgBtn sectionTool add" text=" " action="#{EasySubmission.addFile}" disabled="#{EasySubmission.files[EasySubmission.numberOfFiles-1].size == 0}" rendered="#{genre.files_repeatable != 'false'}"/>
+					<tr:commandButton id="btnRemoveFileEasySubmission" styleClass="min_imgBtn sectionTool remove" 
+									  text=" " action="#{component.removeFileEasySubmission}" 
+									  rendered="#{genre.files_repeatable != 'false'}"/>
+					<tr:commandButton id="btnAddFile" styleClass="min_imgBtn sectionTool add" 
+									  text=" " action="#{EasySubmission.addFile}" 
+									  disabled="#{EasySubmission.files[EasySubmission.numberOfFiles-1].size == 0}" 
+									  rendered="#{genre.files_repeatable != 'false'}"/>
 				</span>
+				
 			</h:panelGroup>
-
+		
 		</tr:iterator>	
 	</div>
 </h:panelGroup>
