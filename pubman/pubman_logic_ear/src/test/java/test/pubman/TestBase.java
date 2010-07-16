@@ -469,9 +469,9 @@ public class TestBase
         mds.setTitle(new TextVO("Über den Wölken. The first of all. Das Maß aller Dinge.", "en"));
 
         // Language
-        mds.getLanguages().add("de");
-        mds.getLanguages().add("en");
-        mds.getLanguages().add("fr");
+        mds.getLanguages().add("deu");
+        mds.getLanguages().add("eng");
+        mds.getLanguages().add("fra");
 
         // Alternative Title
         mds.getAlternativeTitles().add(new TextVO("Die Erste von allen.", "de"));
