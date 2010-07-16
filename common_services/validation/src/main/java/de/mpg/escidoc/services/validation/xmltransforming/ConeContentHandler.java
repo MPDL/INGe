@@ -71,6 +71,8 @@ public class ConeContentHandler extends IdentityHandler
             {
                 String url = PropertyReader.getProperty("escidoc.cone.service.url") + params + "/all?format=rdf";
 
+                logger.info("Trying to retrieve CoNE data from :" + url);
+                
                 HttpClient client = new HttpClient();
                 GetMethod method = new GetMethod(url);
                 ProxyHelper.executeMethod(client, method);

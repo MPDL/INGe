@@ -63,4 +63,13 @@ public class ItemInvalidException extends Exception
     {
         this.report = report;
     }
+
+    @Override
+    public String getMessage()
+    {
+        return report.toString();
+    }
+    
+    
+    
 }
