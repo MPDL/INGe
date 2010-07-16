@@ -127,11 +127,15 @@ public class ImportProcess extends Thread
         {
             this.publicationContentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new RuntimeException("Error getting property 'escidoc.framework_access.content-model.id.publication'", e);
         }
         
         log = new ImportLog("import", user.getReference().getObjectId(), format.getName());
+        
+        log.setUserHandle(user.getHandle());
+        
         log.setPercentage(5);
         // Say Hello
         log.startItem("import_process_started");

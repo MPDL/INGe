@@ -853,6 +853,7 @@ public class EditItem extends FacesBean
         }
         catch (RuntimeException rE)
         {
+            logger.error("Error saving item", rE);
             String message = getMessage("itemHasBeenChangedInTheMeantime");
             fatal(message);
             retVal = EditItem.LOAD_EDITITEM;
@@ -978,6 +979,7 @@ public class EditItem extends FacesBean
             }
             catch (RuntimeException rE)
             {
+                logger.error("Error saving item", rE);
                 String message = getMessage("itemHasBeenChangedInTheMeantime");
                 fatal(message);
                 retVal = EditItem.LOAD_EDITITEM;
@@ -1212,6 +1214,7 @@ public class EditItem extends FacesBean
             // handle optimistic locking exception
             catch (RuntimeException rE)
             {
+                logger.error("Error saving item", rE);
                 String message = getMessage("itemHasBeenChangedInTheMeantime");
                 fatal(message);
                 retVal = EditItem.LOAD_EDITITEM;

@@ -92,15 +92,6 @@ public class DeleteProcess extends Thread
     public void run()
     {
         
-        try
-        {
-            sleep(20000);
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException(e);
-        }
-        
         int itemCount = 0;
         for (ImportLogItem item : log.getItems())
         {
