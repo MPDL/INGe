@@ -112,7 +112,7 @@
 				<h3 class="xLarge_area0_p8 endline blockHeader clear">
 					<h:outputText value="#{genre.creator_person_organization_label}" converter="GenreLabelConverter"/>
 				</h3>
-
+				<span class="itemBlockContent">&nbsp;</span>
 				<h:panelGroup styleClass="free_area0 large_marginLExcl itemLine noTopBorder endline" rendered="#{!(genre.sources_source_person_organization_source_persons_display == 'false' && genre.sources_source_person_organization_source_persons_form_id == 'full-submission' || genre.sources_source_person_organization_source_persons_display == 'false' && genre.sources_source_person_organization_source_persons_form_id == 'all')}">
 					<h:outputText styleClass="small_area0 xSmall_marginLExcl" value="#{genre.creator_person_organization_creator_select_roles_label}" converter="GenreLabelConverter"/>
 					<h:outputText styleClass="small_area0" value="#{genre.creator_person_organization_creator_select_roles_creator_type_label}" converter="GenreLabelConverter"/>

@@ -38,7 +38,6 @@
 		<f:selectItem itemValue="en" itemLabel="#{lbl.ENUM_LANGUAGE_EN}"/>
 		<f:selectItem itemValue="de" itemLabel="#{lbl.ENUM_LANGUAGE_DE}"/>
 		<f:selectItem itemValue="ja" itemLabel="#{lbl.ENUM_LANGUAGE_JA}"/>
-		<f:selectItem itemValue="es" itemLabel="#{lbl.ENUM_LANGUAGE_ES}"/>
 	</h:selectOneMenu>
 
 	<!-- Help -->

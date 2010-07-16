@@ -235,7 +235,7 @@ public class ImportProcess extends Thread
             log.addDetail(ErrorLevel.FINE, "import_process_format_available");
         }
         Format[] allSourceFormats = transformation.getSourceFormats(ESCIDOC_FORMAT);
-        System.out.println(allSourceFormats);
+
         boolean found = false;
         for (Format sourceFormat : allSourceFormats)
         {
@@ -337,10 +337,9 @@ public class ImportProcess extends Thread
     {
         log.startItem(ErrorLevel.FINE, "import_process_rollback");
         log.finishItem();
+        log.close();
         DeleteProcess deleteProcess = new DeleteProcess(log);
         deleteProcess.start();
-        log.startItem(ErrorLevel.FINE, "import_process_rollback_successful");
-        log.finishItem();
     }
 
     /**
@@ -391,6 +390,7 @@ public class ImportProcess extends Thread
                         if (this.rollback)
                         {
                             fail();
+                            break;
                         }
                     }
                 }
@@ -442,6 +442,7 @@ public class ImportProcess extends Thread
                         if (this.rollback)
                         {
                             fail();
+                            break;
                         }
                     }
                 }
@@ -644,7 +645,10 @@ public class ImportProcess extends Thread
         {
             log.addDetail(ErrorLevel.ERROR, e);
             log.addDetail(ErrorLevel.ERROR, "import_process_item_not_imported");
-            fail();
+            if (this.rollback)
+            {
+                fail();
+            }
             log.finishItem();
         }
     }

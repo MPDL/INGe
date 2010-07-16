@@ -181,10 +181,11 @@ public class CommonUtils extends InternationalizedImpl
     	ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
     	String locale = Locale.getDefault().getLanguage();
     	
-    	 if (!(locale.equals("en") || locale.equals("de") || locale.equals("ja") || locale.equals("es")))
-         {
+        //if (!(locale.equals("en") || locale.equals("de") || locale.equals("ja") || locale.equals("es")))
+        if (!(locale.equals("en") || locale.equals("de") || locale.equals("ja")))
+        {
          	locale = "en";
-         }
+        }
     	 
     	if(appBean.getLanguageSelectItems().get(locale)!=null && appBean.getLanguageSelectItems().get(locale).length>0)
 		{
@@ -215,7 +216,8 @@ public class CommonUtils extends InternationalizedImpl
         	return new SelectItem[0];
         }
             
-        SelectItem[] options = new SelectItem[coneLanguagesIso639_1.size() + 5];
+//        SelectItem[] options = new SelectItem[coneLanguagesIso639_1.size() + 5];
+        SelectItem[] options = new SelectItem[coneLanguagesIso639_1.size() + 4];
         options[0] = new SelectItem("", NO_ITEM_SET);
         if (locale.equals("de"))
         {
@@ -229,29 +231,29 @@ public class CommonUtils extends InternationalizedImpl
             options[1] = new SelectItem("eng", "eng - English");  
             options[2] = new SelectItem("deu", "deu - German");  
             options[3] = new SelectItem("jpn", "jpn - Japanese"); 
-            options[4] = new SelectItem("spa", "spa - Spanish"); 
+//            options[4] = new SelectItem("spa", "spa - Spanish"); 
         }
         else if (locale.equals("fr"))
         {
             options[1] = new SelectItem("eng", "eng - Anglais");  
             options[2] = new SelectItem("deu", "deu - Allemand");  
             options[3] = new SelectItem("jpn", "jpn - Japonais"); 
-            options[4] = new SelectItem("spa", "spa - Espagnol"); 
+//            options[4] = new SelectItem("spa", "spa - Espagnol"); 
         }
         else if (locale.equals("ja"))
         {
             options[1] = new SelectItem("eng", "eng - 英語");
             options[2] = new SelectItem("deu", "deu - ドイツ語");
             options[3] = new SelectItem("jpn", "jpn - 日本語");
-            options[4] = new SelectItem("spa", "spa - スペイン語"); 
+//            options[4] = new SelectItem("spa", "spa - スペイン語"); 
         }
-        else if (locale.equals("es"))
-        {
-            options[1] = new SelectItem("eng", "eng - Inglés");
-            options[2] = new SelectItem("deu", "deu - Alemán");
-            options[3] = new SelectItem("jpn", "jpn - Japonés");
-            options[4] = new SelectItem("spa", "spa - Español"); 
-        }
+//        else if (locale.equals("es"))
+//        {
+//            options[1] = new SelectItem("eng", "eng - Inglés");
+//            options[2] = new SelectItem("deu", "deu - Alemán");
+//            options[3] = new SelectItem("jpn", "jpn - Japonés");
+//            options[4] = new SelectItem("spa", "spa - Español"); 
+//        }
         else
         {
             logger.error("Language not supported: " + locale);
@@ -259,9 +261,10 @@ public class CommonUtils extends InternationalizedImpl
             options[1] = new SelectItem("eng", "eng - English");  
             options[2] = new SelectItem("deu", "deu - German");  
             options[3] = new SelectItem("jpn", "jpn - Japanese");
-            options[4] = new SelectItem("spa", "spa - Spanish"); 
+//            options[4] = new SelectItem("spa", "spa - Spanish"); 
         }
-        options[5] = new SelectItem("", NO_ITEM_SET);
+//        options[5] = new SelectItem("", NO_ITEM_SET);
+        options[4] = new SelectItem("", NO_ITEM_SET);
 
         int i = 0;
         List<String> langLabels = new ArrayList<String>(coneLanguagesIso639_1.keySet());
@@ -270,7 +273,8 @@ public class CommonUtils extends InternationalizedImpl
         for (String label : langLabels)
         {
         	String iso639Code = coneLanguagesIso639_3.get(label);
-            options[i + 5] = new SelectItem(iso639Code, iso639Code + " - " + label);
+            options[i + 4] = new SelectItem(iso639Code, iso639Code + " - " + label);
+//            options[i + 5] = new SelectItem(iso639Code, iso639Code + " - " + label);
             i++;
         }
 
@@ -282,7 +286,8 @@ public class CommonUtils extends InternationalizedImpl
     	Map<String, String> langMap = new HashMap<String, String>();
         
         
-        if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja") || locale.equals("es")))
+        //if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja") || locale.equals("es")))
+        if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja")))
         {
         	locale = "en";
         }
@@ -330,7 +335,8 @@ public class CommonUtils extends InternationalizedImpl
     {
         if (code != null && !"".equals(code.trim()))
         {
-            if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja") || locale.equals("es")))
+            //if (!(locale.equals("en") || locale.equals("de") || locale.equals("ja") || locale.equals("es")))
+            if (!(locale.equals("en") || locale.equals("de") || locale.equals("ja")))
             {
                 locale = "en";
             }

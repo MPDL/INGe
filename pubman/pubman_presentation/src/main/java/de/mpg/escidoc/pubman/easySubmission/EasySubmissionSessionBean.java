@@ -26,7 +26,7 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/ 
+*/
 
 package de.mpg.escidoc.pubman.easySubmission;
 
@@ -102,7 +102,7 @@ public class EasySubmissionSessionBean extends EditItemBean
     private String currentFTLabel = "";
     private boolean fulltext = true;
 
-    private HtmlSelectOneRadio radioSelectFulltext = new HtmlSelectOneRadio();
+    private String radioSelectFulltext;
     private HtmlSelectOneRadio radioSelectReference = new HtmlSelectOneRadio();
 
 
@@ -113,7 +113,6 @@ public class EasySubmissionSessionBean extends EditItemBean
 
 
     private String genreBundle = "Genre_ARTICLE";
-
     /**
      * A creator bean that holds the data from the author copy&paste organizations
      */
@@ -282,15 +281,17 @@ public class EasySubmissionSessionBean extends EditItemBean
 	public void setEXTERNAL_SERVICE_OPTIONS(SelectItem[] external_service_options) {
 		EXTERNAL_SERVICE_OPTIONS = external_service_options;
 	}
-	
-	public HtmlSelectOneRadio getRadioSelectFulltext() {
-		return radioSelectFulltext;
-	}
 
-	public void setRadioSelectFulltext(HtmlSelectOneRadio radioSelectFulltext) {
-		this.radioSelectFulltext = radioSelectFulltext;
-	}
-	
+    public String getRadioSelectFulltext()
+    {
+        return radioSelectFulltext;
+    }
+
+    public void setRadioSelectFulltext(String radioSelectFulltext)
+    {
+        this.radioSelectFulltext = radioSelectFulltext;
+    }
+
     public HtmlSelectOneRadio getRadioSelectReference()
     {
         return radioSelectReference;
@@ -368,3 +369,4 @@ public class EasySubmissionSessionBean extends EditItemBean
     }
 
 }
+

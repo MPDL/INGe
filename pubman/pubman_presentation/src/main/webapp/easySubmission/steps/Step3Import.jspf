@@ -135,7 +135,7 @@
 						<span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneRadio id="selSelectFulltext" styleClass="large_radioBtn tiny_marginRIncl xHuge_area0" value="FORMAT" binding="#{EasySubmissionSessionBean.radioSelectFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}">										
+						<h:selectOneRadio id="selSelectFulltext" styleClass="large_radioBtn tiny_marginRIncl xHuge_area0" value="#{EasySubmissionSessionBean.radioSelectFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}">										
 							<f:selectItems id="selFulltextOptions" value="#{EasySubmissionSessionBean.FULLTEXT_OPTIONS}"/>
 						</h:selectOneRadio>
 					</span>

@@ -92,6 +92,8 @@ public class BrowseBySessionBean extends FacesBean
     private String dateType = "published";
     private String pubContentModel = "";
     
+    public static final char[] CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ".toCharArray();
+    
     Character[] characters = null;
 
     private List<String> browseByYears;
@@ -198,15 +200,21 @@ public class BrowseBySessionBean extends FacesBean
             if (all.size() > this.getMaxDisplay())
             {
                 SortedSet<Character> characters = new TreeSet<Character>();
-                for (LinkVO linkVO : all)
+                
+                for (int i = 0; i < CHARACTERS.length; i++)
                 {
-                    Character chr = new Character(linkVO.getLabel().toUpperCase().charAt(0));
-                    if (!characters.contains(chr))
-                    {
-                        logger.debug("new character: " + linkVO.getLabel());
-                        characters.add(chr);
-                    }
+                    characters.add(CHARACTERS[i]);
                 }
+
+//                for (LinkVO linkVO : all)
+//                {
+//                    Character chr = new Character(linkVO.getLabel().toUpperCase().charAt(0));
+//                    if (!characters.contains(chr))
+//                    {
+//                        logger.debug("new character: " + linkVO.getLabel());
+//                        characters.add(chr);
+//                    }
+//                }
                 
                 this.characters = characters.toArray(new Character[]{});
                 
