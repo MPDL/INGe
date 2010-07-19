@@ -39,13 +39,13 @@
 	<name>citationmanager_ear</name>
 	<packaging>ear</packaging>
 	<version>1.0.51-SNAPSHOT</version>
-
+	
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager_ear</connection>
 		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager_ear</developerConnection>
 		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
-
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -145,13 +145,17 @@
 							<artifactId>transformation</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
-
+					
 					</modules>
 				</configuration>
 			</plugin>
 			<!-- enables the compile test resources feature in the ear -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
 				<executions>
 					<execution>
 						<phase>test-compile</phase>
@@ -198,7 +202,7 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -315,11 +319,11 @@
 <!--      		<version>1.0.0</version>-->
 <!--      		<scope>compile</scope>-->
 <!--    	</dependency>-->
-
+	
 	</dependencies>
-
+	
 	<profiles>
-
+		
 		<profile>
 			<id>jboss42</id>
 			<build>
