@@ -66,8 +66,8 @@
 				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNotice}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeSubmit}" rendered="#{SubmitItem.isStandardWorkflow}" />
-				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeRelease}" rendered="#{SubmitItem.isSimpleWorkflow}" />
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeSubmit}" rendered="#{SubmitItem.isStandardWorkflow and !SubmitItem.isSubmitted}" />
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeRelease}" rendered="#{SubmitItem.isSimpleWorkflow || SubmitItem.isSubmitted}" />
 			</span>
 		</h:panelGroup>
 		<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder" rendered="#{SubmitItem.hasAudienceFiles}">
@@ -75,14 +75,14 @@
 				<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNotice}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNoticeSubmit}" rendered="#{SubmitItem.isStandardWorkflow}"/>
-				<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNoticeRelease}" rendered="#{SubmitItem.isSimpleWorkflow}"/>
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNoticeSubmit}" rendered="#{SubmitItem.isStandardWorkflow and !SubmitItem.isSubmitted}"/>
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNoticeRelease}" rendered="#{SubmitItem.isSimpleWorkflow || SubmitItem.isSubmitted}"/>
 			</span>
 		</h:panelGroup>			
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.SubmitItem_lblSubmitComment}" rendered="#{SubmitItem.isStandardWorkflow}"/>
-				<h:outputText value="#{lbl.SubmitItem_lblReleaseComment}" rendered="#{SubmitItem.isSimpleWorkflow}"/>
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitComment}" rendered="#{SubmitItem.isStandardWorkflow and !SubmitItem.isSubmitted}"/>
+				<h:outputText value="#{lbl.SubmitItem_lblReleaseComment}" rendered="#{SubmitItem.isSimpleWorkflow || SubmitItem.isSubmitted}"/>
 				&#160;<span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">

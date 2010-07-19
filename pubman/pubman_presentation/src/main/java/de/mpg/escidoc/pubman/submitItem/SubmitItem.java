@@ -45,6 +45,8 @@ import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
@@ -162,8 +164,12 @@ public class SubmitItem extends FacesBean
         
         if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
+            if (this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState() == ItemVO.State.SUBMITTED)
+            {
+                info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED));
+            }
             // distinguish between simple and standard workflow
-        	if(this.getItemControllerSessionBean().getCurrentWorkflow() != null && this.getItemControllerSessionBean().getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE))
+            else if(this.getItemControllerSessionBean().getCurrentWorkflow() != null && this.getItemControllerSessionBean().getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE))
         	{
         		info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED));
         	}
@@ -181,7 +187,8 @@ public class SubmitItem extends FacesBean
             {
     			fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
     		} 
-            catch (IOException e) {
+            catch (IOException e)
+            {
     			logger.error("Could not redirect to View Item Page", e);
     		}
         }
@@ -332,4 +339,8 @@ public class SubmitItem extends FacesBean
         return getItemControllerSessionBean().getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE);
     }
 
+    public boolean getIsSubmitted()
+    {
+        return getItemControllerSessionBean().getCurrentPubItem().getVersion().getState() == ItemVO.State.SUBMITTED;
+    }
 }

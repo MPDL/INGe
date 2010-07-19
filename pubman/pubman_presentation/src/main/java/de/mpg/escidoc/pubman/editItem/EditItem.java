@@ -931,16 +931,23 @@ public class EditItem extends FacesBean
             }
             if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem))
             {
-                logger.warn("Item has not been changed.");
-                // create a validation report
-                ValidationReportVO changedReport = new ValidationReportVO();
-                ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
-                changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
-                changedReportItem.setContent("itemHasNotBeenChanged");
-                changedReport.addItem(changedReportItem);
-                // show report and stay on this page
-                this.showValidationMessages(changedReport);
-                return null;
+                if (newPubItem.getVersion().getState() == ItemVO.State.RELEASED)
+                {
+                    logger.warn("Item has not been changed.");
+                    // create a validation report
+                    ValidationReportVO changedReport = new ValidationReportVO();
+                    ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
+                    changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
+                    changedReportItem.setContent("itemHasNotBeenChanged");
+                    changedReport.addItem(changedReportItem);
+                    // show report and stay on this page
+                    this.showValidationMessages(changedReport);
+                    return null;
+                }
+                else
+                {
+                    return SubmitItem.LOAD_SUBMITITEM;
+                }
             }
         }
         // end: check if the item has been changed
@@ -1169,21 +1176,28 @@ public class EditItem extends FacesBean
             catch (Exception e)
             {
                 logger.error("Could not retrieve item." + "\n" + e.toString(), e);
-                ((ErrorPage)getRequestBean(ErrorPage.class)).setException(e);
+                ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
                 return ErrorPage.LOAD_ERRORPAGE;
             }
             if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem))
             {
-                logger.warn("Item has not been changed.");
-                // create a validation report
-                ValidationReportVO changedReport = new ValidationReportVO();
-                ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
-                changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
-                changedReportItem.setContent("itemHasNotBeenChanged");
-                changedReport.addItem(changedReportItem);
-                // show report and stay on this page
-                this.showValidationMessages(changedReport);
-                return null;
+                if (newPubItem.getVersion().getState() == ItemVO.State.RELEASED)
+                {
+                    logger.warn("Item has not been changed.");
+                    // create a validation report
+                    ValidationReportVO changedReport = new ValidationReportVO();
+                    ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
+                    changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
+                    changedReportItem.setContent("itemHasNotBeenChanged");
+                    changedReport.addItem(changedReportItem);
+                    // show report and stay on this page
+                    this.showValidationMessages(changedReport);
+                    return null;
+                }
+                else
+                {
+                    return AcceptItem.LOAD_ACCEPTITEM;
+                }
             }
             else
             {
@@ -1669,7 +1683,8 @@ public class EditItem extends FacesBean
             throw new RuntimeException("Previously uncaught exception", e);
         }
         this.lnkAccept.setRendered((isStateSubmitted || isStateReleased) && (isModerator && !isOwner));
-        this.lnkRelease.setRendered((isStatePending || isStateSubmitted || isStateReleased) && isOwner);
+        this.lnkRelease.setRendered(isOwner && ((isWorkflowSimple && (isStatePending || isStateSubmitted || isStateReleased))
+                || (isWorkflowStandard && isModerator && (isStateSubmitted || isStateReleased))));
         this.lnkDelete.setRendered(isStatePending && isOwner && itemHasID && !isPublicStateReleased);
         this.lnkSaveAndSubmit.setRendered((isStatePending || isStateInRevision || isStateReleased)
                 && isWorkflowStandard && isOwner);

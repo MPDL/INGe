@@ -65,8 +65,8 @@
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
 								<h1>
-									<h:outputText value="#{lbl.SubmitItemPage_Submit}" rendered="#{SubmitItem.isStandardWorkflow}"/>
-									<h:outputText value="#{lbl.SubmitItemPage_Release}" rendered="#{SubmitItem.isSimpleWorkflow}"/>
+									<h:outputText value="#{lbl.SubmitItemPage_Submit}" rendered="#{SubmitItem.isStandardWorkflow and !SubmitItem.isSubmitted}"/>
+									<h:outputText value="#{lbl.SubmitItemPage_Release}" rendered="#{SubmitItem.isSimpleWorkflow || SubmitItem.isSubmitted}"/>
 								</h1>
 								<!-- Headline ends here -->
 							</div>
@@ -97,8 +97,8 @@
 						<div class="full_area0 formButtonArea">
 
 							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.SubmitItem_lnkCancel}" action="#{SubmitItem.cancel}"/>
-							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.SubmitItem_lnkSubmit}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isStandardWorkflow}" />
-							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkRelease" value="#{lbl.SubmitItem_lnkRelease}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isSimpleWorkflow}" />
+							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.SubmitItem_lnkSubmit}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isStandardWorkflow and !SubmitItem.isSubmitted}" />
+							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkRelease" value="#{lbl.SubmitItem_lnkRelease}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isSimpleWorkflow || SubmitItem.isSubmitted}" />
 				
 						</div>
 					</div>

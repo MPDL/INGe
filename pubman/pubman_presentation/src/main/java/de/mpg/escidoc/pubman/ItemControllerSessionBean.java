@@ -305,8 +305,7 @@ public class ItemControllerSessionBean extends FacesBean
         }
         catch (Exception e)
         {
-            logger.error("Could not submit item." + "\n" + e.toString());
-            logger.error(e);
+            logger.error("Could not submit item.", e);
             ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
@@ -2484,8 +2483,12 @@ public class ItemControllerSessionBean extends FacesBean
     
     private PubItemVO submitOrSubmitAndReleasePubItem(PubItemVO pubItem, String submissionComment, AccountUserVO user) throws Exception
     {
-        
-        if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE))
+        if (pubItem.getVersion().getState() == ItemVO.State.SUBMITTED)
+        {
+            this.pubItemPublishing.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(), submissionComment, user);
+            return new PubItemVO();
+        }
+        else if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE))
         {
              return this.pubItemDepositing.submitAndReleasePubItem(new PubItemVO(pubItem), submissionComment, user);
         }
