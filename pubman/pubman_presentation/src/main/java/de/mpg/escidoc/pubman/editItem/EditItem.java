@@ -926,7 +926,7 @@ public class EditItem extends FacesBean
             catch (Exception e)
             {
                 logger.error("Could not retrieve item." + "\n" + e.toString(), e);
-                ((ErrorPage)getRequestBean(ErrorPage.class)).setException(e);
+                ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
                 return ErrorPage.LOAD_ERRORPAGE;
             }
             if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem))
@@ -949,7 +949,7 @@ public class EditItem extends FacesBean
                 GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
         try
         {
-            this.item = (PubItemVOPresentation)itemManager.cleanupItem();
+            this.item = (PubItemVOPresentation) itemManager.cleanupItem();
         }
         catch (Exception e)
         {
@@ -1630,6 +1630,7 @@ public class EditItem extends FacesBean
         boolean isStateSubmitted = false;
         boolean isStateReleased = false;
         boolean isStateInRevision = false;
+        boolean isPublicStateReleased = false;
         boolean itemHasID = this.getPubItem() != null && this.getPubItem().getVersion() != null
                 && this.getPubItem().getVersion().getObjectId() != null;
         if (this.getPubItem() != null && this.getPubItem().getVersion() != null
@@ -1639,6 +1640,7 @@ public class EditItem extends FacesBean
             isStateSubmitted = this.getPubItem().getVersion().getState().equals(PubItemVO.State.SUBMITTED);
             isStateReleased = this.getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED);
             isStateInRevision = this.getPubItem().getVersion().getState().equals(PubItemVO.State.IN_REVISION);
+            isPublicStateReleased = this.getPubItem().getPublicStatus() == PubItemVO.State.RELEASED;
         }
         boolean isModerator = false;
         if (loginHelper.getAccountUser() != null && this.getPubItem() != null)
@@ -1666,13 +1668,12 @@ public class EditItem extends FacesBean
         {
             throw new RuntimeException("Previously uncaught exception", e);
         }
-        this.lnkAccept.setRendered((isStateSubmitted || isStateReleased) && isModerator);
-        this.lnkRelease.setRendered((isStatePending || isStateSubmitted || isStateReleased) && isWorkflowSimple
-                && isOwner);
-        this.lnkDelete.setRendered(isStatePending && isOwner && itemHasID);
+        this.lnkAccept.setRendered((isStateSubmitted || isStateReleased) && (isModerator && !isOwner));
+        this.lnkRelease.setRendered((isStatePending || isStateSubmitted || isStateReleased) && isOwner);
+        this.lnkDelete.setRendered(isStatePending && isOwner && itemHasID && !isPublicStateReleased);
         this.lnkSaveAndSubmit.setRendered((isStatePending || isStateInRevision || isStateReleased)
                 && isWorkflowStandard && isOwner);
-        this.lnkSave.setRendered(((isStatePending || isStateInRevision || isStateReleased) && isOwner)
+        this.lnkSave.setRendered(((isStatePending || isStateInRevision) && isOwner)
                 || (isStateSubmitted && isModerator));
         /*
          * this.lnkAccept.setRendered(this.isInModifyMode() &&

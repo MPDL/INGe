@@ -56,12 +56,11 @@ import de.mpg.escidoc.services.search.query.SearchQuery;
  * @author franke
  *
  */
-public class OrganizationSuggest extends FacesBean
+public class OrganizationSuggest extends EditItemBean
 {
 
 	Logger logger = Logger.getLogger(OrganizationSuggest.class);
-	
-	List<OrganizationVOPresentation> result = new ArrayList<OrganizationVOPresentation>();
+
 	Search search;
 	
 	public OrganizationSuggest() throws Exception
@@ -95,6 +94,8 @@ public class OrganizationSuggest extends FacesBean
         		queryString += "(escidoc.title=\"" + snippet + "*\"  or escidoc.alternative=\"" + snippet + "*\")";
         	}
         	SearchQuery searchQuery = new PlainCqlQuery(queryString);
+        	searchQuery.setMaximumRecords("50");
+        	
         	OrgUnitsSearchResult searchResult = this.search.searchForOrganizationalUnits(searchQuery);
         	for (AffiliationVO affiliationVO : searchResult.getResults())
         	{
@@ -140,10 +141,9 @@ public class OrganizationSuggest extends FacesBean
 
             		}
             		organizationVOPresentation.setName(new TextVO(name));
-            		EditItemSessionBean editItemSessionBean = (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
-            		organizationVOPresentation.setBean(editItemSessionBean);
+            		organizationVOPresentation.setBean(this);
             		
-            		result.add(organizationVOPresentation);
+            		getCreatorOrganizations().add(organizationVOPresentation);
         		}
         		
         	}
@@ -199,11 +199,6 @@ public class OrganizationSuggest extends FacesBean
     		return resultList.get(0);
     	}
 		return null;
-	}
-
-	public List<OrganizationVOPresentation> getResult()
-	{
-		return result;
 	}
 
 }

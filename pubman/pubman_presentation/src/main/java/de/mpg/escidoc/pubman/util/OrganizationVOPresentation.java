@@ -172,9 +172,9 @@ public class OrganizationVOPresentation extends OrganizationVO
         }
     }
     
-    public boolean getLast()
+    public boolean isLast()
     {
-    	return (this.equals(bean.getCreatorOrganizations().get(bean.getCreatorOrganizations().size() - 1)));
+    	return (this.equals(getList().get(getList().size() - 1)));
     }
     
     public boolean isEmpty()

@@ -35,7 +35,7 @@
 		<f:loadBundle var="tip" basename="Tooltip"/>
 		
 		[
-			<tr:iterator var="ou" value="#{OrganizationSuggest.result}">
+			<tr:iterator var="ou" value="#{OrganizationSuggest.creatorOrganizations}" rows="50">
 				<h:panelGroup>
 				{
 					"id" : "<tr:outputText value="#{ou.identifier}" escape="false"/>",
