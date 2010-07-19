@@ -22,14 +22,14 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.47-SNAPSHOT</version>
+		<version>1.0.46-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>dataacquisition</artifactId>
 	<name>dataacquisition</name>
 	<packaging>ejb</packaging>
-	<version>1.0.44-SNAPSHOT</version>
+	<version>1.0.43-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/dataacquisition</connection>
@@ -140,7 +140,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.35-SNAPSHOT</version>
+			<version>1.0.34-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

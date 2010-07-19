@@ -32,11 +32,11 @@
     <parent>
         <artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.47-SNAPSHOT</version>
+		<version>1.0.46-SNAPSHOT</version>
     </parent>
     <groupId>de.mpg.escidoc.services</groupId>
     <artifactId>syndication_ear</artifactId>
-    <version>1.0.31-SNAPSHOT</version>
+    <version>1.0.30-SNAPSHOT</version>
     <name>syndication_ear</name>
     <packaging>ear</packaging>
 
@@ -333,47 +333,47 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>framework_access</artifactId>
-            <version>1.0.50-SNAPSHOT</version>
+            <version>1.0.49-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>common_logic</artifactId>
-            <version>1.1.47-SNAPSHOT</version>
+            <version>1.1.46-SNAPSHOT</version>
             <scope>test</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
         	<groupId>de.mpg.escidoc.services</groupId>
         	<artifactId>search_presentation</artifactId>
-        	<version>1.0.47-SNAPSHOT</version>
+        	<version>1.0.46-SNAPSHOT</version>
         	<scope>test</scope>
         	<type>war</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>syndication_presentation</artifactId>
-            <version>1.0.31-SNAPSHOT</version>
+            <version>1.0.30-SNAPSHOT</version>
             <scope>test</scope>
             <type>war</type>
         </dependency>
         <dependency>
         	<groupId>de.mpg.escidoc.services</groupId>
         	<artifactId>search</artifactId>
-        	<version>1.0.47-SNAPSHOT</version>
+        	<version>1.0.46-SNAPSHOT</version>
             <scope>test</scope>
         	<type>ejb</type>
         </dependency>
         <dependency>
         	<groupId>de.mpg.escidoc.services</groupId>
         	<artifactId>structuredexportmanager</artifactId>
-        	<version>1.0.50-SNAPSHOT</version>
+        	<version>1.0.49-SNAPSHOT</version>
             <scope>test</scope>
         	<type>ejb</type>
         </dependency>
         <dependency>
         	<groupId>de.mpg.escidoc.services</groupId>
         	<artifactId>citationmanager</artifactId>
-        	<version>1.0.52-SNAPSHOT</version>
+        	<version>1.0.51-SNAPSHOT</version>
             <scope>test</scope>
         	<type>ejb</type>
         </dependency>
