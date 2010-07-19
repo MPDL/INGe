@@ -31,19 +31,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.46-SNAPSHOT</version>
+		<version>1.0.46</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>exportmanager</artifactId>
     <name>exportmanager</name>
 	<packaging>ejb</packaging>
-	<version>1.0.46-SNAPSHOT</version>
+	<version>1.0.46</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/exportmanager</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/exportmanager</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.46</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.46</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.46</url>
 	</scm>
 
 	<build>
@@ -87,13 +87,13 @@
 		<dependency> 
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.51-SNAPSHOT</version>
+			<version>1.0.51</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency> 
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.49-SNAPSHOT</version>
+			<version>1.0.49</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -110,7 +110,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.49-SNAPSHOT</version>
+			<version>1.0.49</version>
 		</dependency>
 		<dependency>
 			<groupId>jetty</groupId>
