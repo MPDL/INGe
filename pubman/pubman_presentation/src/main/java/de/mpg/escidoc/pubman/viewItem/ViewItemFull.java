@@ -460,7 +460,7 @@ public class ViewItemFull extends FacesBean
             this.isStateReleased = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
             this.isStatePending = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.PENDING.toString());
             this.isStateInRevision = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.IN_REVISION.toString());
-            this.isPublicStateReleased = this.pubItem.getPublicStatus().toString().equals(PubItemVO.State.RELEASED.toString());
+            this.isPublicStateReleased = this.pubItem.getPublicStatus() == PubItemVO.State.RELEASED;
             
             // display a warn message  if the item version is not the latest
             if(this.isLatestVersion == false)

@@ -149,6 +149,7 @@ public class EditItem extends FacesBean
     private HtmlCommandLink lnkDelete = new HtmlCommandLink();
     private HtmlCommandLink lnkAccept = new HtmlCommandLink();
     private HtmlCommandLink lnkRelease = new HtmlCommandLink();
+    private HtmlCommandLink lnkReleaseReleasedItem = new HtmlCommandLink();
     /** pub context name. */
     private String contextName = null;
     // FIXME delegated internal collections
@@ -901,6 +902,60 @@ public class EditItem extends FacesBean
         return retVal;
     }
 
+    public String saveAndRelease()
+    {
+        if (!restoreVO())
+        {
+            return "";
+        }
+
+        // start: check if the item has been changed
+        PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+        PubItemVO oldPubItem = null;
+        if (newPubItem.getVersion().getObjectId() != null)
+        {
+            try
+            {
+                oldPubItem = this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
+            }
+            catch (Exception e)
+            {
+                logger.error("Could not retrieve item." + "\n" + e.toString(), e);
+                ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+                return ErrorPage.LOAD_ERRORPAGE;
+            }
+            if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem))
+            {
+                logger.warn("Item has not been changed.");
+                // create a validation report
+                ValidationReportVO changedReport = new ValidationReportVO();
+                ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
+                changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
+                changedReportItem.setContent("itemHasNotBeenChanged");
+                changedReport.addItem(changedReportItem);
+                // show report and stay on this page
+                this.showValidationMessages(changedReport);
+                return null;
+            }
+            else
+            {
+                this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM, false);
+                this.getItemControllerSessionBean().saveAndSubmitCurrentPubItem(
+                        "Submission during saving released item.", SubmitItem.LOAD_SUBMITITEM);
+                try
+                {
+                    this.getItemControllerSessionBean().setCurrentPubItem(this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId()));
+                }
+                catch (Exception e)
+                {
+                    throw new RuntimeException("Error retrieving submitted item", e);
+                }
+                return SubmitItem.LOAD_SUBMITITEM;
+            }
+        }
+        return "";
+    }
+    
     /**
      * Saves and submits an item.
      * 
@@ -1683,8 +1738,9 @@ public class EditItem extends FacesBean
             throw new RuntimeException("Previously uncaught exception", e);
         }
         this.lnkAccept.setRendered((isStateSubmitted || isStateReleased) && (isModerator && !isOwner));
-        this.lnkRelease.setRendered(isOwner && ((isWorkflowSimple && (isStatePending || isStateSubmitted || isStateReleased))
-                || (isWorkflowStandard && isModerator && (isStateSubmitted || isStateReleased))));
+        this.lnkRelease.setRendered(isOwner && ((isWorkflowSimple && (isStatePending || isStateSubmitted))
+                || (isWorkflowStandard && isModerator && (isStateSubmitted))));
+        this.lnkReleaseReleasedItem.setRendered(isOwner && isStateReleased && (isWorkflowSimple || (isWorkflowStandard && isModerator)));
         this.lnkDelete.setRendered(isStatePending && isOwner && itemHasID && !isPublicStateReleased);
         this.lnkSaveAndSubmit.setRendered((isStatePending || isStateInRevision || isStateReleased)
                 && isWorkflowStandard && isOwner);
@@ -2071,6 +2127,16 @@ public class EditItem extends FacesBean
     public void setLnkRelease(HtmlCommandLink lnkRelease)
     {
         this.lnkRelease = lnkRelease;
+    }
+
+    public HtmlCommandLink getLnkReleaseReleasedItem()
+    {
+        return lnkReleaseReleasedItem;
+    }
+
+    public void setLnkReleaseReleasedItem(HtmlCommandLink lnkReleaseReleasedItem)
+    {
+        this.lnkReleaseReleasedItem = lnkReleaseReleasedItem;
     }
 
     public String addCreatorString()
