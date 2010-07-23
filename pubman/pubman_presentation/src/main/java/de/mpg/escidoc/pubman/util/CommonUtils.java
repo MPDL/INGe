@@ -224,7 +224,7 @@ public class CommonUtils extends InternationalizedImpl
             options[1] = new SelectItem("eng", "eng - Englisch");  
             options[2] = new SelectItem("deu", "deu - Deutsch");  
             options[3] = new SelectItem("jpn", "jpn - Japanisch"); 
-            options[4] = new SelectItem("spa", "spa - Spanisch"); 
+//            options[4] = new SelectItem("spa", "spa - Spanisch"); 
         }
         else if (locale.equals("en"))
         {

@@ -26,7 +26,7 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/ 
+*/
 
 package de.mpg.escidoc.pubman.util;
 
@@ -44,7 +44,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- *
+ * 
  */
 public class OrganizationVOPresentation extends OrganizationVO
 {
@@ -171,7 +171,7 @@ public class OrganizationVOPresentation extends OrganizationVO
     
     public void nameListener(ValueChangeEvent event)
     {
-        if(event.getNewValue() != event.getOldValue())
+        if (event.getNewValue() != event.getOldValue())
         {
             this.setName(new TextVO(event.getNewValue().toString()));
         }

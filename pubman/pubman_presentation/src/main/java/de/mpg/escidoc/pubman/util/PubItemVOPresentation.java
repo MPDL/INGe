@@ -1,3 +1,33 @@
+/*
+*
+* CDDL HEADER START
+*
+* The contents of this file are subject to the terms of the
+* Common Development and Distribution License, Version 1.0 only
+* (the "License"). You may not use this file except in compliance
+* with the License.
+*
+* You can obtain a copy of the license at license/ESCIDOC.LICENSE
+* or http://www.escidoc.de/license.
+* See the License for the specific language governing permissions
+* and limitations under the License.
+*
+* When distributing Covered Code, include this CDDL HEADER in each
+* file and include the License file at license/ESCIDOC.LICENSE.
+* If applicable, add the following below this CDDL HEADER, with the
+* fields enclosed by brackets "[]" replaced with your own identifying
+* information: Portions Copyright [yyyy] [name of copyright owner]
+*
+* CDDL HEADER END
+*/
+
+/*
+* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
+* All rights reserved. Use is subject to license terms.
+*/
+
 package de.mpg.escidoc.pubman.util;
 
 import java.util.ArrayList;
@@ -97,17 +127,18 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     //private Application application = FacesContext.getCurrentInstance().getApplication();
     //get the selected language...
     
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext
+    private InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesContext
         .getCurrentInstance()
         .getApplication().getVariableResolver()
         .resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
     
-    public PubItemVOPresentation( PubItemVO item)
+    public PubItemVOPresentation(PubItemVO item)
     {
         super(item);
 
-        if( item instanceof PubItemResultVO ) {
-            this.searchHitList = ((PubItemResultVO)item).getSearchHitList();
+        if (item instanceof PubItemResultVO)
+        {
+            this.searchHitList = ((PubItemResultVO) item).getSearchHitList();
             this.isSearchResult = true;
 
         }
@@ -118,14 +149,14 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         }
         
         // set up some pre-requisites
-        //the list of numbered affiliated organizations 
+        //the list of numbered affiliated organizations
         createAffiliatedOrganizationList();
         
         // the list of creators (persons and organizations)
         createCreatorList();
         
         // get the first source of the item (if available)
-        if(item.getMetadata().getSources() != null && item.getMetadata().getSources().size() > 0)
+        if (item.getMetadata().getSources() != null && item.getMetadata().getSources().size() > 0)
         {
             this.firstSource = item.getMetadata().getSources().get(0);
         }
@@ -133,7 +164,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         getCountCreators();
         
         // get the search result hits
-        if(this.searchHitList != null && this.searchHitList.size() > 0)
+        if (this.searchHitList != null && this.searchHitList.size() > 0)
         {
             String beforeSearchHitString;
             String searchHitString;
@@ -143,7 +174,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             for (int i = 0; i < searchHitList.size(); i++)
             {
                 if (searchHitList.get(i).getType() == SearchHitType.FULLTEXT)
-                {    
+                {
                     if (searchHitList.get(i).getHitReference() != null)
                     {
                         for (int j = 0; j < searchHitList.get(i).getTextFragmentList().size(); j++)
@@ -154,7 +185,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
                             startPosition = searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0).getStartIndex();
                             endPosition = searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0).getEndIndex() + 1;
                             
-                            beforeSearchHitString ="..." + searchHitList.get(i).getTextFragmentList().get(j).getData().substring(0, startPosition);
+                            beforeSearchHitString = "..." + searchHitList.get(i).getTextFragmentList().get(j).getData().substring(0, startPosition);
                             searchHitString = searchHitList.get(i).getTextFragmentList().get(j).getData().substring(startPosition, endPosition);
                             afterSearchHitString = searchHitList.get(i).getTextFragmentList().get(j).getData().substring(endPosition) + "...";
                             
@@ -319,7 +350,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             }
             
         }
-        if (getMetadata().getCreators().size()>creatorMaximum)
+        if (getMetadata().getCreators().size() > creatorMaximum)
         {
             return creators.toString() + " ...";
         }
@@ -362,22 +393,26 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         }
     }
     
-    public String getDatesAsString() 
+    public String getDatesAsString()
     {
         ArrayList<String> dates = new ArrayList<String>();
         
         if (getMetadata().getDateCreated()!=null && !getMetadata().getDateCreated().equals(""))
+        {
             dates.add(getLabel("ViewItem_lblDateCreated") + ": " + getMetadata().getDateCreated());
-        
+        }
         if (getMetadata().getDateModified() != null && !getMetadata().getDateModified().equals(""))
+        {
             dates.add(getLabel("ViewItem_lblDateModified") + ": " + getMetadata().getDateModified());
-  
+        }
         if (getMetadata().getDateSubmitted() != null && !getMetadata().getDateSubmitted().equals(""))
+        {
             dates.add(getLabel("ViewItem_lblDateSubmitted") + ": " + getMetadata().getDateSubmitted());
-        
+        }
         if (getMetadata().getDateAccepted() != null && !getMetadata().getDateAccepted().equals(""))
+        {
             dates.add(getLabel("ViewItem_lblDateAccepted") + ": " + getMetadata().getDateAccepted());
-        
+        }
         if (getMetadata().getDatePublishedOnline() != null && !getMetadata().getDatePublishedOnline().equals(""))
             dates.add(getLabel("ViewItem_lblDatePublishedOnline") + ": " + getMetadata().getDatePublishedOnline());
         
