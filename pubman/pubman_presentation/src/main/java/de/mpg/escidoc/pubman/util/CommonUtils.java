@@ -264,7 +264,10 @@ public class CommonUtils extends InternationalizedImpl
 //            options[4] = new SelectItem("spa", "spa - Spanish"); 
         }
 //        options[5] = new SelectItem("", NO_ITEM_SET);
-        options[4] = new SelectItem("", NO_ITEM_SET);
+        if (coneLanguagesIso639_1.size() > 0)
+        {
+            options[4] = new SelectItem("", NO_ITEM_SET);
+        }
 
         int i = 0;
         List<String> langLabels = new ArrayList<String>(coneLanguagesIso639_1.keySet());
