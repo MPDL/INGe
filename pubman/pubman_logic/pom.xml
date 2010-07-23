@@ -39,13 +39,13 @@
 	<name>pubman_logic</name>
 	<packaging>ejb</packaging>
 	<version>6.1.8-SNAPSHOT</version>
-
+	
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic</connection>
 		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic</developerConnection>
 		<url>https://zim02.gwdg.de/repos/pubman/</url>
 	</scm>
-
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -77,84 +77,84 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.51</version>
+			<version>1.0.52-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.49</version>
+			<version>1.0.50-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.52</version>
+			<version>1.0.53-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.46</version>
+			<version>1.1.47-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<version>1.0.43</version>
+			<version>1.0.44-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.34</version>
+			<version>1.0.35-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-      		<groupId>xmlbeans</groupId>
-      		<artifactId>transformation</artifactId>
-      		<version>1.0.0</version>
-      		<scope>compile</scope>
-    	</dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>transformation</artifactId>
+			<version>1.0.0</version>
+			<scope>compile</scope>
+		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>search</artifactId>
-			<version>1.0.46</version>
+			<version>1.0.47-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
-		  <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.1</version>
-            <scope>test</scope>
-        </dependency>
 		<dependency>
-	      <groupId>jfree</groupId>
-	      <artifactId>jfreechart</artifactId>
-	      <version>1.0.12</version>
-    	</dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.1</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
-      		<groupId>jfree</groupId>
-      		<artifactId>jcommon</artifactId>
-      		<version>1.0.15</version>
-    	</dependency>
-    	<dependency>
-      		<groupId>sword</groupId>
-      		<artifactId>swordcommon</artifactId>
-      		<version>1.0</version>
-      		<scope>compile</scope>
-    	</dependency>
-    	<dependency>
-      		<groupId>sword</groupId>
-      		<artifactId>xom</artifactId>
-      		<version>1.2.1</version>
-      		<scope>compile</scope>
-    	</dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.12</version>
+		</dependency>
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jcommon</artifactId>
+			<version>1.0.15</version>
+		</dependency>
+		<dependency>
+			<groupId>sword</groupId>
+			<artifactId>swordcommon</artifactId>
+			<version>1.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>sword</groupId>
+			<artifactId>xom</artifactId>
+			<version>1.2.1</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 </project>
