@@ -132,13 +132,13 @@ public class PubManSwordServer
                     {
                          dr = new DepositResponse(Deposit.CREATED);
                          this.setVerbose("Escidoc Publication Item successfully deposited " +
-                         		"(state: "+ depositItem.getPublicStatus() +").");
+                                 "(state: "+ depositItem.getPublicStatus() +").");
                     }
                     else
                     {
                         dr = new DepositResponse(Deposit.ACCEPTED);
                         this.setVerbose("Escidoc Publication Item successfully deposited " +
-                        		"(state: "+ depositItem.getPublicStatus() +").");
+                                "(state: "+ depositItem.getPublicStatus() +").");
                     }
                 }
                 else

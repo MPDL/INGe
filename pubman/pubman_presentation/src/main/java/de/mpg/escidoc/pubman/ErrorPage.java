@@ -53,11 +53,11 @@ import de.mpg.escidoc.services.search.parser.ParseException;
 public class ErrorPage extends BreadcrumbPage
 {   
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	private static Logger logger = Logger.getLogger(ErrorPage.class);
+    private static Logger logger = Logger.getLogger(ErrorPage.class);
     
     // used by calling components to get this Bean
     public final static String BEAN_NAME = "ErrorPage";
@@ -180,19 +180,19 @@ public class ErrorPage extends BreadcrumbPage
     
     public String getStackTrace()
     {
-		StringBuffer buffer = new StringBuffer();
-    	if (exception != null)
-    	{
-    		StackTraceElement[] stackTrace = exception.getStackTrace();
-    		for (StackTraceElement stackTraceElement : stackTrace) {
-				buffer.append(" at ");
-				buffer.append(stackTraceElement.getClassName());
-				buffer.append(" (");
-				buffer.append(stackTraceElement.getLineNumber());
-				buffer.append(")\n");
-			}
-    	}
-    	return buffer.toString();
+        StringBuffer buffer = new StringBuffer();
+        if (exception != null)
+        {
+            StackTraceElement[] stackTrace = exception.getStackTrace();
+            for (StackTraceElement stackTraceElement : stackTrace) {
+                buffer.append(" at ");
+                buffer.append(stackTraceElement.getClassName());
+                buffer.append(" (");
+                buffer.append(stackTraceElement.getLineNumber());
+                buffer.append(")\n");
+            }
+        }
+        return buffer.toString();
     }
     
   
@@ -245,11 +245,11 @@ public class ErrorPage extends BreadcrumbPage
         this.init();
     }
 
-	@Override
-	public boolean isItemSpecific() 
-	{
-		return true;
-	}
+    @Override
+    public boolean isItemSpecific() 
+    {
+        return true;
+    }
 
-	
+    
 }

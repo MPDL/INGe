@@ -202,16 +202,16 @@ public class ViewItemStatistics extends FacesBean
     
     public String getNimsLink()
     {
-    	try 
-    	{
-			return PropertyReader.getProperty("escidoc.pubman.statistics.nims.link") + getItemID();
-		} 
-    	catch (Exception e)
-		{
-			logger.error("Could not read escidoc.pubman.statistics.nims.link from properties");
-			return null;
-		}
-    	
+        try 
+        {
+            return PropertyReader.getProperty("escidoc.pubman.statistics.nims.link") + getItemID();
+        } 
+        catch (Exception e)
+        {
+            logger.error("Could not read escidoc.pubman.statistics.nims.link from properties");
+            return null;
+        }
+        
     }
     
     /**
@@ -220,35 +220,35 @@ public class ViewItemStatistics extends FacesBean
      */
     public boolean getShowNIMSLink()
     {
-    	
-    	
-    	try 
-    	{
-    		String contexts = PropertyReader.getProperty("escidoc.pubman.statistics.nims.context.ids");
-    		ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
-        	ContextVO currentContext = icsb.getCurrentContext();
-        	//logger.info(currentContext.getReference().getObjectId());
-    		if (contexts!=null)
-    		{
-    			String[] contextArray = contexts.split(",");
-    			for(String contextId: contextArray)
-    			{
-    				if (contextId.trim().equals(currentContext.getReference().getObjectId()))
-    				{
-    					return true;
-    				}
-    			}
-    		}
-		} 
-    	catch (Exception e)
-		{
-			logger.error("Could not read escidoc.pubman.statistics.nims.contexts");
-			return false;
-		}
-    	
-    	return false;
-    	
-    	
+        
+        
+        try 
+        {
+            String contexts = PropertyReader.getProperty("escidoc.pubman.statistics.nims.context.ids");
+            ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+            ContextVO currentContext = icsb.getCurrentContext();
+            //logger.info(currentContext.getReference().getObjectId());
+            if (contexts!=null)
+            {
+                String[] contextArray = contexts.split(",");
+                for(String contextId: contextArray)
+                {
+                    if (contextId.trim().equals(currentContext.getReference().getObjectId()))
+                    {
+                        return true;
+                    }
+                }
+            }
+        } 
+        catch (Exception e)
+        {
+            logger.error("Could not read escidoc.pubman.statistics.nims.contexts");
+            return false;
+        }
+        
+        return false;
+        
+        
     }
     
   

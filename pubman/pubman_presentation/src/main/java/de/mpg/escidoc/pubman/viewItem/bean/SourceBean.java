@@ -44,9 +44,9 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 
 /**
  * Bean for creating the source section of a pubitem to be used in the ViewItemFullUI.
@@ -90,10 +90,10 @@ public class SourceBean extends FacesBean
 
     
     public SourceBean(SourceVO source)
-	{
-		this.source = source;
-		initialize(source);
-	}
+    {
+        this.source = source;
+        initialize(source);
+    }
 
     /**
      * Initializes the UI and sets all attributes of the GUI components.
@@ -346,69 +346,69 @@ public class SourceBean extends FacesBean
     
     public String getGenre()
     {
-    	InternationalizedImpl internationalized = new InternationalizedImpl();
-    	return internationalized.getLabel(this.i18nHelper.convertEnumToString(this.source.getGenre()));
+        InternationalizedImpl internationalized = new InternationalizedImpl();
+        return internationalized.getLabel(this.i18nHelper.convertEnumToString(this.source.getGenre()));
     }
 
-	public String getIdentifiers() {
-		return this.identifiers;
-	}
+    public String getIdentifiers() {
+        return this.identifiers;
+    }
 
-	public void setIdentifiers(String identifiers) {
-		this.identifiers = identifiers;
-	}
+    public void setIdentifiers(String identifiers) {
+        this.identifiers = identifiers;
+    }
 
-	public String getStartEndPage() {
-		return this.startEndPage;
-	}
+    public String getStartEndPage() {
+        return this.startEndPage;
+    }
 
-	public void setStartEndPage(String startEndPage) {
-		this.startEndPage = startEndPage;
-	}
+    public void setStartEndPage(String startEndPage) {
+        this.startEndPage = startEndPage;
+    }
 
-	public String getPublishingInfo() {
-		return this.publishingInfo;
-	}
+    public String getPublishingInfo() {
+        return this.publishingInfo;
+    }
 
-	public void setPublishingInfo(String publishingInfo) {
-		this.publishingInfo = publishingInfo;
-	}
+    public void setPublishingInfo(String publishingInfo) {
+        this.publishingInfo = publishingInfo;
+    }
 
-	public SourceVO getSource() {
-		return this.source;
-	}
+    public SourceVO getSource() {
+        return this.source;
+    }
 
-	public void setSource(SourceVO source) {
-		this.source = source;
-	}
+    public void setSource(SourceVO source) {
+        this.source = source;
+    }
 
-	public ArrayList<String> getSourceOrganizationArray() {
-		return this.sourceOrganizationArray;
-	}
+    public ArrayList<String> getSourceOrganizationArray() {
+        return this.sourceOrganizationArray;
+    }
 
-	public void setSourceOrganizationArray(ArrayList<String> sourceOrganizationArray) {
-		this.sourceOrganizationArray = sourceOrganizationArray;
-	}
+    public void setSourceOrganizationArray(ArrayList<String> sourceOrganizationArray) {
+        this.sourceOrganizationArray = sourceOrganizationArray;
+    }
 
-	public ArrayList<ViewItemOrganization> getSourceOrganizationList() {
-		return this.sourceOrganizationList;
-	}
+    public ArrayList<ViewItemOrganization> getSourceOrganizationList() {
+        return this.sourceOrganizationList;
+    }
 
-	public void setSourceOrganizationList(
-			ArrayList<ViewItemOrganization> sourceOrganizationList) {
-		this.sourceOrganizationList = sourceOrganizationList;
-	}
+    public void setSourceOrganizationList(
+            ArrayList<ViewItemOrganization> sourceOrganizationList) {
+        this.sourceOrganizationList = sourceOrganizationList;
+    }
 
-	public List<OrganizationVO> getSourceAffiliatedOrganizationsList() {
-		return this.sourceAffiliatedOrganizationsList;
-	}
+    public List<OrganizationVO> getSourceAffiliatedOrganizationsList() {
+        return this.sourceAffiliatedOrganizationsList;
+    }
 
-	public void setSourceAffiliatedOrganizationsList(
-			List<OrganizationVO> sourceAffiliatedOrganizationsList) {
-		this.sourceAffiliatedOrganizationsList = sourceAffiliatedOrganizationsList;
-	}
+    public void setSourceAffiliatedOrganizationsList(
+            List<OrganizationVO> sourceAffiliatedOrganizationsList) {
+        this.sourceAffiliatedOrganizationsList = sourceAffiliatedOrganizationsList;
+    }
 
-	public ArrayList<CreatorDisplay> getSourceCreatorArray()
+    public ArrayList<CreatorDisplay> getSourceCreatorArray()
     {
         return sourceCreatorArray;
     }
@@ -419,22 +419,22 @@ public class SourceBean extends FacesBean
     }
 
     public ArrayList<ViewItemCreatorOrganization> getSourceCreatorOrganizationsArray() {
-		return this.sourceCreatorOrganizationsArray;
-	}
+        return this.sourceCreatorOrganizationsArray;
+    }
 
-	public void setSourceCreatorOrganizationsArray(
-			ArrayList<ViewItemCreatorOrganization> sourceCreatorOrganizationsArray) {
-		this.sourceCreatorOrganizationsArray = sourceCreatorOrganizationsArray;
-	}
-	
-	public boolean getHasCreator()
-	{
-	    if (this.sourceCreatorArray.size() > 0 && this.sourceCreatorOrganizationsArray.size() > 0)
-	    {
-	        return true;
-	    }
-	    return false;
-	}
+    public void setSourceCreatorOrganizationsArray(
+            ArrayList<ViewItemCreatorOrganization> sourceCreatorOrganizationsArray) {
+        this.sourceCreatorOrganizationsArray = sourceCreatorOrganizationsArray;
+    }
+    
+    public boolean getHasCreator()
+    {
+        if (this.sourceCreatorArray.size() > 0 && this.sourceCreatorOrganizationsArray.size() > 0)
+        {
+            return true;
+        }
+        return false;
+    }
     
     public boolean getHasAffiliation()
     {

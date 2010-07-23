@@ -51,13 +51,13 @@ public class GenreCriterion extends Criterion
     //the genre for the search criterion
     private List<MdsPublicationVO.Genre> genreList;
 
-	/**
-	 * constructor.
-	 */
-	public GenreCriterion()
+    /**
+     * constructor.
+     */
+    public GenreCriterion()
     {
         super();
-	}
+    }
 
     public List<MdsPublicationVO.Genre> getGenre()
     {
@@ -71,10 +71,10 @@ public class GenreCriterion extends Criterion
     
     private String getSearchIdentifierByGenre( MdsPublicationVO.Genre g )
     {
-    	return g.getUri();
+        return g.getUri();
        
-    	/*
-    	switch( g ) 
+        /*
+        switch( g ) 
         {
             case ARTICLE:
                 return "article";
@@ -129,14 +129,14 @@ public class GenreCriterion extends Criterion
     }
     
     private String getGenresAsStringList() {
-    	StringBuffer buffer = new StringBuffer();
-    	for( int i = 0; i < genreList.size(); i++ ) {
-    		buffer.append( getSearchIdentifierByGenre( genreList.get( i ) ) );
-    		if( i != genreList.size() -1  ) {
-    			buffer.append( " OR " );
-    		}
-    	}
-    	return buffer.toString();
+        StringBuffer buffer = new StringBuffer();
+        for( int i = 0; i < genreList.size(); i++ ) {
+            buffer.append( getSearchIdentifierByGenre( genreList.get( i ) ) );
+            if( i != genreList.size() -1  ) {
+                buffer.append( " OR " );
+            }
+        }
+        return buffer.toString();
     }
     
     /**
@@ -144,10 +144,10 @@ public class GenreCriterion extends Criterion
      */
     
     public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    	MetadataSearchCriterion criterion = 
-			new MetadataSearchCriterion( CriterionType.GENRE, getGenresAsStringList() );
-    	criterions.add( criterion );
-	   	return criterions;
-	}
+        ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+        MetadataSearchCriterion criterion = 
+            new MetadataSearchCriterion( CriterionType.GENRE, getGenresAsStringList() );
+        criterions.add( criterion );
+           return criterions;
+    }
 }

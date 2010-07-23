@@ -19,113 +19,113 @@ import javax.faces.model.ListDataModel;
  */
 public abstract class DataModelManager<T>
 {
-	protected List<T> objectList = null;
-	protected DataModel objectDM = null;
+    protected List<T> objectList = null;
+    protected DataModel objectDM = null;
 
-	// //////////////////////////////////////////////////////////////////////////
-	//
-	// Abstract enforcement section
-	//
-	// //////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////
+    //
+    // Abstract enforcement section
+    //
+    // //////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * I do not really know how to create and initialize a new object of type T,
-	 * but you should be able to do so.
-	 */
-	public abstract T createNewObject();
-	
-	
-	/**
-	 * Tell me where in your value object or class there is a list of data to be
-	 * managed and give it to me.
-	 * 
-	 * @return Set containing data object of type T
-	 */
-	//public abstract List<T> getDataListFromVO();
-	
-	// //////////////////////////////////////////////////////////////////////////
-	//
-	// Class implementation section
-	//
-	// //////////////////////////////////////////////////////////////////////////
+    /**
+     * I do not really know how to create and initialize a new object of type T,
+     * but you should be able to do so.
+     */
+    public abstract T createNewObject();
+    
+    
+    /**
+     * Tell me where in your value object or class there is a list of data to be
+     * managed and give it to me.
+     * 
+     * @return Set containing data object of type T
+     */
+    //public abstract List<T> getDataListFromVO();
+    
+    // //////////////////////////////////////////////////////////////////////////
+    //
+    // Class implementation section
+    //
+    // //////////////////////////////////////////////////////////////////////////
 
-	public List<T> getObjectList()
-	{
-		return objectList;
-	}
+    public List<T> getObjectList()
+    {
+        return objectList;
+    }
 
-	/**
-	 * 
-	 * @param objectList new List<T>
-	 */
-	public void setObjectList(List<T> objectList)
-	{
-		this.objectList = objectList;
-		if (objectDM == null)
-		{
-			objectDM = new ListDataModel();
-		}
-		objectDM.setWrappedData(objectList);
-	}
-	
-	/**
-	 * The DataModel is always created by wrapping the data objects contained
-	 * in the objectList. If this objectList is empty, there will be no rows to 
-	 * be displayed.
-	 * 
-	 * @return DataModel
-	 */
-	public DataModel getObjectDM()
-	{
-		if (objectList == null)
-		{
-			objectList = new ArrayList<T>();
-		}
-		if (objectDM == null)
-		{
-			objectDM = new ListDataModel();
-			objectDM.setWrappedData(objectList);
-		}
-		return objectDM;
-	}
+    /**
+     * 
+     * @param objectList new List<T>
+     */
+    public void setObjectList(List<T> objectList)
+    {
+        this.objectList = objectList;
+        if (objectDM == null)
+        {
+            objectDM = new ListDataModel();
+        }
+        objectDM.setWrappedData(objectList);
+    }
+    
+    /**
+     * The DataModel is always created by wrapping the data objects contained
+     * in the objectList. If this objectList is empty, there will be no rows to 
+     * be displayed.
+     * 
+     * @return DataModel
+     */
+    public DataModel getObjectDM()
+    {
+        if (objectList == null)
+        {
+            objectList = new ArrayList<T>();
+        }
+        if (objectDM == null)
+        {
+            objectDM = new ListDataModel();
+            objectDM.setWrappedData(objectList);
+        }
+        return objectDM;
+    }
 
-	/**
-	 * Simple setter, not really used yet
-	 * 
-	 * @param objectDM new DataModel
-	 */
-	public void setObjectDM(DataModel objectDM)
-	{
-		this.objectDM = objectDM;
-	}
+    /**
+     * Simple setter, not really used yet
+     * 
+     * @param objectDM new DataModel
+     */
+    public void setObjectDM(DataModel objectDM)
+    {
+        this.objectDM = objectDM;
+    }
 
-	/**
-	 * Adds a object of type T to the list (and therefore to the UI model)
-	 */
-	public String addObject()
-	{
-		T elem = createNewObject();
-		int i = objectDM.getRowIndex();
-		if(elem != null)
-		{
-			objectList.add(i + 1, elem);
-		}
-		return "";
-	}
+    /**
+     * Adds a object of type T to the list (and therefore to the UI model)
+     */
+    public String addObject()
+    {
+        T elem = createNewObject();
+        int i = objectDM.getRowIndex();
+        if(elem != null)
+        {
+            objectList.add(i + 1, elem);
+        }
+        return "";
+    }
 
-	/**
-	 * Removes object of type T from the list (and therefore from the UI model)
-	 */
-	public String removeObject()
-	{
-		int i = objectDM.getRowIndex();
-		removeObjectAtIndex(i);
-		return "";
-	}
+    /**
+     * Removes object of type T from the list (and therefore from the UI model)
+     */
+    public String removeObject()
+    {
+        int i = objectDM.getRowIndex();
+        removeObjectAtIndex(i);
+        return "";
+    }
 
-	protected void removeObjectAtIndex(int i)
-	{
-		objectList.remove(i);
-	}
-		
+    protected void removeObjectAtIndex(int i)
+    {
+        objectList.remove(i);
+    }
+        
 }

@@ -71,7 +71,7 @@ public class ReleaseHistory extends FacesBean
         
         if (this.getSessionBean().getVersionList() == null)
         {
-        	this.getSessionBean().initVersionLists(getVersionHistory(this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()));
+            this.getSessionBean().initVersionLists(getVersionHistory(this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()));
         }
     }
     
@@ -85,7 +85,7 @@ public class ReleaseHistory extends FacesBean
 
         try
         {
-        	return this.getItemControllerSessionBean().retrieveVersionHistoryForItem(itemID);
+            return this.getItemControllerSessionBean().retrieveVersionHistoryForItem(itemID);
         }
         catch (Exception e)
         {
@@ -116,6 +116,6 @@ public class ReleaseHistory extends FacesBean
 
     public String getDummy()
     {
-    	return "";
+        return "";
     }
 }

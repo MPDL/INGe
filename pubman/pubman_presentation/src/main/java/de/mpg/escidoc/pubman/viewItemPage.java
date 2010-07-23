@@ -113,9 +113,9 @@ public class viewItemPage extends BreadcrumbPage
     }
 
 
-	@Override
-	public boolean isItemSpecific() 
-	{
-		return true;
-	}
+    @Override
+    public boolean isItemSpecific() 
+    {
+        return true;
+    }
 }

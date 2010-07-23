@@ -22,8 +22,8 @@ import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -85,7 +85,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     
     public MyItemsRetrieverRequestBean()
     {
-    	super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), false);
+        super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), false);
         //logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
         //logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
        
@@ -124,7 +124,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     @Override
     public void init()
     {
-    	checkLogin();
+        checkLogin();
         
         // Init imports
         List<SelectItem> importSelectItems = new ArrayList<SelectItem>();
@@ -437,11 +437,11 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         return "DepositorWSPage.jsp";
     }
 
-	@Override
-	public boolean isItemSpecific() 
-	{
-		return false;
-	}
+    @Override
+    public boolean isItemSpecific() 
+    {
+        return false;
+    }
 
     /**
      * @return the importSelectItems

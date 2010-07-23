@@ -37,8 +37,8 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
+import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
@@ -109,7 +109,7 @@ public class ExportItemsSessionBean extends FacesBean
         
         if (exportFormatType.equals("LAYOUT"))
         { 
-        	this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
+            this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
             // default format for STRUCTURED is pdf
             curFileFormatVO.setName(FileFormatVO.PDF_NAME);
             curFileFormatVO.setMimeType(FileFormatVO.PDF_MIMETYPE);
@@ -169,7 +169,7 @@ public class ExportItemsSessionBean extends FacesBean
 
     public void setExportFormatType(String exportFormatType)
     {
-    	this.exportFormatType = exportFormatType;
+        this.exportFormatType = exportFormatType;
     }
  
     public String getExportFormatName()
@@ -180,27 +180,27 @@ public class ExportItemsSessionBean extends FacesBean
     public void setExportFormatName(String exportFormatName)
     {
 //        if ( exportFormatName == null || exportFormatName.trim().equals("") )
-//        	exportFormatName = "APA";
+//            exportFormatName = "APA";
         this.exportFormatName = exportFormatName; 
         this.curExportFormatVO.setName(exportFormatName);
-    	if  ( 
-    				"APA".equalsIgnoreCase(exportFormatName) 
-    			|| 	"AJP".equalsIgnoreCase(exportFormatName) 
-    			|| 	"JUS".equalsIgnoreCase(exportFormatName) 
-    			|| 	"DEFAULT".equalsIgnoreCase(exportFormatName) 
-    			|| 	"TEST".equalsIgnoreCase(exportFormatName) 
-    			)
-    	{
-    		curExportFormatVO.setFormatType(FormatType.LAYOUT);
+        if  ( 
+                    "APA".equalsIgnoreCase(exportFormatName) 
+                ||     "AJP".equalsIgnoreCase(exportFormatName) 
+                ||     "JUS".equalsIgnoreCase(exportFormatName) 
+                ||     "DEFAULT".equalsIgnoreCase(exportFormatName) 
+                ||     "TEST".equalsIgnoreCase(exportFormatName) 
+                )
+        {
+            curExportFormatVO.setFormatType(FormatType.LAYOUT);
             this.exportFormatType = FormatType.LAYOUT.toString();
-    		setEnableFileFormats(true);
-    	}
-    	else
-    	{
-    		curExportFormatVO.setFormatType(FormatType.STRUCTURED);
+            setEnableFileFormats(true);
+        }
+        else
+        {
+            curExportFormatVO.setFormatType(FormatType.STRUCTURED);
             this.exportFormatType = FormatType.STRUCTURED.toString();
             setEnableFileFormats(false);
-    	}
+        }
     }
     
     public String getFileFormat()
@@ -211,12 +211,12 @@ public class ExportItemsSessionBean extends FacesBean
     public void setFileFormat(String fileFormat)    
     {
         if ( 
-        		fileFormat == null || fileFormat.trim().equals("")
-        		|| getExportFormatName().equalsIgnoreCase("ENDNOTE")
-        		|| getExportFormatName().equalsIgnoreCase("BIBTEX")
-//        		|| getCurExportFormatVO().getFormatType() == FormatType.STRUCTURED 
+                fileFormat == null || fileFormat.trim().equals("")
+                || getExportFormatName().equalsIgnoreCase("ENDNOTE")
+                || getExportFormatName().equalsIgnoreCase("BIBTEX")
+//                || getCurExportFormatVO().getFormatType() == FormatType.STRUCTURED 
         )
-        	fileFormat = FileFormatVO.TEXT_NAME;
+            fileFormat = FileFormatVO.TEXT_NAME;
         
         this.fileFormat = fileFormat;
         
@@ -358,43 +358,43 @@ public class ExportItemsSessionBean extends FacesBean
     }
 
 
-	public boolean getEnableFileFormats() {
-		return enableFileFormats;
-	}
+    public boolean getEnableFileFormats() {
+        return enableFileFormats;
+    }
 
 
-	public void setEnableFileFormats(boolean enableFileFormats) {
-		this.enableFileFormats = enableFileFormats;
-	}
+    public void setEnableFileFormats(boolean enableFileFormats) {
+        this.enableFileFormats = enableFileFormats;
+    }
 
 
-	public boolean getEnableExport() {
-		return enableExport;
-	}
+    public boolean getEnableExport() {
+        return enableExport;
+    }
 
 
-	public void setEnableExport(boolean enableExport) {
-		this.enableExport = enableExport;
-	}
+    public void setEnableExport(boolean enableExport) {
+        this.enableExport = enableExport;
+    }
 
 
-	public String getEmailCCRecipients() {
-		return emailCCRecipients;
-	}
+    public String getEmailCCRecipients() {
+        return emailCCRecipients;
+    }
 
 
-	public void setEmailCCRecipients(String emailCCRecipients) {
-		this.emailCCRecipients = emailCCRecipients;
-	}
+    public void setEmailCCRecipients(String emailCCRecipients) {
+        this.emailCCRecipients = emailCCRecipients;
+    }
 
 
-	public String getEmailBCCRecipients() {
-		return emailBCCRecipients;
-	}
+    public String getEmailBCCRecipients() {
+        return emailBCCRecipients;
+    }
 
 
-	public void setEmailBCCRecipients(String emailBCCRecipients) {
-		this.emailBCCRecipients = emailBCCRecipients;
-	}
+    public void setEmailBCCRecipients(String emailBCCRecipients) {
+        this.emailBCCRecipients = emailBCCRecipients;
+    }
 
 }

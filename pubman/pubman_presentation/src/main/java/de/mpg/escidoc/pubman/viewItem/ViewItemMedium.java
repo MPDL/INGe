@@ -43,9 +43,9 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 public class ViewItemMedium extends FacesBean
 {
     
-	private UIXIterator creatorPersonsIterator = new UIXIterator();
+    private UIXIterator creatorPersonsIterator = new UIXIterator();
     
-    private UIXIterator creatorAffiliationsIterator = new UIXIterator();	
+    private UIXIterator creatorAffiliationsIterator = new UIXIterator();    
     
     private UIXIterator fileSearchHitIterator = new UIXIterator();
     
@@ -57,22 +57,22 @@ public class ViewItemMedium extends FacesBean
         
     }
 
-	public UIXIterator getCreatorPersonsIterator() {
-		return creatorPersonsIterator;
-	}
+    public UIXIterator getCreatorPersonsIterator() {
+        return creatorPersonsIterator;
+    }
 
-	public void setCreatorPersonsIterator(UIXIterator creatorPersonsIterator) {
-		this.creatorPersonsIterator = creatorPersonsIterator;
-	}
+    public void setCreatorPersonsIterator(UIXIterator creatorPersonsIterator) {
+        this.creatorPersonsIterator = creatorPersonsIterator;
+    }
 
-	public UIXIterator getCreatorAffiliationsIterator() {
-		return creatorAffiliationsIterator;
-	}
+    public UIXIterator getCreatorAffiliationsIterator() {
+        return creatorAffiliationsIterator;
+    }
 
-	public void setCreatorAffiliationsIterator(
-			UIXIterator creatorAffiliationsIterator) {
-		this.creatorAffiliationsIterator = creatorAffiliationsIterator;
-	}
+    public void setCreatorAffiliationsIterator(
+            UIXIterator creatorAffiliationsIterator) {
+        this.creatorAffiliationsIterator = creatorAffiliationsIterator;
+    }
 
     public UIXIterator getFileSearchHitIterator()
     {

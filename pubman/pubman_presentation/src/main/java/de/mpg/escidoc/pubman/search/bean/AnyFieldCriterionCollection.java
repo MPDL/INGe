@@ -16,76 +16,76 @@ import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
  */
 public class AnyFieldCriterionCollection
 {
-	public static final String BEAN_NAME = "AnyFieldCriterionCollection";
-	
-	//private List<CriterionVO> parentVO;
-	private AnyFieldCriterionManager anyFieldCriterionManager;
-	
-	/**
-	 * CTOR to create a new ArrayList<CriterionVO> 
-	 * starting with one empty new AnyFieldCriterionVO
-	 */
-	public AnyFieldCriterionCollection()
-	{
-		// ensure the parentVO is never null;
-		List<Criterion> ctorList = new ArrayList<Criterion>();
-		ctorList.add(new AnyFieldCriterion());
-		anyFieldCriterionManager = new AnyFieldCriterionManager();
-		//setParentVO(ctorList);
-	}
+    public static final String BEAN_NAME = "AnyFieldCriterionCollection";
+    
+    //private List<CriterionVO> parentVO;
+    private AnyFieldCriterionManager anyFieldCriterionManager;
+    
+    /**
+     * CTOR to create a new ArrayList<CriterionVO> 
+     * starting with one empty new AnyFieldCriterionVO
+     */
+    public AnyFieldCriterionCollection()
+    {
+        // ensure the parentVO is never null;
+        List<Criterion> ctorList = new ArrayList<Criterion>();
+        ctorList.add(new AnyFieldCriterion());
+        anyFieldCriterionManager = new AnyFieldCriterionManager();
+        //setParentVO(ctorList);
+    }
 
-//	/**
-//	 * CTOR to refine or fill a predefined ArrayList<CriterionVO>
-//	 * @param parentVO
-//	 */
-//	public AnyFieldCriterionCollection(List<CriterionVO> parentVO)
-//	{
-//		setParentVO(parentVO);
-//	}
+//    /**
+//     * CTOR to refine or fill a predefined ArrayList<CriterionVO>
+//     * @param parentVO
+//     */
+//    public AnyFieldCriterionCollection(List<CriterionVO> parentVO)
+//    {
+//        setParentVO(parentVO);
+//    }
 
-//	public List<CriterionVO> getParentVO()
-//	{
-//		return parentVO;
-//	}
+//    public List<CriterionVO> getParentVO()
+//    {
+//        return parentVO;
+//    }
 //
-//	public void setParentVO(List<CriterionVO> parentVO)
-//	{
-//		this.parentVO = parentVO;
-//		// ensure proper initialization of our DataModelManager
-//		anyFieldCriterionManager = new AnyFieldCriterionManager(parentVO);
-//	}
+//    public void setParentVO(List<CriterionVO> parentVO)
+//    {
+//        this.parentVO = parentVO;
+//        // ensure proper initialization of our DataModelManager
+//        anyFieldCriterionManager = new AnyFieldCriterionManager(parentVO);
+//    }
 //
-	public AnyFieldCriterionManager getAnyFieldCriterionManager()
-	{
-		return anyFieldCriterionManager;
-	}
+    public AnyFieldCriterionManager getAnyFieldCriterionManager()
+    {
+        return anyFieldCriterionManager;
+    }
 
-	public void setAnyFieldCriterionManager(AnyFieldCriterionManager anyFieldCriterionManager)
-	{
-		this.anyFieldCriterionManager = anyFieldCriterionManager;
-	}
+    public void setAnyFieldCriterionManager(AnyFieldCriterionManager anyFieldCriterionManager)
+    {
+        this.anyFieldCriterionManager = anyFieldCriterionManager;
+    }
 
     public void clearAllForms()
     {        
-    	for (AnyFieldCriterionBean gcb : anyFieldCriterionManager.getObjectList())
-    	{
-    		gcb.clearCriterion();
-    	}
+        for (AnyFieldCriterionBean gcb : anyFieldCriterionManager.getObjectList())
+        {
+            gcb.clearCriterion();
+        }
     }
 
     public List<Criterion> getFilledCriterion()
-	{
-    	List<Criterion> returnList = new ArrayList<Criterion>();
-    	for (AnyFieldCriterionBean bean : anyFieldCriterionManager.getObjectList())
-    	{
-    	    Criterion vo = bean.getCriterionVO();
-    		if ((vo != null && vo.getSearchString() != null && vo.getSearchString().length() > 0))
-    		{
-    			returnList.add(vo);
-    		}
-    	}
-		return returnList;
-	}
+    {
+        List<Criterion> returnList = new ArrayList<Criterion>();
+        for (AnyFieldCriterionBean bean : anyFieldCriterionManager.getObjectList())
+        {
+            Criterion vo = bean.getCriterionVO();
+            if ((vo != null && vo.getSearchString() != null && vo.getSearchString().length() > 0))
+            {
+                returnList.add(vo);
+            }
+        }
+        return returnList;
+    }
     
     /**
      * Specialized DataModelManager to deal with objects of type AnyFieldCriterionBean

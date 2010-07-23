@@ -57,10 +57,10 @@ public class EventCriterion extends Criterion
      * {@inheritDoc}
      */
     public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    	MetadataSearchCriterion criterion = 
-			new MetadataSearchCriterion( CriterionType.EVENT, getSearchString() );
-    	criterions.add( criterion );
-	   	return criterions;
-	}	
+        ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+        MetadataSearchCriterion criterion = 
+            new MetadataSearchCriterion( CriterionType.EVENT, getSearchString() );
+        criterions.add( criterion );
+           return criterions;
+    }    
 }

@@ -34,12 +34,12 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 public class PubManRequestBean extends FacesBean
 {
-	public static final String BEAN_NAME = "PubManRequestBean";
+    public static final String BEAN_NAME = "PubManRequestBean";
     
     private String helpAnchor = "";
     private String requestedPage = "";
-	
-	/**
+    
+    /**
      * Default constructor.
      */
     public PubManRequestBean()
@@ -57,31 +57,31 @@ public class PubManRequestBean extends FacesBean
        FacesContext fc = FacesContext.getCurrentInstance();
        if(fc.getExternalContext().getRequestPathInfo() != null)
        {
-    	   this.helpAnchor = fc.getExternalContext().getRequestPathInfo().replace("/", "");
-    	   this.requestedPage = this.helpAnchor.replaceAll(".jsp", "");
-    	   this.helpAnchor = "#" +this.helpAnchor.replaceAll(".jsp", "");
+           this.helpAnchor = fc.getExternalContext().getRequestPathInfo().replace("/", "");
+           this.requestedPage = this.helpAnchor.replaceAll(".jsp", "");
+           this.helpAnchor = "#" +this.helpAnchor.replaceAll(".jsp", "");
        }
        
     }
     
     
-    // 	Getters and Setters
+    //     Getters and Setters
     
     public String getHelpAnchor() {
-		return helpAnchor;
-	}
+        return helpAnchor;
+    }
 
-	public void setHelpAnchor(String helpAnchor) {
-		this.helpAnchor = helpAnchor;
-	}
+    public void setHelpAnchor(String helpAnchor) {
+        this.helpAnchor = helpAnchor;
+    }
 
-	public String getRequestedPage() {
-		return requestedPage;
-	}
+    public String getRequestedPage() {
+        return requestedPage;
+    }
 
-	public void setRequestedPage(String requestedPage) {
-		this.requestedPage = requestedPage;
-	}
-	
-	
+    public void setRequestedPage(String requestedPage) {
+        this.requestedPage = requestedPage;
+    }
+    
+    
 }

@@ -173,7 +173,7 @@ public class AffiliationBean extends FacesBean
         }
         else if ("BrowseBy".equals(source))
         {
-        	return startSearchForAffiliation(selectedAffiliation);
+            return startSearchForAffiliation(selectedAffiliation);
         }
         else if (selectedAffiliation != null)
         {

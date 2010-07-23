@@ -90,15 +90,15 @@ public class ContextListSessionBean extends FacesBean
             InitialContext initialContext = new InitialContext();
             this.qualityAssurance = (QualityAssurance) initialContext.lookup(QualityAssurance.SERVICE_NAME);
             if(loginHelper.getAccountUser() != null 
-            		&& loginHelper.getAccountUser().getReference() != null 
-            		&& loginHelper.getAccountUser().getReference().getObjectId()!= null 
-            		&& !loginHelper.getAccountUser().getReference().getObjectId().trim().equals(""))
+                    && loginHelper.getAccountUser().getReference() != null 
+                    && loginHelper.getAccountUser().getReference().getObjectId()!= null 
+                    && !loginHelper.getAccountUser().getReference().getObjectId().trim().equals(""))
             {
-            	moderatorContexts = CommonUtils.convertToPubCollectionVOPresentationList(qualityAssurance.retrievePubContextsForModerator(loginHelper.getAccountUser()));
+                moderatorContexts = CommonUtils.convertToPubCollectionVOPresentationList(qualityAssurance.retrievePubContextsForModerator(loginHelper.getAccountUser()));
             }
             else
             {
-            	//moderatorContexts.addAll(this.getDummyCollections(3));
+                //moderatorContexts.addAll(this.getDummyCollections(3));
             }
         }
         catch (Exception e)
@@ -192,13 +192,13 @@ public class ContextListSessionBean extends FacesBean
 
     public PubContextVOPresentation getSelectedDepositorContext()
     {
-    	for (PubContextVOPresentation coll : depositorContextList) {
-			if (coll.getSelected())
-			{
-				return coll;
-			}
-		}
-    	return null;
+        for (PubContextVOPresentation coll : depositorContextList) {
+            if (coll.getSelected())
+            {
+                return coll;
+            }
+        }
+        return null;
     }
 
     public List<PubContextVOPresentation> getModeratorContextList()

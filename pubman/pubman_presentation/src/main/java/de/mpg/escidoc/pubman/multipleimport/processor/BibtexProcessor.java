@@ -106,7 +106,7 @@ public class BibtexProcessor extends FormatProcessor
         ArrayList<String> itemList = new ArrayList<String>();
         StringWriter stringWriter = new StringWriter();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		boolean first = true;
+        boolean first = true;
         try
         {
             while ((line = bufferedReader.readLine()) != null)
@@ -117,15 +117,15 @@ public class BibtexProcessor extends FormatProcessor
                 
                 if (line.matches("^@[a-zA-Z]+\\{.*"))
                 {
-					if (first)
-					{
-						first = false;
-					}
-					else
-					{
-						itemList.add(stringWriter.toString());
+                    if (first)
+                    {
+                        first = false;
                     }
-					stringWriter = new StringWriter();
+                    else
+                    {
+                        itemList.add(stringWriter.toString());
+                    }
+                    stringWriter = new StringWriter();
                 }
 
                 stringWriter.write(line);

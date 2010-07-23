@@ -69,15 +69,15 @@ public class AnyFieldCriterion extends Criterion
      * {@inheritDoc}
      */
     public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    	MetadataSearchCriterion criterion = null;
-    	if( includeFiles == true ) {
-    		criterion = new MetadataSearchCriterion( CriterionType.ANY_INCLUDE, getSearchString() );
-    	}
-    	else {
-    		criterion = new MetadataSearchCriterion( CriterionType.ANY, getSearchString() );
-    	}
-    	criterions.add( criterion );
-    	return criterions;
+        ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+        MetadataSearchCriterion criterion = null;
+        if( includeFiles == true ) {
+            criterion = new MetadataSearchCriterion( CriterionType.ANY_INCLUDE, getSearchString() );
+        }
+        else {
+            criterion = new MetadataSearchCriterion( CriterionType.ANY, getSearchString() );
+        }
+        criterions.add( criterion );
+        return criterions;
     }
 }

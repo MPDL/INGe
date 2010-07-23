@@ -139,7 +139,7 @@ public class RedirectServlet extends HttpServlet
                     while ((numRead = input.read(buffer)) != -1)
                     {
                         out.write(buffer, 0, numRead);
-                        out.flush();
+                        //out.flush();
                         numWritten += numRead;
                     }
                     input.close();

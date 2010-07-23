@@ -70,11 +70,11 @@ public abstract class BreadcrumbPage extends FacesBean
         Method defaultAction = null;
         try
         {
-        	defaultAction = getDefaultAction();
+            defaultAction = getDefaultAction();
         }
-    	catch (NoSuchMethodException e) {
-			logger.error("Error getting default action", e);
-		}
+        catch (NoSuchMethodException e) {
+            logger.error("Error getting default action", e);
+        }
         BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean = (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
         breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page, defaultAction, isItemSpecific()));
         previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
@@ -82,7 +82,7 @@ public abstract class BreadcrumbPage extends FacesBean
         UIComponent bcComponent = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:Breadcrumb:BreadcrumbNavigation");
         if (bcComponent == null)
         {
-        	bcComponent = FacesContext.getCurrentInstance().getViewRoot().findComponent("Breadcrumb:BreadcrumbNavigation");
+            bcComponent = FacesContext.getCurrentInstance().getViewRoot().findComponent("Breadcrumb:BreadcrumbNavigation");
         }
         if (bcComponent != null)
         {
@@ -95,40 +95,40 @@ public abstract class BreadcrumbPage extends FacesBean
         }
         else
         {
-        	logger.warn("Breadcrumb navigation not found.");
+            logger.warn("Breadcrumb navigation not found.");
         }
     }
 
     
     public String getPreviousPageURI()
     {
-    	return previousItem.getPage();
+        return previousItem.getPage();
     }
 
     public String getPreviousPageName()
     {
-    	return previousItem.getPageLabel();
+        return previousItem.getPageLabel();
     }
     
     public String cancel()
     {
-    	String result = previousItem.getPage();
-    	try
-    	{
-    		FacesContext.getCurrentInstance().getExternalContext().redirect(((ApplicationBean) getApplicationBean(ApplicationBean.class)).getAppContext() + result);
-    	}
-    	catch (IOException e) {
-			logger.error("Error redirecting to previous page", e);
-		}
-    	return null;
+        String result = previousItem.getPage();
+        try
+        {
+            FacesContext.getCurrentInstance().getExternalContext().redirect(((ApplicationBean) getApplicationBean(ApplicationBean.class)).getAppContext() + result);
+        }
+        catch (IOException e) {
+            logger.error("Error redirecting to previous page", e);
+        }
+        return null;
     }
     
     protected Method getDefaultAction() throws NoSuchMethodException
     {
-    	return null;
+        return null;
     }
 
 
-	public abstract boolean isItemSpecific();
+    public abstract boolean isItemSpecific();
     
 }

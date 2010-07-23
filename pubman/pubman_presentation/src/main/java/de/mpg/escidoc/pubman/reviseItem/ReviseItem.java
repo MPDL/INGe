@@ -141,18 +141,18 @@ public class ReviseItem extends FacesBean
      */
     public final String revise()
     {
-    	FacesContext fc = FacesContext.getCurrentInstance();
-    	HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    	String retVal;
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        String retVal;
         String navigateTo = ViewItemFull.LOAD_VIEWITEM;
-    	/*
-    	String navigateTo = getSessionBean().getNavigationStringToGoBack();
+        /*
+        String navigateTo = getSessionBean().getNavigationStringToGoBack();
         
         if(navigateTo == null)
         {
-        	navigateTo = ViewItemFull.LOAD_VIEWITEM;
+            navigateTo = ViewItemFull.LOAD_VIEWITEM;
         }
-    	 */
+         */
         logger.debug("Now revising, then go to " + navigateTo);
         
         retVal = this.getItemControllerSessionBean().reviseCurrentPubItem(reviseComment, navigateTo);
@@ -165,13 +165,13 @@ public class ReviseItem extends FacesBean
         
         if(ViewItemFull.LOAD_VIEWITEM.equals(retVal))
         {
-        	try 
+            try 
             {
-    			fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
-    		} 
+                fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+            } 
             catch (IOException e) {
-    			logger.error("Could not redirect to View Item Page", e);
-    		}
+                logger.error("Could not redirect to View Item Page", e);
+            }
         }
         
       
@@ -204,15 +204,15 @@ public class ReviseItem extends FacesBean
         return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 
-	public String getValMessage() {
-		return valMessage;
-	}
+    public String getValMessage() {
+        return valMessage;
+    }
 
-	public void setValMessage(String valMessage) {
-		this.valMessage = valMessage;
-	}
+    public void setValMessage(String valMessage) {
+        this.valMessage = valMessage;
+    }
 
-	public final String getNavigationStringToGoBack()
+    public final String getNavigationStringToGoBack()
     {
         return navigationStringToGoBack;
     }

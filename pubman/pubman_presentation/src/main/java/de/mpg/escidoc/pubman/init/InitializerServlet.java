@@ -63,10 +63,10 @@ public class InitializerServlet extends HttpServlet
             
             //call method as thread. If coreservice and PubMan are deployed ion the same jboss, this method is blocked until both applications are completely deployed
             new Thread(){
-            	public void run()
-            	{
-            		statistics.initReportDefinitionsInFramework();
-            	}
+                public void run()
+                {
+                    statistics.initReportDefinitionsInFramework();
+                }
             }.start();
             
             

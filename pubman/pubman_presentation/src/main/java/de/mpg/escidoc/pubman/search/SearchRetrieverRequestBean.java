@@ -75,8 +75,8 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
      */
     private String searchType;
 
-	// Faces navigation string
-	public final static String LOAD_SEARCHRESULTLIST = "showSearchResults";
+    // Faces navigation string
+    public final static String LOAD_SEARCHRESULTLIST = "showSearchResults";
     
     public SearchRetrieverRequestBean()
     {
@@ -100,7 +100,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     @Override
     public void init()
     {
-    	try
+        try
         {
             InitialContext initialContext = new InitialContext();
             this.searchService = (Search) initialContext.lookup(Search.SERVICE_NAME);
@@ -324,10 +324,10 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         
     }
 
-	@Override
-	public boolean isItemSpecific() 
-	{
-		return false;
-	}
+    @Override
+    public boolean isItemSpecific() 
+    {
+        return false;
+    }
 
 }

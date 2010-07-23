@@ -52,13 +52,13 @@ public class PersonCriterion extends Criterion
     //creator role for the search criterion
     private List<CreatorRole> creatorRole;
 
-	/**
-	 * constructor.
-	 */
-	public PersonCriterion()
+    /**
+     * constructor.
+     */
+    public PersonCriterion()
     {
         super();
-	}
+    }
 
     public List<CreatorRole> getCreatorRole()
     {
@@ -71,31 +71,31 @@ public class PersonCriterion extends Criterion
     }
     
     private String getRolesAsStringList() {
-    	StringBuffer buffer = new StringBuffer();
-    	for( int i = 0; i < creatorRole.size(); i++ ) {
-    		buffer.append( creatorRole.get( i ).getUri() );
-    		if( i != creatorRole.size() -1  ) {
-    			buffer.append( " OR " );
-    		}
-    	}
-    	return buffer.toString();
+        StringBuffer buffer = new StringBuffer();
+        for( int i = 0; i < creatorRole.size(); i++ ) {
+            buffer.append( creatorRole.get( i ).getUri() );
+            if( i != creatorRole.size() -1  ) {
+                buffer.append( " OR " );
+            }
+        }
+        return buffer.toString();
     }
     
     public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    	if( isSearchStringEmpty() == true ) {
-			return criterions;
-		}
-		else {
-			MetadataSearchCriterion criterion = 
-				new MetadataSearchCriterion( CriterionType.PERSON, getSearchString() );
-			criterions.add( criterion );
-			if( creatorRole.size() != 0 ) {
-				MetadataSearchCriterion criterion1 = 
-					new MetadataSearchCriterion( CriterionType.PERSON_ROLE, getRolesAsStringList(), LogicalOperator.AND );
-				criterions.add( criterion1 );
-			}
-		}
-	   	return criterions;
-	}
+        ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+        if( isSearchStringEmpty() == true ) {
+            return criterions;
+        }
+        else {
+            MetadataSearchCriterion criterion = 
+                new MetadataSearchCriterion( CriterionType.PERSON, getSearchString() );
+            criterions.add( criterion );
+            if( creatorRole.size() != 0 ) {
+                MetadataSearchCriterion criterion1 = 
+                    new MetadataSearchCriterion( CriterionType.PERSON_ROLE, getRolesAsStringList(), LogicalOperator.AND );
+                criterions.add( criterion1 );
+            }
+        }
+           return criterions;
+    }
 }

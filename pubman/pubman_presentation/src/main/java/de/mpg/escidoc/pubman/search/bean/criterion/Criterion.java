@@ -45,49 +45,49 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOpera
  */
 public abstract class Criterion
 {
-	
-	/**
-	 * Returns a search criterion which can be used in a search query towards the search service.
-	 * @return a metadata serach criterion
-	 * @throws TechnicalException if MetadataSearchCriterion cannot be instantiated
-	 */
-	public abstract ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException;
+    
+    /**
+     * Returns a search criterion which can be used in a search query towards the search service.
+     * @return a metadata serach criterion
+     * @throws TechnicalException if MetadataSearchCriterion cannot be instantiated
+     */
+    public abstract ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException;
 
-	//logic operator between the search criteria
+    //logic operator between the search criteria
     private LogicalOperator logicalOperator = null;
     //the string to search for
-	private String searchString = null;
+    private String searchString = null;
 
-	public Criterion()
+    public Criterion()
     {
-	}
+    }
 
-	public LogicalOperator getLogicalOperator()
+    public LogicalOperator getLogicalOperator()
     {
-		return logicalOperator;
-	}
+        return logicalOperator;
+    }
 
-	public String getSearchString()
+    public String getSearchString()
     {
-		return searchString;
-	}
+        return searchString;
+    }
 
-	public void setLogicalOperator(LogicalOperator newVal)
+    public void setLogicalOperator(LogicalOperator newVal)
     {
-		logicalOperator = newVal;
-	}
+        logicalOperator = newVal;
+    }
 
-	public void setSearchString(String newVal)
+    public void setSearchString(String newVal)
     {
-		searchString = newVal;
-	}
-	
-	protected boolean isSearchStringEmpty() {
-		if ( searchString == null || searchString.trim().equals("") ) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+        searchString = newVal;
+    }
+    
+    protected boolean isSearchStringEmpty() {
+        if ( searchString == null || searchString.trim().equals("") ) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

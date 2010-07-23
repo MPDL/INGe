@@ -37,8 +37,8 @@ import java.sql.ResultSet;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.multipleimport.ImportLog;
-import de.mpg.escidoc.pubman.multipleimport.ImportLogItem;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.ErrorLevel;
+import de.mpg.escidoc.pubman.multipleimport.ImportLogItem;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
@@ -94,9 +94,9 @@ public class ImportSurveyor extends Thread
             
             Connection connection = ImportLog.getConnection();
             String query = "select id from escidoc_import_log where "
-            		+ "(status = 'PENDING' or status = 'ROLLBACK') "
-            		+ "and id not in (select parent from escidoc_import_log_item where "
-            		+ "datediff('minute', startdate, now()) <= 60)";
+                    + "(status = 'PENDING' or status = 'ROLLBACK') "
+                    + "and id not in (select parent from escidoc_import_log_item where "
+                    + "datediff('minute', startdate, now()) <= 60)";
             ResultSet resultSet = null;
             PreparedStatement statement = null;
             try

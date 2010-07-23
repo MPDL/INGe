@@ -32,16 +32,13 @@ package de.mpg.escidoc.pubman;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -51,7 +48,6 @@ import de.mpg.escidoc.pubman.exceptions.PubManStylesheetNotAvailableException;
 import de.mpg.escidoc.pubman.exceptions.PubManVersionNotAvailableException;
 import de.mpg.escidoc.services.common.util.CommonUtils;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
@@ -162,25 +158,25 @@ public class ApplicationBean extends FacesBean
             // hide the version information if system type is production
             try 
             {
-				if(!this.fetchSystemTypeFromProperty().equals(SystemType.Production_Server))
-				{
-				    try
-				    {
-				        this.appTitle += " " + this.getVersion();
-				        logger.info("Version retrieved.");
-				    }
-				    catch (PubManVersionNotAvailableException e)
-				    {
-				        // version cannot be retrieved; just show the application title
-				        logger.warn("The version of the application cannot be retrieved.");
-				    }
-				}
-			} 
+                if(!this.fetchSystemTypeFromProperty().equals(SystemType.Production_Server))
+                {
+                    try
+                    {
+                        this.appTitle += " " + this.getVersion();
+                        logger.info("Version retrieved.");
+                    }
+                    catch (PubManVersionNotAvailableException e)
+                    {
+                        // version cannot be retrieved; just show the application title
+                        logger.warn("The version of the application cannot be retrieved.");
+                    }
+                }
+            } 
             catch (PubManVersionNotAvailableException e) 
             {
-            	// version cannot be retrieved; just show the application title
-		        logger.warn("The version of the application cannot be retrieved.");
-			}
+                // version cannot be retrieved; just show the application title
+                logger.warn("The version of the application cannot be retrieved.");
+            }
         }
 
         return appTitle;
@@ -213,9 +209,9 @@ public class ApplicationBean extends FacesBean
      */
     public String getShortVersion()
     {
-    	String versionWithoutBuildDate = "";
-    	int whereToCut;
-    	try
+        String versionWithoutBuildDate = "";
+        int whereToCut;
+        try
         {
             Properties properties = CommonUtils.getProperties( PROPERTY_FILENAME );
             versionWithoutBuildDate = properties.getProperty("escidoc.pubman.version");
@@ -226,7 +222,7 @@ public class ApplicationBean extends FacesBean
         }
         catch (IOException e)
         {
-        	logger.warn("The version of the application cannot be retrieved.");
+            logger.warn("The version of the application cannot be retrieved.");
         }
         return versionWithoutBuildDate;
     }
@@ -285,17 +281,17 @@ public class ApplicationBean extends FacesBean
         
         // First append the standard PubMan Stylesheet
         try {
-        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.apply").equals("true"))
-	        	{
-	        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type").equals(this.ALTERNATE_STYLESHEET))
-				{
-	        		styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='PubManTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>");
-				}
-				else
-				{
-					StylesheetStandard = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='PubManTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>";
-				}
-        	}
+            if(PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.apply").equals("true"))
+                {
+                if(PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type").equals(this.ALTERNATE_STYLESHEET))
+                {
+                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='PubManTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>");
+                }
+                else
+                {
+                    StylesheetStandard = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='PubManTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>";
+                }
+            }
         } catch (IOException e)
         {
             throw new PubManStylesheetNotAvailableException(e);
@@ -306,17 +302,17 @@ public class ApplicationBean extends FacesBean
         
         // Then append the high contrast Stylesheet
         try {
-        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.apply").equals("true"))
-        	{
-	        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type").equals(this.ALTERNATE_STYLESHEET))
-				{
-	        		styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='highContrastTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>");
-				}
-	        	else
-	        	{
-	        		StylesheetContrast = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='highContrastTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>";
-	        	}
-        	}
+            if(PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.apply").equals("true"))
+            {
+                if(PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type").equals(this.ALTERNATE_STYLESHEET))
+                {
+                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='highContrastTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>");
+                }
+                else
+                {
+                    StylesheetContrast = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='highContrastTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>";
+                }
+            }
         } catch (IOException e)
         {
             throw new PubManStylesheetNotAvailableException(e);
@@ -327,17 +323,17 @@ public class ApplicationBean extends FacesBean
         
         // Then append the classic Stylesheet
         try {
-        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.apply").equals("true"))
-	        	{
-	        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type").equals(this.ALTERNATE_STYLESHEET))
-				{
-	        		styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='classicTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>");
-				}
-				else
-				{
-					StylesheetClassic = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='classicTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>";
-				}
-        	}
+            if(PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.apply").equals("true"))
+                {
+                if(PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type").equals(this.ALTERNATE_STYLESHEET))
+                {
+                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='classicTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>");
+                }
+                else
+                {
+                    StylesheetClassic = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='classicTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>";
+                }
+            }
         } catch (IOException e)
         {
             throw new PubManStylesheetNotAvailableException(e);
@@ -353,10 +349,10 @@ public class ApplicationBean extends FacesBean
         
         // Last Step: add Favicon information if it should be applied
         try {
-	        if(PropertyReader.getProperty("escidoc.pubman.favicon.apply").equals("true"))
-	        {
-	        	styleTags.append("<link rel='SHORTCUT ICON' href='" + PropertyReader.getProperty("escidoc.pubman.favicon.url") + "'/>");
-	        }
+            if(PropertyReader.getProperty("escidoc.pubman.favicon.apply").equals("true"))
+            {
+                styleTags.append("<link rel='SHORTCUT ICON' href='" + PropertyReader.getProperty("escidoc.pubman.favicon.url") + "'/>");
+            }
         } catch (IOException e)
         {
             throw new PubManStylesheetNotAvailableException(e);
@@ -376,11 +372,11 @@ public class ApplicationBean extends FacesBean
      */
     public String getCookieVersion() throws PubManVersionNotAvailableException 
     {
-    	String cookieVersion = "";
-    	
-    	try
+        String cookieVersion = "";
+        
+        try
         {
-    		cookieVersion = PropertyReader.getProperty("escidoc.pubman.cookie.version");
+            cookieVersion = PropertyReader.getProperty("escidoc.pubman.cookie.version");
         } catch (IOException e)
         {
             throw new PubManVersionNotAvailableException(e);
@@ -389,8 +385,8 @@ public class ApplicationBean extends FacesBean
             throw new PubManVersionNotAvailableException(e);
         }
         
-    	return cookieVersion;
-    	
+        return cookieVersion;
+        
     }
     
 
@@ -475,14 +471,14 @@ public class ApplicationBean extends FacesBean
     
     public String getReloadResourceBundlesAndProperties() throws Exception
     {
-    	String returnVal = "";
-    	ResourceBundle.clearCache();
-    	PropertyReader.loadProperties();
-    	languageSelectItems.clear();
-    	returnVal = "... Resource bundles and properties reloaded, language selection menu reset.";
-    	return returnVal;
-    	
-    	
+        String returnVal = "";
+        ResourceBundle.clearCache();
+        PropertyReader.loadProperties();
+        languageSelectItems.clear();
+        returnVal = "... Resource bundles and properties reloaded, language selection menu reset.";
+        return returnVal;
+        
+        
     }
     
 
@@ -496,20 +492,20 @@ public class ApplicationBean extends FacesBean
         this.transformationService = transformationService;
     }
 
-	public void setLanguageSelectItems(Map<String, SelectItem[]> languageSelectItems) {
-		this.languageSelectItems = languageSelectItems;
-	}
+    public void setLanguageSelectItems(Map<String, SelectItem[]> languageSelectItems) {
+        this.languageSelectItems = languageSelectItems;
+    }
 
-	public Map<String, SelectItem[]> getLanguageSelectItems() {
-		return languageSelectItems;
-	}
+    public Map<String, SelectItem[]> getLanguageSelectItems() {
+        return languageSelectItems;
+    }
 
-	public Set<AffiliationVO> getOuList() {
-		return ouList;
-	}
+    public Set<AffiliationVO> getOuList() {
+        return ouList;
+    }
 
-	public void setOuList(Set<AffiliationVO> ouList) {
-		this.ouList = ouList;
-	}
+    public void setOuList(Set<AffiliationVO> ouList) {
+        this.ouList = ouList;
+    }
 
 }

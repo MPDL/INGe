@@ -126,36 +126,36 @@ public class AffiliationTree extends FacesBean
      */
     public List<SelectItem> getAffiliationSelectItems() throws Exception
     {
-    	
-    	
-    	
+        
+        
+        
         if (affiliationSelectItems == null)
         {
-        	
-        	if (started)
-        	{
-        		while (affiliationSelectItems == null)
-        		{
-        			System.out.println("Waiting");
-        			Thread.sleep(1000);
-        		}
-        	}
-        	else
-        	{
-	        	started = true;
-	        	
-	        	List<SelectItem> list = new ArrayList<SelectItem>();
-	        	list.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
-	            
-	        	System.out.println("Creating");
-	        	
-	            List<AffiliationVOPresentation> topLevelAffs = getAffiliations();
-	            addChildAffiliationsToMenu(topLevelAffs, list, 0);
-	            
-	            affiliationSelectItems = list;
-	            
-	            ((QAWSSessionBean) getSessionBean(QAWSSessionBean.class)).setOrgUnitSelectItems(affiliationSelectItems);
-        	}
+            
+            if (started)
+            {
+                while (affiliationSelectItems == null)
+                {
+                    System.out.println("Waiting");
+                    Thread.sleep(1000);
+                }
+            }
+            else
+            {
+                started = true;
+                
+                List<SelectItem> list = new ArrayList<SelectItem>();
+                list.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+                
+                System.out.println("Creating");
+                
+                List<AffiliationVOPresentation> topLevelAffs = getAffiliations();
+                addChildAffiliationsToMenu(topLevelAffs, list, 0);
+                
+                affiliationSelectItems = list;
+                
+                ((QAWSSessionBean) getSessionBean(QAWSSessionBean.class)).setOrgUnitSelectItems(affiliationSelectItems);
+            }
         }
 
         return affiliationSelectItems;

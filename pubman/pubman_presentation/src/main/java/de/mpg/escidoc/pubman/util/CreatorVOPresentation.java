@@ -33,14 +33,11 @@ package de.mpg.escidoc.pubman.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.model.SelectItem;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.EditItemBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
-import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;

@@ -80,10 +80,10 @@ public class ViewItemRevisionsPage extends BreadcrumbPage
         return (ViewItemSessionBean) getBean(ViewItemSessionBean.class);
     }
 
-	@Override
-	public boolean isItemSpecific() 
-	{
-		return true;
-	}
+    @Override
+    public boolean isItemSpecific() 
+    {
+        return true;
+    }
 
 }

@@ -117,50 +117,50 @@ public class EndnoteProcessor extends FormatProcessor
 
             //replace first empty lines and BOM
             inputString = Pattern.compile("^.*?%", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(inputString).replaceFirst("%");
-        	
-        	BufferedReader reader = new BufferedReader(new StringReader(inputString));
-        	
-        	String buff;
-        	boolean firstItem = true;
-        	int count = 0;
-        	StringBuffer sb = null;
-        	List<String> l = new ArrayList<String>();
-        	
-        	while ((buff = reader.readLine()) != null)
-    		{
-        		
-    			if ( buff.trim().equals("") )
-    			{
-    				count++; 
-    			}
-    			else
-    			{
-    				//first item handling
-    				if ( firstItem )
-    				{
-    					firstItem = false;
-    					sb = new StringBuffer();
-    				}
-    				// new item 
-    				else if ( count >= 1 && buff.startsWith("%0") ) 
-    				{
-    					l.add(sb.toString().trim());
-    					count = 0;
-    					sb = new StringBuffer();
-    				}
-    				sb.append(buff).append("\n");    						
-    			}
-
-    		}
-    		//add last item
-    		if ( sb != null )
-    		{
-    			l.add(sb.toString().trim());
-    		}
-
-    		reader.close();
             
-    		items = (String[])l.toArray(new String[l.size()]);
+            BufferedReader reader = new BufferedReader(new StringReader(inputString));
+            
+            String buff;
+            boolean firstItem = true;
+            int count = 0;
+            StringBuffer sb = null;
+            List<String> l = new ArrayList<String>();
+            
+            while ((buff = reader.readLine()) != null)
+            {
+                
+                if ( buff.trim().equals("") )
+                {
+                    count++; 
+                }
+                else
+                {
+                    //first item handling
+                    if ( firstItem )
+                    {
+                        firstItem = false;
+                        sb = new StringBuffer();
+                    }
+                    // new item 
+                    else if ( count >= 1 && buff.startsWith("%0") ) 
+                    {
+                        l.add(sb.toString().trim());
+                        count = 0;
+                        sb = new StringBuffer();
+                    }
+                    sb.append(buff).append("\n");                            
+                }
+
+            }
+            //add last item
+            if ( sb != null )
+            {
+                l.add(sb.toString().trim());
+            }
+
+            reader.close();
+            
+            items = (String[])l.toArray(new String[l.size()]);
             
             this.length = items.length;
             

@@ -33,22 +33,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.EditItemBean;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
 import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
-import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
-import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the EditItem.
@@ -59,18 +52,18 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  */
 public class EditItemSessionBean extends EditItemBean 
 {
-	public static final String BEAN_NAME = "EditItemSessionBean";
-	
-	@SuppressWarnings("unused")
-	private static Logger logger = Logger.getLogger(EditItemSessionBean.class);
+    public static final String BEAN_NAME = "EditItemSessionBean";
+    
+    @SuppressWarnings("unused")
+    private static Logger logger = Logger.getLogger(EditItemSessionBean.class);
 
-	private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
-	
-	private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
-	
-	private String genreBundle = "Genre_ARTICLE";
-	
-	 /**The offset of the page where to jump back*/
+    private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
+    
+    private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
+    
+    private String genreBundle = "Genre_ARTICLE";
+    
+     /**The offset of the page where to jump back*/
     private String offset;
     
     /**
@@ -90,73 +83,73 @@ public class EditItemSessionBean extends EditItemBean
     private String currentSubmission = "";
 
     /**
-	 * Public constructor.
-	 */
-	public EditItemSessionBean() 
-	{
-		this.init();
-	}
+     * Public constructor.
+     */
+    public EditItemSessionBean() 
+    {
+        this.init();
+    }
 
-	/**
-	 * This method is called when this bean is initially added to session scope.
-	 * Typically, this occurs as a result of evaluating a value binding or
-	 * method binding expression, which utilizes the managed bean facility to
-	 * instantiate this bean and store it into session scope.
-	 */
-	public void init() 
-	{
-		// Perform initializations inherited from our superclass
-		super.init();
-		initAuthorCopyPasteCreatorBean();
-	}
-	
-	/**
-	 * This method clears the file and the locator list
-	 */
-	public void initEmptyComponents()
-	{
-		clean();
-		
-		// make sure that at least one locator and one file is stored in the  EditItemSessionBean
-    	if(this.getFiles().size() < 1)
-    	{
-    	    FileVO newFile = new FileVO();
-    	    newFile.getMetadataSets().add(new MdsFileVO());
-    	    newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-    		this.getFiles().add(new PubFileVOPresentation(this.getFiles().size(), newFile, false));
-    	}
-    	if(this.getLocators().size() < 1)
-    	{
-    		FileVO newLocator = new FileVO();
-    		newLocator.getMetadataSets().add(new MdsFileVO());
-    		newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
-    		this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
-    	}
-    	
-    	initAuthorCopyPasteCreatorBean();
-	}
+    /**
+     * This method is called when this bean is initially added to session scope.
+     * Typically, this occurs as a result of evaluating a value binding or
+     * method binding expression, which utilizes the managed bean facility to
+     * instantiate this bean and store it into session scope.
+     */
+    public void init() 
+    {
+        // Perform initializations inherited from our superclass
+        super.init();
+        initAuthorCopyPasteCreatorBean();
+    }
+    
+    /**
+     * This method clears the file and the locator list
+     */
+    public void initEmptyComponents()
+    {
+        clean();
+        
+        // make sure that at least one locator and one file is stored in the  EditItemSessionBean
+        if(this.getFiles().size() < 1)
+        {
+            FileVO newFile = new FileVO();
+            newFile.getMetadataSets().add(new MdsFileVO());
+            newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+            this.getFiles().add(new PubFileVOPresentation(this.getFiles().size(), newFile, false));
+        }
+        if(this.getLocators().size() < 1)
+        {
+            FileVO newLocator = new FileVO();
+            newLocator.getMetadataSets().add(new MdsFileVO());
+            newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
+            this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
+        }
+        
+        initAuthorCopyPasteCreatorBean();
+    }
 
-	/**
-	 * 
-	 */
-	public void clean()
-	{
-		super.clean();
-	    
-	    this.files.clear();
-		this.locators.clear();
-		this.sources.clear();
-		this.genreBundle = "";
-		this.offset="";
-	}
-	
-	public void bindSourcesToBean(List<SourceVO> sourceList)
-	{
-	    for (SourceVO sourceVO : sourceList)
+    /**
+     * 
+     */
+    public void clean()
+    {
+        super.clean();
+        
+        this.files.clear();
+        this.locators.clear();
+        this.sources.clear();
+        this.genreBundle = "";
+        this.offset="";
+    }
+    
+    public void bindSourcesToBean(List<SourceVO> sourceList)
+    {
+        for (SourceVO sourceVO : sourceList)
         {
             this.sources.add(new SourceBean(sourceVO, this.sources));
         }
-	}
+    }
 
     public void bindSourcesToVO(List<SourceVO> sourceList)
     {
@@ -169,19 +162,19 @@ public class EditItemSessionBean extends EditItemBean
         }
     }
 
-	
-	/**
+    
+    /**
      * This method reorganizes the index property in PubFileVOPresentation after removing one element of the list.
      */
     public void reorganizeFileIndexes()
     {
-    	if(this.files != null)
-    	{
-    		for(int i = 0; i < this.files.size(); i++)
-        	{
-        		this.files.get(i).setIndex(i);
-        	}
-    	}
+        if(this.files != null)
+        {
+            for(int i = 0; i < this.files.size(); i++)
+            {
+                this.files.get(i).setIndex(i);
+            }
+        }
     }
     
     
@@ -191,43 +184,43 @@ public class EditItemSessionBean extends EditItemBean
      */
     public void reorganizeLocatorIndexes()
     {
-    	if(this.locators != null)
-    	{
-    		for(int i = 0; i < this.locators.size(); i++)
-        	{
-        		this.locators.get(i).setIndex(i);
-        	}
-    	}
+        if(this.locators != null)
+        {
+            for(int i = 0; i < this.locators.size(); i++)
+            {
+                this.locators.get(i).setIndex(i);
+            }
+        }
     }
 
-	public List<PubFileVOPresentation> getFiles() 
-	{
-		return files;
-	}
+    public List<PubFileVOPresentation> getFiles() 
+    {
+        return files;
+    }
 
-	public void setFiles(List<PubFileVOPresentation> files) 
-	{
-		this.files = files;
-	}
+    public void setFiles(List<PubFileVOPresentation> files) 
+    {
+        this.files = files;
+    }
 
-	public List<PubFileVOPresentation> getLocators()
-	{
-		return locators;
-	}
+    public List<PubFileVOPresentation> getLocators()
+    {
+        return locators;
+    }
 
-	public void setLocators(List<PubFileVOPresentation> locators)
-	{
-		this.locators = locators;
-	}
+    public void setLocators(List<PubFileVOPresentation> locators)
+    {
+        this.locators = locators;
+    }
 
-	public String getGenreBundle() {
-		return genreBundle;
-	}
+    public String getGenreBundle() {
+        return genreBundle;
+    }
 
-	public void setGenreBundle(String genreBundle)
-	{
-		this.genreBundle = genreBundle;
-	}
+    public void setGenreBundle(String genreBundle)
+    {
+        this.genreBundle = genreBundle;
+    }
 
     public void setOffset(String offset)
     {
@@ -277,13 +270,13 @@ public class EditItemSessionBean extends EditItemBean
         return authorCopyPasteOrganizationsCreatorBean;
     }
 
-	public String getCurrentSubmission()
-	{
-		return currentSubmission;
-	}
+    public String getCurrentSubmission()
+    {
+        return currentSubmission;
+    }
 
-	public void setCurrentSubmission(String currentSubmission)
-	{
-		this.currentSubmission = currentSubmission;
-	}
+    public void setCurrentSubmission(String currentSubmission)
+    {
+        this.currentSubmission = currentSubmission;
+    }
 }

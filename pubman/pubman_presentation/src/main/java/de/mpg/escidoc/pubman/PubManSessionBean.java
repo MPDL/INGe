@@ -36,11 +36,11 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 
 public class PubManSessionBean extends FacesBean
 {
-	public static final String BEAN_NAME = "PubManSessionBean";
+    public static final String BEAN_NAME = "PubManSessionBean";
     
     private String locale;
-	
-	/**
+    
+    /**
      * Default constructor.
      */
     public PubManSessionBean()
@@ -61,25 +61,25 @@ public class PubManSessionBean extends FacesBean
     
     public void changeLanguage(ValueChangeEvent event)
     {
-    	InternationalizationHelper i18nHelper = this.getI18nHelper();
-    	if(event != null)
-    	{
-    		i18nHelper.changeLanguage(event);
-    	}
-    	this.locale = i18nHelper.getLocale();
+        InternationalizationHelper i18nHelper = this.getI18nHelper();
+        if(event != null)
+        {
+            i18nHelper.changeLanguage(event);
+        }
+        this.locale = i18nHelper.getLocale();
     }
 
-    // 	Getters and Setters
+    //     Getters and Setters
     
-	public String getLocale() {
-		return locale;
-	}
+    public String getLocale() {
+        return locale;
+    }
 
-	public void setLocale(String locale) {
-		this.locale = locale;
-	}
-	
-	/**
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
+    
+    /**
      * Returns the LoginHelper.
      *
      * @return a reference to the scoped data bean (LoginHelper)
@@ -104,5 +104,5 @@ public class PubManSessionBean extends FacesBean
         LoginHelper loginHelper = this.getLoginHelper();
         return loginHelper.getLoggedIn();
     }
-	
+    
 }

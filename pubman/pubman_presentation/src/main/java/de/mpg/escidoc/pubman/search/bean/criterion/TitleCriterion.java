@@ -45,22 +45,22 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionTyp
  */
 public class TitleCriterion extends Criterion
 {
-	/**
-	 * constructor.
-	 */
-	public TitleCriterion()
+    /**
+     * constructor.
+     */
+    public TitleCriterion()
     {
         super();
-	}
-	
-	 /**
+    }
+    
+     /**
      * {@inheritDoc}
      */
-	 public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-	    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-	    	MetadataSearchCriterion criterion = 
-				new MetadataSearchCriterion( CriterionType.TITLE, getSearchString() );
-	    	criterions.add( criterion );
-		   	return criterions;
-	 }	
+     public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
+            ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+            MetadataSearchCriterion criterion = 
+                new MetadataSearchCriterion( CriterionType.TITLE, getSearchString() );
+            criterions.add( criterion );
+               return criterions;
+     }    
 }

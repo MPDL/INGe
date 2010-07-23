@@ -40,48 +40,48 @@ import org.apache.log4j.Logger;
  */
 public class SearchHitBean 
 {
-	private static Logger logger = Logger.getLogger(SearchHitBean.class);
-	private String beforeSearchHitString;
-	private String searchHitString;
-	private String afterSearchHitString;
+    private static Logger logger = Logger.getLogger(SearchHitBean.class);
+    private String beforeSearchHitString;
+    private String searchHitString;
+    private String afterSearchHitString;
 
     
-	/**
-	 * Public constructor
-	 * @param beforeSearchHitString
-	 * @param searchHitString
-	 * @param afterSearchHitString
-	 */
-	public SearchHitBean(String beforeSearchHitString, String searchHitString, String afterSearchHitString)
-	{
-		this.beforeSearchHitString = beforeSearchHitString;
-		this.searchHitString = searchHitString;
-		this.afterSearchHitString = afterSearchHitString;
-	}
+    /**
+     * Public constructor
+     * @param beforeSearchHitString
+     * @param searchHitString
+     * @param afterSearchHitString
+     */
+    public SearchHitBean(String beforeSearchHitString, String searchHitString, String afterSearchHitString)
+    {
+        this.beforeSearchHitString = beforeSearchHitString;
+        this.searchHitString = searchHitString;
+        this.afterSearchHitString = afterSearchHitString;
+    }
 
-	public String getBeforeSearchHitString() {
-		return beforeSearchHitString;
-	}
+    public String getBeforeSearchHitString() {
+        return beforeSearchHitString;
+    }
 
-	public void setBeforeSearchHitString(String beforeSearchHitString) {
-		this.beforeSearchHitString = beforeSearchHitString;
-	}
+    public void setBeforeSearchHitString(String beforeSearchHitString) {
+        this.beforeSearchHitString = beforeSearchHitString;
+    }
 
-	public String getSearchHitString() {
-		return searchHitString;
-	}
+    public String getSearchHitString() {
+        return searchHitString;
+    }
 
-	public void setSearchHitString(String searchHitString) {
-		this.searchHitString = searchHitString;
-	}
+    public void setSearchHitString(String searchHitString) {
+        this.searchHitString = searchHitString;
+    }
 
-	public String getAfterSearchHitString() {
-		return afterSearchHitString;
-	}
+    public String getAfterSearchHitString() {
+        return afterSearchHitString;
+    }
 
-	public void setAfterSearchHitString(String afterSearchHitString) {
-		this.afterSearchHitString = afterSearchHitString;
-	}
+    public void setAfterSearchHitString(String afterSearchHitString) {
+        this.afterSearchHitString = afterSearchHitString;
+    }
     
     
     

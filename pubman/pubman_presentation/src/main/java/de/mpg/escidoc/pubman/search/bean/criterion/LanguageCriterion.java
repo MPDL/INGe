@@ -48,16 +48,16 @@ public class LanguageCriterion extends Criterion {
     public LanguageCriterion()
     {
         super();
-	}
+    }
     
     /**
      * {@inheritDoc}
      */
     public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    	MetadataSearchCriterion criterion = 
-			new MetadataSearchCriterion( CriterionType.LANGUAGE, getSearchString() );
-    	criterions.add( criterion );
-	   	return criterions;
-	}
+        ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+        MetadataSearchCriterion criterion = 
+            new MetadataSearchCriterion( CriterionType.LANGUAGE, getSearchString() );
+        criterions.add( criterion );
+           return criterions;
+    }
 }

@@ -154,11 +154,11 @@ public class HomePage extends BreadcrumbPage
         return loginHelper.getAccountUser().isModerator();
     }
 
-	@Override
-	public boolean isItemSpecific() 
-	{
-		return false;
-	}
-	
-	
+    @Override
+    public boolean isItemSpecific() 
+    {
+        return false;
+    }
+    
+    
 }

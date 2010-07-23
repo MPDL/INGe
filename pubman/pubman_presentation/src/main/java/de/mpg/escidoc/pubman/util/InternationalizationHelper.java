@@ -152,11 +152,11 @@ public class InternationalizationHelper
     
     public void changeLanguage(ValueChangeEvent event)
     {
-    	FacesContext fc = FacesContext.getCurrentInstance();
-    	if (event.getOldValue() != null && !event.getOldValue().equals(event.getNewValue()))
-    	{
-    		Locale locale = null;
-    		String language = event.getNewValue().toString();
+        FacesContext fc = FacesContext.getCurrentInstance();
+        if (event.getOldValue() != null && !event.getOldValue().equals(event.getNewValue()))
+        {
+            Locale locale = null;
+            String language = event.getNewValue().toString();
             String country = language.toUpperCase();
             this.locale = language;
             try
@@ -179,7 +179,7 @@ public class InternationalizationHelper
             {
                 selectedHelpPage = HELP_PAGE_EN;
             }
-    	}
+        }
     }
 
     public void toggleLocale(ActionEvent event)
@@ -249,17 +249,17 @@ public class InternationalizationHelper
      */
     public SelectItem[] getSelectItemsForEnum(final boolean includeNoItemSelectedEntry, final Object[] values)
     {
-    	Object[] valuesWithoutNull = removeNullValues(values);
-    	
+        Object[] valuesWithoutNull = removeNullValues(values);
+        
         SelectItem[] selectItems = new SelectItem[valuesWithoutNull.length];
 
         for (int i = 0; i < valuesWithoutNull.length; i++)
         {
-        	if (valuesWithoutNull[i] != null)
-        	{
-        		 SelectItem selectItem = new SelectItem(valuesWithoutNull[i].toString(), getLabel(convertEnumToString(valuesWithoutNull[i])));
+            if (valuesWithoutNull[i] != null)
+            {
+                 SelectItem selectItem = new SelectItem(valuesWithoutNull[i].toString(), getLabel(convertEnumToString(valuesWithoutNull[i])));
                  selectItems[i] = selectItem;
-        	}
+            }
            
         }
 
@@ -272,20 +272,20 @@ public class InternationalizationHelper
     }
     
     private static Object[] removeNullValues(Object[] values) {
-		
-    	List<Object> listWithoutNulls = new ArrayList<Object>();
-    	for(Object o : values)
-    	{
-    		if(o!=null)
-    		{
-    			listWithoutNulls.add(o);
-    		}
-    	}
-    	
-		return listWithoutNulls.toArray();
-	}
+        
+        List<Object> listWithoutNulls = new ArrayList<Object>();
+        for(Object o : values)
+        {
+            if(o!=null)
+            {
+                listWithoutNulls.add(o);
+            }
+        }
+        
+        return listWithoutNulls.toArray();
+    }
 
-	/**
+    /**
      * Adds an entry for NoItemSelected in front of the given array.
      * @param selectItems the array where the entry should be added
      * @return a new array with an entry for NoItemSelected
@@ -311,14 +311,14 @@ public class InternationalizationHelper
      */
     public String convertEnumToString(final Object enumObject)
     {
-    	if (enumObject != null)
-    	{
-    		return "ENUM_" + enumObject.getClass().getSimpleName().toUpperCase() + "_" + enumObject;
-    	}
-    	else
-    	{
-    		return "ENUM_EMPTY";
-    	}
+        if (enumObject != null)
+        {
+            return "ENUM_" + enumObject.getClass().getSimpleName().toUpperCase() + "_" + enumObject;
+        }
+        else
+        {
+            return "ENUM_EMPTY";
+        }
     }
     public String getLabel(String placeholder)
     {
@@ -427,7 +427,7 @@ public class InternationalizationHelper
      */
     public SelectItem[] getSelectItemsVisibility(final boolean includeNoItemSelectedEntry)
     {
-    	FileVO.Visibility[] values = FileVO.Visibility.values();
+        FileVO.Visibility[] values = FileVO.Visibility.values();
 
         return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
     }
@@ -448,7 +448,7 @@ public class InternationalizationHelper
      */
     public SelectItem[] getSelectItemsUserGroups(final boolean includeNoItemSelectedEntry)
     {
-    	FileVO.Visibility[] values = FileVO.Visibility.values();
+        FileVO.Visibility[] values = FileVO.Visibility.values();
 
         return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
     }
@@ -536,25 +536,25 @@ public class InternationalizationHelper
         return getSelectItemsForEnum(false, values);
     }
 
-	public String getLocale() {
-		return locale;
-	}
+    public String getLocale() {
+        return locale;
+    }
 
-	public void setLocale(String locale) {
-		this.locale = locale;
-	}
-	
-	/**
-	 * Returns an array of SelectItems for the enum {@link SelectComponentAvailability}
-	 * @return array of SelectItems for SelectComponentAvailability
-	 */
-	public SelectItem[] getSelectedItemsComponentAvailability(final boolean includeNoItemSelectedEntry)
-	{
-	   InternationalizationHelper.SelectComponentAvailability[] values = InternationalizationHelper.SelectComponentAvailability.values();
-	   return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
-	}
-	
-	/**
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
+    
+    /**
+     * Returns an array of SelectItems for the enum {@link SelectComponentAvailability}
+     * @return array of SelectItems for SelectComponentAvailability
+     */
+    public SelectItem[] getSelectedItemsComponentAvailability(final boolean includeNoItemSelectedEntry)
+    {
+       InternationalizationHelper.SelectComponentAvailability[] values = InternationalizationHelper.SelectComponentAvailability.values();
+       return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    }
+    
+    /**
      * Returns an array of SelectItems for the enum {@link SelectComponentAccessability}
      * @return array of SelectItems for SelectComponentAccessability
      */

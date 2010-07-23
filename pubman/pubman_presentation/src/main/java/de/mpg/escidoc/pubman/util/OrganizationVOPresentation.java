@@ -35,8 +35,6 @@ import java.util.List;
 import javax.faces.event.ValueChangeEvent;
 
 import de.mpg.escidoc.pubman.EditItemBean;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
@@ -145,7 +143,14 @@ public class OrganizationVOPresentation extends OrganizationVO
      */
     public int getNumber()
     {
-        return getList().indexOf(this) + 1;
+        for (int i = 0; i < getList().size(); i++)
+        {
+            if (getList().get(i) == this)
+            {
+                return i + 1;
+            }
+        }
+        throw new RuntimeException("Organization is not a member of its own list");
     }
 
     /**
@@ -174,23 +179,23 @@ public class OrganizationVOPresentation extends OrganizationVO
     
     public boolean isLast()
     {
-    	return (this.equals(getList().get(getList().size() - 1)));
+        return (this.equals(getList().get(getList().size() - 1)));
     }
     
     public boolean isEmpty()
     {
-    	if (this.getAddress() != null && !"".equals(this.getAddress()))
-    	{
-    		return false;
-    	}
-    	else if (this.getName() != null && this.getName().getValue() != null && !"".equals(this.getName().getValue()))
-    	{
-    		return false;
-    	}
-    	else
-    	{
-    		return true;
-    	}
+        if (this.getAddress() != null && !"".equals(this.getAddress()))
+        {
+            return false;
+        }
+        else if (this.getName() != null && this.getName().getValue() != null && !"".equals(this.getName().getValue()))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
 }

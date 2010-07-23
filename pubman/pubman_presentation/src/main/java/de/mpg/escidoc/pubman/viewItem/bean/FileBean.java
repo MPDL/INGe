@@ -58,9 +58,9 @@ import de.mpg.escidoc.pubman.util.PubFileVOPresentation.ContentCategory;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
+import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -73,15 +73,15 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class FileBean extends FacesBean
 {
-	private static Logger logger = Logger.getLogger(FileBean.class);
-	private FileVO file;
-	
-	private State itemState;
-	private List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
-	private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
-	private LoginHelper loginHelper;
-	
-	
+    private static Logger logger = Logger.getLogger(FileBean.class);
+    private FileVO file;
+    
+    private State itemState;
+    private List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
+    private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
+    private LoginHelper loginHelper;
+    
+    
 
     /**
      * Public constructor
@@ -90,11 +90,11 @@ public class FileBean extends FacesBean
      * @param itemState
      */
     public FileBean(FileVO file,  State itemState)
-	{
+    {
         loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
-		this.file = file;
-		this.itemState = itemState;
-	}
+        this.file = file;
+        this.itemState = itemState;
+    }
     
     /**
      * Second constructor (used if pubitem has fulltext search hits)
@@ -104,13 +104,13 @@ public class FileBean extends FacesBean
      * @param resultitem
      */
     public FileBean(FileVO file, State itemState, List<SearchHitVO> searchHitList)
-	{
+    {
         loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
-		this.file = file;
-		this.itemState = itemState;
-		this.searchHitList = searchHitList;
-		initialize(file, itemState, searchHitList);
-	}
+        this.file = file;
+        this.itemState = itemState;
+        this.searchHitList = searchHitList;
+        initialize(file, itemState, searchHitList);
+    }
 
     /**
      * Sets up some extra information concerning full text search hits
@@ -122,12 +122,12 @@ public class FileBean extends FacesBean
     protected void initialize(FileVO file, State itemState, List<SearchHitVO> searchHitList)
     {
         // set some html elements which cannot be completely constructed in the jsp
-    	
-    	String beforeSearchHitString;
-    	String searchHitString;
-    	String afterSearchHitString;
-    	
-    	// browse through the list of files and examine which of the files is the one the search result hits where found in
+        
+        String beforeSearchHitString;
+        String searchHitString;
+        String afterSearchHitString;
+        
+        // browse through the list of files and examine which of the files is the one the search result hits where found in
         for(int i = 0; i < searchHitList.size(); i++)
         {
             if(searchHitList.get(i).getType() == SearchHitType.FULLTEXT)
@@ -160,7 +160,7 @@ public class FileBean extends FacesBean
     }
     
     
-	
+    
     
     /**
      * Prepares the file the user wants to download
@@ -186,7 +186,7 @@ public class FileBean extends FacesBean
             response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
             if(this.file.getDefaultMetadata() != null)
             {
-            	response.setContentLength(this.file.getDefaultMetadata().getSize());
+                response.setContentLength(this.file.getDefaultMetadata().getSize());
             }
             
             response.setContentType(contentType);
@@ -215,7 +215,7 @@ public class FileBean extends FacesBean
                     {
                         if(this.file.getDefaultMetadata() != null)
                         {
-                        	buffer = new byte[this.file.getDefaultMetadata().getSize()];
+                            buffer = new byte[this.file.getDefaultMetadata().getSize()];
                             int numRead;
                             long numWritten = 0;
                             while ((numRead = input.read(buffer)) != -1) {
@@ -287,67 +287,67 @@ public class FileBean extends FacesBean
     
     public String getContentCategory() 
     {
-    	String contentCategory = "";
-    	InternationalizedImpl internationalized = new InternationalizedImpl();
+        String contentCategory = "";
+        InternationalizedImpl internationalized = new InternationalizedImpl();
  
-		if (this.file.getContentCategory() != null)
+        if (this.file.getContentCategory() != null)
         {
-        	
-        	for(ContentCategory contcat : ContentCategory.values())
-        	{
-        		if(contcat.getUri().equals(this.file.getContentCategory()))
-        		{
-        			 contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(contcat));
-        			 break;
-        		}
-        	}
-        	/*
+            
+            for(ContentCategory contcat : ContentCategory.values())
+            {
+                if(contcat.getUri().equals(this.file.getContentCategory()))
+                {
+                     contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(contcat));
+                     break;
+                }
+            }
+            /*
             contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(
-            		PubFileVOPresentation.ContentCategory.valueOf(CommonUtils.convertToEnumString(this.file.getContentCategory()))));
-            		*/
+                    PubFileVOPresentation.ContentCategory.valueOf(CommonUtils.convertToEnumString(this.file.getContentCategory()))));
+                    */
         }
-    	
-    	return contentCategory;
+        
+        return contentCategory;
     }
     
     public String getVisibility()
     {
-    	String visibility = "";
-    	InternationalizedImpl internationalized = new InternationalizedImpl();
-    	if(this.file.getVisibility() != null)
-    	{
-    		visibility = internationalized.getLabel(this.i18nHelper.convertEnumToString(this.file.getVisibility()));
-    	}
-    	return visibility;
+        String visibility = "";
+        InternationalizedImpl internationalized = new InternationalizedImpl();
+        if(this.file.getVisibility() != null)
+        {
+            visibility = internationalized.getLabel(this.i18nHelper.convertEnumToString(this.file.getVisibility()));
+        }
+        return visibility;
     }
     
     public boolean getItemWithdrawn()
     {
-    	if(this.itemState.equals(State.WITHDRAWN))
-    	{
-    		return true;
-    	}
-    	else
-    	{
-    		return false;
-    	}
+        if(this.itemState.equals(State.WITHDRAWN))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     public boolean getShowSearchHits()
     {
-    	if(this.searchHits != null && this.searchHits.size() > 0)
-    	{
-    		return true;
-    	}
-    	else
-    	{
-    		return false;
-    	}
+        if(this.searchHits != null && this.searchHits.size() > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public FileVO getFile() {
-		return file;
-	}
+        return file;
+    }
     
     public String getFileName() {
         String fileName = "";
@@ -369,123 +369,123 @@ public class FileBean extends FacesBean
     }
     
     public String getFileLink() {
-		return file.getContent();
-	}
+        return file.getContent();
+    }
     
     public String getLocator() {
-    	String locator = "";
-		if(file.getDefaultMetadata() != null && file.getDefaultMetadata().getTitle() != null)
-		{
-			locator = file.getDefaultMetadata().getTitle().getValue();
-		}
-    	return locator;
-	}
+        String locator = "";
+        if(file.getDefaultMetadata() != null && file.getDefaultMetadata().getTitle() != null)
+        {
+            locator = file.getDefaultMetadata().getTitle().getValue();
+        }
+        return locator;
+    }
     
     public String getLocatorLink() {
-		return file.getContent();
-	}
+        return file.getContent();
+    }
 
-	public void setFile(FileVO file) {
-		this.file = file;
-	}
+    public void setFile(FileVO file) {
+        this.file = file;
+    }
 
-	public String getFileSize() {
-		String fileSize = "0";
-		if(this.file.getDefaultMetadata() != null)
-		{
-			fileSize = computeFileSize(this.file.getDefaultMetadata().getSize());
-		}
-		return fileSize;
-	}
+    public String getFileSize() {
+        String fileSize = "0";
+        if(this.file.getDefaultMetadata() != null)
+        {
+            fileSize = computeFileSize(this.file.getDefaultMetadata().getSize());
+        }
+        return fileSize;
+    }
 
-	public List<SearchHitBean> getSearchHits() {
-		return searchHits;
-	}
+    public List<SearchHitBean> getSearchHits() {
+        return searchHits;
+    }
 
-	public void setSearchHits(List<SearchHitBean> searchHits) {
-		this.searchHits = searchHits;
-	}
-	
-	public boolean getLocatorIsLink()
-	{
-	    return(
-	            (getFile().getStorage() == FileVO.Storage.EXTERNAL_URL) && (
-	            getFile().getContent().startsWith("http://") || 
-	            getFile().getContent().startsWith("https://") ||
-	            getFile().getContent().startsWith("ftp://"))
-	           );
-	}
-	
-	public boolean getIsVisible()
-	{
-	    if(file.getVisibility().equals(FileVO.Visibility.PUBLIC))
-	        return true;
-	    else
-	        return false;
-	}
+    public void setSearchHits(List<SearchHitBean> searchHits) {
+        this.searchHits = searchHits;
+    }
+    
+    public boolean getLocatorIsLink()
+    {
+        return(
+                (getFile().getStorage() == FileVO.Storage.EXTERNAL_URL) && (
+                getFile().getContent().startsWith("http://") || 
+                getFile().getContent().startsWith("https://") ||
+                getFile().getContent().startsWith("ftp://"))
+               );
+    }
+    
+    public boolean getIsVisible()
+    {
+        if(file.getVisibility().equals(FileVO.Visibility.PUBLIC))
+            return true;
+        else
+            return false;
+    }
 
-	/**
-	 * This method generates a link to a refering thumbnail image out of a link to a creativecommons licence
-	 * @return teh generated link to the refering thumbnail image
-	 */
+    /**
+     * This method generates a link to a refering thumbnail image out of a link to a creativecommons licence
+     * @return teh generated link to the refering thumbnail image
+     */
     public String getUrlToLicenceImage()
     {
-    	String  urlToLicenceImage = "";
-    	
-    	try{
-        	if(file.getDefaultMetadata() != null && file.getDefaultMetadata().getLicense() != null)
-        	{
-    	    	String licenceURL = file.getDefaultMetadata().getLicense().toLowerCase();
-    	    	
-    	    	if(licenceURL != null && !licenceURL.trim().equals("") && licenceURL.indexOf("creative") > -1 && licenceURL.indexOf("commons") > -1)
-    	    	{
-    		    	String[] splittedURL = licenceURL.split("\\/");
-    		    	//Change for dettecting license url in a string
-    		    	int start = 0;
-    		    	for (int i = 0; i< splittedURL.length; i++)
-    		    	{
-    		    	    String part = splittedURL[i];
-    		    	    if (part.startsWith("creativecommons"))
-    		    	    {
-    		    	        start = i;
-    		    	    }
-    		    	}
-    		    	
-    	            String address = splittedURL[start];
-    	            String licenses = "l";
-    	            String type = splittedURL[start+2];
-    	            String version = splittedURL[start+3];
-    	            String image = "80x15.png";
-    		    	
-    				urlToLicenceImage = "http://i." + address + "/" + licenses + "/" + type + "/" + version + "/" + image;
-    	    	}
-        	}
-    	}
-    	catch(Exception e)
-    	{
-    	    return "";
-    	}
-    	return urlToLicenceImage;
+        String  urlToLicenceImage = "";
+        
+        try{
+            if(file.getDefaultMetadata() != null && file.getDefaultMetadata().getLicense() != null)
+            {
+                String licenceURL = file.getDefaultMetadata().getLicense().toLowerCase();
+                
+                if(licenceURL != null && !licenceURL.trim().equals("") && licenceURL.indexOf("creative") > -1 && licenceURL.indexOf("commons") > -1)
+                {
+                    String[] splittedURL = licenceURL.split("\\/");
+                    //Change for dettecting license url in a string
+                    int start = 0;
+                    for (int i = 0; i< splittedURL.length; i++)
+                    {
+                        String part = splittedURL[i];
+                        if (part.startsWith("creativecommons"))
+                        {
+                            start = i;
+                        }
+                    }
+                    
+                    String address = splittedURL[start];
+                    String licenses = "l";
+                    String type = splittedURL[start+2];
+                    String version = splittedURL[start+3];
+                    String image = "80x15.png";
+                    
+                    urlToLicenceImage = "http://i." + address + "/" + licenses + "/" + type + "/" + version + "/" + image;
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            return "";
+        }
+        return urlToLicenceImage;
     }
-	
+    
     /**
      * This Method evaluates if the embargo date input filed has to be displayed or not (yes, if visibility is set to private or restricted)
      * @return boolean flag if embargo date input field should be displayed or not
      */
     public boolean getShowEmbargoDate()
     {
-    	boolean showEmbargoDate = false;
-    	if(file.getVisibility().equals(FileVO.Visibility.PRIVATE))
-    	{
-    		showEmbargoDate = true;
-    	}
-    	return showEmbargoDate;
+        boolean showEmbargoDate = false;
+        if(file.getVisibility().equals(FileVO.Visibility.PRIVATE))
+        {
+            showEmbargoDate = true;
+        }
+        return showEmbargoDate;
     }
     
     public void setUpdateVisibility(ValueChangeEvent event)
     {
-    	Visibility newVisibility = (Visibility) event.getNewValue();
-    	file.setVisibility(newVisibility);
+        Visibility newVisibility = (Visibility) event.getNewValue();
+        file.setVisibility(newVisibility);
     }
     
     /**
@@ -641,19 +641,19 @@ public class FileBean extends FacesBean
      * @param size The size of an uploaded file.
      * @return A string representing the file size in a readable format.
      */
-	public String computeFileSize(long size) {
-		if (size < 1024)
-		{
-			return size + getLabel("ViewItemMedium_lblFileSizeB");
-		}
-		else if (size < 1024 * 1024)
-		{
-			return ((size - 1) / 1024 + 1) + getLabel("ViewItemMedium_lblFileSizeKB");
-		}
-		else
-		{
-			return ((size - 1) / (1024 * 1024) + 1) + getLabel("ViewItemMedium_lblFileSizeMB");
-		}
-	}
+    public String computeFileSize(long size) {
+        if (size < 1024)
+        {
+            return size + getLabel("ViewItemMedium_lblFileSizeB");
+        }
+        else if (size < 1024 * 1024)
+        {
+            return ((size - 1) / 1024 + 1) + getLabel("ViewItemMedium_lblFileSizeKB");
+        }
+        else
+        {
+            return ((size - 1) / (1024 * 1024) + 1) + getLabel("ViewItemMedium_lblFileSizeMB");
+        }
+    }
     
 }

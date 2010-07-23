@@ -8,13 +8,18 @@ import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
+import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.pubman.PubItemDepositing;
+import de.mpg.escidoc.services.pubman.depositing.PubItemDepositingBean;
 
 public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
 {
@@ -65,15 +70,32 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
             .get(LoginHelper.BEAN_NAME);
         InitialContext initialContext = new InitialContext();
         XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-        String xmlItemLatestVersion = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieve(this.getReference().getObjectId());
-        String xmlItemThisVersion = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieve(this.getReference().getObjectIdAndVersion());
+        PubItemDepositing pubItemDepositingBean = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
+        ItemHandler itemHandler = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+        
+        // Get the two versions
+        String xmlItemLatestVersion = itemHandler.retrieve(this.getReference().getObjectId());
+        String xmlItemThisVersion = itemHandler.retrieve(this.getReference().getObjectIdAndVersion());
         PubItemVO pubItemVOLatestVersion = xmlTransforming.transformToPubItem(xmlItemLatestVersion);
         PubItemVO pubItemVOThisVersion = xmlTransforming.transformToPubItem(xmlItemThisVersion);
-        pubItemVOLatestVersion.getMetadataSets().set(0, pubItemVOThisVersion.getMetadata());
-        String xmlItemNewVersion = xmlTransforming.transformToItem(pubItemVOLatestVersion);
-        xmlItemNewVersion = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).update(this.getReference().getObjectId(), xmlItemNewVersion);
-        PubItemVO pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
         
+        // Now copy the old stuff into the current item
+        pubItemVOLatestVersion.getMetadataSets().set(0, pubItemVOThisVersion.getMetadata());
+        pubItemVOLatestVersion.getLocalTags().clear();
+        pubItemVOLatestVersion.getLocalTags().addAll(pubItemVOThisVersion.getLocalTags());
+        
+        // Then process it into the framework ...
+        String xmlItemNewVersion = xmlTransforming.transformToItem(pubItemVOLatestVersion);
+        xmlItemNewVersion = itemHandler.update(this.getReference().getObjectId(), xmlItemNewVersion);
+        PubItemVO pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
+        if (pubItemVOLatestVersion.getVersion().getState() == State.RELEASED && pubItemVONewVersion.getVersion().getState() == State.PENDING)
+        {
+            pubItemDepositingBean.submitAndReleasePubItem(pubItemVONewVersion, "Submit and release after rollback", loginHelper.getAccountUser());
+            xmlItemNewVersion = itemHandler.retrieve(this.getReference().getObjectId());
+            pubItemVONewVersion = xmlTransforming.transformToPubItem(xmlItemNewVersion);
+        }
+
+        // ... and set the new version as current item in PubMan
         ItemControllerSessionBean itemControllerSessionBean = (ItemControllerSessionBean) FacesContext
             .getCurrentInstance()
             .getExternalContext()
@@ -82,10 +104,10 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         itemControllerSessionBean.setCurrentPubItem(new PubItemVOPresentation(pubItemVONewVersion));
         
         ViewItemFull viewItemFull = (ViewItemFull) FacesContext
-        .getCurrentInstance()
-        .getExternalContext()
-        .getRequestMap()
-        .get(ViewItemFull.BEAN_NAME);
+            .getCurrentInstance()
+            .getExternalContext()
+            .getRequestMap()
+            .get(ViewItemFull.BEAN_NAME);
         viewItemFull.setPubItem(new PubItemVOPresentation(pubItemVONewVersion));
         viewItemFull.init();
         

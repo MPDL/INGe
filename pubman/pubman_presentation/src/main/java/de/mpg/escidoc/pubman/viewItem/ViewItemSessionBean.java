@@ -274,15 +274,15 @@ public class ViewItemSessionBean extends FacesBean
     }
 
     public HtmlCommandLink getLnkCreateItemFromTemplate() {
-		return lnkCreateItemFromTemplate;
-	}
+        return lnkCreateItemFromTemplate;
+    }
 
-	public void setLnkCreateItemFromTemplate(
-			HtmlCommandLink lnkCreateItemFromTemplate) {
-		this.lnkCreateItemFromTemplate = lnkCreateItemFromTemplate;
-	}
+    public void setLnkCreateItemFromTemplate(
+            HtmlCommandLink lnkCreateItemFromTemplate) {
+        this.lnkCreateItemFromTemplate = lnkCreateItemFromTemplate;
+    }
 
-	public HtmlCommandLink getLnkViewReleaseHistory()
+    public HtmlCommandLink getLnkViewReleaseHistory()
     {
         return lnkViewReleaseHistory;
     }
@@ -339,7 +339,7 @@ public class ViewItemSessionBean extends FacesBean
 
     public String getSubMenu()
     {
-    	return subMenu;
+        return subMenu;
         
     } 
     

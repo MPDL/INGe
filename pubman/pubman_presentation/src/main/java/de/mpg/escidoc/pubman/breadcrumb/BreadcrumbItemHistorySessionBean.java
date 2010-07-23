@@ -67,12 +67,12 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
      */
     public void push(final BreadcrumbItem newItem)
     {
-    	
-    	if ("HomePage".equals(newItem.getPageLabel()))
-    	{
-    		breadcrumbs.clear();
-    	}
-    	
+        
+        if ("HomePage".equals(newItem.getPageLabel()))
+        {
+            breadcrumbs.clear();
+        }
+        
         BreadcrumbItem lastItem = null;
         boolean keepold = false;
         if (breadcrumbs.size() >= 1)
@@ -197,24 +197,24 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
         }
     }
 
-	public BreadcrumbItem getPreviousItem() {
-		if (breadcrumbs.size() > 1)
-		{
-			return breadcrumbs.get(breadcrumbs.size() - 2);
-		}
-		else
-		{
-			return new BreadcrumbItem("HomePage", "HomePage", null, false);
-		}
-	}
-	
-	/**
-	 * Returns the display value of the last breadcrumb entry. If the breadcrumbs are
-	 * empty, the 'Homepage' value is returned.
-	 * @return display value of the last breadcrumb entry
-	 */
-	public String getLastPageIdentifier() {
-	    if (breadcrumbs.size() >= 1)
+    public BreadcrumbItem getPreviousItem() {
+        if (breadcrumbs.size() > 1)
+        {
+            return breadcrumbs.get(breadcrumbs.size() - 2);
+        }
+        else
+        {
+            return new BreadcrumbItem("HomePage", "HomePage", null, false);
+        }
+    }
+    
+    /**
+     * Returns the display value of the last breadcrumb entry. If the breadcrumbs are
+     * empty, the 'Homepage' value is returned.
+     * @return display value of the last breadcrumb entry
+     */
+    public String getLastPageIdentifier() {
+        if (breadcrumbs.size() >= 1)
         {
             return breadcrumbs.get(breadcrumbs.size() - 1).getDisplayValue();
         }
@@ -222,6 +222,6 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
         {
             return new BreadcrumbItem("HomePage", "HomePage", null, false).getDisplayValue();
         }
-	}
+    }
 
 }

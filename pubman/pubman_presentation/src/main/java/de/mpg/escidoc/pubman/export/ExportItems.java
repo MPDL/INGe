@@ -163,8 +163,8 @@ public class ExportItems extends FacesBean
 //        SelectItem EXPORTFORMAT_DEFAULT = new SelectItem("Default", getLabel("Export_ExportFormat_DEFAULT"));
 //        SelectItem EXPORTFORMAT_TEST = new SelectItem("Test", getLabel("Export_ExportFormat_TEST"));
         
-//    	SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS, EXPORTFORMAT_DEFAULT, EXPORTFORMAT_TEST};
-    	SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS};
+//        SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS, EXPORTFORMAT_DEFAULT, EXPORTFORMAT_TEST};
+        SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS};
         return EXPORTFORMAT_OPTIONS;
     }
  
@@ -223,11 +223,11 @@ public class ExportItems extends FacesBean
         sb.setExportFormatName(selExportFormat);
         
         if ( 
-        			"APA"		.equalsIgnoreCase(selExportFormat) 
-        		||	"AJP"		.equalsIgnoreCase(selExportFormat) 
-        		||	"JUS"		.equalsIgnoreCase(selExportFormat) 
-        		||	"DEFAULT"	.equalsIgnoreCase(selExportFormat) 
-        		||	"TEST"		.equalsIgnoreCase(selExportFormat) 
+                    "APA"        .equalsIgnoreCase(selExportFormat) 
+                ||    "AJP"        .equalsIgnoreCase(selExportFormat) 
+                ||    "JUS"        .equalsIgnoreCase(selExportFormat) 
+                ||    "DEFAULT"    .equalsIgnoreCase(selExportFormat) 
+                ||    "TEST"        .equalsIgnoreCase(selExportFormat) 
         )
         {
             //set default fileFormat for APA or AJP to pdf 

@@ -6,13 +6,13 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 public class RelationVOPresentation extends RelationVO
 {
 
-	private PubItemVO sourceItem;
-	
-	private PubItemVO targetItem;
-	
-	
-	
-	public PubItemVO getTargetItem()
+    private PubItemVO sourceItem;
+    
+    private PubItemVO targetItem;
+    
+    
+    
+    public PubItemVO getTargetItem()
     {
         return targetItem;
     }
@@ -23,16 +23,16 @@ public class RelationVOPresentation extends RelationVO
     }
 
     public RelationVOPresentation(RelationVO relation)
-	{
-		super(relation);
-	}
+    {
+        super(relation);
+    }
 
-	public PubItemVO getSourceItem() {
-		return sourceItem;
-	}
+    public PubItemVO getSourceItem() {
+        return sourceItem;
+    }
 
-	public void setSourceItem(PubItemVO item) {
-		this.sourceItem = item;
-	}
-	
+    public void setSourceItem(PubItemVO item) {
+        this.sourceItem = item;
+    }
+    
 }

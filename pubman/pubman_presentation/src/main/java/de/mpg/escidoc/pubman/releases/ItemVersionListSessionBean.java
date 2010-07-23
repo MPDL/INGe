@@ -41,8 +41,8 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.EventLogEntryVOPresentation;
 import de.mpg.escidoc.pubman.util.VersionHistoryVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
-import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO.EventType;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the ReleaseHistory, the Item Log and the Revision History.
@@ -81,31 +81,31 @@ public class ItemVersionListSessionBean extends FacesBean
         return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 
-	public List<VersionHistoryVOPresentation> getVersionList() {
-		return versionList;
-	}
+    public List<VersionHistoryVOPresentation> getVersionList() {
+        return versionList;
+    }
 
-	public void setVersionList(List<VersionHistoryVOPresentation> versionList) {
-		this.versionList = versionList;
-	}
-	
-	public void initVersionLists(List<VersionHistoryEntryVO> vList)
-	{
-	    this.versionList = new ArrayList<VersionHistoryVOPresentation>();
-	    
-	    for (VersionHistoryEntryVO vEntry : vList)
-	    {
-	        this.versionList.add(new VersionHistoryVOPresentation(vEntry));
-	    }
-	    
-	    
-	    this.releaseList = new ArrayList<EventLogEntryVOPresentation>();
-	    
-	    this.eventLogList = new ArrayList<EventLogEntryVOPresentation>();
-	    
-	    for(VersionHistoryVOPresentation vEntry : versionList)
-	    {
-	        
+    public void setVersionList(List<VersionHistoryVOPresentation> versionList) {
+        this.versionList = versionList;
+    }
+    
+    public void initVersionLists(List<VersionHistoryEntryVO> vList)
+    {
+        this.versionList = new ArrayList<VersionHistoryVOPresentation>();
+        
+        for (VersionHistoryEntryVO vEntry : vList)
+        {
+            this.versionList.add(new VersionHistoryVOPresentation(vEntry));
+        }
+        
+        
+        this.releaseList = new ArrayList<EventLogEntryVOPresentation>();
+        
+        this.eventLogList = new ArrayList<EventLogEntryVOPresentation>();
+        
+        for(VersionHistoryVOPresentation vEntry : versionList)
+        {
+            
             
             
             
@@ -122,22 +122,22 @@ public class ItemVersionListSessionBean extends FacesBean
               //add all eventlog-entries to eventloglist
                 eventLogList.add(new EventLogEntryVOPresentation(eEntry, vEntry));
             }
-	            
-	            
-	        
-	    }
-	    
-	
-	}
-	
-	public void resetVersionLists()
-	{
-	    this.versionList = null;
+                
+                
+            
+        }
+        
+    
+    }
+    
+    public void resetVersionLists()
+    {
+        this.versionList = null;
         
         this.releaseList = null;
         
         this.eventLogList = null;
-	}
+    }
 
    
 

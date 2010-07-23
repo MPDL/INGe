@@ -25,8 +25,8 @@ public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 {
     
     private int numberOfRecords;
-	// Faces navigation string
-	public final static String LOAD_REVISION_LIST = "loadRevisionList";
+    // Faces navigation string
+    public final static String LOAD_REVISION_LIST = "loadRevisionList";
     
     public RevisionsRetrieverRequestBean()
     {
@@ -36,7 +36,7 @@ public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     @Override
     public void init()
     {
-    	// no init needed
+        // no init needed
     }
     
     
@@ -113,9 +113,9 @@ public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         return "ViewItemRevisionsPage.jsp";
     }
 
-	@Override
-	public boolean isItemSpecific() 
-	{
-		return true;
-	}
+    @Override
+    public boolean isItemSpecific() 
+    {
+        return true;
+    }
 }

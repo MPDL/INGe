@@ -11,53 +11,53 @@ import de.mpg.escidoc.pubman.search.bean.criterion.OrganizationCriterion;
  */
 public class OrganizationCriterionBean extends CriterionBean
 {
-	public static final String BEAN_NAME = "OrganizationCriterionBean";
-	
-	private OrganizationCriterion organizationCriterionVO;
-	
-	
+    public static final String BEAN_NAME = "OrganizationCriterionBean";
+    
+    private OrganizationCriterion organizationCriterionVO;
+    
+    
     public OrganizationCriterionBean()
-	{
-		// ensure the parentVO is never null;
-		this(new OrganizationCriterion());
-	}
+    {
+        // ensure the parentVO is never null;
+        this(new OrganizationCriterion());
+    }
 
-	public OrganizationCriterionBean(OrganizationCriterion organizationCriterionVO)
-	{
-		setOrganizationCriterionVO(organizationCriterionVO);
-	}
+    public OrganizationCriterionBean(OrganizationCriterion organizationCriterionVO)
+    {
+        setOrganizationCriterionVO(organizationCriterionVO);
+    }
 
-	@Override
-	public Criterion getCriterionVO()
-	{
-		return organizationCriterionVO;
-	}
+    @Override
+    public Criterion getCriterionVO()
+    {
+        return organizationCriterionVO;
+    }
 
-	public OrganizationCriterion getOrganizationCriterionVO()
-	{
-		return organizationCriterionVO;
-	}
+    public OrganizationCriterion getOrganizationCriterionVO()
+    {
+        return organizationCriterionVO;
+    }
 
-	public void setOrganizationCriterionVO(OrganizationCriterion organizationCriterionVO)
-	{
-		this.organizationCriterionVO = organizationCriterionVO;
-	}
-	
-	
-	/**
-	 * Action navigation call to clear the current part of the form
-	 * @return null
-	 */
-	public String clearCriterion()
-	{
-		organizationCriterionVO.setSearchString("");
-		organizationCriterionVO.setAffiliation(null);
-		
-		// navigation refresh
-		return null;
-	}
-	
-	/**
+    public void setOrganizationCriterionVO(OrganizationCriterion organizationCriterionVO)
+    {
+        this.organizationCriterionVO = organizationCriterionVO;
+    }
+    
+    
+    /**
+     * Action navigation call to clear the current part of the form
+     * @return null
+     */
+    public String clearCriterion()
+    {
+        organizationCriterionVO.setSearchString("");
+        organizationCriterionVO.setAffiliation(null);
+        
+        // navigation refresh
+        return null;
+    }
+    
+    /**
      * Action navigation call to select the creator organisation
      * @return
      */

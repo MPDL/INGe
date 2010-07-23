@@ -178,26 +178,26 @@ public class CommonUtils extends InternationalizedImpl
     
     public static SelectItem[] getLanguageOptions()
     {
-    	ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
-    	String locale = Locale.getDefault().getLanguage();
-    	
+        ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
+        String locale = Locale.getDefault().getLanguage();
+        
         //if (!(locale.equals("en") || locale.equals("de") || locale.equals("ja") || locale.equals("es")))
         if (!(locale.equals("en") || locale.equals("de") || locale.equals("ja")))
         {
-         	locale = "en";
+             locale = "en";
         }
-    	 
-    	if(appBean.getLanguageSelectItems().get(locale)!=null && appBean.getLanguageSelectItems().get(locale).length>0)
-		{
-    		return appBean.getLanguageSelectItems().get(locale);
-		}
-    	else
-    	{
-    		SelectItem[] languageSelectItems = retrieveLanguageOptions(locale);
-    		appBean.getLanguageSelectItems().put(locale, languageSelectItems);
-    		return languageSelectItems;
-    	}
-    	
+         
+        if(appBean.getLanguageSelectItems().get(locale)!=null && appBean.getLanguageSelectItems().get(locale).length>0)
+        {
+            return appBean.getLanguageSelectItems().get(locale);
+        }
+        else
+        {
+            SelectItem[] languageSelectItems = retrieveLanguageOptions(locale);
+            appBean.getLanguageSelectItems().put(locale, languageSelectItems);
+            return languageSelectItems;
+        }
+        
     }
     /**
      * Returns all Languages from Cone Service, with "de","en","es" and "ja" at the first positions.
@@ -213,7 +213,7 @@ public class CommonUtils extends InternationalizedImpl
             
         }
         catch(Exception e) {
-        	return new SelectItem[0];
+            return new SelectItem[0];
         }
             
 //        SelectItem[] options = new SelectItem[coneLanguagesIso639_1.size() + 5];
@@ -272,7 +272,7 @@ public class CommonUtils extends InternationalizedImpl
         
         for (String label : langLabels)
         {
-        	String iso639Code = coneLanguagesIso639_3.get(label);
+            String iso639Code = coneLanguagesIso639_3.get(label);
             options[i + 4] = new SelectItem(iso639Code, iso639Code + " - " + label);
 //            options[i + 5] = new SelectItem(iso639Code, iso639Code + " - " + label);
             i++;
@@ -283,13 +283,13 @@ public class CommonUtils extends InternationalizedImpl
     
     public static Map<String, String> getConeLanguages(String type, String locale)
     {
-    	Map<String, String> langMap = new HashMap<String, String>();
+        Map<String, String> langMap = new HashMap<String, String>();
         
         
         //if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja") || locale.equals("es")))
         if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja")))
         {
-        	locale = "en";
+            locale = "en";
         }
         
         try
@@ -317,7 +317,7 @@ public class CommonUtils extends InternationalizedImpl
                 String[] parts = line.split("\\|");
                 if (parts.length == 2)
                 {
-                	langMap.put(parts[1], parts[0]);
+                    langMap.put(parts[1], parts[0]);
                 }
             }
             isReader.close();

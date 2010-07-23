@@ -78,8 +78,8 @@ public class AffiliationDetailPage extends FacesBean
         }
         catch (Exception e)
         {
-        	error(getMessage("AffiliationDetailPage_detailsNotRetrieved"));
-        	throw new RuntimeException("Error getting affiliation details", e);
+            error(getMessage("AffiliationDetailPage_detailsNotRetrieved"));
+            throw new RuntimeException("Error getting affiliation details", e);
         }
     }
 

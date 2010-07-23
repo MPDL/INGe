@@ -38,24 +38,24 @@ import javax.servlet.http.HttpServletResponse;
 
 public class RenderResponsePhaseListener implements PhaseListener
 {
-	public PhaseId getPhaseId()
-	{
-		return PhaseId.RENDER_RESPONSE;
-	}
+    public PhaseId getPhaseId()
+    {
+        return PhaseId.RENDER_RESPONSE;
+    }
 
-	public void afterPhase(PhaseEvent event)
-	{
-	}
+    public void afterPhase(PhaseEvent event)
+    {
+    }
 
-	public void beforePhase(PhaseEvent event) 
-	{
-		FacesContext facesContext = event.getFacesContext();
-		HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-//		response.addHeader("Pragma", "no-cache");
-//		response.addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-//		response.addHeader("Expires", "-1"); // some date in the past Mon, 8 Aug 2006 10:00:00 GMT
-		
-		// FIXME Set Debug Breakpoint here 
-//		System.out.println("debugRenderResponse");
-	}
+    public void beforePhase(PhaseEvent event) 
+    {
+        FacesContext facesContext = event.getFacesContext();
+        HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+//        response.addHeader("Pragma", "no-cache");
+//        response.addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+//        response.addHeader("Expires", "-1"); // some date in the past Mon, 8 Aug 2006 10:00:00 GMT
+        
+        // FIXME Set Debug Breakpoint here 
+//        System.out.println("debugRenderResponse");
+    }
 }

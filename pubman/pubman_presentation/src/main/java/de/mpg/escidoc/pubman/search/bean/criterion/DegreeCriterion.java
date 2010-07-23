@@ -47,13 +47,13 @@ public class DegreeCriterion extends Criterion
     //the degree for the search criterion
     private List<MdsPublicationVO.DegreeType> degreeList;
 
-	/**
-	 * constructor.
-	 */
-	public DegreeCriterion()
+    /**
+     * constructor.
+     */
+    public DegreeCriterion()
     {
         super();
-	}
+    }
 
     public List<MdsPublicationVO.DegreeType> getDegree()
     {
@@ -67,7 +67,7 @@ public class DegreeCriterion extends Criterion
     
     private String getSearchIdentifierByDegree( MdsPublicationVO.DegreeType g )
     {
-    	return g.getUri();
+        return g.getUri();
     }
     
     public String getSearchIdentifier( int position )
@@ -83,14 +83,14 @@ public class DegreeCriterion extends Criterion
     }
     
     private String getDegreesAsStringList() {
-    	StringBuffer buffer = new StringBuffer();
-    	for( int i = 0; i < degreeList.size(); i++ ) {
-    		buffer.append( getSearchIdentifierByDegree( degreeList.get( i ) ) );
-    		if( i != degreeList.size() -1  ) {
-    			buffer.append( " OR " );
-    		}
-    	}
-    	return buffer.toString();
+        StringBuffer buffer = new StringBuffer();
+        for( int i = 0; i < degreeList.size(); i++ ) {
+            buffer.append( getSearchIdentifierByDegree( degreeList.get( i ) ) );
+            if( i != degreeList.size() -1  ) {
+                buffer.append( " OR " );
+            }
+        }
+        return buffer.toString();
     }
     
     /**
@@ -98,10 +98,10 @@ public class DegreeCriterion extends Criterion
      */
     
     public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    	MetadataSearchCriterion criterion = 
-			new MetadataSearchCriterion( CriterionType.DEGREE, getDegreesAsStringList() );
-    	criterions.add( criterion );
-	   	return criterions;
-	}
+        ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+        MetadataSearchCriterion criterion = 
+            new MetadataSearchCriterion( CriterionType.DEGREE, getDegreesAsStringList() );
+        criterions.add( criterion );
+           return criterions;
+    }
 }

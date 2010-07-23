@@ -100,12 +100,12 @@ public class PubFileVOPresentation extends FacesBean
         
         private ContentCategory(String uri)
         {
-        	this.uri=uri;
+            this.uri=uri;
         }
         
         public String getUri()
         {
-        	return uri;
+            return uri;
         }
         
         /**
@@ -244,19 +244,19 @@ public class PubFileVOPresentation extends FacesBean
         InternationalizedImpl internationalized = new InternationalizedImpl();
         if (this.file.getContentCategory() != null)
         {
-        	
-        	for(ContentCategory contcat : ContentCategory.values())
-        	{
-        		if(contcat.getUri().equals(this.file.getContentCategory()))
-        		{
-        			 contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(contcat));
-        			 break;
-        		}
-        	}
-        	/*
+            
+            for(ContentCategory contcat : ContentCategory.values())
+            {
+                if(contcat.getUri().equals(this.file.getContentCategory()))
+                {
+                     contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(contcat));
+                     break;
+                }
+            }
+            /*
             contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(
-            		PubFileVOPresentation.ContentCategory.valueOf(CommonUtils.convertToEnumString(this.file.getContentCategory()))));
-            		*/
+                    PubFileVOPresentation.ContentCategory.valueOf(CommonUtils.convertToEnumString(this.file.getContentCategory()))));
+                    */
         }
         return contentCategory;
     }
@@ -268,9 +268,9 @@ public class PubFileVOPresentation extends FacesBean
      */
     public String getContentCategoryAsXmlString()
     {
-    	return file.getContentCategory();
+        return file.getContentCategory();
         /*
-    	if (this.file.getContentCategory() != null)
+        if (this.file.getContentCategory() != null)
         {
             return this.file.getContentCategory().toLowerCase().replace("_", "-");
         }
@@ -541,28 +541,28 @@ public class PubFileVOPresentation extends FacesBean
      */
     public boolean getShowEmbargoDate()
     {
-    	boolean showEmbargoDate = false;
-    	if(FileVO.Visibility.PRIVATE.equals(file.getVisibility()) || FileVO.Visibility.AUDIENCE.equals(file.getVisibility()))
-    	{
-    		showEmbargoDate = true;
-    	}
-    	else
-    	{
-    		file.getDefaultMetadata().setEmbargoUntil(null);
-    		showEmbargoDate = false;
-    	}
-    	return showEmbargoDate;
+        boolean showEmbargoDate = false;
+        if(FileVO.Visibility.PRIVATE.equals(file.getVisibility()) || FileVO.Visibility.AUDIENCE.equals(file.getVisibility()))
+        {
+            showEmbargoDate = true;
+        }
+        else
+        {
+            file.getDefaultMetadata().setEmbargoUntil(null);
+            showEmbargoDate = false;
+        }
+        return showEmbargoDate;
     }
     
     public String addGrant()
     {
-    	Grant newGrant = new Grant();
-    	newGrant.setObjid("");
-    	newGrant.setGrantType(GrantVOPresentation.GRANT_TYPE_USER_GROUP);
-    	newGrant.setRole(Grant.CoreserviceRole.AUDIENCE.getRoleId());
-    	newGrant.setAssignedOn(this.file.getReference().getObjectId());
-    	this.getGrantList().add(new GrantVOPresentation(newGrant, this.getGrantList().size(), this.index));
-    	return AudienceBean.LOAD_AUDIENCEPAGE;
+        Grant newGrant = new Grant();
+        newGrant.setObjid("");
+        newGrant.setGrantType(GrantVOPresentation.GRANT_TYPE_USER_GROUP);
+        newGrant.setRole(Grant.CoreserviceRole.AUDIENCE.getRoleId());
+        newGrant.setAssignedOn(this.file.getReference().getObjectId());
+        this.getGrantList().add(new GrantVOPresentation(newGrant, this.getGrantList().size(), this.index));
+        return AudienceBean.LOAD_AUDIENCEPAGE;
     }
     
     /**
@@ -571,22 +571,22 @@ public class PubFileVOPresentation extends FacesBean
      */
     public void setUpdateVisibility(ValueChangeEvent event)
     {
-    	Visibility newVisibility = (Visibility) event.getNewValue();
-    	file.setVisibility(newVisibility);
+        Visibility newVisibility = (Visibility) event.getNewValue();
+        file.setVisibility(newVisibility);
     }
 
-	public List<GrantVOPresentation> getGrantList()
-	{
-		// ensure that at least one grant is in the list (for presentation)
-		/*if(this.grantList.size() == 0)
-		{
-			this.grantList.add(new GrantVOPresentation(new Grant(), this.grantList.size(), this.index));
-		}*/
-		return this.grantList;
-	}
+    public List<GrantVOPresentation> getGrantList()
+    {
+        // ensure that at least one grant is in the list (for presentation)
+        /*if(this.grantList.size() == 0)
+        {
+            this.grantList.add(new GrantVOPresentation(new Grant(), this.grantList.size(), this.index));
+        }*/
+        return this.grantList;
+    }
 
-	public void setGrantList(List<GrantVOPresentation> grantList) {
-		this.grantList = grantList;
-	}
+    public void setGrantList(List<GrantVOPresentation> grantList) {
+        this.grantList = grantList;
+    }
 
 }

@@ -24,9 +24,9 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  */
 public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> extends BreadcrumbPage
 {
-	private static Logger logger = Logger.getLogger(BaseListRetrieverRequestBean.class);
+    private static Logger logger = Logger.getLogger(BaseListRetrieverRequestBean.class);
     private BasePaginatorListSessionBean<ListElementType, FilterType> basePaginatorListSessionBean;
-	private String unapiURLview;
+    private String unapiURLview;
     
     /**
      * This super constructor must be called by any implementation of this class. It automatically sets the implementing class as retriever in
@@ -123,14 +123,14 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
         return basePaginatorListSessionBean;
     }
 
-	public void setUnapiURLview(String unapiURLview) {
-		this.unapiURLview = unapiURLview;
-	}
+    public void setUnapiURLview(String unapiURLview) {
+        this.unapiURLview = unapiURLview;
+    }
 
-	public String getUnapiURLview() 
-	{	    
-		return unapiURLview;
-	}
+    public String getUnapiURLview() 
+    {        
+        return unapiURLview;
+    }
     
    
     

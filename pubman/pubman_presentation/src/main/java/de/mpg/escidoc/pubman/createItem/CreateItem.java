@@ -109,7 +109,7 @@ public class CreateItem extends FacesBean
         String genreBundle = "Genre_ARTICLE";
         
         String navigateTo = "";
-    	if (logger.isDebugEnabled())
+        if (logger.isDebugEnabled())
         {
             logger.debug("New Submission");
         }
@@ -142,18 +142,18 @@ public class CreateItem extends FacesBean
             // re-init the edit item bean to make sure that all data is removed
             if(this.getItemControllerSessionBean().getCurrentPubItem() != null)
             {
-            	if (!contextVO.getAdminDescriptor().getAllowedGenres().contains(MdsPublicationVO.Genre.ARTICLE))
-            	{
-            		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(contextVO.getAdminDescriptor().getAllowedGenres().get(0));
-            	}
-            	else
-            	{
-            		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(MdsPublicationVO.Genre.ARTICLE);
-            	}
-            	this.getEditItemSessionBean().setGenreBundle(genreBundle);
-            	this.getEditItem().setItem(null);
-            	this.getEditItem().getGenreSelect().resetValue();
-            	this.getEditItem().init();
+                if (!contextVO.getAdminDescriptor().getAllowedGenres().contains(MdsPublicationVO.Genre.ARTICLE))
+                {
+                    this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(contextVO.getAdminDescriptor().getAllowedGenres().get(0));
+                }
+                else
+                {
+                    this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(MdsPublicationVO.Genre.ARTICLE);
+                }
+                this.getEditItemSessionBean().setGenreBundle(genreBundle);
+                this.getEditItem().setItem(null);
+                this.getEditItem().getGenreSelect().resetValue();
+                this.getEditItem().init();
             }
             return navigateTo;
         }
@@ -166,16 +166,16 @@ public class CreateItem extends FacesBean
                         + this.getContextListSessionBean().getDepositorContextList().size() + " different contexts.");
             }
             navigateTo = this.getItemControllerSessionBean().createNewPubItem(CreateItem.LOAD_CREATEITEM,
-            		this.getContextListSessionBean().getDepositorContextList().get(0).getReference());
+                    this.getContextListSessionBean().getDepositorContextList().get(0).getReference());
             
             // re-init the edit item bean to make sure that all data is removed
             if(this.getItemControllerSessionBean().getCurrentPubItem() != null)
             {
-            	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(Genre.ARTICLE);
-            	this.getEditItemSessionBean().setGenreBundle(genreBundle);
-            	this.getEditItem().setItem(null);
-            	this.getEditItem().setIdentifierIterator(new UIXIterator());
-            	this.getEditItem().init();
+                this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(Genre.ARTICLE);
+                this.getEditItemSessionBean().setGenreBundle(genreBundle);
+                this.getEditItem().setItem(null);
+                this.getEditItem().setIdentifierIterator(new UIXIterator());
+                this.getEditItem().init();
             }
             return navigateTo;
         }
@@ -216,8 +216,8 @@ public class CreateItem extends FacesBean
      */
     protected EditItem getEditItem()
     {
-    	return (EditItem)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-        		EditItem.BEAN_NAME);
+        return (EditItem)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
+                EditItem.BEAN_NAME);
     }
 
     /**
@@ -229,15 +229,15 @@ public class CreateItem extends FacesBean
         return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 
-	public List<PubContextVOPresentation> getCurrentCollectionList() {
-		return getSessionBean().getDepositorContextList();
-	}
+    public List<PubContextVOPresentation> getCurrentCollectionList() {
+        return getSessionBean().getDepositorContextList();
+    }
 
-	public boolean getMultiple()
-	{
-	    return (getMethod() == SubmissionMethod.MULTIPLE_IMPORT);
-	}
-	
+    public boolean getMultiple()
+    {
+        return (getMethod() == SubmissionMethod.MULTIPLE_IMPORT);
+    }
+    
     /**
      * @return the target
      */

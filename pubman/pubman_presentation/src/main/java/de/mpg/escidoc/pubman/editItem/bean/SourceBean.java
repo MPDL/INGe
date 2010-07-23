@@ -31,7 +31,10 @@
 package de.mpg.escidoc.pubman.editItem.bean;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
@@ -41,17 +44,19 @@ import javax.faces.model.SelectItem;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton;
 
 import de.mpg.escidoc.pubman.EditItemBean;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
-import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection.IdentifierManager;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection.AlternativeTitleManager;
+import de.mpg.escidoc.pubman.util.CreatorVOPresentation;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
+import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 
 /**
  * POJO bean to deal with one source.
@@ -181,7 +186,7 @@ public class SourceBean extends EditItemBean
      */
     public SelectItem[] getSourceGenreOptions()
     {
-    	
+        
         InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
                 .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
                         InternationalizationHelper.BEAN_NAME);
@@ -204,7 +209,7 @@ public class SourceBean extends EditItemBean
         SelectItem GENRE_MULTI_VOLUME = new SelectItem(SourceVO.Genre.MULTI_VOLUME, bundleLabel.getString("ENUM_GENRE_MULTI_VOLUME"));
         // JUS END
         return new SelectItem[]{ NO_ITEM_SET, GENRE_BOOK, GENRE_ISSUE, GENRE_JOURNAL, GENRE_PROCEEDINGS, GENRE_SERIES,
-        		GENRE_COLLECTED_EDITION,GENRE_HANDBOOK, GENRE_FESTSCHRIFT, GENRE_COMMENTARY, GENRE_NEWSPAPER, GENRE_ENCYCLOPEDIA, GENRE_MULTI_VOLUME};
+                GENRE_COLLECTED_EDITION,GENRE_HANDBOOK, GENRE_FESTSCHRIFT, GENRE_COMMENTARY, GENRE_NEWSPAPER, GENRE_ENCYCLOPEDIA, GENRE_MULTI_VOLUME};
     }
     
     public boolean getAutosuggestJournals()
@@ -286,7 +291,7 @@ public class SourceBean extends EditItemBean
             // id has no type, use type 'other'
             if (idParts.length == 1 && !idParts[0].equals(""))
             {
-            	IdentifierVO idVO = new IdentifierVO(IdType.OTHER, idParts[0].trim());
+                IdentifierVO idVO = new IdentifierVO(IdType.OTHER, idParts[0].trim());
                 list.add(idVO);
             }
             // Id has a type
@@ -296,10 +301,10 @@ public class SourceBean extends EditItemBean
 
                 for (IdType id : IdType.values())
                 {
-                	if (id.getUri().equals(idParts[0]))
-                	{
-                		idType = id;
-                	}
+                    if (id.getUri().equals(idParts[0]))
+                    {
+                        idType = id;
+                    }
                 }
 
                 IdentifierVO idVO = new IdentifierVO(idType, idParts[1].trim());
@@ -324,7 +329,17 @@ public class SourceBean extends EditItemBean
     public String add()
     {
         SourceBean newSourceBean = new SourceBean(new SourceVO(), this.list);
+        CreatorVOPresentation newSourceCreator = new CreatorVOPresentation(newSourceBean.getCreators(), newSourceBean);
+        newSourceCreator.setType(CreatorType.PERSON);
+        newSourceCreator.setPerson(new PersonVO());
+        newSourceCreator.getPerson().setIdentifier(new IdentifierVO());
+        newSourceCreator.getPerson().setOrganizations(new ArrayList<OrganizationVO>());
+        OrganizationVO newCreatorOrganization = new OrganizationVO();
+        newCreatorOrganization.setName(new TextVO());
+        newSourceCreator.getPerson().getOrganizations().add(newCreatorOrganization);
+        newSourceBean.getCreators().add(newSourceCreator);
         list.add(getPosition() + 1, newSourceBean);
+        newSourceBean.initOrganizationsFromCreators();
         return "";
     }
     

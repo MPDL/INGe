@@ -71,14 +71,14 @@ public class RelationListSessionBean extends FacesBean
     }
 
     public List<RelationVOPresentation> getRelationList() {
-		return relationList;
-	}
+        return relationList;
+    }
 
-	public void setRelationList(List<RelationVOPresentation> relationList) {
-		this.relationList = relationList;
-	}
+    public void setRelationList(List<RelationVOPresentation> relationList) {
+        this.relationList = relationList;
+    }
 
-	public PubItemVO getPubItemVO()
+    public PubItemVO getPubItemVO()
     {
         return pubItemVO;
     }

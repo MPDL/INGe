@@ -13,38 +13,38 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
  */
 public class DegreeCriterionBean extends CriterionBean
 {
-	public static final String BEAN_NAME = "DegreeCriterionBean";
-	
-	private DegreeCriterion degreeCriterionVO;
-	
-	// selection fields for the MdsPublicationVO.Degree enum
-	private boolean searchDiploma, searchMaster, searchPHD, searchHab, searchBachelor, searchStaats, searchMagister;
+    public static final String BEAN_NAME = "DegreeCriterionBean";
+    
+    private DegreeCriterion degreeCriterionVO;
+    
+    // selection fields for the MdsPublicationVO.Degree enum
+    private boolean searchDiploma, searchMaster, searchPHD, searchHab, searchBachelor, searchStaats, searchMagister;
 
     public DegreeCriterionBean()
-	{
-		// ensure the parentVO is never null;
-		this(new DegreeCriterion());
-	}
+    {
+        // ensure the parentVO is never null;
+        this(new DegreeCriterion());
+    }
 
-	public DegreeCriterionBean(DegreeCriterion degreeCriterionVO)
-	{
-		setDegreeCriterionVO(degreeCriterionVO);
-	}
+    public DegreeCriterionBean(DegreeCriterion degreeCriterionVO)
+    {
+        setDegreeCriterionVO(degreeCriterionVO);
+    }
 
-	@Override
-	public Criterion getCriterionVO()
-	{
-		return degreeCriterionVO;
-	}
+    @Override
+    public Criterion getCriterionVO()
+    {
+        return degreeCriterionVO;
+    }
 
-	public DegreeCriterion getDegreeCriterionVO()
-	{
-		return degreeCriterionVO;
-	}
+    public DegreeCriterion getDegreeCriterionVO()
+    {
+        return degreeCriterionVO;
+    }
 
-	public void setDegreeCriterionVO(DegreeCriterion degreeCriterionVO)
-	{
-	    this.degreeCriterionVO = degreeCriterionVO;
+    public void setDegreeCriterionVO(DegreeCriterion degreeCriterionVO)
+    {
+        this.degreeCriterionVO = degreeCriterionVO;
         if (degreeCriterionVO.getDegree() == null)
         {
             degreeCriterionVO.setDegree(new ArrayList<MdsPublicationVO.DegreeType>());
@@ -67,15 +67,15 @@ public class DegreeCriterionBean extends CriterionBean
             else if (MdsPublicationVO.DegreeType.STAATSEXAMEN.equals(degree))
                 searchStaats = true;
         }
-	}
-	
-	
-	/**
-	 * Action navigation call to clear the current part of the form
-	 * @return null
-	 */
-	public String clearCriterion()
-	{
+    }
+    
+    
+    /**
+     * Action navigation call to clear the current part of the form
+     * @return null
+     */
+    public String clearCriterion()
+    {
         setSearchBachelor(false);
         setSearchDiploma(false);
         setSearchHab(false);
@@ -89,7 +89,7 @@ public class DegreeCriterionBean extends CriterionBean
         
         // navigation refresh
         return null;
-	}
+    }
 
     public boolean isSearchDiploma()
     {

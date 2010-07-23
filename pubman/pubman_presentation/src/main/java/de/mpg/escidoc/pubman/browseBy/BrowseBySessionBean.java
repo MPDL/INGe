@@ -37,14 +37,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 

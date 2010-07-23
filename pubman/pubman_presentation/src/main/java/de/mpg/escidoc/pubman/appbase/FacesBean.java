@@ -69,12 +69,12 @@ public class FacesBean extends InternationalizedImpl implements Serializable
 
     public FacesBean()
     {
-    	super();
-    	//Call statistic session bean in order to log user
-    	
-    	
+        super();
+        //Call statistic session bean in order to log user
+        
+        
 
-    	
+        
     }
     
     /**
@@ -93,7 +93,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable
      */
     protected void prerender()
     {
-    	logger.debug("prerender");
+        logger.debug("prerender");
     }
 
     /**
@@ -385,7 +385,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable
 
     public boolean getHasMessages()
     {
-    	return getFacesContext().getMessages().hasNext();
+        return getFacesContext().getMessages().hasNext();
     }
     
     /**
@@ -408,7 +408,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable
             
             if (fm.getSeverity().equals(FacesMessage.SEVERITY_ERROR) || fm.getSeverity().equals(FacesMessage.SEVERITY_WARN) || fm.getSeverity().equals(FacesMessage.SEVERITY_FATAL))
             {
-            	return true;
+                return true;
             }
         }
         return false;

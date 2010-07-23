@@ -87,9 +87,9 @@ public class ViewItemStatisticsPage extends BreadcrumbPage
         return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 
-	@Override
-	public boolean isItemSpecific() 
-	{
-		return true;
-	}
+    @Override
+    public boolean isItemSpecific() 
+    {
+        return true;
+    }
 }

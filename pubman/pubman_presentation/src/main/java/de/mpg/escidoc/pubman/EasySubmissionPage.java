@@ -26,7 +26,7 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/ 
+*/
 
 package de.mpg.escidoc.pubman;
 
@@ -47,10 +47,10 @@ import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
  */
 public class EasySubmissionPage extends BreadcrumbPage
 {
-	private static Logger logger = Logger.getLogger(EasySubmissionPage.class);
-	
-	public final static String BEAN_NAME = "EasySubmissionPage";
-	
+    private static Logger logger = Logger.getLogger(EasySubmissionPage.class);
+    
+    public static final String BEAN_NAME = "EasySubmissionPage";
+    
     /**
      * Public constructor.
      */
@@ -71,13 +71,13 @@ public class EasySubmissionPage extends BreadcrumbPage
 
     protected Method getDefaultAction() throws NoSuchMethodException
     {
-    	EasySubmission easySubmission = (EasySubmission)getRequestBean(EasySubmission.class);
-    	return easySubmission.getClass().getMethod("newEasySubmission", null);
+        EasySubmission easySubmission = (EasySubmission) getRequestBean(EasySubmission.class);
+        return easySubmission.getClass().getMethod("newEasySubmission", null);
     }
 
-	@Override
-	public boolean isItemSpecific() 
-	{
-		return true;
-	}
+    @Override
+    public boolean isItemSpecific()
+    {
+        return true;
+    }
 }

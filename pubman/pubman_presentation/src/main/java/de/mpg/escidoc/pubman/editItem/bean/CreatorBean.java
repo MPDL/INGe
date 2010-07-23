@@ -30,7 +30,6 @@
 
 package de.mpg.escidoc.pubman.editItem.bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.event.AbortProcessingException;
@@ -47,12 +46,12 @@ import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 
 /**
  * POJO bean to deal with one creator. This can either be a person or a organisation.
@@ -62,8 +61,8 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
  */
 public class CreatorBean extends FacesBean
 {
-	private static Logger logger = Logger.getLogger(CreatorBean.class);
-	
+    private static Logger logger = Logger.getLogger(CreatorBean.class);
+    
     private CreatorVO creator = null;
     private PersonOrganisationManager personOrganisationManager = null;
 
@@ -317,12 +316,12 @@ public class CreatorBean extends FacesBean
 
     public boolean isOrganisationType()
     {
-    	return (creator.getType() == CreatorType.ORGANIZATION);
+        return (creator.getType() == CreatorType.ORGANIZATION);
     }
 
     public void setOrganisationType(final boolean organisationType)
     {
-    	creator.setType(CreatorType.ORGANIZATION);
+        creator.setType(CreatorType.ORGANIZATION);
     }
 
     /**
@@ -394,7 +393,7 @@ public class CreatorBean extends FacesBean
                 }
                 if (creatorOrganizations.indexOf(organization) >= 0)
                 {
-                	ouNumber += creatorOrganizations.indexOf(organization) + 1;
+                    ouNumber += creatorOrganizations.indexOf(organization) + 1;
                 }
             }
         }
@@ -413,23 +412,23 @@ public class CreatorBean extends FacesBean
     
     public String getAutoPasteValue()
     {
-    	return "";
+        return "";
     }
     
     public void setAutoPasteValue(String value)
     {
-    	if (!"".equals(value))
-    	{
-	    	String[] values = value.split(EditItem.AUTOPASTE_INNER_DELIMITER);
-	    	EditItemSessionBean editItemSessionBean = (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
-	        List<OrganizationVOPresentation> creatorOrganizations = editItemSessionBean.getCreatorOrganizations();
-	        OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
-	        newOrg.setName(new TextVO(values[1]));
-	        newOrg.setIdentifier(values[0]);
-	        newOrg.setBean(editItemSessionBean);
-	        creatorOrganizations.add(newOrg);
-	        this.ouNumber = creatorOrganizations.size() + "";
-    	}
+        if (!"".equals(value))
+        {
+            String[] values = value.split(EditItem.AUTOPASTE_INNER_DELIMITER);
+            EditItemSessionBean editItemSessionBean = (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+            List<OrganizationVOPresentation> creatorOrganizations = editItemSessionBean.getCreatorOrganizations();
+            OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
+            newOrg.setName(new TextVO(values[1]));
+            newOrg.setIdentifier(values[0]);
+            newOrg.setBean(editItemSessionBean);
+            creatorOrganizations.add(newOrg);
+            this.ouNumber = creatorOrganizations.size() + "";
+        }
     }
     
     public String getCreatorPersonFamilyName()

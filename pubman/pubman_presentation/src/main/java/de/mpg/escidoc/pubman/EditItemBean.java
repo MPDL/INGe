@@ -21,7 +21,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 public class EditItemBean extends FacesBean
 {
@@ -100,9 +99,9 @@ public class EditItemBean extends FacesBean
         //if ther is still no organization add a new one
         if(creatorOrganizations.isEmpty())
         {
-        	OrganizationVOPresentation org = new OrganizationVOPresentation();
-        	org.setBean(this);
-        	creatorOrganizations.add(org);
+            OrganizationVOPresentation org = new OrganizationVOPresentation();
+            org.setBean(this);
+            creatorOrganizations.add(org);
         }
         this.creatorOrganizations = creatorOrganizations;
     }

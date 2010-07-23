@@ -44,9 +44,9 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
  */
 public class BreadcrumbItem extends FacesBean
 {
-	private static Logger logger = Logger.getLogger(BreadcrumbItem.class);
+    private static Logger logger = Logger.getLogger(BreadcrumbItem.class);
 
-	// The String that should be displayed in the breadcrumb menu, e.g. "ViewItem"
+    // The String that should be displayed in the breadcrumb menu, e.g. "ViewItem"
     private String displayValue;
     
     // The jsp page that should be addressed when the link in the breadcrumb
@@ -94,10 +94,10 @@ public class BreadcrumbItem extends FacesBean
     }
 
     public String getDisplayValue() {
-		return displayValue;
-	}
+        return displayValue;
+    }
 
-	public void setDisplayValue(String displayValue)
+    public void setDisplayValue(String displayValue)
     {
         this.displayValue = displayValue;
     }
@@ -113,14 +113,14 @@ public class BreadcrumbItem extends FacesBean
     }
 
     public Method getDefaultAction() {
-		return defaultAction;
-	}
+        return defaultAction;
+    }
 
-	public void setDefaultAction(Method defaultAction) {
-		this.defaultAction = defaultAction;
-	}
+    public void setDefaultAction(Method defaultAction) {
+        this.defaultAction = defaultAction;
+    }
 
-	@Override
+    @Override
     public String toString()
     {
         return "[" + displayValue + "]";
@@ -137,38 +137,38 @@ public class BreadcrumbItem extends FacesBean
         return (displayValue.equals(((BreadcrumbItem) other).getDisplayValue()));
     }
 
-	public boolean getIsLast() {
-		return isLast;
-	}
+    public boolean getIsLast() {
+        return isLast;
+    }
 
-	public void setIsLast(boolean isLast) {
-		this.isLast = isLast;
-	}
+    public void setIsLast(boolean isLast) {
+        this.isLast = isLast;
+    }
 
-	public String executeDefaultAction()
-	{
-		if (defaultAction != null)
-		{
-			try
-			{
-				Class<?> beanClass = defaultAction.getDeclaringClass();
-				Object bean = getBean(beanClass);
-				return defaultAction.invoke(bean, null).toString();
-			}
-			catch (Exception e) {
-				logger.error("Error executing default action", e);
-			}
-			
-		}
-		return null;
-	}
+    public String executeDefaultAction()
+    {
+        if (defaultAction != null)
+        {
+            try
+            {
+                Class<?> beanClass = defaultAction.getDeclaringClass();
+                Object bean = getBean(beanClass);
+                return defaultAction.invoke(bean, null).toString();
+            }
+            catch (Exception e) {
+                logger.error("Error executing default action", e);
+            }
+            
+        }
+        return null;
+    }
 
-	public boolean isItemSpecific() {
-		return isItemSpecific;
-	}
+    public boolean isItemSpecific() {
+        return isItemSpecific;
+    }
 
-	public void setItemSpecific(boolean isItemSpecific) {
-		this.isItemSpecific = isItemSpecific;
-	}
-	
+    public void setItemSpecific(boolean isItemSpecific) {
+        this.isItemSpecific = isItemSpecific;
+    }
+    
 }

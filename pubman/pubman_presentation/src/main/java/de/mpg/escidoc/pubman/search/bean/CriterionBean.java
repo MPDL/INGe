@@ -19,8 +19,8 @@ public abstract class CriterionBean extends FacesBean
     private static final long serialVersionUID = 1L;
     
     protected boolean collapsed = false;
-	private String logicOperator;
-	
+    private String logicOperator;
+    
     public SelectItem LOGIC_AND = new SelectItem("And", this.getLabel("adv_search_logicop_and"));
     public SelectItem LOGIC_OR = new SelectItem("Or", this.getLabel("adv_search_logicop_or"));
     public SelectItem LOGIC_NOT = new SelectItem("Not", this.getLabel("adv_search_logicop_not"));
@@ -28,59 +28,59 @@ public abstract class CriterionBean extends FacesBean
 
     public enum LogicOptions
     {
-    	LOGIC_AND, LOGIC_OR, LOGIC_NOT
+        LOGIC_AND, LOGIC_OR, LOGIC_NOT
     }
     
     public SelectItem[] getLogicOptions()
     {
-    	LogicOptions[] values = LogicOptions.values();
-    	return ((InternationalizationHelper)getSessionBean(InternationalizationHelper.class)).getSelectItemsForEnum(false, values);
+        LogicOptions[] values = LogicOptions.values();
+        return ((InternationalizationHelper)getSessionBean(InternationalizationHelper.class)).getSelectItemsForEnum(false, values);
     }
 
     public abstract Criterion getCriterionVO();
     
-	public final String collapse()
-	{
-		setCollapsed(true);
-		return null;
-	}
+    public final String collapse()
+    {
+        setCollapsed(true);
+        return null;
+    }
 
-	public final String expand()
-	{
-		setCollapsed(false);
-		return null;
-	}
+    public final String expand()
+    {
+        setCollapsed(false);
+        return null;
+    }
 
-	public final String getLogicOperator()
-	{
-		return logicOperator;
-	}
+    public final String getLogicOperator()
+    {
+        return logicOperator;
+    }
 
-	public final void setLogicOperator(String logicOperator)
-	{
-		this.logicOperator = logicOperator;
-		if (logicOperator.equals("LOGIC_AND"))
-		{
-			getCriterionVO().setLogicalOperator(LogicalOperator.AND);
-		}
-		else if (logicOperator.equals("LOGIC_OR"))
-		{
-			getCriterionVO().setLogicalOperator(LogicalOperator.OR);
-		}
-		else if (logicOperator.equals("LOGIC_NOT"))
-		{
-			getCriterionVO().setLogicalOperator(LogicalOperator.NOT);
-		}
-	}
+    public final void setLogicOperator(String logicOperator)
+    {
+        this.logicOperator = logicOperator;
+        if (logicOperator.equals("LOGIC_AND"))
+        {
+            getCriterionVO().setLogicalOperator(LogicalOperator.AND);
+        }
+        else if (logicOperator.equals("LOGIC_OR"))
+        {
+            getCriterionVO().setLogicalOperator(LogicalOperator.OR);
+        }
+        else if (logicOperator.equals("LOGIC_NOT"))
+        {
+            getCriterionVO().setLogicalOperator(LogicalOperator.NOT);
+        }
+    }
 
-	public final boolean isCollapsed()
-	{
-		return collapsed;
-	}
+    public final boolean isCollapsed()
+    {
+        return collapsed;
+    }
 
-	public final void setCollapsed(boolean collapsed)
-	{
-		this.collapsed = collapsed;
-	}
+    public final void setCollapsed(boolean collapsed)
+    {
+        this.collapsed = collapsed;
+    }
 
 }

@@ -47,69 +47,69 @@ import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
  */
 public class AffiliationTreePage extends BreadcrumbPage
 {
-	private static Logger logger = Logger.getLogger(AffiliationTreePage.class);
+    private static Logger logger = Logger.getLogger(AffiliationTreePage.class);
 
-	// The referring GUI Tool Page
-	public final static String GT_AFFILIATION_TREE_PAGE = "GTAffiliationPage.jsp";
+    // The referring GUI Tool Page
+    public final static String GT_AFFILIATION_TREE_PAGE = "GTAffiliationPage.jsp";
 
-	/**
-	 * Construct a new Page bean instance.
-	 */
-	public AffiliationTreePage()
+    /**
+     * Construct a new Page bean instance.
+     */
+    public AffiliationTreePage()
     {
-	    this.init();
-	    getSessionBean(ItemControllerSessionBean.class);
-	    
-	}
+        this.init();
+        getSessionBean(ItemControllerSessionBean.class);
+        
+    }
 
-	/**
-	 * Callback method that is called whenever a page is navigated to, either
-	 * directly via a URL, or indirectly via page navigation. Customize this
-	 * method to acquire resources that will be needed for event handlers and
-	 * lifecycle methods, whether or not this page is performing post back
-	 * processing.
-	 * Note that, if the current request is a postback, the property values of
-	 * the components do <strong>not</strong> represent any values submitted
-	 * with this request. Instead, they represent the property values that were
-	 * saved for this view when it was rendered.
-	 */
-	public void init()
+    /**
+     * Callback method that is called whenever a page is navigated to, either
+     * directly via a URL, or indirectly via page navigation. Customize this
+     * method to acquire resources that will be needed for event handlers and
+     * lifecycle methods, whether or not this page is performing post back
+     * processing.
+     * Note that, if the current request is a postback, the property values of
+     * the components do <strong>not</strong> represent any values submitted
+     * with this request. Instead, they represent the property values that were
+     * saved for this view when it was rendered.
+     */
+    public void init()
     {
-		// Perform initializations inherited from our superclass
-		super.init();
+        // Perform initializations inherited from our superclass
+        super.init();
 
-		// redirect to the referring GUI Tool page if the application has been
-		// started as GUI Tool
-		
-		
-	}
+        // redirect to the referring GUI Tool page if the application has been
+        // started as GUI Tool
+        
+        
+    }
 
-	/**
-	 * Redirets to the referring GUI Tool page.
-	 * 
-	 * @return a navigation string
-	 */
-	protected String redirectToGUITool()
+    /**
+     * Redirets to the referring GUI Tool page.
+     * 
+     * @return a navigation string
+     */
+    protected String redirectToGUITool()
     {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		try 
+        FacesContext fc = FacesContext.getCurrentInstance();
+        try 
         {
-			fc.getExternalContext().redirect(GT_AFFILIATION_TREE_PAGE);
-		}
+            fc.getExternalContext().redirect(GT_AFFILIATION_TREE_PAGE);
+        }
         catch (IOException e)
         {
-			logger.error("Could not redirect to GUI Tool Affiliation tree page."
-							+ "\n" + e.toString());
-		}
-		return "";
-	}
+            logger.error("Could not redirect to GUI Tool Affiliation tree page."
+                            + "\n" + e.toString());
+        }
+        return "";
+    }
 
-	
+    
 
-	@Override
-	public boolean isItemSpecific() 
-	{
-		return false;
-	}
+    @Override
+    public boolean isItemSpecific() 
+    {
+        return false;
+    }
 
 }

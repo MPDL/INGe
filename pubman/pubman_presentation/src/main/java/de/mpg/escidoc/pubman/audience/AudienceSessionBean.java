@@ -47,18 +47,18 @@ import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGro
  */
 public class AudienceSessionBean extends FacesBean 
 {
-	private static Logger logger = Logger.getLogger(AudienceSessionBean.class);
-	public static final String BEAN_NAME = "AudienceSessionBean";
-	// the original file list with the original grants retrieved from core-service and which will be applied if user clicks on cancel
-	private List<PubFileVOPresentation> fileListOld = new ArrayList<PubFileVOPresentation>();
-	// the file list where changes are made and which will be applied if user clicks on save
-	private List<PubFileVOPresentation> fileListNew = new ArrayList<PubFileVOPresentation>();
-	
-	private UserGroupList ugl; 
-	
-	private List<GrantVOPresentation> grantsForAllFiles = new ArrayList<GrantVOPresentation>();
-	
-	/**
+    private static Logger logger = Logger.getLogger(AudienceSessionBean.class);
+    public static final String BEAN_NAME = "AudienceSessionBean";
+    // the original file list with the original grants retrieved from core-service and which will be applied if user clicks on cancel
+    private List<PubFileVOPresentation> fileListOld = new ArrayList<PubFileVOPresentation>();
+    // the file list where changes are made and which will be applied if user clicks on save
+    private List<PubFileVOPresentation> fileListNew = new ArrayList<PubFileVOPresentation>();
+    
+    private UserGroupList ugl; 
+    
+    private List<GrantVOPresentation> grantsForAllFiles = new ArrayList<GrantVOPresentation>();
+    
+    /**
      * Public constructor.
      */
     public AudienceSessionBean()
@@ -78,44 +78,44 @@ public class AudienceSessionBean extends FacesBean
     
     public void cleanUp()
     {
-    	this.fileListNew = new ArrayList<PubFileVOPresentation>();
-    	this.fileListOld = new ArrayList<PubFileVOPresentation>();
-    	this.grantsForAllFiles = new ArrayList<GrantVOPresentation>();
-    	this.ugl = null;
+        this.fileListNew = new ArrayList<PubFileVOPresentation>();
+        this.fileListOld = new ArrayList<PubFileVOPresentation>();
+        this.grantsForAllFiles = new ArrayList<GrantVOPresentation>();
+        this.ugl = null;
     }
 
-	public List<PubFileVOPresentation> getFileListOld() {
-		return fileListOld;
-	}
+    public List<PubFileVOPresentation> getFileListOld() {
+        return fileListOld;
+    }
 
-	public void setFileListOld(List<PubFileVOPresentation> fileListOld) {
-		this.fileListOld = fileListOld;
-	}
+    public void setFileListOld(List<PubFileVOPresentation> fileListOld) {
+        this.fileListOld = fileListOld;
+    }
 
-	public List<PubFileVOPresentation> getFileListNew() {
-		return fileListNew;
-	}
+    public List<PubFileVOPresentation> getFileListNew() {
+        return fileListNew;
+    }
 
-	public void setFileListNew(List<PubFileVOPresentation> fileListNew) {
-		this.fileListNew = fileListNew;
-	}
+    public void setFileListNew(List<PubFileVOPresentation> fileListNew) {
+        this.fileListNew = fileListNew;
+    }
 
-	public UserGroupList getUgl() {
-		return ugl;
-	}
+    public UserGroupList getUgl() {
+        return ugl;
+    }
 
-	public void setUgl(UserGroupList ugl) {
-		this.ugl = ugl;
-	}
+    public void setUgl(UserGroupList ugl) {
+        this.ugl = ugl;
+    }
 
-	public List<GrantVOPresentation> getGrantsForAllFiles() {
-		return grantsForAllFiles;
-	}
+    public List<GrantVOPresentation> getGrantsForAllFiles() {
+        return grantsForAllFiles;
+    }
 
-	public void setGrantsForAllFiles(List<GrantVOPresentation> grantsForAllFiles) {
-		this.grantsForAllFiles = grantsForAllFiles;
-	}
-	
-	
+    public void setGrantsForAllFiles(List<GrantVOPresentation> grantsForAllFiles) {
+        this.grantsForAllFiles = grantsForAllFiles;
+    }
+    
+    
     
 }

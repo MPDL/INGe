@@ -39,20 +39,20 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 22.08.2007
  */
 public class ViewItemOrganizationInformationPage extends FacesBean {
-	/**
-	 * Public constructor
-	 */
-	public ViewItemOrganizationInformationPage()
-	{
-	    this.init();
-	}
+    /**
+     * Public constructor
+     */
+    public ViewItemOrganizationInformationPage()
+    {
+        this.init();
+    }
 
-	/**
-	 * Callback method that is called whenever a page is navigated to, either
-	 * directly via a URL, or indirectly via page navigation.
-	 */
-	public void init() {
-		// Perform initializations inherited from our superclass
-		super.init();
-	}
+    /**
+     * Callback method that is called whenever a page is navigated to, either
+     * directly via a URL, or indirectly via page navigation.
+     */
+    public void init() {
+        // Perform initializations inherited from our superclass
+        super.init();
+    }
 }

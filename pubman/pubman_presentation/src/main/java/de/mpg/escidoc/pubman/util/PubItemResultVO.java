@@ -15,12 +15,12 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  */
 public class PubItemResultVO extends PubItemVO {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    
+    /**
      * List of hits. Every hit in files contains the file reference and the text fragments of the search hit.
      */
     private java.util.List<SearchHitVO> searchHitList = new java.util.ArrayList<SearchHitVO>();

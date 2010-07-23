@@ -37,9 +37,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
@@ -92,7 +90,7 @@ public class QAWSSessionBean extends FacesBean
      */
     public QAWSSessionBean()
     {
-    	
+        
     }
 
     /**
@@ -148,22 +146,22 @@ public class QAWSSessionBean extends FacesBean
         this.selectedItemState = selectedItemState;
     }
 
-	public String getSelectedContext() {
-		return selectedContext;
-	}
+    public String getSelectedContext() {
+        return selectedContext;
+    }
 
-	public void setSelectedContext(String selectedContext) {
-		this.selectedContext = selectedContext;
-	}
+    public void setSelectedContext(String selectedContext) {
+        this.selectedContext = selectedContext;
+    }
 
-	public String getSelectedOrgUnit() {
-		return selectedOrgUnit;
-	}
+    public String getSelectedOrgUnit() {
+        return selectedOrgUnit;
+    }
 
-	public void setSelectedOrgUnit(String selectedOrgUnit) {
-		this.selectedOrgUnit = selectedOrgUnit;
-	}
-	
+    public void setSelectedOrgUnit(String selectedOrgUnit) {
+        this.selectedOrgUnit = selectedOrgUnit;
+    }
+    
     public List<SelectItem> getOrgUnitSelectItems()
     {
         return orgUnitSelectItems;
@@ -176,11 +174,11 @@ public class QAWSSessionBean extends FacesBean
     
 //    public void setOrgUnitList(List<OrganizationVOPresentation> list)
 //    {
-//    	this.orgUnitSelectItems = new ArrayList<SelectItem>();
-//    	this.orgUnitSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
-//    	for (OrganizationVOPresentation org : list)
-//    	{
-//    		this.orgUnitSelectItems.add(new SelectItem(org.getIdentifier(), org.getName().getValue()));
-//    	}
+//        this.orgUnitSelectItems = new ArrayList<SelectItem>();
+//        this.orgUnitSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+//        for (OrganizationVOPresentation org : list)
+//        {
+//            this.orgUnitSelectItems.add(new SelectItem(org.getIdentifier(), org.getName().getValue()));
+//        }
 //    }
 }

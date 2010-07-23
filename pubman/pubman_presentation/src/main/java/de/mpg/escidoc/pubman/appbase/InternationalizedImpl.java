@@ -24,7 +24,7 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 public class InternationalizedImpl implements Internationalized
 {
     private static Logger logger = Logger.getLogger(InternationalizedImpl.class);
-	
+    
     //For handling the resource bundles (i18n)
     protected Application application = FacesContext.getCurrentInstance().getApplication();
     //get the selected language...
@@ -32,7 +32,7 @@ public class InternationalizedImpl implements Internationalized
 
     public InternationalizedImpl()
     {
-    	i18nHelper = (InternationalizationHelper)getSessionBean(InternationalizationHelper.class);
+        i18nHelper = (InternationalizationHelper)getSessionBean(InternationalizationHelper.class);
     }
     /*
      * (non-Javadoc)
@@ -80,7 +80,7 @@ public class InternationalizedImpl implements Internationalized
             name = (String) cls.getField("BEAN_NAME").get(new String());
             if (FacesBean.class.getName().equals(name))
             {
-            	logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
+                logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
             }
         }
         catch (Exception e)
@@ -100,7 +100,7 @@ public class InternationalizedImpl implements Internationalized
         {
             try
             {
-            	logger.debug("Creating new request bean: " + name);
+                logger.debug("Creating new request bean: " + name);
                 Object newBean = cls.newInstance();
                 FacesContext
                         .getCurrentInstance()
@@ -135,7 +135,7 @@ public class InternationalizedImpl implements Internationalized
             name = (String) cls.getField("BEAN_NAME").get(new String());
             if (FacesBean.class.getName().equals(name))
             {
-            	logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
+                logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
             }
         }
         catch (Exception e)
@@ -188,7 +188,7 @@ public class InternationalizedImpl implements Internationalized
             name = (String) cls.getField("BEAN_NAME").get(new String());
             if (FacesBean.class.getName().equals(name))
             {
-            	logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
+                logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
             }
         }
         catch (Exception e)
@@ -207,7 +207,7 @@ public class InternationalizedImpl implements Internationalized
         {
             try
             {
-            	 logger.debug("Creating new application bean: " + name);
+                 logger.debug("Creating new application bean: " + name);
                 Object newBean = cls.newInstance();
                 FacesContext
                         .getCurrentInstance()

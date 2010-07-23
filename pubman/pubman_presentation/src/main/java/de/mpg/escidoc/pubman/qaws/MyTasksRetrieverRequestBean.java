@@ -23,8 +23,8 @@ import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -60,8 +60,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     private List<SelectItem> contextSelectItems;
 
-	// Faces navigation string
-	public static final String LOAD_QAWS = "loadQAWSPage";
+    // Faces navigation string
+    public static final String LOAD_QAWS = "loadQAWSPage";
     
     //private Map<String, AffiliationVOPresentation> affiliationMap;
     
@@ -521,17 +521,17 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 
     public List<SelectItem> getOrgUnitSelectItems()
     {
-    	if (getQAWSSessionBean().getOrgUnitSelectItems() != null)
-    	{
-    		return this.getQAWSSessionBean().getOrgUnitSelectItems();
-    	}
-    	else
-    	{
-    		List<SelectItem> list = new ArrayList<SelectItem>();
-    		list.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
-    		list.add(new SelectItem("", getLabel("qaws_lblLoading") + " >--->--->--->--->--->--->--->---"));
-    		return list;
-    	}
+        if (getQAWSSessionBean().getOrgUnitSelectItems() != null)
+        {
+            return this.getQAWSSessionBean().getOrgUnitSelectItems();
+        }
+        else
+        {
+            List<SelectItem> list = new ArrayList<SelectItem>();
+            list.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+            list.add(new SelectItem("", getLabel("qaws_lblLoading") + " >--->--->--->--->--->--->--->---"));
+            return list;
+        }
     }
 
     public void setSelectedOrgUnit(String selectedOrgUnit)

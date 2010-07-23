@@ -65,10 +65,10 @@ public class NoSearchResultsPage extends BreadcrumbPage
 
     }
 
-	@Override
-	public boolean isItemSpecific() 
-	{
-		return false;
-	}
+    @Override
+    public boolean isItemSpecific() 
+    {
+        return false;
+    }
 
 }

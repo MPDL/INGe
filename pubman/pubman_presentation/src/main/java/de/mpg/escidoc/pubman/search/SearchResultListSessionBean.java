@@ -45,8 +45,8 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
  */
 public class SearchResultListSessionBean extends FacesBean
 {
-	private static final long serialVersionUID = 1L;
-	
+    private static final long serialVersionUID = 1L;
+    
     public static final String BEAN_NAME = "SearchResultListSessionBean";
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(SearchResultListSessionBean.class);

@@ -105,10 +105,10 @@ public class AffiliationSearchResultListPage extends BreadcrumbPage
         return "";
     }
 
-	@Override
-	public boolean isItemSpecific() 
-	{
-		return false;
-	}
+    @Override
+    public boolean isItemSpecific() 
+    {
+        return false;
+    }
 
 }

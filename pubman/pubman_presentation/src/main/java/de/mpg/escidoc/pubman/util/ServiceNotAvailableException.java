@@ -37,46 +37,46 @@ package de.mpg.escidoc.pubman.util;
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 22.08.2007
  */
 public class ServiceNotAvailableException extends RuntimeException {
-	/**
-	 * The name of the service which could not be retrieved.
-	 */
-	private String serviceName;
+    /**
+     * The name of the service which could not be retrieved.
+     */
+    private String serviceName;
 
-	/**
-	 * Creates a new Exception with the specified detail message.
-	 * 
-	 * @param message
-	 *            The error message
-	 */
-	public ServiceNotAvailableException(String serviceName) {
-		this.serviceName = serviceName;
-	}
+    /**
+     * Creates a new Exception with the specified detail message.
+     * 
+     * @param message
+     *            The error message
+     */
+    public ServiceNotAvailableException(String serviceName) {
+        this.serviceName = serviceName;
+    }
 
-	/**
-	 * Creates a new Exception with the specified detail message and cause.
-	 * 
-	 * @param message
-	 *            The error message
-	 * @param cause
-	 *            The cause
-	 */
-	public ServiceNotAvailableException(String serviceName, Throwable cause) {
-		super(cause);
-		this.serviceName = serviceName;
-	}
+    /**
+     * Creates a new Exception with the specified detail message and cause.
+     * 
+     * @param message
+     *            The error message
+     * @param cause
+     *            The cause
+     */
+    public ServiceNotAvailableException(String serviceName, Throwable cause) {
+        super(cause);
+        this.serviceName = serviceName;
+    }
 
-	/**
-	 * @return the serviceName
-	 */
-	public String getServiceName() {
-		return serviceName;
-	}
+    /**
+     * @return the serviceName
+     */
+    public String getServiceName() {
+        return serviceName;
+    }
 
-	/**
-	 * @param serviceName
-	 *            the serviceName to set
-	 */
-	public void setServiceName(String serviceName) {
-		this.serviceName = serviceName;
-	}
+    /**
+     * @param serviceName
+     *            the serviceName to set
+     */
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
 }

@@ -52,16 +52,16 @@ public class SourceCriterion extends Criterion
     public SourceCriterion()
     {
         super();
-	}
+    }
     
     /**
      * {@inheritDoc}
      */
     public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    	MetadataSearchCriterion criterion = 
-			new MetadataSearchCriterion( CriterionType.SOURCE, getSearchString() );
-    	criterions.add( criterion );
-	   	return criterions;
-	}	
+        ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+        MetadataSearchCriterion criterion = 
+            new MetadataSearchCriterion( CriterionType.SOURCE, getSearchString() );
+        criterions.add( criterion );
+           return criterions;
+    }    
 }

@@ -230,7 +230,7 @@ public class SiteMapTask extends Thread
     private boolean copySiteMap(File src, File dest, int bufSize,
             boolean force) throws IOException {
         boolean successful = false;
-    	if(dest.exists()) {
+        if(dest.exists()) {
             if(force) {
                 dest.delete();
             } else {

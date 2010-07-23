@@ -46,7 +46,6 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
@@ -146,18 +145,18 @@ public class SubmitItem extends FacesBean
      */
     public final String submit()
     {
-    	FacesContext fc = FacesContext.getCurrentInstance();
-    	HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    	String retVal;
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        String retVal;
         String navigateTo = ViewItemFull.LOAD_VIEWITEM;
-    	/*
-    	String navigateTo = getSessionBean().getNavigationStringToGoBack();
+        /*
+        String navigateTo = getSessionBean().getNavigationStringToGoBack();
         
         if(navigateTo == null)
         {
-        	navigateTo = ViewItemFull.LOAD_VIEWITEM;
+            navigateTo = ViewItemFull.LOAD_VIEWITEM;
         }
-    	 */
+         */
         logger.debug("Now submitting, then go to " + navigateTo);
         
         retVal = this.getItemControllerSessionBean().submitOrReleaseCurrentPubItem(submissionComment, navigateTo);
@@ -170,27 +169,27 @@ public class SubmitItem extends FacesBean
             }
             // distinguish between simple and standard workflow
             else if(this.getItemControllerSessionBean().getCurrentWorkflow() != null && this.getItemControllerSessionBean().getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE))
-        	{
-        		info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED));
-        	}
-        	else
-        	{
-        	    info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SUBMITTED));
-        	}
+            {
+                info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED));
+            }
+            else
+            {
+                info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SUBMITTED));
+            }
         }
         
         
         // redirect to the view item page afterwards (if no error occured)
         if(ViewItemFull.LOAD_VIEWITEM.equals(retVal))
         {
-        	try 
+            try 
             {
-    			fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
-    		} 
+                fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+            } 
             catch (IOException e)
             {
-    			logger.error("Could not redirect to View Item Page", e);
-    		}
+                logger.error("Could not redirect to View Item Page", e);
+            }
         }
         
        
@@ -294,22 +293,22 @@ public class SubmitItem extends FacesBean
     }
 
     public String getSubmissionComment() {
-		return submissionComment;
-	}
+        return submissionComment;
+    }
 
-	public void setSubmissionComment(String submissionComment) {
-		this.submissionComment = submissionComment;
-	}
+    public void setSubmissionComment(String submissionComment) {
+        this.submissionComment = submissionComment;
+    }
 
-	public String getValMessage() {
-		return valMessage;
-	}
+    public String getValMessage() {
+        return valMessage;
+    }
 
-	public void setValMessage(String valMessage) {
-		this.valMessage = valMessage;
-	}
+    public void setValMessage(String valMessage) {
+        this.valMessage = valMessage;
+    }
 
-	public final String getNavigationStringToGoBack()
+    public final String getNavigationStringToGoBack()
     {
         return navigationStringToGoBack;
     }

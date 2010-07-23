@@ -47,7 +47,7 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionTyp
  */
 public class DateCriterion extends Criterion
 {
-	
+    
     public enum DateType
     {
         ACCEPTED, CREATED, MODIFIED, PUBLISHED_ONLINE, PUBLISHED_PRINT, SUBMITTED
@@ -55,37 +55,37 @@ public class DateCriterion extends Criterion
     
     //date range for the search criterion
     private String from;
-	private String to;
+    private String to;
     //type of date
     private List<DateType> dateTypeList;
 
-	/**
-	 * constructor.
-	 */
-	public DateCriterion()
+    /**
+     * constructor.
+     */
+    public DateCriterion()
     {
         super();
-	}
+    }
 
-	public String getFrom()
+    public String getFrom()
     {
-		return from;
-	}
+        return from;
+    }
 
-	public String getTo()
+    public String getTo()
     {
-		return to;
-	}
+        return to;
+    }
 
-	public void setFrom(String newVal)
+    public void setFrom(String newVal)
     {
-		from = newVal;
-	}
+        from = newVal;
+    }
 
-	public void setTo(String newVal)
+    public void setTo(String newVal)
     {
-		to = newVal;
-	}
+        to = newVal;
+    }
 
     public List<DateType> getDateType()
     {
@@ -102,12 +102,12 @@ public class DateCriterion extends Criterion
      * @return true if empty, false if not
      */
     private boolean isFromEmpty() {
-    	if ( from == null || from.trim().equals("") ) {
-			return true;
-		}
-		else {
-			return false;
-		}
+        if ( from == null || from.trim().equals("") ) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     
     /**
@@ -115,31 +115,31 @@ public class DateCriterion extends Criterion
      * @return true if empty, false if not
      */
     private boolean isToEmpty() {
-    	if ( to == null || to.trim().equals("") ) {
-			return true;
-		}
-		else {
-			return false;
-		}
+        if ( to == null || to.trim().equals("") ) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     
     private CriterionType getCriterionByDateType( DateType dateType ) throws TechnicalException {
-    	switch( dateType ) {
-    	case ACCEPTED: 
-    		return CriterionType.DATE_ACCEPTED;
-    	case CREATED:
-    		return CriterionType.DATE_CREATED;
-    	case MODIFIED:
-    		return CriterionType.DATE_MODIFIED;
-    	case PUBLISHED_ONLINE:
-    		return CriterionType.DATE_PUBLISHED_ONLINE;
-    	case PUBLISHED_PRINT:
-    		return CriterionType.DATE_ISSUED;
-    	case SUBMITTED:
-    		return CriterionType.DATE_SUBMITTED;
-    	default:
-    		throw new TechnicalException( "DateType is unknown. Cannot map." );
-    	}
+        switch( dateType ) {
+        case ACCEPTED: 
+            return CriterionType.DATE_ACCEPTED;
+        case CREATED:
+            return CriterionType.DATE_CREATED;
+        case MODIFIED:
+            return CriterionType.DATE_MODIFIED;
+        case PUBLISHED_ONLINE:
+            return CriterionType.DATE_PUBLISHED_ONLINE;
+        case PUBLISHED_PRINT:
+            return CriterionType.DATE_ISSUED;
+        case SUBMITTED:
+            return CriterionType.DATE_SUBMITTED;
+        default:
+            throw new TechnicalException( "DateType is unknown. Cannot map." );
+        }
     }
     
     private ArrayList<CriterionType>getCriterionsList() throws TechnicalException {
@@ -166,7 +166,7 @@ public class DateCriterion extends Criterion
     }
     
     public  ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    	
+        
         ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>(); 
         
         String fromQuery = null;
@@ -176,15 +176,15 @@ public class DateCriterion extends Criterion
         {
             fromQuery = from;
         }
-    	if(!isToEmpty())
-    	{
-    	    toQuery = to;
-    	}
+        if(!isToEmpty())
+        {
+            toQuery = to;
+        }
         
-    	MetadataDateSearchCriterion criterion = 
-    	    new MetadataDateSearchCriterion( getCriterionsList(), fromQuery, toQuery );
-    	criterions.add(criterion);
-    	
-	   	return criterions;
-	} 
+        MetadataDateSearchCriterion criterion = 
+            new MetadataDateSearchCriterion( getCriterionsList(), fromQuery, toQuery );
+        criterions.add(criterion);
+        
+           return criterions;
+    } 
 }

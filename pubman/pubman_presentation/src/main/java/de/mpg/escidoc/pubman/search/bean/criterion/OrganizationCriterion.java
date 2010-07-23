@@ -55,27 +55,27 @@ public class OrganizationCriterion extends Criterion
     public OrganizationCriterion()
     {
         super();
-	}
+    }
     
     /**
      * {@inheritDoc}
      */
     public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    	if(getAffiliation() != null)
+        ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+        if(getAffiliation() != null)
         {
             MetadataSearchCriterion criterion = 
                 new MetadataSearchCriterion( CriterionType.ORGANIZATION_PIDS, getAffiliation().getReference().getObjectId());
             criterions.add( criterion );
         }
-    	else if(isSearchStringEmpty() != true)
-    	{
-    	    MetadataSearchCriterion criterion = 
-    	        new MetadataSearchCriterion( CriterionType.ORGANIZATION, getSearchString() );
-    	    criterions.add( criterion );
-    	}
-	   	return criterions;
-	}
+        else if(isSearchStringEmpty() != true)
+        {
+            MetadataSearchCriterion criterion = 
+                new MetadataSearchCriterion( CriterionType.ORGANIZATION, getSearchString() );
+            criterions.add( criterion );
+        }
+           return criterions;
+    }
 
     /**
      * @return the affiliation

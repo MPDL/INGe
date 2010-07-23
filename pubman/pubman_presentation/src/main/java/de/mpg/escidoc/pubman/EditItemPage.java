@@ -95,17 +95,17 @@ public class EditItemPage extends BreadcrumbPage
         return "";
     }
     
-	@Override
-	protected Method getDefaultAction() throws NoSuchMethodException
-	{
-		return Navigation.class.getMethod("newSubmission", null);
-	}
+    @Override
+    protected Method getDefaultAction() throws NoSuchMethodException
+    {
+        return Navigation.class.getMethod("newSubmission", null);
+    }
 
-	@Override
-	public boolean isItemSpecific() 
-	{
-		return true;
-	}
+    @Override
+    public boolean isItemSpecific() 
+    {
+        return true;
+    }
 
-	
+    
 }

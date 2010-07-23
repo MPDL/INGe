@@ -61,15 +61,14 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -81,9 +80,9 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -897,8 +896,8 @@ public class ItemControllerSessionBean extends FacesBean
         // LegalCase
         // add LegalCase to be able to bind uiCompontents to it
         if (newPubItem.getMetadata().getLegalCase() == null){
-        	LegalCaseVO legalCaseVO = new LegalCaseVO();
-        	newPubItem.getMetadata().setLegalCase(legalCaseVO);
+            LegalCaseVO legalCaseVO = new LegalCaseVO();
+            newPubItem.getMetadata().setLegalCase(legalCaseVO);
         }
        
         // add subject if needed to be able to bind uiComponents to it
@@ -1232,7 +1231,7 @@ public class ItemControllerSessionBean extends FacesBean
             logger.debug("Cleaning up PubItem...");
         }
         
-        for (int i = 0; i < pubItem.getMetadata().getCreators().size(); i++)
+        for (int i = pubItem.getMetadata().getCreators().size() - 1; i >= 0; i--)
         {
             CreatorVO creator = pubItem.getMetadata().getCreators().get(i);
             
@@ -1337,7 +1336,7 @@ public class ItemControllerSessionBean extends FacesBean
                     // delete unfilled identifiers
                     if (pubItem.getMetadata().getSources().get(i).getIdentifiers() != null)
                     {
-                        for (int j = 0; j < pubItem.getMetadata().getSources().get(i).getIdentifiers().size(); j++)
+                        for (int j = pubItem.getMetadata().getSources().get(i).getIdentifiers().size() - 1; j >= 0; j--)
                         {
                             IdentifierVO identifier = pubItem.getMetadata().getSources().get(i).getIdentifiers().get(j);
                             if (identifier.getId() == null
@@ -1353,7 +1352,7 @@ public class ItemControllerSessionBean extends FacesBean
                     // delete unfilled source creators
                     if (pubItem.getMetadata().getSources().get(i).getCreators() != null)
                     {
-                        for (int j = 0; j < pubItem.getMetadata().getSources().get(i).getCreators().size(); j++)
+                        for (int j = pubItem.getMetadata().getSources().get(i).getCreators().size() - 1; j >= 0; j--)
                         {
                             CreatorVO creator = pubItem.getMetadata().getSources().get(i).getCreators().get(j);
                             if (creator.getRoleString() == null
@@ -1390,13 +1389,13 @@ public class ItemControllerSessionBean extends FacesBean
         }
         
      // delete unfilled LegalCase
-		if (pubItem.getMetadata().getLegalCase() != null
-				&& (pubItem.getMetadata().getLegalCase().getTitle() == null || 
-						pubItem.getMetadata().getLegalCase().getTitle().length() == 0)
-				&& (pubItem.getMetadata().getLegalCase().getIdentifier() == null || 
-						pubItem.getMetadata().getLegalCase().getIdentifier().length() == 0)) {
-			pubItem.getMetadata().setLegalCase(null);
-		}
+        if (pubItem.getMetadata().getLegalCase() != null
+                && (pubItem.getMetadata().getLegalCase().getTitle() == null || 
+                        pubItem.getMetadata().getLegalCase().getTitle().length() == 0)
+                && (pubItem.getMetadata().getLegalCase().getIdentifier() == null || 
+                        pubItem.getMetadata().getLegalCase().getIdentifier().length() == 0)) {
+            pubItem.getMetadata().setLegalCase(null);
+        }
 
         // delete unfilled Identifier
         if (pubItem.getMetadata().getIdentifiers() != null)

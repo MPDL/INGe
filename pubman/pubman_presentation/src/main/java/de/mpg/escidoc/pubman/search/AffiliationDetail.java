@@ -74,8 +74,8 @@ public class AffiliationDetail
 
     public String toggleDetails()
     {
-    	renderDetails = !renderDetails;
-    	return null;
+        renderDetails = !renderDetails;
+        return null;
     }
     
     public HtmlPanelGroup getPanelAffiliationDetail()
@@ -88,12 +88,12 @@ public class AffiliationDetail
         this.panelAffiliationDetail = panelAffiliationDetail;
     }
 
-	public boolean getRenderDetails() {
-		return renderDetails;
-	}
+    public boolean getRenderDetails() {
+        return renderDetails;
+    }
 
-	public void setRenderDetails(boolean renderDetails) {
-		this.renderDetails = renderDetails;
-	}
+    public void setRenderDetails(boolean renderDetails) {
+        this.renderDetails = renderDetails;
+    }
     
 }

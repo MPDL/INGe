@@ -643,10 +643,10 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         {
             try
             {
-            	if (entrySet.getValue() != null)
-            	{
-            		parameterUrl = parameterUrl + URLEncoder.encode(entrySet.getKey(), "UTF-8") + "=" + URLEncoder.encode(entrySet.getValue(), "UTF-8") + "&";
-            	}
+                if (entrySet.getValue() != null)
+                {
+                    parameterUrl = parameterUrl + URLEncoder.encode(entrySet.getKey(), "UTF-8") + "=" + URLEncoder.encode(entrySet.getValue(), "UTF-8") + "&";
+                }
             }
             catch (UnsupportedEncodingException e)
             {

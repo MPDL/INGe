@@ -106,7 +106,7 @@ public class WithdrawItem extends FacesBean
             }
             else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION)
             {
-            	String name = creator.getOrganization().getName() != null ? creator.getOrganization().getName().getValue() : "";
+                String name = creator.getOrganization().getName() != null ? creator.getOrganization().getName().getValue() : "";
                 creators.append(name);
             }
         }
@@ -144,13 +144,13 @@ public class WithdrawItem extends FacesBean
      */
     public final String withdraw()
     {
-    	FacesContext fc = FacesContext.getCurrentInstance();
-    	HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    	String retVal;
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        String retVal;
         String navigateTo = getSessionBean().getNavigationStringToGoBack();
         if(navigateTo == null)
         {
-        	navigateTo = ViewItemFull.LOAD_VIEWITEM;
+            navigateTo = ViewItemFull.LOAD_VIEWITEM;
         }
 
         if (withdrawalComment == null || "".equals(withdrawalComment))
@@ -164,13 +164,13 @@ public class WithdrawItem extends FacesBean
         // redirect to the view item page afterwards (if no error occured)
         if(retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
-        	try 
+            try 
             {
-    			fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
-    		} 
+                fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+            } 
             catch (IOException e) {
-    			logger.error("Could not redirect to View Item Page", e);
-    		}
+                logger.error("Could not redirect to View Item Page", e);
+            }
         }
         
         if (!ErrorPage.LOAD_ERRORPAGE.equals(retVal))
@@ -220,22 +220,22 @@ public class WithdrawItem extends FacesBean
     }
 
     public String getWithdrawalComment() {
-		return withdrawalComment;
-	}
+        return withdrawalComment;
+    }
 
-	public void setWithdrawalComment(String withdrawalComment) {
-		this.withdrawalComment = withdrawalComment;
-	}
+    public void setWithdrawalComment(String withdrawalComment) {
+        this.withdrawalComment = withdrawalComment;
+    }
 
-	public String getValMessage() {
-		return valMessage;
-	}
+    public String getValMessage() {
+        return valMessage;
+    }
 
-	public void setValMessage(String valMessage) {
-		this.valMessage = valMessage;
-	}
+    public void setValMessage(String valMessage) {
+        this.valMessage = valMessage;
+    }
 
-	public final String getNavigationStringToGoBack()
+    public final String getNavigationStringToGoBack()
     {
         return navigationStringToGoBack;
     }
