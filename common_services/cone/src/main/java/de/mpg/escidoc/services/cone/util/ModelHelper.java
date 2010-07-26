@@ -26,7 +26,7 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/ 
+*/
 
 package de.mpg.escidoc.services.cone.util;
 
@@ -35,6 +35,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
@@ -59,6 +61,16 @@ public class ModelHelper
     private static final Logger logger = Logger.getLogger(ModelHelper.class);
     
     private static final String REGEX_BRACKETS = "<[^>]+>";
+    
+    private static final ReplacePattern[] replacePattern = new ReplacePattern[]
+    {
+        new ReplacePattern("AND\\{[^,\\}]+(,[^,\\}]+)*\\}", "a"),
+        new ReplacePattern("AND\\{,.*\\}|AND\\{.*,\\}|AND\\{.*,,.*\\}", ""),
+        new ReplacePattern("OR\\{[^\\}]*[^,\\}]+[^\\}]*\\}", "o"),
+        new ReplacePattern("OR\\{,*\\}", ""),
+        new ReplacePattern("NOT\\{\\}", "n"),
+        new ReplacePattern("NOT\\{[^}]+\\}", "")
+    };
     
     /**
      * Hide constructor.
@@ -431,12 +443,26 @@ public class ModelHelper
      */
     private static String replaceTokens(String string)
     {
-        string = string.replaceAll("AND\\{[^,\\}]+(,[^,\\}]+)*\\}", "a");
-        string = string.replaceAll("AND\\{,[^\\}]*\\}|AND\\{[^\\}]*,\\}|AND\\{[^\\}]*,,[^\\}]*\\}", "");
-        string = string.replaceAll("OR\\{[^\\}]*[^,\\}]+[^\\}]*\\}", "o");
-        string = string.replaceAll("OR\\{,*\\}", "");
-        string = string.replace("NOT\\{\\}", "n");
-        string = string.replace("NOT\\{[^}]+\\}", "");
+        if (string == null)
+        {
+            return null;
+        }
+        String newString;
+        do
+        {
+            newString = string;
+            for (ReplacePattern pattern : replacePattern)
+            {
+                Matcher matcher = pattern.getPattern().matcher(string);
+                if (matcher.find())
+                {
+                    string = matcher.replaceFirst(pattern.getReplace());
+                    break;
+                }
+            }
+        }
+        while (!string.equals(newString));
+        
         return string;
     }
 

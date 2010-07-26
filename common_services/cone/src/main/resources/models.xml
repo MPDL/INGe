@@ -58,10 +58,10 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 			</pattern>
 			<pattern>
 &lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;
-AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:; 
-AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation}:&lt;http://purl.org/dc/elements/1.1/publisher&gt;
-AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
-AND{http://purl.org/escidoc/metadata/terms/0.1/abbreviation}:&lt;http://purl.org/dc/terms/publisher&gt;
+AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}}:; 
+&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;:&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;:&lt;http://purl.org/dc/terms/publisher&gt;
 			</pattern>
 		</result>
 	</model>
