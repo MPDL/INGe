@@ -113,7 +113,7 @@
 	    		        int counter = 0;
 	        		    for (LocalizedTripleObject object : results.get(predicate.getId()))
 	            		{
-			                out.append("\n<span class=\"xHuge_area0 singleItem endline\" style=\"overflow: visible;\">");
+			                out.append("\n<span class=\"xHuge_area0 endline\" style=\"overflow: visible;\">");
 			                	if (predicate.isModify())
 			                	{
 				                	out.append("\n<input type=\"");
@@ -204,7 +204,7 @@
 		    	    			        	out.append(", true)\"/>");
 				    		        	}
 		    	        			}
-	                
+
 				        	        if (results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())))
 				            	    {
 					            	    out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove \" value=\" \" onclick=\"remove(this)\"/>");

@@ -106,6 +106,7 @@
 			{
 				var parent = $(element).parents(".singleItem");
 				var listSize = $(parent).parent().children(".singleItem").length;
+
 				if (listSize > 1)
 				{
 					$(parent).remove();
