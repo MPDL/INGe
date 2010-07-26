@@ -330,7 +330,12 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
 
             if (delimiter >= 0)
             {
-                author.setGivenName(authorString.substring(delimiter + 1).trim());
+                String givenName = authorString.substring(delimiter + 1).trim();
+                if (givenName.contains(limit))
+                {
+                    return null;
+                }
+                author.setGivenName(givenName);
                 author.setSurname(authorString.substring(0, delimiter).trim());
             }
             else

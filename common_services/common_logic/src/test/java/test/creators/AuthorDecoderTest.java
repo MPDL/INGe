@@ -33,6 +33,7 @@ package test.creators;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -143,6 +144,25 @@ public class AuthorDecoderTest
         assertEquals("Smith", bestList.get(1).getSurname());
     }
     
+    @Test
+    @Ignore("Eastern naming not yet implemented")
+    public void testCommaSeparatedChinese() throws Exception
+    {
+        String input = "Guanghao Jina, Dooyoung Kimb, Byeongnoh Kimb, Jin-Hee Yoonb, Dongwoo Chab,";
+        
+        AuthorDecoder authorDecoder = new AuthorDecoder(input);
+        
+        authorDecoder.displayAuthors();
+        
+        List<Author> bestList = authorDecoder.getBestAuthorList();
+        assertNotNull(bestList);
+        assertEquals(5, bestList.size());
+        assertEquals("Jina", bestList.get(0).getGivenName());
+        assertEquals("Chab", bestList.get(4).getGivenName());
+        assertEquals("Guanghao", bestList.get(0).getSurname());
+        assertEquals("Dongwoo", bestList.get(4).getSurname());
+    }
+
     @Test
     public void testEndnoteFormat() throws Exception
     {
@@ -337,6 +357,100 @@ public class AuthorDecoderTest
         assertEquals("J.", bestList.get(505).getGivenName());
         assertEquals("Abbott", bestList.get(0).getSurname());
         assertEquals("Zweizig", bestList.get(505).getSurname());
+        
+    }    
+    @Test
+    public void testHeavyInputString3() throws Exception
+    {
+        String input = "B Abbott13, R Abbott13, R Adhikari14, B Allen39, R Amin34," +
+                "S B Anderson13,W G Anderson29, M Araya13, H Armandula13, F Asiri13," +
+                "P Aufmuth31, C Aulbert1, S Babak7, R Balasubramanian7, S Ballmer14," +
+                "B C Barish13, D Barker15, C Barker-Patton15, M Barnes13, B Barr35," +
+                "M A Barton13, K Bayer14, R Beausoleil26, K Belczynski23, R Bennett35," +
+                "S J Berukoff1, J Betzwieser14, B Bhawal13, G Billingsley13, E Black13," +
+                "K Blackburn13, B Bland-Weaver15, B Bochner14, L Bogue13, R Bork13," +
+                "S Bose40, P R Brady39, J E Brau37, D A Brown39, S Brozek31," +
+                "A Bullington26, A Buonanno6, R Burgess14, D Busby13, W E Butler38," +
+                "R L Byer26, L Cadonati14, G Cagnoli35, J B Camp21, C A Cantley35," +
+                "L Cardenas13, K Carter16, M M Casey35, J Castiglione34, A Chandler13," +
+                "J Chapsky13, P Charlton13, S Chatterji14, Y Chen6, V Chickarmane17," +
+                "D Chin36, N Christensen8, D Churches7, C Colacino31,2, R Coldwell34," +
+                "M Coles16, D Cook15, T Corbitt14, D Coyne13, J D E Creighton39," +
+                "T D Creighton13, D R M Crooks35, P Csatorday14, B J Cusack3, C Cutler1," +
+                "E D’Ambrosio13, K Danzmann31,2,20, R Davies7, E Daw17, D DeBra26," +
+                "T Delker34, R DeSalvo13, S Dhurandar12, M D´ıaz29, H Ding13," +
+                "RWPDrever4, R J Dupuis35, C Ebeling8, J Edlund13, P Ehrens13," +
+                "E J Elliffe35, T Etzel13, M Evans13, T Evans16, C Fallnich31, D Farnham13," +
+                "M M Fejer26, M Fine13, L S Finn28, ´E Flanagan9, A Freise2, R Frey37," +
+                "P Fritschel14, V Frolov16, M Fyffe16, K S Ganezer5, J A Giaime17," +
+                "A Gillespie13, K Goda14, G Gonz´alez17, S Goßler31, P Grandcl´ement23," +
+                "A Grant35, C Gray15, A M Gretarsson16, D Grimmett13, H Grote2," +
+                "S Grunewald1, M Guenther15, E Gustafson26, R Gustafson36," +
+                "W O Hamilton17, M Hammond16, J Hanson16, C Hardham26, G Harry14," +
+                "A Hartunian13, J Heefner13, Y Hefetz14, G Heinzel2, I S Heng31," +
+                "M Hennessy26, N Hepler28, A Heptonstall35, M Heurs31, M Hewitson35," +
+                "N Hindman15, P Hoang13, J Hough35, M Hrynevych13, W Hua26," +
+                "R Ingley33, M Ito37, Y Itoh1, A Ivanov13, O Jennrich35, WW Johnson17," +
+                "W Johnston29, L Jones13, D Jungwirth13, V Kalogera23," +
+                "E Katsavounidis14, K Kawabe20,2, S Kawamura22,W Kells13, J Kern16," +
+                "A Khan16, S Killbourn35, C J Killow35, C Kim23, C King13," +
+                "P King13, S Klimenko34, P Kloevekorn2, S Koranda39, K K¨otter31," +
+                "J Kovalik16, D Kozak13, B Krishnan1, M Landry15, J Langdale16," +
+                "B Lantz26, R Lawrence14, A Lazzarini13, M Lei13, V Leonhardt31," +
+                "I Leonor37, K Libbrecht13, P Lindquist13, S Liu13, J Logan13," +
+                "M Lormand16, M Lubinski15, H L¨uck31,2, T T Lyons13, B Machenschalk1," +
+                "M MacInnis14, M Mageswaran13, K Mailand13, W Majid13, M Malec31," +
+                "F Mann13, A Marin14, S M´arka13, E Maros13, J Mason13, K Mason14," +
+                "O Matherny15, L Matone15, N Mavalvala14, R McCarthy15," +
+                "D E McClelland3, M McHugh19, P McNamara35, G Mendell15," +
+                "S Meshkov13, C Messenger33, G Mitselmakher34, R Mittleman14," +
+                "O Miyakawa13, S Miyoki13, S Mohanty1, G Moreno15, K Mossavi2," +
+                "B Mours13, G Mueller34, S Mukherjee1, J Myers15, S Nagano2, T Nash10," +
+                "H Naundorf1, R Nayak12, G Newton35, F Nocera13, P Nutzman23," +
+                "T Olson24, B O’Reilly16, D J Ottaway14, A Ottewill39, D Ouimette13," +
+                "H Overmier16, B J Owen28, M A Papa1, C Parameswariah16," +
+                "V Parameswariah15, M Pedraza13, S Penn11, M Pitkin35, M Plissi35," +
+                "M Pratt14, V Quetschke31, F Raab15, H Radkins15, R Rahkola37," +
+                "M Rakhmanov34, S R Rao13, D Redding13, MWRegehr13, T Regimbau14," +
+                "K T Reilly13, K Reithmaier13, D H Reitze34, S Richman14, R Riesen16," +
+                "K Riles36, A Rizzi16, D I Robertson35, N A Robertson35,26, L Robison13," +
+                "S Roddy16, J Rollins14, J D Romano29, J Romie13, H Rong34, D Rose13," +
+                "E Rotthoff28, S Rowan35, A R¨udiger20,2, P Russell13, K Ryan15," +
+                "I Salzman13, G H Sanders13, V Sannibale13, B Sathyaprakash7," +
+                "P R Saulson27, R Savage15, A Sazonov34, R Schilling20,2, K Schlaufman28," +
+                "V Schmidt13, R Schofield37, M Schrempel31, B F Schutz1,7," +
+                "P Schwinberg15, S M Scott3, A C Searle3, B Sears13, S Seel13," +
+                "A S Sengupta12, C A Shapiro28, P Shawhan13, D H Shoemaker14," +
+                "Q Z Shu34, A Sibley16, X Siemens39, L Sievers13, D Sigg15, A M Sintes1,32," +
+                "K Skeldon35, J R Smith2, M Smith14, M R Smith13, P Sneddon35," +
+                "R Spero13, G Stapfer16, K A Strain35, D Strom37, A Stuver28," +
+                "T Summerscales28, M C Sumner13, P J Sutton28, J Sylvestre13," +
+                "A Takamori13, D B Tanner34, H Tariq13, I Taylor7, R Taylor13," +
+                "K S Thorne6, M Tibbits28, S Tilav13, M Tinto4, C Torres29, C Torrie13,35," +
+                "S Traeger31, G Traylor16, W Tyler13, D Ugolini30, M Vallisneri6," +
+                "M van Putten14, S Vass13, A Vecchio33, C Vorvick15, LWallace13," +
+                "H Walther20, H Ward35, B Ware13, K Watts16, D Webber13," +
+                "A Weidner20,2, U Weiland31, A Weinstein13, R Weiss14, H Welling31," +
+                "LWen13, S Wen17, J TWhelan19, S EWhitcomb13, B FWhiting34," +
+                "P A Willems13, P R Williams1, R Williams4, BWillke31,2, A Wilson13," +
+                "B JWinjum28,W Winkler20,2, S Wise34, A G Wiseman39, G Woan35," +
+                "R Wooley16, JWorden15, I Yakushin16, H Yamamoto13, S Yoshida25," +
+                "I Zawischa31, L Zhang13, N Zotov18, M Zucker16, J Zweizig13";
+        
+        long start = new Date().getTime();
+        AuthorDecoder authorDecoder = new AuthorDecoder(input);
+        long end = new Date().getTime();
+        
+        assertTrue("Method took too long, " + (end - start) + "ms.", (end - start) < 20000);
+        
+        List<Author> bestList = authorDecoder.getBestAuthorList();
+
+        assertNotNull(bestList);
+        assertEquals(368, bestList.size());
+        assertEquals("B", bestList.get(0).getGivenName());
+        assertEquals("J", bestList.get(367).getGivenName());
+        assertEquals("Abbott", bestList.get(0).getSurname());
+        assertEquals("Zweizig", bestList.get(367).getSurname());
         
     }
 }

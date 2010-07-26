@@ -48,12 +48,20 @@ public class WesternFormat6 extends AuthorFormat {
         
         String[] authors = authorsString.split(" *(;| and | AND | und | et |\\n) *");
 
+        for (String author : authors)
+        {
+            if (author.split("\\s")[0].contains(".") )
+            {
+                return null;
+            }
+        }
+        
         return getAuthorListLeadingSurname(authors, ",");
     }
 
     @Override
     public int getSignificance() {
-        return 9;
+        return 11;
     }
 
     @Override
