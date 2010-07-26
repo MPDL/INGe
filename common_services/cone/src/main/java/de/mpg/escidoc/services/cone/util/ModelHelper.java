@@ -65,11 +65,11 @@ public class ModelHelper
     private static final ReplacePattern[] replacePattern = new ReplacePattern[]
     {
         new ReplacePattern("AND\\{[^,\\}]+(,[^,\\}]+)*\\}", "a"),
-        new ReplacePattern("AND\\{,.*\\}|AND\\{.*,\\}|AND\\{.*,,.*\\}", ""),
-        new ReplacePattern("OR\\{[^\\}]*[^,\\}]+[^\\}]*\\}", "o"),
+        new ReplacePattern("AND\\{,[^\\{\\}]*\\}|AND\\{[^\\{\\}]*,\\}|AND\\{[^\\{\\}]*,,[^\\{\\}]*\\}", ""),
+        new ReplacePattern("OR\\{[^\\{\\}]*[^,\\{\\}]+[^\\{\\}]*\\}", "o"),
         new ReplacePattern("OR\\{,*\\}", ""),
         new ReplacePattern("NOT\\{\\}", "n"),
-        new ReplacePattern("NOT\\{[^}]+\\}", "")
+        new ReplacePattern("NOT\\{[^\\{\\}]+\\}", "")
     };
     
     /**
