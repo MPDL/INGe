@@ -58,7 +58,7 @@
     	        List<LocalizedTripleObject> nodeList = resultNode.get(predicate.getId());
     	        
 	    	    for (LocalizedTripleObject node : nodeList)
-	    	    {System.out.print("logged in: "+Boolean.toString(loggedIn));
+	    	    {
 	    	    	if(!predicate.isRestricted() || loggedIn)
 	    	    	{	
 	    	        writer.append("<span class=\"full_area0 endline itemLine noTopBorder\">");
