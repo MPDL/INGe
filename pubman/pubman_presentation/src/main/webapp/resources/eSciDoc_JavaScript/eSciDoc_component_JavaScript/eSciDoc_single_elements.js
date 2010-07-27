@@ -164,7 +164,7 @@ raiseBunny();
 /*QUICK SEARCH INITIALISATION*/
 
 function addQuickSearchFunction(){
-	/*bunny();*/
+	bunny();
 	$('.quickSearchTextInput').keyup(function(keyEvent){
 		if(keyEvent.keyCode == '13'){
 			$(this).parents('.searchMenu').find('.quickSearchBtn').click();
@@ -269,6 +269,12 @@ function addDateJSLabels() {
 	});
 }
 
+function dateParse(dateString)
+{
+	dateString = dateString.replace(/(\d\d\d\d)(-\d\d)?(-\d\d)?/, '$1$2$3');
+	return Date.parse(dateString);
+}
+
 function addDateJSFunctions() {
 	$(".dateJSInput").each(function(){
 		$(this).focus(function() {
@@ -285,7 +291,8 @@ function addDateJSFunctions() {
 			if($(this).val() != "")
 			{
 				var date = null;
-				date = Date.parse($(this).val());
+				date = dateParse($(this).val());
+
 				if(date!=null)
 				{
 					$(".dateJSLabel[for='"+$(this).attr("id")+"']").removeClass("noDisplay").text(date.toString("yyyy-MM-dd"));
@@ -312,7 +319,7 @@ function addDateJSFunctions() {
 			$(".dateJSLabel[for='"+$(this).attr("id")+"']").text("");
 			if($(this).val() != "")
 			{
-				date = Date.parse($(this).val());
+				date = dateParse($(this).val());
 				
 				if(date != null)
 				{

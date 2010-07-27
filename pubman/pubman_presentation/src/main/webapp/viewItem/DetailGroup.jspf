@@ -44,11 +44,8 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblLanguages}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<tr:iterator var="languages" value="#{ViewItemFull.pubItem.metadata.languages}" binding="#{ViewItemFull.languagesIterator}" varStatus="index">
-					<h:outputText value="#{languages}"/>
-					<h:outputText value=", " rendered="#{ViewItemFull.languagesIterator.rowIndex +1 < ViewItemFull.languagesIterator.rowCount}"/>
-				</tr:iterator>
-				<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.languagesIterator.rowCount <= 0}"/>
+				<h:outputText value="#{ViewItemFull.languages}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.languages == ''}"/>
 			</span>
 		</div>
 

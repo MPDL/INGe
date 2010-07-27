@@ -363,6 +363,32 @@ public class CommonUtils extends InternationalizedImpl
             return null;
         }
     }
+
+    public static String getConeLanguageCode(String name) throws Exception
+    {
+        if (name != null && !"".equals(name.trim()))
+        {
+
+            HttpClient client = new HttpClient();
+            GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url") + "iso639-3/query?q=" + name + "&format=options");
+            client.executeMethod(getMethod);
+            String response = getMethod.getResponseBodyAsString();
+
+            String[] parts = response.split("\\|");
+            if (parts.length == 1 || parts.length > 2)
+            {
+                return null;
+            }
+            else
+            {
+                return parts[0];
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }
     
     /**
      * Returns the current value of a comboBox. Used in UIs.

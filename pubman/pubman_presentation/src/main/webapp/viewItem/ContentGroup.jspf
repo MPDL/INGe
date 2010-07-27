@@ -50,13 +50,14 @@
 		</div>
 
 <%-- Subject --%>
-		<tr:iterator var="subject" value="#{ViewItemFull.pubItem.metadata.subjects}" binding="#{ViewItemFull.subjectIterator}" varStatus="index">
+		<tr:iterator var="subject" value="#{ViewItemFull.pubItem.metadata.subjects}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText value="#{subject.type}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{subject.value}" converter="HTMLEscapeConverter" escape="false"/>
+					<h:outputText value=" - #{subject.language}" rendered ="#{subject.type == 'ISO639_3'}"/>
 					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{subject.value == null || subject.value == ''}"/>
 				</span>
 			</h:panelGroup>
