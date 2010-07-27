@@ -34,6 +34,7 @@ public interface MigrationConstants
     public static final String GWDG_PIDSERVICE_USER = "demo2";
     public static final String GWDG_PIDSERVICE_PASS = "Evaluierung";
     public static final String GWDG_PIDSERVICE_CREATE = "http://handle.gwdg.de:8080/pidservice/write/create";
+    public static final String GWDG_PIDSERVICE_MODIFY = "http://handle.gwdg.de:8080/pidservice/write/modify";
     public static final String GWDG_PIDSERVICE_VIEW = "http://handle.gwdg.de:8080/pidservice/read/view";
     public static final String GWDG_PIDSERVICE_FIND = "http://handle.gwdg.de:8080/pidservice/read/search";
     /**

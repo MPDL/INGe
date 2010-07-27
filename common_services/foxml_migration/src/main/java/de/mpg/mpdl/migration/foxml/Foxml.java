@@ -57,7 +57,25 @@ public class Foxml implements MigrationConstants
      */
     public static void main(String[] args)
     {
-        migrate();
+        if (args.length == 1)
+        {
+            if (args[0].equals("migration"))
+            {
+                migrate();
+            }
+            else if (args[0].equals("cmodel"))
+            {
+                ChangeEscidocProperties.main(args);
+            }
+            else
+            {
+                System.out.println("migration or cmodel ?");
+            }
+        }
+        else
+        {
+            System.out.println("apply valid argument !");
+        }
         //view();
     }
 
