@@ -551,7 +551,7 @@ public class ViewItemFull extends FacesBean
             
             for (TextVO subject : this.pubItem.getMetadata().getSubjects())
             {
-                if (subject.getType().equals(SubjectClassification.ISO639_3.name()))
+                if (subject.getType() != null && subject.getType().equals(SubjectClassification.ISO639_3.name()))
                 {
                     try
                     {

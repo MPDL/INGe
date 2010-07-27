@@ -275,7 +275,9 @@ function dateParse(dateString)
 	return Date.parse(dateString);
 }
 
-function addDateJSFunctions() {
+// Deactivated due to datejs bug, see http://jira.mpdl.mpg.de/browse/PUBMAN-1719
+function addDateJSFunctions() {}
+/*function addDateJSFunctions() {
 	$(".dateJSInput").each(function(){
 		$(this).focus(function() {
 			var input_empty = "", empty_string = "";
@@ -345,7 +347,7 @@ function addDateJSFunctions() {
 		});
 		validateDate(this);
 	});
-}
+}*/
 
 function installQuickSearchShortcut() {
 	addQuickSearchFunction();
