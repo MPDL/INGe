@@ -1309,6 +1309,15 @@ public class ItemControllerSessionBean extends FacesBean
             }
         }
 
+        // remove languages from subjects
+        if (pubItem.getMetadata().getSubjects() != null)
+        {
+            for (TextVO subject : pubItem.getMetadata().getSubjects())
+            {
+                subject.setLanguage(null);
+            }
+        }
+        
         // delete unfilled Sources
         if (pubItem.getMetadata().getSources() != null)
         {
