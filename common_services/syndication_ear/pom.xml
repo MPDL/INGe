@@ -32,18 +32,18 @@
     <parent>
         <artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.47-SNAPSHOT</version>
+		<version>1.0.47</version>
     </parent>
     <groupId>de.mpg.escidoc.services</groupId>
     <artifactId>syndication_ear</artifactId>
-    <version>1.0.31-SNAPSHOT</version>
+    <version>1.0.31</version>
     <name>syndication_ear</name>
     <packaging>ear</packaging>
 
     <scm>
-        <connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/syndication_ear</connection>
-        <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/syndication_ear</developerConnection>
-        <url>https://zim02.gwdg.de/repos/common/</url>
+        <connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.47</connection>
+        <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.47</developerConnection>
+        <url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.47</url>
     </scm>
 
     <build>
@@ -333,47 +333,47 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>framework_access</artifactId>
-            <version>1.0.50-SNAPSHOT</version>
+            <version>1.0.50</version>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>common_logic</artifactId>
-            <version>1.1.47-SNAPSHOT</version>
+            <version>1.1.47</version>
             <scope>test</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
         	<groupId>de.mpg.escidoc.services</groupId>
         	<artifactId>search_presentation</artifactId>
-        	<version>1.0.47-SNAPSHOT</version>
+        	<version>1.0.47</version>
         	<scope>test</scope>
         	<type>war</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>syndication_presentation</artifactId>
-            <version>1.0.31-SNAPSHOT</version>
+            <version>1.0.31</version>
             <scope>test</scope>
             <type>war</type>
         </dependency>
         <dependency>
         	<groupId>de.mpg.escidoc.services</groupId>
         	<artifactId>search</artifactId>
-        	<version>1.0.47-SNAPSHOT</version>
+        	<version>1.0.47</version>
             <scope>test</scope>
         	<type>ejb</type>
         </dependency>
         <dependency>
         	<groupId>de.mpg.escidoc.services</groupId>
         	<artifactId>structuredexportmanager</artifactId>
-        	<version>1.0.50-SNAPSHOT</version>
+        	<version>1.0.50</version>
             <scope>test</scope>
         	<type>ejb</type>
         </dependency>
         <dependency>
         	<groupId>de.mpg.escidoc.services</groupId>
         	<artifactId>citationmanager</artifactId>
-        	<version>1.0.52-SNAPSHOT</version>
+        	<version>1.0.52</version>
             <scope>test</scope>
         	<type>ejb</type>
         </dependency>
