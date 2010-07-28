@@ -31,19 +31,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.47</version>
+		<version>1.0.48-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>cone</artifactId>
 	<name>cone</name>
 	<packaging>jar</packaging>
-	<version>1.2.6</version>
+	<version>1.2.7-SNAPSHOT</version>
 	
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.47</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.47</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.47</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/cone</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/cone</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 	
 	<build>
@@ -87,7 +87,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.47</version>
+			<version>1.1.48-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>provided</scope>
 		</dependency>
