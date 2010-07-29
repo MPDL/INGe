@@ -120,7 +120,9 @@
         <field type="title" txt="Dataset settings" bold="true" size="1" />
         <field type="divider" align="top" />
         <field type="text" align="left" variable="InitialUserPassword">
-            <spec txt="Initial user passwords:" size="25" set="${InitialUserPassword}" />
+            <spec>
+            	<pwd txt="Initial user passwords:" size="25" set="${InitialUserPassword}"/>
+            </spec>
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Initial user password must not be empty string." />
         </field>
         <field type="divider" align="bottom" />
