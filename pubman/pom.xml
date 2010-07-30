@@ -3,7 +3,7 @@
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>6.1.9-SNAPSHOT</version>
+	<version>6.1.9</version>
 	<name>pubman</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/pubman</url>
 	<description>
@@ -182,9 +182,9 @@
   </modules>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman</developerConnection>
-		<url>https://zim02.gwdg.de/repos/pubman/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-6.1.9</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-6.1.9</developerConnection>
+		<url>https://zim02.gwdg.de/repos/pubman/tags/pubman-6.1.9</url>
 	</scm>
 
 	<distributionManagement>
@@ -585,8 +585,6 @@
 		<xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.3</xsd.soap.statistic.reportparameters>
 		<xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.3</xsd.soap.statistic.reportdefinitionlist>
 		<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.3</xsd.soap.statistic.reportdefinition>
-		<xsd.soap.contentmodel>http://www.escidoc.de/schemas/contentmodel/0.1</xsd.soap.contentmodel>
-		<xsd.soap.contentmodel.contentstreams>http://www.escidoc.de/schemas/contentstreams/0.7</xsd.soap.contentmodel.contentstreams>
 
 		<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
 		<xsd.metadata.dcterms>http://purl.org/dc/terms/</xsd.metadata.dcterms>
