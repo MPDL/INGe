@@ -28,6 +28,7 @@
 */
 package de.mpg.escidoc.pubman.installer;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -96,10 +97,15 @@ public class Configuration
         logger.info("Created Configuration instance with following attributes: " + properties.toString());
     }
     
-    public void store(String FileName) throws IOException
+    public void store(String fileName) throws IOException
     {
-        FileOutputStream outStream = new FileOutputStream(FileName);
-        this.properties.store(outStream, "Automatic created configuration file");
+        File dir = new File(fileName).getParentFile();
+        if ((dir == null || !dir.exists()) && fileName.contains("/"))
+        {
+            createDir(fileName.substring(0, fileName.lastIndexOf("/")));
+        }
+        FileOutputStream outStream = new FileOutputStream(fileName);
+        this.properties.store(outStream, "PubMan configuration file");
         outStream.close();
         //
         /*
@@ -110,6 +116,17 @@ public class Configuration
         //Reload property reader
     }
     
+    public static void createDir(String path)
+    {
+        File dir = new File(path);
+        File parent = dir.getParentFile();
+        if (parent == null || !parent.exists())
+        {
+            createDir(path.substring(0, path.lastIndexOf("/")));
+        }
+        dir.mkdir();
+    }
+
     public void setProperty( String key, String value)
     {
         logger.info("Setting property " +  key + "=" + value);
