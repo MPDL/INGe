@@ -66,6 +66,7 @@ public class Configuration
     public static final String KEY_CORESERVICE_ADMINPW = "framework.admin.password";
     public static final String KEY_EXTERNAL_OU = "escidoc.pubman.external.organisation.id";
     public static final String KEY_PUBLICATION_CM = "escidoc.framework_access.content-model.id.publication";
+    public static final String KEY_IMPORT_TASK_CM = "escidoc.import.task.content-model";
     public static final String KEY_CONE_SERVER = "escidoc.cone.database.server.name";
     public static final String KEY_CONE_DATABASE = "escidoc.cone.database.name";
     public static final String KEY_CONE_PORT = "escidoc.cone.database.server.port";
@@ -82,6 +83,8 @@ public class Configuration
     public static final String KEY_PM_STYLESHEET_CLASSIC_APPLY = "escidoc.pubman.stylesheet.classic.apply";
     public static final String KEY_PM_FAVICON_URL = "escidoc.pubman.favicon.url";
     public static final String KEY_PM_FAVICON_APPLY = "escidoc.pubman.favicon.apply";
+    public static final String KEY_UNAPI_DOWNLOAD_SERVER = "escidoc.unapi.download.server";
+    public static final String KEY_UNAPI_VIEW_SERVER = "escidoc.unapi.view.server";
     
     public Configuration(String fileName) throws IOException
     {

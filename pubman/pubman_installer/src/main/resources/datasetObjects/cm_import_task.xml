@@ -2,8 +2,8 @@
 <escidocContentModel:content-model xmlns:escidocContentModel="${xsd.soap.contentmodel}" xmlns:prop="${xsd.core.properties}" xmlns:xlink="http://www.w3.org/1999/xlink">
 	
 	<escidocContentModel:properties>
-		<prop:name>Publication Content Model</prop:name>
-		<prop:description>eSciDoc content model for publications</prop:description>
+		<prop:name>Publication Import Task Content Model</prop:name>
+		<prop:description>eSciDoc content model for batch import logs</prop:description>
 	</escidocContentModel:properties>
 	
 	<escidocContentModel:md-record-definitions>

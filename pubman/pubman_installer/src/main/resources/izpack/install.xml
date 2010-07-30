@@ -70,7 +70,6 @@
         <panel classname="UserInputPanel" id="UserInputPanel.6"/>
         <panel classname="TargetPanel"/>
         <panel classname="InstallPanel"/>
-        <!-- <panel classname="de.mpg.escidoc.pubman.installer.panels.DatasetConfigurationCreatorPanel" condition="dataset_selected"/>-->
         <panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel"/>
         <panel classname="FinishPanel"/>
     </panels>
@@ -101,17 +100,16 @@
     <packs>
         <pack name="PubMan" required="yes" id="pack_pubman">
             <description>PubMan binary and configuration</description>
-            <file src="pubman_ear.ear" targetdir="$INSTALL_PATH/jboss-4.2.2.GA/server/default/deploy"/>
-            <file src="jboss/jboss-service.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss-4.2.2.GA/server/default/conf"/>
-            <file src="jboss/validation-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss-4.2.2.GA/server/default/deploy"/>
-            <file src="jboss/escidoc_persistent4.xml" overwrite="true" targetdir="$INSTALL_PATH"/>
+            <file src="jboss/validation-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
+            <file src="jboss/pid-cache-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
+            <file src="pubman_ear.ear" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
         </pack>
         <pack name="Application Server" parent="PubMan" required="no" id="pack_jboss">
             <description>JBoss Application Server 4.2.2 GA</description>
             <file src="jboss/jboss-4.2.2.GA.zip" targetdir="$INSTALL_PATH" unpack="true"/>
-            <file src="jboss/jboss_license.txt" overwrite="true" targetdir="$INSTALL_PATH/jboss-4.2.2.GA/"/>
+            <file src="jboss/jboss_license.txt" overwrite="true" targetdir="$INSTALL_PATH/jboss/"/>
         </pack>
-        <pack name="Initial dataset" required="no" id="pack_dataset">
+        <pack name="Initial Dataset" required="no" id="pack_dataset">
             <description>Creates an Initial Dataset on the Core Service Instance</description>
         </pack>
     </packs>

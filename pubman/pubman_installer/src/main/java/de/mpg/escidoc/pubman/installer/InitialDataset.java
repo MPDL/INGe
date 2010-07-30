@@ -132,7 +132,7 @@ public class InitialDataset
 
         return buffer.toString();
     }
-    public String createPublicationContentModel(String fileName) throws Exception
+    public String createContentModel(String fileName) throws Exception
     {
         String cmXml = getResourceAsXml(fileName);
         String frameworkReturnXml =

@@ -11,7 +11,7 @@
         <field type="divider" align="top" />
         <field type="staticText" align="left"
             txt="The URL to access the Core Service Instance. The installer requires an 'up and running' Core Service Instance." />
-        <field type="staticText" align="left" txt="Please use this form: http://hostname.domain" />
+        <field type="staticText" align="left" txt="Please use this form: http://hostname[:port]" />
         <field type="text" align="left" variable="CoreserviceUrl">
             <spec txt="URL:" size="25" set="${CoreserviceUrl}" />
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="URL must not be empty string." />
@@ -39,7 +39,7 @@
             txt="General settings for PubMan." />
         <field type="divider" align="top" />
         <field type="staticText" align="left"
-            txt="The URL of your PubMan Instance. This value can't be defined here. It is given by the JBoss Configuration. The initial value of JBoss Instance is 'http://host.domain:8080'." />
+            txt="The URL of your PubMan Instance. This value can't be defined here. It is given by the JBoss Configuration. The initial value of JBoss Instance is 'http://localhost:8080'." />
         <field type="text" align="left" variable="InstanceUrl">
             <spec txt="URL of this JBoss Instance:" size="25" set="${InstanceUrl}" />
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="JBoss Instance URL must not be empty string." />
@@ -119,7 +119,7 @@
             txt="Here information for the initial dataset on coreservice is collected. E.g initial user passwords etc." />
         <field type="title" txt="Dataset settings" bold="true" size="1" />
         <field type="divider" align="top" />
-        <field type="text" align="left" variable="InitialUserPassword">
+        <field type="password" align="left" variable="InitialUserPassword">
             <spec>
             	<pwd txt="Initial user passwords:" size="25" set="${InitialUserPassword}"/>
             </spec>

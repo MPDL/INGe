@@ -73,11 +73,11 @@ public class Installer extends InstallerBase
     private String defaultUserPassword = null;
     /** configuration of pubman */
     private Configuration config = null ;
-    /** content model to be checked */
-    public static final String CHECK_CONTENT_MODEL = "escidoc:persistent4";
     /** filename of ear */
     private static final String PUBMAN_EAR_FILENAME = "bin/pubman_ear.ear";
-    /** filename of validation */
+    /** filename of pid cache data source */
+    private static final String PID_CACHE_FILENAME = "config/pid-cache-ds.xml";
+    /** filename of validation datasource */
     private static final String VALIDATION_FILENAME = "config/validation-ds.xml";
     /** jboss relative deploy path */
     private static final String JBOSS_DEPLOY = "/server/default/deploy";   
@@ -118,8 +118,6 @@ public class Installer extends InstallerBase
     public void install() throws IOException, ServiceException, Exception {
         printStartMessage();
         collectCoreserviceDataFromUser();
-        askUserIfContentModelAvailable();
-        checkContentModel();
         collectPubmanDataFromUser();
         config.setProperties(userConfigValues);
         createInitialData();
@@ -148,29 +146,6 @@ public class Installer extends InstallerBase
         }
     }
     
-    public void askUserIfContentModelAvailable() throws FileNotFoundException, Exception {
-        System.out.println("-------------------");
-        System.out.println("Before continuing with the installation and creating of the initial dataset,");
-        System.out.println("are you sure the PubMan content model with the identifier 'escidoc:persistent4");
-        System.out.print("is available in the coreservice instance? (y/n)");
-        System.out.flush();
-        BufferedReader in = new BufferedReader(new InputStreamReader(
-                System.in));
-        String response = in.readLine();
-        if (!response.equals("Y") && !response.equals("y")) {
-            System.out.println("This means, you have to manual ingest the content model into the coreservice instance.");
-            System.out.println("Be aware, that you need root rights to the host, coreservice is running and you should know what you are doing on that host. ;)");
-            System.out.println("Ingest the following xml into the fedora system:");
-            System.out.println( getResourceAsString("datasetObjects/escidoc_persistent4.xml") );
-            System.out.println("Now do a recache in the coreservice admin tool. Reachable via the coreservice homepage.");
-            System.out.println("Finally run this tool again.");
-            throw new Exception("Content model is not available.");
-        }
-        else {
-            System.out.println("Good. Then we will proceed with the installation.");
-        }        
-    }
-    
     public void printStartMessage() {
         System.out.println("PubMan Installer");
         System.out.println("-------------------");
@@ -179,18 +154,19 @@ public class Installer extends InstallerBase
         System.out.println("Prerequisites for this installer:");
         System.out.println("- JBoss 4.2.2 server");
         System.out.println("- coreservice instance 1.1 with known admin user");
-        System.out.println("- ingested content model, name escidoc:persistent4 into coreservice");
     }
     
     
     
-    public void installFiles() throws IOException {
+    public void installFiles() throws Exception {
         config.store("pubman.properties"); 
         String deployDir = jbossInstallPath + JBOSS_DEPLOY;
         String confDir = jbossInstallPath + jBOSS_CONF;
         copyFile("pubman.properties", confDir);
-        copyFile(PUBMAN_EAR_FILENAME, deployDir);
         copyFile(VALIDATION_FILENAME, deployDir);
+        copyFile(PID_CACHE_FILENAME, deployDir);
+        Thread.sleep(1000);
+        copyFile(PUBMAN_EAR_FILENAME, deployDir);
     }
     
     public void collectCoreserviceDataFromUser() throws IOException {
@@ -257,9 +233,11 @@ public class Installer extends InstallerBase
         
         config.setProperty(Configuration.KEY_EXTERNAL_OU, ouExternalObjectId);
         
-        String publicationContentModelId = dataset.createPublicationContentModel("datasetObjects/cm_publication.xml");
-        
+        String publicationContentModelId = dataset.createContentModel("datasetObjects/cm_publication.xml");
         config.setProperty(Configuration.KEY_PUBLICATION_CM, publicationContentModelId);
+        
+        String importTaskContentModelId = dataset.createContentModel("datasetObjects/cm_import_task.xml");
+        config.setProperty(Configuration.KEY_IMPORT_TASK_CM, importTaskContentModelId);
 
         String contextObjectId = dataset.createAndOpenContext("datasetObjects/context.xml", ouDefaultObjectId);
         
@@ -297,39 +275,6 @@ public class Installer extends InstallerBase
         
         
         
-    }
-
-    public void checkContentModel() throws FileNotFoundException, Exception {
-        System.out.println("Checking if content model (escidoc:persistent4) is available...");
-        if( isContentModelValid() == true) {
-            System.out.println("Good. Content model is available.");
-        }
-        else {
-            System.out.println("Sorry content model is not available.");
-            System.out.println("Please ingest the following content model into the eSciDoc core service.");
-            System.out.println( getResourceAsString("datasetObjects/escidoc_persistent4.xml") );
-            System.out.println("Now do a recache in the coreservice admin tool. Reachable via the coreservice homepage.");
-            System.out.println("Finally run this tool again.");
-            throw new Exception("Content model is not available.");
-        }
-    }
-    
-    private boolean isContentModelValid() {
-        try
-        {
-            InitialDataset dataset = new InitialDataset(
-                    new URL( userConfigValues.get(Configuration.KEY_CORESERVICE_URL) ),
-                    userConfigValues.get(Configuration.KEY_CORESERVICE_ADMINUSERNAME),
-                   userConfigValues.get(Configuration.KEY_CORESERVICE_ADMINPW));
-            
-            dataset.retrieveContentModel(CHECK_CONTENT_MODEL);
-            return true;
-        } 
-        catch (Exception e)
-        {
-            logger.error(e);
-            return false;
-        }
     }
     
     private void copyFile(String fromFileName, String toFileName) throws IOException {

@@ -7,8 +7,8 @@
         <escidocMetadataRecords:md-record name="escidoc">
             <ou:organizational-unit xmlns:eterms="${xsd.metadata.terms}"
                                  xmlns:kml="http://www.opengis.net/kml/2.2"
-                                 xmlns:dc="http://purl.org/dc/elements/1.1/"
-                                 xmlns:dcterms="http://purl.org/dc/terms/"
+                                 xmlns:dc="${xsd.metadata.dc}"
+                                 xmlns:dcterms="${xsd.metadata.dcterms}"
                                  xmlns:ou="${xsd.metadata.organizationalunit}">
                 <dc:title>External Organisation</dc:title>
                 <dcterms:alternative>EO</dcterms:alternative>

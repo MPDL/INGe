@@ -21,7 +21,7 @@ public class ConeInsertProcess extends Thread
 	private ConeDataset coneDataset;
 	private InstallData idata;
 	private ConfigurationCreatorPanel panel;
-	private static final String coneInsertDataFile = "/jboss-4.2.2.GA/server/default/conf/initializeConeDatabase";
+	private static final String coneInsertDataFile = "/jboss/server/default/conf/initializeConeDatabase";
 	private static Logger logger = Logger.getLogger(ConeInsertProcess.class);
 	/**
 	 * Public constructor
