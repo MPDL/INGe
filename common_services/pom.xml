@@ -547,7 +547,9 @@
 		<xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.3</xsd.soap.statistic.reportparameters>
 		<xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.3</xsd.soap.statistic.reportdefinitionlist>
 		<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.3</xsd.soap.statistic.reportdefinition>
-
+		<xsd.soap.contentmodel>http://www.escidoc.de/schemas/contentmodel/0.1</xsd.soap.contentmodel>
+		<xsd.soap.contentmodel.contentstreams>http://www.escidoc.de/schemas/contentstreams/0.7</xsd.soap.contentmodel.contentstreams>
+		
 		<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
 		<xsd.metadata.dcterms>http://purl.org/dc/terms/</xsd.metadata.dcterms>
 		<xsd.metadata.dcmitype>http://purl.org/dc/dcmitype/</xsd.metadata.dcmitype>
