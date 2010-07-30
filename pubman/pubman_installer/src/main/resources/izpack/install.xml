@@ -63,7 +63,7 @@
 		<panel classname="UserInputPanel" id="UserInputPanel.0"/>
 		<panel classname="UserInputPanel" id="UserInputPanel.1"/>
 		<!-- Mail --><panel classname="UserInputPanel" id="UserInputPanel.2" condition="conf_selected"/>
-		<!-- CoNE --><panel classname="UserInputPanel" id="UserInputPanel.3" condition="conf_selected"/>
+		<!-- CoNE --><panel classname="UserInputPanel" id="UserInputPanel.3"/>
 		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConeConfigurationPanel"/>
 		<panel classname="UserInputPanel" id="UserInputPanel.4"/>
 		<panel classname="UserInputPanel" id="UserInputPanel.5" condition="not_dataset_selected"/>
