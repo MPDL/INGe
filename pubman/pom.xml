@@ -524,8 +524,8 @@
 		<!-- searchAndExport service -->
 		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test and escidoc.content-model.objid=escidoc:persistent4</escidoc.search.and.export.default.sql.query>
 		<escidoc.search.and.export.indexes.explain.query>/srw/search/escidoc_all?operation=explain</escidoc.search.and.export.indexes.explain.query>
-		<escidoc.search.and.export.default.sort.keys />
-		<escidoc.search.and.export.default.sort.order>ascending</escidoc.search.and.export.default.sort.order>
+		<escidoc.search.and.export.default.sort.keys>_relevance_</escidoc.search.and.export.default.sort.keys>
+		<escidoc.search.and.export.default.sort.order>descending</escidoc.search.and.export.default.sort.order>
 		<escidoc.search.and.export.start.record>1</escidoc.search.and.export.start.record>
 		<escidoc.search.and.export.maximum.records>50</escidoc.search.and.export.maximum.records>
 		
