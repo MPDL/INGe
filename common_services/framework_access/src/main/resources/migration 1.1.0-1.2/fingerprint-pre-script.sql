@@ -1,7 +1,12 @@
 --aa.role_grant
+DROP INDEX aa.user_role_date_object_role_grant_idx;
+DROP INDEX aa.object_user_role_grant_idx;
+DROP INDEX aa.group_role_date_role_grant_idx;
+DROP INDEX aa.group_role_date_object_role_grant_idx;
+
 CREATE INDEX group_role_grant_idx ON aa.role_grant USING btree (group_id, revocation_date) tablespace tbl_index;
-drop index aa.role_group_idx;
-drop index aa.role_user_id;
+--drop index aa.role_group_idx;
+--drop index aa.role_user_id;
 
 vacuum analyze aa.role_grant;
 
@@ -18,7 +23,7 @@ drop index list.role_type_index;
 vacuum analyze list.filter;
 
 --list.property
-drop index list.id_local_path_position;
+/*drop index list.id_local_path_position;
 drop index list.id_property_context_index;
 drop index list.id_property_path_value;
 drop index list.local_created_by_value_id_index;
@@ -30,7 +35,32 @@ drop index list.path_context_value;
 drop index list.path_parents_value_index;
 drop INDEX list.path_structmap_container_index;
 drop INDEX list.path_structmap_index;
-drop INDEX list.path_value_position;
+drop INDEX list.path_value_position;*/
+
+--dropping of indexes depends on the escidoc-core database itself
+--drop all indexes in the list.property (export the table with option schema only and dropdb)
+DROP INDEX list.value_resource_id_context_index;
+DROP INDEX list.value_id_public_status_created_opened_closed_index;
+DROP INDEX list.value_id_modifiedby_index;
+DROP INDEX list.value_id_createdby_index;
+DROP INDEX list.value_id_content_model_index;
+DROP INDEX list.resource_id_value_context_index;
+DROP INDEX list.path_value_index;
+DROP INDEX list.path_value_id_resource_id_index;
+DROP INDEX list.path_value_id_releasd_version_index;
+DROP INDEX list.path_value_id_releasd_publcstatus_index;
+DROP INDEX list.path_value_id_notreleasd_version_index;
+DROP INDEX list.path_value_id_notreleasd_publcstatus_index;
+DROP INDEX list.path_structmap_item_index;
+DROP INDEX list.path_structmap_container_index;
+DROP INDEX list.path_parents_value_index;
+DROP INDEX list.new_sorting_index;
+DROP INDEX list.id_value_public_status_released_items_index;
+DROP INDEX list.id_value_public_status_notreleased_items_index;
+DROP INDEX list.id_value_public_status_masterdata_index;
+DROP INDEX list.id_value_createdby_index;
+DROP INDEX list.id_value_contentmodel_index;
+
 
 --altering column type
 alter table list.property alter column value type varchar(2000);
