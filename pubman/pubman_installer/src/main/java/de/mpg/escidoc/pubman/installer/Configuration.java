@@ -86,6 +86,8 @@ public class Configuration
     public static final String KEY_PM_FAVICON_APPLY = "escidoc.pubman.favicon.apply";
     public static final String KEY_UNAPI_DOWNLOAD_SERVER = "escidoc.unapi.download.server";
     public static final String KEY_UNAPI_VIEW_SERVER = "escidoc.unapi.view.server";
+    public static final String KEY_VIEW_ITEM_SIZE = "escidoc.pubman_presentation.viewFullItem.defaultSize";
+    public static final String KEY_POLICY_LINK = "escidoc.pubman.policy.url";
     
     public Configuration(String fileName) throws IOException
     {

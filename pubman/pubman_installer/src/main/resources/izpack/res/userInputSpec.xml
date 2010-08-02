@@ -190,4 +190,22 @@
         </field>
         <field type="divider" align="bottom" />
     </panel>
+    <panel order="7">
+        <createForPack name="PubMan" />
+         <field type="staticText" align="left"
+            txt="Customize PubMan features and usability aspects" />
+        <field type="title" txt="Home Page" bold="true" size="1" />
+        <field type="divider" align="top" />
+        <field type="text" align="left" variable="escidoc.pubman.policy.url">
+            <spec txt="Link to your repository's policy:" size="25" align="left" set="${escidoc.pubman.policy.url}"/>
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
+        </field>
+        <field type="title" txt="Item Views" bold="true" size="1" />
+        <field type="divider" align="top" />
+        <field type="text" align="left" variable="escidoc.pubman_presentation.viewFullItem.defaultSize">
+            <spec txt="How many creators should be shown in the full item view (additional creators will be hidden but can be made visible by the user)?" size="5" align="right" set="${escidoc.pubman_presentation.viewFullItem.defaultSize}"/>
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
+        </field>
+        <field type="divider" align="bottom" />
+    </panel>
 </userInput>

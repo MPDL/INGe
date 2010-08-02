@@ -137,6 +137,8 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         userConfigValues.put(Configuration.KEY_CONE_USER, idata.getVariable("ConeUser"));
         userConfigValues.put(Configuration.KEY_CONE_PW, idata.getVariable("ConePassword"));
         userConfigValues.put(Configuration.KEY_EXTERNAL_OU, idata.getVariable("ExternalOrganisationID"));
+        userConfigValues.put(Configuration.KEY_VIEW_ITEM_SIZE, idata.getVariable("escidoc.pubman_presentation.viewFullItem.defaultSize"));
+        userConfigValues.put(Configuration.KEY_POLICY_LINK, idata.getVariable("escidoc.pubman.policy.url"));
         
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_STANDARD_APPLY,
                 idata.getVariable("StyleSheetStandardApply"));

@@ -67,6 +67,7 @@
 		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConeConfigurationPanel"/>
 		<panel classname="UserInputPanel" id="UserInputPanel.4"/>
 		<panel classname="UserInputPanel" id="UserInputPanel.5" condition="not_dataset_selected"/>
+		<!-- Presentation --><panel classname="UserInputPanel" id="UserInputPanel.7" condition="conf_selected"/>
 		<!-- CSS --><panel classname="UserInputPanel" id="UserInputPanel.6" condition="conf_selected"/>
 		<panel classname="TargetPanel"/>
 		<panel classname="InstallPanel"/>
