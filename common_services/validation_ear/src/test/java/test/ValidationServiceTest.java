@@ -31,6 +31,7 @@ package test;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+
 import test.validation.ValidationCacheTest;
 import test.validation.ValidationReportTransformingTest;
 import test.validation.ValidatorTest;

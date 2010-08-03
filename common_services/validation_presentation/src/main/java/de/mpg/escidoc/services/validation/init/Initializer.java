@@ -33,7 +33,6 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,7 +49,6 @@ import org.xml.sax.InputSource;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.util.FrameworkUtil;
 import de.mpg.escidoc.services.validation.ItemValidating;
 
 /**

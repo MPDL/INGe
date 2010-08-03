@@ -2,6 +2,7 @@ package de.mpg.escidoc.services.validation.init;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

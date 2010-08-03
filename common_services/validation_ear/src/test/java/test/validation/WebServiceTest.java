@@ -34,8 +34,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
 
 import test.TestHelper;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
