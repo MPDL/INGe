@@ -35,7 +35,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -48,11 +47,9 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import com.izforge.izpack.installer.InstallData;
 import com.izforge.izpack.installer.InstallerBase;
 
 import de.mpg.escidoc.pubman.installer.util.ResourceUtil;
-import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * @author endres

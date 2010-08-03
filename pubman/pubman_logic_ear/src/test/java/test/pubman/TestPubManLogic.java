@@ -34,9 +34,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import test.pubman.depositing.PubItemDepositingTest;
+import test.pubman.exporting.ItemExportingTest;
 import test.pubman.logging.ApplicationLogTest;
 import test.pubman.publishing.PubItemPublishingTest;
-import test.pubman.exporting.ItemExportingTest;
 
 /**
  * Component test suite of the pubman logic components.

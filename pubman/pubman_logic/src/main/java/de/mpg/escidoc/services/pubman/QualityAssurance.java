@@ -74,7 +74,6 @@ public interface QualityAssurance
      * @param searchInFiles If true, search is also executed in files.
      * @param greaterDate items which are greater than this date matches 
      * @return The list of PubItemResultVOs that matched the query.
-     * @throws ParseException 
      * @throws TechnicalException 
      */
     public List<PubItemVO> searchForQAWorkspace(String contextobjId, String state, AccountUserVO user) throws TechnicalException, ServiceException, MissingMethodParameterException, ContextNotFoundException, InvalidXmlException, AuthenticationException, AuthorizationException, SystemException, RemoteException, URISyntaxException;

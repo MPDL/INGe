@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,9 +17,9 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.installer.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList;
+import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
-import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 
 public class ConeDataset 

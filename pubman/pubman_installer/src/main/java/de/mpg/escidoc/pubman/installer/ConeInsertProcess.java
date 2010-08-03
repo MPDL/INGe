@@ -2,18 +2,11 @@ package de.mpg.escidoc.pubman.installer;
 
 import java.io.File;
 
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-
 import org.apache.log4j.Logger;
 
-import com.izforge.izpack.gui.LabelFactory;
 import com.izforge.izpack.installer.InstallData;
-import com.izforge.izpack.installer.IzPanel;
 
 import de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel;
-import de.mpg.escidoc.pubman.installer.panels.ConfigurationPanel;
-import de.mpg.escidoc.services.framework.PropertyReader;
 
 public class ConeInsertProcess extends Thread 
 {

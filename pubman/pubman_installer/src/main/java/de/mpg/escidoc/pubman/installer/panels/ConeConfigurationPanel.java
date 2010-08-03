@@ -4,15 +4,9 @@ import java.awt.LayoutManager2;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JCheckBox;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JSeparator;
 
 import com.izforge.izpack.gui.IzPanelLayout;
 import com.izforge.izpack.gui.LabelFactory;
@@ -21,8 +15,6 @@ import com.izforge.izpack.installer.InstallerFrame;
 import com.izforge.izpack.installer.IzPanel;
 
 import de.mpg.escidoc.pubman.installer.Configuration;
-import de.mpg.escidoc.pubman.installer.InitialDataset;
-import de.mpg.escidoc.pubman.installer.Installer;
 
 public class ConeConfigurationPanel extends IzPanel implements ActionListener
 {

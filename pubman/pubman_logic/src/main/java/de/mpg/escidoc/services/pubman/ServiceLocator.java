@@ -30,12 +30,6 @@
 
 package de.mpg.escidoc.services.pubman;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.xml.rpc.ServiceException;
-
-import de.escidoc.www.services.om.ContextHandler;
-import de.mpg.escidoc.services.common.XmlTransforming;
 
 /**
  * Delivers different kinds of service instances.
