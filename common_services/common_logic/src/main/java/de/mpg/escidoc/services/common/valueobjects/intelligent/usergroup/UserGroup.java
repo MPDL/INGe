@@ -2,6 +2,7 @@
 package de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup;
 
 import java.util.Date;
+
 import de.escidoc.www.services.aa.UserGroupHandler;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
 import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;

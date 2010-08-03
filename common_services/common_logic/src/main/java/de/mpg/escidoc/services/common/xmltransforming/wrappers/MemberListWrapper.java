@@ -3,8 +3,6 @@ package de.mpg.escidoc.services.common.xmltransforming.wrappers;
 import java.io.Serializable;
 import java.util.List;
 
-import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 public class MemberListWrapper implements Serializable

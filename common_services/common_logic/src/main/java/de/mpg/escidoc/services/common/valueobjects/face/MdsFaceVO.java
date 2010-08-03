@@ -30,9 +30,6 @@
 
 package de.mpg.escidoc.services.common.valueobjects.face;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 
 /**

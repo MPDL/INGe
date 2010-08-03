@@ -1,7 +1,6 @@
 package de.mpg.escidoc.services.common.valueobjects.metadata;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;

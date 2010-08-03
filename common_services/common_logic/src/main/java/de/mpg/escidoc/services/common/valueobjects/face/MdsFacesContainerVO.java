@@ -2,7 +2,6 @@ package de.mpg.escidoc.services.common.valueobjects.face;
 
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 
 /**
  * Metadata content of a Faces container (album).

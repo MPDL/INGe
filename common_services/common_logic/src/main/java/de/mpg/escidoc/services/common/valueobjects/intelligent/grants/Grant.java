@@ -6,7 +6,6 @@ import java.util.Date;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.escidoc.www.services.aa.UserGroupHandler;
 import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
-import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.CurrentGrants.UserType;
 import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;

@@ -33,37 +33,24 @@ package test.xmltransforming.component;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.File;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.junit.Ignore;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
-import de.mpg.escidoc.services.common.referenceobjects.ContainerRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.ContainerVO.State;
-import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**

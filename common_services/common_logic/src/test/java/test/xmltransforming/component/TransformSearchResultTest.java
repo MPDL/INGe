@@ -30,9 +30,9 @@
 
 package test.xmltransforming.component;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;

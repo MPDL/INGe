@@ -31,11 +31,10 @@ import java.util.Date;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
-import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContainerRO;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.Searchable;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 
 /**
  * Container object which consists of descriptive metadata and may have zero or more members.

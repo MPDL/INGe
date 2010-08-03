@@ -31,14 +31,8 @@
 package test.common.xmltransforming.integration;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import gov.loc.www.zing.srw.RecordType;
 import gov.loc.www.zing.srw.SearchRetrieveRequestType;
 import gov.loc.www.zing.srw.SearchRetrieveResponseType;
-import gov.loc.www.zing.srw.StringOrXmlFragment;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 
 import java.io.IOException;
@@ -48,10 +42,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.naming.NamingException;
 import javax.xml.rpc.ServiceException;
 
-import org.apache.axis.message.MessageElement;
 import org.apache.axis.types.NonNegativeInteger;
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -61,34 +53,17 @@ import org.junit.Test;
 
 import test.common.AffiliationCreator;
 import test.common.xmltransforming.XmlTransformingTestBase;
-import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
-import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
-import de.escidoc.core.common.exceptions.application.missing.MissingAttributeValueException;
-import de.escidoc.core.common.exceptions.application.missing.MissingElementValueException;
-import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
-import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.core.common.exceptions.application.violated.OrganizationalUnitNameNotUniqueException;
-import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.om.ContainerHandler;
 import de.escidoc.www.services.om.ItemHandler;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.util.ObjectComparator;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationResultVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.ContainerResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.face.MdsFacesContainerVO;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**

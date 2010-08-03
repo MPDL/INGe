@@ -47,8 +47,6 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.framework.PropertyReader;
-
 /**
  * Utility class to deal with resources such as files and directories. Either on the file system or in jar files.
  *

@@ -1,30 +1,19 @@
 package de.mpg.escidoc.services.common.xmltransforming;
 
-import java.text.ParsePosition;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.jibx.runtime.IAliasable;
-import org.jibx.runtime.IMarshallable;
 import org.jibx.runtime.IMarshaller;
 import org.jibx.runtime.IMarshallingContext;
 import org.jibx.runtime.IUnmarshaller;
 import org.jibx.runtime.IUnmarshallingContext;
-import org.jibx.runtime.IXMLReader;
 import org.jibx.runtime.JiBXException;
 import org.jibx.runtime.impl.MarshallingContext;
 import org.jibx.runtime.impl.UnmarshallingContext;
 
-import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
-import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.TocDivVO;
-import de.mpg.escidoc.services.common.valueobjects.TocItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TocPtrVO;
-import de.mpg.escidoc.services.common.valueobjects.RelationVO.RelationType;
 
 public class JibXTocDivMarshaller implements IMarshaller, IUnmarshaller, IAliasable //, IUnmarshaller
 {

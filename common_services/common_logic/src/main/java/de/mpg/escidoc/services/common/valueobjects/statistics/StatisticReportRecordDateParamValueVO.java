@@ -31,7 +31,6 @@ package de.mpg.escidoc.services.common.valueobjects.statistics;
 
 import java.util.Date;
 
-
 import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.WrongDateException;
 

@@ -31,7 +31,6 @@
 package de.mpg.escidoc.services.common.valueobjects;
 
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.Searchable;
 
 /**
  * Representation of an PubItem search result record.

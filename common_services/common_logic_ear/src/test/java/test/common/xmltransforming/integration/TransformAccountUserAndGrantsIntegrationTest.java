@@ -53,7 +53,6 @@ import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -102,7 +101,6 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
     /**
      * @throws WebserverSystemException
      * @throws SqlDatabaseSystemException
-     * @throws AuthenticationException
      * @throws RemoteException
      * @throws ServiceException
      */

@@ -31,8 +31,6 @@ package de.mpg.escidoc.services.common.util.creators;
 
 import java.util.List;
 
-import net.sf.saxon.functions.Contains;
-
 /**
  * Parser for comma seperated author strings (surname first, semicolon, given name(s)), mixed given names and initials
  *

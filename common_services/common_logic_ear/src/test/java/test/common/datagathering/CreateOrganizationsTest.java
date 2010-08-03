@@ -42,7 +42,6 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import test.common.AffiliationCreator;
 import test.common.TestBase;
 import de.mpg.escidoc.services.common.DataGathering;
 import de.mpg.escidoc.services.common.XmlTransforming;

@@ -1,11 +1,8 @@
 package de.mpg.escidoc.services.common.valueobjects.metadata;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import de.mpg.escidoc.services.common.types.Constants;
 import de.mpg.escidoc.services.common.types.Coordinates;
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 

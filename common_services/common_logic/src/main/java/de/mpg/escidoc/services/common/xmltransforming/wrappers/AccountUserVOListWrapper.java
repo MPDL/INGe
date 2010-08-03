@@ -34,7 +34,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 
 /**
  * This class is used by the XML transforming classes to wrap a list of AccountUserVOs.

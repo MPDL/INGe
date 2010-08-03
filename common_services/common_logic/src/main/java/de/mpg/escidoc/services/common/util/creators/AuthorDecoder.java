@@ -30,13 +30,9 @@
 package de.mpg.escidoc.services.common.util.creators;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 

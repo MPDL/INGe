@@ -1,11 +1,10 @@
 
 package de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup;
 
-import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
 
 /** 
  * 

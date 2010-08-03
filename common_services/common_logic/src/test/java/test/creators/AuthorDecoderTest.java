@@ -30,14 +30,15 @@
 
 package test.creators;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Date;
 import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import de.mpg.escidoc.services.common.util.creators.Author;
 import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;

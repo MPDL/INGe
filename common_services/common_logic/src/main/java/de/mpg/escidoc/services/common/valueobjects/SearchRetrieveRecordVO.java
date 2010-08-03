@@ -1,6 +1,5 @@
 package de.mpg.escidoc.services.common.valueobjects;
 
-import de.mpg.escidoc.services.common.valueobjects.interfaces.Searchable;
 
 public class SearchRetrieveRecordVO extends ValueObject {
 

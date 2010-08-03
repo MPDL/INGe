@@ -31,7 +31,6 @@ package de.mpg.escidoc.services.common.statistics;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +45,6 @@ import org.jboss.annotation.ejb.RemoteBinding;
 import com.maxmind.geoip.Country;
 import com.maxmind.geoip.Location;
 import com.maxmind.geoip.LookupService;
-import com.maxmind.geoip.Region;
 
 import de.mpg.escidoc.services.common.StatisticLogger;
 import de.mpg.escidoc.services.common.util.ResourceUtil;

@@ -30,12 +30,10 @@
 package de.mpg.escidoc.services.common.valueobjects;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
-import de.mpg.escidoc.services.common.types.Coordinates;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.Searchable;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 
