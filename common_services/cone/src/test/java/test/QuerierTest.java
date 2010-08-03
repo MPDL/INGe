@@ -38,12 +38,11 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.cone.Querier;
-import de.mpg.escidoc.services.cone.QuerierFactory;
 import de.mpg.escidoc.services.cone.Querier.ModeType;
+import de.mpg.escidoc.services.cone.QuerierFactory;
 import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;

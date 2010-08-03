@@ -36,15 +36,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.cone.ModelList;
-import de.mpg.escidoc.services.cone.Querier;
-import de.mpg.escidoc.services.cone.QuerierFactory;
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.ModelList.Predicate;
+import de.mpg.escidoc.services.cone.Querier;
+import de.mpg.escidoc.services.cone.QuerierFactory;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**

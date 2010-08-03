@@ -33,9 +33,6 @@ package test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import test.QuerierTest;
-import test.UtilTest;
-
 /**
  * Component test suite for common_logic.
  *

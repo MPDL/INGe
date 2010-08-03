@@ -70,10 +70,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -81,13 +78,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
-import org.apache.log4j.lf5.util.ResourceUtils;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList;
+import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
-import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.formatter.Formatter;
 import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.Pair;

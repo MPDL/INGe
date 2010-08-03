@@ -31,7 +31,6 @@
 package de.mpg.escidoc.services.cone.util;
 
 import java.io.StringWriter;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import de.mpg.escidoc.services.framework.PropertyReader;

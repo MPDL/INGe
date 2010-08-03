@@ -16,19 +16,16 @@ package de.mpg.escidoc.services.cone;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.cone.Querier.ModeType;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
+import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
-import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**

@@ -40,7 +40,6 @@ import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;

@@ -40,7 +40,6 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.Describable;
-import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 
 /**

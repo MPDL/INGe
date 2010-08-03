@@ -24,11 +24,10 @@ import org.apache.log4j.Logger;
 import org.mulgara.itql.ItqlInterpreterBean;
 import org.mulgara.query.Answer;
 
-import de.mpg.escidoc.services.cone.Querier.ModeType;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
+import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
-import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
