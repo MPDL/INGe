@@ -102,17 +102,19 @@ public class Initializer extends Thread
         try
         {
             conn = getConnection();
-            executeSqlScript("delete_tables.sql", conn);
+            //executeSqlScript("delete_tables.sql", conn);
             try
             {
                 executeSqlScript("create_structure.sql", conn);
+                insertValidationData(conn);
             }
             catch (SQLException se)
             {
-                LOGGER.debug("Validation database table structure already exists.");
+                LOGGER.debug("Error creating validation database", se);
+                LOGGER.info("Validation database table structure already exists.");
+                LOGGER.info("Skipping validation schema creation.");
             }
             
-            insertValidationData(conn);
             Context ctx = new InitialContext();
             itemValidating = (ItemValidating) ctx.lookup(ItemValidating.SERVICE_NAME);
             itemValidating.refreshValidationSchemaCache();
