@@ -10,7 +10,7 @@ DROP INDEX list.path_parents_value_index;
 DROP INDEX list.path_structmap_container_index;
 DROP INDEX list.path_structmap_index;
 
---AFTER THESE INDEXES ARE DROPPED CHECK IF THERE IS SOME INDEX LEFT; DROP IT MANUALLY IF NEEDED
+--AFTER THESE INDEXES ARE DROPPED CHECK IF THERE IS SOME INDEX LEFT on list.property table; DROP IT MANUALLY IF NEEDED
 vacuum analyze list.property;
 
 CREATE INDEX group_role_date_object_role_grant_idx
