@@ -30,3 +30,7 @@ CREATE TABLESPACE tbl_escidoc_core_normal_index
 CREATE TABLESPACE tbl_escidoc_core_statistics
   OWNER postgres
   LOCATION '/var/lib/pgsql/data/tables/statistics';
+
+CREATE TABLESPACE tbl_escidoc_core_statistics_index
+  OWNER postgres
+  LOCATION '/var/lib/pgsql/data/indexes/statistics';
