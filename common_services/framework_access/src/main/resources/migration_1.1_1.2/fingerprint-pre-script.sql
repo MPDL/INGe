@@ -4,9 +4,10 @@ DROP INDEX aa.object_user_role_grant_idx;
 DROP INDEX aa.group_role_date_role_grant_idx;
 DROP INDEX aa.group_role_date_object_role_grant_idx;
 
-CREATE INDEX group_role_grant_idx ON aa.role_grant USING btree (group_id, revocation_date) tablespace tbl_index;
---drop index aa.role_group_idx;
---drop index aa.role_user_id;
+CREATE INDEX group_role_grant_idx ON aa.role_grant USING btree (group_id, revocation_date);
+create index group_role_role_grant_idx on aa.role_grant USING btree (group_id, role_id);
+create index user_role_role_grant_idx on aa.role_grant USING btree (user_id, role_id);
+
 
 vacuum analyze aa.role_grant;
 
