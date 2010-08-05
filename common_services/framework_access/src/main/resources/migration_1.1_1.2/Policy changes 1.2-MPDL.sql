@@ -2133,17 +2133,17 @@ INSERT INTO escidoc_policies (id, role_id, xml) VALUES ('escidoc:moderator-polic
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</Apply>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending</AttributeValue>
+				</Apply>
+				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:version-modified-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 						<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
-				</Apply>
-								<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending</AttributeValue>
 				</Apply>
 			</Apply>
 		</Condition>
