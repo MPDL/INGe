@@ -233,3 +233,70 @@ ALTER TABLE list.property ALTER COLUMN local_path SET STATISTICS 1000;
 ALTER TABLE list.property ALTER COLUMN "value" SET STATISTICS 1000;
 ALTER TABLE list.property ALTER COLUMN "position" SET STATISTICS 1000;
 analyze list.property;
+
+alter table sm.aggregation_definitions set tablespace tbl_escidoc_core_data; 
+alter table sm._escidocaggdef1_object_statistics set tablespace tbl_escidoc_core_statistics; 
+alter table sm._escidocaggdef1_request_statistics set tablespace tbl_escidoc_core_statistics; 
+alter table sm._escidocaggdef2_error_statistics set tablespace tbl_escidoc_core_statistics; 
+alter table sm.preprocessing_logs set tablespace tbl_escidoc_core_data; 
+alter table sm.report_definitions set tablespace tbl_escidoc_core_data; 
+alter table sm.scopes set tablespace tbl_escidoc_core_data; 
+alter table sm.statistic_data set tablespace tbl_escidoc_core_statistics; 
+
+vacuum analyze sm.aggregation_definitions;
+vacuum analyze sm._escidocaggdef1_object_statistics;
+vacuum analyze sm._escidocaggdef1_request_statistics;
+vacuum analyze sm._escidocaggdef2_error_statistics;
+vacuum analyze sm.preprocessing_logs;
+vacuum analyze sm.report_definitions;
+vacuum analyze sm.scopes;
+vacuum analyze sm.statistic_data;
+
+
+--change indexes of statistics_data;
+DROP INDEX sm.timestamp_scope_id_idx;
+CREATE INDEX timestamp_scope_id_idx
+  ON sm.statistic_data
+  USING btree
+  (date_trunc('day'::text, timemarker), scope_id)
+TABLESPACE tbl_escidoc_core_statistics_index;
+
+DROP INDEX sm._escidocaggdef1_time3_idx;
+CREATE INDEX _escidocaggdef1_time3_idx
+  ON sm._escidocaggdef1_object_statistics
+  USING btree
+  (month, year)
+TABLESPACE tbl_escidoc_core_statistics_index;
+
+DROP INDEX sm._escidocaggdef1_time1_idx;
+CREATE INDEX _escidocaggdef1_time1_idx
+  ON sm._escidocaggdef1_request_statistics
+  USING btree
+  (day, month, year)
+TABLESPACE tbl_escidoc_core_statistics_index;
+
+-- Index: sm._escidocaggdef1_time2_idx
+
+DROP INDEX sm._escidocaggdef1_time2_idx;
+CREATE INDEX _escidocaggdef1_time2_idx
+  ON sm._escidocaggdef1_request_statistics
+  USING btree
+  (month, year)
+TABLESPACE tbl_escidoc_core_statistics_index;
+
+DROP INDEX sm._escidocaggdef2_time1_idx;
+
+CREATE INDEX _escidocaggdef2_time1_idx
+  ON sm._escidocaggdef2_error_statistics
+  USING btree
+  (day, month, year)
+TABLESPACE tbl_escidoc_core_statistics_index;
+
+DROP INDEX sm._escidocaggdef2_time2_idx;
+
+CREATE INDEX _escidocaggdef2_time2_idx
+  ON sm._escidocaggdef2_error_statistics
+  USING btree
+  (month, year)
+TABLESPACE tbl_escidoc_core_statistics_index;
+
