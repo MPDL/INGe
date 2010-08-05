@@ -4,7 +4,7 @@
 /*
 select 'alter table '||table_schema||'.'||table_name||' set tablespace tbl_escidoc_core_data; ' 
 from information_schema.tables 
-where table_catalog='escidoc-core' and table_schema not in ('pg_catalog', 'information_schema') and table_type='BASE TABLE'
+where table_catalog='escidoc-core' and table_schema not in ('pg_catalog', 'information_schema', 'sm') and table_type='BASE TABLE'
 order by table_schema, table_name
 */
 
@@ -70,12 +70,4 @@ alter table list.property set tablespace tbl_escidoc_core_data;
 alter table oai.set_definition set tablespace tbl_escidoc_core_data; 
 alter table om.lockstatus set tablespace tbl_escidoc_core_data; 
 alter table public.scope_def_after_migration set tablespace tbl_escidoc_core_data; 
-alter table sm.aggregation_definitions set tablespace tbl_escidoc_core_data; 
-alter table sm._escidocaggdef1_object_statistics set tablespace tbl_escidoc_core_statistics; 
-alter table sm._escidocaggdef1_request_statistics set tablespace tbl_escidoc_core_statistics; 
-alter table sm._escidocaggdef2_error_statistics set tablespace tbl_escidoc_core_statistics; 
-alter table sm.preprocessing_logs set tablespace tbl_escidoc_core_data; 
-alter table sm.report_definitions set tablespace tbl_escidoc_core_data; 
-alter table sm.scopes set tablespace tbl_escidoc_core_data; 
-alter table sm.statistic_data set tablespace tbl_tbl_escidoc_core_statistics; 
 alter table st.staging_file set tablespace tbl_escidoc_core_data; 
