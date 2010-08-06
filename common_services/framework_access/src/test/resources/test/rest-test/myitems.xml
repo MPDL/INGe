@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<param>
+  <filter name="/properties/public-status">released</filter>
+  <filter name="/properties/public-status">submitted</filter>
+  <filter name="/properties/public-status">pending</filter>
+  <filter name="/properties/public-status">in-revision</filter>
+  <filter name="/properties/version/status">released</filter>
+  <filter name="/properties/version/status">submitted</filter>
+  <filter name="/properties/version/status">pending</filter>
+  <filter name="/properties/version/status">in-revision</filter>
+  <filter name="/properties/created-by/id">escidoc:53213</filter>
+  <filter name="/properties/content-model/id">escidoc:persistent4</filter>
+  <order-by sorting="descending">/last-modification-date</order-by>
+  <limit>25</limit>
+  <offset>0</offset>
+</param>
