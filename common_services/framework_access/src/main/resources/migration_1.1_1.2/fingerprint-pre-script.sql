@@ -1,4 +1,4 @@
---aa.role_grant
+﻿--aa.role_grant
 DROP INDEX aa.user_role_date_object_role_grant_idx;
 DROP INDEX aa.object_user_role_grant_idx;
 DROP INDEX aa.group_role_date_role_grant_idx;
@@ -540,7 +540,7 @@ INSERT INTO aa.method_mappings (id, class_name, method_name, action_name, exec_b
 
 --adding missing method in method_mappings
 INSERT INTO aa.method_mappings(id, class_name, method_name, action_name, exec_before, single_resource, resource_not_found_exception)
-    VALUES ('escidoc:mm-adm-load-examples#, 'de.escidoc.core.adm.service.AdminHandler', 'loadExamples', 'info:escidoc/names:aa:1.0:action:load-examples', TRUE,TRUE, null);
+    VALUES ('escidoc:mm-adm-load-examples', 'de.escidoc.core.adm.service.AdminHandler', 'loadExamples', 'info:escidoc/names:aa:1.0:action:load-examples', TRUE,TRUE, null);
 
 --insert invocation_mappings
 INSERT INTO aa.invocation_mappings (id, attribute_id, path, "position", attribute_type, mapping_type, multi_value, value, method_mapping) VALUES ('escidoc-im-roles-retrieve-1', 'urn:oasis:names:tc:xacml:1.0:resource:resource-id', '', 0, 'http://www.w3.org/2001/XMLSchema#string', 0, false, '', 'escidoc:mm-roles-retrieve');
