@@ -35,12 +35,15 @@ CURRENT_TIMESTAMP);
 INSERT INTO escidoc_role (id, role_name, description, creator_id, creation_date, modified_by_id, last_modification_date) VALUES 
 ('escidoc:role-user-account-inspector', 'User-Account-Inspector', NULL, 'escidoc:user42', CURRENT_TIMESTAMP, 'escidoc:user42', 
 CURRENT_TIMESTAMP);
-INSERT INTO escidoc_role (id, role_name, description, creator_id, creation_date, modified_by_id, last_modification_date) VALUES 
-('escidoc:role-cone-open-vocabulary-editor', 'CoNE-Open-Vocabulary-Editor', NULL, 'escidoc:user42', CURRENT_TIMESTAMP, 'escidoc:user42', CURRENT_TIMESTAMP);
-INSERT INTO escidoc_role (id, role_name, description, creator_id, creation_date, modified_by_id, last_modification_date) VALUES 
-('escidoc:role-cone-closed-vocabulary-editor', 'CoNE-Closed-Vocabulary-Editor', NULL, 'escidoc:user42', CURRENT_TIMESTAMP, 'escidoc:user42', CURRENT_TIMESTAMP);
+--INSERT INTO escidoc_role (id, role_name, description, creator_id, creation_date, modified_by_id, last_modification_date) VALUES 
+--('escidoc:role-cone-open-vocabulary-editor', 'CoNE-Open-Vocabulary-Editor', NULL, 'escidoc:user42', CURRENT_TIMESTAMP, 'escidoc:user42', CURRENT_TIMESTAMP);
+--INSERT INTO escidoc_role (id, role_name, description, creator_id, creation_date, modified_by_id, last_modification_date) VALUES 
+--('escidoc:role-cone-closed-vocabulary-editor', 'CoNE-Closed-Vocabulary-Editor', NULL, 'escidoc:user42', CURRENT_TIMESTAMP, 'escidoc:user42', CURRENT_TIMESTAMP);
 
-
+INSERT INTO escidoc_role (id, role_name, description, creator_id, creation_date, modified_by_id, last_modification_date) VALUES ('escidoc:role-collaborator', 'Collaborator', NULL, 'escidoc:user42', '2010-05-28 15:05:32.8208', 'escidoc:user42', '2010-05-28 15:05:32.8208');
+INSERT INTO escidoc_role (id, role_name, description, creator_id, creation_date, modified_by_id, last_modification_date) VALUES ('escidoc:role-collaborator-modifier', 'Collaborator-Modifier', NULL, 'escidoc:user42', '2010-05-28 15:05:59.008983', 'escidoc:user42', '2010-05-28 15:05:59.008983');
+INSERT INTO escidoc_role (id, role_name, description, creator_id, creation_date, modified_by_id, last_modification_date) VALUES ('escidoc:role-collaborator-modifier-container-add-remove-members', 'Collaborator-Modifier-Container-Add-Remove-Members', NULL, 'escidoc:user42', '2010-05-28 15:07:03.960907', 'escidoc:user42', '2010-05-28 15:07:03.960907');
+INSERT INTO escidoc_role (id, role_name, description, creator_id, creation_date, modified_by_id, last_modification_date) VALUES ('escidoc:role-collaborator-modifier-container-update-direct-members', 'Collaborator-Modifier-Container-update-direct-members', NULL, 'escidoc:user42', '2010-05-28 15:07:51.072663', 'escidoc:user42', '2010-05-28 15:07:51.072663');
 
 /*ESCIDOC_POLICIES
 ====================
