@@ -48,6 +48,8 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>axistools-maven-plugin</artifactId>
+        <!-- Set to fixed version 1.3 because latest version 1.4-SNAPSHOT makes trouble -->
+        <version>1.3</version>
         <executions>
           <execution>
             <goals>
