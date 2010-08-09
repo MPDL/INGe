@@ -35,7 +35,7 @@ Notes:
 
     <!-- Store Fields for Scan-Operation-->
 	<xsl:variable name="STORE_FOR_SCAN">YES</xsl:variable>
-	
+
 	<xsl:variable name="CONTEXTNAME">escidoc</xsl:variable>
 	<xsl:variable name="COMPONENT_CONTEXTNAME">escidoc.component</xsl:variable>
 	<xsl:variable name="PROPERTY_CONTEXTNAME">escidoc.property</xsl:variable>
@@ -58,6 +58,9 @@ Notes:
 
     <!-- Paths to Struct-Map -->
 	<xsl:variable name="STRUCT_MAP_PATH" select="/*[local-name()='container']/*[local-name()='struct-map']"/>
+
+    <!-- Paths to Content-Relations -->
+	<xsl:variable name="CONTENT_RELATIONS_PATH" select="/*/*[local-name()='relations']/*[local-name()='relation']"/>
 
     <!-- COMPONENT TYPES THAT DONT GET INDEXED -->
 	<xsl:variable name="NON_SUPPORTED_COMPONENT_TYPES"> http://purl.org/escidoc/metadata/ves/content-categories/correspondence http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement </xsl:variable>
@@ -161,6 +164,12 @@ Notes:
 				<xsl:with-param name="context" select="$PROPERTY_CONTEXTNAME"/>
 			</xsl:call-template>
             
+            <!-- INDEX CONTENT-RELATIONS -->
+			<xsl:call-template name="processContentRelations">
+				<xsl:with-param name="path" select="$CONTENT_RELATIONS_PATH"/>
+				<xsl:with-param name="context" select="$CONTEXTNAME"/>
+			</xsl:call-template>
+            
             <!-- INDEX METADATA -->
 			<xsl:call-template name="processMetadata">
 				<xsl:with-param name="path" select="$ITEM_METADATAPATH"/>
@@ -251,6 +260,12 @@ Notes:
             <!-- INDEX METADATA -->
 			<xsl:call-template name="processMetadata">
 				<xsl:with-param name="path" select="$CONTAINER_METADATAPATH"/>
+				<xsl:with-param name="context" select="$CONTEXTNAME"/>
+			</xsl:call-template>
+            
+            <!-- INDEX CONTENT-RELATIONS -->
+			<xsl:call-template name="processContentRelations">
+				<xsl:with-param name="path" select="$CONTENT_RELATIONS_PATH"/>
 				<xsl:with-param name="context" select="$CONTEXTNAME"/>
 			</xsl:call-template>
             
@@ -398,6 +413,21 @@ Notes:
 		</xsl:for-each>
 	</xsl:template>
 
+    <!-- PROCESS CONTENT-RELATIONS -->
+	<xsl:template name="processContentRelations">
+		<xsl:param name="path"/>
+		<xsl:param name="context"/>
+		<xsl:for-each select="$path">
+			<xsl:call-template name="writeIndexField">
+				<xsl:with-param name="context" select="$context"/>
+				<xsl:with-param name="fieldname">content-relation</xsl:with-param>
+				<xsl:with-param name="fieldvalue" select="concat(./@predicate, ' ', ./@objid)"/>
+				<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
+				<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+
     <!-- RECURSIVE ITERATION FOR COMPONENTS (FULLTEXTS) -->
     <!-- STORE EVERYTHING IN FIELD fulltext FOR SEARCH-->
     <!-- STORE EACH FULLTEXT IN SEPARATE FIELD stored_fulltext<n> FOR HIGHLIGHTING -->
@@ -447,7 +477,7 @@ Notes:
 					</xsl:attribute>
 					<xsl:value-of select="$components[$num]/*[local-name()='content']/@xlink:href"/>
 				</IndexField>
-				
+
 				<xsl:choose>
 					<xsl:when test="$components[$num + 1]">
 						<xsl:call-template name="processComponents">
@@ -1107,7 +1137,7 @@ Notes:
 		</userdefined-index>
 
         <!-- USER DEFINED INDEX: virr-element.mods.compound.name -->
-		
+
 		<userdefined-index name="virr-element.mods.compound.name">
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
@@ -1744,7 +1774,7 @@ Notes:
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
-
+			
 			<xsl:for-each select="$COMPONENT_PROPERTIESPATH">
 				<xsl:variable name="fields">
 					<xsl:value-of select="concat(.//*[local-name()='visibility'],' ')"/>
