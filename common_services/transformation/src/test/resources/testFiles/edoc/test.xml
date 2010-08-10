@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<edoc>
+  <record id="395943">
+    <metadata>
+      <basic>
+        <genre>Conference-Paper</genre>
+        <title>Spitzer Observations of Stephan's Quintet -- IGM Dust and Gas in a Multi-galaxy Collision</title>
+        <language>English</language>
+        <publisher>ASP</publisher>
+        <datepublished>2008</datepublished>
+        <spage>88</spage>
+        <epage>88</epage>
+        <volume>381</volume>
+        <nameofevent>2nd annual Spitzer Science Center international conference</nameofevent>
+        <placeofevent>Pasadena, California</placeofevent>
+        <dateofevent>2005-11-10</dateofevent>
+        <enddateofevent>2005-11-13</enddateofevent>
+        <titleofproceedings>The Second Annual Spitzer Science Center Conference: Infrared Diagnostics of Galaxy Evolution</titleofproceedings>
+        <proceedingscontributorfn>Chary, Ranga-Ram; Teplitz, Harry I.; Sheth, Kartik</proceedingscontributorfn>
+        <titleofseries>ASP conference series</titleofseries>
+        <enduser>expertsonly</enduser>
+        <pubstatus>published</pubstatus>
+        <refereed>notspecified</refereed>
+      </basic>
+      <creators>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>C. K.</creatorini>
+          <creatornfamily>Xu</creatornfamily>
+          <creatorngiven>C. K.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>P. N.</creatorini>
+          <creatornfamily>Appleton</creatornfamily>
+          <creatorngiven>P. N.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>M.</creatorini>
+          <creatornfamily>Dopita</creatornfamily>
+          <creatorngiven>M.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>Y.</creatorini>
+          <creatornfamily>Gao</creatornfamily>
+          <creatorngiven>Y.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>N. Y.</creatorini>
+          <creatornfamily>Lu</creatornfamily>
+          <creatorngiven>N. Y.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>C.</creatorini>
+          <creatornfamily>Popescu</creatornfamily>
+          <creatorngiven>C.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>W. T.</creatorini>
+          <creatornfamily>Reach</creatornfamily>
+          <creatorngiven>W. T.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>J.</creatorini>
+          <creatornfamily>Sulentic</creatornfamily>
+          <creatorngiven>J.</creatorngiven>
+        </creator>
+        <creator internextern="mpg" role="author" creatorType="individual">
+          <creatorini>R.</creatorini>
+          <creatornfamily>Tuffs</creatornfamily>
+          <creatorngiven>R.</creatorngiven>
+        </creator>
+        <creator internextern="unknown" role="author" creatorType="individual">
+          <creatorini>M.</creatorini>
+          <creatornfamily>Yun</creatornfamily>
+          <creatorngiven>M.</creatorngiven>
+        </creator>
+      </creators>
+      <relations></relations>
+      <identifiers>
+        <identifier type="isbn">978-1-58381-325-6</identifier>
+      </identifiers>
+    </metadata>
+    <docaff>
+      <institute id="37">MPI für Kernphysik</institute>
+      <collection id="444">Infrared Astrophysics</collection>
+      <affiliation>
+        <mpgunit id="4851">MPI für Kernphysik</mpgunit>
+        <mpgsunit id="7021">Group of  W. Hofmann</mpgsunit>
+        <mpgssunit id="18929">Infrared Astrophysics (R. Tuffs)</mpgssunit>
+      </affiliation>
+    </docaff>
+    <MPGyearbook status="Released">2009</MPGyearbook>
+    <metametadata>
+      <lastmodified>2008-12-19 12:03:12.128143</lastmodified>
+      <owner>
+        <fullname>Gabriele Weese</fullname>
+        <email>Gabriele.Weese@mpi-hd.mpg.de</email>
+        <insid>37</insid>
+      </owner>
+    </metametadata>
+  </record>
+  <record id="405209">
+    <metadata>
+      <basic>
+        <genre>Thesis</genre>
+        <title>Few-Body Physics in a Three-Component Fermi Gas</title>
+        <language>English</language>
+        <publisher>Ruprecht-Karls Universität</publisher>
+        <publisheradd>Heidelberg, Germany</publisheradd>
+        <dateaccepted>2008</dateaccepted>
+        <editiondescription>diplom</editiondescription>
+        <abstract>This thesis reports on the first production of a degenerate three-component Fermi gas in equilibrium. The sample consists of 6Li atoms in the three lowest Zeeman sublevels. Its production is enabled through the control of interactions by means of Feshbach resonances. For weak interactions the three-state mixture exhibits a remarkable stability with lifetimes exceeding 30 seconds. This represents an excellent starting point for future experiments. In the course of this thesis, we analyzed the collisional stability of such a threecomponent sample as a function of the magnetic field and thus also as a function of the interaction strength. In the region below 600 Gauss we observed a strongly varying three-body loss and found two loss resonances at about 127 Gauss and at 500 Gauss. The observed three-body loss coefficient varies over almost three orders of magnitude. We were able to explain this behavior with a model utilizing the universality of systems with large scattering lengths. In this model, the loss resonances are due to a universal three-body bound state that crosses the threeatom continuum twice. Additionally, further measurements could be performed in the region of unitary two-body interactions near the Feshbach resonances.</abstract>
+        <enduser>expertsonly</enduser>
+        <phydesc>VIII, 122 S. : Ill., graph. Darst.</phydesc>
+        <fturl filename="diplomarbeit_wenz.pdf" viewftext="PUBLIC" size="4271408" comment="PDF file of proceedings">http://edoc.mpg.de/get.epl?fid=52979&amp;did=405209&amp;ver=0</fturl>
+      </basic>
+      <creators>
+        <creator internextern="mpg" role="author" creatorType="individual">
+          <creatorini>A. N.</creatorini>
+          <creatornfamily>Wenz</creatornfamily>
+          <creatorngiven>Andre Niklas</creatorngiven>
+        </creator>
+      </creators>
+      <relations></relations>
+      <identifiers></identifiers>
+    </metadata>
+    <docaff>
+      <institute id="37">MPI für Kernphysik</institute>
+      <collection id="447">Physics of Cold Molecular Ions and Ultra-Cold Ensembles</collection>
+      <affiliation>
+        <mpgunit id="4851">MPI für Kernphysik</mpgunit>
+        <mpgsunit id="18930">Independent Research Groups</mpgsunit>
+        <mpgssunit id="18940">Ultracold Quantum Gases (S. Jochim)</mpgssunit>
+      </affiliation>
+    </docaff>
+    <MPGyearbook status="Released">2009</MPGyearbook>
+    <metametadata>
+      <lastmodified>2009-02-27 11:17:08.184791</lastmodified>
+      <owner>
+        <fullname>Gernot Vogt</fullname>
+        <email>Gernot.Vogt@mpi-hd.mpg.de</email>
+        <insid>37</insid>
+      </owner>
+    </metametadata>
+  </record>
+</edoc>

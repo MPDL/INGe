@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<itemlist:item-list xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:ec="http://www.escidoc.de/schemas/components/0.9" xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication" xmlns:Util="java:de.mpg.escidoc.services.transformation.Util" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:escidocFunctions="urn:escidoc:functions" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.9" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ei="http://www.escidoc.de/schemas/item/0.9" xmlns:escidoc="http://escidoc.mpg.de/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:release="http://escidoc.de/core/01/properties/release/">
+	<ei:item>
+		<ei:properties>
+			<srel:context objid="dummy-context"/>
+			<srel:content-model objid="escidoc:persistent4"/>
+			<prop:content-model-specific>
+				<local-tags>
+					<local-tag>Yearbook 2009</local-tag>
+				</local-tags>
+			</prop:content-model-specific>
+		</ei:properties>
+		<mdr:md-records>
+			<mdr:md-record name="escidoc">
+				<pub:publication type="http://purl.org/eprint/type/ConferencePaper">
+					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person>
+							<eterms:complete-name>C. K. Xu</eterms:complete-name>
+							<eterms:family-name>Xu</eterms:family-name>
+							<eterms:given-name>C. K.</eterms:given-name>
+						</person:person>
+					</eterms:creator>
+					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person>
+							<eterms:complete-name>P. N. Appleton</eterms:complete-name>
+							<eterms:family-name>Appleton</eterms:family-name>
+							<eterms:given-name>P. N.</eterms:given-name>
+						</person:person>
+					</eterms:creator>
+					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person>
+							<eterms:complete-name>M. Dopita</eterms:complete-name>
+							<eterms:family-name>Dopita</eterms:family-name>
+							<eterms:given-name>M.</eterms:given-name>
+						</person:person>
+					</eterms:creator>
+					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person>
+							<eterms:complete-name>Y. Gao</eterms:complete-name>
+							<eterms:family-name>Gao</eterms:family-name>
+							<eterms:given-name>Y.</eterms:given-name>
+						</person:person>
+					</eterms:creator>
+					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person>
+							<eterms:complete-name>N. Y. Lu</eterms:complete-name>
+							<eterms:family-name>Lu</eterms:family-name>
+							<eterms:given-name>N. Y.</eterms:given-name>
+						</person:person>
+					</eterms:creator>
+					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person>
+							<eterms:complete-name>C. Popescu</eterms:complete-name>
+							<eterms:family-name>Popescu</eterms:family-name>
+							<eterms:given-name>C.</eterms:given-name>
+						</person:person>
+					</eterms:creator>
+					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person>
+							<eterms:complete-name>W. T. Reach</eterms:complete-name>
+							<eterms:family-name>Reach</eterms:family-name>
+							<eterms:given-name>W. T.</eterms:given-name>
+						</person:person>
+					</eterms:creator>
+					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person>
+							<eterms:complete-name>J. Sulentic</eterms:complete-name>
+							<eterms:family-name>Sulentic</eterms:family-name>
+							<eterms:given-name>J.</eterms:given-name>
+						</person:person>
+					</eterms:creator>
+					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person>
+							<eterms:complete-name>R. Tuffs</eterms:complete-name>
+							<eterms:family-name>Tuffs</eterms:family-name>
+							<eterms:given-name>R.</eterms:given-name>
+                     <!-- Case 3 -->
+							<organization:organization>
+								<dc:title>Max Planck Society</dc:title>
+								<dc:identifier>escidoc:persistent13</dc:identifier>
+							</organization:organization>
+						</person:person>
+					</eterms:creator>
+					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person>
+							<eterms:complete-name>M. Yun</eterms:complete-name>
+							<eterms:family-name>Yun</eterms:family-name>
+							<eterms:given-name>M.</eterms:given-name>
+						</person:person>
+					</eterms:creator>
+					<dc:title>Spitzer Observations of Stephan's Quintet -- IGM Dust and Gas in a Multi-galaxy Collision</dc:title>
+					<dc:language/>
+					<dc:identifier xsi:type="eterms:EDOC">395943</dc:identifier>
+					<dcterms:issued>2008</dcterms:issued>
+					<source:source type="http://purl.org/escidoc/metadata/ves/publication-types/proceedings">
+						<dc:title>The Second Annual Spitzer Science Center Conference: Infrared Diagnostics of Galaxy Evolution</dc:title>
+						<eterms:publishing-info>
+							<dc:publisher>ASP</dc:publisher>
+						</eterms:publishing-info>
+						<eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+							<person:person>
+								<eterms:complete-name>Ranga-Ram Chary</eterms:complete-name>
+								<eterms:family-name>Chary</eterms:family-name>
+								<eterms:given-name>Ranga-Ram</eterms:given-name>
+							</person:person>
+						</eterms:creator>
+						<eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+							<person:person>
+								<eterms:complete-name>Harry I. Teplitz</eterms:complete-name>
+								<eterms:family-name>Teplitz</eterms:family-name>
+								<eterms:given-name>Harry I.</eterms:given-name>
+							</person:person>
+						</eterms:creator>
+						<eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+							<person:person>
+								<eterms:complete-name>Kartik Sheth</eterms:complete-name>
+								<eterms:family-name>Sheth</eterms:family-name>
+								<eterms:given-name>Kartik</eterms:given-name>
+							</person:person>
+						</eterms:creator>
+						<eterms:start-page>88</eterms:start-page>
+						<eterms:end-page>88</eterms:end-page>
+						<dc:identifier xsi:type="eterms:ISBN">978-1-58381-325-6</dc:identifier>
+					</source:source>
+					<source:source type="http://purl.org/escidoc/metadata/ves/publication-types/series">
+						<dc:title>ASP conference series</dc:title>
+						<eterms:volume>381</eterms:volume>
+						<dc:identifier xsi:type="eterms:ISBN">978-1-58381-325-6</dc:identifier>
+					</source:source>
+					<event:event>
+						<dc:title>2nd annual Spitzer Science Center international conference</dc:title>
+						<eterms:start-date>2005-11-10</eterms:start-date>
+						<eterms:end-date>2005-11-13</eterms:end-date>
+						<eterms:place>Pasadena, California</eterms:place>
+					</event:event>
+				</pub:publication>
+			</mdr:md-record>
+		</mdr:md-records>
+		<ec:components/>
+	</ei:item>
+	<ei:item>
+		<ei:properties>
+			<srel:context objid="dummy-context"/>
+			<srel:content-model objid="escidoc:persistent4"/>
+			<prop:content-model-specific>
+				<local-tags>
+					<local-tag>Yearbook 2009</local-tag>
+				</local-tags>
+			</prop:content-model-specific>
+		</ei:properties>
+		<mdr:md-records>
+			<mdr:md-record name="escidoc">
+				<pub:publication type="http://purl.org/eprint/type/Thesis">
+					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person>
+							<eterms:complete-name>Andre Niklas Wenz</eterms:complete-name>
+							<eterms:family-name>Wenz</eterms:family-name>
+							<eterms:given-name>Andre Niklas</eterms:given-name>
+                     <!-- Case 3 -->
+							<organization:organization>
+								<dc:title>Max Planck Society</dc:title>
+								<dc:identifier>escidoc:persistent13</dc:identifier>
+							</organization:organization>
+						</person:person>
+					</eterms:creator>
+					<dc:title>Few-Body Physics in a Three-Component Fermi Gas</dc:title>
+					<dc:language/>
+					<dc:identifier xsi:type="eterms:EDOC">405209</dc:identifier>
+					<eterms:publishing-info>
+						<dc:publisher>Ruprecht-Karls Universität</dc:publisher>
+						<eterms:place>Heidelberg, Germany</eterms:place>
+						<eterms:edition>diplom</eterms:edition>
+					</eterms:publishing-info>
+					<dcterms:dateAccepted>2008</dcterms:dateAccepted>
+					<eterms:total-number-of-pages>VIII, 122 S. : Ill., graph. Darst.</eterms:total-number-of-pages>
+					<dcterms:abstract>This thesis reports on the first production of a degenerate three-component Fermi gas in equilibrium. The sample consists of 6Li atoms in the three lowest Zeeman sublevels. Its production is enabled through the control of interactions by means of Feshbach resonances. For weak interactions the three-state mixture exhibits a remarkable stability with lifetimes exceeding 30 seconds. This represents an excellent starting point for future experiments. In the course of this thesis, we analyzed the collisional stability of such a threecomponent sample as a function of the magnetic field and thus also as a function of the interaction strength. In the region below 600 Gauss we observed a strongly varying three-body loss and found two loss resonances at about 127 Gauss and at 500 Gauss. The observed three-body loss coefficient varies over almost three orders of magnitude. We were able to explain this behavior with a model utilizing the universality of systems with large scattering lengths. In this model, the loss resonances are due to a universal three-body bound state that crosses the threeatom continuum twice. Additionally, further measurements could be performed in the region of unitary two-body interactions near the Feshbach resonances.</dcterms:abstract>
+				</pub:publication>
+			</mdr:md-record>
+		</mdr:md-records>
+		<ec:components>
+			<ec:component>
+				<ec:properties>
+					<prop:visibility>public</prop:visibility>
+               <!--PDF file of proceedings--><!--PDF file of proceedingspublisher-version-->
+					<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+					<prop:mime-type>application/pdf</prop:mime-type>
+				</ec:properties>
+				<ec:content xlink:href="http://edoc.mpg.de/get.epl?fid=52979&amp;did=405209&amp;ver=0" storage="internal-managed"/>
+				<mdr:md-records>
+					<mdr:md-record name="escidoc">
+						<file:file>
+							<dc:title>diplomarbeit_wenz.pdf</dc:title>
+							<eterms:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</eterms:content-category>
+							<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+							<dcterms:extent>4271408</dcterms:extent>
+							<dc:rights>eDoc_access: PUBLIC</dc:rights>
+						</file:file>
+					</mdr:md-record>
+				</mdr:md-records>
+			</ec:component>
+		</ec:components>
+	</ei:item>
+</itemlist:item-list>
