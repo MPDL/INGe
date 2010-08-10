@@ -85,6 +85,13 @@ public class PubItemDepositingTest extends TestBase
     private XmlTransforming xmlTransforming;
     private AccountUserVO user;
 
+    @Before
+    public void waitForValidationDatabase() throws Exception
+    {
+        Thread.sleep(10000);
+    }
+    
+    
     /**
      * Helper: Saves the given pubItem using {@link PubItemDepositing#savePubItem(PubItemVO, AccountUserVO)} Changed by
      * Peter Broszeit, 18.10.2007: asserts on item properties removed, because all items should be saved.
