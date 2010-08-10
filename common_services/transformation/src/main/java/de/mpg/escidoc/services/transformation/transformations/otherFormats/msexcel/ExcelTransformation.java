@@ -31,34 +31,8 @@
 
 package de.mpg.escidoc.services.transformation.transformations.otherFormats.msexcel;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.List;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.common.util.creators.Author;
-import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;

@@ -1,9 +1,6 @@
 package test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 
@@ -16,8 +13,6 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.Util;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.mab.MABImport;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.ris.Pair;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.ris.RISImport;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.ris.RISTransformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -59,7 +54,7 @@ public class RISImportTester {
         this.logger.info("Transform RIS list to xml format");
         Format inputFormat = new Format("RIS", "text/plain", "utf-8");
         Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
-        byte[] result = risTransformer.transform(this.util.getResourceAsString("testFiles/ris/RIS.txt").getBytes("UTF-8"), inputFormat, outputFormat, "escidoc");
+        byte[] result = risTransformer.transform(ResourceUtil.getResourceAsString("testFiles/ris/RIS.txt").getBytes("UTF-8"), inputFormat, outputFormat, "escidoc");
 
         XmlTransformingBean xmlTransforming = new XmlTransformingBean();
         List <PubItemVO> itemVOList = xmlTransforming.transformToPubItemList(new String(result));

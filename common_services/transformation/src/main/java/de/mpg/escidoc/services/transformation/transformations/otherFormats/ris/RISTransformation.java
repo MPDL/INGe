@@ -1,7 +1,5 @@
 package de.mpg.escidoc.services.transformation.transformations.otherFormats.ris;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -18,7 +16,6 @@ import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.wos.WoSImport;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 @TransformationModule

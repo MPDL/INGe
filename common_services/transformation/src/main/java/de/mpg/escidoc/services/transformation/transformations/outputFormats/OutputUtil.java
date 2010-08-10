@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.URLDecoder;
 
 import de.mpg.escidoc.services.transformation.Util;
-import de.mpg.escidoc.services.transformation.Util.Styles;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
  * 

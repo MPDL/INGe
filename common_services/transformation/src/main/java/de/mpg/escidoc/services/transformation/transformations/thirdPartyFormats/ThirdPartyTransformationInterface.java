@@ -39,8 +39,8 @@ import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationTy
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsType;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
+import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 

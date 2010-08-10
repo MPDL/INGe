@@ -1,7 +1,6 @@
 package test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
 
@@ -63,7 +62,7 @@ public class EndNoteImportTest
 	{
 	    this.logger.info("Transform EndNote ICE list to escidoc list");
 	    
-       	byte[] result = this.transformation.transform(this.util.getResourceAsString("testFiles/endnote/publikationsliste_2008_endnote2.txt").getBytes(), 
+       	byte[] result = this.transformation.transform(ResourceUtil.getResourceAsString("testFiles/endnote/publikationsliste_2008_endnote2.txt").getBytes(), 
        	        this.inputFormatICE, this.outputFormat, "escidoc");
        	XmlTransformingBean xmlTransforming = new XmlTransformingBean();
        	List<PubItemVO> itemList = (List<PubItemVO>)xmlTransforming.transformToPubItemList(new String(result, "UTF-8"));
@@ -75,7 +74,7 @@ public class EndNoteImportTest
 	{
 		this.logger.info("Transform EndNote list to escidoc list. New implemetation");
 		
-		byte[] result = this.transformation.transform(this.util.getResourceAsString("testFiles/endnote/EndNote_Import_revised_implementation.txt").getBytes(), 
+		byte[] result = this.transformation.transform(ResourceUtil.getResourceAsString("testFiles/endnote/EndNote_Import_revised_implementation.txt").getBytes(), 
 				this.inputFormat, this.outputFormat, "escidoc");
 		
 //		FileOutputStream fos = new FileOutputStream("target/endnote_transformed.xml");

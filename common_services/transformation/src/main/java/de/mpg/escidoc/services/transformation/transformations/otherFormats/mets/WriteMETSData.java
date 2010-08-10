@@ -2,19 +2,19 @@ package de.mpg.escidoc.services.transformation.transformations.otherFormats.mets
 
 import gov.loc.mets.AmdSecType;
 import gov.loc.mets.DivType;
-import gov.loc.mets.FileType;
-import gov.loc.mets.MdSecType;
-import gov.loc.mets.MetsDocument;
-import gov.loc.mets.StructLinkType;
-import gov.loc.mets.StructMapType;
 import gov.loc.mets.DivType.Fptr;
+import gov.loc.mets.FileType;
 import gov.loc.mets.FileType.FLocat;
+import gov.loc.mets.MdSecType;
 import gov.loc.mets.MdSecType.MdWrap;
 import gov.loc.mets.MdSecType.MdWrap.XmlData;
+import gov.loc.mets.MetsDocument;
 import gov.loc.mets.MetsDocument.Mets;
 import gov.loc.mets.MetsType.FileSec;
 import gov.loc.mets.MetsType.FileSec.FileGrp;
+import gov.loc.mets.StructLinkType;
 import gov.loc.mets.StructLinkType.SmLink;
+import gov.loc.mets.StructMapType;
 import gov.loc.mods.v3.ModsDocument;
 import gov.loc.mods.v3.ModsType;
 

@@ -31,7 +31,6 @@
 package de.mpg.escidoc.services.transformation.transformations;
 
 import de.mpg.escidoc.services.transformation.Transformation;
-import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 

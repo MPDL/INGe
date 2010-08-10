@@ -59,6 +59,7 @@ import net.sf.jasperreports.engine.util.JRXmlUtils;
 import org.w3c.dom.Document;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.Util.Styles;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
@@ -115,7 +116,7 @@ public class OutputTransformation
         String path = OutputUtil.getPathToCitationStyles() + "/jasper" + "/citation-style.jasper";
 
         System.out.println("PATH: " + path);
-        InputStream csj =  util.getResourceAsStream(path);       
+        InputStream csj =  ResourceUtil.getResourceAsStream(path);       
         JasperReport jr = (JasperReport)JRLoader.loadObject(csj); 
 
         params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, document);

@@ -32,12 +32,7 @@
 package de.mpg.escidoc.services.transformation.transformations.otherFormats.edoc;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.List;
@@ -179,7 +174,7 @@ public class EDocImport extends DefaultHandler implements Transformation
             System.out.print("Started xslt transformation...");
             TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
             
-            String xslPath = PropertyReader.getProperty("escidoc.transforamtion.edoc.stylesheet.filename");
+            String xslPath = PropertyReader.getProperty("escidoc.transformation.edoc.stylesheet.filename");
             if (xslPath != null)
             {
                 xslPath = xslPath.replace('\\', '/');
