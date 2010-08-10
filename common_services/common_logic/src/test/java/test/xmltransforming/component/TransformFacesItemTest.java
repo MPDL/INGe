@@ -38,9 +38,9 @@ import org.apache.log4j.Logger;
 import org.dom4j.Element;
 import org.junit.Test;
 
-import test.XmlComparator;
 import test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.util.XmlComparator;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsJHoveVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;

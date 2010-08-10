@@ -30,6 +30,8 @@
 package de.mpg.escidoc.services.common.util;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -149,13 +151,35 @@ public class ResourceUtil
         InputStream fileIn = getResourceAsStream(fileName);
         BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
         String line = null;
-        StringWriter result = new StringWriter();
+        StringBuilder result = new StringBuilder();
         while ((line = br.readLine()) != null)
         {
-            result.write(line);
-            result.write("\n");
+            result.append(line);
+            result.append("\n");
         }
         return result.toString();
+    }
+
+    /**
+     * Gets a resource as String.
+     *
+     * @param fileName The path and name of the file relative from the working directory.
+     * @return The resource as String.
+     * @throws IOException Thrown if the resource cannot be located.
+     */
+    public static byte[] getResourceAsBytes(final String fileName) throws IOException
+    {
+        InputStream fileIn = getResourceAsStream(fileName);
+        
+        byte[] buffer = new byte[2048];
+        int read;
+        ByteArrayOutputStream result = new ByteArrayOutputStream();
+        
+        while ((read = fileIn.read(buffer)) != -1)
+        {
+            result.write(buffer, 0, read);
+        }
+        return result.toByteArray();
     }
 
     /**
@@ -168,10 +192,6 @@ public class ResourceUtil
     public static File[] getFilenamesInDirectory(String dir) throws IOException
     {
         File dirFile = getResourceAsFile(resolveFileName(dir));
-        
-        
-
-        logger.debug("dirFile: " + dirFile + " : " + dirFile.isDirectory() + " : " + dirFile.exists());
 
         if (dirFile == null)
         {

@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package test;
+package de.mpg.escidoc.services.common.util;
 
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -106,7 +106,7 @@ public class XmlComparator
         private LinkedList<Node> nodeList = new LinkedList<Node>();
         
         @Override
-        public void content(String uri, String localName, String name, String content)
+        public void content(String uri, String localName, String name, String content) throws SAXException
         {
             super.content(uri, localName, name, content);
             nodeList.add(new TextNode(content));
@@ -170,7 +170,7 @@ public class XmlComparator
         }
 
         @Override
-        public void content(String uri, String localName, String name, String content)
+        public void content(String uri, String localName, String name, String content) throws SAXException
         {
             super.content(uri, localName, name, content);
             TextNode textNode = new TextNode(content);
@@ -313,6 +313,12 @@ public class XmlComparator
             {
                 return content.equals(((TextNode)other).content);
             }
+        }
+
+        @Override
+        public String toString()
+        {
+            return content;
         }
         
     }
