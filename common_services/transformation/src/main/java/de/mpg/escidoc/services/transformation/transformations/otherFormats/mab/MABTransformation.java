@@ -120,8 +120,24 @@ public class MABTransformation implements Transformation{
                 MABImport mab = new MABImport();
                 output = mab.transformMAB2XML(mabSource);
                 TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
-                factory.setURIResolver(new LocalUriResolver("transformations/otherFormats/xslt"));
-                InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/mabxml2escidoc.xsl");
+                
+                String xslPath = PropertyReader.getProperty("escidoc.transformation.mab.stylesheet.filename");
+                if (xslPath != null)
+                {
+                    xslPath = xslPath.replace('\\', '/');
+                }
+                String xslDir;
+                if (xslPath.contains("/"))
+                {
+                    xslDir = xslPath.substring(0, xslPath.lastIndexOf("/"));
+                }
+                else
+                {
+                    xslDir = ".";
+                }
+                
+                factory.setURIResolver(new LocalUriResolver(xslDir));
+                InputStream stylesheet = ResourceUtil.getResourceAsStream(xslPath);
                 Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
                 
                 if (trgFormat.matches(ESCIDOC_ITEM_LIST_FORMAT))
