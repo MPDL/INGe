@@ -754,7 +754,7 @@
 					<field id="publishing-info_edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
 				</group>
 				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="all" label="g_source_total_number_of_pages"/>
-				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="all">
+				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission">
 					<field id="source_volume" repeatable="false" display="false" optional="true" label="source_volume"/>
 				</group>
 				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission">
@@ -784,7 +784,7 @@
 					<field id="publishing-info_edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
 				</group>
 				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="all" label="g_source_total_number_of_pages"/>
-				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="all">
+				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission">
 					<field id="source_volume" repeatable="false" display="false" optional="true" label="source_volume"/>
 				</group>
 				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission">
@@ -842,7 +842,7 @@
 					<field id="publishing-info_edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
 				</group>
 				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="all" label="g_source_total_number_of_pages"/>
-				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="all">
+				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission">
 					<field id="source_volume" repeatable="false" display="false" optional="true" label="source_volume"/>
 				</group>
 				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission">
@@ -872,7 +872,7 @@
 					<field id="publishing-info_edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
 				</group>
 				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="all" label="g_source_total_number_of_pages"/>
-				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="all">
+				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission">
 					<field id="source_volume" repeatable="false" display="false" optional="true" label="source_volume"/>
 				</group>
 				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission">
