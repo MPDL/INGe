@@ -44,10 +44,8 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblLegalCaseCourtNameIdDate}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.pubItem.metadata.legalCase.courtName}, "/>
-				<h:outputText value="#{ViewItemFull.pubItem.metadata.legalCase.datePublished} - "/>
-				<h:outputText value="#{ViewItemFull.pubItem.metadata.legalCase.identifier}"/>
-				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.legalCase.courtName == null || ViewItemFull.pubItem.metadata.legalCase.courtName == ''}"/>
+				<h:outputText value="#{ViewItemFull.legalCaseCourDateId}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{(ViewItemFull.legalCaseCourDateId == null || ViewItemFull.legalCaseCourDateId == '')}"/>
 			</span>
 		</div>
 <%-- Legal Case title --%>
@@ -57,6 +55,7 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{ViewItemFull.pubItem.metadata.legalCase.title}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.legalCase.title == null || ViewItemFull.pubItem.metadata.legalCase.title == ''}"/>
 			</span>
 		</div>
 
