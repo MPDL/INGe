@@ -191,7 +191,7 @@
 						<h:panelGroup rendered="#{organization.identifier == null || organization.identifier == ''}" styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>					
 						<h:panelGroup styleClass="large_area0_p8 lineToolSection">
 							<tr:commandButton id="btnAddCreatorPersonAffiliation" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addOrga}" action="#{organization.add}" rendered="#{genre.sources_source_person_organization_source_organizations_repeatable != 'false'}"/>
-							<tr:commandButton id="btnRemoveCreatorPersonAffiliation" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" disabled="#{EditItemSessionBean.organizationCount == 1}" action="#{organization.remove}" rendered="#{genre.sources_source_person_organization_source_organizations_repeatable != 'false'}"/>
+							<tr:commandButton id="btnRemoveCreatorPersonAffiliation" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" disabled="#{sourceBean.organizationCount == 1}" action="#{organization.remove}" rendered="#{genre.sources_source_person_organization_source_organizations_repeatable != 'false'}"/>
 						</h:panelGroup>
 					</h:panelGroup>
 				</tr:iterator>

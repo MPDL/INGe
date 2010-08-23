@@ -2236,6 +2236,13 @@ public class EditItem extends FacesBean
         return null;
     }
 
+    public String loadEditLocalTags()
+    {
+        getEditItemSessionBean().clean();
+        
+        return "loadEditLocalTags";
+    }
+    
     public UIXIterator getFileIterator()
     {
         return this.fileIterator;

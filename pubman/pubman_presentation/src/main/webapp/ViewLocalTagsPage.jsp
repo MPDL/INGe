@@ -85,7 +85,7 @@
 											 	- user is owner AND item is in state pending OR in-revision
 											)
 										-->
-									<h:commandLink id="lnkEditLocalTags" action="loadEditLocalTags" value="#{lbl.actionMenu_lnkEditLocalTags}" rendered="#{EditItem.localTagEditingAllowed}" />
+									<h:commandLink id="lnkEditLocalTags" action="#{EditItem.loadEditLocalTags}" value="#{lbl.actionMenu_lnkEditLocalTags}" rendered="#{EditItem.localTagEditingAllowed}" />
 								<!-- content menu lower line ends here -->
 								</div>
 							<!-- content menu ends here -->
