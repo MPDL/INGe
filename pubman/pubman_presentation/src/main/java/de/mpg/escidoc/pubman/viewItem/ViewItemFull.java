@@ -2549,21 +2549,36 @@ public class ViewItemFull extends FacesBean
     }
 
     /**
-     * Returns a true or a false according to the existance of an legal case in the item
+     * Returns a String according to the existance of an legal case in the item
      * 
      * @return boolean
      */
-    public boolean getShowLegalCase()
+    
+    public String  getLegalCaseCourDateId()
     {
-        if (this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getLegalCase() != null)
+        StringBuffer legalCaseString = new StringBuffer();
+        if (this.pubItem.getMetadata().getLegalCase().getCourtName() != "")
         {
-            return true;
+        	legalCaseString.append(this.pubItem.getMetadata().getLegalCase().getCourtName());
         }
-        else
+        if (this.pubItem.getMetadata().getLegalCase().getDatePublished() != "")
         {
-            return false;
+        	if (legalCaseString.length() != 0){
+        		legalCaseString.append(", ");
+        	}
+        	legalCaseString.append(this.pubItem.getMetadata().getLegalCase().getDatePublished());
         }
+        if (this.pubItem.getMetadata().getLegalCase().getIdentifier() != "")
+        {
+        	if (legalCaseString.length() != 0){
+        		legalCaseString.append(" - ");
+        	}
+        	legalCaseString.append(this.pubItem.getMetadata().getLegalCase().getIdentifier());
+        } 
+        return legalCaseString.toString();
     }
+
+    
 
     public void setDefaultSize(int defaultSize)
     {
