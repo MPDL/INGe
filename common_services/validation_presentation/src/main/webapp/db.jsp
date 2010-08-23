@@ -1,3 +1,5 @@
+<%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
+<%@page import="org.apache.commons.codec.binary.Base64"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSetMetaData"%>
 <%@page import="java.sql.ResultSet"%>
@@ -36,8 +38,48 @@
 * All rights reserved. Use is subject to license terms.
 */
 %>
+<%!
+	private boolean testLogin(HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		String auth = request.getHeader("authorization");
+		if (auth == null)
+		{
+			response.addHeader("WWW-Authenticate", "Basic realm=\"Validation Service\"");
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			return false;
+		}
+		else
+		{
+			auth = auth.substring(6);
+			String cred = new String(Base64.decodeBase64(auth.getBytes()));
+			if (cred.contains(":"))
+			{
+	
+				String[] userPass = cred.split(":");
+				String userName = PropertyReader.getProperty("framework.admin.username");
+				String password = PropertyReader.getProperty("framework.admin.password");
+	
+				if (!userPass[0].equals(userName) || !userPass[1].equals(password))
+				{
+					response.sendError(HttpServletResponse.SC_FORBIDDEN);
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+			else
+			{
+				response.sendError(HttpServletResponse.SC_FORBIDDEN);
+				return false;
+			}
+		}
+	}
+%>
 <%
-	//response.sendRedirect("services");
+	if (testLogin(request, response))
+	{
 %>
 <html>
 	<head>
@@ -104,3 +146,6 @@
 		%>
 	</body>
 </html>
+<%
+	}
+%>
