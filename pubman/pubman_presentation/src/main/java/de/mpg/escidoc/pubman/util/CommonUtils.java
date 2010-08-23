@@ -38,6 +38,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -370,7 +371,8 @@ public class CommonUtils extends InternationalizedImpl
         {
 
             HttpClient client = new HttpClient();
-            GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url") + "iso639-3/query?q=" + name + "&format=options");
+            GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
+                    + "iso639-3/query?q=\"" + URLEncoder.encode(name, "ISO-8859-1") + "\"&format=options");
             client.executeMethod(getMethod);
             String response = getMethod.getResponseBodyAsString();
 
