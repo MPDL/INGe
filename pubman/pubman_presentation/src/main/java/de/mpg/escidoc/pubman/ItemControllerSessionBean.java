@@ -1402,7 +1402,13 @@ public class ItemControllerSessionBean extends FacesBean
                 && (pubItem.getMetadata().getLegalCase().getTitle() == null || 
                         pubItem.getMetadata().getLegalCase().getTitle().length() == 0)
                 && (pubItem.getMetadata().getLegalCase().getIdentifier() == null || 
-                        pubItem.getMetadata().getLegalCase().getIdentifier().length() == 0)) {
+                        pubItem.getMetadata().getLegalCase().getIdentifier().length() == 0)
+                && (pubItem.getMetadata().getLegalCase().getDatePublished()== null || 
+                        pubItem.getMetadata().getLegalCase().getDatePublished().length() == 0)
+                && (pubItem.getMetadata().getLegalCase().getCourtName() == null || 
+                        pubItem.getMetadata().getLegalCase().getCourtName().length() == 0)        
+                        
+        ) {
             pubItem.getMetadata().setLegalCase(null);
         }
 
