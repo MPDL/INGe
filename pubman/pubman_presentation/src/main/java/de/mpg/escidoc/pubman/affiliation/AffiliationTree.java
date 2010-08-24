@@ -162,7 +162,7 @@ public class AffiliationTree extends FacesBean
     }
     
     /**
-     * Adds the list of the given affiliations to the filter select
+     * Adds the list of the given affiliations to the filter select.
      * @param affs
      * @param affSelectItems
      * @param level
@@ -179,11 +179,12 @@ public class AffiliationTree extends FacesBean
             prefix += '\u00A0';
         }
         //1 right angle
-        prefix += '└';
-        for(AffiliationVOPresentation aff : affs){
+        prefix += '\u2514';
+        for (AffiliationVOPresentation aff : affs)
+        {
             affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
             affiliationMap.put(aff.getReference().getObjectId(), aff);
-            addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level+1);
+            addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
         }
     }
 
