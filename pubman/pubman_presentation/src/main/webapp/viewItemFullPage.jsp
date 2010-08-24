@@ -143,12 +143,12 @@
 							<!-- content menu ends here -->
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="subHeader" rendered="#{ViewItemFull.isStateInRevision}">
-								<h:outputText value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.publicStatusComment}" rendered="#{ViewItemFull.pubItem.publicStatusComment != null and ViewItemFull.pubItem.publicStatusComment != ''}"/>
-								<h:outputText value="#{msg.ViewItemFull_inRevision} #{lbl.lbl_noEntry}" rendered="#{ViewItemFull.pubItem.publicStatusComment == null || ViewItemFull.pubItem.publicStatusComment == ''}"/>
+								<h:outputText value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.version.lastMessage}" rendered="#{ViewItemFull.pubItem.version.lastMessage != null and ViewItemFull.pubItem.version.lastMessage != ''}"/>
+								<h:outputText value="#{msg.ViewItemFull_inRevision} #{lbl.lbl_noEntry}" rendered="#{ViewItemFull.pubItem.version.lastMessage == null || ViewItemFull.pubItem.version.lastMessage == ''}"/>
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="subHeader" rendered="#{ViewItemFull.isStateSubmitted}">
-								<h:outputText value="#{msg.ViewItemFull_submitted} #{ViewItemFull.pubItem.publicStatusComment}" rendered="#{ViewItemFull.pubItem.publicStatusComment != null and ViewItemFull.pubItem.publicStatusComment != ''}"/>
-								<h:outputText value="#{msg.ViewItemFull_submitted} #{lbl.lbl_noEntry}" rendered="#{ViewItemFull.pubItem.publicStatusComment == null || ViewItemFull.pubItem.publicStatusComment == ''}"/>
+								<h:outputText value="#{msg.ViewItemFull_submitted} #{ViewItemFull.pubItem.version.lastMessage}" rendered="#{ViewItemFull.pubItem.version.lastMessage != null and ViewItemFull.pubItem.version.lastMessage != ''}"/>
+								<h:outputText value="#{msg.ViewItemFull_submitted} #{lbl.lbl_noEntry}" rendered="#{ViewItemFull.pubItem.version.lastMessage == null || ViewItemFull.pubItem.version.lastMessage == ''}"/>
 							</h:panelGroup>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
@@ -171,8 +171,8 @@
 							<div class="full_area0 fullItemControls">
 								<span class="full_area0_p5">
 									<b class="free_area0 small_marginLExcl">&#160;<h:outputText styleClass="messageError" value="#{msg.ViewItemFull_withdrawn}" rendered="#{ViewItemFull.isStateWithdrawn}" /></b>
-									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}" />
-									<h:outputLink id="lnkViewLocalTagsPage" styleClass="free_area0" value="#{ApplicationBean.appContext}ViewLocalTagsPage.jsp" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
+									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn}" />
+									<h:outputLink id="lnkViewLocalTagsPage" styleClass="free_area0" value="#{ApplicationBean.appContext}ViewLocalTagsPage.jsp" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn}">
 										<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.hasAudience and !ViewItemFull.isStateWithdrawn}"/>
