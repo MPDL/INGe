@@ -427,12 +427,12 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<!--<plugin>-->
+			<plugin>
 				<!-- A Java package dependency analyzer that generates
 					  design quality metrics http://clarkware.com/software/JDepend.html -->
-				<!--<groupId>org.codehaus.mojo</groupId>
+				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jdepend-maven-plugin</artifactId>
-			</plugin>-->
+			</plugin>
 		</plugins>
 	</reporting>
 
