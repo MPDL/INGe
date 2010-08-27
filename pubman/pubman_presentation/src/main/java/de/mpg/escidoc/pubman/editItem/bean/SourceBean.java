@@ -53,6 +53,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
 /**
@@ -349,6 +350,18 @@ public class SourceBean extends EditItemBean
     public boolean isSingleElement()
     {
         return (this.list.size() == 1);
+    }
+    
+    public String getJournalSuggestClass()
+    {
+        if (source.getGenre() == Genre.JOURNAL)
+        {
+            return " journalSuggest";
+        }
+        else
+        {
+            return "";
+        }
     }
     
     public void setHiddenIdsField(String hiddenIdsField)

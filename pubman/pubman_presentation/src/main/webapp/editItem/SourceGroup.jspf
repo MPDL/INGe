@@ -62,8 +62,7 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_basic_optional != 'true' && genre.sources_source_basic_source_title_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:inputTextarea id="inpSourceTitle" styleClass="quad_txtArea inputTxtArea sourceTitle" value="#{sourceBean.titleCollection.titleIF.title.value}" cols="15" rows="3" rendered="#{sourceBean.source.genre != 'JOURNAL'}"/>
-						<h:inputTextarea id="inpSourceTitle_Journal" styleClass="quad_txtArea inputTxtArea sourceTitle journalSuggest" value="#{sourceBean.titleCollection.titleIF.title.value}" cols="15" rows="3" rendered="#{sourceBean.source.genre == 'JOURNAL'}"/>
+						<h:inputTextarea id="inpSourceTitle_Journal" styleClass="quad_txtArea inputTxtArea sourceTitle#{sourceBean.journalSuggestClass}" value="#{sourceBean.titleCollection.titleIF.title.value}" cols="15" rows="3"/>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
 						<tr:commandButton id="btnAddSourceTitle" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btAdd}" action="#{sourceBean.titleCollection.addTitle}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}" disabled="#{!((genre.sources_source_basic_source_title_alternative_repeatable != 'false') || (genre.sources_source_basic_source_title_alternative_repeatable != 'true' && sourceBean.titleCollection.alternativeTitleManager.size != 1))}"/>
