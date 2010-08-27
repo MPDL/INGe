@@ -50,7 +50,7 @@
         <createForPack name="PubMan" />
         <field type="title" txt="Mail Server Settings" bold="true" size="1" />
          <field type="staticText" align="left"
-            txt="(Optionally) PubMan can be configured with Mail Server in order to allow delivering e-mails to the users." />
+            txt="Optional: PubMan can be configured with Mail Server in order to allow delivering e-mails to the users." />
         <field type="divider" align="top" />
         <field type="text" align="left" variable="MailHost">
             <spec txt="Mail Server Hostname:" size="25" set="${MailHost}" />
@@ -84,8 +84,7 @@
         <createForPack name="PubMan" />
         <field type="title" txt="CoNE Settings" bold="true" size="1" />
          <field type="staticText" align="left"
-            txt="CoNE (Control-Of-Named-Entities Service). The purpose of this Service is to provide controlled lists of named entities to assure data quality and facilitate data access and data entry. It requires a PostgreSQL Database, where the data is stored. A dump can be downloaded here: 
-            https://zim02.gwdg.de/repos/common/trunk/common_services/cone_presentation/src/test/resources/database.sql" />
+            txt="CoNE (Control-Of-Named-Entities Service). The purpose of this Service is to provide controlled lists of named entities to assure data quality and facilitate data access and data entry. It requires a PostgreSQL Database, where the data is stored." />
         <field type="divider" align="top" />
         <field type="space" />
         <field type="text" align="left" variable="ConeHost">
