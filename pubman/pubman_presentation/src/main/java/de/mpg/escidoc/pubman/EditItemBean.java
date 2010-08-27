@@ -218,7 +218,11 @@ public class EditItemBean extends FacesBean
         {
             PersonVO person = creator.getPerson();
             List<OrganizationVO> personOrgs = person.getOrganizations();
-            String[] orgArr = creator.getOuNumbers().split(",");
+            String[] orgArr = new String[]{};
+            if (creator.getOuNumbers() != null)
+            {
+                orgArr = creator.getOuNumbers().split(",");
+            }
             personOrgs.clear();
             try
             {

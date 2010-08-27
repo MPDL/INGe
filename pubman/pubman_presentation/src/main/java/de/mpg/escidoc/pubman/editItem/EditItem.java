@@ -685,7 +685,7 @@ public class EditItem extends FacesBean
                 GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
         try
         {
-            this.item = (PubItemVOPresentation)itemManager.cleanupItem();
+            this.item = (PubItemVOPresentation) itemManager.cleanupItem();
         }
         catch (Exception e)
         {
