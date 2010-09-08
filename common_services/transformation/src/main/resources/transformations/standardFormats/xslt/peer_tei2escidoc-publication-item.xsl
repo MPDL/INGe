@@ -103,6 +103,8 @@
 			<m key="Online">eterms:published-online</m>
 			<m key="Submitted">dcterms:dateSubmitted</m>
 			<m key="publication">dcterms:issued</m>
+			<m key="Published">dcterms:issued</m>
+			<m key="ePublished">eterms:published-online</m> 
 	</xsl:variable>
 	
 	<xsl:template match="/">
