@@ -70,6 +70,7 @@
 	<xsl:param name="user" select="'dummy:user'"/>
 	<xsl:param name="context" select="'dummy:context'"/>
 	<xsl:param name="content-model"/>
+	<xsl:param name="external_organization_id"/>
 
 	<xsl:param name="is-item-list" select="true()"/>
 	
@@ -519,7 +520,7 @@
 								)"/>
 						</eterms:address>
 					</xsl:if>
-					<dc:identifier>${escidoc.pubman.external.organisation.id}</dc:identifier>
+					<dc:identifier><xsl:value-of select="$external_organization_id"/></dc:identifier>
 				</organization:organization>
 			</xsl:for-each>
 <!-- END OF AFFILIATIONS -->
