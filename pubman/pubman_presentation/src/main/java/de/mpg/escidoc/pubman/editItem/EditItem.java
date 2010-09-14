@@ -939,9 +939,17 @@ public class EditItem extends FacesBean
             }
             else
             {
-                this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM, false);
-                this.getItemControllerSessionBean().saveAndSubmitCurrentPubItem(
-                        "Submission during saving released item.", SubmitItem.LOAD_SUBMITITEM);
+                if (this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM, false) == null)
+                {
+                    this.showValidationMessages(this.getItemControllerSessionBean().getCurrentItemValidationReport());
+                    return null;
+                }
+                if (this.getItemControllerSessionBean().saveAndSubmitCurrentPubItem(
+                        "Submission during saving released item.", SubmitItem.LOAD_SUBMITITEM) == null)
+                {
+                    this.showValidationMessages(this.getItemControllerSessionBean().getCurrentItemValidationReport());
+                    return null;
+                }
                 try
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId()));

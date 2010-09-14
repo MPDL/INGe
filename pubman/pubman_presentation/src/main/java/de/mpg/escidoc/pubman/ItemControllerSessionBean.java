@@ -994,7 +994,7 @@ public class ItemControllerSessionBean extends FacesBean
         {           
             // Item is invalid, do not save anything.
             currentItemValidationReport = report;
-            return pubItem;         
+            return pubItemToSave;         
         }
     }
 
