@@ -26,21 +26,14 @@
 					<tr>
 						<td>PubMan (plain .ear)</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman_download_release/pubman.ear">pubman.ear
+							<a href="http://archiva.mpdl.mpg.de/archiva/repository/internal/de/mpg/escidoc/pubman/pubman_ear/6.1.12/pubman_ear-6.1.12.ear">pubman.ear
 							</a>
 						</td>
 					</tr>
 					<tr>
-						<td>PubMan (graphical installer), coreservice version 1.1.3</td>
+						<td>PubMan (graphical installer), coreservice version 1.2</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman_download_release/pubman_installer-standard.jar">pubman_installer-standard.jar
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>PubMan (graphical installer), coreservice version 1.1.4</td>
-						<td>
-							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman_download_release/pubman_installer-pm6.0.1-cs1.1.4.jar">pubman_installer-pm6.0.1-cs1.1.4.jar
+							<a href="http://archiva.mpdl.mpg.de/archiva/repository/internal/de/mpg/escidoc/pubman/pubman_installer/6.1.12/pubman_installer-6.1.12-standard.jar">pubman_installer-standard.jar
 							</a>
 						</td>
 					</tr>
@@ -61,7 +54,7 @@
 					</tr>
 					<tr>
 						<td>eSciDoc coreservice versions</td>
-						<td>Release 1.1.3 and 1.1.4</td>
+						<td>Release 1.2</td>
 					</tr>
 				</tbody>
 			</table>
@@ -92,34 +85,34 @@
 						<td>pubman_logic</td>
 						<td>Provides the logic of PubMan</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_logic">archiva dir</a>
+							<a href="http://archiva.mpdl.mpg.de/archiva/browse/de.mpg.escidoc.pubman/pubman_logic">archiva dir</a>
 						</td>
 
 					</tr>
 					<td>pubman_presentation</td>
 					<td>Provides the presentation layer of PubMan</td>
 					<td>
-						<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_presentation">archiva dir</a>
+						<a href="http://archiva.mpdl.mpg.de/archiva/browse/de.mpg.escidoc.pubman/pubman_presentation">archiva dir</a>
 					</td>
 					<tr>
 						<td>pubman_ear</td>
 						<td>Provides the ear, the deployable to jboss servers</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_ear">archiva dir</a>
+							<a href="">archiva dir</a>
 						</td>
 					</tr>
 					<tr>
 						<td>pubman_logic_ear</td>
 						<td>Pubman logic integration tests</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_logic_ear">archiva dir</a>
+							<a href="http://archiva.mpdl.mpg.de/archiva/browse/de.mpg.escidoc.pubman/pubman_logic_ear">archiva dir</a>
 						</td>
 					</tr>
                     <tr>
                         <td>pubman_installer</td>
                         <td>Pubman Installer</td>
                         <td>
-                            <a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_installer">archiva dir</a>
+                            <a href="http://archiva.mpdl.mpg.de/archiva/browse/de.mpg.escidoc.pubman/pubman_installer">archiva dir</a>
                         </td>
                     </tr>
 				</tbody>
