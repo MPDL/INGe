@@ -192,7 +192,11 @@ public class JsonFormatter extends Formatter
                 }
                 else if (pair instanceof TreeFragment)
                 {
-                    result.append(((TreeFragment)pair).toJson());
+                    result.append(((TreeFragment)pair).toJson());   
+                }
+                if (!(pair == pairs.get(pairs.size() - 1)))
+                {
+                    result.append(",");
                 }
                 result.append("\n");
             }
