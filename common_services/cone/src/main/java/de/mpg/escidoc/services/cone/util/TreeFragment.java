@@ -296,6 +296,11 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
         {
             StringWriter writer = new StringWriter();
             writer.append("{\n");
+            
+            writer.append("\"id\" : \"");
+            writer.append(PropertyReader.getProperty("escidoc.cone.service.url") + subject.replace("\"", "\\\""));
+            writer.append("\",\n");
+            
             for (Iterator<String> iterator = keySet().iterator(); iterator.hasNext();)
             {
                 String key = iterator.next();
