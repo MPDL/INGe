@@ -1,33 +1,31 @@
 /*
-*
-* CDDL HEADER START
-*
-* The contents of this file are subject to the terms of the
-* Common Development and Distribution License, Version 1.0 only
-* (the "License"). You may not use this file except in compliance
-* with the License.
-*
-* You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
-* See the License for the specific language governing permissions
-* and limitations under the License.
-*
-* When distributing Covered Code, include this CDDL HEADER in each
-* file and include the License file at license/ESCIDOC.LICENSE.
-* If applicable, add the following below this CDDL HEADER, with the
-* fields enclosed by brackets "[]" replaced with your own identifying
-* information: Portions Copyright [yyyy] [name of copyright owner]
-*
-* CDDL HEADER END
-*/
-
+ *
+ * CDDL HEADER START
+ *
+ * The contents of this file are subject to the terms of the
+ * Common Development and Distribution License, Version 1.0 only
+ * (the "License"). You may not use this file except in compliance
+ * with the License.
+ *
+ * You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ * or http://www.escidoc.de/license.
+ * See the License for the specific language governing permissions
+ * and limitations under the License.
+ *
+ * When distributing Covered Code, include this CDDL HEADER in each
+ * file and include the License file at license/ESCIDOC.LICENSE.
+ * If applicable, add the following below this CDDL HEADER, with the
+ * fields enclosed by brackets "[]" replaced with your own identifying
+ * information: Portions Copyright [yyyy] [name of copyright owner]
+ *
+ * CDDL HEADER END
+ */
 /*
-* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
-* All rights reserved. Use is subject to license terms.
-*/ 
-
+ * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+ * für wissenschaftlich-technische Information mbH and Max-Planck-
+ * Gesellschaft zur Förderung der Wissenschaft e.V.
+ * All rights reserved. Use is subject to license terms.
+ */
 package de.mpg.escidoc.services.cone.util;
 
 import java.io.StringWriter;
@@ -43,28 +41,25 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * A representation of a tree-like structure built of s-p-o triples.
- *
+ * 
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- *
  */
 public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> implements LocalizedTripleObject
 {
     private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.# ";
     private static final Pattern NAMESPACE_PATTERN = Pattern.compile("([\\S]+)(([/#])| )([^/# ]+)");
-    
     private String subject;
     private String language;
-    
+
     /**
      * Default constructor.
      */
     public TreeFragment()
     {
-        
     }
-    
+
     /**
      * Constructor with given subject.
      * 
@@ -74,7 +69,7 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
     {
         this.subject = subject;
     }
-    
+
     /**
      * Constructor with given subject and language.
      * 
@@ -110,32 +105,30 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
     // Add predicates of other if this predicate does not exist yet, otherwise overwrite it.
     public void merge(TreeFragment other)
     {
-    	for (String predicateName : other.keySet())
-    	{
-    		put(predicateName, other.get(predicateName));
-    	}
+        for (String predicateName : other.keySet())
+        {
+            put(predicateName, other.get(predicateName));
+        }
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean hasValue()
     {
-        
         return (subject != null && !"".equals(subject));
-        
-//        for (String element : this.keySet())
-//        {
-//            List<LocalizedTripleObject> list = this.get(element);
-//            for (LocalizedTripleObject object : list)
-//            {
-//                if (object.hasValue())
-//                {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
+        // for (String element : this.keySet())
+        // {
+        // List<LocalizedTripleObject> list = this.get(element);
+        // for (LocalizedTripleObject object : list)
+        // {
+        // if (object.hasValue())
+        // {
+        // return true;
+        // }
+        // }
+        // }
+        // return false;
     }
 
     /**
@@ -158,7 +151,6 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
         {
             StringWriter result = new StringWriter();
             Map<String, String> namespaces = new HashMap<String, String>();
-            
             ModelList modelList;
             try
             {
@@ -169,7 +161,6 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
                 throw new RuntimeException(e);
             }
             int counter = 0;
-
             result.append("<rdf:Description");
             if (!subject.startsWith("genid:"))
             {
@@ -184,25 +175,21 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
                     throw new RuntimeException(e);
                 }
             }
-            
             if (language != null && !"".equals(language))
             {
                 result.append(" xml:lang=\"");
                 result.append(language);
                 result.append("\"");
             }
-            
             for (String predicate : keySet())
             {
                 Matcher matcher = NAMESPACE_PATTERN.matcher(predicate);
                 if (matcher.find())
                 {
                     String namespace = matcher.group(1) + (matcher.group(3) == null ? "" : matcher.group(3));
-
                     if (!namespaces.containsKey(namespace))
                     {
                         String prefix;
-                        
                         if (modelList.getDefaultNamepaces().containsKey(namespace))
                         {
                             prefix = modelList.getDefaultNamepaces().get(namespace);
@@ -212,16 +199,12 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
                             counter++;
                             prefix = "ns" + counter;
                         }
-                        
                         namespaces.put(namespace, prefix);
-                        
                         result.append(" xmlns:" + prefix + "=\"" + namespace + "\"");
                     }
                 }
             }
-
             result.append(">\n");
-            
             for (String predicate : keySet())
             {
                 Matcher matcher = NAMESPACE_PATTERN.matcher(predicate);
@@ -239,9 +222,7 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
                     int lastColon = predicate.lastIndexOf(":");
                     tagName = predicate.substring(lastColon + 1);
                 }
-                
                 List<LocalizedTripleObject> values = get(predicate);
-                
                 for (LocalizedTripleObject value : values)
                 {
                     result.append("<");
@@ -251,14 +232,12 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
                         result.append(":");
                     }
                     result.append(tagName);
-                    
                     if (value.getLanguage() != null && !"".equals(value.getLanguage()))
                     {
                         result.append(" xml:lang=\"");
                         result.append(value.getLanguage());
                         result.append("\"");
                     }
-                    
                     result.append(">");
                     result.append(value.toRdf());
                     result.append("</");
@@ -285,7 +264,8 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
         {
             try
             {
-                return "\"" + PropertyReader.getProperty("escidoc.cone.service.url") + subject.replace("\"", "\\\"") + "\"";
+                return "\"" + PropertyReader.getProperty("escidoc.cone.service.url") + subject.replace("\"", "\\\"")
+                        + "\"";
             }
             catch (Exception e)
             {
@@ -296,22 +276,23 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
         {
             StringWriter writer = new StringWriter();
             writer.append("{\n");
-            
-            writer.append("\"id\" : \"");
-            try
+            if (!subject.startsWith("genid:"))
             {
-                writer.append(PropertyReader.getProperty("escidoc.cone.service.url") + subject.replace("\"", "\\\""));
+                writer.append("\"id\" : \"");
+                try
+                {
+                    writer.append(PropertyReader.getProperty("escidoc.cone.service.url")
+                            + subject.replace("\"", "\\\""));
+                }
+                catch (Exception e)
+                {
+                    throw new RuntimeException(e);
+                }
+                writer.append("\",\n");
             }
-            catch (Exception e)
-            {
-                throw new RuntimeException(e);
-            }
-            writer.append("\",\n");
-            
             for (Iterator<String> iterator = keySet().iterator(); iterator.hasNext();)
             {
                 String key = iterator.next();
-
                 writer.append("\"");
                 writer.append(key.replaceAll("[" + REGEX_PREDICATE_REPLACE + "]+", "_").replace("\"", "\\\""));
                 writer.append("\" : ");
@@ -324,7 +305,7 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
                     writer.append("[\n");
                     for (Iterator<LocalizedTripleObject> iterator2 = get(key).iterator(); iterator2.hasNext();)
                     {
-                        LocalizedTripleObject object = (LocalizedTripleObject) iterator2.next();
+                        LocalizedTripleObject object = (LocalizedTripleObject)iterator2.next();
                         writer.append(object.toJson());
                         if (iterator2.hasNext())
                         {
@@ -343,7 +324,7 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
             return writer.toString();
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -354,7 +335,6 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
         {
             return null;
         }
-        
         try
         {
             return subject;
@@ -379,19 +359,19 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
         {
             return false;
         }
-        else if (language == null && ((TreeFragment) o).getLanguage() != null)
+        else if (language == null && ((TreeFragment)o).getLanguage() != null)
         {
             return false;
         }
-        else if (language != null && !language.equals(((TreeFragment) o).getLanguage()))
+        else if (language != null && !language.equals(((TreeFragment)o).getLanguage()))
         {
             return false;
         }
-        else if (subject == null && ((TreeFragment) o).getSubject() != null)
+        else if (subject == null && ((TreeFragment)o).getSubject() != null)
         {
             return false;
         }
-        else if (subject != null && !subject.equals(((TreeFragment) o).getSubject()))
+        else if (subject != null && !subject.equals(((TreeFragment)o).getSubject()))
         {
             return false;
         }
@@ -400,6 +380,4 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
             return super.equals(o);
         }
     }
-    
-    
 }
