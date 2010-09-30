@@ -106,6 +106,7 @@ public class DatabaseHelper
 		} 
         catch (Exception e) 
 		{
+            e.printStackTrace();
         	statement.close();
             connection.close();
             //throw new RuntimeException(e);
