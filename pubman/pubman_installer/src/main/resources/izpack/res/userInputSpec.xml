@@ -281,7 +281,7 @@
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
         </field>
         <field type="text" align="left" variable="escidoc.cone.subjectVocab">
-            <spec txt="The subject classifications used in the 'Browse by' section (Selection of DDC, MPIPKS, ISO 639-3)  :" size="25" align="left" set="${escidoc.cone.subjectVocab}"/>
+            <spec txt="The subject classifications used in the 'Browse by' section (Selection of ddc, mpipks, iso639-3)  :" size="25" align="left" set="${escidoc.cone.subjectVocab}"/>
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
         </field>     
         <field type="text" align="left" variable="escidoc.pubman.genres.configuration">
