@@ -124,9 +124,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         userConfigValues.put(Configuration.KEY_CONE_USER, idata.getVariable("ConeUser"));
         userConfigValues.put(Configuration.KEY_CONE_PW, idata.getVariable("ConePassword"));
         userConfigValues.put(Configuration.KEY_EXTERNAL_OU, idata.getVariable("ExternalOrganisationID"));
-        userConfigValues.put(Configuration.KEY_VIEW_ITEM_SIZE, idata.getVariable("escidoc.pubman_presentation.viewFullItem.defaultSize"));
-        userConfigValues.put(Configuration.KEY_POLICY_LINK, idata.getVariable("escidoc.pubman.policy.url"));
-        
+         
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_STANDARD_APPLY,
                 idata.getVariable("StyleSheetStandardApply"));
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_STANDARD_URL, idata.getVariable("StyleSheetStandardURL"));
@@ -147,10 +145,26 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         userConfigValues.put(Configuration.KEY_UNAPI_DOWNLOAD_SERVER, idata.getVariable("InstanceUrl") + "/dataacquisition/download/unapi");
         userConfigValues.put(Configuration.KEY_UNAPI_VIEW_SERVER, idata.getVariable("InstanceUrl") + "/dataacquisition/view/unapi");
         
-        // TODO:
-        //
-        //
-        //
+        // Panel 6
+        userConfigValues.put(Configuration.KEY_FW_ACCESS_CMODEL_LINK, idata.getVariable("escidoc.framework_access.content-model.id.publication"));
+        // Panel 8
+        userConfigValues.put(Configuration.KEY_VIEW_ITEM_SIZE, idata.getVariable("escidoc.pubman_presentation.viewFullItem.defaultSize"));
+        userConfigValues.put(Configuration.KEY_POLICY_LINK, idata.getVariable("escidoc.pubman.policy.url"));
+        userConfigValues.put(Configuration.KEY_CONTACT_LINK, idata.getVariable("escidoc.pubman.contact.url"));
+        userConfigValues.put(Configuration.KEY_ACCESS_LOGIN_LINK, idata.getVariable("escidoc.framework_access.login.url"));
+        userConfigValues.put(Configuration.KEY_BLOG_NEWS_LINK, idata.getVariable("escidoc.pubman.blog.news"));
+        userConfigValues.put(Configuration.KEY_VOCAB_LINK, idata.getVariable("escidoc.cone.subjectVocab"));
+        userConfigValues.put(Configuration.KEY_ACCESS_CONF_GENRES_LINK, idata.getVariable("escidoc.pubman.genres.configuration"));
+        // Panel 9
+        userConfigValues.put(Configuration.KEY_TASK_INT_LINK, idata.getVariable("escidoc.pubman.sitemap.task.interval"));
+        userConfigValues.put(Configuration.KEY_MAX_ITEMS_LINK, idata.getVariable("escidoc.pubman.sitemap.max.items"));
+        userConfigValues.put(Configuration.KEY_RETRIEVE_ITEMS_LINK, idata.getVariable("escidoc.pubman.sitemap.retrieve.items"));
+        userConfigValues.put(Configuration.KEY_RETRIEVE_TIMEOUT_LINK, idata.getVariable("escidoc.pubman.sitemap.retrieve.timeout"));
+        // Panel 10
+        userConfigValues.put(Configuration.KEY_SORT_KEYS_LINK, idata.getVariable("escidoc.search.and.export.default.sort.keys"));
+        userConfigValues.put(Configuration.KEY_SORT_ORDER_LINK, idata.getVariable("escidoc.search.and.export.default.sort.order"));
+        userConfigValues.put(Configuration.KEY_MAX_RECORDS_LINK, idata.getVariable("escidoc.search.and.export.maximum.records"));
+
         
         configuration.setProperties(userConfigValues);
         configuration.store(idata.getInstallPath() + "/jboss/server/default/conf/pubman.properties");

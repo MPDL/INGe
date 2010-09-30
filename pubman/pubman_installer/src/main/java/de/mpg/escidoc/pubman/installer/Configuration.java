@@ -79,9 +79,26 @@ public class Configuration
     public static final String KEY_PM_FAVICON_APPLY = "escidoc.pubman.favicon.apply";
     public static final String KEY_UNAPI_DOWNLOAD_SERVER = "escidoc.unapi.download.server";
     public static final String KEY_UNAPI_VIEW_SERVER = "escidoc.unapi.view.server";
+    // Panel 6
+    public static final String KEY_FW_ACCESS_CMODEL_LINK = "escidoc.framework_access.content-model.id.publication";
+    // Panel 8
     public static final String KEY_VIEW_ITEM_SIZE = "escidoc.pubman_presentation.viewFullItem.defaultSize";
     public static final String KEY_POLICY_LINK = "escidoc.pubman.policy.url";
-    
+    public static final String KEY_CONTACT_LINK = "escidoc.pubman.contact.url";
+    public static final String KEY_ACCESS_LOGIN_LINK = "escidoc.framework_access.login.url";
+    public static final String KEY_BLOG_NEWS_LINK = "escidoc.pubman.blog.news";
+    public static final String KEY_VOCAB_LINK = "escidoc.cone.subjectVocab";
+    public static final String KEY_ACCESS_CONF_GENRES_LINK = "escidoc.pubman.genres.configuration";
+    // Panel 9
+    public static final String KEY_TASK_INT_LINK = "escidoc.pubman.sitemap.task.interval";
+    public static final String KEY_MAX_ITEMS_LINK = "escidoc.pubman.sitemap.max.items";
+    public static final String KEY_RETRIEVE_ITEMS_LINK = "escidoc.pubman.sitemap.retrieve.items";
+    public static final String KEY_RETRIEVE_TIMEOUT_LINK = "escidoc.pubman.sitemap.retrieve.timeout";
+    // Panel 10
+    public static final String KEY_SORT_KEYS_LINK = "escidoc.search.and.export.default.sort.keys";
+    public static final String KEY_SORT_ORDER_LINK = "escidoc.search.and.export.default.sort.order";
+    public static final String KEY_MAX_RECORDS_LINK = "escidoc.search.and.export.maximum.records";
+   
     public Configuration(String fileName) throws IOException
     {
         logger = Logger.getLogger(Configuration.class);
