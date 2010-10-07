@@ -31,19 +31,18 @@
 */
 
 /* import eSciDoc global styles | globale eSciDoc-Stylesheets einbinden */
-	/* import eSciDoc core | eSciDoc core einbinden */
-		@import url(./eSciDoc_global_css/eSciDoc_core_em.css);
+		@import url(./globalCSS/eSciDoc_core_em.css);
 
 /* import component specific styles | komponentenspezifische Stylesheets einbinden */
 	/* import header styles | das Stylesheet für den Seitenkopf einbinden */
-		@import url(./eSciDoc_component_css/header.css);	
+		@import url(./componentCSS/header.css);	
 	/* import info page styles | das Stylesheet für die Info Seiten einbinden */
-		@import url(./eSciDoc_component_css/infoPage.css);	
+		@import url(./componentCSS/infoPage.css);	
 	/* import extended paginator component styles | das Stylesheet für die Komponente "erweiterter Paginator" einbinden */
-		@import url(./eSciDoc_component_css/extPaginator.css);
+		@import url(./componentCSS/extPaginator.css);
 	/* import list component styles | das Stylesheet für die Listenkomponenten einbinden */
-		@import url(./eSciDoc_component_css/lists.css);
+		@import url(./componentCSS/lists.css);
 	/* import full item component styles | das Stylesheet für die Komponente für die Itemvollansicht einbinden */
-		@import url(./eSciDoc_component_css/fullItem.css);
+		@import url(./componentCSS/fullItem.css);
 	/* import single elements styles | das Stylesheet für die einzelnen Elemente einbinden */
-		@import url(./eSciDoc_component_css/singleElements.css);	
+		@import url(./componentCSS/externalOverrides.css);	
