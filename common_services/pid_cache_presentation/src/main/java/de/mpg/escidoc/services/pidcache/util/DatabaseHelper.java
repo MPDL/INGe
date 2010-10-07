@@ -40,6 +40,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import org.apache.log4j.Logger;
+
 /**
  * TODO Description
  *
@@ -77,6 +79,8 @@ public class DatabaseHelper
     public static final String RETRIEVE_QUEUE_ELEMENT_STATEMENT = 
     	"SELECT * FROM ESCIDOC_PID_QUEUE WHERE IDENTIFIER = 'XXX_IDENTIFIER_XXX'";
     
+    private static Logger logger = Logger.getLogger(DatabaseHelper.class);
+    
     /**
      * Get the connection to the cache table
      * @return
@@ -106,7 +110,7 @@ public class DatabaseHelper
 		} 
         catch (Exception e) 
 		{
-            e.printStackTrace();
+            logger.debug("Error while trying to create table, it probably already exists", e);
         	statement.close();
             connection.close();
             //throw new RuntimeException(e);
