@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.pubman.installer.panels;
 
+import java.awt.Dimension;
 import java.awt.LayoutManager2;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -39,6 +40,8 @@ import java.util.Map;
 
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+
+import org.apache.log4j.Logger;
 
 import com.izforge.izpack.Pack;
 import com.izforge.izpack.gui.IzPanelLayout;
@@ -60,6 +63,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
     ConeInsertProcess coneInsertProcess;
     private LabelPanel conePanel;
     private boolean success;
+    private static Logger logger = Logger.getLogger(ConfigurationCreatorPanel.class);
 
     /**
      * The constructor.
@@ -146,7 +150,9 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         userConfigValues.put(Configuration.KEY_UNAPI_VIEW_SERVER, idata.getVariable("InstanceUrl") + "/dataacquisition/view/unapi");
         
         // Panel 6
-        userConfigValues.put(Configuration.KEY_FW_ACCESS_CMODEL_LINK, idata.getVariable("escidoc.framework_access.content-model.id.publication"));
+        userConfigValues.put(Configuration.KEY_PUBLICATION_CM, idata.getVariable("escidoc.framework_access.content-model.id.publication"));
+        // Panel 11
+        userConfigValues.put(Configuration.KEY_IMPORT_TASK_CM, idata.getVariable("escidoc.import.task.content-model"));
         // Panel 8
         userConfigValues.put(Configuration.KEY_VIEW_ITEM_SIZE, idata.getVariable("escidoc.pubman_presentation.viewFullItem.defaultSize"));
         userConfigValues.put(Configuration.KEY_POLICY_LINK, idata.getVariable("escidoc.pubman.policy.url"));
@@ -272,7 +278,8 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
                 datasetPanel.setEndLabel("Error while creating initial dataset!", LabelPanel.ICON_ERROR);
                 String hint = "Please rerun installation and ensure that the eSciDoc coreservice is running and the correct coreservice credentials are provided in the installer.";
                 datasetPanel.addToTextArea(e.toString() + ": " + e.getMessage() + "\n" + hint);
-                e.printStackTrace();
+                datasetPanel.setMinimumSize(new Dimension(700, 100));
+                logger.error("Error while creating initial dataset!", e);
                 success = false;
             }
             revalidate();
@@ -287,6 +294,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
             }
             catch (Exception e)
             {
+                logger.error("Error while writing CoNE data to database!", e);
             }
             revalidate();
         }
@@ -301,6 +309,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         {
             propertiesModelPanel.setEndLabel("Error. Property file could not be written!", LabelPanel.ICON_ERROR);
             propertiesModelPanel.addToTextArea(e.toString() + ": " + e.getMessage());
+            logger.error("Property file could not be written!", e);
             success = false;
         }
         revalidate();

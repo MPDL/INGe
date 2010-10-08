@@ -189,15 +189,31 @@
         <field type="divider" align="top" />
         <field type="space" />
         <field type="text" align="left" variable="escidoc.framework_access.content-model.id.publication">
-            <spec txt="Content Model ID  :" size="25" set="${escidoc.framework_access.content-model.id.publication}" />
+            <spec txt="Content Model ID  :" size="25"/>
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="ID of eSciDoc Content Model must not be empty string." />
         </field>
         <field type="space" />
         <field type="divider" align="bottom" />
     </panel>
     
-    <!-- ===========================   Panel 7: PubMan Style Information   =============================== -->
-    <panel order="7">
+     <!-- ===========================   Panel 7 : Content Model ID   =============================== -->
+     <panel order="7">
+        <createForUnselectedPack name="Initial Dataset" />
+         <field type="staticText" align="left"
+            txt="PubMan needs to know which Content Model should be used for multiple import tasks." />
+        <field type="title" txt="ID of the eSciDoc Content Model for import tasks on the given core service instance" bold="true" size="1" />
+        <field type="divider" align="top" />
+        <field type="space" />
+        <field type="text" align="left" variable="escidoc.import.task.content-model">
+            <spec txt="Content Model ID  :" size="25"/>
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="ID of eSciDoc Content Model must not be empty" />
+        </field>
+        <field type="space" />
+        <field type="divider" align="bottom" />
+    </panel>
+
+    <!-- ===========================   Panel 8: PubMan Style Information   =============================== -->
+    <panel order="8">
         <createForPack name="PubMan" />
          <field type="staticText" align="left"
             txt="External Stylesheets and an external FavIcon can be specified here by entering absolute or relative URLs. The Stylesheet or FavIcon can also be switched off completely by deselecting the checkbox. For Stylesheets one has to be set to 'stylesheet' (rel tag). The others have to be 'alternate stylesheet'. If nothing is changed here, PubMan will come with its standard Stylesheets and FavIcon." />
@@ -251,8 +267,8 @@
         <field type="divider" align="bottom" />
     </panel>
     
-    <!-- ===========================   Panel 8: PubMan Presentation   =============================== -->
-    <panel order="8">
+    <!-- ===========================   Panel 9: PubMan Presentation   =============================== -->
+    <panel order="9">
         <createForPack name="PubMan" />
          <field type="staticText" align="left"
             txt="Customize PubMan features and usability aspects" />
@@ -261,39 +277,41 @@
          <field type="space" />
         <field type="staticText" align="left"  txt="How many creators should be shown in the full item view (additional" />      
         <field type="text" align="left" variable="escidoc.pubman_presentation.viewFullItem.defaultSize">
-            <spec txt="creators will be hidden but can be made visible by the user)  :" size="25" align="left" set="${escidoc.pubman_presentation.viewFullItem.defaultSize}"/>
+            <spec txt="creators will be hidden but can be made visible by the user  :" size="25" align="left" set="${escidoc.pubman_presentation.viewFullItem.defaultSize}"/>
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
         </field>
          <field type="text" align="left" variable="escidoc.pubman.policy.url">
             <spec txt="Link to your Repository's Policy  :" size="25" align="left" set="${escidoc.pubman.policy.url}"/>
-            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter a URL" />
         </field>       
         <field type="text" align="left" variable="escidoc.pubman.contact.url">
             <spec txt="Contact Link  :" size="25" align="left" set="${escidoc.pubman.contact.url}"/>
-            <validator class="com.izforge.izpack.util.NotEmptyValidator :" txt="Please enter an amount of creators" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator :" txt="Please enter a URL" />
         </field>
         <field type="text" align="left" variable="escidoc.framework_access.login.url">
-            <spec txt="URL of your Core Service Login Page (/aa/login will be added) :" size="25" align="left" set="${escidoc.framework_access.login.url}"/>
-            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
+            <spec txt="URL of your Core Service Login Page (/aa/login will be added) :" size="25" align="left" set="${CoreserviceUrl}"/>
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter a URL" />
         </field>
         <field type="text" align="left" variable="escidoc.pubman.blog.news">
             <spec txt="Link to the integrated news feed (RSS) :" size="25" align="left" set="${escidoc.pubman.blog.news}"/>
-            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter a URL" />
         </field>
         <field type="text" align="left" variable="escidoc.cone.subjectVocab">
             <spec txt="The subject classifications used in the 'Browse by' section (Selection of ddc, mpipks, iso639-3)  :" size="25" align="left" set="${escidoc.cone.subjectVocab}"/>
-            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
+            <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Please enter a semicolon separated list of classifications">
+            	<param name="pattern" value="[a-zA-Z0-9._-]+(;[a-zA-Z0-9._-]+)*"/>
+            </validator>
         </field>     
         <field type="text" align="left" variable="escidoc.pubman.genres.configuration">
             <spec txt="The path to the configuration file for document-type specific input forms  :" size="25" align="left" set="${escidoc.pubman.genres.configuration}"/>
-            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter a valid path" />
         </field>
 		<field type="space" />
         <field type="divider" align="bottom" />
     </panel>
 
-    <!-- ===========================   Panel 9: Search Engine SiteMap   =============================== -->
-    <panel order="9">
+    <!-- ===========================   Panel 10: Search Engine SiteMap   =============================== -->
+    <panel order="10">
         <createForPack name="PubMan" />
          <field type="staticText" align="left"
             txt="Customize PubMan features and usability aspects" />
@@ -302,26 +320,34 @@
         <field type="space" />
         <field type="text" align="left" variable="escidoc.pubman.sitemap.task.interval">
             <spec txt="The time (in minutes) between two creations of a sitemap readable by search engines  :" size="15" align="left" set="${escidoc.pubman.sitemap.task.interval}"/>
-            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
+            <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Please enter the number of seconds">
+            	<param name="pattern" value="[1-9]\d*"/>
+            </validator>
         </field>
         <field type="text" align="left" variable="escidoc.pubman.sitemap.max.items">
             <spec txt="The number of items listed in one file  :" size="15" align="right" set="${escidoc.pubman.sitemap.max.items}"/>
-            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
+            <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Please enter the number of items">
+            	<param name="pattern" value="[1-9]\d*"/>
+            </validator>
         </field>
         <field type="text" align="left" variable="escidoc.pubman.sitemap.retrieve.items">
             <spec txt="The number of items retrieved in a request  :" size="15" align="left" set="${escidoc.pubman.sitemap.retrieve.items}"/>
-            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
+            <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Please enter the number of items">
+            	<param name="pattern" value="[1-9]\d*"/>
+            </validator>
         </field>
         <field type="text" align="left" variable="escidoc.pubman.sitemap.retrieve.timeout">
             <spec txt="The time (in seconds) between two requests  :" size="15" align="left" set="${escidoc.pubman.sitemap.retrieve.timeout}"/>
-            <validator class="com.izforge.izpack.util.NotEmptyValidator  :" txt="Please enter an amount of creators" />
+            <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Please enter the number of seconds">
+            	<param name="pattern" value="[1-9]\d*"/>
+            </validator>
         </field>
         <field type="space" />
         <field type="divider" align="bottom" />
     </panel>
 
-     <!-- ===========================   Panel 10 : Search&amp;Export Service   =============================== -->
-    <panel order="10">
+     <!-- ===========================   Panel 11 : Search&amp;Export Service   =============================== -->
+    <panel order="11">
         <createForPack name="PubMan" />
          <field type="staticText" align="left"
             txt="Customize PubMan features and usability aspects" />
@@ -330,15 +356,19 @@
         <field type="space" />
         <field type="text" align="left" variable="escidoc.search.and.export.default.sort.keys">
             <spec txt="The sort index preselected in the example form  :" size="15" align="left" set="${escidoc.search.and.export.default.sort.keys}"/>
-            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter a sort index" />
         </field>
         <field type="text" align="left" variable="escidoc.search.and.export.default.sort.order">
             <spec txt="The sort direction preselected in the example form  :" size="15" align="right" set="${escidoc.search.and.export.default.sort.order}"/>
-            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
+            <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Please enter either 'ascending' or 'descending'">
+            	<param name="pattern" value="ascending|descending"/>
+            </validator>
         </field>
         <field type="text" align="left" variable="escidoc.search.and.export.maximum.records">
             <spec txt="The number of records preselected in the example form  :" size="15" align="left" set="${escidoc.search.and.export.maximum.records}"/>
-            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter an amount of creators" />
+            <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Please enter the number of records">
+            	<param name="pattern" value="[1-9]\d*"/>
+            </validator>
         </field>
         <field type="space" />
         <field type="divider" align="bottom" />

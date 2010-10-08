@@ -67,15 +67,16 @@
 		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConeConfigurationPanel"/>
 		<!-- Initial DataSet --><panel classname="UserInputPanel" id="UserInputPanel.4"/>
 		<!-- ID of the External Organisation --><panel classname="UserInputPanel" id="UserInputPanel.5" condition="not_dataset_selected"/>
-		<!-- Content Model ID --><panel classname="UserInputPanel" id="UserInputPanel.6" condition="not_dataset_selected"/>
-		<!-- Pubman Style Information --><panel classname="UserInputPanel" id="UserInputPanel.7" condition="conf_selected"/>
-		<!-- PubMan Presentation --><panel classname="UserInputPanel" id="UserInputPanel.8" condition="conf_selected"/>
-		<!-- Search Engine SiteMap --><panel classname="UserInputPanel" id="UserInputPanel.9" condition="conf_selected"/>
-		<!-- Search&Export Service --><panel classname="UserInputPanel" id="UserInputPanel.10" condition="conf_selected"/>
+		<!-- Publication Content Model ID --><panel classname="UserInputPanel" id="UserInputPanel.6" condition="not_dataset_selected"/>
+		<!-- Import Content Model ID --><panel classname="UserInputPanel" id="UserInputPanel.7" condition="not_dataset_selected"/>
+		<!-- Pubman Style Information --><panel classname="UserInputPanel" id="UserInputPanel.8" condition="conf_selected"/>
+		<!-- PubMan Presentation --><panel classname="UserInputPanel" id="UserInputPanel.9" condition="conf_selected"/>
+		<!-- Search Engine SiteMap --><panel classname="UserInputPanel" id="UserInputPanel.10" condition="conf_selected"/>
+		<!-- Search&Export Service --><panel classname="UserInputPanel" id="UserInputPanel.11" condition="conf_selected"/>
 
 		<panel classname="TargetPanel"/>
-		<panel classname="InstallPanel"/>
 		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel"/>
+		<panel classname="InstallPanel"/>
 		<panel classname="FinishPanel"/>
 	</panels>
 	

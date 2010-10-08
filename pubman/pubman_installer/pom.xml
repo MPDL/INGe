@@ -50,6 +50,9 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>**/userInputSpec.xml*</exclude>
+				</excludes>
 				<filtering>true</filtering>
 			</resource>
 		</resources>
@@ -211,20 +214,21 @@
 	<properties>
 		<staging.dir>${project.build.directory}/staging</staging.dir>
 		<izpack-standalone.version>4.3.0</izpack-standalone.version>
+		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test</escidoc.search.and.export.default.sql.query>
 	</properties>
 	
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_ear</artifactId>
-			<version>6.1.13-SNAPSHOT</version>
+			<version>6.1.12</version>
 			<scope>provided</scope>
 			<type>ear</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>1.0.54</version>
+			<version>1.0.55-SNAPSHOT</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
@@ -264,4 +268,5 @@
 		</dependency>
 	
 	</dependencies>
+
 </project>

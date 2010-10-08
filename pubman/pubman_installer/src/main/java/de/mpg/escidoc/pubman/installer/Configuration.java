@@ -32,8 +32,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -79,8 +82,6 @@ public class Configuration
     public static final String KEY_PM_FAVICON_APPLY = "escidoc.pubman.favicon.apply";
     public static final String KEY_UNAPI_DOWNLOAD_SERVER = "escidoc.unapi.download.server";
     public static final String KEY_UNAPI_VIEW_SERVER = "escidoc.unapi.view.server";
-    // Panel 6
-    public static final String KEY_FW_ACCESS_CMODEL_LINK = "escidoc.framework_access.content-model.id.publication";
     // Panel 8
     public static final String KEY_VIEW_ITEM_SIZE = "escidoc.pubman_presentation.viewFullItem.defaultSize";
     public static final String KEY_POLICY_LINK = "escidoc.pubman.policy.url";
@@ -152,7 +153,21 @@ public class Configuration
     }
     
     public void setProperties(Map<String, String> props) {
+        cleanup(props);
     	properties.putAll(props);
     	System.getProperties().putAll(props);
+    }
+
+    private void cleanup(Map<String, String> props)
+    {
+        Set<String> keys = new HashSet<String>();
+        keys.addAll(props.keySet());
+        for (String key : keys)
+        {
+            if (props.get(key) == null)
+            {
+                props.remove(key);
+            }
+        }
     }
 }
