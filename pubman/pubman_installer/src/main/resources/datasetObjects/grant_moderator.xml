@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<grants:grant xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}">
-<grants:properties>
-<srel:role   objid="escidoc:role-moderator" /><srel:assigned-on   objid="template_contextid_substituted_by_installer" /></grants:properties>
-</grants:grant>
