@@ -36,12 +36,12 @@
 	<artifactId>pubman_installer</artifactId>
 	<name>pubman_installer</name>
 	<packaging>jar</packaging>
-	<version>6.1.13</version>
+	<version>6.1.14-SNAPSHOT</version>
 	
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman_installer-6.1.13</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman_installer-6.1.13</developerConnection>
-		<url>https://zim02.gwdg.de/repos/pubman/tags/pubman_installer-6.1.13</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_installer</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_installer</developerConnection>
+		<url>https://zim02.gwdg.de/repos/pubman/</url>
 	</scm>
 	
 	<build>
