@@ -214,6 +214,7 @@
 	</iso:pattern>
 	 
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
+	 <?rule file: rule1: none escidoc:file-name (matches '.pdf$') else report PdfIsNotAllowed?>
 	<iso:pattern name="source_title_required" id="source_title_required">
 		<iso:rule context="source:source">
 			<iso:assert test="dc:title != '' or not(normalize-space(.) != '')">SourceTitleNotProvided</iso:assert>

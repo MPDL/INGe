@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
+
 /**
  * SAXParser handler to retrieve the identity process instruction out of the validation schema files.
  *
@@ -53,6 +55,14 @@ public class IdentityHandler extends DefaultHandler
             if (matcher.find())
             {
                 contentModel = matcher.group(1);
+                try
+                {
+                    contentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+                }
+                catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                
             }
 
             // Context
