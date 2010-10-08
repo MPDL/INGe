@@ -96,13 +96,15 @@
 	
 .listHeader {
 	overflow: visible;
+	text-align: left;
+	vertical-align:top;
 }
 
 .listHeader input {
 	float: right;
 }
 	
-.listHeader a, .listHeader span {
+.listHeader a, .listHeader span, .listHeader thead {
 	padding-top: 0.37em;
 	padding-bottom: 0px;
 	margin: 0px;
