@@ -47,14 +47,14 @@ body {
 	/*HEADER LOGO*/
 
 	.headerLogo {
-		background-image: url('../images/logo_pubman.gif');
+		background-image: url('../images/logo.png');
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
 		/*PUT IN HEADER LOGO FOR PRINT DISPLAY HERE*/
 		@media print {
 			.contentMenu {
-				list-style-image: url('../images/logo_pubman.gif');
+				list-style-image: url('../images/logo.png');
 			}
 		}
 	

@@ -49,19 +49,19 @@
 	/*HEADER LOGO*/
 
 	.headerLogo {
-		background-image: url('../images/logo_imeji.gif');
+		background-image: url('../../../globalImages/logo.png');
 		background-repeat: no-repeat;
 		background-position: top left;
 	}
 		/*PUT IN HEADER LOGO FOR PRINT DISPLAY HERE*/
 		@media print {
 			.contentMenu {
-				list-style-image: url('../images/logo_imeji.gif');
+				list-style-image: url('../../../globalImages/logo.png');
 			}
 		}
 	
 	.themePark {
-		background: inherit;
+	/*	background: inherit; */
 	/*	background-image: url('../images/logo_overlay_beta.gif');*/
 		background-repeat: no-repeat;
 		background-position: top left;
