@@ -408,10 +408,10 @@
 		<xsl:choose>		
 			<xsl:when test="count(../preceding-sibling::eterms:creator[@role=$role/@uri])=0">	
 				<!-- <xsl:call-template name="roleLabel"/>-->
-				<xsl:value-of select="concat($role, ' : ')"/>						
+				<xsl:value-of select="concat($role, ' = &quot;')"/>						
 			</xsl:when>
 			<xsl:when test="count(../preceding-sibling::eterms:creator[@role=$role/@uri])=0 and count(../parent::source:source)=1">	
-				<xsl:value-of select="concat($role, ' : ')"/>				
+				<xsl:value-of select="concat($role, ' = &quot;')"/>				
 			</xsl:when>
 			<xsl:otherwise></xsl:otherwise>
 		</xsl:choose>
@@ -424,7 +424,7 @@
 				<xsl:value-of select="' and '"/>
 			</xsl:when>
 			<xsl:otherwise>				
-				<!-- <xsl:text disable-output-escaping="yes">",&#xD;&#xA;</xsl:text>-->					
+				<xsl:text disable-output-escaping="yes">",&#xD;&#xA;</xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>		
 	</xsl:template>
