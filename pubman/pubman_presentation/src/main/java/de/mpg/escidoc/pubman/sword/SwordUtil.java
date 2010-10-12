@@ -519,10 +519,7 @@ public class SwordUtil extends FacesBean
             
             
             //Set Version to null in order to force PubItemDepositingBean to create a new item.
-            if(itemVO.getVersion()!=null && itemVO.getVersion().getObjectId()!=null)
-            {
-                itemVO.getVersion().setObjectId(null);
-            }
+            itemVO.setVersion(null);
 
             
             this.logger.debug("Item successfully created.");
