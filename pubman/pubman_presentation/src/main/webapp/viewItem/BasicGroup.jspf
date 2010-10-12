@@ -73,7 +73,7 @@
 		</div>
 
 <%-- Latest version URL URL --%>
-		<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!ViewItemFull.isLatestVersion}" >
+		<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{!ViewItemFull.isLatestVersion}" >
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.ViewItemFull_lblLatestVersion}" /><span class="noDisplay">: </span>
 			</b>
