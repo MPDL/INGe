@@ -198,6 +198,10 @@ public class ViewItemFull extends FacesBean
     private LoginHelper loginHelper;
     /** The url used for the citation */
     private String citationURL;
+    
+    /** The url used for the latestVersion */
+    private String latestVersionURL;
+    
     /** The url of the Coreservice for file downloads */
     private String fwUrl;
     /** Version and ObjectId of the item */
@@ -357,6 +361,39 @@ public class ViewItemFull extends FacesBean
         // this.isFromEasySubmission = easySubmissionRequestBean.getFromEasySubmission();
         if (this.pubItem != null)
         {
+
+            // set citation url
+            try
+            {
+                String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url")
+                        + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+                this.itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
+                        getPubItem().getVersion().getObjectIdAndVersion());
+                if (!pubmanUrl.endsWith("/"))
+                    pubmanUrl = pubmanUrl + "/";
+                if (this.itemPattern.startsWith("/"))
+                    this.itemPattern = this.itemPattern.substring(1, this.itemPattern.length());
+                // MF: Removed exclusion of pending items here
+                this.citationURL = pubmanUrl + this.itemPattern;
+                
+                if(getPubItem().getLatestVersion()!=null && getPubItem().getLatestVersion().getObjectIdAndVersion()!=null)
+                {
+                    String latestVersionItemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
+                            getPubItem().getLatestVersion().getObjectIdAndVersion());
+                    if (latestVersionItemPattern.startsWith("/"))
+                        latestVersionItemPattern = latestVersionItemPattern.substring(1, latestVersionItemPattern.length());
+                    this.setLatestVersionURL(pubmanUrl + latestVersionItemPattern);
+                }
+                    
+                
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                this.citationURL = "";
+            }
+
+            
             // DiT: multiple new conditions for link-activation added
             this.isModerator = this.loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
             this.isPrivilegedViewer = this.loginHelper.getAccountUser().isPrivilegedViewer(this.pubItem.getContext());
@@ -421,6 +458,7 @@ public class ViewItemFull extends FacesBean
             // display a warn message if the item version is not the latest
             if (this.isLatestVersion == false)
             {
+                
                 warn(getMessage("itemIsNotLatestVersion"));
             }
             try
@@ -437,25 +475,7 @@ public class ViewItemFull extends FacesBean
             {
                 getViewItemSessionBean().itemChanged();
             }
-            // set citation url
-            try
-            {
-                String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url")
-                        + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
-                this.itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
-                        getPubItem().getVersion().getObjectIdAndVersion());
-                if (!pubmanUrl.endsWith("/"))
-                    pubmanUrl = pubmanUrl + "/";
-                if (this.itemPattern.startsWith("/"))
-                    this.itemPattern = this.itemPattern.substring(1, this.itemPattern.length());
-                // MF: Removed exclusion of pending items here
-                this.citationURL = pubmanUrl + this.itemPattern;
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-                this.citationURL = "";
-            }
+           
             // set up some pre-requisites
             // the list of numbered affiliated organizations
             createAffiliatedOrganizationList();
@@ -2602,5 +2622,15 @@ public class ViewItemFull extends FacesBean
     public int getDefaultSize()
     {
         return defaultSize;
+    }
+
+    public void setLatestVersionURL(String latestVersionURL)
+    {
+        this.latestVersionURL = latestVersionURL;
+    }
+
+    public String getLatestVersionURL()
+    {
+        return latestVersionURL;
     }
 }

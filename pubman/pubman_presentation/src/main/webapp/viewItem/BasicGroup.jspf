@@ -72,6 +72,19 @@
 			</h:panelGroup>
 		</div>
 
+<%-- Latest version URL URL --%>
+		<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!ViewItemFull.isLatestVersion}" >
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{lbl.ViewItemFull_lblLatestVersion}" /><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputLink id="lnkLatestVersionURL" value="#{ViewItemFull.latestVersionURL}" >
+					<h:outputText value="#{ViewItemFull.latestVersionURL}"/>
+				</h:outputLink>	
+			</span>
+		</h:panelGroup>
+
+
 <%-- Genre --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
