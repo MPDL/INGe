@@ -132,7 +132,8 @@ public class SwordUtil extends FacesBean
     private Vector<String> filenames = new Vector<String>();
     //Format of the provided Metadata
     private String depositXml ="";
-
+    private String depositXmlFileName;
+    
     private String validationPoint;
 
 
@@ -434,6 +435,7 @@ public class SwordUtil extends FacesBean
                         size = (int) zipentry.getSize();
                         item = new String(baos.toByteArray(), 0, size, "UTF-8");
                         this.depositXml = item;
+                        this.depositXmlFileName = name;
                     }
                 }
 
@@ -514,6 +516,11 @@ public class SwordUtil extends FacesBean
             }
             //Create item
             itemVO = xmlTransforming.transformToPubItem(item);
+            
+            
+            //Set Version to null in order to force PubItemDepositingBean to create a new item.
+            itemVO.setVersion(null);
+            
             this.logger.debug("Item successfully created.");
         }
         catch (Exception e)
@@ -531,8 +538,8 @@ public class SwordUtil extends FacesBean
         {
             byte[] file = files.get(i);
             String name = names.get(i);
-            FileVO fileVO = this.convertToFile(file, name, user);
-            itemVO.getFiles().add(fileVO);
+            this.convertToFileAndAdd(file, name, user, itemVO);
+            //itemVO.getFiles().add(fileVO);
         }
 
         return itemVO;
@@ -559,7 +566,7 @@ public class SwordUtil extends FacesBean
         InitialContext initialContext = new InitialContext();
         PubItemDepositing depositBean = (PubItemDepositing) 
             initialContext.lookup(PubItemDepositing.SERVICE_NAME);
-        String method = this.getMethod(item);
+        String method = this.getMethod(item); 
 
         if (method == null)
         {
@@ -569,7 +576,7 @@ public class SwordUtil extends FacesBean
         {
             depositedItem = depositBean.savePubItem(item, user);
         }
-        if (method.equals("SAVE_SUBMIT"))
+        if (method.equals("SAVE_SUBMIT") || method.equals("SUBMIT") )
         {
             depositedItem = depositBean.savePubItem(item, user);
             depositedItem = depositBean.submitPubItem(depositedItem, "", user);
@@ -706,9 +713,10 @@ public class SwordUtil extends FacesBean
      * @return FileVO
      * @throws Exception
      */
-    private FileVO convertToFile (byte[] file, String name, AccountUserVO user)
+    private FileVO convertToFileAndAdd (byte[] file, String name, AccountUserVO user, PubItemVO itemVO)
         throws Exception
     {
+        boolean existing = false;
         MdsFileVO mdSet = new MdsFileVO();
         FileVO fileVO = new FileVO();
         String fileXml = null;
@@ -760,6 +768,8 @@ public class SwordUtil extends FacesBean
             {
                 name = this.currentDeposit.getContentDisposition();
             }
+            
+          
 
             fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
             fileVO.setVisibility(FileVO.Visibility.PUBLIC);
@@ -783,8 +793,34 @@ public class SwordUtil extends FacesBean
             {
                 fileVO.setContentCategory(PubFileVOPresentation.ContentCategory.PUBLISHER_VERSION.getUri());
             }
+            
+            
+            
+            //if escidoc item: check if it has already components with this filename. If true, use existing file information.
+            if(this.currentDeposit.getFormatNamespace().equals(this.mdFormatEscidoc))
+            {
+                for(FileVO existingFile : itemVO.getFiles())
+                {
+                    if(existingFile.getName().replaceAll("/", "_slsh_").equals(name))
+                    {
+                        existingFile.setContent(fileURL.toString());
+                        existingFile.getDefaultMetadata().setSize(file.length);
+                        existing = true;
+                    }
+                }
+                
+                //If the file is the metadata file, do not add it for escidoc format
+                if(name.equals(depositXmlFileName))
+                {
+                    existing = true;
+                }
+            }
         }
 
+        if(!existing)
+        {
+            itemVO.getFiles().add(fileVO);
+        }
         return fileVO;
     }
 

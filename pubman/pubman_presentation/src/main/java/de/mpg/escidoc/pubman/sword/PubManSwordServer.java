@@ -128,7 +128,7 @@ public class PubManSwordServer
                 if (!deposit.isNoOp() && valid)
                 {
                     depositItem = util.doDeposit(this.currentUser, depositItem);
-                    if (depositItem.getVersion().getState().equals(State.RELEASED))
+                    if (depositItem.getVersion().getState().equals(State.RELEASED)) 
                     {
                          dr = new DepositResponse(Deposit.CREATED);
                          this.setVerbose("Escidoc Publication Item successfully deposited " +

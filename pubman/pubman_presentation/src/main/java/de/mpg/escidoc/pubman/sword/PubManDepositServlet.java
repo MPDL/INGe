@@ -219,13 +219,15 @@ public class PubManDepositServlet extends HttpServlet
        }
        catch (PubItemStatusInvalidException e)
        {
+           logger.error("Error in sword processing", e);
            this.errorDoc.setSummary("Provided item has wrong status.");
            this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);
            this.validDeposit = false;
        }
        catch (Exception ioe)
        {
-          this.errorDoc.setSummary("An internal server error occurred.");
+          logger.error("Error in sword processing", ioe);
+          this.errorDoc.setSummary("An internal server error occurred."); 
           this.errorDoc.setErrorDesc(swordError.InternalError);
           this.validDeposit = false;
        }
