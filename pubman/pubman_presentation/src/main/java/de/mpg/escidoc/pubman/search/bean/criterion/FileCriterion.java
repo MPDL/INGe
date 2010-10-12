@@ -68,36 +68,44 @@ public class FileCriterion extends Criterion
       {
           if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_NO_COMPONENTS.toString()))
           {
+              /*
               MetadataSearchCriterion criterionPre = 
                   new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE, "item");
               criterions.add(criterionPre);
+              */
               MetadataSearchCriterion criterion = 
               new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_ACCESSABILITY, MetadataSearchCriterion.LogicalOperator.NOT);
               criterions.add(criterion);
           }
           else if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_COMPONENTS.toString()))
           {
+              /*
               MetadataSearchCriterion criterionPre = 
                   new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE, "item");
               criterions.add(criterionPre);
+              */
               MetadataSearchCriterion criterion = 
                   new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_ACCESSABILITY, MetadataSearchCriterion.LogicalOperator.AND);
                   criterions.add(criterion);
           }
           else if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_FILES.toString()))
           {
+              /*
               MetadataSearchCriterion criterionPre = 
                   new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE, "item");
               criterions.add(criterionPre);
+              */
               MetadataSearchCriterion criterion = 
                   new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_STORAGE, "internal-managed", MetadataSearchCriterion.LogicalOperator.AND);
                   criterions.add(criterion);
           }
           else if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_LOCATORS.toString()))
           {
+             /*
               MetadataSearchCriterion criterionPre = 
                   new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE, "item");
               criterions.add(criterionPre);
+              */
               MetadataSearchCriterion criterion = 
                   new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_STORAGE, "external-url", MetadataSearchCriterion.LogicalOperator.AND);
                   criterions.add(criterion);
