@@ -67,7 +67,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     private boolean shortView = true;
     private boolean released = false;
 
-    private List<FileBean> fileList;
+    private List<FileBean> fileBeanList;
+    private List<FileBean> locatorBeanList;
 
     /**
      * True if the item is shown in the revisions list, additional information is displayed then (release date, description)
@@ -138,13 +139,39 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     public PubItemVOPresentation(PubItemVO item)
     {
         super(item);
-
+        
+        fileBeanList = new ArrayList<FileBean>();
+        locatorBeanList = new ArrayList<FileBean>();
+        
+       
+        
         if (item instanceof PubItemResultVO)
         {
             this.searchHitList = ((PubItemResultVO) item).getSearchHitList();
             this.isSearchResult = true;
             this.score=((PubItemResultVO) item).getScore();
-
+        }
+        
+        for(FileVO file : item.getFiles())
+        {
+         // add locators
+            if (file.getStorage() == FileVO.Storage.EXTERNAL_URL)
+            {
+                this.locatorBeanList.add(new FileBean(file, item.getVersion().getState()));
+            }
+            // add files
+            else
+            {
+                if(searchHitList!=null && searchHitList.size()>0 && !item.getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
+                {
+                    this.fileBeanList.add(new FileBean(file, item.getVersion().getState(), searchHitList));
+                }
+                else
+                {
+                    this.fileBeanList.add(new FileBean(file, item.getVersion().getState()));
+                }
+               
+            }
         }
         
         if (this.getVersion() != null && this.getVersion().getState() != null)
@@ -1390,6 +1417,16 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     public float getScore()
     {
         return score;
+    }
+
+    public void setFileBeanList(List<FileBean> fileBeanList)
+    {
+        this.fileBeanList = fileBeanList;
+    }
+
+    public List<FileBean> getFileBeanList()
+    {
+        return fileBeanList;
     }
     
    
