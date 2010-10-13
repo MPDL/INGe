@@ -793,18 +793,22 @@ public class XmlTransformingBean implements XmlTransforming
         {
             ItemResultVO itemResultVO = new ItemResultVO((ItemVO) searchable);
             itemResultVO.getSearchHitList().addAll(searchHits);
+            itemResultVO.setScore(searchResultVO.getScore());
             return itemResultVO;
         }
         else if (searchable instanceof ContainerVO)
         {
             ContainerResultVO containerResultVO = new ContainerResultVO((ContainerVO) searchable);
             containerResultVO.getSearchHitList().addAll(searchHits);
+            containerResultVO.setScore(searchResultVO.getScore());
             return containerResultVO;
         }
         else if (searchable instanceof AffiliationVO)
         {
             AffiliationResultVO affiliationResultVO = new AffiliationResultVO((AffiliationVO) searchable);
             affiliationResultVO.getSearchHitList().addAll(searchHits);
+            affiliationResultVO.setScore(searchResultVO.getScore());
+            
             return affiliationResultVO;
         }
         throw new TechnicalException("Search result is of unknown type");

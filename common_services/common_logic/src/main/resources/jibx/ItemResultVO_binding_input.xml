@@ -33,6 +33,8 @@
 	<!-- Type: PubItemResultVO... -->
 	<mapping name="search-result-record" ns="${xsd.soap.searchresult.searchresult}"
 		class="de.mpg.escidoc.services.common.valueobjects.SearchResultVO">
+		
+		<value style="element" name="score" ns="${xsd.soap.searchresult.searchresult}" field="score" usage="optional"/>
 
 		<!-- Node: search-result-record.highlight -->
 		<structure name="highlight" ns="${xsd.soap.searchresult.searchresult}" usage="optional">

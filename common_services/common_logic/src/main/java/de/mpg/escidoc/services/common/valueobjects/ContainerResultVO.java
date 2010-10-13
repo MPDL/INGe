@@ -43,6 +43,8 @@ public class ContainerResultVO extends ContainerVO implements SearchResultElemen
      */
     private java.util.List<SearchHitVO> searchHitList = new java.util.ArrayList<SearchHitVO>();
     
+    private float score;
+    
     /**
      * Construct an ItemResultVO using the parents copy constructor.
      */
@@ -57,5 +59,15 @@ public class ContainerResultVO extends ContainerVO implements SearchResultElemen
     public java.util.List<SearchHitVO> getSearchHitList()
     {
         return searchHitList;
+    }
+
+    public float getScore()
+    {
+       return score;
+    }
+
+    public void setScore(float score)
+    {
+        this.score = score;
     }
 }

@@ -35,6 +35,8 @@
 		class="de.mpg.escidoc.services.common.valueobjects.ContainerResultVO"
 		extends="de.mpg.escidoc.services.common.valueobjects.ContainerVO">
 
+		<value style="element" name="score" ns="${xsd.soap.searchresult.searchresult}" field="score" usage="optional"/>
+
 		<!-- Node: search-result-record.highlight -->
 		<structure name="highlight" ns="${xsd.soap.searchresult.searchresult}" usage="optional">
 

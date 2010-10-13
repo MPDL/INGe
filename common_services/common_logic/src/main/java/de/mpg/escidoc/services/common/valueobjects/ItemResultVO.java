@@ -55,6 +55,9 @@ public class ItemResultVO extends ItemVO implements SearchResultElement
      * List of hits. Every hit in files contains the file reference and the text fragments of the search hit.
      */
     private java.util.List<SearchHitVO> searchHitList = new java.util.ArrayList<SearchHitVO>();
+    
+    
+    private float score;
 
     /**
      * Default constructor.
@@ -78,6 +81,16 @@ public class ItemResultVO extends ItemVO implements SearchResultElement
     public java.util.List<SearchHitVO> getSearchHitList()
     {
         return searchHitList;
+    }
+
+    public float getScore()
+    {
+        return score;
+    }
+
+    public void setScore(float score)
+    {
+        this.score = score;
     }
 
 }

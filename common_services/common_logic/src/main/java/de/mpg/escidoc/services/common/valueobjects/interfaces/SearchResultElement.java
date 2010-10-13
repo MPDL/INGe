@@ -12,11 +12,15 @@ import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
  */
 public interface SearchResultElement
 {
+   
+    
     /**
      * Delivers the list of search hits.
      * 
      * @return A list of {@link SearchHitVO} containing the textual occurrences of the hits.
      */
     public java.util.List<SearchHitVO> getSearchHitList();
+    
+    public float getScore();
 
 }
