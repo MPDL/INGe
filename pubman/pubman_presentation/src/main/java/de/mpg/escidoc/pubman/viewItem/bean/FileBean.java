@@ -406,6 +406,11 @@ public class FileBean extends FacesBean
         this.searchHits = searchHits;
     }
     
+    public int getNumberOfSearchHits()
+    {
+        return searchHits.size();
+    }
+    
     public boolean getLocatorIsLink()
     {
         return(
