@@ -43,6 +43,7 @@ import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.Internationalized;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
+import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
 import de.mpg.escidoc.pubman.viewItem.bean.SearchHitBean;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
@@ -66,6 +67,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     private boolean shortView = true;
     private boolean released = false;
 
+    private List<FileBean> fileList;
 
     /**
      * True if the item is shown in the revisions list, additional information is displayed then (release date, description)
@@ -131,6 +133,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         .getCurrentInstance()
         .getApplication().getVariableResolver()
         .resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
+    private float score;
     
     public PubItemVOPresentation(PubItemVO item)
     {
@@ -140,6 +143,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         {
             this.searchHitList = ((PubItemResultVO) item).getSearchHitList();
             this.isSearchResult = true;
+            this.score=((PubItemResultVO) item).getScore();
 
         }
         
@@ -1372,5 +1376,22 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         
         return idSplit[idSplit.length - 1];
     }
+    
+    public String getOpenPDFSearchParameter()
+    {
+       return FileBean.getOpenPDFSearchParameter(searchHits);
+    }
+
+    public void setScore(float score)
+    {
+        this.score = score;
+    }
+
+    public float getScore()
+    {
+        return score;
+    }
+    
+   
     
 }

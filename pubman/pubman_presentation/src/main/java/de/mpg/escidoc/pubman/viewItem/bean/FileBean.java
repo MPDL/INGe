@@ -128,7 +128,7 @@ public class FileBean extends FacesBean
         String afterSearchHitString;
         
         // browse through the list of files and examine which of the files is the one the search result hits where found in
-        for(int i = 0; i < searchHitList.size(); i++)
+        for(int i = 0; i < searchHitList.size(); i++) 
         {
             if(searchHitList.get(i).getType() == SearchHitType.FULLTEXT)
             {    
@@ -654,6 +654,31 @@ public class FileBean extends FacesBean
         {
             return ((size - 1) / (1024 * 1024) + 1) + getLabel("ViewItemMedium_lblFileSizeMB");
         }
+    }
+    
+    public String getOpenPDFSearchParameter()
+    {
+       return getOpenPDFSearchParameter(searchHits);
+    }
+    
+    public static String getOpenPDFSearchParameter(List<SearchHitBean> shbList)
+    {
+        String param = "\""; 
+        List<String> searchWords = new ArrayList<String>();
+        for(SearchHitBean shb : shbList)
+        {
+            if(!searchWords.contains(shb.getSearchHitString()))
+            {
+                searchWords.add(shb.getSearchHitString());
+            }
+        }
+        
+        for(String word : searchWords)
+        {
+            param+=word + " ";
+        }
+        param+="\"";
+        return param;
     }
     
 }

@@ -464,7 +464,7 @@ public class BrowseBySessionBean extends FacesBean
             if( results.get( i ) instanceof ItemResultVO ) {
                 // cast to PubItemResultVO
                 ItemResultVO item = (ItemResultVO)results.get( i );
-                PubItemResultVO pubItemResult = new PubItemResultVO( item, item.getSearchHitList() ) ;
+                PubItemResultVO pubItemResult = new PubItemResultVO( item, item.getSearchHitList() , item.getScore()) ;
                 PubItemVOPresentation pubItemPres = new PubItemVOPresentation(pubItemResult);
                 pubItemList.add( pubItemPres );
             }

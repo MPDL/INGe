@@ -180,7 +180,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
             {
                 if (sc.getSortOrder().equals("descending"))
                 {
-                    query.setSortKeysAndOrder(sc.getIndex(), SortingOrder.DESCENDING);
+                    query.setSortKeysAndOrder(null, SortingOrder.DESCENDING);
                 }
                    
                 else
@@ -270,7 +270,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
      */
     private ArrayList<PubItemVOPresentation> extractItemsOfSearchResult( ItemContainerSearchResult result ) { 
         
-        List<SearchResultElement> results = result.getResultList();
+        List<SearchResultElement> results = result.getResultList(); 
         
         ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
         for( int i = 0; i < results.size(); i++ ) {
@@ -278,7 +278,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
             if( results.get( i ) instanceof ItemResultVO ) {
                 // cast to PubItemResultVO
                 ItemResultVO item = (ItemResultVO)results.get( i );
-                PubItemResultVO pubItemResult = new PubItemResultVO( item, item.getSearchHitList() ) ;
+                PubItemResultVO pubItemResult = new PubItemResultVO( item, item.getSearchHitList(), item.getScore() ) ; 
                 PubItemVOPresentation pubItemPres = new PubItemVOPresentation(pubItemResult);
                 pubItemList.add( pubItemPres );
             }

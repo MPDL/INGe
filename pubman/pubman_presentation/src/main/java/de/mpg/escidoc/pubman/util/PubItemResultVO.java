@@ -25,6 +25,7 @@ public class PubItemResultVO extends PubItemVO {
      */
     private java.util.List<SearchHitVO> searchHitList = new java.util.ArrayList<SearchHitVO>();
     
+    private float score;
     
     /**
      * Delivers the list of search hits.
@@ -34,9 +35,20 @@ public class PubItemResultVO extends PubItemVO {
         return searchHitList;
     }
     
-    public PubItemResultVO(ItemVO itemVO, List<SearchHitVO> searchHits )
+    public PubItemResultVO(ItemVO itemVO, List<SearchHitVO> searchHits, float score )
     {
         super(itemVO);
         this.searchHitList = searchHits;
+        this.score = score;
+    }
+
+    public void setScore(float score)
+    {
+        this.score = score;
+    }
+
+    public float getScore()
+    {
+        return score;
     }
 }
