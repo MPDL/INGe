@@ -2399,7 +2399,7 @@ public class ViewItemFull extends FacesBean
         byte[] exportFileData = null;
         try
         {
-            exportFileData = icsb.retrieveExportData(curExportFormat, pubItemList);
+            exportFileData = icsb.retrieveExportData(curExportFormat, pubItemList); 
         }
         catch (Exception e)
         {
@@ -2592,6 +2592,37 @@ public class ViewItemFull extends FacesBean
     public String getLatestVersionURL()
     {
         return latestVersionURL;
+    }
+    
+    public String getCitationHtml()
+    {
+        ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+        ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
+        List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+        pubItemList.add(getPubItem());
+        
+        ExportFormatVO expFormat = new ExportFormatVO();
+        expFormat.setFormatType(ExportFormatVO.FormatType.LAYOUT);
+        expFormat.setName("APA");
+        
+        FileFormatVO fileFormat = new FileFormatVO();
+        fileFormat.setMimeType(FileFormatVO.HTML_STYLED_MIMETYPE);
+        fileFormat.setName(FileFormatVO.HTML_PLAIN_NAME);
+        
+        expFormat.setSelectedFileFormat(fileFormat);
+        
+        byte[] exportFileData = null;
+        try
+        {
+            exportFileData = icsb.retrieveExportData(expFormat, pubItemList); 
+            return new String(exportFileData, "UTF-8");
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Cannot export item:", e);
+        }
+       // return "";
+
     }
 
 }
