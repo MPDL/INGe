@@ -40,7 +40,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
@@ -49,11 +48,9 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
-
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.escidoc.pubman.ApplicationBean;
@@ -93,6 +90,7 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.pubman.viewItem.ViewItemCreators.Type;
 import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
 import de.mpg.escidoc.pubman.viewItem.bean.SourceBean;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
@@ -103,21 +101,21 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
-import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.SubjectClassification;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
@@ -185,13 +183,10 @@ public class ViewItemFull extends FacesBean
      */
     private List<OrganizationVO> affiliatedOrganizationsList;
     /**
-     * The list of formatted creators in an ArrayList.
+     * The list of formatted creators which are persons and organizations in an ArrayList.
      */
-    private ArrayList<CreatorDisplay> creatorArray;
-    /**
-     * The list of formatted creators which are organizations in an ArrayList.
-     */
-    private ArrayList<ViewItemCreatorOrganization> creatorOrganizationsArray;
+    private ArrayList<ViewItemCreators> creators;
+
     private List<SourceBean> sourceList = new ArrayList<SourceBean>();
     private List<FileBean> fileList = new ArrayList<FileBean>();
     private List<FileBean> locatorList = new ArrayList<FileBean>();
@@ -993,23 +988,24 @@ public class ViewItemFull extends FacesBean
     {
         StringBuffer creatorList = new StringBuffer();
         String formattedCreator = "";
-        this.creatorArray = new ArrayList<CreatorDisplay>();
-        this.creatorOrganizationsArray = new ArrayList<ViewItemCreatorOrganization>();
+
+        this.creators = new ArrayList<ViewItemCreators>();
         // counter for organization array
         int counterOrganization = 0;
         StringBuffer annotation;
         ObjectFormatter formatter = new ObjectFormatter();
         for (int i = 0; i < this.pubItem.getMetadata().getCreators().size(); i++)
         {
-            CreatorVO creator = new CreatorVO();
-            creator = this.pubItem.getMetadata().getCreators().get(i);
+            CreatorVO creatorVO = new CreatorVO();
+            creatorVO = this.pubItem.getMetadata().getCreators().get(i);
+            ViewItemCreators creator = new ViewItemCreators();
             annotation = new StringBuffer();
             int organizationsFound = 0;
             for (int j = 0; j < this.affiliatedOrganizationsList.size(); j++)
             {
-                if (creator.getPerson() != null)
+                if (creatorVO.getPerson() != null)
                 {
-                    if (creator.getPerson().getOrganizations().contains(this.affiliatedOrganizationsList.get(j)))
+                    if (creatorVO.getPerson().getOrganizations().contains(this.affiliatedOrganizationsList.get(j)))
                     {
                         if (organizationsFound == 0)
                         {
@@ -1028,34 +1024,39 @@ public class ViewItemFull extends FacesBean
             {
                 annotation.append("</sup>");
             }
-            formattedCreator = formatter.formatCreator(creator, annotation.toString());
-            if (creator.getPerson() != null)
+            formattedCreator = formatter.formatCreator(creatorVO, annotation.toString());
+            if (creatorVO.getPerson() != null)
             {
                 CreatorDisplay creatorDisplay = new CreatorDisplay();
                 creatorDisplay.setFormattedDisplay(formattedCreator);
-                if (creator.getPerson() != null && creator.getPerson().getIdentifier() != null
-                        && (creator.getPerson().getIdentifier().getType() == IdType.CONE))
+                if (creatorVO.getPerson() != null && creatorVO.getPerson().getIdentifier() != null
+                        && (creatorVO.getPerson().getIdentifier().getType() == IdType.CONE))
                 {
                     try
                     {
-                        creatorDisplay.setPortfolioLink(creator.getPerson().getIdentifier().getId());
+                        creatorDisplay.setPortfolioLink(creatorVO.getPerson().getIdentifier().getId());
                     }
                     catch (Exception e)
                     {
                         throw new RuntimeException(e);
                     }
                 }
-                this.creatorArray.add(creatorDisplay);
+                creator.setCreatorType(Type.PERSON.toString());
+                creator.setCreatorObj(creatorDisplay);
+                this.creators.add(creator);
+                counterOrganization++;
             }
-            if (creator.getOrganization() != null)
+            if (creatorVO.getOrganization() != null)
             {
                 ViewItemCreatorOrganization creatorOrganization = new ViewItemCreatorOrganization();
                 creatorOrganization.setOrganizationName(formattedCreator);
                 creatorOrganization.setPosition(new Integer(counterOrganization).toString());
-                creatorOrganization.setOrganizationAddress(creator.getOrganization().getAddress());
-                creatorOrganization.setOrganizationInfoPage(formattedCreator, creator.getOrganization().getAddress());
-                creatorOrganization.setIdentifier(creator.getOrganization().getIdentifier());
-                this.creatorOrganizationsArray.add(creatorOrganization);
+                creatorOrganization.setOrganizationAddress(creatorVO.getOrganization().getAddress());
+                creatorOrganization.setOrganizationInfoPage(formattedCreator, creatorVO.getOrganization().getAddress());
+                creatorOrganization.setIdentifier(creatorVO.getOrganization().getIdentifier());
+                creator.setCreatorType(Type.ORGANIZATION.toString());
+                creator.setCreatorObj(creatorOrganization);
+                this.creators.add(creator);
                 counterOrganization++;
             }
             creatorList.append(formattedCreator);
@@ -1856,30 +1857,10 @@ public class ViewItemFull extends FacesBean
         this.affiliatedOrganizationsList = affiliatedOrganizationsList;
     }
 
-    public ArrayList<CreatorDisplay> getCreatorArray()
-    {
-        createCreatorList();
-        return this.creatorArray;
-    }
-
-    public void setCreatorArray(ArrayList<CreatorDisplay> creatorArray)
-    {
-        this.creatorArray = creatorArray;
-    }
-
     public int getCreatorArraySize()
     {
-        return this.getCreatorArray().size();
-    }
-
-    public ArrayList<ViewItemCreatorOrganization> getCreatorOrganizationsArray()
-    {
-        return this.creatorOrganizationsArray;
-    }
-
-    public void setCreatorOrganizationsArray(ArrayList<ViewItemCreatorOrganization> creatorOrganizationsArray)
-    {
-        this.creatorOrganizationsArray = creatorOrganizationsArray;
+      //  return this.getCreatorArray().size();
+    	return this.getCreators().size();
     }
 
     public UIXIterator getTitleIterator()
@@ -2624,6 +2605,16 @@ public class ViewItemFull extends FacesBean
         return defaultSize;
     }
 
+	public ArrayList<ViewItemCreators> getCreators() {
+		createCreatorList();
+		return creators;
+	}
+
+	public void setCreators(ArrayList<ViewItemCreators> creators) {
+		this.creators = creators;
+	}
+
+
     public void setLatestVersionURL(String latestVersionURL)
     {
         this.latestVersionURL = latestVersionURL;
@@ -2633,4 +2624,5 @@ public class ViewItemFull extends FacesBean
     {
         return latestVersionURL;
     }
+
 }
