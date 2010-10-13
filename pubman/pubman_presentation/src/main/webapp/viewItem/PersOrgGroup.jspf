@@ -46,25 +46,40 @@
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<span class="free_area0 authorsGroup">
 					<!-- Display {ViewItemFull.defaultSize} creators by default -->
-					<tr:iterator var="creatorPerson" value="#{ViewItemFull.creatorArray}" rows="#{ViewItemFull.defaultSize}" varStatus="creatorStatus"> 
-						<h:panelGroup id="txtCreatorPersonFormattedDisplay" styleClass="free_area0 creator clear">
-							<h:outputText value="#{creatorPerson.formattedDisplay}" escape="false"/>
-							<h:panelGroup rendered="#{creatorPerson.portfolioLink != null}">
+					<tr:iterator var="creator" value="#{ViewItemFull.creators}" rows="#{ViewItemFull.defaultSize}" varStatus="creatorStatus"> 
+						<h:panelGroup id="txtCreatorPersonFormattedDisplay" styleClass="free_area0 creator clear" rendered="#{creator.creatorType == 'PERSON'}">
+							<h:outputText value="#{creator.creatorObj.formattedDisplay}" escape="false"/>
+							<h:panelGroup rendered="#{creator.creatorObj.portfolioLink != null}">
 								&#160;
-								<h:outputLink id="lnkCreatorPersonPortfolioLink" styleClass="authorCard" value="#{creatorPerson.portfolioLink}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+								<h:outputLink id="lnkCreatorPersonPortfolioLink" styleClass="authorCard" value="#{creator.creatorObj.portfolioLink}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 							</h:panelGroup>
+						</h:panelGroup>
+						
+						<h:panelGroup styleClass="free_area0 creator clear"  rendered="#{creator.creatorType == 'ORGANIZATION'}">
+							<h:panelGroup id="txtCreatorOrganizationOrganizationName">
+								<h:outputText value="#{creator.creatorObj.organizationName}"/>
+							</h:panelGroup>
+							&#160;
+							<h:outputLink id="lnkCreatorOrganizationLink" styleClass="ouCard" rendered="#{creator.creatorObj.identifier != null and creator.creatorObj.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.creatorObj.identifier}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 						</h:panelGroup>
 						<br/>
 					</tr:iterator>
-					
+
 					<!-- Hidden creators, visible after clicking on more -->
-					<tr:iterator var="creatorPerson" value="#{ViewItemFull.creatorArray}" varStatus="creatorStatus" first="#{ViewItemFull.defaultSize}" rows="#{ViewItemFull.creatorArraySize}" rendered="#{ViewItemFull.creatorArraySize > ViewItemFull.defaultSize}"> 
-						<h:panelGroup id="txtCreatorPersonFormattedHidden" styleClass="free_area0 creator creatorHidden tiny_marginRIncl">
-							<h:outputText value="#{creatorPerson.formattedDisplay}" escape="false"/>
-							<h:panelGroup rendered="#{creatorPerson.portfolioLink != null}">
+					<tr:iterator var="creator" value="#{ViewItemFull.creators}" varStatus="creatorStatus" first="#{ViewItemFull.defaultSize}" rows="#{ViewItemFull.creatorArraySize}" rendered="#{ViewItemFull.creatorArraySize > ViewItemFull.defaultSize}"> 
+						<h:panelGroup id="txtCreatorPersonFormattedHidden" styleClass="free_area0 creator creatorHidden tiny_marginRIncl" rendered="#{creator.creatorType == 'PERSON'}">
+							<h:outputText value="#{creator.creatorObj.formattedDisplay}" escape="false"/>
+							<h:panelGroup rendered="#{creator.creatorObj.portfolioLink != null}">
 								&#160;
-								<h:outputLink id="lnkCreatorPersonPortfolioLink" styleClass="authorCard" value="#{creatorPerson.portfolioLink}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+								<h:outputLink id="lnkCreatorPersonPortfolioLink" styleClass="authorCard" value="#{creator.creatorObj.portfolioLink}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 							</h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup styleClass="free_area0 creator creatorHidden tiny_marginRIncl" rendered="#{creator.creatorType == 'ORGANIZATION'}">
+							<h:panelGroup id="txtCreatorOrganizationOrganizationName">
+								<h:outputText value="#{creator.creatorObj.organizationName}"/>
+							</h:panelGroup>
+							&#160;
+							<h:outputLink id="lnkCreatorOrganizationLink" styleClass="ouCard" rendered="#{creator.creatorObj.identifier != null and creator.creatorObj.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.creatorObj.identifier}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 						</h:panelGroup>
 					</tr:iterator>
 					
@@ -72,16 +87,7 @@
 						<a class="large_area0 tiny_marginRIncl showMoreAuthors" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</h:panelGroup>
 					
-					<tr:iterator var="creatorOrganization" value="#{ViewItemFull.creatorOrganizationsArray}" >
-						<h:panelGroup styleClass="free_area0 creator clear">
-							<h:panelGroup id="txtCreatorOrganizationOrganizationName">
-								<h:outputText value="#{creatorOrganization.organizationName}"/>
-							</h:panelGroup>
-							&#160;
-							<h:outputLink id="lnkCreatorOrganizationLink" styleClass="ouCard" rendered="#{creatorOrganization.identifier != null and creatorOrganization.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creatorOrganization.identifier}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
-						</h:panelGroup>
-						<br/>
-					</tr:iterator>
+
 				</span>		
 			</span>
 		</div>
