@@ -89,6 +89,7 @@ import de.mpg.escidoc.pubman.util.CreatorDisplay;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
+import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreators.Type;
 import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
@@ -168,7 +169,6 @@ public class ViewItemFull extends FacesBean
     private UIXIterator sourceCreatorAffiliationsIterator = new UIXIterator();
     private UIXIterator fileIterator = new UIXIterator();
     private UIXIterator locatorIterator = new UIXIterator();
-    private UIXIterator fileSearchHitIterator = new UIXIterator();
     private ContextVO context = null;
     /**
      * The list of formatted organzations in an ArrayList.
@@ -188,8 +188,6 @@ public class ViewItemFull extends FacesBean
     private ArrayList<ViewItemCreators> creators;
 
     private List<SourceBean> sourceList = new ArrayList<SourceBean>();
-    private List<FileBean> fileList = new ArrayList<FileBean>();
-    private List<FileBean> locatorList = new ArrayList<FileBean>();
     private LoginHelper loginHelper;
     /** The url used for the citation */
     private String citationURL;
@@ -498,16 +496,16 @@ public class ViewItemFull extends FacesBean
                             if (currentPubItemList.get(i).getSearchHitList() != null
                                     && currentPubItemList.get(i).getSearchHitList().size() > 0)
                             {
-                                for (int j = 0; j < currentPubItemList.get(i).getSearchHitList().size(); j++)
-                                {
-                                    searchHitList.add(currentPubItemList.get(i).getSearchHitList().get(j));
-                                }
+                                
+                                this.pubItem = new PubItemVOPresentation(new PubItemResultVO(this.pubItem, currentPubItemList.get(i).getSearchHitList(), currentPubItemList.get(i).getScore()));
                             }
                         }
                     }
                 }
             }
             // Clear file and locator list first
+            
+            /*
             this.fileList.clear();
             this.locatorList.clear();
             for (int i = 0; i < this.pubItem.getFiles().size(); i++)
@@ -544,6 +542,7 @@ public class ViewItemFull extends FacesBean
                     }
                 }
             }
+            */
             // Unapi Export
             try
             {
@@ -1287,7 +1286,7 @@ public class ViewItemFull extends FacesBean
      */
     public boolean getShowFiles()
     {
-        if (this.fileList != null && this.fileList.size() > 0)
+        if (this.pubItem.getFileBeanList() != null && this.pubItem.getFileBeanList().size() > 0)
         {
             return true;
         }
@@ -1304,9 +1303,9 @@ public class ViewItemFull extends FacesBean
      */
     public int getAmountOfFiles()
     {
-        if (this.fileList != null && this.fileList.size() > 0)
+        if (this.pubItem.getFileBeanList() != null && this.pubItem.getFileBeanList().size() > 0)
         {
-            return this.fileList.size();
+            return this.pubItem.getFileBeanList().size();
         }
         else
         {
@@ -1321,7 +1320,7 @@ public class ViewItemFull extends FacesBean
      */
     public boolean getShowLocators()
     {
-        if (this.locatorList != null && this.locatorList.size() > 0)
+        if (this.pubItem.getLocatorBeanList() != null && this.pubItem.getLocatorBeanList().size() > 0)
         {
             return true;
         }
@@ -1338,9 +1337,9 @@ public class ViewItemFull extends FacesBean
      */
     public int getAmountOfLocators()
     {
-        if (this.locatorList != null && this.locatorList.size() > 0)
+        if (this.pubItem.getLocatorBeanList() != null && this.pubItem.getLocatorBeanList().size() > 0)
         {
-            return this.locatorList.size();
+            return this.pubItem.getLocatorBeanList().size();
         }
         else
         {
@@ -1973,26 +1972,6 @@ public class ViewItemFull extends FacesBean
         this.fileIterator = fileIterator;
     }
 
-    public List<FileBean> getFileList()
-    {
-        return this.fileList;
-    }
-
-    public void setFileList(List<FileBean> fileList)
-    {
-        this.fileList = fileList;
-    }
-
-    public List<FileBean> getLocatorList()
-    {
-        return this.locatorList;
-    }
-
-    public void setLocatorList(List<FileBean> locatorList)
-    {
-        this.locatorList = locatorList;
-    }
-
     public UIXIterator getLocatorIterator()
     {
         return this.locatorIterator;
@@ -2189,16 +2168,6 @@ public class ViewItemFull extends FacesBean
     public void setSourceCreatorOrganizationsIterator(UIXIterator sourceCreatorOrganizationsIterator)
     {
         this.sourceCreatorOrganizationsIterator = sourceCreatorOrganizationsIterator;
-    }
-
-    public UIXIterator getFileSearchHitIterator()
-    {
-        return this.fileSearchHitIterator;
-    }
-
-    public void setFileSearchHitIterator(UIXIterator fileSearchHitIterator)
-    {
-        this.fileSearchHitIterator = fileSearchHitIterator;
     }
 
     public boolean getIsWorkflowStandard()

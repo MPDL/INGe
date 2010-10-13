@@ -38,9 +38,9 @@
 	<span class="seperator"></span>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showFiles}">
 
-		<tr:iterator var="file" value="#{ViewItemFull.fileList}" binding="#{ViewItemFull.fileIterator}" varStatus="index">
+		<tr:iterator var="file" value="#{ViewItemFull.pubItem.fileBeanList}" varStatus="index">
 
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine newBlock" rendered="#{ViewItemFull.fileIterator.rowIndex > 0}"/>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine newBlock" rendered="#{index.index > 0}"/>
 
 <%-- File name --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">

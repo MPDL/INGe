@@ -38,9 +38,9 @@
 	<span class="seperator"></span>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showLocators}">
 
-		<tr:iterator var="locator" value="#{ViewItemFull.locatorList}" binding="#{ViewItemFull.locatorIterator}" varStatus="index">
+		<tr:iterator var="locator" value="#{ViewItemFull.pubItem.locatorBeanList}" varStatus="index">
 
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine newBlock" rendered="#{ViewItemFull.locatorIterator.rowIndex > 0}"/>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine newBlock" rendered="#{index.index > 0}"/>
 
 <%-- Locator URL --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">

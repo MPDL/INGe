@@ -152,27 +152,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             this.score=((PubItemResultVO) item).getScore();
         }
         
-        for(FileVO file : item.getFiles())
-        {
-         // add locators
-            if (file.getStorage() == FileVO.Storage.EXTERNAL_URL)
-            {
-                this.locatorBeanList.add(new FileBean(file, item.getVersion().getState()));
-            }
-            // add files
-            else
-            {
-                if(searchHitList!=null && searchHitList.size()>0 && !item.getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
-                {
-                    this.fileBeanList.add(new FileBean(file, item.getVersion().getState(), searchHitList));
-                }
-                else
-                {
-                    this.fileBeanList.add(new FileBean(file, item.getVersion().getState()));
-                }
-               
-            }
-        }
+        initFileBeans();
         
         if (this.getVersion() != null && this.getVersion().getState() != null)
         {
@@ -243,6 +223,34 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             wrappedLocalTags.add(wrappedLocalTag);
         }
         
+    }
+    
+    public void initFileBeans()
+    {
+        fileBeanList.clear();
+        locatorBeanList.clear();
+        
+        for(FileVO file : getFiles())
+        {
+         // add locators
+            if (file.getStorage() == FileVO.Storage.EXTERNAL_URL)
+            {
+                this.locatorBeanList.add(new FileBean(file, getVersion().getState()));
+            }
+            // add files
+            else
+            {
+                if(searchHitList!=null && searchHitList.size()>0 && !getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
+                {
+                    this.fileBeanList.add(new FileBean(file, getVersion().getState(), searchHitList));
+                }
+                else
+                {
+                    this.fileBeanList.add(new FileBean(file, getVersion().getState()));
+                }
+               
+            }
+        }
     }
     
     public boolean getSelected()
@@ -1427,6 +1435,16 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     public List<FileBean> getFileBeanList()
     {
         return fileBeanList;
+    }
+
+    public void setLocatorBeanList(List<FileBean> locatorBeanList)
+    {
+        this.locatorBeanList = locatorBeanList;
+    }
+
+    public List<FileBean> getLocatorBeanList()
+    {
+        return locatorBeanList;
     }
     
    
