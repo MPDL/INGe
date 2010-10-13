@@ -125,14 +125,16 @@
 			/*H1*/
 				h1 {
 					font-size: 38px;
+					line-height: 1em;
 				}
 			/*H2*/
 				h2 {
-				
+					font-size: 24px !important;	
+					line-height: 1em;			
 				}
 			/*H3*/
 				h3 {
-					font-size: 11px;
+					font-size: 18px !important;
 				}
 			/*H4*/
 				h4 {
