@@ -30,7 +30,7 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-/* import eSciDoc global styles | globale eSciDoc-Stylesheets einbinden */
+/* import eSciDoc global Styles | globale eSciDoc-Stylesheets einbinden */
 		@import url(./globalCSS/eSciDoc_core_em.css);
 
 /* import component specific styles | komponentenspezifische Stylesheets einbinden */
