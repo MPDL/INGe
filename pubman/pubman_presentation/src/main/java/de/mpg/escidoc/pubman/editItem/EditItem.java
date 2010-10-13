@@ -184,7 +184,7 @@ public class EditItem extends FacesBean
         try
         {
             InitialContext initialContext = new InitialContext();
-            this.itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
+            this.itemValidating = (ItemValidating) initialContext.lookup(ItemValidating.SERVICE_NAME);
         }
         catch (NamingException ne)
         {

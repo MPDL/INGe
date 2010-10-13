@@ -144,6 +144,12 @@ public class MultipleImport extends FacesBean
         
     public String uploadFile()
     {
+        logger.info(uploadedImportFile);
+        if (uploadedImportFile == null)
+        {
+            error(getMessage("UploadFileNotProvided"));
+            return null;
+        }
         return LOAD_MULTIPLE_IMPORT_FORM;
     }
     
@@ -174,7 +180,12 @@ public class MultipleImport extends FacesBean
     
     public String startImport() throws Exception
     {
-
+        if ("".equals(name))
+        {
+            error(getMessage("ImportNameNotProvided"));
+            return null;
+        }
+        
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         InternationalizationHelper i18nHelper = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
         
