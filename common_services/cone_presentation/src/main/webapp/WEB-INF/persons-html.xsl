@@ -274,7 +274,7 @@
 											<xsl:if test="eterms:degree != ''"><xsl:value-of select="eterms:degree"/><xsl:text> </xsl:text></xsl:if> <xsl:value-of select="dc:title"/>
 										</h2>
 										<h3>
-											<xsl:for-each select="eterms:position/rdf:Description[not(exists(dc:end-date)) or dc:end-date = '' or xs:date(dc:end-date) &gt;= current-date()]/eprints:affiliatedInstitution">
+											<xsl:for-each select="eterms:position/rdf:Description[not(exists(eterms:end-date)) or eterms:end-date = '' or xs:date(eterms:end-date) &gt;= current-date()]/eprints:affiliatedInstitution">
 												<xsl:sort select="."/>
 												<xsl:value-of select="."/><xsl:if test="position() != last()">, </xsl:if> 
 											</xsl:for-each>

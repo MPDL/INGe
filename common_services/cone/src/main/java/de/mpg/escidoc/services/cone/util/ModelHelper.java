@@ -376,7 +376,7 @@ public class ModelHelper
             {
                 try
                 {
-                    if (lang.equals(value.getLanguage()) || "".equals(value.getLanguage()) || ("".equals(lang) && (value.getLanguage() == null || value.getLanguage().equals(PropertyReader.getProperty("escidoc.cone.language.default")))))
+                    if (lang.equals(value.getLanguage()) || "".equals(value.getLanguage()) || (!predicate.isLocalized() && value.getLanguage() == null) || ("".equals(lang) && (value.getLanguage() == null || value.getLanguage().equals(PropertyReader.getProperty("escidoc.cone.language.default")))))
                     {
                         String newPart = line.replace("<" + predicate.getId() + ">", value.toString().replace(":", "&#3A;"));
                         strings.add(newPart);

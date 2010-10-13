@@ -26,7 +26,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:kml="http://earth.google.com/kml/2.1" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
 	
 	<xsl:output method="html" encoding="UTF-8" media-type="text/html"/>
 
@@ -54,9 +54,16 @@
 	
 	<xsl:template match="*">
 		<li>
-			<b><xsl:value-of select="namespace-uri()"/><xsl:value-of select="name()"/></b>:
+			<b><xsl:value-of select="namespace-uri()"/><xsl:value-of select="local-name()"/></b>:
 			<xsl:apply-templates select="rdf:Description"/>
 			<xsl:value-of select="text()"/>
 		</li>
 	</xsl:template>
+	
+	<xsl:template match="kml:coordinates">
+		<li>
+			<iframe width="300" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.de/maps?hl=de&amp;ie=UTF8&amp;t=h&amp;ll={.}&amp;spn=3.967501,6.591797&amp;z=6&amp;output=embed"></iframe>
+		</li>
+	</xsl:template>
+	
 </xsl:stylesheet>

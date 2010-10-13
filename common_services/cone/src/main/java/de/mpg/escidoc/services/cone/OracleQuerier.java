@@ -147,11 +147,11 @@ public class OracleQuerier implements Querier
             subQuery += " and";
             if (searchStrings[i].startsWith("\"") && searchStrings[i].endsWith("\""))
             {
-                subQuery += " ('|' || value || '|') like '%|" + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
+                subQuery += " lower('|' || value || '|') like lower('%|" + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%')";
             }
             else
             {
-                subQuery += " value like '%" + searchStrings[i] + "%'";
+                subQuery += " lower(value) like lower('%" + searchStrings[i] + "%')";
             }
         }
         String query = "select distinct r1.id, r1.value, r1.lang"
@@ -162,13 +162,11 @@ public class OracleQuerier implements Querier
             query += "and (lang = '" + language + "' or (lang is null and '" + language
                 + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
         }
-        query += " order by value, id";
         if (limit > 0)
         {
-            query += " limit " + limit;
+            query += " and rownum <= " + limit;
         }
-        
-        //query += ";";
+        query += " order by value, id";
         
         logger.debug("query: " + query);
         
@@ -213,11 +211,11 @@ public class OracleQuerier implements Querier
             subQuery += " and";
             if (searchStrings[i].startsWith("\"") && searchStrings[i].endsWith("\""))
             {
-                subQuery += " ('|' || value || '|') like '%|" + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
+                subQuery += " lower('|' || value || '|') like lower('%|" + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%')";
             }
             else
             {
-                subQuery += " value like '%" + searchStrings[i] + "%'";
+                subQuery += " lower(value) like lower('%" + searchStrings[i] + "%')";
             }
         }
         String query = "select distinct r1.id, r1.value, r1.lang"
@@ -228,14 +226,13 @@ public class OracleQuerier implements Querier
             query += "and (lang = '" + language + "' or (lang is null and '" + language
                 + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
         }
-        query += " order by value, id";
-        
+
         if (limit > 0)
         {
-            query += " limit " + limit;
+            query += " and rownum <= " + limit;
         }
-        
-        query += ";";
+
+        query += " order by value, id";
         
         logger.debug("query: " + query);
         
@@ -323,11 +320,11 @@ public class OracleQuerier implements Querier
             subQuery += " and (predicate = '" + pair.getKey() + "' and ";
             if (pair.getValue().startsWith("\"") && pair.getValue().endsWith("\""))
             {
-                subQuery += " object like '" + pair.getValue().substring(1,pair.getValue().length() - 1) + "')";
+                subQuery += " lower(object) like lower('" + pair.getValue().substring(1,pair.getValue().length() - 1) + "'))";
             }
             else
             {
-                subQuery += " object like '%" + pair.getValue() + "%')";
+                subQuery += " lower(object) like lower('%" + pair.getValue() + "%'))";
             }
         }
         String query = "select distinct r1.id, r1.value, r1.lang"
@@ -338,13 +335,13 @@ public class OracleQuerier implements Querier
             query += "and (lang = '" + language + "' or (lang is null and '" + language
                 + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
         }
-        query += " order by value, id";
+        
         if (limit > 0)
         {
-            query += " limit " + limit;
+            query += " and rownum <= " + limit;
         }
         
-        query += ";";
+        query += " order by value, id";
         
         logger.debug("query: " + query);
         
@@ -415,11 +412,11 @@ public class OracleQuerier implements Querier
             subQuery += " and (predicate = '" + pair.getKey() + "' and ";
             if (pair.getValue().startsWith("\"") && pair.getValue().endsWith("\""))
             {
-                subQuery += " object like '" + pair.getValue().substring(1,pair.getValue().length() - 1) + "')";
+                subQuery += " lower(object) like lower('" + pair.getValue().substring(1,pair.getValue().length() - 1) + "'))";
             }
             else
             {
-                subQuery += " object like '%" + pair.getValue() + "%')";
+                subQuery += " lower(object) like lower('%" + pair.getValue() + "%'))";
             }
         }
         String query = "select distinct r1.id, r1.value, r1.lang"
@@ -430,13 +427,13 @@ public class OracleQuerier implements Querier
             query += "and (lang = '" + language + "' or (lang is null and '" + language
                 + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
         }
-        query += " order by value, id";
+
         if (limit > 0)
         {
-            query += " limit " + limit;
+            query += " and rownum <= " + limit;
         }
         
-        query += ";";
+        query += " order by value, id";
         
         logger.debug("query: " + query);
         
@@ -873,7 +870,7 @@ public class OracleQuerier implements Querier
             }
             
             result.close();
-            query = "select * from triples where subject = '" + uid + "' limit 1";
+            query = "select * from triples where subject = '" + uid + "' and rownum = 1";
             result = statement.executeQuery(query);
 
             if (result.next())

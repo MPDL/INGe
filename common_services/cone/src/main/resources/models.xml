@@ -76,10 +76,13 @@ AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,&lt;http://p
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true"/>
 			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="Geo location" value="http://earth.google.com/kml/2.1 coordinates" multiple="false" localized="false" searchable="true" mandatory="false"/>
 		</predicates>
 		<result>
 			<pattern>
-				&lt;http://purl.org/dc/elements/1.1/title&gt;
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+ - 
+&lt;http://purl.org/dc/elements/1.1/identifier&gt;
 			</pattern>
 		</result>
 	</model>
