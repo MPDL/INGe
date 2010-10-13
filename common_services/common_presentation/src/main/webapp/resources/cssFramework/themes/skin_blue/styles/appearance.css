@@ -65,7 +65,7 @@ FORM BG			#FFFFFF
 			}
 		/*H3*/
 		h3 {
-
+				font-weight: normal;
 			}
 		/*H4*/
 			h4 {
@@ -178,8 +178,8 @@ FORM BG			#FFFFFF
 		border-color: #A1CBDA;
 	}
 	
-	.itemList .seperator, .fullItem .seperator {
-		border-color: #BAB4B3;
+	.itemList .seperator, .fullItem .seperator, .tileControlIconArea {
+		border-color: #BAB4B3 !important;
 	}
 	
 	.contentMenu .void {
@@ -393,7 +393,7 @@ FORM BG			#FFFFFF
 		background-color: #DAE160;
 		border-color: #56871B !important;
 	}
-
+*/	
 		/*ITEM HEADER*/
 		
 	.fullItem .itemHeadline b {
