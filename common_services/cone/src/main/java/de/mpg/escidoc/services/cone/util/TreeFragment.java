@@ -103,11 +103,32 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
     }
 
     // Add predicates of other if this predicate does not exist yet, otherwise overwrite it.
-    public void merge(TreeFragment other)
+    public void merge(TreeFragment other, boolean overwrite)
     {
         for (String predicateName : other.keySet())
         {
-            put(predicateName, other.get(predicateName));
+            if (get(predicateName) != null)
+            {
+                for (LocalizedTripleObject otherObject : other.get(predicateName))
+                {
+                    if (overwrite)
+                    {
+                        for (LocalizedTripleObject myObject : get(predicateName))
+                        {
+                            if ((myObject.getLanguage() == null && otherObject.getLanguage() == null) || myObject.getLanguage().equals(otherObject.getLanguage()))
+                            {
+                                    get(predicateName).remove(myObject);
+                                    break;
+                            }
+                        }
+                    }
+                    get(predicateName).add(otherObject);
+                }
+            }
+            else
+            {
+                put(predicateName, other.get(predicateName));
+            }
         }
     }
 

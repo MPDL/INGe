@@ -85,8 +85,11 @@
 							<input type="radio" name="workflow" value="overwrite"/>
 							Replace it with the imported object
 							<br/>
-							<input type="radio" name="workflow" value="update"/>
-							Update it with the imported object
+							<input type="radio" name="workflow" value="update-overwrite"/>
+							Update it with the imported object (overwrite matching predicates)
+							<br/>
+							<input type="radio" name="workflow" value="update-add"/>
+							Update it with the imported object (add matching predicates where possible)
 							<br/>
 							<input type="radio" name="workflow" value="skip" checked=""/>
 							Do not import it

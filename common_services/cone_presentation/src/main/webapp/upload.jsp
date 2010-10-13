@@ -27,6 +27,7 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
+<%@page import="de.mpg.escidoc.services.cone.ModelList.Predicate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -176,7 +177,7 @@
 											    if (((TreeFragment) result).getSubject().startsWith(PropertyReader.getProperty("escidoc.cone.service.url")))
 											    {
 											        id = ((TreeFragment) result).getSubject().substring(PropertyReader.getProperty("escidoc.cone.service.url").length());
-											        TreeFragment existingObject = querier.details(model.getName(), id);
+											        TreeFragment existingObject = querier.details(model.getName(), id, "*");
 											        out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id);
 											        
 											        if (existingObject != null && !existingObject.isEmpty() && "skip".equals(workflow))
@@ -190,10 +191,35 @@
 														querier.delete(model.getName(), id);
 														out.println(" (replaced)");
 													}
-											        else if (existingObject != null && "update".equals(workflow))
+											        else if (existingObject != null && "update-overwrite".equals(workflow))
 													{
 											        	out.println(" ... updating existing object ...");
-											        	existingObject.merge((TreeFragment) result);
+											        	existingObject.merge((TreeFragment) result, true);
+											        	result = existingObject;
+														querier.delete(model.getName(), id);
+														out.println(" (updated)");
+													}
+											        else if (existingObject != null && "update-add".equals(workflow))
+													{
+											        	out.println(" ... updating existing object ...");
+											        	for (Predicate predicate : model.getPredicates())
+											        	{
+											        	    if (!predicate.isMultiple() && ((TreeFragment) result).containsKey(predicate.getId()) && existingObject.containsKey(predicate.getId()))
+											        	    {
+											        	        for (LocalizedTripleObject res : ((TreeFragment) result).get(predicate.getId()))
+											        	        {
+											        	            for (LocalizedTripleObject existing : existingObject.get(predicate.getId()))
+												        	        {
+											        	                if ((existing.getLanguage() == null && res.getLanguage() == null) || existing.getLanguage().equals(res.getLanguage()))
+											        	                {
+											        	                    existingObject.get(predicate.getId()).remove(existing);
+											        	                    break;
+											        	                }
+												        	        }
+											        	        }
+											        	    }
+											        	}
+											        	existingObject.merge((TreeFragment) result, false);
 											        	result = existingObject;
 														querier.delete(model.getName(), id);
 														out.println(" (updated)");
@@ -207,7 +233,7 @@
 											        if (matcher.find())
 											        {
 											            id = matcher.group();
-												        TreeFragment existingObject = querier.details(model.getName(), id);
+												        TreeFragment existingObject = querier.details(model.getName(), id, "*");
 												        
 												        out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id);
 												        
@@ -222,10 +248,35 @@
 															querier.delete(model.getName(), id);
 															out.println(" (replaced)");
 														}
-												        else if (existingObject != null && "update".equals(workflow))
+												        else if (existingObject != null && "update-overwrite".equals(workflow))
 														{
 												        	out.println(" ... updating existing object ...");
-												        	existingObject.merge((TreeFragment) result);
+												        	existingObject.merge((TreeFragment) result, true);
+												        	result = existingObject;
+															querier.delete(model.getName(), id);
+															out.println(" (updated)");
+														}
+												        else if (existingObject != null && "update-add".equals(workflow))
+														{
+												        	out.println(" ... updating existing object ...");
+												        	for (Predicate predicate : model.getPredicates())
+												        	{
+												        	    if (!predicate.isMultiple() && ((TreeFragment) result).containsKey(predicate.getId()) && existingObject.containsKey(predicate.getId()))
+												        	    {
+												        	        for (LocalizedTripleObject res : ((TreeFragment) result).get(predicate.getId()))
+												        	        {
+												        	            for (LocalizedTripleObject existing : existingObject.get(predicate.getId()))
+													        	        {
+												        	                if ((existing.getLanguage() == null && res.getLanguage() == null) || existing.getLanguage().equals(res.getLanguage()))
+												        	                {
+												        	                    existingObject.get(predicate.getId()).remove(existing);
+												        	                    break;
+												        	                }
+													        	        }
+												        	        }
+												        	    }
+												        	}
+												        	existingObject.merge((TreeFragment) result, false);
 												        	result = existingObject;
 															querier.delete(model.getName(), id);
 															out.println(" (updated)");
