@@ -50,7 +50,7 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class ShortContentHandler extends DefaultHandler
 {
-    private StringBuffer currentContent;
+    private StringWriter currentContent = new StringWriter();
     protected XMLStack stack = new XMLStack();
     protected XMLStack localStack = new XMLStack();
     protected Map<String, String> namespaces = new HashMap<String, String>();
@@ -77,14 +77,13 @@ public class ShortContentHandler extends DefaultHandler
                 namespaces.put(prefix, nsUri);
             }
         }
-        
-        currentContent = new StringBuffer();
     }
 
     @Override
     public void endElement(String uri, String localName, String name) throws SAXException
     {
         content(uri, localName, name, currentContent.toString());
+        currentContent = new StringWriter();
         stack.pop();
         localStack.pop();
     }
@@ -92,7 +91,7 @@ public class ShortContentHandler extends DefaultHandler
     @Override
     public final void characters(char[] ch, int start, int length) throws SAXException
     {
-        currentContent.append(ch, start, length);
+        currentContent.write(ch, start, length);
     }
 
     /**

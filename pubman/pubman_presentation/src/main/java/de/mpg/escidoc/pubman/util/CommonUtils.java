@@ -47,6 +47,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -64,10 +65,13 @@ import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
+import org.xml.sax.helpers.DefaultHandler;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
@@ -206,19 +210,35 @@ public class CommonUtils extends InternationalizedImpl
      */
     public static SelectItem[] retrieveLanguageOptions(String locale)
     {
-       Map<String, String> coneLanguagesIso639_1 = null;
-       Map<String, String> coneLanguagesIso639_3 = null;
-        try {
-            coneLanguagesIso639_1 = CommonUtils.getConeLanguages("iso639-1", locale);
-            coneLanguagesIso639_3 = CommonUtils.getConeLanguages("iso639-3", locale);
-            
+
+        Map<String, String> result = new LinkedHashMap<String, String>();
+        try
+        {
+            HttpClient httpClient = new HttpClient();
+            GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url") + "iso639-2/all?format=options&lang=" + locale);
+            httpClient.executeMethod(getMethod);
+            if (getMethod.getStatusCode() == 200)
+            {
+                String line;
+                BufferedReader reader = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
+                while ((line = reader.readLine()) != null)
+                {
+                    String[] pieces = line.split("\\|");
+                    result.put(pieces[0], pieces[1]);
+                }
+            }
+            else
+            {
+                logger.error("Error while retrieving languages from CoNE. Status code " + getMethod.getStatusCode());
+            }
         }
-        catch(Exception e) {
+        catch(Exception e)
+        {
             return new SelectItem[0];
         }
             
-//        SelectItem[] options = new SelectItem[coneLanguagesIso639_1.size() + 5];
-        SelectItem[] options = new SelectItem[coneLanguagesIso639_1.size() + 4];
+//        SelectItem[] options = new SelectItem[coneLanguagesIso639_1.size() + 6];
+        SelectItem[] options = new SelectItem[result.size() + 5];
         options[0] = new SelectItem("", NO_ITEM_SET);
         if (locale.equals("de"))
         {
@@ -265,74 +285,24 @@ public class CommonUtils extends InternationalizedImpl
 //            options[4] = new SelectItem("spa", "spa - Spanish"); 
         }
 //        options[5] = new SelectItem("", NO_ITEM_SET);
-        if (coneLanguagesIso639_1.size() > 0)
+        if (result.size() > 0)
         {
             options[4] = new SelectItem("", NO_ITEM_SET);
         }
 
         int i = 0;
-        List<String> langLabels = new ArrayList<String>(coneLanguagesIso639_1.keySet());
-        Collections.sort(langLabels);
-        
-        for (String label : langLabels)
+        for (String key : result.keySet())
         {
-            String iso639Code = coneLanguagesIso639_3.get(label);
-            options[i + 4] = new SelectItem(iso639Code, iso639Code + " - " + label);
-//            options[i + 5] = new SelectItem(iso639Code, iso639Code + " - " + label);
+            String value = result.get(key);
+            if (!key.equals(value.split(" - ")[0]))
+            {
+                key = value.split(" - ")[0].split(" / ")[1];
+            }
+            options[i + 5] = new SelectItem(key, value);
             i++;
         }
 
         return options;
-    }
-    
-    public static Map<String, String> getConeLanguages(String type, String locale)
-    {
-        Map<String, String> langMap = new HashMap<String, String>();
-        
-        
-        //if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja") || locale.equals("es")))
-        if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja")))
-        {
-            locale = "en";
-        }
-        
-        try
-        {
-            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+ type + "/all?format=options&lang="+locale);
-            URLConnection conn = coneUrl.openConnection();
-            HttpURLConnection httpConn = (HttpURLConnection) conn;
-            int responseCode = httpConn.getResponseCode();
-            
-            switch (responseCode)
-            {
-                case 200:
-                    logger.debug("Cone Service responded with 200.");
-                    break;
-                default:
-                    throw new RuntimeException("An error occurred while calling Cone Service: "
-                            + responseCode + ": " + httpConn.getResponseMessage());
-            }
-            
-            InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
-            BufferedReader bReader = new BufferedReader(isReader);
-            String line = "";
-            while ((line = bReader.readLine()) != null)
-            {
-                String[] parts = line.split("\\|");
-                if (parts.length == 2)
-                {
-                    langMap.put(parts[1], parts[0]);
-                }
-            }
-            isReader.close();
-            httpConn.disconnect();
-            
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException("An error occurred while calling the Cone service.",e);
-        }
-        return langMap;
     }
 
     public static String getConeLanguageName(String code, String locale) throws Exception

@@ -232,7 +232,7 @@
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 				});
 			
-				languageSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>iso639-1/query';
+				languageSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>iso639-2/query';
 				journalSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>journals/query';
 				subjectSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>$1/query?lang=en';
 				personSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>persons/query?lang=*';
