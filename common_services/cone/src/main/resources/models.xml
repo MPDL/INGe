@@ -66,6 +66,48 @@ AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,&lt;http://p
 		</result>
 	</model>
 	<model>
+		<name>iso639-1</name>
+		<aliases>
+			<alias>iso639-1</alias>
+		</aliases>
+		<description>Languages</description>
+		<open>false</open>
+		<primary-identifier control="false" generate-cone-id="false"></primary-identifier>
+		<predicates>
+			<predicate name="ISO639-3 Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" searchable="true" generateObject="false" resourceModel="iso639-3"/>
+			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="true" localized="false" searchable="true"/>
+		</predicates>
+		<result>
+			<pattern>
+&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+			</pattern>
+		</result>
+	</model>
+	<model>
+		<name>iso639-2</name>
+		<aliases>
+			<alias>iso639-2</alias>
+		</aliases>
+		<description>Languages</description>
+		<open>false</open>
+		<primary-identifier control="false" generate-cone-id="false"></primary-identifier>
+		<predicates>
+			<predicate name="ISO639-3 Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="false" localized="false" searchable="true" generateObject="false" resourceModel="iso639-3"/>
+			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="true"/>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="false" localized="true" searchable="true"/>
+		</predicates>
+		<result>
+			<pattern>
+&lt;http://purl.org/dc/elements/1.1/identifier&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/identifier&gt;,&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;}: / 
+&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;
+ - 
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+			</pattern>
+		</result>
+	</model>
+	<model>
 		<name>iso639-3</name>
 		<aliases>
 			<alias>iso639-3</alias>
@@ -83,23 +125,6 @@ AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,&lt;http://p
 &lt;http://purl.org/dc/elements/1.1/identifier&gt;
  - 
 &lt;http://purl.org/dc/elements/1.1/title&gt;
-			</pattern>
-		</result>
-	</model>
-	<model>
-		<name>iso639-1</name>
-		<aliases>
-			<alias>iso639-1</alias>
-		</aliases>
-		<description>Languages</description>
-		<open>false</open>
-		<primary-identifier control="false" generate-cone-id="false"></primary-identifier>
-		<predicates>
-			<predicate name="ISO639-3 Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" searchable="true" generateObject="false" resourceModel="iso639-3"/>
-		</predicates>
-		<result>
-			<pattern>
-&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
 			</pattern>
 		</result>
 	</model>

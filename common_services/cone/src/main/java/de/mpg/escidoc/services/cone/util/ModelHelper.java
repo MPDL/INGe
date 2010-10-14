@@ -360,6 +360,11 @@ public class ModelHelper
         return languages;
     }
 
+    private static List<String> replacePattern(TreeFragment poMap, String line, Predicate predicate, String lang, boolean loggedIn)
+    {
+        return replacePattern(poMap, line, predicate, lang, loggedIn, "");
+    }
+    
     /**
      * @param poMap
      * @param line
@@ -367,10 +372,10 @@ public class ModelHelper
      * @param predicate
      * @return
      */
-    private static List<String> replacePattern(TreeFragment poMap, String line, Predicate predicate, String lang, boolean loggedIn)
+    private static List<String> replacePattern(TreeFragment poMap, String line, Predicate predicate, String lang, boolean loggedIn, String prefix)
     {
         List<String> strings = new ArrayList<String>();
-        if (line.contains("<" + predicate.getId() + ">"))
+        if (line.contains("<" + prefix + predicate.getId() + ">"))
         {
             for (LocalizedTripleObject value : poMap.get(predicate.getId()))
             {
@@ -378,7 +383,7 @@ public class ModelHelper
                 {
                     if (lang.equals(value.getLanguage()) || "".equals(value.getLanguage()) || (!predicate.isLocalized() && value.getLanguage() == null) || ("".equals(lang) && (value.getLanguage() == null || value.getLanguage().equals(PropertyReader.getProperty("escidoc.cone.language.default")))))
                     {
-                        String newPart = line.replace("<" + predicate.getId() + ">", value.toString().replace(":", "&#3A;"));
+                        String newPart = line.replace("<" + prefix + predicate.getId() + ">", value.toString().replace(":", "&#3A;"));
                         strings.add(newPart);
                     }
                 }
@@ -388,7 +393,7 @@ public class ModelHelper
                 }
             }
         }
-        else if (line.contains("<" + predicate.getId() + "|"))
+        else if (line.contains("<" + prefix + predicate.getId() + "|"))
         {
             for (LocalizedTripleObject value : poMap.get(predicate.getId()))
             {
@@ -399,7 +404,7 @@ public class ModelHelper
                         TreeFragment treeValue = (TreeFragment) value;
                         for (String subPredicateName : treeValue.keySet())
                         {
-                            strings.addAll(replacePattern(treeValue, line.replace("<" + predicate.getId() + "|", "<"), predicate.getPredicate(subPredicateName), lang, loggedIn));
+                            strings.addAll(replacePattern(treeValue, line, predicate.getPredicate(subPredicateName), lang, loggedIn, prefix + predicate.getId() + "|"));
                         }
                     }
                     else if (predicate.isResource() && value instanceof TreeFragment)
@@ -410,7 +415,7 @@ public class ModelHelper
                         Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
                         for (String subPredicateName : treeFragment.keySet())
                         {
-                            strings.addAll(replacePattern(treeFragment, line.replace("<" + predicate.getId() + "|", "<"), newModel.getPredicate(subPredicateName), lang, loggedIn));
+                            strings.addAll(replacePattern(treeFragment, line, newModel.getPredicate(subPredicateName), lang, loggedIn, prefix + predicate.getId() + "|"));
                         }
                     }
                     else if (predicate.isResource() && value instanceof LocalizedString)
@@ -421,7 +426,7 @@ public class ModelHelper
                         Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
                         for (String subPredicateName : treeFragment.keySet())
                         {
-                            strings.addAll(replacePattern(treeFragment, line.replace("<" + predicate.getId() + "|", "<"), newModel.getPredicate(subPredicateName), lang, loggedIn));
+                            strings.addAll(replacePattern(treeFragment, line, newModel.getPredicate(subPredicateName), lang, loggedIn, prefix + predicate.getId() + "|"));
                         }
                     }
                         

@@ -139,28 +139,33 @@ public class SQLQuerier implements Querier
         language = language.replace("'", "''");
         
         String[] searchStrings = formatSearchString(searchString);
-        String subQuery = "select id from matches where model = '" + model + "'";
+        String subQuery = "matches.model = '" + model + "'";
+        String order1 = "";
+        String order2 = "";
         for (int i = 0; i < searchStrings.length; i++)
         {
             subQuery += " and";
             if (searchStrings[i].startsWith("\"") && searchStrings[i].endsWith("\""))
             {
-                subQuery += " ('|' || value || '|') ilike '%|" + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
+                subQuery += " ('|' || matches.value || '|') ilike '%|" + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
             }
             else
             {
-                subQuery += " value ilike '%" + searchStrings[i] + "%'";
+                subQuery += " matches.value ilike '%" + searchStrings[i] + "%'";
+                order1 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "|%' desc, ";
+                order2 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "%' desc, ('|' || matches.value || '|') ilike '% " + searchStrings[i] + "%' desc, ";
+
             }
         }
-        String query = "select distinct r1.id, r1.value, r1.lang"
-            + " from results r1 where id in (" + subQuery;
-        query += ")";
+        String query = "select r1.id, r1.value, r1.lang from results r1 inner join matches on r1.id = matches.id " +
+        		"where (r1.lang = matches.lang or (r1.lang is null and matches.lang is null)) and " + subQuery;
+
         if (!"*".equals(language))
         {
-            query += "and (lang = '" + language + "' or (lang is null and '" + language
+            query += " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
                 + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
         }
-        query += " order by value, id";
+        query += " order by " + order1 + order2 + "r1.value, r1.id";
         if (limit > 0)
         {
             query += " limit " + limit;
@@ -205,7 +210,9 @@ public class SQLQuerier implements Querier
         language = language.replace("'", "''");
         
         String[] searchStrings = formatSearchString(searchString);
-        String subQuery = "select id from matches where model = '" + model + "'";
+        String subQuery = "model = '" + model + "'";
+        String order1 = "";
+        String order2 = "";
         for (int i = 0; i < searchStrings.length; i++)
         {
             subQuery += " and";
@@ -215,18 +222,19 @@ public class SQLQuerier implements Querier
             }
             else
             {
-                subQuery += " value ilike '%" + searchStrings[i] + "%'";
+                subQuery += " matches.value ilike '%" + searchStrings[i] + "%'";
+                order1 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "|%' desc, ";
+                order2 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "%' desc, ('|' || matches.value || '|') ilike '% " + searchStrings[i] + "%' desc, ";
             }
         }
-        String query = "select distinct r1.id, r1.value, r1.lang"
-            + " from results r1 where id in (" + subQuery;
-        query += ")";
+        String query = "select r1.id, r1.value, r1.lang from results r1 inner join matches on r1.id = matches.id " +
+        "where (r1.lang = matches.lang or (r1.lang is null and matches.lang is null)) and " + subQuery;
         if (!"*".equals(language))
         {
-            query += "and (lang = '" + language + "' or (lang is null and '" + language
+            query += " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
                 + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
         }
-        query += " order by value, id";
+        query += " order by " + order1 + order2 + "r1.value, r1.id";
         
         if (limit > 0)
         {
@@ -315,7 +323,9 @@ public class SQLQuerier implements Querier
                 allPairs.add(new Pair<String>(pair.getKey(), result));
             }
         }
-        String subQuery = "select subject from triples where model = '" + modelName + "'";
+        String subQuery = "model = '" + modelName + "'";
+        String order1 = "";
+        String order2 = "";
         for (Pair<String> pair : allPairs)
         {
             subQuery += " and (predicate = '" + pair.getKey() + "' and ";
@@ -326,17 +336,19 @@ public class SQLQuerier implements Querier
             else
             {
                 subQuery += " object ilike '%" + pair.getValue() + "%')";
+                order1 += "('|' || object || '|') ilike '%|" + pair.getValue() + "|%' desc, ";
+                order2 += "('|' || object || '|') ilike '%|" + pair.getValue() + "%' desc, ('|' || object || '|') ilike '% " + pair.getValue() + "%' desc, ";
             }
         }
-        String query = "select distinct r1.id, r1.value, r1.lang"
-                + " from results r1 where id in (" + subQuery;
-        query += ")";
+        String query = "select r1.id, r1.value, r1.lang from results r1 inner join triples on r1.id = triples.subject " +
+        "where " + subQuery;
+
         if (!"*".equals(language))
         {
-            query += "and (lang = '" + language + "' or (lang is null and '" + language
+            query += " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
                 + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
         }
-        query += " order by value, id";
+        query += " order by " + order1 + order2 + "r1.value, r1.id";
         if (limit > 0)
         {
             query += " limit " + limit;
@@ -407,7 +419,9 @@ public class SQLQuerier implements Querier
                 allPairs.add(new Pair<String>(pair.getKey(), result));
             }
         }
-        String subQuery = "select subject from triples where model = '" + modelName + "'";
+        String subQuery = "model = '" + modelName + "'";
+        String order1 = "";
+        String order2 = "";
         for (Pair<String> pair : allPairs)
         {
             subQuery += " and (predicate = '" + pair.getKey() + "' and ";
@@ -418,17 +432,19 @@ public class SQLQuerier implements Querier
             else
             {
                 subQuery += " object ilike '%" + pair.getValue() + "%')";
+                order1 += "('|' || object || '|') ilike '%|" + pair.getValue() + "|%' desc, ";
+                order2 += "('|' || object || '|') ilike '%|" + pair.getValue() + "%' desc, ('|' || object || '|') ilike '% " + pair.getValue() + "%' desc, ";
             }
         }
-        String query = "select distinct r1.id, r1.value, r1.lang"
-                + " from results r1 where id in (" + subQuery;
-        query += ")";
+        String query = "select r1.id, r1.value, r1.lang from results r1 inner join triples on r1.id = triples.subject " +
+        "where " + subQuery;
+
         if (!"*".equals(language))
         {
-            query += "and (lang = '" + language + "' or (lang is null and '" + language
+            query += " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
                 + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
         }
-        query += " order by value, id";
+        query += " order by " + order1 + order2 + "r1.value, r1.id";
         if (limit > 0)
         {
             query += " limit " + limit;
