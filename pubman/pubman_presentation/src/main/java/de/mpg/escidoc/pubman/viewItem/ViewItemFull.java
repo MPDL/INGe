@@ -118,6 +118,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
@@ -2596,25 +2597,27 @@ public class ViewItemFull extends FacesBean
     
     public String getCitationHtml()
     {
-        ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
-        ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
-        List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-        pubItemList.add(getPubItem());
-        
-        ExportFormatVO expFormat = new ExportFormatVO();
-        expFormat.setFormatType(ExportFormatVO.FormatType.LAYOUT);
-        expFormat.setName("APA");
-        
-        FileFormatVO fileFormat = new FileFormatVO();
-        fileFormat.setMimeType(FileFormatVO.HTML_STYLED_MIMETYPE);
-        fileFormat.setName(FileFormatVO.HTML_PLAIN_NAME);
-        
-        expFormat.setSelectedFileFormat(fileFormat);
-        
-        byte[] exportFileData = null;
         try
         {
-            exportFileData = icsb.retrieveExportData(expFormat, pubItemList); 
+            InitialContext initialContext = new InitialContext();
+            ItemExporting itemExporting = (ItemExporting) initialContext.lookup(ItemExporting.SERVICE_NAME);
+           
+            List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+            pubItemList.add(new PubItemVO(getPubItem()));
+            
+            ExportFormatVO expFormat = new ExportFormatVO();
+            expFormat.setFormatType(ExportFormatVO.FormatType.LAYOUT);
+            expFormat.setName("APA");
+            
+            FileFormatVO fileFormat = new FileFormatVO();
+            fileFormat.setMimeType(FileFormatVO.HTML_STYLED_MIMETYPE);
+            fileFormat.setName(FileFormatVO.HTML_PLAIN_NAME);
+            
+            expFormat.setSelectedFileFormat(fileFormat);
+            
+            byte[] exportFileData = null;
+            
+            exportFileData = itemExporting.getOutput(expFormat, pubItemList);
             return new String(exportFileData, "UTF-8");
         }
         catch (Exception e)
