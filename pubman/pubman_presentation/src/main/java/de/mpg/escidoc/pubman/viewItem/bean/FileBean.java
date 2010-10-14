@@ -682,7 +682,7 @@ public class FileBean extends FacesBean
         {
             param+=word + " ";
         }
-        param+="\"";
+        param = param.trim() + "\"";
         return param;
     }
     
