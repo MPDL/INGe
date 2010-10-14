@@ -170,22 +170,29 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {
         List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
-        checkSortCriterias(sc);
+        //checkSortCriterias(sc);
         try
         {
             PlainCqlQuery query = new PlainCqlQuery(getCqlQuery());
             query.setStartRecord(new PositiveInteger(String.valueOf(offset+1)));
             query.setMaximumRecords(new NonNegativeInteger(String.valueOf(limit)));
-            if(!sc.getIndex().equals(""))
+            
+            if(sc.getIndex()!=null)
+            {
+                query.setSortKeys(sc.getIndex());
+            }
+
+            if(sc.getIndex() == null || !sc.getIndex().equals(""))
             {
                 if (sc.getSortOrder().equals("descending"))
                 {
-                    query.setSortKeysAndOrder(null, SortingOrder.DESCENDING);
+                   
+                    query.setSortOrder(SortingOrder.DESCENDING);
                 }
                    
                 else
                 {
-                    query.setSortKeysAndOrder(sc.getIndex(), SortingOrder.ASCENDING);
+                    query.setSortOrder(SortingOrder.ASCENDING);
                 } 
             }
             ItemContainerSearchResult result = this.searchService.searchForItemContainer(query);
@@ -268,7 +275,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
      * @param result
      * @return
      */
-    private ArrayList<PubItemVOPresentation> extractItemsOfSearchResult( ItemContainerSearchResult result ) { 
+    public static ArrayList<PubItemVOPresentation> extractItemsOfSearchResult( ItemContainerSearchResult result ) { 
         
         List<SearchResultElement> results = result.getResultList(); 
         
