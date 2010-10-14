@@ -122,7 +122,10 @@
 		<span class="xHuge_area0 endline">
 			<tr:iterator value="#{item.fileBeanList}" var="fileBean" varStatus="index">
 				<h:panelGroup styleClass="xHuge_area0 endline" rendered="#{fileBean.showSearchHits}">
-					<tr:goLink id="lnkSearchHitsURL" targetFrame="." destination="#{item.link}/component/#{fileBean.file.reference.objectId}/#{fileBean.file.name}#search=#{fileBean.openPDFSearchParameter}" shortDesc="#{fileBean.file.description}">
+					<tr:goLink id="lnkSearchHitsURL" targetFrame="." destination="#{item.link}/component/#{fileBean.file.reference.objectId}/#{fileBean.file.name}#search=#{fileBean.openPDFSearchParameter}" shortDesc="#{fileBean.file.description}" rendered="#{fileBean.file.mimeType=='application/pdf'}">
+						<h:outputText value="#{fileBean.fileName}"/>
+					</tr:goLink>
+					<tr:goLink id="lnkFileURL" targetFrame="." destination="#{item.link}/component/#{fileBean.file.reference.objectId}/#{fileBean.file.name}" shortDesc="#{fileBean.file.description}" rendered="#{fileBean.file.mimeType!='application/pdf'}">
 						<h:outputText value="#{fileBean.fileName}"/>
 					</tr:goLink>
 					<h:outputText value=" (#{fileBean.numberOfSearchHits} #{lbl.SearchResultList_hits})"/>
