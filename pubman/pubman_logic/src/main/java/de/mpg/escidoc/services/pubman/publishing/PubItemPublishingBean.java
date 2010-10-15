@@ -136,96 +136,111 @@ public class PubItemPublishingBean implements PubItemPublishing
             String result = null;
             String paramXml;
 
+            actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
+            actualItemVO = xmlTransforming.transformToPubItem(actualItem);
+            
             // Floating PID assignment.
 
-            // Build PidParam
-            url = PropertyReader.getProperty("escidoc.pubman.instance.url") +
-            	PropertyReader.getProperty("escidoc.pubman.instance.context.path") +
-		PropertyReader.getProperty("escidoc.pubman.item.pattern")
-                .replaceAll("\\$1", pubItemRef.getObjectId());
-
-            LOGGER.debug("URL given to PID resolver: " + url);
-
-            pidParam = new PidTaskParamVO(lastModificationDate, url);
-            paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
-
-            try
+            if(actualItemVO.getPid()==null || actualItemVO.getPid().equals(""))
             {
-                // Assign floating PID
-                result = itemHandler.assignObjectPid(pubItemRef.getObjectId(), paramXml);
+                // Build PidParam
+                url = PropertyReader.getProperty("escidoc.pubman.instance.url") + 
+                PropertyReader.getProperty("escidoc.pubman.instance.context.path") +
+                    PropertyReader.getProperty("escidoc.pubman.item.pattern")
+                        .replaceAll("\\$1", pubItemRef.getObjectId());
     
-                LOGGER.debug("Floating PID assigned: " + result);
+                LOGGER.debug("URL given to PID resolver: " + url);
+    
+                pidParam = new PidTaskParamVO(lastModificationDate, url);
+                paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
+    
+                try
+                {
+                    // Assign floating PID
+                    result = itemHandler.assignObjectPid(pubItemRef.getObjectId(), paramXml);
+        
+                    LOGGER.debug("Floating PID assigned: " + result);
+                }
+                catch (Exception e) {
+                    System.out.println(e.getClass());
+                    LOGGER.warn("Object PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.");
+                    LOGGER.debug("Stacktrace:", e);
+                }
+                // Retrieve the item to get last modification date
+                actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
+    
+                actualItemVO = xmlTransforming.transformToPubItem(actualItem);
             }
-            catch (Exception e) {
-                System.out.println(e.getClass());
-                LOGGER.warn("Object PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.");
-                LOGGER.debug("Stacktrace:", e);
-            }
-            // Retrieve the item to get last modification date
-            actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
 
-            actualItemVO = xmlTransforming.transformToPubItem(actualItem);
-
-            // Build PidParam
-            url = PropertyReader.getProperty("escidoc.pubman.instance.url") +
-            	PropertyReader.getProperty("escidoc.pubman.instance.context.path") 
-                + PropertyReader
-                    .getProperty("escidoc.pubman.item.pattern")
-                    .replaceAll("\\$1", pubItemRef.getObjectId() + ":"
-                            + actualItemVO.getVersion().getVersionNumber());
-
-            LOGGER.debug("URL given to PID resolver: " + url);
-
-            pidParam = new PidTaskParamVO(actualItemVO.getModificationDate(), url);
-            paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
-
-            try
+            
+            if(actualItemVO.getVersion().getPid()==null || actualItemVO.getVersion().getPid().equals(""))
             {
-                // Assign version PID
-                result = itemHandler.assignVersionPid(
-                        actualItemVO.getVersion().getObjectId() + ":"
-                        + actualItemVO.getVersion().getVersionNumber(), paramXml);
+                // Build PidParam
+                url = PropertyReader.getProperty("escidoc.pubman.instance.url") +
+                    PropertyReader.getProperty("escidoc.pubman.instance.context.path") 
+                    + PropertyReader
+                        .getProperty("escidoc.pubman.item.pattern")
+                        .replaceAll("\\$1", pubItemRef.getObjectId() + ":"
+                                + actualItemVO.getVersion().getVersionNumber());
 
-                
-                
-                LOGGER.debug("Version PID assigned: " + result);
+                LOGGER.debug("URL given to PID resolver: " + url);
+
+                pidParam = new PidTaskParamVO(actualItemVO.getModificationDate(), url);
+                paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
+
+                try
+                {
+                    // Assign version PID
+                    result = itemHandler.assignVersionPid(
+                            actualItemVO.getVersion().getObjectId() + ":"
+                            + actualItemVO.getVersion().getVersionNumber(), paramXml);
+
+                    
+                    
+                    LOGGER.debug("Version PID assigned: " + result);
+                }
+                catch (Exception e) {
+                    LOGGER.warn("Version PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.", e);
+                }
             }
-            catch (Exception e) {
-                LOGGER.warn("Version PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.", e);
-            }
+          
 
             // Loop over files
             for (FileVO file : actualItemVO.getFiles())
             {
-                // Build PidParam
-                url = PropertyReader.getProperty("escidoc.pubman.instance.url") +
-            	PropertyReader.getProperty("escidoc.pubman.instance.context.path") 
-                    + PropertyReader
-                        .getProperty("escidoc.pubman.component.pattern")
-                        .replaceAll("\\$1", file.getReference().getObjectId());
-
-                LOGGER.debug("URL given to PID resolver: " + url);
-                //LOGGER.debug("file.getLastModificationDate(): " + file.getLastModificationDate());
-
-                try
+                if(file.getPid()==null || file.getPid().equals(""))
                 {
-                    
-                    ResultVO resultVO = xmlTransforming.transformToResult(result);
-                    pidParam = new PidTaskParamVO(resultVO.getLastModificationDate(), url);
-                    paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
-                    
-                    // Assign component PID
-                    result = itemHandler.assignContentPid(actualItemVO.getVersion().getObjectId(),
-                            file.getReference().getObjectId(), paramXml);
-    
-                    LOGGER.debug("PID assigned: " + result);
+                    // Build PidParam
+                    url = PropertyReader.getProperty("escidoc.pubman.instance.url") +
+                    PropertyReader.getProperty("escidoc.pubman.instance.context.path") 
+                        + PropertyReader
+                            .getProperty("escidoc.pubman.component.pattern")
+                            .replaceAll("\\$1", file.getReference().getObjectId());
+
+                    LOGGER.debug("URL given to PID resolver: " + url);
+                    //LOGGER.debug("file.getLastModificationDate(): " + file.getLastModificationDate());
+
+                    try
+                    {
+                        
+                        ResultVO resultVO = xmlTransforming.transformToResult(result);
+                        pidParam = new PidTaskParamVO(resultVO.getLastModificationDate(), url);
+                        paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
+                        
+                        // Assign component PID
+                        result = itemHandler.assignContentPid(actualItemVO.getVersion().getObjectId(),
+                                file.getReference().getObjectId(), paramXml);
+        
+                        LOGGER.debug("PID assigned: " + result);
+                    }
+                    catch (Exception e) {
+                        
+                        LOGGER.debug("Error: ", e);
+                        
+                        LOGGER.warn("Component PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.");
+                    }
                 }
-                catch (Exception e) {
-                    
-                    LOGGER.debug("Error: ", e);
-                    
-                    LOGGER.warn("Component PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.");
-                }
+               
 
             }
 
