@@ -1,0 +1,50 @@
+<role:role xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:role="http://www.escidoc.de/schemas/role/0.4" xmlns:xacml-policy="urn:oasis:names:tc:xacml:1.0:policy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/schemas/role/0.4 https://www.escidoc.org/schemas/soap/role/0.4/role.xsd">
+	<role:properties>
+		<prop:name>escidoc:role-privileged-viewer</prop:name>
+		<prop:description>Privileged viewer may access private and restricted files of items within a context.
+			For more information about this role, please check http://colab.mpdl.mpg.de/mediawiki/ESciDoc_User_Roles#Privileged_viewer </prop:description>
+	</role:properties>
+	<role:scope unlimited="false">
+		<role:scope-def resource-type="component" relation-attribute-id="info:escidoc/names:aa:1.0:resource:component:item:context"/>
+	</role:scope>
+	<xacml-policy:Policy PolicyId="Privileged-Viewer-policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:ordered-permit-overrides">
+		<xacml-policy:Target>
+			<xacml-policy:Subjects>
+				<xacml-policy:AnySubject/>
+			</xacml-policy:Subjects>
+			<xacml-policy:Resources>
+				<xacml-policy:AnyResource/>
+			</xacml-policy:Resources>
+			<xacml-policy:Actions>
+				<xacml-policy:Action>
+					<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+						<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string"> 
+                info:escidoc/names:aa:1.0:action:retrieve-content 
+            </xacml-policy:AttributeValue>
+						<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</xacml-policy:ActionMatch>
+				</xacml-policy:Action>
+			</xacml-policy:Actions>
+		</xacml-policy:Target>
+		<xacml-policy:Rule RuleId="Privileged-Viewer-policy-rule-0" Effect="Permit">
+			<xacml-policy:Target>
+				<xacml-policy:Subjects>
+					<xacml-policy:AnySubject/>
+				</xacml-policy:Subjects>
+				<xacml-policy:Resources>
+					<xacml-policy:AnyResource/>
+				</xacml-policy:Resources>
+				<xacml-policy:Actions>
+					<xacml-policy:Action>
+						<xacml-policy:ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<xacml-policy:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
+                info:escidoc/names:aa:1.0:action:retrieve-content 
+              </xacml-policy:AttributeValue>
+							<xacml-policy:ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</xacml-policy:ActionMatch>
+					</xacml-policy:Action>
+				</xacml-policy:Actions>
+			</xacml-policy:Target>
+		</xacml-policy:Rule>
+	</xacml-policy:Policy>
+</role:role>
