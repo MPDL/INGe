@@ -69,7 +69,6 @@ public abstract class Criterion
 
     public String getSearchString()
     {
-    	System.err.println("get "+ searchString);
         return searchString;
     }
 
