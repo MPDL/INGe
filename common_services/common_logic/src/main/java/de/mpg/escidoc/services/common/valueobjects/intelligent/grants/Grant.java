@@ -523,7 +523,7 @@ public class Grant extends IntelligentVO
             try
             {
                 String grantXml = IntelligentVO.marshal(grant, Grant.class);
-                String createdGrantXml = "";
+                String createdGrantXml = ""; 
                 
                 if (grant.getGrantType().equals("user-account"))
                 {
@@ -531,7 +531,7 @@ public class Grant extends IntelligentVO
                     createdGrantXml = uah.createGrant(grant.getGrantedTo(), grantXml);
                     
                 }
-                else if (grant.getGrantType().equals("user-group"));
+                else if (grant.getGrantType().equals("user-group"))
                 {
                     UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
                     createdGrantXml = ugh.createGrant(grant.getGrantedTo(), grantXml);
