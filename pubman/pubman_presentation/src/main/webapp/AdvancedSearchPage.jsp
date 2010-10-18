@@ -49,6 +49,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
+
 			<h:outputText value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
 			<div class="full wrapper">
@@ -127,6 +128,11 @@
 				languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>iso639-1/query?format=json';
 				/*languageDetailsBaseURL = '$1?format=json';*/
 				languageDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
+
+
+
+
+
 			</script>
 			</body>
 		</html>

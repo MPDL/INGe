@@ -66,6 +66,15 @@ public class InternationalizationHelper
     public static final String HELP_PAGE_EN = "help/eSciDoc_help_en.html";
     private String selectedHelpPage;
     private String locale = "en";
+    public String getContext() {
+		return context;
+	}
+
+	public void setContext(String context) {
+		this.context = context;
+	}
+
+	private String context = null;
     
     public List<String> test = new ArrayList<String>();
     

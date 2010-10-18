@@ -31,7 +31,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<div class="full_area0 itemBlock noTopBorder">
+<div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{lbl.adv_search_lbHeaderWoP}" />
 	</h3>

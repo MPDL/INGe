@@ -32,6 +32,9 @@ package de.mpg.escidoc.pubman.search;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import javax.faces.event.PhaseEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.event.PhaseListener;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
@@ -39,6 +42,7 @@ import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.bean.AnyFieldCriterionCollection;
+import de.mpg.escidoc.pubman.search.bean.ContextCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.DateCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.DegreeCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.EventCriterionCollection;
@@ -58,8 +62,8 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 
 /**
  * Provides a set of search type query masks, which can be dynamically increased and combined 
@@ -80,6 +84,7 @@ public class AdvancedSearchEdit extends FacesBean
     public static final String LOAD_SEARCHPAGE = "displaySearchPage";
 
     // delegated internal collections
+    private ContextCriterionCollection contextCriterionCollection = null;
     private AnyFieldCriterionCollection anyFieldCriterionCollection = null;
     private PersonCriterionCollection personCriterionCollection = null ;
     private OrganizationCriterionCollection organizationCriterionCollection = null;
@@ -93,6 +98,7 @@ public class AdvancedSearchEdit extends FacesBean
     private LanguageCriterionCollection languageCriterionCollection = null;
     private LocalTagCriterionCollection localTagCriterionCollection = null;
     
+
     private UIXIterator anyFieldCriterionIterator = new UIXIterator();
     private UIXIterator personCriterionIterator = new UIXIterator();
     private UIXIterator dateCriterionIterator = new UIXIterator();
@@ -107,13 +113,27 @@ public class AdvancedSearchEdit extends FacesBean
     private UIXIterator localTagCriterionIterator = new UIXIterator();
     
     private String suggestConeUrl = null;
-   /**
+    private String context = null;
+    
+
+   public String getContext() {
+		System.err.println("get Context = " +context);
+		return context;
+	}
+
+	public void setContext(String context) {
+		System.err.println("set Context = " +context);
+		this.context = context;
+	}
+
+/**
     * Create a new instance. Set the buttons and the search type masks.
     *
     */ 
     public AdvancedSearchEdit()
     {
-        // delegated internal collections
+    	// delegated internal collections
+    	contextCriterionCollection = new ContextCriterionCollection();
         anyFieldCriterionCollection = new AnyFieldCriterionCollection();
         personCriterionCollection = new PersonCriterionCollection();
         organizationCriterionCollection = new OrganizationCriterionCollection();
@@ -141,6 +161,7 @@ public class AdvancedSearchEdit extends FacesBean
     }
     
     public void clearAndInitializeAllForms() {
+    	contextCriterionCollection = new ContextCriterionCollection();
         anyFieldCriterionCollection = new AnyFieldCriterionCollection();
         personCriterionCollection = new PersonCriterionCollection();
         organizationCriterionCollection = new OrganizationCriterionCollection();
@@ -162,6 +183,7 @@ public class AdvancedSearchEdit extends FacesBean
     {        
         
         // delegate clearAllForms to internal collections
+    	contextCriterionCollection.clearAllForms();
         anyFieldCriterionCollection.clearAllForms();
         personCriterionCollection.clearAllForms();
         organizationCriterionCollection.clearAllForms();
@@ -189,7 +211,8 @@ public class AdvancedSearchEdit extends FacesBean
         
         // collect VO's from internal collections
         // we have to ensure, that no empty criterions are moved to the criterionVOList
-        
+        if(contextCriterionCollection.getFilledCriterion()!=null)
+        	criterionList.add(contextCriterionCollection.getFilledCriterion());
         criterionList.addAll( anyFieldCriterionCollection.getFilledCriterion() );
         criterionList.addAll( personCriterionCollection.getFilledCriterion() );
         criterionList.addAll( dateCriterionCollection.getFilledCriterion() );       
@@ -202,7 +225,7 @@ public class AdvancedSearchEdit extends FacesBean
         criterionList.addAll( sourceCriterionCollection.getFilledCriterion() );
         criterionList.addAll( languageCriterionCollection.getFilledCriterion() );
         criterionList.addAll( localTagCriterionCollection.getFilledCriterion() );
-        
+         
         ArrayList<MetadataSearchCriterion> searchCriteria = new ArrayList<MetadataSearchCriterion>();
         
         if( criterionList.size() == 0 ) {
@@ -359,7 +382,16 @@ public class AdvancedSearchEdit extends FacesBean
     {
         this.dateCriterionCollection = dateCriterionCollection;
     }
+    public ContextCriterionCollection getContextCriterionCollection()
+    {
+        return contextCriterionCollection;
+    }
 
+    public void setContextCriterionCollection(ContextCriterionCollection contextCriterionCollection)
+    {
+        this.contextCriterionCollection = contextCriterionCollection;
+    }
+    
     public AnyFieldCriterionCollection getAnyFieldCriterionCollection()
     {
         return anyFieldCriterionCollection;
@@ -369,6 +401,8 @@ public class AdvancedSearchEdit extends FacesBean
     {
         this.anyFieldCriterionCollection = anyFieldCriterionCollection;
     }
+    
+    
 
     public EventCriterionCollection getEventCriterionCollection()
     {
@@ -594,5 +628,8 @@ public class AdvancedSearchEdit extends FacesBean
     {
         this.degreeCriterionIterator = degreeCriterionIterator;
     }
+
+
+
 
 }

@@ -32,6 +32,7 @@
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
 
+	<%@ include file="ui/ContextCriterionCollection.jspf"%>
 	<%@ include file="ui/AnyFieldCriterionCollection.jspf"%>
 	<%@ include file="ui/PersonCriterionCollection.jspf"%>
 	<%@ include file="ui/DateCriterionCollection.jspf"%>

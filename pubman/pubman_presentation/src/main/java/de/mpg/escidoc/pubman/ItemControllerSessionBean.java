@@ -31,6 +31,7 @@
 package de.mpg.escidoc.pubman;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
@@ -115,7 +116,7 @@ public class ItemControllerSessionBean extends FacesBean
     public static final String BEAN_NAME = "ItemControllerSessionBean";
     private static Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
 
-    private LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+    private LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
     
     private PubItemDepositing pubItemDepositing = null;
     private PubItemPublishing pubItemPublishing = null;
