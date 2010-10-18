@@ -55,7 +55,7 @@ public class ContextCriterionBean extends CriterionBean {
     
     public String getContext() {
        	HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-    	context = req.getParameter("context");
+    	context = req.getParameter("collection");
     	if(context!=null && context.length()>0)
     	{
 			for(ContextVO vo : contexts)
