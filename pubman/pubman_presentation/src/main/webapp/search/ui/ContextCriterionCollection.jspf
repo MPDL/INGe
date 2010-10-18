@@ -48,8 +48,8 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel id="context" styleClass="noDisplay" value="#{contextCriterionBean.context}"/>
 
-					<h:outputLabel id="lblContext" styleClass="quad_label" value="#{lbl.adv_search_lblContext}" />
-					<h:selectOneMenu styleClass="xLarge_select replace" id="selectContext" value="#{contextCriterionBean.contextCriterionVO.searchString}" onchange="submit()" valueChangeListener="#{contextCriterionBean.contextChanged}" immediate="true">
+					<b class="quad_label">&#160;</b>
+					<h:selectOneMenu styleClass="large_select" id="selectContext" value="#{contextCriterionBean.contextCriterionVO.searchString}" onchange="submit()" valueChangeListener="#{contextCriterionBean.contextChanged}" immediate="true">
 						<f:selectItems value="#{AdvancedSearchEdit.contextCriterionCollection.contextList}"/>
 					</h:selectOneMenu>
 
