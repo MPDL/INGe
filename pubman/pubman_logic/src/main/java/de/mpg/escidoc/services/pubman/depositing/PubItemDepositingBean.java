@@ -285,7 +285,33 @@ public class PubItemDepositingBean implements PubItemDepositing
             throw new TechnicalException(e);
         }
     }
-
+    
+    public List<ContextVO> getPubContextList() throws TechnicalException
+    {
+        try
+        {
+            // Create filter
+            FilterTaskParamVO filterParam = new FilterTaskParamVO();
+            FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("PubMan");
+            filterParam.getFilterList().add(typeFilter);
+            // Peter Broszeit: PubCollectionStatusFilter added.
+            PubCollectionStatusFilter statusFilter = filterParam.new PubCollectionStatusFilter(ContextVO.State.OPENED);
+            filterParam.getFilterList().add(statusFilter);
+            // ... and transform filter to xml
+            String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
+            // Get context list
+            String contextList = ServiceLocator.getContextHandler().retrieveContexts(filterString);
+            // ... and transform to PubCollections.
+            return xmlTransforming.transformToContextList(contextList);
+        }
+        catch (Exception e)
+        {
+            // No business exceptions expected.
+            ExceptionHandler.handleException(e, "PubItemDepositing.getPubCollectionListForDepositing");
+            throw new TechnicalException(e);
+        }
+    }
+    
     /**
      * {@inheritDoc}
      * Changed by Peter Broszeit, 17.10.2007: Method prepared to save also released items and restructed. 
@@ -323,8 +349,7 @@ public class PubItemDepositingBean implements PubItemDepositing
 //            }
 //            
 //        }
-      
-        
+
         // Transform the item to XML
         String itemXML = xmlTransforming.transformToItem(pubItem);
         if (logger.isDebugEnabled())
@@ -523,8 +548,6 @@ public class PubItemDepositingBean implements PubItemDepositing
         // Release the item
         try
         {
-           
- 
             // Because no workflow system is used at this time
             // automatic release is triggered here
             // item has to be retrieved again to get actual modification date

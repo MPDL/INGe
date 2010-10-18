@@ -122,6 +122,16 @@ public interface PubItemDepositing
 	  throws TechnicalException, SecurityException;
 
     /**
+	 * Returns all PubContexts.
+	 * 
+	 * @param user
+	 * @exception TechnicalException,
+	 * @exception SecurityException
+	 */
+    public java.util.List<ContextVO> getPubContextList()
+	  throws TechnicalException, SecurityException;
+      
+    /**
 	 * Saves the given pubItem (i.e. creates a new version). If the pubItem already
 	 * exists an update is executed, otherwise the item is created.
 	 * If the given item is in state released, the item is submitted at the end.
