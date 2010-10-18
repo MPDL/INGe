@@ -54,8 +54,9 @@
 	<namespace prefix="file" uri="${xsd.metadata.file}" default="none" />
 	<namespace prefix="publication" uri="${xsd.metadata.publication}" default="none" />
 	<namespace prefix="face" uri="${xsd.metadata.face}" default="none" />
-	<namespace prefix="jhove" uri="http://hul.harvard.edu/ois/xml/ns/jhove" default="none" />
+	<namespace prefix="jhove" uri="http://hul.harvard.edu/ois/xml/ns/jhove" />
 	<namespace prefix="result" uri="${xsd.soap.result.result}" default="none" />
+	<namespace prefix="srw" uri="${xsd.soap.searchRetrieveResponse}" default="none"/>
 
 	<format type="java.util.Date" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
 		serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeDate" />
@@ -86,6 +87,7 @@
 	<include path="ContainerVO_binding_input.xml" />
 	<include path="face/MdsFacesContainer_binding_input.xml" />
 	<include path="ResultVO_binding.xml" />
+	<include path="SearchRetrieveResponse_binding_input.xml" />
 <!--	<include path="ItemRO_binding.xml" />-->
 	<include path="ReferenceObject_binding.xml" />
 

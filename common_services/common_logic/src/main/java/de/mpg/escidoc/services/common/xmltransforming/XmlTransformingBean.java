@@ -2066,14 +2066,14 @@ public class XmlTransformingBean implements XmlTransforming
     
     public PidServiceResponseVO transformToPidServiceResponse(String pidServiceResponseXml) throws TechnicalException
     {
-    	logger.debug("transformToPidServiceResponse(String) - String pidServiceResponse=\n" + pidServiceResponseXml);
-    	if (pidServiceResponseXml == null)
+        logger.debug("transformToPidServiceResponse(String) - String pidServiceResponse=\n" + pidServiceResponseXml);
+        if (pidServiceResponseXml == null)
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToPidServiceResponse: pidServiceResponseXml is null");
         }
-    	PidServiceResponseVO pidServiceResponseVO = null;
-    	
-    	 try
+        PidServiceResponseVO pidServiceResponseVO = null;
+        
+         try
          {
              // unmarshal pidServiceResponse from String
              IBindingFactory bfact = BindingDirectory.getFactory(PidServiceResponseVO.class);
@@ -2092,7 +2092,40 @@ public class XmlTransformingBean implements XmlTransforming
          {
              throw new TechnicalException(e);
          }
+         
+        return pidServiceResponseVO;
+    }
+    
+    
+    public SearchRetrieveResponseVO transformToSearchRetrieveResponse(String searcRetrieveResponseXml) throws TechnicalException
+    {
+    	logger.debug("transformToSearchRetrieveResponse(String) - String searchRetrieveResponse=\n" + searcRetrieveResponseXml);
+    	if (searcRetrieveResponseXml == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToSearchRetrieveResponse: searchRetrieveResponseXml is null");
+        }
+    	SearchRetrieveResponseVO searchRetrieveResponseVO = null;
+    	
+    	 try
+         {
+             // unmarshal pidServiceResponse from String
+             IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", SearchRetrieveResponseVO.class);
+             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+             StringReader sr = new StringReader(searcRetrieveResponseXml);
+             Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+             searchRetrieveResponseVO = (SearchRetrieveResponseVO)unmarshalledObject;
+         }
+         catch (JiBXException e)
+         {
+             // throw a new UnmarshallingException, log the root cause of the JiBXException first
+             logger.error(e.getRootCause());
+             throw new UnmarshallingException(searcRetrieveResponseXml, e);
+         }
+         catch (ClassCastException e)
+         {
+             throw new TechnicalException(e);
+         }
     	 
-    	return pidServiceResponseVO;
+    	return searchRetrieveResponseVO;
     }
 }
