@@ -36,7 +36,7 @@
 	<artifactId>pubman_logic_ear</artifactId>
 	<name>pubman_logic_ear</name>
 	<packaging>ear</packaging>
-	<version>6.2-SNAPSHOT</version>
+	<version>6.1.13-SNAPSHOT</version>
 	
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic_ear</connection>
@@ -556,7 +556,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_logic</artifactId>
-			<version>6.2-SNAPSHOT</version>
+			<version>6.1.13-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
