@@ -29,6 +29,7 @@
 
 package de.mpg.escidoc.services.citationmanager.data;
 
+import java.awt.Color;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
@@ -65,6 +66,7 @@ public class FontStyle implements Cloneable{
     public static final String CSS_CLASS_REPORT_TAG = "\"[span class=\\\"%s\\\"]\"+%s+\"[/span]\"";
     public static final String CSS_CLASS_REGEXP = "\\[span class=&quot;(\\w+?)&quot;\\](.*?)\\[/span\\]";
     public static final String CSS_CLASS_SUBST = "<span class=\"$1\">$2</span>";
+    
     
     /**
      * Constructor
@@ -215,6 +217,30 @@ public class FontStyle implements Cloneable{
      */
     public String getBackColor() { return backColor; }
 
+    
+    public Color getBackColorAwt()
+    {
+    	String bc = getBackColor().toUpperCase();
+    	return 
+    		bc == null || "".equals(bc.trim()) || "WHITE".equals(bc) ? Color.WHITE :
+   			"BLACK".equals(bc)	? 	Color.BLACK : 
+			"RED".equals(bc)	?	Color.RED 	: 
+    		"BLUE".equals(bc)	? 	Color.BLUE 	:
+    								Color.WHITE; //default
+    }
+    
+    public Color getForeColorAwt()
+    {
+    	String fc = getForeColor().toUpperCase();
+    	return 
+	    	fc == null || "".equals(fc.trim()) || "BLACK".equals(fc)? Color.BLACK :
+	    	"WHITE".equals(fc) 	? 	Color.WHITE : 
+	    	"RED".equals(fc) 	? 	Color.RED 	: 
+	    	"BLUE".equals(fc) 	?	Color.BLUE 	:
+	    							Color.BLACK; //default 
+    }
+    
+    
     /**
      * pdfEncoding setter
      * @param newPdfEncoding

@@ -68,32 +68,9 @@ import de.mpg.escidoc.services.framework.ProxyHelper;
 public class XsltHelper {
 	private static final Logger logger = Logger.getLogger(XsltHelper.class);
 
-	// FontStyleCollection
-	public static FontStylesCollection fsc = null;
 
 	public static final String I18N_TAG = "localized";
 	static Map<Pair, String> citationMap = new HashMap<Pair, String>();
-
-	/**
-	 * Load Default FontStylesCollection only once
-	 * 
-	 * @throws CitationStyleManagerException
-	 */
-	public static void loadFontStylesCollection()
-			throws CitationStyleManagerException {
-		if (fsc != null)
-			return;
-		try {
-			fsc = FontStylesCollection.loadFromXml(ResourceUtil
-					.getPathToCitationStyles()
-					+ "font-styles.xml");
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			throw new CitationStyleManagerException(
-					"Cannot loadFontStylesCollection: ", e);
-		}
-	}
 
 	/**
 	 * Converts snippet &lt;span&gt; tags to the appropriate JasperReport Styled
@@ -109,7 +86,7 @@ public class XsltHelper {
 
 		snippet = removeI18N(snippet);
 
-		loadFontStylesCollection();
+		FontStylesCollection fsc = XmlHelper.loadFontStylesCollection();
 
 		if (!Utils.checkVal(snippet) || fsc == null)
 			return snippet;
@@ -161,7 +138,7 @@ public class XsltHelper {
 
 //		snippet = removeI18N(snippet);
 
-		loadFontStylesCollection();
+		FontStylesCollection fsc = XmlHelper.loadFontStylesCollection();
 
 		if (!Utils.checkVal(snippet) || fsc == null)
 			return snippet;
@@ -286,6 +263,23 @@ public class XsltHelper {
 		citationMap = handler.getCitationStyleMap();
 	}
 
+
+	/**
+	 * Check CJK codepoints in <code>str</code>.  
+	 * @param str
+	 * @return <code>true</code> if <code>str</code> has at least one CJK codepoint, otherwise <code>false</code>.     
+	 */
+	public static boolean isCJK(String str)
+	{
+		if (str==null || str.trim().equals("")) return false;
+		for (int i = 0; i < str.length(); i++)
+		{
+			int codePoint = str.codePointAt(i);
+			if(codePoint>=19968 && codePoint<=40911) return true;
+		}
+		return false;
+	}    	
+	
 	
 }
 

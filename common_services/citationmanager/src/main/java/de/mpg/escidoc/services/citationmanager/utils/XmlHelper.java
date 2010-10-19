@@ -36,13 +36,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -58,21 +54,22 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRReportFont;
+import net.sf.jasperreports.engine.JRStyle;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JRDesignStaticText;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.engine.xml.JRXmlWriter;
 import net.sf.saxon.event.SaxonOutputKeys;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.traversal.DocumentTraversal;
@@ -87,6 +84,8 @@ import com.topologi.schematron.SchtrnParams;
 import com.topologi.schematron.SchtrnValidator;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
+import de.mpg.escidoc.services.citationmanager.data.FontStyle;
+import de.mpg.escidoc.services.citationmanager.data.FontStylesCollection;
 
 /**
 *
@@ -125,6 +124,10 @@ public class XmlHelper {
     private static XPath xpath = XPathFactory.newInstance().newXPath();
 
 	private static HashMap<String, HashMap<String, String[]>> citationStylesHash = null;
+	
+	// FontStyleCollection
+	public static FontStylesCollection fsc = null;
+	
     
     /**
      * Builds new DocumentBuilder
@@ -346,24 +349,63 @@ public class XmlHelper {
 		   
 		   String path = ResourceUtil.getPathToCitationStyles() + "citation-style.jrxml";
 		   JasperDesign jd = JRXmlLoader.load(ResourceUtil.getResourceAsStream(path));
+		   
 			
 		   //populate page header
+		   setPageHeader(jd, cs);
+		   
+		   //set default Report Style
+		   setDefaultReportStyle(jd);
+	        
+	       //compile to the JasperReport
+		   jr = JasperCompileManager.compileReport(jd);
 		    
-		   jd.setName(cs);
-		   JRDesignStaticText st = (JRDesignStaticText)jd.getTitle().getElementByKey("staticText");
-	        if ( st != null )
-	        	st.setText("Citation Style: " + cs);
-			
-	        //compile to the JasperReport
-			jr = JasperCompileManager.compileReport(jd);
-		    
-			XmlHelper.jasperCache.put(cs, jr);
+		   XmlHelper.jasperCache.put(cs, jr);
 	   }
 	   
 	   return jr;
    }   
    
     /**
+     * Render report default style with values, taken from
+     * font styles collection.
+     * @param jasperDesign
+     */
+    private static void setDefaultReportStyle(JasperDesign jasperDesign) 
+    {
+        
+    	JRStyle jrs = jasperDesign.getDefaultStyle();
+    	
+    	FontStyle dfs = loadFontStylesCollection().getDefaultFontStyle();
+        jrs.setFontName(dfs.getFontName());
+        jrs.setFontSize(dfs.getFontSize());
+        
+        jrs.setForecolor(dfs.getForeColorAwt());
+        jrs.setBackcolor(dfs.getBackColorAwt());
+        jrs.setBold(dfs.getIsBold());
+        jrs.setItalic(dfs.getIsItalic());
+        jrs.setUnderline(dfs.getIsUnderline());
+        jrs.setStrikeThrough(dfs.getIsStrikeThrough());
+        jrs.setPdfFontName(dfs.getPdfFontName());
+        jrs.setPdfEncoding(dfs.getPdfEncoding());
+        jrs.setPdfEmbedded(true);
+	
+    }
+
+    /**
+     * Set report header 
+	 * @param jasperDesign
+	 * @param cs
+     */
+	private static void setPageHeader(JasperDesign jasperDesign, String cs) 
+    {
+	   jasperDesign.setName(cs);
+	   JRDesignStaticText st = (JRDesignStaticText)jasperDesign.getTitle().getElementByKey("staticText");
+        if ( st != null )
+        	st.setText("Citation Style: " + cs);
+    }
+
+	/**
      * XML Schema validation (JAVAX)  
      * @param schemaUrl is the XML Schema 
      * @param xmlDocumentUrl is URI to XML to be validated
@@ -505,7 +547,32 @@ public class XmlHelper {
         return null;
     }
 
+    
     /**
+	 * Load Default FontStylesCollection only once
+	 * 
+	 * @throws CitationStyleManagerException
+	 */
+	public static FontStylesCollection loadFontStylesCollection()
+	{
+		if (fsc != null)
+			return fsc;
+		try {
+			return 
+				FontStylesCollection
+					.loadFromXml(ResourceUtil
+						.getPathToCitationStyles()+ "font-styles.xml"
+				);
+	
+		} 
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException(
+					"Cannot loadFontStylesCollection: ", e);
+		}
+	}
+
+	/**
      * Validator class for XML Schema validation
      */
     private class Validator extends DefaultHandler {    

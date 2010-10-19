@@ -30,111 +30,12 @@
 	source-placeholder-tag="prop:content-model-specific"
 	citation-placeholder-tag="dcterms:bibliographicCitation"
 	include-global-default-variables="yes"
-	include-default-variables="no"
+	include-default-variables="yes"
 	>  
-	<!-- special variables to be used in expressions for short notations -->
-	<variables> 
-		<!-- variables which use xpath directly in DataSource NS-->
-
-		<!--		NOTE: -->
-		<!--		the type should be set forcibly for the cases .. otherwise error: -->
-		<!--		XTDE0420: Cannot create an attribute node whose parent is a document node-->
-		<!--		??????-->
-
-		<!-- ### objid should be always defined!!! ### -->
-		<variable name="objid" >../../@objid</variable>
-		<!--  -->
-		
-		<variable name="genre">pub:publication/@type</variable>
-		<variable name="source-type">pub:publication/source:source[1]/@type</variable>
-		<variable name="hasPublication" type="xs:boolean">exists(pub:publication)</variable>
-		<variable name="authorsCount">count(pub:publication/eterms:creator[@role=$l_author])</variable>
-		<variable name="editorsCount">count(pub:publication/eterms:creator[@role=$l_editor])</variable>
-		<variable name="ed-postfix">if ($editorsCount=1) then 'Ed.' else 'Eds.'</variable>
-		<variable name="sourceEditorsCount">count(pub:publication/source:source[1]/eterms:creator[@role=$l_editor])</variable>
-		<variable name="source-ed-postfix">if ($sourceEditorsCount=1) then 'Ed.' else 'Eds.'</variable>
-		<variable name="genre-exception" type="xs:boolean">$genre=( $l_poster, $l_talk-at-event, $l_courseware-lecture )</variable>
-
-		<!-- Dates block -->
-		<variable name="date"> 
-			if ($genre=$l_manuscript and pub:publication/dcterms:created) 
-			then func:get_year(pub:publication/dcterms:created)  
-			else if ($genre-exception and pub:publication/event:event/eterms:start-date)
-			then func:get_year(pub:publication/event:event/eterms:start-date) 
-			else if (pub:publication/dcterms:issued)
-			then func:get_year(pub:publication/dcterms:issued) 
-			else if (pub:publication/eterms:published-online) 
-			then func:get_year(pub:publication/eterms:published-online) 
-			else if (( $genre-exception and $genre=$l_manuscript) and pub:publication/dcterms:dateAccepted)
-			then func:get_year(pub:publication/dcterms:dateAccepted)
-			else if (pub:publication/dcterms:dateAccepted) 
-			then 'in press' 
-			else if	(( $genre-exception or $genre=$l_manuscript) and pub:publication/dcterms:dateSubmitted)
-			then func:get_year(pub:publication/dcterms:dateSubmitted)
-			else if (pub:publication/dcterms:dateSubmitted) 
-			then 'submitted' 
-			else if	(( $genre-exception or $genre=$l_manuscript) and pub:publication/dcterms:modified)
-			then func:get_year(pub:publication/dcterms:modified)
-			else if (( $genre-exception or $genre=$l_manuscript) and pub:publication/dcterms:created)
-			then func:get_year(pub:publication/dcterms:created)
-			else if (pub:publication/dcterms:modified or pub:publication/dcterms:created) 
-			then 'in preparation' 
-			else if (not($genre = ( $l_journal, $l_series)))
-			then 'n.d.'
-			else ''
-		</variable>
-		
-		<variable name="start-date-or-date">
-			if (pub:publication/event:event/eterms:start-date) 
-			then pub:publication/event:event/eterms:start-date
-			else $date
-		</variable>
-
-		<variable name="date-for-thesis">
-			if (pub:publication/dcterms:issued)
-			then func:get_year(pub:publication/dcterms:issued) 
-			else if (pub:publication/dcterms:dateAccepted)
-			then func:get_year(pub:publication/dcterms:dateAccepted) 
-			else if (pub:publication/eterms:published-online)
-			then func:get_year(pub:publication/eterms:published-online) 
-			else ''
-		</variable>
-		
-		<!-- see http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Citation_of_not_yet_published_works_.28valid_for_all_genres.2C_except_for_manuscript.2C_teaching_.28Lecture.2FCourseware.29.2C_Talk_at_event.2C_Poster.29 -->
-		<variable name="notPublishedRule" type="xs:boolean">
-			$date = ( 'submitted', 'in preparation') and
-			not( $genre = ($l_manuscript, $l_courseware-lecture, $l_talk-at-event, $l_poster) )
-		</variable>		
-		
-		
-		<variable name="degree">
-			concat (
-				(if (not($v_degree))
-				then ''
-				else if ($v_degree=$l_phd)
-				then 'PhD '
-				else concat ($l_degree, ' ')),
-				'Thesis'
-			)		
-		</variable>
-		
-		
-		<variable name="doi">(pub:publication/dc:identifier[@xsi:type='eterms:DOI'])[1]/text()</variable>
-		<variable name="uri">(pub:publication/dc:identifier[@xsi:type='eterms:URI'])[1]/text()</variable>
-		
-		<variable name="doi-or-uri">
-			if ($doi!='') then concat('doi:', $doi) 
-			else if ($uri!='') then concat('Retrieved from ', $uri)
-			else ''
-		</variable>
-		
-		<variable name="published-online-and-external-locator">
-			if ( ($genre=$l_article) or (not(pub:publication/dcterms:issued) and pub:publication/eterms:published-online) ) 
-			then $doi-or-uri
-			else ''	
-		</variable>
-
-	</variables>
+	<!-- special variables to be used in expressions for short notations. 
+		taken from global and default vars.  
+	-->
+	<variables/> 
 
 	<!-- predefined layout elements which can be referenced in CSLDs -->
 	<predefined-layout-elements>
@@ -159,57 +60,28 @@
 		
 		<layout-element name="editors-base">
 			<parameters>  
-				<valid-if><![CDATA[$editorsCount>0]]></valid-if> 
 				<delimiter value="" />
 			</parameters> 
 			<elements>
-				<layout-element name="editors-Equal1"
-					ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
-					<parameters>
-						<valid-if><![CDATA[$editorsCount=1]]></valid-if>
-						<delimiter value=", " />
-						<internal-delimiter value=", " />
-					</parameters>
-					<elements>
-						<layout-element ref="organization:organization/dc:title/text()" />
-						<layout-element ref="person:person/eterms:family-name/text()" />
-						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
-					</elements>
-				</layout-element>
-		
-				<layout-element name="editors-MoreThan1LessOrEqual6"
+				<layout-element name="editors-base-impl"
 					ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
 					<parameters position="last">
 						<delimiter value=", &amp;amp; " />
 						<internal-delimiter value=", " />
 					</parameters>
 					<parameters>
-						<valid-if><![CDATA[$editorsCount>1 and $editorsCount<=6]]></valid-if>
 						<delimiter value=", " />
 						<internal-delimiter value=", " />
 					</parameters>
 					<elements>
 						<layout-element ref="organization:organization/dc:title/text()" />
+<!--						<layout-element ref="func:fname_initials(person:person/eterms:family-name/text(), person:person/eterms:given-name/text(), ', ')" />-->
 						<layout-element ref="person:person/eterms:family-name/text()" />
 						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
 					</elements>
 				</layout-element>
 		
-				<layout-element name="editors-MoreThan6"
-					ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
-					<parameters>
-						<valid-if><![CDATA[$editorsCount>6]]></valid-if>
-						<delimiter value=", " />
-						<internal-delimiter value=", " />
-						<ends-with value=", et al." />
-						<max-count value="6" />
-					</parameters>
-					<elements>
-						<layout-element ref="organization:organization/dc:title/text()" />
-						<layout-element ref="person:person/eterms:family-name/text()" />
-						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
-					</elements>
-				</layout-element>
+				
 			</elements>
 		</layout-element>
 
@@ -238,61 +110,7 @@
 				<ends-with value=")"/>
 			</parameters>
 			<elements>
-				<!-- for the case initials before the name no "," in the internal delimiter -->
-				<layout-element>
-					<parameters>  
-						<valid-if><![CDATA[$editorsCount>0]]></valid-if> 
-						<delimiter value="" />
-					</parameters> 
-					<elements>
-						<layout-element name="editors-Equal1"
-							ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
-							<parameters>
-								<valid-if><![CDATA[$editorsCount=1]]></valid-if>
-								<delimiter value=", " />
-								<internal-delimiter value=" " />
-							</parameters>
-							<elements>
-								<layout-element ref="organization:organization/dc:title/text()" />
-								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
-								<layout-element ref="person:person/eterms:family-name/text()" />
-							</elements>
-						</layout-element>
-				
-						<layout-element name="editors-MoreThan1LessOrEqual6"
-							ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
-							<parameters position="last">
-								<delimiter value=", &amp;amp; " />
-								<internal-delimiter value=" " />
-							</parameters>
-							<parameters>
-								<valid-if><![CDATA[$editorsCount>1 and $editorsCount<=6]]></valid-if>
-								<delimiter value=", " />
-								<internal-delimiter value=" " />
-							</parameters>
-							<elements>
-								<layout-element ref="organization:organization/dc:title/text()" />
-								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
-								<layout-element ref="person:person/eterms:family-name/text()" />
-							</elements>
-						</layout-element>
-						<layout-element name="editors-MoreThan6"
-							ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
-							<parameters>
-								<valid-if><![CDATA[$editorsCount>6]]></valid-if>
-								<delimiter value=", " />
-								<internal-delimiter value=" " />
-								<ends-with value=", et al." />
-								<max-count value="6" />
-							</parameters>
-							<elements>
-								<layout-element ref="organization:organization/dc:title/text()" />
-								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
-								<layout-element ref="person:person/eterms:family-name/text()" />
-							</elements>
-						</layout-element>
-					</elements>
-				</layout-element>
+				<layout-element ref="$editors-base" />
 				<layout-element ref="$ed-postfix-i18n" />
 			</elements>
 		</layout-element>
@@ -309,51 +127,21 @@
 						<valid-if><![CDATA[$authorsCount>0]]></valid-if>
 					</parameters>
 					<elements>
-						<layout-element name="authors-Equal1"
-							ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
-							<parameters>
-								<valid-if><![CDATA[$authorsCount=1]]></valid-if>
-								<delimiter value=", " />
-								<internal-delimiter value=", " />
-							</parameters>
-							<elements>
-								<layout-element ref="organization:organization/dc:title/text()" />
-								<layout-element ref="person:person/eterms:family-name/text()" />
-								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
-							</elements>
-						</layout-element>
-				
-						<layout-element name="authors-MoreThan1LessOrEqual20"
+						<layout-element name="authors-base"
 							ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
 							<parameters position="last">
 								<delimiter value=", &amp;amp; " />
 								<internal-delimiter value=", " />
 							</parameters>
 							<parameters>
-								<valid-if><![CDATA[$authorsCount>1 and $authorsCount<=20]]></valid-if>
 								<delimiter value=", " />
 								<internal-delimiter value=", " />
 							</parameters>
 							<elements>
 								<layout-element ref="organization:organization/dc:title/text()" />
+<!--								<layout-element ref="func:fname_initials(person:person/eterms:family-name/text(), person:person/eterms:given-name/text(), ', ')" />-->
 								<layout-element ref="person:person/eterms:family-name/text()" />
-								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
-							</elements>
-						</layout-element>
-				
-						<layout-element name="authors-MoreThan20"
-							ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
-							<parameters>
-								<valid-if><![CDATA[$authorsCount>20]]></valid-if>
-								<delimiter value=", " />
-								<internal-delimiter value=", " />
-								<ends-with value=", et al." />
-								<max-count value="20" />
-							</parameters>
-							<elements>
-								<layout-element ref="organization:organization/dc:title/text()" />
-								<layout-element ref="person:person/eterms:family-name/text()" />
-								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/> 
 							</elements>
 						</layout-element>
 					</elements>
@@ -394,44 +182,17 @@
 				<delimiter value="" />
 			</parameters>
 			<elements>
-				<layout-element name="source-editors-Equal1"
-					ref="pub:publication/source:source[1]/eterms:creator[@role=$l_editor]" repeatable="yes">
-					<parameters>
-						<valid-if><![CDATA[$sourceEditorsCount=1]]></valid-if>
-					</parameters>
-					<elements>
-						<layout-element ref="organization:organization/dc:title/text()" />
-						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
-						<layout-element ref="person:person/eterms:family-name/text()" />
-					</elements>
-				</layout-element>
-		
-				<layout-element name="source-editors-MoreThan1LessOrEqual6"
+				<layout-element name="source-editors-MoreThan1"
 					ref="pub:publication/source:source[1]/eterms:creator[@role=$l_editor]" repeatable="yes">
 					<parameters position="last">
 						<delimiter value=", &amp;amp; " />
 					</parameters>
 					<parameters>
-						<valid-if><![CDATA[$sourceEditorsCount>1 and $sourceEditorsCount<=6]]></valid-if>
 						<delimiter value=", " />
 					</parameters>
 					<elements>
 						<layout-element ref="organization:organization/dc:title/text()" />
-						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
-						<layout-element ref="person:person/eterms:family-name/text()" />
-					</elements>
-				</layout-element>
-		
-				<layout-element name="source-editors-MoreThan6"
-					ref="pub:publication/source:source[1]/eterms:creator[@role=$l_editor]" repeatable="yes">
-					<parameters>
-						<valid-if><![CDATA[$sourceEditorsCount>6]]></valid-if>
-						<delimiter value=", " />
-						<ends-with value=", et al." />
-						<max-count value="6" />
-					</parameters>
-					<elements>
-						<layout-element ref="organization:organization/dc:title/text()" />
+<!--						<layout-element ref="func:initials_fname(person:person/eterms:given-name/text(), person:person/eterms:family-name/text(), ', ')" />-->
 						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
 						<layout-element ref="person:person/eterms:family-name/text()" />
 					</elements>
@@ -461,7 +222,6 @@
 				<ends-with value=")." />
 			</parameters>
 		</layout-element>
-
 
 		<layout-element name="year-with-event-start-date">
 			<parameters>

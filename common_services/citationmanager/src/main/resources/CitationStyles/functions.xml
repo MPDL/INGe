@@ -79,6 +79,34 @@
 				select="concat(substring (., 1, 1), if (position()!=last())then concat ('.', $delim) else '.')" />
 		</xsl:for-each>
 	</xsl:function>
+
+
+	<xsl:function name="func:fname_initials">
+		<xsl:param name="fname" />
+		<xsl:param name="gname" />
+		<xsl:param name="delim" />
+		
+		<xsl:value-of select="
+			if ( jfunc:isCJK(concat($fname, $gname) ) ) 
+			then string-join( ($fname, $gname), $delim )
+			else string-join( ($fname, func:get_initials($gname)), $delim )
+		"/>
+		
+	</xsl:function>
+	
+	<xsl:function name="func:initials_fname">
+		<xsl:param name="gname" />
+		<xsl:param name="fname" />
+		<xsl:param name="delim" />
+		
+		<xsl:value-of select="
+			if ( jfunc:isCJK(concat($fname, $gname) ) ) 
+			then string-join( ($fname, $gname), $delim )
+			else string-join( (func:get_initials($gname), $fname), $delim )
+		"/>
+		
+	</xsl:function>
+
 	
 	<!-- Postprocessing: clean citation -->
 	<xsl:function name="func:cleanCitation">
@@ -94,6 +122,9 @@
 			" />
 			<!-- 																	.".=>." ??? -->
 	</xsl:function>
+	
+	
+	
 	
 	<xsl:function name="functx:replace-multi" as="xs:string?">
 	  <xsl:param name="arg" as="xs:string?"/> 

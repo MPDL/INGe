@@ -29,5 +29,106 @@
 	
 	<!-- genre labels -->
 	<variable name="apa_default_variable">'APA specific default variable'</variable>
+	
+	
+		<!-- variables which use xpath directly in DataSource NS-->
+
+		<!--		NOTE: -->
+		<!--		the type should be set forcibly for the cases .. otherwise error: -->
+		<!--		XTDE0420: Cannot create an attribute node whose parent is a document node-->
+		<!--		??????-->
+
+		<!-- ### objid should be always defined!!! ### -->
+		<variable name="objid" >../../@objid</variable>
+		<!--  -->
+		
+		<variable name="genre">pub:publication/@type</variable>
+		<variable name="source-type">pub:publication/source:source[1]/@type</variable>
+		<variable name="hasPublication" type="xs:boolean">exists(pub:publication)</variable>
+		<variable name="authorsCount">count(pub:publication/eterms:creator[@role=$l_author])</variable>
+		<variable name="editorsCount">count(pub:publication/eterms:creator[@role=$l_editor])</variable>
+		<variable name="ed-postfix">if ($editorsCount=1) then 'Ed.' else 'Eds.'</variable>
+		<variable name="sourceEditorsCount">count(pub:publication/source:source[1]/eterms:creator[@role=$l_editor])</variable>
+		<variable name="source-ed-postfix">if ($sourceEditorsCount=1) then 'Ed.' else 'Eds.'</variable>
+		<variable name="genre-exception" type="xs:boolean">$genre=( $l_poster, $l_talk-at-event, $l_courseware-lecture )</variable>
+
+		<!-- Dates block -->
+		<variable name="date"> 
+			if ($genre=$l_manuscript and pub:publication/dcterms:created) 
+			then func:get_year(pub:publication/dcterms:created)  
+			else if ($genre-exception and pub:publication/event:event/eterms:start-date)
+			then func:get_year(pub:publication/event:event/eterms:start-date) 
+			else if (pub:publication/dcterms:issued)
+			then func:get_year(pub:publication/dcterms:issued) 
+			else if (pub:publication/eterms:published-online) 
+			then func:get_year(pub:publication/eterms:published-online) 
+			else if (( $genre-exception and $genre=$l_manuscript) and pub:publication/dcterms:dateAccepted)
+			then func:get_year(pub:publication/dcterms:dateAccepted)
+			else if (pub:publication/dcterms:dateAccepted) 
+			then 'in press' 
+			else if	(( $genre-exception or $genre=$l_manuscript) and pub:publication/dcterms:dateSubmitted)
+			then func:get_year(pub:publication/dcterms:dateSubmitted)
+			else if (pub:publication/dcterms:dateSubmitted) 
+			then 'submitted' 
+			else if	(( $genre-exception or $genre=$l_manuscript) and pub:publication/dcterms:modified)
+			then func:get_year(pub:publication/dcterms:modified)
+			else if (( $genre-exception or $genre=$l_manuscript) and pub:publication/dcterms:created)
+			then func:get_year(pub:publication/dcterms:created)
+			else if (pub:publication/dcterms:modified or pub:publication/dcterms:created) 
+			then 'in preparation' 
+			else if (not($genre = ( $l_journal, $l_series)))
+			then 'n.d.'
+			else ''
+		</variable>
+		
+		<variable name="start-date-or-date">
+			if (pub:publication/event:event/eterms:start-date) 
+			then pub:publication/event:event/eterms:start-date
+			else $date
+		</variable>
+
+		<variable name="date-for-thesis">
+			if (pub:publication/dcterms:issued)
+			then func:get_year(pub:publication/dcterms:issued) 
+			else if (pub:publication/dcterms:dateAccepted)
+			then func:get_year(pub:publication/dcterms:dateAccepted) 
+			else if (pub:publication/eterms:published-online)
+			then func:get_year(pub:publication/eterms:published-online) 
+			else ''
+		</variable>
+		
+		<!-- see http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Citation_of_not_yet_published_works_.28valid_for_all_genres.2C_except_for_manuscript.2C_teaching_.28Lecture.2FCourseware.29.2C_Talk_at_event.2C_Poster.29 -->
+		<variable name="notPublishedRule" type="xs:boolean">
+			$date = ( 'submitted', 'in preparation') and
+			not( $genre = ($l_manuscript, $l_courseware-lecture, $l_talk-at-event, $l_poster) )
+		</variable>		
+		
+		
+		<variable name="degree">
+			concat (
+				(if (not($v_degree))
+				then ''
+				else if ($v_degree=$l_phd)
+				then 'PhD '
+				else concat ($l_degree, ' ')),
+				'Thesis'
+			)		
+		</variable>
+		
+		
+		<variable name="doi">(pub:publication/dc:identifier[@xsi:type='eterms:DOI'])[1]/text()</variable>
+		<variable name="uri">(pub:publication/dc:identifier[@xsi:type='eterms:URI'])[1]/text()</variable>
+		
+		<variable name="doi-or-uri">
+			if ($doi!='') then concat('doi:', $doi) 
+			else if ($uri!='') then concat('Retrieved from ', $uri)
+			else ''
+		</variable>
+		
+		<variable name="published-online-and-external-locator">
+			if ( ($genre=$l_article) or (not(pub:publication/dcterms:issued) and pub:publication/eterms:published-online) ) 
+			then $doi-or-uri
+			else ''	
+		</variable>	
 		
 </variables>
