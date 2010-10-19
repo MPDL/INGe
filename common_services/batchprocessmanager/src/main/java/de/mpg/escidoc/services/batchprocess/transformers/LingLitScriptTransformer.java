@@ -10,7 +10,7 @@ public class LingLitScriptTransformer extends Transformer<ItemVO>
     @Override
     public List<ItemVO> transform(List<ItemVO> list)
     {
-        System.out.println("TRansforming...");
+        System.out.println("Transforming...");
         return null;
     }
 

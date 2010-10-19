@@ -21,7 +21,7 @@ public abstract class BatchProcess
     {
         if (args.length < 2)
         {
-            throw new RuntimeException("Agruments : Operation Name, list Name");
+            throw new RuntimeException("Arguments : Operation Name, list Name");
         }
         else
         {
