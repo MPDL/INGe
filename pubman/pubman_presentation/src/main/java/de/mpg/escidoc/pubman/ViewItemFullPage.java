@@ -32,6 +32,7 @@ package de.mpg.escidoc.pubman;
 
 import java.io.IOException;
 
+
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -62,7 +63,7 @@ public class ViewItemFullPage extends BreadcrumbPage
         this.init();
     }
 
-    /**
+    /** 
      * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
      * a URL, or indirectly via page navigation.
      */

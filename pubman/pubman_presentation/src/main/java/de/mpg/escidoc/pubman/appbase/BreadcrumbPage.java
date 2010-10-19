@@ -42,6 +42,7 @@ public abstract class BreadcrumbPage extends FacesBean
         super.init();
         
         logger.debug("PAGE: " + FacesContext.getCurrentInstance().getViewRoot().getViewId());
+        System.err.println("PAGE: " + FacesContext.getCurrentInstance().getViewRoot().getViewId());
         
         FacesContext fc = FacesContext.getCurrentInstance();
         String page = fc.getViewRoot().getViewId().substring(1);

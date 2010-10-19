@@ -136,7 +136,15 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
         return get(true);
     }
 
-    /**
+    public List<BreadcrumbItem> getBreadcrumbs() {
+		return breadcrumbs;
+	}
+
+	public void setBreadcrumbs(List<BreadcrumbItem> breadcrumbs) {
+		this.breadcrumbs = breadcrumbs;
+	}
+
+	/**
      * get the last BreadcrumbItem from history
      *
      * @return BreadcrumbItem
@@ -165,7 +173,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
     public List<BreadcrumbItem> getBreadcrumbItemHistory()
     {
         logger.debug("Accessing BC:" + breadcrumbs + ":" + this);
-
+ 
         // return only the last 3 items of the breadcrumb list
         if( breadcrumbs.size() > 3 ) {
             List<BreadcrumbItem> breadcrumbsLimited = new ArrayList<BreadcrumbItem>();
@@ -175,7 +183,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
             return breadcrumbsLimited;
         }
         else 
-        {
+        {    
             return breadcrumbs;
         }
     }

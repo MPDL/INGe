@@ -64,6 +64,7 @@ import de.mpg.escidoc.pubman.acceptItem.AcceptItem;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItemSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.basket.PubItemStorageSessionBean;
+import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItem;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
@@ -836,9 +837,9 @@ public class ViewItemFull extends FacesBean
      * list)
      * 
      * @return String nav rule to load the page the user came from
-     */
+     */ 
     public String deleteItem()
-    {
+    {    
         if (getViewItemSessionBean().getNavigationStringToGoBack() == null)
         {
             getViewItemSessionBean().setNavigationStringToGoBack(MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
@@ -853,12 +854,11 @@ public class ViewItemFull extends FacesBean
             BreadcrumbItemHistorySessionBean bhsb = (BreadcrumbItemHistorySessionBean)getSessionBean(BreadcrumbItemHistorySessionBean.class);
             try
             {
-                for (int i = bhsb.getBreadcrumbItemHistory().size() - 1; i > 0; i--)
+                for (int i = bhsb.getBreadcrumbs().size() - 1; i > 0; i--)
                 {
-                    if (bhsb.getBreadcrumbItemHistory().get(i - 1).isItemSpecific() == false)
-                    {
-                        getFacesContext().getExternalContext().redirect(
-                                bhsb.getBreadcrumbItemHistory().get(i - 1).getPage());
+                    if (bhsb.getBreadcrumbs().get(i - 1).isItemSpecific() == false && bhsb.getBreadcrumbs().get(i-1).getDisplayValue().equalsIgnoreCase("CreateItemPage")==false) 
+                    { 
+                        getFacesContext().getExternalContext().redirect(bhsb.getBreadcrumbs().get(i - 1).getPage());
                         return retVal;
                     }
                 }

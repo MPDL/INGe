@@ -77,7 +77,7 @@ public class BreadcrumbItem extends FacesBean
      * You may only use one of the public static final BreadcrumbItem's defined above.
      */
     public BreadcrumbItem(String displayValue, String page, Method defaultAction, boolean isItemSpecific)
-    {
+    { 
         this.displayValue = displayValue;
         this.page = page;
         this.defaultAction = defaultAction;
