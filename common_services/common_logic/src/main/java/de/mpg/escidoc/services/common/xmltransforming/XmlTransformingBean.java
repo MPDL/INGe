@@ -83,6 +83,7 @@ import de.mpg.escidoc.services.common.valueobjects.LockVO;
 import de.mpg.escidoc.services.common.valueobjects.PidServiceResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
+import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO.RelationType;
 import de.mpg.escidoc.services.common.valueobjects.ResultVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
@@ -119,6 +120,7 @@ import de.mpg.escidoc.services.common.xmltransforming.wrappers.MemberListWrapper
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.StatisticReportWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.SuccessorROListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.URLWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.UserAttributesWrapper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -2127,5 +2129,42 @@ public class XmlTransformingBean implements XmlTransforming
          }
     	 
     	return searchRetrieveResponseVO;
+    }
+    
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<UserAttributeVO> transformToUserAttributesList(String userAttributesList) throws TechnicalException
+    {
+        logger.debug("transformToUserAttributesList(String) - String userAttributesList=\n" + userAttributesList);
+        if (userAttributesList == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToUserAttributesList:userAttributesList is null");
+        }
+        UserAttributesWrapper listWrapper = null;
+        try
+        {
+            // unmarshal MemberListWrapper from String
+            IBindingFactory bfact = BindingDirectory.getFactory(UserAttributesWrapper.class); 
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(userAttributesList);
+            Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+            listWrapper = (UserAttributesWrapper)unmarshalledObject;
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause());
+            throw new UnmarshallingException(userAttributesList, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        // unwrap the List<ContainerVO>
+       
+
+        return listWrapper.getUserAttributes();
     }
 }

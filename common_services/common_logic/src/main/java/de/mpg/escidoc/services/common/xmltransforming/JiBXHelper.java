@@ -54,6 +54,7 @@ import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.ChecksumAlgorithm;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
@@ -549,6 +550,13 @@ public class JiBXHelper
     {
     	return new ArrayList<SearchRetrieveRecordVO>();
     }
+    
+    
+    public static List<UserAttributeVO> userAttributeVOListFactory()
+    {
+        return new ArrayList<UserAttributeVO>();
+    }
+
 
     /**
      * Change all occurrences of a given 'old' pattern in a String to a given 'new' pattern.

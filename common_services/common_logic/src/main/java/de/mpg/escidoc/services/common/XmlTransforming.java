@@ -58,6 +58,7 @@ import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.TocItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TocVO;
+import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.face.FaceItemVO;
@@ -462,4 +463,6 @@ public interface XmlTransforming
     public PidServiceResponseVO transformToPidServiceResponse(String pidServiceResponseXml) throws TechnicalException;
 
     public SearchRetrieveResponseVO transformToSearchRetrieveResponse(String searcRetrieveResponseXml) throws TechnicalException;
+    
+    public List<UserAttributeVO> transformToUserAttributesList(String userAttributesList) throws TechnicalException;
 }

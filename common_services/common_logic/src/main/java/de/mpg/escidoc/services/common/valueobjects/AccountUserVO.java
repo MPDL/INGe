@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -73,6 +74,11 @@ public class AccountUserVO extends ValueObject
     private String password;
     private AccountUserRO reference;
     private String userid;
+    
+    /**
+     * User attributes. Attributes have to be retrieved and set manually, as they are not part of the default user-account.xml
+     */
+    private List<UserAttributeVO> attributes = new ArrayList<UserAttributeVO>();
     
     
     /**
@@ -359,6 +365,19 @@ public class AccountUserVO extends ValueObject
     public void setLastModificationDate(Date lastModificationDate)
     {
         this.lastModificationDate = lastModificationDate;
+    }
+
+    public void setAttributes(List<UserAttributeVO> attributes)
+    {
+        this.attributes = attributes;
+    }
+
+    /**
+     * User attributes. Attributes have to be retrieved and set seperately, as they are not part of the default user-account.xml
+     */
+    public List<UserAttributeVO> getAttributes()
+    {
+        return attributes;
     }
     
     
