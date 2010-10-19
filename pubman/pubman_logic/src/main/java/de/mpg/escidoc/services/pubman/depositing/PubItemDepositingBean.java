@@ -286,7 +286,7 @@ public class PubItemDepositingBean implements PubItemDepositing
         }
     }
     
-    public List<ContextVO> getPubContextList() throws TechnicalException
+    public List<ContextVO> getPubCollectionListForDepositing() throws TechnicalException
     {
         try
         {

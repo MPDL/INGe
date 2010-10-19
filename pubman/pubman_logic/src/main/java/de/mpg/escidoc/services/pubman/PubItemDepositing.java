@@ -128,7 +128,7 @@ public interface PubItemDepositing
 	 * @exception TechnicalException,
 	 * @exception SecurityException
 	 */
-    public java.util.List<ContextVO> getPubContextList()
+    public java.util.List<ContextVO> getPubCollectionListForDepositing()
 	  throws TechnicalException, SecurityException;
       
     /**
