@@ -2,7 +2,7 @@
 	<role:properties>
 		<prop:name>escidoc:role-reporter</prop:name>
 		<prop:description>Reporter role may invoke the Report workspace in PubMan.  
-			For more information about this role, please check http://colab.mpdl.mpg.de/mediawiki/Reporter </prop:description>
+			For more information about this role, please check http://colab.mpdl.mpg.de/mediawiki/ESciDoc_User_Roles#Reporter </prop:description>
 	</role:properties>
 	<role:scope unlimited="true"/>
 	<xacml-policy:Policy PolicyId="Reporter-User-policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:ordered-permit-overrides">
