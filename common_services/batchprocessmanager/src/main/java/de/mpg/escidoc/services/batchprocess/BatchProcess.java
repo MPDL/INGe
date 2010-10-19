@@ -41,24 +41,21 @@ public abstract class BatchProcess
                     ((Edit)batchProcess).setTransformer(Transformer.getTransformer(args[2]));
                 }
             }
+            logger.info("OPERATION " + operationName + " FOR " + elementsName + " ...");
             batchProcess.run(list);
-            logger.info(operationName + " " + elementsName + " done!");
+            logger.info("OPERATION " + operationName + " FOR " + elementsName + " DONE!");
         }
     }
 
     public static BatchProcess getBatchProcess(String name)
     {
-        if ("edit".equals(name))
+        try
         {
-            return new Edit();
+            return (BatchProcess)Class.forName(name).newInstance();
         }
-        else if ("delete".equals(name))
+        catch (Exception e)
         {
-            return new Delete();
-        }
-        else
-        {
-            throw new RuntimeException(name + " is not a valid operation");
+            throw new RuntimeException(name + " is not a valid operation", e);
         }
     }
 

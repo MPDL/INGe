@@ -1,5 +1,7 @@
 package de.mpg.escidoc.services.batchprocess.operations;
 
+import org.apache.log4j.Logger;
+
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.batchprocess.BatchProcess;
 import de.mpg.escidoc.services.batchprocess.elements.Elements;
@@ -10,11 +12,13 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class Edit extends BatchProcess
 {
     private Transformer<?> transformer;
+    private static final Logger logger = Logger.getLogger(Edit.class);
 
     public void run(Elements list)
     {
         try
         {
+            logger.info("TRANSFORMER: " + this.getTransformer().getClass().getName());
             list = transform(list);
             save(list);
         }

@@ -10,13 +10,13 @@ public abstract class Elements<ListElementType>
 
     public static Elements<?> getBatchProcessList(String name)
     {
-        if ("LingLitAll".equals(name))
+        try
         {
-            return new LingLitAllElements();
+            return (Elements<?>)Class.forName(name).newInstance();
         }
-        else
+        catch (Exception e)
         {
-            throw new RuntimeException(name + " is not a valid Element name");
+            throw new RuntimeException(name + " is not a valid Element name", e);
         }
     }
 
