@@ -337,4 +337,10 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         return false;
     }
 
+    @Override
+    public boolean keepParameterValues()
+    {
+        return false;
+    }
+
 }

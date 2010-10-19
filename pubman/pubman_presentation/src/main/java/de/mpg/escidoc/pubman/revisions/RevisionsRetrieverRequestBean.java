@@ -118,4 +118,10 @@ public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     {
         return true;
     }
+
+    @Override
+    public boolean keepParameterValues()
+    {
+        return false;
+    }
 }

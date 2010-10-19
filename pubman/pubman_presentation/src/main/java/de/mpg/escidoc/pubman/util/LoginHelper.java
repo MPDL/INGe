@@ -48,6 +48,7 @@ import org.apache.log4j.Logger;
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
+import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
@@ -55,6 +56,7 @@ import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -211,8 +213,11 @@ public class LoginHelper extends FacesBean
         String xmlUser = "";
         try
         {
-            xmlUser = ServiceLocator.getUserAccountHandler(userHandle).retrieve(userHandle);
-            this.accountUser = transforming.transformToAccountUser(xmlUser);
+            UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
+            xmlUser = uah.retrieve(userHandle);
+            this.accountUser = transforming.transformToAccountUser(xmlUser); 
+            String attributesXml = uah.retrieveAttributes(accountUser.getReference().getObjectId());
+            this.accountUser.setAttributes(transforming.transformToUserAttributesList(attributesXml));
             // add the user handle to the transformed account user
             this.accountUser.setHandle(userHandle);
             String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(this.accountUser.getReference().getObjectId());

@@ -1,48 +1,48 @@
-package de.mpg.escidoc.pubman.depositorWS;
+package de.mpg.escidoc.pubman.yearbook;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
+import org.apache.axis.types.NonNegativeInteger;
+import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
-import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
-import de.mpg.escidoc.pubman.multipleimport.ImportLog;
-import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
-import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.search.Search;
+import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.escidoc.services.search.query.PlainCqlQuery;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
+import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
 
 /**
- * This bean is an implementation of the BaseListRetrieverRequestBean class for the My Items workspace.
+ * This bean is an implementation of the BaseListRetrieverRequestBean class for the Yearbook workspace.
  * It uses the PubItemListSessionBean as corresponding BasePaginatorListSessionBean and adds additional functionality for filtering the items by their state.
  *
  * @author Markus Haarlaender (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 3780 $ $LastChangedDate: 2010-07-23 10:01:12 +0200 (Fri, 23 Jul 2010) $
  *
  */
-public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA>
+public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA>
 {
-    private static Logger logger = Logger.getLogger(MyItemsRetrieverRequestBean.class);
-    public static String BEAN_NAME = "MyItemsRetrieverRequestBean";
-    public static final String LOAD_DEPOSITORWS = "loadDepositorWS";
+    private static Logger logger = Logger.getLogger(YearbookCandidatesRetrieverRequestBean.class);
+    public static String BEAN_NAME = "YearbookCandidatesRetrieverRequestBean";
    
     /**
      * This workspace's user.
@@ -54,25 +54,12 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
      */
     protected static String parameterSelectedItemState = "itemState";
     
-    /**import filter.
-     */
-    private static String parameterSelectedImport = "import"; 
  
     /**
      * The total number of records
      */
     private int numberOfRecords;
     
-    /**
-     * The currently selected import tag.
-     */
-    private String selectedImport;
-    
-    /**
-     * A list with menu entries for the import filter menu.
-     */
-    private List<SelectItem> importSelectItems;
-
     /**
      * The menu entries of the item state filtering menu
      */
@@ -82,8 +69,9 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
      * The currently selected item state.
      */
     private String selectedItemState;
+    private Search searchService;
     
-    public MyItemsRetrieverRequestBean()
+    public YearbookCandidatesRetrieverRequestBean()
     {
         super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), false);
         //logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
@@ -92,71 +80,23 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         
     }
     
-    /**
-     * Checks if the user is logged in. If not, redirects to the login page.
-     */
-    protected void checkLogin()
-    {
-        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        Login login = (Login) getSessionBean(Login.class);
-        
-        //if not logged in redirect to login page
-        if (!loginHelper.isLoggedIn())
-        {
-            try
-            {
-                login.loginLogout();
-            }
-            catch (Exception e)
-            {
-                logger.error("Error during redirection.", e);
-                error("Could not redirect to login!");
-            }
-           
-        }
-        else
-        {
-            this.userVO = loginHelper.getAccountUser();
-        }
-        
-    }
+   
 
     @Override
     public void init()
     {
-        checkLogin();
-        
-        // Init imports
-        List<SelectItem> importSelectItems = new ArrayList<SelectItem>();
-        importSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
-        
         try
         {
-            Connection connection = ImportLog.getConnection();
-            String sql = "select * from ESCIDOC_IMPORT_LOG where userid = ? order by STARTDATE desc";
-            PreparedStatement statement = connection.prepareStatement(sql);
+            InitialContext initialContext = new InitialContext();
+            this.searchService = (Search) initialContext.lookup(Search.SERVICE_NAME);
             
-            statement.setString(1, this.userVO.getReference().getObjectId());
-            
-            ResultSet resultSet = statement.executeQuery();
-            
-            while (resultSet.next())
-            {
-                SelectItem selectItem = new SelectItem(resultSet.getString("name")
-                        + " " + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
-                importSelectItems.add(selectItem);
-            }
-            resultSet.close();
-            statement.close();
         }
-        catch (Exception e)
+        catch (NamingException e)
         {
-            logger.error("Error getting imports from database", e);
-            error("Error getting imports from database");
+            logger.error("Error when trying to find search service.", e);
+            error("Did not find Search service");
         }
-        
-        setImportSelectItems(importSelectItems);
-
+      
     }
 
     @Override
@@ -168,9 +108,83 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     @Override
     public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {
-        List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
+        
+        List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
+        YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+        
         try
         {
+            
+            ArrayList<String> contentTypes = new ArrayList<String>();
+            String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+            contentTypes.add( contentTypeIdPublication );
+            
+            ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
+            MetadataSearchCriterion objectTypeMds = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
+            mdsList.add(objectTypeMds);
+
+            //MetadataSearchCriterion genremd = new MetadataSearchCriterion(CriterionType.ANY, );
+            int i =0;
+            for(Genre genre : yisb.getYearbookContext().getAdminDescriptor().getAllowedGenres())
+            {
+                if (i==0)
+                {
+                    objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.GENRE, genre.getUri(), LogicalOperator.AND));
+                }
+                else
+                {
+                    objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.GENRE, genre.getUri(), LogicalOperator.OR));
+                }
+                i++;
+            }
+            
+            
+           
+            
+            MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
+            String additionalQuery = yisb.getYearbookItem().getLocalTags().get(0);
+            
+            
+            PlainCqlQuery query = new PlainCqlQuery(mdQuery.getCqlQuery() + " AND " +  additionalQuery);
+           
+         
+            query.setStartRecord(new PositiveInteger(String.valueOf(offset+1)));
+            query.setMaximumRecords(new NonNegativeInteger(String.valueOf(limit)));
+            
+            
+            if(sc.getIndex()!=null)
+            {
+                query.setSortKeys(sc.getIndex());
+            }
+
+            if(sc.getIndex() == null || !sc.getIndex().equals(""))
+            {
+                if (sc.getSortOrder().equals("descending"))
+                {
+                   
+                    query.setSortOrder(SortingOrder.DESCENDING);
+                }
+                   
+                else
+                {
+                    query.setSortOrder(SortingOrder.ASCENDING);
+                } 
+            }
+            ItemContainerSearchResult result = this.searchService.searchForItemContainer(query);
+            
+            pubItemList =  SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
+            this.numberOfRecords = Integer.parseInt(result.getTotalNumberOfResults().toString());
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
+        
+
             
             
             LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
@@ -182,51 +196,15 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
             // define the filter criteria
             FilterTaskParamVO filter = new FilterTaskParamVO();
             
-            Filter f1 = filter.new OwnerFilter(loginHelper.getAccountUser().getReference());
-            filter.getFilterList().add(0,f1);
             Filter f2 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
             filter.getFilterList().add(f2);
             
-            if (selectedItemState.toLowerCase().equals("withdrawn"))
-            {
-                //use public status instead of version status here
-                Filter f3 = filter.new ItemPublicStatusFilter(PubItemVO.State.WITHDRAWN);
-                filter.getFilterList().add(0,f3);
-            }
-            else if (selectedItemState.toLowerCase().equals("all"))
-            {
-                //all public status except withdrawn
-                Filter f4 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
-                filter.getFilterList().add(0,f4);
-                Filter f5 = filter.new ItemPublicStatusFilter(PubItemVO.State.PENDING);
-                filter.getFilterList().add(0,f5);
-                Filter f6 = filter.new ItemPublicStatusFilter(PubItemVO.State.SUBMITTED);
-                filter.getFilterList().add(0,f6);
-                Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
-                filter.getFilterList().add(0,f7);
-            }
-            else
-            {
-                //the selected version status filter
-                Filter f3 = filter.new ItemStatusFilter(PubItemVO.State.valueOf(selectedItemState));
-                filter.getFilterList().add(0,f3);
-                
-                //all public status except withdrawn
-                Filter f4 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
-                filter.getFilterList().add(0,f4);
-                Filter f5 = filter.new ItemPublicStatusFilter(PubItemVO.State.PENDING);
-                filter.getFilterList().add(0,f5);
-                Filter f6 = filter.new ItemPublicStatusFilter(PubItemVO.State.SUBMITTED);
-                filter.getFilterList().add(0,f6);
-                Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
-                filter.getFilterList().add(0,f7);
-            }
+           
+            Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
+            filter.getFilterList().add(0,f7);
+            
                
-            if (!getSelectedImport().toLowerCase().equals("all"))
-            {
-                Filter f10 = filter.new LocalTagFilter(getSelectedImport());
-                filter.getFilterList().add(f10);
-            }
+           
               
             Filter f10 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
             filter.getFilterList().add(f10);
@@ -254,6 +232,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
             
             numberOfRecords = Integer.parseInt(itemList.getNumberOfRecords());
             returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
+        */
         }
         catch (Exception e)
         {
@@ -261,23 +240,12 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
             error("Error in retrieving items");
             numberOfRecords = 0; 
         }
-        return returnList;
-
-    }
-
-    /**
-     * Checks if the selected sorting criteria is currently available. If not (empty string), it displays a warning message to the user.
-     * @param sc The sorting criteria to be checked
-     */
-    protected void checkSortCriterias(SORT_CRITERIA sc)
-    {
-        if  (sc.getSortPath()== null || sc.getSortPath().equals(""))
-        {
-            error(getMessage("depositorWS_sortingNotSupported").replace("$1", getLabel("ENUM_CRITERIA_"+sc.name())));
-            //getBasePaginatorListSessionBean().redirect();
-        }
         
+        return pubItemList;
+
     }
+
+   
 
   
     /**
@@ -325,22 +293,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         return selectedItemState;
     }
 
-    /**
-     * @return the selectedImport
-     */
-    public String getSelectedImport()
-    {
-        return selectedImport;
-    }
-
-    /**
-     * @param selectedImport the selectedImport to set
-     */
-    public void setSelectedImport(String selectedImport)
-    {
-        this.selectedImport = selectedImport;
-        getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedImport, selectedImport);
-    }
+ 
 
     /**
      * Returns the label for the currently selected item state.
@@ -404,37 +357,33 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     @Override
     public void readOutParameters()
     {
-        String selectedItemState = getExternalContext().getRequestParameterMap().get(parameterSelectedItemState);
-        if (selectedItemState==null)
+        String selectedItemState = getExternalContext().getRequestParameterMap().get(parameterSelectedItemState); 
+        if (selectedItemState!=null)
+        {
+            setSelectedItemState(selectedItemState);
+        }
+        else if(!keepParameterValues() || getBasePaginatorListSessionBean().getParameterMap().get(parameterSelectedItemState)==null)
         {
             setSelectedItemState("all");
         }
         else
         {
-            setSelectedItemState(selectedItemState);
+            setSelectedItemState(getBasePaginatorListSessionBean().getParameterMap().get(parameterSelectedItemState));
         }
         
-        String selectedItem = getExternalContext().getRequestParameterMap().get(parameterSelectedImport);
-        if (selectedItem==null)
-        {
-            setSelectedImport("all");
-        }
-        else
-        {
-            setSelectedImport(selectedItem);
-        }
+      
     }
 
     @Override
     public String getType()
     {
-        return "MyItems";
+        return "SearchResult";
     }
     
     @Override
     public String getListPageName()
     {
-        return "DepositorWSPage.jsp";
+        return "YearbookCandidatesPage.jsp";
     }
 
     @Override
@@ -443,25 +392,25 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         return false;
     }
 
-    /**
-     * @return the importSelectItems
-     */
-    public List<SelectItem> getImportSelectItems()
-    {
-        return importSelectItems;
-    }
 
-    /**
-     * @param importSelectItems the importSelectItems to set
-     */
-    public void setImportSelectItems(List<SelectItem> importSelectItems)
-    {
-        this.importSelectItems = importSelectItems;
-    }
 
     @Override
     public boolean keepParameterValues()
     {
-        return false;
+        return true;
     }
+    
+
+    public String addSelectedToYearbook()
+    {
+        YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class); 
+        List<ItemRO> selected = new ArrayList<ItemRO>();
+        for(PubItemVOPresentation item : ((PubItemListSessionBean)getBasePaginatorListSessionBean()).getSelectedItems())
+        {
+            selected.add(item.getVersion());
+        }
+        yisb.addMembers(selected);
+        return "";
+    }
+
 }

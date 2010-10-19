@@ -88,7 +88,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     public static enum SORT_CRITERIA
     { 
         //Use dummy value "score" for default sorting
-        RELEVANCE ("score", "", OrderFilter.ORDER_DESCENDING),
+        RELEVANCE (null, "", OrderFilter.ORDER_DESCENDING),
         TITLE ("sort.escidoc.publication.title", "/md-records/md-record/publication/title", OrderFilter.ORDER_ASCENDING),
         GENRE ("sort.escidoc.publication.type", "/md-records/md-record/publication/type", OrderFilter.ORDER_ASCENDING),
         DATE ("sort.escidoc.publication.compound.most-recent-date", "", OrderFilter.ORDER_DESCENDING),
@@ -580,7 +580,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
                 SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
                 
                 //only add if index/sorting path is available
-                if ((getPageType().equals("SearchResult") && !sc.getIndex().equals("")) || (!getPageType().equals("SearchResult") && !sc.getSortPath().equals("")))
+                if ((getPageType().equals("SearchResult") && (sc.getIndex()==null || !sc.getIndex().equals(""))) || (!getPageType().equals("SearchResult") && !sc.getSortPath().equals("")))
                 {
                     sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
                 }
@@ -593,7 +593,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             {
                 SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
               //only add if index/sorting path is available
-                if ((getPageType().equals("SearchResult") && !sc.getIndex().equals("")) || (!getPageType().equals("SearchResult") && !sc.getSortPath().equals("")))
+                if ((getPageType().equals("SearchResult") && (sc.getIndex()==null || !sc.getIndex().equals(""))) || (!getPageType().equals("SearchResult") && !sc.getSortPath().equals("")))
                 {
                     sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
                 }
@@ -675,14 +675,19 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         }
         else
         {
-            if(getPageType().equals("SearchResult"))
+            if(!getPaginatorListRetriever().keepParameterValues() || getSelectedSortBy()==null)
             {
-                setSelectedSortBy(SORT_CRITERIA.RELEVANCE.name());
+
+                if(getPageType().equals("SearchResult"))
+                {
+                    setSelectedSortBy(SORT_CRITERIA.RELEVANCE.name());
+                }
+                else
+                {
+                    setSelectedSortBy(SORT_CRITERIA.MODIFICATION_DATE.name());
+                }
             }
-            else
-            {
-                setSelectedSortBy(SORT_CRITERIA.MODIFICATION_DATE.name());
-            }
+            
             
         }
         
@@ -693,7 +698,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         }
         else
         {
-            setSelectedSortOrder(OrderFilter.ORDER_DESCENDING);
+            if(!getPaginatorListRetriever().keepParameterValues() || getSelectedSortOrder()==null)
+            {
+                setSelectedSortOrder(OrderFilter.ORDER_DESCENDING);
+            }
         }
         
        
@@ -740,6 +748,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     @Override
     protected void pageTypeChanged()
     {
+       
        if (getPageType().equals("MyItems") || getPageType().equals("MyTasks")){
            subMenu = "FILTER";
        }

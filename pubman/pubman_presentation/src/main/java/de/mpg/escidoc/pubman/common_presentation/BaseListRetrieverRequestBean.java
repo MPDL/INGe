@@ -47,6 +47,7 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
         this.setBasePaginatorListSessionBean(plb);
         getBasePaginatorListSessionBean().setPaginatorListRetriever(this);
         getBasePaginatorListSessionBean().setPageType(getType());
+        getBasePaginatorListSessionBean().setListPageName(getListPageName());
         if (refreshAlways)
         {
             getBasePaginatorListSessionBean().setNoListUpdate(false);
@@ -131,6 +132,13 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
     {        
         return unapiURLview;
     }
+    
+    /**
+     * If set to true, the session and request beans are adviced to keep certain values when navigating between different list pages
+     * (number of items per page, sort order, sort direction)
+     * @return
+     */
+    public abstract boolean keepParameterValues();
     
    
     

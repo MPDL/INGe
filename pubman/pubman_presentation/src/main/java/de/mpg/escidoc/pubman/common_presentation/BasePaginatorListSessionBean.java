@@ -126,6 +126,12 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
      * A String that describes the current type of the page. Drawn from the corresponding BaseListRetrieverRequestBean.
      */
     private String pageType;
+    
+    /**
+     * A String that describes the current type of the page. Drawn from the corresponding BaseListRetrieverRequestBean.
+     */
+    private String listPageName;
+   
    
     /**
      * A Map that has stored the GET parameters from the last request
@@ -144,8 +150,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
      */
     public BasePaginatorListSessionBean()
     {
-        redirectParameterMap = new HashMap<String, String>();
-        oldRedirectParameterMap = new HashMap<String, String>();
+        setParameterMap(new HashMap<String, String>());
+        setOldRedirectParameterMap(new HashMap<String, String>());
         
         
         elementsPerPageSelectItems = new ArrayList<SelectItem>();
@@ -176,7 +182,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         {
             setElementsPerPage(Integer.parseInt(elementsPerP));
         }
-        else
+        else if(!getPaginatorListRetriever().keepParameterValues() || getElementsPerPage()==0)
         {
             setElementsPerPage(25);
         }
@@ -226,15 +232,15 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
      */
     private boolean parametersChanged()
     {
-        if (oldRedirectParameterMap.isEmpty() || oldRedirectParameterMap.size()!=getParameterMap().size()) 
+        if (getOldRedirectParameterMap().isEmpty() || getOldRedirectParameterMap().size()!=getParameterMap().size()) 
         {
             return true;
         }
         else
         {
-            for(String key : oldRedirectParameterMap.keySet())
+            for(String key : getOldRedirectParameterMap().keySet())
             {
-                if (!redirectParameterMap.containsKey(key) || !redirectParameterMap.get(key).equals(oldRedirectParameterMap.get(key)))
+                if (!getParameterMap().containsKey(key) || !getParameterMap().get(key).equals(getOldRedirectParameterMap().get(key)))
                 {
                     return true;
                 }
@@ -639,7 +645,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         
         String parameterUrl = "?";
         
-        for (Entry<String, String> entrySet: redirectParameterMap.entrySet())
+        for (Entry<String, String> entrySet: getParameterMap().entrySet())
         {
             try
             {
@@ -689,10 +695,10 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
      */
     protected String getModifiedLink(String key, String value)
     {
-        String oldValue = redirectParameterMap.get(key);
-        redirectParameterMap.put(key, value);
+        String oldValue = getParameterMap().get(key);
+        getParameterMap().put(key, value);
         String linkUrl =  getRedirectUrl();
-        redirectParameterMap.put(key, oldValue);
+        getParameterMap().put(key, oldValue);
         return linkUrl;
     }
     
@@ -775,9 +781,9 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
      */
     public void setPageType(String pageType)
     {
-        String oldPageType = this.pageType;
+        //String oldPageType = this.pageType;
         this.pageType = pageType;
-        
+        /*
         if (!pageType.equals(oldPageType))
         {
             pageTypeChanged();
@@ -785,6 +791,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
             getParameterMap().clear();
             oldRedirectParameterMap.clear();
         }
+        */
         
     }
 
@@ -794,6 +801,25 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     protected abstract void pageTypeChanged();
 
     
+    
+    public void setListPageName(String listPageName)
+    {
+        String oldPageName = this.listPageName;
+        this.listPageName = listPageName;
+        
+        if (!listPageName.equals(oldPageName))
+        {
+            pageTypeChanged();
+            setGoToPage("");
+            getParameterMap().clear();
+            getOldRedirectParameterMap().clear();
+        }
+    }
+
+    public String getListPageName()
+    {
+        return listPageName;
+    }
     
     /**
      * WARNING: USE THIS METHOD ONLY FROM UPPER GO TO INPUT FIELD MENU IN JSPF. For setting the value manually, use setGoToPage().
@@ -860,8 +886,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
      */
     public void saveOldParameters()
     {
-        oldRedirectParameterMap.clear();
-        oldRedirectParameterMap.putAll(redirectParameterMap);
+        getOldRedirectParameterMap().clear();
+        getOldRedirectParameterMap().putAll(getParameterMap());
     }
     
     /**
@@ -901,5 +927,22 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         noListUpdate=false;
         return returnVal;
     }
+
+    public void setOldRedirectParameterMap(Map<String, String> oldRedirectParameterMap)
+    {
+        this.oldRedirectParameterMap = oldRedirectParameterMap;
+    }
+
+    public Map<String, String> getOldRedirectParameterMap()
+    {
+        return oldRedirectParameterMap;
+    }
+
+    public void setParameterMap(Map<String, String> redirectParameterMap)
+    {
+        this.redirectParameterMap = redirectParameterMap;
+    }
+
+   
     
 }
