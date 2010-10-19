@@ -27,6 +27,7 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
+<%@page import="com.ctc.wstx.dtd.ModelNode"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	this.request = request;
@@ -58,6 +59,9 @@
 <%!
 	List<String> errors;
 	List<String> messages;
+	
+	boolean warning;
+	
 	HttpServletRequest request = null;
 	Querier querier = null;
 	
@@ -113,7 +117,7 @@
 	    		        int counter = 0;
 	        		    for (LocalizedTripleObject object : results.get(predicate.getId()))
 	            		{
-			                out.append("\n<span class=\"xHuge_area0 endline\" style=\"overflow: visible;\">");
+			                out.append("\n<span class=\"xHuge_area0 endline inputField\" style=\"overflow: visible;\">");
 			                	if (predicate.isModify())
 			                	{
 				                	out.append("\n<input type=\"");
@@ -209,6 +213,9 @@
 				            	    {
 					            	    out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove \" value=\" \" onclick=\"remove(this)\"/>");
 		        		        	}
+				        	        
+				        	        out.append("<input type=\"button\" onclick=\"check('" + model.getName() + "', '" + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "')\"/>");
+				        	        
 			                	}
 			                	else
 			                	{
@@ -326,7 +333,7 @@
 		            					out.append(", true)\"/>");
 		        					}
 					        	}
-            				
+								out.append("<input type=\"button\" onclick=\"check('" + model.getName() + "', '" + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "')\"/>");
 				            out.append("</span>");
 	        			}
 	    		        else if (predicate.isMultiple())
@@ -540,6 +547,7 @@
 
 	errors = new ArrayList<String>();
 	messages = new ArrayList<String>();
+	warning = false;
 	
 	String uri = request.getParameter("uri");
 	String modelName = request.getParameter("model");
@@ -567,7 +575,47 @@
 		mapFormValues(model, model.getPredicates(), request, paramNames, results, "");
 	}
 	
-	if ((request.getParameter("delete") != null
+	boolean form = ("true".equals(request.getParameter("form")));
+	
+	if (request.getParameter("workflow") != null)
+    {
+	    errors = new ArrayList<String>();
+		messages = new ArrayList<String>();
+		
+		results = (TreeFragment) session.getAttribute("currentObject");
+		
+		if ("change".equals(request.getParameter("workflow")))
+		{
+		    results = querier.details(modelName, uri, "*");
+		}
+		else if ("overwrite".equals(request.getParameter("workflow")))
+		{
+		    querier.delete(modelName, uri);
+		    querier.create(modelName, uri, results);
+		    if (request.getSession().getAttribute("latestSearch") != null)
+		    {
+		        response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
+		        return;
+		    }
+		    messages.add("Entry saved.");
+		}
+		else if ("update-overwrite".equals(request.getParameter("workflow")))
+		{
+		    TreeFragment existingObject = querier.details(modelName, uri, "*");
+		    existingObject.merge(results, true);
+		    results = existingObject;
+		    querier.delete(modelName, uri);
+		    querier.create(modelName, uri, results);
+		    
+		    if (request.getSession().getAttribute("latestSearch") != null)
+		    {
+		        response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
+		        return;
+		    }
+		    messages.add("Entry saved.");
+		}
+    }
+	else if ((request.getParameter("delete") != null
 	        || request.getParameter("save") != null)
 	        && ((request.getSession().getAttribute("edit_open_vocabulary") == null)
 	      		  && (model != null && (Boolean)model.isOpen())		
@@ -609,6 +657,15 @@
                 if (identifierValue != null && !"".equals(identifierValue))
                 {
                     uri = model.getSubjectPrefix() + identifierValue;
+                    
+                    TreeFragment result = querier.details(modelName, uri, "*");
+                    
+                    if (result.exists())
+                    {
+                        warning = true;
+                        session.setAttribute("currentObject", results);
+                        errors.add("This resource already exists.");
+                    }
                 }
                 else
                 {
@@ -638,7 +695,7 @@
 //           }
         }
         
-        if (errors.size() == 0)
+        if (errors.size() == 0 && !warning)
         {
 		    querier.delete(modelName, uri);
 		    querier.create(modelName, uri, results);
@@ -652,7 +709,7 @@
 	}
 	else if (uri != null && !"".equals(uri) && modelName != null && !"".equals(modelName))
 	{
-	    if (!"true".equals(request.getParameter("form")))
+	    if (!form)
 	    {
 	    	results = querier.details(modelName, uri, "*");
 	    }
@@ -728,53 +785,78 @@
 								</span>
 							</div>
 							<% } %>
-							<div class="full_area0 itemBlock">
-								<h3 class="xLarge_area0_p8 endline blockHeader">
-									Data
-								</h3>
-								<span class="seperator"></span>
-								<div class="free_area0 itemBlockContent endline">
-									<span class="free_area0 endline itemLine noTopBorder">
-										<b class="xLarge_area0_p8 endline labelLine clear">
-											Cone-ID<span class="noDisplay">: </span>
-										</b>
-										<span class="xHuge_area0 endline">
-											<%
-											if (uri == null)
-								            {
-								                if (model.isGenerateIdentifier())
-								                {
-								                    out.append("<label class=\"quad_label\">Will be generated</label>");
-								            	}
-								                else
-								                {
-								                    out.append("<label class=\"free_area0\">"+model.getSubjectPrefix()+"</label>");
-								                    
-								                    String subject = "";
-								                    if (results.getSubject() != null)
-								                    {
-								                        subject = results.getSubject();
-								                    }
-								                    
-								                    out.append("<input type=\"text\" name=\"cone_identifier\" class=\"double_txtInput\" value=\"" + subject + "\" />");
-								                }
-								            }
-											else
-											{
-											    out.append("<label class=\"quad_label\">"+uri+"</label>");
-											}
-											
-											%>
+							<% if (warning) { %>
+								<div class="full_area0 itemBlock">
+									<h3 class="xLarge_area0_p8 endline blockHeader">
+										What do you want to do?
+									</h3>
+									<span class="seperator"></span>
+									<div class="free_area0 itemBlockContent endline">
+										<input type="radio" name="workflow" value="overwrite"/>
+										Replace the existing object with mine.
+										<br/>
+										<input type="radio" name="workflow" value="update-overwrite"/>
+										Update the existing object with mine (overwrite matching predicates).
+										<br/>
+										<input type="radio" name="workflow" value="update-add"/>
+										Update the existing object with mine (add matching predicates where possible).
+										<br/>
+										<input type="radio" name="workflow" value="change" checked=""/>
+										Switch to the existing object.
+										<br/><br/><br/>
+									</div>
+								</div>
+							<% } else { %>
+								<div class="full_area0 itemBlock">
+									<h3 class="xLarge_area0_p8 endline blockHeader">
+										Data
+									</h3>
+									<span class="seperator"></span>
+									<div class="free_area0 itemBlockContent endline">
+										<span class="free_area0 endline itemLine noTopBorder">
+											<b class="xLarge_area0_p8 endline labelLine clear">
+												Cone-ID<span class="noDisplay">: </span>
+											</b>
+											<span class="xHuge_area0 endline">
+												<%
+												if (uri == null)
+									            {
+									                if (model.isGenerateIdentifier())
+									                {
+									                    out.append("<label class=\"quad_label\">Will be generated</label>");
+									            	}
+									                else
+									                {
+									                    out.append("<label class=\"free_area0\">"+model.getSubjectPrefix()+"</label>");
+									                    out.append("<input type=\"hidden\" name=\"cone_subject_prefix\" value=\""+model.getSubjectPrefix()+"\"/>");
+									                    
+									                    String subject = "";
+									                    if (results.getSubject() != null)
+									                    {
+									                        subject = results.getSubject();
+									                    }
+									                    
+									                    out.append("<input type=\"text\" name=\"cone_identifier\" class=\"double_txtInput\" value=\"" + subject + "\" />");
+									                    out.append("<input type=\"button\" onclick=\"check()\"/>");
+									                }
+									            }
+												else
+												{
+												    out.append("<label class=\"quad_label\">"+uri+"</label>");
+												}
+												
+												%>
+											</span>
 										</span>
-									</span>
-									<% if (model != null) { %>
-										<%= displayPredicates(model, results, uri, model.getPredicates(), "", ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) %>
-									<% } %>	
+										<% if (model != null) { %>
+											<%= displayPredicates(model, results, uri, model.getPredicates(), "", ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) %>
+										<% } %>	
+									</div>
+									<div class="free_area0 xTiny_marginLIncl">
+										<span class="mandatory">* mandatory field</span>
+									</div>
 								</div>
-								<div class="free_area0 xTiny_marginLIncl">
-									<span class="mandatory">* mandatory field</span>
-								</div>
-							</div>
+							<% } %>
 						</div>
 					</div>
 					<div class="full_area0 formButtonArea">

@@ -35,7 +35,7 @@
 		</aliases>
 		<description>Journal Names</description>
 		<open>true</open>
-		<primary-identifier control="false" generate-cone-id="false"></primary-identifier>
+		<primary-identifier control="false" subject-prefix="journals/resource/" generate-cone-id="false"></primary-identifier>
 		<predicates>
 			<predicate name="Journal Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true"/>
 			<predicate name="Alternative Journal Name" value="http://purl.org/dc/terms/alternative" multiple="true" mandatory="false" localized="false" searchable="true"/>
@@ -72,7 +72,7 @@ AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,&lt;http://p
 		</aliases>
 		<description>Languages</description>
 		<open>false</open>
-		<primary-identifier control="false" generate-cone-id="false"></primary-identifier>
+		<primary-identifier control="false" subject-prefix="iso639-1/resource/" generate-cone-id="false"></primary-identifier>
 		<predicates>
 			<predicate name="ISO639-3 Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" searchable="true" generateObject="false" resourceModel="iso639-3"/>
 			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="true" localized="false" searchable="true"/>
@@ -90,7 +90,7 @@ AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,&lt;http://p
 		</aliases>
 		<description>Languages</description>
 		<open>false</open>
-		<primary-identifier control="false" generate-cone-id="false"></primary-identifier>
+		<primary-identifier control="false" subject-prefix="iso639-2/resource/" generate-cone-id="false"></primary-identifier>
 		<predicates>
 			<predicate name="ISO639-3 Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="false" localized="false" searchable="true" generateObject="false" resourceModel="iso639-3"/>
 			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="true"/>
@@ -114,7 +114,7 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 		</aliases>
 		<description>Languages</description>
 		<open>false</open>
-		<primary-identifier control="true" generate-cone-id="false"/>
+		<primary-identifier control="true" subject-prefix="iso639-3/resource/" generate-cone-id="false"/>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="true" searchable="true"/>
 			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="true" localized="false" searchable="true"/>

@@ -37,6 +37,12 @@
 	<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css" id="classicTheme" type="text/css" title="classic" rel="alternate stylesheet"/>	
 	<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_PubMan/styles/theme.css" id="PubManTheme" type="text/css" title="PubMan" rel="stylesheet"/>
 
+	<style>
+		.xLarge_txtInput {
+			color: red;
+		}
+	</style>
+
 	<script language="JavaScript" type="text/javascript">
 		  function applyCookieStyle() {
 				var cookieValue = ""
@@ -104,8 +110,11 @@
 
 			function remove(element)
 			{
-				var parent = $(element).parents(".singleItem");
-				var listSize = $(parent).parent().children(".singleItem").length;
+				
+				var parent = $(element).parents(".inputField");
+				var listSize = $(parent).parent().children(".inputField").length;
+
+				alert(listSize);
 
 				if (listSize > 1)
 				{
@@ -165,6 +174,21 @@
 			{
 				var id = this.resultID.replace(/^.+\/(.+\/resource\/.+)$/, '$1');
 				$(this).val(id);
+			}
+
+			function check(model, predicate, formField)
+			{
+				if (typeof model == 'undefined')
+				{
+					var subject = document.editform["cone_identifier"].value;
+					var subject_prefix = document.editform["cone_subject_prefix"].value;
+					var w = window.open("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + subject_prefix + subject, '', 'height=300,width=600');
+				}
+				else
+				{
+					var object = document.editform[formField].value;
+					var w = window.open("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?" + escape(predicate) + "=" + object, '', 'height=300,width=600');
+				}
 			}
 			
 	</script>

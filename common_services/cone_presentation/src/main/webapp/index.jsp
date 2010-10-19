@@ -58,6 +58,8 @@
 					<%
 						Set<Model> modelList = ModelList.getInstance().getList();
 						boolean loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
+						boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue());
+						boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue());
 						
 						Querier querier = QuerierFactory.newQuerier(loggedIn);
 					%>
@@ -92,7 +94,7 @@
 										<%= model.getDescription() %>
 									</span>
 								</span>
-								<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
+								<% if (loggedIn && ((model.isOpen() && editOpen) || (!model.isOpen() && editClosed))) { %>
 									<span class="large_area0_p8 lineToolSection">
 										<a class="min_imgBtn add sectionTool" href="edit.jsp?model=<%= modelName %>" class="free_area0 xTiny_marginRIncl" title="add new <%= modelName %>">&#160;</a>
 									</span>

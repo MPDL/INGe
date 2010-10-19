@@ -151,7 +151,7 @@ public class ModelHelper
                         {
                             singleString = singleString.substring(singleString.indexOf(":") + 1);
                         }
-                        newResult.add(singleString.replace("&#3A;", ":"));
+                        newResult.add(singleString.replace("&#x3A;", ":").replace("&#x2C;", ","));
                     }
                     strings = newResult;
                     
@@ -223,7 +223,7 @@ public class ModelHelper
                             {
                                 singleString = singleString.substring(singleString.indexOf(":") + 1);
                             }
-                            newResult.add(singleString.replace("&#3A;", ":"));
+                            newResult.add(singleString.replace("&#3A;", ":").replace("&#x2C;", ","));
                         }
                         
                         strings = new ArrayList<String>();
@@ -383,7 +383,7 @@ public class ModelHelper
                 {
                     if (lang.equals(value.getLanguage()) || "".equals(value.getLanguage()) || (!predicate.isLocalized() && value.getLanguage() == null) || ("".equals(lang) && (value.getLanguage() == null || value.getLanguage().equals(PropertyReader.getProperty("escidoc.cone.language.default")))))
                     {
-                        String newPart = line.replace("<" + prefix + predicate.getId() + ">", value.toString().replace(":", "&#3A;"));
+                        String newPart = line.replace("<" + prefix + predicate.getId() + ">", value.toString().replace(":", "&#x3A;").replace(",", "&#x2C;"));
                         strings.add(newPart);
                     }
                 }

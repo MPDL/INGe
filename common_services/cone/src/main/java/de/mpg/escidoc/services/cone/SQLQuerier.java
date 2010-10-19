@@ -296,52 +296,15 @@ public class SQLQuerier implements Querier
 
         language = language.replace("'", "''");
         
-        ArrayList<Pair<String>> allPairs = new ArrayList<Pair<String>>();
-        for (Pair<String> pair : searchPairs)
-        {
-            String[] predicatePieces = pair.getKey().split(":");
-            if (predicatePieces.length != 2)
-            {
-                // field has no prefix, so ignore it.
-                continue;
-            }
-            else
-            {
-                for (String key : ModelList.getInstance().getDefaultNamepaces().keySet())
-                {
-                    if (ModelList.getInstance().getDefaultNamepaces().get(key).equals(predicatePieces[0]))
-                    {
-                        // Replace prefix with uri.
-                        pair.setKey(key + predicatePieces[1]);
-                        break;
-                    }
-                }
-            }
-            String[] results = formatSearchString(pair.getValue());
-            for (String result : results)
-            {
-                allPairs.add(new Pair<String>(pair.getKey(), result));
-            }
-        }
-        String subQuery = "model = '" + modelName + "'";
-        String order1 = "";
-        String order2 = "";
-        for (Pair<String> pair : allPairs)
-        {
-            subQuery += " and (predicate = '" + pair.getKey() + "' and ";
-            if (pair.getValue().startsWith("\"") && pair.getValue().endsWith("\""))
-            {
-                subQuery += " object ilike '" + pair.getValue().substring(1,pair.getValue().length() - 1) + "')";
-            }
-            else
-            {
-                subQuery += " object ilike '%" + pair.getValue() + "%')";
-                order1 += "('|' || object || '|') ilike '%|" + pair.getValue() + "|%' desc, ";
-                order2 += "('|' || object || '|') ilike '%|" + pair.getValue() + "%' desc, ('|' || object || '|') ilike '% " + pair.getValue() + "%' desc, ";
-            }
-        }
-        String query = "select r1.id, r1.value, r1.lang from results r1 inner join triples on r1.id = triples.subject " +
-        "where " + subQuery;
+        String[] subQueries = getSubqueries(modelName, searchPairs);
+        
+        String joinClause = subQueries[0];
+        String subQuery = subQueries[1];
+        String order1 = subQueries[2];
+        String order2 = subQueries[3];
+        
+        String query = "select r1.id, r1.value, r1.lang from results r1 inner join triples triples0 on r1.id = triples0.subject " + joinClause +
+            "where " + subQuery;
 
         if (!"*".equals(language))
         {
@@ -378,6 +341,135 @@ public class SQLQuerier implements Querier
         return resultSet;
     }
     
+    private String[] getSubqueries(String modelName, Pair<String>[] searchPairs) throws Exception
+    {
+        return getSubqueries(modelName, searchPairs, 0);
+    }
+    
+    private String[] getSubqueries(String modelName, Pair<String>[] searchPairs, int level) throws Exception
+    {
+        return getSubqueries(modelName, searchPairs, null, level);
+    }
+    
+    private String[] getSubqueries(Pair<String>[] searchPairs, Predicate parentPredicate) throws Exception
+    {
+        return getSubqueries(searchPairs, parentPredicate, 0);
+    }
+    
+    private String[] getSubqueries(Pair<String>[] searchPairs, Predicate parentPredicate, int level) throws Exception
+    {
+        return getSubqueries(null, searchPairs, parentPredicate, level);
+    }
+    
+    private String[] getSubqueries(String modelName, Pair<String>[] searchPairs, Predicate parentPredicate, int level) throws Exception
+    {
+        String subQuery;
+        String joinClause = "";
+        String table = "triples" + level;
+        
+        if (modelName == null)
+        {
+            subQuery = table + ".model is null and ";
+        }
+        else
+        {
+            subQuery = table + ".model = '" + modelName + "' and ";
+        }
+        String order1 = "";
+        String order2 = "";
+
+        ArrayList<Pair<String>> allPairs = new ArrayList<Pair<String>>();
+        
+        for (Pair<String> pair : searchPairs)
+        {
+            String key = pair.getKey();
+            if (key.matches("^[a-zA-Z0-9]+:.+"))
+            {
+                String prefix = key.substring(0, key.indexOf(":"));
+                for (String namespace : ModelList.getInstance().getDefaultNamepaces().keySet())
+                {
+                    if (ModelList.getInstance().getDefaultNamepaces().get(namespace).equals(prefix))
+                    {
+                        key = key.replaceFirst("^[a-zA-Z0-9]+:", namespace);
+                    }
+                }
+                
+            }
+            List<Predicate> predicateList = null;
+            if (modelName != null)
+            {
+                predicateList = ModelList.getInstance().getModelByAlias(modelName).getPredicates();
+            }
+            else
+            {
+                predicateList = parentPredicate.getPredicates();
+            }
+            for (Predicate predicate : predicateList)
+            {
+                if (key.equals(predicate.getId()))
+                {
+                    subQuery += " " + table + ".predicate = '" + key + "' ";
+                    String[] results = formatSearchString(pair.getValue());
+                    for (String result : results)
+                    {
+                        if (result.startsWith("\"") && result.endsWith("\""))
+                        {
+                            subQuery += " and " + table + ".object ilike '" + result.substring(1, result.length() - 1) + "'";
+                        }
+                        else
+                        {
+                            subQuery += " and " + table + ".object ilike '%" + result + "%'";
+                            order1 += table + ".object ilike '" + pair.getValue() + "' desc, ";
+                            order2 += table + ".object ilike '" + pair.getValue() + "%' desc, " + table + ".object ilike '% " + pair.getValue() + "%' desc, ";
+                        }
+                    }
+                    break;
+                }
+                else if (key.startsWith(predicate.getId()))
+                {
+                    String[] subResult;
+                    if (predicate.isResource())
+                    {
+                        String subModelName = predicate.getResourceModel();
+                        Pair<String> subPair = new Pair<String>(key.replaceFirst(predicate.getId() + "/", ""), pair.getValue());
+                        joinClause = " inner join triples triples" + (level +  1) + " on " + table + ".object = triples" + (level +  1) + ".subject ";
+                        subQuery = " " + table + ".predicate = '" + predicate.getId() + "' and ";
+                        subResult = getSubqueries(subModelName, new Pair[]{subPair}, level + 1);
+                    }
+                    else
+                    {
+                        Pair<String> subPair = new Pair<String>(key.replaceFirst(predicate.getId() + "/", ""), pair.getValue());
+                        joinClause = " inner join triples triples" + (level +  1) + " on " + table + ".object = triples" + (level +  1) + ".subject ";
+                        subQuery = " " + table + ".predicate = '" + predicate.getId() + "' and ";
+                        subResult = getSubqueries(new Pair[]{subPair}, predicate, level + 1);
+                    }
+                    joinClause += subResult[0];
+                    subQuery += subResult[1];
+                    order1 = subResult[2];
+                    order1 = subResult[3];
+                }
+            }
+        }
+        for (Pair<String> pair : allPairs)
+        {
+            
+            if (pair.getValue().startsWith("\"") && pair.getValue().endsWith("\""))
+            {
+                subQuery += " object ilike '" + pair.getValue().substring(1,pair.getValue().length() - 1) + "')";
+            }
+            else
+            {
+                subQuery += " object ilike '%" + pair.getValue() + "%')";
+                order1 += "('|' || object || '|') ilike '%|" + pair.getValue() + "|%' desc, ";
+                order2 += "('|' || object || '|') ilike '%|" + pair.getValue() + "%' desc, ('|' || object || '|') ilike '% " + pair.getValue() + "%' desc, ";
+            }
+        }
+        return new String[]
+        {
+            joinClause, subQuery, order1, order2
+        };
+    }
+
     public List<? extends Describable> queryFull(String modelName, Pair<String>[] searchPairs, String language, int limit) throws Exception
     {
         if (connection.isClosed())
@@ -392,52 +484,15 @@ public class SQLQuerier implements Querier
 
         language = language.replace("'", "''");
         
-        ArrayList<Pair<String>> allPairs = new ArrayList<Pair<String>>();
-        for (Pair<String> pair : searchPairs)
-        {
-            String[] predicatePieces = pair.getKey().split(":");
-            if (predicatePieces.length != 2)
-            {
-                // field has no prefix, so ignore it.
-                continue;
-            }
-            else
-            {
-                for (String key : ModelList.getInstance().getDefaultNamepaces().keySet())
-                {
-                    if (ModelList.getInstance().getDefaultNamepaces().get(key).equals(predicatePieces[0]))
-                    {
-                        // Replace prefix with uri.
-                        pair.setKey(key + predicatePieces[1]);
-                        break;
-                    }
-                }
-            }
-            String[] results = formatSearchString(pair.getValue());
-            for (String result : results)
-            {
-                allPairs.add(new Pair<String>(pair.getKey(), result));
-            }
-        }
-        String subQuery = "model = '" + modelName + "'";
-        String order1 = "";
-        String order2 = "";
-        for (Pair<String> pair : allPairs)
-        {
-            subQuery += " and (predicate = '" + pair.getKey() + "' and ";
-            if (pair.getValue().startsWith("\"") && pair.getValue().endsWith("\""))
-            {
-                subQuery += " object ilike '" + pair.getValue().substring(1,pair.getValue().length() - 1) + "')";
-            }
-            else
-            {
-                subQuery += " object ilike '%" + pair.getValue() + "%')";
-                order1 += "('|' || object || '|') ilike '%|" + pair.getValue() + "|%' desc, ";
-                order2 += "('|' || object || '|') ilike '%|" + pair.getValue() + "%' desc, ('|' || object || '|') ilike '% " + pair.getValue() + "%' desc, ";
-            }
-        }
-        String query = "select r1.id, r1.value, r1.lang from results r1 inner join triples on r1.id = triples.subject " +
-        "where " + subQuery;
+        String[] subQueries = getSubqueries(modelName, searchPairs);
+        
+        String joinClause = subQueries[0];
+        String subQuery = subQueries[1];
+        String order1 = subQueries[2];
+        String order2 = subQueries[3];
+        
+        String query = "select r1.id, r1.value, r1.lang from results r1 inner join triples triples0 on r1.id = triples0.subject " + joinClause +
+            "where " + subQuery;
 
         if (!"*".equals(language))
         {

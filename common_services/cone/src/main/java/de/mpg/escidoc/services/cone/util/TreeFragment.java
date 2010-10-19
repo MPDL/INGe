@@ -111,7 +111,7 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
             {
                 for (LocalizedTripleObject otherObject : other.get(predicateName))
                 {
-                    if (overwrite)
+                    if (overwrite && (!(otherObject instanceof LocalizedString) || !"".equals(((LocalizedString)otherObject).getValue())))
                     {
                         for (LocalizedTripleObject myObject : get(predicateName))
                         {
@@ -132,6 +132,11 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
         }
     }
 
+    public boolean exists()
+    {
+        return (this.keySet() != null && keySet().size() > 0);
+    }
+    
     /**
      * {@inheritDoc}
      */

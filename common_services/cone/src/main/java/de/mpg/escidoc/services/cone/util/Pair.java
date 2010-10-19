@@ -30,6 +30,8 @@
 
 package de.mpg.escidoc.services.cone.util;
 
+import java.io.Serializable;
+
 /**
  * A key-value pair.
  * 
@@ -38,7 +40,7 @@ package de.mpg.escidoc.services.cone.util;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class Pair<T> implements Describable
+public class Pair<T> implements Describable, Serializable
 {
     private String key;
     private T value;
