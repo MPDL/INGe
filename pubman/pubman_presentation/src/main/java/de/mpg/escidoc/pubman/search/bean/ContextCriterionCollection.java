@@ -40,7 +40,7 @@ public class ContextCriterionCollection
     public void getContexts() throws Exception
     {
     	contexts = new ArrayList<ContextVO>();
-    	contexts = this.pubItemDepositing.getPubContextList();
+    	contexts = this.pubItemDepositing.getPubCollectionListForDepositing();
     }
     
 	public List<SelectItem> getContextList() throws Exception
