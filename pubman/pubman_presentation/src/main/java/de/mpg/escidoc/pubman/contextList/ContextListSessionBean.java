@@ -69,9 +69,7 @@ public class ContextListSessionBean extends FacesBean
      */
     public ContextListSessionBean()
     {
-        
         init();
-        
     }
     
     public void init()
