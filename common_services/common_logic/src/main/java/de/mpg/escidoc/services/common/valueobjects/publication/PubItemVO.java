@@ -10,6 +10,8 @@ public class PubItemVO extends ItemVO
 {
     
     private static Logger logger = Logger.getLogger(PubItemVO.class);
+    private String descriptionMetaTag;
+
     
     /**
      * Default constructor.
@@ -71,4 +73,34 @@ public class PubItemVO extends ItemVO
             getMetadataSets().add(mdsPublicationVO);
         }
     }
+    public String getDescriptionMetaTag()
+	{
+    	//add first creator to meta tag
+    	descriptionMetaTag = getMetadata().getCreators().get(0).getRoleString() + ": " ;
+    	if(getMetadata().getCreators().get(0).getPerson() != null)
+    		descriptionMetaTag+= getMetadata().getCreators().get(0).getPerson().getGivenName() +" " + getMetadata().getCreators().get(0).getPerson().getFamilyName();
+		else
+			descriptionMetaTag += getMetadata().getCreators().get(0).getOrganization().getName();
+    	//add genre information
+    	descriptionMetaTag += ", Gerne: " + getMetadata().getGenre() ;
+		//add published print date
+    	if(getMetadata().getDatePublishedInPrint()!= null && getMetadata().getDatePublishedInPrint()!="")
+    		descriptionMetaTag += ", Published in Print: "+getMetadata().getDatePublishedInPrint();
+    	//add published online date
+    	if(getMetadata().getDatePublishedOnline()!= null && getMetadata().getDatePublishedOnline()!="")
+    		descriptionMetaTag += ", Published online: "+getMetadata().getDatePublishedOnline();
+    	//add keywords
+    	if(getMetadata().getFreeKeywords().getValue() != null && getMetadata().getFreeKeywords().getValue()!="")
+    		descriptionMetaTag += ", keyword: " + getMetadata().getFreeKeywords().getValue() ;
+    	System.err.println(descriptionMetaTag);
+		return descriptionMetaTag;
+	}
+
+	public void setDescriptionMetaTag(String descriptionMetaTag) 
+	{
+		this.descriptionMetaTag = descriptionMetaTag;
+	}
+
+    
+
 }
