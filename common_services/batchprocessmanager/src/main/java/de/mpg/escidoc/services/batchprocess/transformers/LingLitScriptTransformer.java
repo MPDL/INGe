@@ -1,16 +1,21 @@
 package de.mpg.escidoc.services.batchprocess.transformers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.services.batchprocess.BatchProcess.CoreServiceObjectType;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
-public class LingLitScriptTransformer extends Transformer<ItemVO>
+public class LingLitScriptTransformer extends Transformer<PubItemVO>
 {
     @Override
-    public List<ItemVO> transform(List<ItemVO> list)
+    public List<PubItemVO> transform(List<PubItemVO> list)
     {
-        System.out.println("Transforming...");
+        for (PubItemVO item : list)
+        {
+            System.out.println("Transform: " + item.getMetadata().getTitle().getValue() + " (" + item.getVersion().getObjectId() + ")");
+        }
         return list;
     }
 

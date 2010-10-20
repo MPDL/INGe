@@ -15,21 +15,12 @@ public class CoreServiceHelper
 {
     public static HashMap<String, String[]> createBasicFilter(String query, int numberOfRecord)
     {
-        String encodedQuery;
-        try
-        {
-            encodedQuery = URLEncoder.encode(query, "UTF-8");
-        }
-        catch (UnsupportedEncodingException e)
-        {
-            throw new RuntimeException(e);
-        }
         HashMap<String, String[]> filter = new HashMap<String, String[]>();
         filter.put("operation", new String[] { "searchRetrieve" });
         filter.put("version", new String[] { "1.1" });
-        filter.put("query ", new String[] { encodedQuery });
+        filter.put("query", new String[] { query });
         filter.put("maximumRecords", new String[] { Integer.toString(numberOfRecord) });
-        filter.put("startRecord", new String[] { "0" });
+        filter.put("startRecord", new String[] { "1" });
         return filter;
     }
     
