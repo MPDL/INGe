@@ -13,7 +13,7 @@ public abstract class BatchProcess
 
     public enum CoreServiceObjectStatus
     {
-        PENDING, SUBMITtED, RELEASED, WITHDRAWN
+        PENDING, SUBMITTED, RELEASED, WITHDRAWN
     }
 
     protected static Elements elements = null;
@@ -21,22 +21,31 @@ public abstract class BatchProcess
 
     public static void main(String[] args) throws ClassNotFoundException
     {
-        BatchProcess batchProcess = BatchProcess.getBatchProcess(BatchProcess.getArgument("-o", args));
+        BatchProcess batchProcess = BatchProcess.initBatchProcess(args);
         logger.info("Batch process...");
         batchProcess.run(args);
         logger.info("Batch Process done!");
     }
 
-    public static BatchProcess getBatchProcess(String name)
+    public abstract void run(String[] args);
+
+    public static BatchProcess initBatchProcess(String[] args)
     {
         try
         {
-            return (BatchProcess)Class.forName(name).newInstance();
+            BatchProcess bp = (BatchProcess)Class.forName(BatchProcess.getArgument("-o", args)).newInstance();
+            bp.initElements(args);
+            return bp;
         }
         catch (Exception e)
         {
-            throw new RuntimeException(name + " is not a valid operation", e);
+            throw new RuntimeException(BatchProcess.getArgument("-o", args) + " is not a valid operation", e);
         }
+    }
+
+    public void initElements(String[] args)
+    {
+        elements = Elements.getBatchProcessList(BatchProcess.getArgument("-e", args));
     }
 
     public static String getArgument(String argumentSymbole, String[] args)
@@ -50,12 +59,5 @@ public abstract class BatchProcess
         }
         throw new RuntimeException("Error reading argument" + argumentSymbole
                 + "\n Usage: BatchProcess -o [OperationClass] -e [ElementClass] -t [TransformationClass] -s [Status]");
-    }
-
-    public abstract void run(String[] args);
-
-    public Elements<?> getElements(String[] args)
-    {
-        return Elements.getBatchProcessList(BatchProcess.getArgument("-e", args));
     }
 }

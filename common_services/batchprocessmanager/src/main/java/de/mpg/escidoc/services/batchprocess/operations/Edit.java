@@ -21,9 +21,17 @@ public class Edit extends BatchProcess
         try
         {
             transformer = Transformer.getTransformer(BatchProcess.getArgument("-t", args));
-            elements = getElements(args);
             elements.setElements(transformer.transform(elements.getElements()));
             update(elements);
+//            if (CoreServiceObjectStatus.SUBMITTED.equals(BatchProcess.getArgument("-s", args))
+//                    || CoreServiceObjectStatus.RELEASED.equals(BatchProcess.getArgument("-s", args)))
+//            {
+//                //submit
+//            }
+//            if (CoreServiceObjectStatus.RELEASED.equals(BatchProcess.getArgument("-s", args)))
+//            {
+//                //release
+//            }
         }
         catch (Exception e)
         {
