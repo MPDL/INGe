@@ -228,6 +228,7 @@ public class ViewItemFull extends FacesBean
     private PubItemSimpleStatistics pubManStatistics;
     private boolean isPublicStateReleased;
 
+
     /**
      * Public constructor.
      */
@@ -2625,7 +2626,10 @@ public class ViewItemFull extends FacesBean
             throw new RuntimeException("Cannot export item:", e);
         }
        // return "";
-
+        
     }
+
+
+
 
 }
