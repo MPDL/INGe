@@ -242,7 +242,7 @@ public class PubItemDepositingBean implements PubItemDepositing
         }
     }
 
-    /**
+    /** 
      * {@inheritDoc}
      */
     public List<ContextVO> getPubCollectionListForDepositing(AccountUserVO user) throws TechnicalException
