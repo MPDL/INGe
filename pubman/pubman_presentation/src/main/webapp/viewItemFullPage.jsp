@@ -44,6 +44,10 @@
 				<title><h:outputText value="#{ApplicationBean.appTitle} :: #{ViewItemFull.pubItem.metadata.title.value}"/></title>
 				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURLview}"/>
 
+				<meta http-equiv="Content-Type" content="text/html; charset=gb2312"> </meta>
+				<meta name="description" content="#{ViewItemFull.pubItem.descriptionMetaTag}"></meta>
+
+
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
 			</head>
