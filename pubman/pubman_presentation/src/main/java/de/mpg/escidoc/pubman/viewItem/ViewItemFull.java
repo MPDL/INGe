@@ -1234,12 +1234,12 @@ public class ViewItemFull extends FacesBean
                 String language = this.pubItem.getMetadata().getLanguages().get(i);
                 InternationalizationHelper internationalizationHelper = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
                 String languageName = CommonUtils.getConeLanguageName(language, internationalizationHelper.getLocale());
+                result.append(language);
                 if (languageName != null && !"".equals(languageName))
                 {
-                    result.append(languageName);
                     result.append(" - ");
+                    result.append(languageName);
                 }
-                result.append(language);
             }
             return result.toString();
         }

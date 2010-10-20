@@ -215,7 +215,7 @@ public class CommonUtils extends InternationalizedImpl
         try
         {
             HttpClient httpClient = new HttpClient();
-            GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url") + "iso639-2/all?format=options&lang=" + locale);
+            GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url") + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
             httpClient.executeMethod(getMethod);
             if (getMethod.getStatusCode() == 200)
             {
