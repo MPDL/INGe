@@ -11,7 +11,7 @@ public class LingLitScriptTransformer extends Transformer<ItemVO>
     public List<ItemVO> transform(List<ItemVO> list)
     {
         System.out.println("Transforming...");
-        return null;
+        return list;
     }
 
     @Override

@@ -3,9 +3,6 @@ package de.mpg.escidoc.services.batchprocess;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.batchprocess.elements.Elements;
-import de.mpg.escidoc.services.batchprocess.operations.Delete;
-import de.mpg.escidoc.services.batchprocess.operations.Edit;
-import de.mpg.escidoc.services.batchprocess.transformers.Transformer;
 
 public abstract class BatchProcess
 {
@@ -14,37 +11,20 @@ public abstract class BatchProcess
         ITEM, CONTAINER;
     }
 
-    private static Elements<?> list = null;
+    public enum CoreServiceObjectStatus
+    {
+        PENDING, SUBMITtED, RELEASED, WITHDRAWN
+    }
+
+    protected static Elements elements = null;
     private static final Logger logger = Logger.getLogger(BatchProcess.class);
 
     public static void main(String[] args) throws ClassNotFoundException
     {
-        if (args.length < 2)
-        {
-            throw new RuntimeException("Arguments : Operation Name, list Name");
-        }
-        else
-        {
-            String operationName = args[0];
-            String elementsName = args[1];
-            BatchProcess batchProcess;
-            list = Elements.getBatchProcessList(elementsName);
-            batchProcess = BatchProcess.getBatchProcess(operationName);
-            if (batchProcess instanceof Edit)
-            {
-                if (args.length < 3)
-                {
-                    throw new RuntimeException("Edit needs a transformer as argument");
-                }
-                else
-                {
-                    ((Edit)batchProcess).setTransformer(Transformer.getTransformer(args[2]));
-                }
-            }
-            logger.info("OPERATION " + operationName + " FOR " + elementsName + " ...");
-            batchProcess.run(list);
-            logger.info("OPERATION " + operationName + " FOR " + elementsName + " DONE!");
-        }
+        BatchProcess batchProcess = BatchProcess.getBatchProcess(BatchProcess.getArgument("-o", args));
+        logger.info("Batch process...");
+        batchProcess.run(args);
+        logger.info("Batch Process done!");
     }
 
     public static BatchProcess getBatchProcess(String name)
@@ -59,5 +39,23 @@ public abstract class BatchProcess
         }
     }
 
-    public abstract void run(Elements<?> list);
+    public static String getArgument(String argumentSymbole, String[] args)
+    {
+        for (int i = 0; i < args.length; i++)
+        {
+            if (argumentSymbole.equals(args[i]))
+            {
+                return args[i + 1];
+            }
+        }
+        throw new RuntimeException("Error reading argument" + argumentSymbole
+                + "\n Usage: BatchProcess -o [OperationClass] -e [ElementClass] -t [TransformationClass] -s [Status]");
+    }
+
+    public abstract void run(String[] args);
+
+    public Elements<?> getElements(String[] args)
+    {
+        return Elements.getBatchProcessList(BatchProcess.getArgument("-e", args));
+    }
 }

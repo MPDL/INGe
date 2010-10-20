@@ -1,5 +1,7 @@
 package de.mpg.escidoc.services.batchprocess.operations;
 
+import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.om.ItemHandler;
@@ -14,13 +16,14 @@ public class Edit extends BatchProcess
     private Transformer<?> transformer;
     private static final Logger logger = Logger.getLogger(Edit.class);
 
-    public void run(Elements list)
+    public void run(String[] args)
     {
         try
         {
-            logger.info("TRANSFORMER: " + this.getTransformer().getClass().getName());
-            list = transform(list);
-            save(list);
+            transformer = Transformer.getTransformer(BatchProcess.getArgument("-t", args));
+            elements = getElements(args);
+            elements.setElements(transformer.transform(elements.getElements()));
+            update(elements);
         }
         catch (Exception e)
         {
@@ -28,27 +31,27 @@ public class Edit extends BatchProcess
         }
     }
 
-    public Elements transform(Elements list)
+    public void update(Elements list) throws Exception
     {
-        list.setList(transformer.transform(list.getList()));
-        return list;
-    }
-
-    public void save(Elements list) throws Exception
-    {
-        if (ItemVO.class.equals(list.getObjectType()))
+        if (CoreServiceObjectType.ITEM.equals(list.getObjectType()))
         {
-            ItemHandler handler = ServiceLocator.getItemHandler();
+            updateItems(list);
+        }
+        else if (CoreServiceObjectType.CONTAINER.equals(list.getObjectType()))
+        {
         }
     }
 
-    public Transformer getTransformer()
+    private void updateItems(Elements list) throws Exception
     {
-        return transformer;
-    }
-
-    public void setTransformer(Transformer transformer)
-    {
-        this.transformer = transformer;
+        ItemHandler ih = ServiceLocator.getItemHandler();
+        if (list.getElements() != null)
+        {
+            for (ItemVO ivo : new ArrayList<ItemVO>(list.getElements()))
+            {
+                // ih.update(arg0, arg1);
+                System.out.println("Updating: " + ivo.getVersion().getObjectId());
+            }
+        }
     }
 }

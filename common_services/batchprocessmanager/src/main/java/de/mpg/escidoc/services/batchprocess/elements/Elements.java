@@ -1,12 +1,18 @@
 package de.mpg.escidoc.services.batchprocess.elements;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.services.batchprocess.BatchProcess.CoreServiceObjectType;
 
 public abstract class Elements<ListElementType>
 {
-    private List<ListElementType> list;
+    protected List<ListElementType> elements = new ArrayList<ListElementType>();
+    
+    public Elements()
+    {
+        retrieveElements();
+    }
 
     public static Elements<?> getBatchProcessList(String name)
     {
@@ -20,12 +26,17 @@ public abstract class Elements<ListElementType>
         }
     }
 
-    public abstract List<ListElementType> getList();
-
-    public void setList(List<ListElementType> list)
+    public List<ListElementType> getElements()
     {
-        this.list = list;
+        return elements;
     }
+
+    public void setElements(List<ListElementType> elements)
+    {
+        this.elements = elements;
+    }
+
+    public abstract void retrieveElements();
 
     public abstract CoreServiceObjectType getObjectType();
 }

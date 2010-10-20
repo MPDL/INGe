@@ -6,9 +6,9 @@ import de.mpg.escidoc.services.batchprocess.elements.Elements;
 public class Delete extends BatchProcess
 {
     @Override
-    public void run(Elements<?> list)
+    public void run(String[] args)
     {
-        delete(list);
+        delete(elements);
     }
 
     public void delete(Elements<?> list)
