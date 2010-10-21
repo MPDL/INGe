@@ -454,6 +454,10 @@
 		<escidoc.pubman.item.pattern>/item/$1</escidoc.pubman.item.pattern>
 		<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 		
+		<!-- URL of stylesheets in common-presentation -->
+		<escidoc.pubman.common.presentation.url>http://localhost:8080/common/</escidoc.pubman.common.presentation.url>
+		
+		
 		<!-- Links from PubMan -->
 		<escidoc.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Repository_Policy</escidoc.pubman.policy.url>
 		<escidoc.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</escidoc.pubman.contact.url>
