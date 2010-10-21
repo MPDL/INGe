@@ -19,11 +19,12 @@ public class LingLitAllElements extends Elements<ItemVO>
     {
         try
         {
-            System.out.println(ServiceLocator.getFrameworkUrl());
+            System.out.println("RETRIEVING ELEMENTS FROM CORESERVICE...");
             ItemHandler ih = ServiceLocator.getItemHandler(AdminHelper.loginUser("bibliothek_mpi_eva", "bibliothek"));
             String seachResultXml = ih.retrieveItems(CoreServiceHelper.createBasicFilter(
                     "\"/properties/content-model-specific/local-tags/local-tag\"=\"" + LOCAL_TAG + "\"", 50));
             elements.addAll(CoreServiceHelper.transformSearchResultXmlToListOfItemVO(seachResultXml));
+            System.out.println("RETRIEVING ELEMENTS FROM CORESERVICE DONE!");
         }
         catch (Exception e)
         {

@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.batchprocess.BatchProcess;
 import de.mpg.escidoc.services.batchprocess.elements.Elements;
+import de.mpg.escidoc.services.batchprocess.helper.CommandHelper;
 import de.mpg.escidoc.services.batchprocess.transformers.Transformer;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -20,18 +21,21 @@ public class Edit extends BatchProcess
     {
         try
         {
-            transformer = Transformer.getTransformer(BatchProcess.getArgument("-t", args));
+            transformer = Transformer.getTransformer(CommandHelper.getArgument("-t", args, true));
             elements.setElements(transformer.transform(elements.getElements()));
             update(elements);
-//            if (CoreServiceObjectStatus.SUBMITTED.equals(BatchProcess.getArgument("-s", args))
-//                    || CoreServiceObjectStatus.RELEASED.equals(BatchProcess.getArgument("-s", args)))
-//            {
-//                //submit
-//            }
-//            if (CoreServiceObjectStatus.RELEASED.equals(BatchProcess.getArgument("-s", args)))
-//            {
-//                //release
-//            }
+            if (CoreServiceObjectStatus.SUBMITTED.equals(CommandHelper.getStatusEnumValue(CommandHelper.getArgument(
+                    "-s", args, false)))
+                    || CoreServiceObjectStatus.RELEASED.equals(CommandHelper.getStatusEnumValue(CommandHelper
+                            .getArgument("-s", args, false))))
+            {
+                new Submit().run(args);
+            }
+            if (CoreServiceObjectStatus.RELEASED.equals(CommandHelper.getStatusEnumValue(CommandHelper.getArgument(
+                    "-s", args, false))))
+            {
+                new Release().run(args);
+            }
         }
         catch (Exception e)
         {
@@ -47,6 +51,7 @@ public class Edit extends BatchProcess
         }
         else if (CoreServiceObjectType.CONTAINER.equals(list.getObjectType()))
         {
+            //TODO
         }
     }
 

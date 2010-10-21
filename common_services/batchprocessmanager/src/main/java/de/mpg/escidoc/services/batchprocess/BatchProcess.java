@@ -3,6 +3,7 @@ package de.mpg.escidoc.services.batchprocess;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.batchprocess.elements.Elements;
+import de.mpg.escidoc.services.batchprocess.helper.CommandHelper;
 
 public abstract class BatchProcess
 {
@@ -33,31 +34,18 @@ public abstract class BatchProcess
     {
         try
         {
-            BatchProcess bp = (BatchProcess)Class.forName(BatchProcess.getArgument("-o", args)).newInstance();
+            BatchProcess bp = (BatchProcess)Class.forName(CommandHelper.getArgument("-o", args, true)).newInstance();
             bp.initElements(args);
             return bp;
         }
         catch (Exception e)
         {
-            throw new RuntimeException(BatchProcess.getArgument("-o", args) + " is not a valid operation", e);
+            throw new RuntimeException(CommandHelper.getArgument("-o", args, true) + " is not a valid operation", e);
         }
     }
 
     public void initElements(String[] args)
     {
-        elements = Elements.getBatchProcessList(BatchProcess.getArgument("-e", args));
-    }
-
-    public static String getArgument(String argumentSymbole, String[] args)
-    {
-        for (int i = 0; i < args.length; i++)
-        {
-            if (argumentSymbole.equals(args[i]))
-            {
-                return args[i + 1];
-            }
-        }
-        throw new RuntimeException("Error reading argument" + argumentSymbole
-                + "\n Usage: BatchProcess -o [OperationClass] -e [ElementClass] -t [TransformationClass] -s [Status]");
+        elements = Elements.getBatchProcessList(CommandHelper.getArgument("-e", args, true));
     }
 }
