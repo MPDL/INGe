@@ -246,7 +246,24 @@ public class ApplicationBean extends FacesBean
             throw new PubManVersionNotAvailableException(e);
         }
         
-    }    
+    }
+    
+    /**
+     * Provides the url for common-presentation.
+    *
+    */
+   public String getCommonPresentationUrl()
+   {
+       try
+       {
+           String prop = PropertyReader.getProperty("escidoc.pubman.common.presentation.url");
+           return prop;
+       } 
+       catch (Exception e)
+       {
+           return "";
+       } 
+   }
     
     /**
      * Provides the url for the pubman blog feed.
