@@ -14,7 +14,7 @@ public abstract class BatchProcess
 
     public enum CoreServiceObjectStatus
     {
-        PENDING, SUBMITTED, RELEASED, WITHDRAWN
+        PENDING, SUBMITTED, RELEASED, WITHDRAWN;
     }
 
     protected static Elements elements = null;
