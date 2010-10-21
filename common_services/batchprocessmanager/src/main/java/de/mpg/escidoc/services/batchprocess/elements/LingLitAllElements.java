@@ -1,6 +1,5 @@
 package de.mpg.escidoc.services.batchprocess.elements;
 
-import java.net.URLEncoder;
 import java.util.List;
 
 import de.escidoc.www.services.om.ItemHandler;
@@ -12,6 +11,11 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class LingLitAllElements extends Elements<ItemVO>
 {
+    public LingLitAllElements(String[] args)
+    {
+        super(args);
+    }
+
     private static final String LOCAL_TAG = "LingLit Import 2010-04-01 10:10";
 
     @Override
@@ -22,7 +26,8 @@ public class LingLitAllElements extends Elements<ItemVO>
             System.out.println("RETRIEVING ELEMENTS FROM CORESERVICE...");
             ItemHandler ih = ServiceLocator.getItemHandler(AdminHelper.loginUser("bibliothek_mpi_eva", "bibliothek"));
             String seachResultXml = ih.retrieveItems(CoreServiceHelper.createBasicFilter(
-                    "\"/properties/content-model-specific/local-tags/local-tag\"=\"" + LOCAL_TAG + "\"", 50));
+                    "\"/properties/content-model-specific/local-tags/local-tag\"=\"" + LOCAL_TAG + "\"",
+                    maximumNumberOfElements));
             elements.addAll(CoreServiceHelper.transformSearchResultXmlToListOfItemVO(seachResultXml));
             System.out.println("RETRIEVING ELEMENTS FROM CORESERVICE DONE!");
         }

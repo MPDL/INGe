@@ -46,6 +46,6 @@ public abstract class BatchProcess
 
     public void initElements(String[] args)
     {
-        elements = Elements.getBatchProcessList(CommandHelper.getArgument("-e", args, true));
+        elements = Elements.getBatchProcessList(args);
     }
 }

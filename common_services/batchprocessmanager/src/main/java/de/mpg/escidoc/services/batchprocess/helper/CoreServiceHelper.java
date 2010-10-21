@@ -18,7 +18,7 @@ public class CoreServiceHelper
         filter.put("version", new String[] { "1.1" });
         filter.put("query", new String[] { query });
         filter.put("maximumRecords", new String[] { Integer.toString(numberOfRecord) });
-        filter.put("startRecord", new String[] { "1" });
+        filter.put("startRecord", new String[] { "0" });
         return filter;
     }
     
