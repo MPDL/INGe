@@ -124,13 +124,15 @@ public class TestMetadataSearchQuery
         
         ArrayList<CriterionType> criterions = new ArrayList<CriterionType>();
         criterions.add(CriterionType.COMPONENT_VISIBILITY);
-        criterions.add(CriterionType.COMPONENT_ACCESSABILITY);
+        criterions.add(CriterionType.COMPONENT_ACCESSIBILITY);
         criterions.add(CriterionType.COMPONENT_CONTENT_CATEGORY);
         msq.addCriterion(new MetadataSearchCriterion(criterions, "argument"));
         
+        msq.addCriterion(new MetadataSearchCriterion(CriterionType.COMPONENT_COMPOUND_PROPERTIES, "\"internal-managed  http://purl.org/escidoc/metadata/ves/content-categories/publisher-version\"", LogicalOperator.AND));
+        
         String query = msq.getCqlQuery();
         logger.debug(query);
-        String expected = "( ( (escidoc.component.visibility=\"argument\" or escidoc.component.creation-date=\"argument\" or escidoc.component.content-category=\"argument\") ) ) and  ( escidoc.content-model.objid=\"" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication") + "\" ) ";
+        String expected = "( ( (escidoc.component.visibility=\"argument\" or escidoc.component.creation-date=\"argument\" or escidoc.component.content-category=\"argument\") )  and  ( escidoc.component.compound.properties=\"internal\\-managed  http://purl.org/escidoc/metadata/ves/content\\-categories/publisher\\-version\" ) ) and  ( escidoc.content-model.objid=\"" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication") + "\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);
         
@@ -146,7 +148,7 @@ public class TestMetadataSearchQuery
         contentTypes.add(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
         
-        msq.addCriterion(new MetadataSearchCriterion(CriterionType.COMPONENT_ACCESSABILITY));
+        msq.addCriterion(new MetadataSearchCriterion(CriterionType.COMPONENT_ACCESSIBILITY));
         
         String query = msq.getCqlQuery();
         logger.debug(query);
@@ -165,7 +167,7 @@ public class TestMetadataSearchQuery
         contentTypes.add(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
         
-        msq.addCriterion(new MetadataSearchCriterion(CriterionType.COMPONENT_ACCESSABILITY, "test1"));
+        msq.addCriterion(new MetadataSearchCriterion(CriterionType.COMPONENT_ACCESSIBILITY, "test1"));
         
         MetadataSearchCriterion crit = new MetadataSearchCriterion(CriterionType.COMPONENT_VISIBILITY, "test2", LogicalOperator.OR);
         
@@ -200,7 +202,7 @@ public class TestMetadataSearchQuery
         contentTypes.add(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
         
-        msq.addCriterion(new MetadataSearchCriterion(CriterionType.COMPONENT_ACCESSABILITY, "test1"));
+        msq.addCriterion(new MetadataSearchCriterion(CriterionType.COMPONENT_ACCESSIBILITY, "test1"));
         
         MetadataSearchCriterion crit = new MetadataSearchCriterion(CriterionType.COMPONENT_VISIBILITY, "test2", LogicalOperator.OR);
         
