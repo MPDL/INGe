@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 
 /**
  * @author endres
@@ -63,81 +64,74 @@ public class FileCriterion extends Criterion
     {
        ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>(); 
        
-      // component availability
+       String visibility = null;
+       String storage = null;
+       
+
+       // component visibility
+       if(this.componentVisibility != null)
+       {
+           if(this.componentVisibility.equals(InternationalizationHelper.SelectComponentVisibility.SELECT_COMPONENT_PRIVATE.toString()))
+           {
+               MetadataSearchCriterion criterion = 
+               new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_VISIBILITY,
+                       "private", MetadataSearchCriterion.LogicalOperator.AND);
+               criterions.add(criterion);
+               visibility = "private";    
+
+           }
+           else if(this.componentVisibility.equals(InternationalizationHelper.SelectComponentVisibility.SELECT_COMPONENT_PUBLIC.toString()))
+           {
+               MetadataSearchCriterion criterion = 
+                   new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_VISIBILITY,
+                           "public", MetadataSearchCriterion.LogicalOperator.AND);
+                   criterions.add(criterion);
+                   visibility = "public";    
+           }
+           else if(this.componentVisibility.equals(InternationalizationHelper.SelectComponentVisibility.SELECT_COMPONENT_RESTRICTED.toString()))
+           {
+               MetadataSearchCriterion criterion = 
+                   new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_VISIBILITY,
+                           "audience", MetadataSearchCriterion.LogicalOperator.AND);
+                   criterions.add(criterion);
+                   visibility = "audience";    
+           }
+       }
+            
+       
+       
+       // component availability
       if(this.componentAvailability != null)
       {
           if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_NO_COMPONENTS.toString()))
           {
-              /*
-              MetadataSearchCriterion criterionPre = 
-                  new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE, "item");
-              criterions.add(criterionPre);
-              */
               MetadataSearchCriterion criterion = 
-              new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_ACCESSABILITY, MetadataSearchCriterion.LogicalOperator.NOT);
+            	  new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_ACCESSIBILITY, MetadataSearchCriterion.LogicalOperator.NOT);
               criterions.add(criterion);
           }
           else if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_COMPONENTS.toString()))
           {
-              /*
-              MetadataSearchCriterion criterionPre = 
-                  new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE, "item");
-              criterions.add(criterionPre);
-              */
               MetadataSearchCriterion criterion = 
-                  new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_ACCESSABILITY, MetadataSearchCriterion.LogicalOperator.AND);
-                  criterions.add(criterion);
+                  new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_ACCESSIBILITY, MetadataSearchCriterion.LogicalOperator.AND);
+              criterions.add(criterion);
           }
           else if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_FILES.toString()))
           {
-              /*
-              MetadataSearchCriterion criterionPre = 
-                  new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE, "item");
-              criterions.add(criterionPre);
-              */
               MetadataSearchCriterion criterion = 
                   new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_STORAGE, "internal-managed", MetadataSearchCriterion.LogicalOperator.AND);
-                  criterions.add(criterion);
+              criterions.add(criterion);
+              storage = "internal-managed";    
+                  
           }
           else if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_LOCATORS.toString()))
           {
-             /*
-              MetadataSearchCriterion criterionPre = 
-                  new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE, "item");
-              criterions.add(criterionPre);
-              */
               MetadataSearchCriterion criterion = 
                   new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_STORAGE, "external-url", MetadataSearchCriterion.LogicalOperator.AND);
-                  criterions.add(criterion);
+              criterions.add(criterion);
+              storage = "external-url ";    
           }
       }
       
-      // component visibility
-      if(this.componentVisibility != null)
-      {
-          if(this.componentVisibility.equals(InternationalizationHelper.SelectComponentVisibility.SELECT_COMPONENT_PRIVATE.toString()))
-          {
-              MetadataSearchCriterion criterion = 
-              new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_VISIBILITY,
-                      "private", MetadataSearchCriterion.LogicalOperator.AND);
-              criterions.add(criterion);
-          }
-          else if(this.componentVisibility.equals(InternationalizationHelper.SelectComponentVisibility.SELECT_COMPONENT_PUBLIC.toString()))
-          {
-              MetadataSearchCriterion criterion = 
-                  new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_VISIBILITY,
-                          "public", MetadataSearchCriterion.LogicalOperator.AND);
-                  criterions.add(criterion);
-          }
-          else if(this.componentVisibility.equals(InternationalizationHelper.SelectComponentVisibility.SELECT_COMPONENT_RESTRICTED.toString()))
-          {
-              MetadataSearchCriterion criterion = 
-                  new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_VISIBILITY,
-                          "audience", MetadataSearchCriterion.LogicalOperator.AND);
-                  criterions.add(criterion);
-          }
-      }
-           
        // content category
        if(this.contentCategory != null) 
        {
@@ -152,7 +146,7 @@ public class FileCriterion extends Criterion
            {
                MetadataSearchCriterion criterion = 
                    new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_CONTENT_CATEGORY,
-                           this.contentCategory, MetadataSearchCriterion.LogicalOperator.AND);
+                		   this.contentCategory, MetadataSearchCriterion.LogicalOperator.AND);
                criterions.add(criterion);
            }
        }
@@ -165,6 +159,94 @@ public class FileCriterion extends Criterion
                         MetadataSearchCriterion.LogicalOperator.AND);
            criterions.add(criterion);
        }
+
+       //add component compound properties search term and index
+       
+       if (visibility != null || storage != null || contentCategory != null)
+       {
+    	   // inclusive cases
+    	   if (this.excludeCategory == false)
+    	   {
+    		   if (visibility != null && storage != null && contentCategory == null)
+    		   {
+    			   criterions.add( new MetadataSearchCriterion(
+    					   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, 
+    					   "\"" + visibility + " " + storage + "\"", 
+    					   LogicalOperator.AND ));
+    		   }
+    		   else if (storage != null && contentCategory != null && visibility == null)
+    		   {
+    			   criterions.add( new MetadataSearchCriterion(
+    					   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, 
+    					   "\"" + storage + " " + contentCategory + "\"", 
+    					   LogicalOperator.AND ));
+    		   }
+    		   else if (visibility != null && contentCategory != null && storage == null)
+    		   {
+    			   MetadataSearchCriterion lastMetadataSearchCriterion = criterions.get(criterions.size()-1);
+    			   lastMetadataSearchCriterion.addSubCriteria( new MetadataSearchCriterion(
+    					   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, 
+    					   "\"" + visibility + " internal-managed " + contentCategory + "\"",
+    					   LogicalOperator.AND ));
+    			   lastMetadataSearchCriterion.addSubCriteria( new MetadataSearchCriterion(
+    					   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, 
+    					   "\"" + visibility + " external-url " + contentCategory + "\"",
+    					   LogicalOperator.OR ));
+    		   }
+    		   else if (visibility != null && storage != null && contentCategory != null)
+    		   {
+    			   criterions.add( new MetadataSearchCriterion(
+    					   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, 
+    					   "\"" + visibility + " " + storage + " " + contentCategory + "\"", 
+    					   LogicalOperator.AND ));
+    		   }
+    		   
+    	   }
+    	   // exclusive cases
+    	   else
+    	   {
+    		   if (visibility != null && storage != null)
+    		   {
+    			   criterions.add( new MetadataSearchCriterion(
+    					   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, 
+    					   "\"" + visibility + " " + storage + "\"",
+    					   LogicalOperator.AND ));
+    			   criterions.add( new MetadataSearchCriterion(
+    					   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, 
+    					   "\"" + visibility + " " + storage + " " + contentCategory + "\"",
+    					   LogicalOperator.NOT ));
+    		   }    		   
+    		   else if (visibility != null && storage == null)
+    		   {
+        		   MetadataSearchCriterion lastMetadataSearchCriterion = criterions.get(criterions.size()-1);
+    			   lastMetadataSearchCriterion.addSubCriteria(new MetadataSearchCriterion(
+    					   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, 
+    					   "\"" + visibility + " internal-managed " + "\"",
+    					   LogicalOperator.AND ));
+    			   lastMetadataSearchCriterion.addSubCriteria(new MetadataSearchCriterion(
+    					   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, 
+    					   "\"" + visibility + " external-url " + "\"",
+    					   LogicalOperator.OR ));
+    			   criterions.add( new MetadataSearchCriterion(
+    					   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, 
+    					   "\"" + visibility + " internal-managed " + contentCategory + "\"",
+    					   LogicalOperator.NOT ));
+    			   criterions.add( new MetadataSearchCriterion(
+    					   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, 
+    					   "\"" + visibility + " external-url " + contentCategory + "\"",
+    					   LogicalOperator.NOT ));
+    		   }    		   
+    		   else if (visibility == null && storage != null)
+    		   {
+    			   criterions.add( new MetadataSearchCriterion(
+    					   MetadataSearchCriterion.CriterionType.COMPONENT_COMPOUND_PROPERTIES, 
+    					   "\"" + storage + " " + contentCategory + "\"",
+    					   LogicalOperator.NOT ));
+    		   }    		   
+    	   }
+       }
+        
+    
        
        
        return criterions;
