@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jdt.core.dom.ThisExpression;
 import org.z3950.zing.cql.CQLNode;
 import org.z3950.zing.cql.CQLParseException;
 import org.z3950.zing.cql.CQLParser;
@@ -38,7 +39,7 @@ public class MetadataSearchCriterion implements Serializable
         TITLE, ANY, ANY_INCLUDE, ABSTRACT, PERSON, PERSON_ROLE, ORGANIZATION, ORGANIZATION_PIDS, GENRE, DATE_ANY,
         DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, TOPIC,
         SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CONTEXT_NAME, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE,
-        COMPONENT_ACCESSABILITY, COMPONENT_STORAGE, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY, LOCAL_TAG, COPYRIGHT_DATE, 
+        COMPONENT_ACCESSIBILITY, COMPONENT_STORAGE, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY, COMPONENT_COMPOUND_PROPERTIES, LOCAL_TAG, COPYRIGHT_DATE, 
         EMBARGO_DATE, DEGREE, PERSON_IDENTIFIER
     };
 
@@ -120,12 +121,14 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_CONTEXT_OBJECTID = "escidoc.context.objid";
     /** Index for name of contexts. */
     private static final String INDEX_CONTEXT_NAME = "escidoc.context.name";
-    /** Index for the created-by object id. */
-    private static final String INDEX_CREATED_BY_OBJECTID = "escidoc.component.created-by.objid";
     /** Index for languages. */
     private static final String INDEX_LANGUAGE = "escidoc.publication.language";
     /** Index for object types. */
     private static final String INDEX_OBJECT_TYPE = "escidoc.objecttype";
+    
+    /** COMPONENTS **/
+    /** Index for the created-by object id. */
+    private static final String INDEX_CREATED_BY_OBJECTID = "escidoc.component.created-by.objid";
     /** Index for component availability. */
     private static final String INDEX_COMPONENT_ACCESSIBILITY = "escidoc.component.creation-date";
     
@@ -134,12 +137,18 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_COMPONENT_VISIBILITY = "escidoc.component.visibility";
     /** Index for component content category. */
     private static final String INDEX_COMPONENT_CONTENT_CATEGORY = "escidoc.component.content-category";
-    /** Index for local tags. */
-    private static final String INDEX_LOCAL_TAG = "escidoc.property.content-model-specific.local-tags.local-tag";
     /** Index for copyright date. */
     private static final String INDEX_COPYRIGHT_DATE = "escidoc.component.file.dateCopyrighted";
     /** Index for copyright date. */
     private static final String INDEX_EMBARGO_DATE = "escidoc.component.file.available";
+    /** Index for compound properties. */
+    private static final String INDEX_COMPOUND_PROPERTIES = "escidoc.component.compound.properties";
+    
+
+
+	/** Index for local tags. */
+    private static final String INDEX_LOCAL_TAG = "escidoc.property.content-model-specific.local-tags.local-tag";
+    
     /** Index for degree. */
     private static final String INDEX_DEGREE = "escidoc.publication.degree";
     
@@ -155,7 +164,8 @@ public class MetadataSearchCriterion implements Serializable
     private LogicalOperator logicalOperator = null;
     private BooleanOperator cqlOperator = null;
     private ArrayList<CriterionType> typeList = null;
-
+    
+    
     
     /**
      * Constructor with criterion type and empty search term. The search term is empty, because
@@ -224,7 +234,9 @@ public class MetadataSearchCriterion implements Serializable
         this.typeList.add(type);
     }
 
-    /**
+ 
+
+	/**
      * Constructor with criterion type, search term and boolean operator.
      * 
      * @param type
@@ -458,7 +470,7 @@ public class MetadataSearchCriterion implements Serializable
             case OBJECT_TYPE:
                 indexes.add(INDEX_OBJECT_TYPE);
                 break;
-            case COMPONENT_ACCESSABILITY:
+            case COMPONENT_ACCESSIBILITY:
                 indexes.add(INDEX_COMPONENT_ACCESSIBILITY);
                 break;
             case COMPONENT_STORAGE:
@@ -470,6 +482,9 @@ public class MetadataSearchCriterion implements Serializable
             case COMPONENT_CONTENT_CATEGORY:
                 indexes.add(INDEX_COMPONENT_CONTENT_CATEGORY);
                 break;
+            case COMPONENT_COMPOUND_PROPERTIES:
+            	indexes.add(INDEX_COMPOUND_PROPERTIES);
+            	break;
             case LOCAL_TAG:
                 indexes.add(INDEX_LOCAL_TAG);
                 break;
@@ -489,6 +504,7 @@ public class MetadataSearchCriterion implements Serializable
             default:
                 throw new TechnicalException("The index is unknown. Cannot map to index name.");
         }
+        
         return indexes;
     }
 
@@ -511,6 +527,7 @@ public class MetadataSearchCriterion implements Serializable
         String cqlQuery = " ( " + parser.parse() + " ) ";
         
         cqlQuery = cqlQuery + getCqlQueryFromSubCriteria();
+
         return cqlQuery;
     }
     
@@ -536,7 +553,7 @@ public class MetadataSearchCriterion implements Serializable
         }
         return cqlQuery;
     }
-
+    
     public ArrayList<String> getSearchIndexes()
     {
         return searchIndexes;
@@ -796,6 +813,11 @@ public class MetadataSearchCriterion implements Serializable
         return INDEX_COMPONENT_CONTENT_CATEGORY;
     }
 
+	public static String getINDEX_COMPOUND_PROPERTIES() 
+	{
+		return INDEX_COMPOUND_PROPERTIES;
+	}
+    
     public static String getINDEX_LOCAL_TAG()
     {
         return INDEX_LOCAL_TAG;
@@ -820,4 +842,8 @@ public class MetadataSearchCriterion implements Serializable
     {
         return INDEX_PERSON_IDENTIFIER;
     }
+
+
+
+    
 }
