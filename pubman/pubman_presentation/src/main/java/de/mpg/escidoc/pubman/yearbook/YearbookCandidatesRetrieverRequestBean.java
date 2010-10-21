@@ -6,11 +6,13 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.axis.types.NonNegativeInteger;
 import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
 import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
@@ -44,6 +46,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
     private static Logger logger = Logger.getLogger(YearbookCandidatesRetrieverRequestBean.class);
     public static String BEAN_NAME = "YearbookCandidatesRetrieverRequestBean";
    
+    private String selectedSortOrder;
     /**
      * This workspace's user.
      */
@@ -53,6 +56,10 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
      * The GET parameter name for the item state.
      */
     protected static String parameterSelectedItemState = "itemState";
+    
+    /**org unit filter.
+     */
+    private static String parameterSelectedOrgUnit = "orgUnit"; 
     
  
     /**
@@ -70,10 +77,12 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
      */
     private String selectedItemState;
     private Search searchService;
+    private YearbookItemSessionBean  yisb;
+    private PubItemListSessionBean pilsb;
     
     public YearbookCandidatesRetrieverRequestBean()
     {
-        super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), false);
+        super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), false); 
         //logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
         //logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
        
@@ -85,6 +94,10 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
     @Override
     public void init()
     {
+        pilsb = (PubItemListSessionBean)getBasePaginatorListSessionBean();
+        HttpServletRequest requ = (HttpServletRequest)getExternalContext().getRequest();
+        
+        yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
         try
         {
             InitialContext initialContext = new InitialContext();
@@ -110,7 +123,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
     {
         
         List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
-        YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+        
         
         try
         {
@@ -139,7 +152,10 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
             }
             
             
-           
+            if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
+            {
+                   mdsList.add(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
+            }
             
             MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
             String additionalQuery = yisb.getYearbookItem().getLocalTags().get(0);
@@ -357,21 +373,25 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
     @Override
     public void readOutParameters()
     {
-        String selectedItemState = getExternalContext().getRequestParameterMap().get(parameterSelectedItemState); 
-        if (selectedItemState!=null)
+        String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
+        if (orgUnit==null) 
         {
-            setSelectedItemState(selectedItemState);
-        }
-        else if(!keepParameterValues() || getBasePaginatorListSessionBean().getParameterMap().get(parameterSelectedItemState)==null)
-        {
-            setSelectedItemState("all");
+            if(getSessionBean().getSelectedOrgUnit()!=null)
+            {
+                setSelectedOrgUnit(getSessionBean().getSelectedOrgUnit());
+            }
+            else
+            {
+                setSelectedOrgUnit(yisb.getYearbookItem().getMetadata().getCreators().get(0).getOrganization().getIdentifier()); 
+            }
+            
         }
         else
         {
-            setSelectedItemState(getBasePaginatorListSessionBean().getParameterMap().get(parameterSelectedItemState));
+            setSelectedOrgUnit(orgUnit);
         }
         
-      
+       
     }
 
     @Override
@@ -392,15 +412,6 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         return false;
     }
 
-
-
-    @Override
-    public boolean keepParameterValues()
-    {
-        return true;
-    }
-    
-
     public String addSelectedToYearbook()
     {
         YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class); 
@@ -411,6 +422,64 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         }
         yisb.addMembers(selected);
         return "";
+    }
+    
+    public List<SelectItem> getOrgUnitSelectItems()
+    {
+                  return this.getSessionBean().getOrgUnitSelectItems(); 
+       
+    }
+
+    public void setSelectedOrgUnit(String selectedOrgUnit)
+    {        
+        this.getSessionBean().setSelectedOrgUnit(selectedOrgUnit); 
+        getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedOrgUnit, selectedOrgUnit);
+    }
+
+    public String getSelectedOrgUnit()
+    {
+        return this.getSessionBean().getSelectedOrgUnit(); 
+    } 
+    
+    public YearbookCandidatesSessionBean getSessionBean()
+    {
+        return (YearbookCandidatesSessionBean) getSessionBean(YearbookCandidatesSessionBean.class);
+    }
+    
+    /**
+     * Called by JSF whenever the organizational unit filter menu is changed. Causes a redirect to the page with updated context GET parameter.
+     * @return
+     */
+    public String changeOrgUnit()
+    {
+            try
+            { 
+               
+                getBasePaginatorListSessionBean().setCurrentPageNumber(1);
+                getBasePaginatorListSessionBean().redirect();
+            }
+            catch (Exception e)
+            {
+               error("Could not redirect");
+            }
+            return "";
+    }
+
+
+
+   
+
+
+    public String getSelectedSortOrder()
+    {
+        return selectedSortOrder;
+    }
+
+
+
+    public void setSelectedSortOrder(String selectedSortOrder)
+    {
+        this.selectedSortOrder = selectedSortOrder;
     }
 
 }

@@ -43,13 +43,13 @@
 			<head>
 
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
-				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{MyItemsRetrieverRequestBean.unapiURLview}"/>
+				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{YearbookInvalidItemsRetrieverRequestBean.unapiURLview}"/>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-			<h:outputText value="#{MyItemsRetrieverRequestBean.beanName}" styleClass="noDisplay" />
+			<h:outputText value="#{YearbookInvalidItemsRetrieverRequestBean.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
@@ -65,14 +65,30 @@
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText value="#{lbl.DepositorWSPage}" /></h1>
+								<h1><h:outputText value="#{lbl.YearbookMembersPage}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
 						<div class="small_marginLIncl subHeaderSection">
-							<div class="contentMenu">
+
+							<h:panelGroup layout="block" styleClass="contentMenu" rendered="#{YearbookItemSessionBean.yearbookItem!=null}">
 							<!-- content menu starts here -->
+							
 								<div class="free_area0 sub">
+									
+									<h:outputLink id="lnkChangeToCandidates" styleClass="free_area0" value="YearbookCandidatesPage.jsp">
+										<h:outputText value="#{lbl.YearbookCandidatesPage}"/>
+									</h:outputLink>
+									<h:outputText styleClass="seperator void" />
+									<h:outputLink id="lnkChangeToMembers" styleClass="free_area0" value="YearbookMembersPage.jsp">
+										<h:outputText value="#{lbl.YearbookMembersPage}  (#{YearbookItemSessionBean.numberOfMembers})"/>
+									</h:outputLink>
+									<h:outputText styleClass="seperator void" />
+									<h:outputText id="lnkChangeToInvalidItems" styleClass="free_area0" value="#{lbl.YearbookInvalidItemsPage}"/>
+									
+								</div>
+							
+								<div class="free_area0 sub action">
 								<!-- content menu upper line starts here -->
 									<h:commandLink id="lnkChangeSubmenuToView" title="#{tip.List_lblViewOptions}" styleClass="free_area0" value="#{lbl.List_lblViewOptions}" action="#{PubItemListSessionBean.changeSubmenuToView}" rendered="#{PubItemListSessionBean.subMenu != 'VIEW'}" />
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblViewOptions}" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}" />
@@ -83,33 +99,11 @@
 									<h:commandLink id="lnkChangeSubmenuToSorting" title="#{tip.List_lblSortOptions}" styleClass="free_area0" value="#{lbl.List_lblSortOptions}" action="#{PubItemListSessionBean.changeSubmenuToSorting}" rendered="#{PubItemListSessionBean.subMenu != 'SORTING'}"/>	
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblSortOptions}" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}" />
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink id="lnkChangeSubmenuToExport" title="#{tip.List_lblExportOptions}" styleClass="free_area0" value="#{lbl.List_lblExportOptions}" action="#{PubItemListSessionBean.changeSubmenuToExport}" rendered="#{PubItemListSessionBean.subMenu != 'EXPORT'}"/>	
-									<h:outputText styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}" />
-									<h:outputText styleClass="seperator void" />
-									<h:commandLink id="lnkAddSelectedToCart" title="#{tip.List_lblAddToBasket}" styleClass="free_area0" value="#{lbl.List_lblAddToBasket}" action="#{PubItemListSessionBean.addSelectedToCart}" />
+									<h:commandLink id="lnkRevalidate" styleClass="free_area0" value="#{lbl.Yearbook_revalidate}" action="#{YearbookItemSessionBean.validateYearbook}"/>
 									&#160;
 								<!-- content menu upper line ends here -->
 								</div>
-								<!-- content menu lower line starts here -->
-								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
-									<h:selectOneMenu id="selExportFormatName" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
-											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
-									</h:selectOneMenu>
-									<h:commandButton id="btnUpdateExportFormats" title="#{tip.export_btFormat}" styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />	
-									<h:selectOneMenu id="selFileFormat" value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableFileFormats}">
-										<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
-									</h:selectOneMenu>
-								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
-									<!--
-									<h:commandButton title="#{tip.export_btDisplay}" id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" action="#{PubItemListSessionBean.exportSelectedDisplay}"/>
-									<h:outputText styleClass="seperator" />
-									 -->
-									<h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.exportSelectedDownload}" />
-									<h:outputText styleClass="seperator" />
-									<h:commandLink title="#{tip.export_btEMail}" id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{PubItemListSessionBean.exportSelectedEmail}"/>
-								<!-- content menu lower line ends here -->
-								</h:panelGroup>
+								
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">
 								<!-- content menu lower line starts here -->
 									<h:commandLink id="lnkChangeListTypeToBib" title="#{tip.List_lblBibList}" styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}" action="#{PubItemListSessionBean.changeListTypeToBib}">
@@ -125,17 +119,12 @@
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 								<!-- content menu lower line starts here -->
-									<h:outputText styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE}: "/>
-									<h:selectOneMenu styleClass="xLarge_select replace" id="cboItemstate" value="#{MyItemsRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
-										<f:selectItems id="selectItems" value="#{MyItemsRetrieverRequestBean.itemStateSelectItems}"/>
+									<h:outputText styleClass="free_area0 clearLeft" value="#{lbl.qaws_lblOrgUnitSelection} "/>
+									<h:selectOneMenu id="selSelectedOrgUnit" styleClass="xDouble_select replace" value="#{YearbookInvalidItemsRetrieverRequestBean.selectedOrgUnit}" onchange="$(this).parents('div').find('.changeOrgUnit').click();">
+										<f:selectItems value="#{YearbookInvalidItemsRetrieverRequestBean.orgUnitSelectItems}"/>
 									</h:selectOneMenu>
-									<h:commandButton id="btnChangeItemState" title="#{tip.list_btChangeState}" styleClass="noDisplay changeState" value=" "  action="#{MyItemsRetrieverRequestBean.changeItemState}"/>
-									
-									<h:outputText styleClass="free_area0 clearLeft" value="#{lbl.qaws_lblMultipleImportTags}: " rendered="#{LoginHelper.isModerator}"/>
-									<h:selectOneMenu id="selSelectedImport" styleClass="xDouble_select replace" value="#{MyItemsRetrieverRequestBean.selectedImport}" onchange="$(this).parents('div').find('.changeImport').click();" rendered="#{LoginHelper.isModerator}">
-										<f:selectItems value="#{MyItemsRetrieverRequestBean.importSelectItems}"/>
-									</h:selectOneMenu>
-									<h:commandButton id="btnChangeImport" styleClass="noDisplay changeImport" action="#{MyItemsRetrieverRequestBean.changeImport}" value="change import" rendered="#{LoginHelper.isModerator}"/>
+									<h:commandButton id="btChangeOrgUnit" styleClass="noDisplay changeOrgUnit" action="#{YearbookInvalidItemsRetrieverRequestBean.changeOrgUnit}" value="change org unit"/>
+								
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
@@ -152,38 +141,39 @@
 
 
 							<!-- content menu ends here -->
-							</div>
-							<div class="subHeader">
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="subHeader" rendered="#{YearbookItemSessionBean.yearbookItem!=null}">
 								<h:outputText value="#{PubItemListSessionBean.totalNumberOfElements} #{lbl.SearchResultList_lblItems}"/>
 								<h:outputText value=" ("/>
-								<h:outputText value="#{lbl.ENUM_CRITERIA_STATE} &#34;#{MyItemsRetrieverRequestBean.selectedItemStateLabel}&#34;, " rendered="#{MyItemsRetrieverRequestBean.selectedItemState != null and MyItemsRetrieverRequestBean.selectedItemState != 'all'}"/>
  								<h:outputText value="#{lbl.ENUM_SORTORDER_ASCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{PubItemListSessionBean.isAscending}"/>
 								<h:outputText value="#{lbl.ENUM_SORTORDER_DESCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{!PubItemListSessionBean.isAscending}"/>
 								<h:outputText value=")"/>	
-							</div>
+							</h:panelGroup>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-								<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{MyItemsRetrieverRequestBean.numberOfMessages == 1}"/>
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{MyItemsRetrieverRequestBean.hasErrorMessages and MyItemsRetrieverRequestBean.numberOfMessages != 1}">
+								<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{YearbookInvalidItemsRetrieverRequestBean.numberOfMessages == 1}"/>
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{YearbookInvalidItemsRetrieverRequestBean.hasErrorMessages and YearbookInvalidItemsRetrieverRequestBean.numberOfMessages != 1}">
 									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
-									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{MyItemsRetrieverRequestBean.hasMessages}"/>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{YearbookInvalidItemsRetrieverRequestBean.hasMessages}"/>
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{MyItemsRetrieverRequestBean.hasMessages and !MyItemsRetrieverRequestBean.hasErrorMessages and MyItemsRetrieverRequestBean.numberOfMessages != 1}">
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{YearbookInvalidItemsRetrieverRequestBean.hasMessages and !YearbookInvalidItemsRetrieverRequestBean.hasErrorMessages and YearbookInvalidItemsRetrieverRequestBean.numberOfMessages != 1}">
 									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
-									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{MyItemsRetrieverRequestBean.hasMessages}"/>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{YearbookInvalidItemsRetrieverRequestBean.hasMessages}"/>
 								</h:panelGroup>
 								<!-- Subheadline ends here -->
 							</div>
 						</div>
 					</div>
-					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'BIB' and PubItemListSessionBean.partListSize>0}">
-						<jsp:directive.include file="list/itemList.jspf" />
-					</h:panelGroup>
-					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'GRID' and PubItemListSessionBean.partListSize>0}">
-						<jsp:directive.include file="list/gridList.jspf" />
-					</h:panelGroup>
-					<h:panelGroup styleClass="full_area0" rendered="#{PubItemListSessionBean.partListSize==0}">
-						<h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.depositorWS_valNoItemsMsg}"/>
+					<h:panelGroup rendered="#{YearbookItemSessionBean.yearbookItem!=null}">
+						<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'BIB' and PubItemListSessionBean.partListSize>0}">
+							<jsp:directive.include file="list/itemList.jspf" />
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'GRID' and PubItemListSessionBean.partListSize>0}">
+							<jsp:directive.include file="list/gridList.jspf" />
+						</h:panelGroup>
+						<h:panelGroup styleClass="full_area0" rendered="#{PubItemListSessionBean.partListSize==0}">
+							<h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.depositorWS_valNoItemsMsg}"/>
+						</h:panelGroup>
 					</h:panelGroup>
 				<!-- end: content section -->
 				</div>

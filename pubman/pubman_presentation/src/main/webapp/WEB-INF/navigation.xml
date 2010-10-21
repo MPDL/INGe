@@ -355,13 +355,22 @@
 			/BrowseBySelect.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-		<navigation-rule>
+	<navigation-rule>
 		<from-view-id>
 		*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadBrowseByPage</from-outcome>
 			<to-view-id>
 			/BrowseByPage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+		*</from-view-id>
+		<navigation-case>
+			<from-outcome>loadYearbookInvalidItemsPage</from-outcome>
+			<to-view-id>
+			/YearbookInvalidItemsPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>

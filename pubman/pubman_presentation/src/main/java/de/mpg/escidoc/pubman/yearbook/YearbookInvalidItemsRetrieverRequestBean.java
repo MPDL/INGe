@@ -57,9 +57,9 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * @version $Revision: 3780 $ $LastChangedDate: 2010-07-23 10:01:12 +0200 (Fri, 23 Jul 2010) $
  *
  */
-public class YearbookMembersRetrieverRequestBean extends YearbookCandidatesRetrieverRequestBean
+public class YearbookInvalidItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA>
 {
-    private static Logger logger = Logger.getLogger(YearbookMembersRetrieverRequestBean.class);
+    private static Logger logger = Logger.getLogger(YearbookInvalidItemsRetrieverRequestBean.class);
     public static String BEAN_NAME = "YearbookMembersRetrieverRequestBean";
    
     /**
@@ -74,9 +74,9 @@ public class YearbookMembersRetrieverRequestBean extends YearbookCandidatesRetri
     
     private Search searchService;
     
-    public YearbookMembersRetrieverRequestBean()
+    public YearbookInvalidItemsRetrieverRequestBean()
     {
-        super();
+        super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), false); 
         //logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
         //logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
        
@@ -88,7 +88,6 @@ public class YearbookMembersRetrieverRequestBean extends YearbookCandidatesRetri
     @Override
     public void init()
     {
-        super.init();
         try
         {
             InitialContext initialContext = new InitialContext();
@@ -115,7 +114,7 @@ public class YearbookMembersRetrieverRequestBean extends YearbookCandidatesRetri
         List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
         YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
         
-        if(yisb.getNumberOfMembers()>0)
+        if(yisb.getInvalidItemMap().size()>0)
         {
             
         
@@ -132,25 +131,22 @@ public class YearbookMembersRetrieverRequestBean extends YearbookCandidatesRetri
                 mdsList.add(objectTypeMds);
 
                 int i=0;
-                for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
+                for(YearbookInvalidItemRO item : yisb.getInvalidItemMap().values())
                 {
                     if(i==0)
                     {
-                        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.AND));
+                        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, item.getObjectId(), LogicalOperator.AND));
                     }
                     else
                     {
-                        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.OR));   
+                        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, item.getObjectId(), LogicalOperator.OR));   
                     }
                     i++;
                    
                 }
                 
                 
-                if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
-                {
-                       mdsList.add(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
-                }
+               
             
                 MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, mdsList );
              
@@ -230,7 +226,7 @@ public class YearbookMembersRetrieverRequestBean extends YearbookCandidatesRetri
     @Override
     public void readOutParameters()
     {
-       super.readOutParameters();
+      
         
       
     }
@@ -259,6 +255,15 @@ public class YearbookMembersRetrieverRequestBean extends YearbookCandidatesRetri
         yisb.removeMembers(selected);
         this.getBasePaginatorListSessionBean().update();
         return "";
+    }
+
+
+
+    @Override
+    public boolean isItemSpecific()
+    {
+        // TODO Auto-generated method stub
+        return false;
     }
 
 }

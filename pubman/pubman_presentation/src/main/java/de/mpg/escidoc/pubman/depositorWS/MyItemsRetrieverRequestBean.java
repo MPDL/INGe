@@ -459,9 +459,4 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         this.importSelectItems = importSelectItems;
     }
 
-    @Override
-    public boolean keepParameterValues()
-    {
-        return false;
-    }
 }

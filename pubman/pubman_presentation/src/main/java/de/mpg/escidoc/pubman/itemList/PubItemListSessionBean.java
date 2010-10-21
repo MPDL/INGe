@@ -188,12 +188,12 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     /**
      * The HTTP GET parameter name for the sorting criteria.
      */
-    private static String parameterSelectedSortBy = "sortBy";
+    public static String parameterSelectedSortBy = "sortBy";
     
     /**
      * The HTTP GET parameter name for the sorting order
      */
-    private static String parameterSelectedSortOrder = "sortOrder";
+    public static String parameterSelectedSortOrder = "sortOrder";
 
     /**
      * A list containing the menu entries of the sorting criteria menu.
@@ -611,6 +611,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
      */
     public void setSelectedSortBy(String selectedSortBy)
     {
+        System.out.println("PubItemListSessionBean: " + selectedSortBy);
         this.selectedSortBy = selectedSortBy;
         getParameterMap().put(parameterSelectedSortBy, selectedSortBy);
         
@@ -675,9 +676,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         }
         else
         {
-            if(!getPaginatorListRetriever().keepParameterValues() || getSelectedSortBy()==null)
-            {
-
+            
                 if(getPageType().equals("SearchResult"))
                 {
                     setSelectedSortBy(SORT_CRITERIA.RELEVANCE.name());
@@ -686,9 +685,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
                 {
                     setSelectedSortBy(SORT_CRITERIA.MODIFICATION_DATE.name());
                 }
-            }
-            
-            
+
         }
         
         String sortOrder = getExternalContext().getRequestParameterMap().get(parameterSelectedSortOrder);
@@ -698,10 +695,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         }
         else
         {
-            if(!getPaginatorListRetriever().keepParameterValues() || getSelectedSortOrder()==null)
-            {
-                setSelectedSortOrder(OrderFilter.ORDER_DESCENDING);
-            }
+           
+             setSelectedSortOrder(OrderFilter.ORDER_DESCENDING);
+            
         }
         
        

@@ -157,7 +157,7 @@ public class AdvancedSearchEdit extends FacesBean
      */
     public void init()
     {
-        super.init();
+        super.init(); 
     }
     
     public void clearAndInitializeAllForms() {
@@ -268,7 +268,7 @@ public class AdvancedSearchEdit extends FacesBean
             String contentTypeIdPublication = PropertyReader.getProperty( PROPERTY_CONTENT_MODEL );
             contentTypes.add( contentTypeIdPublication );
             
-            MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, searchCriteria );
+            MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, searchCriteria ); 
             
             String cql = query.getCqlQuery();
             

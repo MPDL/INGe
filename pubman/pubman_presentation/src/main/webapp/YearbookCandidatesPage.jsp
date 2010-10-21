@@ -28,7 +28,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad" xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<jsp:output doctype-root-element="html"
 	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -113,13 +113,12 @@
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 								<!-- content menu lower line starts here -->
-									<!-- 
-									<h:outputText styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE}: "/>
-									<h:selectOneMenu styleClass="xLarge_select replace" id="cboItemstate" value="#{YearbookCandidatesRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
-										<f:selectItems id="selectItems" value="#{YearbookCandidatesRetrieverRequestBean.itemStateSelectItems}"/>
+
+									<h:outputText styleClass="free_area0 clearLeft" value="#{lbl.qaws_lblOrgUnitSelection} "/>
+									<h:selectOneMenu id="selSelectedOrgUnit" styleClass="xDouble_select replace" value="#{YearbookCandidatesRetrieverRequestBean.selectedOrgUnit}" onchange="$(this).parents('div').find('.changeOrgUnit').click();">
+										<f:selectItems value="#{YearbookCandidatesRetrieverRequestBean.orgUnitSelectItems}"/>
 									</h:selectOneMenu>
-									<h:commandButton id="btnChangeItemState" title="#{tip.list_btChangeState}" styleClass="noDisplay changeState" value=" "  action="#{YearbookCandidatesRetrieverRequestBean.changeItemState}"/>
-								-->
+									<h:commandButton id="btChangeOrgUnit" styleClass="noDisplay changeOrgUnit" action="#{YearbookCandidatesRetrieverRequestBean.changeOrgUnit}" value="change org unit"/>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
@@ -178,13 +177,22 @@
 			<jsp:directive.include file="footer/Footer.jspf" />
 			</tr:form>
 			<script type="text/javascript">
+			<![CDATA[
 				$("input[id$='offset']").submit(function() {
 					$(this).val($(window).scrollTop());
 				});
 				$(document).ready(function () {
 					$(window).scrollTop($("input[id$='offset']").val());
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
+
+					var element = document.getElementById('selSelectedOrgUnit');
+					if (element.options != null && element.options.length == 2)
+					{
+						throb();
+						$.getJSON('AffiliationsAsJSON.jsp', loadAffiliations);
+					}
 				});
+				]]>
 			</script>
 			</body>
 		</html>

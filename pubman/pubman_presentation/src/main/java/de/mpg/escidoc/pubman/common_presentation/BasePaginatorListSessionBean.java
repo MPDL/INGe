@@ -182,7 +182,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         {
             setElementsPerPage(Integer.parseInt(elementsPerP));
         }
-        else if(!getPaginatorListRetriever().keepParameterValues() || getElementsPerPage()==0)
+        else
         {
             setElementsPerPage(25);
         }

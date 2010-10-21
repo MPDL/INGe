@@ -81,7 +81,10 @@
 									</h:outputLink>
 									<h:outputText styleClass="seperator void" />
 									<h:outputText id="lnkChangeToMembers" styleClass="free_area0" value="#{lbl.YearbookMembersPage} (#{YearbookItemSessionBean.numberOfMembers})"/>
-									
+									<h:outputText styleClass="seperator void" />
+									<h:outputLink id="lnkChangeToInvalidItems" styleClass="free_area0" value="YearbookInvalidItemsPage.jsp">
+										<h:outputText value="#{lbl.YearbookInvalidItemsPage}"/>
+									</h:outputLink>
 								</div>
 							
 								<div class="free_area0 sub action">
@@ -96,6 +99,8 @@
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblSortOptions}" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}" />
 									<h:outputText styleClass="seperator void" />
 									<h:commandLink id="lnkAddToYearbook" styleClass="free_area0" value="#{lbl.Yearbook_removeFromYearbook}" action="#{YearbookMembersRetrieverRequestBean.removeSelectedFromYearbook}"/>
+									<h:outputText styleClass="seperator void" />
+									<h:commandLink id="lnkValidate" styleClass="free_area0" value="#{lbl.Yearbook_validate}" action="#{YearbookItemSessionBean.validateYearbook}"/>
 									&#160;
 								<!-- content menu upper line ends here -->
 								</div>
@@ -115,13 +120,12 @@
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 								<!-- content menu lower line starts here -->
-									<!-- 
-									<h:outputText styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE}: "/>
-									<h:selectOneMenu styleClass="xLarge_select replace" id="cboItemstate" value="#{YearbookMembersRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
-										<f:selectItems id="selectItems" value="#{YearbookMembersRetrieverRequestBean.itemStateSelectItems}"/>
+									<h:outputText styleClass="free_area0 clearLeft" value="#{lbl.qaws_lblOrgUnitSelection} "/>
+									<h:selectOneMenu id="selSelectedOrgUnit" styleClass="xDouble_select replace" value="#{YearbookMembersRetrieverRequestBean.selectedOrgUnit}" onchange="$(this).parents('div').find('.changeOrgUnit').click();">
+										<f:selectItems value="#{YearbookMembersRetrieverRequestBean.orgUnitSelectItems}"/>
 									</h:selectOneMenu>
-									<h:commandButton id="btnChangeItemState" title="#{tip.list_btChangeState}" styleClass="noDisplay changeState" value=" "  action="#{YearbookMembersRetrieverRequestBean.changeItemState}"/>
-								-->
+									<h:commandButton id="btChangeOrgUnit" styleClass="noDisplay changeOrgUnit" action="#{YearbookMembersRetrieverRequestBean.changeOrgUnit}" value="change org unit"/>
+								
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">

@@ -231,9 +231,4 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         return false;
     }
 
-    @Override
-    public boolean keepParameterValues()
-    {
-        return false;
-    }
 }

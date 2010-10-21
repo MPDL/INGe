@@ -154,7 +154,7 @@ public class AffiliationTree extends FacesBean
                 
                 affiliationSelectItems = list;
                 
-                ((QAWSSessionBean) getSessionBean(QAWSSessionBean.class)).setOrgUnitSelectItems(affiliationSelectItems);
+                ((QAWSSessionBean) getSessionBean(QAWSSessionBean.class)).setOrgUnitSelectItems(affiliationSelectItems); 
             }
         }
 
