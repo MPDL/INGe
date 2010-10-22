@@ -38,7 +38,16 @@
 <%@page import="de.mpg.escidoc.services.cone.ModelList"%>
 <%@page import="java.util.Set"%>
 <%@page import="de.mpg.escidoc.services.cone.Querier"%>
-<%@page import="de.mpg.escidoc.services.cone.QuerierFactory"%><html>
+<%@page import="de.mpg.escidoc.services.cone.QuerierFactory"%>
+
+<%!
+	private boolean getLoggedIn(HttpServletRequest request)
+	{
+	    return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
+	}
+%>
+
+<html>
 	<jsp:include page="header.jsp"/>
 	<body>
 		<div class="full wrapper">
@@ -57,14 +66,14 @@
 				<div class="full_area0">
 					<%
 						Set<Model> modelList = ModelList.getInstance().getList();
-						boolean loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
+						boolean loggedIn = getLoggedIn(request);
 					
 						Querier querier = QuerierFactory.newQuerier(loggedIn);
 					%>
 
 					<div class="full_area0 fullItem">
 						
-						<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) {
+						<% if (getLoggedIn(request)) {
 						
 							boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue());
 							boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue());

@@ -30,6 +30,11 @@
 	</servlet-mapping>
 
 	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/img/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
 		<servlet-name>ConeServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>

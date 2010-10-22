@@ -28,7 +28,9 @@
 --%>
 
 
-<%@page import="de.mpg.escidoc.services.framework.PropertyReader"%><head>
+<%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
+
+<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>CoNE - Control of Named Entities</title>
 	<link href="/pubman/resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
@@ -36,12 +38,6 @@
 	<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css" id="highContrastTheme" type="text/css" title="kontrastreich" rel="alternate stylesheet"/>
 	<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css" id="classicTheme" type="text/css" title="classic" rel="alternate stylesheet"/>	
 	<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_PubMan/styles/theme.css" id="PubManTheme" type="text/css" title="PubMan" rel="stylesheet"/>
-
-	<style>
-		.xLarge_txtInput {
-			color: red;
-		}
-	</style>
 
 	<script language="JavaScript" type="text/javascript">
 		  function applyCookieStyle() {
@@ -108,91 +104,274 @@
 
 	<script type="text/javascript">
 
-			function remove(element)
+		var instanceUrl = '<%= PropertyReader.getProperty("escidoc.cone.service.url") %>';
+
+		function remove(element)
+		{
+			
+			var parent = $(element).parents(".inputField");
+			var listSize = $(parent).parent().children(".inputField").length;
+
+			alert(listSize);
+
+			if (listSize > 1)
 			{
-				
-				var parent = $(element).parents(".inputField");
-				var listSize = $(parent).parent().children(".inputField").length;
+				$(parent).remove();
+			}
+			else
+			{
+				$(parent).find("input[type='text']").each(function(){ $(this).val('');});
+				$(element).remove();
+			}
+		}
 
-				alert(listSize);
+		function add(element, predicate, hidden, lang)
+		{
+			var parent = $(element).parents('.itemLine:eq(0)');
+			var singleItem = $(parent).find('.singleItem')[0];
+			var lastItem = $(parent).find('.singleItem:last');
 
-				if (listSize > 1)
+			var newItem = $(singleItem).clone().empty();
+				newItem.append('<input name="'+ predicate +'" value="" type="hidden">');
+				if (lang)
 				{
-					$(parent).remove();
+					newItem.append('<input name="'+ predicate + '_lang'+'" value="" type="hidden">');
+				}
+				
+			$(lastItem).after(newItem);
+
+			element.form.submit();
+			
+		}
+
+		function bindSuggest(element, model, cutId)
+		{
+			if (typeof pageLoaded != 'undefined' && pageLoaded)
+			{
+				if (typeof cutId != 'undefined' && cutId)
+				{
+					$('.' + element).suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=en&format=json", {onSelect: fillSmallId});
 				}
 				else
 				{
-					$(parent).find("input[type='text']").each(function(){ $(this).val('');});
-					$(element).remove();
+					$('.' + element).suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=en&format=json", {onSelect: fillId});
 				}
 			}
-
-			function add(element, predicate, hidden, lang)
+			else
 			{
-				var parent = $(element).parents('.itemLine:eq(0)');
-				var singleItem = $(parent).find('.singleItem')[0];
-				var lastItem = $(parent).find('.singleItem:last');
-
-				var newItem = $(singleItem).clone().empty();
-					newItem.append('<input name="'+ predicate +'" value="" type="hidden">');
-					if (lang)
-					{
-						newItem.append('<input name="'+ predicate + '_lang'+'" value="" type="hidden">');
-					}
-					
-				$(lastItem).after(newItem);
-
-				element.form.submit();
-				
+				setTimeout('bindSuggest(\'' + element + '\', \'' + model + '\', ' + (typeof cutId != 'undefined' && cutId) + ')', 100);
 			}
+		};
 
-			function bindSuggest(element, model, cutId)
-			{
-				if (typeof pageLoaded != 'undefined' && pageLoaded)
-				{
-					if (typeof cutId != 'undefined' && cutId)
-					{
-						$('.' + element).suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=en&format=json", {onSelect: fillSmallId});
-					}
-					else
-					{
-						$('.' + element).suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=en&format=json", {onSelect: fillId});
-					}
-				}
-				else
-				{
-					setTimeout('bindSuggest(\'' + element + '\', \'' + model + '\', ' + (typeof cutId != 'undefined' && cutId) + ')', 100);
-				}
-			};
+		function fillSmallId()
+		{
+			$(this).val(this.resultID.substring(this.resultID.lastIndexOf('/') + 1));
+		}
+		
+		function fillId()
+		{
+			var id = this.resultID.replace(/^.+\/(.+\/resource\/.+)$/, '$1');
+			$(this).val(id);
+		}
 
-			function fillSmallId()
+		function checkId(model, conf)
+		{
+			
+			var subject;
+			if (document.editform["cone_identifier"] != null)
 			{
-				$(this).val(this.resultID.substring(this.resultID.lastIndexOf('/') + 1));
+				subject = document.editform["cone_identifier"].value;
+			}
+			else
+			{
+				subject = document.editform["uri"].value;
 			}
 			
-			function fillId()
+			if (typeof predicate == 'undefined')
 			{
-				var id = this.resultID.replace(/^.+\/(.+\/resource\/.+)$/, '$1');
-				$(this).val(id);
-			}
-
-			function check(model, predicate, formField)
-			{
-				if (typeof model == 'undefined')
+				if (subject != '')
 				{
-					var subject = document.editform["cone_identifier"].value;
 					var subject_prefix = document.editform["cone_subject_prefix"].value;
-					var w = window.open("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + subject_prefix + subject, '', 'height=300,width=600');
+					$.getJSON(
+							instanceUrl + subject_prefix + subject + '?format=json'
+							, function(data) {
+								if (data.id != null)
+								{
+									if (conf && confirm('This entry already exists!\nDo you want to edit the existing entry?'))
+									{
+										location.href = data.id.replace(instanceUrl, instanceUrl + 'edit.jsp?model=' + model + '&uri=');
+									}
+									else
+									{
+										document.getElementById('idImage').src = 'img/taken.png';
+									}
+								}
+								else
+								{
+									document.getElementById('idImage').src = 'img/new.png';
+								}
+							}
+					);
 				}
 				else
 				{
-					var object = document.editform[formField].value;
-					var w = window.open("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?" + escape(predicate) + "=" + object, '', 'height=300,width=600');
+					document.getElementById('idImage').src = 'img/empty.png';
 				}
 			}
+		}
+
+		function checkFields()
+		{
+			var fields = $.find('.checkImage');
+			$(fields).each(function(){
+					this.init = false;
+					this.click();
+				}
+			);
+		}
+		
+		function checkField(element, model, predicate, formField, popup, shouldBeUnique)
+		{
+			if (typeof popup == 'undefined')
+			{
+				popup = false;
+			}
 			
+			var subject = null;
+			if (document.editform["cone_identifier"] != null)
+			{
+				subject = document.editform["cone_identifier"].value;
+			}
+			else if (document.editform["uri"] != null)
+			{
+				subject = document.editform["uri"].value;
+			}
+			var object = document.editform[formField].value;
+
+			var image = $(element).parents('.inputField').find('.checkImage')[0];
+
+			if (object != '')
+			{
+
+				var jsonUrl = instanceUrl + model + '/query?' + escape(predicate) + '="' + escape(object) + '"&format=json';
+
+				$.getJSON(
+						jsonUrl
+						, function(data)
+						{
+							if (data.length > 0)
+							{
+								var counter = 0;
+								for (var i = 0; i < data.length; i++)
+								{
+									var entry = data[i];
+									if (subject == null || entry.id != instanceUrl + subject)
+									{
+										counter++;
+									}
+									else
+									{
+										// I found myself
+									}
+								}
+								if (counter > 0 && shouldBeUnique)
+								{
+									image.src = 'img/taken.png';
+									var title;
+									if (counter == 1)
+									{
+										title = 'another entry was';
+									}
+									else if (counter <=48) 
+									{
+										title = counter + ' other entries were';
+									}
+									else
+									{
+										title = 'many other entries were';
+									}
+									title = 'This field should usually be unique, but ' + title + ' found with the same content';
+									image.title = title;
+								}
+								else if (counter > 0)
+								{
+									image.src = 'img/hits.png';
+									var title;
+									if (counter <=48) 
+									{
+										title = counter;
+									}
+									else
+									{
+										title = 'Many';
+									}
+									title += ' other entries were found with the same content';
+									image.title = title;
+								}
+								else
+								{
+									image.src = 'img/new.png';
+									image.title = jsonUrl;
+									//image.title = 'This field is unique';
+								}
+
+								if (counter > 0 && popup && element.init)
+								{
+									var html = '<ul class="dialog">\n';
+									for (var i = 0; i < data.length; i++)
+									{
+										if (subject == null || data[i].id != instanceUrl + subject)
+										{
+											html += '<li><a href="' + data[i].id + '" target="_blank">' + data[i].value + '</a>\n';
+											html += '<a href="edit.jsp?model=' + model + '&uri=' + data[i].id.replace(instanceUrl, '') + '">[edit]</a>\n';
+											html += '<a target="_blank" href="edit.jsp?model=' + model + '&uri=' + data[i].id.replace(instanceUrl, '') + '">[new window]</a></li>\n';
+										}
+									}
+									html += '</ul>\n';
+									
+									showDialog(html);
+									
+								}
+								else
+								{
+									element.init = true;
+								}
+							}
+							else
+							{
+								image.src = 'img/new.png';
+								image.title = jsonUrl + ' - ' + predicate + ' - ' + formField;
+								//image.title = 'This field is unique';
+							}
+						}
+				);
+			}
+			else
+			{
+				image.src = 'img/empty.png';
+				image.title = '';
+			}
+		}
+
+		function showDialog(html)
+		{
+			$('.messageArea').append(html);
+			$('.messageArea').css('position', 'fixed');
+			$('.messageArea').css('z-index', '2001');
+			$('.messageArea').css('left', '722px');
+			$('.messageArea').css('top', '139px');
+			$('.messageArea').removeClass('noDisplay');
+		}
+
+		function closeDialog()
+		{
+			$('.dialog').remove();
+			$('.messageArea').addClass('noDisplay');
+		}
+		
 	</script>
 	<script type="text/javascript" src="/cone/js/jquery-1.2.6.min.js">;</script>
+	<script type="text/javascript" src="/cone/js/jquery.jdialog.min.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.dimensions.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.suggest.js">;</script>
 	<link type="text/css" rel="stylesheet" href="/cone/js/jquery.suggest.css"/>

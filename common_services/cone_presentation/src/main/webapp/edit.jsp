@@ -57,6 +57,13 @@
 <%@ page import="java.util.HashSet" %>
 
 <%!
+	private boolean getLoggedIn(HttpServletRequest request)
+	{
+	    return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
+	}
+%>
+
+<%!
 	List<String> errors;
 	List<String> messages;
 	
@@ -66,7 +73,7 @@
 	Querier querier = null;
 	
 
-	private String displayPredicates(Model model, TreeFragment results, String uri, List<Predicate> predicates, String prefix, boolean loggedIn)
+	private String displayPredicates(Model model, TreeFragment results, String uri, List<Predicate> predicates, String prefix, String path, boolean loggedIn)
 	{
 		
     	StringWriter out = new StringWriter();
@@ -129,12 +136,14 @@
 			            		    {
 			                		    out.append("text\" class=\"xLarge_txtInput");
 			    	            	}
-			                
+			                					                
 									if (predicate.isResource())
 									{
 										out.append(" " + prefix + predicate.getId().replaceAll("[/:.]", "_"));
 									}
-									out.append("\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"");
+									out.append("\"");
+					                out.append(" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', false, " + predicate.isShouldBeUnique() + ")\"");
+									out.append(" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"");
 									if (predicate.getDefaultValue() != null && predicate.getEvent() == ModelList.Event.ONLOAD && predicate.isOverwrite())
 									{
 									    out.append(predicate.getDefault(request));
@@ -157,7 +166,7 @@
 									}
 									out.append("\" ");
 									out.append(" />");
-	
+
 									if (predicate.isResource())
 									{
 										out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
@@ -214,8 +223,7 @@
 					            	    out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove \" value=\" \" onclick=\"remove(this)\"/>");
 		        		        	}
 				        	        
-				        	        out.append("<input type=\"button\" onclick=\"check('" + model.getName() + "', '" + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "')\"/>");
-				        	        
+				        	        out.append("<input type=\"image\" style=\"border: none\" class=\"checkImage\" src=\"img/empty.png\" onclick=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', true, " + predicate.isShouldBeUnique() + ");return false;\"/>");
 			                	}
 			                	else
 			                	{
@@ -247,7 +255,7 @@
 			                {
 	        		            out.append("<br/>");
 	    		                out.append("\n<span class=\"free_area0 large_negMarginLExcl\">");
-	        		            out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":" + counter + ":",((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()));
+	        		            out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":" + counter + ":", path + predicate.getId() + "/", getLoggedIn(request)));
 	        		            out.append("</span>");
 	            	    	}
 			                
@@ -260,7 +268,7 @@
        				{
 	    		        if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0)
 	        			{
-	            			out.append("\n<span class=\"xDouble_area0 singleItem endline\">");
+	            			out.append("\n<span class=\"xDouble_area0 singleItem inputField endline\">");
 	            				
 	            				if (predicate.isGenerateObject())
 	                			{
@@ -272,12 +280,13 @@
 	    		            		{
     	    		            		out.append("<input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\"");
 		    	    		        	out.append(" class=\"xLarge_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\"");
-			        		    	    out.append("/>");
+			        		    	    out.append(" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', false, " + predicate.isShouldBeUnique() + ");\"/>");
 		    	        		    	out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
 	    	    	        		}
 	    	    	    	    	else
     	    	    	    		{
-        	    	    			    out.append("<input type=\"text\" class=\"xLarge_txtInput\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\" />");
+        	    	    			    out.append("<input type=\"text\" class=\"xLarge_txtInput\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\"");
+			        		    	    out.append(" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', false, " + predicate.isShouldBeUnique() + ");\"/>");
             	    				}
 			    	            }
 
@@ -333,7 +342,7 @@
 		            					out.append(", true)\"/>");
 		        					}
 					        	}
-								out.append("<input type=\"button\" onclick=\"check('" + model.getName() + "', '" + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "')\"/>");
+								out.append("<input type=\"image\" style=\"border: none\" class=\"checkImage\" src=\"img/empty.png\" onclick=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', true, " + predicate.isShouldBeUnique() + ");return false;\"/>");
 				            out.append("</span>");
 	        			}
 	    		        else if (predicate.isMultiple())
@@ -556,7 +565,7 @@
 
 	Enumeration<String> paramNames = request.getParameterNames();
 	
-	boolean loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
+	boolean loggedIn = getLoggedIn(request);
 	
 	querier = QuerierFactory.newQuerier(loggedIn);
 	
@@ -720,11 +729,11 @@
 
 <%@page import="de.mpg.escidoc.services.cone.ModelList.Event"%><html>
 	<jsp:include page="header.jsp"/>
-	<body onload="self.pageLoaded = true">
+	<body onload="self.pageLoaded = true;checkFields()">
 		<div class="full wrapper">
 			<jsp:include page="navigation.jsp"/>
 			<div id="content" class="full_area0 clear">
-			<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+			<!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
 				<form name="editform" action="edit.jsp" accept-charset="UTF-8" method="post">
 					<input type="hidden" name="form" value="true"/>
 					<% if (uri != null) { %>
@@ -836,8 +845,8 @@
 									                        subject = results.getSubject();
 									                    }
 									                    
-									                    out.append("<input type=\"text\" name=\"cone_identifier\" class=\"double_txtInput\" value=\"" + subject + "\" />");
-									                    out.append("<input type=\"button\" onclick=\"check()\"/>");
+									                    out.append("<input type=\"text\" name=\"cone_identifier\" class=\"double_txtInput\" onchange=\"checkId('" + model.getName() + "', false)\" value=\"" + subject + "\" />");
+									                    out.append("<input type=\"image\" style=\"border: none\" id=\"idImage\" onclick=\"checkId('" + model.getName() + "', true);return false;\"/>");
 									                }
 									            }
 												else
@@ -849,7 +858,7 @@
 											</span>
 										</span>
 										<% if (model != null) { %>
-											<%= displayPredicates(model, results, uri, model.getPredicates(), "", ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) %>
+											<%= displayPredicates(model, results, uri, model.getPredicates(), "", "", getLoggedIn(request)) %>
 										<% } %>	
 									</div>
 									<div class="free_area0 xTiny_marginLIncl">
@@ -867,6 +876,11 @@
 					</div>
 				</form>
 			</div>
+		</div>
+		<div class="xHuge_area2_p8 messageArea noDisplay" style="height: 28.37em; overflow-y: auto;">
+
+			<input type="button" id="btnClose" onclick="closeDialog()" value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
+			
 		</div>
 	</body>
 </html>

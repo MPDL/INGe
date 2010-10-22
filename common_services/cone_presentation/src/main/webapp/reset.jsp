@@ -36,14 +36,18 @@
 <%@ page import="de.mpg.escidoc.services.cone.ModelList.Model" %>
 <%@ page import="de.mpg.escidoc.services.cone.QuerierFactory" %>
 <%@ page import="de.mpg.escidoc.services.cone.Querier" %>
+
+<%!
+	private boolean getLoggedIn(HttpServletRequest request)
+	{
+	    return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
+	}
+%>
+
 <%
 	response.setHeader("Content-Type", "text/plain");
 
-	boolean loggedIn = false;
-	if (request.getSession().getAttribute("logged_in") != null)
-	{
-	    ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
-	}
+	boolean loggedIn = getLoggedIn(request);
 
 	Querier querier = QuerierFactory.newQuerier(loggedIn);
 	

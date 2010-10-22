@@ -158,7 +158,7 @@ public class ConeServlet extends HttpServlet
         boolean loggedIn = false;
         if (request.getSession().getAttribute("logged_in") != null)
         {
-            loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
+            loggedIn = getLoggedIn(request);
         }
         String userHandle = (request.getParameter("eSciDocUserHandle") != null ? request.getParameter("eSciDocUserHandle") : request.getParameter("h"));
         if (!loggedIn && userHandle != null)
@@ -643,6 +643,11 @@ public class ConeServlet extends HttpServlet
     {
         response.setStatus(500);
         response.getWriter().println("Error: Parameter '" + param + "' is missing.");
+    }
+
+    private boolean getLoggedIn(HttpServletRequest request)
+    {
+        return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
     }
 
 }

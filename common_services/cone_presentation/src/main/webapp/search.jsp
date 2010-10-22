@@ -44,6 +44,12 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.util.Enumeration" %>
 
+<%!
+	private boolean getLoggedIn(HttpServletRequest request)
+	{
+	    return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
+	}
+%>
 <%
 	
 	List<? extends Describable> results = null;
@@ -69,7 +75,7 @@
 	
 	if (request.getParameter("searchterm") != null && !"".equals(request.getParameter("searchterm")))
 	{
-	    boolean loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
+	    boolean loggedIn = getLoggedIn(request);
 		
 		Querier querier = QuerierFactory.newQuerier(loggedIn);
 	   
@@ -170,7 +176,7 @@
 														 }	
 													 } %>
 													<span class="large_area0_p8 lineToolSection">
-														<% if (request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
+														<% if (getLoggedIn(request)) { %>
 															<% 
 															if((Boolean)request.getSession().getAttribute("open_model") &&																	
 																	(request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue())) { %>

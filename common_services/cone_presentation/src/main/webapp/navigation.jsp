@@ -42,10 +42,15 @@
 <%@ page import="de.mpg.escidoc.services.common.valueobjects.GrantVO" %>
 <%@ page import="de.mpg.escidoc.services.cone.web.Login"%>
 
+<%!
+	private boolean getLoggedIn(HttpServletRequest request)
+	{
+	    return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
+	}
+%>
+
 <%
-	
-	if(request.getSession().getAttribute("logged_in") == null){request.getSession().setAttribute("logged_in", Boolean.FALSE);}
-	
+
 	boolean showWarning = false;
 	
 	if (request.getParameter("eSciDocUserHandle") != null)
@@ -74,7 +79,7 @@
 
 			<!-- Login -->
 		
-				<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
+				<% if (getLoggedIn(request)) { %>
 					<a class="medium_area0_p8 endline" href="logout.jsp?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Logout</a>
 				<% } else { %>
 					<a class="medium_area0_p8 endline" href="<%= PropertyReader.getProperty("escidoc.framework_access.login.url") %>/aa/login?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Login</a>

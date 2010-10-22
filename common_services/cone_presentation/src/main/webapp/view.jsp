@@ -40,6 +40,14 @@
 <%@ page import="de.mpg.escidoc.services.cone.util.TreeFragment" %>
 <%@ page import="de.mpg.escidoc.services.cone.util.LocalizedTripleObject" %>
 <%@ page import="java.io.StringWriter" %>
+
+<%!
+	private boolean getLoggedIn(HttpServletRequest request)
+	{
+	    return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
+	}
+%>
+
 <%!
 
 	String uri;
@@ -110,7 +118,7 @@
 	
 	if (uri != null && !"".equals(uri) && modelName != null && !"".equals(modelName))
 	{
-	    boolean loggedIn = ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue();
+	    boolean loggedIn = getLoggedIn(request);
 		
 		Querier querier = QuerierFactory.newQuerier(loggedIn);
 		
@@ -139,7 +147,7 @@
 					<div class="small_marginLIncl subHeaderSection">
 						<div class="contentMenu">
 							<div class="free_area0 sub">
-								<% if (request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
+								<% if (getLoggedIn(request)) { %>
 								
 									<% if (model.isOpen() &&
 										(request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue())) { %>
