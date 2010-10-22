@@ -311,8 +311,7 @@
 								else
 								{
 									image.src = 'img/new.png';
-									image.title = jsonUrl;
-									//image.title = 'This field is unique';
+									image.title = 'This content is unique';
 								}
 
 								if (counter > 0 && popup && element.init)
