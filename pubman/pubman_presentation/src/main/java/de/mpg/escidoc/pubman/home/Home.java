@@ -31,9 +31,25 @@
 package de.mpg.escidoc.pubman.home;
 
 
+import java.util.List;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
+import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.search.Search;
+import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
+import de.mpg.escidoc.services.search.query.PlainCqlQuery;
+import de.mpg.escidoc.services.search.query.SearchQuery;
+import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
 
 /**
  * Fragment class for the corresponding Home-JSP.
@@ -68,6 +84,20 @@ public class Home extends FacesBean
     {
         // Perform initializations inherited from our superclass
         super.init();
+    }
+    
+    public List<PubItemVOPresentation> getLatest() throws Exception
+    {
+        InitialContext ictx = new InitialContext();
+        Search search = (Search)ictx.lookup(Search.SERVICE_NAME);
+        //SearchRetrieverRequestBean srrb = (SearchRetrieverRequestBean)ictx.lookup(SearchRetrieverRequestBean.BEAN_NAME);
+        String cqlQuery = "escidoc.property.content-model.objid=" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+        SearchQuery cql = new PlainCqlQuery(cqlQuery);
+        cql.setMaximumRecords("4");
+        cql.setSortKeysAndOrder("sort.escidoc.last-modification-date", SortingOrder.DESCENDING);
+        ItemContainerSearchResult icsr =  search.searchForItemContainer(cql);
+        List<PubItemVOPresentation> list = SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
+        return list;
     }
 
 

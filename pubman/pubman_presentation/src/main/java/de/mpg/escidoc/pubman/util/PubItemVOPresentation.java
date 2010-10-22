@@ -676,6 +676,30 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     }
     
     /**
+     * Returns the first abstract (150 Chars) and crops the last characters.
+     * Specification not available!
+     * @return String the title
+     */
+    public String getShortAbstract()
+    {
+        if (getMetadata().getAbstracts().size() > 0)
+        {
+            if (getMetadata().getAbstracts().get(0).getValue().length() > 150)
+            {
+                return getMetadata().getAbstracts().get(0).getValue().substring(0, 149) + "...";
+            }
+            else
+            {
+                return getMetadata().getAbstracts().get(0).getValue();
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
+    /**
      * @return String the title
      */
     public String getFullTitle()

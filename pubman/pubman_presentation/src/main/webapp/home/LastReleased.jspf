@@ -29,29 +29,43 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 
 <!-- TODO: Exchange this with lastsubmitted feed -->
 <h:panelGroup rendered="#{ApplicationBean.checkSystemTypeProduction}">
-    <script src="http://www.google.com/jsapi" type="text/javascript">&#160;</script> 
-    <script type="text/javascript">
-    google.load("feeds", "1");
-
-      function initialize() 
-      {     
-    	  var feedControl = new google.feeds.FeedControl();
-        feedControl.addFeed('<h:outputText value="#{ApplicationBean.pubmanInstanceUrl}"/>'+'/syndication/feed/atom_1.0/releases', "");
-        feedControl.setNumEntries(4); 
-        feedControl.draw(document.getElementById("feedControl2"));
-        }
-      google.setOnLoadCallback(initialize);
-    </script>
+    
 
     <h2>
         <h:outputText value="#{lbl.Home_Header_LastItems}" escape="false"/>
     </h2>
-    <div id="feedControl2" style="font-size: 0.4em"></div>
+    <div id="feedControl2" style="font-size: 0.4em">
+    	<div class="gfc-control">
+    		<div class="gfc-resultsbox-visible">
+    			<div class="gfc-resultsRoot">
+    				<div class="gfc-resultsHeader">
+    					<div class="gfc-title"></div>
+					</div>
+					<div class="gfc-results">
+    					<tr:iterator var="item" value="#{HomePage.latest}">
+    						<div class="gfc-result">
+								<div class="gf-result">
+									<div class="gf-title">
+										<h:outputLink value="#{item.linkLatestRelease }" styleClass="gf-title"><h:outputText value="#{item.metadata.title}"/></h:outputLink>
+									</div>
+									<div class="gf-author"><h:outputText value="#{item.creatorsShort}"/></div>
+									<div class="gf-spacer">-</div>
+									<div class="gf-relativePublishedDate"><h:outputText value="#{item.formattedLatestReleaseModificationDate}"/></div>
+									<div class="gf-snippet"><h:outputText value="#{item.shortAbstract}"/></div>
+								</div>
+							</div>
+    					</tr:iterator>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
 </h:panelGroup>
 <h:panelGroup rendered="#{!ApplicationBean.checkSystemTypeProduction}">
     <h:outputText value="#{lbl.Home_Header_LastItems_Disabled}"/><br/>

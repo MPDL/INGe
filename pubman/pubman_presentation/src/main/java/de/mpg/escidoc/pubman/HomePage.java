@@ -30,15 +30,24 @@
 
 package de.mpg.escidoc.pubman;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.search.Search;
+import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
+import de.mpg.escidoc.services.search.query.PlainCqlQuery;
+import de.mpg.escidoc.services.search.query.SearchQuery;
+import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
 
 /**
  * BackingBean for HomePage.jsp.
@@ -160,5 +169,16 @@ public class HomePage extends BreadcrumbPage
         return false;
     }
     
-    
+    public List<PubItemVOPresentation> getLatest() throws Exception
+    {
+        InitialContext ictx = new InitialContext();
+        Search search = (Search)ictx.lookup(Search.SERVICE_NAME);
+        String cqlQuery = "escidoc.property.content-model.objid=" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+        SearchQuery cql = new PlainCqlQuery(cqlQuery);
+        cql.setMaximumRecords("4");
+        cql.setSortKeysAndOrder("sort.escidoc.last-modification-date", SortingOrder.DESCENDING);
+        ItemContainerSearchResult icsr =  search.searchForItemContainer(cql);
+        List<PubItemVOPresentation> list = SearchRetrieverRequestBean.extractItemsOfSearchResult(icsr);
+        return list;
+    }
 }
