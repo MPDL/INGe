@@ -41,6 +41,7 @@ import javax.faces.event.ValueChangeEvent;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.Internationalized;
+import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
 import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
@@ -69,6 +70,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 
     private List<FileBean> fileBeanList;
     private List<FileBean> locatorBeanList;
+    private String descriptionMetaTag;
 
     /**
      * True if the item is shown in the revisions list, additional information is displayed then (release date, description)
@@ -1470,7 +1472,48 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
         return locatorBeanList;
     }
-    
+    public String getDescriptionMetaTag()
+	{
+    	//add first creator to meta tag
+    	descriptionMetaTag = getMetadata().getCreators().get(0).getRoleString() + ": " ;
+    	if(getMetadata().getCreators().get(0).getPerson() != null)
+    		descriptionMetaTag+= getMetadata().getCreators().get(0).getPerson().getFamilyName() +", " + getMetadata().getCreators().get(0).getPerson().getGivenName();
+		else
+			descriptionMetaTag += getMetadata().getCreators().get(0).getOrganization().getName();
+    	if(getMetadata().getCreators().size()>1)
+    		descriptionMetaTag += " et al.";
+    	//add genre information
+    	descriptionMetaTag += "; Gerne: " + getMetadata().getGenre() ;
+		//add published print date
+    	if(getMetadata().getDatePublishedInPrint()!= null && getMetadata().getDatePublishedInPrint()!="")
+    		descriptionMetaTag += "; Published in Print: "+getMetadata().getDatePublishedInPrint();
+    	//add published online date if no publisched print date
+    	else if(getMetadata().getDatePublishedOnline()!= null && getMetadata().getDatePublishedOnline()!="")
+    		descriptionMetaTag += "; Published online: "+getMetadata().getDatePublishedOnline();
+    	//add open access component 
+    	for(FileBean file :getFileBeanList())
+    	{
+    		if(file.getIsVisible()==true)
+    		{
+	    		descriptionMetaTag += "; Opean Access";
+	    		break;
+    		}
+    	}
+    	//add keywords
+    	if(getMetadata().getFreeKeywords()!=null && getMetadata().getFreeKeywords().getValue() != null && getMetadata().getFreeKeywords().getValue()!="")
+    		descriptionMetaTag += "; Keywords: " + getMetadata().getFreeKeywords().getValue() ;
+    	//add title at the end of description meta tag
+    	if(getMetadata().getTitle() != null && getMetadata().getTitle().getValue()!=null && getMetadata().getTitle().getValue()!="")
+    		descriptionMetaTag += "; Title: " + getMetadata().getTitle().getValue() ;
+
+		return descriptionMetaTag;
+	}
+
+	public void setDescriptionMetaTag(String descriptionMetaTag) 
+	{
+		this.descriptionMetaTag = descriptionMetaTag;
+	}
+
    
     
 }
