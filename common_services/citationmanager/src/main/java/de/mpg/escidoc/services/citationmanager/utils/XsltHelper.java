@@ -91,7 +91,7 @@ public class XsltHelper {
 		if (!Utils.checkVal(snippet) || fsc == null)
 			return snippet;
 
-		// logger.info("passed str:" + str);
+//		 logger.info("passed snippet:" + snippet);
 
 		FontStyle fs;
 
@@ -117,8 +117,13 @@ public class XsltHelper {
 		
 		//replace all non-escaped & 
 		snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
+		
+		//replace all < back to the entity  
+		snippet = Utils.replaceAllTotal(snippet, "\\<(?!\\/?style)", "&lt;");
 
-		// logger.info("processed str:" + str);
+//		logger.info("processed str:" + snippet);
+
+//		 logger.info("processed snippet:" + snippet);
 
 		return snippet;
 	}
@@ -143,7 +148,7 @@ public class XsltHelper {
 		if (!Utils.checkVal(snippet) || fsc == null)
 			return snippet;
 
-//		logger.info("passed str:" + snippet);
+		logger.info("passed str:" + snippet);
 
 		FontStyle fs;
 
@@ -183,9 +188,7 @@ public class XsltHelper {
 
 		//replace all non-escaped & 
 		snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
-
-//		 logger.info("processed str:" + snippet);
-
+		
 		return snippet;
 	}	
 
