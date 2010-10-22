@@ -6,18 +6,20 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.batchprocess.BatchProcess;
+import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntry;
+import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatusType;
 import de.mpg.escidoc.services.batchprocess.elements.Elements;
 import de.mpg.escidoc.services.batchprocess.helper.CommandHelper;
 import de.mpg.escidoc.services.batchprocess.transformers.Transformer;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
-public class Edit extends BatchProcess
+public class Edit extends Operation
 {
     private Transformer<?> transformer;
     private static final Logger logger = Logger.getLogger(Edit.class);
 
-    public void run(String[] args)
+    public void execute(String[] args)
     {
         try
         {
@@ -29,12 +31,12 @@ public class Edit extends BatchProcess
                     || CoreServiceObjectStatus.RELEASED.equals(CommandHelper.getStatusEnumValue(CommandHelper
                             .getArgument("-s", args, false))))
             {
-                new Submit().run(args);
+                new Submit().execute(args);
             }
             if (CoreServiceObjectStatus.RELEASED.equals(CommandHelper.getStatusEnumValue(CommandHelper.getArgument(
                     "-s", args, false))))
             {
-                new Release().run(args);
+                new Release().execute(args);
             }
         }
         catch (Exception e)
@@ -51,7 +53,7 @@ public class Edit extends BatchProcess
         }
         else if (CoreServiceObjectType.CONTAINER.equals(list.getObjectType()))
         {
-            //TODO
+            // TODO
         }
     }
 
@@ -62,8 +64,8 @@ public class Edit extends BatchProcess
         {
             for (ItemVO ivo : new ArrayList<ItemVO>(list.getElements()))
             {
-                // ih.update(arg0, arg1);
-                System.out.println("Updating: " + ivo.getVersion().getObjectId());
+                this.report.addEntry("Update" + ivo.getVersion().getObjectId(), "Edit " + ivo.getVersion().getObjectId(),
+                        ReportEntryStatusType.FINE);
             }
         }
     }

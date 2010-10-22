@@ -4,10 +4,11 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mpg.escidoc.services.batchprocess.BatchProcess;
 import de.mpg.escidoc.services.batchprocess.BatchProcess.CoreServiceObjectType;
 import de.mpg.escidoc.services.batchprocess.helper.CommandHelper;
 
-public abstract class Elements<ListElementType>
+public abstract class Elements<ListElementType> extends BatchProcess
 {
     protected List<ListElementType> elements = new ArrayList<ListElementType>();
     protected int maximumNumberOfElements = 50;
@@ -22,7 +23,7 @@ public abstract class Elements<ListElementType>
         retrieveElements();
     }
 
-    public static Elements<?> getBatchProcessList(String[] args)
+    public static Elements<?> factory(String[] args)
     {
         try
         {

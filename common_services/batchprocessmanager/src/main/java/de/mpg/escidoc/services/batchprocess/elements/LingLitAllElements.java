@@ -4,6 +4,7 @@ import java.util.List;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.batchprocess.BatchProcess.CoreServiceObjectType;
+import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatusType;
 import de.mpg.escidoc.services.batchprocess.helper.CoreServiceHelper;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.framework.AdminHelper;
@@ -23,13 +24,12 @@ public class LingLitAllElements extends Elements<ItemVO>
     {
         try
         {
-            System.out.println("RETRIEVING ELEMENTS FROM CORESERVICE...");
             ItemHandler ih = ServiceLocator.getItemHandler(AdminHelper.loginUser("bibliothek_mpi_eva", "bibliothek"));
             String seachResultXml = ih.retrieveItems(CoreServiceHelper.createBasicFilter(
                     "\"/properties/content-model-specific/local-tags/local-tag\"=\"" + LOCAL_TAG + "\"",
                     maximumNumberOfElements));
             elements.addAll(CoreServiceHelper.transformSearchResultXmlToListOfItemVO(seachResultXml));
-            System.out.println("RETRIEVING ELEMENTS FROM CORESERVICE DONE!");
+            report.addEntry("retrieveElements", "Get Data", ReportEntryStatusType.FINE);
         }
         catch (Exception e)
         {

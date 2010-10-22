@@ -25,18 +25,22 @@ public class CommandHelper
 
     public static CoreServiceObjectStatus getStatusEnumValue(String str)
     {
-        try
+        if (str != null)
         {
-            return CoreServiceObjectStatus.valueOf(str.toUpperCase());
-        }
-        catch (Exception e)
-        {
-            String message = "";
-            for (CoreServiceObjectStatus value : CoreServiceObjectStatus.values())
+            try
             {
-                message += value.name().toLowerCase() + ", ";
+                return CoreServiceObjectStatus.valueOf(str.toUpperCase());
             }
-            throw new RuntimeException("Wrong status value! Allowed are: " + message);
+            catch (Exception e)
+            {
+                String message = "";
+                for (CoreServiceObjectStatus value : CoreServiceObjectStatus.values())
+                {
+                    message += value.name().toLowerCase() + ", ";
+                }
+                throw new RuntimeException(str + " is not a valid status value! Allowed are: " + message);
+            }
         }
+        return null;
     }
 }

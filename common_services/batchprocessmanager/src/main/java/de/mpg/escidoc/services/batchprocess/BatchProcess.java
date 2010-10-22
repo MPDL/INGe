@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.batchprocess.elements.Elements;
 import de.mpg.escidoc.services.batchprocess.helper.CommandHelper;
+import de.mpg.escidoc.services.batchprocess.operations.Operation;
 
 public abstract class BatchProcess
 {
@@ -18,34 +19,25 @@ public abstract class BatchProcess
     }
 
     protected static Elements elements = null;
+    protected static Operation operation = null;
+    protected static BatchProcessReport report = new BatchProcessReport();
     private static final Logger logger = Logger.getLogger(BatchProcess.class);
 
-    public static void main(String[] args) throws ClassNotFoundException
+    public static void main(String[] args)
     {
-        BatchProcess batchProcess = BatchProcess.initBatchProcess(args);
-        logger.info("Batch process...");
-        batchProcess.run(args);
+        operation = Operation.factory(args);
+        logger.info("Batch process starting...");
+        operation.execute(args);
         logger.info("Batch Process done!");
+        logger.info(report.printReport());
     }
 
-    public abstract void run(String[] args);
-
-    public static BatchProcess initBatchProcess(String[] args)
+    public void run(String[] args)
     {
-        try
-        {
-            BatchProcess bp = (BatchProcess)Class.forName(CommandHelper.getArgument("-o", args, true)).newInstance();
-            bp.initElements(args);
-            return bp;
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException(CommandHelper.getArgument("-o", args, true) + " is not a valid operation", e);
-        }
-    }
-
-    public void initElements(String[] args)
-    {
-        elements = Elements.getBatchProcessList(args);
+        operation = Operation.factory(args);
+        logger.info("Batch process starting...");
+        operation.execute(args);
+        logger.info("Batch Process done!");
+        logger.info(report.printReport());
     }
 }

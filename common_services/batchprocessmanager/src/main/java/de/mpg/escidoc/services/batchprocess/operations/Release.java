@@ -4,14 +4,15 @@ import java.util.ArrayList;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.batchprocess.BatchProcess;
+import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatusType;
 import de.mpg.escidoc.services.batchprocess.elements.Elements;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
-public class Release extends BatchProcess
+public class Release extends Operation
 {
     @Override
-    public void run(String[] args)
+    public void execute(String[] args)
     {
         try
         {
@@ -42,8 +43,8 @@ public class Release extends BatchProcess
         {
             for (ItemVO ivo : new ArrayList<ItemVO>(elements.getElements()))
             {
-                // ih.update(arg0, arg1);
-                System.out.println("Releasing: " + ivo.getVersion().getObjectId());
+                this.report.addEntry("Release" + ivo.getVersion().getObjectId(), "Release " + ivo.getVersion().getObjectId(),
+                        ReportEntryStatusType.FINE);
             }
         }
     }
