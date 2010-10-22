@@ -230,6 +230,7 @@ public class ModelList
                         Boolean.parseBoolean(attributes.getValue("searchable")),
                         Boolean.parseBoolean(attributes.getValue("restricted")),
                         Boolean.parseBoolean(attributes.getValue("overwrite")),
+                        Boolean.parseBoolean(attributes.getValue("shouldBeUnique")),
                         (attributes.getValue("modify") == null ? true : Boolean.parseBoolean(attributes.getValue("modify"))),
                         attributes.getValue("event"),
                         attributes.getValue("resourceModel"),
@@ -794,6 +795,7 @@ public class ModelList
         private boolean searchable;
         private boolean restricted;
         private boolean overwrite;
+        private boolean shouldBeUnique;
         private boolean modify;
         private Event event;
         private String defaultValue;
@@ -823,6 +825,7 @@ public class ModelList
                 boolean searchable,
                 boolean restricted,
                 boolean overwrite,
+                boolean shouldBeUnique,
                 boolean modify,
                 String eventString,
                 String resourceModel,
@@ -838,6 +841,7 @@ public class ModelList
             this.searchable = searchable;
             this.restricted = restricted;
             this.overwrite = overwrite;
+            this.shouldBeUnique = shouldBeUnique;
             this.modify = modify;
             if (eventString != null && !"".equals(eventString))
             {
@@ -999,6 +1003,16 @@ public class ModelList
         public void setOverwrite(boolean overwrite)
         {
             this.overwrite = overwrite;
+        }
+
+        public boolean isShouldBeUnique()
+        {
+            return shouldBeUnique;
+        }
+
+        public void setShouldBeUnique(boolean shouldBeUnique)
+        {
+            this.shouldBeUnique = shouldBeUnique;
         }
 
         public String getDefaultValue()

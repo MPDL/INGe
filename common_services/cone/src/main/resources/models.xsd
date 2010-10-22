@@ -98,6 +98,7 @@
 		<xs:attribute name="event" type="EventType" use="optional"/>
 		<xs:attribute name="modify" type="xs:boolean" default="true" use="optional"/>
 		<xs:attribute name="restricted" type="xs:boolean" default="false" use="optional"/>
+		<xs:attribute name="shouldBeUnique" type="xs:boolean" default="false" use="optional"/>
     </xs:complexType>
     
     <xs:simpleType name="EventType">
