@@ -31,6 +31,8 @@
 	xmlns:func="http://www.escidoc.de/citationstyle/functions"
 	xmlns:functx="http://www.functx.com"
 	xmlns:jfunc="java:de.mpg.escidoc.services.citationmanager.utils.XsltHelper"	
+	
+	xmlns:exslt="http://exslt.org/common"
 	>
 	
 	<!-- RUNTIME FUNCTIONS -->
@@ -169,9 +171,63 @@
 		<xsl:value-of select="jfunc:getCitationStyleForJournal($idType,$idValue)"/>
 	</xsl:function>
 	
-	<xsl:function name="func:substringAfterWhitespace">
-		<xsl:param name="inputWithSpace"/>
-		<xsl:value-of select="substring-after($inputWithSpace,' ')"/>
+	<!--6 ed, 179 instl. 
+	first substrings after the comma -> '179 instl.', 
+	next before the instl -> '179'
+	gives the number of instalment back -->
+	<xsl:function name="func:substringAfterEdition">
+		<xsl:param name="inputWithSpaceComma"/>
+		<xsl:value-of select="substring-before(substring-after($inputWithSpaceComma,', '), ' ')"/>
+	</xsl:function>
+	
+	<!--6 ed, 179 instl. 
+	first substrings before the comma -> '6 ed', 
+	next before the ed -> '6'
+	gives the number of edition back -->
+	<xsl:function name="func:substringBeforeEdition">
+		<xsl:param name="inputWithSpaceComma"/>
+		<xsl:value-of select="substring-before(substring-before($inputWithSpaceComma,', '), ' ')"/>
+	</xsl:function>
+	
+	<!--179 instl. 
+	substrings befrore instalment
+	gives the number of instalment back -->
+	<xsl:function name="func:substringBeforeInstalment">
+		<xsl:param name="inputWithInstalment"/>
+		 <xsl:value-of select="
+    	if (contains($inputWithInstalment, 'instl'))
+    	then substring-before($inputWithInstalment, 'instl')  
+    	else if (contains($inputWithInstalment, 'Lf'))
+    	then substring-before($inputWithInstalment, 'Lf')  
+    	else '' 
+    "/>
 	</xsl:function>
 
+	<xsl:function name="func:substringBeforeSince">
+		<xsl:param name="inputWithSince"/>
+	    <xsl:value-of select="
+	    	if (contains($inputWithSince, 'since'))
+	    	then substring-before($inputWithSince, 'since')  
+	    	else if (contains($inputWithSince, 'seit'))
+	    	then substring-before($inputWithSince, 'seit')  
+	    	else '' 
+	    "/>
+	</xsl:function>
+	
+	<xsl:function name="func:substringAfterSince">
+	<xsl:param name="inputWithSince"/>
+		  <xsl:value-of select="
+    	if (contains($inputWithSince, 'since'))
+    	then substring-after($inputWithSince, 'since')  
+    	else if (contains($inputWithSince, 'seit'))
+    	then substring-after($inputWithSince, 'seit')  
+    	else '' 
+    "/>
+	</xsl:function>
+	
+	<xsl:function name="func:substringAfterReviewOf">
+		<xsl:param name="inputReviewTitle"/>
+		<xsl:value-of select="substring-after($inputReviewTitle,'Review of:')"/>
+	</xsl:function>
+	
 </functions>
