@@ -91,8 +91,6 @@ public class XsltHelper {
 		if (!Utils.checkVal(snippet) || fsc == null)
 			return snippet;
 
-//		 logger.info("passed snippet:" + snippet);
-
 		FontStyle fs;
 
 		StringBuffer sb = new StringBuffer();
@@ -211,13 +209,13 @@ public class XsltHelper {
 	public static String getCitationStyleForJournal(String idType,
 			String idValue) throws Exception {
 		String citationStyle = null;
+		// if there is no idType, put the citation style to default
 		if (idType.equals("")) {
 			citationStyle = "default";
 		} else {
-			// set the idType from to CONE to SFX and cut the SFX-Id from the URL
+			// if the type is CoNE, take the ID from the URL
 			if (idType.equals("CONE")){
 				idValue = idValue.substring(idValue.lastIndexOf("/")+1);
-				idType = "SFX";
 			}
 			Pair keyValue = new Pair(idType, idValue);
 			if (citationMap.size() == 0) {
@@ -227,12 +225,16 @@ public class XsltHelper {
 				citationStyle = "default";
 			} else {
 				citationStyle = citationMap.get(keyValue);
+				if (citationStyle.equalsIgnoreCase("Kurztitel_ZS Band, Heft (Jahr)") ||
+					citationStyle.equalsIgnoreCase("Titel_ZS Band, Heft (Jahr)") ||
+					citationStyle.equalsIgnoreCase("(Jahr) Band, Heft Titel_ZS")){
+				}
+				else {
+					// if the citation style is none of the three above, put it to default
+					citationStyle = "default";
+				}
 			}
 		}
-
-		 logger.info("CIT STYLE " + idType + ", idValue: " + idValue +
-		 ", citation style: " + citationStyle);
-
 		return citationStyle;
 
 	}
@@ -247,7 +249,9 @@ public class XsltHelper {
 		HttpClient client = new HttpClient();
 
 		String coneQuery = 
-			PropertyReader.getProperty("escidoc.cone.service.url") + "journals/query?format=rdf&escidoc:citation-style=*&m=full&l=0";
+		// JUS-Testserver CoNE
+		//	"http://193.174.132.114/cone/journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
+		PropertyReader.getProperty("escidoc.cone.service.url") + "journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
 		logger.info("cone query:" + coneQuery);
 		GetMethod getMethod = new GetMethod(coneQuery);
 
@@ -291,7 +295,7 @@ class JusXmlHandler extends DefaultHandler {
 	private static final Logger logger = Logger.getLogger(JusXmlHandler.class);
 	String currentElement = null;
 	String citationStyle = null;
-	String sfxValue = null;
+	String coneValue = null;
 	String idType = null;
 	private Map<Pair, String> citationStyleMap;
 	int counter = 0;
@@ -319,10 +323,10 @@ class JusXmlHandler extends DefaultHandler {
 		} else {
 			currentElement = localName;
 		}
-		//gets the attribute with the URL of the item and cuts the SFXValue
+		//gets the attribute with the URL of the item and cuts the coneValue
 		if (currentElement.equals("Description")&& attributes.getLength()!=0){
-			sfxValue =  attributes.getValue("rdf:about");
-			sfxValue = sfxValue.substring(sfxValue.lastIndexOf("/") + 1);
+			coneValue =  attributes.getValue("rdf:about");
+			coneValue = coneValue.substring(coneValue.lastIndexOf("/") + 1);
 		}
 	}
 
@@ -351,20 +355,41 @@ class JusXmlHandler extends DefaultHandler {
 		if (currentElement.equals("citation-style")& !tempString.trim().equals("")) {
 			// sets the SFX-Id and type
 			citationStyle = tempString;
-			journalIdTypeValue = new Pair();
-			journalIdTypeValue.setKey("SFX");
-			journalIdTypeValue.setValue(sfxValue);
-			citationStyleMap.put(journalIdTypeValue, citationStyle);
 			
-		} else if (currentElement.equals("type")& !tempString.trim().equals("")) {
-
+			journalIdTypeValue = new Pair();
+			journalIdTypeValue.setKey("CONE");
+			//logger.info("cone value " + coneValue + "; CS: " +citationStyle);
+			journalIdTypeValue.setValue(coneValue);
+			citationStyleMap.put(journalIdTypeValue, citationStyle);
+//			logger.info("READ citation style " +  coneValue + ", Zitierstil: " + citationStyle);
+		} 
+		/*else if (currentElement.equals("type")& !tempString.trim().equals("")) {
+			
 			idType = tempString.substring(tempString.lastIndexOf("/") + 1);
+			
 			journalIdTypeValue = new Pair();
 			journalIdTypeValue.setKey(idType);
+			//logger.info("idType " + idType);
 
 		} else if (currentElement.equals("value") & !tempString.trim().equals("")) {
+			//logger.info("idValue " + tempString);
 			journalIdTypeValue.setValue(tempString);
+			logger.info("READ citation style 2 " +  tempString + ", Zitierstil: " + citationStyle);
 			citationStyleMap.put(journalIdTypeValue, citationStyle);
+		}*/
+		else if (currentElement.equals("type")& !tempString.trim().equals("")) {
+			idType = tempString.substring(tempString.lastIndexOf("/") + 1);
+			
+		}else if (currentElement.equals("value") & !tempString.trim().equals("")) {
+			if (tempString.equals(coneValue)){}
+			else {
+				journalIdTypeValue = new Pair();
+				journalIdTypeValue.setKey(idType);
+				journalIdTypeValue.setValue(tempString);
+				citationStyleMap.put(journalIdTypeValue, citationStyle);
+				//logger.info("READ citation style 2 " +  tempString + ", Zitierstil: " + citationStyle);
+			}
+			
 		}
 	}
 
