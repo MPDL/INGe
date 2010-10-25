@@ -14,285 +14,269 @@
 	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case"
 	xmlns:publication="${xsd.metadata.publication}">
-
-	<!-- JOURNAL ARTICLE  local-tag > Kurztitel_ZS_Jahr escidoc:51001-->
-	<escidocItem:item objid="escidoc:51001"
-		last-modification-date="2010-02-03T11:17:35.546Z">
-		<escidocItem:properties>
-			<prop:creation-date>2010-02-03T11:17:34.687Z</prop:creation-date>
-			<srel:created-by objid="escidoc:2" />
-			<prop:public-status>pending</prop:public-status>
-			<prop:public-status-comment>Object created.
-			</prop:public-status-comment>
-			<srel:context objid="escidoc:2001" />
-			<srel:content-model objid="escidoc:persistent4" />
-			<prop:lock-status>unlocked</prop:lock-status>
-			<prop:version objid="escidoc:51001:1">
-				<version:number>1</version:number>
-				<version:date>2010-02-03T11:17:35.546Z</version:date>
-				<version:status>pending</version:status>
-				<srel:modified-by objid="escidoc:2" />
-				<version:comment>Object created.</version:comment>
-			</prop:version>
-			<prop:latest-version objid="escidoc:51001:1">
-				<version:number>1</version:number>
-				<version:date>2010-02-03T11:17:35.546Z</version:date>
-			</prop:latest-version>
-			<prop:latest-release>
-				<release:number>1</release:number>
-				<release:date>2010-02-03T11:19:13.625Z</release:date>
-			</prop:latest-release>
-			<prop:content-model-specific>
-				<local-tags>
-					<!--<local-tag>Kurztitel_ZS_Jahr</local-tag>  -->
-				</local-tags>
-			</prop:content-model-specific>
-		</escidocItem:properties>
-		<escidocMetadataRecords:md-records>
-			<escidocMetadataRecords:md-record
-				name="escidoc">
-				<publication:publication
-					type="http://purl.org/escidoc/metadata/ves/publication-types/article">
-					<!--
-						<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
-						<person:person> <eterms:complete-name/>
-						<eterms:family-name>Doralt</eterms:family-name>
-						<eterms:given-name>Walter</eterms:given-name>
-						<organization:organization> <dc:title>Max Planck Institute for
-						Comparative and International Private Law</dc:title>
-						<eterms:address/>
-						<dc:identifier>escidoc:persistent22</dc:identifier>
-						</organization:organization> </person:person> </eterms:creator>
-
-						<dc:identifier
-						xsi:type="eterms:DOI">10.1017/S0008197309000154</dc:identifier>
-
-						<dc:identifier
-						xsi:type="eterms:URI">http://uri.identifier.com</dc:identifier>
-					-->
-					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
-						<person:person>
-							<eterms:complete-name />
-							<eterms:family-name>Basedow</eterms:family-name>
-							<eterms:given-name>Jürgen</eterms:given-name>
-							<organization:organization>
-								<dc:title>Max Planck Institute for Comparative and International
-									Private Law</dc:title>
-								<eterms:address />
-								<dc:identifier>escidoc:persistent22</dc:identifier>
-							</organization:organization>
-						</person:person>
-					</eterms:creator>
-					<dc:title> Der Grundsatz der Nichtdiskriminierung im europäischen
-						Privatrecht</dc:title>
-					<dcterms:issued xsi:type="dcterms:W3CDTF">2010-02-05</dcterms:issued>
-					<eterms:published-online xsi:type="dcterms:W3CDTF">2009-05-02
-					</eterms:published-online>
-					<source:source
-						type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
-						<dc:title>Börsen-Zeitung</dc:title>
-						<dcterms:alternative xsi:type="eterms:ABBREVIATION">BZ</dcterms:alternative>
-						<eterms:volume>55</eterms:volume>
-						<eterms:issue>3</eterms:issue>
-						<eterms:start-page>25</eterms:start-page>
-						<eterms:end-page>32</eterms:end-page>
-						<eterms:sequence-number />
-						<eterms:total-number-of-pages />
-						<dc:identifier xsi:type="eterms:ZDB">302892-6</dc:identifier>
-						<!--<dc:identifier xsi:type="eterms:ISSN">0343-7728</dc:identifier>-->
-						<!--
-							<dc:identifier
-							xsi:type="eterms:SFX">1000000000264364</dc:identifier>
-						-->
-					</source:source>
-					<eterms:total-number-of-pages />
-					<dcterms:abstract><![CDATA[JUS: <span class="Italic">Basedow, Jürgen</span>, Der Grundsatz der Nichtdiskriminierung im europäischen Privatrecht, BZ 2010, 25 - 32.]]></dcterms:abstract>
-					<dcterms:subject></dcterms:subject>
-					<dc:subject></dc:subject>
-					<dcterms:tableOfContents></dcterms:tableOfContents>
-				</publication:publication>
-			</escidocMetadataRecords:md-record>
-		</escidocMetadataRecords:md-records>
-		<escidocComponents:components xml:base="http://qa-coreservice.mpdl.mpg.de:8080">
-			<escidocComponents:component objid="escidoc:224704">
-				<escidocComponents:properties>
-					<prop:creation-date>2010-02-17T15:55:06.460Z</prop:creation-date>
-					<prop:description>Beschreibung der externen Referenz.
-					</prop:description>
-					<prop:valid-status>valid</prop:valid-status>
-					<prop:visibility>public</prop:visibility>
-					<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
-					</prop:content-category>
-					<prop:file-name>http://germanlowjournal.com</prop:file-name>
-					<prop:checksum>ExceptionReadingStream</prop:checksum>
-					<prop:checksum-algorithm>MD5</prop:checksum-algorithm>
-				</escidocComponents:properties>
-				<escidocComponents:content xlink:type="simple"
-					xlink:title="http://germanlowjournal.com" xlink:href="http://germanlowjournal.com"
-					storage="external-url" />
-				<escidocMetadataRecords:md-records>
-					<escidocMetadataRecords:md-record
-						name="escidoc">
-						<file:file xmlns:dc="http://purl.org/dc/elements/1.1/"
-							xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
-							xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
-							xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
-							xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
-							xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
-							<dc:title>http://germanlowjournal.com</dc:title>
-							<dc:description>Beschreibung der externen Referenz.
-							</dc:description>
-							<dcterms:dateCopyrighted />
-							<dc:rights />
-							<dcterms:license />
-						</file:file>
-					</escidocMetadataRecords:md-record>
-				</escidocMetadataRecords:md-records>
-			</escidocComponents:component>
-		</escidocComponents:components>
-	</escidocItem:item>
-
-	<!-- JOURNAL ARTICLE  local-tag > Kurztitel_ZS_Band_Jahr escidoc:51002-->
-	<escidocItem:item objid="escidoc:51002"
-		last-modification-date="2010-02-03T11:17:35.546Z">
-		<escidocItem:properties>
-			<prop:creation-date>2010-02-03T11:17:34.687Z</prop:creation-date>
-			<srel:created-by objid="escidoc:2" />
-			<prop:public-status>pending</prop:public-status>
-			<prop:public-status-comment>Object created.
-			</prop:public-status-comment>
-			<srel:context objid="escidoc:2001" />
-			<srel:content-model objid="escidoc:persistent4" />
-			<prop:lock-status>unlocked</prop:lock-status>
-			<prop:version objid="escidoc:51002:1">
-				<version:number>1</version:number>
-				<version:date>2010-02-03T11:17:35.546Z</version:date>
-				<version:status>pending</version:status>
-				<srel:modified-by objid="escidoc:2" />
-				<version:comment>Object created.</version:comment>
-			</prop:version>
-			<prop:latest-version objid="escidoc:51002:1">
-				<version:number>1</version:number>
-				<version:date>2010-02-03T11:17:35.546Z</version:date>
-			</prop:latest-version>
-			<prop:latest-release>
-				<release:number>1</release:number>
-				<release:date>2010-02-03T11:19:13.625Z</release:date>
-			</prop:latest-release>
-			<prop:content-model-specific>
-				<local-tags>
-					<local-tag>Kurztitel_ZS_Band_Jahr</local-tag>
-				</local-tags>
-			</prop:content-model-specific>
-		</escidocItem:properties>
-		<escidocMetadataRecords:md-records>
-			<escidocMetadataRecords:md-record
-				name="escidoc">
-				<publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/"
-					xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
-					xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
-					xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
-					xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
-					xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
-					xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case"
-					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-					type="http://purl.org/escidoc/metadata/ves/publication-types/article">
-					<!--
-						<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
-						<person:person> <eterms:complete-name/>
-						<eterms:family-name>Doralt</eterms:family-name>
-						<eterms:given-name>Walter</eterms:given-name>
-						<organization:organization> <dc:title>Max Planck Institute for
-						Comparative and International Private Law</dc:title>
-						<eterms:address/>
-						<dc:identifier>escidoc:persistent22</dc:identifier>
-						</organization:organization> </person:person> </eterms:creator>
-
-						<dc:identifier
-						xsi:type="eterms:DOI">10.1017/S0008197309000154</dc:identifier>
-
-						<dc:identifier
-						xsi:type="eterms:URI">http://uri.identifier.com</dc:identifier>
-					-->
-					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
-						<person:person>
-							<eterms:complete-name />
-							<eterms:family-name>Basedow</eterms:family-name>
-							<eterms:given-name>Jürgen</eterms:given-name>
-							<organization:organization>
-								<dc:title>Max Planck Institute for Comparative and International
-									Private Law</dc:title>
-								<eterms:address />
-								<dc:identifier>escidoc:persistent22</dc:identifier>
-							</organization:organization>
-						</person:person>
-					</eterms:creator>
-					<dc:title>Die Nutzung fremder Infrastrukturen im Privatrecht
-					</dc:title>
-					<dcterms:issued xsi:type="dcterms:W3CDTF">2006-02-05</dcterms:issued>
-					<eterms:published-online xsi:type="dcterms:W3CDTF">2009-05-02
-					</eterms:published-online>
-					<source:source
-						type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
-						<dc:title>Zeitschrift für HR</dc:title>
-						<dcterms:alternative xsi:type="eterms:ABBREVIATION">ZHR</dcterms:alternative>
-						<eterms:volume>170</eterms:volume>
-						<eterms:issue>10</eterms:issue>
-						<eterms:start-page>178</eterms:start-page>
-						<eterms:end-page>198</eterms:end-page>
-						<eterms:sequence-number />
-						<eterms:total-number-of-pages />
-						<dc:identifier xsi:type="eterms:ZDB">210158-0</dc:identifier>
-						<dc:identifier xsi:type="eterms:ISSN">0044-2437</dc:identifier>
-						<dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978976477977</dc:identifier>
-					</source:source>
-					<eterms:total-number-of-pages />
-					<dcterms:abstract><![CDATA[JUS: <span class="Italic">Basedow, Jürgen</span>, Die Nutzung fremder Infrastrukturen im Privatrecht, ZHR 170 (2006), 178 - 198.]]></dcterms:abstract>
-					<dcterms:subject></dcterms:subject>
-					<dc:subject></dc:subject>
-					<dcterms:tableOfContents></dcterms:tableOfContents>
-				</publication:publication>
-			</escidocMetadataRecords:md-record>
-		</escidocMetadataRecords:md-records>
-		<escidocComponents:components xml:base="http://qa-coreservice.mpdl.mpg.de:8080">
-			<escidocComponents:component objid="escidoc:224704">
-				<escidocComponents:properties>
-					<prop:creation-date>2010-02-17T15:55:06.460Z</prop:creation-date>
-					<prop:description>Beschreibung der externen Referenz.
-					</prop:description>
-					<prop:valid-status>valid</prop:valid-status>
-					<prop:visibility>public</prop:visibility>
-					<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
-					</prop:content-category>
-					<prop:file-name>http://germanlowjournal.com</prop:file-name>
-					<prop:checksum>ExceptionReadingStream</prop:checksum>
-					<prop:checksum-algorithm>MD5</prop:checksum-algorithm>
-				</escidocComponents:properties>
-				<escidocComponents:content xlink:type="simple"
-					xlink:title="http://germanlowjournal.com" xlink:href="http://germanlowjournal.com"
-					storage="external-url" />
-				<escidocMetadataRecords:md-records>
-					<escidocMetadataRecords:md-record
-						name="escidoc">
-						<file:file xmlns:dc="http://purl.org/dc/elements/1.1/"
-							xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
-							xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
-							xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
-							xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
-							xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
-							<dc:title>http://germanlowjournal.com</dc:title>
-							<dc:description>Beschreibung der externen Referenz.
-							</dc:description>
-							<dcterms:dateCopyrighted />
-							<dc:rights />
-							<dcterms:license />
-						</file:file>
-					</escidocMetadataRecords:md-record>
-				</escidocMetadataRecords:md-records>
-			</escidocComponents:component>
-		</escidocComponents:components>
-	</escidocItem:item>
-
+	
+	  <escidocItem:item objid="escidoc:39832" last-modification-date="2010-03-24T15:07:28.243Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-03-24T15:06:54.888Z</prop:creation-date>
+      <srel:created-by objid="escidoc:9229"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment>online journal article for testing purpose</prop:public-status-comment>
+      <srel:context objid="escidoc:6719"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-ZZZZ-0000-0000-4457-6</prop:pid>
+      <prop:version objid="escidoc:39832:1">
+        <version:number>1</version:number>
+        <version:date>2010-03-24T15:07:28.243Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:9229"/>
+        <version:comment>online journal article for testing purpose</version:comment>
+        <version:pid>hdl:11858/00-ZZZZ-0000-0000-4458-4</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:39832:1">
+        <version:number>1</version:number>
+        <version:date>2010-03-24T15:07:28.243Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:39832:1">
+        <release:number>1</release:number>
+        <release:date>2010-03-24T15:07:28.243Z</release:date>
+        <release:pid>hdl:11858/00-ZZZZ-0000-0000-4458-4</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Basedow</eterms:family-name>
+              <eterms:given-name>Jürgen</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address>Hamburg, Deutschland</eterms:address>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>The Optional Application of the Principles of European Insurance Contract Law</dc:title>
+          <dc:identifier xsi:type="eterms:DOI">10.1007/s12027-008-0069-0</dc:identifier>
+          
+          
+<!--          <dcterms:issued xsi:type="dcterms:W3CDTF">2005-03-24</dcterms:issued>-->
+          <eterms:published-online xsi:type="dcterms:W3CDTF">2008-08-22</eterms:published-online>
+          
+          
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+            <dc:title>ERA-Forum</dc:title>
+            <eterms:volume>9</eterms:volume>
+            <eterms:issue>1</eterms:issue>
+            <eterms:start-page>111</eterms:start-page>
+            <eterms:end-page>117</eterms:end-page>
+            <eterms:sequence-number/>
+            <eterms:total-number-of-pages/>
+            <dc:identifier xsi:type="eterms:OTHER">1000000000278560</dc:identifier>
+            <dc:identifier xsi:type="eterms:ISSN">1612-3093</dc:identifier>
+            <dc:identifier xsi:type="eterms:CONE">http://localhost:8080/cone/journals/resource/1000000000278560</dc:identifier>
+          </source:source>
+          <eterms:total-number-of-pages/>
+          <dcterms:abstract><![CDATA[JUS: span class="Italic">Basedow, Jürgen</span>, The Optional Application of the Principles of European Insurance Contract Law, ERA-Forum 9.1 (2008), 111 - 117, DOI: 10.1007/s12027-008-0069-0, 22.08.2008.]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+ 
+ <escidocItem:item objid="escidoc:39830" last-modification-date="2010-03-24T15:02:31.594Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-03-24T15:01:58.616Z</prop:creation-date>
+      <srel:created-by objid="escidoc:9229"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment>online journal article for citation style purpose</prop:public-status-comment>
+      <srel:context objid="escidoc:6719"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-ZZZZ-0000-0000-4455-A</prop:pid>
+      <prop:version objid="escidoc:39830:1">
+        <version:number>1</version:number>
+        <version:date>2010-03-24T15:02:31.594Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:9229"/>
+        <version:comment>online journal article for citation style purpose</version:comment>
+        <version:pid>hdl:11858/00-ZZZZ-0000-0000-4456-8</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:39830:1">
+        <version:number>1</version:number>
+        <version:date>2010-03-24T15:02:31.594Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:39830:1">
+        <release:number>1</release:number>
+        <release:date>2010-03-24T15:02:31.594Z</release:date>
+        <release:pid>hdl:11858/00-ZZZZ-0000-0000-4456-8</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Rühl</eterms:family-name>
+              <eterms:given-name>Gisela</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address>Hamburg, Deutschland</eterms:address>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Doralt</eterms:family-name>
+              <eterms:given-name>Walter</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address>Hamburg, Deutschland</eterms:address>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Preparing Germany for the 21st Century: The Reform of the Code of Civil Procedure</dc:title>
+          <dc:identifier xsi:type="eterms:URI">http://germanlawjournal.com</dc:identifier>
+          
+          <eterms:published-online xsi:type="dcterms:W3CDTF">2005-06-06</eterms:published-online>
+<!--          <dcterms:issued xsi:type="dcterms:W3CDTF">2005-03-24</dcterms:issued>-->
+          
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+            <dc:title>German Law Journal</dc:title>
+            <eterms:volume></eterms:volume>
+            <eterms:issue></eterms:issue>
+            <eterms:start-page>909</eterms:start-page>
+            <eterms:end-page>942</eterms:end-page>
+            <eterms:sequence-number/>
+            <eterms:total-number-of-pages/>
+          </source:source>
+          <eterms:total-number-of-pages/>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Rühl, Gisela</span>, Preparing Germany for the 21st Century: The Reform of the Code of Civil Procedure, German Law Journal 2005, 909 - 942, http://germanlawjournal.com, 06.06.2005 (<localized class="togetherWith">together with</localized> Walter Doralt).]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+  
+  <escidocItem:item objid="escidoc:39833" last-modification-date="2010-03-31T12:41:32.560Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-03-24T15:06:54.888Z</prop:creation-date>
+      <srel:created-by objid="escidoc:9229"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment>online journal article for testing purpose</prop:public-status-comment>
+      <srel:context objid="escidoc:6719"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-ZZZZ-0000-0000-4457-6</prop:pid>
+      <prop:version objid="escidoc:39833:3">
+        <version:number>3</version:number>
+        <version:date>2010-03-31T12:41:32.560Z</version:date>
+        <version:status>pending</version:status>
+        <srel:modified-by objid="escidoc:9229"/>
+        <version:comment>ItemHandler.update()</version:comment>
+      </prop:version>
+      <prop:latest-version objid="escidoc:39833:3">
+        <version:number>3</version:number>
+        <version:date>2010-03-31T12:41:32.560Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:39833:1">
+        <release:number>1</release:number>
+        <release:date>2010-03-24T15:07:28.243Z</release:date>
+        <release:pid>hdl:11858/00-ZZZZ-0000-0000-4458-4</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Stoyanova</eterms:family-name>
+              <eterms:given-name>Gergana</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address>Hamburg, Deutschland</eterms:address>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>The Optional Application of the Principles of European Insurance Contract Law</dc:title>
+		  <dc:identifier xsi:type="eterms:URN">http://www.test.com</dc:identifier>
+<!--          <dc:identifier xsi:type="eterms:DOI">10.1007/s12027-008-0069-0</dc:identifier>-->
+          <eterms:published-online xsi:type="dcterms:W3CDTF">2008-08-22</eterms:published-online>
+<!--          <dcterms:issued xsi:type="dcterms:W3CDTF">2005-03-24</dcterms:issued>-->
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+            <dc:title>Zeitschrift für das gesamte Handelsrecht und Wirtschaftsrecht</dc:title>
+            <dcterms:alternative xsi:type="eterms:ABBREVIATION">ZHR</dcterms:alternative>
+            <eterms:volume>5</eterms:volume>
+            <eterms:issue></eterms:issue>
+            <eterms:start-page>111</eterms:start-page>
+            <eterms:end-page>117</eterms:end-page>
+            <eterms:sequence-number/>
+            <eterms:total-number-of-pages/>
+            <dc:identifier xsi:type="eterms:ISSN">0044-2437</dc:identifier>
+            <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/journals/resource/110978976477977</dc:identifier>
+          </source:source>
+          <eterms:total-number-of-pages/>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Stoyanova, Gergana</span>, The Optional Application of the Principles of European Insurance Contract Law, Zeitschrift für das gesamte Handelsrecht und Wirtschaftsrecht 5 (2008), 111 - 117, http://www.test.com, 22.08.2008.]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de">
+      <escidocComponents:component objid="escidoc:42836">
+        <escidocComponents:properties>
+          <prop:creation-date>2010-03-31T12:36:51.499Z</prop:creation-date>
+          <prop:description>Der Text auf der Seite vom Insitut.</prop:description>
+          <prop:valid-status>valid</prop:valid-status>
+          <prop:visibility>public</prop:visibility>
+          <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
+          <prop:file-name>http://www.ip.mpg.de/shared/data/pdf/stellungahme_mpi_rl_2004-48-eg.pdf</prop:file-name>
+          <prop:checksum>85efc19807c88660abd33191819548cb</prop:checksum>
+          <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+        </escidocComponents:properties>
+        <escidocComponents:content xlink:type="simple" xlink:title="http://www.ip.mpg.de/shared/data/pdf/stellungahme_mpi_rl_2004-48-eg.pdf" xlink:href="http://www.ip.mpg.de/shared/data/pdf/stellungahme_mpi_rl_2004-48-eg.pdf" storage="external-url"/>
+        <escidocMetadataRecords:md-records>
+          <escidocMetadataRecords:md-record name="escidoc">
+            <file:file xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case">
+              <dc:title>http://www.ip.mpg.de/shared/data/pdf/stellungahme_mpi_rl_2004-48-eg.pdf</dc:title>
+              <dc:description>Der Text auf der Seite vom Insitut.</dc:description>
+            </file:file>
+          </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+      </escidocComponents:component>
+    </escidocComponents:components>
+  </escidocItem:item>
+  
 	<!-- CASE NOTE escidoc:26001 -->
 	<escidocItem:item objid="escidoc:26001"
 		last-modification-date="2010-01-14T10:33:51.706Z">
@@ -518,7 +502,15 @@
 						type="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition">
 						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Internationales Ehe- und
 							Kindschaftsrecht </dc:title>
-
+						<eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+						role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person
+							xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+							<eterms:complete-name />
+							<eterms:family-name>Ferid</eterms:family-name>
+							<eterms:given-name>Murat</eterms:given-name>
+						</person:person>
+					</eterms:creator>
 
 						<!--
 							Organization Creators <eterms:creator
@@ -571,7 +563,7 @@
 					</source:source>
 					<eterms:total-number-of-pages
 						xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" />
-					<dcterms:abstract><![CDATA[JUS: <span class="Italic">Jessel-Holst, Christa</span>, Bosnien-Herzegowina, in: Internationales Ehe- und Kindschaftsrecht (Hamburg Studies on maritime affairs, 10), vol. 1, 2. <localized class="edition">ed.</localized>, Springer, Berlin 2008, 19 - 25 (<localized class="togetherWith">together with</localized> Dieter Henrich et al.).]]></dcterms:abstract>
+					<dcterms:abstract><![CDATA[JUS: <span class="Italic">Jessel-Holst, Christa</span>, Bosnien-Herzegowina, in: Murat Ferid (<localized class="editor">ed.</localized>), Internationales Ehe- und Kindschaftsrecht (Hamburg Studies on maritime affairs, 10), vol. 1, 2. <localized class="edition">ed.</localized>, Springer, Berlin 2008, 19 - 25 (<localized class="togetherWith">together with</localized> Dieter Henrich et al.).]]></dcterms:abstract>
 					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" />
 					<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" />
 					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" />
@@ -790,4 +782,1906 @@
 		<escidocComponents:components xml:base="http://localhost:8080" />
 	</escidocItem:item>
 	
+	<!-- OPINION escidoc:39782  -->
+	<escidocItem:item objid="escidoc:39782" last-modification-date="2010-03-24T10:31:21.052Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-03-24T10:30:35.749Z</prop:creation-date>
+      <srel:created-by objid="escidoc:9229"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment>zum testen und exportieren</prop:public-status-comment>
+      <srel:context objid="escidoc:6719"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-ZZZZ-0000-0000-4433-5</prop:pid>
+      <prop:version objid="escidoc:39782:1">
+        <version:number>1</version:number>
+        <version:date>2010-03-24T10:31:21.052Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:9229"/>
+        <version:comment>zum testen und exportieren</version:comment>
+        <version:pid>hdl:11858/00-ZZZZ-0000-0000-4434-3</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:39782:1">
+        <version:number>1</version:number>
+        <version:date>2010-03-24T10:31:21.052Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:39782:1">
+        <release:number>1</release:number>
+        <release:date>2010-03-24T10:31:21.052Z</release:date>
+        <release:pid>hdl:11858/00-ZZZZ-0000-0000-4434-3</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/opinion">
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>von Lewinski</eterms:family-name>
+              <eterms:given-name>Silke</eterms:given-name>
+              <organization:organization>
+                <dc:title>Geistige Eigentum und Wettbewerbsrecht, Max-Planck-Institut für Geistiges Eigentum, Wettbewerbs- und Steuerrecht</dc:title>
+                <eterms:address>München, Deutschland</eterms:address>
+                <dc:identifier>escidoc:40002</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Klass</eterms:family-name>
+              <eterms:given-name>Nadine</eterms:given-name>
+              <organization:organization>
+                <dc:title>Geistige Eigentum und Wettbewerbsrecht, Max-Planck-Institut für Geistiges Eigentum, Wettbewerbs- und Steuerrecht</dc:title>
+                <eterms:address>München, Deutschland</eterms:address>
+                <dc:identifier>escidoc:40002</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          
+         <!-- <eterms:creator
+						role="http://www.loc.gov/loc.terms/relators/AUT">
+						<organization:organization> <dc:title>European Max-Planck Group on Conflict of Laws in Intelectual Property</dc:title>
+						<eterms:address/> <dc:identifier>escidoc:2222</dc:identifier>
+						</organization:organization> </eterms:creator>-->
+          <dc:title>Stakeholder Consultation on Copyright Levies in a Converging World - Antworten des Max Planck Instituts</dc:title>
+          <dc:identifier xsi:type="eterms:URI">http://www.ip.mpg.de/shared/data/pdf/stakeholder_consultation_on_copyright_levies_in_a_converging_world.pdf</dc:identifier>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2006-10-19</dcterms:issued>
+          <eterms:total-number-of-pages>21</eterms:total-number-of-pages>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">von Lewinski, Silke</span>, Stakeholder Consultation on Copyright Levies in a Converging World - Antworten des Max Planck Instituts 2006, 21 <localized class="page">pp.</localized> (<localized class="togetherWith">together with</localized> Nadine Klass).]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"> - Laws, regulations &amp; cases</dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de">
+      <escidocComponents:component objid="escidoc:39781">
+        <escidocComponents:properties>
+          <prop:creation-date>2010-03-24T10:30:35.468Z</prop:creation-date>
+          <prop:valid-status>valid</prop:valid-status>
+          <prop:visibility>public</prop:visibility>
+          <prop:pid>hdl:11858/00-ZZZZ-0000-0000-4435-1</prop:pid>
+          <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
+          <prop:file-name>http://www.ip.mpg.de/shared/data/pdf/stakeholder_consultation_on_copyright_levies_in_a_converging_world.pdf</prop:file-name>
+          <prop:mime-type>application/octet-stream</prop:mime-type>
+          <prop:checksum>1da0ab0f7237d0b3905e837a2fcef67c</prop:checksum>
+          <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+        </escidocComponents:properties>
+        <escidocComponents:content xlink:type="simple" xlink:title="http://www.ip.mpg.de/shared/data/pdf/stakeholder_consultation_on_copyright_levies_in_a_converging_world.pdf" xlink:href="http://www.ip.mpg.de/shared/data/pdf/stakeholder_consultation_on_copyright_levies_in_a_converging_world.pdf" storage="external-url"/>
+        <escidocMetadataRecords:md-records>
+          <escidocMetadataRecords:md-record name="escidoc">
+            <file:file xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case">
+              <dc:title>http://www.ip.mpg.de/shared/data/pdf/stakeholder_consultation_on_copyright_levies_in_a_converging_world.pdf</dc:title>
+            </file:file>
+          </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+      </escidocComponents:component>
+    </escidocComponents:components>
+  </escidocItem:item>
+
+<!-- NEWSPAPER ARTICLE escidoc:48071-->
+ <escidocItem:item objid="escidoc:48071" last-modification-date="2010-04-01T14:20:41.744Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-04-01T14:20:23.160Z</prop:creation-date>
+      <srel:created-by objid="escidoc:30402"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment/>
+      <srel:context objid="escidoc:31149"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:someHandle/test/escidoc:48071</prop:pid>
+      <prop:version objid="escidoc:48071:1">
+        <version:number>1</version:number>
+        <version:date>2010-04-01T14:20:41.744Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:30402"/>
+        <version:comment/>
+        <version:pid>hdl:someHandle/test/escidoc:48071:1</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:48071:1">
+        <version:number>1</version:number>
+        <version:date>2010-04-01T14:20:41.744Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:48071:1">
+        <release:number>1</release:number>
+        <release:date>2010-04-01T14:20:41.744Z</release:date>
+        <release:pid>hdl:someHandle/test/escidoc:48071:1</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Hopt</eterms:family-name>
+              <eterms:given-name>Klaus</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address>Hamburg, Deutschland</eterms:address>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Dialog mit Aktionären &lt;ad Hauptversammlungspräsenzen></dc:title>
+          <dc:language xsi:type="dcterms:ISO639-3">deu</dc:language>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2007-01-24</dcterms:issued>
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/newspaper">
+            <dc:title>Handelsblatt</dc:title>
+            <eterms:issue/>
+            <eterms:start-page>19</eterms:start-page>
+          </source:source>
+          <eterms:total-number-of-pages>1</eterms:total-number-of-pages>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Hopt, Klaus</span>, Dialog mit Aktionären <ad Hauptversammlungspräsenzen>, Handelsblatt 24.01.2007, 19.]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+  
+  <!-- NEWSPAPER ARTICLE escidoc:48070-->
+  <escidocItem:item objid="escidoc:48070" last-modification-date="2010-04-01T14:17:41.928Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-04-01T14:17:31.800Z</prop:creation-date>
+      <srel:created-by objid="escidoc:30402"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment/>
+      <srel:context objid="escidoc:31149"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:someHandle/test/escidoc:48070</prop:pid>
+      <prop:version objid="escidoc:48070:1">
+        <version:number>1</version:number>
+        <version:date>2010-04-01T14:17:41.928Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:30402"/>
+        <version:comment/>
+        <version:pid>hdl:someHandle/test/escidoc:48070:1</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:48070:1">
+        <version:number>1</version:number>
+        <version:date>2010-04-01T14:17:41.928Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:48070:1">
+        <release:number>1</release:number>
+        <release:date>2010-04-01T14:17:41.928Z</release:date>
+        <release:pid>hdl:someHandle/test/escidoc:48070:1</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Bedkowski</eterms:family-name>
+              <eterms:given-name>Dorothea</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address>Hamburg, Deutschland</eterms:address>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Stoyanova</eterms:family-name>
+              <eterms:given-name>Gergana</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address>Hamburg, Deutschland</eterms:address>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Europarichter bauen Insiderfalle mit Hintertüren</dc:title>
+          <dc:language xsi:type="dcterms:ISO639-3">deu</dc:language>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2010-01-06</dcterms:issued>
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/newspaper">
+            <dc:title>Frankfurter Allgemeine Zeitung</dc:title>
+            <dcterms:alternative xsi:type="eterms:ABBREVIATION">FAZ</dcterms:alternative>
+            <eterms:issue/>
+            <eterms:start-page>19</eterms:start-page>
+          </source:source>
+          <eterms:total-number-of-pages/>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Bedkowski, Dorothea</span>, Europarichter bauen Insiderfalle mit Hintertüren, FAZ 06.01.2010, 19 (<localized class="togetherWith">together with</localized> Gergana Stoyanova).]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>	
+  
+   <!-- CONTRIBUTION TO COMMENTARY escidoc:31157-->
+	<escidocItem:item objid="escidoc:31157" last-modification-date="2010-03-16T13:49:47.386Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-03-16T13:49:26.771Z</prop:creation-date>
+      <srel:created-by objid="escidoc:30402"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment>Test commentary to collected edition</prop:public-status-comment>
+      <srel:context objid="escidoc:31149"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-ZZZZ-0000-0000-42A4-8</prop:pid>
+      <prop:version objid="escidoc:31157:1">
+        <version:number>1</version:number>
+        <version:date>2010-03-16T13:49:47.386Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:30402"/>
+        <version:comment>Test commentary to collected edition</version:comment>
+        <version:pid>hdl:11858/00-ZZZZ-0000-0000-42A5-6</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:31157:2">
+        <version:number>2</version:number>
+        <version:date>2010-04-27T14:28:54.093Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:31157:1">
+        <release:number>1</release:number>
+        <release:date>2010-03-16T13:49:48.894Z</release:date>
+        <release:pid>hdl:11858/00-ZZZZ-0000-0000-42A5-6</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Basedow</eterms:family-name>
+              <eterms:given-name>Jürgen</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max Planck Institute for Comparative and International Private Law</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:persistent22</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>§§ 305-310, Gestaltung rechtsgeschäftlicher Schuldverhältnisse durch Allgemeine Geschäftsbedingungen. Teil II: Geltungsgrund und Geltungsvoraussetzungen; Rechtsfolgen bei Nichteinbeziehung und Unwirksamkeit; Transparenzgebot</dc:title>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2007</dcterms:issued>
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/commentary">
+            <dc:title>Historisch-kritischer Kommentar zum BGB</dc:title>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+              <person:person>
+                <eterms:complete-name/>
+                <eterms:family-name>Schmoeckel</eterms:family-name>
+                <eterms:given-name>Mathias </eterms:given-name>
+              </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+              <person:person>
+                <eterms:complete-name/>
+                <eterms:family-name>Rückert</eterms:family-name>
+                <eterms:given-name>Joachim </eterms:given-name>
+              </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+              <person:person>
+                <eterms:complete-name/>
+                <eterms:family-name>Zimmermann</eterms:family-name>
+                <eterms:given-name>Reinhard</eterms:given-name>
+                <organization:organization>
+                  <dc:title>Max Planck Institute for Comparative and International Private Law</dc:title>
+                  <eterms:address/>
+                  <dc:identifier>escidoc:persistent22</dc:identifier>
+                </organization:organization>
+              </person:person>
+            </eterms:creator>
+            <eterms:volume>II/2: Schuldrecht - Allgemeiner Teil</eterms:volume>
+            <eterms:start-page>1441</eterms:start-page>
+            <eterms:end-page>1474</eterms:end-page>
+            <eterms:sequence-number/>
+            <eterms:publishing-info>
+              <dc:publisher>Mohr Siebeck</dc:publisher>
+              <eterms:place>Tübingen</eterms:place>
+              <eterms:edition>34</eterms:edition>
+            </eterms:publishing-info>
+          </source:source>
+          <eterms:total-number-of-pages/>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Basedow, Jürgen</span>, §§ 305-310, Gestaltung rechtsgeschäftlicher Schuldverhältnisse durch Allgemeine Geschäftsbedingungen. Teil II: Geltungsgrund und Geltungsvoraussetzungen; Rechtsfolgen bei Nichteinbeziehung und Unwirksamkeit; Transparenzgebot, in: Mathias Schmoeckel, Joachim Rückert, Reinhard Zimmermann (<localized class="editors">eds.</localized>), Historisch-kritischer Kommentar zum BGB, vol. II/2: Schuldrecht - Allgemeiner Teil, 34. <localized class="edition">ed.</localized>, Mohr Siebeck, Tübingen 2007, 1441 - 1474.]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+  
+  <!-- CONTRIBUTION TO COMMENTARY escidoc:90025-->
+  <escidocItem:item objid="escidoc:90025" last-modification-date="2010-04-28T12:10:56.829Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-04-28T12:10:56.777Z</prop:creation-date>
+      <srel:created-by objid="escidoc:38539"/>
+      <prop:public-status>pending</prop:public-status>
+      <prop:public-status-comment>Object created.</prop:public-status-comment>
+      <srel:context objid="escidoc:39395"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:version objid="escidoc:90025:1">
+        <version:number>1</version:number>
+        <version:date>2010-04-28T12:10:56.829Z</version:date>
+        <version:status>pending</version:status>
+        <srel:modified-by objid="escidoc:38539"/>
+        <version:comment>Object created.</version:comment>
+      </prop:version>
+      <prop:latest-version objid="escidoc:90025:1">
+        <version:number>1</version:number>
+        <version:date>2010-04-28T12:10:56.829Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release>
+        <release:number>1</release:number>
+        <release:date>2010-04-28T12:11:30.124Z</release:date>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Böger</eterms:family-name>
+              <eterms:given-name>Ole</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Comments on Time Limit for Resort to Security</dc:title>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2007-04-28</dcterms:issued>
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/commentary">
+            <dc:title>Principles of European Law on Personal Security</dc:title>
+            <dcterms:alternative xsi:type="eterms:ABBREVIATION">PEL Pers. Sec.</dcterms:alternative>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+              <person:person>
+                <eterms:complete-name/>
+                <eterms:family-name>Drobing</eterms:family-name>
+                <eterms:given-name>Ulrich</eterms:given-name>
+                <organization:organization>
+                  <dc:title>Max Planck Institute for Comparative and International Private Law</dc:title>
+                  <eterms:address/>
+                  <dc:identifier>escidoc:persistent22</dc:identifier>
+                </organization:organization>
+              </person:person>
+            </eterms:creator>
+            <eterms:volume>5</eterms:volume>
+            <eterms:start-page>259</eterms:start-page>
+            <eterms:end-page>265</eterms:end-page>
+            <eterms:sequence-number/>
+            <eterms:total-number-of-pages/>
+            <eterms:publishing-info>
+              <dc:publisher>Selier</dc:publisher>
+              <eterms:place>München</eterms:place>
+              <eterms:edition>Lieferung 12</eterms:edition>
+            </eterms:publishing-info>
+          </source:source>
+          <eterms:total-number-of-pages/>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Böger, Ole</span>, Comments on Time Limit for Resort to Security, in: Ulrich Drobing (<localized class="editor">ed.</localized>), PEL Pers. Sec., vol. 5, 12 <localized class="instalment">instl.</localized>, Selier, München 2007, 259 - 265.]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>	
+  
+   <!-- COMMENTARY escidoc:90025-->
+   <escidocItem:item objid="escidoc:94096" last-modification-date="2010-05-04T09:22:09.240Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-05-04T09:20:45.606Z</prop:creation-date>
+      <srel:created-by objid="escidoc:9229"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment>Genre von Handbuch zum Kommentar verändert.</prop:public-status-comment>
+      <srel:context objid="escidoc:6719"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-001Z-0000-0000-5CB7-7</prop:pid>
+      <prop:version objid="escidoc:94096:3">
+        <version:number>3</version:number>
+        <version:date>2010-05-04T09:22:09.240Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:9229"/>
+        <version:comment>Genre von Handbuch zum Kommentar verändert.</version:comment>
+        <version:pid>hdl:11858/00-001Z-0000-0000-5CB9-3</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:94096:3">
+        <version:number>3</version:number>
+        <version:date>2010-05-04T09:22:09.240Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:94096:3">
+        <release:number>3</release:number>
+        <release:date>2010-05-04T09:22:09.240Z</release:date>
+        <release:pid>hdl:11858/00-001Z-0000-0000-5CB9-3</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/commentary">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Doralt</eterms:family-name>
+              <eterms:given-name>Walter</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:persistent22</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons31439</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Basedow</eterms:family-name>
+              <eterms:given-name>Jürgen</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:persistent22</dc:identifier>
+              </organization:organization>
+              <dc:identifier/>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Münchener Kommentar zum Handelsgesetzbuch, Bd. 7: Handelsgeschäfte §§ 407 - 457, Transportrecht</dc:title>
+          <eterms:publishing-info>
+            <dc:publisher>C.H. Beck</dc:publisher>
+            <eterms:place>München</eterms:place>
+            <eterms:edition>2</eterms:edition>
+          </eterms:publishing-info>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">1997</dcterms:issued>
+<!--          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/multi-volume">-->
+<!--            <dc:title>Mehrbändiges Werk in dem es ershienen ist</dc:title>-->
+<!--            <eterms:volume>5</eterms:volume>-->
+<!--            <eterms:sequence-number/>-->
+<!--            <eterms:total-number-of-pages/>-->
+<!--          </source:source>-->
+          <eterms:total-number-of-pages>XXXVI + 2203 </eterms:total-number-of-pages>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Doralt, Walter</span> (<localized class="editor">ed.</localized>), Münchener Kommentar zum Handelsgesetzbuch, Bd. 7: Handelsgeschäfte §§ 407 - 457, Transportrecht, 2. <localized class="edition">ed.</localized>, C.H. Beck, München 1997, XXXVI + 2203 <localized class="page">pp.</localized> (<localized class="togetherWith">together with</localized> Jürgen Basedow).]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+  
+  <!-- COLLECTED EDITION escidoc:94097-->
+  <escidocItem:item objid="escidoc:94097" last-modification-date="2010-05-04T09:26:23.654Z">
+      <escidocItem:properties>
+         <prop:creation-date>2010-05-04T09:25:59.771Z</prop:creation-date>
+         <srel:created-by objid="escidoc:9229"/>
+         <prop:public-status>released</prop:public-status>
+         <prop:public-status-comment>Sammelwerk Export Zitierstil preparation</prop:public-status-comment>
+         <srel:context objid="escidoc:6719"/>
+         <srel:content-model objid="escidoc:persistent4"/>
+         <prop:lock-status>unlocked</prop:lock-status>
+         <prop:pid>hdl:11858/00-001Z-0000-0000-5CBA-1</prop:pid>
+         <prop:version objid="escidoc:94097:1">
+            <version:number>1</version:number>
+            <version:date>2010-05-04T09:26:23.654Z</version:date>
+            <version:status>released</version:status>
+            <srel:modified-by objid="escidoc:9229"/>
+            <version:comment>Sammelwerk Export Zitierstil preparation</version:comment>
+            <version:pid>hdl:11858/00-001Z-0000-0000-5CBB-0</version:pid>
+         </prop:version>
+         <prop:latest-version objid="escidoc:94097:1">
+            <version:number>1</version:number>
+            <version:date>2010-05-04T09:26:23.654Z</version:date>
+         </prop:latest-version>
+         <prop:latest-release objid="escidoc:94097:1">
+            <release:number>1</release:number>
+            <release:date>2010-05-04T09:26:23.654Z</release:date>
+            <release:pid>hdl:11858/00-001Z-0000-0000-5CBB-0</release:pid>
+         </prop:latest-release>
+         <prop:content-model-specific>
+            <local-tags>
+               <local-tag/>
+            </local-tags>
+         </prop:content-model-specific>
+      </escidocItem:properties>
+      <escidocMetadataRecords:md-records>
+         <escidocMetadataRecords:md-record name="escidoc">
+            <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                     xmlns:dcterms="http://purl.org/dc/terms/"
+                                     xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                                     xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                                     xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                                     xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                                     xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                                     xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case"
+                                     type="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition">
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Drobing</eterms:family-name>
+                     <eterms:given-name>Ulrich</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:persistent22</dc:identifier>
+                     </organization:organization>
+                  </person:person>
+               </eterms:creator>
+               <dc:title>International Encyclopedia of Comparative Law, vol. X: Restitution/Unjust Enrichment and Negotiorum Gestio</dc:title>
+               <eterms:publishing-info>
+                  <dc:publisher>Mohr Siebeck und Martinus Nijhoff Publ.</dc:publisher>
+                  <eterms:place>Tübingen, Leiden, Boston </eterms:place>
+                  <eterms:edition/>
+               </eterms:publishing-info>
+               <dcterms:issued xsi:type="dcterms:W3CDTF">2010</dcterms:issued>
+               <eterms:total-number-of-pages>LVI + 928</eterms:total-number-of-pages>
+               <dcterms:abstract><![CDATA[JUS: <span class="Italic">Drobing, Ulrich</span> (<localized class="editor">ed.</localized>), International Encyclopedia of Comparative Law, vol. X: Restitution/Unjust Enrichment and Negotiorum Gestio, Mohr Siebeck und Martinus Nijhoff Publ., Tübingen, Leiden, Boston 2010, LVI + 928 <localized class="page">pp.</localized>]]></dcterms:abstract>
+               <dcterms:subject/>
+               <dc:subject xsi:type="eterms:DDC"/>
+               <dcterms:tableOfContents/>
+            </publication:publication>
+         </escidocMetadataRecords:md-record>
+      </escidocMetadataRecords:md-records>
+      <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+   
+   <!-- COLLECTED EDITION escidoc:94098-->
+   <escidocItem:item objid="escidoc:94098" last-modification-date="2010-05-04T09:26:23.654Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-05-04T09:25:59.771Z</prop:creation-date>
+      <srel:created-by objid="escidoc:9229"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment>Sammelwerk Export Zitierstil preparation</prop:public-status-comment>
+      <srel:context objid="escidoc:6719"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-001Z-0000-0000-5CBA-1</prop:pid>
+      <prop:version objid="escidoc:94098:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-04T09:26:23.654Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:9229"/>
+        <version:comment>Sammelwerk Export Zitierstil preparation</version:comment>
+        <version:pid>hdl:11858/00-001Z-0000-0000-5CBB-0</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:94098:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-04T09:26:23.654Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:94098:1">
+        <release:number>1</release:number>
+        <release:date>2010-05-04T09:26:23.654Z</release:date>
+        <release:pid>hdl:11858/00-001Z-0000-0000-5CBB-0</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Doralt</eterms:family-name>
+              <eterms:given-name>Walter</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:persistent22</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons31439</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Magnus</eterms:family-name>
+              <eterms:given-name>Ulrich</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:persistent22</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Wolfrum</eterms:family-name>
+              <eterms:given-name>Rüdiger</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:persistent22</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>The Hamburg Lectures on Maritime Affairs 2007 &amp; 2008</dc:title>
+          <eterms:publishing-info>
+            <dc:publisher>Springer</dc:publisher>
+            <eterms:place>Berlin Heidelberg</eterms:place>  
+            <eterms:edition/>
+          </eterms:publishing-info>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2010</dcterms:issued>
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/series">
+            <dc:title>Hamburg Studies on Maritime Affairs</dc:title>
+            <eterms:volume></eterms:volume>
+            <eterms:sequence-number/>
+            <eterms:total-number-of-pages/>
+          </source:source>
+          <eterms:total-number-of-pages/>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Doralt, Walter</span> (<localized class="editor">ed.</localized>), The Hamburg Lectures on Maritime Affairs 2007 & 2008 (Hamburg Studies on Maritime Affairs), Springer, Berlin Heidelberg 2010 (<localized class="togetherWith">together with</localized> Ulrich Magnus, Rüdiger Wolfrum).]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+  
+  <!-- FESTSCHRIFT escidoc:94099-->
+   <escidocItem:item objid="escidoc:94099" last-modification-date="2010-05-04T09:30:31.709Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-05-04T09:30:17.537Z</prop:creation-date>
+      <srel:created-by objid="escidoc:9229"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment>festschrift test citation style</prop:public-status-comment>
+      <srel:context objid="escidoc:6719"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-001Z-0000-0000-5CBE-A</prop:pid>
+      <prop:version objid="escidoc:94099:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-04T09:30:31.709Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:9229"/>
+        <version:comment>festschrift test citation style</version:comment>
+        <version:pid>hdl:11858/00-001Z-0000-0000-5CBF-8</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:94099:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-04T09:30:31.709Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:94099:1">
+        <release:number>1</release:number>
+        <release:date>2010-05-04T09:30:31.709Z</release:date>
+        <release:pid>hdl:11858/00-001Z-0000-0000-5CBF-8</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Zimmermann</eterms:family-name>
+              <eterms:given-name>Reinhard</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:persistent22</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Altmeppen</eterms:family-name>
+              <eterms:given-name>Holger </eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:persistent22</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Arndt</eterms:family-name>
+              <eterms:given-name>Irina</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:persistent22</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Stoyanova</eterms:family-name>
+              <eterms:given-name>Gergana</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:persistent22</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          
+          <dc:title>Festschrift für Rolf Knütel zum 70. Geburtstag</dc:title>
+          <eterms:publishing-info>
+            <dc:publisher>C.F. Müller</dc:publisher>
+            <eterms:place>Heidelberg</eterms:place>
+            <eterms:edition/>
+          </eterms:publishing-info>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2009</dcterms:issued>
+          <eterms:total-number-of-pages>XVII + 1584</eterms:total-number-of-pages>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Zimmermann, Reinhard</span> (<localized class="editor">ed.</localized>), Festschrift für Rolf Knütel zum 70. Geburtstag, C.F. Müller, Heidelberg 2009, XVII + 1584 <localized class="page">pp.</localized> (<localized class="togetherWith">together with</localized> Holger Altmeppen et al.).]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+  
+   <!-- HANDBOOK escidoc:94100-->
+   <escidocItem:item objid="escidoc:94100" last-modification-date="2010-05-04T09:28:00.509Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-05-04T09:27:49.265Z</prop:creation-date>
+      <srel:created-by objid="escidoc:92 29"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment>Hanbuch test</prop:public-status-comment>
+      <srel:context objid="escidoc:6719"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-001Z-0000-0000-5CBC-E</prop:pid>
+      <prop:version objid="escidoc:94098:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-04T09:28:00.509Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:9229"/>
+        <version:comment>Hanbuch test</version:comment>
+        <version:pid>hdl:11858/00-001Z-0000-0000-5CBD-C</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:94100:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-04T09:28:00.509Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:94100:1">
+        <release:number>1</release:number>
+        <release:date>2010-05-04T09:28:00.509Z</release:date>
+        <release:pid>hdl:11858/00-001Z-0000-0000-5CBD-C</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/handbook">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Fleischer</eterms:family-name>
+              <eterms:given-name>Holger</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:persistent22</dc:identifier>
+              </organization:organization>
+              <dc:identifier xsi:type="eterms:CONE">http://dev-pubman.mpdl.mpg.de/cone/persons/resource/persons31439</dc:identifier>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Handbuch des Vorstandsrechts</dc:title>
+          <eterms:publishing-info>
+            <dc:publisher>C.H. Beck</dc:publisher>
+            <eterms:place>München </eterms:place>
+            <eterms:edition/>
+          </eterms:publishing-info>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2006</dcterms:issued>
+          <eterms:total-number-of-pages>XXXII + 927 </eterms:total-number-of-pages>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Fleischer, Holger</span> (<localized class="editor">ed.</localized>), Handbuch des Vorstandsrechts, C.H. Beck, München 2006, XXXII + 927 <localized class="page">pp.</localized>]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+  
+  <!-- CONTRIBUTION TO FESTSCHRIFT escidoc:108004-->
+  <escidocItem:item objid="escidoc:108004" last-modification-date="2010-05-10T13:16:36.083Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-05-10T13:16:36.083Z</prop:creation-date>
+      <srel:created-by objid="escidoc:38539"/>
+      <prop:public-status>pending</prop:public-status>
+      <prop:public-status-comment>Object created.</prop:public-status-comment>
+      <srel:context objid="escidoc:39395"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:version objid="escidoc:108004:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-10T13:16:36.083Z</version:date>
+        <version:status>pending</version:status>
+        <srel:modified-by objid="escidoc:38539"/>
+        <version:comment>Object created.</version:comment>
+      </prop:version>
+      <prop:latest-version objid="escidoc:108004:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-10T13:16:36.083Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release>
+        <release:number>1</release:number>
+        <release:date>2010-05-10T13:22:56.629Z</release:date>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Mestmäcker</eterms:family-name>
+              <eterms:given-name>Ernst-Joachim</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Systembezüge subjektiver Rechte</dc:title>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2009</dcterms:issued>
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">
+            <dc:title>Festschrift für Karsten Schmidt zum 70. Geburtstag</dc:title>
+            <eterms:volume/>
+            <eterms:start-page>1197</eterms:start-page>
+            <eterms:end-page>1217</eterms:end-page>
+            <eterms:sequence-number/>
+            <eterms:total-number-of-pages/>
+            <eterms:publishing-info>
+              <dc:publisher>Dr. Otto Schmidt</dc:publisher>
+              <eterms:place>Köln</eterms:place>
+              <eterms:edition/>
+            </eterms:publishing-info>
+          </source:source>
+          <eterms:total-number-of-pages/>
+           <dcterms:abstract><![CDATA[JUS: <span class="Italic">Mestmäcker, Ernst-Joachim</span>, Systembezüge subjektiver Rechte, in: Festschrift für Karsten Schmidt zum 70. Geburtstag, Dr. Otto Schmidt, Köln 2009, 1197 - 1217.]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>   
+  
+  <!-- CONTRIBUTION TO LEXIKON escidoc:108005-->
+   <escidocItem:item objid="escidoc:108005" last-modification-date="2010-05-10T13:29:46.027Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-05-10T13:29:46.027Z</prop:creation-date>
+      <srel:created-by objid="escidoc:38539"/>
+      <prop:public-status>pending</prop:public-status>
+      <prop:public-status-comment>Object created.</prop:public-status-comment>
+      <srel:context objid="escidoc:39395"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:version objid="escidoc:108005:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-10T13:29:46.027Z</version:date>
+        <version:status>pending</version:status>
+        <srel:modified-by objid="escidoc:38539"/>
+        <version:comment>Object created.</version:comment>
+      </prop:version>
+      <prop:latest-version objid="escidoc:108005:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-10T13:29:46.027Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release>
+        <release:number>1</release:number>
+        <release:date>2010-05-10T13:29:54.831Z</release:date>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Zimmermann</eterms:family-name>
+              <eterms:given-name>Reinhard</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>John Henry de Villiers</dc:title>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">1995</dcterms:issued>
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia">
+            <dc:title>Juristen: Ein biographisches Lexikon</dc:title>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+              <person:person>
+                <eterms:complete-name/>
+                <eterms:family-name>Stolleis</eterms:family-name>
+                <eterms:given-name>Michael </eterms:given-name>
+                <organization:organization>
+                  <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                  <eterms:address/>
+                  <dc:identifier>escidoc:persistent22</dc:identifier>
+                </organization:organization>
+              </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+              <person:person>
+                <eterms:complete-name/>
+                <eterms:family-name>Samba</eterms:family-name>
+                <eterms:given-name>Mamaba</eterms:given-name>
+                <organization:organization>
+                  <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                  <eterms:address/>
+                  <dc:identifier>escidoc:persistent22</dc:identifier>
+                </organization:organization>
+              </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+              <person:person>
+                <eterms:complete-name/>
+                <eterms:family-name>Stoyanova</eterms:family-name>
+                <eterms:given-name>Markus</eterms:given-name>
+                <organization:organization>
+                  <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                  <eterms:address/>
+                  <dc:identifier>escidoc:persistent22</dc:identifier>
+                </organization:organization>
+              </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+              <person:person>
+                <eterms:complete-name/>
+                <eterms:family-name>Stoyanova</eterms:family-name>
+                <eterms:given-name>Markus</eterms:given-name>
+                <organization:organization>
+                  <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                  <eterms:address/>
+                  <dc:identifier>escidoc:persistent22</dc:identifier>
+                </organization:organization>
+              </person:person>
+            </eterms:creator>
+            <eterms:volume/>
+            <eterms:start-page>160</eterms:start-page>
+            <eterms:end-page>161</eterms:end-page>
+            <eterms:sequence-number/>
+            <eterms:total-number-of-pages/>
+            <eterms:publishing-info>
+              <dc:publisher>C.H. Beck</dc:publisher>
+              <eterms:place>München </eterms:place>
+              <eterms:edition>2</eterms:edition>
+            </eterms:publishing-info>
+          </source:source>
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia">
+            <dc:title>Der zweite Soruce</dc:title>
+            <eterms:volume>15</eterms:volume>
+            <eterms:start-page>160</eterms:start-page>
+            <eterms:end-page>161</eterms:end-page>
+            <eterms:sequence-number/>
+            <eterms:total-number-of-pages/>
+            <eterms:publishing-info>
+              <dc:publisher>C.H. Beck</dc:publisher>
+              <eterms:place>München </eterms:place>
+              <eterms:edition>2</eterms:edition>
+            </eterms:publishing-info>
+          </source:source>
+          <eterms:total-number-of-pages/>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Zimmermann, Reinhard</span>, John Henry de Villiers, in: Michael Stolleis et al. (<localized class="editor">ed.</localized>), Juristen: Ein biographisches Lexikon (Der zweite Soruce, 15), 2. <localized class="edition">ed.</localized>, C.H. Beck, München 1995, 160 - 161.]]></dcterms:abstract>
+          
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+  
+  <!-- CONTRIBUTION TO HANDBOOK escidoc:108003-->
+<escidocItem:item objid="escidoc:108003" last-modification-date="2010-05-10T13:10:04.819Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-05-10T13:10:04.819Z</prop:creation-date>
+      <srel:created-by objid="escidoc:38539"/>
+      <prop:public-status>pending</prop:public-status>
+      <prop:public-status-comment>Object created.</prop:public-status-comment>
+      <srel:context objid="escidoc:39395"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:version objid="escidoc:108003:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-10T13:10:04.819Z</version:date>
+        <version:status>pending</version:status>
+        <srel:modified-by objid="escidoc:38539"/>
+        <version:comment>Object created.</version:comment>
+      </prop:version>
+      <prop:latest-version objid="escidoc:108003:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-10T13:10:04.819Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release>
+        <release:number>1</release:number>
+        <release:date>2010-05-10T13:10:34.859Z</release:date>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Fleischer</eterms:family-name>
+              <eterms:given-name>Holger</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Gesellschafterbesicherte Drittdarlehen</dc:title>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2000</dcterms:issued>
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/handbook">
+            <dc:title>Handbuch des Kapitalersatzrechts. Teil 6</dc:title>
+            
+<!--            <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">-->
+<!--              <person:person>-->
+<!--                <eterms:complete-name/>-->
+<!--                <eterms:family-name>v. Gerkan</eterms:family-name>-->
+<!--                <eterms:given-name>Hartwin</eterms:given-name>-->
+<!--                <organization:organization>-->
+<!--                  <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>-->
+<!--                  <eterms:address/>-->
+<!--                  <dc:identifier>escidoc:persistent22</dc:identifier>-->
+<!--                </organization:organization>-->
+<!--              </person:person>-->
+<!--            </eterms:creator>-->
+<!--            <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">-->
+<!--              <person:person>-->
+<!--                <eterms:complete-name/>-->
+<!--                <eterms:family-name>Hommelhoff</eterms:family-name>-->
+<!--                <eterms:given-name>Peter</eterms:given-name>-->
+<!--                <organization:organization>-->
+<!--                  <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>-->
+<!--                  <eterms:address/>-->
+<!--                  <dc:identifier>escidoc:persistent22</dc:identifier>-->
+<!--                </organization:organization>-->
+<!--              </person:person>-->
+<!--            </eterms:creator>-->
+<!--            -->
+            <eterms:volume/>
+            <eterms:start-page>197</eterms:start-page>
+            <eterms:end-page>223</eterms:end-page>
+            <eterms:sequence-number/>
+            <eterms:total-number-of-pages/>
+            <eterms:publishing-info>
+              <dc:publisher>RSW Verlag </dc:publisher>
+              <eterms:place>Köln</eterms:place>
+              <eterms:edition>1</eterms:edition>
+            </eterms:publishing-info>
+          </source:source>
+          <eterms:total-number-of-pages/>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Fleischer, Holger</span>, Gesellschafterbesicherte Drittdarlehen, in: Handbuch des Kapitalersatzrechts. Teil 6, 1. <localized class="edition">ed.</localized>, RSW Verlag, Köln 2000, 197 - 223.]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+  
+  <!-- THESIS escidoc:126002-->
+  <escidocItem:item objid="escidoc:126002" last-modification-date="2010-06-01T09:46:31.959Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-06-01T09:45:14.158Z</prop:creation-date>
+      <srel:created-by objid="escidoc:38539"/>
+      <prop:public-status>submitted</prop:public-status>
+      <prop:public-status-comment>test thesis zitierstil</prop:public-status-comment>
+      <srel:context objid="escidoc:39395"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:version objid="escidoc:126002:2">
+        <version:number>2</version:number>
+        <version:date>2010-06-01T09:46:31.959Z</version:date>
+        <version:status>submitted</version:status>
+        <srel:modified-by objid="escidoc:38539"/>
+        <version:comment>test thesis zitierstil</version:comment>
+      </prop:version>
+      <prop:latest-version objid="escidoc:126002:2">
+        <version:number>2</version:number>
+        <version:date>2010-06-01T09:46:31.959Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release>
+        <release:number>1</release:number>
+        <release:date>2010-06-01T09:51:23.551Z</release:date>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/eprint/type/Thesis">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Hellwege</eterms:family-name>
+              <eterms:given-name>Phillip</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:persistent22</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Die Rückabwicklung gegenseitiger Verträge als einheitliches Problem. Deutsches, englisches und schottisches Recht in historisch-vergleichender Perspektive</dc:title>
+          <eterms:publishing-info>
+            <dc:publisher>Universität Regensburg 2003</dc:publisher>
+            <eterms:place/>
+          </eterms:publishing-info>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2004</dcterms:issued>
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/series">
+            <dc:title>Studien zum ausländischen und internationalen Privatrecht</dc:title>
+            <eterms:volume>130</eterms:volume>
+            <eterms:start-page/>
+            <eterms:end-page/>
+            <eterms:total-number-of-pages/>
+            <eterms:publishing-info>
+              <dc:publisher>Mohr Siebeck</dc:publisher>
+              <eterms:place>Tübingen</eterms:place>
+              <eterms:edition/>
+            </eterms:publishing-info>
+          </source:source>
+          <eterms:total-number-of-pages>668</eterms:total-number-of-pages>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Hellwege, Phillip</span>, Die Rückabwicklung gegenseitiger Verträge als einheitliches Problem. Deutsches, englisches und schottisches Recht in historisch-vergleichender Perspektive (Studien zum ausländischen und internationalen Privatrecht, 130), Mohr Siebeck, Tübingen 2004, <localized class="phd">Dissertation</localized>, Universität Regensburg 2003, 668 <localized class="page">pp.</localized>]]></dcterms:abstract>
+          <eterms:degree>http://purl.org/escidoc/metadata/ves/academic-degrees/phd</eterms:degree>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>   
+  
+  <!-- CONFERENCE REPORT source PROCEEDINGS escidoc:80646-->
+  <escidocItem:item objid="escidoc:80646" last-modification-date="2010-04-22T15:24:20.298Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-04-22T15:24:20.288Z</prop:creation-date>
+      <srel:created-by objid="escidoc:30402"/>
+      <prop:public-status>pending</prop:public-status>
+      <prop:public-status-comment>Object created.</prop:public-status-comment>
+      <srel:context objid="escidoc:31149"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-ZZZZ-0000-0000-43A3-2</prop:pid>
+      <prop:version objid="escidoc:80646:1">
+        <version:number>1</version:number>
+        <version:date>2010-04-22T15:24:20.298Z</version:date>
+        <version:status>pending</version:status>
+        <srel:modified-by objid="escidoc:30402"/>
+        <version:comment>Object created.</version:comment>
+      </prop:version>
+      <prop:latest-version objid="escidoc:80646:1">
+        <version:number>1</version:number>
+        <version:date>2010-04-22T15:24:20.298Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release>
+        <release:number>1</release:number>
+        <release:date>2010-06-01T13:33:44.429Z</release:date>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+          <local-tag>multiple_import</local-tag>
+          <local-tag> 2010-04-22 17:01</local-tag>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/conference-report">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name>Klaus Ulrich Schmolke</eterms:complete-name>
+              <eterms:family-name>Schmolke</eterms:family-name>
+              <eterms:given-name>Klaus Ulrich</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut fuer auslaendisches und internationales Privatrech</dc:title>
+                <eterms:address>Hamburg, Deutschland</eterms:address>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Bericht über die Diskussion der Referate Burgard und Vetter zum Cash Management nach dem Bremer Vulkan-Urteil</dc:title>
+          <dc:language xsi:type="dcterms:ISO639-3">deu</dc:language>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2003</dcterms:issued>
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/proceedings">
+            <dc:title>Gesellschaftsrecht in der Diskussion 2002</dc:title>
+            <eterms:issue/>
+            <eterms:start-page>109</eterms:start-page>
+            <eterms:end-page>114</eterms:end-page>
+            <eterms:publishing-info>
+              <dc:publisher>Dr. Otto Schmidt</dc:publisher>
+              <eterms:place>Köln</eterms:place>
+            </eterms:publishing-info>
+          </source:source>
+          <event:event>
+            <dc:title>Jahrestagung der Gesellschaftsrechtlichen Vereinigung 2002</dc:title>
+            <eterms:start-date xsi:type="dcterms:W3CDTF">2002-10-31</eterms:start-date>
+            <eterms:end-date xsi:type="dcterms:W3CDTF">1900-01-01</eterms:end-date>
+          </event:event>
+           <dcterms:abstract><![CDATA[JUS: <span class="Italic">Schmolke, Klaus Ulrich</span>, Bericht über die Diskussion der Referate Burgard und Vetter zum Cash Management nach dem Bremer Vulkan-Urteil, in: Gesellschaftsrecht in der Diskussion 2002, Dr. Otto Schmidt, Köln 2003, 109 - 114.]]></dcterms:abstract>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+  
+   <!-- CONFERENCE REPORT source PROCEEDINGS escidoc:80644-->
+  <escidocItem:item objid="escidoc:80644" last-modification-date="2010-04-22T15:24:19.273Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-04-22T15:24:19.263Z</prop:creation-date>
+      <srel:created-by objid="escidoc:30402"/>
+      <prop:public-status>pending</prop:public-status>
+      <prop:public-status-comment>Object created.</prop:public-status-comment>
+      <srel:context objid="escidoc:31149"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-ZZZZ-0000-0000-43A3-2</prop:pid>
+      <prop:version objid="escidoc:80644:1">
+        <version:number>1</version:number>
+        <version:date>2010-04-22T15:24:19.273Z</version:date>
+        <version:status>pending</version:status>
+        <srel:modified-by objid="escidoc:30402"/>
+        <version:comment>Object created.</version:comment>
+      </prop:version>
+      <prop:latest-version objid="escidoc:80644:1">
+        <version:number>1</version:number>
+        <version:date>2010-04-22T15:24:19.273Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release>
+        <release:number>1</release:number>
+        <release:date>2010-06-01T13:33:44.430Z</release:date>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+          <local-tag>multiple_import</local-tag>
+          <local-tag> 2010-04-22 17:01</local-tag>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/conference-report">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name>Anatol Dutta</eterms:complete-name>
+              <eterms:family-name>Dutta</eterms:family-name>
+              <eterms:given-name>Anatol</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut fuer auslaendisches und internationales Privatrech</dc:title>
+                <eterms:address>Hamburg, Deutschland</eterms:address>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Die Rechtsstellung nichtehelicher Lebensgemeinschaften: Reformbedarf in Deutschland – Modell für Europa?</dc:title>
+          <dc:language xsi:type="dcterms:ISO639-3">deu</dc:language>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2005</dcterms:issued>
+          <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/proceedings">
+            <dc:title>Die Rechtsstellung nichtehelicher Lebensgemeinschaften / The legal status of cohabitants</dc:title>
+            <eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/EDT">
+				<person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+					<eterms:complete-name/>
+					<eterms:family-name>Scherpe</eterms:family-name>
+					<eterms:given-name>Jens M.</eterms:given-name>
+				</person:person>
+			</eterms:creator>
+		
+		
+			<eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/EDT">
+				<person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+					<eterms:complete-name/>
+					<eterms:family-name>Yassari</eterms:family-name>
+					<eterms:given-name>Nadjma</eterms:given-name>
+				</person:person>
+			</eterms:creator>
+			
+            <eterms:issue/>
+            <eterms:start-page>163</eterms:start-page>
+            <eterms:end-page>172</eterms:end-page>
+            <eterms:publishing-info>
+              <dc:publisher>Mohr Siebeck</dc:publisher>
+              <eterms:place>Tübingen</eterms:place>
+            </eterms:publishing-info>
+          </source:source>
+          <event:event>
+            <dc:title>Ein Diskussionsbericht</dc:title>
+            <eterms:start-date xsi:type="dcterms:W3CDTF">2004-04-02</eterms:start-date>
+            <eterms:end-date xsi:type="dcterms:W3CDTF">1900-01-01</eterms:end-date>
+          </event:event>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Dutta, Anatol</span>, Die Rechtsstellung nichtehelicher Lebensgemeinschaften: Reformbedarf in Deutschland – Modell für Europa?, in: Jens M. Scherpe, Nadjma Yassari (<localized class="editors">eds.</localized>), Die Rechtsstellung nichtehelicher Lebensgemeinschaften / The legal status of cohabitants, Mohr Siebeck, Tübingen 2005, 163 - 172.]]></dcterms:abstract>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+  
+  <!-- PROCEEDINGS escidoc:94027-->
+  	<escidocItem:item objid="escidoc:94027" last-modification-date="2010-04-30T15:11:01.401Z">
+		<escidocItem:properties>
+			<prop:creation-date>2010-04-30T15:10:44.631Z</prop:creation-date>
+			<srel:created-by objid="escidoc:57311"/>
+			<prop:public-status>released</prop:public-status>
+			<prop:public-status-comment>Batch submit/release from import test DK1</prop:public-status-comment>
+			<srel:context objid="escidoc:persistent3"/>
+			<srel:content-model objid="escidoc:persistent4"/>
+			<prop:lock-status>unlocked</prop:lock-status>
+			<prop:pid>hdl:11858/00-001Z-0000-0000-5C83-C</prop:pid>
+			<prop:version objid="escidoc:94027:1">
+				<version:number>1</version:number>
+				<version:date>2010-04-30T15:11:01.401Z</version:date>
+				<version:status>released</version:status>
+				<srel:modified-by objid="escidoc:57311"/>
+				<version:comment>Batch submit/release from import test DK1</version:comment>
+				<version:pid>hdl:11858/00-001Z-0000-0000-5C84-A</version:pid>
+			</prop:version>
+			<prop:latest-version objid="escidoc:94027:1">
+				<version:number>1</version:number>
+				<version:date>2010-04-30T15:11:01.401Z</version:date>
+			</prop:latest-version>
+			<prop:latest-release objid="escidoc:94027:1">
+				<release:number>1</release:number>
+				<release:date>2010-04-30T15:11:01.401Z</release:date>
+				<release:pid>hdl:11858/00-001Z-0000-0000-5C84-A</release:pid>
+			</prop:latest-release>
+			<prop:content-model-specific>
+				<local-tags>
+					<local-tag>multiple_import</local-tag>
+					<local-tag>test DK1 2010-04-30 17:10</local-tag>
+				</local-tags>
+			</prop:content-model-specific>
+		</escidocItem:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/proceedings">
+					<eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+						<person:person>
+							<eterms:complete-name>Klaus Ulrich Schmolke</eterms:complete-name>
+							<eterms:family-name>Schmolke</eterms:family-name>
+							<eterms:given-name>Klaus Ulrich</eterms:given-name>
+							<organization:organization>
+								<dc:title>Max-Planck-Institut fuer auslaendisches und internationales Privatrech</dc:title>
+								<eterms:address>Hamburg, Deutschland</eterms:address>
+								<dc:identifier>escidoc:5091</dc:identifier>
+							</organization:organization>
+						</person:person>
+					</eterms:creator>
+					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person>
+							<eterms:complete-name>Emanuek V. Towfigh</eterms:complete-name>
+							<eterms:family-name>Towfigh</eterms:family-name>
+							<eterms:given-name>Emanuel V.</eterms:given-name>
+							<organization:organization>
+								<dc:title>Max-Planck-Institut fuer auslaendisches und internationales Privatrech</dc:title>
+								<eterms:address>Hamburg, Deutschland</eterms:address>
+								<dc:identifier>escidoc:5091</dc:identifier>
+							</organization:organization>
+						</person:person>
+					</eterms:creator>
+
+					<eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/EDT">
+						<person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+							<eterms:complete-name />
+							<eterms:family-name>Henrich</eterms:family-name>
+							<eterms:given-name>Dieter </eterms:given-name>
+						</person:person>
+					</eterms:creator>
+
+					
+					<eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+							<eterms:complete-name />
+							<eterms:family-name>Bergmann</eterms:family-name>
+							<eterms:given-name>Alexander </eterms:given-name>
+						</person:person>
+					</eterms:creator>
+
+					<dc:title>Recht und Markt - Wechselbeziehungen zweier Ordnungen. Dokumentation der 49. Assistentinnen- und Assistententagung Öffentliches Recht</dc:title>
+					<dc:identifier xsi:type="eterms:ISBN">2349-0987</dc:identifier>
+					<dc:identifier xsi:type="eterms:URI">http://anyurl.net</dc:identifier>
+					<eterms:publishing-info>
+						<dc:publisher>Nomos</dc:publisher>
+						<eterms:place>Baden-Baden</eterms:place>
+					</eterms:publishing-info>
+					<dcterms:created xsi:type="dcterms:W3CDTF">2009</dcterms:created>
+<!--					<source:source type="http://purl.org/escidoc/metadata/ves/publication-types/series">-->
+<!--						<dc:title>Title of Event</dc:title>-->
+<!--						<eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">-->
+<!--							<person:person>-->
+<!--								<eterms:complete-name>Proceedings, Editorname</eterms:complete-name>-->
+<!--								<eterms:family-name>Proceedings</eterms:family-name>-->
+<!--								<eterms:given-name>Editorname</eterms:given-name>-->
+<!--							</person:person>-->
+<!--						</eterms:creator>-->
+<!--						<eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">-->
+<!--							<person:person>-->
+<!--								<eterms:complete-name>Editorname, Series</eterms:complete-name>-->
+<!--								<eterms:family-name>Editorname</eterms:family-name>-->
+<!--								<eterms:given-name>Series</eterms:given-name>-->
+<!--							</person:person>-->
+<!--						</eterms:creator>-->
+<!--						<eterms:volume>3. Volume</eterms:volume>-->
+<!--					</source:source>-->
+					<event:event>
+						<dc:title>Title of Event</dc:title>
+						<eterms:start-date xsi:type="dcterms:W3CDTF">2009</eterms:start-date>
+						<eterms:place>Place of Event</eterms:place>
+					</event:event>
+					<eterms:total-number-of-pages>270</eterms:total-number-of-pages>
+					<dcterms:abstract><![CDATA[JUS: <span class="Italic">Schmolke, Klaus Ulrich</span> (<localized class="editor">ed.</localized>), Recht und Markt - Wechselbeziehungen zweier Ordnungen. Dokumentation der 49. Assistentinnen- und Assistententagung Öffentliches Recht, Nomos, Baden-Baden 2009, 270 <localized class="page">pp.</localized> (<localized class="togetherWith">together with</localized> Emanuel V. Towfigh et al.).]]></dcterms:abstract>
+					<dcterms:subject>keywords</dcterms:subject>
+				</publication:publication>
+			</escidocMetadataRecords:md-record>
+		</escidocMetadataRecords:md-records>
+		<escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+	</escidocItem:item>
+	
+	 <!-- SERIES escidoc:101149 -->
+	<escidocItem:item objid="escidoc:101149" last-modification-date="2010-05-07T09:29:02.636Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-05-07T09:28:45.255Z</prop:creation-date>
+      <srel:created-by objid="escidoc:30402"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment/>
+      <srel:context objid="escidoc:31149"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-001Z-0000-0000-5D00-C</prop:pid>
+      <prop:version objid="escidoc:101149:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-07T09:29:02.636Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:30402"/>
+        <version:comment/>
+        <version:pid>hdl:11858/00-001Z-0000-0000-5D01-A</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:101149:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-07T09:29:02.636Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:101149:1">
+        <release:number>1</release:number>
+        <release:date>2010-05-07T09:29:02.636Z</release:date>
+        <release:pid>hdl:11858/00-001Z-0000-0000-5D01-A</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/series">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Basedow</eterms:family-name>
+              <eterms:given-name>Jürgen</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Ehlers</eterms:family-name>
+              <eterms:given-name>Peter</eterms:given-name>
+              <organization:organization>
+                <dc:title>External Organizations</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:persistent22</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Hamburg studies on maritime affairs</dc:title>
+          <eterms:publishing-info>
+            <dc:publisher>Springer</dc:publisher>
+            <eterms:place>Berlin, since 2004</eterms:place>
+<!--            <eterms:place>Berlin, 2004-2006</eterms:place>-->
+          </eterms:publishing-info>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2006-02-05</dcterms:issued>
+          <eterms:total-number-of-pages/>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Basedow, Jürgen</span> (<localized class="editor">ed.</localized>), Hamburg studies on maritime affairs, Springer, Berlin, <localized class="since">since</localized> 2004 (<localized class="togetherWith">together with</localized> Peter Ehlers).]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+  
+   <!-- JOURNAL escidoc:101150 -->
+  <escidocItem:item objid="escidoc:101150" last-modification-date="2010-05-07T09:29:02.636Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-05-07T09:28:45.255Z</prop:creation-date>
+      <srel:created-by objid="escidoc:30402"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment/>
+      <srel:context objid="escidoc:31149"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-001Z-0000-0000-5D00-C</prop:pid>
+      <prop:version objid="escidoc:101150:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-07T09:29:02.636Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:30402"/>
+        <version:comment/>
+        <version:pid>hdl:11858/00-001Z-0000-0000-5D01-A</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:101150:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-07T09:29:02.636Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:101150:1">
+        <release:number>1</release:number>
+        <release:date>2010-05-07T09:29:02.636Z</release:date>
+        <release:pid>hdl:11858/00-001Z-0000-0000-5D01-A</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Zimmermann</eterms:family-name>
+              <eterms:given-name>Reinhard</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Basedow</eterms:family-name>
+              <eterms:given-name>Jürgen</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Ehlers</eterms:family-name>
+              <eterms:given-name>Peter</eterms:given-name>
+              <organization:organization>
+                <dc:title>External Organizations</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:persistent22</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Rabels Zeitschrift für ausländisches und internationales Privatrecht</dc:title>
+          <eterms:publishing-info>
+            <dc:publisher>Mohr Siebeck</dc:publisher>
+            <eterms:place>Tübingen, since 2002</eterms:place>
+          </eterms:publishing-info>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2002</dcterms:issued>
+          <eterms:total-number-of-pages/>
+           <dcterms:abstract><![CDATA[JUS: <span class="Italic">Zimmermann, Reinhard</span> (<localized class="editor">ed.</localized>), Rabels Zeitschrift für ausländisches und internationales Privatrecht, Mohr Siebeck, Tübingen, <localized class="since">since</localized> 2002 (<localized class="togetherWith">together with</localized> Jürgen Basedow, Peter Ehlers).]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+  
+   <!-- ISSUE escidoc:101151 -->
+  <escidocItem:item objid="escidoc:101151" last-modification-date="2010-05-07T09:29:02.636Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-05-07T09:28:45.255Z</prop:creation-date>
+      <srel:created-by objid="escidoc:30402"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment/>
+      <srel:context objid="escidoc:31149"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-001Z-0000-0000-5D00-C</prop:pid>
+      <prop:version objid="escidoc:101151:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-07T09:29:02.636Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:30402"/>
+        <version:comment/>
+        <version:pid>hdl:11858/00-001Z-0000-0000-5D01-A</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:101151:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-07T09:29:02.636Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:101151:1">
+        <release:number>1</release:number>
+        <release:date>2010-05-07T09:29:02.636Z</release:date>
+        <release:pid>hdl:11858/00-001Z-0000-0000-5D01-A</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/issue">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Zimmermann</eterms:family-name>
+              <eterms:given-name>Reinhard</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          
+<!--          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">-->
+<!--            <person:person>-->
+<!--              <eterms:complete-name/>-->
+<!--              <eterms:family-name>Basedow</eterms:family-name>-->
+<!--              <eterms:given-name>Jürgen</eterms:given-name>-->
+<!--              <organization:organization>-->
+<!--                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>-->
+<!--                <eterms:address/>-->
+<!--                <dc:identifier>escidoc:5091</dc:identifier>-->
+<!--              </organization:organization>-->
+<!--            </person:person>-->
+<!--          </eterms:creator>-->
+          
+<!--          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">-->
+<!--            <person:person>-->
+<!--              <eterms:complete-name/>-->
+<!--              <eterms:family-name>Ehlers</eterms:family-name>-->
+<!--              <eterms:given-name>Peter</eterms:given-name>-->
+<!--              <organization:organization>-->
+<!--                <dc:title>External Organizations</dc:title>-->
+<!--                <eterms:address/>-->
+<!--                <dc:identifier>escidoc:persistent22</dc:identifier>-->
+<!--              </organization:organization>-->
+<!--            </person:person>-->
+<!--          </eterms:creator>-->
+          <dc:title>The Convention on the International Sale of Goods and its Application in Comparative Perspective</dc:title>
+          <eterms:publishing-info>
+            <dc:publisher>Mohr Siebeck</dc:publisher>
+            <eterms:place>Tübingen</eterms:place>
+          </eterms:publishing-info>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2004</dcterms:issued>
+           <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/monograph">
+            <dc:title>Rabels Zeitschrift für ausländisches und internationales Privatrecht, Sonderheft 2</dc:title>
+            <eterms:issue/>
+            <eterms:start-page/>
+            <eterms:end-page/>
+            <eterms:publishing-info>
+              <dc:publisher/>
+              <eterms:place/>
+            </eterms:publishing-info>
+          </source:source>
+          <eterms:total-number-of-pages></eterms:total-number-of-pages>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Zimmermann, Reinhard</span> (<localized class="editor">ed.</localized>), The Convention on the International Sale of Goods and its Application in Comparative Perspective (Rabels Zeitschrift für ausländisches und internationales Privatrecht, Sonderheft 2), Mohr Siebeck, Tübingen 2004.]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
+  
+   <!-- EDITORIAL escidoc:101155 -->
+  <escidocItem:item objid="escidoc:101155" last-modification-date="2010-05-07T09:29:02.636Z">
+    <escidocItem:properties>
+      <prop:creation-date>2010-05-07T09:28:45.255Z</prop:creation-date>
+      <srel:created-by objid="escidoc:30402"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment/>
+      <srel:context objid="escidoc:31149"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:11858/00-001Z-0000-0000-5D00-C</prop:pid>
+      <prop:version objid="escidoc:101155:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-07T09:29:02.636Z</version:date>
+        <version:status>released</version:status>
+        <srel:modified-by objid="escidoc:30402"/>
+        <version:comment/>
+        <version:pid>hdl:11858/00-001Z-0000-0000-5D01-A</version:pid>
+      </prop:version>
+      <prop:latest-version objid="escidoc:101155:1">
+        <version:number>1</version:number>
+        <version:date>2010-05-07T09:29:02.636Z</version:date>
+      </prop:latest-version>
+      <prop:latest-release objid="escidoc:101155:1">
+        <release:number>1</release:number>
+        <release:date>2010-05-07T09:29:02.636Z</release:date>
+        <release:pid>hdl:11858/00-001Z-0000-0000-5D01-A</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/editorial">
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Harhoff</eterms:family-name>
+              <eterms:given-name>Dietmar</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Basedow</eterms:family-name>
+              <eterms:given-name>Jürgen</eterms:given-name>
+              <organization:organization>
+                <dc:title>Max-Planck-Institut für ausländisches und internationales Privatrecht</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:5091</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
+            <person:person>
+              <eterms:complete-name/>
+              <eterms:family-name>Ehlers</eterms:family-name>
+              <eterms:given-name>Peter</eterms:given-name>
+              <organization:organization>
+                <dc:title>External Organizations</dc:title>
+                <eterms:address/>
+                <dc:identifier>escidoc:persistent22</dc:identifier>
+              </organization:organization>
+            </person:person>
+          </eterms:creator>
+          <dc:title>Patent System Design – an Economic Perspective</dc:title>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2010</dcterms:issued>
+           <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+            <dc:title>Rabels Zeitschrift für ausländisches und internationales Privatrecht</dc:title>
+            <eterms:issue/>
+            <eterms:start-page>121</eterms:start-page>
+            <eterms:end-page>122</eterms:end-page>
+            <eterms:publishing-info>
+              <dc:publisher/>
+              <eterms:place/>
+            </eterms:publishing-info>
+          </source:source>
+          <eterms:total-number-of-pages/>
+          <dcterms:abstract><![CDATA[JUS: <span class="Italic">Harhoff, Dietmar</span>, Patent System Design – an Economic Perspective, Rabels Zeitschrift für ausländisches und internationales Privatrecht, 121 - 122.]]></dcterms:abstract>
+          <dcterms:subject></dcterms:subject>
+          <dc:subject xsi:type="eterms:DDC"></dc:subject>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </publication:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de"/>
+  </escidocItem:item>
 </escidocItemList:item-list>
