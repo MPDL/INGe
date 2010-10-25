@@ -33,15 +33,23 @@
 	<predefined-layout-elements>
 
 		<!--
-			First Creator of the publication. If the creator is organization,
+			FIRST CREATOR of the publication. 
+			If the creator is organization,
 			that organization's name will be taken. If the creator has a role
-			editor. a postfix 'ed.'is added. An Italic Font style is added for
-			the first creator.
+			editor. a postfix 'ed.'is added. 
+			Used for Publication type: All 
+			Doc: basic rules
+			http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Authors
+			Style: Italic
 		-->
 		<layout-element name="first-creator">
 			<elements>
 				<layout-element>
 					<parameters>
+						<!--Take the first person or organization.
+						-->
+
+						<valid-if><![CDATA[pub:publication/e:creator[1]]]></valid-if>
 						<delimiter value=", " />
 						<font-style ref="ITALIC" />
 					</parameters>
@@ -83,12 +91,15 @@
 		<!--
 			SECOND OR MORE CREATORS Second or more creators are added at the end
 			of the citation style. The creators are set in brackets. Before the
-			creator names a 'together with' postfix is added. The role of the
+			creator names 'together with' postfix is added. The role of the
 			creators does not matter. If the creator is organization, that
 			organization's name will be taken. If the total number of creators is
 			two or three, the second and the third creator's names is written at
 			the end of the citation style. If there are more then three creators,
-			only the second name will is written and a 'et. all' postfix is set.
+			only the second name will is written and 'et. all' postfix is set.
+			Used for Publication type: All 
+			Doc: basic rules
+			http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Authors
 		-->
 		<layout-element name="second-or-more-creators">
 			<parameters>
@@ -145,7 +156,9 @@
 			</elements>
 		</layout-element>
 
-		<!-- second or more creators with dot -->
+		<!-- second or more creators with dot 
+		-->
+		
 		<layout-element name="second-or-more-creators-with-dot">
 			<parameters>
 				<valid-if><![CDATA[
@@ -167,6 +180,9 @@
 			creator is organization, that organization's name will be taken.
 		-->
 		<layout-element name="source-editors">
+			<parameters>
+				<ends-with value=", " />
+			</parameters>
 			<elements>
 				<!--
 					if there is one or more than 3 source creators, write only the
@@ -251,7 +267,8 @@
 
 		<!--
 		EDITION  
-	-->
+		Doc: http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Edition_and_Instalment
+		-->
 		<layout-element name="edition">
 			<parameters>
 				<valid-if><![CDATA[exists(pub:publication/e:publishing-info/e:edition/text()) 
@@ -261,40 +278,97 @@
 			<elements>
 				<layout-element>
 					<!--
-						If instalment is written in the form instl., instamlent, Lief. or
-						Lieferung in the edition field, only the number of the instalment
-						is taken (e.g. instl. 34, only 34 is taken). After the number the
-						word instl. is putted with localized tag.
+						If instalment is written in the form 2. ed, 1. instl in the
+						edition field, both numbers are separated. The words edition and
+						instalment are put between localized tags.
+						see for the function func:substringBeforeEdition: src/main/resources/CitationStyles/functions.xml
+						see for the function func:substringAfterEdition: src/main/resources/CitationStyles/functions.xml
 					-->
 					<parameters>
 						<valid-if>
 						<![CDATA[
-						contains(pub:publication/e:publishing-info/e:edition/text(),'instl.') or 
-						contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'instl.') or
+						(contains(pub:publication/e:publishing-info/e:edition/text(),'instl') and contains(pub:publication/e:publishing-info/e:edition/text(),'ed')) or 
+						(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'instl') and contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'ed')) or
 						
-						contains(pub:publication/e:publishing-info/e:edition/text(),'instalment') or 
-						contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'instalment')or
-						
-						contains(pub:publication/e:publishing-info/e:edition/text(),'Lief.') or 
-						contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Lief.') or
-						
-						contains(pub:publication/e:publishing-info/e:edition/text(),'Lieferung') or 
-						contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Lieferung') 
+						(contains(pub:publication/e:publishing-info/e:edition/text(),'Lf') and contains(pub:publication/e:publishing-info/e:edition/text(),'Aufl')) or 
+						(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Lf') and contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Aufl'))
 						]]>
 						</valid-if>
 
 					</parameters>
 					<elements>
 						<layout-element
-							ref="func:substringAfterWhitespace(pub:publication/e:publishing-info/e:edition/text())" />
+							ref="func:substringBeforeEdition(pub:publication/e:publishing-info/e:edition/text())" />
 						<layout-element
-							ref="func:substringAfterWhitespace(pub:publication/source:source[1]/e:publishing-info/e:edition/text())" />
+							ref="func:substringBeforeEdition(pub:publication/source:source[1]/e:publishing-info/e:edition/text())" />
 						<layout-element>
 							<parameters>
-								<i18n ref="instalment" />
+								<i18n ref="edition" />
 							</parameters>
 							<elements>
-								<layout-element ref="$instalment-postfix" />
+								<layout-element ref="$edition-postfix" />
+							</elements>
+						</layout-element>
+						<layout-element>
+							<parameters>
+								<starts-with value=", " />
+							</parameters>
+							<elements>
+								<layout-element
+									ref="func:substringAfterEdition(pub:publication/e:publishing-info/e:edition/text())" />
+								<layout-element
+									ref="func:substringAfterEdition(pub:publication/source:source[1]/e:publishing-info/e:edition/text())" />
+								<layout-element>
+									<parameters>
+										<i18n ref="instalment" />
+									</parameters>
+									<elements>
+										<layout-element ref="$instalment-postfix" />
+									</elements>
+								</layout-element>
+							</elements>
+						</layout-element>
+					</elements>
+				</layout-element>
+
+				<layout-element>
+					<!--
+						If instalment is written in the form instl. or Lf. in the edition
+						field, only the number of the instalment is taken (e.g. instl. 34,
+						only 34 is taken). After the number the word instl. is put with
+						localized tag.
+						see for the function func:substringBeforeInstalment: src/main/resources/CitationStyles/functions.xml
+					-->
+					<parameters>
+						<valid-if>
+						<![CDATA[
+						(contains(pub:publication/e:publishing-info/e:edition/text(),'instl') and not(contains(pub:publication/e:publishing-info/e:edition/text(),'ed'))) or 
+						(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'instl') and not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'ed'))) or
+						
+						(contains(pub:publication/e:publishing-info/e:edition/text(),'Lf') and not(contains(pub:publication/e:publishing-info/e:edition/text(),'Aufl'))) or 
+						(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Lf') and not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Aufl')))
+						]]>
+						</valid-if>
+
+					</parameters>
+					<elements>
+						<layout-element>
+							<parameters>
+								<starts-with value=", " />
+							</parameters>
+							<elements>
+								<layout-element
+									ref="func:substringBeforeInstalment(pub:publication/e:publishing-info/e:edition/text())" />
+								<layout-element
+									ref="func:substringBeforeInstalment(pub:publication/source:source[1]/e:publishing-info/e:edition/text())" />
+								<layout-element>
+									<parameters>
+										<i18n ref="instalment" />
+									</parameters>
+									<elements>
+										<layout-element ref="$instalment-postfix" />
+									</elements>
+								</layout-element>
 							</elements>
 						</layout-element>
 					</elements>
@@ -308,17 +382,11 @@
 					<parameters>
 						<valid-if>
 						<![CDATA[
-						not(contains(pub:publication/e:publishing-info/e:edition/text(),'instl.')) and
-						not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'instl.')) and
+						not(contains(pub:publication/e:publishing-info/e:edition/text(),'instl')) and 
+						not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'instl')) and
 						
-						not(contains(pub:publication/e:publishing-info/e:edition/text(),'instalment')) and
-						not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'instalment')) and
-						
-						not(contains(pub:publication/e:publishing-info/e:edition/text(),'Lief.')) and 
-						not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Lief.')) and
-						
-						not(contains(pub:publication/e:publishing-info/e:edition/text(),'Lieferung')) and 
-						not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Lieferung')) 
+						not(contains(pub:publication/e:publishing-info/e:edition/text(),'Lf')) and
+						not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Lf'))
 						]]>
 						</valid-if>
 						<delimiter value=". " />
@@ -336,7 +404,6 @@
 								<layout-element ref="$edition-postfix" />
 							</elements>
 						</layout-element>
-
 					</elements>
 				</layout-element>
 
@@ -344,12 +411,12 @@
 		</layout-element>
 
 		<!--
-		PLACE PUBLISHER
-	-->
-		<layout-element name="place-publisher">
+		PUBLISHER PLACE
+		-->
+		<layout-element name="publisher-place">
 			<parameters>
 				<starts-with value=", " />
-				<delimiter value=", " /> 
+				<delimiter value=", " />
 			</parameters>
 			<elements>
 				<layout-element
@@ -359,10 +426,10 @@
 		</layout-element>
 
 		<!--
-			SOURCE PLACE PUBLISHER for publication like Contr. to collected
+			SOURCE PUBLISHER PLACE for publication like Contr. to collected
 			edition
 		-->
-		<layout-element name="source-place-publisher">
+		<layout-element name="source-publisher-place">
 			<parameters>
 				<starts-with value=", " />
 				<delimiter value=", " />
@@ -372,6 +439,81 @@
 					ref="pub:publication/source:source[1]/e:publishing-info/dc:publisher/text()" />
 				<layout-element
 					ref="pub:publication/source:source[1]/e:publishing-info/e:place/text()" />
+			</elements>
+		</layout-element>
+
+		<!--
+		PUBLISHER PLACE Since 
+		for Series and Journal
+		-->
+		<layout-element name="publisher-place-since">
+			<parameters>
+				<starts-with value=", " />
+				<delimiter value=", " />
+			</parameters>
+			<elements>
+
+				<!--
+					If in the word 'since' or 'seit' is written, put the 'since' into
+					localized string tags. input: Berlin, since 2005 -> output: Berlin,
+					<localized class="since">since</localized> 2005
+					see for the function func:substringAfterSince: src/main/resources/CitationStyles/functions.xml
+				-->
+				<layout-element
+					ref="pub:publication/e:publishing-info/dc:publisher/text()" />
+				<layout-element>
+					<parameters>
+						<valid-if>
+						<![CDATA[
+						contains(pub:publication/e:publishing-info/e:place/text(),'since') or 
+						contains(pub:publication/e:publishing-info/e:place/text(),'seit') 
+						]]>
+						</valid-if>
+					</parameters>
+					<elements>
+						<!--
+							get the first part of the term 'Berlin, since 2005' before
+							'since' (e.g. Berlin, )
+						-->
+						<layout-element
+							ref="func:substringBeforeSince(pub:publication/e:publishing-info/e:place/text())" />
+						<layout-element>
+							<!--
+								replace the word 'since' or 'seit' with 'since' and put it in
+								localized tag
+							-->
+							<parameters>
+								<i18n ref="since" />
+							</parameters>
+							<elements>
+								<layout-element ref="$since-prefix" />
+							</elements>
+						</layout-element>
+						<!--
+							get the second part of the term 'Berlin, since 2005' after
+							'since' ( 2005)
+						-->
+						<layout-element
+							ref="func:substringAfterSince(pub:publication/e:publishing-info/e:place/text())" />
+					</elements>
+				</layout-element>
+				<!--
+					Otherwise the content of the place is written without any
+					manipulation.
+				-->
+				<layout-element>
+					<parameters>
+						<valid-if>
+						<![CDATA[
+						not (contains(pub:publication/e:publishing-info/e:place/text(),'since')) and 
+						not (contains(pub:publication/e:publishing-info/e:place/text(),'seit')) 
+						]]>
+						</valid-if>
+					</parameters>
+					<elements>
+						<layout-element ref="pub:publication/e:publishing-info/e:place/text()" />
+					</elements>
+				</layout-element>
 			</elements>
 		</layout-element>
 
@@ -408,9 +550,10 @@
 			</parameters>
 			<elements>
 				<layout-element ref="$sourceStartPage" />
+
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[$sourceStartPage < $sourceEndPage]]></valid-if>
+						<valid-if><![CDATA[number($sourceStartPage) < number($sourceEndPage)]]></valid-if>
 					</parameters>
 					<elements>
 						<layout-element ref="$sourceEndPage" />
@@ -419,24 +562,31 @@
 			</elements>
 		</layout-element>
 
-	<!--
-		VOLUME in form 'vol. x' for Contribution to Collected Edition,
-		Contribution to Commentary
-	-->
-	<layout-element name="volume-with-prefix">
-		<parameters>
-			<valid-if><![CDATA[exists(pub:publication/source:source[1]/e:volume/text())]]></valid-if>
-			<starts-with value=", " />
-		</parameters>
-		<elements>
-			<layout-element ref="$volum-prefix" />
-			<layout-element ref="$firstSourceVolume" />
-		</elements>
-	</layout-element>
+		<!--
+			VOLUME in form 'vol. x' for Contribution to Collected Edition,
+			Contribution to Commentary
+		-->
+		<layout-element name="volume-with-prefix">
+			<parameters>
+				<valid-if><![CDATA[exists(pub:publication/source:source[1]/e:volume/text())]]></valid-if>
+				<starts-with value=", " />
+			</parameters>
+			<elements>
+				<layout-element>
+					<parameters>
+						<i18n ref="volume" />
+					</parameters>
+					<elements>
+						<layout-element ref="$volume-prefix" />
+					</elements>
+				</layout-element>
+				<layout-element ref="$firstSourceVolume" />
+			</elements>
+		</layout-element>
 
-		<!-- VOLUME ISSUE YEAR
+		<!-- VOLUME ISSUE
 		for Journal Article -->
-		<layout-element name="volume-issue-year-journal">
+		<layout-element name="volume-issue-journal">
 			<elements>
 				<layout-element>
 					<parameters>
@@ -450,28 +600,15 @@
 						<layout-element ref="$firstSourceIssue" />
 					</elements>
 				</layout-element>
-
-				<!--
-					<layout-element> <parameters> <valid-if><![CDATA[exists
-					(pub:publication/source:source[1]/e:volume/text()) or
-					exists(pub:publication/source:source[1]/e:issue/text())]]></valid-if>
-					<starts-with value="(" /> <ends-with value=")" /> </parameters>
-					<elements> <layout-element ref="$date" /> </elements>
-					</layout-element> <layout-element> <parameters>
-					<valid-if><![CDATA[not(pub:publication/source:source[1]/e:volume/text())
-					and
-					not(pub:publication/source:source[1]/e:issue/text())]]></valid-if>
-					</parameters> <elements> <layout-element ref="$date" /> </elements>
-					</layout-element>
-				-->
 			</elements>
 		</layout-element>
 
-		<!-- VOLUME ISSUE YEAR 
-		for ONLINE Journal Article -->
-		<layout-element name="volume-issue-year-online-journal">
+		<!-- VOLUME ISSUE
+		for ONLINE Publications -->
+		<layout-element name="volume-issue-online-journal">
 			<parameters>
-				<valid-if><![CDATA[$genre = $l_article and exists($onlineIdType)]]>
+				<valid-if><![CDATA[exists(pub:publication/e:published-online/text())
+						and not(pub:publication/dcterms:issued/text())]]>
 			</valid-if>
 			</parameters>
 			<elements>
@@ -487,37 +624,9 @@
 						<layout-element ref="$firstSourceIssue" />
 					</elements>
 				</layout-element>
-
-				<!--
-					<layout-element> <parameters> <valid-if><![CDATA[exists
-					(pub:publication/source:source[1]/e:volume/text()) or
-					exists(pub:publication/source:source[1]/e:issue/text())]]></valid-if>
-					<starts-with value="(" /> <ends-with value=")" /> </parameters>
-					<elements> <layout-element ref="$date" /> </elements>
-					</layout-element> <layout-element> <parameters>
-					<valid-if><![CDATA[not(pub:publication/source:source[1]/e:volume/text())
-					and
-					not(pub:publication/source:source[1]/e:issue/text())]]></valid-if>
-					</parameters> <elements> <layout-element ref="$date" /> </elements>
-					</layout-element>
-				-->
 			</elements>
 		</layout-element>
 
-		<!-- VOLUME ISSUE DEFAULT AND ONLINE JOURNAL -->
-		<layout-element name="volue-issue-default-and-online-journal">
-			<parameters>
-				<valid-if><![CDATA[ exists (pub:publication/source:source[1]/e:volume/text()) 
-						or exists(pub:publication/source:source[1]/e:issue/text())
-						]]></valid-if>
-			</parameters>
-			<elements>
-				<layout-element>
-					<parameters>
-					</parameters>
-				</layout-element>
-			</elements>
-		</layout-element>
 
 		<!-- YEAR DEFAULT AND ONLINE JOURNAL -->
 		<layout-element name="year-default-and-online-journal">
@@ -560,14 +669,17 @@
 			</elements>
 		</layout-element>
 
-		<!-- SOURCE TITLE VOLUME 
-		for Contribution to collected edition -->
+		<!--
+			SOURCE TITLE VOLUME for Contribution to Collected Edition,
+			Contribution to Festschrift
+		-->
 		<layout-element name="source-title-volume-contr">
+			<parameters>
+			</parameters>
 			<elements>
 				<layout-element ref="pub:publication/source:source[1]/dc:title/text()" />
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[exists(pub:publication/source:source[2])]]></valid-if>
 						<starts-with value="(" />
 						<ends-with value=")" />
 						<delimiter value=", " />
@@ -577,28 +689,19 @@
 						<layout-element ref="pub:publication/source:source[2]/e:volume/text()" />
 					</elements>
 				</layout-element>
-				
-				<layout-element ref="$volume-with-prefix"/>
-<!--				<layout-element>-->
-<!--					<parameters>-->
-<!--						<valid-if><![CDATA[exists(pub:publication/source:source[1]/e:volume/text())]]></valid-if>-->
-<!--						<starts-with value=", " />-->
-<!--					</parameters>-->
-<!--					<elements>-->
-<!--						<layout-element ref="$volum-prefix" />-->
-<!--						<layout-element ref="$firstSourceVolume" />-->
-<!--					</elements>-->
-<!--				</layout-element>-->
+
+				<layout-element ref="$volume-with-prefix" />
 
 			</elements>
 		</layout-element>
 
-		<!--	ONLINE JOURNAL ARTICLE ID	
-		 and $onlineIdValue-->
-		<layout-element name="online-journal-article-id">
+		<!--ID	ONLINE PUBLICATION -->
+		<layout-element name="id-online-publication">
 			<parameters>
-				<valid-if><![CDATA[$genre = $l_article]]></valid-if>
+				<valid-if><![CDATA[exists(pub:publication/e:published-online/text())
+						and not(pub:publication/dcterms:issued/text())]]></valid-if>
 				<starts-with value=", " />
+				<ends-with value=", " />
 			</parameters>
 			<elements>
 				<layout-element>
@@ -612,13 +715,6 @@
 				<layout-element ref="$onlineIdValue" />
 			</elements>
 		</layout-element>
-
-		<!--
-			<layout-element name="dd-mm-yyyy-date"> <parameters> <starts-with
-			value=", "/> </parameters> <elements> <layout-element
-			ref="func:get_reverse_date(pub:publication/dcterms:issued/text())"/>
-			</elements> </layout-element>
-		-->
 
 		<!--  TITLE -->
 		<layout-element name="title">
@@ -651,57 +747,46 @@
 			</elements>
 		</layout-element>
 
-	<!--
-		SOURCE ABB OR NORMAL TITLE for Newspaper Article and Contribution to
-		Commentary If there is an Abb title, it is used. Otherwise the normal
-		title is taken.
-	-->
-	<layout-element name="source-abbTitle-or-normalTitle">
-	<parameters>
-		<starts-with value=", "/>
-	</parameters>
-		<elements>
-			<layout-element ref="$source-abbTitle" />
-			<layout-element>
-				<parameters>
-					<valid-if><![CDATA[
+		<!--
+			SOURCE ABB OR NORMAL TITLE for Newspaper Article and Contribution to
+			Commentary If there is an Abb title, it is used. Otherwise the normal
+			title is taken.
+		-->
+		<layout-element name="source-abbTitle-or-normalTitle">
+			<elements>
+				<layout-element ref="$source-abbTitle" />
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[
 					not(pub:publication/source:source[1]/dcterms:alternative[@xsi:type='eterms:ABBREVIATION']/text())
 					]]></valid-if>
-				</parameters>
-				<elements>
-					<layout-element ref="$source-title" />
-				</elements>
-			</layout-element>
-		</elements>
-	</layout-element>	
-
-		<!--	TEST	-->
-		<layout-element name="test">
-			<parameters>
-				<delimiter value=", " />
-			</parameters>
-			<elements>
-				<layout-element
-					ref="pub:publication/dc:identifier[@xsi:type='eterms:DOI']/text()" />
-				<layout-element
-					ref="pub:publication/dc:identifier[@xsi:type='eterms:URI']/text()" />
-				<layout-element
-					ref="pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']/text()" />
-				<layout-element ref="escidocComponents:properties/prop:file-name/text()" />
+					</parameters>
+					<elements>
+						<layout-element ref="$source-title" />
+					</elements>
+				</layout-element>
 			</elements>
 		</layout-element>
 
-		<!--	LEGAL CASE	-->
+		<!-- LEGAL CASE	
+		The legal case section of publication Case Note. 
+		If the field content of <Title> matches exactly "Anmerkung zu" or "Besprechung von" 
+		NO comma should be displayed after the publication title in the citation.
+		The order of the recent elements is:
+		<LegalCase.Court>, <LegalCase.Issued> - <LegalCase.Identifier> <LegalCase.Title>
+		See function func:get_reverse_date: src/main/resources/CitationStyles/functions.xml
+		See preconditions Case Note: http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Case_Note
+		-->
 		<layout-element name="legal-case">
 			<parameters>
 				<starts-with value=", " />
 			</parameters>
 			<elements>
-				<layout-element ref="$genreTitle" />
+				<layout-element ref="pub:publication/dc:title/text()" />
 				<layout-element>
 					<parameters>
 						<valid-if>
-							<![CDATA[not(pub:publication/dc:title/text() = 'Anmerkung zu' or pub:publication/dc:title/text() = 'Besprechung zu')]]>
+							<![CDATA[not(normalize-space(pub:publication/dc:title/text()) = 'Anmerkung zu' or normalize-space(pub:publication/dc:title/text()) = 'Besprechung von')]]>
 						</valid-if>
 						<starts-with value=", " />
 						<ends-with value=", " />
@@ -714,7 +799,7 @@
 				<layout-element>
 					<parameters>
 						<valid-if>
-							<![CDATA[pub:publication/dc:title/text() = 'Anmerkung zu' or pub:publication/dc:title/text() = 'Besprechung zu']]>
+							<![CDATA[normalize-space(pub:publication/dc:title/text()) = 'Anmerkung zu' or normalize-space(pub:publication/dc:title/text()) = 'Besprechung von']]>
 						</valid-if>
 						<ends-with value=", " />
 					</parameters>
@@ -739,55 +824,170 @@
 			</elements>
 		</layout-element>
 
+		<layout-element name="degree">
+			<parameters>
+				<starts-with value=", " />
+			</parameters>
+			<elements>
+
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[$l_jus_degree = 'Bachelor']]> 
+						</valid-if>
+						<i18n ref="bachelor" />
+					</parameters>
+					<elements>
+						<layout-element ref="$l_jus_degree" />
+					</elements>
+				</layout-element>
+
+
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[$l_jus_degree = 'Diploma']]> 
+						</valid-if>
+						<i18n ref="diploma" />
+					</parameters>
+					<elements>
+						<layout-element ref="$l_jus_degree" />
+					</elements>
+				</layout-element>
+
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[$l_jus_degree = 'Habilitation']]> 
+						</valid-if>
+						<i18n ref="habilitation" />
+					</parameters>
+					<elements>
+						<layout-element ref="$l_jus_degree" />
+					</elements>
+				</layout-element>
+
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[$l_jus_degree = 'Master']]> 
+						</valid-if>
+						<i18n ref="master" />
+					</parameters>
+					<elements>
+						<layout-element ref="$l_jus_degree" />
+					</elements>
+				</layout-element>
+
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[$l_jus_degree = 'Magister']]> 
+						</valid-if>
+						<i18n ref="magister" />
+					</parameters>
+					<elements>
+						<layout-element ref="$l_jus_degree" />
+					</elements>
+				</layout-element>
+
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[$l_jus_degree = 'Dissertation']]> 
+						</valid-if>
+						<i18n ref="phd" />
+					</parameters>
+					<elements>
+						<layout-element ref="$l_jus_degree" />
+					</elements>
+				</layout-element>
+
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[$l_jus_degree = 'State examination']]> 
+						</valid-if>
+						<i18n ref="staatsexamen" />
+					</parameters>
+					<elements>
+						<layout-element ref="$l_jus_degree" />
+					</elements>
+				</layout-element>
+			</elements>
+		</layout-element>
+
 		<!--
 			The possible citation styles for a publication with source journal
 		-->
-		<layout-element name="journal-citation-style">
+		<layout-element name="get-journal-citation-style">
 			<parameters>
-				<valid-if><![CDATA[$sourceGenre = $l_journal]]> 
+				<valid-if><![CDATA[
+				$sourceGenre = $l_journal 
+				]]> 
 			</valid-if>
 			</parameters>
 			<elements>
 				<!--
-					Jounral Citation Style: (1) Kurztitel_ZS_Jahr for more info see:
-					http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#.281.29_Kurztitel_ZS_Jahr
+					Journal Citation Style (1): Kurztitel_ZS Band, Heft (Jahr)
+					http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#.281.29_Kurztitel_ZS_Band.2C_Heft_.28Jahr.29
+					see for the variable $getCitationStyleForJournal: src/main/resources/CitationStyles/JUS/variables.xml
 				-->
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[$getCitationStyleForJournal='Kurztitel_ZS_Jahr']]></valid-if>
+						<valid-if><![CDATA[$getCitationStyleForJournal='Kurztitel_ZS Band, Heft (Jahr)']]></valid-if>
 					</parameters>
 					<elements>
 						<layout-element ref="$source-abbTitle" />
-						<layout-element ref="$date" />
-					</elements>
-				</layout-element>
-
-				<!--
-					Jounral Citation Style: (2) Kurztitel_ZS_Band_Jahr for more info
-					see:
-					http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#.282.29_Kurztitel_ZS_Band_.28Jahr.29
-				-->
-				<layout-element>
-					<parameters>
-						<valid-if><![CDATA[$getCitationStyleForJournal='Kurztitel_ZS_Band_Jahr']]></valid-if>
-					</parameters>
-					<elements>
-						<layout-element ref="$source-abbTitle" />
-						<layout-element ref="$firstSourceVolume" />
 						<layout-element>
 							<parameters>
-								<starts-with value="(" />
-								<ends-with value=")" />
+								<valid-if><![CDATA[$source-abbTitle='']]></valid-if>
 							</parameters>
 							<elements>
-								<layout-element ref="$date" />
+								<layout-element ref="$source-title" />
 							</elements>
 						</layout-element>
+						<layout-element ref="$volume-issue-journal" />
+						<layout-element ref="$year-default-and-online-journal" />
 					</elements>
 				</layout-element>
 
 				<!--
-					Jounral Citation Style: default for more info see:
+					Journal Citation Style (2): Titel_ZS Band, Heft (Jahr)
+					http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#.282.29_Titel_ZS_Band.2C_Heft_.28Jahr.29
+				-->
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[$getCitationStyleForJournal='Titel_ZS Band, Heft (Jahr)']]></valid-if>
+					</parameters>
+					<elements>
+						<layout-element ref="$source-title" />
+						<layout-element ref="$volume-issue-journal" />
+						<layout-element ref="$year-default-and-online-journal" />
+					</elements>
+				</layout-element>
+
+				<!--
+					Journal Citation Style (3): (Jahr) Band, Heft Titel_ZS 
+					http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#.283.29_.28Jahr.29_Band.2C_Heft_Titel_ZS
+				-->
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[$getCitationStyleForJournal='(Jahr) Band, Heft Titel_ZS']]></valid-if>
+					</parameters>
+					<elements>
+						<layout-element>
+							<parameters>
+								<starts-with value=", " />
+							</parameters>
+							<elements>
+								<layout-element ref="$year-default-and-online-journal" />
+							</elements>
+						</layout-element>
+						<layout-element ref="$volume-issue-journal" />
+						<layout-element ref="pub:publication/source:source[1]/dc:title/text()" />
+					</elements>
+				</layout-element>
+
+				<!--
+					Jounral Citation Style: default
+					This may occur when 
+					1) the journal is in CoNE, but there is no citation style given in CoNE
+					2) the journal is in CoNE, but there is no id in the item (the citation style is searched by any id - SFX, ISBN, ZDB)
+					3) the journal is not in CoNE
 					http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Default_citation_style
 				-->
 				<layout-element>
@@ -804,7 +1004,7 @@
 								<layout-element ref="$source-abbTitle" />
 							</elements>
 						</layout-element>
-						<layout-element ref="$volume-issue-year-journal" />
+						<layout-element ref="$volume-issue-journal" />
 						<layout-element ref="$year-default-and-online-journal" />
 					</elements>
 				</layout-element>
@@ -816,63 +1016,170 @@
 
 	</predefined-layout-elements>
 
-	<!-- LAYOUT DEFINITIN OF CITATION STYLES -->
+	<!-- LAYOUT DEFINITION OF CITATION STYLES -->
 
 	<!--
-		and not($onlineIdType) JOURNAL ARTICLE Sceleton Citation Style
+		JOURNAL ARTICLE and all other publication types published in a journal
+		JOURNAL ARTICLE Citation Style see element get-journal-citation-style.
+		CASE NOTE http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Case_Note
+		BOOK REVIEW http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Book_Review
+		CASE STUDY http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Case_Study
+		EDITORIAL http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Editorial
+		CONFERENCE PAPER with source JOURNAL 
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Conference_Paper
+		CONFERENCE REPORT with source JOURNAL 
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Conference_report_.28Discussion_report.29
 	-->
 
-	<cs-layout-definition name="journal-article-sceleton">
+	<cs-layout-definition name="journal-article-and-similar">
 		<parameters>
-			<valid-if><![CDATA[$genre = $l_article]]>
+			<valid-if><![CDATA[
+			$genre = $l_article or
+			$genre = $l_case-note or
+			$genre = $l_book-review or
+			$genre = $l_case-study or
+			$genre = $l_editorial or
+			($genre = $l_conference-paper and $sourceGenre = $l_journal) or
+			($genre = $l_conference-report and $sourceGenre = $l_journal)
+			]]>
 			</valid-if>
 			<ends-with value="." />
 		</parameters>
 		<elements>
 			<layout-element ref="$first-creator" />
-			<layout-element ref="$title" />
-			<layout-element ref="$journal-citation-style" />
+
+			<!--
+				if the title of the publication contains the word 'Review of' and
+				the genre is not Case Note
+				see for the function func:substringAfterReviewOf: src/main/resources/CitationStyles/functions.xml
+			-->
+			<layout-element>
+				<parameters>
+					<valid-if>
+						<![CDATA[
+						contains(pub:publication/dc:title/text(),'Review of:') and
+						$genre != $l_case-note
+						]]>
+						</valid-if>
+					<starts-with value=", " />
+				</parameters>
+				<elements>
+					<!-- set the ReviewOf-prefix in localized tags -->
+					<layout-element>
+						<parameters>
+							<i18n ref="reviewOf" />
+						</parameters>
+						<elements>
+							<layout-element ref="$reviewOf-prefix" />
+						</elements>
+					</layout-element>
+					<!--get the second part of the title after 'Review of:'-->
+					<layout-element
+						ref="func:substringAfterReviewOf(pub:publication/dc:title/text())" />
+				</elements>
+			</layout-element>
+			<!--
+				if the title of the publication does not contain the word 'Review
+				of' and the genre is not case note
+			-->
+			<layout-element>
+				<parameters>
+					<valid-if>
+						<![CDATA[
+						not (contains(pub:publication/dc:title/text(),'Review of:')) and 
+						$genre != $l_case-note 
+						]]>
+						</valid-if>
+				</parameters>
+				<elements>
+					<!--get the whole title of the publication -->
+					<layout-element ref="$title" />
+				</elements>
+			</layout-element>
+			<!--
+				If the genre is case note set the title of the publication as
+				definied in the legal-case-element
+			-->
+			<layout-element>
+				<parameters>
+					<valid-if><![CDATA[
+						$genre = $l_case-note
+					]]>
+					</valid-if>
+				</parameters>
+				<elements>
+					<layout-element ref="$legal-case" />
+				</elements>
+			</layout-element>
+
+			<!--
+				independet of the publication type check the published date of the
+				item - online or printed
+				see for the function func:get_reverse_date: src/main/resources/CitationStyles/functions.xml
+			-->
+			<layout-element>
+				<parameters>
+					<!-- for online publications-->
+					<valid-if><![CDATA[
+						exists(pub:publication/e:published-online/text())
+						and not(pub:publication/dcterms:issued/text()) ]]>
+					</valid-if>
+				</parameters>
+				<elements>
+					<layout-element ref="$source-title" />
+					<layout-element ref="$volume-issue-online-journal" />
+					<layout-element ref="$year-default-and-online-journal" />
+					<layout-element ref="$start-end-page" />
+					<layout-element ref="$id-online-publication" />
+					<layout-element
+						ref="func:get_reverse_date(pub:publication/e:published-online/text())" />
+					<layout-element ref="$second-or-more-creators-with-dot" />
+				</elements>
+			</layout-element>
+
+			<layout-element>
+				<parameters>
+					<!-- for print publications-->
+					<valid-if><![CDATA[
+						exists(pub:publication/dcterms:issued/text())]]>
+					</valid-if>
+				</parameters>
+				<elements>
+					<layout-element ref="$get-journal-citation-style" />
+				</elements>
+			</layout-element>
 
 		</elements>
 	</cs-layout-definition>
-
-	<!--
-		JOURNAL ARTICLE published online
-		exists($onlineIdValue) and 
-	-->
-	<!-- 
-	<cs-layout-definition name="online-journal-article">
-		<parameters>
-			<valid-if><![CDATA[$genre = $l_article]]>
-			</valid-if>
-		</parameters>
-		<elements>
-			<layout-element ref="$first-creator" />
-			<layout-element ref="$title" />
-			<layout-element ref="$source-title" />
-			<layout-element ref="$volume-issue-year-online-journal" />
-			<layout-element ref="$year-default-and-online-journal" />
-			<layout-element ref="$start-end-page" />
-			<layout-element ref="$onlineIdType"/>
-			<layout-element ref="$onlineIdValue"/>
-			<layout-element ref="$online-journal-article-id" />
-			<layout-element
-				ref="func:get_reverse_date(pub:publication/e:published-online/text())" />
-			<layout-element ref="$second-or-more-creators-with-dot" />
-
-		</elements>
-	</cs-layout-definition>
-	
--->
-
 
 	<!--
 		CONTRIBUTION TO COLLECTED EDITION Citation Style
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Contribution_to_a_Collected_Edition 
+		CONTRIBUTION TO HANDBOOK
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Contribution_to_a_Handbook
+		CONTRIBUTION TO ENCYCLOPEDIA
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Contribution_to_an_Encyclopedia
+		CONTRIBUTION TO FESTSCHRIFT
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Contribution_to_a_Festschrift
+		CONFERENCE REPORT with source PROCEEDINGS 
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Conference_report_.28Discussion_report.29
+		CONFERENCE PAPER with source MONOGRAPH 
+		CONFERENCE PAPER with source COLLECTED EDITION 
+		CONFERENCE PAPER with source PROCEEDINGS 
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Conference_Paper
 	-->
 	<cs-layout-definition name="contr-to-collected-edition">
 		<parameters>
 			<valid-if><![CDATA[
-				$genre = $l_contr-to-collect-ed
+				$genre = $l_contr-to-collect-ed or
+				$genre = $l_contr-to-handbook or
+				$genre = $l_contr-to-encyclopedia or
+				$genre = $l_contr-to-festschrift or
+				( $genre = $l_conference-report and $sourceGenre = $l_proceedings)or
+				( $genre = $l_conference-paper and $sourceGenre = $l_monograph) or
+				( $genre = $l_conference-paper and $sourceGenre = $l_collected-edition) or
+				( $genre = $l_conference-paper and $sourceGenre = $l_proceedings)
+				 
 			]]>
 			</valid-if>
 			<ends-with value="." />
@@ -881,10 +1188,10 @@
 			<layout-element ref="$first-creator" />
 			<layout-element ref="$title" />
 			<layout-element ref="$in-prefix" />
-			<layout-element ref="$source-editors"/>
+			<layout-element ref="$source-editors" />
 			<layout-element ref="$source-title-volume-contr" />
 			<layout-element ref="$edition" />
-			<layout-element ref="$source-place-publisher" />
+			<layout-element ref="$source-publisher-place" />
 			<layout-element ref="$date" />
 			<layout-element ref="$start-end-page" />
 			<layout-element ref="$second-or-more-creators" />
@@ -893,48 +1200,165 @@
 
 	<!--
 		MONOGRAPH Citation Style
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Monograph
+		COMMENTARY Citation Style
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Commentary
+		COLLECTED EDITION Citation Style
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Collected_Edition
+		PROCEEDINGS Citation Style
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Proceedings
+		SPECIAL JOURNAL ISSUE Citation Style
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Special_Issue_of_a_Journal
+		
 	-->
 	<cs-layout-definition name="monograph">
 		<parameters>
 			<valid-if><![CDATA[
-				$genre = $l_monograph
+				$genre = $l_monograph or
+				$genre = $l_commentary or
+				$genre = $l_collected-edition or
+				$genre = $l_handbook or
+				$genre = $l_festschrift or
+				$genre = $l_proceedings or
+				$genre = $l_issue
+				
 			]]>
 			</valid-if>
-<!--			<ends-with value="." />-->
+			<!--
+				no point at the end, becsause the pages end with dot, otherwise the
+				second-or-more creators element ends with dot.
+			-->
 		</parameters>
 		<elements>
 			<layout-element ref="$first-creator" />
 			<layout-element ref="$title" />
 			<layout-element ref="$source-title-volume" />
 			<layout-element ref="$edition" />
-			<layout-element ref="$place-publisher" />
+			<layout-element ref="$publisher-place" />
 			<layout-element ref="$date" />
 			<layout-element ref="$pages" />
 			<layout-element ref="$second-or-more-creators-with-dot" />
 		</elements>
 
 	</cs-layout-definition>
-
+	
 	<!--
-		CASE NOTE Citation Style This publication is part of a journal, a
-		reference to a journalCitatonStyle is made.
+		OPINION Citation Style This publication is publisehd on the
+		Institute's web page. There is no publisher and no source. See:
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Opinion
 	-->
-	<cs-layout-definition name="case-note">
+	<cs-layout-definition name="opinion">
 		<parameters>
 			<valid-if><![CDATA[
-				$genre = $l_case-note
+				$genre = $l_opinion
+			]]>
+			</valid-if>
+		</parameters>
+		<elements>
+			<layout-element ref="$first-creator" />
+			<layout-element ref="$title" />
+			<layout-element ref="$date" />
+			<layout-element ref="$pages" />
+			<layout-element ref="$second-or-more-creators-with-dot" />
+		</elements>
+	</cs-layout-definition>
+
+	<!--
+		NEWSPAPER ARTICLE Citation Style
+		see for the function func:get_reverse_date: src/main/resources/CitationStyles/functions.xml
+	-->
+	<cs-layout-definition name="newspaperArticle">
+		<parameters>
+			<valid-if><![CDATA[
+				$genre = $l_newspaper-article
 			]]>
 			</valid-if>
 			<ends-with value="." />
 		</parameters>
 		<elements>
 			<layout-element ref="$first-creator" />
-			<layout-element ref="$legal-case" />
-			<layout-element ref="$journal-citation-style" />
+			<layout-element ref="$title" />
+			<layout-element ref="$source-abbTitle-or-normalTitle" />
+			<layout-element
+				ref="func:get_reverse_date(pub:publication/dcterms:issued/text())" />
+			<layout-element ref="$start-end-page" />
+			<layout-element ref="$second-or-more-creators-with-dot" />
 		</elements>
 	</cs-layout-definition>
 
-	
+	<!--
+		CONTRIBUTION TO COMMENTARY Citation Style
+	-->
+	<cs-layout-definition name="contr-to-commanetary">
+		<parameters>
+			<valid-if><![CDATA[
+				$genre = $l_contr-to-commentary
+			]]>
+			</valid-if>
+			<ends-with value="." />
+		</parameters>
+		<elements>
+			<layout-element ref="$first-creator" />
+			<layout-element ref="$title" />
+			<layout-element ref="$in-prefix" />
+			<layout-element ref="$source-editors" />
+			<layout-element ref="$source-abbTitle-or-normalTitle" />
+			<layout-element ref="$volume-with-prefix" />
+			<layout-element ref="$edition" />
+			<layout-element ref="$source-publisher-place" />
+			<layout-element ref="$date" />
+			<layout-element ref="$start-end-page" />
+			<layout-element ref="$second-or-more-creators" />
+		</elements>
+	</cs-layout-definition>
+
+	<!--
+		THESIS Citation Style, see:
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Thesis
+	-->
+
+	<cs-layout-definition name="thesis">
+		<parameters>
+			<valid-if><![CDATA[
+				$genre = $l_thesis
+			]]>
+			</valid-if>
+		</parameters>
+		<elements>
+			<layout-element ref="$first-creator" />
+			<layout-element ref="$title" />
+			<layout-element ref="$source-title-volume" />
+			<layout-element ref="$edition" />
+			<layout-element ref="$source-publisher-place" />
+			<layout-element ref="$date" />
+			<layout-element ref="$degree" />
+			<layout-element ref="$publisher-place" />
+			<layout-element ref="$pages" />
+			<layout-element ref="$second-or-more-creators-with-dot" />
+		</elements>
+	</cs-layout-definition>
+
+	<!--
+		SERIES and JOURNAL Citation Style, see:
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Series
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Journal
+	-->
+	<cs-layout-definition name="series">
+		<parameters>
+			<valid-if><![CDATA[
+				$genre = $l_series or
+				$genre = $l_journal
+			]]>
+			</valid-if>
+			<ends-with value="." />
+		</parameters>
+		<elements>
+			<layout-element ref="$first-creator" />
+			<layout-element ref="$title" />
+			<layout-element ref="$publisher-place-since" />
+			<layout-element ref="$second-or-more-creators" />
+		</elements>
+	</cs-layout-definition>
 
 	<!--
 

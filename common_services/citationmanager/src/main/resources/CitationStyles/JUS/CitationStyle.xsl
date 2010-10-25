@@ -171,9 +171,6 @@
                         <xsl:variable name="genre">
                             <xsl:value-of select="pub:publication/@type"/>
                         </xsl:variable>
-                        <xsl:variable name="genreTitle">
-                            <xsl:value-of select="pub:publication/dc:title/text()"/>
-                        </xsl:variable>
                         <xsl:variable name="creatorsCount">
                             <xsl:value-of select="count(pub:publication/e:creator)"/>
                         </xsl:variable>
@@ -201,6 +198,15 @@
                         <xsl:variable name="l_contr-to-commentary">
                             <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary'"/>
                         </xsl:variable>
+                        <xsl:variable name="l_contr-to-festschrift">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_contr-to-handbook">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_contr-to-encyclopedia">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia'"/>
+                        </xsl:variable>
                         <xsl:variable name="l_newspaper-article">
                             <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article'"/>
                         </xsl:variable>
@@ -215,6 +221,9 @@
                         </xsl:variable>
                         <xsl:variable name="l_handbook">
                             <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/handbook'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_editorial">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/editorial'"/>
                         </xsl:variable>
                         <xsl:variable name="sourceGenre">
                             <xsl:value-of select="pub:publication/source:source[1]/@type"/>
@@ -234,17 +243,17 @@
                         <xsl:variable name="firstSourceVolume">
                             <xsl:value-of select="pub:publication/source:source[1]/e:volume/text()"/>
                         </xsl:variable>
-                        <xsl:variable name="identifier">
-                            <xsl:value-of select="'pub:publication/dc:identifier/@type'"/>
+                        <xsl:variable name="degree_test">
+                            <xsl:value-of select="pub:publication/e:degree/text()"/>
                         </xsl:variable>
-                        <xsl:variable name="identifierValue">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if (pub:publication/dc:identifier[@xsi:type='eterms:DOI'])&#xA;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:DOI']/text()&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URN'])&#xA;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URN']/text()&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URI'])&#xA;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URI']/text()&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;else if (pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI'])&#xA;&#x9;&#x9;&#x9;then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']/text()&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;"/>
+                        <xsl:variable name="l_jus_degree">
+                            <xsl:value-of select="&#xA;&#x9;&#x9;if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor')&#xA;&#x9;&#x9;then 'Bachelor'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/diploma')&#xA;&#x9;&#x9;then 'Diploma'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation')&#xA;&#x9;&#x9;then 'Habilitation'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/master')&#xA;&#x9;&#x9;then 'Master'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/magister')&#xA;&#x9;&#x9;then 'Magister'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/phd')&#xA;&#x9;&#x9;then 'Dissertation'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen')&#xA;&#x9;&#x9;then 'State examination'&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;"/>
                         </xsl:variable>
                         <xsl:variable name="onlineIdType">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (pub:publication/dc:identifier[@xsi:type='eterms:DOI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'DOI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'source_URI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;"/>
+                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (pub:publication/dc:identifier[@xsi:type='eterms:DOI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'DOI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/dc:identifier[@xsi:type='eterms:URI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'URI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'source_URI'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'external_URL'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;"/>
                         </xsl:variable>
                         <xsl:variable name="onlineIdValue">
-                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;if ($onlineIdType = 'DOI') &#xA;&#x9;&#x9;&#x9;&#x9;then normalize-space(pub:publication/dc:identifier[@xsi:type='eterms:DOI']/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'URN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URN']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URI']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'source_URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']/text()&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;"/>
+                            <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;if ($onlineIdType = 'DOI') &#xA;&#x9;&#x9;&#x9;&#x9;then normalize-space(pub:publication/dc:identifier[@xsi:type='eterms:DOI']/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'URN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URN']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/dc:identifier[@xsi:type='eterms:URI']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($onlineIdType = 'source_URI') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])&#xA;&#x9;&#x9;&#x9;&#x9;then ../../escidocComponents:components/escidocComponents:component/escidocComponents:content/@xlink:href&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;"/>
                         </xsl:variable>
                         <xsl:variable name="idType">
                             <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:CONE']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'CONE'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:ISSN']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'ISSN'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else if (pub:publication/source:source/dc:identifier[@xsi:type='eterms:ZDB']) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then 'ZDB'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;"/>
@@ -252,7 +261,7 @@
                         <xsl:variable name="idValue">
                             <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if ($sourceGenre=$l_journal) then &#xA;&#x9;&#x9;&#x9;&#x9;if ($idType = 'CONE') &#xA;&#x9;&#x9;&#x9;&#x9;then normalize-space(pub:publication/source:source/dc:identifier[@xsi:type='eterms:CONE']/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($idType = 'ISSN') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source/dc:identifier[@xsi:type='eterms:ISSN']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else if ($idType = 'ZDB') &#xA;&#x9;&#x9;&#x9;&#x9;then pub:publication/source:source/dc:identifier[@xsi:type='eterms:ZDB']/text()&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;&#x9;&#x9;else ''&#xA;&#x9;&#x9;"/>
                         </xsl:variable>
-                        <xsl:variable name="volum-prefix">
+                        <xsl:variable name="volume-prefix">
                             <xsl:value-of select="'vol.'"/>
                         </xsl:variable>
                         <xsl:variable name="together-prefix">
@@ -263,6 +272,12 @@
                         </xsl:variable>
                         <xsl:variable name="doi-prefix">
                             <xsl:value-of select="'DOI:'"/>
+                        </xsl:variable>
+                        <xsl:variable name="since-prefix">
+                            <xsl:value-of select="'since'"/>
+                        </xsl:variable>
+                        <xsl:variable name="reviewOf-prefix">
+                            <xsl:value-of select="'Review of:'"/>
                         </xsl:variable>
                         <xsl:variable name="editor-postfix">
                             <xsl:value-of select="'ed.'"/>
@@ -282,6 +297,18 @@
                         <xsl:variable name="instalment-postfix">
                             <xsl:value-of select="'instl.'"/>
                         </xsl:variable>
+                        <xsl:variable name="phd">
+                            <xsl:value-of select="'PhD Thesis'"/>
+                        </xsl:variable>
+                        <xsl:variable name="together-prefix">
+                            <xsl:value-of select="'together with'"/>
+                        </xsl:variable>
+                        <xsl:variable name="in-prefix">
+                            <xsl:value-of select="', in:'"/>
+                        </xsl:variable>
+                        <xsl:variable name="doi-prefix">
+                            <xsl:value-of select="'DOI:'"/>
+                        </xsl:variable>
                         <xsl:variable name="objid">
                             <xsl:value-of select="../../@objid"/>
                         </xsl:variable>
@@ -291,14 +318,14 @@
                         <xsl:variable name="local-tag">
                             <xsl:value-of select="'../../escidocItem:properties/prop:content-model-specific/local-tags/local-tag/text()'"/>
                         </xsl:variable>
-                        <xsl:variable name="kurztitel_zs_jahr">
-                            <xsl:value-of select=" 'Kurztitel_ZS_Jahr'"/>
+                        <xsl:variable name="online_article">
+                            <xsl:value-of select=" 'ONLINE: '"/>
                         </xsl:variable>
-                        <xsl:variable name="kurztitel_zs_band_jahr">
-                            <xsl:value-of select=" 'Kurztitel_ZS_Band_Jahr'"/>
+                        <xsl:variable name="print_article">
+                            <xsl:value-of select=" 'PRINT: '"/>
                         </xsl:variable>
                         <xsl:variable name="getCitationStyleForJournal">
-                            <xsl:value-of select="if ($sourceGenre=$l_journal) then func:getCitationStyleForJournal($idType,$idValue) else ''"/>
+                            <xsl:value-of select="if ($sourceGenre=$l_journal and $genre != $l_issue) then func:getCitationStyleForJournal($idType,$idValue) else ''"/>
                         </xsl:variable>
                         <!--### Predefined Layout Elements ###-->
 	<xsl:variable name="first-creator"><!--### Plain Layout Element ###-->
@@ -309,39 +336,44 @@
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
-                                                <xsl:variable name="var">
-                                                    <xsl:call-template name="applyDelimiter">
-                                                        <xsl:with-param name="les">
-                                                            <le>
-                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+                                                <!--valid-if--><xsl:variable name="var">
+                                                    <xsl:if test="pub:publication/e:creator[1]">
+                                                        <xsl:variable name="var">
+                                                            <xsl:call-template name="applyDelimiter">
+                                                                <xsl:with-param name="les">
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                  select="pub:publication/e:creator[1]/person:person/e:family-name/text()"/>
-                                                                    <xsl:copy-of select="$var"/>
-                                                                </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
-                                                            </le>
-                                                            <le>
-                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+                                                                                          select="pub:publication/e:creator[1]/person:person/e:family-name/text()"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                  select="pub:publication/e:creator[1]/person:person/e:given-name/text()"/>
-                                                                    <xsl:copy-of select="$var"/>
-                                                                </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
-                                                            </le>
-                                                            <le>
-                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+                                                                                          select="pub:publication/e:creator[1]/person:person/e:given-name/text()"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                  select="pub:publication/e:creator[1]/organization:organization/dc:title/text()"/>
-                                                                    <xsl:copy-of select="$var"/>
-                                                                </xsl:variable>
-                                                                <xsl:copy-of select="$var"/>
-                                                            </le>
-                                                        </xsl:with-param>
-                                                        <xsl:with-param name="delimiter" select="', '"/>
-                                                    </xsl:call-template>
-                                                </xsl:variable>
-                                                <!--font-style--><xsl:variable name="var">
-                                                    <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                                                                          select="pub:publication/e:creator[1]/organization:organization/dc:title/text()"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                </xsl:with-param>
+                                                                <xsl:with-param name="delimiter" select="', '"/>
+                                                            </xsl:call-template>
+                                                        </xsl:variable>
+                                                        <!--font-style--><xsl:variable name="var">
+                                                            <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:if>
                                                 </xsl:variable>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
@@ -833,6 +865,14 @@
                                     <xsl:with-param name="delimiter" select="' '"/>
                                 </xsl:call-template>
                             </xsl:variable>
+                            <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                <xsl:copy-of select="$var"/>
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>, </xsl:text>
+                                </xsl:if>
+                            </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="edition"><!--### Plain Layout Element ###-->
@@ -846,14 +886,14 @@
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                                         <!--valid-if--><xsl:variable name="var">
-                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;contains(pub:publication/e:publishing-info/e:edition/text(),'instl.') or &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'instl.') or&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;contains(pub:publication/e:publishing-info/e:edition/text(),'instalment') or &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'instalment')or&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;contains(pub:publication/e:publishing-info/e:edition/text(),'Lief.') or &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Lief.') or&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;contains(pub:publication/e:publishing-info/e:edition/text(),'Lieferung') or &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Lieferung') &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;(contains(pub:publication/e:publishing-info/e:edition/text(),'instl') and contains(pub:publication/e:publishing-info/e:edition/text(),'ed')) or &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'instl') and contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'ed')) or&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;(contains(pub:publication/e:publishing-info/e:edition/text(),'Lf') and contains(pub:publication/e:publishing-info/e:edition/text(),'Aufl')) or &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Lf') and contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Aufl'))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
                                                                 <xsl:variable name="var">
                                                                     <xsl:call-template name="applyDelimiter">
                                                                         <xsl:with-param name="les">
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                                  select="func:substringAfterWhitespace(pub:publication/e:publishing-info/e:edition/text())"/>
+                                                                                                  select="func:substringBeforeEdition(pub:publication/e:publishing-info/e:edition/text())"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
@@ -861,7 +901,7 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
-                                                                                                  select="func:substringAfterWhitespace(pub:publication/source:source[1]/e:publishing-info/e:edition/text())"/>
+                                                                                                  select="func:substringBeforeEdition(pub:publication/source:source[1]/e:publishing-info/e:edition/text())"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
@@ -874,7 +914,7 @@
                                                                                             <xsl:with-param name="les">
                                                                                                 <le>
                                                                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$instalment-postfix"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="$edition-postfix"/>
                                                                                                         <xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
                                                                                                     <xsl:copy-of select="$var"/>
@@ -884,7 +924,69 @@
                                                                                         </xsl:call-template>
                                                                                     </xsl:variable>
                                                                                     <!--i18n--><xsl:variable name="var">
-                                                                                        <xsl:if test="exists($var) and $var!=''">&lt;localized class="instalment"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                                                        <xsl:if test="exists($var) and $var!=''">&lt;localized class="edition"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                                                    </xsl:variable>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                                                    <xsl:variable name="var">
+                                                                                        <xsl:call-template name="applyDelimiter">
+                                                                                            <xsl:with-param name="les">
+                                                                                                <le>
+                                                                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                                                      select="func:substringAfterEdition(pub:publication/e:publishing-info/e:edition/text())"/>
+                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                    </xsl:variable>
+                                                                                                    <xsl:copy-of select="$var"/>
+                                                                                                </le>
+                                                                                                <le>
+                                                                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                                                      select="func:substringAfterEdition(pub:publication/source:source[1]/e:publishing-info/e:edition/text())"/>
+                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                    </xsl:variable>
+                                                                                                    <xsl:copy-of select="$var"/>
+                                                                                                </le>
+                                                                                                <le>
+                                                                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                                                                        <xsl:variable name="var">
+                                                                                                            <xsl:call-template name="applyDelimiter">
+                                                                                                                <xsl:with-param name="les">
+                                                                                                                    <le>
+                                                                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$instalment-postfix"/>
+                                                                                                                            <xsl:copy-of select="$var"/>
+                                                                                                                        </xsl:variable>
+                                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                                    </le>
+                                                                                                                </xsl:with-param>
+                                                                                                                <xsl:with-param name="delimiter" select="' '"/>
+                                                                                                            </xsl:call-template>
+                                                                                                        </xsl:variable>
+                                                                                                        <!--i18n--><xsl:variable name="var">
+                                                                                                            <xsl:if test="exists($var) and $var!=''">&lt;localized class="instalment"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                                                                        </xsl:variable>
+                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                    </xsl:variable>
+                                                                                                    <xsl:copy-of select="$var"/>
+                                                                                                </le>
+                                                                                            </xsl:with-param>
+                                                                                            <xsl:with-param name="delimiter" select="' '"/>
+                                                                                        </xsl:call-template>
+                                                                                    </xsl:variable>
+                                                                                    <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                                                                        <xsl:if test="exists($var) and $var!=''">
+                                                                                            <xsl:text>, </xsl:text>
+                                                                                        </xsl:if>
+                                                                                        <xsl:copy-of select="$var"/>
                                                                                     </xsl:variable>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
@@ -905,7 +1007,88 @@
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                                         <!--valid-if--><xsl:variable name="var">
-                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(contains(pub:publication/e:publishing-info/e:edition/text(),'instl.')) and&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'instl.')) and&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(contains(pub:publication/e:publishing-info/e:edition/text(),'instalment')) and&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'instalment')) and&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(contains(pub:publication/e:publishing-info/e:edition/text(),'Lief.')) and &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Lief.')) and&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(contains(pub:publication/e:publishing-info/e:edition/text(),'Lieferung')) and &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Lieferung')) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;(contains(pub:publication/e:publishing-info/e:edition/text(),'instl') and not(contains(pub:publication/e:publishing-info/e:edition/text(),'ed'))) or &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'instl') and not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'ed'))) or&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;(contains(pub:publication/e:publishing-info/e:edition/text(),'Lf') and not(contains(pub:publication/e:publishing-info/e:edition/text(),'Aufl'))) or &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Lf') and not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Aufl')))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                                <xsl:variable name="var">
+                                                                    <xsl:call-template name="applyDelimiter">
+                                                                        <xsl:with-param name="les">
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                                                    <xsl:variable name="var">
+                                                                                        <xsl:call-template name="applyDelimiter">
+                                                                                            <xsl:with-param name="les">
+                                                                                                <le>
+                                                                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                                                      select="func:substringBeforeInstalment(pub:publication/e:publishing-info/e:edition/text())"/>
+                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                    </xsl:variable>
+                                                                                                    <xsl:copy-of select="$var"/>
+                                                                                                </le>
+                                                                                                <le>
+                                                                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                                                      select="func:substringBeforeInstalment(pub:publication/source:source[1]/e:publishing-info/e:edition/text())"/>
+                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                    </xsl:variable>
+                                                                                                    <xsl:copy-of select="$var"/>
+                                                                                                </le>
+                                                                                                <le>
+                                                                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                                                                        <xsl:variable name="var">
+                                                                                                            <xsl:call-template name="applyDelimiter">
+                                                                                                                <xsl:with-param name="les">
+                                                                                                                    <le>
+                                                                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$instalment-postfix"/>
+                                                                                                                            <xsl:copy-of select="$var"/>
+                                                                                                                        </xsl:variable>
+                                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                                    </le>
+                                                                                                                </xsl:with-param>
+                                                                                                                <xsl:with-param name="delimiter" select="' '"/>
+                                                                                                            </xsl:call-template>
+                                                                                                        </xsl:variable>
+                                                                                                        <!--i18n--><xsl:variable name="var">
+                                                                                                            <xsl:if test="exists($var) and $var!=''">&lt;localized class="instalment"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                                                                        </xsl:variable>
+                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                    </xsl:variable>
+                                                                                                    <xsl:copy-of select="$var"/>
+                                                                                                </le>
+                                                                                            </xsl:with-param>
+                                                                                            <xsl:with-param name="delimiter" select="' '"/>
+                                                                                        </xsl:call-template>
+                                                                                    </xsl:variable>
+                                                                                    <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                                                                        <xsl:if test="exists($var) and $var!=''">
+                                                                                            <xsl:text>, </xsl:text>
+                                                                                        </xsl:if>
+                                                                                        <xsl:copy-of select="$var"/>
+                                                                                    </xsl:variable>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                        </xsl:with-param>
+                                                                        <xsl:with-param name="delimiter" select="' '"/>
+                                                                    </xsl:call-template>
+                                                                </xsl:variable>
+                                                                <xsl:copy-of select="$var"/>
+                                                            </xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                        <!--valid-if--><xsl:variable name="var">
+                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(contains(pub:publication/e:publishing-info/e:edition/text(),'instl')) and &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'instl')) and&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(contains(pub:publication/e:publishing-info/e:edition/text(),'Lf')) and&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(contains(pub:publication/source:source[1]/e:publishing-info/e:edition/text(),'Lf'))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
                                                                 <xsl:variable name="var">
                                                                     <xsl:call-template name="applyDelimiter">
                                                                         <xsl:with-param name="les">
@@ -976,7 +1159,7 @@
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
-                        <xsl:variable name="place-publisher"><!--### Plain Layout Element ###-->
+                        <xsl:variable name="publisher-place"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                             <xsl:variable name="var">
                                 <xsl:call-template name="applyDelimiter">
@@ -1009,7 +1192,7 @@
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
-                        <xsl:variable name="source-place-publisher"><!--### Plain Layout Element ###-->
+                        <xsl:variable name="source-publisher-place"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                             <xsl:variable name="var">
                                 <xsl:call-template name="applyDelimiter">
@@ -1026,6 +1209,117 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var"
                                                               select="pub:publication/source:source[1]/e:publishing-info/e:place/text()"/>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                    </xsl:with-param>
+                                    <xsl:with-param name="delimiter" select="', '"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>, </xsl:text>
+                                </xsl:if>
+                                <xsl:copy-of select="$var"/>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="publisher-place-since"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                            <xsl:variable name="var">
+                                <xsl:call-template name="applyDelimiter">
+                                    <xsl:with-param name="les">
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/e:publishing-info/dc:publisher/text()"/>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                <!--valid-if--><xsl:variable name="var">
+                                                    <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;contains(pub:publication/e:publishing-info/e:place/text(),'since') or &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;contains(pub:publication/e:publishing-info/e:place/text(),'seit') &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                        <xsl:variable name="var">
+                                                            <xsl:call-template name="applyDelimiter">
+                                                                <xsl:with-param name="les">
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                          select="func:substringBeforeSince(pub:publication/e:publishing-info/e:place/text())"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                                            <xsl:variable name="var">
+                                                                                <xsl:call-template name="applyDelimiter">
+                                                                                    <xsl:with-param name="les">
+                                                                                        <le>
+                                                                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$since-prefix"/>
+                                                                                                <xsl:copy-of select="$var"/>
+                                                                                            </xsl:variable>
+                                                                                            <xsl:copy-of select="$var"/>
+                                                                                        </le>
+                                                                                    </xsl:with-param>
+                                                                                    <xsl:with-param name="delimiter" select="' '"/>
+                                                                                </xsl:call-template>
+                                                                            </xsl:variable>
+                                                                            <!--i18n--><xsl:variable name="var">
+                                                                                <xsl:if test="exists($var) and $var!=''">&lt;localized class="since"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                                            </xsl:variable>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                          select="func:substringAfterSince(pub:publication/e:publishing-info/e:place/text())"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                </xsl:with-param>
+                                                                <xsl:with-param name="delimiter" select="' '"/>
+                                                            </xsl:call-template>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:if>
+                                                </xsl:variable>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                <!--valid-if--><xsl:variable name="var">
+                                                    <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not (contains(pub:publication/e:publishing-info/e:place/text(),'since')) and &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not (contains(pub:publication/e:publishing-info/e:place/text(),'seit')) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                        <xsl:variable name="var">
+                                                            <xsl:call-template name="applyDelimiter">
+                                                                <xsl:with-param name="les">
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/e:publishing-info/e:place/text()"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                </xsl:with-param>
+                                                                <xsl:with-param name="delimiter" select="' '"/>
+                                                            </xsl:call-template>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:if>
+                                                </xsl:variable>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
@@ -1115,7 +1409,7 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                                 <!--valid-if--><xsl:variable name="var">
-                                                    <xsl:if test="$sourceStartPage &lt; $sourceEndPage">
+                                                    <xsl:if test="number($sourceStartPage) &lt; number($sourceEndPage)">
                                                         <xsl:variable name="var">
                                                             <xsl:call-template name="applyDelimiter">
                                                                 <xsl:with-param name="les">
@@ -1160,7 +1454,24 @@
                                             <xsl:with-param name="les">
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$volum-prefix"/>
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                        <xsl:variable name="var">
+                                                            <xsl:call-template name="applyDelimiter">
+                                                                <xsl:with-param name="les">
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$volume-prefix"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                </xsl:with-param>
+                                                                <xsl:with-param name="delimiter" select="' '"/>
+                                                            </xsl:call-template>
+                                                        </xsl:variable>
+                                                        <!--i18n--><xsl:variable name="var">
+                                                            <xsl:if test="exists($var) and $var!=''">&lt;localized class="volume"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                        </xsl:variable>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
@@ -1189,7 +1500,7 @@
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
-                        <xsl:variable name="volume-issue-year-journal"><!--### Plain Layout Element ###-->
+                        <xsl:variable name="volume-issue-journal"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                             <xsl:variable name="var">
                                 <xsl:call-template name="applyDelimiter">
@@ -1233,10 +1544,10 @@
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
-                        <xsl:variable name="volume-issue-year-online-journal"><!--### Plain Layout Element ###-->
+                        <xsl:variable name="volume-issue-online-journal"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                             <!--valid-if--><xsl:variable name="var">
-                                <xsl:if test="$genre = $l_article and exists($onlineIdType)&#xA;&#x9;&#x9;&#x9;">
+                                <xsl:if test="exists(pub:publication/e:published-online/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and not(pub:publication/dcterms:issued/text())&#xA;&#x9;&#x9;&#x9;">
                                     <xsl:variable name="var">
                                         <xsl:call-template name="applyDelimiter">
                                             <xsl:with-param name="les">
@@ -1268,35 +1579,6 @@
                                                                 </xsl:variable>
                                                                 <xsl:copy-of select="$var"/>
                                                             </xsl:if>
-                                                        </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
-                                                    </xsl:variable>
-                                                    <xsl:copy-of select="$var"/>
-                                                </le>
-                                            </xsl:with-param>
-                                            <xsl:with-param name="delimiter" select="' '"/>
-                                        </xsl:call-template>
-                                    </xsl:variable>
-                                    <xsl:copy-of select="$var"/>
-                                </xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="volue-issue-default-and-online-journal"><!--### Plain Layout Element ###-->
-	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
-                            <!--valid-if--><xsl:variable name="var">
-                                <xsl:if test=" exists (pub:publication/source:source[1]/e:volume/text()) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;or exists(pub:publication/source:source[1]/e:issue/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
-                                    <xsl:variable name="var">
-                                        <xsl:call-template name="applyDelimiter">
-                                            <xsl:with-param name="les">
-                                                <le>
-                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
-                                                        <xsl:variable name="var">
-                                                            <xsl:call-template name="applyDelimiter">
-                                                                <xsl:with-param name="les"/>
-                                                                <xsl:with-param name="delimiter" select="' '"/>
-                                                            </xsl:call-template>
                                                         </xsl:variable>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
@@ -1441,41 +1723,36 @@
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
-                                                <!--valid-if--><xsl:variable name="var">
-                                                    <xsl:if test="exists(pub:publication/source:source[2])">
-                                                        <xsl:variable name="var">
-                                                            <xsl:call-template name="applyDelimiter">
-                                                                <xsl:with-param name="les">
-                                                                    <le>
-                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+                                                <xsl:variable name="var">
+                                                    <xsl:call-template name="applyDelimiter">
+                                                        <xsl:with-param name="les">
+                                                            <le>
+                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[2]/dc:title/text()"/>
-                                                                            <xsl:copy-of select="$var"/>
-                                                                        </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
-                                                                    </le>
-                                                                    <le>
-                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+                                                                    <xsl:copy-of select="$var"/>
+                                                                </xsl:variable>
+                                                                <xsl:copy-of select="$var"/>
+                                                            </le>
+                                                            <le>
+                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[2]/e:volume/text()"/>
-                                                                            <xsl:copy-of select="$var"/>
-                                                                        </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
-                                                                    </le>
-                                                                </xsl:with-param>
-                                                                <xsl:with-param name="delimiter" select="', '"/>
-                                                            </xsl:call-template>
-                                                        </xsl:variable>
-                                                        <!--
+                                                                    <xsl:copy-of select="$var"/>
+                                                                </xsl:variable>
+                                                                <xsl:copy-of select="$var"/>
+                                                            </le>
+                                                        </xsl:with-param>
+                                                        <xsl:with-param name="delimiter" select="', '"/>
+                                                    </xsl:call-template>
+                                                </xsl:variable>
+                                                <!--
 				start-with/ends-with
 			--><xsl:variable name="var">
-                                                            <xsl:if test="exists($var) and $var!=''">
-                                                                <xsl:text>(</xsl:text>
-                                                            </xsl:if>
-                                                            <xsl:copy-of select="$var"/>
-                                                            <xsl:if test="exists($var) and $var!=''">
-                                                                <xsl:text>)</xsl:text>
-                                                            </xsl:if>
-                                                        </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
+                                                    <xsl:if test="exists($var) and $var!=''">
+                                                        <xsl:text>(</xsl:text>
+                                                    </xsl:if>
+                                                    <xsl:copy-of select="$var"/>
+                                                    <xsl:if test="exists($var) and $var!=''">
+                                                        <xsl:text>)</xsl:text>
                                                     </xsl:if>
                                                 </xsl:variable>
                                                 <xsl:copy-of select="$var"/>
@@ -1495,10 +1772,10 @@
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
-                        <xsl:variable name="online-journal-article-id"><!--### Plain Layout Element ###-->
+                        <xsl:variable name="id-online-publication"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                             <!--valid-if--><xsl:variable name="var">
-                                <xsl:if test="$genre = $l_article">
+                                <xsl:if test="exists(pub:publication/e:published-online/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and not(pub:publication/dcterms:issued/text())">
                                     <xsl:variable name="var">
                                         <xsl:call-template name="applyDelimiter">
                                             <xsl:with-param name="les">
@@ -1546,6 +1823,9 @@
                                             <xsl:text>, </xsl:text>
                                         </xsl:if>
                                         <xsl:copy-of select="$var"/>
+                                        <xsl:if test="exists($var) and $var!=''">
+                                            <xsl:text>, </xsl:text>
+                                        </xsl:if>
                                     </xsl:variable>
                                     <xsl:copy-of select="$var"/>
                                 </xsl:if>
@@ -1673,56 +1953,6 @@
                                     <xsl:with-param name="delimiter" select="' '"/>
                                 </xsl:call-template>
                             </xsl:variable>
-                            <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text>, </xsl:text>
-                                </xsl:if>
-                                <xsl:copy-of select="$var"/>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="test"><!--### Plain Layout Element ###-->
-	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
-                            <xsl:variable name="var">
-                                <xsl:call-template name="applyDelimiter">
-                                    <xsl:with-param name="les">
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var"
-                                                              select="pub:publication/dc:identifier[@xsi:type='eterms:DOI']/text()"/>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var"
-                                                              select="pub:publication/dc:identifier[@xsi:type='eterms:URI']/text()"/>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var"
-                                                              select="pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']/text()"/>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="escidocComponents:properties/prop:file-name/text()"/>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                    </xsl:with-param>
-                                    <xsl:with-param name="delimiter" select="', '"/>
-                                </xsl:call-template>
-                            </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="legal-case"><!--### Plain Layout Element ###-->
@@ -1732,7 +1962,7 @@
                                     <xsl:with-param name="les">
                                         <le>
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$genreTitle"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/dc:title/text()"/>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
                                             <xsl:copy-of select="$var"/>
@@ -1741,7 +1971,7 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                                 <!--valid-if--><xsl:variable name="var">
-                                                    <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(pub:publication/dc:title/text() = 'Anmerkung zu' or pub:publication/dc:title/text() = 'Besprechung zu')&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                    <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(normalize-space(pub:publication/dc:title/text()) = 'Anmerkung zu' or normalize-space(pub:publication/dc:title/text()) = 'Besprechung von')&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
                                                         <xsl:variable name="var">
                                                             <xsl:call-template name="applyDelimiter">
                                                                 <xsl:with-param name="les">
@@ -1778,7 +2008,7 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                                 <!--valid-if--><xsl:variable name="var">
-                                                    <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;pub:publication/dc:title/text() = 'Anmerkung zu' or pub:publication/dc:title/text() = 'Besprechung zu'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                    <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;normalize-space(pub:publication/dc:title/text()) = 'Anmerkung zu' or normalize-space(pub:publication/dc:title/text()) = 'Besprechung von'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
                                                         <xsl:variable name="var">
                                                             <xsl:call-template name="applyDelimiter">
                                                                 <xsl:with-param name="les">
@@ -1866,10 +2096,232 @@
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
-                        <xsl:variable name="journal-citation-style"><!--### Plain Layout Element ###-->
+                        <xsl:variable name="degree"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                            <xsl:variable name="var">
+                                <xsl:call-template name="applyDelimiter">
+                                    <xsl:with-param name="les">
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                <!--valid-if--><xsl:variable name="var">
+                                                    <xsl:if test="$l_jus_degree = 'Bachelor' &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                        <xsl:variable name="var">
+                                                            <xsl:call-template name="applyDelimiter">
+                                                                <xsl:with-param name="les">
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$l_jus_degree"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                </xsl:with-param>
+                                                                <xsl:with-param name="delimiter" select="' '"/>
+                                                            </xsl:call-template>
+                                                        </xsl:variable>
+                                                        <!--i18n--><xsl:variable name="var">
+                                                            <xsl:if test="exists($var) and $var!=''">&lt;localized class="bachelor"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:if>
+                                                </xsl:variable>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                <!--valid-if--><xsl:variable name="var">
+                                                    <xsl:if test="$l_jus_degree = 'Diploma' &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                        <xsl:variable name="var">
+                                                            <xsl:call-template name="applyDelimiter">
+                                                                <xsl:with-param name="les">
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$l_jus_degree"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                </xsl:with-param>
+                                                                <xsl:with-param name="delimiter" select="' '"/>
+                                                            </xsl:call-template>
+                                                        </xsl:variable>
+                                                        <!--i18n--><xsl:variable name="var">
+                                                            <xsl:if test="exists($var) and $var!=''">&lt;localized class="diploma"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:if>
+                                                </xsl:variable>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                <!--valid-if--><xsl:variable name="var">
+                                                    <xsl:if test="$l_jus_degree = 'Habilitation' &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                        <xsl:variable name="var">
+                                                            <xsl:call-template name="applyDelimiter">
+                                                                <xsl:with-param name="les">
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$l_jus_degree"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                </xsl:with-param>
+                                                                <xsl:with-param name="delimiter" select="' '"/>
+                                                            </xsl:call-template>
+                                                        </xsl:variable>
+                                                        <!--i18n--><xsl:variable name="var">
+                                                            <xsl:if test="exists($var) and $var!=''">&lt;localized class="habilitation"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:if>
+                                                </xsl:variable>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                <!--valid-if--><xsl:variable name="var">
+                                                    <xsl:if test="$l_jus_degree = 'Master' &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                        <xsl:variable name="var">
+                                                            <xsl:call-template name="applyDelimiter">
+                                                                <xsl:with-param name="les">
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$l_jus_degree"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                </xsl:with-param>
+                                                                <xsl:with-param name="delimiter" select="' '"/>
+                                                            </xsl:call-template>
+                                                        </xsl:variable>
+                                                        <!--i18n--><xsl:variable name="var">
+                                                            <xsl:if test="exists($var) and $var!=''">&lt;localized class="master"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:if>
+                                                </xsl:variable>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                <!--valid-if--><xsl:variable name="var">
+                                                    <xsl:if test="$l_jus_degree = 'Magister' &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                        <xsl:variable name="var">
+                                                            <xsl:call-template name="applyDelimiter">
+                                                                <xsl:with-param name="les">
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$l_jus_degree"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                </xsl:with-param>
+                                                                <xsl:with-param name="delimiter" select="' '"/>
+                                                            </xsl:call-template>
+                                                        </xsl:variable>
+                                                        <!--i18n--><xsl:variable name="var">
+                                                            <xsl:if test="exists($var) and $var!=''">&lt;localized class="magister"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:if>
+                                                </xsl:variable>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                <!--valid-if--><xsl:variable name="var">
+                                                    <xsl:if test="$l_jus_degree = 'Dissertation' &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                        <xsl:variable name="var">
+                                                            <xsl:call-template name="applyDelimiter">
+                                                                <xsl:with-param name="les">
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$l_jus_degree"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                </xsl:with-param>
+                                                                <xsl:with-param name="delimiter" select="' '"/>
+                                                            </xsl:call-template>
+                                                        </xsl:variable>
+                                                        <!--i18n--><xsl:variable name="var">
+                                                            <xsl:if test="exists($var) and $var!=''">&lt;localized class="phd"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:if>
+                                                </xsl:variable>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                <!--valid-if--><xsl:variable name="var">
+                                                    <xsl:if test="$l_jus_degree = 'State examination' &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                        <xsl:variable name="var">
+                                                            <xsl:call-template name="applyDelimiter">
+                                                                <xsl:with-param name="les">
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$l_jus_degree"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                </xsl:with-param>
+                                                                <xsl:with-param name="delimiter" select="' '"/>
+                                                            </xsl:call-template>
+                                                        </xsl:variable>
+                                                        <!--i18n--><xsl:variable name="var">
+                                                            <xsl:if test="exists($var) and $var!=''">&lt;localized class="staatsexamen"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:if>
+                                                </xsl:variable>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                    </xsl:with-param>
+                                    <xsl:with-param name="delimiter" select="' '"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>, </xsl:text>
+                                </xsl:if>
+                                <xsl:copy-of select="$var"/>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="get-journal-citation-style"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                             <!--valid-if--><xsl:variable name="var">
-                                <xsl:if test="$sourceGenre = $l_journal &#xA;&#x9;&#x9;&#x9;">
+                                <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;$sourceGenre = $l_journal &#xA;&#x9;&#x9;&#x9;&#x9; &#xA;&#x9;&#x9;&#x9;">
                                     <xsl:variable name="var">
                                         <xsl:call-template name="applyDelimiter">
                                             <xsl:with-param name="les">
@@ -1877,7 +2329,7 @@
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                                         <!--valid-if--><xsl:variable name="var">
-                                                            <xsl:if test="$getCitationStyleForJournal='Kurztitel_ZS_Jahr'">
+                                                            <xsl:if test="$getCitationStyleForJournal='Kurztitel_ZS Band, Heft (Jahr)'">
                                                                 <xsl:variable name="var">
                                                                     <xsl:call-template name="applyDelimiter">
                                                                         <xsl:with-param name="les">
@@ -1890,7 +2342,40 @@
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                                                    <!--valid-if--><xsl:variable name="var">
+                                                                                        <xsl:if test="$source-abbTitle=''">
+                                                                                            <xsl:variable name="var">
+                                                                                                <xsl:call-template name="applyDelimiter">
+                                                                                                    <xsl:with-param name="les">
+                                                                                                        <le>
+                                                                                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$source-title"/>
+                                                                                                                <xsl:copy-of select="$var"/>
+                                                                                                            </xsl:variable>
+                                                                                                            <xsl:copy-of select="$var"/>
+                                                                                                        </le>
+                                                                                                    </xsl:with-param>
+                                                                                                    <xsl:with-param name="delimiter" select="' '"/>
+                                                                                                </xsl:call-template>
+                                                                                            </xsl:variable>
+                                                                                            <xsl:copy-of select="$var"/>
+                                                                                        </xsl:if>
+                                                                                    </xsl:variable>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$volume-issue-journal"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$year-default-and-online-journal"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
@@ -1910,24 +2395,50 @@
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                                         <!--valid-if--><xsl:variable name="var">
-                                                            <xsl:if test="$getCitationStyleForJournal='Kurztitel_ZS_Band_Jahr'">
+                                                            <xsl:if test="$getCitationStyleForJournal='Titel_ZS Band, Heft (Jahr)'">
                                                                 <xsl:variable name="var">
                                                                     <xsl:call-template name="applyDelimiter">
                                                                         <xsl:with-param name="les">
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$source-abbTitle"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="$source-title"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$firstSourceVolume"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="$volume-issue-journal"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
                                                                             </le>
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$year-default-and-online-journal"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                        </xsl:with-param>
+                                                                        <xsl:with-param name="delimiter" select="' '"/>
+                                                                    </xsl:call-template>
+                                                                </xsl:variable>
+                                                                <xsl:copy-of select="$var"/>
+                                                            </xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                        <!--valid-if--><xsl:variable name="var">
+                                                            <xsl:if test="$getCitationStyleForJournal='(Jahr) Band, Heft Titel_ZS'">
+                                                                <xsl:variable name="var">
+                                                                    <xsl:call-template name="applyDelimiter">
+                                                                        <xsl:with-param name="les">
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
@@ -1936,7 +2447,7 @@
                                                                                             <xsl:with-param name="les">
                                                                                                 <le>
                                                                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="$year-default-and-online-journal"/>
                                                                                                         <xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
                                                                                                     <xsl:copy-of select="$var"/>
@@ -1949,13 +2460,24 @@
 				start-with/ends-with
 			--><xsl:variable name="var">
                                                                                         <xsl:if test="exists($var) and $var!=''">
-                                                                                            <xsl:text>(</xsl:text>
+                                                                                            <xsl:text>, </xsl:text>
                                                                                         </xsl:if>
                                                                                         <xsl:copy-of select="$var"/>
-                                                                                        <xsl:if test="exists($var) and $var!=''">
-                                                                                            <xsl:text>)</xsl:text>
-                                                                                        </xsl:if>
                                                                                     </xsl:variable>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$volume-issue-journal"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/dc:title/text()"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
@@ -2014,7 +2536,7 @@
                                                                             </le>
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$volume-issue-year-journal"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="$volume-issue-journal"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
@@ -2063,8 +2585,8 @@
                         <!--### End of Predefined Layout Elements ###-->
 	<!--### Citation Style Layout Definitions ###-->
 	<xsl:choose>
-                            <xsl:when test="$genre = $l_article&#xA;&#x9;&#x9;&#x9;">
-                                <xsl:variable name="journal-article-sceleton"><!--### Plain Layout Element ###-->
+                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;$genre = $l_article or&#xA;&#x9;&#x9;&#x9;$genre = $l_case-note or&#xA;&#x9;&#x9;&#x9;$genre = $l_book-review or&#xA;&#x9;&#x9;&#x9;$genre = $l_case-study or&#xA;&#x9;&#x9;&#x9;$genre = $l_editorial or&#xA;&#x9;&#x9;&#x9;($genre = $l_conference-paper and $sourceGenre = $l_journal) or&#xA;&#x9;&#x9;&#x9;($genre = $l_conference-report and $sourceGenre = $l_journal)&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
+                                <xsl:variable name="journal-article-and-similar"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                     <xsl:variable name="var">
                                         <xsl:call-template name="applyDelimiter">
@@ -2078,14 +2600,206 @@
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                        <!--valid-if--><xsl:variable name="var">
+                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;contains(pub:publication/dc:title/text(),'Review of:') and&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;$genre != $l_case-note&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                                <xsl:variable name="var">
+                                                                    <xsl:call-template name="applyDelimiter">
+                                                                        <xsl:with-param name="les">
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                                                    <xsl:variable name="var">
+                                                                                        <xsl:call-template name="applyDelimiter">
+                                                                                            <xsl:with-param name="les">
+                                                                                                <le>
+                                                                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$reviewOf-prefix"/>
+                                                                                                        <xsl:copy-of select="$var"/>
+                                                                                                    </xsl:variable>
+                                                                                                    <xsl:copy-of select="$var"/>
+                                                                                                </le>
+                                                                                            </xsl:with-param>
+                                                                                            <xsl:with-param name="delimiter" select="' '"/>
+                                                                                        </xsl:call-template>
+                                                                                    </xsl:variable>
+                                                                                    <!--i18n--><xsl:variable name="var">
+                                                                                        <xsl:if test="exists($var) and $var!=''">&lt;localized class="reviewOf"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                                                    </xsl:variable>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                                  select="func:substringAfterReviewOf(pub:publication/dc:title/text())"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                        </xsl:with-param>
+                                                                        <xsl:with-param name="delimiter" select="' '"/>
+                                                                    </xsl:call-template>
+                                                                </xsl:variable>
+                                                                <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                                                    <xsl:if test="exists($var) and $var!=''">
+                                                                        <xsl:text>, </xsl:text>
+                                                                    </xsl:if>
+                                                                    <xsl:copy-of select="$var"/>
+                                                                </xsl:variable>
+                                                                <xsl:copy-of select="$var"/>
+                                                            </xsl:if>
+                                                        </xsl:variable>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$journal-citation-style"/>
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                        <!--valid-if--><xsl:variable name="var">
+                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not (contains(pub:publication/dc:title/text(),'Review of:')) and &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;$genre != $l_case-note &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                                <xsl:variable name="var">
+                                                                    <xsl:call-template name="applyDelimiter">
+                                                                        <xsl:with-param name="les">
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                        </xsl:with-param>
+                                                                        <xsl:with-param name="delimiter" select="' '"/>
+                                                                    </xsl:call-template>
+                                                                </xsl:variable>
+                                                                <xsl:copy-of select="$var"/>
+                                                            </xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                        <!--valid-if--><xsl:variable name="var">
+                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;$genre = $l_case-note&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                                <xsl:variable name="var">
+                                                                    <xsl:call-template name="applyDelimiter">
+                                                                        <xsl:with-param name="les">
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$legal-case"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                        </xsl:with-param>
+                                                                        <xsl:with-param name="delimiter" select="' '"/>
+                                                                    </xsl:call-template>
+                                                                </xsl:variable>
+                                                                <xsl:copy-of select="$var"/>
+                                                            </xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                        <!--valid-if--><xsl:variable name="var">
+                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;exists(pub:publication/e:published-online/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and not(pub:publication/dcterms:issued/text()) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                                <xsl:variable name="var">
+                                                                    <xsl:call-template name="applyDelimiter">
+                                                                        <xsl:with-param name="les">
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$source-title"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$volume-issue-online-journal"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$year-default-and-online-journal"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$start-end-page"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$id-online-publication"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                                  select="func:get_reverse_date(pub:publication/e:published-online/text())"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$second-or-more-creators-with-dot"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                        </xsl:with-param>
+                                                                        <xsl:with-param name="delimiter" select="' '"/>
+                                                                    </xsl:call-template>
+                                                                </xsl:variable>
+                                                                <xsl:copy-of select="$var"/>
+                                                            </xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                        <!--valid-if--><xsl:variable name="var">
+                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;exists(pub:publication/dcterms:issued/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                                <xsl:variable name="var">
+                                                                    <xsl:call-template name="applyDelimiter">
+                                                                        <xsl:with-param name="les">
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$get-journal-citation-style"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                        </xsl:with-param>
+                                                                        <xsl:with-param name="delimiter" select="' '"/>
+                                                                    </xsl:call-template>
+                                                                </xsl:variable>
+                                                                <xsl:copy-of select="$var"/>
+                                                            </xsl:if>
+                                                        </xsl:variable>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
@@ -2104,9 +2818,9 @@
                                     </xsl:variable>
                                     <xsl:copy-of select="$var"/>
                                 </xsl:variable>
-                                <xsl:copy-of select="$journal-article-sceleton"/>
+                                <xsl:copy-of select="$journal-article-and-similar"/>
                             </xsl:when>
-                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-collect-ed&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
+                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-collect-ed or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-handbook or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-encyclopedia or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-festschrift or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-report and $sourceGenre = $l_proceedings)or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-paper and $sourceGenre = $l_monograph) or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-paper and $sourceGenre = $l_collected-edition) or&#xA;&#x9;&#x9;&#x9;&#x9;( $genre = $l_conference-paper and $sourceGenre = $l_proceedings)&#xA;&#x9;&#x9;&#x9;&#x9; &#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
                                 <xsl:variable name="contr-to-collected-edition"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                     <xsl:variable name="var">
@@ -2156,7 +2870,7 @@
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$source-place-publisher"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="$source-publisher-place"/>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
@@ -2198,7 +2912,7 @@
                                 </xsl:variable>
                                 <xsl:copy-of select="$contr-to-collected-edition"/>
                             </xsl:when>
-                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_monograph&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
+                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_monograph or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_commentary or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_collected-edition or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_handbook or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_festschrift or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_proceedings or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_issue&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
                                 <xsl:variable name="monograph"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                     <xsl:variable name="var">
@@ -2234,7 +2948,7 @@
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$place-publisher"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="$publisher-place"/>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
@@ -2268,8 +2982,8 @@
                                 </xsl:variable>
                                 <xsl:copy-of select="$monograph"/>
                             </xsl:when>
-                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_case-note&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
-                                <xsl:variable name="case-note"><!--### Plain Layout Element ###-->
+                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_opinion&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
+                                <xsl:variable name="opinion"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                     <xsl:variable name="var">
                                         <xsl:call-template name="applyDelimiter">
@@ -2283,14 +2997,85 @@
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$legal-case"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$journal-citation-style"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$pages"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$second-or-more-creators-with-dot"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                            </xsl:with-param>
+                                            <xsl:with-param name="delimiter" select="' '"/>
+                                        </xsl:call-template>
+                                    </xsl:variable>
+                                    <xsl:copy-of select="$var"/>
+                                </xsl:variable>
+                                <xsl:copy-of select="$opinion"/>
+                            </xsl:when>
+                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_newspaper-article&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
+                                <xsl:variable name="newspaperArticle"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                    <xsl:variable name="var">
+                                        <xsl:call-template name="applyDelimiter">
+                                            <xsl:with-param name="les">
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$first-creator"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$source-abbTitle-or-normalTitle"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                      select="func:get_reverse_date(pub:publication/dcterms:issued/text())"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$start-end-page"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$second-or-more-creators-with-dot"/>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
@@ -2309,7 +3094,240 @@
                                     </xsl:variable>
                                     <xsl:copy-of select="$var"/>
                                 </xsl:variable>
-                                <xsl:copy-of select="$case-note"/>
+                                <xsl:copy-of select="$newspaperArticle"/>
+                            </xsl:when>
+                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_contr-to-commentary&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
+                                <xsl:variable name="contr-to-commanetary"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                    <xsl:variable name="var">
+                                        <xsl:call-template name="applyDelimiter">
+                                            <xsl:with-param name="les">
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$first-creator"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$in-prefix"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$source-editors"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$source-abbTitle-or-normalTitle"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$volume-with-prefix"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$edition"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$source-publisher-place"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$start-end-page"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$second-or-more-creators"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                            </xsl:with-param>
+                                            <xsl:with-param name="delimiter" select="' '"/>
+                                        </xsl:call-template>
+                                    </xsl:variable>
+                                    <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                        <xsl:copy-of select="$var"/>
+                                        <xsl:if test="exists($var) and $var!=''">
+                                            <xsl:text>.</xsl:text>
+                                        </xsl:if>
+                                    </xsl:variable>
+                                    <xsl:copy-of select="$var"/>
+                                </xsl:variable>
+                                <xsl:copy-of select="$contr-to-commanetary"/>
+                            </xsl:when>
+                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_thesis&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
+                                <xsl:variable name="thesis"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                    <xsl:variable name="var">
+                                        <xsl:call-template name="applyDelimiter">
+                                            <xsl:with-param name="les">
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$first-creator"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$source-title-volume"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$edition"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$source-publisher-place"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$degree"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$publisher-place"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$pages"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$second-or-more-creators-with-dot"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                            </xsl:with-param>
+                                            <xsl:with-param name="delimiter" select="' '"/>
+                                        </xsl:call-template>
+                                    </xsl:variable>
+                                    <xsl:copy-of select="$var"/>
+                                </xsl:variable>
+                                <xsl:copy-of select="$thesis"/>
+                            </xsl:when>
+                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_series or&#xA;&#x9;&#x9;&#x9;&#x9;$genre = $l_journal&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;">
+                                <xsl:variable name="series"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                    <xsl:variable name="var">
+                                        <xsl:call-template name="applyDelimiter">
+                                            <xsl:with-param name="les">
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$first-creator"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$title"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$publisher-place-since"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$second-or-more-creators"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
+                                                </le>
+                                            </xsl:with-param>
+                                            <xsl:with-param name="delimiter" select="' '"/>
+                                        </xsl:call-template>
+                                    </xsl:variable>
+                                    <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                        <xsl:copy-of select="$var"/>
+                                        <xsl:if test="exists($var) and $var!=''">
+                                            <xsl:text>.</xsl:text>
+                                        </xsl:if>
+                                    </xsl:variable>
+                                    <xsl:copy-of select="$var"/>
+                                </xsl:variable>
+                                <xsl:copy-of select="$series"/>
                             </xsl:when>
                         </xsl:choose>
                         <!--### End of Citation Style Layout Definitions ###-->
@@ -2340,15 +3358,18 @@
 		      </xsl:for-each>
 	   </xsl:template>
     <!--### Runtime Functions ###-->
-	<xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_year">
+	<xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:get_year">
 		      <xsl:param name="date"/>
 		      <xsl:value-of select="substring($date,1,4)"/>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_month">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:get_month">
 		      <xsl:param name="date"/>
 		      <xsl:value-of select="substring($date,6,2)"/>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_month_name">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:get_month_name">
 		      <xsl:param name="date"/>
 		      <xsl:variable name="months">
 			         <m n="0?1">January</m>
@@ -2366,19 +3387,40 @@
 		      </xsl:variable>
 		      <xsl:value-of select="     $months/m[     matches(      tokenize($date, '-')[2], @n     )     ]   "/>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_initials">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:get_initials">
 		      <xsl:param name="str"/>
 		      <xsl:variable name="delim" select="if (contains ($str, '-')) then '-' else ' '"/>
 		      <xsl:for-each select="tokenize(normalize-space ($str), '\s+|\.\s+|\-\s*')">
 			         <xsl:value-of select="concat(substring (., 1, 1), if (position()!=last())then concat ('.', $delim) else '.')"/>
 		      </xsl:for-each>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:cleanCitation">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:fname_initials">
+		      <xsl:param name="fname"/>
+		      <xsl:param name="gname"/>
+		      <xsl:param name="delim"/>
+		
+		      <xsl:value-of select="    if ( jfunc:isCJK(concat($fname, $gname) ) )     then string-join( ($fname, $gname), $delim )    else string-join( ($fname, func:get_initials($gname)), $delim )   "/>
+		
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:initials_fname">
+		      <xsl:param name="gname"/>
+		      <xsl:param name="fname"/>
+		      <xsl:param name="delim"/>
+		
+		      <xsl:value-of select="    if ( jfunc:isCJK(concat($fname, $gname) ) )     then string-join( ($fname, $gname), $delim )    else string-join( (func:get_initials($gname), $fname), $delim )   "/>
+		
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:cleanCitation">
 		      <xsl:param name="str"/>
 			     <xsl:value-of select="     normalize-space (     functx:replace-multi (      $str,      ( '([.,?!:;])\s*(&lt;[/]span&gt;)\s*\1', '([.,?!:;])\s*\1', '\.&#34;\.', '\s+([.,?!:;])', '\s*(&lt;[/]?span&gt;)\s*([.,?!:;])', '([?!])+\.' ),      ( '$1$2',         '$1',    '.&#34;',  '$1',     '$1$2',         '$1' )     )     )    "/>
 			     <!-- 																	.".=>." ??? -->
 	</xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="functx:replace-multi"
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="functx:replace-multi"
                   as="xs:string?">
 	       <xsl:param name="arg" as="xs:string?"/> 
 	       <xsl:param name="changeFrom" as="xs:string*"/> 
@@ -2387,26 +3429,55 @@
 	       <xsl:sequence select="      if (count($changeFrom) &gt; 0)     then functx:replace-multi(            replace($arg, $changeFrom[1],                       functx:if-absent($changeTo[1],'')),            $changeFrom[position() &gt; 1],            $changeTo[position() &gt; 1])     else $arg   "/>
 	   
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="functx:if-absent" as="item()*">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="functx:if-absent"
+                  as="item()*">
 	       <xsl:param name="arg" as="item()*"/> 
 	       <xsl:param name="value" as="item()*"/> 
 	 
 	       <xsl:sequence select="       if (exists($arg))      then $arg      else $value   "/>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_reverse_date">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:get_reverse_date">
 		      <xsl:param name="input_date"/>
 		      <xsl:if test="$input_date[.!=''] ">
 			         <xsl:value-of select="concat(substring($input_date,9,2),'.',substring($input_date,6,2),'.',substring($input_date,1,4))"/>
 		      </xsl:if>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle"
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:getCitationStyleForJournal">
 		      <xsl:param name="idType"/>
 		      <xsl:param name="idValue"/>
 		      <xsl:value-of select="jfunc:getCitationStyleForJournal($idType,$idValue)"/>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:substringAfterWhitespace">
-		      <xsl:param name="inputWithSpace"/>
-		      <xsl:value-of select="substring-after($inputWithSpace,' ')"/>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:substringAfterEdition">
+		      <xsl:param name="inputWithSpaceComma"/>
+		      <xsl:value-of select="substring-before(substring-after($inputWithSpaceComma,', '), ' ')"/>
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:substringBeforeEdition">
+		      <xsl:param name="inputWithSpaceComma"/>
+		      <xsl:value-of select="substring-before(substring-before($inputWithSpaceComma,', '), ' ')"/>
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:substringBeforeInstalment">
+		      <xsl:param name="inputWithInstalment"/>
+		      <xsl:value-of select="      if (contains($inputWithInstalment, 'instl'))      then substring-before($inputWithInstalment, 'instl')        else if (contains($inputWithInstalment, 'Lf'))      then substring-before($inputWithInstalment, 'Lf')        else ''      "/>
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:substringBeforeSince">
+		      <xsl:param name="inputWithSince"/>
+	       <xsl:value-of select="       if (contains($inputWithSince, 'since'))       then substring-before($inputWithSince, 'since')         else if (contains($inputWithSince, 'seit'))       then substring-before($inputWithSince, 'seit')         else ''       "/>
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:substringAfterSince">
+	       <xsl:param name="inputWithSince"/>
+		      <xsl:value-of select="      if (contains($inputWithSince, 'since'))      then substring-after($inputWithSince, 'since')        else if (contains($inputWithSince, 'seit'))      then substring-after($inputWithSince, 'seit')        else ''      "/>
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:substringAfterReviewOf">
+		      <xsl:param name="inputReviewTitle"/>
+		      <xsl:value-of select="substring-after($inputReviewTitle,'Review of:')"/>
 	   </xsl:function>
 </xsl:stylesheet>

@@ -32,8 +32,8 @@
 		
 		<!-- genre specific data-->
 		<variable name="genre"><![CDATA[pub:publication/@type]]></variable>
-		<variable name="genreTitle"><![CDATA[pub:publication/dc:title/text()]]></variable>
 		<variable name="creatorsCount"><![CDATA[count(pub:publication/e:creator)]]></variable>
+<!--		<variable name="creatorsCount"><![CDATA[count(pub:publication/e:creator[@role!=$l_honoree])]]></variable>-->
 		
 		<!-- genre specific date-->
 			<variable name="date">
@@ -63,7 +63,9 @@
 				else '']]>
 		</variable>
 		
-		<!-- genre labels -->
+		<!-- jus genre labels 
+		the default PubMan Labels can be found in the upper variables.xml-->
+		
 		<variable name="l_monograph"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/monograph']]></variable>
 		<variable name="l_contr-to-collect-ed"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition']]></variable>
 		<variable name="l_case-note"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/case-note']]></variable>
@@ -71,11 +73,18 @@
 		<variable name="l_case-study"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/case-study']]></variable>
 		<variable name="l_book-review"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/book-review']]></variable>
 		<variable name="l_contr-to-commentary"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary']]></variable>
+		
+		<variable name="l_contr-to-festschrift"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift']]></variable>
+		<variable name="l_contr-to-handbook"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook']]></variable>
+		<variable name="l_contr-to-encyclopedia"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia']]></variable>
+		
 		<variable name="l_newspaper-article"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article']]></variable>
 		<variable name="l_collected-edition"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/collected-edition']]></variable>
 		<variable name="l_commentary"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/commentary']]></variable>
 		<variable name="l_festschrift"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/festschrift']]></variable>
 		<variable name="l_handbook"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/handbook']]></variable>
+		
+		<variable name="l_editorial"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/editorial']]></variable>
 		
 		<!-- source specific data-->
 		<variable name="sourceGenre"><![CDATA[pub:publication/source:source[1]/@type]]></variable>
@@ -84,27 +93,37 @@
 		<variable name="sourceCreatorsCount"><![CDATA[count(pub:publication/source:source/e:creator)]]></variable>
 		<variable name="firstSourceIssue"><![CDATA[pub:publication/source:source[1]/e:issue/text()]]></variable>
 		<variable name="firstSourceVolume"><![CDATA[pub:publication/source:source[1]/e:volume/text()]]></variable>
-
-		<!-- identifiers-->
-		<variable name="identifier"><![CDATA['pub:publication/dc:identifier/@type']]></variable>
 		
-		<variable name="identifierValue">
-			<![CDATA[
-			
-			if (pub:publication/dc:identifier[@xsi:type='eterms:DOI'])
-			then pub:publication/dc:identifier[@xsi:type='eterms:DOI']/text()
-			
-			else if (pub:publication/dc:identifier[@xsi:type='eterms:URN'])
-			then pub:publication/dc:identifier[@xsi:type='eterms:URN']/text()
-			
-			else if (pub:publication/dc:identifier[@xsi:type='eterms:URI'])
-			then pub:publication/dc:identifier[@xsi:type='eterms:URI']/text()
-			
-			else if (pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI'])
-			then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']/text()
-			
-			else '']]>
-		</variable>
+		<!-- degree for thesis -->
+		<variable name="degree_test"><![CDATA[pub:publication/e:degree/text()]]></variable>
+		
+		<variable name="l_jus_degree"><![CDATA[
+		if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor')
+		then 'Bachelor'
+		
+		else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/diploma')
+		then 'Diploma'
+		
+		else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation')
+		then 'Habilitation'
+		
+		else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/master')
+		then 'Master'
+		
+		else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/magister')
+		then 'Magister'
+		
+		else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/phd')
+		then 'Dissertation'
+		
+		else if (pub:publication/e:degree/text() = 'http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen')
+		then 'State examination'
+		
+		else ''
+		
+		]]></variable>
+		
+		<!-- identifiers-->
 		
 		<variable name="onlineIdType">
 			<![CDATA[
@@ -120,6 +139,9 @@
 					
 					else if (pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']) 
 					then 'source_URI'
+					
+					else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])
+					then 'external_URL'
 					
 					else ''
 				else '']]>
@@ -139,6 +161,11 @@
 				
 				else if ($onlineIdType = 'source_URI') 
 				then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:URI']/text()
+				
+				
+				else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])
+				then ../../escidocComponents:components/escidocComponents:component/escidocComponents:content/@xlink:href
+				
 				else ''
 				
 			else '']]>
@@ -146,6 +173,7 @@
 		
 		
 		<!-- idType of the source of a journal. 
+		then (../../escidocComponents:components/escidocComponents:component/escidocComponents:properties/prop:file-name/text())
 		If SFX is present, will be taken, otherwise the idType
 		will be chosen in the following order: SFX-ISSN-ZDB -->
 		<variable name="idType">
@@ -181,10 +209,12 @@
 		</variable>
 		
 		<!-- prefix -->
-		<variable name="volum-prefix"><![CDATA['vol.']]></variable>
+		<variable name="volume-prefix"><![CDATA['vol.']]></variable>
 		<variable name="together-prefix"><![CDATA['together with']]></variable>
 		<variable name="in-prefix"><![CDATA[', in:']]></variable>
 		<variable name="doi-prefix"><![CDATA['DOI:']]></variable>
+		<variable name="since-prefix"><![CDATA['since']]></variable>
+		<variable name="reviewOf-prefix"><![CDATA['Review of:']]></variable>
 		
 		<!-- postfix-->
 		<variable name="editor-postfix"><![CDATA['ed.']]></variable>
@@ -194,16 +224,23 @@
 		<variable name="pages-postfix"><![CDATA['pp.']]></variable>
 		<variable name="instalment-postfix"><![CDATA['instl.']]></variable>
 		
+		<!-- degree -->
+		<variable name="phd"><![CDATA['PhD Thesis']]></variable>
+		<variable name="together-prefix"><![CDATA['together with']]></variable>
+		<variable name="in-prefix"><![CDATA[', in:']]></variable>
+		<variable name="doi-prefix"><![CDATA['DOI:']]></variable>
+		
 		<!-- test variables -->
 		<variable name="objid"><![CDATA[../../@objid]]></variable>
 		<variable name="hasPublication"
 			type="xs:boolean"><![CDATA[exists(pub:publication)]]></variable>
 		<variable name="local-tag"><![CDATA['../../escidocItem:properties/prop:content-model-specific/local-tags/local-tag/text()']]></variable>
-		<variable name="kurztitel_zs_jahr"> <![CDATA['Kurztitel_ZS_Jahr']]></variable>
-		<variable name="kurztitel_zs_band_jahr"> <![CDATA['Kurztitel_ZS_Band_Jahr']]></variable>
 		
-		<!-- call a function in src/main/resources/functions.xml with the given idType and idValue -->
-		<variable name="getCitationStyleForJournal"><![CDATA[if ($sourceGenre=$l_journal) then func:getCitationStyleForJournal($idType,$idValue) else '']]></variable>
+		<variable name="online_article"> <![CDATA['ONLINE: ']]></variable>
+		<variable name="print_article"> <![CDATA['PRINT: ']]></variable>
+		
+		<!-- call a function in src/main/resources/CitationStyles/functions.xml with the given idType and idValue -->
+		<variable name="getCitationStyleForJournal"><![CDATA[if ($sourceGenre=$l_journal and $genre != $l_issue) then func:getCitationStyleForJournal($idType,$idValue) else '']]></variable>
 		
 	
 		
