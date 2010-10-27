@@ -96,7 +96,7 @@ public class InternationalizationHelper
      */
     public enum SelectComponentAvailability
     {
-        SELECT_HAS_NO_COMPONENTS, SELECT_HAS_FILES, SELECT_HAS_LOCATORS, SELECT_HAS_COMPONENTS
+        SELECT_HAS_FILES, SELECT_HAS_LOCATORS, SELECT_HAS_COMPONENTS, SELECT_HAS_NO_COMPONENTS
     }
     
    /**
