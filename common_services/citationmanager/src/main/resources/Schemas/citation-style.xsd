@@ -37,7 +37,7 @@
 			<xs:attribute name="element-specific" type="yes-noType"
 				use="required" />
 			<xs:attribute name="read-only" type="yes-noType" use="required" />
-			<xs:attribute name="name" type="xs:NCName" use="required" />
+			<xs:attribute name="name" type="xs:string" use="required" />
 			<xs:attribute name="md-xpath" type="xs:string" use="required" />
 			<xs:attribute name="source-placeholder-tag" type="xs:Name" use="required" />
 			<xs:attribute name="citation-placeholder-tag" type="xs:Name" use="required" />
@@ -55,13 +55,13 @@
 					<xs:element ref="variable" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<!-- variables of other citation style can be reused -->
-			<xs:attribute name="ref" type="xs:NCName" />
+			<xs:attribute name="ref" type="xs:Name" />
 		</xs:complexType>
 	</xs:element>
 
 	<xs:element name="variable">
 		<xs:complexType mixed="true">
-			<xs:attribute name="name" type="xs:NCName" use="required" />
+			<xs:attribute name="name" type="xs:Name" use="required" />
 			<xs:attribute name="type" type="xs:anySimpleType" />
 		</xs:complexType>
 	</xs:element>
@@ -79,7 +79,7 @@
 	<xs:element name="cs-layout-definition">
 		<xs:complexType>
 			<xs:group ref="layout-elementGroup" minOccurs="0" maxOccurs="unbounded" />
-			<xs:attribute name="name" type="xs:NCName" use="required" />
+			<xs:attribute name="name" type="xs:Name" use="required" />
 		</xs:complexType>
 	</xs:element>
 
@@ -89,7 +89,7 @@
 	<xs:element name="layout-element" >
 		<xs:complexType>
 			<xs:group ref="layout-elementGroup" minOccurs="0" maxOccurs="unbounded" />
-			<xs:attribute name="name" type="xs:NCName" />
+			<xs:attribute name="name" type="xs:Name" />
 			<xs:attribute name="ref" />
 			<xs:attribute name="repeatable" type="yes-noType" />
 		<!--		<xs:attribute name="func" type="funcType" />-->
@@ -151,13 +151,13 @@
 
 	<xs:element name="font-style">
 		<xs:complexType>
-			<xs:attribute name="ref" type="xs:NCName" use="required" />
+			<xs:attribute name="ref" type="xs:Name" use="required" />
 		</xs:complexType>
 	</xs:element>
 	
 	<xs:element name="i18n">
 		<xs:complexType>
-			<xs:attribute name="ref" type="xs:NCName" use="required"/>
+			<xs:attribute name="ref" type="xs:Name" use="required"/>
 		</xs:complexType>
 	</xs:element>
 	
