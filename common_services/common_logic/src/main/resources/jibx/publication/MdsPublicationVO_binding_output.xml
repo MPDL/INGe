@@ -108,6 +108,7 @@
 
 		<!-- Node: item.md-records.md-record.publication.alternative(*) -->
 		<!-- Field: PubItemVO.metadata.alternativeTitles [List<TextVO>]-->
+		<!-- 
 		<collection field="alternativeTitles"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
 			<structure name="alternative" ns="${xsd.metadata.dcterms}"
@@ -116,6 +117,12 @@
 					usage="optional" />
 				<value style="text" field="value" usage="optional" />
 			</structure>
+		</collection>
+		 -->
+		<collection field="alternativeTitles"
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
+			<structure name="alternative" ns="${xsd.metadata.dcterms}"
+				map-as="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO" />
 		</collection>
 
 

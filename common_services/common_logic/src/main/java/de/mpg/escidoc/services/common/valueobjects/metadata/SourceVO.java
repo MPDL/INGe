@@ -110,6 +110,9 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
     public enum AlternativeTitleType
     {
         ABBREVIATION("http://purl.org/escidoc/metadata/terms/0.1/ABBREVIATION"),
+        HTML("http://purl.org/escidoc/metadata/terms/0.1/HTML"),
+        LATEX("http://purl.org/escidoc/metadata/terms/0.1/LATEX"),
+        MATHML("http://purl.org/escidoc/metadata/terms/0.1/MATHML"),
         OTHER("http://purl.org/escidoc/metadata/terms/0.1/OTHER");
         
         private String uri;
