@@ -195,7 +195,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 
 				start = System.currentTimeMillis();
 
-				String jrds = generateJasperReportDataSource(snippet);
+				String jrds = generateJasperReportDataSource(cs, snippet);
 				
 				logger.info("Transformation snippet 2 JasperDS: " + (System.currentTimeMillis() - start));
 				
@@ -341,12 +341,13 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 	 * @param snippets
 	 * @return String 
 	 */
-	private String generateJasperReportDataSource (String snippets)
+	private String generateJasperReportDataSource (String cs, String snippets)
 	{
 		StringWriter result = new StringWriter();
 		try 
 		{
 			Transformer transformer = XmlHelper.tryTemplCache(ResourceUtil.getPathToTransformations() + "escidoc-publication-snippet2jasper_DS.xsl").newTransformer();
+			transformer.setParameter("cs", cs);
 			transformer.transform(new StreamSource(new StringReader(snippets)), new StreamResult(result));
 			
 		} 

@@ -81,12 +81,12 @@ public class XsltHelper {
 	 * @return converted snippet
 	 * @throws CitationStyleManagerException
 	 */
-	public static String convertSnippetToJasperStyledText(String snippet)
+	public static String convertSnippetToJasperStyledText(String cs, String snippet)
 			throws CitationStyleManagerException {
 
 		snippet = removeI18N(snippet);
 
-		FontStylesCollection fsc = XmlHelper.loadFontStylesCollection();
+		FontStylesCollection fsc = XmlHelper.loadFontStylesCollection(cs);
 
 		if (!Utils.checkVal(snippet) || fsc == null)
 			return snippet;

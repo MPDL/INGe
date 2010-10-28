@@ -31,6 +31,7 @@ package de.mpg.escidoc.services.citationmanager.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -105,6 +106,7 @@ public class XmlHelper {
     public final static String CITATIONSTYLE_XML_SCHEMA_FILE = "citation-style.xsd";
 	public final static String SCHEMATRON_DIRECTORY =  "Schematron/";
     public final static String SCHEMATRON_FILE = SCHEMATRON_DIRECTORY + "layout-element.sch";
+    public final static String FONT_STYLES_COLLECTION_FILE = "font-styles.xml";
     
     // List of CDATA elemetns
     public final static String CDATAElements =  
@@ -125,8 +127,8 @@ public class XmlHelper {
 
 	private static HashMap<String, HashMap<String, String[]>> citationStylesHash = null;
 	
-	// FontStyleCollection
-	public static FontStylesCollection fsc = null;
+	// FontStyleCollectiona Hash
+	public static HashMap<String, FontStylesCollection> fsc = new HashMap<String, FontStylesCollection>();
 	
     
     /**
@@ -355,7 +357,7 @@ public class XmlHelper {
 		   setPageHeader(jd, cs);
 		   
 		   //set default Report Style
-		   setDefaultReportStyle(jd);
+		   setDefaultReportStyle(jd, cs);
 	        
 	       //compile to the JasperReport
 		   jr = JasperCompileManager.compileReport(jd);
@@ -371,12 +373,12 @@ public class XmlHelper {
      * font styles collection.
      * @param jasperDesign
      */
-    private static void setDefaultReportStyle(JasperDesign jasperDesign) 
+    private static void setDefaultReportStyle(JasperDesign jasperDesign, String cs) 
     {
         
     	JRStyle jrs = jasperDesign.getDefaultStyle();
     	
-    	FontStyle dfs = loadFontStylesCollection().getDefaultFontStyle();
+    	FontStyle dfs = loadFontStylesCollection(cs).getDefaultFontStyle();
         jrs.setFontName(dfs.getFontName());
         jrs.setFontSize(dfs.getFontSize());
         
@@ -549,21 +551,48 @@ public class XmlHelper {
 
     
     /**
-	 * Load Default FontStylesCollection only once
-	 * 
+	 * Load Default FontStylesCollection, singleton
+	 * 1) if no citation style is given, return default {@link FontStylesCollection}
+	 * 2) if citation style is given, check citation style directory. If there is 
+	 *    a citation style specific {@link FontStylesCollection} in the citation style directory 
+	 *    FontStylesCollection, get it; if not - get default FontStylesCollection    
+	 * @param cs - citation style
+	 * @return {@link FontStylesCollection}
 	 * @throws CitationStyleManagerException
 	 */
-	public static FontStylesCollection loadFontStylesCollection()
+	public static FontStylesCollection loadFontStylesCollection(String cs)
 	{
-		if (fsc != null)
-			return fsc;
-		try {
-			return 
-				FontStylesCollection
-					.loadFromXml(ResourceUtil
-						.getPathToCitationStyles()+ "font-styles.xml"
-				);
-	
+		// get default FontStyleCollection from __Default__ element for empty cs
+		if (cs == null || "".equals(cs.trim()))
+			return loadFontStylesCollection("__Default__");
+		
+		if (fsc.containsKey(cs))
+			return fsc.get(cs);
+		
+		try 
+		{
+			File fscFile = null;
+			// load __Default__ collection
+			if ("__Default__".equalsIgnoreCase(cs))
+			{
+				fscFile = new File(ResourceUtil.getPathToCitationStyles() + FONT_STYLES_COLLECTION_FILE);
+				fsc.put(cs, FontStylesCollection.loadFromXml(fscFile.getAbsolutePath()));
+			} 
+			else
+			{
+				fscFile = new File(ResourceUtil.getPathToCitationStyle(cs) + FONT_STYLES_COLLECTION_FILE);
+				// get specific FontStyleCollection for citation style if exists 
+				if (fscFile.exists())
+				{
+					fsc.put(cs, FontStylesCollection.loadFromXml(fscFile.getAbsolutePath()));
+				}
+				// otherwise: get __Default_ one 
+				else
+				{
+					fsc.put(cs, loadFontStylesCollection());
+				}
+			}
+			return fsc.get(cs);
 		} 
 		catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -571,7 +600,19 @@ public class XmlHelper {
 					"Cannot loadFontStylesCollection: ", e);
 		}
 	}
+	
+    /**
+	 * Load Default FontStylesCollection
+	 * @return {@link FontStylesCollection}
+	 * @throws CitationStyleManagerException
+	 */	
+	public static FontStylesCollection loadFontStylesCollection()
+	{
+		return loadFontStylesCollection(null);
+	}
 
+
+	
 	/**
      * Validator class for XML Schema validation
      */
