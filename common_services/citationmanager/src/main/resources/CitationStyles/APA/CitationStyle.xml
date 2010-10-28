@@ -35,7 +35,7 @@
 	<!-- special variables to be used in expressions for short notations. 
 		taken from global and default vars.  
 	-->
-	<variables/> 
+	
 
 	<!-- predefined layout elements which can be referenced in CSLDs -->
 	<predefined-layout-elements>
