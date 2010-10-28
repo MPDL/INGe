@@ -185,7 +185,7 @@
 			function checkOutputFormat()
 			{
 				var efv = document.form.exportFormat.value;
-				document.form.outputFormat.disabled =  ! (efv == "APA" || efv == "AJP" || efv == "JUS" || efv == "Default" || efv == "Test"); 
+				document.form.outputFormat.disabled =  ! (efv == "APA" ||  efv == "APA(CJK)" ||  efv == "AJP" || efv == "JUS" || efv == "Default" || efv == "Test"); 
 			}
 							
 			function setFeedAnchor(type)
@@ -348,6 +348,7 @@
 												<option value="XML">eSciDoc XML v5.x</option>
 												<option value="ESCIDOC_XML">eSciDoc XML v6.x</option>
 							                    <option value="APA">APA</option>
+							                    <option value="APA(CJK)">APA(CJK)</option>
 												<option value="AJP">AJP</option>
 												<option value="JUS">JUS</option>
 							                </select>

@@ -230,13 +230,13 @@
 										exportFormat<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										can be <i>APA</i>, <i>AJP</i>, <i>BIBTEX</i>, <i>ENDNOTE</i> or <i>eSciDoc XML</i>. (Default:&#160;<i>ENDNOTE</i>)
+										can be <i>APA</i>, <i>APA(CJK)</i>, <i>AJP</i>, <i>BIBTEX</i>, <i>ENDNOTE</i> or <i>eSciDoc XML</i>. (Default:&#160;<i>ENDNOTE</i>)
 									</span>
 									<b class="xLarge_area0_p8 endline labelLine clear">
 										outputFormat<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										is only relevant for <i>APA</i>, <i>AJP</i>, <i>JUS</i> exportFormat and can be <i>pdf, html (plain, linked and styled), rtf, odt, snippet v5.x (escidoc xml metadata set before v6.0), snippet v6.x (escidoc xml metadata set v6.0 and higher)</i>. (Default:&#160;<i>pdf</i>). 
+										is only relevant for <i>APA</i>, <i>APA(CJK)</i>, <i>AJP</i>, <i>JUS</i> exportFormat and can be <i>pdf, html (plain, linked and styled), rtf, odt, snippet v5.x (escidoc xml metadata set before v6.0), snippet v6.x (escidoc xml metadata set v6.0 and higher)</i>. (Default:&#160;<i>pdf</i>). 
 										<i>ENDNOTE</i> will be always returned as plain text.
 									</span>
 								</div>
