@@ -32,8 +32,6 @@
 	citation-placeholder-tag="dcterms:bibliographicCitation"
 	include-global-default-variables="yes"
 	include-default-variables="yes"
-	include-global-font-styles="no"
-	include-font-styles="yes"
 	>  
 	<!-- special variables to be used in expressions for short notations. 
 		taken from global and default vars.  
