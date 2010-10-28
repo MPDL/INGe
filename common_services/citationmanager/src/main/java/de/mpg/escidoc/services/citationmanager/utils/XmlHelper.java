@@ -571,20 +571,20 @@ public class XmlHelper {
 		
 		try 
 		{
-			File fscFile = null;
 			// load __Default__ collection
 			if ("__Default__".equalsIgnoreCase(cs))
 			{
-				fscFile = new File(ResourceUtil.getPathToCitationStyles() + FONT_STYLES_COLLECTION_FILE);
-				fsc.put(cs, FontStylesCollection.loadFromXml(fscFile.getAbsolutePath()));
+				fsc.put(cs, FontStylesCollection.loadFromXml(
+					ResourceUtil.getPathToCitationStyles() + FONT_STYLES_COLLECTION_FILE
+				));
 			} 
 			else
 			{
-				fscFile = new File(ResourceUtil.getPathToCitationStyle(cs) + FONT_STYLES_COLLECTION_FILE);
+				String path = ResourceUtil.getPathToCitationStyle(cs) + FONT_STYLES_COLLECTION_FILE;
 				// get specific FontStyleCollection for citation style if exists 
-				if (fscFile.exists())
+				if (new File(path).exists())
 				{
-					fsc.put(cs, FontStylesCollection.loadFromXml(fscFile.getAbsolutePath()));
+					fsc.put(cs, FontStylesCollection.loadFromXml(path));
 				}
 				// otherwise: get __Default_ one 
 				else
