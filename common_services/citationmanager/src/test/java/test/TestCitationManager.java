@@ -35,7 +35,6 @@ public class TestCitationManager {
     
     private static Logger logger = Logger.getLogger(TestCitationManager.class);
     
-    private XmlHelper xh = new XmlHelper(); 
     
     private static HashMap<String, String> itemLists;
     
@@ -165,7 +164,7 @@ public class TestCitationManager {
      {
     	 for ( String format: cse.getOutputFormats(cs) ) 
             {
-                testOutput(cs, format);                
+                testOutput(cs, format, "");                
             }
             
         }
