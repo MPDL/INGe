@@ -79,21 +79,48 @@
 			</span>
 		</h:panelGroup>
 
+<%-- Alternative title copy&paste --%>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder noDisplay">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblAlternativeTitel}" /><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:inputTextarea id="inpBasicAlternativeTitleCopy" styleClass="quad_txtArea inputTxtArea sourceAltTitlePasteField" value="#{EditItem.hiddenAlternativeTitlesField}" cols="15" rows="3" />
+					</span>
+					<span class="large_area0_p8 lineToolSection">
+							<h:commandButton id="btnBasicAlternativeTitleCopy" styleClass="free_txtBtn groupTool hiddenAutosuggestUploadBtn" title="#{tip.EditItem_btParseAndSet}" action="#{EditItem.parseAndSetAlternativeTitles}" />
+						</span>
+				</h:panelGroup>
+
 <%-- Alternative title --%>
 		<tr:iterator id="iterAlternativeTitle" var="altTitle" value="#{EditItem.titleCollection.alternativeTitleManager.objectDM}" rendered="#{!(genre.item_basic_item_title_alternative_display == 'false' && genre.item_basic_item_title_alternative_form_id == 'full-submission' || genre.item_basic_item_title_alternative_display == 'false' && genre.item_basic_item_title_alternative_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_alternative_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_title_alternative_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
+				<%--
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:inputTextarea id="inpAlternativeTitle" styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3"/>
 				</span>
+				 --%>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.sources_source_basic_source_title_alternative_source_title_alternative_type_display == 'false' && genre.sources_source_basic_source_title_alternative_source_title_alternative_type_form_id == 'full-submission' || genre.sources_source_basic_source_title_alternative_source_title_alternative_type_display == 'false' && genre.sources_source_basic_source_title_alternative_source_title_alternative_type_form_id == 'all')}">
+								<h:outputLabel id="lblSelectAltTitleType" styleClass="large_label" value="#{genre.sources_source_basic_source_title_alternative_source_title_alternative_type_label}" converter="GenreLabelConverter"/>
+								<h:selectOneMenu id="selSelectAlternativeTitleType" styleClass="large_select replace" value="#{altTitle.type}" >
+									<f:selectItems value="#{EditItem.titleCollection.alternativeTitleManager.alternativeTitleTypes}"/>
+								</h:selectOneMenu>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{!(genre.sources_source_basic_source_title_alternative_source_title_alternative_value_display == 'false' && genre.sources_source_basic_source_title_alternative_source_title_alternative_value_form_id == 'full-submission' || genre.sources_source_basic_source_title_alternative_source_title_alternative_value_display == 'false' && genre.sources_source_basic_source_title_alternative_source_title_alternative_value_form_id == 'all')}">
+								<h:outputLabel id="lblAltTitleValue" styleClass="xDouble_label" value="#{genre.sources_source_basic_source_title_alternative_source_title_alternative_value_label}" converter="GenreLabelConverter"/>
+								<h:inputTextarea id="inpAltTitleValue" styleClass="xDouble_txtArea inputTxtArea" value="#{altTitle.value}" />
+							</h:panelGroup>
+						</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAddAlternativeTitle" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addAltTitle}" action="#{EditItem.titleCollection.alternativeTitleManager.addObject}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
 					<tr:commandButton id="btnRemoveAlternativeTitle" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeAltTitle}" action="#{EditItem.titleCollection.alternativeTitleManager.removeObject}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
-		</tr:iterator>	
+		</tr:iterator>
 	
 		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}  #{lbl.EditItem_lblBasic}" /></a>	
 	</div>

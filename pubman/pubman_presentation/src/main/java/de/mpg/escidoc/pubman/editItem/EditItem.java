@@ -73,6 +73,8 @@ import de.mpg.escidoc.pubman.editItem.bean.ContentSubjectCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
+import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection.IdentifierManager;
+import de.mpg.escidoc.pubman.editItem.bean.TitleCollection.AlternativeTitleManager;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -128,6 +130,8 @@ public class EditItem extends FacesBean
     private static final long serialVersionUID = 1L;
     public static final String BEAN_NAME = "EditItem";
     private static Logger logger = Logger.getLogger(EditItem.class);
+    public static final String HIDDEN_DELIMITER = " \\|\\|##\\|\\| ";
+
     public static final String AUTOPASTE_INNER_DELIMITER = " @@~~@@ ";
     public static final String AUTOPASTE_DELIMITER = " ||##|| ";
     // Faces navigation string
@@ -154,6 +158,8 @@ public class EditItem extends FacesBean
     private String contextName = null;
     // FIXME delegated internal collections
     private TitleCollection titleCollection;
+    private String hiddenAlternativeTitlesField;
+
     private TitleCollection eventTitleCollection;
     private ContentAbstractCollection contentAbstractCollection;
     private ContentSubjectCollection contentSubjectCollection;
@@ -2359,5 +2365,58 @@ public class EditItem extends FacesBean
     public void setLocatorUpload(String locatorUpload)
     {
         this.locatorUpload = locatorUpload;
+    }
+
+    public void setHiddenAlternativeTitlesField(String hiddenAlternativeTitlesField)
+    {
+        this.hiddenAlternativeTitlesField = hiddenAlternativeTitlesField;
+    }
+
+    public String getHiddenAlternativeTitlesField()
+    {
+        return hiddenAlternativeTitlesField;
+    }
+    
+    /**
+     * Takes the text from the hidden input fields, splits it using the delimiter and adds them to the model. Format of
+     * alternative titles: alt title 1 ||##|| alt title 2 ||##|| alt title 3 Format of ids: URN|urn:221441 ||##||
+     * URL|http://www.xwdc.de ||##|| ESCIDOC|escidoc:21431
+     * 
+     * @return
+     */
+    public String parseAndSetAlternativeTitles()
+    {
+        //clear old alternative titles
+        AlternativeTitleManager altTitleManager = getTitleCollection().getAlternativeTitleManager();
+        altTitleManager.getObjectList().clear();
+        
+        //clear old identifiers
+        IdentifierManager idManager = getIdentifierCollection().getIdentifierManager();
+        idManager.getObjectList().clear();
+        
+        if (!getHiddenAlternativeTitlesField().trim().equals(""))
+        {
+            altTitleManager.getObjectList().addAll(parseAlternativeTitles(getHiddenAlternativeTitlesField()));
+        }
+        return "";
+    }
+
+    public static List<TextVO> parseAlternativeTitles(String titleList)
+    {
+        List<TextVO> list = new ArrayList<TextVO>();
+        String[] alternativeTitles = titleList.split(HIDDEN_DELIMITER);
+        for (int i = 0; i < alternativeTitles.length; i++)
+        {
+            String[] parts = alternativeTitles[i].trim().split(AUTOPASTE_INNER_DELIMITER);
+            String alternativeTitleType = parts[0].trim();
+            String alternativeTitle = parts[1].trim();
+            if (!alternativeTitle.equals(""))
+            {
+                TextVO textVO = new TextVO(alternativeTitle);
+                textVO.setType(alternativeTitleType);
+                list.add(textVO);
+            }
+        }
+        return list;
     }
 }
