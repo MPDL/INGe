@@ -54,6 +54,7 @@
 			<xs:sequence>
 					<xs:element ref="variable" maxOccurs="unbounded"/>
 			</xs:sequence>
+			<!-- variables of other citation style can be reused -->
 			<xs:attribute name="ref" type="xs:NCName" />
 		</xs:complexType>
 	</xs:element>
