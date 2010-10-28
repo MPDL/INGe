@@ -904,6 +904,17 @@
 	<xsl:template name="insertDefaultVariables">
 		<xsl:variable name="csv" select="document(concat(@name, '/variables.xml'))"/>
 		<xsl:if test="exists ($csv)">
+			<xsl:variable name="csv_ref" select="$csv/cit:variables/@ref" /> 
+			<!-- if variables/@ref is defined, add variables from other citation style -->
+			<xsl:if test="exists ($csv_ref)">
+				<xsl:variable name="csv_ref_inc" select="document(concat($csv_ref, '/variables.xml'))"/>
+				<xsl:if test="exists ($csv_ref_inc)">
+		<xsl:comment>### <xsl:value-of select="@name"/> specific Default Variables, included from <xsl:value-of select="$csv_ref"/> Citation Style ###</xsl:comment>
+		<xsl:text>
+	</xsl:text>
+					<xsl:copy-of select="func:generateVariables($csv_ref_inc/cit:variables/*)"/>
+				</xsl:if>
+			</xsl:if>
 		<xsl:comment>### <xsl:value-of select="@name"/> specific Default Variables ###</xsl:comment>
 		<xsl:text>
 	</xsl:text>
