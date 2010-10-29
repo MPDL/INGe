@@ -580,11 +580,13 @@ public class XmlHelper {
 			} 
 			else
 			{
-				String path = ResourceUtil.getPathToCitationStyle(cs) + FONT_STYLES_COLLECTION_FILE;
+				InputStream inputStream = ResourceUtil.getResourceAsStream( 
+						ResourceUtil.getPathToCitationStyle(cs) + FONT_STYLES_COLLECTION_FILE 
+				);
 				// get specific FontStyleCollection for citation style if exists 
-				if (new File(path).exists())
+				if (inputStream != null)
 				{
-					fsc.put(cs, FontStylesCollection.loadFromXml(path));
+					fsc.put(cs, FontStylesCollection.loadFromXml(inputStream));
 				}
 				// otherwise: get __Default_ one 
 				else

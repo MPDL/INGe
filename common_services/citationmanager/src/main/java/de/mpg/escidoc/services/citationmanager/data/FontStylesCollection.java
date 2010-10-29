@@ -30,6 +30,7 @@
 package de.mpg.escidoc.services.citationmanager.data;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -173,13 +174,13 @@ public class FontStylesCollection implements Cloneable {
     }
 
     /**
-     * Loads {@link FontStylesCollection} from xmlfile
-     * @param xmlFileName
+     * Loads {@link FontStylesCollection} from inputStream
+     * @param inputStream
      * @return {@link FontStylesCollection}
      * @throws IOException 
      * @throws SAXException
      */
-    public static FontStylesCollection loadFromXml( String xmlFileName )  throws IOException, SAXException {
+    public static FontStylesCollection loadFromXml( InputStream inputStream )  throws IOException, SAXException {
 
         Digester digester = new Digester();
         digester.setValidating(false);
@@ -209,13 +210,22 @@ public class FontStylesCollection implements Cloneable {
         digester.addSetNext(path, "addFontStyle");
 
 //        FileInputStream input = new FileInputStream( xmlFileName );
-        FontStylesCollection fsc = (FontStylesCollection)digester.parse( 
-        		ResourceUtil.getResourceAsStream( xmlFileName )
-        );
+        FontStylesCollection fsc = (FontStylesCollection)digester.parse(inputStream);
         fsc.findDefaultFontStyle();
 
         return fsc;
 
+    }
+    
+    /**
+     * Loads {@link FontStylesCollection} from xmlfile
+     * @param xmlFileName
+     * @return {@link FontStylesCollection}
+     * @throws IOException 
+     * @throws SAXException
+     */
+    public static FontStylesCollection loadFromXml( String xmlFileName)  throws IOException, SAXException {
+    	return loadFromXml( ResourceUtil.getResourceAsStream( xmlFileName ) );
     }
 
     public Object clone() {
