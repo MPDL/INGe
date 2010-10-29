@@ -67,8 +67,6 @@
 						</allowed-genre>
 						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event
 						</allowed-genre>
-						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/working-paper
-						</allowed-genre>
 						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture
 						</allowed-genre>
 						<allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
