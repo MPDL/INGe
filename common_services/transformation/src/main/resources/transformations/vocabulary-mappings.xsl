@@ -27,7 +27,6 @@
 		
 		<!-- NOT YET IMPLEMENTED -->
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article">newspaper-article</enum>		
-		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/working-paper">working-paper</enum>		
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/manual">manual</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/webpage">webpage</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/editorial">editorial</enum>
