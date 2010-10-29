@@ -145,7 +145,7 @@ public class TestCitationManager {
      */
     
     @Test
-    @Ignore
+//    @Ignore
     public final void testCitationStyles() throws Exception
     {
         for (String cs: cse.getStyles() )
@@ -157,14 +157,14 @@ public class TestCitationManager {
     }
     
     @Test
-//    @Ignore
+    @Ignore
     public final void testOutputs() throws Exception {
         
      for ( String cs: cse.getStyles() ) 
      {
     	 for ( String format: cse.getOutputFormats(cs) ) 
             {
-                testOutput(cs, format, "");                
+                testOutput(cs, format);                
             }
             
         }
