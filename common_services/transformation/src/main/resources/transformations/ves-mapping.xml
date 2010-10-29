@@ -73,7 +73,6 @@
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/paper">paper</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event">talk-at-event</map>
 			<!-- TODO: check the mapping -->
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/working-paper">paper</map> 	
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture">courseware-lecture</map>
 			<map v2="http://purl.org/eprint/type/Thesis">thesis</map>			
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/series">series</map>
@@ -116,7 +115,6 @@
 			<map v2="http://purl.org/eprint/type/ConferencePoster" edoc="Poster">9</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture" edoc="Lecture/Courseware">13</map>
 			<map v2="http://purl.org/eprint/type/Thesis" edoc="Thesis">15</map>			
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/working-paper" edoc="Other">41</map> 	
 			<map v2="http://purl.org/eprint/type/Report" edoc="Report">46</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/issue" edoc="Issue">42</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/series" edoc="Series">30</map>
