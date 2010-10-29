@@ -70,8 +70,7 @@
 			<map v2="http://purl.org/eprint/type/ConferencePoster"/>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/report"/>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/paper"/>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event"/>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/working-paper"/>		
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event"/>	
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture"/>
 			<map v2="http://purl.org/eprint/type/Thesis"/>			
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/series"/>
