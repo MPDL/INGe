@@ -87,6 +87,8 @@ public class XsltHelper {
 		snippet = removeI18N(snippet);
 
 		FontStylesCollection fsc = XmlHelper.loadFontStylesCollection(cs);
+		
+		logger.info("FSC for style " + cs + ": " + fsc);
 
 		if (!Utils.checkVal(snippet) || fsc == null)
 			return snippet;
