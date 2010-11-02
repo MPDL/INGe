@@ -380,7 +380,7 @@
         <dependency>
         	<groupId>jasperreports</groupId>
         	<artifactId>jasperreports</artifactId>
-        	<version>3.5.0</version>
+        	<version>3.5.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>

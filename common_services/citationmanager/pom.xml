@@ -68,7 +68,7 @@
 					<skip>false</skip>
 					<includes>
 						<include>**/TestCitationManager.java</include>
-<!--						<include>**/TestC itationStylesSubstantial.java</include>-->
+<!--						<include>**/TestCitationStylesSubstantial.java</include>-->
 					</includes>
 				</configuration>
 			</plugin>
@@ -266,7 +266,7 @@
 		<dependency>
 			<groupId>jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>3.5.0</version>
+			<version>3.5.1</version>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
