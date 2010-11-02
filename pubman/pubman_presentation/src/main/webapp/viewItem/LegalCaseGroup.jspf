@@ -44,8 +44,8 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblLegalCaseCourtNameIdDate}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.legalCaseCourDateId}"/>
-				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{(ViewItemFull.legalCaseCourDateId == null || ViewItemFull.legalCaseCourDateId == '')}"/>
+				<h:outputText value="#{ViewItemFull.legalCaseCourtDateId}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{(ViewItemFull.legalCaseCourtDateId == null || ViewItemFull.legalCaseCourtDateId == '')}"/>
 			</span>
 		</div>
 <%-- Legal Case title --%>
