@@ -2542,7 +2542,7 @@ public class ViewItemFull extends FacesBean
      * 
      * @return boolean
      */
-    public String  getLegalCaseCourDateId()
+    public String  getLegalCaseCourtDateId()
     {
         StringBuffer legalCaseString = new StringBuffer();
         if (this.pubItem.getMetadata().getLegalCase().getCourtName() != "")
