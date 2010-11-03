@@ -109,10 +109,6 @@
 									<span>
 										<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{CreateItem.multiple and LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 									</span>
-									<h:outputText styleClass="seperator void" />
-									<h:outputLink id="lnkImportWorkspace" title="#{tip.submission_lnkImportWorkspace}" value="ImportWorkspace.jsp" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
-										<h:outputText value="#{lbl.submission_lnkImportWorkspace}"/>
-									</h:outputLink>
 								<!-- content menu lower line ends here -->
 								</div>
 							<!-- content menu ends here -->
