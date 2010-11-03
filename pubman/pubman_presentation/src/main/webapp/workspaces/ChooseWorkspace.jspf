@@ -125,7 +125,7 @@
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
 				<h:outputLink id="lnkReportWorkspace" title="#{tip.chooseWorkspace_ReportWorkspace}" value="#{ApplicationBean.appContext}YearbookCandidatesPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'YearbookWSPage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}">
-					<h:outputText value="#{lbl.chooseWorkspace_lnkYearbookWorkspace}"/>
+					<h:outputText value="#{lbl.chooseWorkspace_lnkReportWorkspace}"/>
 				</h:outputLink>
 			</b>
 		</span>
@@ -140,7 +140,7 @@
 					<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{lbl.chooseWorkspace_descYearbookWorkspace}" />
+					<h:outputText value="#{lbl.chooseWorkspace_descReportWorkspace}" />
 				</span>
 			</div>
 		</div>
