@@ -78,7 +78,7 @@ All rights reserved. Use is subject to license terms.
 	</span>
 </h:panelGroup>
 	
-<h:panelGroup rendered="#{PubManSessionBean.locale =='en' and (LoginHelper.isModerator || LoginHelper.isMdEditor) and ContextListSessionBean.moderatorContextListSize>0}">
+<h:panelGroup rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
@@ -154,7 +154,7 @@ All rights reserved. Use is subject to license terms.
 	</span>
 </h:panelGroup>
 	
-<h:panelGroup rendered="#{PubManSessionBean.locale =='de' and (LoginHelper.isModerator || LoginHelper.isMdEditor) and ContextListSessionBean.moderatorContextListSize>0}">
+<h:panelGroup rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
@@ -230,7 +230,7 @@ All rights reserved. Use is subject to license terms.
 	</span>
 </h:panelGroup>
 	
-<h:panelGroup rendered="#{PubManSessionBean.locale =='ja' and (LoginHelper.isModerator || LoginHelper.isMdEditor) and ContextListSessionBean.moderatorContextListSize>0}">
+<h:panelGroup rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
@@ -308,7 +308,7 @@ All rights reserved. Use is subject to license terms.
 	</span>
 </h:panelGroup>
 	
-<h:panelGroup rendered="#{PubManSessionBean.locale =='es' and (LoginHelper.isModerator || LoginHelper.isMdEditor) and ContextListSessionBean.moderatorContextListSize>0}">
+<h:panelGroup rendered="#{PubManSessionBean.locale =='es' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
