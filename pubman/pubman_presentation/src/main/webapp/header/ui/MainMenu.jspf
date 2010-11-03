@@ -48,22 +48,13 @@
 	</h:outputLink>
 	<h:outputText styleClass="free_area0" value="#{lbl.mainMenu_lnkDepositor}" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0 and BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'DepositorWSPage'}" />
 
-	<h:outputLink id="lnkQAWorkspace" styleClass="free_area0" title="#{tip.MainMenu_QAWSPage}" value="#{ApplicationBean.appContext}QAWSPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'QAWSPage' and (LoginHelper.isModerator || LoginHelper.isMdEditor) and ContextListSessionBean.moderatorContextListSize>0}">
-		<h:outputText value="#{lbl.mainMenu_lnkQAWorkspace}" />
+
+	<h:outputLink id="lnkWorkspaces" styleClass="free_area0" title="#{tip.MainMenu_WorkspacesPage}" value="WorkspacesPage.jsp" rendered="#{(LoginHelper.isModerator || LoginHelper.isDepositor) and ContextListSessionBean.moderatorContextListSize>0 and BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'WorkspacesPage'}">
+		<h:outputText value="#{lbl.mainMenu_lnkWorkspaces}" />
 	</h:outputLink>
-	<h:outputText styleClass="free_area0" value="#{lbl.mainMenu_lnkQAWorkspace}" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0 and BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'QAWSPage'}" />
+	<h:outputText styleClass="free_area0" value="#{lbl.mainMenu_lnkWorkspaces}" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'WorkspacesPage'}" />
 
-
-
-
-	<h:outputLink id="lnkYearbookWorkspace" styleClass="free_area0" title="#{tip.MainMenu_QAWSPage}" value="#{ApplicationBean.appContext}YearbookCandidatesPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'YearbookWSPage' and (LoginHelper.isModerator || LoginHelper.isMdEditor) and ContextListSessionBean.moderatorContextListSize>0}">
-		<h:outputText value="#{lbl.mainMenu_lnkYearbookWorkspace}" />
-	</h:outputLink>
-	<h:outputText styleClass="free_area0" value="#{lbl.mainMenu_lnkYearbookWorkspace}" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0 and BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'YearbookWSPage'}" />
-
-
-
-
+	
 
 	<h:outputLink id="lnkSubmission" styleClass="free_area0" title="#{tip.actionMenu_lnkSubmission}" value="#{ApplicationBean.appContext}SubmissionPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'CreateItemPage' and BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'SubmissionPage' and BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'EditItemPage' and BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'EasySubmissionPage' and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 		<h:outputText value="#{lbl.mainMenu_lblSubmission}" />
