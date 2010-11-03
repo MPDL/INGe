@@ -2610,14 +2610,14 @@ public class ViewItemFull extends FacesBean
             expFormat.setFormatType(ExportFormatVO.FormatType.LAYOUT);
             
             InternationalizationHelper ih = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
+            
+            //Use special apa style if language is set to japanese
             if("ja".equalsIgnoreCase(ih.getLocale())) 
             {
-                System.out.println("Use APA CJK");
                 expFormat.setName("APA(CJK)");
             }
             else
             {
-                System.out.println("Use APA normal");
                 expFormat.setName("APA");
             }
            
