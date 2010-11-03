@@ -135,22 +135,22 @@ public class AccountUserVO extends ValueObject
         return moderator;
     }
     
+    
     /**
-     * Delivers true if the granted role is of type 'md-editor' for any object.
+     * Delivers true if the granted role is of type 'reporter' for any object.
      */
-    public boolean isMdEditor()
+    public boolean isReporter()
     {
-        boolean mdEditor = false;
+        boolean reporter = false;
         for (GrantVO grant : this.grants)
         {
-            
-            if (grant.getRole().equals(PredefinedRoles.MD_EDITOR.frameworkValue()))
+            if (grant.getRole().equals(PredefinedRoles.REPORTER.frameworkValue()))
             {
-                mdEditor = true;
-                break;
+            	reporter = true;
+            	break;
             }
         }
-        return mdEditor;
+        return reporter;
     }
 
     /**
