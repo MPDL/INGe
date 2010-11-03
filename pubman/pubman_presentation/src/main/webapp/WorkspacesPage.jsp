@@ -103,6 +103,7 @@
 									<h:outputLink id="lnkMenuYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookCandidatesPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'YearbookWSPage' and (LoginHelper.isModerator || LoginHelper.isDepositor) and ContextListSessionBean.moderatorContextListSize>0}">
 										<h:outputText value="#{lbl.chooseWorkspace_optMenuYearbookWorkspace}"/>
 									</h:outputLink>
+									<h:outputText styleClass="seperator void" />
 									
 									<h:outputLink id="lnkMenuReportWorkspace" title="#{tip.chooseWorkspace_ReportWorkspace}" value="#{ApplicationBean.appContext}YearbookCandidatesPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'YearbookWSPage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}">
 										<h:outputText value="#{lbl.chooseWorkspace_optMenuReportWorkspace}"/>
