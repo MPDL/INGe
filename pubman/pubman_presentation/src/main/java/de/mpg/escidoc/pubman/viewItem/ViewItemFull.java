@@ -2608,7 +2608,19 @@ public class ViewItemFull extends FacesBean
             
             ExportFormatVO expFormat = new ExportFormatVO();
             expFormat.setFormatType(ExportFormatVO.FormatType.LAYOUT);
-            expFormat.setName("APA");
+            
+            InternationalizationHelper ih = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
+            if("ja".equalsIgnoreCase(ih.getLocale())) 
+            {
+                System.out.println("Use APA CJK");
+                expFormat.setName("APA(CJK)");
+            }
+            else
+            {
+                System.out.println("Use APA normal");
+                expFormat.setName("APA");
+            }
+           
             
             FileFormatVO fileFormat = new FileFormatVO();
             fileFormat.setMimeType(FileFormatVO.HTML_STYLED_MIMETYPE);
