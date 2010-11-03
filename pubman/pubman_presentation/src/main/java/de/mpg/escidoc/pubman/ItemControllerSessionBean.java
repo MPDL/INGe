@@ -652,8 +652,10 @@ public class ItemControllerSessionBean extends FacesBean
         
         PubItemVO newItem = new PubItemVO(this.getCurrentPubItem());
         newItem.getVersion().setObjectId(null);
+        newItem.setPid(null);
         newItem.getVersion().setVersionNumber(0);
         newItem.getVersion().setState(ItemVO.State.PENDING);
+        newItem.getVersion().setPid(null);
         newItem.setPublicStatus(State.PENDING);
         newItem.setOwner(null);
         newItem.getFiles().clear();
