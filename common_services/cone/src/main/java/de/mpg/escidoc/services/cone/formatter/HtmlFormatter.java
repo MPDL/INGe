@@ -168,7 +168,12 @@ public class HtmlFormatter extends Formatter
                     .newTransformer(
                             new StreamSource(xsltFile));
             transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
-            transformer.setParameter("citation-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + "/search/SearchAndExport?cqlQuery=escidoc.any-identifier=\"" + PropertyReader.getProperty("escidoc.cone.service.url") + id + "\"&exportFormat=APA&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
+            String exportFormat="APA";
+            if("ja".equals(lang))
+            {
+                exportFormat="APA(CJK)";
+            }
+            transformer.setParameter("citation-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + "/search/SearchAndExport?cqlQuery=escidoc.any-identifier=\"" + PropertyReader.getProperty("escidoc.cone.service.url") + id + "\"&exportFormat=" + exportFormat + "&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
             transformer.setParameter("item-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + PropertyReader.getProperty("escidoc.pubman.item.pattern"));
             transformer.setParameter("lang", lang);
             transformer.transform(new StreamSource(new StringReader(result)), new StreamResult(writer));
