@@ -72,7 +72,7 @@ public class Grant extends IntelligentVO
     {
         DEPOSITOR ("escidoc:role-depositor"),
         MODERATOR ("escidoc:role-moderator"),
-        MD_EDITOR ("escidoc:role-md-editor"),
+        REPORTER("escidoc:role-reporter"),
         AUDIENCE ("escidoc:role-audience"),
         COLLABORATOR_VIEWER ("escidoc:role-collaborator"),
         COLLABORATOR_MODIFIER("escidoc:role-collaborator-modifier");
