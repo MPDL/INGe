@@ -2623,7 +2623,7 @@ public class ViewItemFull extends FacesBean
            
             
             FileFormatVO fileFormat = new FileFormatVO();
-            fileFormat.setMimeType(FileFormatVO.HTML_STYLED_MIMETYPE);
+            fileFormat.setMimeType(FileFormatVO.HTML_PLAIN_MIMETYPE);
             fileFormat.setName(FileFormatVO.HTML_PLAIN_NAME);
             
             expFormat.setSelectedFileFormat(fileFormat);
