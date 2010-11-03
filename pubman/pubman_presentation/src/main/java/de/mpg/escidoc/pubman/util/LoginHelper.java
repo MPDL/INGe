@@ -372,11 +372,11 @@ public class LoginHelper extends FacesBean
     }
     
     /**
-     * JSF Wrapper for isMdEditor()
+     * JSF Wrapper for isReporter()
      * @return
      */
-    public boolean getIsMdEditor()
+    public boolean getIsReporter()
     {
-        return isLoggedIn() && getAccountUser().isMdEditor();
+        return isLoggedIn() && getAccountUser().isReporter();
     }
 }
