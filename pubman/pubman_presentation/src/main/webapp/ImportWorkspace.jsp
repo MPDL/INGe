@@ -76,24 +76,6 @@
 										<div class="contentMenu">
 										<!-- content menu starts here -->
 											<div class="free_area0 sub">
-												<h:commandLink id="lnkEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
-													<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-												</h:commandLink>
-												<h:outputText styleClass="seperator void" />
-												<h:commandLink id="lnkNewSubmission" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
-													<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
-												</h:commandLink>
-												<h:outputText styleClass="seperator void" />
-												<h:commandLink id="lnkImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
-													<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-												</h:commandLink>
-												<h:outputText styleClass="seperator void" />
-												<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
-													<h:commandLink id="lnkMultipleImport" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
-														<h:outputText value="#{lbl.submission_lnkMultipleImport}"/>
-													</h:commandLink>
-												</h:panelGroup>
-												<h:outputText styleClass="seperator void" />
 												<span>
 													<h:outputText value="#{lbl.submission_lnkImportWorkspace}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 												</span>
