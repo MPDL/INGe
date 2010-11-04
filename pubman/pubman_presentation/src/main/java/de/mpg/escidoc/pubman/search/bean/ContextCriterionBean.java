@@ -94,6 +94,7 @@ public class ContextCriterionBean extends CriterionBean {
 	public String clearCriterion() 
 	{
 		contextCriterionVO.setSearchString("");
+		contextCriterionVO.setCollection("--");
 		contextCriterionVO = new ContextCriterion();
 		return null;
 	}
