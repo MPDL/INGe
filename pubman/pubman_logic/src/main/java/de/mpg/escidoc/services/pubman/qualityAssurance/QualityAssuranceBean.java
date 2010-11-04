@@ -248,4 +248,50 @@ public class QualityAssuranceBean implements QualityAssurance
         }
         return pubItemActual;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<ContextVO> retrieveYearbookContexts(AccountUserVO user) throws SecurityException, TechnicalException
+    {
+        if (user == null)
+        {
+            throw new IllegalArgumentException(getClass() + ".getPubCollectionListForDepositing: user is null.");
+        }
+        if (user.getReference() == null || user.getReference().getObjectId() == null)
+        {
+            throw new IllegalArgumentException(getClass() + ".getPubCollectionListForDepositing: user reference does not contain an objectId");
+        }
+
+        try
+        {
+            // Create filter
+            FilterTaskParamVO filterParam = new FilterTaskParamVO();
+
+            RoleFilter roleFilter = filterParam.new RoleFilter("escidoc:role-depositor", user.getReference());
+            filterParam.getFilterList().add(roleFilter);
+            FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("yearbook");
+            filterParam.getFilterList().add(typeFilter);
+            
+            /*
+            PubCollectionStatusFilter statusFilter = filterParam.new PubCollectionStatusFilter(ContextVO.State.OPENED);
+            filterParam.getFilterList().add(statusFilter);
+            */
+            
+            // ... and transform filter to xml
+            String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
+
+            // Get context list
+            String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterString);
+            // ... and transform to PubCollections.
+            return xmlTransforming.transformToContextList(contextList);
+
+        }
+        catch (Exception e)
+        {
+            // No business exceptions expected.
+            ExceptionHandler.handleException(e, "PubItemDepositing.getPubCollectionListForDepositing");
+            throw new TechnicalException(e);
+        }
+    }
 }

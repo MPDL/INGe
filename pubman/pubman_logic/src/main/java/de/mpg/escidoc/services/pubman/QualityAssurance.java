@@ -96,4 +96,13 @@ public interface QualityAssurance
      * @throws TechnicalException
      */
     public PubItemVO revisePubItem(ItemRO pubItemRef, String reviseComment, AccountUserVO user) throws ServiceException, TechnicalException, PubItemStatusInvalidException, SecurityException, PubItemNotFoundException;
+    
+    /**Retrieves all contexts of type "yearbook" for which the user has depositor rights
+     * 
+     * @param user
+     * @return
+     * @throws SecurityException
+     * @throws TechnicalException
+     */
+    public List<ContextVO> retrieveYearbookContexts(AccountUserVO user) throws SecurityException, TechnicalException;
 }
