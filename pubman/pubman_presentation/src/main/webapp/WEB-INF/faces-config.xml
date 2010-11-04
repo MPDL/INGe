@@ -51,6 +51,9 @@
 		<default-render-kit-id>
       		org.apache.myfaces.trinidad.core
     	</default-render-kit-id>
+    	
+    	
+
 	</application>
 
 	<lifecycle>

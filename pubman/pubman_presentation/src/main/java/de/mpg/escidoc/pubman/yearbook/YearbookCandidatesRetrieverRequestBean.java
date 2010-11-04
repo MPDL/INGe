@@ -18,8 +18,10 @@ import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.pubman.yearbook.YearbookItemSessionBean.YBWORKSPACE;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -28,6 +30,7 @@ import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
+import de.mpg.escidoc.services.search.query.SearchQuery;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
@@ -43,8 +46,11 @@ import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
  */
 public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA>
 {
+
+    
     private static Logger logger = Logger.getLogger(YearbookCandidatesRetrieverRequestBean.class);
     public static String BEAN_NAME = "YearbookCandidatesRetrieverRequestBean";
+    
    
     private String selectedSortOrder;
     /**
@@ -67,22 +73,14 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
      */
     private int numberOfRecords;
     
-    /**
-     * The menu entries of the item state filtering menu
-     */
-    private List<SelectItem> itemStateSelectItems;
-    
-    /**
-     * The currently selected item state.
-     */
-    private String selectedItemState;
+
     private Search searchService;
     private YearbookItemSessionBean  yisb;
     private PubItemListSessionBean pilsb;
     
     public YearbookCandidatesRetrieverRequestBean()
     {
-        super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), false); 
+        super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), false);  
         //logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
         //logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
        
@@ -118,255 +116,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         return numberOfRecords;
     }
 
-    @Override
-    public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
-    {
-        
-        List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
-        
-        
-        try
-        {
-            
-            ArrayList<String> contentTypes = new ArrayList<String>();
-            String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-            contentTypes.add( contentTypeIdPublication );
-            
-            ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
-            MetadataSearchCriterion objectTypeMds = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
-            mdsList.add(objectTypeMds);
-
-            //MetadataSearchCriterion genremd = new MetadataSearchCriterion(CriterionType.ANY, );
-            int i =0;
-            for(Genre genre : yisb.getYearbookContext().getAdminDescriptor().getAllowedGenres())
-            {
-                if (i==0)
-                {
-                    objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.GENRE, genre.getUri(), LogicalOperator.AND));
-                }
-                else
-                {
-                    objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.GENRE, genre.getUri(), LogicalOperator.OR));
-                }
-                i++;
-            }
-            
-            
-            if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
-            {
-                   mdsList.add(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
-            }
-            
-            MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
-            String additionalQuery = yisb.getYearbookItem().getLocalTags().get(0);
-            
-            
-            PlainCqlQuery query = new PlainCqlQuery(mdQuery.getCqlQuery() + " AND " +  additionalQuery);
-           
-         
-            query.setStartRecord(new PositiveInteger(String.valueOf(offset+1)));
-            query.setMaximumRecords(new NonNegativeInteger(String.valueOf(limit)));
-            
-            
-            if(sc.getIndex()!=null)
-            {
-                query.setSortKeys(sc.getIndex());
-            }
-
-            if(sc.getIndex() == null || !sc.getIndex().equals(""))
-            {
-                if (sc.getSortOrder().equals("descending"))
-                {
-                   
-                    query.setSortOrder(SortingOrder.DESCENDING);
-                }
-                   
-                else
-                {
-                    query.setSortOrder(SortingOrder.ASCENDING);
-                } 
-            }
-            ItemContainerSearchResult result = this.searchService.searchForItemContainer(query);
-            
-            pubItemList =  SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
-            this.numberOfRecords = Integer.parseInt(result.getTotalNumberOfResults().toString());
-        
-        
-        
-        
-        
-        
-        
-        
-        /*
-        
-
-            
-            
-            LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-            InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-      
-            checkSortCriterias(sc);
-            
-            // define the filter criteria
-            FilterTaskParamVO filter = new FilterTaskParamVO();
-            
-            Filter f2 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
-            filter.getFilterList().add(f2);
-            
-           
-            Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
-            filter.getFilterList().add(0,f7);
-            
-               
-           
-              
-            Filter f10 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
-            filter.getFilterList().add(f10);
-
-            Filter f8 = filter.new LimitFilter(String.valueOf(limit));
-            filter.getFilterList().add(f8);
-            Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
-            filter.getFilterList().add(f9);
-            
-           
-           
-      
-            
-            String xmlparam = xmlTransforming.transformToFilterTaskParam(filter); 
-          
-            String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
-
-            ItemVOListWrapper itemList = (ItemVOListWrapper) xmlTransforming.transformToItemListWrapper(xmlItemList);
-
-            List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-            for(ItemVO item : itemList.getItemVOList())
-            {
-                pubItemList.add(new PubItemVO(item));
-            }
-            
-            numberOfRecords = Integer.parseInt(itemList.getNumberOfRecords());
-            returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
-        */
-        }
-        catch (Exception e)
-        {
-            logger.error("Error in retrieving items", e);
-            error("Error in retrieving items");
-            numberOfRecords = 0; 
-        }
-        
-        return pubItemList;
-
-    }
-
-   
-
-  
-    /**
-     * Sets the current item state filter
-     * @param itemStateSelectItem
-     */
-    public void setItemStateSelectItems(List<SelectItem> itemStateSelectItem)
-    {
-        this.itemStateSelectItems = itemStateSelectItem;
-    }
-
-    /**
-     * Sets and returns the menu entries of the item state filter menu.
-     * @return
-     */
-    public List<SelectItem> getItemStateSelectItems()
-    {
-        itemStateSelectItems = new ArrayList<SelectItem>();
-        itemStateSelectItems.add(new SelectItem("all", getLabel("ItemList_filterAllExceptWithdrawn")));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.PENDING.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.PENDING))));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.SUBMITTED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.SUBMITTED))));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.RELEASED))));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.WITHDRAWN.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.WITHDRAWN))));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.IN_REVISION))));
-        
-        return itemStateSelectItems;
-    }
     
-    /**
-     * Sets the selected item state filter
-     * @param selectedItemState
-     */
-    public void setSelectedItemState(String selectedItemState)
-    {
-        this.selectedItemState = selectedItemState;
-        getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedItemState, selectedItemState);
-    }
-
-    /**
-     * Returns the currently selected item state filter
-     * @return
-     */
-    public String getSelectedItemState()
-    {
-        return selectedItemState;
-    }
-
- 
-
-    /**
-     * Returns the label for the currently selected item state.
-     * @return
-     */
-    public String getSelectedItemStateLabel()
-    {
-        String returnString = "";
-        if (getSelectedItemState()!=null && !getSelectedItemState().equals("all"))
-        {
-            returnString =  getLabel(i18nHelper.convertEnumToString(PubItemVO.State.valueOf(getSelectedItemState())));
-        }
-        return returnString;
-        
-    }
-    
-    /**
-     * Called by JSF whenever the item state menu is changed. 
-     * @return
-     */
-    public String changeItemState()
-    {
-            try
-            {
-               
-                getBasePaginatorListSessionBean().setCurrentPageNumber(1);
-                getBasePaginatorListSessionBean().redirect();
-            }
-            catch (Exception e)
-            {
-               logger.error("Error during redirection.",e);
-               error("Could not redirect");
-            }
-            return "";
-        
-    }
-    
-    /**
-     * Called by JSF whenever the context filter menu is changed. Causes a redirect to the page with updated import GET parameter.
-     * @return
-     */
-    public String changeImport()
-    {
-            try
-            {
-               
-                getBasePaginatorListSessionBean().setCurrentPageNumber(1);
-                getBasePaginatorListSessionBean().redirect();
-            }
-            catch (Exception e)
-            {
-               error("Could not redirect");
-            }
-            return "";
-        
-    }
-
     /**
      * Reads out the item state parameter from the HTTP GET request and sets an default value if it is null.
      */
@@ -421,6 +171,20 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
             selected.add(item.getVersion());
         }
         yisb.addMembers(selected);
+        return "";
+    }
+    
+    
+    public String removeSelectedFromYearbook()
+    {
+        YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class); 
+        List<ItemRO> selected = new ArrayList<ItemRO>();
+        for(PubItemVOPresentation item : ((PubItemListSessionBean)getBasePaginatorListSessionBean()).getSelectedItems())
+        {
+            selected.add(item.getVersion());
+        }
+        yisb.removeMembers(selected);
+        this.getBasePaginatorListSessionBean().update();
         return "";
     }
     
@@ -481,5 +245,253 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
     {
         this.selectedSortOrder = selectedSortOrder;
     }
+    
+    
+    private SearchQuery getCandidatesQuery() throws Exception
+    {
+        
+
+            
+            ArrayList<String> contentTypes = new ArrayList<String>();
+            String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+            contentTypes.add( contentTypeIdPublication );
+            
+            ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
+            MetadataSearchCriterion objectTypeMds = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
+            mdsList.add(objectTypeMds);
+
+            //MetadataSearchCriterion genremd = new MetadataSearchCriterion(CriterionType.ANY, );
+            int i =0;
+            for(Genre genre : yisb.getYearbookContext().getAdminDescriptor().getAllowedGenres())
+            {
+                if (i==0)
+                {
+                    objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.GENRE, genre.getUri(), LogicalOperator.AND));
+                }
+                else
+                {
+                    objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.GENRE, genre.getUri(), LogicalOperator.OR));
+                }
+                i++;
+            }
+            
+            
+            if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
+            {
+                   mdsList.add(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
+            }
+            
+            MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
+            String additionalQuery = yisb.getYearbookItem().getLocalTags().get(0);
+            
+            
+            PlainCqlQuery query = new PlainCqlQuery(mdQuery.getCqlQuery() + " AND " +  additionalQuery);
+           
+        
+       
+        
+        return query;
+    }
+    
+    private SearchQuery getMembersQuery() throws Exception
+    {
+        
+        
+        if(yisb.getNumberOfMembers()>0)
+        {
+            
+        
+           
+                
+                
+                ArrayList<String> contentTypes = new ArrayList<String>();
+                String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+                contentTypes.add( contentTypeIdPublication );
+                
+                ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
+                MetadataSearchCriterion objectTypeMds = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
+                mdsList.add(objectTypeMds);
+
+                int i=0;
+                for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
+                {
+                    if(i==0)
+                    {
+                        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.AND));
+                    }
+                    else
+                    {
+                        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.OR));   
+                    }
+                    i++;
+                   
+                }
+                
+                
+                if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
+                {
+                       mdsList.add(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
+                }
+            
+                MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, mdsList );
+                return query;
+              
+                
+                /*
+                
+                ItemValidating itemValidating = (ItemValidating) new InitialContext().lookup(ItemValidating.SERVICE_NAME);
+                
+                System.out.println("Validate " + pubItemList.size() + "items");
+                long start = System.currentTimeMillis();
+                for(PubItemVO item : pubItemList)
+                {
+                    PubItemVO pubitem = new PubItemVO(item);
+                    
+                    long startSingle=System.currentTimeMillis();
+                    ValidationReportVO report = itemValidating.validateItemObject(pubitem);
+                    long stopSingle=System.currentTimeMillis();
+                    System.out.println(item.getVersion().getObjectId()+ " took " + (stopSingle-startSingle) + "ms");
+                }
+                long stop = System.currentTimeMillis();
+                
+                System.out.println("All " + pubItemList.size() +" took " + (stop-start) + "ms");
+                */
+                
+               
+        }
+        
+            return null;
+    }
+    
+    
+    private SearchQuery getInvalidMembersQuery() throws Exception
+    {
+      
+        YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+        
+        if(yisb.getInvalidItemMap().size()>0)
+        {
+            
+                
+                
+                ArrayList<String> contentTypes = new ArrayList<String>();
+                String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+                contentTypes.add( contentTypeIdPublication );
+                
+                ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
+                MetadataSearchCriterion objectTypeMds = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
+                mdsList.add(objectTypeMds);
+
+                int i=0;
+                for(YearbookInvalidItemRO item : yisb.getInvalidItemMap().values())
+                {
+                    if(i==0)
+                    {
+                        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, item.getObjectId(), LogicalOperator.AND));
+                    }
+                    else
+                    {
+                        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, item.getObjectId(), LogicalOperator.OR));   
+                    }
+                    i++;
+                   
+                }
+
+                MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, mdsList );
+                return query;
+               
+              
+                
+                /*
+                
+                ItemValidating itemValidating = (ItemValidating) new InitialContext().lookup(ItemValidating.SERVICE_NAME);
+                
+                System.out.println("Validate " + pubItemList.size() + "items");
+                long start = System.currentTimeMillis();
+                for(PubItemVO item : pubItemList)
+                {
+                    PubItemVO pubitem = new PubItemVO(item);
+                    
+                    long startSingle=System.currentTimeMillis();
+                    ValidationReportVO report = itemValidating.validateItemObject(pubitem);
+                    long stopSingle=System.currentTimeMillis();
+                    System.out.println(item.getVersion().getObjectId()+ " took " + (stopSingle-startSingle) + "ms");
+                }
+                long stop = System.currentTimeMillis();
+                
+                System.out.println("All " + pubItemList.size() +" took " + (stop-start) + "ms");
+                */
+                
+               
+        }
+        
+            return null;
+    }
+
+
+
+    @Override
+    public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
+    {
+        List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>(); 
+        
+        try
+        {
+            SearchQuery query = null; 
+            if(yisb.getSelectedWorkspace().equals(YBWORKSPACE.CANDIDATES))
+            {
+                query = getCandidatesQuery();
+            }
+            else if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.MEMBERS))
+            {
+                query = getMembersQuery();
+            }
+            else if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.INVALID))
+            {
+                query = getInvalidMembersQuery();
+            }
+             
+            if(query!=null)
+            {
+                query.setStartRecord(new PositiveInteger(String.valueOf(offset+1)));
+                query.setMaximumRecords(new NonNegativeInteger(String.valueOf(limit)));
+                
+                
+                if(sc.getIndex()!=null)
+                {
+                    query.setSortKeys(sc.getIndex());
+                }
+        
+                if(sc.getIndex() == null || !sc.getIndex().equals(""))
+                {
+                    if (sc.getSortOrder().equals("descending"))
+                    {
+                       
+                        query.setSortOrder(SortingOrder.DESCENDING);
+                    }
+                       
+                    else
+                    {
+                        query.setSortOrder(SortingOrder.ASCENDING);
+                    } 
+                }
+                ItemContainerSearchResult result = this.searchService.searchForItemContainer(query);
+                
+                pubItemList =  SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
+                this.numberOfRecords = Integer.parseInt(result.getTotalNumberOfResults().toString());
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("Error in retrieving items", e);
+            error("Error in retrieving items");
+            numberOfRecords = 0; 
+        }
+        
+        
+        return pubItemList;
+    }
+    
+    
 
 }

@@ -1,7 +1,5 @@
 package de.mpg.escidoc.pubman.yearbook;
 
-import gov.loc.www.zing.srw.SearchRetrieveResponseType;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,29 +7,25 @@ import java.util.List;
 import java.util.Map;
 
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.om.ContextHandler;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.search.Search;
@@ -45,6 +39,14 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
 public class YearbookItemSessionBean extends FacesBean
 {
+    
+    enum YBWORKSPACE
+    {
+        CANDIDATES, MEMBERS, INVALID, NON_CANDIDATES
+    }
+    
+    private YBWORKSPACE selectedWorkspace;
+    
     private static Logger logger = Logger.getLogger(YearbookItemSessionBean.class);
     public static String BEAN_NAME = "YearbookItemSessionBean";
     
@@ -71,6 +73,7 @@ public class YearbookItemSessionBean extends FacesBean
             this.searchService = (Search) initialContext.lookup(Search.SERVICE_NAME);
             this.itemValidating = (ItemValidating) initialContext.lookup(ItemValidating.SERVICE_NAME);
                 
+            this.selectedWorkspace = YBWORKSPACE.CANDIDATES;
             
             String yearbookContextId = PropertyReader.getProperty("escidoc.pubman.yearbook.context.id");
             ContextHandler ch = ServiceLocator.getContextHandler(loginHelper.getESciDocUserHandle());
@@ -334,7 +337,8 @@ public class YearbookItemSessionBean extends FacesBean
             }
         }
         
-        return "loadYearbookInvalidItemsPage";
+        changeToInvalidItems();
+        return "";
         
         
     }
@@ -355,6 +359,47 @@ public class YearbookItemSessionBean extends FacesBean
     public Map<String, YearbookInvalidItemRO> getInvalidItemMap()
     {
         return invalidItemMap;
+    }
+
+
+
+
+    public void setSelectedWorkspace(YBWORKSPACE selectedWorkspace)
+    {
+        this.selectedWorkspace = selectedWorkspace;
+    }
+
+
+
+
+    public YBWORKSPACE getSelectedWorkspace()
+    {
+        return selectedWorkspace;
+    }
+    
+    public String changeToCandidates()
+    {
+        PubItemListSessionBean pilsb = (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+        setSelectedWorkspace(YBWORKSPACE.CANDIDATES);
+        pilsb.setCurrentPageNumber(1);
+        pilsb.redirect();
+        return "";
+    }
+    public String changeToMembers()
+    {
+        PubItemListSessionBean pilsb = (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+        setSelectedWorkspace(YBWORKSPACE.MEMBERS);
+        pilsb.setCurrentPageNumber(1);
+        pilsb.redirect();
+        return "";
+    }
+    public String changeToInvalidItems()
+    {
+        PubItemListSessionBean pilsb = (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+        setSelectedWorkspace(YBWORKSPACE.INVALID);
+        pilsb.setCurrentPageNumber(1);
+        pilsb.redirect();
+        return "";
     }
 
 
