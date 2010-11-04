@@ -113,18 +113,9 @@ public class AdvancedSearchEdit extends FacesBean
     private UIXIterator localTagCriterionIterator = new UIXIterator();
     
     private String suggestConeUrl = null;
-    private String context = null;
+
     
 
-   public String getContext() {
-		System.err.println("get Context = " +context);
-		return context;
-	}
-
-	public void setContext(String context) {
-		System.err.println("set Context = " +context);
-		this.context = context;
-	}
 
 /**
     * Create a new instance. Set the buttons and the search type masks.
@@ -208,7 +199,7 @@ public class AdvancedSearchEdit extends FacesBean
     public String startSearch()
     {
         ArrayList<Criterion> criterionList = new ArrayList<Criterion>();
-        
+         
         // collect VO's from internal collections
         // we have to ensure, that no empty criterions are moved to the criterionVOList
         if(contextCriterionCollection.getFilledCriterion()!=null)

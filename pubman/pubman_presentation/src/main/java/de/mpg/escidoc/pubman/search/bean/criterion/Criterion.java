@@ -70,7 +70,7 @@ public abstract class Criterion
     public String getSearchString()
     {
         return searchString;
-    }
+    } 
 
     public void setLogicalOperator(LogicalOperator newVal)
     {

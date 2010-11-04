@@ -45,9 +45,6 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
  */
 public class ContextCriterionBean extends CriterionBean {
 
-    // boolean flag for the full text search
-    private ContextVO selectedContext;
-
 	private List<ContextVO> contexts;
 
     private ContextCriterion contextCriterionVO;
@@ -60,20 +57,19 @@ public class ContextCriterionBean extends CriterionBean {
     	{
 			for(ContextVO vo : contexts)
 			{
-				if(vo.getName().equals(context))
+				if(vo.getReference().getObjectId().equals(context))
 				{
-		    		contextCriterionVO.setSearchString(context);
-					setSelectedContext(vo);
+		    		contextCriterionVO.setSearchString(vo.getReference().getObjectId());
+		    		contextCriterionVO.setCollection(vo.getName());
 				}
 			}
-
     	}
 		return context;
 	}
 
 	public void setContext(String context) {
 		this.context = context;
-	}
+	} 
 
 	/**
      * constructor.
@@ -84,8 +80,9 @@ public class ContextCriterionBean extends CriterionBean {
     	this.contexts = contexts;
     	if(contexts!= null && contexts.size()>0)
     	{
-    		setSelectedContext(contexts.get(0));
+
     		contextCriterionVO.setSearchString("");
+    		contextCriterionVO.setCollection("--");
     	}
     }
     
@@ -103,23 +100,24 @@ public class ContextCriterionBean extends CriterionBean {
 	
 	public void contextChanged(ValueChangeEvent event)
 	{
-		if(!event.getNewValue().toString().equals(contextCriterionVO.getSearchString()))
-		{
+//		if(!event.getNewValue().toString().equals(contextCriterionVO.getSearchString()))
+//		{ 
 			String newContext = (String)event.getNewValue();
+			setContext(newContext);
 			if(newContext!="--")
 			{
 				for(ContextVO vo : contexts)
 				{
-					if(vo.getName().equals(newContext))
+					if(vo.getName().equals(newContext))  
 					{
-						contextCriterionVO.setSearchString(newContext);
-						setSelectedContext(vo);
+						contextCriterionVO.setSearchString(vo.getReference().getObjectId());
+						contextCriterionVO.setCollection(vo.getName());
 					}
 				}
 			}
 			else
 				contextCriterionVO.setSearchString("");
-		}
+//		}
 
 	}
 
@@ -134,16 +132,6 @@ public class ContextCriterionBean extends CriterionBean {
 		this.contextCriterionVO = contextCriterionVO;
 	}
 	
-    public ContextVO getSelectedContext()
-    {
-		return selectedContext;
-	}
-
-	public void setSelectedContext(ContextVO selectedContext) 
-	{
-		this.selectedContext = selectedContext;
-	}
-
 	public List<ContextVO> getContexts() 
 	{
 		return contexts;
