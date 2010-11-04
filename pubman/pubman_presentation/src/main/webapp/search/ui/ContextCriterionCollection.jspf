@@ -46,7 +46,7 @@
 				</b>
 
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel id="context" value="#{contextCriterionBean.context}"/>
+					<h:outputLabel id="context" styleClass="noDisplay" value="#{contextCriterionBean.context}"/>
 
 					<b class="quad_label">&#160;</b>
 					<h:selectOneMenu styleClass="large_select" id="selectContext" value="#{contextCriterionBean.context}" onchange="submit()" valueChangeListener="#{contextCriterionBean.contextChanged}" immediate="true">
