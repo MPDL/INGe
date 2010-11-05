@@ -33,6 +33,21 @@
 
 <h:panelGroup layout="block" styleClass="full_area0 shortView">
 	<h:outputText value="<abbr class='unapi-id' title='#{item.identifier}'></abbr>" escape="false" rendered="#{item.isReleased}"/>
+	
+	<h:panelGroup styleClass="free_area0_p0 small_marginLIncl endline listItemLine" rendered="#{not empty item.validationMessages}">
+		
+		<span class="huge_area0_p8 endline labelLine">
+			<h:outputText value="#{lbl.ViewItemShort_validationMessages}"/><span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+		<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea">
+			<tr:iterator var="msg" value="#{item.validationMessages}">
+				<h:outputText styleClass="messageError" value="#{msg}"/><br/>
+			</tr:iterator>	
+	   </h:panelGroup>
+	   </span>
+	</h:panelGroup>
+	
 	<div class="free_area0_p0  small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
  			<div><a class="collapse"><span class="noDisplay"><h:outputText value="#{lbl.ViewItemShort_lblShow}"/> </span><h:outputText value="#{lbl.ViewItemShort_lblLess}"/><span class="noDisplay"> <h:outputText  value="#{lbl.ViewItemShort_lblDetails}"/></span></a>

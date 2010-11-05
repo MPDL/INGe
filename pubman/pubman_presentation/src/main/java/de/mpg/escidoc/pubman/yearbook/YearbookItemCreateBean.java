@@ -119,18 +119,19 @@ public class YearbookItemCreateBean extends FacesBean
         creatorVO.setOrganization(orgUnit);
         mds.getCreators().add(creatorVO);
         
-        String query = "";
+       
 
-        query += "(( escidoc.publication.date>=\"" + getDateFrom() + "\"";
-        query+=(" AND escidoc.publication.date<=\"" + getDateTo() + "\" )");
-        query += (" OR ( escidoc.publication.published-online>=\"" + getDateFrom() + "\"");
-        query += (" AND escidoc.publication.published-online<=\"" + getDateTo() + "\" ) )");
+        String datequery = "(( escidoc.publication.date>=\"" + getDateFrom() + "\"";
+        datequery+=(" AND escidoc.publication.date<=\"" + getDateTo() + "\" )");
+        datequery += (" OR ( escidoc.publication.published-online>=\"" + getDateFrom() + "\"");
+        datequery += (" AND escidoc.publication.published-online<=\"" + getDateTo() + "\" ) )");
         
-        query += " AND ( escidoc.any-organization-pids=\"" + getOrgId() + "\" )";
+        String orgQuery = "( escidoc.any-organization-pids=\"" + getOrgId() + "\" )";
         
+        String contextQuery="";
         if(contextIds!=null && !contextIds.trim().equals(""))
         {
-            query+=" AND (";
+            contextQuery+="(";
             String[] conIds = contextIds.split(",");
             int i=0;
             for(String contextId : conIds)
@@ -139,16 +140,21 @@ public class YearbookItemCreateBean extends FacesBean
                 {
                     if(i!=0)
                     {
-                        query += " OR";
+                        contextQuery += " OR";
                     } 
-                    query+=" escidoc.context.objid=\"" + contextId.trim() + "\""; 
+                    contextQuery+=" escidoc.context.objid=\"" + contextId.trim() + "\""; 
                     i++;
                 }
             }
-            query+=" )";
+            contextQuery+=" )";
         }
 
+        
+        String query = datequery + "AND" + orgQuery + "AND" + contextQuery;
+        String inverseQuery= contextQuery + "NOT ( " + datequery + " AND " + orgQuery + " ) ";
+        
         pubItem.getLocalTags().add(query);
+        pubItem.getLocalTags().add(inverseQuery);
         
 //        YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
 //        

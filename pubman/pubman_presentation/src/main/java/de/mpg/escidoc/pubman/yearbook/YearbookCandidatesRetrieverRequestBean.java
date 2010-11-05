@@ -1,6 +1,7 @@
 package de.mpg.escidoc.pubman.yearbook;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -17,11 +18,14 @@ import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
+import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.yearbook.YearbookItemSessionBean.YBWORKSPACE;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -34,6 +38,8 @@ import de.mpg.escidoc.services.search.query.SearchQuery;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
+import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
+import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Yearbook workspace.
@@ -75,7 +81,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
     
 
     private Search searchService;
-    private YearbookItemSessionBean  yisb;
+    private YearbookItemSessionBean yisb;
     private PubItemListSessionBean pilsb;
     
     public YearbookCandidatesRetrieverRequestBean()
@@ -171,6 +177,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
             selected.add(item.getVersion());
         }
         yisb.addMembers(selected);
+        this.getBasePaginatorListSessionBean().update();
         return "";
     }
     
@@ -275,6 +282,18 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
                 i++;
             }
             
+            if(yisb.getNumberOfMembers()>0)
+            {
+                
+                for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
+                {
+                   
+                        mdsList.add(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.NOT));
+                   
+                   
+                }
+            }
+            
             
             if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
             {
@@ -286,6 +305,51 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
             
             
             PlainCqlQuery query = new PlainCqlQuery(mdQuery.getCqlQuery() + " AND " +  additionalQuery);
+           
+        
+       
+        
+        return query;
+    }
+    
+    
+    private SearchQuery getNonCandidatesQuery() throws Exception
+    {
+
+            ArrayList<String> contentTypes = new ArrayList<String>();
+            String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+            contentTypes.add( contentTypeIdPublication );
+            
+            ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
+            MetadataSearchCriterion objectTypeMds = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
+            mdsList.add(objectTypeMds);
+
+            //MetadataSearchCriterion genremd = new MetadataSearchCriterion(CriterionType.ANY, );
+           
+           
+            if(yisb.getNumberOfMembers()>0)
+            {
+                
+                for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
+                {
+                   
+                        mdsList.add(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.NOT));
+                   
+                   
+                }
+            }
+            
+            
+            if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
+            {
+                   mdsList.add(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
+            }
+            
+            MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
+            String inverseQuery = yisb.getYearbookItem().getLocalTags().get(1);
+            
+            
+            PlainCqlQuery query = new PlainCqlQuery(mdQuery.getCqlQuery() + " AND " +  inverseQuery);
            
         
        
@@ -450,6 +514,10 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
             {
                 query = getInvalidMembersQuery();
             }
+            else if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.NON_CANDIDATES))
+            {
+                query = getNonCandidatesQuery();
+            }
              
             if(query!=null)
             {
@@ -477,7 +545,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
                 }
                 ItemContainerSearchResult result = this.searchService.searchForItemContainer(query);
                 
-                pubItemList =  SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
+                pubItemList =  extractItemsOfSearchResult(result);
                 this.numberOfRecords = Integer.parseInt(result.getTotalNumberOfResults().toString());
             }
         }
@@ -490,6 +558,53 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         
         
         return pubItemList;
+    }
+    
+     
+    public ArrayList<PubItemVOPresentation> extractItemsOfSearchResult( ItemContainerSearchResult result ) { 
+        
+        List<SearchResultElement> results = result.getResultList(); 
+        
+        ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
+        for( int i = 0; i < results.size(); i++ ) {
+            //check if we have found an item
+            if( results.get( i ) instanceof ItemResultVO ) {
+                // cast to PubItemResultVO
+                ItemResultVO item = (ItemResultVO)results.get( i );
+                PubItemResultVO pubItemResult = new PubItemResultVO( item, item.getSearchHitList(), item.getScore() ) ; 
+                PubItemVOPresentation pubItemPres = new PubItemVOPresentation(pubItemResult);
+                
+                //if(yisb.getInvalidItemMap().containsKey(pubItemPres.getVersion().getObjectId()))
+                //{
+                    //YearbookInvalidItemRO itemRO = yisb.getInvalidItemMap().get(pubItemPres.getVersion().getObjectId());
+                    //pubItemPres.setValidationMessages(getValidationMessages(itemRO.getValidationReport()));
+                pubItemPres.setValidationMessages(getValidationMessages(null));
+                //}
+                pubItemList.add( pubItemPres );
+            }
+        }
+        return pubItemList;
+    }
+    
+    private List<String> getValidationMessages(ValidationReportVO report)
+    {
+        List<String> valMessages = new ArrayList<String>();
+        valMessages.add("test1 ewqfewf efef efwefwewf");
+        valMessages.add("test1 ewqfewf efef efwefwewf");
+        
+        if(report!=null)
+        {
+            for (ValidationReportItemVO item  : report.getItems())
+            {
+                if (item.isRestrictive())
+                {
+                    valMessages.add((getMessage(item.getContent()).replaceAll("\\$1", item.getElement())));
+                }
+                
+            }
+        }
+        
+        return valMessages;
     }
     
     

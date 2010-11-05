@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import de.escidoc.www.services.om.ContextHandler;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
@@ -75,44 +76,45 @@ public class YearbookItemSessionBean extends FacesBean
                 
             this.selectedWorkspace = YBWORKSPACE.CANDIDATES;
             
-            String yearbookContextId = PropertyReader.getProperty("escidoc.pubman.yearbook.context.id");
-            ContextHandler ch = ServiceLocator.getContextHandler(loginHelper.getESciDocUserHandle());
-            String contextXml = ch.retrieve(yearbookContextId);
-            yearbookContext = xmlTransforming.transformToContext(contextXml);
-            
-            
-            
-            HashMap<String, String[]> filterParams = new HashMap<String, String[]>();  
-            filterParams.put("operation", new String[] {"searchRetrieve"});
-            filterParams.put("version", new String[] {"1.1"});
-            
-            String orgId="";
-            for(UserAttributeVO attr : loginHelper.getAccountUser().getAttributes())
+            ContextListSessionBean clsb = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+            if(clsb.getYearbookContextList().size() == 1)
             {
-                if(attr.getName().equals("o"))
-                {
-                    orgId = attr.getValue();
-                    break;
-                }
+                    
+                    yearbookContext =  clsb.getYearbookContextList().get(0);
+
+                    HashMap<String, String[]> filterParams = new HashMap<String, String[]>();  
+                    filterParams.put("operation", new String[] {"searchRetrieve"});
+                    filterParams.put("version", new String[] {"1.1"});
+                    
+                    String orgId="";
+                    for(UserAttributeVO attr : loginHelper.getAccountUser().getAttributes())
+                    {
+                        if(attr.getName().equals("o"))
+                        {
+                            orgId = attr.getValue();
+                            break;
+                        }
+                    }
+                    //String orgId = "escidoc:persistent25";
+                    filterParams.put("query", new String[] {"\"/properties/context/id\"=" + yearbookContext.getReference().getObjectId() + " and \"/md-records/md-record/publication/creator/organization/identifier\"=" + orgId});
+                    filterParams.put("maximumRecords", new String[] {"10"});
+
+                    String xmlItemList = itemHandler.retrieveItems(filterParams);
+
+                    SearchRetrieveResponseVO result = xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);
+                    
+
+                    
+                    if(result.getNumberOfRecords()!=1)
+                    {
+                        error(result.getNumberOfRecords() + " yearbook items found!");
+                    }
+                    else
+                    {
+                        this.setYearbookItem(new PubItemVO((ItemVO)result.getRecords().get(0).getData()));
+                    }
             }
-            //String orgId = "escidoc:persistent25";
-            filterParams.put("query", new String[] {"\"/properties/context/id\"=" + yearbookContextId + " and \"/md-records/md-record/publication/creator/organization/identifier\"=" + orgId});
-            filterParams.put("maximumRecords", new String[] {"10"});
-
-            String xmlItemList = itemHandler.retrieveItems(filterParams);
-
-            SearchRetrieveResponseVO result = xmlTransforming.transformToSearchRetrieveResponse(xmlItemList);
             
-
-            
-            if(result.getNumberOfRecords()!=1)
-            {
-                error(result.getNumberOfRecords() + " yearbook items found!");
-            }
-            else
-            {
-                this.setYearbookItem(new PubItemVO((ItemVO)result.getRecords().get(0).getData()));
-            }
         }
         catch (Exception e)
         {
@@ -397,6 +399,15 @@ public class YearbookItemSessionBean extends FacesBean
     {
         PubItemListSessionBean pilsb = (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
         setSelectedWorkspace(YBWORKSPACE.INVALID);
+        pilsb.setCurrentPageNumber(1);
+        pilsb.redirect();
+        return "";
+    }
+    
+    public String changeToNonCandidates()
+    {
+        PubItemListSessionBean pilsb = (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
+        setSelectedWorkspace(YBWORKSPACE.NON_CANDIDATES);
         pilsb.setCurrentPageNumber(1);
         pilsb.redirect();
         return "";

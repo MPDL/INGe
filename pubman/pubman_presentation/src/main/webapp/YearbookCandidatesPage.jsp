@@ -81,6 +81,12 @@
 									<h:outputText id="txtChangeToCandidates" styleClass="free_area0" value="#{lbl.YearbookCandidatesPage}" rendered="#{YearbookItemSessionBean.selectedWorkspace=='CANDIDATES'}"/>
 									
 									<h:outputText styleClass="seperator void" />
+									<h:commandLink id="lnkChangeToNonCandidates" styleClass="free_area0" action="#{YearbookItemSessionBean.changeToNonCandidates}" rendered="#{YearbookItemSessionBean.selectedWorkspace!='NON_CANDIDATES'}">
+										<h:outputText value="#{lbl.YearbookNonCandidatesPage}"/>
+									</h:commandLink>
+									<h:outputText id="txtChangeToNonCandidates" styleClass="free_area0" value="#{lbl.YearbookNonCandidatesPage}" rendered="#{YearbookItemSessionBean.selectedWorkspace=='NON_CANDIDATES'}"/>
+									
+									<h:outputText styleClass="seperator void" />
 									<h:commandLink id="lnkChangeToMembers" styleClass="free_area0" action="#{YearbookItemSessionBean.changeToMembers}" rendered="#{YearbookItemSessionBean.selectedWorkspace!='MEMBERS'}">
 										<h:outputText value="#{lbl.YearbookMembersPage} (#{YearbookItemSessionBean.numberOfMembers})"/>
 									</h:commandLink>

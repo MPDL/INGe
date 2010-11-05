@@ -127,6 +127,11 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     private boolean isFromEasySubmission;
     
     private List<WrappedLocalTag> wrappedLocalTags = new ArrayList<WrappedLocalTag>();
+    
+    /**
+     * Validation messages that should be displayed in item list
+     */
+    private List<String> validationMessages = new ArrayList<String>();
 
     //For handling the resource bundles (i18n)
     //private Application application = FacesContext.getCurrentInstance().getApplication();
@@ -1513,6 +1518,16 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	{
 		this.descriptionMetaTag = descriptionMetaTag;
 	}
+
+    public void setValidationMessages(List<String> validationMessages)
+    {
+        this.validationMessages = validationMessages;
+    }
+
+    public List<String> getValidationMessages()
+    {
+        return validationMessages;
+    }
 
    
     

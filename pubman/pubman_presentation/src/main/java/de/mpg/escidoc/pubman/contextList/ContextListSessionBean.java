@@ -59,6 +59,7 @@ public class ContextListSessionBean extends FacesBean
 
     private List<PubContextVOPresentation> depositorContextList = new ArrayList<PubContextVOPresentation>();
     private List<PubContextVOPresentation> moderatorContextList = new ArrayList<PubContextVOPresentation>();
+    private List<PubContextVOPresentation> yearbookContextList = new ArrayList<PubContextVOPresentation>();
     private QualityAssurance qualityAssurance;
     private LoginHelper loginHelper;
 
@@ -77,6 +78,7 @@ public class ContextListSessionBean extends FacesBean
         this.loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
         this.depositorContextList = this.retrieveDepositorContexts();
         this.moderatorContextList = this.retrieveModeratorContexts();
+        this.yearbookContextList = this.retrieveYearbookContexts();
     }
 
     private List<PubContextVOPresentation> retrieveModeratorContexts()
@@ -106,6 +108,33 @@ public class ContextListSessionBean extends FacesBean
             logger.warn("Continuing with Dummy-Collections.");
         }
         return moderatorContexts;
+    }
+    
+    private List<PubContextVOPresentation> retrieveYearbookContexts()
+    {
+        List<PubContextVOPresentation> yearbookContexts = new ArrayList<PubContextVOPresentation>(); 
+        try
+        {
+            
+            InitialContext initialContext = new InitialContext();
+            this.qualityAssurance = (QualityAssurance) initialContext.lookup(QualityAssurance.SERVICE_NAME);
+            if(loginHelper.getAccountUser() != null 
+                    && loginHelper.getAccountUser().getReference() != null 
+                    && loginHelper.getAccountUser().getReference().getObjectId()!= null 
+                    && !loginHelper.getAccountUser().getReference().getObjectId().trim().equals(""))
+            {
+                yearbookContexts = CommonUtils.convertToPubCollectionVOPresentationList(qualityAssurance.retrieveYearbookContexts(loginHelper.getAccountUser()));
+            }
+            else
+            {
+                //moderatorContexts.addAll(this.getDummyCollections(3));
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not create context list.", e);
+        }
+        return yearbookContexts;
     }
 
     /**
@@ -230,6 +259,29 @@ public class ContextListSessionBean extends FacesBean
     public void setContextIterator(UIXIterator contextIterator)
     {
         this.contextIterator = contextIterator;
+    }
+
+    public void setYearbookContextList(List<PubContextVOPresentation> yearbookContextList)
+    {
+        this.yearbookContextList = yearbookContextList;
+    }
+
+    public List<PubContextVOPresentation> getYearbookContextList()
+    {
+        return yearbookContextList;
+    }
+    
+    public int getYearbookContextListSize()
+    {
+        if (yearbookContextList==null) 
+        {
+            return 0;
+        }
+        else
+        {
+            return yearbookContextList.size(); 
+        }
+        
     }
     
     
