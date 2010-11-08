@@ -14,7 +14,8 @@ public abstract class Elements<ListElementType> extends BatchProcess
     protected int maximumNumberOfElements = 50;
 
     public Elements(String[] args)
-    {
+    {   
+        init(args);
         String max = CommandHelper.getArgument("-n", args, false);
         if (max != null)
         {
@@ -47,6 +48,8 @@ public abstract class Elements<ListElementType> extends BatchProcess
         this.elements = elements;
     }
 
+    public abstract void init(String[] args);
+    
     public abstract void retrieveElements();
 
     public abstract CoreServiceObjectType getObjectType();

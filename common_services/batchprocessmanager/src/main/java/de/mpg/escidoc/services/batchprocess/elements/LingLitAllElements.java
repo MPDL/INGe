@@ -17,6 +17,11 @@ public class LingLitAllElements extends Elements<ItemVO>
         super(args);
     }
 
+    @Override
+    public void init(String[] args)
+    {
+    }
+
     private static final String LOCAL_TAG = "LingLit Import 2010-04-01 10:10";
 
     @Override
