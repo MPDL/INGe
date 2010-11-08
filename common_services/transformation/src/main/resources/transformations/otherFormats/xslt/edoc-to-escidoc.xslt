@@ -58,9 +58,10 @@
 		xmlns:event="${xsd.metadata.event}"
 		xmlns:organization="${xsd.metadata.organization}"
 		xmlns:escidocFunctions="urn:escidoc:functions"
-		xmlns:escidoc="http://escidoc.mpg.de/"
+		xmlns:escidoc="${xsd.metadata.terms}"
 		xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
-		xmlns:itemlist="${xsd.soap.item.itemlist}">
+		xmlns:itemlist="${xsd.soap.item.itemlist}"
+		xmlns:eprints="http://purl.org/eprint/terms/">
 	
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	
@@ -1661,11 +1662,6 @@
 					</xsl:when>
 					<xsl:otherwise>
 						<person:person>
-							<eterms:complete-name>
-								<xsl:value-of select="$creatorngivenNew"/>
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="$creatornfamily"/>
-							</eterms:complete-name>
 							<eterms:family-name>
 								<xsl:value-of select="$creatornfamily"/>
 							</eterms:family-name>
@@ -1681,7 +1677,7 @@
 								<xsl:comment> Case 8 </xsl:comment>
 								<organization:organization>
 									<dc:title>
-										<xsl:value-of select="rdf:Description/escidoc:organization"/>
+										<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
 									</dc:title>
 									<dc:identifier>
 										<xsl:value-of select="rdf:Description/dc:identifier"/>

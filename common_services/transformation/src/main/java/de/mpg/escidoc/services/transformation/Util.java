@@ -321,7 +321,10 @@ public class Util
                     if (!"".equals(result.trim()))
                     {
                         String id = result.split("\\|")[1];
-                        GetMethod detailMethod = new GetMethod(detailsUrl.replace("$1", id));
+                        GetMethod detailMethod = new GetMethod(id + "?format=rdf");
+                        
+                        logger.info(detailMethod.getPath());
+                        logger.info(detailMethod.getQueryString());
                         
                         ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
                         client.executeMethod(detailMethod);
@@ -329,6 +332,7 @@ public class Util
                         {
                             Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
                             element.appendChild(document.importNode(details.getFirstChild(), true));
+
                         }
                         else
                         {
