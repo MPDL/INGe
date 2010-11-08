@@ -1487,7 +1487,7 @@
 							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' MPI for Gravitational Physics'))"/>
 						</xsl:when>
 						<xsl:otherwise>
-							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven))"/>
+							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:variable>
@@ -1623,7 +1623,7 @@
 											</xsl:element>
 										</xsl:for-each>
 									</xsl:when>
-									<xsl:when test=". = ../creator[1] and ../../../docaff/docaff_external">
+									<xsl:when test=". = ../creator[1] and ../../../docaff/docaff_external and not(../creator[@internextern = 'mpg'])">
 										<xsl:comment> Case 5 </xsl:comment>
 										<organization:organization>
 											<dc:title>
