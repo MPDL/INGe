@@ -74,16 +74,31 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
             // List<IdentifierVO> uris = item.getMetadata().getIdentifiers();
             for (IdentifierVO uris : item.getMetadata().getIdentifiers())
             {
-                System.out.println("Identifier: " + uris.getId());
+                System.out.println("Identifier: " + uris.getId() + " ,type: " + uris.getTypeString());
             }
             System.out.println("============== URL END ================");
             // URL END
         }
         return list;
     }
-
+    
+    // Test with escidoc:173940
     public PubItemVO transformAlternativeTitle(PubItemVO item)
     {
+        for (SourceVO src : item.getMetadata().getSources())
+        {
+            for (TextVO alt : src.getAlternativeTitles())
+            {
+                if (alt.getValue().equals("Serie Lingüística peruana"))
+                {
+                    System.out.println("MATCHED");
+                }
+                else
+                {
+                    System.out.println("NOT MATCHED");
+                }
+            }
+        }
         return item;
     }
 
@@ -98,7 +113,7 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
 
     public PubItemVO removeURI(PubItemVO item)
     {
-        for (int i=0; i< item.getMetadata().getIdentifiers().size(); i++)
+        for (int i = 0; i < item.getMetadata().getIdentifiers().size(); i++)
         {
             if (IdType.URI.equals(item.getMetadata().getIdentifiers().get(i).getType()))
             {
