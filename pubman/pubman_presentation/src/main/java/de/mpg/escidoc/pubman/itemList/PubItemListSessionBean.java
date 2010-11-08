@@ -611,7 +611,6 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
      */
     public void setSelectedSortBy(String selectedSortBy)
     {
-        System.out.println("PubItemListSessionBean: " + selectedSortBy);
         this.selectedSortBy = selectedSortBy;
         getParameterMap().put(parameterSelectedSortBy, selectedSortBy);
         
