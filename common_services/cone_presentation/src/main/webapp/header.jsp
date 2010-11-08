@@ -203,19 +203,19 @@
 									}
 									else
 									{
-										document.getElementById('idImage').src = 'img/taken.png';
+										document.getElementById('idImage').src = 'files/img/taken.png';
 									}
 								}
 								else
 								{
-									document.getElementById('idImage').src = 'img/new.png';
+									document.getElementById('idImage').src = 'files/img/new.png';
 								}
 							}
 					);
 				}
 				else
 				{
-					document.getElementById('idImage').src = 'img/empty.png';
+					document.getElementById('idImage').src = 'files/img/empty.png';
 				}
 			}
 		}
@@ -276,7 +276,7 @@
 								}
 								if (counter > 0 && shouldBeUnique)
 								{
-									image.src = 'img/taken.png';
+									image.src = 'files/img/taken.png';
 									var title;
 									if (counter == 1)
 									{
@@ -295,7 +295,7 @@
 								}
 								else if (counter > 0)
 								{
-									image.src = 'img/hits.png';
+									image.src = 'files/img/hits.png';
 									var title;
 									if (counter <=48) 
 									{
@@ -310,7 +310,7 @@
 								}
 								else
 								{
-									image.src = 'img/new.png';
+									image.src = 'files/img/new.png';
 									image.title = 'This content is unique';
 								}
 
@@ -338,7 +338,7 @@
 							}
 							else
 							{
-								image.src = 'img/new.png';
+								image.src = 'files/img/new.png';
 								image.title = jsonUrl + ' - ' + predicate + ' - ' + formField;
 								//image.title = 'This field is unique';
 							}
@@ -347,7 +347,7 @@
 			}
 			else
 			{
-				image.src = 'img/empty.png';
+				image.src = 'files/img/empty.png';
 				image.title = '';
 			}
 		}
