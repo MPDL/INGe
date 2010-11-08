@@ -26,6 +26,141 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
+<!-- Validation Schema for MPG yearbook
+	$Author: mfranke $
+	$Revision: 139 $ -->
+<?identification context-name="Yearbook Validation" content-model="escidoc:persistent4" context="yearbook" metadata-version="1.0" version="0.1"?>
+
+<iso:schema xmlns:iso="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt2" schemaVersion="ISO19757-3" defaultPhase="default">
+	
+	<iso:ns prefix="item" uri="${xsd.soap.item.item}"/>
+	<iso:ns prefix="escidocMetadataRecords" uri="${xsd.soap.common.mdrecords}"/>
+	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
+	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
+	<iso:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+	<iso:ns prefix="escidocMetadataProfile" uri="${xsd.metadata.escidocprofile}"/>
+	<iso:ns prefix="escidoc" uri="${xsd.metadata.escidocprofile.types}"/>
+	<iso:ns prefix="escidocComponents" uri="${xsd.soap.item.components}"/>
+	<iso:ns prefix="publication" uri="${xsd.metadata.publication}"/>
+	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
+	<iso:ns prefix="prop" uri="${xsd.soap.common.prop}"/>
+	<iso:ns prefix="file" uri="${xsd.metadata.file}"/>
+	<iso:ns prefix="rdf" uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+	<iso:ns prefix="person" uri="${xsd.metadata.person}" />
+	<iso:ns prefix="event" uri="${xsd.metadata.event}" />
+	<iso:ns prefix="source" uri="${xsd.metadata.source}" />
+	<iso:ns prefix="organization" uri="${xsd.metadata.organization}" />
+	<iso:ns prefix="escidoc-util" uri="java:de.mpg.escidoc.services.util.SchematronUtil" />
+   
+	
+	<!-- Validation points -->
+	<iso:phase id="default">
+		<iso:active pattern="yearbook_genre"/>
+		<iso:active pattern="article_rules"/>
+	</iso:phase>
+
+	<iso:phase id="submit_item">
+		<iso:active pattern="yearbook_genre"/>
+		<iso:active pattern="article_rules"/>
+	</iso:phase>
+
+	<!-- Mime-Types -->
+	<iso:let name="mimeTypes">
+		<var>
+			<?cone escidocmimetypes?>
+		</var>
+	</iso:let>
+
+	<!-- DDC -->
+	<iso:let name="ddcSubjects">
+		<var>
+			<?cone ddc?>
+		</var>
+	</iso:let>
+
+	<!-- MPIPKS -->
+	<iso:let name="mpipksSubjects">
+		<var>
+			<?cone mpipks?>
+		</var>
+	</iso:let>
+
+	<!-- ISO639-3 -->
+	<iso:let name="iso639-3">
+		<var>
+			<?cone iso639-3?>
+		</var>
+	</iso:let>
+
+	<!-- Validation rules -->
+
+	 <!-- Only certain genres make it into the yearbook -->
+	<iso:pattern name="yearbook_genre" id="yearbook_genre">
+		<iso:rule context="publication:publication">
+			<iso:assert test="@type = 'http://purl.org/escidoc/metadata/ves/publication-types/article'
+				or @type = 'http://purl.org/eprint/type/BookItem'
+				or @type = 'http://purl.org/eprint/type/ConferencePaper'
+				or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/proceedings'
+				or @type = 'http://purl.org/eprint/type/Book'
+				or @type = 'http://purl.org/eprint/type/Thesis'
+				or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/issue'
+				or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/journal'
+				or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/series'
+				or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/webpage'
+				or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/paper'
+				or @type = 'http://purl.org/eprint/type/Report'">NoYearbookGenre</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!-- Genre-specific validation rules -->
+	
+	<!-- Article -->
+	<iso:pattern name="article_rules" id="article_rules">
+		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/article']">
+			<iso:assert test="source:source/escidoc:sequence-number != '' or (source:source/escidoc:start-page != '' and source:source/escidoc:end-page != '')">NoSequenceInformationGiven</iso:assert>
+			<iso:assert test="dcterms:issued != '' or escidoc:published-online != ''">PublishingDateNotProvided</iso:assert>
+			<iso:assert test="exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)])">NoMaxPlanckAffiliation</iso:assert>
+			<iso:assert test="dc:title != ''">TitleNotProvided</iso:assert>
+		</iso:rule>
+		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/article']/escidoc:creator[exists(person:person)]">
+			<iso:assert test="@role != ''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="person:person/escidoc:family-name != ''">CreatorFamilyNameNotProvided</iso:assert>
+			<iso:assert test="person:person/escidoc:given-name != ''">CreatorGivennameNotProvided</iso:assert>
+		</iso:rule>
+		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/article']/source:source">
+			<iso:assert test="dc:title != '' or not(normalize-space(.) != '')">SourceTitleNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+
+</iso:schema>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
 <!-- Validation Schema for publication items
 	$Author: mfranke $
 	$Revision: 139 $ -->
