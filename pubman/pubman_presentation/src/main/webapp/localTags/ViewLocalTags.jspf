@@ -42,19 +42,25 @@
 
 <%-- Tags --%>
 
+
 		<tr:iterator var="localTag" value="#{EditItem.pubItem.wrappedLocalTags}">
-
+	
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-
+	
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					<h:outputText value="#{lbl.ViewItemFull_lblTagName}" /><span class="noDisplay"> </span>
 				</b>
+					
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText styleClass="quad_area0" value="#{localTag.value}"/>
 				</span>
 			</h:panelGroup>
-
 		</tr:iterator>
 
+
+
+	</div>
+	<div class="large_area0_p0 lineToolSection">
+		<tr:commandButton id="editLocalTags" styleClass="free_txtBtn groupBtn"  text="#{lbl.actionMenu_lnkEditLocalTags}" action="#{EditItem.loadEditLocalTags}"  rendered="#{EditItem.localTagEditingAllowed}" />
 	</div>
 </div>
