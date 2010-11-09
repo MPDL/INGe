@@ -342,7 +342,7 @@
 			
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[number($sourceStartPage) < number($sourceEndPage)]]></valid-if>
+						<valid-if><![CDATA[$sourceStartPage != $sourceEndPage]]></valid-if>
 					</parameters>
 					<elements>
 						<layout-element ref="$sourceEndPage" />
