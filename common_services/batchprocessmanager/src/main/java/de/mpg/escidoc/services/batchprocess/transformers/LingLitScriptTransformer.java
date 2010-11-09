@@ -12,11 +12,9 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
-import de.mpg.escidoc.services.framework.AdminHelper;
 
 public class LingLitScriptTransformer extends Transformer<PubItemVO>
 {
@@ -34,6 +32,7 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
             item = assignUserGroup(item);
             item = transformLocators(item);
             item = transformFreeKeyWords(item);
+            item = setIsoToLanguages(item);
             report.addEntry("Transform" + item.getVersion().getObjectId(), "Transform "
                     + item.getVersion().getObjectId(), ReportEntryStatusType.FINE);
         }
@@ -76,6 +75,11 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
                 logger.info("Possible Language : " + m.group());
             }
         }
+        return item;
+    }
+
+    public PubItemVO setIsoToLanguages(PubItemVO item)
+    {
         return item;
     }
 
