@@ -32,7 +32,7 @@ if(typeof cookieVersion=='undefined') {
 	var cookieVersion = "1.1";
 }
 if(typeof jsURL=='undefined') {
-	var jsURL = './resources/eSciDoc_JavaScript/';
+	var jsURL = './resources/commonJavaScript/';
 }
 if(typeof coneURL=='undefined') {
 	var coneURL = '../../cone/';
@@ -167,12 +167,12 @@ function install_javascripts() {
 function include_javascripts() {
 	if(!included){
 		include_dom(jsURL + 'jquery/jquery.min.js');
-		include_dom(jsURL + 'eSciDoc_component_JavaScript/eSciDoc_ext_paginator.js');
-		include_dom(jsURL + 'eSciDoc_component_JavaScript/eSciDoc_item_list.js');
-		include_dom(jsURL + 'eSciDoc_component_JavaScript/eSciDoc_full_item.js');
-		include_dom(jsURL + 'eSciDoc_component_JavaScript/eSciDoc_single_elements.js');
+		include_dom(jsURL + 'componentJavaScript/eSciDoc_ext_paginator.js');
+		include_dom(jsURL + 'componentJavaScript/eSciDoc_item_list.js');
+		include_dom(jsURL + 'componentJavaScript/eSciDoc_full_item.js');
+		include_dom(jsURL + 'componentJavaScript/eSciDoc_single_elements.js');
 		include_dom(coneURL + 'js/jquery.suggest.js')
-		include_dom(jsURL + 'autoSuggestFunctions.js');
+		include_dom(jsURL + 'componentJavaScript/autoSuggestFunctions.js');
 		/*REITERATION NEEDED TO START ALL INCLUDED JAVASCRIPTS*/
 		included = true;
 		include_javascripts();

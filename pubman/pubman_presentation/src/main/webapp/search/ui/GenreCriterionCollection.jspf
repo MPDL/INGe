@@ -363,12 +363,13 @@
 <!-- Start Degree -->
 		<tr:iterator id="degreeCriterion" var="degreeCriterionBean" value="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.degreeCriterionIterator}" varStatus="index">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" >
-				<b class="xLarge_area0_p8 endline labelLine clear">
-					<h:outputText value="#{lbl.EditItem_lblDegreeType}" /><span class="noDisplay"> </span>
-				</b>
+				<span class="xLarge_area0_p8 endline labelLine clear">  
+					<h:outputText value="#{lbl.EditItem_lblDegreeType}" />
+				</span>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					
-					<span class="free_area0">
+					<a class="large_area0 tiny_marginRIncl checkAll">Alle auswählen</a>
+
+					<span class="free_area0 checkboxDoubleGroup">
 							<span class="large_checkbox tiny_marginRIncl">
 								<h:selectBooleanCheckbox id="degreeCriterionBean_diploma" value="#{degreeCriterionBean.searchDiploma}" />
 								<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_DIPLOMA}" />
@@ -397,6 +398,7 @@
 								<h:selectBooleanCheckbox id="degreeCriterionBean_magister" value="#{degreeCriterionBean.searchMagister}" />
 								<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_MAGISTER}"/>
 							</span>
+					<a class="medium_area0 xTiny_marginRIncl showMoreCheckboxes" >mehr..</a>
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">

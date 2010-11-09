@@ -124,7 +124,7 @@ function bunny() {
 
 function raiseBunny() {
 	if(BrowserDetect.browser == 'Firefox') {
-		$($('link[id]')[0]).before('<link href="' + jsURL + 'eSciDoc_component_JavaScript/DateJS/easterEggs/skin_PubWoman/styles/theme.css" id="PubWomanTheme" type="text/css" rel="alternate stylesheet"/>');
+		$($('link[id]')[0]).before('<link href="' + jsURL + 'externalJavaScript/DateJS/easterEggs/skin_PubWoman/styles/theme.css" id="PubWomanTheme" type="text/css" rel="alternate stylesheet"/>');
 		applyCookieStyle();
 	};
 }
@@ -269,7 +269,15 @@ function addDateJSLabels() {
 	});
 }
 
-function addDateJSFunctions() {
+function dateParse(dateString)
+{
+	dateString = dateString.replace(/(\d\d\d\d)(-\d\d)?(-\d\d)?/, '$1$2$3');
+	return Date.parse(dateString);
+}
+
+// Deactivated due to datejs bug, see http://jira.mpdl.mpg.de/browse/PUBMAN-1719
+function addDateJSFunctions() {}
+/*function addDateJSFunctions() {
 	$(".dateJSInput").each(function(){
 		$(this).focus(function() {
 			var input_empty = "", empty_string = "";
@@ -285,7 +293,8 @@ function addDateJSFunctions() {
 			if($(this).val() != "")
 			{
 				var date = null;
-				date = Date.parse($(this).val());
+				date = dateParse($(this).val());
+
 				if(date!=null)
 				{
 					$(".dateJSLabel[for='"+$(this).attr("id")+"']").removeClass("noDisplay").text(date.toString("yyyy-MM-dd"));
@@ -312,7 +321,7 @@ function addDateJSFunctions() {
 			$(".dateJSLabel[for='"+$(this).attr("id")+"']").text("");
 			if($(this).val() != "")
 			{
-				date = Date.parse($(this).val());
+				date = dateParse($(this).val());
 				
 				if(date != null)
 				{
@@ -338,7 +347,7 @@ function addDateJSFunctions() {
 		});
 		validateDate(this);
 	});
-}
+}*/
 
 function installQuickSearchShortcut() {
 	addQuickSearchFunction();

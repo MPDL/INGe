@@ -40,14 +40,10 @@
 		<f:loadBundle var="tip" basename="Tooltip"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
-
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<link rel="sword" type="application/xml" title="Sword Servicedocument Location" href="#{ApplicationBean.pubmanInstanceUrl}/pubman/faces/sword-app/servicedocument"/>
-
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
-				
 				<jsp:directive.include file="home/HomePageFeedLinks.jspf" />
-
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{HomePage.beanName}" styleClass="noDisplay" />
@@ -57,7 +53,6 @@
 
 				<!-- import header -->
 				<jsp:directive.include file="header/Header.jspf" />
-
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 					<div class="clear">

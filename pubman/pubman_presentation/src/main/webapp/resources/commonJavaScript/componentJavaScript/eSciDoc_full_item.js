@@ -23,8 +23,8 @@
 
 /*
 * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
-* f�r wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur F�rderung der Wissenschaft e.V.
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
 
@@ -95,6 +95,10 @@ function addFullItemFunctions() {
 	
 	$('.showMoreDates').click(function(){ $(this).hide(); $(this).siblings().show(); });
 	$('.datesGroup').each(function(i,elem){if($(elem).find('span.large_area0:gt(0)').find(":text[value!='']").length == 0) {$(elem).find('span.large_area0:gt(0)').hide();} else {$(elem).find('.showMoreDates').hide();};});
+
+	$('.showMoreAuthors').click(function(){ $(this).hide(); $(this).siblings().show(); });
+	$('.authorsGroup').each(function(i,elem){if($(elem).find('span.creatorHidden').find(":text[value!='']").length == 0) {$(elem).find('span.creatorHidden').hide();} else {$(elem).find('.showMoreAuthors').hide();};});
+
 }
 
 function allInputsBelowVoid(topLevelElement) {

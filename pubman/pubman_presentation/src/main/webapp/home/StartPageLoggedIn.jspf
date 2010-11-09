@@ -44,7 +44,7 @@ All rights reserved. Use is subject to license terms.
 	</span>
 	<span class="xDouble_area0">
 		<h2>Submission</h2>
-		<b>Enter a new Publication to PubMan?</b>
+		Enter a new Publication to PubMan?
 		<br/>
 	   ... by using the 
 		<h:commandLink id="lnkEasySubmission_en" title="#{tip.submission_lnkNewSubmission}" action="#{EasySubmission.newEasySubmission}">
@@ -98,7 +98,7 @@ All rights reserved. Use is subject to license terms.
 		<h2>
 			Help and further information
 		</h2>
-		<b>Helpful videos</b>
+		Helpful videos
 		<ul>
 			<li>video on <a href=" http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-how-to-submit-publications-to-pubman/" target="_blank">how to submit data</a>
 			</li>
@@ -121,8 +121,8 @@ All rights reserved. Use is subject to license terms.
 	</span>
 	<span class="xDouble_area0">
 		<h2>Dateneingabe</h2>
-		<b>Wollen Sie eine neue Publikation eingeben?</b>
-		<br/>
+		Wollen Sie eine neue Publikation eingeben?
+		<div class="lineBreak"></div><br/>
 	   ... benutzen Sie die 
 		<h:commandLink id="lnkEasySubmission_de" title="#{tlt.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
 			<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
@@ -146,6 +146,7 @@ All rights reserved. Use is subject to license terms.
 	<span class="xDouble_area0">
 		<br/>
 		<h2>Meine Datens&auml;tze</h2>
+		<div class="lineBreak"></div><br/>
 		...beenden Sie Ihre 
 		<h:outputLink id="lnkDateneingabeOderPruefen" value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
 			<h:outputText value="Dateneingabe oder prüfen "/>
@@ -161,6 +162,7 @@ All rights reserved. Use is subject to license terms.
 	<span class="xDouble_area0">
 		<br/>
 		<h2>QA Bereich</h2>
+		<div class="lineBreak"></div><br/>
 		... 		
 		<h:outputLink id="lnkUeberpruefenOderEditieren" value="#{ApplicationBean.appContext}QAWSPage.jsp">
 			<h:outputText value="überprüfen oder editieren"/>
@@ -172,9 +174,9 @@ All rights reserved. Use is subject to license terms.
 	<span class="full_area0 ">
 		<br/>
 		<h2>
-			Hilfe und weitere Informationen:
+			Hilfe und weitere Informationen
 		</h2>
-		<b>N&uuml;tzliche Videos</b>
+		N&uuml;tzliche Videos
 		<ul>
 			<li>video on <a href=" http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-how-to-submit-publications-to-pubman/" target="_blank">wie gebe ich Daten ein</a>
 			</li>
@@ -196,8 +198,8 @@ All rights reserved. Use is subject to license terms.
 	</span>
 	<span class="xDouble_area0">
 		<h2>新規登録</h2>
-		<b>文献資料をPubManへ登録する</b>
-		<br/>
+		文献資料をPubManへ登録する
+		<div class="lineBreak"></div><br/>
 	   ... 
 		<h:commandLink id="lnkEasySubmission_jp" title="#{tlt.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
 			<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
@@ -222,6 +224,7 @@ All rights reserved. Use is subject to license terms.
 	<span class="xDouble_area0">
 		<br/>
 		<h2>登録資料一覧</h2>
+		<div class="lineBreak"></div><br/>
 		...登録一覧から自身の登録分を
 		<h:outputLink id="lnkJapan1" value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
 			<h:outputText value="確認もしくは登録完了する"/>
@@ -237,6 +240,7 @@ All rights reserved. Use is subject to license terms.
 	<span class="xDouble_area0">
 		<br/>
 		<h2>管理画面</h2>
+		<div class="lineBreak"></div><br/>
 		... 登録資料の
 		<h:outputLink id="lnkJapan2" value="#{ApplicationBean.appContext}QAWSPage.jsp">
 			<h:outputText value="内容確認もしくは修正"/>
@@ -250,7 +254,7 @@ All rights reserved. Use is subject to license terms.
 		<h2>
 			ヘルプ、追加情報
 		</h2>
-		<b>紹介ビデオ</b>
+		紹介ビデオ
 		<ul>
 			<li>
 				<a href=" http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-how-to-submit-publications-to-pubman/" target="_blank">データの登録方法</a>
@@ -274,7 +278,7 @@ All rights reserved. Use is subject to license terms.
 	</span>
 	<span class="xDouble_area0">
 		<h2>新規登録</h2>
-		<b>文献資料をPubManへ登録する</b>
+		文献資料をPubManへ登録する
 		<br/>
 	   ... 
 		<h:commandLink id="lnkEasySubmission_es" title="#{tlt.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
@@ -328,7 +332,7 @@ All rights reserved. Use is subject to license terms.
 		<h2>
 			ヘルプ、追加情報
 		</h2>
-		<b>紹介ビデオ</b>
+		紹介ビデオ
 		<ul>
 			<li>
 				<a href=" http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-how-to-submit-publications-to-pubman/" target="_blank">データの登録方法</a>

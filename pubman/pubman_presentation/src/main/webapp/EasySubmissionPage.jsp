@@ -61,10 +61,9 @@
 				
 				<div class="clear">
                     <div class="headerSection">
-                            
                         <jsp:directive.include file="header/Breadcrumb.jspf" />
                     </div>
-                 </div>       
+                </div>       
 				
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->

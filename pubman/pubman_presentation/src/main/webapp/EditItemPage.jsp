@@ -68,11 +68,11 @@
 							
 						<jsp:directive.include file="header/Breadcrumb.jspf" />
 				
-							<div id="contentSkipLinkAnchor" class="clear headLine">
-								<!-- Headline starts here -->
-								<h1><h:outputText value="#{lbl.EditItemPage}" /></h1>
-								<!-- Headline ends here -->
-							</div>
+						<div id="contentSkipLinkAnchor" class="clear headLine">
+							<!-- Headline starts here -->
+							<h1><h:outputText value="#{lbl.EditItemPage}" /></h1>
+							<!-- Headline ends here -->
+						</div>
 						</div>
 						<div class="small_marginLIncl subHeaderSection">
 							<div class="contentMenu">

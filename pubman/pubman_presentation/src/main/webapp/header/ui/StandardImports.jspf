@@ -31,8 +31,11 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 
 <link href="../../cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	.headerLogo {background-image: url('../resources/images/pubman_logo.png') !important;}
+</style>
 				
-<link href="./resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
+<link href="<h:outputText value='#{ApplicationBean.commonPresentationUrl}'/>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
 <h:outputText value="#{ApplicationBean.pubmanStyleTags}" escape="false"/>
 <script type="text/javascript" language="JavaScript">var cookieVersion = "<h:outputText value='#{ApplicationBean.cookieVersion}'/>";</script>
 <link rel="search" type="application/opensearchdescription+xml" title="<h:outputText value='#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}'/>" href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />search/OpenSearch.jsp" />
