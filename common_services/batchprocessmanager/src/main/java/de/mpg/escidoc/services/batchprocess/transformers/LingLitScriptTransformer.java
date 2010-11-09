@@ -37,7 +37,7 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
             System.out.println("============= TITLE START ===============");
             for (SourceVO titles : item.getMetadata().getSources())
             {
-                System.out.println(titles.getTitle().getValue());
+                System.out.println(titles.getTitle().getValue().substring(0, titles.getTitle().getValue().indexOf(";")-1));
             }
             System.out.println("============== TITLE END ================");
             // TITLE END
@@ -85,11 +85,16 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
     // Test with escidoc:173940
     public PubItemVO transformAlternativeTitle(PubItemVO item)
     {
+        for (SourceVO titles : item.getMetadata().getSources())
+        {
+            String title = titles.getTitle().getValue().substring(0, titles.getTitle().getValue().indexOf(";") - 1);
+//        }
+        
         for (SourceVO src : item.getMetadata().getSources())
         {
             for (TextVO alt : src.getAlternativeTitles())
             {
-                if (alt.getValue().equals("Serie Lingüística peruana"))
+                if (alt.getValue().equals(title))
                 {
                     System.out.println("MATCHED");
                 }
@@ -98,6 +103,7 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
                     System.out.println("NOT MATCHED");
                 }
             }
+        }
         }
         return item;
     }
