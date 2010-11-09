@@ -463,17 +463,17 @@
 		<escidoc.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</escidoc.pubman.contact.url>
 		
 		<!-- Properties for PubMan standard theme-->
-		<escidoc.pubman.stylesheet.standard.url>./resources/eSciDoc_CSS_v2/themes/skin_PubMan/styles/theme.css</escidoc.pubman.stylesheet.standard.url>
+		<escidoc.pubman.stylesheet.standard.url>/common/resources/cssFramework/themes/skin_blue/styles/theme.css</escidoc.pubman.stylesheet.standard.url>
 		<escidoc.pubman.stylesheet.standard.type>stylesheet</escidoc.pubman.stylesheet.standard.type>
 		<escidoc.pubman.stylesheet.standard.apply>true</escidoc.pubman.stylesheet.standard.apply>
 		
 		<!-- Properties for PubMan contrast theme-->
-		<escidoc.pubman.stylesheet.contrast.url>./resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css</escidoc.pubman.stylesheet.contrast.url>
+		<escidoc.pubman.stylesheet.contrast.url>/common/resources/cssFramework/themes/skin_highContrast/styles/theme.css</escidoc.pubman.stylesheet.contrast.url>
 		<escidoc.pubman.stylesheet.contrast.type>alternate stylesheet</escidoc.pubman.stylesheet.contrast.type>
 		<escidoc.pubman.stylesheet.contrast.apply>true</escidoc.pubman.stylesheet.contrast.apply>
 		
 		<!-- Properties for PubMan classic theme-->
-		<escidoc.pubman.stylesheet.classic.url>./resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css</escidoc.pubman.stylesheet.classic.url>
+		<escidoc.pubman.stylesheet.classic.url>/common/resources/cssFramework/themes/skin_classic/styles/theme.css</escidoc.pubman.stylesheet.classic.url>
 		<escidoc.pubman.stylesheet.classic.type>alternate stylesheet</escidoc.pubman.stylesheet.classic.type>
 		<escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
 		
