@@ -32,7 +32,7 @@
 
 <link href="../../cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
-	.headerLogo {background-image: url('../resources/images/pubman_logo.png') !important;}
+	.headerLogo {background-image: url('../resources/images/pubman_logo.png') !important; background-repeat: norepeat; background-position: top left;}
 </style>
 				
 <link href="<h:outputText value='#{ApplicationBean.commonPresentationUrl}'/>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
@@ -44,4 +44,4 @@
 <meta http-equiv="expires" content="0"/>
 <script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
 
-<script src="./resources/eSciDoc_JavaScript/eSciDoc_javascript.js" language="JavaScript" type="text/javascript">;</script>
+<script src="./resources/commonJavaScript/eSciDoc_javascript.js" language="JavaScript" type="text/javascript">;</script>

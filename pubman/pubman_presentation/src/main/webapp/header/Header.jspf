@@ -53,18 +53,14 @@
 
 	<%-- import meta menu here --%>
 	<jsp:directive.include file="ui/MetaMenu.jspf"/>
-
 	<div class="full_area0 LogoNSearch">
 		<h:outputLink id="lnkStartPage" title="#{tip.navigation_lblStartpage}" value="#{ApplicationBean.appContext}HomePage.jsp">
 			<span class="xTiny_marginLExcl half_area0 headerLogo">
-
 				<h:panelGroup styleClass="half_area0 themePark #{Header.serverLogo}"></h:panelGroup>
 			</span>
 		</h:outputLink>
-
 		<%-- import search here--%>
 		<jsp:directive.include file="ui/SearchMenu.jspf"/>
-
 	</div>
 
 	<%-- import main menu here --%>
