@@ -49,9 +49,7 @@
 	/*HEADER LOGO*/
 
 	.headerLogo {
-		background-image: url('../../../globalImages/logo.png');
-		background-repeat: no-repeat;
-		background-position: top left;
+		background: url('../../../globalImages/logo.png') no-repeat top left;
 	}
 		/*PUT IN HEADER LOGO FOR PRINT DISPLAY HERE*/
 		@media print {

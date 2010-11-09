@@ -135,7 +135,7 @@ FORM BG			#FFFFFF
 
 	input, textarea, select {
 		border-style: solid;
-		border-color: #524240;
+		border-color: #AFA9A8;
 	}
 	
 	input[type="text"], textarea, select {
