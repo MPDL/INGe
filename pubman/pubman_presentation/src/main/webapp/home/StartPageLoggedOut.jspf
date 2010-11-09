@@ -42,10 +42,9 @@
 		Compile your papers in your personal "Researcher Portfolio"! <br/>
 		Benefit from the MPG service for long-term archiving! <br/>
 	</p>
-	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank"><b>Read more</b></a>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">Read more</a>
 	<h:outputText value="|"/>
-    <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><b><h:outputText value="#{lbl.Home_Link_Support }"/></b></a>
-
+    <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><h:outputText value="#{lbl.Home_Link_Support }"/></a>
 	<br/><br/>
 	<h3>Search for publications here</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
@@ -85,9 +84,9 @@
 		Stellen Sie Ihre Ergebnisse in einem persönlichen "Researcher Portfolio" zusammen!<br/>
 		Nutzen Sie den MPG Service für nachhaltige Datensicherung! <br/>
 	</p>
-	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank"><b>Lesen Sie mehr </b></a>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">Lesen Sie mehr </a>
 	<h:outputText value="|"/>
-    <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><b><h:outputText value="#{lbl.Home_Link_Support }"/></b></a>
+    <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><h:outputText value="#{lbl.Home_Link_Support }"/></a>
 	<br/><br/>
 	<h3>Suchen Sie hier nach Publikationen</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
@@ -128,9 +127,9 @@
 	研究者個人の“研究者ポートフォリオ”として論文情報を一箇所にまとめておくことができます。<br/>
 	マックスプランク研究所が提供する長期保存アーカイヴのサービスを存分にお使いください。
 	</p>
-	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank"><b>詳しく知るには</b></a>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">詳しく知るには</a>
 	<h:outputText value="|"/>
-    <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><b><h:outputText value="#{lbl.Home_Link_Support }"/></b></a>
+    <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><h:outputText value="#{lbl.Home_Link_Support }"/></a>
 	<br/><br/>
 	<h3>文献検索</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
@@ -171,9 +170,9 @@
 	研究者個人の“研究者ポートフォリオ”として論文情報を一箇所にまとめておくことができます。<br/>
 	マックスプランク研究所が提供する長期保存アーカイヴのサービスを存分にお使いください。
 	</p>
-	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank"><b>詳しく知るには</b></a>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">詳しく知るには</a>
 	<h:outputText value="|"/>
-    <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><b><h:outputText value="#{lbl.Home_Link_Support }"/></b></a>
+    <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><h:outputText value="#{lbl.Home_Link_Support }"/></a>
 	<br/><br/>
 	<h3>文献検索</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">

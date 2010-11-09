@@ -39,7 +39,7 @@ All rights reserved. Use is subject to license terms.
 	<br/>
 </h:panelGroup>
 <h:panelGroup rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
-	<span class="small_area0">
+	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0">
@@ -64,7 +64,7 @@ All rights reserved. Use is subject to license terms.
 </h:panelGroup>
 	
 <h:panelGroup rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
-	<span class="small_area0">
+	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0">
@@ -79,7 +79,7 @@ All rights reserved. Use is subject to license terms.
 </h:panelGroup>
 	
 <h:panelGroup rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
-	<span class="small_area0">
+	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0">
@@ -116,7 +116,7 @@ All rights reserved. Use is subject to license terms.
 	<br/>
 </h:panelGroup>
 <h:panelGroup rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
-	<span class="small_area0">
+	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0">
@@ -140,7 +140,7 @@ All rights reserved. Use is subject to license terms.
 	</span>
 </h:panelGroup>
 <h:panelGroup rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
-	<span class="small_area0">
+	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0">
@@ -156,7 +156,7 @@ All rights reserved. Use is subject to license terms.
 </h:panelGroup>
 	
 <h:panelGroup rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
-	<span class="small_area0">
+	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0">
@@ -193,7 +193,7 @@ All rights reserved. Use is subject to license terms.
 	<br/>
 </h:panelGroup>
 <h:panelGroup rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
-	<span class="small_area0">
+	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0">
@@ -218,7 +218,7 @@ All rights reserved. Use is subject to license terms.
 </h:panelGroup>
 	
 <h:panelGroup rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
-	<span class="small_area0">
+	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0">
@@ -234,7 +234,7 @@ All rights reserved. Use is subject to license terms.
 </h:panelGroup>
 	
 <h:panelGroup rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
-	<span class="small_area0">
+	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0">
@@ -273,7 +273,7 @@ All rights reserved. Use is subject to license terms.
 	<br/>
 </h:panelGroup>
 <h:panelGroup rendered="#{PubManSessionBean.locale =='es' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
-	<span class="small_area0">
+	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0">
@@ -298,7 +298,7 @@ All rights reserved. Use is subject to license terms.
 </h:panelGroup>
 	
 <h:panelGroup rendered="#{PubManSessionBean.locale =='es' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
-	<span class="small_area0">
+	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0">
@@ -313,7 +313,7 @@ All rights reserved. Use is subject to license terms.
 </h:panelGroup>
 	
 <h:panelGroup rendered="#{PubManSessionBean.locale =='es' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
-	<span class="small_area0">
+	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0">
