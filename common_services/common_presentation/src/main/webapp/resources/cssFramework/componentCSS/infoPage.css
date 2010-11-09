@@ -71,6 +71,10 @@
 	font-size: 100%;
 }
 
+.mainSection h3 {
+	font-size: 200% !important;
+}
+
 .infoPage h2, .infoPage .mainSection h2, .infoPage .sideSection h2 {
 	line-height: 1.4em;
 	margin: 0px;
