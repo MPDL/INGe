@@ -21,15 +21,18 @@ public class CoreServiceHelper
         filter.put("startRecord", new String[] { "0" });
         return filter;
     }
-    
-    public static  List<ItemVO> transformSearchResultXmlToListOfItemVO(String seachResultXml) throws Exception
+
+    public static List<ItemVO> transformSearchResultXmlToListOfItemVO(String seachResultXml) throws Exception
     {
         XmlTransformingBean xmlTransforming = new XmlTransformingBean();
         SearchRetrieveResponseVO response = xmlTransforming.transformToSearchRetrieveResponse(seachResultXml);
         List<ItemVO> list = new ArrayList<ItemVO>();
-        for (SearchRetrieveRecordVO record : response.getRecords())
+        if (response.getRecords() != null)
         {
-            list.add((ItemVO)record.getData());
+            for (SearchRetrieveRecordVO record : response.getRecords())
+            {
+                list.add((ItemVO)record.getData());
+            }
         }
         return list;
     }

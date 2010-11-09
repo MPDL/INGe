@@ -127,28 +127,15 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
     {
         for (SourceVO source : item.getMetadata().getSources())
         {
-            for (TextVO alternative : source.getAlternativeTitles())
+            for (int i = 0; i < source.getAlternativeTitles().size(); i++)
             {
-                String subtitle = alternative.getValue();
+                String subtitle = source.getAlternativeTitles().get(i).getValue();
                 if (!(subtitle.equals("") || subtitle == null))
                 {
                     if (subtitle.equals(title))
                     {
-                        source.getAlternativeTitles().remove(this);
-                        System.out.println("==============================================");
-                        System.out.println("TITLE: " + title);
-                        System.out.println("ALTERNATIVE TITLE: " + subtitle);
-                        System.out.println("MATCHED");
-                        System.out.println("==============================================");
+                        source.getAlternativeTitles().remove(i);
                     }
-                }
-                else
-                {
-                    System.out.println("==============================================");
-                    System.out.println("TITLE: " + title);
-                    System.out.println("ALTERNATIVE TITLE: " + subtitle);
-                    System.out.println("NOT MATCHED");
-                    System.out.println("==============================================");
                 }
             }
         }
