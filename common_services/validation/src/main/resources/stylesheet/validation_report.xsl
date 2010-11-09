@@ -75,6 +75,11 @@
 			<axsl:param name="value"/>
 			<axsl:value-of select="exists($list[ends-with(., $value)])"/>
 		</axsl:function>
+		<xsl:comment>A user-defined function to check if a given ou is part of the root ou</xsl:comment>
+		<axsl:function name="escidoc:is-child" as="xs:boolean">
+			<axsl:param name="ou-id"/>
+			<axsl:value-of select="escidoc-util:isChild($ou-id)"/>
+		</axsl:function>
 	</xsl:template>
 	
 	<xsl:template name="process-diagnostic">
