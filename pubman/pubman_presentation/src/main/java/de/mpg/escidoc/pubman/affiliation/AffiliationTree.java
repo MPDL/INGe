@@ -136,7 +136,6 @@ public class AffiliationTree extends FacesBean
             {
                 while (affiliationSelectItems == null)
                 {
-                    System.out.println("Waiting");
                     Thread.sleep(1000);
                 }
             }
@@ -146,8 +145,6 @@ public class AffiliationTree extends FacesBean
                 
                 List<SelectItem> list = new ArrayList<SelectItem>();
                 list.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
-                
-                System.out.println("Creating");
                 
                 List<AffiliationVOPresentation> topLevelAffs = getAffiliations();
                 addChildAffiliationsToMenu(topLevelAffs, list, 0);
