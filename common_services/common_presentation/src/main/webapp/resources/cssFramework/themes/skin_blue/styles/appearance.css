@@ -347,8 +347,8 @@ FORM BG			#FFFFFF
 		*/
 	}
 
-	.selectMenu, .selectMenu input {
-		background-color: #FFFFFF;
+
+	.selectMenu ,.selectMenu input {		background-color: #FFFFFF;
 	}
 
 	.selectMenu span {
