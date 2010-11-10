@@ -1,8 +1,9 @@
 package de.mpg.escidoc.services.batchprocess.transformers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,15 +13,14 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatusType;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
-import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class LingLitScriptTransformer extends Transformer<PubItemVO>
 {
@@ -70,28 +70,131 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
     {
         String fkw = item.getMetadata().getFreeKeywords().getValue();
         List<String> list = new ArrayList<String>();
-        for (String str : item.getMetadata().getLanguages())
-        {
-            System.out.println(str);
-            list.add("eng");
-        }
         item.getMetadata().getLanguages().addAll(list);
-        if (fkw.contains("ISO 639-3"))
+        // String locClass = getLocClassification(fkw);
+        Map<String, String> languages = new HashMap<String, String>();
+        logger.info("BEF trans: " + fkw);
+        // if (fkw.contains("ISO 639-3"))
+        // {
+        // Pattern p = Pattern.compile("\\b[a-z][a-z][a-z]\\b");
+        // Matcher m = p.matcher(fkw);
+        // while (m.find())
+        // {
+        // String lang = getISOLanguage(m.group());
+        // if (lang != null)
+        // {
+        // languages.put(m.group(), lang);
+        // }
+        // }
+        // }
+        String[] fields = fkw.split(",");
+        if (fields.length > 0)
         {
-            // logger.info(fkw);
-            Pattern p = Pattern.compile("\\b[a-z][a-z][a-z]\\b");
-            Matcher m = p.matcher(fkw);
-            while (m.find())
+            for (int i = 0; i < fields.length; i++)
             {
-                String lang = getISOLanguage(m.group());
-                if (lang != null)
+                if (fields[i].contains("ISO 639-3 : "))
                 {
-                    String code = m.group();
-                    logger.info("Language : " + lang + " with code : " + code);
+                    fields[i] = fields[i].replace("ISO 639-3 : ", "");
+                    String[] langs = fields[i].split("/");
+                    for (int j = 0; j < langs.length; j++)
+                    {
+                        item.getMetadata().getSubjects().add(new TextVO(langs[j], "eng", "eterms:ISO639_3"));
+                        fkw = fkw.replace(langs[j], "");
+                    }
+                    fkw = fkw.replace("/", "");
+                    fkw = fkw.replace("ISO 639-3 :,", "");
+                }
+                else if (i == 0 && fields[i].matches("\\b[A-Z0-9.]+\\b"))
+                {
+                    String locClass = fields[i];
+                    fkw = fkw.replace(locClass, " LoC Class: " + locClass);
+                }
+                else
+                {
+                    fkw = fkw.replace(fields[i], " LoC Subject Heading: " + fields[i]);
                 }
             }
         }
+        else
+        {
+            logger.error("Error parsing freekeywords");
+        }
+        // Pattern p = Pattern.compile("\\b[\\w]+\\b");
+        // Matcher m = p.matcher(fkw);
+        // while (m.find())
+        // {
+        // languages.putAll(findLanguages(m.group()));
+        // }
+        // if (locClass != null)
+        // {
+        // fkw = fkw.replace(locClass, "LoC Class " + locClass);
+        // }
+        // if (languages.size() > 0)
+        // {
+        // for (String str : languages.keySet())
+        // {
+        // if (fkw.contains(str))
+        // {
+        // String language = languages.get(str);
+        // fkw = fkw.replace(language, "LoC Subject Heading" + language);
+        // }
+        // }
+        // }
+        logger.info("AFT trans: " + fkw + " with languages");
+        for (TextVO t : item.getMetadata().getSubjects())
+        {
+            if ("eterms:ISO639_3".equals(t.getType()))
+            {
+                logger.info(t.getValue());
+            }
+        }
         return item;
+    }
+
+    private String getLocClassification(String str)
+    {
+        Pattern p = Pattern.compile("\\b[A-Z0-9.]+\\b");
+        Matcher m = p.matcher(str);
+        if (m.find())
+        {
+            if (!"ISO".equals(m.group()))
+            {
+                return m.group();
+            }
+        }
+        return null;
+    }
+
+    private Map<String, String> findLanguages(String str)
+    {
+        Map<String, String> map = new HashMap<String, String>();
+        try
+        {
+            HttpClient client = new HttpClient();
+            GetMethod getMethod = new GetMethod("http://dev-pubman.mpdl.mpg.de/cone/iso639-3/query?f=options&q=\""
+                    + str + "\"");
+            getMethod.setRequestHeader("Connection", "close");
+            client.executeMethod(getMethod);
+            String resp = getMethod.getResponseBodyAsString();
+            String[] options = resp.split("[\\|\\n]");
+            if (options.length > 1)
+            {
+                for (int i = 0; i < options.length; i++)
+                {
+                    if (options[i + 1].split("-").length > 1)
+                    {
+                        // logger.info("language: " + options[i + 1].split("-")[1].replace("\n", ""));
+                        map.put(options[i], options[i + 1].split("-")[1].replace("\n", ""));
+                        i++;
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+        return map;
     }
 
     private String getISOLanguage(String str)
@@ -99,18 +202,19 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         try
         {
             HttpClient client = new HttpClient();
-            GetMethod getMethod = new GetMethod("http://pubman.mpdl.mpg.de/cone/iso639-3/query?q=\"" + str + "\"");
-            getMethod.setRequestHeader("Accept", "text/plain");
+            GetMethod getMethod = new GetMethod("http://dev-pubman.mpdl.mpg.de/cone/iso639-3/query?f=options&q=\""
+                    + str + "\"");
+            getMethod.setRequestHeader("Connection", "close");
             client.executeMethod(getMethod);
             String resp = getMethod.getResponseBodyAsString();
             if (resp.split("\\|").length > 1)
             {
-                return resp.split("\\|")[1];
+                return resp.split("\\|")[1].replace("\n", "");
             }
             else
             {
-                logger.warn(str + " is not a language");
-                logger.warn("response: " + resp);
+                // logger.warn(str + " is not a language");
+                // logger.warn("response: " + resp);
             }
         }
         catch (Exception e)
@@ -127,8 +231,7 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         {
             String currentIsoLangValue = languages.get(i);
             String lang = currentIsoLangValue;
-            int l = lang.length();
-            if (l <= 2)
+            if (lang.length() != 3)
             {
                 setIso639_3(languages, i, currentIsoLangValue);
             }
@@ -142,113 +245,122 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         {
             languages.set(i, "ara");
         }
-        if (currentIsoLangValue.equals("az"))
+        else if (currentIsoLangValue.equals("az"))
         {
             languages.set(i, "aze");
         }
-        if (currentIsoLangValue.equals("bg"))
+        else if (currentIsoLangValue.equals("bg"))
         {
             languages.set(i, "bul");
         }
-        if (currentIsoLangValue.equals("bi"))
+        else if (currentIsoLangValue.equals("bi"))
         {
             languages.set(i, "bis");
         }
-        if (currentIsoLangValue.equals("bn"))
+        else if (currentIsoLangValue.equals("bn"))
         {
             languages.set(i, "ben");
         }
-        if (currentIsoLangValue.equals("bo"))
+        else if (currentIsoLangValue.equals("bo"))
         {
             languages.set(i, "bod");
         }
-        if (currentIsoLangValue.equals("de"))
+        else if (currentIsoLangValue.equals("de"))
         {
             languages.set(i, "deu");
         }
-        if (currentIsoLangValue.equals("en"))
+        else if (currentIsoLangValue.equals("en"))
         {
             languages.set(i, "eng");
         }
-        if (currentIsoLangValue.equals("es"))
+        else if (currentIsoLangValue.equals("es"))
         {
             languages.set(i, "spa");
         }
-        if (currentIsoLangValue.equals("fr"))
+        else if (currentIsoLangValue.equals("fr"))
         {
             languages.set(i, "fra");
         }
-        if (currentIsoLangValue.equals("gn"))
+        else if (currentIsoLangValue.equals("gn"))
         {
             languages.set(i, "grn");
         }
-        if (currentIsoLangValue.equals("he"))
+        else if (currentIsoLangValue.equals("he"))
         {
             languages.set(i, "heb");
         }
-        if (currentIsoLangValue.equals("hi"))
+        else if (currentIsoLangValue.equals("zh"))
+        {
+            languages.set(i, "zho");
+        }
+        else if (currentIsoLangValue.equals("hi"))
         {
             languages.set(i, "hin");
         }
-        if (currentIsoLangValue.equals("id"))
+        else if (currentIsoLangValue.equals("id"))
         {
             languages.set(i, "ind");
         }
-        if (currentIsoLangValue.equals("it"))
+        else if (currentIsoLangValue.equals("it"))
         {
             languages.set(i, "ita");
         }
-        if (currentIsoLangValue.equals("ka"))
+        else if (currentIsoLangValue.equals("ka"))
         {
             languages.set(i, "kat");
         }
-        if (currentIsoLangValue.equals("kk"))
+        else if (currentIsoLangValue.equals("kk"))
         {
             languages.set(i, "kaz");
         }
-        if (currentIsoLangValue.equals("kn"))
+        else if (currentIsoLangValue.equals("kn"))
         {
             languages.set(i, "kan");
         }
-        if (currentIsoLangValue.equals("ko"))
+        else if (currentIsoLangValue.equals("ko"))
         {
             languages.set(i, "kor");
         }
-        if (currentIsoLangValue.equals("la"))
+        else if (currentIsoLangValue.equals("la"))
         {
             languages.set(i, "lat");
         }
-        if (currentIsoLangValue.equals("mn"))
+        else if (currentIsoLangValue.equals("mn"))
         {
             languages.set(i, "mon");
         }
-        if (currentIsoLangValue.equals("my"))
+        else if (currentIsoLangValue.equals("my"))
         {
             languages.set(i, "mya");
         }
-        if (currentIsoLangValue.equals("nl"))
+        else if (currentIsoLangValue.equals("nl"))
         {
             languages.set(i, "nld");
         }
-        if (currentIsoLangValue.equals("pt"))
+        else if (currentIsoLangValue.equals("pt"))
         {
             languages.set(i, "por");
         }
-        if (currentIsoLangValue.equals("qu"))
+        else if (currentIsoLangValue.equals("qu"))
         {
             languages.set(i, "que");
         }
-        if (currentIsoLangValue.equals("ro"))
+        else if (currentIsoLangValue.equals("ro"))
         {
             languages.set(i, "ron");
         }
-        if (currentIsoLangValue.equals("ru"))
+        else if (currentIsoLangValue.equals("ru"))
         {
             languages.set(i, "rus");
         }
-        if (currentIsoLangValue.equals("tr"))
+        else if (currentIsoLangValue.equals("tr"))
         {
             languages.set(i, "tur");
+        }
+        else
+        {
+            if (!"".equals(currentIsoLangValue))
+                logger.error("NON KNOWN LANAGUAGE CODE: " + currentIsoLangValue);
         }
     }
 
