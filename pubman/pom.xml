@@ -452,11 +452,7 @@
 		<!-- URL of this PubMan instance -->
 		<escidoc.pubman.instance.context.path>/pubman</escidoc.pubman.instance.context.path>
 		<escidoc.pubman.item.pattern>/item/$1</escidoc.pubman.item.pattern>
-		<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
-		
-		<!-- URL of stylesheets in common-presentation -->
-		<escidoc.pubman.common.presentation.url>http://localhost:8080/common/</escidoc.pubman.common.presentation.url>
-		
+		<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>		
 		
 		<!-- Links from PubMan -->
 		<escidoc.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Repository_Policy</escidoc.pubman.policy.url>
@@ -681,6 +677,9 @@
 				<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
 				<!-- syndication service -->
 				<escidoc.syndication.service.url>http://localhost:8080/syndication/</escidoc.syndication.service.url>
+				
+				<!-- URL of stylesheets in common-presentation -->
+				<escidoc.pubman.common.presentation.url>http://localhost:8080/common/</escidoc.pubman.common.presentation.url>
 			</properties>
 			
 				<distributionManagement>
@@ -719,8 +718,11 @@
 				<jboss.install.dir>/mnt/jboss/dev-pubman</jboss.install.dir>
 				<!-- syndication service -->
 				<escidoc.syndication.service.url>http://dev-pubman.mpdl.mpg.de/syndication/</escidoc.syndication.service.url>
+				
+				<!-- URL of stylesheets in common-presentation -->
+				<escidoc.pubman.common.presentation.url>http://dev-pubman.mpdl.mpg.de/common/</escidoc.pubman.common.presentation.url>
 			</properties>
-				<distributionManagement>
+			<distributionManagement>
 				<repository>
 					<id>deployment.webdav</id>
 					<name>Archiva deployment</name>
