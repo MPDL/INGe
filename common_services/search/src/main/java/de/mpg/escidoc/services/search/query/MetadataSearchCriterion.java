@@ -40,7 +40,7 @@ public class MetadataSearchCriterion implements Serializable
         DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, TOPIC,
         SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CONTEXT_NAME, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE,
         COMPONENT_ACCESSIBILITY, COMPONENT_STORAGE, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY, COMPONENT_COMPOUND_PROPERTIES, LOCAL_TAG, COPYRIGHT_DATE, 
-        EMBARGO_DATE, DEGREE, PERSON_IDENTIFIER
+        EMBARGO_DATE, DEGREE, PERSON_IDENTIFIER, LATEST_RELEASE_OBJID
     };
 
     /**
@@ -154,6 +154,9 @@ public class MetadataSearchCriterion implements Serializable
     
     /** Index for person identifier. */
     private static final String INDEX_PERSON_IDENTIFIER = "escidoc.publication.creator.person.identifier";
+    
+    /** Index for latest released object id*/
+    private static final String INDEX_LATEST_RELEASE_OBJID = "escidoc.property.latest-release.objid";
     
     
     /** String to be used to represent an empty search term. */
@@ -500,6 +503,9 @@ public class MetadataSearchCriterion implements Serializable
             case PERSON_IDENTIFIER:
                 indexes.add(INDEX_PERSON_IDENTIFIER);
                 break;
+            case LATEST_RELEASE_OBJID:
+            	indexes.add(INDEX_LATEST_RELEASE_OBJID);
+            	break;
                 
             default:
                 throw new TechnicalException("The index is unknown. Cannot map to index name.");
