@@ -279,18 +279,13 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         return item;
     }
 
-    public PubItemVO transformLocators(PubItemVO item)
+    private PubItemVO transformLocators(PubItemVO item)
     {
         for (FileVO f : item.getFiles())
         {
             if (Storage.EXTERNAL_URL.equals(f.getStorage()))
             {
-                if (!f.getName().equals(f.getContent()))
-                {
-                    // logger.info("Item " + item.getVersion().getObjectId() + " has " + f.getName() +
-                    // " is different to "
-                    // + f.getContent());
-                }
+                f.setName(f.getContent());
             }
         }
         return item;
