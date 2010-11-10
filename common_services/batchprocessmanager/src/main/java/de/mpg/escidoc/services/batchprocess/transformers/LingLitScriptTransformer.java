@@ -1,9 +1,13 @@
 package de.mpg.escidoc.services.batchprocess.transformers;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatusType;
@@ -16,6 +20,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class LingLitScriptTransformer extends Transformer<PubItemVO>
 {
@@ -64,18 +69,59 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
     public PubItemVO transformFreeKeyWords(PubItemVO item)
     {
         String fkw = item.getMetadata().getFreeKeywords().getValue();
-        // logger.info("free keywords : " + fkw);
+        List<String> list =new ArrayList<String>();
+        for(String str :item.getMetadata().getLanguages())
+        {
+            System.out.println(str);
+           
+            list.add("eng");
+           
+        }
+        item.getMetadata().getLanguages().addAll(list);
         if (fkw.contains("ISO 639-3"))
         {
-            logger.info(fkw);
-            Pattern p = Pattern.compile("[a-z][a-z][a-z]\\W");
+            // logger.info(fkw);
+            Pattern p = Pattern.compile("\\b[a-z][a-z][a-z]\\b");
             Matcher m = p.matcher(fkw);
             while (m.find())
             {
-                logger.info("Possible Language : " + m.group());
+                String lang = getISOLanguage(m.group());
+                if (lang != null)
+                {
+                    String code = m.group();
+                    logger.info("Language : " + lang + " with code : " + code);
+                }
             }
         }
         return item;
+    }
+
+    private String getISOLanguage(String str)
+    {
+        try
+        {
+            HttpClient client = new HttpClient();
+            GetMethod getMethod = new GetMethod("http://pubman.mpdl.mpg.de/cone/iso639-3/query?q=\""
+                    + str + "\"");
+            getMethod.setRequestHeader("Accept", "text/plain");
+            client.executeMethod(getMethod);
+            String resp = getMethod.getResponseBodyAsString();
+            if (resp.split("\\|").length > 1)
+            {
+                return resp.split("\\|")[1];
+            }
+            else
+            {
+                logger.warn(str + " is not a language");
+                logger.warn("response: " + resp);
+            }
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+       
+        return null;
     }
 
     public PubItemVO setIsoToLanguages(PubItemVO item)
@@ -90,9 +136,13 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
                 if (l <= 2)
                 {
                     System.out.println("lenght of language is " + l);
-                    System.out.println("Language bevor REMOVE: " + lang);
+                    System.out.println("Languages size bevor REMOVE: " + languages.size());
                     languages.remove(i);
-                    System.out.println("Language after REMOVE: " + lang);
+                    System.out.println("Languages size after REMOVE: " + languages.size());
+                    if ("ar".equals(languages.get(i)))
+                    {
+                        languages.set(i, "ara");
+                    }
 //                    afr, 
 //                    ar, ara, 
 //                    az, aze,
