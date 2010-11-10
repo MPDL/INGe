@@ -31,7 +31,7 @@
 	$Revision: 139 $ -->
 <?identification context-name="Yearbook Validation" content-model="escidoc:persistent4" context="yearbook" metadata-version="1.0" version="0.1"?>
 
-<iso:schema xmlns:iso="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt2" schemaVersion="ISO19757-3" defaultPhase="default">
+<iso:schema xmlns:iso="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt2" schemaVersion="ISO19757-3" defaultPhase="default" >
 	
 	<iso:ns prefix="item" uri="${xsd.soap.item.item}"/>
 	<iso:ns prefix="escidocMetadataRecords" uri="${xsd.soap.common.mdrecords}"/>
@@ -271,6 +271,40 @@
 		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/series']">
 			<iso:assert test="escidoc:publishing-info/dc:publisher != ''">PublisherNotProvided</iso:assert>
 			<iso:assert test="escidoc:publishing-info/escidoc:publisher != ''">PublisherPlaceNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+
+	<!-- Paper -->
+	<iso:pattern name="paper_rules" id="paper_rules">
+		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/paper']">
+			<iso:assert test="dcterms:issued != '' or escidoc:published-online != ''">PublishingDateNotProvided</iso:assert>
+			<iso:assert test="exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)])">NoMaxPlanckAffiliation</iso:assert>
+			<iso:assert test="dc:title != ''">TitleNotProvided</iso:assert>
+			<iso:assert test="eterms:total-number-of-pages != ''">TotalNumberOfPagesNotProvided</iso:assert>
+		</iso:rule>
+		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/paper']/escidoc:creator[exists(person:person)]">
+			<iso:assert test="@role != ''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="person:person/escidoc:family-name != ''">CreatorFamilyNameNotProvided</iso:assert>
+			<iso:assert test="person:person/escidoc:given-name != ''">CreatorGivennameNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+
+	<!-- Report -->
+	<iso:pattern name="report_rules" id="report_rules">
+		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/Report']">
+			<iso:assert test="dcterms:issued != '' or escidoc:published-online != ''">PublishingDateNotProvided</iso:assert>
+			<iso:assert test="exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)])">NoMaxPlanckAffiliation</iso:assert>
+			<iso:assert test="dc:title != ''">TitleNotProvided</iso:assert>
+			<iso:assert test="eterms:total-number-of-pages != ''">TotalNumberOfPagesNotProvided</iso:assert>
+		</iso:rule>
+		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/Report']/escidoc:creator[exists(person:person)]">
+			<iso:assert test="@role != ''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="person:person/escidoc:family-name != ''">CreatorFamilyNameNotProvided</iso:assert>
+			<iso:assert test="person:person/escidoc:given-name != ''">CreatorGivennameNotProvided</iso:assert>
+		</iso:rule>
+		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/Report']/source:source">
+			<iso:assert test="dc:title != ''">SourceTitleNotProvided</iso:assert>
+			<iso:assert test="escidoc:publishing-info/escidoc:edition != ''">SourceEditionNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
