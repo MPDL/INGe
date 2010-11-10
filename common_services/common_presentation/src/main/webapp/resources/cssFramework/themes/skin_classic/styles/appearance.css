@@ -65,7 +65,7 @@ FORM BG			#FFFFFF
 			}
 		/*H3*/
 		h3 {
-
+				font-weight: normal;
 			}
 		/*H4*/
 			h4 {
@@ -178,7 +178,7 @@ FORM BG			#FFFFFF
 		border-color: #ACC6CF;
 	}
 	
-	.itemList .seperator, .fullItem .seperator {
+	.itemList .seperator, .fullItem .seperator, .tileControlIconArea {
 		border-color: #B9B9B9;
 	}
 	
@@ -252,14 +252,14 @@ FORM BG			#FFFFFF
 
 |         [      Paginator      ]             |
 
-|                               	          |
+|                               	      	  |
 
 |[ Lists & Full Item ]                        |
 
 |         [        Footer       ]             |
 
 -----------------------------------------------*/
-	
+
 /*EXT. PAGINATOR*/
 
 	.paginatorFallbackGoBtn {
