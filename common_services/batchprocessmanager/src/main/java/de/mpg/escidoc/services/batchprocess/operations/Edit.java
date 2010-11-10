@@ -12,6 +12,7 @@ import de.mpg.escidoc.services.batchprocess.elements.Elements;
 import de.mpg.escidoc.services.batchprocess.helper.CommandHelper;
 import de.mpg.escidoc.services.batchprocess.transformers.Transformer;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class Edit extends Operation
@@ -60,12 +61,14 @@ public class Edit extends Operation
     private void updateItems(Elements list) throws Exception
     {
         ItemHandler ih = ServiceLocator.getItemHandler();
+        XmlTransformingBean xmlTransforming = new XmlTransformingBean();
         if (list.getElements() != null)
         {
             for (ItemVO ivo : new ArrayList<ItemVO>(list.getElements()))
             {
-                this.report.addEntry("Update" + ivo.getVersion().getObjectId(), "Edit " + ivo.getVersion().getObjectId(),
-                        ReportEntryStatusType.FINE);
+                String xml = xmlTransforming.transformToItem(ivo);
+                this.report.addEntry("Update" + ivo.getVersion().getObjectId(), "Edit "
+                        + ivo.getVersion().getObjectId(), ReportEntryStatusType.FINE);
             }
         }
     }
