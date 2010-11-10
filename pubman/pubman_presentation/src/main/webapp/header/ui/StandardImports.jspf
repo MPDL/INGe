@@ -22,17 +22,17 @@
 
 
             Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 
-<link href="../../cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
+<link href="/cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
-	.headerLogo {background-image: url('../resources/images/pubman_logo.png') !important; background-repeat: norepeat; background-position: top left;}
+	.headerLogo {background-image: url('/pubman/resources/images/pubman_logo.png') !important; background-repeat: norepeat; background-position: top left;}
 </style>
 				
 <link href="<h:outputText value='#{ApplicationBean.commonPresentationUrl}'/>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
