@@ -69,13 +69,11 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
     public PubItemVO transformFreeKeyWords(PubItemVO item)
     {
         String fkw = item.getMetadata().getFreeKeywords().getValue();
-        List<String> list =new ArrayList<String>();
-        for(String str :item.getMetadata().getLanguages())
+        List<String> list = new ArrayList<String>();
+        for (String str : item.getMetadata().getLanguages())
         {
             System.out.println(str);
-           
             list.add("eng");
-           
         }
         item.getMetadata().getLanguages().addAll(list);
         if (fkw.contains("ISO 639-3"))
@@ -101,8 +99,7 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         try
         {
             HttpClient client = new HttpClient();
-            GetMethod getMethod = new GetMethod("http://pubman.mpdl.mpg.de/cone/iso639-3/query?q=\""
-                    + str + "\"");
+            GetMethod getMethod = new GetMethod("http://pubman.mpdl.mpg.de/cone/iso639-3/query?q=\"" + str + "\"");
             getMethod.setRequestHeader("Accept", "text/plain");
             client.executeMethod(getMethod);
             String resp = getMethod.getResponseBodyAsString();
@@ -120,66 +117,139 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         {
             throw new RuntimeException(e);
         }
-       
         return null;
     }
 
     public PubItemVO setIsoToLanguages(PubItemVO item)
     {
-        // #######################################################
-        System.out.println("============= Languages START ===============");
         List<String> languages = item.getMetadata().getLanguages();
         for (int i = 0; i < languages.size(); i++)
         {
-            String lang = languages.get(i);
+            String currentIsoLangValue = languages.get(i);
+            String lang = currentIsoLangValue;
             int l = lang.length();
-                if (l <= 2)
-                {
-                    System.out.println("lenght of language is " + l);
-                    System.out.println("Languages size bevor REMOVE: " + languages.size());
-                    languages.remove(i);
-                    System.out.println("Languages size after REMOVE: " + languages.size());
-                    if ("ar".equals(languages.get(i)))
-                    {
-                        languages.set(i, "ara");
-                    }
-//                    afr, 
-//                    ar, ara, 
-//                    az, aze,
-//                    bg, bul,
-//                    bi, bis,
-//                    bn, ben,
-//                    bo, bod,
-//                    de, deu
-//                    en, eng, 
-//                    es, spa,
-//                    fr, fra, 
-//                    ful, 
-//                    gn, grn,
-//                    he, heb,
-//                    hi, hin,
-//                    id, ind,
-//                    it, ita,
-//                    jpn, 
-//                    ka, kat,
-//                    kk, kaz,
-//                    kn, kan,
-//                    ko, kor,
-//                    la, lat,
-//                    mn, mon,
-//                    my, mya,
-//                    nl, nld, 
-//                    pt, por,
-//                    qu, que,
-//                    ro, ron,
-//                    ru, rus, 
-//                    tam, 
-//                    tr, tur
-                }
+            if (l <= 2)
+            {
+                setIso639_3(languages, i, currentIsoLangValue);
+            }
         }
-        System.out.println("============== Languages END ================");
-        // #######################################################
         return item;
+    }
+
+    private void setIso639_3(List<String> languages, int i, String currentIsoLangValue)
+    {
+        if (currentIsoLangValue.equals("ar"))
+        {
+            languages.set(i, "ara");
+        }
+        if (currentIsoLangValue.equals("az"))
+        {
+            languages.set(i, "aze");
+        }
+        if (currentIsoLangValue.equals("bg"))
+        {
+            languages.set(i, "bul");
+        }
+        if (currentIsoLangValue.equals("bi"))
+        {
+            languages.set(i, "bis");
+        }
+        if (currentIsoLangValue.equals("bn"))
+        {
+            languages.set(i, "ben");
+        }
+        if (currentIsoLangValue.equals("bo"))
+        {
+            languages.set(i, "bod");
+        }
+        if (currentIsoLangValue.equals("de"))
+        {
+            languages.set(i, "deu");
+        }
+        if (currentIsoLangValue.equals("en"))
+        {
+            languages.set(i, "eng");
+        }
+        if (currentIsoLangValue.equals("es"))
+        {
+            languages.set(i, "spa");
+        }
+        if (currentIsoLangValue.equals("fr"))
+        {
+            languages.set(i, "fra");
+        }
+        if (currentIsoLangValue.equals("gn"))
+        {
+            languages.set(i, "grn");
+        }
+        if (currentIsoLangValue.equals("he"))
+        {
+            languages.set(i, "heb");
+        }
+        if (currentIsoLangValue.equals("hi"))
+        {
+            languages.set(i, "hin");
+        }
+        if (currentIsoLangValue.equals("id"))
+        {
+            languages.set(i, "ind");
+        }
+        if (currentIsoLangValue.equals("it"))
+        {
+            languages.set(i, "ita");
+        }
+        if (currentIsoLangValue.equals("ka"))
+        {
+            languages.set(i, "kat");
+        }
+        if (currentIsoLangValue.equals("kk"))
+        {
+            languages.set(i, "kaz");
+        }
+        if (currentIsoLangValue.equals("kn"))
+        {
+            languages.set(i, "kan");
+        }
+        if (currentIsoLangValue.equals("ko"))
+        {
+            languages.set(i, "kor");
+        }
+        if (currentIsoLangValue.equals("la"))
+        {
+            languages.set(i, "lat");
+        }
+        if (currentIsoLangValue.equals("mn"))
+        {
+            languages.set(i, "mon");
+        }
+        if (currentIsoLangValue.equals("my"))
+        {
+            languages.set(i, "mya");
+        }
+        if (currentIsoLangValue.equals("nl"))
+        {
+            languages.set(i, "nld");
+        }
+        if (currentIsoLangValue.equals("pt"))
+        {
+            languages.set(i, "por");
+        }
+        if (currentIsoLangValue.equals("qu"))
+        {
+            languages.set(i, "que");
+        }
+        if (currentIsoLangValue.equals("ro"))
+        {
+            languages.set(i, "ron");
+        }
+        if (currentIsoLangValue.equals("ru"))
+        {
+            languages.set(i, "rus");
+        }
+        if (currentIsoLangValue.equals("tr"))
+        {
+            languages.set(i, "tur");
+        }
     }
 
     public PubItemVO assignUserGroup(PubItemVO item)
