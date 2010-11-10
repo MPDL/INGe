@@ -313,9 +313,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*GENERAL*/
 .itemList, .tiledList, .fullItem {
     border-top-color: #147DA2;
-}
-
-.itemList, .tiledList, .fullItem {
     border-bottom-color: #BAB4B3;
 }
 
@@ -389,7 +386,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     background-color: #DAE160;
     border-color: #56871B !important;
 }
-* /
+
 /*ITEM HEADER*/
 .fullItem .itemHeadline b {
     font-size: 16px !important;
