@@ -48,16 +48,15 @@
 	<head>
 		<title>eSciDoc SearchAndExport Service</title>
 		
-		<link href="/pubman/resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
-	
-		<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css" id="highContrastTheme" type="text/css" title="kontrastreich" rel="alternate stylesheet"/>
-		<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css" id="classicTheme" type="text/css" title="classic" rel="alternate stylesheet"/>
-		<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_PubMan/styles/theme.css" id="PubManTheme" type="text/css" title="PubMan" rel="stylesheet"/>
+		<link href="<h:outputText value='#{ApplicationBean.commonPresentationUrl}'/>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>	
+		<link href="<h:outputText value='#{ApplicationBean.commonPresentationUrl}'/>resources/cssFramework/themes/skin_highContrast/styles/theme.css" id="highContrastTheme" type="text/css" title="kontrastreich" rel="alternate stylesheet"/>
+		<link href="<h:outputText value='#{ApplicationBean.commonPresentationUrl}'/>resources/cssFramework/themes/skin_classic/styles/theme.css" id="classicTheme" type="text/css" title="classic" rel="alternate stylesheet"/>
+		<link href="<h:outputText value='#{ApplicationBean.commonPresentationUrl}'/>resources/cssFramework/themes/skin_PubMan/styles/theme.css" id="PubManTheme" type="text/css" title="PubMan" rel="stylesheet"/>
 		
 		<link rel="SHORTCUT ICON" href="/pubman/resources/favicon.ico"/>
 		
-		<script src="/pubman/resources/eSciDoc_JavaScript/jquery/jquery.min.js" language="JavaScript" type="text/javascript">;</script>
-		<script src="/pubman/resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/eSciDoc_full_item.js" language="JavaScript" type="text/javascript">;</script>
+		<script src="/pubman/resources/commonJavaScript/jquery/jquery.min.js" language="JavaScript" type="text/javascript">;</script>
+		<script src="/pubman/resources/commonJavaScript/componentJavaScript/eSciDoc_full_item.js" language="JavaScript" type="text/javascript">;</script>
 		<script type="text/javascript">$(document).ready(function(){installFullItem();});</script>
 
 		<script language="JavaScript" type="text/javascript">
