@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatusType;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
@@ -39,7 +40,6 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         return list;
     }
 
-    // Test with escidoc:173940
     public PubItemVO transformAlternativeTitle(PubItemVO item)
     {
         for (SourceVO titles : item.getMetadata().getSources())
@@ -80,6 +80,55 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
 
     public PubItemVO setIsoToLanguages(PubItemVO item)
     {
+        // #######################################################
+        System.out.println("============= Languages START ===============");
+        List<String> languages = item.getMetadata().getLanguages();
+        for (int i = 0; i < languages.size(); i++)
+        {
+            String lang = languages.get(i);
+            int l = lang.length();
+                if (l <= 2)
+                {
+                    System.out.println("lenght of language is " + l);
+                    System.out.println("Language bevor REMOVE: " + lang);
+                    languages.remove(i);
+                    System.out.println("Language after REMOVE: " + lang);
+//                    afr, 
+//                    ar, ara, 
+//                    az, aze,
+//                    bg, bul,
+//                    bi, bis,
+//                    bn, ben,
+//                    bo, bod,
+//                    de, deu
+//                    en, eng, 
+//                    es, spa,
+//                    fr, fra, 
+//                    ful, 
+//                    gn, grn,
+//                    he, heb,
+//                    hi, hin,
+//                    id, ind,
+//                    it, ita,
+//                    jpn, 
+//                    ka, kat,
+//                    kk, kaz,
+//                    kn, kan,
+//                    ko, kor,
+//                    la, lat,
+//                    mn, mon,
+//                    my, mya,
+//                    nl, nld, 
+//                    pt, por,
+//                    qu, que,
+//                    ro, ron,
+//                    ru, rus, 
+//                    tam, 
+//                    tr, tur
+                }
+        }
+        System.out.println("============== Languages END ================");
+        // #######################################################
         return item;
     }
 
