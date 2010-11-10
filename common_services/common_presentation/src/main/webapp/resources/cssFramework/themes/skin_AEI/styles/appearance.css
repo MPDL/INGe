@@ -171,7 +171,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     background-color: #FEFDEB;
 }
 
-.fullItem .seperator {
+.fullItem .seperator, .tiledList .seperator {
     background-color: #FFFFFF;
 }
 
@@ -190,8 +190,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     border-color: #A00000;
 }
 
-.itemList .seperator, .fullItem .seperator {
-    border-color: #BAB4B3;
+.itemList .seperator, .fullItem .seperator, .tileControlIconArea {
+    border-color: #BAB4B3 !important;
 }
 
 .contentMenu .void {
@@ -199,7 +199,25 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     background-color: #FEFDEB;
 }
 
-/*HEADER*/
+/*HEADER
+ 
+ -----------------------------------------------
+ 
+ |[ Logo ]                 [      Meta Menu   ]|
+ 
+ |                           [   Breadcrumb   ]|
+ 
+ |[ Main Menu ]                   [   Title   ]|
+ 
+ |[ Options ]                        	      |
+ 
+ |[ Actions ]                         	      |
+ 
+ |[ Message ]                        	      |
+ 
+ -----------------------------------------------
+ 
+ */
 /*COLORING FOR ALL MENU INPUTS AND LABELS*/
 .metaMenu input, .metaMenu button, .metaMenu a, .quickSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input, .contentMenu a {
     background-color: #FEFDEB;
@@ -245,30 +263,23 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     text-decoration: underline;
 }
 
+/*Content
+ 
+ -----------------------------------------------
+ 
+ |         [      Paginator      ]             |
+ 
+ |                               	      	  |
+ 
+ |[ Lists & Full Item ]                        |
+ 
+ |         [        Footer       ]             |
+ 
+ -----------------------------------------------*/
 /*EXT. PAGINATOR*/
 .paginatorFallbackGoBtn {
     background-color: #FEFDEB;
     color: #333333;
-}
-
-/*RANGE SELECTOR*/
-.rangeSelector .replaceLabel {
-    border-color: #A00000 !important;
-    color: #333333 !important;
-}
-
-.rangeSelector .pulldown {
-    border-color: #A00000 !important;
-    background-color: #FEFDEB !important;
-}
-
-.rangeSelector .open, .rangeSelector .close {
-    background-color: inherit;
-}
-
-.rangeSelector .actual, .rangeSelector .selectLine:hover {
-    background-color: #4397B4 !important;
-    color: #FFFFFF !important;
 }
 
 /*PAGE BROWSER*/
@@ -298,17 +309,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 /* INFO PAGE*/
-/*
- .infoPage {
- border-style: solid;
- border-color: #BAB4B3;
- }
- 
- .infoPage .mainSection h2 {
- border-style: solid;
- border-color: #BAB4B3;
- }
- */
 .infoPage .sideSection {
     border-style: solid;
     border-left-color: #BAB4B3;
@@ -321,11 +321,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*LISTS & FULL ITEM*/
 /*GENERAL*/
-.itemList, .fullItem {
+.itemList, .tiledList, .fullItem {
     border-top-color: #A00000;
-}
-
-.itemList, .fullItem {
     border-bottom-color: #A00000;
 }
 
@@ -336,7 +333,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*LIST HEADER*/
 /*GENERAL*/
-.listHeader a {
+.listHeader a, .listHeader span {
     line-height: normal;
     font-weight: normal;
 }
@@ -378,7 +375,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*LIST ITEM*/
 /*GENERAL*/
-.listItem {
+.listItem, .listItem td {
     border-top-color: #BAB4B3 !important;
 }
 
@@ -386,15 +383,20 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     background-color: #A00000;
 }
 
-.preListHeader, .fullItem, .listBackground, .listBackground .seperator {
+.preListHeader, .fullItem, .tiledList, .listBackground, .listBackground .seperator {
     background-color: #FFFFFF;
 }
 
-/*
- .fullItem, .listItem:hover, .itemBlock .itemLine:hover {
- background-color: #FFFFFF;
- }
- */
+.tiledList .metaDataSection, .itemTile .tileIconArea {
+    border-color: #BAB4B3 !important;
+    border-style: solid;
+}
+
+.tiledList .inAlbum, .fullItem .inAlbum, .activeAlbum, .activeAlbum .seperator {
+    background-color: #DAE160;
+    border-color: #56871B !important;
+}
+
 /*ITEM HEADER*/
 .fullItem .itemHeadline b {
     font-size: 16px !important;
@@ -431,6 +433,11 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 /*FULL ITEM BLOCK*/
+.fullItem .metaDataSection, .fullItem .detailedItem, .fullItem .fullsizedBlock, .fullItem .splitBlockHeader, .fullItem .splitBlockBody {
+    border-color: #BAB4B3 !important;
+    border-style: solid;
+}
+
 .fullItem .itemBlock, .fullItem .itemHeader {
     border-top-color: #BAB4B3;
 }
@@ -480,25 +487,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .dateJSLabel {
     background-color: #DCECF1;
     color: #524240;
-}
-
-.replace .replaceLabel {
-    border-color: #A00000 !important;
-    color: #333333 !important;
-}
-
-.replace .pulldown {
-    border-color: #A00000 !important;
-    background-color: #DCECF1 !important;
-}
-
-.replace .open, .replace .close {
-    background-color: inherit;
-}
-
-.replace .actual, .replace .selectLine:hover {
-    background-color: #4397B4 !important;
-    color: #FFFFFF !important;
 }
 
 /*FORM BUTTONS*/
