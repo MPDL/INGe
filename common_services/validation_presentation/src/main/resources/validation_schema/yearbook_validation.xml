@@ -57,11 +57,29 @@
 	<iso:phase id="default">
 		<iso:active pattern="yearbook_genre"/>
 		<iso:active pattern="article_rules"/>
+		<iso:active pattern="book_item_rules"/>
+		<iso:active pattern="conference_paper_rules"/>
+		<iso:active pattern="proceedings_rules"/>
+		<iso:active pattern="book_rules"/>
+		<iso:active pattern="issue_rules"/>
+		<iso:active pattern="journal_rules"/>
+		<iso:active pattern="series_rules"/>
+		<iso:active pattern="paper_rules"/>
+		<iso:active pattern="report_rules"/>
 	</iso:phase>
 
 	<iso:phase id="submit_item">
 		<iso:active pattern="yearbook_genre"/>
 		<iso:active pattern="article_rules"/>
+		<iso:active pattern="book_item_rules"/>
+		<iso:active pattern="conference_paper_rules"/>
+		<iso:active pattern="proceedings_rules"/>
+		<iso:active pattern="book_rules"/>
+		<iso:active pattern="issue_rules"/>
+		<iso:active pattern="journal_rules"/>
+		<iso:active pattern="series_rules"/>
+		<iso:active pattern="paper_rules"/>
+		<iso:active pattern="report_rules"/>
 	</iso:phase>
 
 	<!-- Mime-Types -->
@@ -197,6 +215,26 @@
 			<iso:assert test="escidoc:place != ''">EventPlaceRequired</iso:assert>
 		</iso:rule>
 		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/proceedings']">
+			<iso:assert test="escidoc:publishing-info/dc:publisher != ''">PublisherNotProvided</iso:assert>
+			<iso:assert test="escidoc:publishing-info/escidoc:publisher != ''">PublisherPlaceNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!--  Book -->
+	<iso:pattern name="book_rules" id="book_rules">
+		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/Book']">
+			<iso:assert test="source:source/escidoc:sequence-number != '' or (source:source/escidoc:start-page != '' and source:source/escidoc:end-page != '')">NoSequenceInformationGiven</iso:assert>
+			<iso:assert test="dcterms:issued != '' or escidoc:published-online != ''">PublishingDateNotProvided</iso:assert>
+			<iso:assert test="exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)])">NoMaxPlanckAffiliation</iso:assert>
+			<iso:assert test="dc:title != ''">TitleNotProvided</iso:assert>
+			<iso:assert test="eterms:total-number-of-pages != ''">TotalNumberOfPagesNotProvided</iso:assert>
+		</iso:rule>
+		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/Book']/escidoc:creator[exists(person:person)]">
+			<iso:assert test="@role != ''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="person:person/escidoc:family-name != ''">CreatorFamilyNameNotProvided</iso:assert>
+			<iso:assert test="person:person/escidoc:given-name != ''">CreatorGivennameNotProvided</iso:assert>
+		</iso:rule>
+		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/Book']">
 			<iso:assert test="escidoc:publishing-info/dc:publisher != ''">PublisherNotProvided</iso:assert>
 			<iso:assert test="escidoc:publishing-info/escidoc:publisher != ''">PublisherPlaceNotProvided</iso:assert>
 		</iso:rule>
