@@ -331,6 +331,9 @@ public class ConeServlet extends HttpServlet
                 new ServletException(e);
             }
         }
+        
+        response.setHeader("Connection", "close");
+        
     }
 
     /**
