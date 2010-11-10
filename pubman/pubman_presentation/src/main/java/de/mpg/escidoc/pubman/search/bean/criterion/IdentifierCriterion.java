@@ -58,9 +58,8 @@ public class IdentifierCriterion extends Criterion
      */
     public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
         ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-        MetadataSearchCriterion criterion = 
-            new MetadataSearchCriterion( CriterionType.IDENTIFIER, getSearchString() );
-        criterions.add( criterion );
-           return criterions;
+        criterions.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.IDENTIFIER, getSearchString()) );
+        criterions.add(new MetadataSearchCriterion( CriterionType.LATEST_RELEASE_OBJID, getSearchString(), MetadataSearchCriterion.LogicalOperator.OR ));
+        return criterions;
     }    
 }
