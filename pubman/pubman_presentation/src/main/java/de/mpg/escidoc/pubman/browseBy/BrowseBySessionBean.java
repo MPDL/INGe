@@ -106,7 +106,6 @@ public class BrowseBySessionBean extends FacesBean
         try
         {
             this.pubContentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-            ((AffiliationBean)getSessionBean(AffiliationBean.class)).setSource("BrowseBy");
         }
         catch (Exception e)
         {
