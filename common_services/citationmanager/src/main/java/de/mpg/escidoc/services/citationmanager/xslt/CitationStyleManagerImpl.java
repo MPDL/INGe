@@ -42,6 +42,8 @@ import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.log4j.Logger;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.saxon.event.SaxonOutputKeys;
 
@@ -64,6 +66,8 @@ import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 public class CitationStyleManagerImpl implements CitationStyleManager 
 {
 
+	private static Logger logger = Logger.getLogger(CitationStyleManagerImpl.class);
+	
 	public static enum TASKS { validate, compile, pdf, rtf, odt, html_plain, html_styled, txt, snippet, escidoc_snippet }; 
 	
     private static XmlHelper xh = new XmlHelper();
@@ -125,6 +129,9 @@ public class CitationStyleManagerImpl implements CitationStyleManager
 		public Source resolve(String href, String base) throws TransformerException 
 		{
 			InputStream is;
+			
+//			logger.info("href:" + href + "; base:" + base);
+			
 			try 
 			{
 				String 	path = (
@@ -132,7 +139,6 @@ public class CitationStyleManagerImpl implements CitationStyleManager
 								ResourceUtil.getPathToClasses() +  ResourceUtil.TRANSFORMATIONS_DIRECTORY : 
 								ResourceUtil.getPathToCitationStyles()
 						) + href;
-//				System.out.println(path);
 				is = ResourceUtil.getResourceAsStream(path);
 			} 
 			catch (IOException e) 
