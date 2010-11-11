@@ -49,7 +49,7 @@
 					<h:outputLabel id="context" styleClass="noDisplay" value="#{contextCriterionBean.context}"/>
 
 					<b class="quad_label">&#160;</b>
-					<h:selectOneMenu styleClass="large_select" id="selectContext" value="#{contextCriterionBean.contextCriterionVO.collection}" onchange="submit()" valueChangeListener="#{contextCriterionBean.contextChanged}" immediate="true">
+					<h:selectOneMenu styleClass="large_select" id="selectContext" value="#{contextCriterionBean.contextCriterionVO.searchString}">
 						<f:selectItems value="#{AdvancedSearchEdit.contextCriterionCollection.contextList}"/>
 					</h:selectOneMenu>
 
