@@ -31,7 +31,7 @@
  ALL COLORS USED
  
  BACKGROUND		#EAF4F7 AEI-Replacement:#fefdeb
-  LINK COLOR		#147DA2 AEI-Replacement:#333333
+ LINK COLOR		#147DA2 AEI-Replacement:#333333
  AUTHOR/ORG BG		#4397B4
  LIGHT LINES		#A1CBDA AEI-Replacement:#A00000
  DROPDOWN/BG		#DCECF1
@@ -64,7 +64,8 @@ h2 {
 /*H3*/
 h3 {
 }
-    font-weight: normal;
+
+font-weight:normal;
 /*H4*/
 h4 {
 }
@@ -356,13 +357,13 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     background-color: #FFFFFF;
 }
 
-.selectMenu span {
-    font-weight: bold;
+.selectMenu a {
+    color: #147DA2;
 }
 
 .selectMenu a:hover, .selectMenu input:hover {
     background-color: #4397B4;
-    color: #FFFFFF;
+    color: #000000;
 }
 
 .statusArea .ascSort, .statusArea .desSort, th .ascSort, th .desSort {

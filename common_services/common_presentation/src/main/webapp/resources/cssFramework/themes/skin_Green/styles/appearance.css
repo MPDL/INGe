@@ -362,12 +362,13 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     background-color: #FFFFFF;
 }
 
-.selectMenu span {
-    font-weight: normal;
+.selectMenu a {
+    color: #147DA2;
 }
 
 .selectMenu a:hover, .selectMenu input:hover {
     background-color: #eefbe9;
+    color: #000000;
 }
 
 .statusArea .ascSort, .statusArea .desSort, th .ascSort, th .desSort {

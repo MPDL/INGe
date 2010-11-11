@@ -303,13 +303,13 @@ body .wrapper {
     background-position: center;
 }
 
-.selectMenu .checkBoxCloseSelectButton {
+.itemList .checkBoxCloseSelectButton {
     background-image: url('../images/All_DropDown_CrossClose_15_Active.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
-.selectMenu .checkBoxCloseSelectButton:hover, .selectMenu .checkBoxCloseSelectButton:focus {
+.itemList .checkBoxCloseSelectButton:hover, .selectMenu .checkBoxCloseSelectButton:focus {
     background-image: url('../images/All_DropDown_CrossClose_15_Hover.gif');
     background-repeat: no-repeat;
     background-position: center center;
