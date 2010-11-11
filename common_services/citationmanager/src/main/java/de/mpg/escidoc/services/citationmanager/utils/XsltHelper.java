@@ -84,6 +84,8 @@ public class XsltHelper {
 	public static String convertSnippetToJasperStyledText(String cs, String snippet)
 			throws CitationStyleManagerException {
 
+		//logger.info("input snippet:" + snippet);		
+		
 		snippet = removeI18N(snippet);
 
 		FontStylesCollection fsc = XmlHelper.loadFontStylesCollection(cs);
@@ -97,31 +99,34 @@ public class XsltHelper {
 		String regexp = "<span\\s+class=\"(\\w+)\".*?>(.*?)</span>";
 		Matcher m = Pattern.compile(regexp,
 				Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(snippet);
-		while (m.find()) {
+		while (m.find()) 
+		{
 			fs = fsc.getFontStyleByCssClass(m.group(1));
 			// logger.info("fs:" + fs);
 
 			// Rigorous: if at list once no css class has been found return str
 			// as it is
-			if (fs == null) {
+			if (fs == null) 
+			{
 				return snippet;
-			} else {
+			}
+			else 
+			{
 				m.appendReplacement(sb, "<style" + fs.getStyleAttributes() + ">$2</style>");
 			}
 		}
 		snippet = m.appendTail(sb).toString();
 
-//		snippet = Utils.replaceAllTotal(snippet, "</span>", "</style>");
-		
-		//replace all non-escaped & 
+		//escape all non-escaped & 
 		snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
 		
-		//replace all < back to the entity  
-		snippet = Utils.replaceAllTotal(snippet, "\\<(?!\\/?style)", "&lt;");
+		//escape all xml tags except the list members 
+		// style: for jasper internal styling
+		// sub/sup is supported as well
+		// all other - to be escaped
+		snippet = Utils.replaceAllTotal(snippet, "\\<(?!(\\/?style)|(\\/?su[bp]))", "&lt;");
 
-//		logger.info("processed str:" + snippet);
-
-//		 logger.info("processed snippet:" + snippet);
+		//logger.info("processed snippet:" + snippet);
 
 		return snippet;
 	}
