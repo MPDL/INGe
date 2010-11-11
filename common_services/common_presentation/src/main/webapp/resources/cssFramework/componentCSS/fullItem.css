@@ -351,3 +351,15 @@
 .fullItem .advSearchCollapse {
 	 margin-top: -1.46em !important;
 }
+
+/*VALIDATION (Cone)*/
+
+.validatedUnique input {
+	 border-color: green;
+}
+
+.validatedUnique {
+	 color: white;
+	 background-color: green;
+}
+
