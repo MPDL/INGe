@@ -134,7 +134,7 @@ public class EditItemSessionBean extends EditItemBean
      */
     public void clean()
     {
-        super.clean();
+        super.clean(); 
         
         this.files.clear();
         this.locators.clear();
@@ -219,7 +219,7 @@ public class EditItemSessionBean extends EditItemBean
 
     public void setGenreBundle(String genreBundle)
     {
-        this.genreBundle = genreBundle;
+        this.genreBundle = genreBundle; 
     }
 
     public void setOffset(String offset)

@@ -109,7 +109,7 @@ public class PubManDepositServlet extends HttpServlet
            HttpServletResponse response)
            throws ServletException, IOException 
   {
-       this.pubMan = new PubManSwordServer();
+       this.pubMan = new PubManSwordServer(); 
        SwordUtil util = new SwordUtil();
        Deposit deposit = new Deposit();
        AccountUserVO user = null;

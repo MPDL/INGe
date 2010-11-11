@@ -563,7 +563,7 @@ public class SwordUtil extends FacesBean
     public PubItemVO doDeposit(AccountUserVO user, PubItemVO item)
         throws ItemInvalidException, PubItemStatusInvalidException, Exception
     {
-        PubItemVO depositedItem = null;
+        PubItemVO depositedItem = null; 
         InitialContext initialContext = new InitialContext();
         PubItemDepositing depositBean = (PubItemDepositing) 
             initialContext.lookup(PubItemDepositing.SERVICE_NAME);

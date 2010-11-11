@@ -97,6 +97,8 @@ import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
 import de.mpg.escidoc.pubman.viewItem.bean.SourceBean;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean;
+import de.mpg.escidoc.pubman.yearbook.YearbookInvalidItemRO;
+import de.mpg.escidoc.pubman.yearbook.YearbookItemSessionBean;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
@@ -608,6 +610,20 @@ public class ViewItemFull extends FacesBean
             // logger.error(e);
             // }
             // }
+        
+            //if item is currently part of invalid yearbook items, show Validation Messages
+            ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+            if(clsb.getYearbookContextListSize()>0)
+            {
+            	YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+            	if(yisb.getYearbookItem() != null && yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId()) != null)
+            	{
+            		YearbookInvalidItemRO invItem = yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId());
+            		((PubItemVOPresentation)this.getPubItem()).setValidationMessages(YearbookItemSessionBean.getValidationMessages(this, invItem.getValidationReport()));
+            	}
+            	
+            }
+        
         }
     }
 

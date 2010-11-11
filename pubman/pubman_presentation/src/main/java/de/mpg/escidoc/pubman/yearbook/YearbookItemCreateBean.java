@@ -121,8 +121,8 @@ public class YearbookItemCreateBean extends FacesBean
         
        
 
-        String datequery = "(( escidoc.publication.date>=\"" + getDateFrom() + "\"";
-        datequery+=(" AND escidoc.publication.date<=\"" + getDateTo() + "\" )");
+        String datequery = "(( escidoc.publication.issued>=\"" + getDateFrom() + "\"";
+        datequery+=(" AND escidoc.publication.issued<=\"" + getDateTo() + "\" )");
         datequery += (" OR ( escidoc.publication.published-online>=\"" + getDateFrom() + "\"");
         datequery += (" AND escidoc.publication.published-online<=\"" + getDateTo() + "\" ) )");
         

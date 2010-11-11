@@ -36,6 +36,7 @@ import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.escidoc.services.validation.ItemValidating;
+import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
 public class YearbookItemSessionBean extends FacesBean
@@ -134,14 +135,14 @@ public class YearbookItemSessionBean extends FacesBean
 
     public PubItemVO getYearbookItem()
     {
-        return yearbookItem;
+        return yearbookItem;  
     }
     
     
     
     public int getNumberOfMembers()
     {
-        if(yearbookItem.getRelations()!=null)
+        if(yearbookItem!=null && yearbookItem.getRelations()!=null)
         {
             return yearbookItem.getRelations().size();
         }
@@ -170,7 +171,7 @@ public class YearbookItemSessionBean extends FacesBean
             {
                 if(currentRelations.contains(id.getObjectId()))
                 {
-                    warn("Item " + id.getObjectId() + " is already in yearbook");
+                    warn(getMessage("Yearbook_ItemAlreadyInYearbook"));
                 }
                 else
                 {
@@ -181,11 +182,11 @@ public class YearbookItemSessionBean extends FacesBean
                 
             }
             addRelations(newRels);
-            info("Added " + successful + " items to yearbook");
+            info(getMessage("Yearbook_AddedItemsToYearbook"));
         }
         catch (Exception e)
         {
-           error("Error adding members to yearbook");
+           error(getMessage("Yearbook_ErrorAddingMembers"));
            logger.error("Error adding members to yearbook", e);
         }
     }
@@ -197,11 +198,11 @@ public class YearbookItemSessionBean extends FacesBean
       
            
             removeRelations(itemIds); 
-            info("Removed successfully items from yearbook");
+            info(getMessage("Yearbook_RemovedItemsFromYearbook"));
         }
         catch (Exception e)
         {
-           error("Error removing members from yearbook");
+           error(getMessage("Yearbook_ErrorRemovingMembers"));
            logger.error("Error removing members from yearbook", e);
         }
     }
@@ -325,7 +326,8 @@ public class YearbookItemSessionBean extends FacesBean
             if(!pubItem.getModificationDate().equals(lmd))
             {
                 //revalidate
-                ValidationReportVO rep = this.itemValidating.validateItemObject(new PubItemVO(pubItem));
+            	System.out.println("Yearbook Validating: " + pubItem.getVersion().getObjectId());
+                ValidationReportVO rep = this.itemValidating.validateItemObjectBySchema(new PubItemVO(pubItem), "default", "yearbook");
                 if(!rep.isValid())
                 {
                     validItemMap.remove(pubItem.getVersion().getObjectId());
@@ -411,6 +413,21 @@ public class YearbookItemSessionBean extends FacesBean
         pilsb.setCurrentPageNumber(1);
         pilsb.redirect();
         return "";
+    }
+    
+    public static List<String> getValidationMessages(FacesBean bean, ValidationReportVO report)
+    {
+        List<String> valMessages = new ArrayList<String>();
+        
+        if(report!=null)
+        {
+            for (ValidationReportItemVO item  : report.getItems())
+            {
+                    valMessages.add((bean.getMessage(item.getContent()).replaceAll("\\$1", item.getElement())));
+            }
+        }
+        
+        return valMessages;
     }
 
 

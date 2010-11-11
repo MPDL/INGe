@@ -18,6 +18,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class YearbookCandidatesSessionBean extends FacesBean
 {
+	public static String BEAN_NAME = "YearbookCandidatesSessionBean";
     private static Logger logger = Logger.getLogger(YearbookCandidatesSessionBean.class);
     
    
@@ -69,7 +70,7 @@ public class YearbookCandidatesSessionBean extends FacesBean
         }
         catch (Exception e)
         {
-            logger.error("Error retrieveing org units", e);
+            logger.error("Error retrieving org units", e);
         }
        
            

@@ -94,7 +94,7 @@ public class PubManSwordServer
             throws PubItemStatusInvalidException, ItemInvalidException,
             ContentStreamNotFoundException, Exception
         {
-            SwordUtil util = new SwordUtil();
+            SwordUtil util = new SwordUtil(); 
             PubItemVO depositItem = null;
             DepositResponse dr = new DepositResponse(Deposit.ACCEPTED);
             boolean valid = false;
@@ -102,7 +102,7 @@ public class PubManSwordServer
             this.setVerbose("Start depositing process ... ");
 
                 //Create item
-                util.setCurrentDeposit(deposit);
+                util.setCurrentDeposit(deposit); 
                 depositItem = util.readZipFile(deposit.getFile(), this.currentUser);
                 this.setVerbose("Escidoc Publication Item successfully created.");
                 ContextRO context = new ContextRO();
@@ -111,7 +111,7 @@ public class PubManSwordServer
 
                 //Validate Item
                 util.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation (depositItem));
-                ValidationReportVO validationReport = util.validateItem(depositItem);
+                ValidationReportVO validationReport = util.validateItem(depositItem); 
                 if (validationReport.isValid())
                 {
                     this.setVerbose("Escidoc Publication Item successfully validated.");

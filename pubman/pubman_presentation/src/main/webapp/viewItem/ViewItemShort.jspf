@@ -41,9 +41,14 @@
 		</span>
 		<span class="xHuge_area0 endline">
 		<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea">
+			<h2><h:outputText value="#{lbl.Yearbook_validationMessageHeader}"/></h2>
+			<ul>
 			<tr:iterator var="msg" value="#{item.validationMessages}">
-				<h:outputText styleClass="messageError" value="#{msg}"/><br/>
-			</tr:iterator>	
+				<li class="messageError">
+					<h:outputText value="#{msg}"/>
+				</li>
+			</tr:iterator>
+			</ul>	
 	   </h:panelGroup>
 	   </span>
 	</h:panelGroup>

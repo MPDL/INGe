@@ -87,6 +87,8 @@ import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation.WrappedLocalTag;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
+import de.mpg.escidoc.pubman.yearbook.YearbookInvalidItemRO;
+import de.mpg.escidoc.pubman.yearbook.YearbookItemSessionBean;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
@@ -206,7 +208,7 @@ public class EditItem extends FacesBean
     public void init()
     {
         // Perform initializations inherited from our superclass
-        super.init();
+        super.init(); 
         this.fileTable = new CoreTable();
         // enables the commandlinks
         this.enableLinks();
@@ -220,6 +222,23 @@ public class EditItem extends FacesBean
         {
             throw new RuntimeException("Error initializing item", e);
         }
+        
+        //if item is currently part of invalid yearbook items, show Validation Messages
+       
+        ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+        if(getItem().getVersion()!=null && getItem().getVersion().getObjectId()!=null && clsb.getYearbookContextListSize()>0)
+        {
+        	YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+        	if(yisb.getYearbookItem() != null && yisb.getInvalidItemMap().get(getItem().getVersion().getObjectId()) != null)
+        	{
+        		YearbookInvalidItemRO invItem = yisb.getInvalidItemMap().get(getItem().getVersion().getObjectId());
+        		this.item.setValidationMessages(YearbookItemSessionBean.getValidationMessages(this, invItem.getValidationReport()));
+        	}
+        	
+        }
+        
+        
+        
         // FIXME provide access to parts of my VO to specialized POJO's
         this.titleCollection = new TitleCollection(this.getPubItem().getMetadata());
         this.eventTitleCollection = new TitleCollection(this.getPubItem().getMetadata().getEvent());
@@ -294,7 +313,7 @@ public class EditItem extends FacesBean
     private void initializeItem() throws Exception
     {
         // get the item that is currently edited
-        PubItemVO pubItem = this.getPubItem();
+        PubItemVO pubItem = this.getPubItem(); 
         if (pubItem != null)
         {
             // set the default genre to article
@@ -1684,21 +1703,35 @@ public class EditItem extends FacesBean
      * @author Michael Franke
      * @param report The Validation report object.
      */
+    
     private void showValidationMessages(ValidationReportVO report)
+    {
+        showValidationMessages(this, report);
+        this.valMessage.setRendered(true);
+    }
+    
+    
+    /**
+     * Displays validation messages.
+     * 
+     * @author Michael Franke
+     * @param report The Validation report object.
+     */
+    public void showValidationMessages(FacesBean bean, ValidationReportVO report)
     {
         for (Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();)
         {
             ValidationReportItemVO element = (ValidationReportItemVO)iter.next();
             if (element.isRestrictive())
             {
-                error(getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
+                FacesBean.error(bean.getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
             }
             else
             {
-                info(getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
+            	FacesBean.info(bean.getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
             }
         }
-        this.valMessage.setRendered(true);
+        //this.valMessage.setRendered(true);
     }
 
     /**
@@ -2348,7 +2381,7 @@ public class EditItem extends FacesBean
     public String getGenreBundle()
     {
         // return genreBundle;
-        return this.getEditItemSessionBean().getGenreBundle();
+        return this.getEditItemSessionBean().getGenreBundle(); 
     }
 
     public void setGenreBundle(String genreBundle)

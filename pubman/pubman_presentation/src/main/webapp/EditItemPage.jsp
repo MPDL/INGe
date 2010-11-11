@@ -118,6 +118,19 @@
 							</div>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
+								<!-- Special validation messages for yearbook -->
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{not empty EditItem.item.validationMessages}">
+									<h2><h:outputText value="#{lbl.Yearbook_validationMessageHeader}"/></h2>
+									<ul>
+									<tr:iterator var="msg" value="#{EditItem.item.validationMessages}">
+										<li class="messageError">
+											<h:outputText value="#{msg}"/>
+										</li>
+									</tr:iterator>
+									</ul>	
+							   </h:panelGroup>
+								
+								
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{EditItem.hasErrorMessages}">
 									<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
 									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>

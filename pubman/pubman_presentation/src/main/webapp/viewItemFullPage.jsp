@@ -156,6 +156,19 @@
 							</h:panelGroup>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
+								<!-- Special validation messages for yearbook -->
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{not empty ViewItemFull.pubItem.validationMessages}">
+									<h2><h:outputText value="#{lbl.Yearbook_validationMessageHeader}"/></h2>
+									<ul>
+									<tr:iterator var="msg" value="#{ViewItemFull.pubItem.validationMessages}">
+										<li class="messageError">
+											<h:outputText value="#{msg}"/>
+										</li>
+									</tr:iterator>
+									</ul>	
+							   </h:panelGroup>
+								
+								
 								<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.numberOfMessages == 1}"/>
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{ViewItemFull.hasErrorMessages and ViewItemFull.numberOfMessages != 1}">
 									<h2><h:outputText  value="#{lbl.warning_lblMessageHeader}"/></h2>

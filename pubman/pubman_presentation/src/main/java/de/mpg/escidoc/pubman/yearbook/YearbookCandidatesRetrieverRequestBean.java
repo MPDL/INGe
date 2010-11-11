@@ -14,6 +14,7 @@ import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
@@ -132,7 +133,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
         if (orgUnit==null) 
         {
-            if(getSessionBean().getSelectedOrgUnit()!=null)
+            if(getSessionBean().getSelectedOrgUnit()!=null || yisb.getYearbookItem()==null)
             {
                 setSelectedOrgUnit(getSessionBean().getSelectedOrgUnit());
             }
@@ -295,7 +296,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
             }
             
             
-            if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
+            if (getSelectedOrgUnit()!=null && !getSelectedOrgUnit().toLowerCase().equals("all")) 
             {
                    mdsList.add(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
             }
@@ -497,10 +498,14 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
     @Override
     public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {
-        List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>(); 
+        List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();  
         
         try
         {
+        	if(yisb.getYearbookItem() != null)
+        	{
+        		
+        	
             SearchQuery query = null; 
             if(yisb.getSelectedWorkspace().equals(YBWORKSPACE.CANDIDATES))
             {
@@ -519,6 +524,8 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
                 query = getNonCandidatesQuery();
             }
              
+            query = new PlainCqlQuery(query.getCqlQuery());
+            
             if(query!=null)
             {
                 query.setStartRecord(new PositiveInteger(String.valueOf(offset+1)));
@@ -543,11 +550,14 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
                         query.setSortOrder(SortingOrder.ASCENDING);
                     } 
                 }
+                
+                System.out.println(query.getCqlQuery()); 
                 ItemContainerSearchResult result = this.searchService.searchForItemContainer(query);
                 
                 pubItemList =  extractItemsOfSearchResult(result);
                 this.numberOfRecords = Integer.parseInt(result.getTotalNumberOfResults().toString());
             }
+        	}
         }
         catch (Exception e)
         {
@@ -574,38 +584,18 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
                 PubItemResultVO pubItemResult = new PubItemResultVO( item, item.getSearchHitList(), item.getScore() ) ; 
                 PubItemVOPresentation pubItemPres = new PubItemVOPresentation(pubItemResult);
                 
-                //if(yisb.getInvalidItemMap().containsKey(pubItemPres.getVersion().getObjectId()))
-                //{
-                    //YearbookInvalidItemRO itemRO = yisb.getInvalidItemMap().get(pubItemPres.getVersion().getObjectId());
-                    //pubItemPres.setValidationMessages(getValidationMessages(itemRO.getValidationReport()));
-                pubItemPres.setValidationMessages(getValidationMessages(null));
-                //}
+                if(yisb.getInvalidItemMap().containsKey(pubItemPres.getVersion().getObjectId()))
+                {
+                    YearbookInvalidItemRO itemRO = yisb.getInvalidItemMap().get(pubItemPres.getVersion().getObjectId()); 
+                    pubItemPres.setValidationMessages(YearbookItemSessionBean.getValidationMessages(this, itemRO.getValidationReport()));
+                }
                 pubItemList.add( pubItemPres );
             }
         }
         return pubItemList;
     }
     
-    private List<String> getValidationMessages(ValidationReportVO report)
-    {
-        List<String> valMessages = new ArrayList<String>();
-        valMessages.add("test1 ewqfewf efef efwefwewf");
-        valMessages.add("test1 ewqfewf efef efwefwewf");
-        
-        if(report!=null)
-        {
-            for (ValidationReportItemVO item  : report.getItems())
-            {
-                if (item.isRestrictive())
-                {
-                    valMessages.add((getMessage(item.getContent()).replaceAll("\\$1", item.getElement())));
-                }
-                
-            }
-        }
-        
-        return valMessages;
-    }
+    
     
     
 
