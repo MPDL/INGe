@@ -164,10 +164,10 @@
 
 	<!-- Font Styles -->
 	<xsl:variable name="font-styles">
-		<xsl:variable name="fs" select="document(concat(/cit:citation-style/@name, '/font-styles.xml'))"/>
+		<xsl:variable name="fs" select="concat(/cit:citation-style/@name, '/font-styles.xml')"/>
 		<xsl:choose>
-			<xsl:when test="exists($fs)">
-				<xsl:copy-of select="$fs/font-styles-collection/*"/>				
+			<xsl:when test="doc-available($fs)">
+				<xsl:copy-of select="document($fs)/font-styles-collection/*"/>				
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:copy-of select="document('font-styles.xml')/font-styles-collection/*"/>				
@@ -672,6 +672,7 @@
 							),
 						'&quot;&gt;'	
 							)"/>
+							
 						<xsl:element name="xsl:copy-of">
 							<xsl:attribute name="select" select="'$var'"/>
 						</xsl:element>
