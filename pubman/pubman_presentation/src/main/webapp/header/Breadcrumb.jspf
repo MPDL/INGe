@@ -48,7 +48,7 @@
 						<tr:outputText value="#{item.pageLabel}" />
 					</tr:commandLink>
 					<tr:outputText value="#{item.pageLabel}" rendered="#{item.isLast}"/>
-					<tr:outputText value=" > " rendered="#{!item.isLast}"/>
+					<tr:outputText value=" / " rendered="#{!item.isLast}"/>
 <%-- stop has to be reworked anyway --%>
 
 
