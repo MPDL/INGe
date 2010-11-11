@@ -937,7 +937,7 @@
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="title-with-dot"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="func:escapeMarkupTags(pub:publication/dc:title/text())"/>
                             <!--
 				start-with/ends-with
 			--><xsl:variable name="var">
@@ -952,7 +952,7 @@
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="title-italic"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="func:escapeMarkupTags(pub:publication/dc:title/text())"/>
                             <!--font-style--><xsl:variable name="var">
                                 <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                             </xsl:variable>
@@ -1083,7 +1083,8 @@
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
                         <xsl:variable name="source-title"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                          select="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
                             <!--
 				start-with/ends-with
 			--><xsl:variable name="var">
@@ -1907,7 +1908,8 @@
                                                                     </le>
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                          select="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
                                                                             <!--font-style--><xsl:variable name="var">
                                                                                 <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                                                                             </xsl:variable>
@@ -2019,7 +2021,7 @@
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var" select="func:escapeMarkupTags(pub:publication/dc:title/text())"/>
                                                         <!--
 				start-with/ends-with
 			--><xsl:variable name="var">
@@ -2222,7 +2224,8 @@
                                                                 <xsl:with-param name="les">
                                                                     <le>
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/event:event/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                          select="func:escapeMarkupTags(pub:publication/event:event/dc:title/text())"/>
                                                                             <!--
 				start-with/ends-with
 			--><xsl:variable name="var">
@@ -2312,7 +2315,8 @@
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/event:event/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                      select="func:escapeMarkupTags(pub:publication/event:event/dc:title/text())"/>
                                                         <!--
 				start-with/ends-with
 			--><xsl:variable name="var">
@@ -2419,7 +2423,8 @@
                                                                         <xsl:with-param name="les">
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/event:event/dc:title/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                                  select="func:escapeMarkupTags(pub:publication/event:event/dc:title/text())"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>
@@ -2645,6 +2650,11 @@
 		
 		      <xsl:value-of select="    if ( jfunc:isCJK(concat($fname, $gname) ) )     then string-join( ($fname, $gname), $delim )    else string-join( (func:get_initials($gname), $fname), $delim )   "/>
 		
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:escapeMarkupTags">
+		      <xsl:param name="str"/>
+		      <xsl:value-of select="jfunc:escapeMarkupTags($str)"/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:cleanCitation">

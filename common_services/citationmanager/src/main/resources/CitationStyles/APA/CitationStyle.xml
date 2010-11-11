@@ -307,14 +307,14 @@
 		</layout-element>
 
 
-		<layout-element name="title-with-dot" ref="pub:publication/dc:title/text()">
+		<layout-element name="title-with-dot" ref="func:escapeMarkupTags(pub:publication/dc:title/text())">
 			<parameters>
 				<starts-with value=" " />
 				<ends-with value="." />
 			</parameters>
 		</layout-element>
 
-		<layout-element name="title-italic" ref="pub:publication/dc:title/text()">
+		<layout-element name="title-italic" ref="func:escapeMarkupTags(pub:publication/dc:title/text())">
 			<parameters>
 				<font-style ref="ITALIC" />
 			</parameters>
@@ -373,7 +373,7 @@
 			</elements>
 		</layout-element>
 
-		<layout-element name="source-title" ref="pub:publication/source:source[1]/dc:title/text()">
+		<layout-element name="source-title" ref="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())">
 			<parameters>
 				<font-style ref="ITALIC" />
 				<starts-with value=" " />
@@ -730,7 +730,9 @@
 							<ends-with value=", " />
 						</parameters>
 					</layout-element>
-					<layout-element ref="pub:publication/source:source[1]/dc:title/text()">
+					
+ 					
+					<layout-element ref="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())">
 						<parameters>
 							<font-style ref="ITALIC" />
 						</parameters>
@@ -770,7 +772,7 @@
 
 			<layout-element ref="$year-editors-are-presented" />
 
-			<layout-element ref="pub:publication/dc:title/text()">
+			<layout-element ref="func:escapeMarkupTags(pub:publication/dc:title/text())">
 				<parameters>
 					<starts-with value=" " />
 					<ends-with value=" [Special Issue]. " />
@@ -882,7 +884,7 @@
 					<ends-with value="." />
 				</parameters>
 				<elements>
-					<layout-element ref="pub:publication/event:event/dc:title/text()">
+					<layout-element ref="func:escapeMarkupTags(pub:publication/event:event/dc:title/text())">
 						<parameters>
 							<starts-with value="Talk presented at "/>
 						</parameters>
@@ -921,7 +923,7 @@
 
 			<layout-element ref="$authors-or-editors-and-year-and-title-with-dot" />
 
-			<layout-element ref="pub:publication/event:event/dc:title/text()">
+			<layout-element ref="func:escapeMarkupTags(pub:publication/event:event/dc:title/text())">
 				<parameters>
 					<starts-with value=" " />
 					<ends-with value="." />
@@ -975,7 +977,7 @@
 					<delimiter value=", " />
 				</parameters>
 				<elements>
-					<layout-element ref="pub:publication/event:event/dc:title/text()" />
+					<layout-element ref="func:escapeMarkupTags(pub:publication/event:event/dc:title/text())" />
 					<layout-element ref="pub:publication/event:event/eterms:place/text()" />
 				</elements>
 			</layout-element>
