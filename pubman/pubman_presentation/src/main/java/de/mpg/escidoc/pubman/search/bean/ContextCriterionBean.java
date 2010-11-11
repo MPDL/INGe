@@ -60,7 +60,6 @@ public class ContextCriterionBean extends CriterionBean {
 				if(vo.getReference().getObjectId().equals(context))
 				{
 		    		contextCriterionVO.setSearchString(vo.getReference().getObjectId());
-		    		contextCriterionVO.setCollection(vo.getName());
 				}
 			}
     	}
@@ -82,7 +81,6 @@ public class ContextCriterionBean extends CriterionBean {
     	{
 
     		contextCriterionVO.setSearchString("");
-    		contextCriterionVO.setCollection("--");
     	}
     }
     
@@ -94,32 +92,8 @@ public class ContextCriterionBean extends CriterionBean {
 	public String clearCriterion() 
 	{
 		contextCriterionVO.setSearchString("");
-		contextCriterionVO.setCollection("--");
 		contextCriterionVO = new ContextCriterion();
 		return null;
-	}
-	
-	public void contextChanged(ValueChangeEvent event)
-	{
-//		if(!event.getNewValue().toString().equals(contextCriterionVO.getSearchString()))
-//		{ 
-			String newContext = (String)event.getNewValue();
-			setContext(newContext);
-			if(newContext!="--")
-			{
-				for(ContextVO vo : contexts)
-				{
-					if(vo.getName().equals(newContext))  
-					{
-						contextCriterionVO.setSearchString(vo.getReference().getObjectId());
-						contextCriterionVO.setCollection(vo.getName());
-					}
-				}
-			}
-			else
-				contextCriterionVO.setSearchString("");
-//		}
-
 	}
 
 	public Criterion getContextCriterionVO() 

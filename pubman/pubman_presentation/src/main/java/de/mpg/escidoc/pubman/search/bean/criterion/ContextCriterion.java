@@ -10,23 +10,11 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionTyp
 public class ContextCriterion extends Criterion{
     // boolean flag for the full text search
 
-	private String collection;
-
-	public String getCollection() {
-		return collection;
-	}
-
-
-	public void setCollection(String collection) {
-		this.collection = collection;
-	}
-
 
 	public ContextCriterion()
 	{
 		super();
 	}
-
 
     /**
      * {@inheritDoc}

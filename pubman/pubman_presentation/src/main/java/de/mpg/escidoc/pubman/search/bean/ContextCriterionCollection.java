@@ -50,7 +50,7 @@ public class ContextCriterionCollection
 		contextList.add(new SelectItem("", "--"));
         for (ContextVO c : contexts)
         {
-        	contextList.add(new SelectItem(c.getName(), c.getName()));
+        	contextList.add(new SelectItem(c.getReference().getObjectId(),c.getName()));
         }
 		return contextList;
 	}
