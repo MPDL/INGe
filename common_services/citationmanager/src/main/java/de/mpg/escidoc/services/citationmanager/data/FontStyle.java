@@ -62,6 +62,8 @@ public class FontStyle implements Cloneable{
     private String pdfEncoding; 	//encoding for PDF
     private String cssClass;		//Alternative class name for css
     private boolean isPdfEmbedded;  
+    private boolean isPdfSimulatedBold;
+    private boolean isPdfSimulatedItalic;
     
     public static final String CSS_CLASS_REPORT_TAG = "\"[span class=\\\"%s\\\"]\"+%s+\"[/span]\"";
     public static final String CSS_CLASS_REGEXP = "\\[span class=&quot;(\\w+?)&quot;\\](.*?)\\[/span\\]";
@@ -94,6 +96,8 @@ public class FontStyle implements Cloneable{
         pdfEncoding = "Identity-H";
         cssClass = "";
         isPdfEmbedded = false;
+        isPdfSimulatedBold = false;
+        isPdfSimulatedItalic = false;
     }
      
     /**
@@ -218,7 +222,37 @@ public class FontStyle implements Cloneable{
     public String getBackColor() { return backColor; }
 
     
-    public Color getBackColorAwt()
+    /**
+	 * @return the isPdfSimulatedBold
+	 */
+	public boolean getIsPdfSimulatedBold() {
+		return isPdfSimulatedBold;
+	}
+
+	/**
+	 * @param isPdfSimulatedBold the isPdfSimulatedBold to set
+	 */
+	public void setIsPdfSimulatedBold(boolean isPdfSimulatedBold) {
+		this.isPdfSimulatedBold = isPdfSimulatedBold;
+	}
+
+	/**
+	 * @return the isPdfSimulatedItalic
+	 */
+	public boolean getIsPdfSimulatedItalic() {
+		return isPdfSimulatedItalic;
+	}
+
+	/**
+	 * @param isPdfSimulatedItalic the isPdfSimulatedItalic to set
+	 */
+	public void setIsPdfSimulatedItalic(boolean isPdfSimulatedItalic) {
+		this.isPdfSimulatedItalic = isPdfSimulatedItalic;
+	}
+
+	
+	
+	public Color getBackColorAwt()
     {
     	String bc = getBackColor().toUpperCase();
     	return 
@@ -299,7 +333,10 @@ public class FontStyle implements Cloneable{
 	        " forecolor=\\\"" + foreColor + "\\\"" +
 	        " backcolor=\\\"" + backColor + "\\\"" +
 	        " pdfEncoding=\\\"" + pdfEncoding + "\\\"" +
-	        " isPdfEmbedded=\\\"" + isPdfEmbedded + "\\\""; 
+	        " isPdfEmbedded=\\\"" + isPdfEmbedded + "\\\"" +
+	        " isPdfSimulatedBold=\\\"" + isPdfSimulatedBold + "\\\"" + 
+	        " isPdfSimulatedItalic=\\\"" + isPdfSimulatedItalic + "\\\""
+	        ; 
 			
 	}
  
@@ -339,6 +376,7 @@ public class FontStyle implements Cloneable{
         return "["+ def + "," + name + "," + fontSize + "," + fontName + "," + isBold + "," +
                 isItalic + "," + isUnderline + "," + isStrikeThrough + "," + pdfFontName + "," +
                 foreColor + "," + backColor + "," + pdfEncoding + "," + isPdfEmbedded + "," +
+                isPdfSimulatedBold + "," + isPdfSimulatedItalic + "," + 
                 cssClass + "]";
     }
 

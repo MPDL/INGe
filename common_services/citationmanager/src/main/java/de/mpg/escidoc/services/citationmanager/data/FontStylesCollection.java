@@ -204,6 +204,8 @@ public class FontStylesCollection implements Cloneable {
         digester.addSetProperties(path, "back-color", "backColor");
         digester.addSetProperties(path, "pdf-encoding", "pdfEncoding");
         digester.addSetProperties(path, "is-pdf-embedded", "isPdfEmbedded");
+        digester.addSetProperties(path, "is-pdf-simulated-bold", "isPdfSimulatedBold");
+        digester.addSetProperties(path, "is-pdf-simulated-italic", "isPdfSimulatedItalic");
         digester.addSetProperties(path, "css-class", "cssClass");
 
         
@@ -281,6 +283,8 @@ public class FontStylesCollection implements Cloneable {
                 element.setAttribute("back-color", fs.getBackColor());
                 element.setAttribute("pdf-encoding", fs.getPdfEncoding());
                 element.setAttribute("is-pdf-embedded", "" + fs.getIsPdfEmbedded());
+                element.setAttribute("is-pdf-simulated-bold", "" + fs.getIsPdfSimulatedBold());
+                element.setAttribute("is-pdf-simulated-italic", "" + fs.getIsPdfSimulatedItalic());
                 element.setAttribute("css-class", "" + fs.getCssClass());
 
             root.appendChild(element);
