@@ -28,7 +28,7 @@
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:fn="http://www.w3.org/2005/xpath-functions" 
-	xmlns:cit="http://www.escidoc.de/citationstyle" 
+	xmlns:cit="http://www.escidoc.de/citationstyle"  
 
 	xmlns:jfunc="java:de.mpg.escidoc.services.citationmanager.utils.XsltHelper"
 	xmlns:func="http://www.escidoc.de/citationstyle/functions"	
@@ -162,10 +162,17 @@
 	</xsl:template>
 	
 
-
 	<!-- Font Styles -->
 	<xsl:variable name="font-styles">
-	   <xsl:copy-of select="document('font-styles.xml')/font-styles-collection/*"/>
+		<xsl:variable name="fs" select="document(concat(/cit:citation-style/@name, '/font-styles.xml'))"/>
+		<xsl:choose>
+			<xsl:when test="exists($fs)">
+				<xsl:copy-of select="$fs/font-styles-collection/*"/>				
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:copy-of select="document('font-styles.xml')/font-styles-collection/*"/>				
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:variable>
 	
 	
