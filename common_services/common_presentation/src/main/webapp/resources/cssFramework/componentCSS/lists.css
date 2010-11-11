@@ -126,6 +126,7 @@
 .itemList .checkboxSelectButton {
 	margin-top: 0.19em;
 	margin-right: 0.19em;
+	background: transparen !important;
 }
 
 	/*REPLACEMENT HACK FOR IE LESS THAN 6*/

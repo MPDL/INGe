@@ -76,7 +76,7 @@
 }
 
 .infoPage h2, .infoPage .mainSection h2, .infoPage .sideSection h2 {
-	line-height: 1.4em;
+	line-height: 1.3em;
 	margin: 0px;
 	padding-top: 0.28em;
 	margin-left: -0.74em;
@@ -89,7 +89,7 @@
 }
 
 .infoPage .mainSection span h2 {
-	font-size: 16px;
+	font-size: 18px !important;
 	margin-bottom: 0em;
 	padding-bottom: 0em;
 }
