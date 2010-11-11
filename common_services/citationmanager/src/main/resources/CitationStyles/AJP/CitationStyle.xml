@@ -46,6 +46,8 @@
 		<variable name="source-type">pub:publication/source:source[1]/@type</variable>
 		<variable name="hasPublication" type="xs:boolean">exists(pub:publication)</variable>
 		
+		<variable name="title">func:escapeMarkupTags(pub:publication/dc:title/text())</variable>
+		<variable name="stitle">func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())</variable>
 			
 		<!--
 			variables which use java-like expressions with references to other
@@ -328,7 +330,7 @@
 				<delimiter value=""/>
 			</parameters>
 			<elements>
-				<layout-element ref="pub:publication/source:source[1]/dc:title/text()" />
+				<layout-element ref="$title" />
 				<layout-element ref="pub:publication/source:source[1]//eterms:volume/text()">
 					<parameters>
 						<font-style ref="BOLD" />
@@ -368,7 +370,7 @@
 			</parameters>
 		</layout-element>	
 			
-		<layout-element  name="title-italic" ref="pub:publication/dc:title/text()">
+		<layout-element  name="title-italic" ref="$title">
 			<parameters>
 				<starts-with value=" "/>
 				<ends-with value="."/>
@@ -435,14 +437,14 @@
 					<starts-with value=", "/>
 				</parameters>
 				<elements>
-					<layout-element ref="pub:publication/dc:title/text()">
+					<layout-element ref="$title">
 						<parameters>
 							<valid-if><![CDATA[not(exists($SourceTitleVolumeIssuePhysicalDescriptionDateBlock/text()))]]></valid-if>
 							<starts-with value="&quot;" />		
 							<ends-with value=".&quot;" />		
 						</parameters>
 					</layout-element>
-					<layout-element ref="pub:publication/dc:title/text()">
+					<layout-element ref="$title">
 						<parameters>
 							<valid-if><![CDATA[exists($SourceTitleVolumeIssuePhysicalDescriptionDateBlock/text())]]></valid-if>
 							<starts-with value="&quot;" />		
@@ -506,7 +508,7 @@
 			
 			<layout-element ref="$creators" />
 						
-			<layout-element ref="pub:publication/dc:title">
+			<layout-element ref="$title">
 				<parameters>
 					<starts-with value="&quot;" />
 					<ends-with value="&quot;" />
@@ -519,7 +521,7 @@
 					<starts-with value="in "/>
 				</parameters>
 				<elements>
-					<layout-element ref="pub:publication/source:source[@type=$l_book][1]/dc:title/text()">
+					<layout-element ref="func:escapeMarkupTags(pub:publication/source:source[@type=$l_book][1]/dc:title/text())">
 						<parameters>
 							<font-style ref="ITALIC"/>
 						</parameters>
@@ -570,26 +572,18 @@
 			
 			<layout-element ref="$creators" />
 
-			<layout-element  ref="pub:publication/dc:title">
+			<layout-element ref="$title">
 				<parameters>
 					<starts-with value="&quot;" />
 					<ends-with value="&quot;" />
 				</parameters>
 			</layout-element>
 			
-			
-			<layout-element name="SourceTitleBlock">
+			<layout-element ref="$stitle">
 				<parameters>
-					<valid-if><![CDATA[ exists(pub:publication/source:source[1]/dc:title) ]]></valid-if>
 					<starts-with value="in "/>
+					<font-style ref="ITALIC"/>
 				</parameters>
-				<elements>
-					<layout-element ref="pub:publication/source:source[1]/dc:title">
-						<parameters>
-							<font-style ref="ITALIC"/>
-						</parameters>
-					</layout-element>
-				</elements>
 			</layout-element>
 			
 			<layout-element ref="$sourceEditorsAndPublishingInfoAndDate"/>

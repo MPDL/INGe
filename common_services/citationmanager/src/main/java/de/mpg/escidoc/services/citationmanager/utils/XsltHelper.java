@@ -118,7 +118,7 @@ public class XsltHelper {
 		snippet = m.appendTail(sb).toString();
 
 		//escape all non-escaped & 
-		snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
+		snippet = Utils.replaceAllTotal(snippet, "\\&(?!\\w+?;)", "&amp;");
 		
 		//escape all xml tags except the list members 
 		// style: for jasper internal styling
@@ -144,6 +144,7 @@ public class XsltHelper {
 	public static String convertSnippetToHtml(String snippet)
 			throws CitationStyleManagerException {
 
+		FontStyle fs;
 //		snippet = removeI18N(snippet);
 
 		FontStylesCollection fsc = XmlHelper.loadFontStylesCollection();
@@ -151,10 +152,9 @@ public class XsltHelper {
 		if (!Utils.checkVal(snippet) || fsc == null)
 			return snippet;
 
-		logger.info("passed str:" + snippet);
+//		logger.info("passed str:" + snippet);
 
-		FontStyle fs;
-
+		
 		StringBuffer sb = new StringBuffer();
 		String regexp = "<span\\s+class=\"(\\w+)\".*?>(.*?)</span>";
 		Matcher m = Pattern.compile(regexp,
@@ -189,19 +189,28 @@ public class XsltHelper {
 		}
 		snippet = m.appendTail(sb).toString();
 
-		//replace all non-escaped & 
-		snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
-		
-		//escape all xml tags except the list members 
-		// sub/sup is supported as well
-		// all other - to be escaped
-		snippet = Utils.replaceAllTotal(snippet, "\\<(?!(\\/?su[bp]))", "&lt;");
-		
 		
 		return snippet;
 	}	
-
-	public static String removeI18N(String snippet) {
+	
+	/**
+	 * Escape HTML tags in XML string
+	 *  
+	 * @param str
+	 * @return escaped string
+	 */
+	public static String escapeMarkupTags(String str) 
+	{
+		//escape all tags except sup/sub 
+		return str != null ? 
+			Utils.replaceAllTotal(str, "\\<(?!(\\/?su[bp]))", "&lt;") :
+			null;
+	}
+	
+	
+	
+	public static String removeI18N(String snippet) 
+	{
 		return Utils.replaceAllTotal(snippet, "<" + I18N_TAG
 				+ "\\s+class=\"\\w+\".*?>(.*?)</" + I18N_TAG + ">", "$1");
 	}

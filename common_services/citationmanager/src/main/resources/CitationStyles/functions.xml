@@ -109,6 +109,11 @@
 		
 	</xsl:function>
 
+	<xsl:function name="func:escapeMarkupTags">
+		<xsl:param name="str" />
+		<xsl:value-of select="jfunc:escapeMarkupTags($str)"/>
+	</xsl:function>
+
 	
 	<!-- Postprocessing: clean citation -->
 	<xsl:function name="func:cleanCitation">
