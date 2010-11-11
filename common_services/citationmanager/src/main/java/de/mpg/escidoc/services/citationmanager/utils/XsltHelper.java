@@ -192,6 +192,12 @@ public class XsltHelper {
 		//replace all non-escaped & 
 		snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
 		
+		//escape all xml tags except the list members 
+		// sub/sup is supported as well
+		// all other - to be escaped
+		snippet = Utils.replaceAllTotal(snippet, "\\<(?!(\\/?su[bp]))", "&lt;");
+		
+		
 		return snippet;
 	}	
 
