@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruler xmlns="http://www.escidoc.de/validation">
+	<vocabularies>
+		<vocabulary name="count">
+			<word name="every" context="self" pattern="#V#N"/>
+			<word name="at-least-one" context="parent" pattern="exists(#V#N)"/>
+			<word name="exactly" context="parent" pattern="#V = count(#V#N)"/>
+			<word name="none" context="parent" pattern="not(exists(#V#N))"/>
+		</vocabulary>
+		<vocabulary name="compare">
+			<word name="" pattern=""/>
+			<word name="with-value" pattern="[. = #V]#N"/>
+			<word name="with-position" pattern="[position() = #V]#N"/>
+			<word name="with-other-value" pattern="[. != #V]#N"/>
+			<word name="with-greater-value" pattern="[. &gt; #V]#N"/>
+			<word name="with-smaller-value" pattern="[. &lt; #V]#N"/>
+			<word name="matching" pattern="matches(., #V)#N"/>
+		</vocabulary>
+		<vocabulary name="consequence">
+			<word name="exists" pattern="#V #N"/>
+			<word name="equals" pattern="(. = #V) #N"/>
+			<word name="differs" pattern="(. != #V) #N"/>
+			<word name="matches" pattern="matches(., #V) #N"/>
+			<word name="needs" pattern="#V #N"/>
+		</vocabulary>
+	</vocabularies>
+	<value-types>
+		<value-type name="field" pattern="#V[#T(comparison)]"/>
+		<value-type name="string" pattern="'#V'"/>
+		<value-type name="number" pattern="#V"/>
+		<value-type name="pattern" pattern="'#V'"/>
+	</value-types>
+	<grammar>
+		<term name="rule1" type="rule">
+			<word vocabulary="count"/>
+			<value type="field"/>
+			<word pattern="["/>
+			<section optional="false" repeatable="true" or="true" and="true">
+				<word vocabulary="consequence"/>
+				<value/>
+			</section>
+			<word pattern="]"/>
+		</term>
+		<term name="comparison" type="sub-term">
+			<section optional="true" repeatable="true" or="true" and="true">
+				<word vocabulary="compare"/>
+				<value/>
+			</section>
+		</term>
+	</grammar>
+	<fields>
+		<root name="publication" schema="schemas/escidoc_publication_profile.xsd"/>
+		<root name="file" schema="schemas/escidoc_file_profile.xsd"/>
+		<root name="component" schema="schemas/components.xsd"/>
+	</fields>
+	<examples>
+		<example>publication: rule1: every escidoc:creator(with-position(1)) (needs ./person:person/person:family-name) else report NoFamilynameProvided</example>
+		<example>publication: rule1: at-least-one escidoc:creator(with-position(1)) (needs ./person:person/person:family-name) else report NoFamilynameProvided</example>
+		<example>file: rule1: none escidoc:file-name (matches '.pdf$') else report PdfIsNotAllowed</example>
+	</examples>
+</ruler>
