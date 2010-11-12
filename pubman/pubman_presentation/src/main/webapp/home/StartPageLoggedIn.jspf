@@ -32,20 +32,23 @@ All rights reserved. Use is subject to license terms.
 <jsp:directive.page pageEncoding="UTF-8" />
 
 <!-- HOMEPAGE ENGLISH VERSION -->
+
+<div class="half_area0">
 <h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
 	<h2>
 		WELCOME TO PUBMAN - <br/>WHAT DO YOU WANT TO WORK ON TODAY?
 	</h2>
 	<br/>
 </h:panelGroup>
-<h:panelGroup rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
-	<span class="xDouble_area0 tiny_marginRExcl">
+	<span class="xDouble_area0">
 		<h2>Submission</h2>
 		Enter a new Publication to PubMan?
-		<br/>
+		<div class="lineBreak"></div><br/>
 	   ... by using the 
 		<h:commandLink id="lnkEasySubmission_en" title="#{tip.submission_lnkNewSubmission}" action="#{EasySubmission.newEasySubmission}">
 			<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
@@ -63,11 +66,11 @@ All rights reserved. Use is subject to license terms.
 	</span>
 </h:panelGroup>
 
-<h:panelGroup rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
-	<span class="xDouble_area0 tiny_marginRExcl">
+	<span class="xDouble_area0">
 		<br/>
 		<h2>My Items</h2>
 		...finish your data 
@@ -78,11 +81,11 @@ All rights reserved. Use is subject to license terms.
 	</span>
 </h:panelGroup>
 
-<h:panelGroup rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
-	<span class="xDouble_area0 tiny_marginRExcl">
+	<span class="xDouble_area0">
 		<br/>
 		<h2>QA Workspace</h2>
 		... 		
@@ -93,7 +96,7 @@ All rights reserved. Use is subject to license terms.
 	</span>
 </h:panelGroup>
 
-<h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='en'}">
 	<span class="full_area0 ">
 		<br/>
 		<h2>
@@ -108,15 +111,20 @@ All rights reserved. Use is subject to license terms.
 		</ul>
 	</span>
 </h:panelGroup>
+</div>
+
 
 <!-- HOMEPAGE GERMAN VERSION -->
+
+<div class="half_area0">
 <h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
 	<h2>
 		WILLKOMMEN BEI PUBMAN - <br/>WAS M&Ouml;CHTEN SIE HEUTE TUN?
 	</h2>
 	<br/>
 </h:panelGroup>
-<h:panelGroup rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+<div>
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
@@ -140,7 +148,9 @@ All rights reserved. Use is subject to license terms.
 		</h:commandLink>
 	</span>
 </h:panelGroup>
-<h:panelGroup rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+</div>
+
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
@@ -156,7 +166,7 @@ All rights reserved. Use is subject to license terms.
 	</span>
 </h:panelGroup>
 	
-<h:panelGroup rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
@@ -171,7 +181,7 @@ All rights reserved. Use is subject to license terms.
 		Sie Items aus Ihrem Kontext.
 	</span>
 </h:panelGroup>
-<h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='de'}">
 	<span class="full_area0 ">
 		<br/>
 		<h2>
@@ -186,14 +196,16 @@ All rights reserved. Use is subject to license terms.
 		</ul>
 	</span>
 </h:panelGroup>
+</div>
 
 <!-- HOMEPAGE JAPANESE VERSION -->
+<div class="half_area0">
 <h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
 	<h2>
 		PubMan へようこそ <!-- -<br/>今日は何をしましょうか？ --></h2>
 	<br/>
 </h:panelGroup>
-<h:panelGroup rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
@@ -218,7 +230,7 @@ All rights reserved. Use is subject to license terms.
 	</span>
 </h:panelGroup>
 	
-<h:panelGroup rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
@@ -234,7 +246,7 @@ All rights reserved. Use is subject to license terms.
 	</span>
 </h:panelGroup>
 	
-<h:panelGroup rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
@@ -249,7 +261,7 @@ All rights reserved. Use is subject to license terms.
 		する。
 	</span>
 </h:panelGroup>
-<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='ja'}">
 	<span class="full_area0 ">
 		<br/>
 		<h2>
@@ -266,14 +278,17 @@ All rights reserved. Use is subject to license terms.
 		</ul>
 	</span>
 </h:panelGroup>
+</div>
 
 <!-- HOMEPAGE SPANISH VERSION -->
+
+<div class="half_area0">
 <h:panelGroup rendered="#{PubManSessionBean.locale =='es'}">
 	<h2>
 		PubMan へようこそ <!-- -<br/>今日は何をしましょうか？ --></h2>
 	<br/>
 </h:panelGroup>
-<h:panelGroup rendered="#{PubManSessionBean.locale =='es' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='es' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
@@ -298,7 +313,7 @@ All rights reserved. Use is subject to license terms.
 	</span>
 </h:panelGroup>
 	
-<h:panelGroup rendered="#{PubManSessionBean.locale =='es' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='es' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
@@ -313,7 +328,7 @@ All rights reserved. Use is subject to license terms.
 	</span>
 </h:panelGroup>
 	
-<h:panelGroup rendered="#{PubManSessionBean.locale =='es' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='es' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
@@ -327,7 +342,7 @@ All rights reserved. Use is subject to license terms.
 		する。
 	</span>
 </h:panelGroup>
-<h:panelGroup rendered="#{PubManSessionBean.locale =='es'}">
+<h:panelGroup styleClass="half_area0" rendered="#{PubManSessionBean.locale =='es'}">
 	<span class="full_area0 ">
 		<br/>
 		<h2>
@@ -344,3 +359,4 @@ All rights reserved. Use is subject to license terms.
 		</ul>
 	</span>
 </h:panelGroup>
+</div>
