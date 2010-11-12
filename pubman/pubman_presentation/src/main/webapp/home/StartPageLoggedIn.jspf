@@ -42,7 +42,7 @@ All rights reserved. Use is subject to license terms.
 	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
-	<span class="xDouble_area0">
+	<span class="xDouble_area0 tiny_marginRExcl">
 		<h2>Submission</h2>
 		Enter a new Publication to PubMan?
 		<br/>
@@ -62,12 +62,12 @@ All rights reserved. Use is subject to license terms.
 		</h:commandLink>
 	</span>
 </h:panelGroup>
-	
+
 <h:panelGroup rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
-	<span class="xDouble_area0">
+	<span class="xDouble_area0 tiny_marginRExcl">
 		<br/>
 		<h2>My Items</h2>
 		...finish your data 
@@ -77,12 +77,12 @@ All rights reserved. Use is subject to license terms.
 		if your items have been already realeased to the public.
 	</span>
 </h:panelGroup>
-	
+
 <h:panelGroup rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 	<span class="free_area0 xTiny_marginRExcl">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
-	<span class="xDouble_area0">
+	<span class="xDouble_area0 tiny_marginRExcl">
 		<br/>
 		<h2>QA Workspace</h2>
 		... 		
@@ -92,6 +92,7 @@ All rights reserved. Use is subject to license terms.
 		items entered for your context.
 	</span>
 </h:panelGroup>
+
 <h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
 	<span class="full_area0 ">
 		<br/>
