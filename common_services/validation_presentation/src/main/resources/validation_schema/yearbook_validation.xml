@@ -112,7 +112,8 @@
 
 	<!-- Validation rules -->
 
-	 <!-- Only certain genres make it into the yearbook -->
+	<!-- Only certain genres make it into the yearbook -->
+	<?rule publication: rule1: every @type (equals 'http://purl.org/escidoc/metadata/ves/publication-types/article'  or equals 'http://purl.org/eprint/type/BookItem') else report NoYearbookGenre?>
 	<iso:pattern name="yearbook_genre" id="yearbook_genre">
 		<iso:rule context="publication:publication">
 			<iso:assert test="@type = 'http://purl.org/escidoc/metadata/ves/publication-types/article'

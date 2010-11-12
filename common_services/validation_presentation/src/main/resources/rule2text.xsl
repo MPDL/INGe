@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:r="http://www.escidoc.de/validation" xmlns:fn="http://www.escidoc.de/functions">
 
-	<xsl:output encoding="UTF-8" indent="yes" method="xml"/>
+	<xsl:output encoding="UTF-8" indent="yes" method="text"/>
 
 	<xsl:param name="validation-schema"/>
+	<xsl:param name="language" select="'english'"/>
 	
 	<xsl:variable name="max-counter" select="999"/>
 
@@ -16,18 +17,18 @@
 			<xsl:copy-of select="document(@schema)"/>
 		</xsl:for-each>
 	</xsl:variable>
+			
+	<xsl:variable name="context" select="*"/>
 		
 	<xsl:template match="/">
 	
-		<xsl:variable name="context" select="*"/>
-	
-		<iso:schema>
+
 			<xsl:for-each select="$validation-schema-content/iso:schema/processing-instruction()">
 				<xsl:apply-templates select="$context">
 					<xsl:with-param name="rule-text" select="."/>
 				</xsl:apply-templates>
 			</xsl:for-each>
-		</iso:schema>
+
 		
 	</xsl:template>
 	
@@ -49,18 +50,24 @@
 		
 		<xsl:processing-instruction name="rule"><xsl:value-of select="$rule-text"/></xsl:processing-instruction>
 		
-		<iso:pattern name="rule{position()}" id="rule{position()}">
-			<iso:rule context="{/r:ruler/r:fields/r:root[@name = $rule-element]/@node}">
-				<iso:assert>
-					<xsl:attribute name="test">
-						<xsl:apply-templates select="/r:ruler/r:grammar/r:term[@name = $rule-type]">
-							<xsl:with-param name="rule-text" select="normalize-space(substring-before(substring-after(substring-after($rule-text, ': '), ': '), ' else report '))"/>
-						</xsl:apply-templates>
-					</xsl:attribute>
-					<xsl:value-of select="$rule-message"/>
-				</iso:assert>
-			</iso:rule>
-		</iso:pattern>
+		<xsl:text>rule</xsl:text>
+		<xsl:value-of select="position()"/>
+		<xsl:text>: </xsl:text>
+
+		<xsl:value-of select="fn:get-text('in-every')"/>
+		<xsl:text> </xsl:text>
+		<xsl:value-of select="fn:get-text($rule-element)"/>
+		<xsl:text>, </xsl:text>
+
+		<xsl:apply-templates select="/r:ruler/r:grammar/r:term[@name = $rule-type]">
+			<xsl:with-param name="rule-text" select="normalize-space(substring-before(substring-after(substring-after($rule-text, ': '), ': '), ' else report '))"/>
+		</xsl:apply-templates>
+
+		<xsl:text>, </xsl:text>
+		<xsl:value-of select="fn:get-text('else-report')"/>
+		<xsl:text>: </xsl:text>
+		<xsl:value-of select="fn:get-text($rule-message)"/>
+
 	</xsl:template>
 	
 	<xsl:template match="r:term">
@@ -77,8 +84,6 @@
 		
 		<xsl:choose>
 			<xsl:when test="@pattern != ''">
-				<xsl:value-of select="@pattern"/>
-
 				<xsl:if test="$counter &lt; $max-counter">
 					<xsl:apply-templates select="following-sibling::*[1]">
 						<xsl:with-param name="rule-text" select="$rule-text"/>
@@ -86,9 +91,7 @@
 				</xsl:if>
 				
 			</xsl:when>
-			<xsl:when test="$rule-text = '(' or $rule-text = ')' or $rule-text = ' and ' or $rule-text = ' or '">
-				<xsl:value-of select="$rule-text"/>
-			</xsl:when>
+
 			<xsl:when test="@vocabulary != ''">
 			
 				<xsl:variable name="vocabulary-name" select="@vocabulary"/>
@@ -98,69 +101,19 @@
 				<xsl:if test="$word = ''"><xsl:value-of select="error(QName('http://www.escidoc.de/validation', 'WordEmptyError'), 'Word is empty')"/></xsl:if>
 				<xsl:if test="not(exists(/r:ruler/r:vocabularies/r:vocabulary[@name = $vocabulary-name]/r:word[@name = $word]))"><xsl:value-of select="error(QName('http://www.escidoc.de/validation', 'WordNotDefinedError'), concat('Word ', $word, ' is not defined in vocabulary ',  $vocabulary-name))"/></xsl:if>
 					
-				<xsl:variable name="pattern" select="/r:ruler/r:vocabularies/r:vocabulary[@name = $vocabulary-name]/r:word[@name = $word]/@pattern"/>
-				<xsl:if test="$pattern = ''"><xsl:value-of select="error(QName('http://www.escidoc.de/validation', 'PatternEmptyError'), 'Pattern is empty')"/></xsl:if>
-				
-				<xsl:variable name="before-value">
-					<xsl:choose>
-						<xsl:when test="contains($pattern, '#V')">
-							<xsl:value-of select="substring-before($pattern, '#V')"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:value-of select="$pattern"/>
-						</xsl:otherwise>
-					</xsl:choose>
-				</xsl:variable>
-				<xsl:variable name="after-value">
-					<xsl:choose>
-						<xsl:when test="contains($pattern, '#V')">
-							<xsl:value-of select="substring-after($pattern, '#V')"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:value-of select="''"/>
-						</xsl:otherwise>
-					</xsl:choose>
-				</xsl:variable>
-
-				<xsl:choose>
-					<xsl:when test="contains($before-value, '#N')">
-						<xsl:value-of select="substring-before($before-value, '#N')"/>
-						<xsl:if test="$counter &lt; $max-counter">
-							<xsl:apply-templates select="following-sibling::*[local-name() != 'value'][1]">
-								<xsl:with-param name="rule-text" select="normalize-space(substring-after(substring-after($rule-text, ' '), ' '))"/>
-								<xsl:with-param name="counter" select="$counter + 1"/>
-							</xsl:apply-templates>
-						</xsl:if>
-						<xsl:value-of select="substring-after($before-value, '#N')"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="$before-value"/>
-					</xsl:otherwise>
-				</xsl:choose>
-				<xsl:if test="contains($pattern, '#V')">
-					<xsl:if test="$counter &lt; $max-counter">
-						<xsl:apply-templates select="following-sibling::r:value[1]">
-							<xsl:with-param name="rule-text" select="normalize-space(substring-after($rule-text, ' '))"/>
-							<xsl:with-param name="counter" select="$counter + 1"/>
-						</xsl:apply-templates>
-					</xsl:if>
-				</xsl:if>
-				<xsl:choose>
-					<xsl:when test="contains($after-value, '#N')">
-						<xsl:value-of select="substring-before($after-value, '#N')"/>
-						<xsl:if test="$counter &lt; $max-counter">
-							<xsl:apply-templates select="following-sibling::*[local-name() != 'value'][1]">
-								<xsl:with-param name="rule-text" select="normalize-space(substring-after(substring-after($rule-text, ' '), ' '))"/>
-								<xsl:with-param name="counter" select="$counter + 1"/>
-							</xsl:apply-templates>
-						</xsl:if>
-						<xsl:value-of select="substring-after($after-value, '#N')"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="$after-value"/>
-					</xsl:otherwise>
-				</xsl:choose>
-
+				<xsl:value-of select="fn:get-text($word)"/>
+				<xsl:text> </xsl:text>
+					
+				<xsl:apply-templates select="following-sibling::r:value[1]">
+					<xsl:with-param name="rule-text" select="normalize-space(substring-after($rule-text, ' '))"/>
+					<xsl:with-param name="counter" select="$counter + 1"/>
+				</xsl:apply-templates>
+					
+				<xsl:apply-templates select="following-sibling::*[local-name() != 'value'][1]">
+					<xsl:with-param name="rule-text" select="normalize-space(substring-after(substring-after($rule-text, ' '), ' '))"/>
+					<xsl:with-param name="counter" select="$counter + 1"/>
+				</xsl:apply-templates>
+					
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="error(QName('http://www.escidoc.de/validation', 'VocabularyOrPatternEmptyError'), 'Vocabulary and pattern are empty')"/>
@@ -176,7 +129,8 @@
 		<xsl:variable name="value-text" select="substring-before(concat($rule-text, ' '), ' ')"/>
 		<xsl:if test="$value-text = ''"><xsl:value-of select="error(QName('http://www.escidoc.de/validation', 'ValueTextEmptyError'), 'Value text is empty')"/></xsl:if>
 		
-		<xsl:value-of select="$value-text"/>
+		<xsl:value-of select="fn:get-text($value-text)"/>
+		<xsl:text> </xsl:text>
 		
 	</xsl:template>
 	
@@ -224,16 +178,18 @@
 
 		<xsl:choose>
 			<xsl:when test="$rule-text = ' and '">
-				<xsl:text> and </xsl:text>
+				<xsl:value-of select="fn:get-text('and')"/>
+				<xsl:text> </xsl:text>
 			</xsl:when>
 			<xsl:when test="$rule-text = ' or '">
-				<xsl:text> or </xsl:text>
+				<xsl:value-of select="fn:get-text('or')"/>
+				<xsl:text> </xsl:text>
 			</xsl:when>
 			<xsl:when test="$rule-text = '('">
-				<xsl:text>(</xsl:text>
+
 			</xsl:when>
 			<xsl:when test="$rule-text = ')'">
-				<xsl:text>)</xsl:text>
+
 			</xsl:when>
 			<xsl:otherwise>
 
@@ -328,6 +284,20 @@
 		</xsl:variable>
 		
 		<xsl:value-of select="$result"/>
+		
+	</xsl:function>
+		
+	<xsl:function name="fn:get-text" as="xs:string">
+		<xsl:param name="label"/>
+		
+		<xsl:choose>
+			<xsl:when test="exists($context/r:labels/r:language[@name = $language]/r:label[@id = $label])">
+				<xsl:value-of select="$context/r:labels/r:language[@name = $language]/r:label[@id = $label]"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$label"/>
+			</xsl:otherwise>
+		</xsl:choose>
 		
 	</xsl:function>
 	

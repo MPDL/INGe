@@ -38,7 +38,7 @@
 	<artifactId>validation</artifactId>
 	<name>validation</name>
 	<packaging>ejb</packaging>
-	<version>1.0.55-SNAPSHOT</version>
+	<version>1.0.56-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/validation</connection>

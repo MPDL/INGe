@@ -17,11 +17,11 @@
 			<word name="matching" pattern="matches(., #V)#N"/>
 		</vocabulary>
 		<vocabulary name="consequence">
-			<word name="exists" pattern="#V #N"/>
+			<word name="exists" pattern=" #N"/>
 			<word name="equals" pattern="(. = #V) #N"/>
 			<word name="differs" pattern="(. != #V) #N"/>
 			<word name="matches" pattern="matches(., #V) #N"/>
-			<word name="needs" pattern="#V #N"/>
+			<word name="needs" pattern="exists(#V) #N"/>
 		</vocabulary>
 	</vocabularies>
 	<value-types>
@@ -49,10 +49,50 @@
 		</term>
 	</grammar>
 	<fields>
-		<root name="publication" schema="schemas/escidoc_publication_profile.xsd"/>
-		<root name="file" schema="schemas/escidoc_file_profile.xsd"/>
-		<root name="component" schema="schemas/components.xsd"/>
+		<root name="publication" node="publication:publication" schema="schemas/escidoc_publication_profile.xsd">
+			<field path="@type" max="1"/>
+			<field path="dc:title" max="1"/>
+			<field path="dc:alternative" max="unbounded"/>
+		</root>
+		<root name="file" node="file:file" schema="schemas/escidoc_file_profile.xsd"/>
+		<root name="component" node="escidocComponents:component" schema="schemas/components.xsd"/>
 	</fields>
+	<labels>
+		<language name="english">
+			<label id="@type" indefinite-article="a" definite-article="the">document type</label>
+			<label id="dc:title" indefinite-article="a" definite-article="the">title</label>
+			<label id="dc:alternative" indefinite-article="an" definite-article="the">alternative title</label>
+			<label id="every">every</label>
+			<label id="the">the</label>
+			<label id="at-least-one">at least one</label>
+			<label id="exactly">exactly</label>
+			<label id="none">no</label>
+			<label id="with-value">with a value of</label>
+			<label id="with-position">at position</label>
+			<label id="with-other-value">with a value different from</label>
+			<label id="with-smaller-value">with a value smaller than</label>
+			<label id="with-greater-value">with a value greater than</label>
+			<label id="matching">with a value that matches</label>
+			<label id="exists">exists</label>
+			<label id="equals">is equal to</label>
+			<label id="differs">is different from</label>
+			<label id="matches">matches</label>
+			<label id="needs">needs</label>
+			<label id="publication" indefinite-article="a" definite-article="the">publication</label>
+			<label id="file" indefinite-article="a" definite-article="the">attached file</label>
+			<label id="component" indefinite-article="a" definite-article="the">attached component</label>
+			<label id="and">and</label>
+			<label id="or">or</label>
+			<label id="in-every">In every</label>
+			<label id="else-report">otherwise report</label>
+			<label id="constant">Constant value</label>
+			<label id="enter">enter value...</label>
+			
+			<label id="NoYearbookGenre">This document type is not allowed.</label>
+		</language>
+	</labels>
+	
+	
 	<examples>
 		<example>publication: rule1: every escidoc:creator(with-position(1)) (needs ./person:person/person:family-name) else report NoFamilynameProvided</example>
 		<example>publication: rule1: at-least-one escidoc:creator(with-position(1)) (needs ./person:person/person:family-name) else report NoFamilynameProvided</example>
