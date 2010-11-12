@@ -42,7 +42,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 
-				<title><h:outputText value="#{ApplicationBean.appTitle} #{ViewItemFull.pubItem.metadata.title.value}"/></title>
+				<title><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}::#{ApplicationBean.appTitle}" converter="HTMLTitleSubSupConverter"/></title>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
@@ -140,7 +140,7 @@
 								</h:panelGroup>
 									<h:panelGroup styleClass="seperator" />
 								<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
-									<b><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/></b>
+									<b><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}" converter="HTMLSubSupConverter" escape="false"/></b>
 								</h:panelGroup>	
 								<h:panelGroup layout="block" styleClass="medium_area0_p4 statusArea" >
 									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl withdrawnItem" rendered="#{ViewItemFull.isStateWithdrawn}" />

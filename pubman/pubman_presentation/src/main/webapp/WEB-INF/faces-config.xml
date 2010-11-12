@@ -81,6 +81,15 @@
 		<converter-class>de.mpg.escidoc.pubman.util.GenreLabelConverter</converter-class>
 	</converter>
 	
+	<converter>
+		<converter-id>HTMLSubSupConverter</converter-id>
+		<converter-class>de.mpg.escidoc.pubman.util.HTMLSubSupConverter</converter-class>
+	</converter>
+	
+	<converter>
+		<converter-id>HTMLTitleSubSupConverter</converter-id>
+		<converter-class>de.mpg.escidoc.pubman.util.HTMLTitleSubSupConverter</converter-class>
+	</converter>
 	<!--	
 		<converter>
 		<converter-for-class>java.lang.Enum</converter-for-class>

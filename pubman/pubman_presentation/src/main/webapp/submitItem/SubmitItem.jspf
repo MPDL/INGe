@@ -36,7 +36,7 @@
 	</h:panelGroup>
 		<h:panelGroup styleClass="seperator" />
 	<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
-		<b><h:outputText value="#{SubmitItem.itemControllerSessionBean.currentPubItem.metadata.title.value}"/></b>
+		<b><h:outputText value="#{SubmitItem.itemControllerSessionBean.currentPubItem.metadata.title.value}" converter="HTMLSubSupConverter" escape="false"/></b>
 	</h:panelGroup>
 </div>
 <div class="full_area0 itemBlock">
