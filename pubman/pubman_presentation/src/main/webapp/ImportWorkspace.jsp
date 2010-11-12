@@ -45,7 +45,7 @@
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
-				<script src="./resources/eSciDoc_JavaScript/jquery/jquery.jdialog.min.js" language="JavaScript" type="text/javascript">;</script>
+				<script src="./resources/commonJavaScript/jquery/jquery.jdialog.min.js" language="JavaScript" type="text/javascript">;</script>
 				
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
