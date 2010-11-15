@@ -41,10 +41,14 @@
 			<xs:attribute name="md-xpath" type="xs:string" use="required" />
 			<xs:attribute name="source-placeholder-tag" type="xs:Name" use="required" />
 			<xs:attribute name="citation-placeholder-tag" type="xs:Name" use="required" />
-			<!-- take global set of default variables (CitationStyle/variables.xml) -->
+			<!-- get global set of default variables (CitationStyle/variables.xml) -->
 			<xs:attribute name="include-global-default-variables" type="yes-noType" />
-			<!-- take set of default variables for genre (CitationStyle/<Citation Style>/variables.xml) -->
+			<!-- get set of default variables (CitationStyle/<Citation Style>/variables.xml) -->
 			<xs:attribute name="include-default-variables" type="yes-noType" />
+			<!-- get global set of layout-elements (CitationStyle/layout-elements.xml) -->
+			<xs:attribute name="include-global-layout-elements" type="yes-noType" />
+			<!-- get local set of default layout-elements (CitationStyle/<Citation Style>/layout-elements.xml) -->
+			<xs:attribute name="include-default-layout-elements" type="yes-noType" />
 		</xs:complexType>
 	</xs:element>
 
