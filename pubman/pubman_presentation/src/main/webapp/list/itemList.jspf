@@ -98,7 +98,7 @@
  <div class="full_area0 itemList <h:outputText value='loggedIn' rendered='#{LoginHelper.loggedIn}' />">
  	<div class="full_area0 listHeader">
  		<span class="free_area0_p8 endline itemSelectArea" style="padding-top: 0px;">
- 			<input type="button" id="btCheckboxSelectButton" class="min_imgBtn checkboxSelectButton"/>
+ 			<input type="button" id="btcheckBoxSelectButton" class="min_imgBtn checkBoxSelectButton"/>
  			<div class="large_area1 xTiny_marginLIncl selectMenu" style="display: none;">
  				<input type="button" id="btCheckBoxCloseSelectButton" class="min_imgBtn checkBoxCloseSelectButton"></input>
  				<span class="medium_area0_p8"><h:outputText value="#{lbl.List_SelectItem}"/></span>
