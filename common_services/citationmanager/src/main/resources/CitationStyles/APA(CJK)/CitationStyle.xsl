@@ -226,7 +226,7 @@
                             <xsl:value-of select="&#xA;&#x9;&#x9;&#x9;if ( ($genre=$l_article) or (not(pub:publication/dcterms:issued) and pub:publication/eterms:published-online) ) &#xA;&#x9;&#x9;&#x9;then $doi-or-uri&#xA;&#x9;&#x9;&#x9;else ''&#x9;&#xA;&#x9;&#x9;"/>
                         </xsl:variable>
                         <!--### APA(CJK) specific Default Variables ###-->
-	<!--### Predefined Layout Elements ###-->
+	<!--### APA(CJK) specific Default Layout Elements, included from APA Citation Style ###-->
 	<xsl:variable name="ed-postfix-i18n"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                             <xsl:variable name="var">
@@ -266,7 +266,450 @@
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
-                        <xsl:variable name="editors-base"><!--### Plain Layout Element ###-->
+                        <xsl:variable name="source-ed-postfix-i18n"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                            <xsl:variable name="var">
+                                <xsl:call-template name="applyDelimiter">
+                                    <xsl:with-param name="les">
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$source-ed-postfix"/>
+                                                <!--valid-if--><xsl:variable name="var">
+                                                    <xsl:if test="$sourceEditorsCount=1"><!--i18n--><xsl:variable name="var">
+                                                            <xsl:if test="exists($var) and $var!=''">&lt;localized class="editor"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:if>
+                                                </xsl:variable>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$source-ed-postfix"/>
+                                                <!--valid-if--><xsl:variable name="var">
+                                                    <xsl:if test="$sourceEditorsCount&gt;1"><!--i18n--><xsl:variable name="var">
+                                                            <xsl:if test="exists($var) and $var!=''">&lt;localized class="editors"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:if>
+                                                </xsl:variable>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                    </xsl:with-param>
+                                    <xsl:with-param name="delimiter" select="' '"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="year"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
+                            <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>(</xsl:text>
+                                </xsl:if>
+                                <xsl:copy-of select="$var"/>
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>).</xsl:text>
+                                </xsl:if>
+                            </xsl:variable>
+                            <!--font-style--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="year-for-thesis"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$date-for-thesis"/>
+                            <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>(</xsl:text>
+                                </xsl:if>
+                                <xsl:copy-of select="$var"/>
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>).</xsl:text>
+                                </xsl:if>
+                            </xsl:variable>
+                            <!--font-style--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="year-with-event-start-date"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                            <xsl:variable name="var">
+                                <xsl:call-template name="applyDelimiter">
+                                    <xsl:with-param name="les">
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$start-date-or-date"/>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                    </xsl:with-param>
+                                    <xsl:with-param name="delimiter" select="' '"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>(</xsl:text>
+                                </xsl:if>
+                                <xsl:copy-of select="$var"/>
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>).</xsl:text>
+                                </xsl:if>
+                            </xsl:variable>
+                            <!--font-style--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="published-online-and-external-locator"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$published-online-and-external-locator"/>
+                            <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text> </xsl:text>
+                                </xsl:if>
+                                <xsl:copy-of select="$var"/>
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>.</xsl:text>
+                                </xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="year-authors-or-editors-are-presented"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$year"/>
+                            <!--valid-if--><xsl:variable name="var">
+                                <xsl:if test="$authorsCount&gt;0 or $editorsCount&gt;0">
+                                    <xsl:copy-of select="$var"/>
+                                </xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="year-authors-or-editors-are-not-presented"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$year"/>
+                            <!--valid-if--><xsl:variable name="var">
+                                <xsl:if test="$authorsCount=0 and $editorsCount=0">
+                                    <xsl:copy-of select="$var"/>
+                                </xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="year-and-month-name"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                            <xsl:variable name="var">
+                                <xsl:call-template name="applyDelimiter">
+                                    <xsl:with-param name="les">
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                <!--valid-if--><xsl:variable name="var">
+                                                    <xsl:if test="pub:publication/dcterms:issued">
+                                                        <xsl:variable name="var">
+                                                            <xsl:call-template name="applyDelimiter">
+                                                                <xsl:with-param name="les">
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="func:get_year(pub:publication/dcterms:issued/text())"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                    <le>
+                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="func:get_month_name(pub:publication/dcterms:issued/text())"/>
+                                                                            <xsl:copy-of select="$var"/>
+                                                                        </xsl:variable>
+                                                                        <xsl:copy-of select="$var"/>
+                                                                    </le>
+                                                                </xsl:with-param>
+                                                                <xsl:with-param name="delimiter" select="', '"/>
+                                                            </xsl:call-template>
+                                                        </xsl:variable>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:if>
+                                                </xsl:variable>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
+                                                <!--valid-if--><xsl:variable name="var">
+                                                    <xsl:if test="not(pub:publication/dcterms:issued)">
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:if>
+                                                </xsl:variable>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                    </xsl:with-param>
+                                    <xsl:with-param name="delimiter" select="' '"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>(</xsl:text>
+                                </xsl:if>
+                                <xsl:copy-of select="$var"/>
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>).</xsl:text>
+                                </xsl:if>
+                            </xsl:variable>
+                            <!--font-style--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="year-and-month-authors-are-presented"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$year-and-month-name"/>
+                            <!--valid-if--><xsl:variable name="var">
+                                <xsl:if test="$authorsCount&gt;0">
+                                    <xsl:copy-of select="$var"/>
+                                </xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="year-and-month-authors-are-not-presented"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$year-and-month-name"/>
+                            <!--valid-if--><xsl:variable name="var">
+                                <xsl:if test="$authorsCount=0">
+                                    <xsl:copy-of select="$var"/>
+                                </xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="year-editors-are-presented"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$year"/>
+                            <!--valid-if--><xsl:variable name="var">
+                                <xsl:if test="$editorsCount&gt;0">
+                                    <xsl:copy-of select="$var"/>
+                                </xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="year-editors-are-not-presented"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$year"/>
+                            <!--valid-if--><xsl:variable name="var">
+                                <xsl:if test="$editorsCount=0">
+                                    <xsl:copy-of select="$var"/>
+                                </xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="title-with-dot"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="func:escapeMarkupTags(pub:publication/dc:title/text())"/>
+                            <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text> </xsl:text>
+                                </xsl:if>
+                                <xsl:copy-of select="$var"/>
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>.</xsl:text>
+                                </xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="title-italic"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="func:escapeMarkupTags(pub:publication/dc:title/text())"/>
+                            <!--font-style--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="title-with-dot-italic"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$title-italic"/>
+                            <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text> </xsl:text>
+                                </xsl:if>
+                                <xsl:copy-of select="$var"/>
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>.</xsl:text>
+                                </xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="start-page-end-page"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                            <xsl:variable name="var">
+                                <xsl:call-template name="applyDelimiter">
+                                    <xsl:with-param name="les">
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/eterms:start-page/text()"/>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/eterms:end-page/text()"/>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                    </xsl:with-param>
+                                    <xsl:with-param name="delimiter" select="'-'"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="source-edition-start-page-end-page"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                            <xsl:variable name="var">
+                                <xsl:call-template name="applyDelimiter">
+                                    <xsl:with-param name="les">
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                              select="pub:publication/source:source[1]/eterms:publishing-info/eterms:edition/text()"/>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$start-page-end-page"/>
+                                                <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                                    <xsl:if test="exists($var) and $var!=''">
+                                                        <xsl:text>pp. </xsl:text>
+                                                    </xsl:if>
+                                                    <xsl:copy-of select="$var"/>
+                                                </xsl:variable>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                    </xsl:with-param>
+                                    <xsl:with-param name="delimiter" select="', '"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>(</xsl:text>
+                                </xsl:if>
+                                <xsl:copy-of select="$var"/>
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text>)</xsl:text>
+                                </xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="volume-issue"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                            <xsl:variable name="var">
+                                <xsl:call-template name="applyDelimiter">
+                                    <xsl:with-param name="les">
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/eterms:volume/text()"/>
+                                                <!--font-style--><xsl:variable name="var">
+                                                    <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                                </xsl:variable>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/eterms:issue/text()"/>
+                                                <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                                    <xsl:if test="exists($var) and $var!=''">
+                                                        <xsl:text>(</xsl:text>
+                                                    </xsl:if>
+                                                    <xsl:copy-of select="$var"/>
+                                                    <xsl:if test="exists($var) and $var!=''">
+                                                        <xsl:text>)</xsl:text>
+                                                    </xsl:if>
+                                                </xsl:variable>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                    </xsl:with-param>
+                                    <xsl:with-param name="delimiter" select="''"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="source-title"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                          select="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())"/>
+                            <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text> </xsl:text>
+                                </xsl:if>
+                                <xsl:copy-of select="$var"/>
+                            </xsl:variable>
+                            <!--font-style--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <xsl:variable name="place-publisher"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                            <xsl:variable name="var">
+                                <xsl:call-template name="applyDelimiter">
+                                    <xsl:with-param name="les">
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/eterms:publishing-info/eterms:place/text()"/>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                        <le>
+                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/eterms:publishing-info/dc:publisher/text()"/>
+                                                <xsl:copy-of select="$var"/>
+                                            </xsl:variable>
+                                            <xsl:copy-of select="$var"/>
+                                        </le>
+                                    </xsl:with-param>
+                                    <xsl:with-param name="delimiter" select="': '"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <!--
+				start-with/ends-with
+			--><xsl:variable name="var">
+                                <xsl:if test="exists($var) and $var!=''">
+                                    <xsl:text> </xsl:text>
+                                </xsl:if>
+                                <xsl:copy-of select="$var"/>
+                            </xsl:variable>
+                            <xsl:copy-of select="$var"/>
+                        </xsl:variable>
+                        <!--### APA(CJK) specific Default Layout Elements ###-->
+	<!--### Predefined Layout Elements ###-->
+	<xsl:variable name="editors-base"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                             <xsl:variable name="var">
                                 <xsl:call-template name="applyDelimiter">
@@ -555,45 +998,6 @@
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
-                        <xsl:variable name="source-ed-postfix-i18n"><!--### Plain Layout Element ###-->
-	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
-                            <xsl:variable name="var">
-                                <xsl:call-template name="applyDelimiter">
-                                    <xsl:with-param name="les">
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$source-ed-postfix"/>
-                                                <!--valid-if--><xsl:variable name="var">
-                                                    <xsl:if test="$sourceEditorsCount=1"><!--i18n--><xsl:variable name="var">
-                                                            <xsl:if test="exists($var) and $var!=''">&lt;localized class="editor"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
-                                                        </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
-                                                    </xsl:if>
-                                                </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$source-ed-postfix"/>
-                                                <!--valid-if--><xsl:variable name="var">
-                                                    <xsl:if test="$sourceEditorsCount&gt;1"><!--i18n--><xsl:variable name="var">
-                                                            <xsl:if test="exists($var) and $var!=''">&lt;localized class="editors"&gt;<xsl:copy-of select="$var"/>&lt;/localized&gt;</xsl:if>
-                                                        </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
-                                                    </xsl:if>
-                                                </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                    </xsl:with-param>
-                                    <xsl:with-param name="delimiter" select="' '"/>
-                                </xsl:call-template>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
                         <xsl:variable name="source-editors"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                             <!--valid-if--><xsl:variable name="var">
@@ -691,848 +1095,6 @@
                                     </xsl:variable>
                                     <xsl:copy-of select="$var"/>
                                 </xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="year"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
-                            <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text>(</xsl:text>
-                                </xsl:if>
-                                <xsl:copy-of select="$var"/>
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text>).</xsl:text>
-                                </xsl:if>
-                            </xsl:variable>
-                            <!--font-style--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                css-class="Default"/>
-                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="Arial14"/>
-                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="Blue"/>
-                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                css-class="Bold"/>
-                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="Italic"/>
-                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="true"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="UnderlineItalic"/>
-                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="true"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="BoldItalic"/>
-                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
-                                                fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="DisplayDateStatus"/>
-                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="year-for-thesis"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$date-for-thesis"/>
-                            <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text>(</xsl:text>
-                                </xsl:if>
-                                <xsl:copy-of select="$var"/>
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text>).</xsl:text>
-                                </xsl:if>
-                            </xsl:variable>
-                            <!--font-style--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                css-class="Default"/>
-                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="Arial14"/>
-                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="Blue"/>
-                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                css-class="Bold"/>
-                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="Italic"/>
-                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="true"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="UnderlineItalic"/>
-                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="true"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="BoldItalic"/>
-                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
-                                                fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="DisplayDateStatus"/>
-                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="year-with-event-start-date"><!--### Plain Layout Element ###-->
-	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
-                            <xsl:variable name="var">
-                                <xsl:call-template name="applyDelimiter">
-                                    <xsl:with-param name="les">
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$start-date-or-date"/>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                    </xsl:with-param>
-                                    <xsl:with-param name="delimiter" select="' '"/>
-                                </xsl:call-template>
-                            </xsl:variable>
-                            <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text>(</xsl:text>
-                                </xsl:if>
-                                <xsl:copy-of select="$var"/>
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text>).</xsl:text>
-                                </xsl:if>
-                            </xsl:variable>
-                            <!--font-style--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                css-class="Default"/>
-                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="Arial14"/>
-                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="Blue"/>
-                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                css-class="Bold"/>
-                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="Italic"/>
-                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="true"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="UnderlineItalic"/>
-                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="true"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="BoldItalic"/>
-                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
-                                                fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="DisplayDateStatus"/>
-                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="published-online-and-external-locator"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$published-online-and-external-locator"/>
-                            <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text> </xsl:text>
-                                </xsl:if>
-                                <xsl:copy-of select="$var"/>
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text>.</xsl:text>
-                                </xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="year-authors-or-editors-are-presented"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$year"/>
-                            <!--valid-if--><xsl:variable name="var">
-                                <xsl:if test="$authorsCount&gt;0 or $editorsCount&gt;0">
-                                    <xsl:copy-of select="$var"/>
-                                </xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="year-authors-or-editors-are-not-presented"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$year"/>
-                            <!--valid-if--><xsl:variable name="var">
-                                <xsl:if test="$authorsCount=0 and $editorsCount=0">
-                                    <xsl:copy-of select="$var"/>
-                                </xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="year-and-month-name"><!--### Plain Layout Element ###-->
-	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
-                            <xsl:variable name="var">
-                                <xsl:call-template name="applyDelimiter">
-                                    <xsl:with-param name="les">
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
-                                                <!--valid-if--><xsl:variable name="var">
-                                                    <xsl:if test="pub:publication/dcterms:issued">
-                                                        <xsl:variable name="var">
-                                                            <xsl:call-template name="applyDelimiter">
-                                                                <xsl:with-param name="les">
-                                                                    <le>
-                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="func:get_year(pub:publication/dcterms:issued/text())"/>
-                                                                            <xsl:copy-of select="$var"/>
-                                                                        </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
-                                                                    </le>
-                                                                    <le>
-                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="func:get_month_name(pub:publication/dcterms:issued/text())"/>
-                                                                            <xsl:copy-of select="$var"/>
-                                                                        </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
-                                                                    </le>
-                                                                </xsl:with-param>
-                                                                <xsl:with-param name="delimiter" select="', '"/>
-                                                            </xsl:call-template>
-                                                        </xsl:variable>
-                                                        <xsl:copy-of select="$var"/>
-                                                    </xsl:if>
-                                                </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
-                                                <!--valid-if--><xsl:variable name="var">
-                                                    <xsl:if test="not(pub:publication/dcterms:issued)">
-                                                        <xsl:copy-of select="$var"/>
-                                                    </xsl:if>
-                                                </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                    </xsl:with-param>
-                                    <xsl:with-param name="delimiter" select="' '"/>
-                                </xsl:call-template>
-                            </xsl:variable>
-                            <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text>(</xsl:text>
-                                </xsl:if>
-                                <xsl:copy-of select="$var"/>
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text>).</xsl:text>
-                                </xsl:if>
-                            </xsl:variable>
-                            <!--font-style--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                css-class="Default"/>
-                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="Arial14"/>
-                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="Blue"/>
-                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                css-class="Bold"/>
-                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="Italic"/>
-                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="true"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="UnderlineItalic"/>
-                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="true"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="BoldItalic"/>
-                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
-                                                fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="DisplayDateStatus"/>
-                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="year-and-month-authors-are-presented"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$year-and-month-name"/>
-                            <!--valid-if--><xsl:variable name="var">
-                                <xsl:if test="$authorsCount&gt;0">
-                                    <xsl:copy-of select="$var"/>
-                                </xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="year-and-month-authors-are-not-presented"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$year-and-month-name"/>
-                            <!--valid-if--><xsl:variable name="var">
-                                <xsl:if test="$authorsCount=0">
-                                    <xsl:copy-of select="$var"/>
-                                </xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="year-editors-are-presented"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$year"/>
-                            <!--valid-if--><xsl:variable name="var">
-                                <xsl:if test="$editorsCount&gt;0">
-                                    <xsl:copy-of select="$var"/>
-                                </xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="year-editors-are-not-presented"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$year"/>
-                            <!--valid-if--><xsl:variable name="var">
-                                <xsl:if test="$editorsCount=0">
-                                    <xsl:copy-of select="$var"/>
-                                </xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="title-with-dot"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/dc:title/text()"/>
-                            <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text> </xsl:text>
-                                </xsl:if>
-                                <xsl:copy-of select="$var"/>
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text>.</xsl:text>
-                                </xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="title-italic"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/dc:title/text()"/>
-                            <!--font-style--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                css-class="Default"/>
-                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="Arial14"/>
-                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="Blue"/>
-                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                css-class="Bold"/>
-                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="Italic"/>
-                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="true"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="UnderlineItalic"/>
-                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="true"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="BoldItalic"/>
-                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
-                                                fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="DisplayDateStatus"/>
-                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="title-with-dot-italic"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$title-italic"/>
-                            <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text> </xsl:text>
-                                </xsl:if>
-                                <xsl:copy-of select="$var"/>
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text>.</xsl:text>
-                                </xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="start-page-end-page"><!--### Plain Layout Element ###-->
-	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
-                            <xsl:variable name="var">
-                                <xsl:call-template name="applyDelimiter">
-                                    <xsl:with-param name="les">
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/eterms:start-page/text()"/>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/eterms:end-page/text()"/>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                    </xsl:with-param>
-                                    <xsl:with-param name="delimiter" select="'-'"/>
-                                </xsl:call-template>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="source-edition-start-page-end-page"><!--### Plain Layout Element ###-->
-	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
-                            <xsl:variable name="var">
-                                <xsl:call-template name="applyDelimiter">
-                                    <xsl:with-param name="les">
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var"
-                                                              select="pub:publication/source:source[1]/eterms:publishing-info/eterms:edition/text()"/>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$start-page-end-page"/>
-                                                <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                                    <xsl:if test="exists($var) and $var!=''">
-                                                        <xsl:text>pp. </xsl:text>
-                                                    </xsl:if>
-                                                    <xsl:copy-of select="$var"/>
-                                                </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                    </xsl:with-param>
-                                    <xsl:with-param name="delimiter" select="', '"/>
-                                </xsl:call-template>
-                            </xsl:variable>
-                            <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text>(</xsl:text>
-                                </xsl:if>
-                                <xsl:copy-of select="$var"/>
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text>)</xsl:text>
-                                </xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="volume-issue"><!--### Plain Layout Element ###-->
-	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
-                            <xsl:variable name="var">
-                                <xsl:call-template name="applyDelimiter">
-                                    <xsl:with-param name="les">
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/eterms:volume/text()"/>
-                                                <!--font-style--><xsl:variable name="var">
-                                                    <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
-                                                                    back-color="white"
-                                                                    is-bold="false"
-                                                                    is-italic="false"
-                                                                    pdf-font-name="Cyberbit.ttf"
-                                                                    is-underline="false"
-                                                                    is-strike-through="false"
-                                                                    is-pdf-simulated-bold="true"
-                                                                    css-class="Default"/>
-                                                        <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
-                                                                    back-color="white"
-                                                                    is-bold="false"
-                                                                    is-italic="false"
-                                                                    pdf-font-name="Cyberbit.ttf"
-                                                                    is-underline="false"
-                                                                    is-strike-through="false"
-                                                                    css-class="Arial14"/>
-                                                        <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
-                                                                    back-color="white"
-                                                                    is-bold="false"
-                                                                    is-italic="false"
-                                                                    pdf-font-name="Cyberbit.ttf"
-                                                                    is-underline="false"
-                                                                    is-strike-through="false"
-                                                                    css-class="Blue"/>
-                                                        <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
-                                                                    is-italic="false"
-                                                                    pdf-font-name="Cyberbit.ttf"
-                                                                    is-underline="false"
-                                                                    is-strike-through="false"
-                                                                    is-pdf-simulated-bold="true"
-                                                                    css-class="Bold"/>
-                                                        <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                                    is-italic="true"
-                                                                    pdf-font-name="Cyberbit.ttf"
-                                                                    is-underline="false"
-                                                                    is-strike-through="false"
-                                                                    is-pdf-simulated-italic="true"
-                                                                    css-class="Italic"/>
-                                                        <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                                    is-italic="true"
-                                                                    pdf-font-name="Cyberbit.ttf"
-                                                                    is-underline="true"
-                                                                    is-strike-through="false"
-                                                                    is-pdf-simulated-italic="true"
-                                                                    css-class="UnderlineItalic"/>
-                                                        <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
-                                                                    is-italic="true"
-                                                                    pdf-font-name="Cyberbit.ttf"
-                                                                    is-underline="true"
-                                                                    is-strike-through="false"
-                                                                    is-pdf-simulated-bold="true"
-                                                                    is-pdf-simulated-italic="true"
-                                                                    css-class="BoldItalic"/>
-                                                        <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
-                                                                    fore-color="black"
-                                                                    back-color="white"
-                                                                    is-bold="false"
-                                                                    is-italic="false"
-                                                                    pdf-font-name="Cyberbit.ttf"
-                                                                    is-underline="false"
-                                                                    is-strike-through="false"
-                                                                    css-class="DisplayDateStatus"/>
-                                                        <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
-                                                </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/eterms:issue/text()"/>
-                                                <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                                    <xsl:if test="exists($var) and $var!=''">
-                                                        <xsl:text>(</xsl:text>
-                                                    </xsl:if>
-                                                    <xsl:copy-of select="$var"/>
-                                                    <xsl:if test="exists($var) and $var!=''">
-                                                        <xsl:text>)</xsl:text>
-                                                    </xsl:if>
-                                                </xsl:variable>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                    </xsl:with-param>
-                                    <xsl:with-param name="delimiter" select="''"/>
-                                </xsl:call-template>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="source-title"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/dc:title/text()"/>
-                            <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text> </xsl:text>
-                                </xsl:if>
-                                <xsl:copy-of select="$var"/>
-                            </xsl:variable>
-                            <!--font-style--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                css-class="Default"/>
-                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="Arial14"/>
-                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="Blue"/>
-                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                css-class="Bold"/>
-                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="Italic"/>
-                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="true"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="UnderlineItalic"/>
-                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="true"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="BoldItalic"/>
-                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
-                                                fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="DisplayDateStatus"/>
-                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
-                            </xsl:variable>
-                            <xsl:copy-of select="$var"/>
-                        </xsl:variable>
-                        <xsl:variable name="place-publisher"><!--### Plain Layout Element ###-->
-	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
-                            <xsl:variable name="var">
-                                <xsl:call-template name="applyDelimiter">
-                                    <xsl:with-param name="les">
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/eterms:publishing-info/eterms:place/text()"/>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                        <le>
-                                            <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/eterms:publishing-info/dc:publisher/text()"/>
-                                                <xsl:copy-of select="$var"/>
-                                            </xsl:variable>
-                                            <xsl:copy-of select="$var"/>
-                                        </le>
-                                    </xsl:with-param>
-                                    <xsl:with-param name="delimiter" select="': '"/>
-                                </xsl:call-template>
-                            </xsl:variable>
-                            <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">
-                                    <xsl:text> </xsl:text>
-                                </xsl:if>
-                                <xsl:copy-of select="$var"/>
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
@@ -1780,70 +1342,7 @@
                                 <xsl:copy-of select="$var"/>
                             </xsl:variable>
                             <!--font-style--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Blue"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                css-class="Default"/>
-                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="Arial14"/>
-                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="Blue"/>
-                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                css-class="Bold"/>
-                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="Italic"/>
-                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="true"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="UnderlineItalic"/>
-                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
-                                                is-italic="true"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="true"
-                                                is-strike-through="false"
-                                                is-pdf-simulated-bold="true"
-                                                is-pdf-simulated-italic="true"
-                                                css-class="BoldItalic"/>
-                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
-                                                fore-color="black"
-                                                back-color="white"
-                                                is-bold="false"
-                                                is-italic="false"
-                                                pdf-font-name="Cyberbit.ttf"
-                                                is-underline="false"
-                                                is-strike-through="false"
-                                                css-class="DisplayDateStatus"/>
-                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Blue"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
@@ -2024,70 +1523,7 @@
                                                                                                             <xsl:copy-of select="$var"/>
                                                                                                         </xsl:variable>
                                                                                                         <!--font-style--><xsl:variable name="var">
-                                                                                                            <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
-                                                                                                                            back-color="white"
-                                                                                                                            is-bold="false"
-                                                                                                                            is-italic="false"
-                                                                                                                            pdf-font-name="Cyberbit.ttf"
-                                                                                                                            is-underline="false"
-                                                                                                                            is-strike-through="false"
-                                                                                                                            is-pdf-simulated-bold="true"
-                                                                                                                            css-class="Default"/>
-                                                                                                                <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
-                                                                                                                            back-color="white"
-                                                                                                                            is-bold="false"
-                                                                                                                            is-italic="false"
-                                                                                                                            pdf-font-name="Cyberbit.ttf"
-                                                                                                                            is-underline="false"
-                                                                                                                            is-strike-through="false"
-                                                                                                                            css-class="Arial14"/>
-                                                                                                                <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
-                                                                                                                            back-color="white"
-                                                                                                                            is-bold="false"
-                                                                                                                            is-italic="false"
-                                                                                                                            pdf-font-name="Cyberbit.ttf"
-                                                                                                                            is-underline="false"
-                                                                                                                            is-strike-through="false"
-                                                                                                                            css-class="Blue"/>
-                                                                                                                <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
-                                                                                                                            is-italic="false"
-                                                                                                                            pdf-font-name="Cyberbit.ttf"
-                                                                                                                            is-underline="false"
-                                                                                                                            is-strike-through="false"
-                                                                                                                            is-pdf-simulated-bold="true"
-                                                                                                                            css-class="Bold"/>
-                                                                                                                <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                                                                                            is-italic="true"
-                                                                                                                            pdf-font-name="Cyberbit.ttf"
-                                                                                                                            is-underline="false"
-                                                                                                                            is-strike-through="false"
-                                                                                                                            is-pdf-simulated-italic="true"
-                                                                                                                            css-class="Italic"/>
-                                                                                                                <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                                                                                            is-italic="true"
-                                                                                                                            pdf-font-name="Cyberbit.ttf"
-                                                                                                                            is-underline="true"
-                                                                                                                            is-strike-through="false"
-                                                                                                                            is-pdf-simulated-italic="true"
-                                                                                                                            css-class="UnderlineItalic"/>
-                                                                                                                <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
-                                                                                                                            is-italic="true"
-                                                                                                                            pdf-font-name="Cyberbit.ttf"
-                                                                                                                            is-underline="true"
-                                                                                                                            is-strike-through="false"
-                                                                                                                            is-pdf-simulated-bold="true"
-                                                                                                                            is-pdf-simulated-italic="true"
-                                                                                                                            css-class="BoldItalic"/>
-                                                                                                                <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
-                                                                                                                            fore-color="black"
-                                                                                                                            back-color="white"
-                                                                                                                            is-bold="false"
-                                                                                                                            is-italic="false"
-                                                                                                                            pdf-font-name="Cyberbit.ttf"
-                                                                                                                            is-underline="false"
-                                                                                                                            is-strike-through="false"
-                                                                                                                            css-class="DisplayDateStatus"/>
-                                                                                                                <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                                                                                            <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                                                                                                         </xsl:variable>
                                                                                                         <xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
@@ -2441,70 +1877,7 @@
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/dc:title/text()"/>
                                                                             <!--font-style--><xsl:variable name="var">
-                                                                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
-                                                                                                back-color="white"
-                                                                                                is-bold="false"
-                                                                                                is-italic="false"
-                                                                                                pdf-font-name="Cyberbit.ttf"
-                                                                                                is-underline="false"
-                                                                                                is-strike-through="false"
-                                                                                                is-pdf-simulated-bold="true"
-                                                                                                css-class="Default"/>
-                                                                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
-                                                                                                back-color="white"
-                                                                                                is-bold="false"
-                                                                                                is-italic="false"
-                                                                                                pdf-font-name="Cyberbit.ttf"
-                                                                                                is-underline="false"
-                                                                                                is-strike-through="false"
-                                                                                                css-class="Arial14"/>
-                                                                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
-                                                                                                back-color="white"
-                                                                                                is-bold="false"
-                                                                                                is-italic="false"
-                                                                                                pdf-font-name="Cyberbit.ttf"
-                                                                                                is-underline="false"
-                                                                                                is-strike-through="false"
-                                                                                                css-class="Blue"/>
-                                                                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
-                                                                                                is-italic="false"
-                                                                                                pdf-font-name="Cyberbit.ttf"
-                                                                                                is-underline="false"
-                                                                                                is-strike-through="false"
-                                                                                                is-pdf-simulated-bold="true"
-                                                                                                css-class="Bold"/>
-                                                                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                                                                is-italic="true"
-                                                                                                pdf-font-name="Cyberbit.ttf"
-                                                                                                is-underline="false"
-                                                                                                is-strike-through="false"
-                                                                                                is-pdf-simulated-italic="true"
-                                                                                                css-class="Italic"/>
-                                                                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
-                                                                                                is-italic="true"
-                                                                                                pdf-font-name="Cyberbit.ttf"
-                                                                                                is-underline="true"
-                                                                                                is-strike-through="false"
-                                                                                                is-pdf-simulated-italic="true"
-                                                                                                css-class="UnderlineItalic"/>
-                                                                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
-                                                                                                is-italic="true"
-                                                                                                pdf-font-name="Cyberbit.ttf"
-                                                                                                is-underline="true"
-                                                                                                is-strike-through="false"
-                                                                                                is-pdf-simulated-bold="true"
-                                                                                                is-pdf-simulated-italic="true"
-                                                                                                css-class="BoldItalic"/>
-                                                                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
-                                                                                                fore-color="black"
-                                                                                                back-color="white"
-                                                                                                is-bold="false"
-                                                                                                is-italic="false"
-                                                                                                pdf-font-name="Cyberbit.ttf"
-                                                                                                is-underline="false"
-                                                                                                is-strike-through="false"
-                                                                                                css-class="DisplayDateStatus"/>
-                                                                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                                                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                                                                             </xsl:variable>
                                                                             <xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
@@ -3240,6 +2613,11 @@
 		
 		      <xsl:value-of select="    if ( jfunc:isCJK(concat($fname, $gname) ) )     then string-join( ($fname, $gname), $delim )    else string-join( (func:get_initials($gname), $fname), $delim )   "/>
 		
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:escapeMarkupTags">
+		      <xsl:param name="str"/>
+		      <xsl:value-of select="jfunc:escapeMarkupTags($str)"/>
 	   </xsl:function>
     <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:cleanCitation">
