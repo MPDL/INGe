@@ -203,6 +203,18 @@
 	
 	<!-- ##### PREDEFINED LAYOUT ELEMENTS ##### -->
 	<xsl:template name="createPredefinedLayoutElements">
+	
+		<!-- load global default layout elements -->	
+		<xsl:if test="@include-global-layout-elements='yes'">
+			<xsl:call-template name="insertGlobalLayoutElements"/>
+		</xsl:if>
+		<!-- load local default layout elements -->	
+		<xsl:if test="@include-default-layout-elements='yes'">
+			<xsl:call-template name="insertDefaultLayoutElements"/>
+		</xsl:if>	
+	
+	
+	
 		<xsl:if test="count (/cit:citation-style/cit:predefined-layout-elements/cit:layout-element)>0">
 			<xsl:comment>### Predefined Layout Elements ###</xsl:comment>
 			<xsl:text>
@@ -218,6 +230,10 @@
 	</xsl:text>
 		</xsl:if>
 	</xsl:template>
+	
+	
+	
+	
 	
 	<!-- ##### CITATION STYLE LAYOUT DEFINITIONS ##### -->
 	<xsl:template name="createCitationStyleLayoutDefinitions">
@@ -902,12 +918,17 @@
 		<xsl:copy-of select="document('cs-processing-xslt-includes.xml')/xsl:includes/*"/>	
 	</xsl:template>
 
+
+
+
 	<xsl:template name="insertGlobalDefaultVariables">
 		<xsl:comment>### Global Default Variables ###</xsl:comment>
 		<xsl:text>
 	</xsl:text>
-		<xsl:copy-of select="func:generateVariables(document('variables.xml')/cit:variables/*)"/>	
+	
+		<xsl:copy-of select="func:generateVariables(document('variables.xml')/cit:variables/*)"/>
 	</xsl:template>
+
 
 	<xsl:template name="insertDefaultVariables">
 		<xsl:variable name="csv" select="document(concat(@name, '/variables.xml'))"/>
@@ -927,6 +948,61 @@
 		<xsl:text>
 	</xsl:text>
 			<xsl:copy-of select="func:generateVariables($csv/cit:variables/*)"/>	
+		</xsl:if>
+	</xsl:template>
+	
+	
+	
+	<xsl:template name="insertGlobalLayoutElements">
+	
+		<xsl:variable name="gle" select="document('layout-elements.xml')/cit:predefined-layout-elements/*"/>
+		<xsl:if test="count ($gle)>0">
+			<xsl:comment>### Global Predefined Layout Elements ###</xsl:comment>
+			<xsl:text>
+	</xsl:text>
+			<xsl:for-each select="$gle">
+				<xsl:call-template name="createLayoutElement">
+					<xsl:with-param name="le" select="." />
+				</xsl:call-template>
+			</xsl:for-each>
+			<xsl:comment>### End of Predefined Layout Elements ###</xsl:comment>
+			<xsl:text>
+	</xsl:text>
+		</xsl:if>	
+	</xsl:template>
+	
+
+	<xsl:template name="insertDefaultLayoutElements">
+		<xsl:variable name="dle" select="document(concat(@name, '/layout-elements.xml'))"/>
+		<xsl:if test="exists ($dle)">
+			<xsl:variable name="dle_ref" select="$dle/cit:predefined-layout-elements/@ref" /> 
+			<!-- if predefined-layout-elements/@ref is defined, add predefined-layout-elements from other citation style -->
+			<xsl:if test="exists ($dle_ref)">
+				<xsl:variable name="dle_ref_inc" select="document(concat($dle_ref, '/layout-elements.xml'))/cit:predefined-layout-elements/*"/>
+				<xsl:if test="exists ($dle_ref_inc)">
+		<xsl:comment>### <xsl:value-of select="@name"/> specific Default Layout Elements, included from <xsl:value-of select="$dle_ref"/> Citation Style ###</xsl:comment>
+		<xsl:text>
+	</xsl:text>
+			<xsl:for-each select="$dle_ref_inc">
+				<xsl:call-template name="createLayoutElement">
+					<xsl:with-param name="le" select="." />
+				</xsl:call-template>
+			</xsl:for-each>
+	
+				</xsl:if>
+			</xsl:if>
+			
+		<xsl:comment>### <xsl:value-of select="@name"/> specific Default Layout Elements ###</xsl:comment>
+		<xsl:text>
+	</xsl:text>
+			
+			<xsl:for-each select="$dle/cit:predefined-layout-elements/*">
+				<xsl:call-template name="createLayoutElement">
+					<xsl:with-param name="le" select="." />
+				</xsl:call-template>
+			</xsl:for-each>
+			
+				
 		</xsl:if>
 	</xsl:template>
 

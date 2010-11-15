@@ -18,11 +18,10 @@
 		Use is subject to license terms.
 	-->
 <!--
-	APA CJK version 
-	Specifications: http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA
-	CJK Version	
+	APA  max 6 Authors/Editors version
+	Specifications: http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA	
 -->
-<citation-style name="APA(CJK)" 
+<citation-style name="APA" 
 	xmlns="http://www.escidoc.de/citationstyle"  
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd"
@@ -33,39 +32,68 @@
 	citation-placeholder-tag="dcterms:bibliographicCitation"
 	include-global-default-variables="yes"
 	include-default-variables="yes"
+	include-global-layout-elements="no"
+	include-default-layout-elements="yes"
 	>  
-	<!-- special variables to be used in expressions for short notations. 
-		taken from global and default vars.  
-	-->
-	
 
 	<!-- predefined layout elements which can be referenced in CSLDs -->
 	<predefined-layout-elements>
 
-		<!-- editors -->   
-		
+		<!-- editors -->
+		   
 		<layout-element name="editors-base">
 			<parameters>  
+				<valid-if><![CDATA[$editorsCount>0]]></valid-if> 
 				<delimiter value="" />
 			</parameters> 
 			<elements>
-				<layout-element name="editors-base-impl"
+				<layout-element name="editors-Equal1"
+					ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
+					<parameters>
+						<valid-if><![CDATA[$editorsCount=1]]></valid-if>
+						<delimiter value=", " />
+						<internal-delimiter value=", " />
+					</parameters>
+					<elements>
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="person:person/eterms:family-name/text()" />
+						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+					</elements>
+				</layout-element>
+		
+				<layout-element name="editors-MoreThan1LessOrEqual6"
 					ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
 					<parameters position="last">
 						<delimiter value=", &amp;amp; " />
 						<internal-delimiter value=", " />
 					</parameters>
 					<parameters>
+						<valid-if><![CDATA[$editorsCount>1 and $editorsCount<=6]]></valid-if>
 						<delimiter value=", " />
 						<internal-delimiter value=", " />
 					</parameters>
 					<elements>
 						<layout-element ref="organization:organization/dc:title/text()" />
-						<layout-element ref="func:fname_initials(person:person/eterms:family-name/text(), person:person/eterms:given-name/text(), ', ')" />
+						<layout-element ref="person:person/eterms:family-name/text()" />
+						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
 					</elements>
 				</layout-element>
 		
-				
+				<layout-element name="editors-MoreThan6"
+					ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
+					<parameters>
+						<valid-if><![CDATA[$editorsCount>6]]></valid-if>
+						<delimiter value=", " />
+						<internal-delimiter value=", " />
+						<ends-with value=", et al." />
+						<max-count value="6" />
+					</parameters>
+					<elements>
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="person:person/eterms:family-name/text()" />
+						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+					</elements>
+				</layout-element>
 			</elements>
 		</layout-element>
 
@@ -94,7 +122,61 @@
 				<ends-with value=")"/>
 			</parameters>
 			<elements>
-				<layout-element ref="$editors-base" />
+				<!-- for the case initials before the name no "," in the internal delimiter -->
+				<layout-element>
+					<parameters>  
+						<valid-if><![CDATA[$editorsCount>0]]></valid-if> 
+						<delimiter value="" />
+					</parameters> 
+					<elements>
+						<layout-element name="editors-Equal1"
+							ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
+							<parameters>
+								<valid-if><![CDATA[$editorsCount=1]]></valid-if>
+								<delimiter value=", " />
+								<internal-delimiter value=" " />
+							</parameters>
+							<elements>
+								<layout-element ref="organization:organization/dc:title/text()" />
+								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+								<layout-element ref="person:person/eterms:family-name/text()" />
+							</elements>
+						</layout-element>
+				
+						<layout-element name="editors-MoreThan1LessOrEqual6"
+							ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
+							<parameters position="last">
+								<delimiter value=", &amp;amp; " />
+								<internal-delimiter value=" " />
+							</parameters>
+							<parameters>
+								<valid-if><![CDATA[$editorsCount>1 and $editorsCount<=6]]></valid-if>
+								<delimiter value=", " />
+								<internal-delimiter value=" " />
+							</parameters>
+							<elements>
+								<layout-element ref="organization:organization/dc:title/text()" />
+								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+								<layout-element ref="person:person/eterms:family-name/text()" />
+							</elements>
+						</layout-element>
+						<layout-element name="editors-MoreThan6"
+							ref="pub:publication/eterms:creator[@role=$l_editor]" repeatable="yes">
+							<parameters>
+								<valid-if><![CDATA[$editorsCount>6]]></valid-if>
+								<delimiter value=", " />
+								<internal-delimiter value=" " />
+								<ends-with value=", et al." />
+								<max-count value="6" />
+							</parameters>
+							<elements>
+								<layout-element ref="organization:organization/dc:title/text()" />
+								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+								<layout-element ref="person:person/eterms:family-name/text()" />
+							</elements>
+						</layout-element>
+					</elements>
+				</layout-element>
 				<layout-element ref="$ed-postfix-i18n" />
 			</elements>
 		</layout-element>
@@ -111,19 +193,51 @@
 						<valid-if><![CDATA[$authorsCount>0]]></valid-if>
 					</parameters>
 					<elements>
-						<layout-element name="authors-base"
+						<layout-element name="authors-Equal1"
+							ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
+							<parameters>
+								<valid-if><![CDATA[$authorsCount=1]]></valid-if>
+								<delimiter value=", " />
+								<internal-delimiter value=", " />
+							</parameters>
+							<elements>
+								<layout-element ref="organization:organization/dc:title/text()" />
+								<layout-element ref="person:person/eterms:family-name/text()" />
+								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+							</elements>
+						</layout-element>
+				
+						<layout-element name="authors-MoreThan1LessOrEqual6"
 							ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
 							<parameters position="last">
 								<delimiter value=", &amp;amp; " />
 								<internal-delimiter value=", " />
 							</parameters>
 							<parameters>
+								<valid-if><![CDATA[$authorsCount>1 and $authorsCount<=6]]></valid-if>
 								<delimiter value=", " />
 								<internal-delimiter value=", " />
 							</parameters>
 							<elements>
 								<layout-element ref="organization:organization/dc:title/text()" />
-								<layout-element ref="func:fname_initials(person:person/eterms:family-name/text(), person:person/eterms:given-name/text(), ', ')" />
+								<layout-element ref="person:person/eterms:family-name/text()" />
+								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+							</elements>
+						</layout-element>
+				
+						<layout-element name="authors-MoreThan6"
+							ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
+							<parameters>
+								<valid-if><![CDATA[$authorsCount>6]]></valid-if>
+								<delimiter value=", " />
+								<internal-delimiter value=", " />
+								<ends-with value=", et al." />
+								<max-count value="6" />
+							</parameters>
+							<elements>
+								<layout-element ref="organization:organization/dc:title/text()" />
+								<layout-element ref="person:person/eterms:family-name/text()" />
+								<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
 							</elements>
 						</layout-element>
 					</elements>
@@ -147,17 +261,46 @@
 				<delimiter value="" />
 			</parameters>
 			<elements>
-				<layout-element name="source-editors-MoreThan1"
+				<layout-element name="source-editors-Equal1"
+					ref="pub:publication/source:source[1]/eterms:creator[@role=$l_editor]" repeatable="yes">
+					<parameters>
+						<valid-if><![CDATA[$sourceEditorsCount=1]]></valid-if>
+					</parameters>
+					<elements>
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+						<layout-element ref="person:person/eterms:family-name/text()" />
+					</elements>
+				</layout-element>
+		
+				<layout-element name="source-editors-MoreThan1LessOrEqual6"
 					ref="pub:publication/source:source[1]/eterms:creator[@role=$l_editor]" repeatable="yes">
 					<parameters position="last">
 						<delimiter value=", &amp;amp; " />
 					</parameters>
 					<parameters>
+						<valid-if><![CDATA[$sourceEditorsCount>1 and $sourceEditorsCount<=6]]></valid-if>
 						<delimiter value=", " />
 					</parameters>
 					<elements>
 						<layout-element ref="organization:organization/dc:title/text()" />
-						<layout-element ref="func:initials_fname(person:person/eterms:given-name/text(), person:person/eterms:family-name/text(), ', ')" />
+						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+						<layout-element ref="person:person/eterms:family-name/text()" />
+					</elements>
+				</layout-element>
+		
+				<layout-element name="source-editors-MoreThan6"
+					ref="pub:publication/source:source[1]/eterms:creator[@role=$l_editor]" repeatable="yes">
+					<parameters>
+						<valid-if><![CDATA[$sourceEditorsCount>6]]></valid-if>
+						<delimiter value=", " />
+						<ends-with value=", et al." />
+						<max-count value="6" />
+					</parameters>
+					<elements>
+						<layout-element ref="organization:organization/dc:title/text()" />
+						<layout-element ref="func:get_initials(person:person/eterms:given-name/text())"/>
+						<layout-element ref="person:person/eterms:family-name/text()" />
 					</elements>
 				</layout-element>
 				<layout-element ref="$source-ed-postfix-i18n" >
@@ -169,6 +312,7 @@
 			</elements>
 		</layout-element>		
 		
+			
 
 		<!-- COMMONS -->
 		<layout-element name="authors-or-editors-and-year-and-title-with-dot">
@@ -506,7 +650,8 @@
 							<ends-with value=", " />
 						</parameters>
 					</layout-element>
-					<layout-element ref="pub:publication/source:source[1]/dc:title/text()">
+					
+					<layout-element ref="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())">
 						<parameters>
 							<font-style ref="ITALIC" />
 						</parameters>
@@ -546,7 +691,7 @@
 
 			<layout-element ref="$year-editors-are-presented" />
 
-			<layout-element ref="pub:publication/dc:title/text()">
+			<layout-element ref="func:escapeMarkupTags(pub:publication/dc:title/text())">
 				<parameters>
 					<starts-with value=" " />
 					<ends-with value=" [Special Issue]. " />
@@ -658,7 +803,7 @@
 					<ends-with value="." />
 				</parameters>
 				<elements>
-					<layout-element ref="pub:publication/event:event/dc:title/text()">
+					<layout-element ref="func:escapeMarkupTags(pub:publication/event:event/dc:title/text())">
 						<parameters>
 							<starts-with value="Talk presented at "/>
 						</parameters>
@@ -697,7 +842,7 @@
 
 			<layout-element ref="$authors-or-editors-and-year-and-title-with-dot" />
 
-			<layout-element ref="pub:publication/event:event/dc:title/text()">
+			<layout-element ref="func:escapeMarkupTags(pub:publication/event:event/dc:title/text())">
 				<parameters>
 					<starts-with value=" " />
 					<ends-with value="." />
@@ -751,7 +896,7 @@
 					<delimiter value=", " />
 				</parameters>
 				<elements>
-					<layout-element ref="pub:publication/event:event/dc:title/text()" />
+					<layout-element ref="func:escapeMarkupTags(pub:publication/event:event/dc:title/text())" />
 					<layout-element ref="pub:publication/event:event/eterms:place/text()" />
 				</elements>
 			</layout-element>
@@ -802,19 +947,6 @@
 		</elements>
 
 	</cs-layout-definition>
-
-
-	<!--	Test CSLD: -->
-<!--		<cs-layout-definition name="notMatched">-->
-<!--			<parameters>-->
-<!--		<valid-if><![CDATA[${hasPublication}.equals("true")]]></valid-if>-->
-<!--			</parameters>-->
-<!--			<elements>-->
-<!--				-->
-<!--				<layout-element ref="$debugBlock" />-->
-<!--			-->
-<!--			</elements>-->
-<!--		</cs-layout-definition>-->
 
 
 

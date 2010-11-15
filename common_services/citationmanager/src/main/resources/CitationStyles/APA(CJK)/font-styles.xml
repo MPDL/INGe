@@ -37,6 +37,7 @@
     pdf-font-name="Cyberbit.ttf"
     is-underline="false"
     is-strike-through="false"
+    is-pdf-simulated-bold="true"
     css-class="Default"
    />
 
@@ -74,6 +75,7 @@
     pdf-font-name="Cyberbit.ttf"
     is-underline="false"
     is-strike-through="false"
+    is-pdf-simulated-bold="true"
     css-class="Bold"
     />
 
@@ -85,6 +87,7 @@
     pdf-font-name="Cyberbit.ttf"
     is-underline="false"
     is-strike-through="false"
+    is-pdf-simulated-italic="true"
     css-class="Italic"
     />
 
@@ -96,6 +99,7 @@
     pdf-font-name="Cyberbit.ttf"
     is-underline="true"
     is-strike-through="false"
+    is-pdf-simulated-italic="true"
     css-class="UnderlineItalic"
     />
 
@@ -107,6 +111,8 @@
     pdf-font-name="Cyberbit.ttf"
     is-underline="true"
     is-strike-through="false"
+    is-pdf-simulated-bold="true"
+    is-pdf-simulated-italic="true"
     css-class="BoldItalic"
     />
     

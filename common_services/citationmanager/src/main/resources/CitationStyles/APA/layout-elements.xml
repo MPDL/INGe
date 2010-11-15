@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CDDL HEADER START The contents of this file are subject to the terms
+	of the Common Development and Distribution License, Version 1.0 only
+	(the "License"). You may not use this file except in compliance with
+	the License. You can obtain a copy of the license at
+	license/ESCIDOC.LICENSE or http://www.escidoc.de/license. See the
+	License for the specific language governing permissions and
+	limitations under the License. When distributing Covered Code, include
+	this CDDL HEADER in each file and include the License file at
+	license/ESCIDOC.LICENSE. If applicable, add the following below this
+	CDDL HEADER, with the fields enclosed by brackets "[]" replaced with
+	your own identifying information: Portions Copyright [yyyy] [name of
+	copyright owner] CDDL HEADER END Copyright 2006-2010
+	Fachinformationszentrum Karlsruhe Gesellschaft für
+	wissenschaftlich-technische Information mbH and Max-Planck-
+	Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved.
+	Use is subject to license terms.
+--> 
+<!--
+	APA default layout-elements, can be referenced in CitationStyle.xml
+	1) 	If predefined-layout-elements@ref is defined, all the layout-elements will be taken from the
+		layout-elements.xml of the referenced citation styles and appended with the layout elements of the current file.
+	2) 	Variables are referenced in @ref attributes should be defined in the <Citation Style>/variables.xml 
+		or in global variables.xml     
+	See http://colab.mpdl.mpg.de/mediawiki/CitationStyleConfigurationConcept
+	and https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager/src/main/resources/Schemas/citation-style.xsd
+	Author: Vlad Makarenko (initial creation) $Author$ (last changed)
+	$Revision$ $LastChangedDate$
+-->
+<predefined-layout-elements xmlns="http://www.escidoc.de/citationstyle">
+
+	<layout-element name="ed-postfix-i18n">
+		<elements>
+			<layout-element ref="$ed-postfix" >
+				<parameters>
+					<valid-if><![CDATA[$editorsCount=1]]></valid-if>
+					<i18n ref="editor"/>
+				</parameters>
+			</layout-element>
+			<layout-element ref="$ed-postfix" >
+				<parameters>
+					<valid-if><![CDATA[$editorsCount>1]]></valid-if>
+					<i18n ref="editors"/>
+				</parameters>
+			</layout-element>
+		</elements>
+	</layout-element>		
+
+	<layout-element name="source-ed-postfix-i18n">
+		<elements>
+			<layout-element ref="$source-ed-postfix" >
+				<parameters>
+					<valid-if><![CDATA[$sourceEditorsCount=1]]></valid-if>
+					<i18n ref="editor"/>
+				</parameters>
+			</layout-element>
+			<layout-element ref="$source-ed-postfix" >
+				<parameters>
+					<valid-if><![CDATA[$sourceEditorsCount>1]]></valid-if>
+					<i18n ref="editors"/>
+				</parameters>
+			</layout-element>
+		</elements>
+	</layout-element>		
+
+	<layout-element name="year" ref="$date">
+		<parameters>
+			<font-style ref="DISPLAY_DATE_STATUS" />
+			<starts-with value="(" />
+			<ends-with value=")." />
+		</parameters>
+	</layout-element>
+
+	<layout-element name="year-for-thesis" ref="$date-for-thesis">
+		<parameters>
+			<font-style ref="DISPLAY_DATE_STATUS" />
+			<starts-with value="(" />
+			<ends-with value=")." />
+		</parameters>
+	</layout-element>
+
+	<layout-element name="year-with-event-start-date">
+		<parameters>
+			<font-style ref="DISPLAY_DATE_STATUS" />
+			<starts-with value="(" />
+			<ends-with value=")." />
+		</parameters>
+		<elements>
+			<layout-element ref="$start-date-or-date"/>
+		</elements>
+	</layout-element>
+
+	<layout-element name="published-online-and-external-locator" ref="$published-online-and-external-locator">
+		<parameters>
+			<starts-with value=" "/>
+			<ends-with value="."/>
+		</parameters>
+	</layout-element>
+	
+		<layout-element name="year-authors-or-editors-are-presented" ref="$year">
+			<parameters>
+				<valid-if><![CDATA[$authorsCount>0 or $editorsCount>0]]></valid-if>
+			</parameters>
+		</layout-element>
+
+		<layout-element name="year-authors-or-editors-are-not-presented" ref="$year">
+			<parameters>
+				<valid-if><![CDATA[$authorsCount=0 and $editorsCount=0]]></valid-if>
+			</parameters>
+		</layout-element>
+
+		<layout-element name="year-and-month-name">
+			<parameters>
+				<font-style ref="DISPLAY_DATE_STATUS" />
+				<starts-with value="(" />
+				<ends-with value=")." />
+			</parameters>
+			<elements>
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[pub:publication/dcterms:issued]]></valid-if>
+						<delimiter value=", " />
+					</parameters>
+					<elements>
+						<layout-element ref="func:get_year(pub:publication/dcterms:issued/text())" />
+						<layout-element ref="func:get_month_name(pub:publication/dcterms:issued/text())" />
+					</elements>
+				</layout-element>
+				<layout-element ref="$date">
+					<parameters>
+						<valid-if><![CDATA[not(pub:publication/dcterms:issued)]]></valid-if>
+					</parameters>
+				</layout-element>
+			</elements>
+		</layout-element>
+
+		<layout-element name="year-and-month-authors-are-presented" ref="$year-and-month-name">
+			<parameters>
+				<valid-if><![CDATA[$authorsCount>0]]></valid-if>
+			</parameters>
+		</layout-element>
+
+		<layout-element name="year-and-month-authors-are-not-presented" ref="$year-and-month-name">
+			<parameters>
+				<valid-if><![CDATA[$authorsCount=0]]></valid-if>
+			</parameters>
+		</layout-element>
+
+
+		<layout-element name="year-editors-are-presented" ref="$year">
+			<parameters>
+				<valid-if><![CDATA[$editorsCount>0]]></valid-if>
+			</parameters>
+		</layout-element>
+
+		<layout-element name="year-editors-are-not-presented" ref="$year">
+			<parameters>
+				<valid-if><![CDATA[$editorsCount=0]]></valid-if>
+			</parameters>
+		</layout-element>
+
+
+		<layout-element name="title-with-dot" ref="func:escapeMarkupTags(pub:publication/dc:title/text())">
+			<parameters>
+				<starts-with value=" " />
+				<ends-with value="." />
+			</parameters>
+		</layout-element>
+
+		<layout-element name="title-italic" ref="func:escapeMarkupTags(pub:publication/dc:title/text())">
+			<parameters>
+				<font-style ref="ITALIC" />
+			</parameters>
+		</layout-element>
+
+		<layout-element name="title-with-dot-italic" ref="$title-italic">
+			<parameters>
+				<starts-with value=" " />
+				<ends-with value="." />
+			</parameters>
+		</layout-element>
+
+		<layout-element name="start-page-end-page">
+			<parameters>
+				<delimiter value="-" />
+			</parameters>
+			<elements>
+				<layout-element ref="pub:publication/source:source[1]/eterms:start-page/text()" />
+				<layout-element ref="pub:publication/source:source[1]/eterms:end-page/text()" />
+			</elements>
+		</layout-element>
+
+		<layout-element name="source-edition-start-page-end-page">
+			<parameters>
+				<starts-with value="(" />
+				<ends-with value=")" />
+				<delimiter value=", " />
+			</parameters>
+			<elements>
+				<layout-element ref="pub:publication/source:source[1]/eterms:publishing-info/eterms:edition/text()"/>
+				<layout-element ref="$start-page-end-page">
+					<parameters>
+						<starts-with value="pp. " />
+					</parameters>
+				</layout-element>
+			</elements>
+		</layout-element>
+
+
+		<layout-element name="volume-issue">
+			<parameters>
+				<delimiter value="" />
+			</parameters>
+			<elements>
+				<layout-element ref="pub:publication/source:source[1]/eterms:volume/text()">
+					<parameters>
+						<font-style ref="ITALIC" />
+					</parameters>
+				</layout-element>
+				<layout-element ref="pub:publication/source:source[1]/eterms:issue/text()">
+					<parameters>
+						<starts-with value="(" />
+						<ends-with value=")" />
+					</parameters>
+				</layout-element>
+			</elements>
+		</layout-element>
+
+		<layout-element name="source-title" ref="func:escapeMarkupTags(pub:publication/source:source[1]/dc:title/text())">
+			<parameters>
+				<font-style ref="ITALIC" />
+				<starts-with value=" " />
+			</parameters>
+		</layout-element>
+
+		<layout-element name="place-publisher">
+			<parameters>
+				<starts-with value=" " />
+				<delimiter value=": " />
+			</parameters>
+			<elements>
+				<layout-element ref="pub:publication/eterms:publishing-info/eterms:place/text()" />
+				<layout-element ref="pub:publication/eterms:publishing-info/dc:publisher/text()" />
+			</elements>
+		</layout-element>	
+
+		
+</predefined-layout-elements>

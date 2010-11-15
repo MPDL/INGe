@@ -708,7 +708,70 @@
                                 </xsl:if>
                             </xsl:variable>
                             <!--font-style--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                css-class="Default"/>
+                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="Arial14"/>
+                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="Blue"/>
+                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                css-class="Bold"/>
+                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="Italic"/>
+                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="true"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="UnderlineItalic"/>
+                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="true"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="BoldItalic"/>
+                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
+                                                fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="DisplayDateStatus"/>
+                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
@@ -726,7 +789,70 @@
                                 </xsl:if>
                             </xsl:variable>
                             <!--font-style--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                css-class="Default"/>
+                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="Arial14"/>
+                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="Blue"/>
+                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                css-class="Bold"/>
+                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="Italic"/>
+                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="true"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="UnderlineItalic"/>
+                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="true"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="BoldItalic"/>
+                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
+                                                fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="DisplayDateStatus"/>
+                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
@@ -758,7 +884,70 @@
                                 </xsl:if>
                             </xsl:variable>
                             <!--font-style--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                css-class="Default"/>
+                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="Arial14"/>
+                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="Blue"/>
+                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                css-class="Bold"/>
+                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="Italic"/>
+                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="true"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="UnderlineItalic"/>
+                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="true"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="BoldItalic"/>
+                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
+                                                fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="DisplayDateStatus"/>
+                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
@@ -861,7 +1050,70 @@
                                 </xsl:if>
                             </xsl:variable>
                             <!--font-style--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                <xsl:if test="exists($var) and $var!=''">&lt;span class="DisplayDateStatus"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                css-class="Default"/>
+                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="Arial14"/>
+                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="Blue"/>
+                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                css-class="Bold"/>
+                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="Italic"/>
+                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="true"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="UnderlineItalic"/>
+                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="true"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="BoldItalic"/>
+                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
+                                                fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="DisplayDateStatus"/>
+                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
@@ -919,7 +1171,70 @@
                         <xsl:variable name="title-italic"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/dc:title/text()"/>
                             <!--font-style--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                css-class="Default"/>
+                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="Arial14"/>
+                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="Blue"/>
+                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                css-class="Bold"/>
+                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="Italic"/>
+                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="true"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="UnderlineItalic"/>
+                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="true"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="BoldItalic"/>
+                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
+                                                fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="DisplayDateStatus"/>
+                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
@@ -1017,7 +1332,70 @@
                                             <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/eterms:volume/text()"/>
                                                 <!--font-style--><xsl:variable name="var">
-                                                    <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                                    <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
+                                                                    back-color="white"
+                                                                    is-bold="false"
+                                                                    is-italic="false"
+                                                                    pdf-font-name="Cyberbit.ttf"
+                                                                    is-underline="false"
+                                                                    is-strike-through="false"
+                                                                    is-pdf-simulated-bold="true"
+                                                                    css-class="Default"/>
+                                                        <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
+                                                                    back-color="white"
+                                                                    is-bold="false"
+                                                                    is-italic="false"
+                                                                    pdf-font-name="Cyberbit.ttf"
+                                                                    is-underline="false"
+                                                                    is-strike-through="false"
+                                                                    css-class="Arial14"/>
+                                                        <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
+                                                                    back-color="white"
+                                                                    is-bold="false"
+                                                                    is-italic="false"
+                                                                    pdf-font-name="Cyberbit.ttf"
+                                                                    is-underline="false"
+                                                                    is-strike-through="false"
+                                                                    css-class="Blue"/>
+                                                        <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
+                                                                    is-italic="false"
+                                                                    pdf-font-name="Cyberbit.ttf"
+                                                                    is-underline="false"
+                                                                    is-strike-through="false"
+                                                                    is-pdf-simulated-bold="true"
+                                                                    css-class="Bold"/>
+                                                        <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                                    is-italic="true"
+                                                                    pdf-font-name="Cyberbit.ttf"
+                                                                    is-underline="false"
+                                                                    is-strike-through="false"
+                                                                    is-pdf-simulated-italic="true"
+                                                                    css-class="Italic"/>
+                                                        <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                                    is-italic="true"
+                                                                    pdf-font-name="Cyberbit.ttf"
+                                                                    is-underline="true"
+                                                                    is-strike-through="false"
+                                                                    is-pdf-simulated-italic="true"
+                                                                    css-class="UnderlineItalic"/>
+                                                        <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
+                                                                    is-italic="true"
+                                                                    pdf-font-name="Cyberbit.ttf"
+                                                                    is-underline="true"
+                                                                    is-strike-through="false"
+                                                                    is-pdf-simulated-bold="true"
+                                                                    is-pdf-simulated-italic="true"
+                                                                    css-class="BoldItalic"/>
+                                                        <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
+                                                                    fore-color="black"
+                                                                    back-color="white"
+                                                                    is-bold="false"
+                                                                    is-italic="false"
+                                                                    pdf-font-name="Cyberbit.ttf"
+                                                                    is-underline="false"
+                                                                    is-strike-through="false"
+                                                                    css-class="DisplayDateStatus"/>
+                                                        <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                                                 </xsl:variable>
                                                 <xsl:copy-of select="$var"/>
                                             </xsl:variable>
@@ -1058,7 +1436,70 @@
                                 <xsl:copy-of select="$var"/>
                             </xsl:variable>
                             <!--font-style--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                css-class="Default"/>
+                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="Arial14"/>
+                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="Blue"/>
+                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                css-class="Bold"/>
+                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="Italic"/>
+                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="true"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="UnderlineItalic"/>
+                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="true"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="BoldItalic"/>
+                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
+                                                fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="DisplayDateStatus"/>
+                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
@@ -1339,7 +1780,70 @@
                                 <xsl:copy-of select="$var"/>
                             </xsl:variable>
                             <!--font-style--><xsl:variable name="var">
-                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Blue"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Blue"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                css-class="Default"/>
+                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="Arial14"/>
+                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="Blue"/>
+                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                css-class="Bold"/>
+                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="Italic"/>
+                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="true"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="UnderlineItalic"/>
+                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
+                                                is-italic="true"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="true"
+                                                is-strike-through="false"
+                                                is-pdf-simulated-bold="true"
+                                                is-pdf-simulated-italic="true"
+                                                css-class="BoldItalic"/>
+                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
+                                                fore-color="black"
+                                                back-color="white"
+                                                is-bold="false"
+                                                is-italic="false"
+                                                pdf-font-name="Cyberbit.ttf"
+                                                is-underline="false"
+                                                is-strike-through="false"
+                                                css-class="DisplayDateStatus"/>
+                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                             </xsl:variable>
                             <xsl:copy-of select="$var"/>
                         </xsl:variable>
@@ -1520,7 +2024,70 @@
                                                                                                             <xsl:copy-of select="$var"/>
                                                                                                         </xsl:variable>
                                                                                                         <!--font-style--><xsl:variable name="var">
-                                                                                                            <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                                                                                            <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
+                                                                                                                            back-color="white"
+                                                                                                                            is-bold="false"
+                                                                                                                            is-italic="false"
+                                                                                                                            pdf-font-name="Cyberbit.ttf"
+                                                                                                                            is-underline="false"
+                                                                                                                            is-strike-through="false"
+                                                                                                                            is-pdf-simulated-bold="true"
+                                                                                                                            css-class="Default"/>
+                                                                                                                <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
+                                                                                                                            back-color="white"
+                                                                                                                            is-bold="false"
+                                                                                                                            is-italic="false"
+                                                                                                                            pdf-font-name="Cyberbit.ttf"
+                                                                                                                            is-underline="false"
+                                                                                                                            is-strike-through="false"
+                                                                                                                            css-class="Arial14"/>
+                                                                                                                <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
+                                                                                                                            back-color="white"
+                                                                                                                            is-bold="false"
+                                                                                                                            is-italic="false"
+                                                                                                                            pdf-font-name="Cyberbit.ttf"
+                                                                                                                            is-underline="false"
+                                                                                                                            is-strike-through="false"
+                                                                                                                            css-class="Blue"/>
+                                                                                                                <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
+                                                                                                                            is-italic="false"
+                                                                                                                            pdf-font-name="Cyberbit.ttf"
+                                                                                                                            is-underline="false"
+                                                                                                                            is-strike-through="false"
+                                                                                                                            is-pdf-simulated-bold="true"
+                                                                                                                            css-class="Bold"/>
+                                                                                                                <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                                                                                            is-italic="true"
+                                                                                                                            pdf-font-name="Cyberbit.ttf"
+                                                                                                                            is-underline="false"
+                                                                                                                            is-strike-through="false"
+                                                                                                                            is-pdf-simulated-italic="true"
+                                                                                                                            css-class="Italic"/>
+                                                                                                                <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                                                                                            is-italic="true"
+                                                                                                                            pdf-font-name="Cyberbit.ttf"
+                                                                                                                            is-underline="true"
+                                                                                                                            is-strike-through="false"
+                                                                                                                            is-pdf-simulated-italic="true"
+                                                                                                                            css-class="UnderlineItalic"/>
+                                                                                                                <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
+                                                                                                                            is-italic="true"
+                                                                                                                            pdf-font-name="Cyberbit.ttf"
+                                                                                                                            is-underline="true"
+                                                                                                                            is-strike-through="false"
+                                                                                                                            is-pdf-simulated-bold="true"
+                                                                                                                            is-pdf-simulated-italic="true"
+                                                                                                                            css-class="BoldItalic"/>
+                                                                                                                <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
+                                                                                                                            fore-color="black"
+                                                                                                                            back-color="white"
+                                                                                                                            is-bold="false"
+                                                                                                                            is-italic="false"
+                                                                                                                            pdf-font-name="Cyberbit.ttf"
+                                                                                                                            is-underline="false"
+                                                                                                                            is-strike-through="false"
+                                                                                                                            css-class="DisplayDateStatus"/>
+                                                                                                                <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                                                                                                         </xsl:variable>
                                                                                                         <xsl:copy-of select="$var"/>
                                                                                                     </xsl:variable>
@@ -1874,7 +2441,70 @@
                                                                         <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/source:source[1]/dc:title/text()"/>
                                                                             <!--font-style--><xsl:variable name="var">
-                                                                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
+                                                                                <xsl:if test="exists($var) and $var!=''">&lt;span class="Italic"&gt;<font-style name="NORMAL" def="true" font-name="Arial" font-size="12" fore-color="black"
+                                                                                                back-color="white"
+                                                                                                is-bold="false"
+                                                                                                is-italic="false"
+                                                                                                pdf-font-name="Cyberbit.ttf"
+                                                                                                is-underline="false"
+                                                                                                is-strike-through="false"
+                                                                                                is-pdf-simulated-bold="true"
+                                                                                                css-class="Default"/>
+                                                                                    <font-style name="ARIAL14" font-name="Arial" font-size="14" fore-color="black"
+                                                                                                back-color="white"
+                                                                                                is-bold="false"
+                                                                                                is-italic="false"
+                                                                                                pdf-font-name="Cyberbit.ttf"
+                                                                                                is-underline="false"
+                                                                                                is-strike-through="false"
+                                                                                                css-class="Arial14"/>
+                                                                                    <font-style name="BLUE" font-name="Arial" font-size="12" fore-color="blue"
+                                                                                                back-color="white"
+                                                                                                is-bold="false"
+                                                                                                is-italic="false"
+                                                                                                pdf-font-name="Cyberbit.ttf"
+                                                                                                is-underline="false"
+                                                                                                is-strike-through="false"
+                                                                                                css-class="Blue"/>
+                                                                                    <font-style name="BOLD" fore-color="black" back-color="white" is-bold="true"
+                                                                                                is-italic="false"
+                                                                                                pdf-font-name="Cyberbit.ttf"
+                                                                                                is-underline="false"
+                                                                                                is-strike-through="false"
+                                                                                                is-pdf-simulated-bold="true"
+                                                                                                css-class="Bold"/>
+                                                                                    <font-style name="ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                                                                is-italic="true"
+                                                                                                pdf-font-name="Cyberbit.ttf"
+                                                                                                is-underline="false"
+                                                                                                is-strike-through="false"
+                                                                                                is-pdf-simulated-italic="true"
+                                                                                                css-class="Italic"/>
+                                                                                    <font-style name="UNDERLINE_ITALIC" fore-color="black" back-color="white" is-bold="false"
+                                                                                                is-italic="true"
+                                                                                                pdf-font-name="Cyberbit.ttf"
+                                                                                                is-underline="true"
+                                                                                                is-strike-through="false"
+                                                                                                is-pdf-simulated-italic="true"
+                                                                                                css-class="UnderlineItalic"/>
+                                                                                    <font-style name="BOLD_ITALIC" fore-color="black" back-color="white" is-bold="true"
+                                                                                                is-italic="true"
+                                                                                                pdf-font-name="Cyberbit.ttf"
+                                                                                                is-underline="true"
+                                                                                                is-strike-through="false"
+                                                                                                is-pdf-simulated-bold="true"
+                                                                                                is-pdf-simulated-italic="true"
+                                                                                                css-class="BoldItalic"/>
+                                                                                    <font-style name="DISPLAY_DATE_STATUS" def="true" font-name="Arial" font-size="12"
+                                                                                                fore-color="black"
+                                                                                                back-color="white"
+                                                                                                is-bold="false"
+                                                                                                is-italic="false"
+                                                                                                pdf-font-name="Cyberbit.ttf"
+                                                                                                is-underline="false"
+                                                                                                is-strike-through="false"
+                                                                                                css-class="DisplayDateStatus"/>
+                                                                                    <xsl:copy-of select="$var"/>&lt;/span&gt;</xsl:if>
                                                                             </xsl:variable>
                                                                             <xsl:copy-of select="$var"/>
                                                                         </xsl:variable>
