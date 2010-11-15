@@ -115,6 +115,49 @@
 		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
 	</export-format>	
 	<export-format type="layout" context="PubMan">
+		<dc:title>APA6 Citation Style</dc:title>
+		<dc:identifier>APA6</dc:identifier>
+		<output-format>
+			<dc:title>pdf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>rtf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_plain</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_linked</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html_styled</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>odt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.oasis.opendocument.text</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>snippet</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>escidoc_snippet</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>txt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/plain</dc:format>
+		</output-format>		
+		<dc:creator>vmakarenko</dc:creator>
+		<open>true</open>
+		<output-formats refs="pdf rtf html_plain html_linked html_styled odt snippet escidoc_snippet txt"/>
+	</export-format>	
+	<export-format type="layout" context="PubMan">
 		<dc:title>AJP Citation Style</dc:title>
 		<dc:identifier>AJP</dc:identifier>
 		<output-format>
