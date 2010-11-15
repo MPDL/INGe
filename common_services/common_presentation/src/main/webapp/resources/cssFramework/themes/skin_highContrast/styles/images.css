@@ -287,19 +287,19 @@ body .wrapper {
 }
 
 /*LIST COMPONENT*/
-.itemList .checkboxSelectButton {
+.itemList .checkBoxSelectButton {
     background-image: url('../images/All_DropDown_TriangleOpen_15_Active.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.itemList .checkboxSelectButton:hover, .itemList .checkboxSelectButton:focus {
+.itemList .checkBoxSelectButton:hover, .itemList .checkBoxSelectButton:focus {
     background-image: url('../images/All_DropDown_TriangleOpen_15_Hover.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.itemList .checkboxSelectButton:disabled {
+.itemList .checkBoxSelectButton:disabled {
     background-image: url('../images/All_DropDown_TriangleOpen_15_Deactivated.gif');
     background-repeat: no-repeat;
     background-position: center;

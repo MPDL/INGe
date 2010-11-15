@@ -329,11 +329,11 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 /*SELECT MENU*/
-.itemList .checkboxSelectButton {
+.itemList .checkBoxSelectButton {
     cursor: pointer;
 }
 
-.itemList .checkboxSelectButton:hover {
+.itemList .checkBoxSelectButton:hover {
     background-color: #FFFFFF;
 }
 

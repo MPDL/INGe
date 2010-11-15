@@ -341,7 +341,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 /*SELECT MENU*/
-.itemList .checkboxSelectButton {
+.itemList .checkBoxSelectButton {
     background-color: #FFFFFF;
     cursor: pointer;
 }

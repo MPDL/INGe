@@ -357,7 +357,7 @@ input[type = text], textarea {
 	
 		/*SELECT MENU*/
 	
-	.itemList .checkboxSelectButton {
+	.itemList .checkBoxSelectButton {
 		background-color: #FFFFFF;
 		cursor: pointer;
 	}

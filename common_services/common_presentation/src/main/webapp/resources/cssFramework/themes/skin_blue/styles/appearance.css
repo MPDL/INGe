@@ -50,6 +50,7 @@
  */
 /*FONT DEFINITION*/
 /*HEADER*/
+
 /*H1*/
 h1 {
     color: #0F313E;
@@ -329,7 +330,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 /*SELECT MENU*/
-.itemList .checkboxSelectButton {
+.itemList .checkBoxSelectButton {
     cursor: pointer;
 }
 
@@ -337,7 +338,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     background-color: transparent;
 }
 
-.itemList .checkboxSelectButton:hover {
+.itemList .checkBoxSelectButton:hover {
     background-color: #FFFFFF;
 }
 

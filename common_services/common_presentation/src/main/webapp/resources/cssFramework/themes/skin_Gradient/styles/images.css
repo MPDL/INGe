@@ -25,8 +25,8 @@
 
 /*
 * Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
 
@@ -316,19 +316,19 @@
 	
 /*LIST COMPONENT*/
 	
-	.itemList .checkboxSelectButton {
+	.itemList .checkBoxSelectButton {
 		background-image: url('../images/All_DropDown_TriangleOpen_15_Active.gif');
 		background-repeat: no-repeat;
 		background-position: center;
 	}
 	
-	.itemList .checkboxSelectButton:hover, .itemList .checkboxSelectButton:focus {
+	.itemList .checkBoxSelectButton:hover, .itemList .checkBoxSelectButton:focus {
 		background-image: url('../images/All_DropDown_TriangleOpen_15_Hover.gif');
 		background-repeat: no-repeat;
 		background-position: center;
 	}
 	
-	.itemList .checkboxSelectButton:disabled {
+	.itemList .checkBoxSelectButton:disabled {
 		background-image: url('../images/All_DropDown_TriangleOpen_15_Deactivated.gif');
 		background-repeat: no-repeat;
 		background-position: center;
