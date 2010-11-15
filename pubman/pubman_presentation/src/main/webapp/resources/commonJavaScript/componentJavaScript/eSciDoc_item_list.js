@@ -53,7 +53,7 @@ function addItemListFunctions() {
 					);
 			});
 
-	$('.checkboxSelectButton').click(function(){$(this).siblings('.selectMenu').show();});
+	$('.checkBoxSelectButton').click(function(){$(this).siblings('.selectMenu').show();});
 	$('.checkBoxCloseSelectButton').click(function(){$(this).parent().hide();});
 		$('.selectMenu').find('.selectTotal').click(function(){$(this).parents('.itemList').find('.itemCheckBox').each(function(i, elem){elem.checked=true;}); $(this).parents('.selectMenu').hide();});
 		$('.selectMenu').find('.selectAll').click(function(){$(this).parents('.itemList').find('.itemCheckBox').each(function(i, elem){elem.checked=true;}); $(this).parents('.selectMenu').hide();});
