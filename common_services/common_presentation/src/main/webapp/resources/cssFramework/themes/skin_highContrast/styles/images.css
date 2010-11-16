@@ -32,6 +32,9 @@
  * COMPONENT RELATED IMAGES
  *
  */
+ 
+/*Body Background (none)*/
+
 /*HEADER
  -----------------------------------------------
  |[ Logo ]                 [      Meta Menu   ]|
@@ -44,19 +47,17 @@
  */
 /*HEADER LOGO*/
 .headerLogo {
-    background-image: url('../images/logo_imeji.gif');
-    background-repeat: no-repeat;
-    background-position: top left;
+    background: url('../../../globalImages/logo.png') no-repeat top left;
 }
 
 /*PUT IN HEADER LOGO FOR PRINT DISPLAY HERE*/
 @media print { .contentMenu {list-style-image:
-        url('../images/logo_imeji.gif');
+        url('../../../globalImages/logo.png');
 }
 }
 
 .themePark {
-    background: inherit;
+    /*	background: inherit; */
     /*	background-image: url('../images/logo_overlay_beta.gif');*/
     background-repeat: no-repeat;
     background-position: top left;
@@ -169,6 +170,7 @@ body .wrapper {
  |[ Lists & Full Item ]                        |
  |         [        Footer       ]             |
  -----------------------------------------------*/
+
 /*START PAGE*/
 .myItemsIcon {
     background-image: url('../images/PM_Startpage_MyItems.gif');
@@ -324,19 +326,19 @@ body .wrapper {
 }
 
 .submittedItem {
-    background-image: url('../images/All_Status_AlbumPrivate_31_Static.gif');
+    background-image: url('../images/All_Status_ItemSubmitted_31_Static.gif');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .pendingItem {
-    background-image: url('../images/All_Status_AlbumPrivate_31_Static.gif');
+    background-image: url('../images/All_Status_ItemPending_31_Static.gif');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .releasedItem {
-    background-image: url('../images/All_Status_AlbumReleased_31_Static.gif');
+    background-image: url('../images/All_Status_ItemReleased_31_Static.gif');
     background-repeat: no-repeat;
     background-position: left;
 }
@@ -348,7 +350,7 @@ body .wrapper {
 }
 
 .withdrawnItem {
-    background-image: url('../images/All_Status_AlbumWithdrawn_31_Static.gif');
+    background-image: url('../images/All_Status_ItemWithdrawn_31_Static.gif');
     background-repeat: no-repeat;
     background-position: left;
 }

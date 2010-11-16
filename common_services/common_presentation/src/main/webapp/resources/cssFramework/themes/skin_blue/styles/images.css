@@ -32,6 +32,9 @@
  * COMPONENT RELATED IMAGES
  *
  */
+ 
+/*Body Background (none)*/
+
 /*HEADER
  -----------------------------------------------
  |[ Logo ]                 [      Meta Menu   ]|
@@ -167,6 +170,7 @@ body .wrapper {
  |[ Lists & Full Item ]                        |
  |         [        Footer       ]             |
  -----------------------------------------------*/
+
 /*START PAGE*/
 .myItemsIcon {
     background-image: url('../images/PM_Startpage_MyItems.gif');
@@ -303,13 +307,13 @@ body .wrapper {
     background-position: center;
 }
 
-.itemList .checkBoxCloseSelectButton {
+.selectMenu .checkBoxCloseSelectButton {
     background-image: url('../images/All_DropDown_CrossClose_15_Active.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
-.itemList .checkBoxCloseSelectButton:hover, .selectMenu .checkBoxCloseSelectButton:focus {
+.selectMenu .checkBoxCloseSelectButton:hover, .selectMenu .checkBoxCloseSelectButton:focus {
     background-image: url('../images/All_DropDown_CrossClose_15_Hover.gif');
     background-repeat: no-repeat;
     background-position: center center;
