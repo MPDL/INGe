@@ -229,7 +229,7 @@ public class TestHelper
     
     public static String getItemListFromFrameworkBase(String USER, String PASSWD, String filter) throws IOException, ServiceException, URISyntaxException
     {
-    	logger.info("Retrieve USER, PASSWD:" + USER + ", " + PASSWD);
+//    	logger.info("Retrieve USER, PASSWD:" + USER + ", " + PASSWD);
     	String userHandle = AdminHelper.loginUser(USER, PASSWD); 
     	logger.info("Retrieve filter:" + filter);
     	// see here for filters: https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
