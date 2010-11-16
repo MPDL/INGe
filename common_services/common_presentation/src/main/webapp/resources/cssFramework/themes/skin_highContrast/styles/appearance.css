@@ -41,7 +41,7 @@
  SUCCESS MSG		#548E00
  DEACTIVATED		#777777
  DEA LIGHT		#C9C9C9
- TEXT			#343434
+ TEXT			#A4A4A4
  TEXT LIGHT		#AEAEAE
  MOUSEOVER		#1B1B1B
  INPUT TEXT		#000000
@@ -76,7 +76,7 @@ h5 {
 /*H6*/
 h6 {
     font-weight: bold;
-    color: #343434;
+    color: #A4A4A4;
     margin: 0px;
 }
 
@@ -102,7 +102,7 @@ h1, h4, h5 {
 /*GENERAL*/
 body {
     background-color: #FFFFFF;
-    color: #343434;
+    color: #A4A4A4;
     line-height: 145%;
 }
 
@@ -122,12 +122,12 @@ a, a:visited {
 }
 
 a.OraLinkDisabled {
-    color: #343434;
+    color: #A4A4A4;
     cursor: default;
 }
 
 a:hover, a:focus, input:hover, input:focus, button:hover, button:focus {
-    color: #1B1B1B;
+    color: #000000;
     text-decoration: none;
 }
 
@@ -138,7 +138,7 @@ input[type =
 
 input, textarea, select {
     border-style: solid;
-    border-color: #343434;
+    border-color: #A4A4A4;
 }
 
 input[type =
@@ -219,7 +219,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .logoAlternate span {
     font-weight: bold;
-    color: #343434;
+    color: #A4A4A4;
 }
 
 .logoAlternate span a {
@@ -227,11 +227,11 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .contentMenu span {
-    color: #343434;
+    color: #A4A4A4;
 }
 
 .metaMenu input:hover, .metaMenu input:focus, .metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu input:hover, .quickSearchMenu input:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .quickSearchCheckBoxMenu label:hover, .quickSearchCheckBoxMenu label:focus, .advancedSearchMenu input:hover, .advancedSearchMenu input:focus, .advancedSearchMenu a:hover, .advancedSearchMenu a:focus, .organisationSearchMenu input:hover, .organisationSearchMenu input:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .mainMenu input:hover, .mainMenu input:focus, .mainMenu a:hover, .mainMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, .contentMenu a:hover, .contentMenu a:focus {
-    color: #343434;
+    color: #A4A4A4;
 }
 
 /*COLORING FOR BREADCRUMB SLASHES*/
@@ -278,13 +278,13 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .pageBrowser input:hover, .pageBrowser button:hover, .pageBrowser a:hover, .pageBrowser input:focus, .pageBrowser button:focus, .pageBrowser a:focus {
-    color: #343434;
+    color: #A4A4A4;
     cursor: pointer;
 }
 
 .pageBrowser .actual, .pageBrowser .actual:hover, .pageBrowser .actual:focus {
     font-weight: bold;
-    color: #343434;
+    color: #A4A4A4;
     cursor: pointer;
 }
 @media print { .pageBrowser .actual {
@@ -411,7 +411,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .fullItem .easySubmissionHeader b.actual {
-    color: #343434;
+    color: #A4A4A4;
 }
 
 /*FULL ITEM HEADER*/
@@ -443,7 +443,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .itemBlock .newBlock {
-    border-top-color: #343434;
+    border-top-color: #A4A4A4;
 }
 
 .affHover {
@@ -478,7 +478,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*SINGLE ELEMENTS*/
 .dateJSLabel {
     background-color: #D9EBF7;
-    color: #343434;
+    color: #A4A4A4;
 }
 
 /*FORM BUTTONS*/
