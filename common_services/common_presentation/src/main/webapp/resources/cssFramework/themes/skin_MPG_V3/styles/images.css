@@ -33,16 +33,25 @@
  *
  */
  
-/*Body Background (none)*/
+/*Body Background*/
+
+body {
+	background:url("../images/all_background_1.png") repeat-x scroll left top transparent;
+}
+
+body .wrapper, body .footer {
+	background-image:url("../images/all_header_and_logo.png");
+	background-repeat:no-repeat;
+}
 
 /*HEADER
  -----------------------------------------------
  |[ Logo ]                 [      Meta Menu   ]|
  |                           [   Breadcrumb   ]|
  |[ Main Menu ]                   [   Title   ]|
- |[ Options ]                        	      |
- |[ Actions ]                         	      |
- |[ Message ]                        	      |
+ |[ Options ]                        	       |
+ |[ Actions ]                         	       |
+ |[ Message ]                        	       |
  -----------------------------------------------
  */
 /*HEADER LOGO*/
