@@ -101,15 +101,13 @@ h1, h4, h5 {
  */
 /*GENERAL*/
 body {
-    background-color: #FFFFFF;
-    color: #A4A4A4;
+    background-color: #AACFD5;
+    color: #000000;
     line-height: 145%;
 }
 
 body .wrapper, body .footer {
-    background-color: #FFFFFF;
-    border-right: 1px dotted #0076C9;
-    border-left: 1px dotted #0076C9;
+	background-color:#B1D5DC;
 }
 
 input, button, textarea, select {
@@ -117,7 +115,7 @@ input, button, textarea, select {
 }
 
 a, a:visited {
-    color: #0076C9;
+    color: #044585;
     text-decoration: none;
 }
 
