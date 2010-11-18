@@ -52,7 +52,7 @@
 /*HEADER*/
 /*H1*/
 h1 {
-    color: #004373;
+    color: #004465;
     font-weight: normal;
 }
 
@@ -159,6 +159,11 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color:#A1CBDA;
 }
 
+.contentMenu .seperator {
+	background-color: transparent;
+	border-color: transparent;
+}
+
 .metaMenu .seperator {
     background-color: transparent;
 	border-color: transparent;
@@ -172,7 +177,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     background-color: #FFFFFF;
 }
 
-.contentMenu .seperator, .pageBrowser .seperator {
+.pageBrowser .seperator {
     border-color: #FFFFFF;
 }
 
@@ -191,8 +196,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .contentMenu .void {
-    border-color: #FFFFFF;
-    background-color: #FFFFFF;
 }
 
 /*HEADER
@@ -215,8 +218,18 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
  
  */
 /*COLORING FOR ALL MENU INPUTS AND LABELS*/
-.metaMenu input, .metaMenu button, .metaMenu a, .quickSearchCheckBoxMenu label, .mainMenu input, .mainMenu a, .contentMenu input, .contentMenu a {
-    background-color: #066977;
+.metaMenu input, .metaMenu button, .metaMenu a, .quickSearchCheckBoxMenu label, .contentMenu input, .contentMenu a {
+    background-color: transparent;
+    color: #044585;
+}
+
+.metaMenu input, .metaMenu button, .metaMenu a {
+    background-color: #004465;
+    color: #FFFFFF;
+}
+
+.mainMenu input, .mainMenu a {
+    background-color: transparent;
     color: #FFFFFF;
 }
 
@@ -254,7 +267,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*COLORING FOR BREADCRUMB TEXT*/
 .breadcrumb li a, .breadcrumb li a:visited {
-    color: #0076C9;
+    color: #044585;
 }
 
 .breadcrumb li a:hover, .breadcrumb li a:focus {
@@ -286,7 +299,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*PAGE BROWSER*/
 .pageBrowser input, .pageBrowser button, .pageBrowser a {
-    background-color: #FFFFFF;
+    background-color: transparent;
     color: #0076C9;
 }
 
@@ -366,7 +379,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .selectMenu a {
-    color: #147DA2;
+    color: #044585;
 }
 
 .selectMenu a:hover, .selectMenu input:hover {
@@ -523,7 +536,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .activeButton {
     float: right;
     color: #FFFFFF !important;
-    background-color: #0076C9 !important;
+	background-color: #0F3834 !important;
     border-color: #0076C9;
 }
 
