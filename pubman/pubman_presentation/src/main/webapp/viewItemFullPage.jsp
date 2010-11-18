@@ -41,7 +41,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 
-				<title><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}:: #{ApplicationBean.appTitle}" converter="HTMLTitleSubSupConverter" /></title>
+				<title><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value} :: #{ApplicationBean.appTitle}" converter="HTMLTitleSubSupConverter" /></title>
 				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURLview}"/>
 
 				<meta http-equiv="Content-Type" content="text/html; charset=gb2312"> </meta>
