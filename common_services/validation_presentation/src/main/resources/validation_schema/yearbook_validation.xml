@@ -204,7 +204,7 @@
 			<iso:assert test="dcterms:issued != '' or escidoc:published-online != ''">PublishingDateNotProvided</iso:assert>
 			<iso:assert test="exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)])">NoMaxPlanckAffiliation</iso:assert>
 			<iso:assert test="dc:title != ''">TitleNotProvided</iso:assert>
-			<iso:assert test="eterms:total-number-of-pages != ''">TotalNumberOfPagesNotProvided</iso:assert>
+			<iso:assert test="escidoc:total-number-of-pages != ''">TotalNumberOfPagesNotProvided</iso:assert>
 		</iso:rule>
 		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/proceedings']/escidoc:creator[exists(person:person)]">
 			<iso:assert test="@role != ''">CreatorRoleNotProvided</iso:assert>
@@ -228,7 +228,7 @@
 			<iso:assert test="dcterms:issued != '' or escidoc:published-online != ''">PublishingDateNotProvided</iso:assert>
 			<iso:assert test="exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)])">NoMaxPlanckAffiliation</iso:assert>
 			<iso:assert test="dc:title != ''">TitleNotProvided</iso:assert>
-			<iso:assert test="eterms:total-number-of-pages != ''">TotalNumberOfPagesNotProvided</iso:assert>
+			<iso:assert test="escidoc:total-number-of-pages != ''">TotalNumberOfPagesNotProvided</iso:assert>
 		</iso:rule>
 		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/Book']/escidoc:creator[exists(person:person)]">
 			<iso:assert test="@role != ''">CreatorRoleNotProvided</iso:assert>
@@ -319,7 +319,7 @@
 			<iso:assert test="dcterms:issued != '' or escidoc:published-online != ''">PublishingDateNotProvided</iso:assert>
 			<iso:assert test="exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)])">NoMaxPlanckAffiliation</iso:assert>
 			<iso:assert test="dc:title != ''">TitleNotProvided</iso:assert>
-			<iso:assert test="eterms:total-number-of-pages != ''">TotalNumberOfPagesNotProvided</iso:assert>
+			<iso:assert test="escidoc:total-number-of-pages != ''">TotalNumberOfPagesNotProvided</iso:assert>
 		</iso:rule>
 		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/paper']/escidoc:creator[exists(person:person)]">
 			<iso:assert test="@role != ''">CreatorRoleNotProvided</iso:assert>
@@ -334,7 +334,7 @@
 			<iso:assert test="dcterms:issued != '' or escidoc:published-online != ''">PublishingDateNotProvided</iso:assert>
 			<iso:assert test="exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)])">NoMaxPlanckAffiliation</iso:assert>
 			<iso:assert test="dc:title != ''">TitleNotProvided</iso:assert>
-			<iso:assert test="eterms:total-number-of-pages != ''">TotalNumberOfPagesNotProvided</iso:assert>
+			<iso:assert test="escidoc:total-number-of-pages != ''">TotalNumberOfPagesNotProvided</iso:assert>
 		</iso:rule>
 		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/Report']/escidoc:creator[exists(person:person)]">
 			<iso:assert test="@role != ''">CreatorRoleNotProvided</iso:assert>
