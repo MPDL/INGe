@@ -90,11 +90,8 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), false);  
         //logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
         //logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
-       
         
     }
-    
-   
 
     @Override
     public void init()
@@ -167,8 +164,8 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
     public boolean isItemSpecific() 
     {
         return false;
-    }
-
+    } 
+ 
     public String addSelectedToYearbook()
     {
         YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class); 
@@ -191,7 +188,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         {
             selected.add(item.getVersion());
         }
-        yisb.removeMembers(selected);
+        yisb.removeMembers(selected); 
         this.getBasePaginatorListSessionBean().update();
         return "";
     }
@@ -257,105 +254,110 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
     
     private SearchQuery getCandidatesQuery() throws Exception
     {
-        
+    	
+    	 MetadataSearchQuery mdQuery = getCandidateQuery();
+    	
+        if (getSelectedOrgUnit()!=null && !getSelectedOrgUnit().toLowerCase().equals("all")) 
+        {
+        	mdQuery.addCriterion(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
+        }
 
-            
-            ArrayList<String> contentTypes = new ArrayList<String>();
-            String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-            contentTypes.add( contentTypeIdPublication );
-            
-            ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
-            MetadataSearchCriterion objectTypeMds = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
-            mdsList.add(objectTypeMds);
-
-            //MetadataSearchCriterion genremd = new MetadataSearchCriterion(CriterionType.ANY, );
-            int i =0;
-            for(Genre genre : yisb.getYearbookContext().getAdminDescriptor().getAllowedGenres())
-            {
-                if (i==0)
-                {
-                    objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.GENRE, genre.getUri(), LogicalOperator.AND));
-                }
-                else
-                {
-                    objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.GENRE, genre.getUri(), LogicalOperator.OR));
-                }
-                i++;
-            }
-            
-            if(yisb.getNumberOfMembers()>0)
-            {
-                
-                for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
-                {
-                   
-                        mdsList.add(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.NOT));
-                   
-                   
-                }
-            }
-            
-            
-            if (getSelectedOrgUnit()!=null && !getSelectedOrgUnit().toLowerCase().equals("all")) 
-            {
-                   mdsList.add(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
-            }
-            
-            MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
-            String additionalQuery = yisb.getYearbookItem().getLocalTags().get(0);
-            
-            
-            PlainCqlQuery query = new PlainCqlQuery(mdQuery.getCqlQuery() + " AND " +  additionalQuery);
-           
-        
-       
-        
+        String additionalQuery = yisb.getYearbookItem().getLocalTags().get(0);
+        PlainCqlQuery query = new PlainCqlQuery(mdQuery.getCqlQuery() + " AND " +  additionalQuery);
         return query;
     }
     
+    public static MetadataSearchQuery getCandidateQuery() throws Exception
+    {
+    	 YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+    	 ArrayList<String> contentTypes = new ArrayList<String>();
+         String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+         contentTypes.add( contentTypeIdPublication );
+             
+         ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
+         MetadataSearchCriterion objectTypeMds = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
+         mdsList.add(objectTypeMds);
+
+         //MetadataSearchCriterion genremd = new MetadataSearchCriterion(CriterionType.ANY, );
+         int i =0;
+         for(Genre genre : yisb.getYearbookContext().getAdminDescriptor().getAllowedGenres())
+         {
+             if (i==0)
+             {
+                 objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.GENRE, genre.getUri(), LogicalOperator.AND));
+             }
+             else
+             {
+                 objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.GENRE, genre.getUri(), LogicalOperator.OR));
+             }
+             i++;
+         }
+         if(yisb.getNumberOfMembers()>0)
+         {
+             for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
+             {
+             	mdsList.add(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.NOT));
+             	}
+             }
+         MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
+         return mdQuery;
+    	
+    }
     
     private SearchQuery getNonCandidatesQuery() throws Exception
     {
-
-            ArrayList<String> contentTypes = new ArrayList<String>();
-            String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-            contentTypes.add( contentTypeIdPublication );
-            
-            ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
-            MetadataSearchCriterion objectTypeMds = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
-            mdsList.add(objectTypeMds);
-
-            //MetadataSearchCriterion genremd = new MetadataSearchCriterion(CriterionType.ANY, );
-           
-           
-            if(yisb.getNumberOfMembers()>0)
+        ArrayList<String> contentTypes = new ArrayList<String>();
+        String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+        contentTypes.add( contentTypeIdPublication );
+        ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
+        MetadataSearchCriterion objectTypeMds = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
+        mdsList.add(objectTypeMds);
+        //MetadataSearchCriterion genremd = new MetadataSearchCriterion(CriterionType.ANY, );
+        if(yisb.getNumberOfMembers()>0)
+        {
+            for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
             {
-                
-                for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
-                {
-                   
-                        mdsList.add(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.NOT));
-                   
-                   
-                }
+                mdsList.add(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.NOT));
             }
-            
-            
-            if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
-            {
-                   mdsList.add(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
-            }
-            
-            MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
-            String inverseQuery = yisb.getYearbookItem().getLocalTags().get(1);
-            
-            
-            PlainCqlQuery query = new PlainCqlQuery(mdQuery.getCqlQuery() + " AND " +  inverseQuery);
-           
-        
-       
-        
+        }
+        if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
+        {
+           mdsList.add(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
+        }
+        MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
+        String inverseQuery = yisb.getYearbookItem().getLocalTags().get(1);
+        PlainCqlQuery query = new PlainCqlQuery(mdQuery.getCqlQuery() + " AND " +  inverseQuery);
         return query;
+    }
+    
+    public static MetadataSearchQuery getMemberQuery() throws Exception
+    {
+   	 YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);     
+        ArrayList<String> contentTypes = new ArrayList<String>();
+        String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+        contentTypes.add( contentTypeIdPublication );
+        
+        ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
+        MetadataSearchCriterion objectTypeMds = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
+        mdsList.add(objectTypeMds);
+
+        int i=0;
+        for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
+        {
+            if(i==0)
+            {
+                objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.AND));
+            }
+            else
+            {
+                objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.OR));   
+            }
+            i++;
+           
+        }
+        MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
+        return mdQuery;
+        
     }
     
     private SearchQuery getMembersQuery() throws Exception
@@ -364,42 +366,12 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         
         if(yisb.getNumberOfMembers()>0)
         {
-            
-        
-           
-                
-                
-                ArrayList<String> contentTypes = new ArrayList<String>();
-                String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-                contentTypes.add( contentTypeIdPublication );
-                
-                ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
-                MetadataSearchCriterion objectTypeMds = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
-                mdsList.add(objectTypeMds);
-
-                int i=0;
-                for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
-                {
-                    if(i==0)
-                    {
-                        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.AND));
-                    }
-                    else
-                    {
-                        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.OR));   
-                    }
-                    i++;
-                   
-                }
-                
-                
-                if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
-                {
-                       mdsList.add(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
-                }
-            
-                MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, mdsList );
-                return query;
+        	MetadataSearchQuery mdQuery = getMemberQuery();     
+        	if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
+            {
+                mdQuery.addCriterion(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
+            }
+            return mdQuery;
               
                 
                 /*
@@ -550,7 +522,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
                         query.setSortOrder(SortingOrder.ASCENDING);
                     } 
                 }
-                
+                 
                 System.out.println(query.getCqlQuery()); 
                 ItemContainerSearchResult result = this.searchService.searchForItemContainer(query);
                 
@@ -583,9 +555,9 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
                 ItemResultVO item = (ItemResultVO)results.get( i );
                 PubItemResultVO pubItemResult = new PubItemResultVO( item, item.getSearchHitList(), item.getScore() ) ; 
                 PubItemVOPresentation pubItemPres = new PubItemVOPresentation(pubItemResult);
-                
+                   
                 if(yisb.getInvalidItemMap().containsKey(pubItemPres.getVersion().getObjectId()))
-                {
+                { 
                     YearbookInvalidItemRO itemRO = yisb.getInvalidItemMap().get(pubItemPres.getVersion().getObjectId()); 
                     pubItemPres.setValidationMessages(YearbookItemSessionBean.getValidationMessages(this, itemRO.getValidationReport()));
                 }

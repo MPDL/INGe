@@ -43,6 +43,7 @@ import java.util.ResourceBundle;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
@@ -51,6 +52,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
+import org.jfree.data.xy.YisSymbolic;
+
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.escidoc.pubman.ApplicationBean;
@@ -101,11 +104,13 @@ import de.mpg.escidoc.pubman.yearbook.YearbookInvalidItemRO;
 import de.mpg.escidoc.pubman.yearbook.YearbookItemSessionBean;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
@@ -230,8 +235,11 @@ public class ViewItemFull extends FacesBean
     private PubItemSimpleStatistics pubManStatistics;
     private boolean isPublicStateReleased;
 
+    private YearbookItemSessionBean yisb;
+    private boolean isMemberOfYearbook;
+    private boolean isCandidateOfYearbook;
 
-    /**
+	/**
      * Public constructor.
      */
     public ViewItemFull()
@@ -610,23 +618,57 @@ public class ViewItemFull extends FacesBean
             // logger.error(e);
             // }
             // }
-        
+          
             //if item is currently part of invalid yearbook items, show Validation Messages
             ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
             if(clsb.getYearbookContextListSize()>0)
             {
-            	YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+            	yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
             	if(yisb.getYearbookItem() != null && yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId()) != null)
             	{
             		YearbookInvalidItemRO invItem = yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId());
             		((PubItemVOPresentation)this.getPubItem()).setValidationMessages(YearbookItemSessionBean.getValidationMessages(this, invItem.getValidationReport()));
             	}
             	
+            	
+                try   
+                {
+
+                	this.isCandidateOfYearbook = yisb.isCandidate(this.pubItem.getVersion().getObjectId());
+                	if(!(this.isCandidateOfYearbook) && yisb.getNumberOfMembers()>0)
+                	{
+                		this.isMemberOfYearbook = yisb.isMember(this.pubItem.getVersion().getObjectId());
+                    }
+            	}
+                catch (Exception e) 
+                {
+                	e.printStackTrace();
+                }
             }
-        
         }
     }
 
+
+    public String addToYearbookMember()
+    {
+    	List<ItemRO> selected = new ArrayList<ItemRO>();
+    	selected.add(this.getPubItem().getVersion());
+    	yisb.addMembers(selected);
+    	this.isCandidateOfYearbook = false;
+    	this.isMemberOfYearbook = true;
+    	return "";
+    }
+    
+    public String removeMemberFromYearbook()
+    {
+    	List<ItemRO> selected = new ArrayList<ItemRO>();
+    	selected.add(this.getPubItem().getVersion());
+    	yisb.removeMembers(selected);
+    	this.isMemberOfYearbook = false;
+    	this.isCandidateOfYearbook = true;
+    	return "";
+    	
+    }
     /**
      * Redirects the user to the edit item page
      * 
@@ -2312,7 +2354,7 @@ public class ViewItemFull extends FacesBean
         }
         return "";
     }
-
+ 
     public String removeFromBasket()
     {
         PubItemStorageSessionBean pssb = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
@@ -2656,6 +2698,25 @@ public class ViewItemFull extends FacesBean
        // return "";
         
     }
+
+
+    public boolean getIsMemberOfYearbook() {
+		return this.isMemberOfYearbook;
+
+	}
+
+	public boolean getIsCandidateOfYearbook() {
+		return this.isCandidateOfYearbook;
+	}
+
+	public void setMemberOfYearbook(boolean isMemberOfYearbook) {
+		this.isMemberOfYearbook = isMemberOfYearbook;
+	}
+
+	public void setCandidateOfYearbook(boolean isCandidateOfYearbook) {
+		this.isCandidateOfYearbook = isCandidateOfYearbook;
+	}
+	
 
 
 

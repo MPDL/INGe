@@ -227,9 +227,6 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     
     private LoginHelper loginHelper;
     
-    
-
-
     public PubItemListSessionBean()
     {
         super();

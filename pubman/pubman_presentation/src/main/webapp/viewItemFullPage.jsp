@@ -121,7 +121,17 @@
 
 									<h:commandLink id="lnkAddToBasket" action="#{ViewItemFull.addToBasket}" value="#{lbl.ViewItemFull_lblAddToBasket}" rendered="#{!ViewItemFull.isStateWithdrawn and !ViewItemFull.isInBasket}"/>
 									<h:commandLink id="lnkDeleteFromBasket" action="#{ViewItemFull.removeFromBasket}" value="#{lbl.ViewItemFull_lblRemoveFromBasket}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isInBasket}"/>
-									
+
+									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isCandidateOfYearbook}" />
+									<h:commandLink id="lnkAddToYearbook" styleClass="free_area0" value="#{lbl.Yearbook_addToYearbook}" type ="reset" action="#{ViewItemFull.addToYearbookMember}" immediate="true" rendered="#{ViewItemFull.isCandidateOfYearbook}"/>
+
+									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isMemberOfYearbook}" />
+									<h:commandLink id="lnkRemoveFromYearbook" styleClass="free_area0" value="#{lbl.Yearbook_removeFromYearbook}" action="#{ViewItemFull.removeMemberFromYearbook}" rendered="#{ViewItemFull.isMemberOfYearbook}"/>
+									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isMemberOfYearbook}" />
+									<h:commandLink id="lnkValidate" styleClass="free_area0" value="#{lbl.Yearbook_validate}" action="#{YearbookItemSessionBean.validateYearbook}" rendered="#{ViewItemFull.isMemberOfYearbook}"/>
+									&#160;
+
+	
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}">

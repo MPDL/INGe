@@ -1,5 +1,7 @@
 package de.mpg.escidoc.pubman.yearbook;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,15 +19,19 @@ import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -33,6 +39,8 @@ import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.escidoc.services.search.query.PlainCqlQuery;
+import de.mpg.escidoc.services.search.query.SearchQuery;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.escidoc.services.validation.ItemValidating;
@@ -65,7 +73,6 @@ public class YearbookItemSessionBean extends FacesBean
     
     public YearbookItemSessionBean()
     {
-        
         try
         {
             this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
@@ -125,9 +132,6 @@ public class YearbookItemSessionBean extends FacesBean
 
     }
 
-    
-    
-    
     public void setYearbookItem(PubItemVO yearbookItem)
     {
         this.yearbookItem = yearbookItem;
@@ -151,21 +155,18 @@ public class YearbookItemSessionBean extends FacesBean
             return 0;
         }
        
-    }
+    }  
     
     public void addMembers(List<ItemRO> itemIds)
     {
         try
         {
-      
             List<ItemRO> newRels = new ArrayList<ItemRO>();
-            
             List<String> currentRelations = new ArrayList<String>();
             for(ItemRelationVO rel : yearbookItem.getRelations())
             {
                currentRelations.add(rel.getTargetItemRef().getObjectId());
             }
-            
             int successful = 0;
             for(ItemRO id : itemIds)
             {
@@ -175,7 +176,6 @@ public class YearbookItemSessionBean extends FacesBean
                 }
                 else
                 {
-
                     newRels.add(id);
                     successful++;
                 }
@@ -195,8 +195,6 @@ public class YearbookItemSessionBean extends FacesBean
     {
         try
         {
-      
-           
             removeRelations(itemIds); 
             info(getMessage("Yearbook_RemovedItemsFromYearbook"));
         }
@@ -207,10 +205,8 @@ public class YearbookItemSessionBean extends FacesBean
         }
     }
     
-    
     private void addRelations(List<ItemRO> relList) throws Exception
     {
-        
         if(relList.size()>0)
         {
            
@@ -223,10 +219,8 @@ public class YearbookItemSessionBean extends FacesBean
     
     private void removeRelations(List<ItemRO> relList) throws Exception
     {
-        
         if(relList.size()>0)
         {
-           
             String taskParam = createRelationTaskParam(relList, yearbookItem.getModificationDate());
             itemHandler.removeContentRelations(yearbookItem.getVersion().getObjectId(), taskParam); 
             String updatedItemXml = itemHandler.retrieve(yearbookItem.getVersion().getObjectId());
@@ -247,60 +241,45 @@ public class YearbookItemSessionBean extends FacesBean
         return filter;
     }
     
-    
-    
     private void updateItem(PubItemVO item) throws Exception
     {
         String itemXml = xmlTransforming.transformToItem(item);
         String updatedItemXml = itemHandler.update(item.getVersion().getObjectId(), itemXml);
         this.yearbookItem = xmlTransforming.transformToPubItem(updatedItemXml);
-        
     }
-
-
-
 
     public void setYearbookContext(ContextVO yearbookContext)
     {
         this.yearbookContext = yearbookContext;
     }
 
-
-
-
     public ContextVO getYearbookContext()
     {
         return yearbookContext;
     }
     
-    public List<PubItemVOPresentation> retrieveAllMembers() throws Exception
+    public boolean isCandidate(String id) throws Exception
+    {
+    	MetadataSearchQuery mdQuery = YearbookCandidatesRetrieverRequestBean.getCandidateQuery();
+    	mdQuery.addCriterion(new MetadataSearchCriterion(CriterionType.IDENTIFIER, id, LogicalOperator.AND));
+        ItemContainerSearchResult result = this.searchService.searchForItemContainer(mdQuery);
+    	return result.getTotalNumberOfResults().shortValue() == 1;
+    }
+    
+    public boolean isMember(String id) throws Exception
+    {
+    	MetadataSearchQuery mdQuery = YearbookCandidatesRetrieverRequestBean.getMemberQuery();
+    	mdQuery.addCriterion(new MetadataSearchCriterion(CriterionType.IDENTIFIER, id, LogicalOperator.AND));
+    	ItemContainerSearchResult result = this.searchService.searchForItemContainer(mdQuery);
+    	return result.getTotalNumberOfResults().shortValue() == 1;
+    	
+    }
+    
+    public  List<PubItemVOPresentation> retrieveAllMembers() throws Exception
     {
         List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
-        
-        ArrayList<String> contentTypes = new ArrayList<String>();
-        String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-        contentTypes.add( contentTypeIdPublication );
-        
-        ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
-        MetadataSearchCriterion objectTypeMds = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
-        mdsList.add(objectTypeMds);
-
-        int i=0;
-        for(ItemRelationVO rel : getYearbookItem().getRelations())
-        {
-            if(i==0)
-            {
-                objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.AND));
-            }
-            else
-            {
-                objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.OR));   
-            }
-            i++;
-           
-        }
-        MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, mdsList );
-        ItemContainerSearchResult result = this.searchService.searchForItemContainer(query);
+        MetadataSearchQuery mdQuery = YearbookCandidatesRetrieverRequestBean.getMemberQuery();
+        ItemContainerSearchResult result = this.searchService.searchForItemContainer(mdQuery);
         
         pubItemList =  SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
         return pubItemList;
@@ -346,35 +325,21 @@ public class YearbookItemSessionBean extends FacesBean
         
         
     }
-    
-    
-
-
-
 
     public void setInvalidItemMap(Map<String, YearbookInvalidItemRO> invalidItemMap)
     {
         this.invalidItemMap = invalidItemMap;
     }
 
-
-
-
     public Map<String, YearbookInvalidItemRO> getInvalidItemMap()
-    {
+    {  
         return invalidItemMap;
     }
-
-
-
 
     public void setSelectedWorkspace(YBWORKSPACE selectedWorkspace)
     {
         this.selectedWorkspace = selectedWorkspace;
     }
-
-
-
 
     public YBWORKSPACE getSelectedWorkspace()
     {
@@ -426,7 +391,6 @@ public class YearbookItemSessionBean extends FacesBean
                     valMessages.add((bean.getMessage(item.getContent()).replaceAll("\\$1", item.getElement())));
             }
         }
-        
         return valMessages;
     }
 
