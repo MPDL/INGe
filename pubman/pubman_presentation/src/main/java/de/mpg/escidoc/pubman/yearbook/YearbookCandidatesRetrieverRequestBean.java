@@ -53,12 +53,8 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  */
 public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA>
 {
-
-    
     private static Logger logger = Logger.getLogger(YearbookCandidatesRetrieverRequestBean.class);
     public static String BEAN_NAME = "YearbookCandidatesRetrieverRequestBean";
-    
-   
     private String selectedSortOrder;
     /**
      * This workspace's user.
@@ -119,7 +115,6 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
     {
         return numberOfRecords;
     }
-
     
     /**
      * Reads out the item state parameter from the HTTP GET request and sets an default value if it is null.
@@ -144,8 +139,6 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         {
             setSelectedOrgUnit(orgUnit);
         }
-        
-       
     }
 
     @Override
@@ -179,7 +172,6 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         return "";
     }
     
-    
     public String removeSelectedFromYearbook()
     {
         YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class); 
@@ -195,8 +187,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
     
     public List<SelectItem> getOrgUnitSelectItems()
     {
-                  return this.getSessionBean().getOrgUnitSelectItems(); 
-       
+        return this.getSessionBean().getOrgUnitSelectItems(); 
     }
 
     public void setSelectedOrgUnit(String selectedOrgUnit)
@@ -221,47 +212,35 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
      */
     public String changeOrgUnit()
     {
-            try
-            { 
-               
-                getBasePaginatorListSessionBean().setCurrentPageNumber(1);
-                getBasePaginatorListSessionBean().redirect();
-            }
-            catch (Exception e)
-            {
-               error("Could not redirect");
-            }
-            return "";
+        try
+        { 
+            getBasePaginatorListSessionBean().setCurrentPageNumber(1);
+            getBasePaginatorListSessionBean().redirect();
+        }
+        catch (Exception e)
+        {
+           error("Could not redirect");
+        }
+        return "";
     }
-
-
-
-   
-
 
     public String getSelectedSortOrder()
     {
         return selectedSortOrder;
     }
 
-
-
     public void setSelectedSortOrder(String selectedSortOrder)
     {
         this.selectedSortOrder = selectedSortOrder;
     }
     
-    
     private SearchQuery getCandidatesQuery() throws Exception
     {
-    	
     	 MetadataSearchQuery mdQuery = getCandidateQuery();
-    	
         if (getSelectedOrgUnit()!=null && !getSelectedOrgUnit().toLowerCase().equals("all")) 
         {
         	mdQuery.addCriterion(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
         }
-
         String additionalQuery = yisb.getYearbookItem().getLocalTags().get(0);
         PlainCqlQuery query = new PlainCqlQuery(mdQuery.getCqlQuery() + " AND " +  additionalQuery);
         return query;
@@ -301,7 +280,6 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
              }
          MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
          return mdQuery;
-    	
     }
     
     private SearchQuery getNonCandidatesQuery() throws Exception
@@ -357,13 +335,10 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         }
         MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
         return mdQuery;
-        
     }
     
     private SearchQuery getMembersQuery() throws Exception
     {
-        
-        
         if(yisb.getNumberOfMembers()>0)
         {
         	MetadataSearchQuery mdQuery = getMemberQuery();     
@@ -372,10 +347,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
                 mdQuery.addCriterion(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
             }
             return mdQuery;
-              
-                
                 /*
-                
                 ItemValidating itemValidating = (ItemValidating) new InitialContext().lookup(ItemValidating.SERVICE_NAME);
                 
                 System.out.println("Validate " + pubItemList.size() + "items");
@@ -393,14 +365,10 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
                 
                 System.out.println("All " + pubItemList.size() +" took " + (stop-start) + "ms");
                 */
-                
-               
         }
-        
             return null;
     }
-    
-    
+
     private SearchQuery getInvalidMembersQuery() throws Exception
     {
       
