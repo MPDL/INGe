@@ -209,21 +209,24 @@ public class YearbookItemSessionBean extends FacesBean
     {
         if(relList.size()>0)
         {
-           
+            String updatedItemXml = itemHandler.retrieve(yearbookItem.getVersion().getObjectId());
+            this.yearbookItem = xmlTransforming.transformToPubItem(updatedItemXml);           
             String taskParam = createRelationTaskParam(relList, yearbookItem.getModificationDate());
             itemHandler.addContentRelations(yearbookItem.getVersion().getObjectId(), taskParam); 
-            String updatedItemXml = itemHandler.retrieve(yearbookItem.getVersion().getObjectId());
+            updatedItemXml = itemHandler.retrieve(yearbookItem.getVersion().getObjectId());
             this.yearbookItem = xmlTransforming.transformToPubItem(updatedItemXml);
         }
     }
-    
+     
     private void removeRelations(List<ItemRO> relList) throws Exception
     {
         if(relList.size()>0)
         {
-            String taskParam = createRelationTaskParam(relList, yearbookItem.getModificationDate());
-            itemHandler.removeContentRelations(yearbookItem.getVersion().getObjectId(), taskParam); 
             String updatedItemXml = itemHandler.retrieve(yearbookItem.getVersion().getObjectId());
+            this.yearbookItem = xmlTransforming.transformToPubItem(updatedItemXml);
+        	String taskParam = createRelationTaskParam(relList, yearbookItem.getModificationDate());
+            itemHandler.removeContentRelations(yearbookItem.getVersion().getObjectId(), taskParam); 
+            updatedItemXml = itemHandler.retrieve(yearbookItem.getVersion().getObjectId());
             this.yearbookItem = xmlTransforming.transformToPubItem(updatedItemXml);
         }
     }

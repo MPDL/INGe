@@ -376,9 +376,6 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         
         if(yisb.getInvalidItemMap().size()>0)
         {
-            
-                
-                
                 ArrayList<String> contentTypes = new ArrayList<String>();
                 String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
                 contentTypes.add( contentTypeIdPublication );
@@ -464,8 +461,6 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
                 query = getNonCandidatesQuery();
             }
              
-            query = new PlainCqlQuery(query.getCqlQuery());
-            
             if(query!=null)
             {
                 query.setStartRecord(new PositiveInteger(String.valueOf(offset+1)));
