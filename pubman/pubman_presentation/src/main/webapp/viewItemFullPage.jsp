@@ -127,9 +127,6 @@
 
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isMemberOfYearbook}" />
 									<h:commandLink id="lnkRemoveFromYearbook" styleClass="free_area0" value="#{lbl.Yearbook_removeFromYearbook}" action="#{ViewItemFull.removeMemberFromYearbook}" rendered="#{ViewItemFull.isMemberOfYearbook}"/>
-									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isMemberOfYearbook}" />
-									<h:commandLink id="lnkValidate" styleClass="free_area0" value="#{lbl.Yearbook_validate}" action="#{YearbookItemSessionBean.validateYearbook}" rendered="#{ViewItemFull.isMemberOfYearbook}"/>
-									&#160;
 
 	
 								<!-- content menu lower line ends here -->
