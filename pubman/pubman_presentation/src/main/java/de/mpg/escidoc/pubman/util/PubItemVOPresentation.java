@@ -1480,7 +1480,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     public String getDescriptionMetaTag()
 	{
     	//add first creator to meta tag
-    	descriptionMetaTag = getMetadata().getCreators().get(0).getRoleString() + ": " ;
+    	descriptionMetaTag = getLabel("ENUM_CREATORROLE_" + getMetadata().getCreators().get(0).getRoleString()) + ": " ;
     	if(getMetadata().getCreators().get(0).getPerson() != null)
     		descriptionMetaTag+= getMetadata().getCreators().get(0).getPerson().getFamilyName() +", " + getMetadata().getCreators().get(0).getPerson().getGivenName();
 		else
@@ -1488,7 +1488,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	if(getMetadata().getCreators().size()>1)
     		descriptionMetaTag += " et al.";
     	//add genre information
-    	descriptionMetaTag += "; Gerne: " + getMetadata().getGenre() ;
+    	descriptionMetaTag += "; Genre: " + getMetadata().getGenre() ;
 		//add published print date
     	if(getMetadata().getDatePublishedInPrint()!= null && getMetadata().getDatePublishedInPrint()!="")
     		descriptionMetaTag += "; Published in Print: "+getMetadata().getDatePublishedInPrint();
@@ -1500,7 +1500,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	{
     		if(file.getIsVisible()==true)
     		{
-	    		descriptionMetaTag += "; Opean Access";
+	    		descriptionMetaTag += "; Open Access";
 	    		break;
     		}
     	}
