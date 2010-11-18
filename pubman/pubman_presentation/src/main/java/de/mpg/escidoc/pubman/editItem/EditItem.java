@@ -237,7 +237,7 @@ public class EditItem extends FacesBean
         	
         }
         
-        
+  //      this.getContentSubjectCollection().getContentSubjectManager().getObjectDM().getRowCount();
         
         // FIXME provide access to parts of my VO to specialized POJO's
         this.titleCollection = new TitleCollection(this.getPubItem().getMetadata());
@@ -2231,17 +2231,20 @@ public class EditItem extends FacesBean
             {
                 PublicationAdminDescriptorVO adminDescriptorVO = context.getAdminDescriptor();
                 List<SubjectClassification> list = adminDescriptorVO.getAllowedSubjectClassifications();
-                for (SubjectClassification classification : list)
+                if(list != null)
                 {
-                    SelectItem selectItem = new SelectItem(classification.name(), classification.name());
-                    result.add(selectItem);
+	                for (SubjectClassification classification : list)
+	                {
+	                    SelectItem selectItem = new SelectItem(classification.name(), classification.name());
+	                    result.add(selectItem);
+	                }
+	                return result.toArray(new SelectItem[] {});
                 }
-                return result.toArray(new SelectItem[] {});
             }
         }
         return null;
     }
-
+ 
     /**
      * This method changes the Genre and sets the needed property file for genre specific Metadata
      * 
