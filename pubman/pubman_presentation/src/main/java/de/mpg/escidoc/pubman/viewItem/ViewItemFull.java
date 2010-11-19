@@ -629,6 +629,7 @@ public class ViewItemFull extends FacesBean
             		YearbookInvalidItemRO invItem = yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId());
             		((PubItemVOPresentation)this.getPubItem()).setValidationMessages(YearbookItemSessionBean.getValidationMessages(this, invItem.getValidationReport()));
             	}
+            
             	
             	
                 try   
@@ -2676,7 +2677,7 @@ public class ViewItemFull extends FacesBean
             }
             else
             {
-                expFormat.setName("APA");
+                expFormat.setName("APA6");
             }
            
             
