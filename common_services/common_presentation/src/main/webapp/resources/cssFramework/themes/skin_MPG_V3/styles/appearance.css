@@ -31,7 +31,7 @@
  ALL COLORS USED
  
  BACKGROUND		#FFFFFF
- LINK COLOR		#0076C9
+ LINK COLOR		#044585
  AUTHOR/ORG BG	#3391D4
  LIGHT LINES			#99C8E9
  DROPDOWN/BG		#D9EBF7
@@ -82,11 +82,11 @@ h6 {
 
 /*GENERAL*/
 /*FONT RELATED*/
-body, label, input, textarea, select, button, input.numberLabel, h2, h3, h6, a {
+body, label, button, input.numberLabel, h2, h3, h6, a {
     font-family: Trebuchet, "Trebuchet MS", sans-serif;
 }
 
-input[type = text], textarea {
+input[type = text], textarea, input, select {
     font-family: Courier, "Courier New", serif;
 }
 
@@ -183,7 +183,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .fullItem .fullItemControls .seperator {
     background-color: #FFFFFF;
-    border-color: #0076C9;
+    border-color: #044585;
 }
 
 .fullItem .easySubmissionHeader .seperator {
@@ -224,7 +224,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .metaMenu input, .metaMenu button, .metaMenu a {
-    background-color: #004465;
+    background-color: #0F3834;
     color: #FFFFFF;
 }
 
@@ -294,13 +294,13 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*EXT. PAGINATOR*/
 .paginatorFallbackGoBtn {
     background-color: #FFFFFF;
-    color: #0076C9;
+    color: #044585;
 }
 
 /*PAGE BROWSER*/
 .pageBrowser input, .pageBrowser button, .pageBrowser a {
     background-color: transparent;
-    color: #0076C9;
+    color: #044585;
 }
 
 .pageBrowser input:hover, .pageBrowser button:hover, .pageBrowser a:hover, .pageBrowser input:focus, .pageBrowser button:focus, .pageBrowser a:focus {
@@ -337,7 +337,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*LISTS & FULL ITEM*/
 /*GENERAL*/
 .itemList, .tiledList, .fullItem {
-    border-top-color: #0076C9;
+    border-top-color: #044585;
 }
 
 .itemList, .tiledList, .fullItem {
@@ -447,7 +447,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .fullItem .fullItemControls .actual {
     color: #FFFFFF;
-    background-color: #0076C9;
+    background-color: #044585;
 }
 
 /*FULL ITEM BLOCK*/
@@ -485,9 +485,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .fullItem .groupBtn {
-    /*font-weight: bold;*/
-    color: #0076C9;
-    background-color: #ffffff;
+    color: #044585;
+    background-color: transparent;
     text-align: left;
 }
 
@@ -516,11 +515,11 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .cancelButton {
     float: left;
-    color: #0076C9;
+    color: #044585;
     background-color: #FFFFFF;
     border-top-color: #FFFFFF;
-    border-right-color: #0076C9;
-    border-bottom-color: #0076C9;
+    border-right-color: #044585;
+    border-bottom-color: #044585;
     border-left-color: #FFFFFF;
 }
 
@@ -537,7 +536,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     float: right;
     color: #FFFFFF !important;
 	background-color: #0F3834 !important;
-    border-color: #0076C9;
+    border-color: #044585;
 }
 
 .activeButton:hover {
@@ -578,7 +577,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*MESSAGE AREAS*/
 .messageArea {
     border-style: solid;
-    border-color: #0076C9;
+    border-color: #044585;
     background-color: #FFFFFF;
     margin-bottom: 1em;
 }
