@@ -1,14 +1,10 @@
 package de.mpg.escidoc.services.batchprocess.transformers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatusType;
@@ -21,6 +17,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
+import de.mpg.escidoc.services.framework.AdminHelper;
 
 public class LingLitScriptTransformer extends Transformer<PubItemVO>
 {
@@ -71,22 +68,8 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         String fkw = item.getMetadata().getFreeKeywords().getValue();
         List<String> list = new ArrayList<String>();
         item.getMetadata().getLanguages().addAll(list);
-        // String locClass = getLocClassification(fkw);
-        Map<String, String> languages = new HashMap<String, String>();
-        logger.info("BEF trans: " + fkw);
-        // if (fkw.contains("ISO 639-3"))
-        // {
-        // Pattern p = Pattern.compile("\\b[a-z][a-z][a-z]\\b");
-        // Matcher m = p.matcher(fkw);
-        // while (m.find())
-        // {
-        // String lang = getISOLanguage(m.group());
-        // if (lang != null)
-        // {
-        // languages.put(m.group(), lang);
-        // }
-        // }
-        // }
+        String locClass = "";
+        String locSubjectHeading = "";
         String[] fields = fkw.split(",");
         if (fields.length > 0)
         {
@@ -98,20 +81,28 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
                     String[] langs = fields[i].split("/");
                     for (int j = 0; j < langs.length; j++)
                     {
-                        item.getMetadata().getSubjects().add(new TextVO(langs[j], "eng", "eterms:ISO639_3"));
-                        fkw = fkw.replace(langs[j], "");
+                        String lang = langs[j].trim();
+                        if (lang.matches("\\b[a-z][a-z][a-z]\\b"))
+                        {
+                            item.getMetadata().getSubjects().add(new TextVO(langs[j], "eng", "eterms:ISO639_3"));
+                        }
                     }
-                    fkw = fkw.replace("/", "");
-                    fkw = fkw.replace("ISO 639-3 :,", "");
                 }
-                else if (i == 0 && fields[i].matches("\\b[A-Z0-9.]+\\b"))
+                else if (i == 0 && fields[i].replace(" ", "").matches("\\b[A-Z0-9.]+\\b"))
                 {
-                    String locClass = fields[i];
-                    fkw = fkw.replace(locClass, " LoC Class: " + locClass);
+                    locClass = "LoC Class: " + fields[i];
                 }
                 else
                 {
-                    fkw = fkw.replace(fields[i], " LoC Subject Heading: " + fields[i]);
+                    if (!"".equals(locSubjectHeading))
+                    {
+                        locSubjectHeading += ", ";
+                    }
+                    else
+                    {
+                        locSubjectHeading += "LoC Subject Heading: ";
+                    }
+                    locSubjectHeading += fields[i];
                 }
             }
         }
@@ -119,109 +110,15 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         {
             logger.error("Error parsing freekeywords");
         }
-        // Pattern p = Pattern.compile("\\b[\\w]+\\b");
-        // Matcher m = p.matcher(fkw);
-        // while (m.find())
-        // {
-        // languages.putAll(findLanguages(m.group()));
-        // }
-        // if (locClass != null)
-        // {
-        // fkw = fkw.replace(locClass, "LoC Class " + locClass);
-        // }
-        // if (languages.size() > 0)
-        // {
-        // for (String str : languages.keySet())
-        // {
-        // if (fkw.contains(str))
-        // {
-        // String language = languages.get(str);
-        // fkw = fkw.replace(language, "LoC Subject Heading" + language);
-        // }
-        // }
-        // }
-        logger.info("AFT trans: " + fkw + " with languages");
-        for (TextVO t : item.getMetadata().getSubjects())
+        fkw = "";
+        fkw += locClass;
+        if (!"".equals(locClass) && !"".equals(locSubjectHeading))
         {
-            if ("eterms:ISO639_3".equals(t.getType()))
-            {
-                logger.info(t.getValue());
-            }
+            fkw += ", ";
         }
+        fkw += locSubjectHeading;
+        item.getMetadata().getFreeKeywords().setValue(fkw);
         return item;
-    }
-
-    private String getLocClassification(String str)
-    {
-        Pattern p = Pattern.compile("\\b[A-Z0-9.]+\\b");
-        Matcher m = p.matcher(str);
-        if (m.find())
-        {
-            if (!"ISO".equals(m.group()))
-            {
-                return m.group();
-            }
-        }
-        return null;
-    }
-
-    private Map<String, String> findLanguages(String str)
-    {
-        Map<String, String> map = new HashMap<String, String>();
-        try
-        {
-            HttpClient client = new HttpClient();
-            GetMethod getMethod = new GetMethod("http://dev-pubman.mpdl.mpg.de/cone/iso639-3/query?f=options&q=\""
-                    + str + "\"");
-            getMethod.setRequestHeader("Connection", "close");
-            client.executeMethod(getMethod);
-            String resp = getMethod.getResponseBodyAsString();
-            String[] options = resp.split("[\\|\\n]");
-            if (options.length > 1)
-            {
-                for (int i = 0; i < options.length; i++)
-                {
-                    if (options[i + 1].split("-").length > 1)
-                    {
-                        // logger.info("language: " + options[i + 1].split("-")[1].replace("\n", ""));
-                        map.put(options[i], options[i + 1].split("-")[1].replace("\n", ""));
-                        i++;
-                    }
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException(e);
-        }
-        return map;
-    }
-
-    private String getISOLanguage(String str)
-    {
-        try
-        {
-            HttpClient client = new HttpClient();
-            GetMethod getMethod = new GetMethod("http://dev-pubman.mpdl.mpg.de/cone/iso639-3/query?f=options&q=\""
-                    + str + "\"");
-            getMethod.setRequestHeader("Connection", "close");
-            client.executeMethod(getMethod);
-            String resp = getMethod.getResponseBodyAsString();
-            if (resp.split("\\|").length > 1)
-            {
-                return resp.split("\\|")[1].replace("\n", "");
-            }
-            else
-            {
-                // logger.warn(str + " is not a language");
-                // logger.warn("response: " + resp);
-            }
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException(e);
-        }
-        return null;
     }
 
     public PubItemVO setIsoToLanguages(PubItemVO item)
@@ -393,11 +290,15 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
 
     private PubItemVO transformLocators(PubItemVO item)
     {
-        for (FileVO f : item.getFiles())
+        for (int i = 0; i < item.getFiles().size(); i++)
         {
-            if (Storage.EXTERNAL_URL.equals(f.getStorage()))
+            if (Storage.EXTERNAL_URL.equals(item.getFiles().get(i).getStorage()))
             {
-                f.setName(f.getContent());
+                item.getFiles().get(i).setName(item.getFiles().get(i).getContent());
+                if (item.getFiles().get(i).getMetadataSets().size() > 0)
+                {
+                    item.getFiles().get(i).getMetadataSets().get(0).getTitle().setValue(item.getFiles().get(i).getContent());
+                }
             }
         }
         return item;

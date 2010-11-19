@@ -1,6 +1,9 @@
 package de.mpg.escidoc.services.batchprocess.operations;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -54,22 +57,26 @@ public class Edit extends Operation
         }
         else if (CoreServiceObjectType.CONTAINER.equals(list.getObjectType()))
         {
-            // TODO
         }
     }
 
     private void updateItems(Elements list) throws Exception
     {
-        ItemHandler ih = ServiceLocator.getItemHandler();
+        ItemHandler ih = ServiceLocator.getItemHandler(elements.getUserHandle());
+        String e = elements.getUserHandle();
         XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+        List<ItemVO> updated = new ArrayList<ItemVO>();
         if (list.getElements() != null)
         {
             for (ItemVO ivo : new ArrayList<ItemVO>(list.getElements()))
             {
                 String xml = xmlTransforming.transformToItem(ivo);
+                xml = ih.update(ivo.getVersion().getObjectId(), xml);
+                updated.add(xmlTransforming.transformToItem(xml));
                 this.report.addEntry("Update" + ivo.getVersion().getObjectId(), "Edit "
                         + ivo.getVersion().getObjectId(), ReportEntryStatusType.FINE);
             }
         }
+        elements.setElements(updated);
     }
 }

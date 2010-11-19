@@ -29,7 +29,7 @@ public abstract class BatchProcess
         logger.info("Batch process starting...");
         operation.execute(args);
         logger.info("Batch Process done!");
-        //logger.info(report.printReport());
+        logger.info(report.printReport());
     }
 
     public void run(String[] args)

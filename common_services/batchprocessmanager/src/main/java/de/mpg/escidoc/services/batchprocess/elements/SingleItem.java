@@ -18,7 +18,7 @@ public class SingleItem extends Elements<ItemVO>
 {
     private String escidocId = null;
     private static final Logger logger = Logger.getLogger(BatchProcess.class);
-    
+
     public SingleItem(String[] args)
     {
         super(args);
@@ -28,6 +28,14 @@ public class SingleItem extends Elements<ItemVO>
     public void init(String[] args)
     {
         escidocId = CommandHelper.getArgument("-id", args, true);
+        try
+        {
+            setUserHandle(AdminHelper.loginUser("bibliothek_mpi_eva", "bibliothek"));
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Error login:" + e);
+        }
     }
 
     @Override
@@ -41,8 +49,7 @@ public class SingleItem extends Elements<ItemVO>
     {
         try
         {
-            String handle = AdminHelper.loginUser("bibliothek_mpi_eva", "bibliothek");
-            ItemHandler ih = ServiceLocator.getItemHandler(handle);
+            ItemHandler ih = ServiceLocator.getItemHandler(this.getUserHandle());
             logger.info("Retrieving item " + escidocId + " from " + ServiceLocator.getFrameworkUrl());
             String itemXml = ih.retrieve(escidocId);
             XmlTransformingBean xmlTransforming = new XmlTransformingBean();

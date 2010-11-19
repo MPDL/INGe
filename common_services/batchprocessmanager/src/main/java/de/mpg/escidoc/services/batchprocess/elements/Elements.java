@@ -12,9 +12,10 @@ public abstract class Elements<ListElementType> extends BatchProcess
 {
     protected List<ListElementType> elements = new ArrayList<ListElementType>();
     protected int maximumNumberOfElements = 50;
+    private String userHandle;
 
     public Elements(String[] args)
-    {   
+    {
         init(args);
         String max = CommandHelper.getArgument("-n", args, false);
         if (max != null)
@@ -48,8 +49,18 @@ public abstract class Elements<ListElementType> extends BatchProcess
         this.elements = elements;
     }
 
+    public String getUserHandle()
+    {
+        return userHandle;
+    }
+
+    public void setUserHandle(String userHandle)
+    {
+        this.userHandle = userHandle;
+    }
+
     public abstract void init(String[] args);
-    
+
     public abstract void retrieveElements();
 
     public abstract CoreServiceObjectType getObjectType();

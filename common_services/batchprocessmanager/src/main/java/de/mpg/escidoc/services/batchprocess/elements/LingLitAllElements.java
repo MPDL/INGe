@@ -1,6 +1,12 @@
 package de.mpg.escidoc.services.batchprocess.elements;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
+
+import javax.xml.rpc.ServiceException;
+
+import org.apache.commons.httpclient.HttpException;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.batchprocess.BatchProcess.CoreServiceObjectType;
@@ -20,6 +26,14 @@ public class LingLitAllElements extends Elements<ItemVO>
     @Override
     public void init(String[] args)
     {
+        try
+        {
+            setUserHandle(AdminHelper.loginUser("bibliothek_mpi_eva", "bibliothek"));
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Error login:" + e);
+        }
     }
 
     private static final String LOCAL_TAG = "LingLit Import 2010-04-01 10:10";
@@ -29,7 +43,7 @@ public class LingLitAllElements extends Elements<ItemVO>
     {
         try
         {
-            ItemHandler ih = ServiceLocator.getItemHandler(AdminHelper.loginUser("bibliothek_mpi_eva", "bibliothek"));
+            ItemHandler ih = ServiceLocator.getItemHandler(this.getUserHandle());
             String seachResultXml = ih.retrieveItems(CoreServiceHelper.createBasicFilter(
                     "\"/properties/content-model-specific/local-tags/local-tag\"=\"" + LOCAL_TAG + "\"",
                     maximumNumberOfElements));
