@@ -155,7 +155,6 @@
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 
-
 							<!-- content menu ends here -->
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="subHeader" rendered="#{YearbookItemSessionBean.yearbookItem!=null}">
