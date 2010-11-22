@@ -20,6 +20,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -36,7 +37,11 @@ public class YearbookItemCreateBean extends FacesBean
     private String dateTo;
     private String collaboratorUserIds;
     
-    public YearbookItemCreateBean()
+    private String context;
+    
+
+
+	public YearbookItemCreateBean()
     {
         
     }
@@ -59,7 +64,7 @@ public class YearbookItemCreateBean extends FacesBean
     public void setOrgId(String orgId)
     {
         this.orgId = orgId;
-    }
+    }  
 
     public String getContextIds()
     {
@@ -70,12 +75,33 @@ public class YearbookItemCreateBean extends FacesBean
     {
         this.contextIds = contextIds;
     }
+    
+    public String getContext() {
+		return context;
+	}
+
+	public void setContext(String context) {
+		this.context = context;
+	}
+	
+    public String writeContext()
+    {
+        if(getContextIds().length()>0)
+        {
+        	setContextIds(getContextIds()+","+getContext());
+        }
+        else
+        	setContextIds(getContext());
+        return null;
+    }
 
     public String getDateFrom()
     {
         return dateFrom;
     }
+    
 
+    
     public void setDateFrom(String dateFrom)
     {
         this.dateFrom = dateFrom;
