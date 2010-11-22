@@ -139,7 +139,7 @@ public class YearbookItemSessionBean extends FacesBean
 
     public PubItemVO getYearbookItem()
     {
-        return yearbookItem;  
+        return yearbookItem;   
     }
     
     
@@ -288,6 +288,37 @@ public class YearbookItemSessionBean extends FacesBean
         return pubItemList;
     }
     
+    
+    public void validateItem(PubItemVO pubItem) throws Exception
+    {
+    	Date lmd= null;
+        if(invalidItemMap.containsKey(pubItem.getVersion().getObjectId()))
+        {
+             lmd = invalidItemMap.get(pubItem.getVersion().getObjectId()).getLastModificationDate();
+        }
+        else if(validItemMap.containsKey(pubItem.getVersion().getObjectId()))
+        {
+            lmd = validItemMap.get(pubItem.getVersion().getObjectId()).getLastModificationDate();
+        }
+        
+        if(!pubItem.getModificationDate().equals(lmd))
+        {
+            //revalidate
+        	System.out.println("Yearbook Validating: " + pubItem.getVersion().getObjectId());
+            ValidationReportVO rep = this.itemValidating.validateItemObjectBySchema(new PubItemVO(pubItem), "default", "yearbook");
+            if(!rep.isValid())
+            {
+                validItemMap.remove(pubItem.getVersion().getObjectId());
+                invalidItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(pubItem.getVersion().getObjectId(), rep, pubItem.getModificationDate()));
+            }
+            else
+            {
+                invalidItemMap.remove(pubItem.getVersion().getObjectId());
+                validItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(pubItem.getVersion().getObjectId(), rep, pubItem.getModificationDate()));
+            }
+        }
+    }
+    
     public String validateYearbook() throws Exception
     {
 
@@ -295,32 +326,7 @@ public class YearbookItemSessionBean extends FacesBean
         
         for(PubItemVOPresentation pubItem : pubItemList)
         {
-            Date lmd= null;
-            if(invalidItemMap.containsKey(pubItem.getVersion().getObjectId()))
-            {
-                 lmd = invalidItemMap.get(pubItem.getVersion().getObjectId()).getLastModificationDate();
-            }
-            else if(validItemMap.containsKey(pubItem.getVersion().getObjectId()))
-            {
-                lmd = validItemMap.get(pubItem.getVersion().getObjectId()).getLastModificationDate();
-            }
-            
-            if(!pubItem.getModificationDate().equals(lmd))
-            {
-                //revalidate
-            	System.out.println("Yearbook Validating: " + pubItem.getVersion().getObjectId());
-                ValidationReportVO rep = this.itemValidating.validateItemObjectBySchema(new PubItemVO(pubItem), "default", "yearbook");
-                if(!rep.isValid())
-                {
-                    validItemMap.remove(pubItem.getVersion().getObjectId());
-                    invalidItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(pubItem.getVersion().getObjectId(), rep, pubItem.getModificationDate()));
-                }
-                else
-                {
-                    invalidItemMap.remove(pubItem.getVersion().getObjectId());
-                    validItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(pubItem.getVersion().getObjectId(), rep, pubItem.getModificationDate()));
-                }
-            }
+           validateItem(pubItem);
         }
         
         changeToInvalidItems();

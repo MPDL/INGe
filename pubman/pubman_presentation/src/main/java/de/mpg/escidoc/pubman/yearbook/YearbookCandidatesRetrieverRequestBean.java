@@ -443,7 +443,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         	{
         		
         	
-            SearchQuery query = null; 
+            SearchQuery query = null;  
             if(yisb.getSelectedWorkspace().equals(YBWORKSPACE.CANDIDATES))
             {
                 query = getCandidatesQuery();

@@ -626,8 +626,18 @@ public class ViewItemFull extends FacesBean
             	yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
             	if(yisb.getYearbookItem() != null && yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId()) != null)
             	{
-            		YearbookInvalidItemRO invItem = yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId());
-            		((PubItemVOPresentation)this.getPubItem()).setValidationMessages(YearbookItemSessionBean.getValidationMessages(this, invItem.getValidationReport()));
+            		try {
+            			//revalidate
+						yisb.validateItem(getPubItem());
+						YearbookInvalidItemRO invItem = yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId());
+						if(invItem!=null)
+						{
+							((PubItemVOPresentation)this.getPubItem()).setValidationMessages(YearbookItemSessionBean.getValidationMessages(this, invItem.getValidationReport()));
+						}
+						
+					} catch (Exception e) {
+						logger.error("Error in Yaerbook validation", e);
+					}
             	}
             
             	
