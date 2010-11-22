@@ -276,8 +276,8 @@ function dateParse(dateString)
 }
 
 // Deactivated due to datejs bug, see http://jira.mpdl.mpg.de/browse/PUBMAN-1719
-function addDateJSFunctions() {}
-/*function addDateJSFunctions() {
+//function addDateJSFunctions() {}
+function addDateJSFunctions() {
 	$(".dateJSInput").each(function(){
 		$(this).focus(function() {
 			var input_empty = "", empty_string = "";
@@ -347,7 +347,7 @@ function addDateJSFunctions() {}
 		});
 		validateDate(this);
 	});
-}*/
+}
 
 function installQuickSearchShortcut() {
 	addQuickSearchFunction();
@@ -359,7 +359,7 @@ function installDateTextbox() {
 	language = document.body.lang;
 	if(language != '') language = '-'+language;
 	/*INCLUDE RIGHT LANGUAGE HERE*/
-	include_dom(jsURL + 'eSciDoc_component_JavaScript/DateJS/date'+language+'.js');
+	include_dom(jsURL + 'externalJavaScript/DateJS/date'+language+'.js');
 	addDateJSLabels();
 	addDateJSFunctions();
 }
