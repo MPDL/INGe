@@ -98,106 +98,12 @@
 						</div>
 					</div>
 					<div class="full_area0">
-						<div id="fullItem" class="full_area0">
-						
-						<h:panelGroup layout="block" styleClass="full_area0 itemBlock">
-							<h3 class="xLarge_area0_p8 endline blockHeader">
-								<h:outputText value="Yearbook Information"/>
-							</h3>
-							<span class="seperator"></span>
-							<span class="free_area0 itemBlockContent endline">
-							
-								<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-									<b class="xLarge_area0_p8 endline labelLine clear">
-										&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*"/>
-										<h:outputText value="Title"/>
-										<span class="noDisplay">: </span>
-									</b>
-									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<h:inputTextarea id="inputTitleText" styleClass="quad_txtArea inputTxtArea" value="#{YearbookItemCreateBean.title}" cols="15" rows="3" ></h:inputTextarea>
-									</span>
-									<!-- 
-									<span class="large_area0_p8 lineToolSection">
-										<h:commandButton id="btnAddTitle" title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.titleCollection.addTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-										<h:commandButton id="btnRemoveTitle" title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.titleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-									</span>
-									-->
-								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-									<b class="xLarge_area0_p8 endline labelLine clear">
-										&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*"/>
-										<h:outputText value="Organization Id"/>
-										<span class="noDisplay">: </span>
-									</b>
-									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<h:inputText id="inputOrgId" styleClass="large_txtInput" value="#{YearbookItemCreateBean.orgId}" />
-									</span>
-									<!-- 
-									<span class="large_area0_p8 lineToolSection">
-										<h:commandButton id="btnAddTitle" title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.titleCollection.addTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-										<h:commandButton id="btnRemoveTitle" title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.titleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-									</span>
-									-->
-								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-									<b class="xLarge_area0_p8 endline labelLine clear">
-										&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*"/>
-										<h:outputText value="Context Ids (comma seperated)"/>
-										<span class="noDisplay">: </span>
-									</b>
-									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<h:inputText id="inputContextId" styleClass="xHuge_txtInput" value="#{YearbookItemCreateBean.contextIds}" />
-									</span>
-									<!-- 
-									<span class="large_area0_p8 lineToolSection">
-										<h:commandButton id="btnAddTitle" title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.titleCollection.addTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-										<h:commandButton id="btnRemoveTitle" title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.titleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-									</span>
-									-->
-								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-									<b class="xLarge_area0_p8 endline labelLine clear">
-										&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*"/>
-										<h:outputText value="Date"/>
-										<span class="noDisplay">: </span>
-									</b>
-									<span class="xHuge_area0 xTiny_marginLExcl endline">
-									
-									<h:panelGroup styleClass="large_area0 tiny_marginRIncl">
-										<h:outputLabel styleClass="large_label" for="txtDateFrom" value="from"/>
-										<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateFrom" value="#{YearbookItemCreateBean.dateFrom}" />
-									</h:panelGroup>
-									<h:panelGroup styleClass="large_area0 tiny_marginRIncl">
-										<h:outputLabel styleClass="large_label" for="txtDateTo" value="to"/>
-										<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateTo" value="#{YearbookItemCreateBean.dateTo}" />
-									</h:panelGroup>
-										
-									</span>
-									<!-- 
-									<span class="large_area0_p8 lineToolSection">
-										<h:commandButton id="btnAddTitle" title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.titleCollection.addTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-										<h:commandButton id="btnRemoveTitle" title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.titleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-									</span>
-									-->
-								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-									<b class="xLarge_area0_p8 endline labelLine clear">
-										&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*"/>
-										<h:outputText value="Yearbook User Id (Collaborator Rights are granted)"/>
-										<span class="noDisplay">: </span>
-									</b>
-									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<h:inputText id="inputUserId" styleClass="xHuge_txtInput" value="#{YearbookItemCreateBean.collaboratorUserIds}" />
-									</span>
-								</h:panelGroup>
-							</span>
-						</h:panelGroup>
+						<div id="fullItem" class="full_area0 fullItem">	
+							<jsp:directive.include file="createItem/CreateYearbookItem.jspf" />
 						</div>
-						
+							
 						<div class="full_area0 formButtonArea">
-							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="Save" action="#{YearbookItemCreateBean.save}"/>
-							
-							
+								<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="Save" action="#{YearbookItemCreateBean.save}"/>
 						</div>
 						
 						
@@ -208,13 +114,30 @@
 			<jsp:directive.include file="footer/Footer.jspf" />
 			</tr:form>
 			<script type="text/javascript">
+			<![CDATA[	
 				$("input[id$='offset']").submit(function() {
 					$(this).val($(window).scrollTop());
 				});
 				$(document).ready(function () {
 					$(window).scrollTop($("input[id$='offset']").val());
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
+					var element = document.getElementById('selSelectedOrgUnit');
+					if (element.options !=null && element.options.length == 2)
+					{
+						throb();
+						$.getJSON('AffiliationsAsJSON.jsp', loadAffiliations);
+					}
 				});
+				]]>
+			</script>
+			<script type="text/javascript">
+				function fullItemReload()
+				{
+					document.getElementById('fullItem').style.opacity='0.4';
+					document.getElementById('fullItem').style.bg='FFF';
+					$('#fullItem :input :text').attr('readonly', true);
+				    $('#fullItem :textarea').attr('readonly', true);
+				}
 			</script>
 			</body>
 		</html>
