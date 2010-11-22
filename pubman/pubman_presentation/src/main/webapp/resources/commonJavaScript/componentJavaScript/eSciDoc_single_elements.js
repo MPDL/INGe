@@ -329,7 +329,7 @@ function addDateJSFunctions() {
 					var oEvent = event || window.event;
 					if(oEvent.keyCode == 13)
 					{
-						$(this).val(date.toString("yyyy-MMM-dd"));
+						$(this).val(date.toString("yyyy-MM-dd"));
 						$(".dateJSLabel[for='"+$(this).attr("id")+"']").addClass("noDisplay").text("");
 					};
 				} else
