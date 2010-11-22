@@ -195,6 +195,18 @@ public class YearbookItemSessionBean extends FacesBean
     {
         try
         {
+        	for(ItemRO item : itemIds)
+        	{
+        		if(invalidItemMap.containsKey(item.getObjectId()))
+        		{
+        			invalidItemMap.remove(item.getObjectId());
+        		}
+        		if(validItemMap.containsKey(item.getObjectId()))
+        		{
+        			validItemMap.remove(item.getObjectId());
+        		}
+        	}
+        	
             removeRelations(itemIds); 
             info(getMessage("Yearbook_RemovedItemsFromYearbook"));
         }
