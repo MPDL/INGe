@@ -115,7 +115,7 @@
 									<h:outputText styleClass="seperator void" />
 									<h:commandLink id="lnkRemoveFromYearbook" styleClass="free_area0" value="#{lbl.Yearbook_removeFromYearbook}" action="#{YearbookCandidatesRetrieverRequestBean.removeSelectedFromYearbook}" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS'}"/>
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink id="lnkValidate" styleClass="free_area0" value="#{lbl.Yearbook_validate}" action="#{YearbookItemSessionBean.validateYearbook}" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' || YearbookItemSessionBean.selectedWorkspace=='INVALID'}"/>
+									<h:commandLink id="lnkValidate" styleClass="free_area0" value="#{lbl.Yearbook_validate}" action="#{YearbookItemSessionBean.validateYearbook}" onclick="fullItemReload();" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' || YearbookItemSessionBean.selectedWorkspace=='INVALID'}"/>
 									&#160;
 								<!-- content menu upper line ends here -->
 								</div>
@@ -190,9 +190,14 @@
 						<h:panelGroup styleClass="full_area0" rendered="#{PubItemListSessionBean.partListSize==0}">
 							<h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.depositorWS_valNoItemsMsg}"/>
 						</h:panelGroup>
+						
 					</h:panelGroup>
+				<div id="ImgFullItem">
+					<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;"></div>
+				</div>
 				<!-- end: content section -->
 				</div>
+				
 			</div>
 			<jsp:directive.include file="footer/Footer.jspf" />
 			</tr:form>
@@ -213,6 +218,16 @@
 					}
 				});
 				]]>
+			</script>
+			<script type="text/javascript">
+				function fullItemReload()
+				{
+					document.getElementById('content').style.opacity='0.4';
+					document.getElementById('content').style.bg='FFF';
+					document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea half_marginLIncl smallThrobber');
+					$('#fullItem :input :text').attr('readonly', true);
+				    $('#fullItem :textarea').attr('readonly', true);
+				}
 			</script>
 			</body>
 		</html>
