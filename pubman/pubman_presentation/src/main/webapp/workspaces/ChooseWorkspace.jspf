@@ -94,7 +94,7 @@
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:outputLink id="lnkYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookCandidatesPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'YearbookWSPage' and (LoginHelper.isModerator || LoginHelper.isDepositor) and ContextListSessionBean.moderatorContextListSize>0}">
+				<h:outputLink id="lnkYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'YearbookWSPage' and (LoginHelper.isModerator || LoginHelper.isDepositor) and ContextListSessionBean.moderatorContextListSize>0}">
 					<h:outputText value="#{lbl.chooseWorkspace_lnkYearbookWorkspace}"/>
 				</h:outputLink>
 			</b>

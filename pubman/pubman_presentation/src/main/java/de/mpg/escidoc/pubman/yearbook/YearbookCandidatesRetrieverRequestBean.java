@@ -150,7 +150,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
     @Override
     public String getListPageName()
     {
-        return "YearbookCandidatesPage.jsp";
+        return "YearbookPage.jsp";
     }
 
     @Override
