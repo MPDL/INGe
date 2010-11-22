@@ -36,7 +36,7 @@
 /*Body Background*/
 
 body {
-	background:url("../images/all_background_1.png") repeat-x scroll left top transparent;
+	background: url("../images/all_background_1.png") repeat-x scroll left top;
 }
 
 body .wrapper {
@@ -298,7 +298,7 @@ body .wrapper {
 /*LIST COMPONENT*/
 
 .itemList, .tiledList, .fullItem {
-	background-image:url("../images/all_ramp_list.png");
+	background:url("../images/all_ramp_list.png") repeat-x scroll left top;
 }
 
 .itemList .checkBoxSelectButton {
