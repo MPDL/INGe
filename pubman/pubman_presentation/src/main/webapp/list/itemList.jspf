@@ -160,9 +160,23 @@
 					
  				</span>
  			</h:panelGroup>
+ 			<h:panelGroup styleClass="free_area0_p0 xLarge_marginLIncl endline listItemLine" rendered="#{not empty item.validationMessages}">
+				<span class="huge_area0_p8 endline labelLine"></span>
+				<span class="xHuge_area0 endline">
+				<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" style="padding-top: 0px !important;">
+					<h2><h:outputText value="#{lbl.Yearbook_validationMessageHeader}"/></h2>
+					<ul>
+					<tr:iterator var="msg" value="#{item.validationMessages}">
+						<li class="messageError">
+							<h:outputText value="#{msg}"/>
+						</li>
+					</tr:iterator>
+					</ul>	
+			   </h:panelGroup>
+			   </span>
+			</h:panelGroup>
 
  			<jsp:directive.include file="../viewItem/ViewItemShort.jspf"/>
-
  			<jsp:directive.include file="../viewItem/ViewItemMedium.jspf"/>
  			
  		</li>
