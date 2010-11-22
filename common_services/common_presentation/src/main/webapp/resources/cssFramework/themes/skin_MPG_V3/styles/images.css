@@ -595,10 +595,6 @@ body .wrapper {
     background-position: center left;
 }
 
-.add, .remove {
-    background-color: #ffffff;
-}
-
 .add {
     background-image: url('../images/All_Complete_PlusAdd_15_Active.png');
     background-repeat: no-repeat;
