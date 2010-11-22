@@ -297,7 +297,7 @@ function addDateJSFunctions() {
 
 				if(date!=null)
 				{
-					$(".dateJSLabel[for='"+$(this).attr("id")+"']").removeClass("noDisplay").text(date.toString("yyyy-MM-dd"));
+					$(".dateJSLabel[for='"+$(this).attr("id")+"']").removeClass("noDisplay").text(date.toString("yyyy-MMM-dd"));
 				}
 			}
 	        return false;    
@@ -325,11 +325,11 @@ function addDateJSFunctions() {
 				
 				if(date != null)
 				{
-					$(".dateJSLabel[for='"+$(this).attr("id")+"']").removeClass("noDisplay").text(date.toString("yyyy-MM-dd"));
+					$(".dateJSLabel[for='"+$(this).attr("id")+"']").removeClass("noDisplay").text(date.toString("yyyy-MMM-dd"));
 					var oEvent = event || window.event;
 					if(oEvent.keyCode == 13)
 					{
-						$(this).val(date.toString("yyyy-MM-dd"));
+						$(this).val(date.toString("yyyy-MMM-dd"));
 						$(".dateJSLabel[for='"+$(this).attr("id")+"']").addClass("noDisplay").text("");
 					};
 				} else
