@@ -34,12 +34,11 @@
 	<!-- meta Menu starts here -->
 
 	<!-- Language -->
-	<h:selectOneMenu id="selSelectLocale" value="#{PubManSessionBean.locale}" immediate="true" onchange="submit();" valueChangeListener="#{PubManSessionBean.changeLanguage}" styleClass="medium_select endline replace" title="#{tip.Home_Header_Language}">
+	<h:selectOneMenu id="selSelectLocale" value="#{PubManSessionBean.locale}" immediate="true" onchange="submit();" valueChangeListener="#{PubManSessionBean.changeLanguage}" styleClass="medium_select" title="#{tip.Home_Header_Language}">
 		<f:selectItem itemValue="en" itemLabel="#{lbl.ENUM_LANGUAGE_EN}"/>
 		<f:selectItem itemValue="de" itemLabel="#{lbl.ENUM_LANGUAGE_DE}"/>
 		<f:selectItem itemValue="ja" itemLabel="#{lbl.ENUM_LANGUAGE_JA}"/>
 	</h:selectOneMenu>
-
 	<!-- Help -->
 	<h:commandLink id="lnkHelp" styleClass="small_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="setStyleCookie(); loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
@@ -53,9 +52,8 @@
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 	<!-- LogIn, LogOut -->
-	<h:commandButton id="lnkLoginLogout" styleClass="medium_txtBtn endline logButton" action="#{Login.loginLogout}" value="#{LoginHelper.loginLogoutLabel}" immediate="true" />
+	<h:commandLink id="lnkLoginLogout" styleClass="medium_area0_p8 endline" action="#{Login.loginLogout}" value="#{LoginHelper.loginLogoutLabel}" immediate="true" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
-
 
 	<h:outputLabel id="txtAccountUserName" styleClass="free_area0_p8 endline" value="#{LoginHelper.accountUser.name}" rendered="#{LoginHelper.loggedIn}"></h:outputLabel>
 
