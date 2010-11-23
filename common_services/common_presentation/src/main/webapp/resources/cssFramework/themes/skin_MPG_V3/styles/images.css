@@ -179,20 +179,21 @@ body .wrapper {
  -----------------------------------------------*/
 
 /*START PAGE*/
-.myItemsIcon {
-    background-image: url('../images/PM_Startpage_MyItems.png');
+
+.submIcon {
+    background-image: url('../images/All_Start_TeaserNew_31_Static.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .qaWSIcon {
-    background-image: url('../images/PM_Startpage_QA.png');
+    background-image: url('../images/All_Start_TeaserMine_31_Static.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
-.submIcon {
-    background-image: url('../images/PM_Startpage_Submission.png');
+.myItemsIcon {
+    background-image: url('../images/All_Start_TeaserQa_31_Static.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
