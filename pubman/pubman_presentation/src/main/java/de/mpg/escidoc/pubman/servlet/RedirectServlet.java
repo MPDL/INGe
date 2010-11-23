@@ -69,7 +69,7 @@ public class RedirectServlet extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        String id = req.getPathInfo().substring(1);
+        String id = req.getPathInfo().substring(1); 
         if (id != null && id.contains("/component/"))
         {
             String[] pieces = id.split("/");
@@ -108,7 +108,7 @@ public class RedirectServlet extends HttpServlet
                     ProxyHelper.setProxy(client, frameworkUrl);
                     client.executeMethod(method);
                     InputStream input;
-                    OutputStream out = resp.getOutputStream();
+                    OutputStream out = resp.getOutputStream(); 
                     if (method.getStatusCode() == 302)
                     {
                         String servletUrl = PropertyReader.getProperty("escidoc.pubman.instance.url")
@@ -139,9 +139,11 @@ public class RedirectServlet extends HttpServlet
                     while ((numRead = input.read(buffer)) != -1)
                     {
                         out.write(buffer, 0, numRead);
-                        //out.flush();
+                        resp.flushBuffer();
                         numWritten += numRead;
+                      
                     }
+                    
                     input.close();
                 }
                 catch (URISyntaxException e)
