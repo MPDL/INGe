@@ -13,7 +13,7 @@ Date.CultureInfo = {
 	abbreviatedDayNames : [ "So", "Mo", "Di", "Mi", "Do", "Fr", "Sa" ],
 	shortestDayNames : [ "So", "Mo", "Di", "Mi", "Do", "Fr", "Sa" ],
 	firstLetterDayNames : [ "S", "M", "D", "M", "D", "F", "S" ],
-	monthNames : [ "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli",
+	monthNames : [ "Januar", "Februar", "M\u00e4rz", "April", "Mai", "Juni", "Juli",
 			"August", "September", "Oktober", "November", "Dezember" ],
 	abbreviatedMonthNames : [ "Jan", "Feb", "Mrz", "Apr", "Mai", "Jun", "Jul",
 			"Aug", "Sep", "Okt", "Nov", "Dez" ],
@@ -37,7 +37,7 @@ Date.CultureInfo = {
 	regexPatterns : {
 		jan : /^jan(uar)?/i,
 		feb : /^feb(ruar)?/i,
-		mar : /^märz/i,
+		mar : /^m\u00e4rz/i,
 		apr : /^apr(il)?/i,
 		may : /^mai/i,
 		jun : /^jun(i)?/i,
@@ -768,7 +768,6 @@ Date.prototype.getOrdinal = function() {
 			d = d || _.rtoken(/^\s*/);
 			c = c || null;
 			return function(s) {
-
 				var r = null, p = null, q = null, rx = null, best = [ [], s ], last = false;
 				for ( var i = 0; i < px.length; i++) {
 					q = null;
@@ -1179,9 +1178,9 @@ Date.prototype.getOrdinal = function() {
 	_fn = function() {
 		return _.set(arguments, g.datePartDelimiter);
 	};
+	g.mdy = _fn(g.ddd, g.month, g.day, g.year);
 	g.ymd = _fn(g.ddd, g.year, g.month, g.day);
 	g.dmy = _fn(g.ddd, g.day, g.month, g.year);
-	g.mdy = _fn(g.ddd, g.month, g.day, g.year);
 	g.date = function(s) {
 		return ((g[Date.CultureInfo.dateElementOrder] || g.mdy).call(this, s));
 	};

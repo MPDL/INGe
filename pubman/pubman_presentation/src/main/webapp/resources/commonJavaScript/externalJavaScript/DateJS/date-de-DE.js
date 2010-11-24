@@ -13,7 +13,7 @@ Date.CultureInfo = {
 	abbreviatedDayNames : [ "So", "Mo", "Di", "Mi", "Do", "Fr", "Sa" ],
 	shortestDayNames : [ "So", "Mo", "Di", "Mi", "Do", "Fr", "Sa" ],
 	firstLetterDayNames : [ "S", "M", "D", "M", "D", "F", "S" ],
-	monthNames : [ "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli",
+	monthNames : [ "Januar", "Februar", "M\u00e4rz", "April", "Mai", "Juni", "Juli",
 			"August", "September", "Oktober", "November", "Dezember" ],
 	abbreviatedMonthNames : [ "Jan", "Feb", "Mrz", "Apr", "Mai", "Jun", "Jul",
 			"Aug", "Sep", "Okt", "Nov", "Dez" ],
@@ -37,7 +37,7 @@ Date.CultureInfo = {
 	regexPatterns : {
 		jan : /^jan(uar)?/i,
 		feb : /^feb(ruar)?/i,
-		mar : /^märz/i,
+		mar : /^m\u00e4rz/i,
 		apr : /^apr(il)?/i,
 		may : /^mai/i,
 		jun : /^jun(i)?/i,
