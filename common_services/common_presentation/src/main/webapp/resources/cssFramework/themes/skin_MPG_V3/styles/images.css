@@ -299,7 +299,7 @@ body .wrapper {
 /*LIST COMPONENT*/
 
 .itemList, .tiledList, .fullItem {
-	background:url("../images/all_ramp_list.png") repeat-x scroll left top;
+	background:url("../images/all_ramp_list.png") scroll left top;
 }
 
 .itemList .checkBoxSelectButton {
