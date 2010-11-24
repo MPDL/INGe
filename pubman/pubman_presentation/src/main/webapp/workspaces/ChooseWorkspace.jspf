@@ -27,7 +27,7 @@
             All rights reserved. Use is subject to license terms.
              */
 %>
-
+<h:panelGroup rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 <div class="full_area0 itemHeader noTopBorder">
 	<span class="xLarge_area0 endline">
 		&#160;
@@ -56,6 +56,7 @@
 		</div>
 	</div>
 </div>
+</h:panelGroup>
 <h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 	<div class="full_area0 itemHeader">
 		<span class="xLarge_area0 endline">
@@ -94,7 +95,7 @@
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:outputLink id="lnkYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'YearbookWSPage' and (LoginHelper.isModerator || LoginHelper.isDepositor) and ContextListSessionBean.moderatorContextListSize>0}">
+				<h:outputLink id="lnkYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'YearbookWSPage' and (LoginHelper.isModerator || LoginHelper.isDepositor) and ContextListSessionBean.yearbookContextListSize>0}">
 					<h:outputText value="#{lbl.chooseWorkspace_lnkYearbookWorkspace}"/>
 				</h:outputLink>
 			</b>
@@ -111,6 +112,36 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{lbl.chooseWorkspace_descYearbookWorkspace}" />
+				</span>
+			</div>
+		</div>
+	</div>
+</h:panelGroup>
+<h:panelGroup rendered="#{(LoginHelper.isModerator) and ContextListSessionBean.yearbookModeratorContextListSize>0}">
+	<div class="full_area0 itemHeader">
+		<span class="xLarge_area0 endline">
+			&#160;
+		</span>
+		<span class="seperator"></span>
+		<span class="free_area0_p8 endline itemHeadline">
+			<b>
+				<h:outputLink id="lnkYearbookModeratorWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookModeratorPage.jsp">
+					<h:outputText value="#{lbl.YearbookModeratorPage}"/>
+				</h:outputLink>
+			</b>
+		</span>
+	</div>
+	<div class="full_area0 itemBlock noTopBorder">
+		<h3 class="xLarge_area0_p8 endline blockHeader">
+			&#160;
+		</h3>
+		<div class="free_area0 itemBlockContent endline">		
+			<div class="free_area0 endline itemLine firstLine">
+				<b class="xLarge_area0 endline labelLine">
+					<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{lbl.chooseWorkspace_descYearbookModeratorWorkspace}" />
 				</span>
 			</div>
 		</div>

@@ -314,6 +314,19 @@ public class ContextListSessionBean extends FacesBean
         }
         
     }
+    
+    public int getYearbookModeratorContextListSize()
+    {
+        if (yearbookModeratorContextList==null) 
+        {
+            return 0;
+        }
+        else
+        {
+            return yearbookModeratorContextList.size(); 
+        }
+        
+    }
 
 	public void setYearbookModeratorContextList(
 			List<PubContextVOPresentation> yearbookModeratorContextList) {
