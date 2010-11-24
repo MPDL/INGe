@@ -395,7 +395,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .listBackground .ascSort, .listBackground .descSort {
-    background-color: transparent;
+    background-color: #DAE3ED;
 }
 
 /*LIST ITEM*/
@@ -410,6 +410,10 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .preListHeader, .fullItem, .tiledList, .listBackground, .listBackground .seperator {
     background-color: #FFFFFF;
+}
+
+.listBackground {
+	border-top: 1px solid #044585 !important;
 }
 
 .tiledList .metaDataSection, .itemTile .tileIconArea {
