@@ -308,9 +308,8 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         return query;
     }
     
-    public static MetadataSearchQuery getMemberQuery() throws Exception
-    {
-   	 YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);     
+    public static MetadataSearchQuery getMemberQuery(PubItemVO yearbookItem) throws Exception
+    {   
         ArrayList<String> contentTypes = new ArrayList<String>();
         String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
         contentTypes.add( contentTypeIdPublication );
@@ -320,7 +319,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         mdsList.add(objectTypeMds);
 
         int i=0;
-        for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
+        for(ItemRelationVO rel : yearbookItem.getRelations())
         {
             if(i==0)
             {
@@ -341,7 +340,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
     {
         if(yisb.getNumberOfMembers()>0)
         {
-        	MetadataSearchQuery mdQuery = getMemberQuery();     
+        	MetadataSearchQuery mdQuery = getMemberQuery(yisb.getYearbookItem());     
         	if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
             {
                 mdQuery.addCriterion(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 

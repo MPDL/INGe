@@ -564,6 +564,11 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>YearbookModeratorRetrieverRequestBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.yearbook.YearbookModeratorRetrieverRequestBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>YearbookItemSessionBean</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.yearbook.YearbookItemSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>

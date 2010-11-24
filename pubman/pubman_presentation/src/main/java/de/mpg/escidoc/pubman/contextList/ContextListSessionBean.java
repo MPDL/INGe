@@ -60,6 +60,7 @@ public class ContextListSessionBean extends FacesBean
     private List<PubContextVOPresentation> depositorContextList = new ArrayList<PubContextVOPresentation>();
     private List<PubContextVOPresentation> moderatorContextList = new ArrayList<PubContextVOPresentation>();
     private List<PubContextVOPresentation> yearbookContextList = new ArrayList<PubContextVOPresentation>();
+    private List<PubContextVOPresentation> yearbookModeratorContextList = new ArrayList<PubContextVOPresentation>();
     private QualityAssurance qualityAssurance;
     private LoginHelper loginHelper;
 
@@ -79,9 +80,12 @@ public class ContextListSessionBean extends FacesBean
         this.depositorContextList = this.retrieveDepositorContexts();
         this.moderatorContextList = this.retrieveModeratorContexts();
         this.yearbookContextList = this.retrieveYearbookContexts();
+        this.yearbookModeratorContextList = this.retrieveYearbookModeratorContexts();
     }
 
-    private List<PubContextVOPresentation> retrieveModeratorContexts()
+   
+
+	private List<PubContextVOPresentation> retrieveModeratorContexts()
     {
         List<PubContextVOPresentation> moderatorContexts = new ArrayList<PubContextVOPresentation>();
         try
@@ -124,6 +128,33 @@ public class ContextListSessionBean extends FacesBean
                     && !loginHelper.getAccountUser().getReference().getObjectId().trim().equals(""))
             {
                 yearbookContexts = CommonUtils.convertToPubCollectionVOPresentationList(qualityAssurance.retrieveYearbookContexts(loginHelper.getAccountUser()));
+            }
+            else
+            {
+                //moderatorContexts.addAll(this.getDummyCollections(3));
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not create context list.", e);
+        }
+        return yearbookContexts;
+    }
+    
+    private List<PubContextVOPresentation> retrieveYearbookModeratorContexts()
+    {
+        List<PubContextVOPresentation> yearbookContexts = new ArrayList<PubContextVOPresentation>(); 
+        try
+        {
+            
+            InitialContext initialContext = new InitialContext();
+            this.qualityAssurance = (QualityAssurance) initialContext.lookup(QualityAssurance.SERVICE_NAME);
+            if(loginHelper.getAccountUser() != null 
+                    && loginHelper.getAccountUser().getReference() != null 
+                    && loginHelper.getAccountUser().getReference().getObjectId()!= null 
+                    && !loginHelper.getAccountUser().getReference().getObjectId().trim().equals(""))
+            {
+                yearbookContexts = CommonUtils.convertToPubCollectionVOPresentationList(qualityAssurance.retrieveYearbookContextForModerator(loginHelper.getAccountUser()));
             }
             else
             {
@@ -283,6 +314,15 @@ public class ContextListSessionBean extends FacesBean
         }
         
     }
+
+	public void setYearbookModeratorContextList(
+			List<PubContextVOPresentation> yearbookModeratorContextList) {
+		this.yearbookModeratorContextList = yearbookModeratorContextList;
+	}
+
+	public List<PubContextVOPresentation> getYearbookModeratorContextList() {
+		return yearbookModeratorContextList;
+	}
     
     
 }

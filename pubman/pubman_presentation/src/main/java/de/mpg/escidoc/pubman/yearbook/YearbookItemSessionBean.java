@@ -2,6 +2,7 @@ package de.mpg.escidoc.pubman.yearbook;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,9 +10,22 @@ import java.util.List;
 import java.util.Map;
 
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
+import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
+import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
+import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
+import de.escidoc.core.common.exceptions.application.notfound.ComponentNotFoundException;
+import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.core.common.exceptions.application.violated.LockingException;
+import de.escidoc.core.common.exceptions.application.violated.OptimisticLockingException;
+import de.escidoc.core.common.exceptions.application.violated.ReadonlyVersionException;
+import de.escidoc.core.common.exceptions.application.violated.ReadonlyViolationException;
+import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.om.ContextHandler;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -22,19 +36,26 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
+import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.pubman.PubItemPublishing;
+import de.mpg.escidoc.services.pubman.depositing.PubItemLockedException;
+import de.mpg.escidoc.services.pubman.exceptions.PubItemNotFoundException;
+import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
@@ -139,7 +160,7 @@ public class YearbookItemSessionBean extends FacesBean
 
     public PubItemVO getYearbookItem()
     {
-        return yearbookItem;   
+        return yearbookItem;    
     }
     
     
@@ -283,7 +304,7 @@ public class YearbookItemSessionBean extends FacesBean
     
     public boolean isMember(String id) throws Exception
     {
-    	MetadataSearchQuery mdQuery = YearbookCandidatesRetrieverRequestBean.getMemberQuery();
+    	MetadataSearchQuery mdQuery = YearbookCandidatesRetrieverRequestBean.getMemberQuery(getYearbookItem());
     	mdQuery.addCriterion(new MetadataSearchCriterion(CriterionType.IDENTIFIER, id, LogicalOperator.AND));
     	ItemContainerSearchResult result = this.searchService.searchForItemContainer(mdQuery);
     	return result.getTotalNumberOfResults().shortValue() == 1;
@@ -293,7 +314,7 @@ public class YearbookItemSessionBean extends FacesBean
     public  List<PubItemVOPresentation> retrieveAllMembers() throws Exception
     {
         List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
-        MetadataSearchQuery mdQuery = YearbookCandidatesRetrieverRequestBean.getMemberQuery();
+        MetadataSearchQuery mdQuery = YearbookCandidatesRetrieverRequestBean.getMemberQuery(getYearbookItem());
         ItemContainerSearchResult result = this.searchService.searchForItemContainer(mdQuery);
         
         pubItemList =  SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
@@ -414,7 +435,32 @@ public class YearbookItemSessionBean extends FacesBean
         }
         return valMessages;
     }
-
+    
+    
+    public String releaseYearbook()
+    {
+    	try {
+			TaskParamVO param = new TaskParamVO(getYearbookItem().getModificationDate(), "Submitting yearbook"); 
+			String paramXml = xmlTransforming.transformToTaskParam(param);
+			
+			itemHandler.submit(getYearbookItem().getVersion().getObjectId(), paramXml);
+			
+			String updatedItemXml = itemHandler.retrieve(getYearbookItem().getVersion().getObjectId());
+			this.yearbookItem = xmlTransforming.transformToPubItem(updatedItemXml);
+			
+			InitialContext initialContext = new InitialContext();
+			PubItemPublishing pubItemPublishing = (PubItemPublishing) initialContext.lookup(PubItemPublishing.SERVICE_NAME);
+			pubItemPublishing.releasePubItem(yearbookItem.getVersion(), yearbookItem.getModificationDate(), "Releasing pubItem", loginHelper.getAccountUser());
+			logger.info("Yearbook item released successfully");
+			
+			
+		} catch (Exception e) {
+			error("Could not release Yearbook Item");
+			logger.error("Could not release Yearbook Item", e);
+		}
+        
+    	return "";
+    }
 
 
 
