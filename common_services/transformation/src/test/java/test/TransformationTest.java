@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -244,6 +245,50 @@ public class TransformationTest
          
          String result;
          byte[] resultBytes = this.trans.transform(ResourceUtil.getResourceAsBytes("testFiles/edoc/test.xml"), edoc, escidoc, "escidoc");
+         result = new String(resultBytes, "UTF-8");
+         
+         String compare = ResourceUtil.getResourceAsString("testFiles/edoc/result.xml");
+         
+         logger.info(resultBytes.length);
+         
+         XmlComparator xmlComparator = new XmlComparator(result, compare);
+         
+         if (!xmlComparator.equal())
+         {
+             StringWriter stringWriter = new StringWriter();
+             stringWriter.write("The result is not the expected. There is a difference at:\n");
+             for (String error : xmlComparator.getErrors())
+            {
+                 stringWriter.write("- ");
+                 stringWriter.write(error);
+                 stringWriter.write("\n");
+            }
+             stringWriter.write("Result XML: ");
+             stringWriter.write(result);
+             stringWriter.write("\n");
+             stringWriter.write("Expected XML: ");
+             stringWriter.write(compare);
+             stringWriter.write("\n");
+             
+             fail(stringWriter.toString());
+         }
+
+     }
+     
+     @Test
+     public void edoc2escidoc2() throws Exception
+     {
+         this.logger.info("---Transformation eDoc to eSciDoc format ---");
+         Format edoc = new Format("eDoc", "application/xml", "UTF-8");
+         Format escidoc = new Format("escidoc-publication-item-list", "application/xml", "UTF-8");    
+         
+         String result;
+         
+         Map<String, String> conf = this.trans.getConfiguration(edoc, escidoc);
+         System.out.println(conf);
+         System.out.println(this.trans.getConfigurationValues(edoc, escidoc, "a"));
+         
+         byte[] resultBytes = this.trans.transform(ResourceUtil.getResourceAsBytes("testFiles/edoc/test.xml"), edoc, escidoc, "escidoc", conf);
          result = new String(resultBytes, "UTF-8");
          
          String compare = ResourceUtil.getResourceAsString("testFiles/edoc/result.xml");

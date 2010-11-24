@@ -32,10 +32,17 @@
 package de.mpg.escidoc.services.transformation.transformations.otherFormats.edoc;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -54,6 +61,7 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.util.creators.Author;
 import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.transformation.Configurable;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
@@ -67,7 +75,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
  *
  */
 @TransformationModule
-public class EDocImport extends DefaultHandler implements Transformation
+public class EDocImport extends DefaultHandler implements Transformation, Configurable
 {
 
     private StringWriter newXml = new StringWriter();
@@ -80,7 +88,9 @@ public class EDocImport extends DefaultHandler implements Transformation
     private static final Format EDOC_FORMAT = new Format("eDoc", "application/xml", "*");
     private static final Format EDOC_FORMAT_AEI = new Format("eDoc-AEI", "application/xml", "*");
 
-    
+    private static Map<String, List<String>> properties = null;
+    private static Map<String, String> configuration = null;
+
     /**
      * {@inheritDoc}
      */
@@ -152,7 +162,7 @@ public class EDocImport extends DefaultHandler implements Transformation
     /**
      * {@inheritDoc}
      */
-    public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
+    public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service, Map<String, String> configuration)
         throws TransformationNotSupportedException
     {
         StringWriter result = new StringWriter();
@@ -211,6 +221,14 @@ public class EDocImport extends DefaultHandler implements Transformation
             transformer.setParameter("external-ou", PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
             transformer.setParameter("root-ou", PropertyReader.getProperty("escidoc.pubman.root.organisation.id"));
             transformer.setParameter("source-name", srcFormat.getName());
+            
+            if (configuration != null)
+            {
+                for (String key : configuration.keySet())
+                {
+                    transformer.setParameter(key, configuration.get(key));
+                }
+            }
             
             transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
             transformer.transform(new StreamSource(new StringReader(newXml.toString())), new StreamResult(result));
@@ -354,6 +372,61 @@ public class EDocImport extends DefaultHandler implements Transformation
             return "";
         }
         return input;
+    }
+
+    public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service) throws TransformationNotSupportedException, RuntimeException
+    {
+        return transform(src, srcFormat, trgFormat, service, null);
+    }
+
+    public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception
+    {
+        if (configuration == null)
+        {
+            init();
+        }
+
+        return configuration;
+    }
+
+    private void init() throws IOException, FileNotFoundException, URISyntaxException
+    {
+        configuration = new HashMap<String, String>();
+        properties = new HashMap<String, List<String>>();
+        Properties props = new Properties();
+        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.edoc.configuration.filename")));
+        for (Object key : props.keySet())
+        {
+            if (!"configuration".equals(key.toString()))
+            {
+                String[] values = props.getProperty(key.toString()).split(",");
+                properties.put(key.toString(), Arrays.asList(values));
+            }
+            else
+            {
+                String[] confValues = props.getProperty("configuration").split(",");
+                for (String field : confValues)
+                {
+                    String[] fieldArr = field.split("=", 2);
+                    
+                    System.out.println("x:" + fieldArr.length);
+                    System.out.println("xx:" + fieldArr[0]);
+                    System.out.println("xxx:" + fieldArr[1]);
+                    
+                    configuration.put(fieldArr[0], fieldArr[1] == null ? "" : fieldArr[1]);
+                }
+            }
+        }
+    }
+
+    public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key) throws Exception
+    {
+        if (properties == null)
+        {
+            init();
+        }
+
+        return properties.get(key);
     }
 
     

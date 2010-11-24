@@ -32,6 +32,8 @@ package de.mpg.escidoc.services.transformation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.List;
+import java.util.Map;
 
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -134,6 +136,5 @@ public interface Transformation
      */
     public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
             throws TransformationNotSupportedException, RuntimeException;
-    
     
 }

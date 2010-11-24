@@ -81,6 +81,7 @@
 	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
 	
+	<xsl:param name="a" select="''"/>
 	<!--
 		DC XML  Header
 	-->
@@ -508,7 +509,7 @@
 	</xsl:function>
 	
 	<xsl:template match="/*">
-		
+
 		<!-- <xsl:call-template name="validation"/> -->
 		<xsl:choose>
 			<xsl:when test="$is-item-list">
@@ -621,7 +622,7 @@
 					</xsl:when>
 					<xsl:otherwise>
 						<!-- ERROR -->
-						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
 					</xsl:otherwise>
 				</xsl:choose>
 				

@@ -31,6 +31,8 @@
 package de.mpg.escidoc.services.transformation;
 
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
@@ -317,4 +319,114 @@ public class TransformationBean implements Transformation
         return check;
     }
 
+    public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service,
+            Map<String, String> configuration) throws TransformationNotSupportedException, RuntimeException
+    {
+        //Normalize mimetype to avoid that e.g. application/xml and text/xml need two different transformations
+        srcFormat.setType(this.util.normalizeMimeType(srcFormat.getType()));
+        
+        if (service.toLowerCase().equals("escidoc"))
+        {
+            return this.escidocTransformService(src, srcFormat, trgFormat, service, configuration);
+        }
+        return null;
+    }
+
+    private byte[] escidocTransformService(byte[] src, Format srcFormat, Format trgFormat, String service,
+            Map<String, String> configuration) throws TransformationNotSupportedException, RuntimeException
+    {
+        transformationClass = this.getTransformationClassForTransformation(srcFormat, trgFormat);
+        byte[] result = null;
+        String methodName = "transform";
+        
+        
+        
+        if (transformationClass == null)
+        {
+            this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", " + srcFormat.getType() 
+                    + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName() + ", " + trgFormat.getType() 
+                    + ", " + trgFormat.getEncoding());
+            throw new TransformationNotSupportedException();
+        }
+        else 
+        {
+            try
+            {
+                //Instanciate the class
+                ClassLoader cl = this.getClass().getClassLoader();
+                transformationClass = cl.loadClass(transformationClass.getName());
+    
+                Transformation transformation = (Transformation) transformationClass.newInstance();
+                if (transformation instanceof Configurable)
+                {
+                    
+                    //Set methods parameters
+                    Class[] parameterTypes = new Class[]{byte[].class, Format.class, Format.class, String.class, Map.class };
+                    
+                    //Call the method
+                    Method method = transformationClass.getMethod(methodName, parameterTypes);
+    
+                    //Execute the method
+                    result = (byte[]) method.invoke(transformation, src, srcFormat, trgFormat, service, configuration);
+                }
+                else
+                {
+                    return transform(src, srcFormat, trgFormat, service);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
+        
+        return result;
+
+    }
+
+    public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception
+    {
+        transformationClass = this.getTransformationClassForTransformation(srcFormat, trgFormat);
+        
+        Transformation transformation = (Transformation) transformationClass.newInstance();
+        if (transformation instanceof Configurable)
+        {
+            //Set methods parameters
+            Class[] parameterTypes = new Class[]{Format.class, Format.class};
+            
+            //Call the method
+            Method method = transformationClass.getMethod("getConfiguration", parameterTypes);
+    
+            //Execute the method
+            return (Map<String, String>) method.invoke(transformationClass.newInstance(), srcFormat, trgFormat);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key) throws Exception
+    {
+        transformationClass = this.getTransformationClassForTransformation(srcFormat, trgFormat);
+        Transformation transformation = (Transformation) transformationClass.newInstance();
+        if (transformation instanceof Configurable)
+        {
+            //Set methods parameters
+            Class[] parameterTypes = new Class[]{Format.class, Format.class, String.class};
+              
+            //Call the method
+            Method method = transformationClass.getMethod("getConfigurationValues", parameterTypes);
+            
+            //Execute the method
+            return (List<String>) method.invoke(transformationClass.newInstance(), srcFormat, trgFormat, key);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    
+    
 }
