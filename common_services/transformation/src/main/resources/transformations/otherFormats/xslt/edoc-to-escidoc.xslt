@@ -581,30 +581,32 @@
 							
 							<xsl:call-template name="createComponent">
 								<xsl:with-param name="filename" select="$filename"/>
-								<xsl:with-param name="access" select="$access"/>
+								<xsl:with-param name="access"  select="$access"/>
 							</xsl:call-template>
-						
+														
+							<xsl:if test="$createLocatorsForPublicComponents or $access != 'PUBLIC'">
+								<xsl:call-template name="createLocator">
+									<xsl:with-param name="filename" select="$filename"/>
+									<xsl:with-param name="access" select="$access"/>
+								</xsl:call-template>
+							</xsl:if>
+							
 						</xsl:when>
 					</xsl:choose>
 					
-					<xsl:if test="$createLocatorsForPublicComponents or @viewftext != 'PUBLIC'">
-						<xsl:call-template name="createLocator">
-							<xsl:with-param name="filename" select="$filename"/>
-							<xsl:with-param name="access" select="@viewftext"/>
-						</xsl:call-template>
-					</xsl:if>
-				
+					
 				</xsl:for-each>
 			</xsl:element>
 		</xsl:element>
 	</xsl:template>
 	
-	<xsl:template match="fturl">
+	<!-- NOT USED!!! -->
+	<!--  <xsl:template match="fturl">
 		<xsl:call-template name="createComponent">
 			<xsl:with-param name="filename" select="@filename"/>
-			<xsl:with-param name="access" select="@viewftext"/>
+			<xsl:with-param  select="@viewftext"/>
 		</xsl:call-template>
-	</xsl:template>
+	</xsl:template>-->
 	
 	<xsl:template name="createComponent">
 		<xsl:param name="filename"/>
@@ -617,18 +619,36 @@
 			
 			<ec:properties>
 				<xsl:choose>
-					<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
-						<prop:visibility>private</prop:visibility>
-					</xsl:when>
-					<xsl:when test=" $access='MPG'">
-						<prop:visibility>restricted</prop:visibility>
-					</xsl:when>
-					<xsl:when test="$access='PUBLIC'">
-						<prop:visibility>public</prop:visibility>
+					<xsl:when test="$import-name = 'FHI'">
+						<xsl:choose>
+							<xsl:when test="$access='USER' or $access='INSTITUT'">
+								<prop:visibility>private</prop:visibility>
+							</xsl:when>
+							<xsl:when test="$access='MPG'">
+								<prop:visibility>audience</prop:visibility>
+							</xsl:when>
+							<xsl:when test="$access='PUBLIC'">
+								<prop:visibility>public</prop:visibility>
+							</xsl:when>
+							<xsl:otherwise>
+								<!-- ERROR -->
+								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:when>
 					<xsl:otherwise>
-						<!-- ERROR -->
-						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+						<xsl:choose>
+							<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
+								<prop:visibility>private</prop:visibility>
+							</xsl:when>
+							<xsl:when test="$access='PUBLIC'">
+								<prop:visibility>public</prop:visibility>
+							</xsl:when>
+							<xsl:otherwise>
+								<!-- ERROR -->
+								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:otherwise>
 				</xsl:choose>
 				
@@ -662,7 +682,7 @@
 							<xsl:variable name="content-category">
 								<xsl:choose>
 									<xsl:when test="contains(lower-case(@comment), 'abstract')">abstract</xsl:when>
-									<xsl:when test="contains(lower-case(@comment), 'arXiv')">pre-print</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
 									<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
 									<xsl:when test="contains(lower-case(@comment), 'author version')">pre-print</xsl:when>
 									<xsl:when test="contains(lower-case(@comment), 'fulltext')">publisher-version</xsl:when>
@@ -672,10 +692,11 @@
 									<xsl:when test="contains(lower-case(@comment), '.mpeg-video file')">supplementary-material</xsl:when>
 									<xsl:when test="contains(lower-case(@comment), 'diagramme')">supplementary-material</xsl:when>
 									<xsl:when test="contains(lower-case(@comment), 'fragebogen')">supplementary-material</xsl:when>
-									<xsl:when test="contains(lower-case(@comment), 'Supporting Online Material')">supplementary-material</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'supporting online material')">supplementary-material</xsl:when>
 									<xsl:otherwise>any-fulltext</xsl:otherwise>
 								</xsl:choose>
 							</xsl:variable>
+							<xsl:comment>Comment: <xsl:value-of select="lower-case(@comment)"/></xsl:comment>
 							<prop:content-category>
 								<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
 							</prop:content-category>
@@ -756,7 +777,7 @@
 										</eterms:content-category>
 									</xsl:when>
 									<xsl:otherwise>
-								<!-- ERROR -->
+										<!-- ERROR -->
 										<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
 									</xsl:otherwise>
 								</xsl:choose>
@@ -768,14 +789,9 @@
 						</dcterms:extent>
 						<xsl:choose>
 							<xsl:when test="$import-name = 'FHI'">
-								<xsl:comment>rights: <xsl:value-of select="../rights"/></xsl:comment>
-								<xsl:comment>root: <xsl:value-of select="../."/></xsl:comment>
-								<xsl:element name="dc:rights">
-									<xsl:value-of select="../rights/copyright"/>
-								</xsl:element>
+								<xsl:call-template name="copyrightFHI"/>
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:comment>not FHI</xsl:comment>
 								<xsl:element name="dc:rights">
 									<xsl:value-of select="concat('eDoc_access: ', $access)"/>
 								</xsl:element>
@@ -808,6 +824,7 @@
 			<xsl:element name="mdr:md-records">
 				<mdr:md-record name="escidoc">
 					<xsl:element name="file:file">
+						<xsl:comment><xsl:value-of select="$access"/></xsl:comment>
 						<xsl:choose>
 							<xsl:when test="$access='USER'">
 								<xsl:element name="dc:title">restricted access to full text (selected user)</xsl:element>
@@ -833,14 +850,11 @@
 								</xsl:element>
 							</xsl:when>
 							<xsl:otherwise>
-							<!-- ERROR --></xsl:otherwise>
+								<xsl:comment>ERROR</xsl:comment>
+							</xsl:otherwise>
 						</xsl:choose>
 						<xsl:if test="$import-name = 'FHI'">
-							<xsl:comment>rights: <xsl:value-of select="../rights"/></xsl:comment>
-							<xsl:comment>root: <xsl:value-of select="../."/></xsl:comment>
-							<xsl:element name="dc:rights">
-								<xsl:value-of select="../rights/copyright"/>
-							</xsl:element>
+							<xsl:call-template name="copyrightFHI"/>
 						</xsl:if>
 					</xsl:element>
 				</mdr:md-record>
@@ -1132,16 +1146,8 @@
 			<xsl:apply-templates select="toc"/>
 			
 			<!-- FHI Transformation -->
-			<xsl:comment>docaff : <xsl:value-of select="."/></xsl:comment>
-			<xsl:if test="$import-name = 'FHI '">
-				<xsl:comment>XXX.<xsl:value-of select="../docaff/docaff_researchcontext"/></xsl:comment>
-					<xsl:if test="exists(../docaff/docaff_researchcontext)">
-						<xsl:element name="dcterms:subject">
-							<xsl:value-of select="../docaff/docaff_researchcontext"/>
-						</xsl:element>
-					</xsl:if>
-				</xsl:if>
-
+			<xsl:call-template name="freekeywordsFHI"></xsl:call-template>
+			
 			<!--end publication-->
 		</xsl:element>
 	</xsl:template>
@@ -2033,18 +2039,20 @@
 
 	<!-- FHI Templates -->
 	
-	<xsl:template name="docaff_researchcontext">
-		<xsl:comment>has docaff_researchcontext</xsl:comment>
-		<xsl:if test="$import-name = 'FHI '">
-		<xsl:comment>XXX.<xsl:value-of select="../docaff/docaff_researchcontext"/></xsl:comment>
-			<xsl:if test="exists(../docaff/docaff_researchcontext)">
+	<xsl:template name="freekeywordsFHI">
+		<xsl:if test="$import-name = 'FHI'">
+			<xsl:if test="exists(../../docaff/docaff_researchcontext)">
 				<xsl:element name="dcterms:subject">
-					<xsl:value-of select="../docaff/docaff_researchcontext"/>
+					<xsl:value-of select="../../docaff/docaff_researchcontext"/>
 				</xsl:element>
 			</xsl:if>
 		</xsl:if>
 	</xsl:template>
 	
-
-
+	<xsl:template name="copyrightFHI">
+		<xsl:element name="dc:rights">
+			<xsl:value-of select="../../../rights/copyright"/>
+		</xsl:element>
+	</xsl:template>
+	
 </xsl:stylesheet>
