@@ -31,7 +31,10 @@
 package de.mpg.escidoc.pubman.multipleimport;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -48,6 +51,9 @@ import de.mpg.escidoc.pubman.createItem.CreateItem.SubmissionMethod;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.transformation.Configurable;
+import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -86,6 +92,9 @@ public class MultipleImport extends FacesBean
     private ContextVO context;
     private Format format;
     private String name;
+    
+    private List<SelectItem> configParameters = new ArrayList<SelectItem>();
+    private Map<String, List<SelectItem>> parametersValues;
     
     private boolean rollback = true;
     private int duplicateStrategy = 3;
@@ -185,13 +194,18 @@ public class MultipleImport extends FacesBean
             error(getMessage("ImportNameNotProvided"));
             return null;
         }
-        
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         InternationalizationHelper i18nHelper = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
         
-        importProcess = new ImportProcess(name, uploadedImportFile.getFilename(), uploadedImportFile.getInputStream(), format, context.getReference(), loginHelper.getAccountUser(), rollback, duplicateStrategy);
+        Map<String, String> configuration = null;
+        
+        if (configParameters.size() > 0) configuration = new LinkedHashMap<String, String>();
+        
+        for(SelectItem si : configParameters) configuration.put(si.getLabel(), si.getValue().toString());
+        
+        importProcess = new ImportProcess(name, uploadedImportFile.getFilename(), uploadedImportFile.getInputStream(), format, context.getReference(), loginHelper.getAccountUser(), rollback, duplicateStrategy, configuration);
         importProcess.start();
-            
+        
         FacesContext fc = FacesContext.getCurrentInstance();
         fc.getExternalContext().redirect("ImportWorkspace.jsp");
         return null;
@@ -238,7 +252,42 @@ public class MultipleImport extends FacesBean
         }
     }
 
-    /**
+	public List<SelectItem> getConfigParameters() throws Exception
+    {
+    	TransformationBean transformation = new TransformationBean();
+    	Map<String, String> config = transformation.getConfiguration(format, ESCIDOC_FORMAT);
+		configParameters = new ArrayList<SelectItem>();
+		parametersValues = new LinkedHashMap<String, List<SelectItem>>();
+    	for (String key : config.keySet())
+    	{
+    		List<String> values = transformation.getConfigurationValues(format, ESCIDOC_FORMAT, key);
+    		List<SelectItem> list = new ArrayList<SelectItem>();
+    		if (values != null)
+    		{
+        		for (String str : values) list.add(new SelectItem(str));
+        		parametersValues.put(key, list);
+    		}
+    		configParameters.add(new SelectItem(config.get(key), key));
+    	}
+    	return configParameters;
+    }
+    
+    public void setConfigParameters(List<SelectItem> list)
+    {
+    	this.configParameters = list;
+    }    
+    
+    public Map<String, List<SelectItem>> getParametersValues() 
+    {
+		return parametersValues;
+	}
+
+	public void setParametersValues(Map<String, List<SelectItem>> parametersValues) 
+	{
+		this.parametersValues = parametersValues;
+	}
+
+	/**
      * @return the context
      */
     public ContextVO getContext()

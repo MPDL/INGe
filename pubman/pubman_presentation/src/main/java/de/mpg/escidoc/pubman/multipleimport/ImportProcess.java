@@ -30,6 +30,7 @@ package de.mpg.escidoc.pubman.multipleimport;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -66,6 +67,7 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.escidoc.services.transformation.Configurable;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -107,6 +109,7 @@ public class ImportProcess extends Thread
     private boolean rollback;
     private DuplicateStrategy duplicateStrategy;
     private String itemContentModel;
+    private Map<String, String> configuration = null;
     private boolean failed = false;
     private static final Format ESCIDOC_FORMAT = new Format("eSciDoc-publication-item", "application/xml", "utf-8");
     private static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "utf-8");
@@ -121,7 +124,7 @@ public class ImportProcess extends Thread
     private String name;
 
     public ImportProcess(String name, String fileName, InputStream inputStream, Format format,
-            ContextRO escidocContext, AccountUserVO user, boolean rollback, int duplicateStrategy)
+            ContextRO escidocContext, AccountUserVO user, boolean rollback, int duplicateStrategy, Map<String, String> configuration)
     {
         try
         {
@@ -158,7 +161,7 @@ public class ImportProcess extends Thread
             throw new RuntimeException("Invalid value " + duplicateStrategy + " for DuplicateStrategy");
         }
         // Initialize
-        initialize(name, fileName, inputStream, format, escidocContext, user, rollback, strategy);
+        initialize(name, fileName, inputStream, format, escidocContext, user, rollback, strategy, configuration);
         log.setPercentage(7);
         if (log.isDone())
         {
@@ -177,7 +180,7 @@ public class ImportProcess extends Thread
      * @param format
      */
     private void initialize(String name, String fileName, InputStream inputStream, Format format,
-            ContextRO escidocContext, AccountUserVO user, boolean rollback, DuplicateStrategy duplicateStrategy)
+            ContextRO escidocContext, AccountUserVO user, boolean rollback, DuplicateStrategy duplicateStrategy, Map<String, String> configuration)
     {
         log.startItem("import_process_initialize");
         try
@@ -201,6 +204,7 @@ public class ImportProcess extends Thread
             this.pubItemDepositing = (PubItemDepositing) context.lookup(PubItemDepositing.SERVICE_NAME);
             this.search = (Search) context.lookup(Search.SERVICE_NAME);
             this.itemContentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+            this.configuration = configuration;
         }
         catch (Exception e)
         {
@@ -541,8 +545,16 @@ public class ImportProcess extends Thread
         String esidocXml = null;
         try
         {
-            esidocXml = new String(transformation.transform(singleItem.getBytes(this.format.getEncoding()),
-                    this.format, ESCIDOC_FORMAT, "escidoc"), ESCIDOC_FORMAT.getEncoding());
+            if (configuration != null && transformation instanceof Configurable)
+            {
+            	esidocXml = new String(((Configurable)transformation).transform(singleItem.getBytes(this.format.getEncoding()),
+                        this.format, ESCIDOC_FORMAT, "escidoc", configuration), ESCIDOC_FORMAT.getEncoding());
+            }
+            else
+            {
+            	esidocXml = new String(transformation.transform(singleItem.getBytes(this.format.getEncoding()),
+                        this.format, ESCIDOC_FORMAT, "escidoc"), ESCIDOC_FORMAT.getEncoding());
+            }
             log.addDetail(ErrorLevel.FINE, esidocXml);
             log.addDetail(ErrorLevel.FINE, "import_process_transformation_done");
             PubItemVO pubItemVO = xmlTransforming.transformToPubItem(esidocXml);

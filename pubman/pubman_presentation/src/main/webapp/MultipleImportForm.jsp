@@ -177,6 +177,23 @@
 														</span>
 													</span>
 												</h:panelGroup>
+												<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstLine">
+													<b class="xLarge_area0 endline labelLine">
+														&#160;<span class="noDisplay">: </span>
+													</b>
+													<span class="xHuge_area0 xTiny_marginLExcl endline">
+														<span class="huge_area0">
+															<h:outputLabel id="lblImportParameters" styleClass="xLarge_label" value="#{lbl.MultipleImport_configuration}"/>
+															<tr:iterator var="parameter" value="#{MultipleImport.configParameters}">
+																<h:outputLabel styleClass="xLarge_label" value="#{lbl.Parameter} #{parameter.label} "/>
+																<h:inputText id="inpImportParam" styleClass="xLarge_txtInput" value="#{parameter.value}" rendered="#{MultipleImport.parametersValues[parameter.label] == null}"/>
+																<h:selectOneMenu  value="#{parameter.value}" rendered="#{MultipleImport.parametersValues[parameter.label] != null}" styleClass="xLarge_select">
+																	<f:selectItems value="#{MultipleImport.parametersValues[parameter.label]}"/>
+																</h:selectOneMenu>
+															</tr:iterator>
+														</span>
+													</span>
+												</h:panelGroup>
 											</div>
 										</div>
 									</div>
