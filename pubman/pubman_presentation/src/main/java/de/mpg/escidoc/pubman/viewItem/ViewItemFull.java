@@ -632,7 +632,7 @@ public class ViewItemFull extends FacesBean
 						YearbookInvalidItemRO invItem = yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId());
 						if(invItem!=null)
 						{
-							((PubItemVOPresentation)this.getPubItem()).setValidationMessages(YearbookItemSessionBean.getValidationMessages(this, invItem.getValidationReport()));
+							((PubItemVOPresentation)this.getPubItem()).setValidationReport(invItem.getValidationReport());
 						}
 						
 					} catch (Exception e) {

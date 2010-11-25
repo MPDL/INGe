@@ -27,7 +27,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad"  xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<jsp:output doctype-root-element="html"
 	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -175,13 +175,20 @@
 								</h:panelGroup>
 								&#160;
 								<!-- Special validation messages for yearbook -->
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea clear" style="padding-top: 0px !important;" rendered="#{not empty ViewItemFull.pubItem.validationMessages}">
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea clear" style="padding-top: 0px !important;" rendered="#{ViewItemFull.pubItem.validationReport!=null}">
 									<h2><h:outputText value="#{lbl.Yearbook_validationMessageHeader}"/></h2>
 									<ul>
-									<tr:iterator var="msg" value="#{ViewItemFull.pubItem.validationMessages}">
-										<li class="messageError">
-											<h:outputText value="#{msg}"/>
-										</li>
+									<tr:iterator var="valitem" value="#{ViewItemFull.pubItem.validationReport.items}">
+										<h:panelGroup rendered="#{valitem.restrictive}">
+											<li class="messageWarn">
+											<h:outputText value="#{fn:replace(msg[valitem.content], '$1', valitem.element)}"/>
+											</li>
+										</h:panelGroup>
+										<h:panelGroup rendered="#{!valitem.restrictive}">
+											<li class="messageStatus">
+											<h:outputText value="#{fn:replace(msg[valitem.content], '$1', valitem.element)}"/>
+											</li>
+										</h:panelGroup>
 									</tr:iterator>
 									</ul>	
 							   </h:panelGroup>

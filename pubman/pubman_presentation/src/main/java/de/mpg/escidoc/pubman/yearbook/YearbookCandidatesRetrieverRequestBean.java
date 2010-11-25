@@ -521,7 +521,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
                 if(yisb.getInvalidItemMap().containsKey(pubItemPres.getVersion().getObjectId()))
                 { 
                     YearbookInvalidItemRO itemRO = yisb.getInvalidItemMap().get(pubItemPres.getVersion().getObjectId()); 
-                    pubItemPres.setValidationMessages(YearbookItemSessionBean.getValidationMessages(this, itemRO.getValidationReport()));
+                    pubItemPres.setValidationReport(itemRO.getValidationReport());
                 }
                 pubItemList.add( pubItemPres );
             }

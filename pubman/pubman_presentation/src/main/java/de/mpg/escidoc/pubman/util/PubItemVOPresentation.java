@@ -54,6 +54,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
 /**
  * Wrapper class for items to be used in the presentation.
@@ -131,7 +132,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     /**
      * Validation messages that should be displayed in item list
      */
-    private List<String> validationMessages = new ArrayList<String>();
+    private ValidationReportVO validationReport;
 
     //For handling the resource bundles (i18n)
     //private Application application = FacesContext.getCurrentInstance().getApplication();
@@ -1519,15 +1520,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 		this.descriptionMetaTag = descriptionMetaTag;
 	}
 
-    public void setValidationMessages(List<String> validationMessages)
-    {
-        this.validationMessages = validationMessages;
-    }
 
-    public List<String> getValidationMessages()
-    {
-        return validationMessages;
-    }
     
     public int getNumberOfRelations()
     {
@@ -1538,6 +1531,14 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	else return 0;
     	
     }
+
+	public void setValidationReport(ValidationReportVO validationReport) {
+		this.validationReport = validationReport;
+	}
+
+	public ValidationReportVO getValidationReport() {
+		return validationReport; 
+	}
 
    
     

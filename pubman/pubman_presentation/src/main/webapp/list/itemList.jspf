@@ -33,6 +33,9 @@
  <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
  <%@ taglib uri="http://www.escidoc.de/jsf" prefix="e" %>
  <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
+ <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+ 
 
  <%-- 
  <h:selectOneMenu styleClass="topSpace5" immediate="true" onchange="submit();" valueChangeListener="#{ItemListSessionBean.setSelection}" rendered="#{ItemListSessionBean.isSearchResultList}">
@@ -160,16 +163,25 @@
 					
  				</span>
  			</h:panelGroup>
- 			<h:panelGroup styleClass="free_area0_p0 xLarge_marginLIncl endline listItemLine" rendered="#{not empty item.validationMessages}">
+ 			
+ 			<h:panelGroup styleClass="free_area0_p0 xLarge_marginLIncl endline listItemLine" rendered="#{item.validationReport!=null}">
 				<span class="huge_area0_p8 endline labelLine"></span>
 				<span class="xHuge_area0 endline">
 				<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" style="padding-top: 0px !important;">
 					<h2><h:outputText value="#{lbl.Yearbook_validationMessageHeader}"/></h2>
 					<ul>
-					<tr:iterator var="msg" value="#{item.validationMessages}">
-						<li class="messageError">
-							<h:outputText value="#{msg}"/>
-						</li>
+					
+					<tr:iterator var="valitem" value="#{item.validationReport.items}">
+						<h:panelGroup rendered="#{valitem.restrictive}">
+							<li class="messageWarn">
+							<h:outputText value="#{fn:replace(msg[valitem.content], '$1', valitem.element)}"/>
+							</li>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{!valitem.restrictive}">
+							<li class="messageStatus">
+							<h:outputText value="#{fn:replace(msg[valitem.content], '$1', valitem.element)}"/>
+							</li>
+						</h:panelGroup>
 					</tr:iterator>
 					</ul>	
 			   </h:panelGroup>

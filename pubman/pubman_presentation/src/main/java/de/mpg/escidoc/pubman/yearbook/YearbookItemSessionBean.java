@@ -339,7 +339,7 @@ public class YearbookItemSessionBean extends FacesBean
             //revalidate
         	System.out.println("Yearbook Validating: " + pubItem.getVersion().getObjectId());
             ValidationReportVO rep = this.itemValidating.validateItemObjectBySchema(new PubItemVO(pubItem), "default", "yearbook");
-            if(!rep.isValid())
+            if(rep.getItems().size()>0)
             {
                 validItemMap.remove(pubItem.getVersion().getObjectId());
                 invalidItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(pubItem.getVersion().getObjectId(), rep, pubItem.getModificationDate()));
@@ -421,21 +421,6 @@ public class YearbookItemSessionBean extends FacesBean
         pilsb.redirect();
         return "";
     }
-    
-    public static List<String> getValidationMessages(FacesBean bean, ValidationReportVO report)
-    {
-        List<String> valMessages = new ArrayList<String>();
-        
-        if(report!=null)
-        {
-            for (ValidationReportItemVO item  : report.getItems())
-            {
-                    valMessages.add((bean.getMessage(item.getContent()).replaceAll("\\$1", item.getElement())));
-            }
-        }
-        return valMessages;
-    }
-    
     
     public String releaseYearbook()
     {

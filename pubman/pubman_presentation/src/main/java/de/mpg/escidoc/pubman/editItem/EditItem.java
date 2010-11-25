@@ -238,7 +238,7 @@ public class EditItem extends FacesBean
 					YearbookInvalidItemRO invItem = yisb.getInvalidItemMap().get(getItem().getVersion().getObjectId());
 					if(invItem!=null)
 					{
-						((PubItemVOPresentation)this.getPubItem()).setValidationMessages(YearbookItemSessionBean.getValidationMessages(this, invItem.getValidationReport()));
+						((PubItemVOPresentation)this.getPubItem()).setValidationReport(invItem.getValidationReport());
 					}
 					
 				} catch (Exception e) {
