@@ -624,37 +624,41 @@ public class ViewItemFull extends FacesBean
             if(clsb.getYearbookContextListSize()>0)
             {
             	yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
-            	if(yisb.getYearbookItem() != null && yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId()) != null)
+            	if(yisb.getYearbookItem() != null)
             	{
-            		try {
-            			//revalidate
-						yisb.validateItem(getPubItem());
-						YearbookInvalidItemRO invItem = yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId());
-						if(invItem!=null)
-						{
-							((PubItemVOPresentation)this.getPubItem()).setValidationReport(invItem.getValidationReport());
-						}
-						
-					} catch (Exception e) {
-						logger.error("Error in Yaerbook validation", e);
-					}
-            	}
-            
-            	
-            	
-                try   
-                {
-
-                	this.isCandidateOfYearbook = yisb.isCandidate(this.pubItem.getVersion().getObjectId());
-                	if(!(this.isCandidateOfYearbook) && yisb.getNumberOfMembers()>0)
+            		if(yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId()) != null)
                 	{
-                		this.isMemberOfYearbook = yisb.isMember(this.pubItem.getVersion().getObjectId());
+                		try {
+                			//revalidate
+    						yisb.validateItem(getPubItem());
+    						YearbookInvalidItemRO invItem = yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId());
+    						if(invItem!=null)
+    						{
+    							((PubItemVOPresentation)this.getPubItem()).setValidationReport(invItem.getValidationReport());
+    						}
+    						
+    					} catch (Exception e) {
+    						logger.error("Error in Yaerbook validation", e);
+    					}
+                	}
+                
+                	
+                	
+                    try   
+                    {
+
+                    	this.isCandidateOfYearbook = yisb.isCandidate(this.pubItem.getVersion().getObjectId());
+                    	if(!(this.isCandidateOfYearbook) && yisb.getNumberOfMembers()>0)
+                    	{
+                    		this.isMemberOfYearbook = yisb.isMember(this.pubItem.getVersion().getObjectId());
+                        }
+                	}
+                    catch (Exception e) 
+                    {
+                    	e.printStackTrace();
                     }
             	}
-                catch (Exception e) 
-                {
-                	e.printStackTrace();
-                }
+            	
             }
         }
     }
