@@ -1528,6 +1528,16 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
         return validationMessages;
     }
+    
+    public int getNumberOfRelations()
+    {
+    	if(getRelations()!=null)
+    	{
+    		return getRelations().size();
+    	}
+    	else return 0;
+    	
+    }
 
    
     

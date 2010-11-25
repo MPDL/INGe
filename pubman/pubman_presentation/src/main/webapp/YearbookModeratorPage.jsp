@@ -147,11 +147,8 @@
 					</div>
 					
 					<h:panelGroup>
-						<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'BIB' and PubItemListSessionBean.partListSize>0}">
-							<jsp:directive.include file="list/itemList.jspf" />
-						</h:panelGroup>
-						<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'GRID' and PubItemListSessionBean.partListSize>0}">
-							<jsp:directive.include file="list/gridList.jspf" />
+						<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.partListSize>0}">
+							<jsp:directive.include file="yearbook/yearbookModeratorList.jspf" />
 						</h:panelGroup>
 						<h:panelGroup styleClass="full_area0" rendered="#{PubItemListSessionBean.partListSize==0}">
 							<h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.depositorWS_valNoItemsMsg}"/>
