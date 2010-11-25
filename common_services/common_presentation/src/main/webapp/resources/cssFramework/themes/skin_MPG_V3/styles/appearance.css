@@ -129,19 +129,17 @@ a:hover, a:focus, input:hover, input:focus, button:hover, button:focus {
     text-decoration: none;
 }
 
-input[type =
-"button"]:hover, input[type = "submit"]:hover, input[type = "reset"]:hover, button:hover {
+input[type="button"]:hover, input[type = "submit"]:hover, input[type = "reset"]:hover, button:hover {
     cursor: pointer;
 }
 
 input, textarea, select {
     border-style: solid;
-    border-color: #888B8B;
+    border-color: #9FAFAE;
 }
 
-input[type =
-"text"], textarea, select {
-    background-color: #F2F8FC;
+input[type="text"], textarea, select {
+    background-color: #F3F5F5;
 }
 
 a:hover, a:focus {
@@ -156,7 +154,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*SEPERATORS*/
 .contentMenu .seperator, .pageBrowser .seperator {
-	background-color:#0F3834;
+	background-color:#888B8B;
 }
 
 .contentMenu .seperator {
@@ -261,7 +259,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .contentMenu span {
-	font-size: 107%;
+	font-size: 109%;
     color: #888B8B;
 }
 
@@ -284,7 +282,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .contentMenu span, .contentMenu input, .contentMenu a {
-	font-size: 107%;
+	font-size: 109%;
 }
 
 /*Content
@@ -365,16 +363,14 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*SELECT MENU*/
 .itemList .checkBoxSelectButton {
-    background-color: #FFFFFF;
+    background-color: transparent;
     cursor: pointer;
 }
 
 .selectMenu {
-    border-color: #99C8E9;
-    /*
-     opacity: 0.95;
-     filter: alpha(opacity=95);
-     */
+    border-color: #9FAFAE;
+    opacity: 0.91;
+    filter: alpha(opacity=91);
 }
 
 .itemList .checkBoxCloseSelectButton:hover, .selectMenu .checkBoxCloseSelectButton:focus {
@@ -382,7 +378,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .selectMenu, .selectMenu input {
-    background-color: #FFFFFF;
+    background-color: #F3F5F5;
 }
 
 .selectMenu a {
@@ -390,8 +386,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .selectMenu a:hover, .selectMenu input:hover {
-    background-color: #3391D4;
-    color: #000000;
+    background-color: #366A9D;
+    color: #FFFFFF;
 }
 
 .listBackground .ascSort, .listBackground .descSort {
@@ -557,26 +553,29 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 /*AUTOSUGGEST*/
+
 .ac_results {
+    border-color: #9FAFAE;
+    opacity: 0.91;
+    filter: alpha(opacity=91);
     border-style: solid;
-    border-color: #99C8E9;
-    background-color: #FFFFFF;
+    background-color: #F3F5F5;
 }
 
 .ac_results li {
     border-bottom-style: solid;
-    border-bottom-color: #99C8E9;
-    font-family: sans-serif;
+    border-bottom-color: #9FAFAE;
 }
 
 .ac_over {
     cursor: pointer;
-    background-color: #3391D4;
+    background-color: #366A9D;
+    color: #FFFFFF !important;
 }
 
 .ac_match {
-    font-family: sans-serif;
     font-weight: bold;
+    background-color: #CDDAE7;
     color: #000000;
 }
 
