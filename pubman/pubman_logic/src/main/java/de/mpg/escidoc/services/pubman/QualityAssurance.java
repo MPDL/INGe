@@ -105,4 +105,13 @@ public interface QualityAssurance
      * @throws TechnicalException
      */
     public List<ContextVO> retrieveYearbookContexts(AccountUserVO user) throws SecurityException, TechnicalException;
+    
+    /**Retrieves all contexts of type "yearbook" for which the user has moderator rights
+     * 
+     * @param user
+     * @return
+     * @throws SecurityException
+     * @throws TechnicalException
+     */
+    public List<ContextVO> retrieveYearbookContextForModerator(AccountUserVO user) throws SecurityException, TechnicalException;
 }
