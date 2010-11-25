@@ -77,7 +77,6 @@
 							<h:panelGroup layout="block" styleClass="contentMenu">
 							<!-- content menu starts here -->
 							
-								eeee
 
 							<!-- content menu ends here -->
 							</h:panelGroup>

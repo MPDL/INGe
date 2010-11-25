@@ -136,7 +136,7 @@ public class YearbookItemSessionBean extends FacesBean
                     
                     if(result.getNumberOfRecords()!=1)
                     {
-                        error(result.getNumberOfRecords() + " yearbook items found!");
+                        //error(result.getNumberOfRecords() + " yearbook items found!");
                     }
                     else
                     {
