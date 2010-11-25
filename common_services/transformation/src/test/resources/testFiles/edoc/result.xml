@@ -89,7 +89,6 @@
 						</person:person>
 					</eterms:creator>
 					<dc:title>Spitzer Observations of Stephan's Quintet -- IGM Dust and Gas in a Multi-galaxy Collision</dc:title>
-					<dc:language/>
 					<dc:identifier xsi:type="eterms:EDOC">395943</dc:identifier>
 					<dcterms:issued>2008</dcterms:issued>
 					<source:source type="http://purl.org/escidoc/metadata/ves/publication-types/proceedings">
@@ -164,7 +163,6 @@
 						</person:person>
 					</eterms:creator>
 					<dc:title>Few-Body Physics in a Three-Component Fermi Gas</dc:title>
-					<dc:language/>
 					<dc:identifier xsi:type="eterms:EDOC">405209</dc:identifier>
 					<eterms:publishing-info>
 						<dc:publisher>Ruprecht-Karls Universität</dc:publisher>

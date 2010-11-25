@@ -40,6 +40,7 @@ import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -88,8 +89,8 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
     private static final Format EDOC_FORMAT = new Format("eDoc", "application/xml", "*");
     private static final Format EDOC_FORMAT_AEI = new Format("eDoc-AEI", "application/xml", "*");
 
-    private static Map<String, List<String>> properties = null;
-    private static Map<String, String> configuration = null;
+    private Map<String, List<String>> properties = null;
+    private Map<String, String> configuration = null;
 
     /**
      * {@inheritDoc}
@@ -217,18 +218,20 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
                 throw new TransformationNotSupportedException("The requested target format (" + trgFormat.toString() + ") is not supported");
             }
             
+            if (configuration != null)
+            {
+                for (String key : configuration.keySet())
+                {
+                    System.out.println("ADD PARAM " + key + " WITH VALUE " + configuration.get(key));
+                	transformer.setParameter(key, configuration.get(key));
+                }
+            }
+            
             transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
             transformer.setParameter("external-ou", PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
             transformer.setParameter("root-ou", PropertyReader.getProperty("escidoc.pubman.root.organisation.id"));
             transformer.setParameter("source-name", srcFormat.getName());
             
-            if (configuration != null)
-            {
-                for (String key : configuration.keySet())
-                {
-                    transformer.setParameter(key, configuration.get(key));
-                }
-            }
             
             transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
             transformer.transform(new StreamSource(new StringReader(newXml.toString())), new StreamResult(result));
@@ -391,7 +394,7 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
 
     private void init() throws IOException, FileNotFoundException, URISyntaxException
     {
-        configuration = new HashMap<String, String>();
+        configuration = new LinkedHashMap<String, String>();
         properties = new HashMap<String, List<String>>();
         Properties props = new Properties();
         props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.edoc.configuration.filename")));
@@ -408,11 +411,6 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
                 for (String field : confValues)
                 {
                     String[] fieldArr = field.split("=", 2);
-                    
-                    System.out.println("x:" + fieldArr.length);
-                    System.out.println("xx:" + fieldArr[0]);
-                    System.out.println("xxx:" + fieldArr[1]);
-                    
                     configuration.put(fieldArr[0], fieldArr[1] == null ? "" : fieldArr[1]);
                 }
             }
