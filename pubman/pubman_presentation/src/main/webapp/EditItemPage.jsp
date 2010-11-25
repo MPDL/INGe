@@ -123,16 +123,16 @@
 									<h2><h:outputText value="#{lbl.Yearbook_validationMessageHeader}"/></h2>
 									<ul>
 									<tr:iterator var="valitem" value="#{EditItem.item.validationReport.items}">
-										<h:panelGroup rendered="#{valitem.restrictive}">
-											<li class="messageWarn">
-											<h:outputText value="#{fn:replace(msg[valitem.content], '$1', valitem.element)}"/>
-											</li>
-										</h:panelGroup>
-										<h:panelGroup rendered="#{!valitem.restrictive}">
-											<li class="messageStatus">
-											<h:outputText value="#{fn:replace(msg[valitem.content], '$1', valitem.element)}"/>
-											</li>
-										</h:panelGroup>
+											<h:panelGroup rendered="#{valitem.restrictive}">
+												<li class="messageWarn">
+												<h:outputText value="#{msg[valitem.content]}"/>
+												</li>
+											</h:panelGroup>
+											<h:panelGroup rendered="#{!valitem.restrictive}">
+												<li class="messageStatus">
+												<h:outputText value="#{msg[valitem.content]}"/>
+												</li>
+											</h:panelGroup>
 									</tr:iterator>
 									</ul>	
 							   </h:panelGroup>

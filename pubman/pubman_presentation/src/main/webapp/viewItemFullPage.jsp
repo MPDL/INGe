@@ -181,12 +181,12 @@
 									<tr:iterator var="valitem" value="#{ViewItemFull.pubItem.validationReport.items}">
 										<h:panelGroup rendered="#{valitem.restrictive}">
 											<li class="messageWarn">
-											<h:outputText value="#{fn:replace(msg[valitem.content], '$1', valitem.element)}"/>
+											<h:outputText value="#{msg[valitem.content]}"/>
 											</li>
 										</h:panelGroup>
 										<h:panelGroup rendered="#{!valitem.restrictive}">
 											<li class="messageStatus">
-											<h:outputText value="#{fn:replace(msg[valitem.content], '$1', valitem.element)}"/>
+											<h:outputText value="#{msg[valitem.content]}"/>
 											</li>
 										</h:panelGroup>
 									</tr:iterator>

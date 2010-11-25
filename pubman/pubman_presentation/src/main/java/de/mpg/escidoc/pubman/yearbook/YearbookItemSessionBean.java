@@ -322,19 +322,19 @@ public class YearbookItemSessionBean extends FacesBean
     }
     
     
-    public void validateItem(PubItemVO pubItem) throws Exception
+    public boolean validateItem(PubItemVO pubItem) throws Exception
     {
-    	Date lmd= null;
+    	YearbookInvalidItemRO storedItem= null;
         if(invalidItemMap.containsKey(pubItem.getVersion().getObjectId()))
         {
-             lmd = invalidItemMap.get(pubItem.getVersion().getObjectId()).getLastModificationDate();
+             storedItem = invalidItemMap.get(pubItem.getVersion().getObjectId());
         }
         else if(validItemMap.containsKey(pubItem.getVersion().getObjectId()))
         {
-            lmd = validItemMap.get(pubItem.getVersion().getObjectId()).getLastModificationDate();
+            storedItem = validItemMap.get(pubItem.getVersion().getObjectId());
         }
         
-        if(!pubItem.getModificationDate().equals(lmd))
+        if(storedItem==null || !pubItem.getModificationDate().equals(storedItem.getLastModificationDate()))
         {
             //revalidate
         	System.out.println("Yearbook Validating: " + pubItem.getVersion().getObjectId());
@@ -349,7 +349,12 @@ public class YearbookItemSessionBean extends FacesBean
                 invalidItemMap.remove(pubItem.getVersion().getObjectId());
                 validItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(pubItem.getVersion().getObjectId(), rep, pubItem.getModificationDate()));
             }
+            
+            return rep.isValid();
         }
+        return storedItem.getValidationReport().isValid();
+        
+        
     }
     
     public String validateYearbook() throws Exception
@@ -425,22 +430,49 @@ public class YearbookItemSessionBean extends FacesBean
     public String releaseYearbook()
     {
     	try {
-			TaskParamVO param = new TaskParamVO(getYearbookItem().getModificationDate(), "Submitting yearbook"); 
-			String paramXml = xmlTransforming.transformToTaskParam(param);
-			
-			itemHandler.submit(getYearbookItem().getVersion().getObjectId(), paramXml);
-			
-			String updatedItemXml = itemHandler.retrieve(getYearbookItem().getVersion().getObjectId());
-			this.yearbookItem = xmlTransforming.transformToPubItem(updatedItemXml);
-			
-			InitialContext initialContext = new InitialContext();
-			PubItemPublishing pubItemPublishing = (PubItemPublishing) initialContext.lookup(PubItemPublishing.SERVICE_NAME);
-			pubItemPublishing.releasePubItem(yearbookItem.getVersion(), yearbookItem.getModificationDate(), "Releasing pubItem", loginHelper.getAccountUser());
-			logger.info("Yearbook item released successfully");
+    		
+    		
+    		List<PubItemVOPresentation> pubItemList = retrieveAllMembers();
+            boolean allValid = true;
+            for(PubItemVOPresentation pubItem : pubItemList)
+            {
+               boolean valid = validateItem(pubItem);
+               if(!valid)
+               {
+            	   error(getMessage("Yearbook_ItemInvalid").replaceAll("\\$1", "\""+pubItem.getMetadata().getTitle().getValue() + "\""));
+            	   allValid = false;
+               }
+               
+            }
+            
+            if(!allValid)
+            {
+            	error(getMessage("Yearbook_ReleaseError"));
+            }
+            else
+            {
+
+    			TaskParamVO param = new TaskParamVO(getYearbookItem().getModificationDate(), "Submitting yearbook"); 
+    			String paramXml = xmlTransforming.transformToTaskParam(param);
+    			
+    			itemHandler.submit(getYearbookItem().getVersion().getObjectId(), paramXml);
+    			
+    			String updatedItemXml = itemHandler.retrieve(getYearbookItem().getVersion().getObjectId());
+    			this.yearbookItem = xmlTransforming.transformToPubItem(updatedItemXml);
+    			
+    			InitialContext initialContext = new InitialContext();
+    			PubItemPublishing pubItemPublishing = (PubItemPublishing) initialContext.lookup(PubItemPublishing.SERVICE_NAME);
+    			pubItemPublishing.releasePubItem(yearbookItem.getVersion(), yearbookItem.getModificationDate(), "Releasing pubItem", loginHelper.getAccountUser());
+    			info(getMessage("Yearbook_ReleasedSuccessfully"));
+            }
+    		
+    		
+    		
+    		
 			
 			
 		} catch (Exception e) {
-			error("Could not release Yearbook Item");
+			error(getMessage("Yearbook_ReleaseError"));
 			logger.error("Could not release Yearbook Item", e);
 		}
         

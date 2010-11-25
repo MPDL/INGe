@@ -170,16 +170,15 @@
 				<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" style="padding-top: 0px !important;">
 					<h2><h:outputText value="#{lbl.Yearbook_validationMessageHeader}"/></h2>
 					<ul>
-					
 					<tr:iterator var="valitem" value="#{item.validationReport.items}">
 						<h:panelGroup rendered="#{valitem.restrictive}">
 							<li class="messageWarn">
-							<h:outputText value="#{fn:replace(msg[valitem.content], '$1', valitem.element)}"/>
+							<h:outputText value="#{msg[valitem.content]}"/>
 							</li>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{!valitem.restrictive}">
 							<li class="messageStatus">
-							<h:outputText value="#{fn:replace(msg[valitem.content], '$1', valitem.element)}"/>
+							<h:outputText value="#{msg[valitem.content]}"/>
 							</li>
 						</h:panelGroup>
 					</tr:iterator>
