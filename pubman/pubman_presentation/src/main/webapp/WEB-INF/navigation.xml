@@ -373,4 +373,13 @@
 			/YearbookInvalidItemsPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+		*</from-view-id>
+		<navigation-case>
+			<from-outcome>loadYearbookModeratorPage</from-outcome>
+			<to-view-id>
+			/YearbookModeratorPage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>
