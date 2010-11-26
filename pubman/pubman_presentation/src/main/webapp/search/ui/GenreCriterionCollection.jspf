@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
-            f�r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur F�rderung der Wissenschaft e.V.
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -367,7 +367,7 @@
 					<h:outputText value="#{lbl.EditItem_lblDegreeType}" />
 				</span>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<a class="large_area0 tiny_marginRIncl checkAll">Alle ausw�hlen</a>
+					<a class="large_area0 tiny_marginRIncl checkAll">Alle ausw�hlen</a>
 
 					<span class="free_area0 checkboxDoubleGroup">
 							<span class="large_checkbox tiny_marginRIncl">
