@@ -42,7 +42,7 @@
 
 <link href="<h:outputText value='#{ApplicationBean.commonPresentationUrl}'/>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
 <h:outputText value="#{ApplicationBean.pubmanStyleTags}" escape="false"/>
-<link href="<h:outputText value='#{ApplicationBean.commonPresentationUrl}'/>resources/cssFramework/themes/skin_MPG_V3/styles/theme.css" id="MPG Final" type="text/css" title="MPG Final" rel="alternate stylesheet"/>
+<!-- <link href="<h:outputText value='#{ApplicationBean.commonPresentationUrl}'/>resources/cssFramework/themes/skin_MPG_V3/styles/theme.css" id="MPG Final" type="text/css" title="MPG Final" rel="alternate stylesheet"/>-->
 <script type="text/javascript" language="JavaScript">var cookieVersion = "<h:outputText value='#{ApplicationBean.cookieVersion}'/>";</script>
 <link rel="search" type="application/opensearchdescription+xml" title="<h:outputText value='#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}'/>" href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />search/OpenSearch.jsp" />
 <meta http-equiv="pragma" content="no-cache"/>
