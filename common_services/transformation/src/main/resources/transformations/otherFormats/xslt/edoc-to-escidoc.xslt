@@ -79,7 +79,7 @@
 	<xsl:param name="root-ou" select="'dummy-root-ou'"/>
 	<xsl:param name="source-name" select="'eDoc'"/>
 	
-	<xsl:param name="import-name" select="'FHI'"/>
+	<xsl:param name="import-name" select="'OTHER'"/>
 	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
 	
@@ -562,7 +562,6 @@
 				<xsl:for-each select="basic/fturl">					
 					<!-- duplicate filenames -->
 					<xsl:variable name="filename" select="@filename"/>
-					
 					<xsl:choose>
 						<xsl:when test="not(preceding-sibling::fturl/@filename = $filename)">
 							<xsl:variable name="access">
@@ -592,9 +591,7 @@
 							</xsl:if>
 							
 						</xsl:when>
-					</xsl:choose>
-					
-					
+					</xsl:choose>					
 				</xsl:for-each>
 			</xsl:element>
 		</xsl:element>
@@ -619,6 +616,23 @@
 			
 			<ec:properties>
 				<xsl:choose>
+					<xsl:when test="$import-name = 'BPC'">
+						<xsl:choose>
+							<xsl:when test="$access= 'USER'">
+								<prop:visibility>private</prop:visibility>
+							</xsl:when>
+							<xsl:when test="$access='MPG' or $access = 'INSTITUT'">
+								<prop:visibility>audience</prop:visibility>
+							</xsl:when>
+							<xsl:when test="$access='PUBLIC'">
+								<prop:visibility>public</prop:visibility>
+							</xsl:when>
+							<xsl:otherwise>
+								<!-- ERROR -->
+								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
 					<xsl:when test="$import-name = 'FHI'">
 						<xsl:choose>
 							<xsl:when test="$access='USER' or $access='INSTITUT'">
@@ -679,27 +693,32 @@
 					</xsl:when>
 					<!-- Customized - FHI: prop:content-category -->
 					<xsl:when test="$import-name = 'FHI'">
-							<xsl:variable name="content-category">
-								<xsl:choose>
-									<xsl:when test="contains(lower-case(@comment), 'abstract')">abstract</xsl:when>
-									<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
-									<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
-									<xsl:when test="contains(lower-case(@comment), 'author version')">pre-print</xsl:when>
-									<xsl:when test="contains(lower-case(@comment), 'fulltext')">publisher-version</xsl:when>
-									<xsl:when test="contains(lower-case(@comment), 'open choice')">publisher-version</xsl:when>
-									<xsl:when test="contains(lower-case(@comment), 'open access')">publisher-version</xsl:when>
-									<xsl:when test="contains(lower-case(@comment), 'figure')">supplementary-material</xsl:when>
-									<xsl:when test="contains(lower-case(@comment), '.mpeg-video file')">supplementary-material</xsl:when>
-									<xsl:when test="contains(lower-case(@comment), 'diagramme')">supplementary-material</xsl:when>
-									<xsl:when test="contains(lower-case(@comment), 'fragebogen')">supplementary-material</xsl:when>
-									<xsl:when test="contains(lower-case(@comment), 'supporting online material')">supplementary-material</xsl:when>
-									<xsl:otherwise>any-fulltext</xsl:otherwise>
-								</xsl:choose>
-							</xsl:variable>
-							<xsl:comment>Comment: <xsl:value-of select="lower-case(@comment)"/></xsl:comment>
-							<prop:content-category>
-								<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
-							</prop:content-category>
+						<xsl:variable name="content-category">
+							<xsl:choose>
+								<xsl:when test="contains(lower-case(@comment), 'abstract')">abstract</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'author version')">pre-print</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'fulltext')">publisher-version</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'open choice')">publisher-version</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'open access')">publisher-version</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'figure')">supplementary-material</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), '.mpeg-video file')">supplementary-material</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'diagramme')">supplementary-material</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'fragebogen')">supplementary-material</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'supporting online material')">supplementary-material</xsl:when>
+								<xsl:otherwise>any-fulltext</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+						<xsl:comment>Comment: <xsl:value-of select="lower-case(@comment)"/></xsl:comment>
+						<prop:content-category>
+							<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
+						</prop:content-category>
+					</xsl:when>
+					<xsl:when test="$import-name = 'BPC'">
+						<prop:content-category>
+							<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+						</prop:content-category>
 					</xsl:when>
 					<xsl:when test="$genre-mapping/genres/genre[edoc-genre = $comment]">
 						<xsl:variable name="content-category" select="$genre-mapping/genres/genre[edoc-genre = $comment]/pubman-genre"/>

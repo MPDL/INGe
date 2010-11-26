@@ -49,7 +49,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
  *
  */
 
-public class TransformationBean implements Transformation
+public class TransformationBean implements Transformation, Configurable
 {
     
     private final Logger logger = Logger.getLogger(TransformationBean.class);    
