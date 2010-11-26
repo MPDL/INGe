@@ -27,7 +27,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<binding>
+<binding name="AccountUserVO">
 
 	<namespace prefix="escidocAccountUser" uri="${xsd.soap.useraccount.useraccount}" default="none" />
 	<namespace prefix="escidocAccountUserList" uri="${xsd.soap.useraccount.useraccountlist}" default="none" />
@@ -35,6 +35,8 @@
 	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
 	<namespace prefix="srel" uri="${xsd.soap.common.srel}" default="none" />
 	<namespace prefix="attributes" uri="${xsd.soap.attributes}" default="none" />
+	<namespace prefix="result" uri="${xsd.soap.result.result}" default="none" />
+	<namespace prefix="srw" uri="${xsd.soap.searchRetrieveResponse}" default="none"/>
 	
 	
 	
@@ -49,6 +51,7 @@
 	<include path="AccountUserVOListWrapper_binding.xml" />
 	<include path="UserAttributeVO_binding.xml" />
 	<include path="UserAttributeListWrapper_binding.xml" />
+	<include path="SearchRetrieveResponse_binding_input.xml" />
 	
 	
 </binding>
