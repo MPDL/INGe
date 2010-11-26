@@ -233,11 +233,11 @@
 
 		function checkFields()
 		{
-			var fields = $.find('.checkImage');
-			//var fields = $.find('.idInfo');
+			//var fields = $.find('.checkImage');
+			var fields = $.find('.inputInfoBox');
 			$(fields).each(function(){
 					this.init = false;
-					this.click();
+					this.onclick();
 				}
 			);
 		}
