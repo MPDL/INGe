@@ -82,7 +82,7 @@
 <%-- Start iteration of authors input --%>
 	<span class="full_area0">
 		<tr:iterator id="iterCreatorOrganisationAuthors" var="creator" value="#{EasySubmissionSessionBean.creators}" rows="0">
-			<h:panelGroup layout="block" styleClass="suggestAnchor endline">
+			<h:panelGroup layout="block" styleClass="full_area0 suggestAnchor endline">
 <%-- Creator person family name, Creator person given name --%>
 				<h:panelGroup layout="block" styleClass="free_area0 endline" rendered="#{creator.personType and !(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'easy-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
 					<span class="large_area0 xSmall_marginRExcl">&nbsp;</span>
