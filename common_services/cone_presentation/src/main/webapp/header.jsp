@@ -203,19 +203,30 @@
 									}
 									else
 									{
-										document.getElementById('idImage').src = 'files/img/taken.png';
+										//xLarge_txtInput errorMessageArea endline
+										document.getElementById('idImage').src = 'img/taken.png';
+										document.getElementById('cone_identifier').className = 'xLarge_txtInput errorMessageArea endline';
+										document.getElementById('idInfo').style.visibility = 'visible';
+										document.getElementById('idInfo').className = 'tiny_area0 tiny_marginRExcl inputInfoBox errorMessageArea';
 									}
 								}
 								else
 								{
-									document.getElementById('idImage').src = 'files/img/new.png';
+									//xLarge_txtInput infoMessageArea endline
+									document.getElementById('idImage').src = 'img/new.png';
+									document.getElementById('idInfo').style.visibility = 'visible';
+									document.getElementById('idInfo').className = 'tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea';
+									document.getElementById('cone_identifier').className = 'xLarge_txtInput infoMessageArea endline';
+
 								}
 							}
 					);
 				}
 				else
 				{
-					document.getElementById('idImage').src = 'files/img/empty.png';
+					document.getElementById('idImage').src = 'img/empty.png';
+					document.getElementById('idInfo').style.visibility = 'hidden';
+					document.getElementById('cone_identifier').className = 'xLarge_txtInput';
 				}
 			}
 		}
@@ -223,6 +234,7 @@
 		function checkFields()
 		{
 			var fields = $.find('.checkImage');
+			//var fields = $.find('.idInfo');
 			$(fields).each(function(){
 					this.init = false;
 					this.click();
@@ -249,6 +261,8 @@
 			var object = document.editform[formField].value;
 
 			var image = $(element).parents('.inputField').find('.checkImage')[0];
+			var input = $(element).parents('.inputField').find('.xLarge_txtInput')[0];
+			var info = $(element).parents('.inputField').find('.inputInfoBox')[0];
 
 			if (object != '')
 			{
@@ -276,7 +290,10 @@
 								}
 								if (counter > 0 && shouldBeUnique)
 								{
-									image.src = 'files/img/taken.png';
+									input.className = 'xLarge_txtInput errorMessageArea endline';
+									info.style.visibility = 'visible';
+									info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox errorMessageArea';
+									image.src = 'img/taken.png';
 									var title;
 									if (counter == 1)
 									{
@@ -292,10 +309,14 @@
 									}
 									title = 'This field should usually be unique, but ' + title + ' found with the same content';
 									image.title = title;
+									info.title = title;
 								}
 								else if (counter > 0)
 								{
-									image.src = 'files/img/hits.png';
+									input.className = 'xLarge_txtInput successMessageArea endline';
+									info.style.visibility = 'visible';
+									info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox successMessageArea';
+									image.src = 'img/hits.png';
 									var title;
 									if (counter <=48) 
 									{
@@ -307,10 +328,15 @@
 									}
 									title += ' other entries were found with the same content';
 									image.title = title;
+									info.title = title;
 								}
 								else
 								{
-									image.src = 'files/img/new.png';
+									input.className = 'xLarge_txtInput infoMessageArea endline';
+									info.style.visibility = 'visible';
+									info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea';
+									info.title = 'This content is unique';
+									image.src = 'img/new.png';
 									image.title = 'This content is unique';
 								}
 
@@ -338,16 +364,23 @@
 							}
 							else
 							{
-								image.src = 'files/img/new.png';
+								input.className = 'xLarge_txtInput infoMessageArea endline';
+								info.style.visibility = 'visible';
+								info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea';			
+								image.src = 'img/new.png';
 								image.title = jsonUrl + ' - ' + predicate + ' - ' + formField;
-								//image.title = 'This field is unique';
+								info.title = jsonUrl + ' - ' + predicate + ' - ' + formField;
+								image.title = 'This field is unique';
+								info.title = 'This content is unique';
 							}
 						}
 				);
 			}
 			else
 			{
-				image.src = 'files/img/empty.png';
+				input.className ='xLarge_txtInput';
+				info.style.visibility = 'hidden';
+				image.src = 'img/empty.png';
 				image.title = '';
 			}
 		}
