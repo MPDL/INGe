@@ -50,7 +50,6 @@
 
 <div class="full_area0 header clear">
 <!-- begin: header section (including meta menu, logo, searchMenu and main menu)-->
-
 	<%-- import meta menu here --%>
 	<jsp:directive.include file="ui/MetaMenu.jspf"/>
 	<div class="full_area0 LogoNSearch">
@@ -62,11 +61,8 @@
 		<%-- import search here--%>
 		<jsp:directive.include file="ui/SearchMenu.jspf"/>
 	</div>
-
 	<%-- import main menu here --%>
 	<jsp:directive.include file="ui/MainMenu.jspf"/>
-
 <!-- end: header section -->
-
-
+</div>
 </f:subview>
