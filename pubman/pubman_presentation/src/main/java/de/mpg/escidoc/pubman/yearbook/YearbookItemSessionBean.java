@@ -402,6 +402,7 @@ public class YearbookItemSessionBean extends FacesBean
     
     public String changeToCandidates()
     {
+    	PubItemListSessionBean pilsb = (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
         setSelectedWorkspace(YBWORKSPACE.CANDIDATES);
         pilsb.setCurrentPageNumber(1);
         pilsb.redirect();
@@ -409,6 +410,7 @@ public class YearbookItemSessionBean extends FacesBean
     }
     public String changeToMembers()
     {
+    	PubItemListSessionBean pilsb = (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
         setSelectedWorkspace(YBWORKSPACE.MEMBERS);
         pilsb.setCurrentPageNumber(1);
         pilsb.redirect();
@@ -416,6 +418,7 @@ public class YearbookItemSessionBean extends FacesBean
     }
     public String changeToInvalidItems()
     {
+    	PubItemListSessionBean pilsb = (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
         setSelectedWorkspace(YBWORKSPACE.INVALID);
         pilsb.setCurrentPageNumber(1);
         pilsb.redirect();
@@ -424,7 +427,7 @@ public class YearbookItemSessionBean extends FacesBean
     
     public String changeToNonCandidates()
     {
-        
+    	PubItemListSessionBean pilsb = (PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class);
         setSelectedWorkspace(YBWORKSPACE.NON_CANDIDATES);
         pilsb.setCurrentPageNumber(1);
         pilsb.redirect();
