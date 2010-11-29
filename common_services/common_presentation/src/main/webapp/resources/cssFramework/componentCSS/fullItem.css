@@ -269,11 +269,13 @@
 	/*REPLACEMENT HACK FOR IE LESS THAN 6*/
 	* html .fileSection .fileInput input {
 		border-width: 0.10em;
-	}
-	/*REPLACEMENT HACK FOR IE 7*/
+}
+/*
+	/*REPLACEMENT HACK FOR IE 7
 	*:first-child+html .fileSection .fileInput input {
 		border-width: 0.10em;
 	}
+*/
 
 .fileSection .fileLabel {
 	text-align: center;
@@ -350,6 +352,11 @@
 
 .fullItem .advSearchCollapse {
 	 margin-top: -1.46em !important;
+}
+
+.inputInfoBox, .inputInfoBox a {
+	line-height: 1.45em;
+	cursor: pointer;
 }
 
 /*VALIDATION (Cone)*/
