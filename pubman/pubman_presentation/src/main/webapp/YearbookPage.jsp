@@ -117,7 +117,7 @@
 									<h:outputText styleClass="seperator void" />
 									<h:commandLink id="lnkValidate" styleClass="free_area0" value="#{lbl.Yearbook_validate}" action="#{YearbookItemSessionBean.validateYearbook}" onclick="fullItemReload();" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' || YearbookItemSessionBean.selectedWorkspace=='INVALID'}"/>
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink id="lnkReleaseYearbook" styleClass="free_area0" value="#{lbl.Yearbook_releaseYearbook}" action="#{YearbookItemSessionBean.releaseYearbook}" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' and YearbookItemSessionBean.yearbookItem.version.state=='PENDING'}"/>
+									<h:commandLink id="lnkReleaseYearbook" styleClass="free_area0" value="#{lbl.Yearbook_releaseYearbook}" action="#{YearbookItemSessionBean.releaseYearbook}" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' and YearbookItemSessionBean.yearbookItem.version.state=='PENDING' and ContextListSessionBean.yearbookContextListSize>0}"/>
 									&#160;
 								<!-- content menu upper line ends here -->
 								</div>
@@ -191,6 +191,9 @@
 						</h:panelGroup>
 						<h:panelGroup styleClass="full_area0" rendered="#{PubItemListSessionBean.partListSize==0}">
 							<h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.depositorWS_valNoItemsMsg}"/>
+							<h:outputLink styleClass="free_area0 small_marginLExcl" value="YearbookItemCreatePage.jsp" rendered="#{ContextListSessionBean.yearbookContextListSize>0}">
+								<h:outputText value="#{lbl.Yearbook_createYearbook}"/>
+							</h:outputLink>
 						</h:panelGroup>
 						
 					</h:panelGroup>

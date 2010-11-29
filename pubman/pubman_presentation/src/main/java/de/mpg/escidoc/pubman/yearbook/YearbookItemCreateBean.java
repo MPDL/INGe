@@ -45,6 +45,7 @@ import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
@@ -77,15 +78,19 @@ public class YearbookItemCreateBean extends FacesBean
     public static String BEAN_NAME = "YearbookItemCreateBean";
     private static Logger logger = Logger.getLogger(YearbookItemCreateBean.class);
     private String title;
-    private String contextIds;
+    private List<ContextRO> contextIds;
     private String dateFrom;
     private String dateTo;
-    private String collaboratorUserIds;
+    private List<AccountUserRO> collaboratorUserIds;
     private AffiliationVO affiliation;
     private List<SelectItem> contextSelectItems;
     private List<SelectItem> userAccountSelectItems;
     
     private String context;
+    
+    private int contextPosition;
+    private int userPosition;
+
 	private LoginHelper loginHelper;
 	private XmlTransforming xmlTransforming;
     
@@ -96,6 +101,15 @@ public class YearbookItemCreateBean extends FacesBean
 		xmlTransforming = new XmlTransformingBean();
 		loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 		this.affiliation = loginHelper.getAccountUsersAffiliations().get(0);
+		
+		initContextMenu();
+		initUserAccountMenu();
+		
+		contextIds = new ArrayList<ContextRO>();
+		contextIds.add(new ContextRO((String)contextSelectItems.get(0).getValue()));
+		collaboratorUserIds = new ArrayList<AccountUserRO>();
+		collaboratorUserIds.add(new AccountUserRO((String)getUserAccountSelectItems().get(0).getValue()));
+		
 
     }
     
@@ -111,24 +125,32 @@ public class YearbookItemCreateBean extends FacesBean
 
    
 
-    public String getContextIds()
-    {
-        return contextIds;
-    }
-
-    public void setContextIds(String contextIds)
-    {
-        this.contextIds = contextIds;
-    }
+   public String addContext()
+   {
+	   contextIds.add(getContextPosition()+1, new ContextRO((String)getContextSelectItems().get(0).getValue())); 
+	   return "";
+   }
+   
+   public String removeContext()
+   {
+	   contextIds.remove(getContextPosition());
+	   return "";
+   }
+   
+   public String addUser()
+   {
+	   collaboratorUserIds.add(getUserPosition()+1, new AccountUserRO((String)getUserAccountSelectItems().get(0).getValue()));
+	   return "";
+   }
+   
+   public String removeUser()
+   {
+	   collaboratorUserIds.remove(getUserPosition());
+	   return "";
+   }
     
-    public String getContext() {
-		return context;
-	}
-
-	public void setContext(String context) {
-		this.context = context;
-	}
-	
+   
+	/*
     public String writeContext()
     {
         if(getContextIds().length()>0)
@@ -139,7 +161,8 @@ public class YearbookItemCreateBean extends FacesBean
         	setContextIds(getContext());
         return null;
     }
-
+*/
+    
     public String getDateFrom()
     {
         return dateFrom;
@@ -169,7 +192,7 @@ public class YearbookItemCreateBean extends FacesBean
         try {
 			loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 			
-			ItemHandler ih = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle());
+			ItemHandler ih = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()); 
 			
 			PubItemVO pubItem = new PubItemVO();
 			pubItem.setContentModel(PropertyReader.getProperty("escidoc.pubman.yearbook.content-model.id"));
@@ -199,20 +222,20 @@ public class YearbookItemCreateBean extends FacesBean
 			String orgQuery = "( escidoc.any-organization-pids=\"" + getAffiliation().getReference().getObjectId() + "\" )";
 			
 			String contextQuery="";
-			if(contextIds!=null && !contextIds.trim().equals(""))
+			if(contextIds!=null && contextIds.size()>0)
 			{
 			    contextQuery+="(";
-			    String[] conIds = contextIds.split(",");
+			    
 			    int i=0;
-			    for(String contextId : conIds)
+			    for(ContextRO contextId : contextIds)
 			    {
-			        if(!contextId.trim().equals(""))
+			        if(!contextId.getObjectId().trim().equals(""))
 			        {
 			            if(i!=0)
 			            {
 			                contextQuery += " OR";
 			            } 
-			            contextQuery+=" escidoc.context.objid=\"" + contextId.trim() + "\""; 
+			            contextQuery+=" escidoc.context.objid=\"" + contextId.getObjectId().trim() + "\""; 
 			            i++;
 			        }
 			    }
@@ -274,15 +297,18 @@ public class YearbookItemCreateBean extends FacesBean
 			   
 			    ug.createInCoreservice(loginHelper.getESciDocUserHandle());
 			    
-			    Selector selector = new Selector();
-			    selector.setType(Type.INTERNAL);
-			    selector.setObjid(getCollaboratorUserIds());
-			    selector.setName("user-account");
-			    selector.setString(getCollaboratorUserIds());
-			    Selectors selectors = new Selectors();
-			    selectors.getSelectors().add(selector);
-			    
-			    ug.addNewSelectorsInCoreservice(selectors, loginHelper.getESciDocUserHandle());
+			    for(AccountUserRO userId : collaboratorUserIds)
+			    {
+			    	Selector selector = new Selector();
+				    selector.setType(Type.INTERNAL);
+				    selector.setObjid(userId.getObjectId());
+				    selector.setName("user-account");
+				    selector.setString(userId.getObjectId());
+				    Selectors selectors = new Selectors();
+				    selectors.getSelectors().add(selector);
+				    ug.addNewSelectorsInCoreservice(selectors, loginHelper.getESciDocUserHandle());
+			    }
+			  
 			    
 			    
 			    logger.info("User Group " + ug.getObjid() + " created!");
@@ -308,16 +334,7 @@ public class YearbookItemCreateBean extends FacesBean
 		}
     }
 
-    public void setCollaboratorUserIds(String collaboratorUserId)
-    {
-        this.collaboratorUserIds = collaboratorUserId;
-    }
-
-    public String getCollaboratorUserIds()
-    {
-        return collaboratorUserIds;
-    }
-    
+   
     
     public String check()
     {
@@ -349,16 +366,6 @@ public class YearbookItemCreateBean extends FacesBean
 
 	public List<SelectItem> getContextSelectItems() {
 		
-		if(contextSelectItems == null) 
-		{
-			contextSelectItems = new ArrayList<SelectItem>();
-			ContextListSessionBean clsb = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-			for(PubContextVOPresentation context : clsb.getModeratorContextList())
-			{
-				contextSelectItems.add(new SelectItem(context.getReference().getObjectId(), context.getName() + " (" + context.getReference().getObjectId() + ")"));
-			}
-		}
-		
 		return contextSelectItems;
 	}
 
@@ -366,51 +373,106 @@ public class YearbookItemCreateBean extends FacesBean
 		this.userAccountSelectItems = userAccountSelectItems;
 	}
 
-	public List<SelectItem> getUserAccountSelectItems() throws Exception{
-		
-		
-		if(userAccountSelectItems == null) 
-		{
-			UserAccountHandler uah = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
-			userAccountSelectItems = new ArrayList<SelectItem>();
-			
-			
-			 HashMap<String, String[]> filterParams = new HashMap<String, String[]>();  
-             filterParams.put("operation", new String[] {"searchRetrieve"});
-             filterParams.put("version", new String[] {"1.1"});
-             
-             
-             //String orgId = "escidoc:persistent25";
-             filterParams.put("query", new String[] {"\"http://escidoc.de/core/01/structural-relations/organizational-unit\"=" + getAffiliation().getReference().getObjectId()});
-             filterParams.put("maximumRecords", new String[] {"100"});
-             
-             String uaList = uah.retrieveUserAccounts(filterParams);
-             SearchRetrieveResponseVO result = xmlTransforming.transformToSearchRetrieveResponseAccountUser(uaList);
-             
-             
-             List<SearchRetrieveRecordVO> results = result.getRecords();
-             for(SearchRetrieveRecordVO rec : results)
-             { 
-            	 AccountUserVO userVO = (AccountUserVO)rec.getData();
-            	 if(!userVO.getReference().getObjectId().equals(loginHelper.getAccountUser().getReference().getObjectId()))
-            	 {
-            		 userAccountSelectItems.add(new SelectItem(userVO.getReference().getObjectId(), userVO.getName()));
-            	 }
-            	 
-             }
-             
-             
-            
-             
-             
-			/*
-			for(PubContextVOPresentation context : clsb.getModeratorContextList())
-			{
-				userAccountSelectItems.add(new SelectItem(context.getReference().getObjectId(), context.getName() + " (" + context.getReference().getObjectId() + ")"));
-			}
-			*/
-		}
+	public List<SelectItem> getUserAccountSelectItems() {
 		return userAccountSelectItems;
+	}
+
+	
+
+	public void setContextPosition(int contextPosition) {
+		this.contextPosition = contextPosition;
+	}
+
+	public int getContextPosition() {
+		return contextPosition;
+	}
+
+	
+	
+	public void initUserAccountMenu() throws Exception
+	{
+		UserAccountHandler uah = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
+		userAccountSelectItems = new ArrayList<SelectItem>();
+		userAccountSelectItems.add(new SelectItem("", ""));
+		
+		 HashMap<String, String[]> filterParams = new HashMap<String, String[]>();  
+         filterParams.put("operation", new String[] {"searchRetrieve"});
+         filterParams.put("version", new String[] {"1.1"});
+         
+         
+         //String orgId = "escidoc:persistent25";
+         filterParams.put("query", new String[] {"\"http://escidoc.de/core/01/structural-relations/organizational-unit\"=" + getAffiliation().getReference().getObjectId()});
+         filterParams.put("maximumRecords", new String[] {"100"});
+         
+         String uaList = uah.retrieveUserAccounts(filterParams);
+         SearchRetrieveResponseVO result = xmlTransforming.transformToSearchRetrieveResponseAccountUser(uaList);
+         
+         
+         List<SearchRetrieveRecordVO> results = result.getRecords();
+         for(SearchRetrieveRecordVO rec : results)
+         { 
+        	 AccountUserVO userVO = (AccountUserVO)rec.getData();
+        	 if(!userVO.getReference().getObjectId().equals(loginHelper.getAccountUser().getReference().getObjectId()))
+        	 {
+        		 userAccountSelectItems.add(new SelectItem(userVO.getReference().getObjectId(), userVO.getName())); 
+        	 }
+        	 
+         }
+         
+         
+        
+         
+         
+		/*
+		for(PubContextVOPresentation context : clsb.getModeratorContextList())
+		{
+			userAccountSelectItems.add(new SelectItem(context.getReference().getObjectId(), context.getName() + " (" + context.getReference().getObjectId() + ")"));
+		}
+		*/
+	}
+	
+	public void initContextMenu()
+	{
+		contextSelectItems = new ArrayList<SelectItem>();
+		ContextListSessionBean clsb = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+		for(PubContextVOPresentation context : clsb.getModeratorContextList())
+		{
+			contextSelectItems.add(new SelectItem(context.getReference().getObjectId(), context.getName() + " (" + context.getReference().getObjectId() + ")"));
+		}
+	}
+
+	
+
+	public void setUserPosition(int userPosition) {
+		this.userPosition = userPosition;
+	}
+
+	public int getUserPosition() {
+		return userPosition;
+	}
+
+	public void setContext(String context) {
+		this.context = context;
+	}
+
+	public String getContext() {
+		return context;
+	}
+
+	public void setCollaboratorUserIds(List<AccountUserRO> collaboratorUserIds) {
+		this.collaboratorUserIds = collaboratorUserIds;
+	}
+
+	public List<AccountUserRO> getCollaboratorUserIds() {
+		return collaboratorUserIds;
+	}
+
+	public void setContextIds(List<ContextRO> contextIds) {
+		this.contextIds = contextIds;
+	}
+
+	public List<ContextRO> getContextIds() {
+		return contextIds;
 	}
     
    

@@ -81,10 +81,12 @@
 									<h:outputText styleClass="seperator void" />
 									<h:commandLink id="lnkChangeSubmenuToExport" title="#{tip.List_lblExportOptions}" styleClass="free_area0" value="#{lbl.List_lblExportOptions}" action="#{PubItemListSessionBean.changeSubmenuToExport}" rendered="#{PubItemListSessionBean.subMenu != 'EXPORT'}"/>	
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}" />
+									<!-- 
 									<h:outputText styleClass="seperator void" />
 									<h:outputLink id="lnkChangeToCreateItem" title="#{tip.List_lblViewOptions}" styleClass="free_area0" value="YearbookItemCreatePage.jsp" >
 										<h:outputText value="#{lbl.Yearbook_createYearbook}"/>
 									</h:outputLink>
+									-->
 									
 									&#160;
 								<!-- content menu upper line ends here -->

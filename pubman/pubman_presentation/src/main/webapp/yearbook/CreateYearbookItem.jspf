@@ -40,7 +40,7 @@
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*"/>
-				<h:outputText value="Title"/>
+				<h:outputText value="#{lbl.Yearbook_title}"/>
 					<span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
@@ -51,7 +51,7 @@
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*"/>
-						<h:outputText value="Organization"/>
+						<h:outputText value="#{lbl.Yearbook_organization}"/>
 						<span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
@@ -63,18 +63,25 @@
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*"/>
-						<h:outputText value="Context Ids (comma seperated)"/>
+						<h:outputText value="#{lbl.Yearbook_contextIds}"/>
 						<span class="noDisplay">: </span>
 					</b>
 									
-									
-					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneMenu styleClass="large_select" id="selectContext" value="#{YearbookItemCreateBean.context}" onchange="document.getElementById('btnChangeContext').click();fullItemReload();" immediate="true">
-							<f:selectItems value="#{YearbookItemCreateBean.contextSelectItems}"/>
-						</h:selectOneMenu>
-						<h:inputText id="selSelectedContextUnit" styleClass="xHuge_txtInput" value="#{YearbookItemCreateBean.contextIds}" />
-						<h:commandButton action="#{YearbookItemCreateBean.writeContext}" styleClass="hiddenButton" id="btnChangeContext" value="" style="visibility:hidden;"/>
-					</span>
+					<tr:iterator var="context" value="#{YearbookItemCreateBean.contextIds}" varStatus="index">				
+						<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
+							<tr:selectOneChoice styleClass="large_select" id="selectContext" value="#{context.objectId}">
+								<f:selectItems value="#{YearbookItemCreateBean.contextSelectItems}"/>
+							</tr:selectOneChoice>
+						</h:panelGroup>
+						<h:panelGroup styleClass="large_area0_p8 lineToolSection">
+							<tr:commandButton id="btnAddContext" styleClass="min_imgBtn groupTool add" text=" " action="#{YearbookItemCreateBean.addContext}" >
+								<f:setPropertyActionListener value="#{index.index}" target="#{YearbookItemCreateBean.contextPosition}"/>
+							</tr:commandButton>
+							<tr:commandButton id="btnRemoveContext" styleClass="min_imgBtn groupTool remove" text=" " action="#{YearbookItemCreateBean.removeContext}">
+								<f:setPropertyActionListener value="#{index.index}" target="#{YearbookItemCreateBean.contextPosition}"/>
+							</tr:commandButton>
+						</h:panelGroup>
+					</tr:iterator>
 									
 									
 									<%-- 
@@ -88,7 +95,7 @@
 								<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
 										&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*"/>
-										<h:outputText value="Date"/>
+										<h:outputText value="#{lbl.Yearbook_date}"/>
 										<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
@@ -113,14 +120,27 @@
 								<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
 										&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*"/>
-										<h:outputText value="Yearbook User Id (Collaborator Rights are granted)"/>
+										<h:outputText value="#{lbl.Yearbook_collaboratorUserIds}"/>
 										<span class="noDisplay">: </span>
 									</b>
-									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<h:selectOneMenu styleClass="large_select" id="selectUsers" value="#{YearbookItemCreateBean.collaboratorUserIds}" onchange="document.getElementById('btnChangeContext').click();fullItemReload();" immediate="true">
-											<f:selectItems value="#{YearbookItemCreateBean.userAccountSelectItems}"/>
-										</h:selectOneMenu>
-									</span>
+									<tr:iterator var="coll" value="#{YearbookItemCreateBean.collaboratorUserIds}" varStatus="indexUser">				
+										<h:panelGroup>
+											<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
+												<tr:selectOneChoice styleClass="large_select" id="selectContext" value="#{coll.objectId}">
+													<f:selectItems value="#{YearbookItemCreateBean.userAccountSelectItems}"/>
+												</tr:selectOneChoice>
+											</h:panelGroup>
+											<h:panelGroup styleClass="large_area0_p8 lineToolSection">
+												<tr:commandButton id="btnAddUserId" styleClass="min_imgBtn groupTool add" text=" " action="#{YearbookItemCreateBean.addUser}" >
+													<f:setPropertyActionListener value="#{indexUser.index}" target="#{YearbookItemCreateBean.userPosition}"/>
+												</tr:commandButton>
+												<tr:commandButton id="btnRemoveUserId" styleClass="min_imgBtn groupTool remove" text=" " action="#{YearbookItemCreateBean.removeUser}">
+													<f:setPropertyActionListener value="#{indexUser.index}" target="#{YearbookItemCreateBean.userPosition}"/>
+												</tr:commandButton>
+											</h:panelGroup>
+										</h:panelGroup>
+									</tr:iterator>
+
 								</h:panelGroup>
 							</span>
 						</h:panelGroup>
