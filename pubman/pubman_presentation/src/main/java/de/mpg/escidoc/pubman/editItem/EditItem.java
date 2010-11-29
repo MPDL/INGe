@@ -2247,7 +2247,7 @@ public class EditItem extends FacesBean
                 {
 	                for (SubjectClassification classification : list)
 	                {
-	                    SelectItem selectItem = new SelectItem(classification.name(), classification.name());
+	                    SelectItem selectItem = new SelectItem(classification.name(), classification.name().replace("_","-"));
 	                    result.add(selectItem);
 	                }
 	                return result.toArray(new SelectItem[] {});
