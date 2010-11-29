@@ -98,7 +98,7 @@
 					</div>
 					<div class="full_area0">
 						<div id="fullItem" class="full_area0 fullItem">	
-							<jsp:directive.include file="createItem/CreateYearbookItem.jspf" />
+							<jsp:directive.include file="yearbook/CreateYearbookItem.jspf" />
 						</div>
 							
 						<div class="full_area0 formButtonArea">

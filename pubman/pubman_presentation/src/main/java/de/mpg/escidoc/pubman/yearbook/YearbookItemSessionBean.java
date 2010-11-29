@@ -105,12 +105,11 @@ public class YearbookItemSessionBean extends FacesBean
                 
             this.selectedWorkspace = YBWORKSPACE.CANDIDATES;
             
-            ContextListSessionBean clsb = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-            if(clsb.getYearbookContextList().size() == 1)
+          
+            if(loginHelper.getIsYearbookEditor())
             {
                     
-                    yearbookContext =  clsb.getYearbookContextList().get(0);
-
+                  
                     HashMap<String, String[]> filterParams = new HashMap<String, String[]>();  
                     filterParams.put("operation", new String[] {"searchRetrieve"});
                     filterParams.put("version", new String[] {"1.1"});
@@ -125,7 +124,7 @@ public class YearbookItemSessionBean extends FacesBean
                         }
                     }
                     //String orgId = "escidoc:persistent25";
-                    filterParams.put("query", new String[] {"\"/properties/context/id\"=" + yearbookContext.getReference().getObjectId() + " and \"/md-records/md-record/publication/creator/organization/identifier\"=" + orgId});
+                    filterParams.put("query", new String[] {"\"/properties/content-model/id\"=" + PropertyReader.getProperty("escidoc.pubman.yearbook.content-model.id") + " and \"/md-records/md-record/publication/creator/organization/identifier\"=" + orgId});
                     filterParams.put("maximumRecords", new String[] {"10"});
 
                     String xmlItemList = itemHandler.retrieveItems(filterParams);
@@ -141,6 +140,10 @@ public class YearbookItemSessionBean extends FacesBean
                     else
                     {
                         this.setYearbookItem(new PubItemVO((ItemVO)result.getRecords().get(0).getData()));
+                        ContextHandler contextHandler = ServiceLocator.getContextHandler(loginHelper.getESciDocUserHandle());
+                        String contextXml = contextHandler.retrieve(getYearbookItem().getContext().getObjectId());
+                        this.yearbookContext = xmlTransforming.transformToContext(contextXml);
+                        
                     }
             }
             
@@ -158,7 +161,7 @@ public class YearbookItemSessionBean extends FacesBean
         this.yearbookItem = yearbookItem;
     }
 
-    public PubItemVO getYearbookItem()
+    public PubItemVO getYearbookItem() 
     {
         return yearbookItem;    
     }

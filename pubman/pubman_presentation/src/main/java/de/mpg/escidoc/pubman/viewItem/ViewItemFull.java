@@ -621,7 +621,7 @@ public class ViewItemFull extends FacesBean
           
             //if item is currently part of invalid yearbook items, show Validation Messages
             ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
-            if(clsb.getYearbookContextListSize()>0)
+            if(loginHelper.getIsYearbookEditor())
             {
             	yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
             	if(yisb.getYearbookItem() != null)

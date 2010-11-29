@@ -34,10 +34,13 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.rpc.ServiceException;
@@ -49,6 +52,8 @@ import de.escidoc.core.common.exceptions.application.security.AuthenticationExce
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
+import de.escidoc.www.services.aa.UserGroupHandler;
+import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
@@ -56,7 +61,11 @@ import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroupList;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -82,7 +91,10 @@ public class LoginHelper extends FacesBean
     // after log out.
     private boolean wasLoggedIn = false;
     private AccountUserVO accountUser = new AccountUserVO();
+    private List<AffiliationVOPresentation> userAccountAffiliations;
 
+	private List<UserGroup> userAccountUserGroups;
+    
     /**
      * Public constructor.
      */
@@ -379,4 +391,60 @@ public class LoginHelper extends FacesBean
     {
         return isLoggedIn() && getAccountUser().isReporter();
     }
+    
+    public List<AffiliationVOPresentation> getAccountUsersAffiliations() throws Exception
+    {
+    	if(this.userAccountAffiliations == null)
+    	{
+	    	XmlTransformingBean transforming = new XmlTransformingBean();
+	    	OrganizationalUnitHandler ouh = ServiceLocator.getOrganizationalUnitHandler(getESciDocUserHandle());
+	    	userAccountAffiliations = new ArrayList<AffiliationVOPresentation>();
+	    	for(UserAttributeVO ua : getAccountUser().getAttributes())
+	    	{
+	    		if("o".equals(ua.getName()))
+	    		{
+	    			String orgUnitXml = ouh.retrieve(ua.getValue());
+	    			userAccountAffiliations.add(new AffiliationVOPresentation(transforming.transformToAffiliation(orgUnitXml)));
+	    		}
+	    	}
+    	}
+    	return userAccountAffiliations;
+    	
+    }
+    
+    public List<UserGroup> getAccountUsersUserGroups()
+    {
+    	if(userAccountUserGroups == null) 
+		{
+    		HashMap<String, String[]> filterParams = new HashMap<String, String[]>();  
+            filterParams.put("operation", new String[] {"searchRetrieve"});
+            filterParams.put("version", new String[] {"1.1"});
+            //String orgId = "escidoc:persistent25";
+            filterParams.put("query", new String[] {"\"http://escidoc.de/core/01/properties/user\"=" + getAccountUser().getReference().getObjectId()});
+
+    		UserGroupList ugl = new UserGroupList(filterParams, getESciDocUserHandle());
+    		userAccountUserGroups = ugl.getUserGroupLists();
+		}
+    	return userAccountUserGroups;
+    }
+    
+    public boolean getIsYearbookEditor()
+    {
+    	ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+    	if(clsb.getYearbookContextListSize()>0)
+    	{
+    		return true;
+    	}
+    	for(UserGroup ug : getAccountUsersUserGroups())
+    	{
+    		if(ug.getLabel().startsWith("yearbook"))
+    		{
+    			return true;
+    		}
+    	}
+    	return false;
+    	
+    }
+    
+    
 }
