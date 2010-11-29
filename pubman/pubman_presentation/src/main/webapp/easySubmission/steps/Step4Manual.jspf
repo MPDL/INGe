@@ -138,7 +138,7 @@
 				</h:panelGroup>
 
 		<%-- DDC Subject (List -> first element) --%>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'easy-submission' || genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'all')}">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{EditItem.hasSubjectClassification && !(genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'easy-submission' || genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblClassifiedSubject}"/><span class="noDisplay">: </span>
 					</b>
