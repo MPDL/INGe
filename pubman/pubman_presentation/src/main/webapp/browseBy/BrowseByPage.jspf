@@ -123,12 +123,13 @@
 		<h:panelGroup styleClass="seperator" />
 		<div class="free_area0 itemBlockContent endline">
 			<tr:iterator var="year" id="yearIter" value="#{BrowseBySessionBean.browseByYears}" binding="#{BrowseByPage.yearIterator}" varStatus="index" rows="0" >
-				<div class="small_area0 noTopBorder">
-					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.dateMode == 'published'}">						
+				<div class="small_area0 noTopBorder" style="padding-left: 8px !important;">
+					<h:panelGroup styleClass="free_area0_p6 xTiny_marginRExcl" rendered="#{BrowseBySessionBean.dateMode == 'published'}">						
 						<h:outputLink id="searchYearPublished" value="#{BrowseByPage.searchUrl}cql=#{BrowseByPage.pubYearSearchIndex}%3D%22#{year}*%22++and++escidoc.objecttype%3D%22item%22+and++escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22">								
 							<h:outputText value="#{year}"/>
 						</h:outputLink>									
-					</h:panelGroup>		
+					</h:panelGroup>
+					<span class="seperator"></span>		
 					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.dateMode == 'any'}">						
 						<h:outputLink id="searchYearAny" value="#{BrowseByPage.searchUrl}cql=escidoc.publication.compound.dates%3D%22#{year}*%22++and++escidoc.objecttype%3D%22item%22+and++escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22">								
 							<h:outputText value="#{year}"/>
@@ -139,5 +140,4 @@
 		</div>
 	</h:panelGroup>
 </div>
-
 
