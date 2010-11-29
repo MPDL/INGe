@@ -511,7 +511,6 @@
 	</xsl:function>
 	
 	<xsl:template match="/*">
-	<xsl:comment>IMPORT-NAME: <xsl:value-of select="$import-name"/></xsl:comment>
 		<!-- <xsl:call-template name="validation"/> -->
 		<xsl:choose>
 			<xsl:when test="$is-item-list">
@@ -618,6 +617,9 @@
 				<xsl:choose>
 					<xsl:when test="$import-name = 'BPC'">
 						<xsl:choose>
+							<xsl:when test="contains(., 'bpc-webserver') ">
+								<prop:visibility>audience</prop:visibility>
+							</xsl:when>
 							<xsl:when test="$access= 'USER'">
 								<prop:visibility>private</prop:visibility>
 							</xsl:when>
@@ -746,7 +748,17 @@
 						</xsl:choose>
 					</xsl:otherwise>
 				</xsl:choose>
-				<prop:mime-type>application/pdf</prop:mime-type>
+				<xsl:choose>
+					<xsl:when test="ends-with($filename, '.doc')">
+						<prop:mime-type>application/msword</prop:mime-type>
+					</xsl:when>
+					<xsl:when test="ends-with($filename, '.zip')">
+						<prop:mime-type>application/zip</prop:mime-type>
+					</xsl:when>
+					<xsl:otherwise>
+						<prop:mime-type>application/pdf</prop:mime-type>
+					</xsl:otherwise>
+				</xsl:choose>
 			</ec:properties>
 			<xsl:element name="ec:content">
 				<xsl:attribute name="xlink:href" select="."/>
@@ -776,6 +788,35 @@
 									<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
 								</eterms:content-category>
 							</xsl:when>
+							<!-- Customized - FHI: prop:content-category -->
+							<xsl:when test="$import-name = 'FHI'">
+								<xsl:variable name="content-category">
+									<xsl:choose>
+										<xsl:when test="contains(lower-case(@comment), 'abstract')">abstract</xsl:when>
+										<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
+										<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
+										<xsl:when test="contains(lower-case(@comment), 'author version')">pre-print</xsl:when>
+										<xsl:when test="contains(lower-case(@comment), 'fulltext')">publisher-version</xsl:when>
+										<xsl:when test="contains(lower-case(@comment), 'open choice')">publisher-version</xsl:when>
+										<xsl:when test="contains(lower-case(@comment), 'open access')">publisher-version</xsl:when>
+										<xsl:when test="contains(lower-case(@comment), 'figure')">supplementary-material</xsl:when>
+										<xsl:when test="contains(lower-case(@comment), '.mpeg-video file')">supplementary-material</xsl:when>
+										<xsl:when test="contains(lower-case(@comment), 'diagramme')">supplementary-material</xsl:when>
+										<xsl:when test="contains(lower-case(@comment), 'fragebogen')">supplementary-material</xsl:when>
+										<xsl:when test="contains(lower-case(@comment), 'supporting online material')">supplementary-material</xsl:when>
+										<xsl:otherwise>any-fulltext</xsl:otherwise>
+									</xsl:choose>
+								</xsl:variable>
+								<xsl:comment>Comment: <xsl:value-of select="lower-case(@comment)"/></xsl:comment>
+								<eterms:content-category>
+									<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
+								</eterms:content-category>
+							</xsl:when>
+							<xsl:when test="$import-name = 'BPC'">
+								<eterms:content-category>
+									<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+								</eterms:content-category>
+							</xsl:when>
 							<xsl:when test="$genre-mapping/genres/genre[edoc-genre = $comment]">
 								<xsl:variable name="content-category" select="$genre-mapping/genres/genre[edoc-genre = $comment]/pubman-genre"/>
 								<eterms:content-category>
@@ -802,7 +843,17 @@
 								</xsl:choose>
 							</xsl:otherwise>
 						</xsl:choose>
-						<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+						<xsl:choose>
+							<xsl:when test="ends-with($filename, '.doc')">
+								<dc:format xsi:type="dcterms:IMT">application/msword</dc:format>
+							</xsl:when>
+							<xsl:when test="ends-with($filename, '.zip')">
+								<dc:format xsi:type="dcterms:IMT">application/zip</dc:format>
+							</xsl:when>
+							<xsl:otherwise>
+								<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+							</xsl:otherwise>
+						</xsl:choose>
 						<dcterms:extent>
 							<xsl:value-of select="@size"/>
 						</dcterms:extent>
@@ -1164,8 +1215,13 @@
 			<!-- TOC -->
 			<xsl:apply-templates select="toc"/>
 			
-			<!-- FHI Transformation -->
+			<!-- FHI Mapping -->
 			<xsl:call-template name="freekeywordsFHI"></xsl:call-template>
+			
+			<!-- CBS Mapping -->
+			<xsl:if test="$import-name = 'CBS'">
+				<xsl:apply-templates select="authorcomment"/>
+			</xsl:if>
 			
 			<!--end publication-->
 		</xsl:element>
@@ -2072,6 +2128,16 @@
 		<xsl:element name="dc:rights">
 			<xsl:value-of select="../../../rights/copyright"/>
 		</xsl:element>
+	</xsl:template>
+	
+	<!-- CBS templates -->
+	
+	<xsl:template match="authorcomment">
+		<local-tags>
+			<local-tag>
+				<xsl:value-of select="."/>
+			</local-tag>
+		</local-tags>
 	</xsl:template>
 	
 </xsl:stylesheet>
