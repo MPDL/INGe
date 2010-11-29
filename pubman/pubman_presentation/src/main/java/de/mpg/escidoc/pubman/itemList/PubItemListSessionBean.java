@@ -1147,4 +1147,14 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         return selectedItemRefs;
     }
     
+    public boolean getDisplaySortOrder()
+    {
+    	if(SORT_CRITERIA.RELEVANCE.name().equals(getSelectedSortBy()))
+    	{
+    		return false;
+    	}
+    	return true;
+    	
+    }
+    
 }
