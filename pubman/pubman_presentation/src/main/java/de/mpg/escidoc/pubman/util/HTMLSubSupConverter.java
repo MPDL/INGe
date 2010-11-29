@@ -22,10 +22,8 @@ public class HTMLSubSupConverter implements Converter{
         String snippet = (String) object;
 		snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
 		snippet = Utils.replaceAllTotal(snippet, "\\<(?!(\\/?style)|(\\/?su[bp]))", "&lt;");
-//		snippet = Utils.replaceAllTotal(snippet, "\\<((\\/?su[bp]))\\>", "");
+		snippet = Utils.replaceAllTotal(snippet, "\\<((\\/?su[bp]))\\>", "");
 		return snippet;
-		
-//		
 	}
 
 }
