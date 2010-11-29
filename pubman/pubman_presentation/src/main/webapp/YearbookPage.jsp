@@ -191,12 +191,20 @@
 						</h:panelGroup>
 						<h:panelGroup styleClass="full_area0" rendered="#{PubItemListSessionBean.partListSize==0}">
 							<h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.depositorWS_valNoItemsMsg}"/>
+						</h:panelGroup>
+						
+					</h:panelGroup>
+					<h:panelGroup rendered="#{YearbookItemSessionBean.yearbookItem==null}">
+						<h:panelGroup styleClass="full_area0">
+							<h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.Yearbook_noYearbookFound}"/>
 							<h:outputLink styleClass="free_area0 small_marginLExcl" value="YearbookItemCreatePage.jsp" rendered="#{ContextListSessionBean.yearbookContextListSize>0}">
 								<h:outputText value="#{lbl.Yearbook_createYearbook}"/>
 							</h:outputLink>
 						</h:panelGroup>
-						
 					</h:panelGroup>
+					
+					
+					
 				<div id="ImgFullItem">
 					<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;"></div>
 				</div>

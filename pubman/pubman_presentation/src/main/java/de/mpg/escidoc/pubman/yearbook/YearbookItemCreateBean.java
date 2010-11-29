@@ -285,7 +285,7 @@ public class YearbookItemCreateBean extends FacesBean
 			    String updatedXml = ih.create(itemXml);
 			    pubItem = xmlTransforming.transformToPubItem(updatedXml);
 			    
-			    info("Item created successfully with id: " + pubItem.getVersion().getObjectId());
+			    info(getMessage("Yearbook_createdSuccessfully"));
 			    
 
 			    
@@ -299,19 +299,23 @@ public class YearbookItemCreateBean extends FacesBean
 			    
 			    for(AccountUserRO userId : collaboratorUserIds)
 			    {
-			    	Selector selector = new Selector();
-				    selector.setType(Type.INTERNAL);
-				    selector.setObjid(userId.getObjectId());
-				    selector.setName("user-account");
-				    selector.setString(userId.getObjectId());
-				    Selectors selectors = new Selectors();
-				    selectors.getSelectors().add(selector);
-				    ug.addNewSelectorsInCoreservice(selectors, loginHelper.getESciDocUserHandle());
+			    	if(!("").equals(userId.getObjectId()))
+			    	{
+			    		Selector selector = new Selector();
+					    selector.setType(Type.INTERNAL);
+					    selector.setObjid(userId.getObjectId());
+					    selector.setName("user-account");
+					    selector.setString(userId.getObjectId());
+					    Selectors selectors = new Selectors();
+					    selectors.getSelectors().add(selector);
+					    ug.addNewSelectorsInCoreservice(selectors, loginHelper.getESciDocUserHandle());
+			    	}
+			    	
 			    }
 			  
 			    
 			    
-			    logger.info("User Group " + ug.getObjid() + " created!");
+			   
 			    
 			    //Create collaborator grant
 			    Grant grant = new Grant();
@@ -321,14 +325,16 @@ public class YearbookItemCreateBean extends FacesBean
 			    grant.setRole(Grant.CoreserviceRole.COLLABORATOR_MODIFIER.getRoleId());
 			    grant.createInCoreservice(loginHelper.getESciDocUserHandle(), "Grant for Yearbook created");
 			    
-			    info("Collaborator Grant added successfully: " + grant.getObjid());
+			    info(getMessage("Yearbook_grantsAdded"));
 			    
 			}
 
-			return "loadYearbookModeratorPage";
+			YearbookItemSessionBean yisb = (YearbookItemSessionBean)getSessionBean(YearbookItemSessionBean.class);
+			yisb.initYearbook();
+			return "loadYearbookPage";
 		
 		} catch (Exception e) {
-			error("Error while creating yearbook");
+			error(getMessage("Yearbook_creationError"));
 			logger.error("Error while creating yearbook", e);
 			return "";
 		}
