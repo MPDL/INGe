@@ -414,12 +414,12 @@ public class LoginHelper extends FacesBean
     
     public List<UserGroup> getAccountUsersUserGroups()
     {
-    	if(userAccountUserGroups == null) 
+    	if(userAccountUserGroups == null && getAccountUser()!=null && getAccountUser().getReference()!=null) 
 		{
     		HashMap<String, String[]> filterParams = new HashMap<String, String[]>();  
             filterParams.put("operation", new String[] {"searchRetrieve"});
             filterParams.put("version", new String[] {"1.1"});
-            //String orgId = "escidoc:persistent25";
+            //String orgId = "escidoc:persistent25"; 
             filterParams.put("query", new String[] {"\"http://escidoc.de/core/01/properties/user\"=" + getAccountUser().getReference().getObjectId()});
 
     		UserGroupList ugl = new UserGroupList(filterParams, getESciDocUserHandle());
@@ -435,13 +435,18 @@ public class LoginHelper extends FacesBean
     	{
     		return true;
     	}
-    	for(UserGroup ug : getAccountUsersUserGroups())
+    	
+    	if(getAccountUsersUserGroups()!=null)
     	{
-    		if(ug.getLabel().startsWith("yearbook"))
-    		{
-    			return true;
-    		}
+    		for(UserGroup ug : getAccountUsersUserGroups())
+        	{
+        		if(ug.getLabel().startsWith("yearbook"))
+        		{
+        			return true;
+        		}
+        	}
     	}
+    	
     	return false;
     	
     }
