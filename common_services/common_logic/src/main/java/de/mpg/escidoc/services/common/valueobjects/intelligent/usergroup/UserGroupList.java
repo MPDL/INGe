@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.faces.model.SelectItem;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -16,6 +17,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import de.escidoc.www.services.aa.UserGroupHandler;
+import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
 import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -128,7 +132,17 @@ public class UserGroupList extends IntelligentVO
             {
                 UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
                 String uglXml = ugh.retrieveUserGroups(filter);
-                ugld = (UserGroupList)IntelligentVO.unmarshal(uglXml, UserGroupList.class);
+                SearchRetrieveResponseVO resp = (SearchRetrieveResponseVO)IntelligentVO.unmarshal(uglXml, SearchRetrieveResponseVO.class);
+                
+                List<SearchRetrieveRecordVO> results = resp.getRecords();
+                List<UserGroup> userGroupList = new ArrayList<UserGroup>();
+                ugld = new UserGroupList();
+                ugld.setUserGroupLists(userGroupList);
+                for(SearchRetrieveRecordVO rec : results)
+                { 
+                	UserGroup userGroupVO = (UserGroup)rec.getData();
+                	userGroupList.add(userGroupVO);
+                }
             }
             catch (Exception e)
             {

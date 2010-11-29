@@ -11,6 +11,8 @@ import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
 import org.jibx.runtime.IUnmarshallingContext;
 
+import de.mpg.escidoc.services.common.valueobjects.ValueObject;
+
 /**
  * Super class for value objects that contain additional methods for working with the coreservice.
  * 
@@ -18,7 +20,7 @@ import org.jibx.runtime.IUnmarshallingContext;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
-public class IntelligentVO implements Serializable
+public class IntelligentVO extends ValueObject implements Serializable
 {
     private Logger logger = Logger.getLogger(IntelligentVO.class);
 
@@ -49,7 +51,14 @@ public class IntelligentVO implements Serializable
      */
     protected static Object unmarshal(String xml, Class bindingClass) throws Exception
     {
-        IBindingFactory bindingFactory = BindingDirectory.getFactory("binding", bindingClass);
+    	
+        return unmarshal(xml, "binding", bindingClass);
+    }
+    
+    protected static Object unmarshal(String xml, String bindingName, Class bindingClass) throws Exception
+    {
+    	
+        IBindingFactory bindingFactory = BindingDirectory.getFactory(bindingName, bindingClass);
         IUnmarshallingContext unmacxt = bindingFactory.createUnmarshallingContext();
         StringReader sr = new StringReader(xml);
         Object o = unmacxt.unmarshalDocument(sr, null);
