@@ -287,10 +287,6 @@ public class YearbookItemCreateBean extends FacesBean
 			    
 			    info(getMessage("Yearbook_createdSuccessfully"));
 			    
-
-			    
-			    
-			    
 			    UserGroup ug = new UserGroup();
 			    ug.setName("Yearbook User Group for: " + getAffiliation().getDefaultMetadata().getName() + " (" +getAffiliation().getReference().getObjectId() +")" );
 			    ug.setLabel("yearbook " + getAffiliation().getReference().getObjectId());
