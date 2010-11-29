@@ -134,15 +134,19 @@ public class UserGroupList extends IntelligentVO
                 String uglXml = ugh.retrieveUserGroups(filter);
                 SearchRetrieveResponseVO resp = (SearchRetrieveResponseVO)IntelligentVO.unmarshal(uglXml, SearchRetrieveResponseVO.class);
                 
-                List<SearchRetrieveRecordVO> results = resp.getRecords();
+                List<SearchRetrieveRecordVO> results = resp.getRecords(); 
                 List<UserGroup> userGroupList = new ArrayList<UserGroup>();
                 ugld = new UserGroupList();
                 ugld.setUserGroupLists(userGroupList);
-                for(SearchRetrieveRecordVO rec : results)
-                { 
-                	UserGroup userGroupVO = (UserGroup)rec.getData();
-                	userGroupList.add(userGroupVO);
+                if(results!=null)
+                {
+                	 for(SearchRetrieveRecordVO rec : results)
+                     { 
+                     	UserGroup userGroupVO = (UserGroup)rec.getData();
+                     	userGroupList.add(userGroupVO);
+                     }
                 }
+               
             }
             catch (Exception e)
             {
