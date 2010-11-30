@@ -155,7 +155,7 @@
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:outputLink id="lnkReportWorkspace" title="#{tip.chooseWorkspace_ReportWorkspace}" value="#{ApplicationBean.appContext}YearbookCandidatesPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'YearbookWSPage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}">
+				<h:outputLink id="lnkReportWorkspace" title="#{tip.chooseWorkspace_ReportWorkspace}" value="#{ApplicationBean.appContext}ReportWorkspacePage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ReportWorkspacePage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}">
 					<h:outputText value="#{lbl.chooseWorkspace_lnkReportWorkspace}"/>
 				</h:outputLink>
 			</b>
