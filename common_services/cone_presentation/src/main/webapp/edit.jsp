@@ -269,7 +269,7 @@
        				{
 	    		        if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0)
 	        			{
-	            			out.append("\n<span class=\"xDouble_area0 singleItem inputField endline\">");
+	            			out.append("\n<span class=\"xHuge_area0 singleItem inputField endline\">");
 	            				
 	            				if (predicate.isGenerateObject())
 	                			{
@@ -853,7 +853,7 @@
 									                    }
 									                    
 									                    out.append("<input type=\"text\" name=\"cone_identifier\" id='cone_identifier' class=\"double_txtInput\" onchange=\"checkId('" + model.getName() + "', false)\" value=\"" + subject + "\" />");
-														out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' id='idInfo' onclick=\"checkId('" + model.getName() + "', true);return false;\">info</span>");
+														out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' id='idInfo' onclick=\"checkId('" + model.getName() + "', true);return false;\">i</span>");
 									                 //   out.append("<input type=\"image\" style=\"border: none\" class=\"checkImage\" id=\"idImage\" onclick=\"checkId('" + model.getName() + "', true);return false;\"/>");
 									                }
 									            }
