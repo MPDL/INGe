@@ -588,4 +588,14 @@
 		<managed-bean-class>de.mpg.escidoc.pubman.WorkspacesPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>ReportWorkspacePage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.ReportWorkspacePage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>ReportWorkspaceBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.workspaces.ReportWorkspaceBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 </faces-config>
