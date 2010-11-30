@@ -60,6 +60,8 @@ import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.common.util.LocalURIResolver;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.transformation.TransformationBean;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
  * Structured Export Manager. 
@@ -87,6 +89,7 @@ public class StructuredExport implements StructuredExportHandler {
 	    		put( "BIBTEX", 	"eSciDoc_to_BibTeX.xsl"			);  
 	    		put( "CSV", 	"Faces_to_CSV.xsl"				);  
 	    		put( "XML", 	"escidoc-publication-v2_2_escidoc-publication-v1.xsl"				);  
+	    		put( "EDOC_EXPORT", null );  
 	    		put( "ESCIDOC_XML", null);  
 	    	}  
     	};	
@@ -140,6 +143,24 @@ public class StructuredExport implements StructuredExportHandler {
 			else */if ( "ESCIDOC_XML".equalsIgnoreCase(exportFormat) )
 			{
 				return itemList.getBytes();
+			}
+			else if ("EDOC_EXPORT".equalsIgnoreCase(exportFormat))
+			{
+				TransformationBean trans = new TransformationBean(true);
+				byte[] edoc_export = null;
+		    	 try 
+		    	 {
+		    		 edoc_export = trans.transform(itemList.getBytes("UTF-8"), 
+							new Format("escidoc", "application/xml", "UTF-8"), 
+							new Format("edoc_export", "application/xml", "UTF-8"), 
+							"escidoc"
+					);
+		    	 }
+		    	 catch (Exception e) 
+		    	 {
+		    		 throw new StructuredExportManagerException("Problems by transformation: escidoc publication items to edoc export format, edoc export schema:", e);	
+		    	 } 				
+				return edoc_export;				
 			}
 			
 			// xml source

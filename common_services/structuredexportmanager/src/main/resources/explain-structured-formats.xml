@@ -72,4 +72,13 @@
 		</output-format>
 		<dc:creator>vmakarenko</dc:creator>
 	</export-format>
+	<export-format type="structured" context="PubMan">
+		<dc:title>eDoc Export Format, eDoc export schema</dc:title>
+		<dc:identifier>EDOC_EXPORT</dc:identifier>
+		<output-format>
+			<dc:title>csv</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/csv</dc:format>
+		</output-format>
+		<dc:creator>vmakarenko</dc:creator>
+	</export-format>
 </export-formats>

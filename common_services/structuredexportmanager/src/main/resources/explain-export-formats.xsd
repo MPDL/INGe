@@ -56,7 +56,7 @@
 			<xs:element name="export-format" type="ExportFormatType" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType> 
-	
+	 
 	<xs:complexType name="ExportFormatType">
 		<xs:sequence maxOccurs="unbounded">
 			<xs:element ref="dc:title"/>
