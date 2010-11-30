@@ -30,7 +30,7 @@ public class HTMLSubSupConverter implements Converter{
 	{
         String snippet = (String) object;
 		snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
-		if(isBalanced(snippet, startSub, endSub, startSup, endSup))
+		if(checkTag(snippet, startSub, endSub, startSup, endSup))
 		{
 			snippet = Utils.replaceAllTotal(snippet, "\\<(?!(\\/?style)|(\\/?su[bp]))", "&lt;");
 		}
@@ -42,7 +42,7 @@ public class HTMLSubSupConverter implements Converter{
 		return snippet;
 	}
 	
-	public static boolean isBalanced(String snippet, String start, String end, String start2, String end2) {
+	public static boolean checkTag(String snippet, String start, String end, String start2, String end2) {
 		Stack s = new Stack(); // Create an empty stack.
 		boolean balanced = true;
 		try {
