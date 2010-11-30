@@ -68,11 +68,10 @@
 	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
-<!--	<xsl:param name="pubman_instance">${escidoc.pubman.instance.url}</xsl:param>-->
-	<xsl:param name="pubman_instance">http://pubman.mpdl.mpg.de/pubman</xsl:param>
-<!--	<xsl:param name="fw_instance">${escidoc.common.framework.url}</xsl:param>-->
-<!--	<xsl:param name="coreservice_instance">${escidoc.common.framework.url}</xsl:param>-->
-	<xsl:param name="coreservice_instance">http://coreservice.mpdl.mpg.de</xsl:param>
+	<xsl:param name="pubman_instance">${escidoc.pubman.instance.url}</xsl:param>
+<!--	<xsl:param name="pubman_instance">http://pubman.mpdl.mpg.de/pubman</xsl:param>-->
+	<xsl:param name="coreservice_instance">${escidoc.common.framework.url}</xsl:param>
+<!--	<xsl:param name="coreservice_instance">http://coreservice.mpdl.mpg.de</xsl:param>-->
 	
 	<xsl:variable name="vm" select="document('../../ves-mapping.xml')/mappings"/>
 	
@@ -82,7 +81,6 @@
 		//organizational-unit:organizational-unit
 	"/>
 
-	
 	<xsl:template match="/*">
 		<xsl:choose>
 			<xsl:when test="count(//pub:publication)>0">
@@ -105,17 +103,17 @@
 		
 			<xsl:call-template name="metadata"/>
 			
-			
 			<xsl:call-template name="docaff"/>
 			
-			<!-- MPG yearbook status ??? tbd -->
-			<xsl:call-template name="mpgyearbook"/>
-			<!-- ??????????????????????? -->
+			<!-- MPG yearbook status NOT in the MAPPING -->
+			<!-- <xsl:call-template name="mpgyearbook"/> -->
 			
 			<xsl:call-template name="metametadata"/>
 			
-			<xsl:call-template name="copyrights"/>
-				
+			<!-- NOT in the mapping
+				  
+				<xsl:call-template name="copyrights"/>
+			-->
 			
 		</xsl:element>
 			
@@ -128,14 +126,12 @@
 	
 		<xsl:element name="metadata">
 		
+			<xsl:call-template name="fturl"/>
+			
 			<xsl:call-template name="basic"/>
 			
 			<xsl:call-template name="creators"/>
 			
-			<!--  NOT IN THE MAPPING !!!
-			<xsl:call-template name="relations"/>
-			 -->
-			 
 			<xsl:call-template name="identifiers"/>
 		
 		</xsl:element>
@@ -149,7 +145,9 @@
 			
 		<xsl:if test="$OUs">
 	
-			<xsl:element name="docaff">
+			
+			
+			<xsl:variable name="da">
 			
 				<!-- DOCAFF_EXTERNAL -->
 				<xsl:variable name="ext_affs" select="
@@ -159,11 +157,6 @@
 					<xsl:copy-of select="$ext_affs" copy-namespaces="no"/>
 				</xsl:if>
 				
-	
-				<!--  NOT IN THE MAPPING !!!			
-				<xsl:element name="docaff_researchcontext">	
-				</xsl:element>
-				-->
 				<!-- AFFs -->
 				<xsl:variable name="int_affs" select="
 					func:getMpgAffiliations(eterms:creator/person:person/organization:organization)
@@ -172,7 +165,9 @@
 					<xsl:copy-of select="$int_affs" copy-namespaces="no"/>
 				</xsl:if>
 				
-			</xsl:element>
+			</xsl:variable>
+			
+			<xsl:copy-of select="func:genElement(('docaff', $da))"/>
 		
 		</xsl:if>
 		 
@@ -183,7 +178,7 @@
 	<xsl:template name="mpgyearbook">
 		<xsl:element name="MPGyearbook">
 			<xsl:attribute name="status" select="'dummyRecommended'"/>
-			<xsl:text>???2010?????</xsl:text>
+			<xsl:text>2010</xsl:text>
 		</xsl:element>
 	</xsl:template>
 	
@@ -191,21 +186,15 @@
 	<!--== METAMETADATA ==-->	
 	<xsl:template name="metametadata">
 		
-		
-		<xsl:copy-of select="func:genElement('lastmodified', substring(../../../@last-modification-date, 1, 10))"/>
+		<xsl:element name="metametadata">
 			
-				
-		<xsl:element name="owner">
-
-			<!-- TO BE defined!!! tbd -->					
-			<xsl:value-of select="concat('userid:', ../../../ei:propereties/srel:created-by/@objid)"/>
+			<!-- LASTMODIFIED -->
+			<xsl:copy-of select="func:genElement(('lastmodified', substring(../../../@last-modification-date, 1, 10)))"/>
 			
-			<xsl:element name="fullname">dummy
-			</xsl:element>
-			<xsl:element name="email">dummy
-			</xsl:element>
-			<xsl:element name="insid">dummy
-			</xsl:element>
+			<!-- NOT in the MAPPING!!!			
+				owner container
+			-->
+			
 		</xsl:element>
 		
 	</xsl:template>
@@ -216,11 +205,9 @@
 	<xsl:template name="copyrights">
 		
 		<!-- NOT in the mapping, but specified here! tbd -->
-
-
 		<xsl:if test="count(dc:rights)>0">
 			<xsl:element name="rights">
-				<xsl:copy-of select="func:genElement('copyright', string-join (dc:rights[.!=''], ' - '))"/>
+				<xsl:copy-of select="func:genElement(('copyright', string-join (dc:rights[.!=''], ' - ')))"/>
 			</xsl:element>
 		</xsl:if>
 		
@@ -228,22 +215,53 @@
 
 
 
+	<!-- FTURL -->	
+	<xsl:template name="fturl">	
+
+		<xsl:variable name="imc" select="
+			../../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='internal-managed' and @xlink:href]
+		"/>
+		
+		<xsl:if test="count($imc)>1">
+			
+			<xsl:for-each select="$imc">
+			
+				<xsl:element name="fturl">
+					
+					<xsl:variable name="vft" select="../escidocComponents:properties/prop:visibility"/>
+					<xsl:variable name="vft" select="$vm/fulltext-visibility/v2-to-edoc/map[@v2=$vft]"/>
+					
+					<xsl:attribute name="viewftext" select="
+						func:coalesce(($vft, $vm/fulltext-visibility/v2-to-edoc/@default))
+					"/>
+					
+					<xsl:attribute name="filename" select="@xlink:title"/>
+					
+					<xsl:attribute name="size" select="
+						../mdr:md-records/mdr:md-record[1]/file:file/dcterms:extent
+					"/>
+					
+					<xsl:value-of select="concat(
+						$coreservice_instance,
+						@xlink:href	
+					)"/>
+					
+				</xsl:element>
+				
+			</xsl:for-each>
+			
+		</xsl:if>
+		
+	
+	</xsl:template>
+	
+	
 	<!-- BASIC -->	
 	<xsl:template name="basic">
 	
 		<!-- template specific variables -->
 		<xsl:variable name="objid" select="../../../@objid"/>
 		<xsl:variable name="s" select="source:source[1]"/>
-		<xsl:variable name="g1" select="
-			not(@type=(
-				'http://purl.org/escidoc/metadata/ves/publication-types/series',
-				'http://purl.org/escidoc/metadata/ves/publication-types/journal',
-				'http://purl.org/escidoc/metadata/ves/publication-types/webpage', 
-				'http://purl.org/eprint/type/Thesis',
-				'http://purl.org/escidoc/metadata/ves/publication-types/issue',
-				'http://purl.org/escidoc/metadata/ves/publication-types/paper',
-				'http://purl.org/eprint/type/Report'
-			))"/>
 			
 						
 		<xsl:element name="basic">
@@ -268,95 +286,24 @@
 			 -->
 
 			<!-- TITLE -->
-			<xsl:copy-of select="func:genElement('title', dc:title)"/>
+			<xsl:copy-of select="func:genElement(('title', dc:title))"/>
 			
-			<!-- NOT IN THE MAPPING !!!
-			<xsl:element name="bundletitle">
-			</xsl:element>
-			 -->
 			
 			<!-- TITLEALT -->
-			<xsl:copy-of select="func:genElement('titlealt', dcterms:alternative[1])"/>
-			
+			<xsl:copy-of select="func:genElement(('titlealt', dcterms:alternative[1]))"/>
 
-			<!-- NOT IN THE MAPPING !!!
-			<xsl:element name="markuptype">
-			</xsl:element>
-			-->
-
-			<!-- NOT IN THE MAPPING !!!
-			<xsl:element name="markuptitle">
-			</xsl:element>
-			-->
 
 			<!-- LANGUAGE -->
 			<xsl:variable name="esdl" select="normalize-space(dc:language[1])" />
-			<xsl:copy-of select="func:genElement('language', $vm/language/v2-to-edoc/map[@v2=$esdl])"/>
+			<xsl:copy-of select="func:genElement(('language', $vm/language/v2-to-edoc/map[@v2=$esdl]))"/>
 			
 
-
 			<!-- PUBLISHER -->
-			<xsl:copy-of select="func:genElement('publisher', eterms:publishing-info/dc:publisher)"/>
-			<xsl:if test="not(@type=(
-					'http://purl.org/eprint/type/ConferencePaper', 
-					'http://purl.org/escidoc/metadata/ves/publication-types/webpage', 
-					'http://purl.org/escidoc/metadata/ves/publication-types/issue', 
-					'http://purl.org/escidoc/metadata/ves/publication-types/paper', 
-					'http://purl.org/eprint/type/Report'
-					)
-				) and eterms:publishing-info/dc:publisher=''">
-				<xsl:message select="concat('YB: publisher should be defined for genre: ', @type, ', item id: ', $objid)"/>
-			</xsl:if>
-			<!-- MPIPL specific, genre InBook: publisher from source ???? dbd !!!!-->
-			<xsl:if test="@type=(
-					'http://purl.org/eprint/type/BookItem', 
-					'http://purl.org/eprint/type/ConferencePaper'
-				)
-			">
-				<xsl:copy-of select="func:genElement('publisher', $s/eterms:publishing-info/dc:publisher)"/>
-			</xsl:if>
-			<xsl:if test="@type=(
-					'http://purl.org/eprint/type/BookItem', 
-					'http://purl.org/eprint/type/ConferencePaper'
-				) and $s/eterms:publishing-info/dc:publisher=''
-			">
-				<xsl:message select="concat('YB: publisher should be defined in source for genre: ', @type ,', item id: ', $objid)"/>
-			</xsl:if>
-
+			<xsl:copy-of select="func:genElement(('publisher', eterms:publishing-info/dc:publisher[1]))"/>
 
 			<!-- PUBLISHERADD -->
-			<xsl:copy-of select="func:genElement('publisheradd', eterms:publishing-info/eterms:place[1])"/>
-			<xsl:if test="
-				@type=(
-					'http://purl.org/eprint/type/BookItem',
-					'http://purl.org/escidoc/metadata/ves/publication-types/proceedings',
-					'http://purl.org/eprint/type/Book',
-					'http://purl.org/escidoc/metadata/ves/publication-types/series',
-					'http://purl.org/escidoc/metadata/ves/publication-types/journal',
-					'http://purl.org/eprint/type/Thesis'
-				) 
-				and eterms:publishing-info/eterms:place[1]=''">
-				<xsl:message select="concat('YB: publishing places should be defined for genre: ', @type, ', item id: ', $objid)"/>
-			</xsl:if>
-			<!-- MPIPL specific, genre InBook: publisheradd from source ????? tbd!!!! -->
-			<xsl:if test="@type=(
-					'http://purl.org/eprint/type/BookItem', 
-					'http://purl.org/eprint/type/ConferencePaper'
-				) and $s/eterms:publishing-info/eterms:place[1]!=''
-			">
-				<xsl:element name="publisheradd">
-					<xsl:value-of select="$s/eterms:publishing-info/eterms:place[1]" />
-				</xsl:element>
-			</xsl:if>
-			<xsl:if test="@type=(
-					'http://purl.org/eprint/type/BookItem', 
-					'http://purl.org/eprint/type/ConferencePaper'
-				) and $s/eterms:publishing-info/eterms:place[1]=''
-			">
-				<xsl:message select="concat('YB: publisheradd should be defined in source for genre: ', @type,', item id: ', $objid)"/>
-			</xsl:if>
-
-
+			<xsl:copy-of select="func:genElement(('publisheradd', eterms:publishing-info/eterms:place[1]))"/>
+			
 
 			<!-- DATES -->
 			
@@ -369,69 +316,49 @@
 				$dp!='' 
 				and @type!='http://purl.org/eprint/type/Thesis'
 			">
-				<xsl:copy-of select="func:genElement('datepublished', func:getDate($dp))"/>
-			</xsl:if>
-			
-			<xsl:if test="
-					not(@type=(
-						'http://purl.org/escidoc/metadata/ves/publication-types/series',
-						'http://purl.org/escidoc/metadata/ves/publication-types/journal',
-						'http://purl.org/eprint/type/Thesis'
-					))
-					and $dp=''
-				">
-				<xsl:message select="concat('YB: datepublished should be defined for genre: ', @type, ', item id: ', $objid)"/>
+				<xsl:copy-of select="func:genElement(('datepublished', func:getDate($dp)))"/>
 			</xsl:if>
 			
 			
 			<!-- DATEMODIFIED -->
-			<xsl:copy-of select="func:genElement('datemodified', func:getDate(dcterms:modified))"/>
+			<xsl:copy-of select="func:genElement(('datemodified', func:getDate(dcterms:modified)))"/>
 			
 			
-			<!-- DATEACCEPTED tbd!!! -->			
+			<!-- DATEACCEPTED -->			
 			<xsl:if test="@type='http://purl.org/eprint/type/Thesis'">
 				<xsl:copy-of select="
-					func:genElement('dateaccepted', 
+					func:genElement((
+						'dateaccepted', 
 						func:getDate(func:coalesce(($dp, dcterms:dateAccepted)))
-					)
-				"/>
+				))"/>
 			</xsl:if>
 
 
 			<!-- DATESUBMITTED -->
-			<xsl:copy-of select="func:genElement('datesubmitted', func:getDate(dcterms:dateSubmitted))"/>
+			<xsl:copy-of select="func:genElement(('datesubmitted', func:getDate(dcterms:dateSubmitted)))"/>
 			
 	
 			<!-- SPAGE -->
-			<xsl:copy-of select="func:genElement('spage', $s/eterms:start-page)"/>
-			<xsl:if test="$g1 and $s/eterms:start-page=''">
-				<xsl:message select="concat('YB: spage should be defined for genre: ', @type, ', item id: ', $objid)"/>
-			</xsl:if>
+			<xsl:copy-of select="func:genElement(('spage', $s/eterms:start-page))"/>
 			
 			
 			<!-- EPAGE -->
-			<xsl:copy-of select="func:genElement('epage', $s/eterms:end-page)"/>
-			<xsl:if test="$g1 and $s/eterms:end-page=''">
-				<xsl:message select="concat('YB: epage should be defined for genre: ', @type, ', item id: ', $objid)"/>
-			</xsl:if>
+			<xsl:copy-of select="func:genElement(('epage', $s/eterms:end-page))"/>
 			
 			
 			<!-- ARTNUM -->
-			<xsl:copy-of select="func:genElement('artnum', $s/eterms:sequence-number)"/>
-			<xsl:if test="$g1 and $s/eterms:sequence-number=''">
-				<xsl:message select="concat('YB: artnum should be defined for genre: ', @type, ', item id: ', $objid)"/>
-			</xsl:if>			
+			<xsl:copy-of select="func:genElement(('artnum', $s/eterms:sequence-number))"/>
 			
 
-			<!-- JOUIRNAL stuff -->
+			<!-- JOURNAL stuff -->
 			<xsl:if test="$s/@type='http://purl.org/escidoc/metadata/ves/publication-types/journal'">
 				<xsl:if test="$s/dc:title">
 				
 					<!-- JOURNALTITLE -->
-					<xsl:copy-of select="func:genElement('journaltitle', $s/dc:title)"/>
+					<xsl:copy-of select="func:genElement(('journaltitle', $s/dc:title))"/>
 				
 					<!-- JOURNALABBREVIATION -->
-					<xsl:copy-of select="func:genElement('journalabbreviation', $s/dcterms:alternative[1])"/>
+					<xsl:copy-of select="func:genElement(('journalabbreviation', $s/dcterms:alternative[1]))"/>
 					
 				</xsl:if>
 			</xsl:if>
@@ -439,78 +366,64 @@
 
 			<!-- ISSUE stuff -->
 			<!-- ISSUENR -->
-			<xsl:copy-of select="func:genElement('issuenr', $s/eterms:issue)"/>
-			<xsl:if test="$g1 and $s/eterms:issue=''">
-				<xsl:message select="concat('YB: issuenr should be defined for genre: ', @type, ', item id: ', $objid)"/>
-			</xsl:if>			
-
+			<xsl:copy-of select="func:genElement(('issuenr', $s/eterms:issue))"/>
 			
 			<xsl:if test="$s/@type='http://purl.org/escidoc/metadata/ves/publication-types/issue'">
 			
 				<xsl:if test="$s/dc:title">
 					
 					<!-- ISSUETITLE -->
-					<xsl:copy-of select="func:genElement('issuetitle', $s/dc:title)"/>
+					<xsl:copy-of select="func:genElement(('issuetitle', $s/dc:title))"/>
 					
 					<!-- ISSUECONTRIBUTORFN -->
-					<xsl:copy-of select="func:genElement(
+					<xsl:copy-of select="func:genElement((
 						'issuecontributorfn', 
 						func:screators($s/eterms:creator[@role!='http://www.loc.gov/loc.terms/relators/AUT']/person:person)
-						
-					)"/>
+					))"/>
 
-					<!-- ISSUECORPORATEBODY ???? tbd not in mapping-->
-					<xsl:copy-of select="func:genElement(
+					<!-- ISSUECORPORATEBODY -->
+					<xsl:copy-of select="func:genElement((
 						'issuecorporatebody',
 						string-join(
 							( $s/eterms:publishing-info/dc:publisher, $s/eterms:publishing-info/eterms:place ),
 							'&#xA;'
 						) 
-					)"/>
+					))"/>
 				</xsl:if>
 			</xsl:if>
 
 
 			<!-- VOLUME -->
-			<xsl:copy-of select="func:genElement('volume', $s/eterms:volume)"/>
-			<xsl:if test="
-				@type=(
-					'http://purl.org/escidoc/metadata/ves/publication-types/article',
-					'http://purl.org/eprint/type/Report'
-				) and $s/eterms:volume=''">
-				<xsl:message select="concat('YB: volume should be defined for genre: ', @type, ', item id: ', $objid)"/>
-			</xsl:if>
+			<xsl:copy-of select="func:genElement(('volume', $s/eterms:volume))"/>
 
 
 			<!-- INVITATIONSTATUS -->
-			<xsl:variable name="esdis" select="event:event/eterms:invitation-status"/>
-			<xsl:if test="$esdis">
-				<xsl:element name="invitationstatus">
-					<xsl:value-of select="if ($esdis='invited') then 'invited' else 'notspec'"/>
-				</xsl:element>
-			</xsl:if>	
+			<xsl:copy-of select="func:genElementIf((
+				event:event/eterms:invitation-status!='',
+				'invitationstatus',
+				 if (event:event/eterms:invitation-status='invited') then 'invited' else 'notspec'
+			))"/>
 
 			
 			<!-- NAMEOFEVENT -->
-			<xsl:copy-of select="func:genElement('nameofevent', event:event/dc:title)"/>
+			<xsl:copy-of select="func:genElement(('nameofevent', event:event/dc:title))"/>
 					
 			
 			<!-- PLACEOFEVENT -->
-			<xsl:copy-of select="func:genElement('placeofevent', event:event/eterms:place)"/>
+			<xsl:copy-of select="func:genElement(('placeofevent', event:event/eterms:place))"/>
 			
 
 			<!-- DATEOFEVENT -->
-			<xsl:copy-of select="func:genElement('dateofevent', event:event/eterms:start-date)"/>
+			<xsl:copy-of select="func:genElement(('dateofevent', event:event/eterms:start-date))"/>
 
 
-			<!-- ENDDATEOFEVENT ???? tbd -->
-			<xsl:copy-of select="func:genElement(
-				'enddateofevent', 
-				func:coalesce((event:event/eterms:end-date, event:event/eterms:start-date))
-				
-			)"/>
+			<!-- ENDDATEOFEVENT  -->
+			<xsl:copy-of select="func:genElementIf((
+				event:event/eterms:start-date!='' and event:event/eterms:end-date!='',
+				'dateofevent', 
+				func:coalesce((event:event/eterms:end-date, event:event/eterms:start-date))				
+			))"/>
 			
-
 
 			<!-- SOURCE stuff -->
 
@@ -520,44 +433,38 @@
 				<xsl:if test="$s/dc:title">
 				
 					<!-- BOOKTITLE -->
-					<xsl:copy-of select="func:genElement('booktitle', $s/dc:title)"/>
+					<xsl:copy-of select="func:genElement(('booktitle', $s/dc:title))"/>
 				
 				
 					<xsl:variable name="cre_con">
 					
 						<!-- BOOKCREATORFN -->
-						<xsl:copy-of select="func:genElement(
+						<xsl:copy-of select="func:genElement((
 							'bookcreatorfn',
 							func:screators($s/eterms:creator[@role='http://www.loc.gov/loc.terms/relators/AUT']/person:person) 
-						)"/>
+						))"/>
 					
 						<!-- BOOKCONTRIBUTORFN -->
-						<xsl:copy-of select="func:genElement(
+						<xsl:copy-of select="func:genElement((
 							'bookcontributorfn',
 							func:screators($s/eterms:creator[@role!='http://www.loc.gov/loc.terms/relators/AUT']/person:person) 
-						)"/>
+						))"/>
 						
 					</xsl:variable>
 
-					
 					<xsl:if test="$cre_con!=''">
 						<xsl:copy-of select="$cre_con" />
-						<xsl:message>I am here1</xsl:message>
 					</xsl:if>
 					
-					<xsl:if test="$cre_con=''">
-						<!-- BOOKCORPORATEBODY -->
-						<xsl:copy-of select="func:genElement(
-							'bookcorporatebody',
-							string-join(
-								($s/eterms:publishing-info/dc:publisher, $s/eterms:publishing-info/eterms:place),
-								'&#xA;'
-							)
-						)"/>
-					</xsl:if>
-					
-					<!-- EDITIONDESCRIPTION -->
-					<xsl:copy-of select="func:genElement('editiondescription', $s/eterms:publishing-info/eterms:edition)"/>
+					<!-- BOOKCORPORATEBODY -->
+					<xsl:copy-of select="func:genElementIf((
+						$cre_con='',
+						'bookcorporatebody',
+						string-join(
+							($s/eterms:publishing-info/dc:publisher, $s/eterms:publishing-info/eterms:place),
+							'&#xA;'
+						)
+					))"/>
 					
 				</xsl:if>
 			
@@ -569,13 +476,14 @@
 				<xsl:if test="$s/dc:title">
 				
 					<!-- TITLEOFPROCEEDINGS -->
-					<xsl:copy-of select="func:genElement('titleofproceedings', $s/dc:title)"/>
+					<xsl:copy-of select="func:genElement(('titleofproceedings', $s/dc:title))"/>
 				
 					<!-- PROCEEDINGSCONTRIBUTORFN -->
-					<xsl:copy-of select="func:genElement(
+					<xsl:copy-of select="func:genElement((
 						'proceedingscontributorfn', 
 						func:screators($s/eterms:creator[@role!='http://www.loc.gov/loc.terms/relators/AUT']/person:person)
-					)"/>
+					))"/>
+					
 				</xsl:if>
 				
 			</xsl:if>
@@ -586,103 +494,89 @@
 				<xsl:if test="$s/dc:title">
 					
 					<!-- TITLEOFSERIES -->
-					<xsl:copy-of select="func:genElement('titleofseries', $s/dc:title)"/>
+					<xsl:copy-of select="func:genElement(('titleofseries', $s/dc:title))"/>
 				
 					<xsl:variable name="scfn">
 						<!-- SERIESCONTRIBUTORFN -->
-						<xsl:copy-of select="func:genElement(
+						<xsl:copy-of select="func:genElement((
 							'seriescontributorfn', 
 							func:screators($s/eterms:creator[@role!='http://www.loc.gov/loc.terms/relators/AUT']/person:person)
-						)"/>
+						))"/>
 					</xsl:variable>
 					
 					<xsl:if test="$scfn!=''">
 						<xsl:copy-of select="$scfn" />
 					</xsl:if>
 					
-					<xsl:if test="$scfn=''">
-						<!-- SERIESCORPORATEBODY -->
-						<xsl:copy-of select="func:genElement(
-							'seriescorporatebody',
-							string-join(
-								($s/eterms:publishing-info/dc:publisher, $s/eterms:publishing-info/eterms:place),
-								'&#xA;'
-							)
-						)"/>
-					</xsl:if>						
+					<!-- SERIESCORPORATEBODY -->
+					<xsl:copy-of select="func:genElementIf((
+						$scfn='',
+						'seriescorporatebody',
+						string-join(
+							($s/eterms:publishing-info/dc:publisher, $s/eterms:publishing-info/eterms:place),
+							'&#xA;'
+						)
+					))"/>
+											
 				</xsl:if>
 			</xsl:if>
+
+
+					
+		<!-- EDITIONDESCRIPTION -->
+<!--					TODO: -->
+<!--
+		specify uri for genres
+-->
+		
+			<xsl:copy-of select="func:genElementIf((
+				$s/@type=(
+					'http://purl.org/eprint/type/Book',
+					'handbook',
+					'festschrift',
+					'commentary',
+					'commentary'
+				),
+				'editiondescription', 
+				$s/eterms:publishing-info/eterms:edition
+			))"/>
+
 	
 			<!-- END of SOURCE stuff -->
 			
 
-			<!-- NOT IN THE MAPPING !!!
-			<xsl:element name="os">
-			</xsl:element>
-
-			<xsl:element name="osversion">
-			</xsl:element>
-
-			<xsl:element name="platform">
-			</xsl:element>
-
-			<xsl:element name="instremarks">
-			</xsl:element>
-			-->
-
 			<!-- ABSTRACT -->
-			<xsl:copy-of select="func:genElement('abstract', dcterms:abstract[1])"/>
+			<xsl:copy-of select="func:genElement(('abstract', dcterms:abstract[1]))"/>
 
-			<!-- NOT IN THE MAPPING !!!
-			<xsl:element name="markupabstract">
-			</xsl:element>
-
-			<xsl:element name="authorcomment">
-			</xsl:element>
-			-->
-			
-			<!-- VERSIONCOMMENT ??? NOT in mapping tbd !!! -->
-			<xsl:copy-of select="func:genElement(
+			<xsl:copy-of select="func:genElement((
 				'versioncomment', 
 				../../../ei:properties/prop:version[version:status='released']/version:comment
-			)"/>
+			))"/>
 
 			<!-- DISCIPLINE -->
-			<xsl:copy-of select="func:genElement(
+			<xsl:copy-of select="func:genElement((
 				'discipline', 
 				string-join (dc:subject[.!=''], '; ')
-			)"/>
-
+			))"/>
 
 			<!-- KEYWORDS -->
-			<xsl:copy-of select="func:genElement('keywords', dcterms:subject)"/>
-			
-
-			<!-- NOT IN THE MAPPING !!!
-			<xsl:element name="educationalpurpose">
-			</xsl:element>
-
-			<xsl:element name="enduser">
-			</xsl:element>
-			-->
+			<xsl:copy-of select="func:genElement(('keywords', dcterms:subject))"/>
 			
 
 			<!-- PHYDESC -->
-			<xsl:copy-of select="func:genElement('phydesc', eterms:total-number-of-pages)"/>
+			<xsl:copy-of select="func:genElement(('phydesc', eterms:total-number-of-pages))"/>
 			
-			<!-- NOT IN THE MAPPING !!!
-			<xsl:element name="numberofwords">
-			</xsl:element>
-			-->
-
-			<!-- TOC ??? not to be normalized ???? tbd!!! -->
-			<xsl:copy-of select="func:genElement('toc', dcterms:tableOfContents)"/>
-
 			
-			<!-- PUBSTATUS ??? check tbd  -->
-			<xsl:if test="../../../ei:properties/prop:public-status='released'">
-				<xsl:element name="pubstatus">published</xsl:element>
-			</xsl:if>
+			<!-- TOC -->
+			<xsl:copy-of select="func:genElementPlain(('toc', dcterms:tableOfContents))"/>
+			
+			
+			<!-- PUBSTATUS -->
+			<xsl:copy-of select="func:genElementIf((
+				../../../ei:properties/prop:public-status='released',
+				'pubstatus', 
+				'published'
+			))"/>
 			
 			
 			<!-- REFEREED -->
@@ -692,7 +586,6 @@
 					<xsl:value-of select="$vm/review-method/v2-to-edoc/map[@v2=$esdrm]"/>
 				</xsl:element>
 			</xsl:if>
-
 		
 		</xsl:element>
 		
@@ -727,15 +620,16 @@
 					if (local-name()='person') then 'individual' else 'group' 
 				"/>
 				<xsl:if test="local-name()='person'">
+					<xsl:variable name="ouo" select="func:getOUTree(organization:organization/dc:identifier)"/>
 					<xsl:attribute name="internextern" select="
-						if ( func:getOUTree(organization:organization/dc:identifier)//aff[@mpg='true'] ) then 'mpg' else 'unknown'
+						if ( $ouo[@mpg='false'] or $ouo//aff[@mpg='false'] ) then 'unknown' else 'mpg'
 					"/>
 					
-					<xsl:copy-of select="func:genElement('creatorini', func:get_initials(eterms:given-name))"/>
+					<xsl:copy-of select="func:genElement(('creatorini', func:get_initials(eterms:given-name)))"/>
 					
-					<xsl:copy-of select="func:genElement('creatornfamily', eterms:family-name)"/>
+					<xsl:copy-of select="func:genElement(('creatornfamily', eterms:family-name))"/>
 					
-					<xsl:copy-of select="func:genElement('creatorngiven', eterms:given-name)"/>
+					<xsl:copy-of select="func:genElement(('creatorngiven', eterms:given-name))"/>
 					
 				</xsl:if>
 				
@@ -743,10 +637,10 @@
 				
 					<xsl:variable name="ouo" select="func:getOUTree(dc:identifier)"/>
 					<xsl:attribute name="internextern" select="
-						if ( $ouo[@mpg='true'] or $ouo//aff[@mpg='true'] ) then 'mpg' else 'unknown'
+						if ( $ouo[@mpg='false'] or $ouo//aff[@mpg='false'] ) then 'unknown' else 'mpg'
 					"/>				
 					
-					<xsl:copy-of select="func:genElement('dc:title', dc:title)"/>
+					<xsl:copy-of select="func:genElement(('creatornfamily', dc:title))"/>
 										
 				</xsl:if>
 				
@@ -780,39 +674,15 @@
 				</xsl:if>
 			</xsl:for-each>
 			
-			<!-- IDENTIFIERS from components ???? tbd --> 
-			<!-- 
-			<xsl:for-each select="../../../escidocComponents:components/escidocComponents:component[escidocComponents:properties/prop:visibility='public']">
-			
-				<xsl:if test="escidocComponents:content/@storage='external-url' and escidocComponents:content/@xlink:href">
-					<xsl:element name="identifier">
-						<xsl:attribute name="type">url</xsl:attribute>
-						<xsl:value-of select="escidocComponents:content/@xlink:href"/>
-					</xsl:element> 
-				</xsl:if>
-				
-				<xsl:if test="escidocComponents:content/@storage='internal-managed' and escidocComponents:content/@xlink:title"> 
-					<xsl:element name="identifier">
-						<xsl:attribute name="type">url</xsl:attribute>
-						<xsl:value-of select="concat(
-							$pubman_instance,
-							'/item/',
-							../../@objid, 
-							'/component/',
-							@objid,
-							'/',
-							escidocComponents:content/@xlink:title	
-						)"/>
-					</xsl:element>
-				</xsl:if>
-				
-				
-				 Not pubman relevant 
-				<xsl:if test="escidocComponents:content/@storage='external-managed'">
-				</xsl:if>
-				
+		<!-- IDENTIFIERS from components --> 
+			<xsl:for-each select="../../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url' and @xlink:href]">
+				<xsl:element name="identifier">
+					<xsl:attribute name="type">url</xsl:attribute>
+					<xsl:value-of select="@xlink:href"/>
+				</xsl:element> 				
 			</xsl:for-each>
-			-->
+				
+			
 		</xsl:element>
 				
 	</xsl:template>	
@@ -871,7 +741,7 @@
 	 -->	
 	<xsl:function name="func:getNonMpgAffiliations">
 		<xsl:param name="ous"/>
-		<xsl:message select="func:getOUTree($ous/dc:identifier)//aff[@mpg='false']"/>
+<!--		<xsl:message select="func:getOUTree($ous/dc:identifier)//aff[@mpg='false']"/>-->
 		<xsl:variable name="affs">
 			<xsl:for-each select="func:getOUTree($ous/dc:identifier)//aff[@mpg='false']">
 				<xsl:element name="aff">
@@ -954,15 +824,32 @@
 		
 	</xsl:template>
 
-
+	
 	<xsl:function name="func:genElement">
-		<xsl:param name="ename"/>
-		<xsl:param name="eval"/>
-		<xsl:if test="$ename!='' and $eval!=''">
-			<xsl:element name="{$ename}">
-				<xsl:value-of select="normalize-space($eval)"/>
+		<xsl:param name="p"/>
+		<xsl:if test="$p[1]!='' and $p[2]!=''">
+			<xsl:element name="{$p[1]}">
+				<xsl:value-of select="normalize-space($p[2])"/>
 			</xsl:element>
 		</xsl:if>
+	</xsl:function>
+	
+	<xsl:function name="func:genElementIf">
+		<xsl:param name="p"/>
+		<xsl:if test="$p[1]=true() and $p[2]!='' and $p[3]!=''">
+			<xsl:element name="{$p[2]}">
+				<xsl:value-of select="normalize-space($p[3])"/>
+			</xsl:element>
+		</xsl:if>
+	</xsl:function>
+	
+	<xsl:function name="func:genElementPlain">
+		<xsl:param name="p"/>
+			<xsl:if test="$p[1]!='' and $p[2]!=''">
+				<xsl:element name="{$p[1]}">
+					<xsl:value-of select="$p[2]"/>
+				</xsl:element>
+			</xsl:if>
 	</xsl:function>
 	
 	<xsl:function name="func:coalesce">
@@ -975,6 +862,7 @@
 			else func:coalesce(($nodes[position()>1]))  
 		"/>
 	</xsl:function>
+
 	
 	
 	<xsl:function name="func:screators">
@@ -1001,18 +889,9 @@
 	</xsl:function>
 	
 	
-		
 	<xsl:function name="func:getDate">
 		<xsl:param name="d" />
-		<xsl:if test="$d!=''">
-			<xsl:variable name="date" select="translate ($d, '.', '-')"/>
-			<!-- MPIPL specific ??? tbd !!!-->
-			<xsl:value-of select="
-				if (contains($date,'-'))
-				then substring-before($date, '-')
-				else $date
-			"/>
-		</xsl:if>
+		<xsl:value-of select="$d"/>
 	</xsl:function>	
 	
 

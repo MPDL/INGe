@@ -235,6 +235,14 @@
 		</v2-to-edoc>
 	</academic-degree>
 	
+	<fulltext-visibility>
+		<v2-to-edoc default="USER">
+			<map v2="public">PUBLIC</map>
+			<map v2="private">USER</map>
+			<map v2="audience">USER</map>
+		</v2-to-edoc>
+	</fulltext-visibility>
+	
 	<language v1="dcterms:RFC3066" v2="dcterms:ISO639-3">
 		<v1-to-v2 default="eng">
 		   <map v1="da">dan</map>

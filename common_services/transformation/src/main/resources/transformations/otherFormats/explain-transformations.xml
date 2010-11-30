@@ -38,6 +38,30 @@
 	</Transformation>
 	<Transformation>
 		<Source>
+			<Name>escidoc</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>edoc_export</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>escidoc</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>edoc_import</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
 			<Name>jus_in</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>

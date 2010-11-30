@@ -1,6 +1,7 @@
 package test;
 
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
@@ -10,6 +11,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -29,7 +31,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 public class TransformationTest
 {
-    public TransformationBean trans;
+    public static TransformationBean trans;
     private Util util = new Util();
     private final Logger logger = Logger.getLogger(TransformationTest.class);
     
@@ -37,10 +39,10 @@ public class TransformationTest
     /**
      * Initializes the {@link TransformationBean}.
      */
-    @Before
-    public void initTransformation()
+    @BeforeClass
+    public static void initTransformation()
     {
-        this.trans = new TransformationBean(true);
+        trans = new TransformationBean(true);
     }    
     
     @Test
@@ -317,6 +319,27 @@ public class TransformationTest
              fail(stringWriter.toString());
          }
 
+     }     
+     
+     @Test
+     public void escidoc2edoc() throws Exception
+     {
+    	 this.logger.info("---Transformation eSciDoc to eDoc format ---");
+    	 Format escidoc = new Format("escidoc", "application/xml", "UTF-8");    
+    	 Format edoc = new Format("edoc_export", "application/xml", "UTF-8");
+    	 
+    	 byte[] resultBytes = this.trans.transform(ResourceUtil.getResourceAsBytes("testFiles/escidoc/escidoc_xml_full.xml"), escidoc, edoc, "escidoc");
+    	 Assert.assertNotNull(resultBytes);
+    	 
+    	 
+//    	 String file = ResourceUtil.getResourceAsFile(".").getAbsolutePath() + "/edoc_test.xml";
+//    	 String file = "target/edoc_export.xml";
+//    	 this.logger.info("output file: " + file);
+//    	 
+//    	 FileOutputStream fos = new FileOutputStream(file);
+//    	 fos.write(resultBytes);
+//    	 fos.close();         
+    	 
      }
      
      @Test
@@ -393,7 +416,7 @@ public class TransformationTest
          this.logger.info("PubItemVO successfully created.");
      }
   
-     @Test
+    @Test
      public void escidoc2oaidcTest () throws Exception
      {
          this.logger.info("---Transformation escidoc to oai_dc format ---");
