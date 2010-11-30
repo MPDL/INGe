@@ -79,7 +79,7 @@
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText value="#{lbl.ChooseWorkspacePage}"/></h1>
+								<h1><h:outputText value="#{lbl.ReportWorkspacePage}"/></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
@@ -89,43 +89,33 @@
 								<div class="free_area0 sub">
 								<!-- content menu lower line starts here -->	
 									
-									<h:outputLink id="lnkMenuQAWorkspace" title="#{tip.chooseWorkspace_QAWorkspace}"  value="#{ApplicationBean.appContext}QAWSPage.jsp" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
-										<h:outputText value="#{lbl.chooseWorkspace_optMenuQAWorkspace}" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}"/>
-									</h:outputLink>
-									<h:outputText styleClass="seperator void" />
-									
-									<h:outputLink id="lnkSubmission_lnkImportWorkspaceMenu" title="#{tip.chooseWorkspace_ImportWorkspace}" value="#{ApplicationBean.appContext}ImportWorkspace.jsp" rendered="#{(LoginHelper.isModerator || LoginHelper.isDepositor) and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
-										<h:outputText value="#{lbl.chooseWorkspace_optMenuImportWorkspace}"/>
-									</h:outputLink>  
-									<h:outputText styleClass="seperator void" />
-									
-									
-									<h:outputLink id="lnkMenuYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookPage.jsp" rendered="#{LoginHelper.isYearbookEditor}">
-										<h:outputText value="#{lbl.chooseWorkspace_optMenuYearbookWorkspace}"/>
-									</h:outputLink>
-									<h:outputText styleClass="seperator void" />
-									
-									<h:outputLink id="lnkMenuReportWorkspace" title="#{tip.chooseWorkspace_ReportWorkspace}" value="#{ApplicationBean.appContext}ReportWorkspacePage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ReportWorkspacePage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}">
-										<h:outputText value="#{lbl.chooseWorkspace_optMenuReportWorkspace}"/>
-									</h:outputLink>
-									
-									
-									
 								<!-- content menu lower line ends here -->
 								</div>
 							<!-- content menu ends here -->
 							</div>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-									<h:outputText value="#{msg.chooseWorkspace}"/>
+								<h:outputText value="#{msg.chooseWorkspace}"/>
 								<!-- Subheadline ends here -->
+							</div>
+							<div class="subHeader">
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{ReportWorkspaceBean.hasErrorMessages}">
+									<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
+									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ReportWorkspaceBean.hasMessages}"/>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{ReportWorkspaceBean.hasMessages and !ReportWorkspaceBean.hasErrorMessages}">
+									<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
+									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ReportWorkspaceBean.hasMessages}"/>
+								</h:panelGroup>
 							</div>
 						</div>
 					</div>		
 					<div class="full_area0">
 						<div class="full_area0 fullItem">
 						
-							<jsp:directive.include file="workspaces/ChooseWorkspace.jspf"/>
+							<jsp:directive.include file="workspaces/ReportWorkspace.jspf"/>
 
 						</div>
 					</div>	
@@ -142,6 +132,8 @@
 					$(window).scrollTop($("input[id$='offset']").val());
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 				});
+
+				organizationSuggestURL = 'OrganizationSuggest.jsp';
 			</script>
 			</body>
 		</html>
