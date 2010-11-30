@@ -111,6 +111,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
@@ -646,12 +647,16 @@ public class ViewItemFull extends FacesBean
                 	
                     try   
                     {
-
-                    	this.isCandidateOfYearbook = yisb.isCandidate(this.pubItem.getVersion().getObjectId());
-                    	if(!(this.isCandidateOfYearbook) && yisb.getNumberOfMembers()>0)
+                    	if(ItemVO.State.PENDING.equals(yisb.getYearbookItem().getVersion().getState())) 
                     	{
-                    		this.isMemberOfYearbook = yisb.isMember(this.pubItem.getVersion().getObjectId());
-                        }
+                    		this.isCandidateOfYearbook = yisb.isCandidate(this.pubItem.getVersion().getObjectId());
+                        	if(!(this.isCandidateOfYearbook) && yisb.getNumberOfMembers()>0)
+                        	{
+                        		this.isMemberOfYearbook = yisb.isMember(this.pubItem.getVersion().getObjectId());
+                            }
+                    	}
+                    	
+                    	
                 	}
                     catch (Exception e) 
                     {
