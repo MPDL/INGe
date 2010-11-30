@@ -65,6 +65,10 @@
 	
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	
+	<xsl:variable name="bpc-files">
+		<xsl:value-of select="document('../../edoc_pdfs.txt')"/>
+	</xsl:variable>
+	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
 	<xsl:param name="is-item-list" select="true()"/>
@@ -473,6 +477,10 @@
 		</organizational-units>
 	</xsl:variable>
 		
+	<xsl:variable name="bpc-files-id">
+		<xsl:value-of select="document('../../')"></xsl:value-of>
+	</xsl:variable>	
+	
 	<xsl:function name="escidocFunctions:ou-name">
 		<xsl:param name="name"/>
 		
@@ -592,6 +600,17 @@
 						</xsl:when>
 					</xsl:choose>					
 				</xsl:for-each>
+				<xsl:if test="$import-name = 'BPC'">
+					<xsl:if test="not(exists(basic/fturl)) and contains($bpc-files, ../@id)">
+						<xsl:comment>BPC IMPORT: Record has a File in BPC server. Create a Component for this file</xsl:comment>
+							<xsl:call-template name="createComponent">
+								<xsl:with-param name="filename">
+									<xsl:value-of select="../@id"/><xsl:text>.pdf</xsl:text>
+								</xsl:with-param>
+								<xsl:with-param name="access"  select="INSTITUT"/>
+							</xsl:call-template>
+					</xsl:if>
+				</xsl:if>
 			</xsl:element>
 		</xsl:element>
 	</xsl:template>
@@ -617,7 +636,7 @@
 				<xsl:choose>
 					<xsl:when test="$import-name = 'BPC'">
 						<xsl:choose>
-							<xsl:when test="contains(., 'bpc-webserver') ">
+							<xsl:when test="contains($bpc-files, ../../../@id)">
 								<prop:visibility>audience</prop:visibility>
 							</xsl:when>
 							<xsl:when test="$access= 'USER'">
@@ -761,14 +780,30 @@
 				</xsl:choose>
 			</ec:properties>
 			<xsl:element name="ec:content">
-				<xsl:attribute name="xlink:href" select="."/>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'BPC'">
+						<xsl:attribute name="xlink:href">
+							<xsl:text>http://www.mpibpc.mpg.de/fb/pdfs/</xsl:text><xsl:value-of select="$filename"/>
+						</xsl:attribute>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:attribute name="xlink:href" select="."/>
+					</xsl:otherwise>
+				</xsl:choose>
 				<xsl:attribute name="storage" select="'internal-managed'"/>
 			</xsl:element>
 			<xsl:element name="mdr:md-records">
 				<mdr:md-record name="escidoc">
 					<xsl:element name="file:file">
 						<xsl:element name="dc:title">
-							<xsl:value-of select="@filename"/>
+							<xsl:choose>
+								<xsl:when test="exists(@filename)">
+									<xsl:value-of select="@filename"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="$filename"/>
+								</xsl:otherwise>
+							</xsl:choose>
 						</xsl:element>
 						<xsl:choose>
 							<!-- Customized - AEI: prop:content-category -->
@@ -860,6 +895,8 @@
 						<xsl:choose>
 							<xsl:when test="$import-name = 'FHI'">
 								<xsl:call-template name="copyrightFHI"/>
+							</xsl:when>
+							<xsl:when test="$import-name = BPC">
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:element name="dc:rights">
