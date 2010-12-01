@@ -243,11 +243,12 @@ public class YearbookItemCreateBean extends FacesBean
 			}
 
 			
-			String query = datequery + "AND" + orgQuery + "AND" + contextQuery;
-			String inverseQuery= contextQuery + "NOT ( " + datequery + " AND " + orgQuery + " ) ";
+			String query = datequery + " AND " + orgQuery + " AND " + contextQuery;
+			
+			//String inverseQuery= contextQuery + " AND " + orgQuery + " AND " +inverseDatequery; 
 			
 			pubItem.getLocalTags().add(query);
-			pubItem.getLocalTags().add(inverseQuery);
+			//pubItem.getLocalTags().add(inverseQuery);
 			
 //        YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
 //        

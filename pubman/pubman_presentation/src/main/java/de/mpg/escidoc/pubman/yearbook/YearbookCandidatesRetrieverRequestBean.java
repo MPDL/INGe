@@ -289,7 +289,9 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         contentTypes.add( contentTypeIdPublication );
         ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
         MetadataSearchCriterion objectTypeMds = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
+        MetadataSearchCriterion orgIdMds = new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, yisb.getYearbookItem().getMetadata().getCreators().get(0).getOrganization().getIdentifier(), LogicalOperator.AND);
         mdsList.add(objectTypeMds);
+        mdsList.add(orgIdMds);
         //MetadataSearchCriterion genremd = new MetadataSearchCriterion(CriterionType.ANY, );
         if(yisb.getNumberOfMembers()>0)
         {
@@ -303,8 +305,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
            mdsList.add(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
         }
         MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
-        String inverseQuery = yisb.getYearbookItem().getLocalTags().get(1);
-        PlainCqlQuery query = new PlainCqlQuery(mdQuery.getCqlQuery() + " AND " +  inverseQuery);
+        PlainCqlQuery query = new PlainCqlQuery(mdQuery.getCqlQuery() + " NOT " +  getCandidateQuery().getCqlQuery());
         return query;
     }
     
