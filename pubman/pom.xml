@@ -642,6 +642,9 @@
 	
 		<organization.logo>http://www.mpdl.mpg.de/mpdl/sys/css/screen/images/logo.gif</organization.logo>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<escidoc.pubman.yearbook.context.id>escidoc:241288</escidoc.pubman.yearbook.context.id>
+		<escidoc.pubman.yearbook.content-model.id>escidoc:245286</escidoc.pubman.yearbook.content-model.id>
 	</properties>
 
 	<profiles>
