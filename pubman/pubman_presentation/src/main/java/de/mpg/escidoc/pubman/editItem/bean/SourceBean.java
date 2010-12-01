@@ -111,7 +111,7 @@ public class SourceBean extends EditItemBean
         {
             bindCreatorsToBean(source.getCreators());
         }
-        identifierCollection = new IdentifierCollection(source.getIdentifiers());
+        identifierCollection = new IdentifierCollection(source.getIdentifiers()); 
         titleCollection = new TitleCollection(source);
         if (source.getPublishingInfo() == null)
         {
@@ -237,10 +237,10 @@ public class SourceBean extends EditItemBean
      * 
      * @return
      */
-    public String parseAndSetAlternativeTitlesAndIds()
+    public String parseAndSetAlternativeTitlesAndIds() 
     {
         //clear old alternative titles
-        AlternativeTitleManager altTitleManager = getTitleCollection().getAlternativeTitleManager();
+        AlternativeTitleManager altTitleManager = getTitleCollection().getAlternativeTitleManager(); 
         altTitleManager.getObjectList().clear();
         
         //clear old identifiers
@@ -326,7 +326,14 @@ public class SourceBean extends EditItemBean
     
     public String add()
     {
-        SourceBean newSourceBean = new SourceBean(new SourceVO(), this.list);
+    	
+    	SourceVO sourceVO = new SourceVO();
+    	if(sourceVO.getIdentifiers().size()==0)
+    	{
+    		sourceVO.getIdentifiers().add(new IdentifierVO());
+    	}
+    	
+        SourceBean newSourceBean = new SourceBean(sourceVO, this.list);
         CreatorVOPresentation newSourceCreator = new CreatorVOPresentation(newSourceBean.getCreators(), newSourceBean);
         newSourceCreator.setType(CreatorType.PERSON);
         newSourceCreator.setPerson(new PersonVO());

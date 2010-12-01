@@ -256,7 +256,7 @@ public class EditItem extends FacesBean
         this.eventTitleCollection = new TitleCollection(this.getPubItem().getMetadata().getEvent());
         this.contentAbstractCollection = new ContentAbstractCollection(this.getPubItem().getMetadata().getAbstracts());
         this.contentSubjectCollection = new ContentSubjectCollection(this.getPubItem().getMetadata().getSubjects());
-        this.identifierCollection = new IdentifierCollection(this.getPubItem().getMetadata().getIdentifiers());
+        this.identifierCollection = new IdentifierCollection(this.getPubItem().getMetadata().getIdentifiers()); 
         if (logger.isDebugEnabled())
         {
             if (this.getPubItem() != null && this.getPubItem().getVersion() != null)

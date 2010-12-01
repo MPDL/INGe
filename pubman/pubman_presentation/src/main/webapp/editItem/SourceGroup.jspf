@@ -264,12 +264,11 @@
 			<h:inputTextarea id="inpSourceDetailIdentifierCopy" styleClass="quad_txtArea inputTxtArea sourceIdentifierPasteField" value="#{sourceBean.hiddenIdsField}" cols="15" rows="3" />
 		</span>
 		<span class="large_area0_p8 lineToolSection">
-			<h:commandButton id="btnSourceDetailIdentifierCopy" styleClass="free_txtBtn groupTool hiddenAutosuggestUploadBtn" title="#{tip.EditItem_btParseAndSet}" action="#{sourceBean.parseAndSetAlternativeTitlesAndIds}" />
+			<tr:commandButton id="btnSourceDetailIdentifierCopy" styleClass="free_txtBtn groupTool hiddenAutosuggestUploadBtn" action="#{sourceBean.parseAndSetAlternativeTitlesAndIds}" />
 		</span>
 	</div>
 <%-- Source details identifier --%>
-		<h:dataTable id="iterSourceDetailsIdentifier" styleClass="free_area0" var="identifier" value="#{sourceBean.identifierCollection.identifierManager.objectDM}" rendered="#{!(genre.sources_source_identifiers_display == 'false' && genre.sources_source_identifiers_form_id == 'full-submission' || genre.sources_source_identifiers_display == 'false' && genre.sources_source_identifiers_form_id == 'all')}">
-			<h:column>
+		<tr:iterator id="iterSourceDetailsIdentifier" var="identifier" value="#{sourceBean.identifierCollection.identifierManager.objectDM}" rendered="#{!(genre.sources_source_identifiers_display == 'false' && genre.sources_source_identifiers_form_id == 'full-submission' || genre.sources_source_identifiers_display == 'false' && genre.sources_source_identifiers_form_id == 'all')}">
 				<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear"> &nbsp; <h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{(genre.sources_source_identifiers_source_identifier_type_optional != 'true' || genre.sources_source_identifiers_source_identifier_value_optional != 'true') && genre.sources_source_identifiers_optional != 'true'}" />
 						<h:outputText value="#{genre.sources_source_identifiers_label}" rendered="#{sourceBean.identifierCollection.identifierManager.objectDM.rowIndex == 0}" converter="GenreLabelConverter" />
@@ -281,15 +280,15 @@
 								<f:selectItems value="#{sourceBean.identifierCollection.identifierTypes}" />
 							</h:selectOneMenu>
 						</h:panelGroup>
-						<h:inputText id="inpSourceDetailIdentifier" styleClass="xDouble_txtInput identifierValue" value="#{identifier.id}" rendered="#{!(genre.sources_source_identifiers_source_identifier_value_display == 'false' && genre.sources_source_identifiers_source_identifier_value_form_id == 'full-submission' || genre.sources_source_identifiers_source_identifier_value_display == 'false' && genre.sources_source_identifiers_source_identifier_value_form_id == 'all')}" />
+						<tr:inputText simple="true" id="inpSourceDetailIdentifier" styleClass="xDouble_txtInput identifierValue" value="#{identifier.id}" rendered="#{!(genre.sources_source_identifiers_source_identifier_value_display == 'false' && genre.sources_source_identifiers_source_identifier_value_form_id == 'full-submission' || genre.sources_source_identifiers_source_identifier_value_display == 'false' && genre.sources_source_identifiers_source_identifier_value_form_id == 'all')}" />
 					</span>
 					<span class="large_area0_p8 lineToolSection">
 						<tr:commandButton id="btnAddSourceDetailIdentifier" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addID}" action="#{sourceBean.identifierCollection.identifierManager.addObject}" rendered="#{genre.sources_source_identifiers_repeatable != 'false'}" />
 						<tr:commandButton id="btnRemoveSourceDetailIdentifier" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeID}" action="#{sourceBean.identifierCollection.identifierManager.removeObject}" disabled="#{sourceBean.identifierCollection.identifierManager.size == 1}" rendered="#{genre.sources_source_identifiers_repeatable != 'false'}" />
 					</span>
 				</h:panelGroup>
-			</h:column>
-		</h:dataTable>
+
+		</tr:iterator>
 	</h:panelGroup>
 <%-- Source details edition, issue --%>
 	<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
