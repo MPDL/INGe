@@ -43,11 +43,7 @@
 
 				<title><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value} :: #{ApplicationBean.appTitle}" converter="HTMLTitleSubSupConverter" /></title>
 				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURLview}"/>
-
-				<meta http-equiv="Content-Type" content="text/html; charset=gb2312"> </meta>
 				<meta name="description" content="#{ViewItemFull.pubItem.descriptionMetaTag}"></meta>
-
-
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
 			</head>
