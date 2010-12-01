@@ -121,7 +121,7 @@ public class YearbookItemSessionBean extends FacesBean
 
     }
     
-    public void initYearbook() throws Exception
+    public void initYearbook() throws Exception 
     {
     	HashMap<String, String[]> filterParams = new HashMap<String, String[]>();  
         filterParams.put("operation", new String[] {"searchRetrieve"});
