@@ -50,7 +50,7 @@
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{WorkspacesPage.beanName}" styleClass="noDisplay" />
-			<tr:form usesUpload="true">
+			<tr:form usesUpload="true" onsubmit="fullItemReload();">
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			<!-- start: skip link navigation -->
@@ -113,10 +113,18 @@
 						</div>
 					</div>		
 					<div class="full_area0">
-						<div class="full_area0 fullItem">
+						<div id="reportWorkspace" class="full_area0 fullItem">
 						
 							<jsp:directive.include file="workspaces/ReportWorkspace.jspf"/>
 
+						</div>
+						<div id="ImgFullItem">
+							<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;"></div>
+						</div>
+						
+						<div class="full_area0 formButtonArea">
+							<h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}WorkspacesPage.jsp"><h:outputText value="#{lbl.EditItem_lnkCancel}" /></h:outputLink>
+							<tr:commandLink id="lnkGenerateReport" styleClass="free_area1_p8 activeButton" shortDesc="#{tip.easy_submission_btnImport}" action="#{ReportWorkspaceBean.generateReport}"><h:outputText value="#{lbl.ReportWorkspace_btnGenereateList}" /></tr:commandLink>
 						</div>
 					</div>	
 				<!-- end: content section -->
@@ -134,6 +142,15 @@
 				});
 
 				organizationSuggestURL = 'OrganizationSuggest.jsp';
+			</script>
+			<script type="text/javascript">
+				function fullItemReload()
+				{
+					document.getElementById('reportWorkspace').style.opacity='0.4';
+					document.getElementById('reportWorkspace').style.bg='FFF';
+					document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea half_marginLIncl smallThrobber');
+					
+				}
 			</script>
 			</body>
 		</html>
