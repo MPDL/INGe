@@ -557,6 +557,9 @@
 								<local-tag>Yearbook 2010</local-tag>
 							</local-tags>
 						</xsl:when>
+						<xsl:when test="$import-name = 'CBS'">
+							<xsl:call-template name="authorcomment"/>
+						</xsl:when>
 					</xsl:choose>
 				</xsl:element>
 			</xsl:element>
@@ -664,6 +667,17 @@
 							</xsl:when>
 							<xsl:when test="$access='PUBLIC'">
 								<prop:visibility>public</prop:visibility>
+							</xsl:when>
+							<xsl:otherwise>
+								<!-- ERROR -->
+								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
+					<xsl:when test="$import-name = 'CBS'">
+						<xsl:choose>
+							<xsl:when test="$access='MPG' or $access='INSTITUT' or $access='INTERNAL'">
+								<prop:visibility>audience</prop:visibility>
 							</xsl:when>
 							<xsl:otherwise>
 								<!-- ERROR -->
@@ -1254,11 +1268,6 @@
 			
 			<!-- FHI Mapping -->
 			<xsl:call-template name="freekeywordsFHI"></xsl:call-template>
-			
-			<!-- CBS Mapping -->
-			<xsl:if test="$import-name = 'CBS'">
-				<xsl:apply-templates select="authorcomment"/>
-			</xsl:if>
 			
 			<!--end publication-->
 		</xsl:element>
@@ -2169,12 +2178,14 @@
 	
 	<!-- CBS templates -->
 	
-	<xsl:template match="authorcomment">
-		<local-tags>
-			<local-tag>
-				<xsl:value-of select="."/>
-			</local-tag>
-		</local-tags>
+	<xsl:template name="authorcomment">
+		<xsl:if test="starts-with(lower-case(./basic/authorcomment), lower-case('meeting abstract'))">
+			<local-tags>
+				<local-tag>
+					<xsl:value-of select="./basic/authorcomment"/>
+				</local-tag>
+			</local-tags>
+		</xsl:if>
 	</xsl:template>
 	
 </xsl:stylesheet>
