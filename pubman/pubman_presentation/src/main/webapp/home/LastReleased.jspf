@@ -34,7 +34,7 @@
 		<f:loadBundle var="tip" basename="Tooltip"/>
 
 <!-- TODO: Exchange this with lastsubmitted feed -->
-<h:panelGroup rendered="#{ApplicationBean.checkSystemTypeProduction}">
+<h:panelGroup>
     
 
     <h2>
@@ -67,9 +67,11 @@
     	</div>
     </div>
 </h:panelGroup>
+<!-- 
 <h:panelGroup rendered="#{!ApplicationBean.checkSystemTypeProduction}">
     <h:outputText value="#{lbl.Home_Header_LastItems_Disabled}"/><br/>
 </h:panelGroup>
+-->
 
 
 
