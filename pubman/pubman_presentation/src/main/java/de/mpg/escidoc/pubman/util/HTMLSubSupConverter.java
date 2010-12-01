@@ -32,11 +32,11 @@ public class HTMLSubSupConverter implements Converter{
 		snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
 		if(checkTag(snippet, startSub, endSub, startSup, endSup))
 		{
-			snippet = Utils.replaceAllTotal(snippet, "\\<(?!(\\/?su[bp]))", "&lt;");
+			snippet = Utils.replaceAllTotal(snippet, "\\<(?!|(\\/?su[bp]))", "&lt;");
 		}
 		else
 		{
-			snippet = Utils.replaceAllTotal(snippet, "\\<(?!)", "&lt;");
+			snippet = Utils.replaceAllTotal(snippet, "\\<", "&lt;");
 		}
 //		snippet = Utils.replaceAllTotal(snippet, "\\<((\\/?su[bp]))\\>", "");
 		return snippet;
