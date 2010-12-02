@@ -82,6 +82,7 @@ public class ApplicationBean extends FacesBean
     /** system type of this application instance */
     private SystemType systemType;
     private String appTitle = null;
+    private String version = null;
     private String appContext = "";
     
     /** filename of the ear-internal property file */ 
@@ -151,8 +152,7 @@ public class ApplicationBean extends FacesBean
     public String getAppTitle()
     {
         // retrieve version once
-        if (this.appTitle == null)
-        {
+
             this.appTitle = getLabel("Pubman_browserTitle");
 
             // hide the version information if system type is production
@@ -163,7 +163,6 @@ public class ApplicationBean extends FacesBean
                     try
                     {
                         this.appTitle += " " + this.getVersion();
-                        logger.info("Version retrieved.");
                     }
                     catch (PubManVersionNotAvailableException e)
                     {
@@ -177,7 +176,7 @@ public class ApplicationBean extends FacesBean
                 // version cannot be retrieved; just show the application title
                 logger.warn("The version of the application cannot be retrieved.");
             }
-        }
+        
 
         return appTitle;
     }
@@ -190,15 +189,20 @@ public class ApplicationBean extends FacesBean
      */
     private String getVersion() throws PubManVersionNotAvailableException
     {
-        try
-        {
-            Properties properties = CommonUtils.getProperties( PROPERTY_FILENAME );
-            return properties.getProperty("escidoc.pubman.version");
-        }
-        catch (IOException e)
-        {
-            throw new PubManVersionNotAvailableException(e);
-        }
+    	if(version==null)
+    	{
+    		try
+            {
+                Properties properties = CommonUtils.getProperties( PROPERTY_FILENAME );
+                version = properties.getProperty("escidoc.pubman.version");
+            }
+            catch (IOException e)
+            {
+                throw new PubManVersionNotAvailableException(e);
+            }
+    	}
+    	return version;
+        
     }
     
     /**
