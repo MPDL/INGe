@@ -6,6 +6,10 @@ import javax.faces.convert.Converter;
 
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 
+/**
+ * Removes all sub and sup tags from a string, used for browser title
+ *
+ */
 public class HTMLTitleSubSupConverter implements Converter{
     public static final String CONVERTER_ID = "HTMLTitleSubSupConverter";
 	public HTMLTitleSubSupConverter()
