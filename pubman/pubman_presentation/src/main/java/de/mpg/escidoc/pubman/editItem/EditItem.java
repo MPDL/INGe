@@ -1377,6 +1377,46 @@ public class EditItem extends FacesBean
         }
     }
 
+   
+    
+    public String uploadFile()
+    {
+    	int indexUpload = this.getEditItemSessionBean().getFiles().size() - 1;
+        UploadedFile file = getUploadedFile();
+        String contentURL;
+        if (file != null && file.getLength() > 0)
+        {
+            contentURL = uploadFile(file);
+            if (contentURL != null && !contentURL.trim().equals(""))
+            {
+                FileVO fileVO = this.getEditItemSessionBean().getFiles().get(indexUpload).getFile();
+                fileVO.getDefaultMetadata().setSize((int)file.getLength());
+                fileVO.setName(file.getFilename());
+                fileVO.getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
+                fileVO.setMimeType(file.getContentType());
+                // correct several PDF Mime type errors manually
+                if (file.getFilename() != null
+                        && (file.getFilename().endsWith(".pdf") || file.getFilename().endsWith(".PDF")))
+                {
+                    fileVO.setMimeType("application/pdf");
+                }
+                FormatVO formatVO = new FormatVO();
+                formatVO.setType("dcterms:IMT");
+                formatVO.setValue(fileVO.getMimeType());
+                fileVO.getDefaultMetadata().getFormats().add(formatVO);
+                fileVO.setContent(contentURL);
+            }
+            // bindFiles();
+        }
+        else
+        {
+            // show error message
+            error(getMessage("ComponentEmpty"));
+        }
+    	return"";
+    	
+    }
+    
     public String uploadFile(UploadedFile file)
     {
         String contentURL = "";
@@ -1422,40 +1462,11 @@ public class EditItem extends FacesBean
 
     public void fileUploaded(ValueChangeEvent event)
     {
-        int indexUpload = this.getEditItemSessionBean().getFiles().size() - 1;
-        UploadedFile file = (UploadedFile)event.getNewValue();
-        String contentURL;
-        if (file != null || file.getLength() == 0)
-        {
-            contentURL = uploadFile(file);
-            if (contentURL != null && !contentURL.trim().equals(""))
-            {
-                FileVO fileVO = this.getEditItemSessionBean().getFiles().get(indexUpload).getFile();
-                fileVO.getDefaultMetadata().setSize((int)file.getLength());
-                fileVO.setName(file.getFilename());
-                fileVO.getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
-                fileVO.setMimeType(file.getContentType());
-                // correct several PDF Mime type errors manually
-                if (file.getFilename() != null
-                        && (file.getFilename().endsWith(".pdf") || file.getFilename().endsWith(".PDF")))
-                {
-                    fileVO.setMimeType("application/pdf");
-                }
-                FormatVO formatVO = new FormatVO();
-                formatVO.setType("dcterms:IMT");
-                formatVO.setValue(fileVO.getMimeType());
-                fileVO.getDefaultMetadata().getFormats().add(formatVO);
-                fileVO.setContent(contentURL);
-            }
-            // bindFiles();
-        }
-        else
-        {
-            // show error message
-            error(getMessage("ComponentEmpty"));
-        }
+    	this.uploadedFile = (UploadedFile)event.getNewValue();
+        uploadFile();
     }
 
+/*    
     public String fileUploaded()
     {
         int indexUpload = this.getEditItemSessionBean().getFiles().size() - 1;
@@ -1485,7 +1496,7 @@ public class EditItem extends FacesBean
         }
         return null;
     }
-
+*/
     /**
      * Uploads a file from a given locator.
      */
