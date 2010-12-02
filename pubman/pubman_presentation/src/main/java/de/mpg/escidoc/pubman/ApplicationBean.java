@@ -153,7 +153,7 @@ public class ApplicationBean extends FacesBean
         // retrieve version once
         if (this.appTitle == null)
         {
-            this.appTitle = this.APP_TITLE;
+            this.appTitle = getLabel("Pubman_browserTitle");
 
             // hide the version information if system type is production
             try 
