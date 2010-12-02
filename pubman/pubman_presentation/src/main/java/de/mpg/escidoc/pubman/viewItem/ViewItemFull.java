@@ -40,6 +40,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
@@ -2709,7 +2712,23 @@ public class ViewItemFull extends FacesBean
             byte[] exportFileData = null;
             
             exportFileData = itemExporting.getOutput(expFormat, pubItemList);
-            return new String(exportFileData, "UTF-8");
+            
+            String exportHtml = new String(exportFileData, "UTF-8");
+            
+            try {
+				Pattern p = Pattern.compile("(?<=\\<body\\>).*(?=\\<\\/body\\>)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+				Matcher m = p.matcher(exportHtml);
+				m.find();
+				String match = m.group();
+				if(match!=null)
+				{
+					return match;
+				}
+			} catch (Exception e) {
+				logger.debug("Match in citation html not found", e);
+			}
+   		 	
+            return "";
         }
         catch (Exception e)
         {
