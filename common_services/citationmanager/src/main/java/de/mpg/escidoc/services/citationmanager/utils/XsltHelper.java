@@ -35,9 +35,11 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.bcel.generic.PUSH;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
@@ -71,6 +73,37 @@ public class XsltHelper {
 
 	public static final String I18N_TAG = "localized";
 	static Map<Pair, String> citationMap = new HashMap<Pair, String>();
+	
+	// precompiled patterns
+	
+	private static final int FLAGS = Pattern.CASE_INSENSITIVE | Pattern.DOTALL;  
+	
+	private static final Pattern SPANS_WITH_CLASS = Pattern.compile(
+			"<span\\s+class=\"(\\w+)\".*?>(.*?)</span>",
+			FLAGS
+	);
+	private static final Pattern AMPS_ALONE = Pattern.compile(
+			"\\&(?!\\w+?;)",
+			FLAGS
+	);
+	private static final Pattern ALL_TAGS_EXCEPT_STYLE = Pattern.compile(
+			"\\<(?!(\\/?style))",
+			FLAGS
+	);
+	private static final Pattern ALL_TAGS_EXCEPT_SUB_SUP_STYLE = Pattern.compile(
+			"\\<(?!(\\/?style)|(\\/?su[bp]))",			
+			FLAGS
+	);
+	private static final Pattern I18_TAGS = Pattern.compile(
+			"<" + I18N_TAG + "\\s+class=\"\\w+\".*?>(.*?)</" + I18N_TAG + ">",			
+			FLAGS
+	);
+	
+	private static final Pattern SUBS_OR_SUPS = Pattern.compile(
+			"\\<(\\/?su[bp])\\>",			
+			Pattern.DOTALL
+	);
+
 
 	/**
 	 * Converts snippet &lt;span&gt; tags to the appropriate JasperReport Styled
@@ -96,9 +129,7 @@ public class XsltHelper {
 		FontStyle fs;
 
 		StringBuffer sb = new StringBuffer();
-		String regexp = "<span\\s+class=\"(\\w+)\".*?>(.*?)</span>";
-		Matcher m = Pattern.compile(regexp,
-				Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(snippet);
+		Matcher m = SPANS_WITH_CLASS.matcher(snippet);
 		while (m.find()) 
 		{
 			fs = fsc.getFontStyleByCssClass(m.group(1));
@@ -118,18 +149,69 @@ public class XsltHelper {
 		snippet = m.appendTail(sb).toString();
 
 		//escape all non-escaped & 
-		snippet = Utils.replaceAllTotal(snippet, "\\&(?!\\w+?;)", "&amp;");
+		snippet = Utils.replaceAllTotal(snippet, AMPS_ALONE, "&amp;");
 		
-		//escape all xml tags except the list members 
-		// style: for jasper internal styling
-		// sub/sup is supported as well
-		// all other - to be escaped
-		snippet = Utils.replaceAllTotal(snippet, "\\<(?!(\\/?style)|(\\/?su[bp]))", "&lt;");
+		snippet = escapeMarkupTags(snippet);
 
 		//logger.info("processed snippet:" + snippet);
 
 		return snippet;
 	}
+	
+	/**
+	 * Escape all xml/html tags except: 
+	 * style: for jasper internal styling
+	 * sub/sup: will not be escaped in case of balanced presence 
+	 * all other - to be escaped
+	 *  
+	 * @param str
+	 * @return escaped string
+	 */
+	public static String escapeMarkupTags(String snippet) 
+	{
+		if (snippet == null)
+			return null;
+		
+		return Utils.replaceAllTotal(
+			snippet, 
+			isBalanced(snippet) ? ALL_TAGS_EXCEPT_SUB_SUP_STYLE : ALL_TAGS_EXCEPT_STYLE, 
+			"&lt;"
+		);
+	}	
+	
+	
+	
+	/**
+	 * Check of the balanced tags sup/sub
+	 * @param snippet
+	 * @return <code>true</code> if balanced, <code>false</code> otherwise 
+	 */
+	public static boolean isBalanced(String snippet)
+	{
+		if (snippet == null)
+			return true; //????
+		
+		Stack<String> s = new Stack<String>();
+		Matcher m = SUBS_OR_SUPS.matcher(snippet.toLowerCase());
+		while (m.find()) 
+		{
+			String tag = m.group(1);
+			if( tag.startsWith("su") )
+			{
+				s.push(tag);
+			}
+			else 
+			{
+				if ( s.empty() || !tag.equals("/" + s.pop()) )
+				{
+					return false;
+				}
+			}
+		}
+		
+		return s.empty();
+	}
+	
 	
 	/**
 	 * Converts snippet &lt;span&gt; tags to the HTML formatting, 
@@ -156,9 +238,7 @@ public class XsltHelper {
 
 		
 		StringBuffer sb = new StringBuffer();
-		String regexp = "<span\\s+class=\"(\\w+)\".*?>(.*?)</span>";
-		Matcher m = Pattern.compile(regexp,
-				Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(snippet);
+		Matcher m = SPANS_WITH_CLASS.matcher(snippet);
 		while (m.find()) {
 			String cssClass = m.group(1);
 			fs = fsc.getFontStyleByCssClass(cssClass);
@@ -193,26 +273,13 @@ public class XsltHelper {
 		return snippet;
 	}	
 	
-	/**
-	 * Escape HTML tags in XML string
-	 *  
-	 * @param str
-	 * @return escaped string
-	 */
-	public static String escapeMarkupTags(String str) 
-	{
-		//escape all tags except sup/sub 
-		return str != null ? 
-			Utils.replaceAllTotal(str, "\\<(?!(\\/?su[bp]))", "&lt;") :
-			null;
-	}
+
 	
 	
 	
 	public static String removeI18N(String snippet) 
 	{
-		return Utils.replaceAllTotal(snippet, "<" + I18N_TAG
-				+ "\\s+class=\"\\w+\".*?>(.*?)</" + I18N_TAG + ">", "$1");
+		return Utils.replaceAllTotal(snippet, I18_TAGS, "$1");
 	}
 	
 	/**
