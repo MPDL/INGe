@@ -102,11 +102,11 @@ public class CommonUtils extends InternationalizedImpl
     //HTML escaped characters mapping
     private static final String[] PROBLEMATIC_CHARACTERS =
     {
-        "&", ">", "<", "\"", "\'", "\r\n", "\n", "\r", "\t", "&lt;sup&gt;","&lt;/sup&gt;", "&lt;sub&gt;","&lt;/sub&gt;"
+        "&", ">", "<", "\"", "\'", "\r\n", "\n", "\r", "\t"
     };
     private static final String[] ESCAPED_CHARACTERS =
     {
-        "&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>", "<br/>" , "&#160;&#160;", "<sup>","</sup>", "<sub>","</sub>"
+        "&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>", "<br/>" , "&#160;&#160;"
     };
     
 
@@ -495,14 +495,6 @@ public class CommonUtils extends InternationalizedImpl
 
         }
         return cdata;
-    }
-    
-    public static String htmlSubSup(String text)
-    {
-        HtmlOutputText output = new HtmlOutputText();
-       	output.setEscape(false);
-       	output.setValue(text);
-        return output.toString();
     }
 
     /**

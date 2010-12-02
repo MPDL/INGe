@@ -39,6 +39,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
+import net.sf.jasperreports.engine.export.TextRenderer;
+
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.Internationalized;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
@@ -1512,7 +1514,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	if(getMetadata().getTitle() != null && getMetadata().getTitle().getValue()!=null && getMetadata().getTitle().getValue()!="")
     		descriptionMetaTag += "; " + getLabel("ViewItemFull_lblTitle") + ": " + getMetadata().getTitle().getValue() ;
 
-		return descriptionMetaTag;
+    	String escaped = CommonUtils.htmlEscape(descriptionMetaTag); 
+		return escaped; 
 	}
 
 	public void setDescriptionMetaTag(String descriptionMetaTag) 
