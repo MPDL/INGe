@@ -213,14 +213,23 @@ public class YearbookItemCreateBean extends FacesBean
 			mds.getCreators().add(creatorVO);
 			
       
-
+			//date query
 			String datequery = "(( escidoc.publication.issued>=\"" + getDateFrom() + "\"";
 			datequery+=(" AND escidoc.publication.issued<=\"" + getDateTo() + "\" )");
 			datequery += (" OR ( escidoc.publication.published-online>=\"" + getDateFrom() + "\"");
 			datequery += (" AND escidoc.publication.published-online<=\"" + getDateTo() + "\" ) )");
 			
-			String orgQuery = "( escidoc.any-organization-pids=\"" + getAffiliation().getReference().getObjectId() + "\" )";
+			mds.getSubjects().add(new TextVO("escidoc.publication.issued>=\"" + getDateFrom() + "\""));
+			mds.getSubjects().add(new TextVO("escidoc.publication.issued<=\"" + getDateTo() + "\""));
+			mds.getSubjects().add(new TextVO("escidoc.publication.published-online>=\"" + getDateFrom() + "\""));
+			mds.getSubjects().add(new TextVO("escidoc.publication.published-online<=\"" + getDateTo() + "\""));
 			
+			//org query
+			String orgIndex = "escidoc.any-organization-pids=\"" + getAffiliation().getReference().getObjectId() + "\"";
+			String orgQuery = "( " + orgIndex + " )";
+			mds.getSubjects().add(new TextVO(orgIndex));
+			
+			//context query
 			String contextQuery="";
 			if(contextIds!=null && contextIds.size()>0)
 			{
@@ -234,8 +243,10 @@ public class YearbookItemCreateBean extends FacesBean
 			            if(i!=0)
 			            {
 			                contextQuery += " OR";
-			            } 
-			            contextQuery+=" escidoc.context.objid=\"" + contextId.getObjectId().trim() + "\""; 
+			            }
+			            String context = " escidoc.context.objid=\"" + contextId.getObjectId().trim() + "\""; 
+			            contextQuery += context;
+			            mds.getSubjects().add(new TextVO(context.trim()));
 			            i++;
 			        }
 			    }

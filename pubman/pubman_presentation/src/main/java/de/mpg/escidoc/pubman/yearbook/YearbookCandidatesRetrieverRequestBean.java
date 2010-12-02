@@ -27,6 +27,7 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
+import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -282,8 +283,27 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
          return mdQuery;
     }
     
+    
+    private String getGenreQuery()
+    {
+    	int i = 0;
+    	String query = "";
+    	 for(Genre genre : yisb.getYearbookContext().getAdminDescriptor().getAllowedGenres())
+         {
+             if (i!=0)
+             {
+            	 query += " OR ";
+                 
+             }
+             query += MetadataSearchCriterion.getINDEX_GENRE() + "=\"" + genre.getUri() + "\"";
+             i++;
+         }
+    	 return query;
+    }
+    
     private SearchQuery getNonCandidatesQuery() throws Exception
     {
+    	/*
         ArrayList<String> contentTypes = new ArrayList<String>();
         String contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
         contentTypes.add( contentTypeIdPublication );
@@ -291,7 +311,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         MetadataSearchCriterion objectTypeMds = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
         MetadataSearchCriterion orgIdMds = new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, yisb.getYearbookItem().getMetadata().getCreators().get(0).getOrganization().getIdentifier(), LogicalOperator.AND);
         mdsList.add(objectTypeMds);
-        mdsList.add(orgIdMds);
+        //mdsList.add(orgIdMds);
         //MetadataSearchCriterion genremd = new MetadataSearchCriterion(CriterionType.ANY, );
         if(yisb.getNumberOfMembers()>0)
         {
@@ -300,12 +320,36 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
                 mdsList.add(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.NOT));
             }
         }
-        if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
-        {
+       
            mdsList.add(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
-        }
+        
+
+
         MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
-        PlainCqlQuery query = new PlainCqlQuery(mdQuery.getCqlQuery() + " NOT " +  getCandidateQuery().getCqlQuery());
+        */
+        String orgUnit = "";
+        String context = "";
+        for(TextVO subj : yisb.getYearbookItem().getMetadata().getSubjects())
+        {
+        	if(subj.getValue().startsWith(MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS()))
+        	{
+        		orgUnit = subj.getValue();
+        	}
+        	if(subj.getValue().startsWith(MetadataSearchCriterion.getINDEX_CONTEXT_OBJECTID())) 
+        	{
+        		if(!"".equals(context)) 
+        		{
+        			context+=" OR ";
+        		}
+        		context += subj.getValue();
+        	}
+        	
+        }
+        String contentModel = MetadataSearchCriterion.getINDEX_CONTENT_TYPE() + "=\"" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication") + "\"";
+        String objectType = MetadataSearchCriterion.getINDEX_OBJECT_TYPE() + "=\"item\""; 
+        String orgUnitSelected = MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS() + "=\"" + getSelectedOrgUnit() + "\"";
+       
+        PlainCqlQuery query = new PlainCqlQuery(objectType + " AND " + contentModel + " AND (" + context + ") AND " + orgUnit + " AND " +orgUnitSelected + " NOT ( " + getCandidatesQuery().getCqlQuery() + " )");
         return query;
     }
     
