@@ -11,11 +11,6 @@ import de.mpg.escidoc.services.citationmanager.utils.Utils;
 public class HTMLSubSupConverter implements Converter{
     public static final String CONVERTER_ID = "HTMLSubSupConverter";
     
-	private static final String startSub = "<sub>";
-	private static final String endSub = "</sub>";
-	private static final String startSup = "<sup>";
-	private static final String endSup = "</sup>";
-	
 	public HTMLSubSupConverter()
 	{
 		
@@ -30,7 +25,7 @@ public class HTMLSubSupConverter implements Converter{
 	{
         String snippet = (String) object;
 		snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
-		if(checkTag(snippet, startSub, endSub, startSup, endSup))
+		if(checkSubSupTag(snippet))
 		{
 			snippet = Utils.replaceAllTotal(snippet, "\\<(?!|(\\/?su[bp]))", "&lt;");
 		}
@@ -42,25 +37,31 @@ public class HTMLSubSupConverter implements Converter{
 		return snippet;
 	}
 	
-	public static boolean checkTag(String snippet, String start, String end, String start2, String end2) {
+	public static boolean checkSubSupTag(String snippet) {
+		String startSub = "<sub>";
+		String endSub = "</sub>";
+		String startSup = "<sup>";
+		String endSup = "</sup>";
+		int sLength = 5;
+		int eLength = 6;
 		Stack s = new Stack(); // Create an empty stack.
 		boolean balanced = true;
 		try {
 			if(balanced){
 				for (int index=0; index < snippet.length(); index++) 
 				{
-					if (index+start.length()<=snippet.length() && (start.equals(snippet.substring(index,index+start.length())) || start2.equals(snippet.substring(index,index+start.length()))) )
+					if (index+sLength<=snippet.length() && (startSub.equals(snippet.substring(index,index+sLength)) || startSup.equals(snippet.substring(index,index+sLength))) )
 						{
-							s.push(snippet.substring(index, index+start.length()));
-							index += start.length()-1;
+							s.push(snippet.substring(index, index+sLength));
+							index += sLength-1;
 						} 
 					
-					if (index +end.length()<=snippet.length() && (end.equals(snippet.substring(index, index+end.length())) || end2.equals(snippet.substring(index, index+end.length()))) )
+					if (index +eLength<=snippet.length() && (endSub.equals(snippet.substring(index, index+eLength)) || endSup.equals(snippet.substring(index, index+eLength))) )
 						{
-							if(s.lastElement().toString().substring(1, 4).equals(snippet.substring(index+2, index+end.length()-1)))
+							if(s.lastElement().toString().substring(1, 4).equals(snippet.substring(index+2, index+eLength-1)))
 							{
 								s.pop();
-								index += end.length()-1;
+								index += eLength-1;
 							}
 							else
 								balanced = false;
