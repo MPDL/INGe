@@ -180,6 +180,11 @@ public class Utils {
 	    		.matcher(what)
 	    		.replaceAll(replacement);
     }
+    
+    public static String replaceAllTotal(String what, Pattern p, String replacement)
+    {
+    	return p.matcher(what).replaceAll(replacement);
+    }
 
     
 	/**
