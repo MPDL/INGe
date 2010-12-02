@@ -1489,13 +1489,13 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	if(getMetadata().getCreators().size()>1)
     		descriptionMetaTag += " et al.";
     	//add genre information
-    	descriptionMetaTag += "; Genre: " + getMetadata().getGenre() ;
+    	descriptionMetaTag += "; " + getLabel("ViewItemFull_lblGenre") + ": " + getLabel("ENUM_GENRE_"+getMetadata().getGenre()) ;
 		//add published print date
     	if(getMetadata().getDatePublishedInPrint()!= null && getMetadata().getDatePublishedInPrint()!="")
-    		descriptionMetaTag += "; Published in Print: "+getMetadata().getDatePublishedInPrint();
+    		descriptionMetaTag += "; " + getLabel("ViewItemShort_lblDatePublishedInPrint") + ": "+getMetadata().getDatePublishedInPrint();
     	//add published online date if no publisched print date
     	else if(getMetadata().getDatePublishedOnline()!= null && getMetadata().getDatePublishedOnline()!="")
-    		descriptionMetaTag += "; Published online: "+getMetadata().getDatePublishedOnline();
+    		descriptionMetaTag += "; " + getLabel("ViewItemShort_lblDatePublishedOnline") + ": "+getMetadata().getDatePublishedOnline();
     	//add open access component 
     	for(FileBean file :getFileBeanList())
     	{
@@ -1510,7 +1510,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     		descriptionMetaTag += "; Keywords: " + getMetadata().getFreeKeywords().getValue() ;
     	//add title at the end of description meta tag
     	if(getMetadata().getTitle() != null && getMetadata().getTitle().getValue()!=null && getMetadata().getTitle().getValue()!="")
-    		descriptionMetaTag += "; Title: " + getMetadata().getTitle().getValue() ;
+    		descriptionMetaTag += "; " + getLabel("ViewItemFull_lblTitle") + ": " + getMetadata().getTitle().getValue() ;
 
 		return descriptionMetaTag;
 	}
