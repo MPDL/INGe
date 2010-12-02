@@ -71,6 +71,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -800,7 +801,7 @@ public class ItemControllerSessionBean extends FacesBean
             CreatorVO newCreator = new CreatorVO();
             
             newCreator.setType(CreatorType.PERSON);
-            
+            newCreator.setRole(CreatorRole.AUTHOR);
             // create a new Organization for this person
             PersonVO newPerson = new PersonVO();
             newPerson.setIdentifier(new IdentifierVO());
@@ -808,6 +809,7 @@ public class ItemControllerSessionBean extends FacesBean
             OrganizationVO newPersonOrganization = new OrganizationVO();
             newPersonOrganization.setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
             newPerson.getOrganizations().add(newPersonOrganization);
+            
             
             newCreator.setPerson(newPerson);
             newPubItem.getMetadata().getCreators().add(newCreator);

@@ -105,6 +105,7 @@ public class CreatorVOPresentation extends CreatorVO
     {
         CreatorVOPresentation creatorVOPresentation = new CreatorVOPresentation(this.list, this.bean);
         creatorVOPresentation.init(getType());
+        creatorVOPresentation.setRole(CreatorRole.AUTHOR);
         int index = this.list.indexOf(this);
         this.list.add(index + 1, creatorVOPresentation);
         return "";
