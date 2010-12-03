@@ -3,47 +3,33 @@
  */
 package de.mpg.escidoc.pubman.workspaces;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
+import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
-import net.sf.jasperreports.engine.JRException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
-import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
-import de.mpg.escidoc.pubman.util.PubItemResultVO;
-import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
-import de.mpg.escidoc.pubman.yearbook.YearbookCandidatesSessionBean;
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
-import de.mpg.escidoc.services.citationmanager.CitationStyleManager;
-import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.util.CommonUtils;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.search.Search;
-import de.mpg.escidoc.services.search.query.ExportSearchResult;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
 import de.mpg.escidoc.services.transformation.Configurable;
-import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -81,7 +67,6 @@ public class ReportWorkspaceBean extends FacesBean {
 		InitialContext initialContext;
 		try {
 			initialContext = new InitialContext();
-			ApplicationBean appBean = (ApplicationBean) getApplicationBean(ApplicationBean.class);
 			this.searchService = (Search) initialContext.lookup(Search.SERVICE_NAME);
 			this.transformer = new TransformationBean();
 			this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
@@ -128,8 +113,29 @@ public class ReportWorkspaceBean extends FacesBean {
 					//logger.info("itemListCS " + new String(itemListCS));
 				}
 				if (itemListCS != null){
-				itemListReportTransformed = doReportTransformation(itemListCS);
-				//logger.info("Transformed result: " + new String(itemListReportTransformed));
+					itemListReportTransformed = doReportTransformation(itemListCS);
+					logger.info("Transformed result: " + new String(itemListReportTransformed));
+				}
+				if (itemListReportTransformed != null){
+					HttpServletResponse resp = (HttpServletResponse) this.getExternalContext().getResponse();
+					resp.setContentType("text/xml; charset=UTF-8");
+					
+					//resp.setContentLength(itemListReportTransformed.length);
+					resp.addHeader("Content-Disposition", "attachment; filename=" +"report.xml");
+					
+					ServletOutputStream stream = resp.getOutputStream();
+					ByteArrayInputStream bais = new ByteArrayInputStream(itemListReportTransformed);
+					BufferedInputStream buff = new BufferedInputStream(bais);
+					
+					int readBytes = 0;
+					while((readBytes = buff.read()) != -1){
+						stream.write(readBytes);
+					}
+					stream.close();
+					
+					FacesContext faces = FacesContext.getCurrentInstance();
+					faces.responseComplete();
+				
 				}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -137,10 +143,11 @@ public class ReportWorkspaceBean extends FacesBean {
 		}
 		return null;
 		}
+		
 	}
 	    
 		
-	public String doSearchItems() {
+	private String doSearchItems() {
 		String itemListAsString = null;
 		// create an initial query with the given reportYear and the org id
 		String query = "escidoc.publication.compound.dates" + " = " + this.reportYear + " AND " +
