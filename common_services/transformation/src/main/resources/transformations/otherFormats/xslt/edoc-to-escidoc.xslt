@@ -679,6 +679,9 @@
 							<xsl:when test="$access='MPG' or $access='INSTITUT' or $access='INTERNAL'">
 								<prop:visibility>audience</prop:visibility>
 							</xsl:when>
+							<xsl:when test="$access='PUBLIC'">
+								<prop:visibility>public</prop:visibility>
+							</xsl:when>
 							<xsl:otherwise>
 								<!-- ERROR -->
 								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
@@ -1861,17 +1864,47 @@
 								<xsl:value-of select="$coneCreator/cone/rdf:RDF[1]/rdf:Description/@rdf:about"/>
 							</dc:identifier>
 							
-							<xsl:for-each select="$coneCreator/cone/rdf:RDF[1]/rdf:Description/escidoc:position">
-								<xsl:comment> Case 8 </xsl:comment>
-								<organization:organization>
-									<dc:title>
-										<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
-									</dc:title>
-									<dc:identifier>
-										<xsl:value-of select="rdf:Description/dc:identifier"/>
-									</dc:identifier>
-								</organization:organization>
-							</xsl:for-each>
+							<!-- CBS OU depend on date (affiliatedInstitution depend on publication-date) -->
+							<xsl:variable name="publication-date">
+								<xsl:choose>
+									<xsl:when test="exists(../../basic/datepublished)">
+										<xsl:value-of select="../../basic/datepublished"/>
+									</xsl:when>
+									<xsl:when test="exists(../../basic/dateaccepted)">
+										<xsl:value-of select="../../basic/dateaccepted"/>
+									</xsl:when>
+									<xsl:when test="exists(../../basic/dateofevent)">
+										<xsl:value-of select="../../basic/dateofevent"/>
+									</xsl:when>
+								</xsl:choose>
+							</xsl:variable>
+							<xsl:comment><xsl:value-of select="escidocFunctions:smaller($coneCreator/cone/rdf:RDF[1]/rdf:Description/escidoc:position[1]/rdf:Description/escidoc:start-date, $publication-date)"/></xsl:comment>
+							<xsl:comment><xsl:value-of select="escidocFunctions:smaller($coneCreator/cone/rdf:RDF[1]/rdf:Description/escidoc:position[2]/rdf:Description/escidoc:start-date, $publication-date)"/></xsl:comment>
+							<xsl:choose>
+								<xsl:when test="$coneCreator/cone/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)]">
+									<xsl:for-each select="$coneCreator/cone/rdf:RDF[1]/rdf:Description/escidoc:position">
+										<xsl:if test="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)">
+											<xsl:comment> Case 8 </xsl:comment>
+											<organization:organization>
+												<dc:title>
+													<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
+												</dc:title>
+												<dc:identifier>
+													<xsl:value-of select="rdf:Description/dc:identifier"/>
+												</dc:identifier>
+											</organization:organization>
+										</xsl:if>
+									</xsl:for-each>
+								</xsl:when>
+								<xsl:otherwise>
+									<organization:organization>
+										<dc:title>External Organizations</dc:title>
+										<dc:identifier>
+											<xsl:value-of select="$external-ou"/>
+										</dc:identifier>
+									</organization:organization>
+								</xsl:otherwise>
+							</xsl:choose>
 						
 						</person:person>
 					</xsl:otherwise>
@@ -2188,4 +2221,17 @@
 		</xsl:if>
 	</xsl:template>
 	
+	<xsl:function name="escidocFunctions:smaller" as="xs:boolean">
+		<xsl:param name="value1"/>
+		<xsl:param name="value2"/>
+		<xsl:choose>
+			<xsl:when test="not(exists($value1)) or $value1 = ''"><xsl:value-of select="true()"/></xsl:when>
+			<xsl:when test="not(exists($value2)) or $value2 = ''"><xsl:value-of select="true()"/></xsl:when>
+			<xsl:otherwise>
+				<xsl:variable name="date1" select="substring(concat($value1, '-01-01'), 1, 10)"/>
+				<xsl:variable name="date2" select="substring(concat($value2, '-ZZ-ZZ'), 1, 10)"/>
+				<xsl:value-of select="compare($date1, $date2) != 1"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:function>
 </xsl:stylesheet>
