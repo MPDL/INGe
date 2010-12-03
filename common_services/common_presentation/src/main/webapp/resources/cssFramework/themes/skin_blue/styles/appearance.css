@@ -580,6 +580,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .successMessageArea {
     border: 1px solid #147DA2 !important;
+    border-color: #147DA2;
 }
 
 .absoluteMessageArea {
