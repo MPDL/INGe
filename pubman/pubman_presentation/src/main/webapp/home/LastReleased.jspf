@@ -52,7 +52,7 @@
     						<div class="gfc-result">
 								<div class="gf-result">
 									<div class="gf-title">
-										<h:outputLink value="#{item.linkLatestRelease }" styleClass="gf-title"><h:outputText value="#{item.metadata.title}"/></h:outputLink>
+										<h:outputLink value="#{item.linkLatestRelease }" styleClass="gf-title"><h:outputText value="#{item.metadata.title.value}" converter="HTMLSubSupConverter" escape="false"/></h:outputLink>
 									</div>
 									<div class="gf-author"><h:outputText value="#{item.creatorsShort}"/></div>
 									<div class="gf-spacer">-</div>
