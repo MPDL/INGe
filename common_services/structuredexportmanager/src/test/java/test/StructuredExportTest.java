@@ -77,6 +77,7 @@ public class StructuredExportTest
                     put("BIBTEX", pref + "publicationItems/metadataV2/item_book.xml");
                     put("ENDNOTE", pref + "publicationItems/metadataV2/item_book.xml");
                     put("EDOC_EXPORT", pref + "publicationItems/metadataV2/full_item.xml");
+                    put("EDOC_IMPORT", pref + "publicationItems/metadataV2/full_item.xml");
 					put("CSV", pref + "facesItems/item-list.xml");
 					
 //                    put("ENDNOTE", "src/test/resources/publicationItems/metadataV2/source-creators-bug.xml");

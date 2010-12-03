@@ -90,6 +90,7 @@ public class StructuredExport implements StructuredExportHandler {
 	    		put( "CSV", 	"Faces_to_CSV.xsl"				);  
 	    		put( "XML", 	"escidoc-publication-v2_2_escidoc-publication-v1.xsl"				);  
 	    		put( "EDOC_EXPORT", null );  
+	    		put( "EDOC_IMPORT", null );  
 	    		put( "ESCIDOC_XML", null);  
 	    	}  
     	};	
@@ -144,23 +145,23 @@ public class StructuredExport implements StructuredExportHandler {
 			{
 				return itemList.getBytes();
 			}
-			else if ("EDOC_EXPORT".equalsIgnoreCase(exportFormat))
+			else if ("EDOC_EXPORT".equalsIgnoreCase(exportFormat) || "EDOC_IMPORT".equalsIgnoreCase(exportFormat))
 			{
 				TransformationBean trans = new TransformationBean(true);
-				byte[] edoc_export = null;
+				byte[] edoc = null;
 		    	 try 
 		    	 {
-		    		 edoc_export = trans.transform(itemList.getBytes("UTF-8"), 
+		    		 edoc = trans.transform(itemList.getBytes("UTF-8"), 
 							new Format("escidoc", "application/xml", "UTF-8"), 
-							new Format("edoc_export", "application/xml", "UTF-8"), 
+							new Format(exportFormat.toLowerCase(), "application/xml", "UTF-8"), 
 							"escidoc"
 					);
 		    	 }
 		    	 catch (Exception e) 
 		    	 {
-		    		 throw new StructuredExportManagerException("Problems by transformation: escidoc publication items to edoc export format, edoc export schema:", e);	
+		    		 throw new StructuredExportManagerException("Problems by transformation: escidoc publication items to " + exportFormat.toLowerCase() + " format: ", e);	
 		    	 } 				
-				return edoc_export;				
+				return edoc;				
 			}
 			
 			// xml source
