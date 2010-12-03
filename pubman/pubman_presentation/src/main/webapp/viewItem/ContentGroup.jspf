@@ -69,7 +69,7 @@
 					&#160;<h:outputText value="#{lbl.ViewItemFull_lblAbstract}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{abstract.value}" converter="HTMLEscapeConverter" escape="false"/>
+					<h:outputText value="#{abstract.value}" converter="HTMLSubSupConverter" escape="false"/>
 				</span>
 			</h:panelGroup>
 		</tr:iterator>
