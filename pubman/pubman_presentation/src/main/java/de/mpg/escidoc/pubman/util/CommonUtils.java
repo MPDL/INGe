@@ -45,6 +45,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -52,6 +53,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -76,6 +78,8 @@ import org.xml.sax.helpers.DefaultHandler;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.contextList.PubContextVOWrapper;
+import de.mpg.escidoc.services.citationmanager.utils.Utils;
+import de.mpg.escidoc.services.common.util.HtmlUtils;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
@@ -496,6 +500,37 @@ public class CommonUtils extends InternationalizedImpl
         }
         return cdata;
     }
+    
+   
+    /**
+     * Removes sub and sup tags from a string if tags are balanced
+     * @param snippet
+     * @return
+     */
+    public static String removeSubSupIfBalanced(String snippet)
+    {
+    	if(HtmlUtils.isBalanced(snippet))
+    	{
+    		snippet = Utils.replaceAllTotal(snippet, "\\<((\\/?su[bp]))\\>", "");
+    	}
+    	return snippet;
+        	
+    }
+    
+    public static String escapeHtmlExceptSubSup(String snippet)
+    {
+    	snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
+		if(HtmlUtils.isBalanced(snippet))
+		{
+			snippet = Utils.replaceAllTotal(snippet, "\\<(?!(\\/?su[bp]))", "&lt;");
+		}
+		else
+		{
+			snippet = Utils.replaceAllTotal(snippet, "\\<", "&lt;");
+		}
+		return snippet;
+	}
+    
 
     /**
      * Escapes problematic Javascript characters ("'", "\n").

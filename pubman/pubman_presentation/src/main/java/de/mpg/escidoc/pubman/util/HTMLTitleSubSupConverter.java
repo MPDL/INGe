@@ -25,9 +25,7 @@ public class HTMLTitleSubSupConverter implements Converter{
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object object) 
 	{
         String snippet = (String) object;
-        if(HtmlUtils.isBalanced(snippet))
-        	snippet = Utils.replaceAllTotal(snippet, "\\<((\\/?su[bp]))\\>", "");
-		return snippet;
+		return CommonUtils.removeSubSupIfBalanced(snippet);
 	}
 
 }
