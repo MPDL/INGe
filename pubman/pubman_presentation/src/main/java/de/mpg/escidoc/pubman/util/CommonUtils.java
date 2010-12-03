@@ -517,6 +517,11 @@ public class CommonUtils extends InternationalizedImpl
         	
     }
     
+    /**
+     * Escapes html tags except sub and sup tags, if they are balanced
+     * @param snippet
+     * @return
+     */
     public static String escapeHtmlExceptSubSup(String snippet)
     {
     	snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
