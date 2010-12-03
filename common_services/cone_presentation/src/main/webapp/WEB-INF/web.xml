@@ -9,6 +9,10 @@
 		<servlet-class>de.mpg.escidoc.services.cone.web.ConeServlet</servlet-class>
 	</servlet>
 	
+	<session-config>
+		<session-timeout>120</session-timeout>
+	</session-config>
+	
 	<servlet-mapping>
 		<servlet-name>jsp</servlet-name>
 		<url-pattern>/jsp/*</url-pattern>
