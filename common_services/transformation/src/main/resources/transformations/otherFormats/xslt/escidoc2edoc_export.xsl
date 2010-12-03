@@ -67,19 +67,8 @@
 		>
 	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
-	
-	<xsl:param name="pubman_instance">${escidoc.pubman.instance.url}</xsl:param>
-<!--	<xsl:param name="pubman_instance">http://pubman.mpdl.mpg.de/pubman</xsl:param>-->
-	<xsl:param name="coreservice_instance">${escidoc.common.framework.url}</xsl:param>
-<!--	<xsl:param name="coreservice_instance">http://coreservice.mpdl.mpg.de</xsl:param>-->
-	
-	<xsl:variable name="vm" select="document('../../ves-mapping.xml')/mappings"/>
-	
-	<!-- Organizational Units, flat structure -->
-	<xsl:variable name="OUs" select="
-		document(concat ($coreservice_instance, '/oum/organizational-units' ) )
-		//organizational-unit:organizational-unit
-	"/>
+
+	<xsl:include href="escidoc2edoc_includes.xsl"/>	
 
 	<xsl:template match="/*">
 		<xsl:choose>
@@ -103,7 +92,9 @@
 		
 			<xsl:call-template name="metadata"/>
 			
-			<xsl:call-template name="docaff"/>
+			<xsl:call-template name="docaff">
+				<xsl:with-param name="type" select="'export'"/>
+			</xsl:call-template>
 			
 			<!-- MPG yearbook status NOT in the MAPPING -->
 			<!-- <xsl:call-template name="mpgyearbook"/> -->
@@ -126,54 +117,24 @@
 	
 		<xsl:element name="metadata">
 		
-			<xsl:call-template name="fturl"/>
+			<xsl:call-template name="fturl">
+				<xsl:with-param name="size" select="true()"/>
+			</xsl:call-template>
 			
 			<xsl:call-template name="basic"/>
 			
 			<xsl:call-template name="creators"/>
 			
-			<xsl:call-template name="identifiers"/>
+			<xsl:element name="identifiers">
+				<xsl:call-template name="identifiers"/>
+			</xsl:element>
+			
 		
 		</xsl:element>
 		
 	</xsl:template>
 		
 		
-	<!--== DOCAFF ==-->	
-	<xsl:template name="docaff">
-	
-			
-		<xsl:if test="$OUs">
-	
-			
-			
-			<xsl:variable name="da">
-			
-				<!-- DOCAFF_EXTERNAL -->
-				<xsl:variable name="ext_affs" select="
-					func:getNonMpgAffiliations(eterms:creator/person:person/organization:organization)
-				"/>
-				<xsl:if test="$ext_affs!=''">
-					<xsl:copy-of select="$ext_affs" copy-namespaces="no"/>
-				</xsl:if>
-				
-				<!-- AFFs -->
-				<xsl:variable name="int_affs" select="
-					func:getMpgAffiliations(eterms:creator/person:person/organization:organization)
-				"/> 
-				<xsl:if test="$int_affs!=''">
-					<xsl:copy-of select="$int_affs" copy-namespaces="no"/>
-				</xsl:if>
-				
-			</xsl:variable>
-			
-			<xsl:copy-of select="func:genElement(('docaff', $da))"/>
-		
-		</xsl:if>
-		 
-	</xsl:template>
-
-	
 	<!--== MPGYEARBOOK ==-->	
 	<xsl:template name="mpgyearbook">
 		<xsl:element name="MPGyearbook">
@@ -214,47 +175,6 @@
 	</xsl:template>
 
 
-
-	<!-- FTURL -->	
-	<xsl:template name="fturl">	
-
-		<xsl:variable name="imc" select="
-			../../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='internal-managed' and @xlink:href]
-		"/>
-		
-		<xsl:if test="count($imc)>1">
-			
-			<xsl:for-each select="$imc">
-			
-				<xsl:element name="fturl">
-					
-					<xsl:variable name="vft" select="../escidocComponents:properties/prop:visibility"/>
-					<xsl:variable name="vft" select="$vm/fulltext-visibility/v2-to-edoc/map[@v2=$vft]"/>
-					
-					<xsl:attribute name="viewftext" select="
-						func:coalesce(($vft, $vm/fulltext-visibility/v2-to-edoc/@default))
-					"/>
-					
-					<xsl:attribute name="filename" select="@xlink:title"/>
-					
-					<xsl:attribute name="size" select="
-						../mdr:md-records/mdr:md-record[1]/file:file/dcterms:extent
-					"/>
-					
-					<xsl:value-of select="concat(
-						$coreservice_instance,
-						@xlink:href	
-					)"/>
-					
-				</xsl:element>
-				
-			</xsl:for-each>
-			
-		</xsl:if>
-		
-	
-	</xsl:template>
-	
 	
 	<!-- BASIC -->	
 	<xsl:template name="basic">
@@ -597,302 +517,16 @@
 	<xsl:template name="creators">
 		<xsl:element name="creators">
 			<xsl:for-each select="eterms:creator">			
-				<xsl:call-template name="creator"/>
+				<xsl:call-template name="creator">
+					<xsl:with-param name="type" select="'export'"/>
+				</xsl:call-template>
 			</xsl:for-each>
 		</xsl:element>
 	</xsl:template>
 	
 
 
-	<!-- CREATOR -->
-	<xsl:template name="creator">
-	
-		<!-- template specific variables -->
-		<xsl:variable name="objid" select="../../../../@objid"/>
-		<xsl:variable name="esdr" select="normalize-space(@role)"/>
-		
-		<xsl:for-each select="*">
-			<xsl:variable name="edr" select="$vm/creator-role/v2-to-edoc/map[@v2=$esdr]"/>
-			
-			<xsl:element name="creator">
-				<xsl:attribute name="role" select="$edr"/>
-				<xsl:attribute name="creatorType" select="
-					if (local-name()='person') then 'individual' else 'group' 
-				"/>
-				<xsl:if test="local-name()='person'">
-					<xsl:variable name="ouo" select="func:getOUTree(organization:organization/dc:identifier)"/>
-					<xsl:attribute name="internextern" select="
-						if ( $ouo[@mpg='false'] or $ouo//aff[@mpg='false'] ) then 'unknown' else 'mpg'
-					"/>
-					
-					<xsl:copy-of select="func:genElement(('creatorini', func:get_initials(eterms:given-name)))"/>
-					
-					<xsl:copy-of select="func:genElement(('creatornfamily', eterms:family-name))"/>
-					
-					<xsl:copy-of select="func:genElement(('creatorngiven', eterms:given-name))"/>
-					
-				</xsl:if>
-				
-				<xsl:if test="local-name()='organization'">
-				
-					<xsl:variable name="ouo" select="func:getOUTree(dc:identifier)"/>
-					<xsl:attribute name="internextern" select="
-						if ( $ouo[@mpg='false'] or $ouo//aff[@mpg='false'] ) then 'unknown' else 'mpg'
-					"/>				
-					
-					<xsl:copy-of select="func:genElement(('creatornfamily', dc:title))"/>
-										
-				</xsl:if>
-				
-			</xsl:element>		
-		</xsl:for-each>
-		
-	</xsl:template>
-	
-	
-	<!-- IDENTIFIERS -->	
-	<xsl:template name="identifiers">
-
-		<xsl:element name="identifiers">
-		
-			<!-- ESCIDOC direct link as identifier -->
-			<xsl:element name="identifier">
-				<xsl:attribute name="type">url</xsl:attribute>
-				<xsl:value-of select="concat($pubman_instance, '/item/', ../../../@objid)"/>
-			</xsl:element>
-		
-			<!-- IDENTIFIERS from dc:identifier elements -->
-			<xsl:for-each select="dc:identifier">
-				<xsl:variable name="esdt" select="normalize-space(@xsi:type)" />
-				<xsl:variable name="edt" select="$vm/identifier-type/v2-to-edoc/map[@v2=$esdt]"/>
-				<!-- not strict for the moment -->
-				<xsl:if test="$edt">
-					<xsl:element name="identifier">
-						<xsl:attribute name="type" select="$edt"/>
-						<xsl:value-of select="."/>
-					</xsl:element>
-				</xsl:if>
-			</xsl:for-each>
-			
-		<!-- IDENTIFIERS from components --> 
-			<xsl:for-each select="../../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url' and @xlink:href]">
-				<xsl:element name="identifier">
-					<xsl:attribute name="type">url</xsl:attribute>
-					<xsl:value-of select="@xlink:href"/>
-				</xsl:element> 				
-			</xsl:for-each>
-				
-			
-		</xsl:element>
-				
-	</xsl:template>	
-
-		
-	
-	<!-- AFFILIATIONS -->
-	<!--
-		Generate list of MPG affiliations (internal affiliations):
-		
-		<affiliation>
-			<mpgunit id="mpgunit_id">name of mpgunit</mpgunit>
-			<mpgsunit id="mpgsunit_id">name of mpgsunit</mpgunit>
-			<mpgssunit id="mpgssunit_id">name of mpgssunit</mpgunit>
-		</affiliation>
-		....
-		
-		1) Only 3 levels will be taken, exclusive top MPG level
-		2) Only unique affiliations, no duplicates  			   
-	 -->
-	<xsl:function name="func:getMpgAffiliations">
-		<xsl:param name="ous"/>
-		<xsl:variable name="daffs">
-			<xsl:for-each select="func:getOUTree($ous/dc:identifier)//aff[@mpg='true']/..">
-				<xsl:element name="affiliation">
-					<xsl:element name="mpgunit">
-						<xsl:attribute name="id" select="dc:identifier"/>
-						<xsl:value-of select="dc:title"/>
-					</xsl:element>
-					<xsl:if test="..">
-						<xsl:element name="mpgsunit">
-							<xsl:attribute name="id" select="../dc:identifier"/>
-							<xsl:value-of select="../dc:title"/>
-						</xsl:element>
-						<xsl:if test="../..">
-							<xsl:element name="mpgssunit">
-								<xsl:attribute name="id" select="../../dc:identifier"/>
-								<xsl:value-of select="../../dc:title"/>
-							</xsl:element>
-						</xsl:if>
-					</xsl:if>
-				</xsl:element>
-			</xsl:for-each>
-		</xsl:variable>
-		<!-- exclude duplicates -->
-		<xsl:for-each select="$daffs/*[not(.=following::node())]">
-			<xsl:copy-of select="."/>
-		</xsl:for-each>
-	</xsl:function>
-	
-	<!--
-		Generate list of NON MPG affiliations (external affiliations):
-				
-		1) All levels will be taken, inclusive top MPG level
-		2) Only unique affiliations, no duplicates  			   
-	 -->	
-	<xsl:function name="func:getNonMpgAffiliations">
-		<xsl:param name="ous"/>
-<!--		<xsl:message select="func:getOUTree($ous/dc:identifier)//aff[@mpg='false']"/>-->
-		<xsl:variable name="affs">
-			<xsl:for-each select="func:getOUTree($ous/dc:identifier)//aff[@mpg='false']">
-				<xsl:element name="aff">
-					<xsl:value-of select="dc:title"/>
-					<xsl:value-of select="func:childOU(..)"/>
-				</xsl:element>
-			</xsl:for-each>
-		</xsl:variable>
-		<!-- exclude duplicates -->
-		<xsl:variable name="affs">
-			<xsl:for-each select="$affs/*[not(.=following::node())]">
-				<xsl:copy-of select="."/>
-			</xsl:for-each>
-		</xsl:variable>
-		<xsl:if test="$affs">
-			<xsl:element name="docaff_external">
-				<xsl:value-of select="string-join($affs/aff, '; ')"/>
-			</xsl:element>
-		</xsl:if>
-		
-	</xsl:function>
-	
-	
-	<xsl:function name="func:childOU">
-		<xsl:param name="ou"/>
-		<xsl:if test="$ou/dc:title">
-			<xsl:value-of select="concat( ' - ', $ou/dc:title, func:childOU($ou/..) )"/>
-		</xsl:if>
-	</xsl:function>
-	
-	
-	<xsl:function name="func:getOUTree">
-		<xsl:param name="ids"/>
-		<xsl:for-each select="$ids[.!='']">
-			<xsl:call-template name="getOU">
-				<xsl:with-param name="ou" select="func:getOUXml(.)"/>
-			</xsl:call-template>
-		</xsl:for-each>
-	</xsl:function>
-
-
-	<xsl:function name="func:getOUXml">
-		<xsl:param name="id"/>
-		<xsl:copy-of select="
-			$OUs[substring-after(@xlink:href, '/oum/organizational-unit/')=$id]
-		"/>
-	</xsl:function>
 	
 
-	<xsl:template name="getOU">
-	
-		<xsl:param name="ou"/>
-		
-		<xsl:element name="aff">
-		
-			<xsl:choose>
-				<!-- if no parents anymore, check MPG  -->
-				<xsl:when test="not($ou/organizational-unit:parents/srel:parent)">
-					<xsl:attribute name="mpg" select="if ($ou/@xlink:href='/oum/organizational-unit/${escidoc.pubman.root.organisation.id}') then 'true' else 'false'"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:call-template name="getOU">
-						<xsl:with-param name="ou" select="
-							func:getOUXml(
-								substring-after($ou/organizational-unit:parents/srel:parent/@xlink:href, '/oum/organizational-unit/')
-							)"/>
-					</xsl:call-template>
-				</xsl:otherwise>
-			</xsl:choose>
-			
-			<xsl:element name="dc:title">
-				<xsl:value-of select="$ou/@xlink:title"/>
-			</xsl:element>
-			
-			<xsl:element name="dc:identifier">
-				<xsl:value-of select="substring-after($ou/@xlink:href, '/oum/organizational-unit/') "/>
-			</xsl:element>
-			
-		</xsl:element>
-		
-	</xsl:template>
-
-	
-	<xsl:function name="func:genElement">
-		<xsl:param name="p"/>
-		<xsl:if test="$p[1]!='' and $p[2]!=''">
-			<xsl:element name="{$p[1]}">
-				<xsl:value-of select="normalize-space($p[2])"/>
-			</xsl:element>
-		</xsl:if>
-	</xsl:function>
-	
-	<xsl:function name="func:genElementIf">
-		<xsl:param name="p"/>
-		<xsl:if test="$p[1]=true() and $p[2]!='' and $p[3]!=''">
-			<xsl:element name="{$p[2]}">
-				<xsl:value-of select="normalize-space($p[3])"/>
-			</xsl:element>
-		</xsl:if>
-	</xsl:function>
-	
-	<xsl:function name="func:genElementPlain">
-		<xsl:param name="p"/>
-			<xsl:if test="$p[1]!='' and $p[2]!=''">
-				<xsl:element name="{$p[1]}">
-					<xsl:value-of select="$p[2]"/>
-				</xsl:element>
-			</xsl:if>
-	</xsl:function>
-	
-	<xsl:function name="func:coalesce">
-		<xsl:param name="nodes"/>
-		<xsl:value-of select="
-			if (count($nodes)=0)
-			then ''
-			else if ($nodes[1]!='') 
-			then $nodes[1] 
-			else func:coalesce(($nodes[position()>1]))  
-		"/>
-	</xsl:function>
-
-	
-	
-	<xsl:function name="func:screators">
-		<xsl:param name="p"/>
-		<xsl:for-each select="$p">
-			<xsl:value-of select="
-				concat (
-					string-join( (eterms:family-name, eterms:given-name), ', ' ),
-					if (position()!=last()) then '; ' else ''
-				)	
-			"/>
-		</xsl:for-each>
-	</xsl:function>
-	
-	
-	<xsl:function name="func:get_initials">
-		<xsl:param name="str" />
-		<xsl:variable name="delim"
-			select="if (contains ($str, '-')) then '-' else ' '" />
-		<xsl:for-each select="tokenize(normalize-space ($str), '\s+|\.\s+|\-\s*')">
-			<xsl:value-of
-				select="concat(substring (., 1, 1), if (position()!=last())then concat ('.', $delim) else '.')" />
-		</xsl:for-each>
-	</xsl:function>
-	
-	
-	<xsl:function name="func:getDate">
-		<xsl:param name="d" />
-		<xsl:value-of select="$d"/>
-	</xsl:function>	
-	
 
 </xsl:stylesheet>
