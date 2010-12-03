@@ -9,6 +9,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.*;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
+import de.mpg.escidoc.services.common.util.HtmlUtils;
 
 public class HTMLSubSupConverter implements Converter{
     public static final String CONVERTER_ID = "HTMLSubSupConverter";
@@ -27,7 +28,7 @@ public class HTMLSubSupConverter implements Converter{
 	{
         String snippet = (String) object;
 		snippet = Utils.replaceAllTotal(snippet, "\\&(?!amp;)", "&amp;");
-		if(checkSubSupTag(snippet))
+		if(HtmlUtils.isBalanced(snippet))
 		{
 			snippet = Utils.replaceAllTotal(snippet, "\\<(?!(\\/?su[bp]))", "&lt;");
 		}
