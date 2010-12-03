@@ -322,23 +322,28 @@ public class TransformationTest
      }     
      
      @Test
-     public void escidoc2edoc() throws Exception
+     public void escidoc2edocTest() throws Exception
      {
-    	 this.logger.info("---Transformation eSciDoc to eDoc format ---");
-    	 Format escidoc = new Format("escidoc", "application/xml", "UTF-8");    
-    	 Format edoc = new Format("edoc_export", "application/xml", "UTF-8");
+    	 byte[] src = ResourceUtil.getResourceAsBytes("testFiles/escidoc/escidoc_xml_full.xml");
+    	 Format escidoc = new Format("escidoc", "application/xml", "UTF-8");
     	 
-    	 byte[] resultBytes = this.trans.transform(ResourceUtil.getResourceAsBytes("testFiles/escidoc/escidoc_xml_full.xml"), escidoc, edoc, "escidoc");
-    	 Assert.assertNotNull(resultBytes);
-    	 
-    	 
-//    	 String file = ResourceUtil.getResourceAsFile(".").getAbsolutePath() + "/edoc_test.xml";
-//    	 String file = "target/edoc_export.xml";
-//    	 this.logger.info("output file: " + file);
-//    	 
-//    	 FileOutputStream fos = new FileOutputStream(file);
-//    	 fos.write(resultBytes);
-//    	 fos.close();         
+    	 for (String format: new String[]{"edoc_export", "edoc_import"} )
+    	 {
+	    	 this.logger.info("---Transformation eSciDoc to " + format + " format ---");
+	    	     
+	    	 Format edoc = new Format(format, "application/xml", "UTF-8");
+	    	 
+	    	 byte[] resultBytes = trans.transform(src, escidoc, edoc, "escidoc");
+	    	 Assert.assertNotNull(resultBytes);
+	    	 
+	//    	 String file = ResourceUtil.getResourceAsFile(".").getAbsolutePath() + "/edoc_test.xml";
+	    	 /*String file = "target/"+ format + ".xml";
+	    	 this.logger.info("output file: " + file);
+	    	 
+	    	 FileOutputStream fos = new FileOutputStream(file);
+	    	 fos.write(resultBytes);
+	    	 fos.close();*/
+    	 }
     	 
      }
      
