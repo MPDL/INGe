@@ -122,7 +122,7 @@
 		<iso:rule context="publication:publication">
 			<iso:assert test="dcterms:issued != '' or escidoc:published-online != ''">PublishingDateNotProvided</iso:assert>
 			<iso:assert test="starts-with(dcterms:issued, $year) or starts-with(escidoc:published-online, $year)">PublishingDateNotCorrect1</iso:assert>
-			<iso:report test="not((dcterms:issued = '' or starts-with(dcterms:issued, $year)) and (escidoc:published-online = '' or starts-with(escidoc:published-online, $year)))">PublishingDateNotCorrect2</iso:assert>
+			<iso:report test="not((dcterms:issued = '' or starts-with(dcterms:issued, $year)) and (escidoc:published-online = '' or starts-with(escidoc:published-online, $year)))">PublishingDateNotCorrect2</iso:report>
 		</iso:rule>
 	</iso:pattern>
 	
