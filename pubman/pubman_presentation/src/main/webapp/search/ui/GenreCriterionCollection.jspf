@@ -367,7 +367,7 @@
 					<h:outputText value="#{lbl.EditItem_lblDegreeType}" />
 				</span>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<a class="large_area0 tiny_marginRIncl checkAll">Alle ausw�hlen</a>
+					<a class="large_area0 tiny_marginRIncl checkAll"><h:outputText value="#{lbl.adv_search_btAll}" /></a>
 
 					<span class="free_area0 checkboxDoubleGroup">
 							<span class="large_checkbox tiny_marginRIncl">
