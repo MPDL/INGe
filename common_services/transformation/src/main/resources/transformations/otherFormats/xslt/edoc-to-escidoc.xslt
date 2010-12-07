@@ -2091,11 +2091,13 @@
 		<xsl:element name="dcterms:dateAccepted">
 			<xsl:value-of select="."/>
 		</xsl:element>
+		<!-- 
 		<xsl:if test="../genre='PhD-Thesis'">
 			<xsl:element name="dcterms:issued">
 				<xsl:value-of select="."/>
 			</xsl:element>
 		</xsl:if>
+		 -->
 	</xsl:template>
 	<xsl:template match="datesubmitted">
 		<xsl:element name="dcterms:dateSubmitted">
