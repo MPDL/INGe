@@ -42,6 +42,9 @@ public class EditItemBean extends FacesBean
     private String creatorParseString;
     
     private boolean organizationPasted = false;
+    
+    /** List containing the ou number of the organizations which are mapped to a creator */
+    private List<Integer> usedOrganizations = new ArrayList<Integer>();
 
     public List<CreatorVOPresentation> getCreators()
     {
@@ -157,12 +160,25 @@ public class EditItemBean extends FacesBean
     
     public boolean bindOrganizationsToCreators()
     {
+    	
+    	usedOrganizations.clear();
         for (CreatorVOPresentation creator : getCreators())
         {
             if (!bindOrganizationsToCreator(creator))
             {
                 return false;
             }
+        }
+        
+        for(OrganizationVOPresentation org : getCreatorOrganizations())
+        {
+        	
+        	if(!org.isEmpty() && !usedOrganizations.contains(org.getNumber()))
+        	{
+
+        		error(getMessage("EntryIsNotBound").replace("$1", String.valueOf(org.getNumber())));
+        		return false;
+        	}
         }
         return true;
     }
@@ -232,6 +248,7 @@ public class EditItemBean extends FacesBean
                     {
                         int orgNr = Integer.parseInt(org);
                         personOrgs.add(getCreatorOrganizations().get(orgNr - 1));
+                        usedOrganizations.add(orgNr);
                     }
                 }
             }
@@ -251,6 +268,8 @@ public class EditItemBean extends FacesBean
                 error(getMessage("ErrorInOrganizationAssignment").replace("$1", creator.getOuNumbers()));
                 return false;
             }
+            
+            
         }
         return true;
     }
@@ -357,5 +376,6 @@ public class EditItemBean extends FacesBean
         }
 
     }
+    
 
 }
