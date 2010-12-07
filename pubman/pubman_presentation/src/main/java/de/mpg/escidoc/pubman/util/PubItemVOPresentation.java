@@ -1512,10 +1512,13 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     		descriptionMetaTag += "; Keywords: " + getMetadata().getFreeKeywords().getValue() ;
     	//add title at the end of description meta tag
     	if(getMetadata().getTitle() != null && getMetadata().getTitle().getValue()!=null && getMetadata().getTitle().getValue()!="")
+    	{
     		descriptionMetaTag += "; " + getLabel("ViewItemFull_lblTitle") + ": " + getMetadata().getTitle().getValue() ;
+    	}
 
-    	String escaped = CommonUtils.htmlEscape(descriptionMetaTag); 
-		return escaped; 
+    	descriptionMetaTag = CommonUtils.removeSubSupIfBalanced(descriptionMetaTag);
+    	descriptionMetaTag = CommonUtils.htmlEscape(descriptionMetaTag);
+		return descriptionMetaTag;
 	}
 
 	public void setDescriptionMetaTag(String descriptionMetaTag) 
