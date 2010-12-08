@@ -53,9 +53,3 @@
 	</h2>
 	<div id="feedControl" style="font-size: 0.4em"></div>
 </h:panelGroup>
- 
- <!-- 
-<h:panelGroup rendered="#{!ApplicationBean.checkSystemTypeProduction}">
-    <h:outputText value="#{lbl.Home_Header_News_Disabled}"/>
-</h:panelGroup>
--->
