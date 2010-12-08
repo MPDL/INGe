@@ -36,7 +36,9 @@ public class LingLitAllElements extends Elements<ItemVO>
         }
     }
 
-    private static final String LOCAL_TAG = "LingLit Import 2010-04-01 10:10";
+    private static final String LOCAL_TAG3 = "LingLit Import 2010-04-01 10:10";
+    private static final String LOCAL_TAG2 = "Linglit Import 3 2010-03-05 17:04";
+    private static final String LOCAL_TAG = "Import all Linglit 3 2010-11-18 17:48";
 
     @Override
     public void retrieveElements()
@@ -49,6 +51,14 @@ public class LingLitAllElements extends Elements<ItemVO>
                     maximumNumberOfElements));
             elements.addAll(CoreServiceHelper.transformSearchResultXmlToListOfItemVO(seachResultXml));
             report.addEntry("retrieveElements", "Get Data", ReportEntryStatusType.FINE);
+            System.out.println(elements.size() + " items found");
+            for (ItemVO i : elements ) 
+            {
+            	if ("1".equals(i.getVersion().getVersionNumber()))
+            	{
+            		System.out.println(i.getVersion().getObjectId() + " was not edited");
+            	}
+			}
         }
         catch (Exception e)
         {

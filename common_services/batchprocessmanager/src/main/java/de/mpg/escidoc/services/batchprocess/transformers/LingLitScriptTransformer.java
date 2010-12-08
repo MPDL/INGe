@@ -84,7 +84,7 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
                         String lang = langs[j].trim();
                         if (lang.matches("\\b[a-z][a-z][a-z]\\b"))
                         {
-                            item.getMetadata().getSubjects().add(new TextVO(langs[j], "eng", "eterms:ISO639_3"));
+                            item.getMetadata().getSubjects().add(new TextVO(langs[j], lang, "eterms:ISO639_3"));
                         }
                     }
                 }
@@ -274,10 +274,10 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
                 grant.setRole(Grant.CoreserviceRole.AUDIENCE.getRoleId());
                 try
                 {
-                    // SHOULD STAY OUT COMMENTED UNTIL ACTUAL EDIT
-                    // grant
-                    // .createInCoreservice(AdminHelper.loginUser("bibliothek_mpi_eva", "bibliothek"),
-                    // "Edit Linglit");
+                     //SHOULD STAY OUT COMMENTED UNTIL ACTUAL EDIT
+                     grant
+                     .createInCoreservice(AdminHelper.loginUser("bibliothek_mpi_eva", "bibliothek"),
+                     "Edit Linglit");
                 }
                 catch (Exception e)
                 {
