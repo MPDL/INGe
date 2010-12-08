@@ -1099,7 +1099,7 @@
 	<xsl:template name="createEntry">
 		<xsl:param name="gen"/>
 		
-		<xsl:variable name="has-source">
+		<xsl:variable name="has-source" as="xs:boolean">
 			<xsl:choose>
 				<xsl:when test="journaltitle">
 					<xsl:value-of select="true()"/>
@@ -1325,7 +1325,7 @@
 	
 	<xsl:template name="createIdentifier">
 		<xsl:param name="gen"/>
-		<xsl:param name="has-source"/>
+		<xsl:param name="has-source" as="xs:boolean"/>
 		
 		<!-- eDoc ID -->
 		<xsl:element name="dc:identifier">
@@ -1342,7 +1342,7 @@
 	
 	<xsl:template name="createOtherIDs">
 		<xsl:param name="gen"/>
-		<xsl:param name="has-source"/>
+		<xsl:param name="has-source" as="xs:boolean"/>
 		
 		<xsl:if test="(not($dependentGenre[type = $gen]) and not($has-source)) or (not(@type='issn') and not(@type='isbn'))">
 			<xsl:element name="dc:identifier">
