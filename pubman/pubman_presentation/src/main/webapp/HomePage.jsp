@@ -97,11 +97,17 @@
 						<div class="full_area0 infoPage">
 							<!-- Main Content -->
 							
-							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{!PubManSessionBean.loggedIn}">
-								<jsp:directive.include file="home/StartPageLoggedOut.jspf" />
+							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{ApplicationBean.homeContent!=null}">
+								<h:outputText value="#{ApplicationBean.homeContent}" escape="false"/>
 							</h:panelGroup>
-							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{PubManSessionBean.loggedIn}">
-								<jsp:directive.include file="home/StartPageLoggedIn.jspf" />
+							
+							<h:panelGroup rendered="#{ApplicationBean.homeContent==null}">
+								<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{!PubManSessionBean.loggedIn}">
+									<jsp:directive.include file="home/StartPageLoggedOut.jspf" />
+								</h:panelGroup>
+								<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{PubManSessionBean.loggedIn}">
+									<jsp:directive.include file="home/StartPageLoggedIn.jspf" />
+								</h:panelGroup>
 							</h:panelGroup>
 
 							<!-- Side Panels -->

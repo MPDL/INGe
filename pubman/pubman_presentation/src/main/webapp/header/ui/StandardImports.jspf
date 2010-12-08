@@ -31,13 +31,11 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 
 <link href="/cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
-<%
-/*
+
 <style type="text/css">
-	.headerLogo {background-image: url('/pubman/resources/images/pubman_logo.png') !important; background-repeat: norepeat; background-position: top left;}
+	.headerLogo {background-image: url("<h:outputText value='#{ApplicationBean.logoUrl}'/>") !important; background-repeat: norepeat; background-position: top left;}
 </style>
-*/				
-%>
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 <link href="<h:outputText value='#{ApplicationBean.commonPresentationUrl}'/>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>

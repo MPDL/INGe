@@ -645,6 +645,10 @@
 		
 		<escidoc.pubman.yearbook.context.id>escidoc:241288</escidoc.pubman.yearbook.context.id>
 		<escidoc.pubman.yearbook.content-model.id>escidoc:245286</escidoc.pubman.yearbook.content-model.id>
+		
+		<escidoc.pubman.logo.url>/pubman/resources/images/pubman_logo.png</escidoc.pubman.logo.url>
+		<escidoc.pubman.home.content.url></escidoc.pubman.home.content.url>
+		
 	</properties>
 
 	<profiles>
