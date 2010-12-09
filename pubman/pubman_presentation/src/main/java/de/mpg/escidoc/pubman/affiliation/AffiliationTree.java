@@ -167,6 +167,11 @@ public class AffiliationTree extends FacesBean
 	 */
 	private void addChildAffiliationsToMenu(List<AffiliationVOPresentation> affs, List<SelectItem> affSelectItems, int level) throws Exception
 	{
+		if ( affs==null )
+		{
+			return;
+		}
+
 		String prefix = "";
 		for (int i = 0; i < level; i++)
 		{
@@ -181,10 +186,7 @@ public class AffiliationTree extends FacesBean
 		{
 			affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
 			affiliationMap.put(aff.getReference().getObjectId(), aff);
-			if (aff.getChildren()!= null)
-			{
-				addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
-			}
+			addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
 		}
 	}
 
