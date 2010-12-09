@@ -123,8 +123,13 @@
 					<h:outputText value="#{lbl.ViewItemFull_lblFileLicense}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{file.file.defaultMetadata.licenseDisplayString}" escape="false"/>
-					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{file.file.defaultMetadata.licenseDisplayString == null  || file.file.defaultMetadata.licenseDisplayString == ''}"/>
+				
+					<h:outputLink target="_blank" value="#{file.file.defaultMetadata.license}" rendered="#{file.isLicenseUrl}">
+						<h:outputText value="#{file.file.defaultMetadata.license}"/>
+					</h:outputLink>
+					<h:outputText value="#{file.file.defaultMetadata.license}" rendered = "#{!file.isLicenseUrl}"/>
+					
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{file.file.defaultMetadata.license == null  || file.file.defaultMetadata.license == ''}"/>
 				</span>
 				<h:panelGroup styleClass="large_area0_p8 lineToolSection" rendered="#{file.urlToLicenceImage != ''}">
 					<h:graphicImage id="imgUrlToLicenceImage" styleClass="sectionTool" url="#{file.urlToLicenceImage}" value="#{file.urlToLicenceImage}"/>

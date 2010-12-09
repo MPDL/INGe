@@ -30,6 +30,8 @@
 
 package de.mpg.escidoc.pubman.util;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -589,4 +591,5 @@ public class PubFileVOPresentation extends FacesBean
         this.grantList = grantList;
     }
 
+   
 }

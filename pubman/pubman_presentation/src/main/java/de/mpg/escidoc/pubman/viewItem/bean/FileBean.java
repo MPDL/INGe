@@ -34,6 +34,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -684,6 +685,17 @@ public class FileBean extends FacesBean
         }
         param = param.trim() + "\"";
         return param;
+    }
+    
+    public boolean getIsLicenseUrl()
+    {
+    	try 
+    	{
+			new URL(file.getDefaultMetadata().getLicense());
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
     }
     
 }
