@@ -75,7 +75,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
 
 	public List<AffiliationVOPresentation> getChildren() throws Exception
 	{
-		if (children == null && this.getHasChildren())
+		if (children == null)
 		{
 			children = ((ItemControllerSessionBean) FacesContext.getCurrentInstance().getExternalContext()
 					.getSessionMap().get("ItemControllerSessionBean")).searchChildAffiliations(this);
