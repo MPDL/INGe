@@ -204,17 +204,17 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 	 */
 	private void addOrgFiltersRecursive(AffiliationVOPresentation aff, FilterTaskParamVO filter)
 	{
-		if (!aff.getHasChildren())
-		{
-			return;
-		}
 		try
 		{
 			Filter f = filter.new PersonsOrganizationsFilter(aff.getReference().getObjectId());
 			filter.getFilterList().add(f);
 
-			for(AffiliationVOPresentation childAff : aff.getChildren()){
-				addOrgFiltersRecursive(childAff, filter);
+			if (aff.getHasChildren())
+			{
+
+				for(AffiliationVOPresentation childAff : aff.getChildren()){
+					addOrgFiltersRecursive(childAff, filter);
+				}
 			}
 		}
 		catch (Exception e)
