@@ -583,6 +583,12 @@ public class InternationalizationHelper
         return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
     }
     
+    /**
+     * Part of Pubman's homepage van be drawn from an external html source.
+     * The property escidoc.pubman.home.content.url has to be set with the url. If different languages should be supported,
+     * The url source has to be provided with the different lcoale endings, e.g. ".de", ".en", ".ja".
+     * @return
+     */
     public String getHomeContent()
     {
     	if("n/a".equals(homeContent))
