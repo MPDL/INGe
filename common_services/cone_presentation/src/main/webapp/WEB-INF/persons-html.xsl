@@ -33,6 +33,11 @@
 	<xsl:param name="citation-link"/>
 	<xsl:param name="item-link"/>
 	<xsl:param name="lang" select="'en'"/>
+	<xsl:param name="escidoc.pubman.common.presentation.url"/>
+	<xsl:param name="escidoc.pubman.stylesheet.contrast.url"/>
+	<xsl:param name="escidoc.pubman.stylesheet.classic.url"/>
+	<xsl:param name="escidoc.pubman.stylesheet.standard.url"/>
+	
 	
 	<xsl:variable name="defaultLang" select="'en'"/>
 
@@ -44,10 +49,18 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>CoNE - <xsl:value-of select="dc:title"/></title>
-				<link href="/pubman/resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
-				<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css" id="highContrastTheme" type="text/css" title="kontrastreich" rel="alternate stylesheet"/>
-				<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css" id="classicTheme" type="text/css" title="classic" rel="alternate stylesheet"/>
-				<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_PubMan/styles/theme.css" id="PubManTheme" type="text/css" title="PubMan" rel="stylesheet"/>
+				<link type="text/css" rel="stylesheet">
+					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.common.presentation.url" />resources/cssFramework/main.css</xsl:attribute>
+				</link>
+				<link id="highContrastTheme" type="text/css" title="kontrastreich" rel="alternate stylesheet">
+					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.stylesheet.contrast.url" /></xsl:attribute>
+				</link>
+				<link id="classicTheme" type="text/css" title="classic" rel="alternate stylesheet">
+					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.stylesheet.classic.url" /></xsl:attribute>
+				</link>
+				<link id="PubManTheme" type="text/css" title="PubMan" rel="stylesheet">
+					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.stylesheet.standard.url" /></xsl:attribute>
+				</link>
 				
 		<script language="JavaScript" type="text/javascript">
 		  function applyCookieStyle() {
