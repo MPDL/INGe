@@ -409,7 +409,20 @@
 
 			</elements>
 		</layout-element>
-
+		
+		<!--
+		PUBLISHER WITHOUT PLACE
+		-->
+		<layout-element name="publisher-without-place">
+			<parameters>
+				<starts-with value=", " />
+			</parameters>
+			<elements>
+				<layout-element
+					ref="pub:publication/e:publishing-info/dc:publisher/text()" />
+			</elements>
+		</layout-element>
+		
 		<!--
 		PUBLISHER PLACE
 		-->
@@ -1332,7 +1345,7 @@
 			<layout-element ref="$source-publisher-place" />
 			<layout-element ref="$date" />
 			<layout-element ref="$degree" />
-			<layout-element ref="$publisher-place" />
+			<layout-element ref="$publisher-without-place" />
 			<layout-element ref="$pages" />
 			<layout-element ref="$second-or-more-creators-with-dot" />
 		</elements>
