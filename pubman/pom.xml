@@ -530,7 +530,7 @@
 		<escidoc.search.and.export.maximum.records>50</escidoc.search.and.export.maximum.records>
 		
 		<!-- Vocabularies which wil be integrated inot Borwse by, seperator is ;-->
-		<escidoc.cone.subjectVocab>ddc;mpipks</escidoc.cone.subjectVocab>
+		<escidoc.cone.subjectVocab>ddc;mpipks;iso639-3</escidoc.cone.subjectVocab>
 		
 		<escidoc.cone.mimetype.pattern>application/vnd.cone-(.+)</escidoc.cone.mimetype.pattern>
 		
