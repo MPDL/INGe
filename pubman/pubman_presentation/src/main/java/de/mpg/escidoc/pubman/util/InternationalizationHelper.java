@@ -609,6 +609,10 @@ public class InternationalizationHelper
     				
     				
     			}
+    			else
+    			{
+    				homeContent=null;
+    			}
     		
     		} catch (Exception e) {
     			logger.error("Could not retrieve content for home page", e);
