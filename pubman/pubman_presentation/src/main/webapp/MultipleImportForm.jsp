@@ -177,15 +177,25 @@
 														</span>
 													</span>
 												</h:panelGroup>
+												
+												</div>
+												</div>
+												
+										<div class="full_area0 itemBlock">
+											<h3 class="xLarge_area0_p8 endline blockHeader">
+												<h:outputText value="#{lbl.MultipleImport_configuration}"/>
+											</h3>
+											<h:panelGroup styleClass="seperator"></h:panelGroup>
+											<div class="free_area0 itemBlockContent endline">
+												
 												<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstLine" rendered="#{not empty MultipleImport.configParameters}">
 													<b class="xLarge_area0 endline labelLine">
 														&#160;<span class="noDisplay">: </span>
 													</b>
 													<span class="xHuge_area0 xTiny_marginLExcl endline">
 														<span class="huge_area0">
-															<h:outputLabel id="lblImportParameters" styleClass="xLarge_label" value="#{lbl.MultipleImport_configuration}"/>
 															<tr:iterator var="parameter" value="#{MultipleImport.configParameters}">
-																<h:outputLabel styleClass="xLarge_label" value="#{lbl.Parameter} #{parameter.label} "/>
+																<h:outputLabel styleClass="xLarge_label" value="#{parameter.label} "/>
 																<h:inputText id="inpImportParam" styleClass="xLarge_txtInput" value="#{parameter.value}" rendered="#{MultipleImport.parametersValues[parameter.label] == null}"/>
 																<h:selectOneMenu  value="#{parameter.value}" rendered="#{MultipleImport.parametersValues[parameter.label] != null}" styleClass="xLarge_select">
 																	<f:selectItems value="#{MultipleImport.parametersValues[parameter.label]}"/>
