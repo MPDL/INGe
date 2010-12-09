@@ -258,17 +258,21 @@ public class MultipleImport extends FacesBean
     	Map<String, String> config = transformation.getConfiguration(format, ESCIDOC_FORMAT);
 		configParameters = new ArrayList<SelectItem>();
 		parametersValues = new LinkedHashMap<String, List<SelectItem>>();
-    	for (String key : config.keySet())
+    	if(config!=null)
     	{
-    		List<String> values = transformation.getConfigurationValues(format, ESCIDOC_FORMAT, key);
-    		List<SelectItem> list = new ArrayList<SelectItem>();
-    		if (values != null)
-    		{
-        		for (String str : values) list.add(new SelectItem(str));
-        		parametersValues.put(key, list);
-    		}
-    		configParameters.add(new SelectItem(config.get(key), key));
+    		for (String key : config.keySet())
+        	{
+        		List<String> values = transformation.getConfigurationValues(format, ESCIDOC_FORMAT, key);
+        		List<SelectItem> list = new ArrayList<SelectItem>();
+        		if (values != null)
+        		{
+            		for (String str : values) list.add(new SelectItem(str));
+            		parametersValues.put(key, list);
+        		}
+        		configParameters.add(new SelectItem(config.get(key), key));
+        	}
     	}
+		
     	return configParameters;
     }
     

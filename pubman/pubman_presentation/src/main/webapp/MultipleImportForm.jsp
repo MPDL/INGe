@@ -177,7 +177,7 @@
 														</span>
 													</span>
 												</h:panelGroup>
-												<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstLine">
+												<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstLine" rendered="#{not empty MultipleImport.configParameters}">
 													<b class="xLarge_area0 endline labelLine">
 														&#160;<span class="noDisplay">: </span>
 													</b>
