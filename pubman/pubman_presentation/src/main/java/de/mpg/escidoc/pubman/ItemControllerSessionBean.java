@@ -1941,13 +1941,12 @@ public class ItemControllerSessionBean extends FacesBean
 	 */
 	public List<AffiliationVOPresentation> searchChildAffiliations(AffiliationVOPresentation parentAffiliation) throws Exception
 	{
-		List<AffiliationVOPresentation> wrappedAffiliationList;
-		wrappedAffiliationList = null;
+		List<AffiliationVOPresentation> wrappedAffiliationList = null;
 
 		if (!parentAffiliation.getHasChildren())
 			//method contains check for children existence to avoid future performance issues
 		{
-			return  wrappedAffiliationList;
+			return wrappedAffiliationList;
 		}
 
 		PlainCqlQuery cqlQuery = new PlainCqlQuery("(escidoc.parent.objid=" + parentAffiliation.getReference().getObjectId() + ")");

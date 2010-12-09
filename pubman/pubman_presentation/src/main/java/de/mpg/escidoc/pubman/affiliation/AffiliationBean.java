@@ -37,323 +37,323 @@ import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 
 public class AffiliationBean extends FacesBean
 {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public static final String BEAN_NAME = "AffiliationBean";
-    
-    private static Logger logger = Logger.getLogger(AffiliationBean.class);
-    public static final String LOAD_AFFILIATION_TREE = "loadAffiliationTree";
-    private TreeModel tree;
-    private List<AffiliationVOPresentation> selected = null;
-    private List<AffiliationVOPresentation> topLevelAffs = null;
-    AffiliationVOPresentation selectedAffiliation = null;
-    private String source = null;
-    private Object cache = null;
-    private long timestamp;
-    
-    private static final String PROPERTY_CONTENT_MODEL = 
-        "escidoc.framework_access.content-model.id.publication";
+	public static final String BEAN_NAME = "AffiliationBean";
 
-    /**
-     * Default constructor.
-     */
-    public AffiliationBean() throws Exception
-    {
-        tree = new ChildPropertyTreeModel(getAffiliations(), "children");
-        timestamp = new Date().getTime();
-        this.setTopLevelAffs(getTopLevelAffiliations());
-    }
+	private static Logger logger = Logger.getLogger(AffiliationBean.class);
+	public static final String LOAD_AFFILIATION_TREE = "loadAffiliationTree";
+	private TreeModel tree;
+	private List<AffiliationVOPresentation> selected = null;
+	private List<AffiliationVOPresentation> topLevelAffs = null;
+	AffiliationVOPresentation selectedAffiliation = null;
+	private String source = null;
+	private Object cache = null;
+	private long timestamp;
 
-    public TreeModel getTree()
-    {
-        if (timestamp < ((AffiliationTree) getSessionBean(AffiliationTree.class)).getTimestamp())
-        {
-            tree = new ChildPropertyTreeModel(getAffiliations(), "children");
-            List<SortCriterion> sortList = new ArrayList<SortCriterion>();
-            sortList.add(new SortCriterion("sortOrder", true));
-            tree.setSortCriteria(sortList);
-            timestamp = new Date().getTime();
-        }
-        return tree;
-    }
+	private static final String PROPERTY_CONTENT_MODEL =
+		"escidoc.framework_access.content-model.id.publication";
 
-    public void setTree(TreeModel tree)
-    {
-        this.tree = tree;
-    }
+	/**
+	 * Default constructor.
+	 */
+	public AffiliationBean() throws Exception
+	{
+		tree = new ChildPropertyTreeModel(getAffiliations(), "children");
+		timestamp = new Date().getTime();
+		this.setTopLevelAffs(getTopLevelAffiliations());
+	}
 
-    public void select(SelectionEvent event)
-    {
-        logger.debug("SELECT: " + event);
-    }
+	public TreeModel getTree()
+	{
+		if (timestamp < ((AffiliationTree) getSessionBean(AffiliationTree.class)).getTimestamp())
+		{
+			tree = new ChildPropertyTreeModel(getAffiliations(), "children");
+			List<SortCriterion> sortList = new ArrayList<SortCriterion>();
+			sortList.add(new SortCriterion("sortOrder", true));
+			tree.setSortCriteria(sortList);
+			timestamp = new Date().getTime();
+		}
+		return tree;
+	}
 
-    public void selectNode(ActionEvent event) throws Exception
-    {
-        UIComponent component = event.getComponent();
-        ValueExpression valueExpression = component.getValueExpression("text");
-        String value = (String) valueExpression.getValue(FacesContext.getCurrentInstance().getELContext());
-        logger.debug("SELECTNODE:" + value);
-        if (value != null)
-        {
-            for (AffiliationVOPresentation affiliation : getAffiliations())
-            {
-                selectedAffiliation = findAffiliationByName(value, affiliation);
-                if (selectedAffiliation != null)
-                {
-                    break;
-                }
-            }
-        }
-        ((AffiliationDetail) getSessionBean(AffiliationDetail.class)).setAffiliationVO(selectedAffiliation);
-        logger.debug("Selected affiliation is " + selectedAffiliation);
-    }
+	public void setTree(TreeModel tree)
+	{
+		this.tree = tree;
+	}
 
-    public String startSearch()
-    {
-        if ("EditItem".equals(source))
-        {
-            if (cache != null && cache instanceof OrganizationVO)
-            {
-                ((OrganizationVO) cache).setName(new TextVO(selectedAffiliation.getNamePath()));
-                ((OrganizationVO) cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
-                String address = "";
-                if (selectedAffiliation.getDefaultMetadata().getCity() != null)
-                {
-                    address += selectedAffiliation.getDefaultMetadata().getCity();
-                }
-                if (selectedAffiliation.getDefaultMetadata().getCity() != null
-                        && !selectedAffiliation.getDefaultMetadata().getCity().equals("")
-                        && selectedAffiliation.getDefaultMetadata().getCountryCode() != null
-                        && !selectedAffiliation.getDefaultMetadata().getCountryCode().equals(""))
-                {
-                    address += ", ";
-                }
-                if (selectedAffiliation.getDefaultMetadata().getCountryCode() != null)
-                {
-                    address += selectedAffiliation.getDefaultMetadata().getCountryCode();
-                }
-                ((OrganizationVO) cache).setAddress(address);
-            }
-            return "loadEditItem";
-        }
-        else if ("EasySubmission".equals(source))
-        {
-            if (cache != null && cache instanceof OrganizationVO)
-            {
-                ((OrganizationVO) cache).setName(new TextVO(selectedAffiliation.getNamePath()));
-                ((OrganizationVO) cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
-                String address = "";
-                if (selectedAffiliation.getDefaultMetadata().getCity() != null)
-                {
-                    address += selectedAffiliation.getDefaultMetadata().getCity();
-                }
-                if (selectedAffiliation.getDefaultMetadata().getCity() != null
-                        && !selectedAffiliation.getDefaultMetadata().getCity().equals("")
-                        && selectedAffiliation.getDefaultMetadata().getCountryCode() != null
-                        && !selectedAffiliation.getDefaultMetadata().getCountryCode().equals(""))
-                {
-                    address += ", ";
-                }
-                if (selectedAffiliation.getDefaultMetadata().getCountryCode() != null)
-                {
-                    address += selectedAffiliation.getDefaultMetadata().getCountryCode();
-                }
-                ((OrganizationVO) cache).setAddress(address);
-            }
-            return "loadNewEasySubmission";
-        }
-        
-        else if ("AdvancedSearch".equals(source))
-        {
-            if (cache != null && cache instanceof OrganizationCriterion)
-            {
-                ((OrganizationCriterion) cache).setAffiliation(selectedAffiliation);
-            }
-            return "displaySearchPage";
-        }
-        else if ("BrowseBy".equals(source))
-        {
-            return startSearchForAffiliation(selectedAffiliation);
-        }
-        else if (selectedAffiliation != null)
-        {
-            // start search by affiliation
-            
-            return startSearchForAffiliation(selectedAffiliation);
-        }
-        else
-        {
-            return null;
-        }
-    }
+	public void select(SelectionEvent event)
+	{
+		logger.debug("SELECT: " + event);
+	}
 
-    private AffiliationVOPresentation findAffiliationByName(String name, AffiliationVOPresentation affiliation)
-        throws Exception
-    {
-        String affName = null;
-        if (affiliation != null && affiliation.getMetadataSets().size() > 0
-                && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
-        {
-            affName = ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0)).getName();
-        }
-        if (name.equals(affName))
-        {
-            return affiliation;
-        }
-        else
-        {
-            for (AffiliationVOPresentation child : affiliation.getChildren())
-            {
-                AffiliationVOPresentation result = findAffiliationByName(name, child);
-                if (result != null)
-                {
-                    return result;
-                }
-            }
-        }
-        return null;
-    }
+	public void selectNode(ActionEvent event) throws Exception
+	{
+		UIComponent component = event.getComponent();
+		ValueExpression valueExpression = component.getValueExpression("text");
+		String value = (String) valueExpression.getValue(FacesContext.getCurrentInstance().getELContext());
+		logger.debug("SELECTNODE:" + value);
+		if (value != null)
+		{
+			for (AffiliationVOPresentation affiliation : getAffiliations())
+			{
+				selectedAffiliation = findAffiliationByName(value, affiliation);
+				if (selectedAffiliation != null)
+				{
+					break;
+				}
+			}
+		}
+		((AffiliationDetail) getSessionBean(AffiliationDetail.class)).setAffiliationVO(selectedAffiliation);
+		logger.debug("Selected affiliation is " + selectedAffiliation);
+	}
 
-    private AffiliationSessionBean getAffiliationSessionBean()
-    {
-        return (AffiliationSessionBean) getSessionBean(AffiliationSessionBean.class);
-    }
+	public String startSearch()
+	{
+		if ("EditItem".equals(source))
+		{
+			if (cache != null && cache instanceof OrganizationVO)
+			{
+				((OrganizationVO) cache).setName(new TextVO(selectedAffiliation.getNamePath()));
+				((OrganizationVO) cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
+				String address = "";
+				if (selectedAffiliation.getDefaultMetadata().getCity() != null)
+				{
+					address += selectedAffiliation.getDefaultMetadata().getCity();
+				}
+				if (selectedAffiliation.getDefaultMetadata().getCity() != null
+						&& !selectedAffiliation.getDefaultMetadata().getCity().equals("")
+						&& selectedAffiliation.getDefaultMetadata().getCountryCode() != null
+						&& !selectedAffiliation.getDefaultMetadata().getCountryCode().equals(""))
+				{
+					address += ", ";
+				}
+				if (selectedAffiliation.getDefaultMetadata().getCountryCode() != null)
+				{
+					address += selectedAffiliation.getDefaultMetadata().getCountryCode();
+				}
+				((OrganizationVO) cache).setAddress(address);
+			}
+			return "loadEditItem";
+		}
+		else if ("EasySubmission".equals(source))
+		{
+			if (cache != null && cache instanceof OrganizationVO)
+			{
+				((OrganizationVO) cache).setName(new TextVO(selectedAffiliation.getNamePath()));
+				((OrganizationVO) cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
+				String address = "";
+				if (selectedAffiliation.getDefaultMetadata().getCity() != null)
+				{
+					address += selectedAffiliation.getDefaultMetadata().getCity();
+				}
+				if (selectedAffiliation.getDefaultMetadata().getCity() != null
+						&& !selectedAffiliation.getDefaultMetadata().getCity().equals("")
+						&& selectedAffiliation.getDefaultMetadata().getCountryCode() != null
+						&& !selectedAffiliation.getDefaultMetadata().getCountryCode().equals(""))
+				{
+					address += ", ";
+				}
+				if (selectedAffiliation.getDefaultMetadata().getCountryCode() != null)
+				{
+					address += selectedAffiliation.getDefaultMetadata().getCountryCode();
+				}
+				((OrganizationVO) cache).setAddress(address);
+			}
+			return "loadNewEasySubmission";
+		}
 
-    private ItemControllerSessionBean getItemControllerSessionBean()
-    {
-        return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-    }
+		else if ("AdvancedSearch".equals(source))
+		{
+			if (cache != null && cache instanceof OrganizationCriterion)
+			{
+				((OrganizationCriterion) cache).setAffiliation(selectedAffiliation);
+			}
+			return "displaySearchPage";
+		}
+		else if ("BrowseBy".equals(source))
+		{
+			return startSearchForAffiliation(selectedAffiliation);
+		}
+		else if (selectedAffiliation != null)
+		{
+			// start search by affiliation
 
-    public List<AffiliationVOPresentation> getSelected()
-    {
-        return selected;
-    }
+			return startSearchForAffiliation(selectedAffiliation);
+		}
+		else
+		{
+			return null;
+		}
+	}
 
-    public void setSelected(List<AffiliationVOPresentation> selected)
-    {
-        this.selected = selected;
-    }
+	private AffiliationVOPresentation findAffiliationByName(String name, AffiliationVOPresentation affiliation)
+	throws Exception
+	{
+		String affName = null;
+		if (affiliation != null && affiliation.getMetadataSets().size() > 0
+				&& affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+		{
+			affName = ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0)).getName();
+		}
+		if (name.equals(affName))
+		{
+			return affiliation;
+		}
+		else
+		{
+			for (AffiliationVOPresentation child : affiliation.getChildren())
+			{
+				AffiliationVOPresentation result = findAffiliationByName(name, child);
+				if (result != null)
+				{
+					return result;
+				}
+			}
+		}
+		return null;
+	}
 
-    public String getSource()
-    {
-        return source;
-    }
+	private AffiliationSessionBean getAffiliationSessionBean()
+	{
+		return (AffiliationSessionBean) getSessionBean(AffiliationSessionBean.class);
+	}
 
-    public void setSource(String source)
-    {
-        this.source = source;
-    }
+	private ItemControllerSessionBean getItemControllerSessionBean()
+	{
+		return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+	}
 
-    public Object getCache()
-    {
-        return cache;
-    }
+	public List<AffiliationVOPresentation> getSelected()
+	{
+		return selected;
+	}
 
-    public void setCache(Object cache)
-    {
-        this.cache = cache;
-    }
+	public void setSelected(List<AffiliationVOPresentation> selected)
+	{
+		this.selected = selected;
+	}
 
-    public AffiliationVOPresentation getSelectedAffiliation()
-    {
-        return selectedAffiliation;
-    }
+	public String getSource()
+	{
+		return source;
+	}
 
-    public void setSelectedAffiliation(AffiliationVOPresentation selectedAffiliation)
-    {
-        this.selectedAffiliation = selectedAffiliation;
-    }
+	public void setSource(String source)
+	{
+		this.source = source;
+	}
 
-    public List<AffiliationVOPresentation> getAffiliations()
-    {
-        return ((AffiliationTree) getSessionBean(AffiliationTree.class)).getAffiliations();
-    }
-    
-    /**
-     * Searches Items by Affiliation.
-     * 
-     * @return string, identifying the page that should be navigated to after this method call
-     */    
-    public String startSearchForAffiliation(AffiliationVO affiliation)
-    {
-        try
-        {
-            ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
-            criteria.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS, 
-                        affiliation.getReference().getObjectId()));
-            criteria.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE, 
-                    "item", MetadataSearchCriterion.LogicalOperator.AND));
-            
-            ArrayList<String> contentTypes = new ArrayList<String>();
-            String contentTypeIdPublication = PropertyReader.getProperty(PROPERTY_CONTENT_MODEL);
-            contentTypes.add(contentTypeIdPublication);
-            
-            MetadataSearchQuery query = new MetadataSearchQuery(contentTypes, criteria);
-            
-            String cql = query.getCqlQuery();
-            
-            try
-            {
-                LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class); 
-                InitialContext ic = new InitialContext();
-                StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
-                sl.logSearch(getSessionId(), getIP(), affiliation.getDefaultMetadata().getName(), cql, loginHelper.getLoggedIn(),"pubman", AdminHelper.getAdminUserHandle());
-            }
-           
-            catch (Exception e)
-            {
-               logger.error("Could not log statistical data", e);
-            }
-            
-            
-            //redirect to SearchResultPage which processes the query
-            getExternalContext().redirect("SearchResultListPage.jsp?"
-                    + SearchRetrieverRequestBean.parameterCqlQuery
-                    + "="
-                    + URLEncoder.encode(cql)
-                    + "&"
-                    + SearchRetrieverRequestBean.parameterSearchType
-                    + "=org");
-            
-        }
-        catch (Exception e)
-        {
-            logger.error("Could not search for items." + "\n" + e.toString());
-            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
-            
-            return ErrorPage.LOAD_ERRORPAGE;
-        }
-     
-        return "";
-    }
-    
-    public List<AffiliationVOPresentation> getTopLevelAffiliations()
-    {
-        List<AffiliationVO> tops = null;
-        try
-        {
-            tops = this.getItemControllerSessionBean().searchTopLevelAffiliations();
-        } catch (Exception e)
-        {
-            logger.error("TopLevel affiliations cannot be fetched.");
-            tops = new ArrayList<AffiliationVO>();
-        }
-        
-        List<AffiliationVOPresentation> topsPres = new ArrayList<AffiliationVOPresentation>();
-        for(int i = 0; i < tops.size(); i++)
-        {
-            topsPres.add(new AffiliationVOPresentation(tops.get(i))); 
-        }
-        return topsPres;
-    }
-    
-    public List<AffiliationVOPresentation> getTopLevelAffs()
-    {
-        return topLevelAffs;
-    }
+	public Object getCache()
+	{
+		return cache;
+	}
 
-    public void setTopLevelAffs(List<AffiliationVOPresentation> topLevelAffs)
-    {
-        this.topLevelAffs = topLevelAffs;
-    }
+	public void setCache(Object cache)
+	{
+		this.cache = cache;
+	}
+
+	public AffiliationVOPresentation getSelectedAffiliation()
+	{
+		return selectedAffiliation;
+	}
+
+	public void setSelectedAffiliation(AffiliationVOPresentation selectedAffiliation)
+	{
+		this.selectedAffiliation = selectedAffiliation;
+	}
+
+	public List<AffiliationVOPresentation> getAffiliations()
+	{
+		return ((AffiliationTree) getSessionBean(AffiliationTree.class)).getAffiliations();
+	}
+
+	/**
+	 * Searches Items by Affiliation.
+	 * 
+	 * @return string, identifying the page that should be navigated to after this method call
+	 */
+	 public String startSearchForAffiliation(AffiliationVO affiliation)
+	 {
+		 try
+		 {
+			 ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
+			 criteria.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS,
+					 affiliation.getReference().getObjectId()));
+			 criteria.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE,
+					 "item", MetadataSearchCriterion.LogicalOperator.AND));
+
+			 ArrayList<String> contentTypes = new ArrayList<String>();
+			 String contentTypeIdPublication = PropertyReader.getProperty(PROPERTY_CONTENT_MODEL);
+			 contentTypes.add(contentTypeIdPublication);
+
+			 MetadataSearchQuery query = new MetadataSearchQuery(contentTypes, criteria);
+
+			 String cql = query.getCqlQuery();
+
+			 try
+			 {
+				 LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
+				 InitialContext ic = new InitialContext();
+				 StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
+				 sl.logSearch(getSessionId(), getIP(), affiliation.getDefaultMetadata().getName(), cql, loginHelper.getLoggedIn(),"pubman", AdminHelper.getAdminUserHandle());
+			 }
+
+			 catch (Exception e)
+			 {
+				 logger.error("Could not log statistical data", e);
+			 }
+
+
+			 //redirect to SearchResultPage which processes the query
+			 getExternalContext().redirect("SearchResultListPage.jsp?"
+					 + SearchRetrieverRequestBean.parameterCqlQuery
+					 + "="
+					 + URLEncoder.encode(cql)
+					 + "&"
+					 + SearchRetrieverRequestBean.parameterSearchType
+					 + "=org");
+
+		 }
+		 catch (Exception e)
+		 {
+			 logger.error("Could not search for items." + "\n" + e.toString());
+			 ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+
+			 return ErrorPage.LOAD_ERRORPAGE;
+		 }
+
+		 return "";
+	 }
+
+	 public List<AffiliationVOPresentation> getTopLevelAffiliations()
+	 {
+		 List<AffiliationVO> tops = null;
+		 try
+		 {
+			 tops = this.getItemControllerSessionBean().searchTopLevelAffiliations();
+		 } catch (Exception e)
+		 {
+			 logger.error("TopLevel affiliations cannot be fetched.");
+			 tops = new ArrayList<AffiliationVO>();
+		 }
+
+		 List<AffiliationVOPresentation> topsPres = new ArrayList<AffiliationVOPresentation>();
+		 for(int i = 0; i < tops.size(); i++)
+		 {
+			 topsPres.add(new AffiliationVOPresentation(tops.get(i)));
+		 }
+		 return topsPres;
+	 }
+
+	 public List<AffiliationVOPresentation> getTopLevelAffs()
+	 {
+		 return topLevelAffs;
+	 }
+
+	 public void setTopLevelAffs(List<AffiliationVOPresentation> topLevelAffs)
+	 {
+		 this.topLevelAffs = topLevelAffs;
+	 }
 }
