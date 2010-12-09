@@ -44,7 +44,7 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblSubject}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.pubItem.metadata.freeKeywords.value}"/>
+				<h:outputText value="#{ViewItemFull.pubItem.metadata.freeKeywords.value}" converter="HTMLEscapeConverter" escape="false"/>
 				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.freeKeywords.value == null || ViewItemFull.pubItem.metadata.freeKeywords.value == ''}"/>
 			</span>
 		</div>
@@ -56,7 +56,7 @@
 					&#160;<h:outputText value="#{subject.type}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{subject.value}" converter="HTMLEscapeConverter" escape="false"/>
+					<h:outputText value="#{subject.value}" />
 					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{subject.value == null || subject.value == ''}"/>
 				</span>
 			</h:panelGroup>
