@@ -192,7 +192,7 @@ public class BrowseBySessionBean extends FacesBean
         if (!this.selectedValue.equals("year"))
         {
             List<LinkVO> all = this.getConeAll();
-            if (all.size() > this.getMaxDisplay())
+            if (all.size() > this.getMaxDisplay()) 
             {
                 SortedSet<Character> characters = new TreeSet<Character>();
                 

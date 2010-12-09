@@ -50,7 +50,7 @@ public class HTMLEscapeConverter implements Converter
    
     public String getAsString(FacesContext context, UIComponent c, Object object) throws ConverterException 
     {
-        final String textValue = (String) object;
+        final String textValue = (String) object; 
         return CommonUtils.htmlEscape(textValue);
     }
 

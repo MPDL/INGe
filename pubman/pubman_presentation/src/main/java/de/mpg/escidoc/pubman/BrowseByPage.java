@@ -116,7 +116,7 @@ public class BrowseByPage extends BreadcrumbPage
      */
     public String startCharacterSearch()
     {
-        String curChar = "";
+        String curChar = ""; 
         if (characterIterator.getRowIndex() != -1)
         {
             int index = this.characterIterator.getRowIndex();
@@ -177,7 +177,7 @@ public class BrowseByPage extends BreadcrumbPage
                 if (parts.length == 2)
                 {
                     LinkVO link = new LinkVO(parts[1], parts[0]);
-                    if (parts[1].startsWith(startChar) && (links.isEmpty() || !link.equals(links.get(links.size() - 1))))
+                    if (parts[1].toLowerCase().startsWith(startChar.toLowerCase()) && (links.isEmpty() || !link.equals(links.get(links.size() - 1))))
                     {
                         links.add(link);
                     }
