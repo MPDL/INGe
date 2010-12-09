@@ -97,11 +97,11 @@
 						<div class="full_area0 infoPage">
 							<!-- Main Content -->
 							
-							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{!PubManSessionBean.loggedIn and ApplicationBean.homeContent!=null}">
-								<h:outputText value="#{ApplicationBean.homeContent}" escape="false"/>
+							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{!PubManSessionBean.loggedIn and InternationalizationHelper.homeContent!=null}">
+								<h:outputText value="#{InternationalizationHelper.homeContent}" escape="false"/>
 							</h:panelGroup>
 							
-							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{!PubManSessionBean.loggedIn and ApplicationBean.homeContent==null}">
+							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{!PubManSessionBean.loggedIn and InternationalizationHelper.homeContent==null}">
 								<jsp:directive.include file="home/StartPageLoggedOut.jspf" />
 							</h:panelGroup>
 							

@@ -533,23 +533,7 @@ public class ApplicationBean extends FacesBean
         this.ouList = ouList;
     }
     
-    public String getHomeContent()
-    {
-    	try {
-			String contentUrl = PropertyReader.getProperty("escidoc.pubman.home.content.url");
-			
-			if (contentUrl!=null && !contentUrl.equals(""))
-			{
-				String html = getContent(new URL(contentUrl));
-				return html;
-				
-			}
-		
-		} catch (Exception e) {
-			logger.error("Could not retrieve content for home page", e);
-		}
-    	return null;
-    }
+   
     
     public String getLogoUrl()
     {
@@ -562,27 +546,6 @@ public class ApplicationBean extends FacesBean
     	return null;
     }
     
-    private String getContent(URL url) throws Exception
-    {
-        BufferedReader in = new BufferedReader(
-                    new InputStreamReader(
-                            url.openStream()));
-
-        String inputLine = "";
-        String content = "";
-
-        while (inputLine != null)
-        {
-            inputLine = in.readLine();
-            if (inputLine != null)
-            {
-                content += inputLine + "  ";
-            }
-        }
-        
-        in.close();
-        
-        return content;
-    }
+    
 
 }

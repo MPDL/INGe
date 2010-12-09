@@ -28,6 +28,9 @@
  */
 package de.mpg.escidoc.pubman.util;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -40,6 +43,8 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
@@ -48,6 +53,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Class for Internationalization settings.
@@ -66,6 +72,8 @@ public class InternationalizationHelper
     public static final String HELP_PAGE_EN = "help/eSciDoc_help_en.html";
     private String selectedHelpPage;
     private String locale = "en";
+    private String homeContent = "n/a";
+    
     public String getContext() {
 		return context;
 	}
@@ -161,7 +169,7 @@ public class InternationalizationHelper
     
     public void changeLanguage(ValueChangeEvent event)
     {
-        FacesContext fc = FacesContext.getCurrentInstance();
+        FacesContext fc = FacesContext.getCurrentInstance(); 
         if (event.getOldValue() != null && !event.getOldValue().equals(event.getNewValue()))
         {
             Locale locale = null;
@@ -174,6 +182,8 @@ public class InternationalizationHelper
                 fc.getViewRoot().setLocale(locale);
                 Locale.setDefault(locale);
                 userLocale = locale;
+                homeContent="n/a";
+                
                 logger.debug("New locale: " + language + "_" + country + " : " + locale);
             }
             catch (Exception e)
@@ -573,5 +583,73 @@ public class InternationalizationHelper
         return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
     }
     
+    public String getHomeContent()
+    {
+    	if("n/a".equals(homeContent))
+    	{
+    		try {
+    			String contentUrl = PropertyReader.getProperty("escidoc.pubman.home.content.url");
+    			
+    			if (contentUrl!=null && !contentUrl.equals(""))
+    			{
+    				//Try if there's a specific local version
+    				homeContent = getContent(new URL(contentUrl + "." + getLocale()));
+    				
+    				//If not try the url without locale
+    				if(homeContent==null)
+    				{
+    					homeContent = getContent(new URL(contentUrl));
+    				}
+    				
+    				
+    			}
+    		
+    		} catch (Exception e) {
+    			logger.error("Could not retrieve content for home page", e);
+    			homeContent=null;
+    		}
+    	}
+    	
+    	return homeContent;
+    }
+    
+    private String getContent(URL url) throws Exception
+    {
+    	
+    	HttpClient httpClient = new HttpClient();
+    	GetMethod getMethod = new GetMethod(url.toExternalForm());
+    	
+    	httpClient.executeMethod(getMethod);
+    	
+    	if(getMethod.getStatusCode()==200)
+    	{
+
+            BufferedReader in = new BufferedReader(
+                        new InputStreamReader(
+                               getMethod.getResponseBodyAsStream()));
+
+            String inputLine = "";
+            String content = "";
+
+            while (inputLine != null)
+            {
+                inputLine = in.readLine();
+                if (inputLine != null)
+                {
+                    content += inputLine + "  ";
+                }
+            }
+            
+            in.close();
+            
+            return content;
+    	}
+    	else
+    	{
+    		return null;
+    	}
+    	
+    	
+    }
     
 }
