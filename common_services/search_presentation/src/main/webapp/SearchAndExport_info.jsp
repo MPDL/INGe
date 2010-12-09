@@ -29,12 +29,12 @@
 * All rights reserved. Use is subject to license terms.
 */
 %>
-
+<%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
 <jsp:forward page="index.jsp" />
 
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="../resources/escidoc-css/css/main.css" />
+		<link href="<%= PropertyReader.getProperty("escidoc.pubman.common.presentation.url") %>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
 		<link rel="search" href="opensearch_apa_html_all.xml" type="application/opensearchdescription+xml" title="eSciDoc OS APA" />
 		<link rel="search" href="opensearch_endnote_all.xml" type="application/opensearchdescription+xml" title="eSciDoc OS EndNote" />
 		<title>eSciDoc SearchAndExport Service</title>

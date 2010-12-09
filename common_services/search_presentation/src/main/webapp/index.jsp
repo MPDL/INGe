@@ -29,6 +29,7 @@
 * All rights reserved. Use is subject to license terms.
 */
 %>
+<%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
 <%
 	//response.sendRedirect("services");
 %>
@@ -40,11 +41,10 @@
 	<head>
 		<title>eSciDoc SearchAndExport Service</title>
 		
-		<link href="/pubman/resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
-	
-		<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css" id="highContrastTheme" type="text/css" title="kontrastreich" rel="alternate stylesheet"/>
-		<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css" id="classicTheme" type="text/css" title="classic" rel="alternate stylesheet"/>
-		<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_PubMan/styles/theme.css" id="PubManTheme" type="text/css" title="PubMan" rel="stylesheet"/>
+		<link href="<%= PropertyReader.getProperty("escidoc.pubman.common.presentation.url") %>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>	
+		<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") %>" id="highContrastTheme" type="text/css" title="high contrast" rel="alternate stylesheet"/>
+		<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") %>" id="classicTheme" type="text/css" title="classic" rel="alternate stylesheet"/>	
+		<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") %>" id="PubManTheme" type="text/css" title="PubMan" rel="stylesheet"/>
 		
 		<link rel="SHORTCUT ICON" href="/pubman/resources/favicon.ico"/>
 		
