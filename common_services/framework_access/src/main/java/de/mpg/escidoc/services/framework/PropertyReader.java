@@ -102,6 +102,17 @@ public class PropertyReader
         return value;
     }
 
+    
+    public static Properties getProperties() throws IOException, URISyntaxException 
+    {
+    	if(properties==null)
+    	{
+    		loadProperties();
+    	}
+    	
+    	return properties;
+    }
+    
     /**
      * Load the properties from the location defined by the system property <code>pubman.properties.file</code>.
      * If this property is not set the default file path <code>pubman.properties</code> is used.
