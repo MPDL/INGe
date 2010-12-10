@@ -60,8 +60,6 @@ import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.common.util.LocalURIResolver;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.transformation.TransformationBean;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
  * Structured Export Manager. 
@@ -85,12 +83,12 @@ public class StructuredExport implements StructuredExportHandler {
     	new HashMap<String, String>()   
     	{  
 			{  
-	    		put( "ENDNOTE",	"eSciDoc_to_EndNote.xsl"	);  
-	    		put( "BIBTEX", 	"eSciDoc_to_BibTeX.xsl"			);  
-	    		put( "CSV", 	"Faces_to_CSV.xsl"				);  
-	    		put( "XML", 	"escidoc-publication-v2_2_escidoc-publication-v1.xsl"				);  
-	    		put( "EDOC_EXPORT", null );  
-	    		put( "EDOC_IMPORT", null );  
+	    		put( "ENDNOTE",		"eSciDoc_to_EndNote.xsl"	);  
+	    		put( "BIBTEX", 		"eSciDoc_to_BibTeX.xsl"			);  
+	    		put( "CSV", 		"Faces_to_CSV.xsl"				);  
+	    		put( "XML", 		"escidoc-publication-v2_2_escidoc-publication-v1.xsl"				);  
+	    		put( "EDOC_EXPORT", "escidoc2edoc_export.xsl" );  
+	    		put( "EDOC_IMPORT", "escidoc2edoc_import.xsl" );  
 	    		put( "ESCIDOC_XML", null);  
 	    	}  
     	};	
@@ -144,7 +142,7 @@ public class StructuredExport implements StructuredExportHandler {
 			else */if ( "ESCIDOC_XML".equalsIgnoreCase(exportFormat) )
 			{
 				return itemList.getBytes();
-			}
+			}/*
 			else if ("EDOC_EXPORT".equalsIgnoreCase(exportFormat) || "EDOC_IMPORT".equalsIgnoreCase(exportFormat))
 			{
 				TransformationBean trans = new TransformationBean(true);
@@ -162,7 +160,7 @@ public class StructuredExport implements StructuredExportHandler {
 		    		 throw new StructuredExportManagerException("Problems by transformation: escidoc publication items to " + exportFormat.toLowerCase() + " format: ", e);	
 		    	 } 				
 				return edoc;				
-			}
+			}*/
 			
 			// xml source
 			javax.xml.transform.Source xmlSource =
@@ -184,15 +182,22 @@ public class StructuredExport implements StructuredExportHandler {
 					new URIResolver(){
 						public Source resolve(String href, String base)
 								throws TransformerException {
-							logger.info("href: " + href);
-							logger.info("base: " + base);
-							InputStream is;
-							try {
-								is = ResourceUtil.getResourceAsStream(PATH_TO_SCHEMAS + href);
-							} catch (IOException e) {
-								throw new TransformerException(e);
-							} 
-							return new StreamSource(is);
+//							logger.info("href: " + href);
+//							logger.info("base: " + base);
+							if( href != null && href.toLowerCase().startsWith( "http://" ) )
+				        	{	
+				        		return new StreamSource(href + base);
+				        	}
+							else
+							{
+								InputStream is;
+								try {
+									is = ResourceUtil.getResourceAsStream(PATH_TO_SCHEMAS + href);
+								} catch (IOException e) {
+									throw new TransformerException(e);
+								}
+								return new StreamSource(is);
+							}
 						}
 					}
 			);
