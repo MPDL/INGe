@@ -163,6 +163,10 @@
 		margin-bottom: -0.56em;
 	}
 
+	/*Force IE7 top-margin*/
+
+*+html .breadcrumb { margin-top: 1em; }
+
 	.breadcrumb ol {
 		list-style: none;
 		margin: 0px;
