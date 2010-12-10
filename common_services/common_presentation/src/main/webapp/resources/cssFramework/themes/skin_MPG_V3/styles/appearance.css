@@ -523,7 +523,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .cancelButton {
     float: left;
     color: #044585;
-    background-color: #FFFFFF;
     border-top-color: #FFFFFF;
     border-right-color: #044585;
     border-bottom-color: #044585;
@@ -547,9 +546,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .activeButton:hover {
-    color: #FFFFFF !important;
-    background-color: #012846 !important;
-    border-color: #012846;
+    color: #000000 !important;
+    background-color: #FFFFFF !important;
 }
 
 /*AUTOSUGGEST*/
