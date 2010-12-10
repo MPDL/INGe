@@ -322,6 +322,8 @@ public class TransformationTest
      }     
      
      @Test
+     @Ignore
+     // temporarily moved to the structuredexportmanager 
      public void escidoc2edocTest() throws Exception
      {
     	 byte[] src = ResourceUtil.getResourceAsBytes("testFiles/escidoc/escidoc_xml_full.xml");
