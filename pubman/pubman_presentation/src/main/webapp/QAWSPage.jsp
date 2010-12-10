@@ -122,28 +122,28 @@
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblGridList}" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 sub action ieFilter" style="width: 55em;" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
+								<h:panelGroup layout="block" styleClass="free_area0 sub action ieFilter" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 								<!-- content menu lower line starts here -->
-									<h:outputText styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE} "/>
+									<h:outputText styleClass="medium_label" value="#{lbl.ENUM_CRITERIA_STATE} "/>
 									<h:selectOneMenu id="selSelectedItemState" styleClass="large_select replace" value="#{MyTasksRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
 										<f:selectItems value="#{MyTasksRetrieverRequestBean.itemStateSelectItems}"/>
 									</h:selectOneMenu>
 									<h:commandButton id="btChangeItemState" styleClass="noDisplay changeState" action="#{MyTasksRetrieverRequestBean.changeItemState}" value="change item state"/>
 									
-									<h:outputText styleClass="free_area0" value="#{lbl.qaws_lblCollectionSelection} "/>
-									<h:selectOneMenu id="selSelectedContext" styleClass="xDouble_select replace" value="#{MyTasksRetrieverRequestBean.selectedContext}" onchange="$(this).parents('div').find('.changeCollection').click();">
+									<h:outputText styleClass="small_label xTiny_marginLExcl" value="#{lbl.qaws_lblCollectionSelection} "/>
+									<h:selectOneMenu id="selSelectedContext" styleClass="double_select replace" value="#{MyTasksRetrieverRequestBean.selectedContext}" onchange="$(this).parents('div').find('.changeCollection').click();">
 										<f:selectItems value="#{MyTasksRetrieverRequestBean.contextSelectItems}"/>
 									</h:selectOneMenu>
 									<h:commandButton id="btChangeContext" styleClass="noDisplay changeCollection" action="#{MyTasksRetrieverRequestBean.changeContext}" value="change context"/>
 
-									<h:outputText styleClass="free_area0 clearLeft" value="#{lbl.qaws_lblOrgUnitSelection} "/>
-									<h:selectOneMenu id="selSelectedOrgUnit" styleClass="xDouble_select replace" value="#{MyTasksRetrieverRequestBean.selectedOrgUnit}" onchange="$(this).parents('div').find('.changeOrgUnit').click();">
+									<h:outputText styleClass="medium_label clearLeft" value="#{lbl.qaws_lblOrgUnitSelection} "/>
+									<h:selectOneMenu id="selSelectedOrgUnit" styleClass="quad_select replace endline" value="#{MyTasksRetrieverRequestBean.selectedOrgUnit}" onchange="$(this).parents('div').find('.changeOrgUnit').click();">
 										<f:selectItems value="#{MyTasksRetrieverRequestBean.orgUnitSelectItems}"/>
 									</h:selectOneMenu>
 									<h:commandButton id="btChangeOrgUnit" styleClass="noDisplay changeOrgUnit" action="#{MyTasksRetrieverRequestBean.changeOrgUnit}" value="change org unit"/>
 
-									<h:outputText styleClass="free_area0 clearLeft" value="#{lbl.qaws_lblMultipleImportTags} "/>
-									<h:selectOneMenu id="selSelectedImport" styleClass="xDouble_select replace" value="#{MyTasksRetrieverRequestBean.selectedImport}" onchange="$(this).parents('div').find('.changeImport').click();">
+									<h:outputText styleClass="medium_label clearLeft" value="#{lbl.qaws_lblMultipleImportTags} "/>
+									<h:selectOneMenu id="selSelectedImport" styleClass="quad_select replace endline" value="#{MyTasksRetrieverRequestBean.selectedImport}" onchange="$(this).parents('div').find('.changeImport').click();">
 										<f:selectItems value="#{MyTasksRetrieverRequestBean.importSelectItems}"/>
 									</h:selectOneMenu>
 									<h:commandButton id="btChangeImport" styleClass="noDisplay changeImport" action="#{MyTasksRetrieverRequestBean.changeImport}" value="change import"/>
