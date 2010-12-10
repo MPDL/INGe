@@ -41,10 +41,12 @@
 		</b>
 	</span>
 </div>
+
 <div class="full_area0 itemBlock noTopBorder">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		&#160;
 	</h3>
+	<!-- 
 	<div class="free_area0 itemBlockContent endline">		
 		<div class="free_area0 endline itemLine firstLine">
 			<b class="xLarge_area0 endline labelLine">
@@ -54,7 +56,9 @@
 				<h:outputText value="#{lbl.chooseWorkspace_descQAWorkspace}" />
 			</span>
 		</div>
+		
 	</div>
+	-->
 </div>
 </h:panelGroup>
 <h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
@@ -75,6 +79,7 @@
 		<h3 class="xLarge_area0_p8 endline blockHeader">
 			&#160;
 		</h3>
+		<!-- 
 		<div class="free_area0 itemBlockContent endline">		
 			<div class="free_area0 endline itemLine firstLine">
 				<b class="xLarge_area0 endline labelLine">
@@ -85,6 +90,7 @@
 				</span>
 			</div>
 		</div>
+		-->
 	</div>
 </h:panelGroup>				
 <h:panelGroup rendered="#{LoginHelper.isYearbookEditor}">
@@ -105,6 +111,7 @@
 		<h3 class="xLarge_area0_p8 endline blockHeader">
 			&#160;
 		</h3>
+		<!-- 
 		<div class="free_area0 itemBlockContent endline">		
 			<div class="free_area0 endline itemLine firstLine">
 				<b class="xLarge_area0 endline labelLine">
@@ -115,6 +122,7 @@
 				</span>
 			</div>
 		</div>
+		-->
 	</div>
 </h:panelGroup>
 <h:panelGroup rendered="#{(LoginHelper.isDepositor) and ContextListSessionBean.yearbookModeratorContextListSize>0}">
@@ -135,6 +143,7 @@
 		<h3 class="xLarge_area0_p8 endline blockHeader">
 			&#160;
 		</h3>
+		<!-- 
 		<div class="free_area0 itemBlockContent endline">		
 			<div class="free_area0 endline itemLine firstLine">
 				<b class="xLarge_area0 endline labelLine">
@@ -145,6 +154,7 @@
 				</span>
 			</div>
 		</div>
+		-->
 	</div>
 </h:panelGroup>
 <h:panelGroup rendered="#{LoginHelper.isReporter}">
@@ -165,6 +175,7 @@
 		<h3 class="xLarge_area0_p8 endline blockHeader">
 			&#160;
 		</h3>
+		<!-- 
 		<div class="free_area0 itemBlockContent endline">		
 			<div class="free_area0 endline itemLine firstLine">
 				<b class="xLarge_area0 endline labelLine">
@@ -175,5 +186,6 @@
 				</span>
 			</div>
 		</div>
+		-->
 	</div>
 </h:panelGroup>

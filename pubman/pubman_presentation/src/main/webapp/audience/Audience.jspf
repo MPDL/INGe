@@ -52,9 +52,9 @@
 						<h:outputText value="#{lbl.AudiencePage_audiencingGroup}" /><span class="noDisplay"> </span>
 					</b>
 					<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneMenu id="selUserGroups" styleClass="quad_select" value="#{grantForAllFiles.grant.grantedTo}">
+						<tr:selectOneChoice simple="true" id="selUserGroups" styleClass="quad_select" value="#{grantForAllFiles.grant.grantedTo}">
 							<f:selectItems value="#{AudienceBean.userGroups}" />
-						</h:selectOneMenu>
+						</tr:selectOneChoice>
 					</h:panelGroup>
 					<h:panelGroup styleClass="large_area0_p8 lineToolSection" >
 						<tr:commandButton id="btnAddGrantForAllFiles" action="#{AudienceBean.addGrantForAllFiles}" styleClass="min_imgBtn groupTool add" text=" " />
@@ -85,9 +85,9 @@
 								<h:outputText value="#{lbl.AudiencePage_audiencingGroup}" /><span class="noDisplay"> </span>
 							</b>
 							<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
-								<h:selectOneMenu id="selUserGroups" styleClass="quad_select" value="#{grant.grant.grantedTo}">
+								<tr:selectOneChoice id="selUserGroups" styleClass="quad_select" value="#{grant.grant.grantedTo}">
 									<f:selectItems value="#{AudienceBean.userGroups}" />
-								</h:selectOneMenu>
+								</tr:selectOneChoice>
 							</h:panelGroup>
 							<h:panelGroup styleClass="large_area0_p8 lineToolSection">
 								<tr:commandButton id="btnAddGrant" action="#{file.addGrant}" styleClass="min_imgBtn groupTool add" text=" " />

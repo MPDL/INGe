@@ -109,7 +109,7 @@ public class AudienceSessionBean extends FacesBean
     }
 
     public List<GrantVOPresentation> getGrantsForAllFiles() {
-        return grantsForAllFiles;
+        return grantsForAllFiles; 
     }
 
     public void setGrantsForAllFiles(List<GrantVOPresentation> grantsForAllFiles) {

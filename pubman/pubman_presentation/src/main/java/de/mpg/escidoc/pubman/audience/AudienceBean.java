@@ -81,7 +81,7 @@ public class AudienceBean extends FacesBean
     public final void init()
     {
         // Perform initializations inherited from our superclass
-        super.init();
+        super.init(); 
         AudienceSessionBean asb = this.getAudienceSessionBean();
         // fill the file list in the session bean
         if(this.getAudienceSessionBean().getFileListNew() == null || this.getAudienceSessionBean().getFileListNew().size() == 0)
@@ -267,14 +267,14 @@ public class AudienceBean extends FacesBean
      * This method saves new grants and revokes grants according to the changes made by the user 
      * @return String navigation string to the View item page
      */
-    public String save()
+    public String save() 
     {
-        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class); 
         AudienceSessionBean asb = this.getAudienceSessionBean();
         
         // first clean up unnecessary grants (empty grants for presentation)
         // old list
-        for(int i = 0; i < this.getAudienceSessionBean().getFileListOld().size(); i++)
+        for(int i = 0; i < this.getAudienceSessionBean().getFileListOld().size(); i++) 
         {
             for (int j = this.getAudienceSessionBean().getFileListOld().get(i).getGrantList().size();  j > 0; j--)
             {
@@ -348,7 +348,7 @@ public class AudienceBean extends FacesBean
                 }
             }
             // create grants that have been changed
-            if(grantsToCreate != null)
+            if(grantsToCreate != null)  
             {
                 for(int m = 0; m < grantsToCreate.size(); m++)
                 {
@@ -358,6 +358,7 @@ public class AudienceBean extends FacesBean
                     }
                     catch (RuntimeException rE)
                     {
+                    	logger.error("Error while creating grant: ", rE);
                         // just do nothing if grant already exists
                     }
                 }

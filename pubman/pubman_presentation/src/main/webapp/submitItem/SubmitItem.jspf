@@ -75,8 +75,8 @@
 				<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNotice}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNoticeSubmit}" rendered="#{SubmitItem.isStandardWorkflow and !SubmitItem.isSubmitted}"/>
-				<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNoticeRelease}" rendered="#{SubmitItem.isSimpleWorkflow || SubmitItem.isSubmitted}"/>
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNoticeSubmit}"/>
+				<!--<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNoticeRelease}" rendered="#{SubmitItem.isSimpleWorkflow || SubmitItem.isSubmitted}"/>-->
 			</span>
 		</h:panelGroup>			
 		<div class="free_area0 endline itemLine noTopBorder">
