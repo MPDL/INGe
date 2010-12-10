@@ -125,13 +125,13 @@
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 								<!-- content menu lower line starts here -->
-									<h:outputText styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE}: "/>
-									<h:selectOneMenu styleClass="xLarge_select replace" id="cboItemstate" value="#{MyItemsRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
+									<h:outputText styleClass="medium_label" value="#{lbl.ENUM_CRITERIA_STATE}"/>
+									<h:selectOneMenu styleClass="xDouble_select replace" id="cboItemstate" value="#{MyItemsRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
 										<f:selectItems id="selectItems" value="#{MyItemsRetrieverRequestBean.itemStateSelectItems}"/>
 									</h:selectOneMenu>
 									<h:commandButton id="btnChangeItemState" title="#{tip.list_btChangeState}" styleClass="noDisplay changeState" value=" "  action="#{MyItemsRetrieverRequestBean.changeItemState}"/>
 									
-									<h:outputText styleClass="free_area0 clearLeft" value="#{lbl.qaws_lblMultipleImportTags}: " rendered="#{LoginHelper.isModerator}"/>
+									<h:outputText styleClass="medium_label clearLeft" value="#{lbl.qaws_lblMultipleImportTags}" rendered="#{LoginHelper.isModerator}"/>
 									<h:selectOneMenu id="selSelectedImport" styleClass="xDouble_select replace" value="#{MyItemsRetrieverRequestBean.selectedImport}" onchange="$(this).parents('div').find('.changeImport').click();" rendered="#{LoginHelper.isModerator}">
 										<f:selectItems value="#{MyItemsRetrieverRequestBean.importSelectItems}"/>
 									</h:selectOneMenu>
@@ -140,12 +140,12 @@
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
 								<!-- content menu lower line starts here -->
-									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy}: "/>
-									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
+									<h:outputText styleClass="medium_label" value="#{lbl.ItemList_SortBy}"/>
+									<h:selectOneMenu styleClass="xLarge_select" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
 										<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
 									</h:selectOneMenu>
-									<h:commandLink title="#{tip.list_ascending}" styleClass="ascSort" value="#{lbl.ItemList_SortOrderAscending}" id="sortOrderAsc" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.displaySortOrder}" action="#{PubItemListSessionBean.changeSortOrder}" />
-									<h:commandLink title="#{tip.list_descending}" styleClass="desSort" value="#{lbl.ItemList_SortOrderDescending}" id="sortOrderDesc" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.displaySortOrder}" action="#{PubItemListSessionBean.changeSortOrder}" />
+									<h:commandLink title="#{tip.list_ascending}" styleClass="ascSort xTiny_marginLExcl" value="#{lbl.ItemList_SortOrderAscending}" id="sortOrderAsc" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.displaySortOrder}" action="#{PubItemListSessionBean.changeSortOrder}" />
+									<h:commandLink title="#{tip.list_descending}" styleClass="desSort xTiny_marginLExcl" value="#{lbl.ItemList_SortOrderDescending}" id="sortOrderDesc" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.displaySortOrder}" action="#{PubItemListSessionBean.changeSortOrder}" />
 									<h:commandButton id="btnChangeSortBy" title="#{tip.list_btSortBy}" styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.changeSortBy}"/>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
