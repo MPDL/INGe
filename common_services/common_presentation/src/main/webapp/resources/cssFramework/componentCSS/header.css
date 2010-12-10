@@ -34,6 +34,9 @@
 	.header {
 		display: none;
 	}
+	.headerSection .headLine h1, .headerSection .headLine {
+			float: none;
+	}
 }
 
 /*META MENU*/
