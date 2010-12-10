@@ -41,7 +41,7 @@
  SUCCESS MSG		#548E00
  DEACTIVATED		#777777
  DEA LIGHT		#C9C9C9
- TEXT			#A4A4A4
+ TEXT			#343434
  TEXT LIGHT		#AEAEAE
  MOUSEOVER		#1B1B1B
  INPUT TEXT		#000000
@@ -102,7 +102,7 @@ h1, h4, h5 {
 /*GENERAL*/
 body {
     background-color: #FFFFFF;
-    color: #A4A4A4;
+    color: #343434;
     line-height: 145%;
 }
 
