@@ -114,6 +114,12 @@ body .wrapper, body .footer {
     border-left: 1px dotted #147DA2;
 }
 
+@media print {
+body .wrapper, body .footer {
+    border: none;
+	}
+}
+
 input, button, textarea, select {
     color: #000000;
 }
@@ -289,10 +295,13 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     color: #524240;
     cursor: pointer;
 }
-@media print { .pageBrowser .actual {
-        font-weight: normal;
-        background-color: white;
-}
+
+@media print { 
+
+			.pageBrowser .actual {
+				        font-weight: normal;
+				        background-color: white;
+				}
 }
 
 .pageBrowser :disabled, .pageBrowser :disabled:hover, .pageBrowser :disabled:focus, .pageBrowser .deactivated, .pageBrowser .deactivated:hover, .pageBrowser .deactivated:focus {
