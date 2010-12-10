@@ -133,36 +133,36 @@
 									<!-- content menu lower line ends here -->
 								<!-- content menu ends here -->
 								</div>
-								<div class="subHeader">
-									<h:outputText value="#{PubItemListSessionBean.totalNumberOfElements} #{lbl.SearchResultList_lblItems} #{lbl.SearchResultList_lblFound}"/>
-									<h:outputText value=" ("/>
-	 								<h:outputText value="#{lbl.ENUM_SORTORDER_ASCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{PubItemListSessionBean.isAscending}"/>
-									<h:outputText value="#{lbl.ENUM_SORTORDER_DESCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{!PubItemListSessionBean.isAscending}"/>
-									<h:outputText value=")"/>	
-								</div>
-							</h:panelGroup>		
-							
-							<h:panelGroup layout="block" styleClass="subHeader" style="display: none;" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
-								<!-- Subheadline starts here -->
-									<h:outputLink id="lnkAdvancedSearchPage" styleClass="free_area0 xTiny_marginRIncl" value="AdvancedSearchPage.jsp"><h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>
-									<a class="free_area0" href="#" onclick="$(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $(this).hide();"><h:outputText value="#{lbl.ShowQuery}"/></a>
-								<!-- Subheadline ends here -->
-							</h:panelGroup>
-
-							<h:panelGroup layout="block" styleClass="subHeader" style="display: none;" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
-								<!-- Subheadline starts here -->
-									<h:panelGroup layout="block" styleClass="half_area0_p6 searchQuery" style="display: none;">
-										<h2><h:outputText value="#{msg.searchResultList_QueryString}"/></h2>
-										<h:outputText value="#{SearchRetrieverRequestBean.cqlQuery}"/>
-									</h:panelGroup>
-								<!-- Subheadline ends here -->
-							</h:panelGroup>
-							
-							<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'org'}" >
-								<!-- Subheadline starts here -->
-									<h:outputLink id="lnkAffiliationTreePage" styleClass="free_area0 xTiny_marginRIncl" value="AffiliationTreePage.jsp"><h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>									
-								<!-- Subheadline ends here -->
-							</h:panelGroup>
+									<div class="subHeader">
+										<h:outputText value="#{PubItemListSessionBean.totalNumberOfElements} #{lbl.SearchResultList_lblItems} #{lbl.SearchResultList_lblFound}"/>
+										<h:outputText value=" ("/>
+		 								<h:outputText value="#{lbl.ENUM_SORTORDER_ASCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{PubItemListSessionBean.isAscending}"/>
+										<h:outputText value="#{lbl.ENUM_SORTORDER_DESCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{!PubItemListSessionBean.isAscending}"/>
+										<h:outputText value=")"/>	
+									</div>
+								</h:panelGroup>		
+								
+								<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}" style="display: none;" >
+									<!-- Subheadline starts here -->
+										<h:outputLink id="lnkAdvancedSearchPage" styleClass="free_area0 xTiny_marginRIncl" value="AdvancedSearchPage.jsp"><h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>
+										<a class="free_area0" href="#" onclick="$(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $(this).hide();"><h:outputText value="#{lbl.ShowQuery}"/></a>
+									<!-- Subheadline ends here -->
+								</h:panelGroup>
+	
+								<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}" style="display: none;" >
+									<!-- Subheadline starts here -->
+										<h:panelGroup layout="block" styleClass="half_area0_p6 searchQuery" style="display: none;">
+											<h2><h:outputText value="#{msg.searchResultList_QueryString}"/></h2>
+											<h:outputText value="#{SearchRetrieverRequestBean.cqlQuery}"/>
+										</h:panelGroup>
+									<!-- Subheadline ends here -->
+								</h:panelGroup>
+								
+								<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'org'}" >
+									<!-- Subheadline starts here -->
+										<h:outputLink id="lnkAffiliationTreePage" styleClass="free_area0 xTiny_marginRIncl" value="AffiliationTreePage.jsp"><h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>									
+									<!-- Subheadline ends here -->
+								</h:panelGroup>
 
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
