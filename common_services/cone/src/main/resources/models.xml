@@ -80,6 +80,8 @@ AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,&lt;http://p
 		<result>
 			<pattern>
 &lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+ - 
+&lt;http://purl.org/dc/elements/1.1/identifier&gt;
 			</pattern>
 		</result>
 	</model>
@@ -98,12 +100,13 @@ AND{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;,&lt;http://p
 		</predicates>
 		<result>
 			<pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+ - 
 &lt;http://purl.org/dc/elements/1.1/identifier&gt;
 AND{&lt;http://purl.org/dc/elements/1.1/identifier&gt;,&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;}: / 
 &lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/identifier&gt;
- - 
-&lt;http://purl.org/dc/elements/1.1/title&gt;
-NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+
 			</pattern>
 		</result>
 	</model>
@@ -122,9 +125,9 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 		</predicates>
 		<result>
 			<pattern>
-&lt;http://purl.org/dc/elements/1.1/identifier&gt;
- - 
 &lt;http://purl.org/dc/elements/1.1/title&gt;
+ - 
+&lt;http://purl.org/dc/elements/1.1/identifier&gt;
 			</pattern>
 		</result>
 	</model>
