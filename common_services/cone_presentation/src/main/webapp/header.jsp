@@ -206,6 +206,7 @@
 										document.getElementById('cone_identifier').className = 'xLarge_txtInput errorMessageArea endline';
 										document.getElementById('idInfo').style.visibility = 'visible';
 										document.getElementById('idInfo').className = 'tiny_area0 tiny_marginRExcl inputInfoBox errorMessageArea';
+										document.getElementById('idInfo').title = 'This entry already exists!';
 									}
 								}
 								else
@@ -240,7 +241,7 @@
 			);
 		}
 		
-		function checkField(element, model, predicate, formField, popup, shouldBeUnique)
+		function checkField(element, model, predicate, formField, counter, popup, shouldBeUnique)
 		{
 			if (typeof popup == 'undefined')
 			{
@@ -256,7 +257,15 @@
 			{
 				subject = document.editform["uri"].value;
 			}
-			var object = document.editform[formField].value;
+			var object;
+			if (counter != null)
+			{
+				object = document.editform[formField][counter].value;
+			}
+			else
+			{
+				object = document.editform[formField].value;
+			}
 
 			//var image = $(element).parents('.inputField').find('.checkImage')[0];
 			var input = $(element).parents('.inputField').find('.xLarge_txtInput')[0];
@@ -271,6 +280,7 @@
 						jsonUrl
 						, function(data)
 						{
+
 							if (data.length > 0)
 							{
 								var counter = 0;
@@ -288,6 +298,9 @@
 								}
 								if (counter > 0 && shouldBeUnique)
 								{
+
+									
+
 									input.className = 'xLarge_txtInput errorMessageArea endline';
 									info.style.visibility = 'visible';
 									info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox errorMessageArea';

@@ -122,6 +122,7 @@
 			        if (results != null && results.get(predicate.getId()) != null && results.get(predicate.getId()).size() > 0)
 			        {
 	    		        int counter = 0;
+	    		        boolean multiValues = results.get(predicate.getId()).size() > 1;
 	        		    for (LocalizedTripleObject object : results.get(predicate.getId()))
 	            		{
 			                out.append("\n<span class=\"xHuge_area0 endline inputField\" style=\"overflow: visible;\">");
@@ -142,7 +143,7 @@
 										out.append(" " + prefix + predicate.getId().replaceAll("[/:.]", "_"));
 									}
 									out.append("\"");
-					                out.append(" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', false, " + predicate.isShouldBeUnique() + ")\"");
+					                out.append(" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', " + (multiValues ? counter + "" : "null") + ", false, " + predicate.isShouldBeUnique() + ")\"");
 									out.append(" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"");
 									if (predicate.getDefaultValue() != null && predicate.getEvent() == ModelList.Event.ONLOAD && predicate.isOverwrite())
 									{
@@ -222,8 +223,10 @@
 				            	    {
 					            	    out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove \" value=\" \" onclick=\"remove(this)\"/>");
 		        		        	}
-				        	        
-									out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
+				        	        if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0 || predicate.isResource())
+				        	        {
+										out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', " + (multiValues ? counter + "" : "null") + ", true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
+				        	        }
 				        	      //  out.append("<input type=\"image\" style=\"border: none\" class=\"checkImage\" src=\"img/empty.png\" onclick=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', true, " + predicate.isShouldBeUnique() + ");return false;\"/>");
 			                	}
 			                	else
@@ -281,7 +284,7 @@
 	    		            		{
     	    		            		out.append("<input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\"");
 		    	    		        	out.append(" class=\"xLarge_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\"");
-			        		    	    out.append(" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', false, " + predicate.isShouldBeUnique() + ");\"/>");
+			        		    	    out.append(" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', null, false, " + predicate.isShouldBeUnique() + ");\"/>");
 		    	        		    	out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
 		    	        		    	
         	    	    			//    out.append("<span type='hidden' class='tiny_area0 tiny_marginRExcl infoMessageArea'>i</span>");
@@ -289,7 +292,7 @@
 	    	    	    	    	else
     	    	    	    		{
         	    	    			    out.append("<input type=\"text\" class=\"xLarge_txtInput\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\"");
-			        		    	    out.append(" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', false, " + predicate.isShouldBeUnique() + ");\"/>");
+			        		    	    out.append(" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', null, false, " + predicate.isShouldBeUnique() + ");\"/>");
             	    				
 			        		    	  //  out.append("<span class='tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea'>i</span>");
     	    	    	    		}
@@ -348,7 +351,7 @@
 		        					}
 					        	}
 
-								out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
+								out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', null, true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
 							//	out.append("<input type=\"image\" style=\"border: none\" class=\"checkImage\" src=\"img/empty.png\" onclick=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', true, " + predicate.isShouldBeUnique() + ");return false;\"/>");
 				            out.append("</span>");
 	        			}
