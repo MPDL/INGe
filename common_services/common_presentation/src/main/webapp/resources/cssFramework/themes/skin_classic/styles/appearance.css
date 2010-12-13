@@ -617,4 +617,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	text-align: center;
 	font-weight: bolder;
 	font-family: serif;
+	border-left-width: 2px !important;
+	border-right-width: 2px !important;
 }
