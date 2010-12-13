@@ -66,7 +66,8 @@
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	
 	<xsl:variable name="bpc-files">
-		<xsl:value-of select="document('../../edoc_pdfs.txt')"/>
+		<!--  <xsl:value-of select="document('https://zim01.gwdg.de/repos/smc/tags/public/Migration/edoc_pdfs.txt')"/>-->
+		<xsl:value-of select="document('edoc_pdfs.txt')"/>
 	</xsl:variable>
 	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
@@ -83,7 +84,7 @@
 	<xsl:param name="root-ou" select="'dummy-root-ou'"/>
 	<xsl:param name="source-name" select="'eDoc'"/>
 	
-	<xsl:param name="import-name" select="'OTHER'"/>
+	<xsl:param name="import-name" select="'FHI'"/>
 	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
 	
@@ -463,6 +464,82 @@
 				<edoc-genre>slides shown at the conference and published on CD</edoc-genre>
 				<pubman-genre>any-fulltext </pubman-genre>
 			</genre>
+			<genre type="default">
+				<edoc-genre>Article</edoc-genre>
+				<pubman-genre>article</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Book</edoc-genre>
+				<pubman-genre>book</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Conference-Paper</edoc-genre>
+				<pubman-genre>conference-paper</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Conference-Report</edoc-genre>
+				<pubman-genre>conference-report</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Habilitation</edoc-genre>
+				<pubman-genre>thesis</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>InBook</edoc-genre>
+				<pubman-genre>book-item</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Issue</edoc-genre>
+				<pubman-genre>issue</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Interactive Resource</edoc-genre>
+				<pubman-genre>other</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Journal</edoc-genre>
+				<pubman-genre>journal</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Lecture / Courseware</edoc-genre>
+				<pubman-genre>courseware-lecture</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Other</edoc-genre>
+				<pubman-genre>other</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Paper</edoc-genre>
+				<pubman-genre>paper</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>PhD-Thesis</edoc-genre>
+				<pubman-genre>thesis</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Poster</edoc-genre>
+				<pubman-genre>poster</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Proceedings</edoc-genre>
+				<pubman-genre>proceedings</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Series</edoc-genre>
+				<pubman-genre>series</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Software</edoc-genre>
+				<pubman-genre>software</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Talk at Event</edoc-genre>
+				<pubman-genre>talk-at-event</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Thesis</edoc-genre>
+				<pubman-genre>thesis</pubman-genre>
+			</genre>
 		</genres>
 	</xsl:variable>
 	
@@ -476,10 +553,6 @@
 			<ou name="external" id="{$external-ou}"/>
 		</organizational-units>
 	</xsl:variable>
-		
-	<xsl:variable name="bpc-files-id">
-		<xsl:value-of select="document('../../')"></xsl:value-of>
-	</xsl:variable>	
 	
 	<xsl:function name="escidocFunctions:ou-name">
 		<xsl:param name="name"/>
@@ -592,13 +665,14 @@
 								<xsl:with-param name="filename" select="$filename"/>
 								<xsl:with-param name="access"  select="$access"/>
 							</xsl:call-template>
-														
-							<xsl:if test="$createLocatorsForPublicComponents or $access != 'PUBLIC'">
+											
+							<!-- Locators don't exist in Edoc: will be out commented until new mapping specification -->			
+							<!--  <xsl:if test="$createLocatorsForPublicComponents or $access != 'PUBLIC'">
 								<xsl:call-template name="createLocator">
 									<xsl:with-param name="filename" select="$filename"/>
 									<xsl:with-param name="access" select="$access"/>
 								</xsl:call-template>
-							</xsl:if>
+							</xsl:if>-->
 							
 						</xsl:when>
 					</xsl:choose>					
@@ -784,7 +858,19 @@
 						</xsl:choose>
 					</xsl:otherwise>
 				</xsl:choose>
+				<xsl:variable name="mime-type">
+					<xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', substring($filename, string-length($filename) - 3), '&quot;'))"/>
+				</xsl:variable>
 				<xsl:choose>
+					<xsl:when test="exists($mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title)">
+						<prop:mime-type><xsl:value-of select="$mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title"/></prop:mime-type>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:comment>Mime Type for <xsl:value-of select="$filename"/> not found in CONE</xsl:comment>
+						<prop:mime-type>application/pdf</prop:mime-type>
+					</xsl:otherwise>
+				</xsl:choose>
+				<!--  <xsl:choose>
 					<xsl:when test="ends-with($filename, '.doc')">
 						<prop:mime-type>application/msword</prop:mime-type>
 					</xsl:when>
@@ -794,7 +880,7 @@
 					<xsl:otherwise>
 						<prop:mime-type>application/pdf</prop:mime-type>
 					</xsl:otherwise>
-				</xsl:choose>
+				</xsl:choose>-->
 			</ec:properties>
 			<xsl:element name="ec:content">
 				<xsl:choose>
@@ -906,14 +992,16 @@
 								<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
 							</xsl:otherwise>
 						</xsl:choose>
-						<dcterms:extent>
-							<xsl:value-of select="@size"/>
-						</dcterms:extent>
+						<xsl:if test="exists(@size)">							
+							<dcterms:extent>
+								<xsl:value-of select="@size"/>
+							</dcterms:extent>
+						</xsl:if>
 						<xsl:choose>
 							<xsl:when test="$import-name = 'FHI'">
 								<xsl:call-template name="copyrightFHI"/>
 							</xsl:when>
-							<xsl:when test="$import-name = BPC">
+							<xsl:when test="$import-name = 'BPC'">
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:element name="dc:rights">
@@ -921,7 +1009,6 @@
 								</xsl:element>
 							</xsl:otherwise>
 						</xsl:choose>
-						
 					</xsl:element>
 				</mdr:md-record>
 			</xsl:element>
@@ -929,13 +1016,11 @@
 	
 	</xsl:template>
 	
-	<xsl:template name="createLocator">
+	<!--  <xsl:template name="createLocator">
 		<xsl:param name="filename"/>
 		<xsl:param name="access"/>
-		<!-- LOCATOR -->
 		<xsl:element name="ec:component">
 			<ec:properties>
-				<!-- <prop:valid-status>valid</prop:valid-status> -->
 				<prop:visibility>public</prop:visibility>
 				<prop:content-category>
 					<xsl:value-of select="$contentCategory-ves/enum[. = 'supplementary-material']/@uri"/>
@@ -984,8 +1069,9 @@
 				</mdr:md-record>
 			</xsl:element>
 		</xsl:element>
-	</xsl:template>
+	</xsl:template>-->
 	
+
 	<!-- BASIC -->
 	<xsl:template match="basic">
 		<xsl:choose>
@@ -1172,49 +1258,80 @@
 			<xsl:apply-templates select="datepublished"/>
 			<!-- REVIEW METHOD -->
 			<xsl:apply-templates select="refereed"/>
-			<!-- SOURCE -->
-			<xsl:choose>
-				<xsl:when test="journaltitle">
-					<xsl:element name="source:source">
-						<xsl:call-template name="createJournal"/>
-					</xsl:element>
-					<xsl:if test="issuetitle">
-						<xsl:element name="source:source">
-							<xsl:call-template name="createIssue"/>
-						</xsl:element>
-					</xsl:if>
-				</xsl:when>
-				<xsl:when test="issuetitle">
-					<xsl:element name="source:source">
-						<xsl:call-template name="createIssue"/>
-					</xsl:element>
-				</xsl:when>
-				<xsl:when test="booktitle">
-					<xsl:element name="source:source">
-						<xsl:call-template name="createBook"/>
-					</xsl:element>
-					<xsl:if test="titleofseries">
-						<xsl:element name="source:source">
-							<xsl:call-template name="createSeries"/>
-						</xsl:element>
-					</xsl:if>
-				</xsl:when>
-				<xsl:when test="titleofproceedings">
-					<xsl:element name="source:source">
-						<xsl:call-template name="createProceedings"/>
-					</xsl:element>
-					<xsl:if test="exists(titleofseries)">
-						<xsl:element name="source:source">
-							<xsl:call-template name="createSeries"/>
-						</xsl:element>
-					</xsl:if>
-				</xsl:when>
-				<xsl:when test="titleofseries">
-					<xsl:element name="source:source">
-						<xsl:call-template name="createSeries"/>
-					</xsl:element>
-				</xsl:when>
-			</xsl:choose>
+			
+			<!-- Number of sources -->
+			<xsl:variable name="sources-count">
+				<xsl:value-of select="count(journaltitle|issuetitle|booktitle|titleofseries|titleofproceedings|titleofseries)"/>
+			</xsl:variable>
+			
+			<!-- 
+				  Source identifiers type:
+				  Source with ISBN = booktitle , titleofproceedings , issuetitle
+				  Source with ISSN = titleofseries , journaltitle
+				  
+				  If a publication has a an identifier (ISSN or ISBN), but doesn't have a source 
+				  to store it, then this ID will be store in an other source.
+				  
+				  Example:
+				  1) Publication has: * 1 ISBN and 1 ISSN.
+				  				      * 1 booktitle
+				  	After transformation,  the booktitle will get both identifiers.
+				  
+				  2) Publication has: * 1 ISBN and 1 ISSN.
+				  				      * 1 booktitle, one journal
+				  	After transformatin,  the booktitle will get the isbn, the issue the ISSN.
+			 -->
+			
+			<!-- Check whether there is 1 source which will save the isbn -->
+			<xsl:variable name="isbn-save" select="booktitle or issuetitle or titleofproceedings" as="xs:boolean"/>
+			<!-- Check whether there is 1 source which will save the isbn -->
+			<xsl:variable name="issn-save" select="titleofseries or journaltitle" as="xs:boolean"/>
+			
+			<xsl:if test="journaltitle">
+				<xsl:element name="source:source">
+					<xsl:call-template name="createJournal">
+						<xsl:with-param name="sources-count" select="$sources-count"/>
+						<xsl:with-param name="gen" select="$gen"/>
+						<xsl:with-param name="isbn-save" select="$isbn-save"/>
+					</xsl:call-template>
+				</xsl:element>
+			</xsl:if>
+			<xsl:if test="issuetitle">
+				<xsl:element name="source:source">
+					<xsl:call-template name="createIssue">
+							<xsl:with-param name="sources-count" select="$sources-count"/>
+							<xsl:with-param name="gen" select="$gen"/>
+							<xsl:with-param name="issn-save" select="$issn-save"/>
+						</xsl:call-template>
+				</xsl:element>
+			</xsl:if>
+			<xsl:if test="booktitle">
+				<xsl:element name="source:source">
+					<xsl:call-template name="createBook">
+						<xsl:with-param name="sources-count" select="$sources-count"/>
+						<xsl:with-param name="gen" select="$gen"/>
+						<xsl:with-param name="issn-save" select="$issn-save"/>
+					</xsl:call-template>
+				</xsl:element>
+			</xsl:if>
+			<xsl:if test="titleofproceedings">
+				<xsl:element name="source:source">
+					<xsl:call-template name="createProceedings">
+						<xsl:with-param name="sources-count" select="$sources-count"/>
+						<xsl:with-param name="gen" select="$gen"/>
+						<xsl:with-param name="issn-save" select="$issn-save"/>
+					</xsl:call-template>
+				</xsl:element>
+			</xsl:if>
+			<xsl:if test="titleofseries">
+				<xsl:element name="source:source">
+					<xsl:call-template name="createSeries">
+						<xsl:with-param name="sources-count" select="$sources-count"/>
+						<xsl:with-param name="gen" select="$gen"/>
+						<xsl:with-param name="isbn-save" select="$isbn-save"/>
+					</xsl:call-template>
+				</xsl:element>
+			</xsl:if>
 			
 			<!-- isPartOf RELATION -->
 			<xsl:if test="../relations/relation[@reltype='ispartof']">
@@ -1231,8 +1348,11 @@
 				<xsl:call-template name="createEvent"/>
 			</xsl:if>
 			<!-- TOTAL NUMBER OF PAGES -->
-			<xsl:if test="phydesc">
-				<xsl:choose>
+			<xsl:if test="phydesc and not($dependentGenre[type = $gen])">
+				<xsl:element name="eterms:total-number-of-pages">
+					<xsl:value-of select="phydesc"/>
+				</xsl:element>
+				<!--  <xsl:choose>
 					<!-- 
 					<xsl:when test="$gen='book-item' and not(exists(booktitle))">
 						<xsl:call-template name="phydescPubl"/>
@@ -1252,30 +1372,40 @@
 					<xsl:when test="not($gen=$dependentGenre/type)">
 						<xsl:call-template name="phydescPubl"/>
 					</xsl:when>
-				</xsl:choose>
+				</xsl:choose>-->
 			</xsl:if>
 			
 			<!-- DEGREE -->
-			<xsl:if test="genre='PhD-Thesis'">
+			<xsl:variable name="degree-type">
+				<xsl:choose>
+					<xsl:when test="'phd-thesis' = lower-case(genre)">phd</xsl:when>
+					<xsl:when test="'habilitation' = lower-case(genre)">habilitation</xsl:when>
+					<xsl:when test="'thesis' = lower-case(genre)">
+						<xsl:choose>
+							<xsl:when test="'diplom = lower-case(../editiondescription)'">diploma</xsl:when>
+							<xsl:when test="'magister' = lower-case(../editiondescription)">magister</xsl:when>
+							<xsl:when test="'staatsexamen' = lower-case(../editiondescription)">staatsexamen</xsl:when>
+							<xsl:when test="'master' = lower-case(../editiondescription)">master</xsl:when>
+							<xsl:when test="'bachelor' = lower-case(../editiondescription)">bachelor</xsl:when>
+						</xsl:choose>
+					</xsl:when>
+					<xsl:otherwise></xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			<xsl:if test="exists($degree-type) and $degree-type != ''">
 				<xsl:element name="eterms:degree">
-					<xsl:value-of select="$degree-ves/enum[. = 'phd']/@uri"/>
-				</xsl:element>
-			</xsl:if>
-			<xsl:if test="genre='Habilitation'">
-				<xsl:element name="eterms:degree">
-					<xsl:value-of select="$degree-ves/enum[. = 'habilitation']/@uri"/>
+					<xsl:value-of select="$degree-ves/enum[. = $degree-type]/@uri"/>
 				</xsl:element>
 			</xsl:if>
 			<!-- ABSTRACT -->
 			<xsl:apply-templates select="abstract"/>
 			<!-- SUBJECT -->
 			<xsl:apply-templates select="discipline"/>
-			<xsl:apply-templates select="keywords"/>
+			
+			<xsl:call-template name="dcTermsSubject"/>
+			
 			<!-- TOC -->
 			<xsl:apply-templates select="toc"/>
-			
-			<!-- FHI Mapping -->
-			<xsl:call-template name="freekeywordsFHI"></xsl:call-template>
 			
 			<!--end publication-->
 		</xsl:element>
@@ -1331,25 +1461,42 @@
 	<xsl:template name="createIdentifier">
 		<xsl:param name="gen"/>
 		<xsl:param name="has-source" as="xs:boolean"/>
-		
 		<!-- eDoc ID -->
 		<xsl:element name="dc:identifier">
 			<xsl:attribute name="xsi:type" select="'eterms:EDOC'"/>
 			<xsl:value-of select="../../@id"/>
 		</xsl:element>
 		<xsl:for-each select="../identifiers/identifier">
-			<xsl:call-template name="createOtherIDs">
+			<xsl:call-template name="createIDs">
 				<xsl:with-param name="gen" select="$gen"/>
 				<xsl:with-param name="has-source" select="$has-source"/>
+				<xsl:with-param name="is-source" select="false()"/>
+				<xsl:with-param name="sources-count" select="0"/>
 			</xsl:call-template>
 		</xsl:for-each>
 	</xsl:template>
 	
-	<xsl:template name="createOtherIDs">
+	<!-- 
+		Create Identifiers (doi, issn, isbn, uri, isi, other)
+		For ISBN-ISSN:	
+		1) Bei unabhängigen Genres wird die ISBN und ISSN immer in die Publikation geschrieben.
+		2) Bei abhängigen Genres wird die ISBN und ISSN immer in die Quelle geschrieben.
+		3) Bei abhängigen Genres mit 2 Quellen werden ISBN/ISSN folgendermaßen aufgeteilt
+	-->
+						
+	<xsl:template name="createIDs">
 		<xsl:param name="gen"/>
 		<xsl:param name="has-source" as="xs:boolean"/>
-		
-		<xsl:if test="(not($dependentGenre[type = $gen]) and not($has-source)) or (not(@type='issn') and not(@type='isbn'))">
+		<xsl:param name="is-source" as="xs:boolean"/>
+		<xsl:param name="sources-count"/>
+				
+		<xsl:if test="	((@type='issn' or @type='isbn') and not($dependentGenre[type = $gen]) and not($is-source) and ($sources-count &lt; 2))
+						or
+						((@type='issn' or @type='isbn') and $dependentGenre[type = $gen] and $is-source and ($sources-count = 1))
+						or
+						((@type='issn' or @type='isbn') and $dependentGenre[type = $gen] and ($sources-count &gt; 1))
+						or
+						(not(@type='issn' or @type='isbn') and not($is-source))">
 			<xsl:element name="dc:identifier">
 				<xsl:choose>
 					<xsl:when test="@type='doi'">
@@ -1378,7 +1525,6 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:element>
-		
 		</xsl:if>
 	
 	</xsl:template>
@@ -1388,6 +1534,9 @@
 
 	<!-- JOURNAL TEMPLATE -->
 	<xsl:template name="createJournal">
+		<xsl:param name="sources-count"/>
+		<xsl:param name="gen"/>
+		<xsl:param name="isbn-save"/>
 		<!-- TITLE -->
 		<xsl:if test="journaltitle">
 			<xsl:attribute name="type" select="$genre-ves/enum[. = 'journal']/@uri"/>
@@ -1419,13 +1568,24 @@
 				<xsl:call-template name="createPublishinginfo"/>
 			</xsl:element>
 		</xsl:if>
-		
-		<xsl:call-template name="createSourceIdentifiers"/>
+		<xsl:for-each select="../identifiers/identifier[@type != 'isbn' or not($isbn-save)]">
+			<xsl:call-template name="createIDs">
+				<xsl:with-param name="gen" select="$gen"/>
+				<xsl:with-param name="has-source" select="true()"/>
+				<xsl:with-param name="is-source" select="true()"/>
+				<xsl:with-param name="sources-count" select="$sources-count"/>
+			</xsl:call-template>
+		</xsl:for-each>
+		<xsl:if test="phydesc and $dependentGenre[type = $gen]">
+			<xsl:element name="eterms:total-number-of-pages">
+				<xsl:value-of select="phydesc"/>
+			</xsl:element>
+		</xsl:if>
 	
 	</xsl:template>
 	
 	<!-- SOURCE IDENTIFIERS -->
-	<xsl:template name="createSourceIdentifiers">
+	<!--  <xsl:template name="createSourceIdentifiers">
 		<xsl:for-each select="../identifiers/identifier[@type = 'issn' or @type = 'isbn']">
 			
 			<xsl:element name="dc:identifier">
@@ -1442,10 +1602,13 @@
 			</xsl:element>
 		
 		</xsl:for-each>
-	</xsl:template>
+	</xsl:template>-->
 	
 	<!-- ISSUE TEMPLATE -->
 	<xsl:template name="createIssue">
+		<xsl:param name="sources-count"/>
+		<xsl:param name="issn-save"/>
+		<xsl:param name="gen"/>
 		<!-- TITLE -->
 		<xsl:if test="issuetitle">
 			<xsl:attribute name="type" select="$genre-ves/enum[. = 'issue']/@uri"/>
@@ -1466,12 +1629,29 @@
 		<!-- SEQUENCE_NR -->
 		<xsl:apply-templates select="artnum"/>
 		
-		<xsl:call-template name="createSourceIdentifiers"/>
+		<xsl:if test="phydesc and $dependentGenre[type = $gen]">
+			<xsl:element name="eterms:total-number-of-pages">
+				<xsl:value-of select="phydesc"/>
+			</xsl:element>
+		</xsl:if>
+		
+		<!--  <xsl:call-template name="createSourceIdentifiers"/>-->
+		<xsl:for-each select="../identifiers/identifier[@type != 'issn' or not($issn-save)]">
+			<xsl:call-template name="createIDs">
+				<xsl:with-param name="gen" select="$gen"/>
+				<xsl:with-param name="has-source" select="true()"/>
+				<xsl:with-param name="is-source" select="true()"/>
+				<xsl:with-param name="sources-count" select="$sources-count"/>
+			</xsl:call-template>
+		</xsl:for-each>
 	
 	</xsl:template>
 	
 	<!-- BOOK TEMPLATE -->
 	<xsl:template name="createBook">
+		<xsl:param name="sources-count"/>
+		<xsl:param name="gen"/>
+		<xsl:param name="issn-save"/>
 		<!-- TITLE -->
 		<xsl:if test="booktitle">
 			<xsl:attribute name="type" select="$genre-ves/enum[. = 'book']/@uri"/>
@@ -1499,8 +1679,10 @@
 		<!-- SEQUENCE_NR -->
 		<xsl:apply-templates select="artnum"/>
 		<!--NUMBER OF PAGES -->
-		<xsl:if test="phydesc and exists(booktitle)">
-			<xsl:call-template name="phydescSource"/>
+		<xsl:if test="phydesc and $dependentGenre[type = $gen]">
+			<xsl:element name="eterms:total-number-of-pages">
+				<xsl:value-of select="phydesc"/>
+			</xsl:element>
 		</xsl:if>
 		<xsl:if test="exists(publisher) or exists(editiondescription)">
 			<xsl:element name="eterms:publishing-info">
@@ -1508,17 +1690,25 @@
 			</xsl:element>
 		</xsl:if>
 		
-		<xsl:call-template name="createSourceIdentifiers"/>
+		<!--  <xsl:call-template name="createSourceIdentifiers"/>-->
+		<xsl:for-each select="../identifiers/identifier[@type != 'issn' or not($issn-save)]">
+			<xsl:call-template name="createIDs">
+				<xsl:with-param name="gen" select="$gen"/>
+				<xsl:with-param name="has-source" select="true()"/>
+				<xsl:with-param name="is-source" select="true()"/>
+				<xsl:with-param name="sources-count" select="$sources-count"/>
+			</xsl:call-template>
+		</xsl:for-each>
 	
 	</xsl:template>
 	
-	<xsl:template name="phydescPubl">
+	<!-- <xsl:template name="phydescPubl">
 		<xsl:element name="eterms:total-number-of-pages">
 			<xsl:value-of select="phydesc"/>
 		</xsl:element>
-	</xsl:template>
+	</xsl:template>-->
 	
-	<xsl:template name="phydescSource">
+	<!-- <xsl:template name="phydescSource">
 		<xsl:element name="eterms:sequence-number">
 			<xsl:value-of select="phydesc"/>
 		</xsl:element>
@@ -1528,7 +1718,7 @@
 		<xsl:element name="eterms:total-number-of-pages">
 			<xsl:value-of select="."/>
 		</xsl:element>
-	</xsl:template>
+	</xsl:template>-->
 	
 	<xsl:template match="publisheradd">
 		<xsl:element name="eterms:place">
@@ -1543,6 +1733,9 @@
 	
 	<!-- SERIES TEMPLATE -->
 	<xsl:template name="createSeries">
+		<xsl:param name="sources-count"/>
+		<xsl:param name="gen"/>
+		<xsl:param name="isbn-save"/>
 		<!-- TITLE -->
 		<xsl:if test="exists(titleofseries)">
 			<xsl:attribute name="type" select="$genre-ves/enum[. = 'series']/@uri"/>
@@ -1562,12 +1755,29 @@
 		<!-- VOLUME -->
 		<xsl:apply-templates select="volume"/>
 		
-		<xsl:call-template name="createSourceIdentifiers"/>
+		<xsl:if test="phydesc and $dependentGenre[type = $gen]">
+			<xsl:element name="eterms:total-number-of-pages">
+				<xsl:value-of select="phydesc"/>
+			</xsl:element>
+		</xsl:if>
+		
+		<!-- <xsl:call-template name="createSourceIdentifiers"/>-->
+		<xsl:for-each select="../identifiers/identifier[@type != 'isbn' or not($isbn-save)]">
+			<xsl:call-template name="createIDs">
+				<xsl:with-param name="gen" select="$gen"/>
+				<xsl:with-param name="has-source" select="true()"/>
+				<xsl:with-param name="is-source" select="true()"/>
+				<xsl:with-param name="sources-count" select="$sources-count"/>
+			</xsl:call-template>
+		</xsl:for-each>
 	
 	</xsl:template>
 	
 	<!-- PROCEEDINGS TEMPLATE -->
 	<xsl:template name="createProceedings">
+		<xsl:param name="sources-count"/>
+		<xsl:param name="gen"/>
+		<xsl:param name="issn-save"/>
 		<!-- TITLE -->
 		<xsl:if test="titleofproceedings">
 			<xsl:attribute name="type" select="$genre-ves/enum[. = 'proceedings']/@uri"/>
@@ -1584,12 +1794,14 @@
 					<xsl:apply-templates select="issuenr"/>
 				</xsl:element>
 			</xsl:if>
-			<xsl:if test="phydesc">
-				<xsl:call-template name="phydescSource"/>
+			<xsl:if test="phydesc and not($dependentGenre[type = $gen])">
+				<xsl:element name="eterms:total-number-of-pages">
+					<xsl:value-of select="phydesc"/>
+				</xsl:element>
 			</xsl:if>
-			<xsl:if test="exists(publisher) or exists(editiondescription)">
-				<xsl:element name="eterms:publishing-info">
-					<xsl:call-template name="createPublishinginfo"/>
+			<xsl:if test="phydesc and $dependentGenre[type = $gen]">
+				<xsl:element name="eterms:total-number-of-pages">
+					<xsl:value-of select="phydesc"/>
 				</xsl:element>
 			</xsl:if>
 		</xsl:if>
@@ -1606,7 +1818,15 @@
 		<!-- END-PAGE -->
 		<xsl:apply-templates select="epage"/>
 		
-		<xsl:call-template name="createSourceIdentifiers"/>
+		<!-- <xsl:call-template name="createSourceIdentifiers"/>-->
+		<xsl:for-each select="../identifiers/identifier[@type != 'issn' or not($issn-save)]">
+			<xsl:call-template name="createIDs">
+				<xsl:with-param name="gen" select="$gen"/>
+				<xsl:with-param name="has-source" select="true()"/>
+				<xsl:with-param name="is-source" select="true()"/>
+				<xsl:with-param name="sources-count" select="$sources-count"/>
+			</xsl:call-template>
+		</xsl:for-each>
 	
 	</xsl:template>
 	
@@ -1699,7 +1919,6 @@
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:variable>
-				
 				<xsl:variable name="multiplePersonsFound" select="exists($coneCreator/cone/rdf:RDF/rdf:Description[@rdf:about != $coneCreator/cone/rdf:RDF/rdf:Description/@rdf:about])"/>
 				
 				<xsl:choose>
@@ -1876,7 +2095,6 @@
 							<eterms:given-name>
 								<xsl:value-of select="$creatorngivenNew"/>
 							</eterms:given-name>
-							
 							<dc:identifier xsi:type="eterms:CONE">
 								<xsl:value-of select="$coneCreator/cone/rdf:RDF[1]/rdf:Description/@rdf:about"/>
 							</dc:identifier>
@@ -1960,37 +2178,32 @@
 		<xsl:attribute name="type" select="'proceedings'"/>
 	</xsl:template>
 	
-		
-	
-	
 	<!-- REVIEW-METHOD TEMPLATE -->
 	<xsl:template match="refereed">
 		<xsl:choose>
 			<xsl:when test="../genre='Article' and exists(../journaltitle) and $source-name = 'eDoc-MPIPL'">
 				<xsl:element name="eterms:review-method">
-					<xsl:value-of select="'peer'"/>
+					<xsl:value-of select="$reviewMethod-ves/enum[. = 'peer-reviewed']/@uri"/>
 				</xsl:element>
 			</xsl:when>
-			<xsl:when test="refereed='joureview'">
+			<xsl:when test=". = 'joureview'">
 				<xsl:element name="eterms:review-method">
-					<xsl:value-of select="'peer'"/>
+					<xsl:value-of select="$reviewMethod-ves/enum[. = 'peer-reviewed']/@uri"/>
 				</xsl:element>
 			</xsl:when>
-			<xsl:when test="refereed='notrev'">
+			<xsl:when test=". = 'notrev'">
 				<xsl:element name="eterms:review-method">
-					<xsl:value-of select="'no review'"/>
+					<xsl:value-of select="$reviewMethod-ves/enum[. = 'no-review']/@uri"/>
 				</xsl:element>
 			</xsl:when>
-			<xsl:when test="refereed='intrev'">
+			<xsl:when test=". = 'intrev'">
 				<xsl:element name="eterms:review-method">
-					<xsl:value-of select="'internal'"/>
+					<xsl:value-of select="$reviewMethod-ves/enum[. = 'internal']/@uri"/>
 				</xsl:element>
 			</xsl:when>
 			<xsl:otherwise></xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-	
-	
 	
 	<xsl:template match="issuecontributorfn">
 		<xsl:call-template name="parseContributor">
@@ -2045,15 +2258,14 @@
 			<xsl:element name="eterms:place">
 				<xsl:value-of select="placeofevent"/>
 			</xsl:element>
-			<xsl:apply-templates select="invitationStatus[.='invited']"/>
+			<xsl:if test="invitationstatus = 'invited'">
+				<xsl:element name="eterms:invitation-status">
+					<xsl:value-of select="invitationstatus"/>
+				</xsl:element>
+			</xsl:if>
 		</xsl:element>
 	</xsl:template>
-	
-	<xsl:template match="invitationStatus[.='invited']">
-		<xsl:element name="eterms:invitation-status">
-			<xsl:value-of select="."/>
-		</xsl:element>
-	</xsl:template>
+
 	<xsl:template match="artnum">
 		<eterms:sequence-number>
 			<xsl:value-of select="."/>
@@ -2079,16 +2291,16 @@
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
-	<xsl:template match="discipline">
+	<!--<xsl:template match="discipline">
 		<xsl:element name="dcterms:subject">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
-	<xsl:template match="keywords">
+	 <xsl:template match="keywords">
 		<xsl:element name="dcterms:subject">
 			<xsl:value-of select="."/>
 		</xsl:element>
-	</xsl:template>
+	</xsl:template>-->
 	<xsl:template match="abstract">
 		<xsl:element name="dcterms:abstract">
 			<xsl:value-of select="."/>
@@ -2108,6 +2320,7 @@
 		<xsl:element name="dcterms:dateAccepted">
 			<xsl:value-of select="."/>
 		</xsl:element>
+		<!-- Not useful (was changed after FHI feedback) -->
 		<!-- 
 		<xsl:if test="../genre='PhD-Thesis'">
 			<xsl:element name="dcterms:issued">
@@ -2139,16 +2352,13 @@
 		<xsl:variable name="language" select="."/>
 		
 		 <xsl:for-each select="$coneLanguage/cone/rdf:RDF/rdf:Description[dc:title = $language]/dc:identifier">
-               <xsl:comment><xsl:value-of select="."/></xsl:comment>
+               <xsl:comment>Language: <xsl:value-of select="."/></xsl:comment>
                <xsl:if test="string-length(.) = 3">
                        <xsl:element name="dc:language">
                                <xsl:value-of select="."/>
                        </xsl:element>
                </xsl:if>
        </xsl:for-each>
-
-	
-		
 	</xsl:template>
 	
 	<xsl:template name="validation">
@@ -2209,19 +2419,36 @@
 		</xsl:choose>
 	
 	</xsl:template>
-
-	<!-- FHI Templates -->
 	
-	<xsl:template name="freekeywordsFHI">
-		<xsl:if test="$import-name = 'FHI'">
-			<xsl:if test="exists(../../docaff/docaff_researchcontext)">
-				<xsl:element name="dcterms:subject">
-					<xsl:value-of select="../../docaff/docaff_researchcontext"/>
-				</xsl:element>
+	<!-- All fields mapped into FreeKeywords are here defined since Pubman mask allow only one dcterms:subject -->
+	<xsl:template name="dcTermsSubject">
+		<xsl:variable name="freekeywords">
+			<xsl:if test="exists(keywords)">
+				<xsl:value-of select="normalize-space(keywords)"/>
+				<xsl:text>
+</xsl:text>
 			</xsl:if>
+			<xsl:if test="exists(discipline)">
+				<xsl:value-of select="normalize-space(discipline)"/>
+				<xsl:text>
+</xsl:text>
+			</xsl:if>
+			<xsl:if test="$import-name = 'FHI'">
+				<xsl:if test="exists(../../docaff/docaff_researchcontext)">
+					<xsl:value-of select="normalize-space(../../docaff/docaff_researchcontext)"/>
+					<xsl:text>
+</xsl:text>
+				</xsl:if>
+			</xsl:if>
+		</xsl:variable>
+		<xsl:if test="exists($freekeywords) and normalize-space($freekeywords) != ''">
+			<xsl:element name="dcterms:subject">
+				<xsl:value-of select="$freekeywords"/>
+			</xsl:element>
 		</xsl:if>
 	</xsl:template>
-	
+
+	<!-- FHI Templates -->	
 	<xsl:template name="copyrightFHI">
 		<xsl:element name="dc:rights">
 			<xsl:value-of select="../../../rights/copyright"/>
