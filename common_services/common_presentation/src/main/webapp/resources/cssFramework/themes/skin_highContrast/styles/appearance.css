@@ -558,7 +558,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .infoMessageArea {
-    border-color: #548E00;
+	border: 1px solid #56871B !important;
+    border-color: #56871B;
 }
 
 .infoMessageArea h2 {
@@ -566,7 +567,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .errorMessageArea {
-    border-color: #D80000;
+	border: 1px solid #E95A29 !important; 
+    border-color: #E95A29;
 }
 
 .errorMessageArea h2 {
@@ -603,4 +605,15 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*UNDER REWORK*/
 .underRework {
     background-color: #F43E71 !important;
+}
+
+.successMessageArea {
+    border: 1px solid #147DA2 !important;
+    border-color: #147DA2;
+}
+
+.inputInfoBox, .inputInfoBox a {
+	text-align: center;
+	font-weight: bolder;
+	font-family: serif;
 }
