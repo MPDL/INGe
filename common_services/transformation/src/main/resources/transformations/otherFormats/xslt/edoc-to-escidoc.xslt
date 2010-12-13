@@ -1233,7 +1233,12 @@
 			<!-- TOTAL NUMBER OF PAGES -->
 			<xsl:if test="phydesc">
 				<xsl:choose>
+					<!-- 
 					<xsl:when test="$gen='book-item' and not(exists(booktitle))">
+						<xsl:call-template name="phydescPubl"/>
+					</xsl:when>
+					 -->
+					<xsl:when test="$gen='book-item' or $gen='book' or $gen='thesis'">
 						<xsl:call-template name="phydescPubl"/>
 					</xsl:when>
 					<xsl:when test="$gen='conference-paper' and not(exists(titleofproceedings)) and exists(phydesc)">
@@ -1676,6 +1681,18 @@
 					<xsl:choose>
 						<xsl:when test="$source-name = 'eDoc-AEI'">
 							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' MPI for Gravitational Physics'))"/>
+						</xsl:when>
+						<xsl:when test="$source-name = 'eDoc-NPH'">
+							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' MPI for Nuclear Physics'))"/>
+						</xsl:when>
+						<xsl:when test="$source-name = 'eDoc-FHI'">
+							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' Fritz Haber Institute'))"/>
+						</xsl:when>
+						<xsl:when test="$source-name = 'eDoc-CBS'">
+							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' MPI for Human Cognitive and Brain Sciences'))"/>
+						</xsl:when>
+						<xsl:when test="$source-name = 'eDoc-BPC'">
+							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' MPI for biophysical chemistry'))"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
@@ -2210,7 +2227,7 @@
 			<xsl:value-of select="../../../rights/copyright"/>
 		</xsl:element>
 	</xsl:template>
-	
+		
 	<!-- CBS templates -->
 	
 	<xsl:template name="authorcomment">
