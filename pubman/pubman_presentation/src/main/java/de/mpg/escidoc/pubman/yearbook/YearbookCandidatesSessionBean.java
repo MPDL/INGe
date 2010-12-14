@@ -59,6 +59,8 @@ public class YearbookCandidatesSessionBean extends FacesBean
 			try
 			{
 				orgUnitSelectItems = new ArrayList<SelectItem>();
+				orgUnitSelectItems = new ArrayList<SelectItem>();
+	            orgUnitSelectItems.add(new SelectItem("all", "-"));
 				InitialContext initialContext = new InitialContext();
 				XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
 				OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
