@@ -55,6 +55,7 @@ import org.apache.log4j.Logger;
 import com.ctc.wstx.io.BufferRecycler;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.mets.METSTransformation;
 import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.ThirdPartyTransformation;
@@ -74,7 +75,6 @@ public class OtherFormatsTransformation
     private final String METADATA_XSLT_LOCATION ="transformations/otherFormats/xslt";
     private static final String PROPERTY_FILENAME = "pubman.properties";
     private static Properties properties;
-    private static String xmlBeginTag = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
     
     /**
      * Provides the transformation from a esciDocToc object to a mets object.
@@ -133,83 +133,6 @@ public class OtherFormatsTransformation
         return writer.toString();
     }
     
-    public String jusXsltTransform(String formatFrom, String formatTo, String itemXML) throws RuntimeException
-    {
-        String xsltUri = formatFrom.toLowerCase() + "2" + formatTo.toLowerCase() + ".xsl";
-        
-        TransformerFactory factory = new TransformerFactoryImpl();
-        factory.setURIResolver(new LocalUriResolver(this.METADATA_XSLT_LOCATION));
-        StringWriter writer = new StringWriter();
-        
-        try
-        {
-            ClassLoader cl = this.getClass().getClassLoader();
-            InputStream in = cl.getResourceAsStream(this.METADATA_XSLT_LOCATION + "/" + xsltUri);
-            Transformer transformer = factory.newTransformer(new StreamSource(in));
-           
-            StringReader xmlSource = new StringReader(itemXML);
-            transformer.transform(new StreamSource(xmlSource), new StreamResult(writer));
-        }
-        catch (TransformerException e)
-        {
-            this.logger.error("An error occurred during a other format transformation.", e);
-            throw new RuntimeException();
-        }
-        
-        return writer.toString();
-    }
-    
-    public String jusXsltTransformWithParameter(String formatFrom, String formatTo, String itemXML, Map<String,String> configuration) throws RuntimeException
-    {
-        String xsltUri = formatFrom.toLowerCase() + "2" + formatTo.toLowerCase() + ".xsl";
-        
-        TransformerFactory factory = new TransformerFactoryImpl();
-        factory.setURIResolver(new LocalUriResolver(this.METADATA_XSLT_LOCATION));
-        StringWriter writer = new StringWriter();
-        StringWriter writer1 = new StringWriter();
-        StringBuffer buff = new StringBuffer();
-        
-        try
-        {
-            ClassLoader cl = this.getClass().getClassLoader();
-            InputStream in = cl.getResourceAsStream(this.METADATA_XSLT_LOCATION + "/" + xsltUri);
-            Transformer transformer = factory.newTransformer(new StreamSource(in));
-            for (String key : configuration.keySet())
-            {
-                transformer.setParameter(key, configuration.get(key));
-                logger.info("Starting transformation with params " + key + ", " +configuration.get(key));
-            }
-           
-            String itemXMLwithSortOrder = appendSortOrderToItemXml(itemXML);
-           
-            StringReader xmlSource = new StringReader(itemXMLwithSortOrder);
-            //transform with the author parameter first
-            transformer.setParameter("selectedRole", "http://www.loc.gov/loc.terms/relators/AUT");
-            transformer.transform(new StreamSource(xmlSource), new StreamResult(writer));
-            
-            buff.append(xmlBeginTag);
-            buff.append("<report>");
-            buff.append(writer.getBuffer());
-            //then transform with editor parameter first
-            StringReader xmlSource1 = new StringReader(itemXMLwithSortOrder);
-            transformer.setParameter("selectedRole", "http://www.loc.gov/loc.terms/relators/EDT");
-           
-            transformer.transform(new StreamSource(xmlSource1), new StreamResult(writer1));
-            buff.append(writer1.toString());
-            buff.append("</report>");
-       
-        }
-        catch (TransformerException e)
-        {
-            this.logger.error("An error occurred during a other format transformation.", e);
-            throw new RuntimeException();
-        }
-        
-        return  buff.toString();
-    }
-    
-    
-
 	/**
      * Gets the value of a property for the given key from the escidoc property file.
      *
@@ -281,61 +204,5 @@ public class OtherFormatsTransformation
 
         return check;
     }    
-    
-    private String appendSortOrderToItemXml(String itemXML) {
-    	
-    	
-    	boolean firstOccurrence = true;
-        String testXmlAppend = "<s:authorship xmlns:s=\"http://sorting\">"+
-        	 "<s:genre priority=\"1\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/monograph/</s:name></s:genre>\n" +
-        	 "<s:genre priority=\"2\"><s:name>http://purl.org/eprint/type/Thesis</s:name></s:genre>\n"+
-       	     "<s:genre priority=\"3\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary</s:name></s:genre>\n" + 
-       	     "<s:genre priority=\"4\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift</s:name></s:genre>\n" + 
-       	     "<s:genre priority=\"5\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition</s:name></s:genre>\n"+
-       	     "<s:genre priority=\"6\"><s:name>http://purl.org/eprint/type/ConferencePaper</s:name></s:genre>\n"+
-       	     "<s:genre priority=\"7\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook</s:name></s:genre>\n"+
-       	     "<s:genre priority=\"8\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia</s:name></s:genre>\n"+
-       	     "<s:genre priority=\"9\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/article</s:name></s:genre>\n"+
-       	     "<s:genre priority=\"10\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/case-note</s:name></s:genre>\n"+
-       	     "<s:genre priority=\"11\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/case-study</s:name></s:genre>\n"+
-       	     "<s:genre priority=\"12\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/book-review</s:name></s:genre>\n"+
-       	     "<s:genre priority=\"13\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article</s:name></s:genre>\n"+
-       	     "<s:genre priority=\"14\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</s:name></s:genre>\n"+
-        "</s:authorship>" + 
-       	"<s:first_editorship  xmlns:s=\"http://sorting\">" + 
-       		"<s:genre priority=\"1\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/monograph</s:name></s:genre>\n"+
-       		"<s:genre priority=\"2\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/collected-edition</s:name></s:genre>\n"+
-       		"<s:genre priority=\"3\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/commentary</s:name></s:genre>\n"+
-       		"<s:genre priority=\"4\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/handbook</s:name></s:genre>\n"+
-       		"<s:genre priority=\"5\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</s:name></s:genre>\n"+
-       	"</s:first_editorship>" +
-       	"<s:second_editorship xmlns:s=\"http://sorting\">"+
-       		"<s:genre priority=\"1\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/journal</s:name></s:genre>\n"+
-       		"<s:genre priority=\"2\"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/series</s:name></s:genre>\n"+
-       	"</s:second_editorship>";
-        String firstItem = "<escidocItem:item";
-        String buff;
-        StringBuffer sb = new StringBuffer();
    
-        BufferedReader reader = new BufferedReader(new StringReader(itemXML));
-        try{
-        	while ((buff = reader.readLine())!= null){
-        			if (buff.contains(firstItem) && firstOccurrence){
-        				
-        				sb.append(testXmlAppend).append("\n");
-        				sb.append(buff).append("\n");
-        				firstOccurrence = false;
-        				
-        			} else {
-        				sb.append(buff).append("\n");
-        			}
-        		
-        	}
-        	reader.close();
-        }catch (IOException e) 
-		{
-			throw new RuntimeException("error by reading of items string", e);
-		}    
-		return sb.toString();
-	}
 }

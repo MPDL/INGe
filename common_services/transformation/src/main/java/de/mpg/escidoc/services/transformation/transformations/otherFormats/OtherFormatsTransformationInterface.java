@@ -74,7 +74,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
  *
  */
 @TransformationModule
-public class OtherFormatsTransformationInterface implements Transformation, Configurable
+public class OtherFormatsTransformationInterface implements Transformation
 {
     private final Logger logger = Logger.getLogger(OtherFormatsTransformationInterface.class);
     
@@ -230,39 +230,6 @@ public class OtherFormatsTransformationInterface implements Transformation, Conf
         return result;
     }
    
-  private byte[] jusTransform(byte[] src, Format srcFormat, Format trgFormat, String service, Map<String, String> configuration)
-    throws TransformationNotSupportedException{
-    	 byte[] result = null;
-         boolean supported = false;
-         
-         String srcFormatName = srcFormat.getName();
-         String trgFormatName = trgFormat.getName();
-         
-          if(trgFormatName.equals("jus_out")){
-         	try
-         	{
-         		
-         		String transformedXml = this.transformer.jusXsltTransform(srcFormatName, trgFormatName, new String(src, "UTF-8"));
-                result = transformedXml.getBytes("UTF-8");
-         		logger.info("Test from other formats transform JUS IN" );
-         	}
-         	catch(Exception e)
-         	{
-         		this.logger.warn("An error occurred during String Cast." , e);
-         	}
-         	supported = true;
-         }
-         if (!supported)
-         {
-             this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", " + srcFormat.getType() 
-                     + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName() + ", " + trgFormat.getType() 
-                     + ", " + trgFormat.getEncoding());
-             throw new TransformationNotSupportedException();
-         }
-         
-         return result;
-	}
-
 	private byte[] escidocTransform(byte[] src, Format srcFormat, Format trgFormat, String service)
         throws TransformationNotSupportedException
     {
@@ -370,54 +337,5 @@ public class OtherFormatsTransformationInterface implements Transformation, Conf
         Format[] dummy = new Format[sourceFormats.size()];
         return sourceFormats.toArray(dummy);
     }
-
-	public Map<String, String> getConfiguration(Format srcFormat,
-			Format trgFormat) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<String> getConfigurationValues(Format srcFormat,
-			Format trgFormat, String key) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service, Map<String, String> configuration)
-			throws TransformationNotSupportedException, RuntimeException {
-		byte[] result = null;
-		boolean supported = false;
-		String transformedXml = null;
-
-		String srcFormatName = srcFormat.getName();
-		String trgFormatName = trgFormat.getName();
-
-		if (srcFormat.getName().toLowerCase().startsWith("jus")) {
-			try {
-				if (configuration != null) {
-					transformedXml = this.transformer.jusXsltTransformWithParameter(srcFormatName, trgFormatName, new String(src,"UTF-8"), configuration);
-					logger.info("Transformation to jus with config ");
-				} else {
-					transformedXml = this.transformer.jusXsltTransform(srcFormatName, trgFormatName, new String(src,"UTF-8"));
-					logger.info("Standard transformation to jus.");
-				}
-				result = transformedXml.getBytes("UTF-8");
-			} catch (Exception e) {
-				this.logger.warn("An error occurred during transformation with jusXslt.",e);
-			}
-			supported = true;
-
-		}
-
-		if (!supported) {
-			this.logger.warn("Transformation not supported: \n"
-					+ srcFormat.getName() + ", " + srcFormat.getType() + ", "
-					+ srcFormat.getEncoding() + "\n" + trgFormat.getName()
-					+ ", " + trgFormat.getType() + ", "
-					+ trgFormat.getEncoding());
-			throw new TransformationNotSupportedException();
-		}
-		return result;
-	}
 
 }
