@@ -237,17 +237,17 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
     
     private SearchQuery getCandidatesQuery() throws Exception
     {
-    	 MetadataSearchQuery mdQuery = getCandidateQuery();
+    	String query = getCandidateQuery().getCqlQuery();
         if (getSelectedOrgUnit()!=null && !getSelectedOrgUnit().toLowerCase().equals("all")) 
         {
-        	mdQuery.addCriterion(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
+        	query += " AND " + MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS() + "=\"" + getSelectedOrgUnit() + "\"";
+        	//mdQuery.addCriterion(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, getSelectedOrgUnit(), LogicalOperator.AND)); 
         }
-        String additionalQuery = yisb.getYearbookItem().getLocalTags().get(0);
-        PlainCqlQuery query = new PlainCqlQuery(mdQuery.getCqlQuery() + " AND " +  additionalQuery);
-        return query;
+       
+        return new PlainCqlQuery(query);
     }
     
-    public static MetadataSearchQuery getCandidateQuery() throws Exception
+    public static SearchQuery getCandidateQuery() throws Exception
     {
     	 YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
     	 ArrayList<String> contentTypes = new ArrayList<String>();
@@ -280,7 +280,11 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
              	}
              }
          MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
-         return mdQuery;
+         
+         String additionalQuery = yisb.getYearbookItem().getLocalTags().get(0);
+         PlainCqlQuery query = new PlainCqlQuery(mdQuery.getCqlQuery() + " AND " +  additionalQuery);
+         
+         return query;
     }
     
     

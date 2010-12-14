@@ -303,9 +303,9 @@ public class YearbookItemSessionBean extends FacesBean
     
     public boolean isCandidate(String id) throws Exception
     {
-    	MetadataSearchQuery mdQuery = YearbookCandidatesRetrieverRequestBean.getCandidateQuery();
-    	mdQuery.addCriterion(new MetadataSearchCriterion(CriterionType.IDENTIFIER, id, LogicalOperator.AND));
-        ItemContainerSearchResult result = this.searchService.searchForItemContainer(mdQuery);
+    	String cqlQuery = YearbookCandidatesRetrieverRequestBean.getCandidateQuery().getCqlQuery();
+    	cqlQuery += " AND " + MetadataSearchCriterion.getINDEX_IDENTIFIER() + "=\"" + id + "\"";
+        ItemContainerSearchResult result = this.searchService.searchForItemContainer(new PlainCqlQuery(cqlQuery));
     	return result.getTotalNumberOfResults().shortValue() == 1;
     }
     
