@@ -70,6 +70,8 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.search.query.MetadataDateSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 
 
 
@@ -214,10 +216,13 @@ public class YearbookItemCreateBean extends FacesBean
 			
       
 			//date query
-			String datequery = "(( escidoc.publication.issued>=\"" + getDateFrom() + "\"";
-			datequery+=(" AND escidoc.publication.issued<=\"" + getDateTo() + "\" )");
-			datequery += (" OR ( escidoc.publication.published-online>=\"" + getDateFrom() + "\"");
-			datequery += (" AND escidoc.publication.published-online<=\"" + getDateTo() + "\" ) )");
+			ArrayList<CriterionType> dateTypeList = new ArrayList<CriterionType>();
+			dateTypeList.add(CriterionType.DATE_ISSUED);
+			dateTypeList.add(CriterionType.DATE_PUBLISHED_ONLINE);
+			
+			MetadataDateSearchCriterion mdDate = new MetadataDateSearchCriterion(dateTypeList, getDateFrom(), getDateTo());
+			
+			String datequery = mdDate.generateCqlQuery();
 			
 			mds.getSubjects().add(new TextVO("escidoc.publication.issued>=\"" + getDateFrom() + "\""));
 			mds.getSubjects().add(new TextVO("escidoc.publication.issued<=\"" + getDateTo() + "\""));

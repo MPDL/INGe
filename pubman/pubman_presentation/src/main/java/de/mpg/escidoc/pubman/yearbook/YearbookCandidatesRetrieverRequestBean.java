@@ -259,6 +259,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
          mdsList.add(objectTypeMds);
 
          //MetadataSearchCriterion genremd = new MetadataSearchCriterion(CriterionType.ANY, );
+         
          int i =0;
          for(Genre genre : yisb.getYearbookContext().getAdminDescriptor().getAllowedGenres())
          {
@@ -272,6 +273,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
              }
              i++;
          }
+         
          if(yisb.getNumberOfMembers()>0)
          {
              for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
