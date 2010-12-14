@@ -27,7 +27,6 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
-<%@page import="com.ctc.wstx.dtd.ModelNode"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	this.request = request;
