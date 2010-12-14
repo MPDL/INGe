@@ -37,6 +37,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -66,6 +67,7 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
+import de.mpg.escidoc.services.common.util.FileVOCreationDateComparator;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationResultVO;
@@ -686,6 +688,7 @@ public class XmlTransformingBean implements XmlTransforming
         {
             throw new TechnicalException(e);
         }
+        Collections.sort(itemVO.getFiles(), new FileVOCreationDateComparator());
         return itemVO;
     }
 
