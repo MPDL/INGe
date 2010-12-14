@@ -62,6 +62,7 @@ public class ReportWorkspaceBean extends FacesBean {
 	String index = "escidoc_all";
 
 	private Map<String, String> configuration = null;
+	List<String> childAffilList;
 
 	public ReportWorkspaceBean() {
 		InitialContext initialContext;
@@ -72,6 +73,7 @@ public class ReportWorkspaceBean extends FacesBean {
 			this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
 			this.citationStyleHandler = (CitationStyleHandler) initialContext.lookup(CitationStyleHandler.SERVICE_NAME);
 			this.configuration = new HashMap<String, String>();
+			this.childAffilList = new ArrayList<String>();
 		} catch (NamingException e) {
 			throw new RuntimeException("Search service not initialized", e);
 		}
@@ -99,7 +101,7 @@ public class ReportWorkspaceBean extends FacesBean {
 		byte[] itemListCS  = null;
 		byte[] itemListReportTransformed = null;
 		if ("".equals(this.organization.getIdentifier()) || this.organization.getIdentifier() == null){
-			error(getMessage("OrgIdNotProvided"));
+			error(getMessage("ReportOrgIdNotProvided"));
 			return null;
 		}else if ("".equals(this.getReportYear()) || this.getReportYear() == null){
 			error(getMessage("ReportYearNotProvided"));
@@ -107,20 +109,19 @@ public class ReportWorkspaceBean extends FacesBean {
 		} else {
 			try {
 				logger.info("Start generation report for YEAR " + this.reportYear + ", ORG " + this.organization.getIdentifier());
+				
 				itemLsitSearchResult = doSearchItems();
 				if (itemLsitSearchResult != null){
 					itemListCS = doCitationStyle(itemLsitSearchResult);
-					//logger.info("itemListCS " + new String(itemListCS));
 				}
 				if (itemListCS != null){
 					itemListReportTransformed = doReportTransformation(itemListCS);
-					logger.info("Transformed result: " + new String(itemListReportTransformed));
+					logger.info("Transformed result: \n" + new String(itemListReportTransformed));
 				}
 				if (itemListReportTransformed != null){
 					HttpServletResponse resp = (HttpServletResponse) this.getExternalContext().getResponse();
 					resp.setContentType("text/xml; charset=UTF-8");
 					
-					//resp.setContentLength(itemListReportTransformed.length);
 					resp.addHeader("Content-Disposition", "attachment; filename=" +"report.xml");
 					
 					ServletOutputStream stream = resp.getOutputStream();
@@ -135,10 +136,8 @@ public class ReportWorkspaceBean extends FacesBean {
 					
 					FacesContext faces = FacesContext.getCurrentInstance();
 					faces.responseComplete();
-				
-				}
+				} 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -149,24 +148,22 @@ public class ReportWorkspaceBean extends FacesBean {
 		
 	private String doSearchItems() {
 		String itemListAsString = null;
+		int totalNrOfSerchResultItems = 0;
 		// create an initial query with the given reportYear and the org id
 		String query = "escidoc.publication.compound.dates" + " = " + this.reportYear + " AND " +
 				"(" + "escidoc.publication.creator.person.organization.identifier" + " = " + this.organization.getIdentifier();
 		
-		List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
 		try {
 			// get a list of children of the given org
-			affList = getChildOUs(this.organization.getIdentifier());
+			this.childAffilList = getChildOUs(this.organization.getIdentifier());
 		} catch (Exception e) {
 			logger.error("Error when trying to get the children of the given organization.",e);
 			e.printStackTrace();
 		}
 		// when there are children, concat the org ids to the query 
-		if (affList.size() > 0) {
-			for (AffiliationVOPresentation a : affList) {
-				String childId = a.getIdPath();
-				childId = childId.substring(0, childId.indexOf(" "));
-				query = query + " OR " + "escidoc.publication.creator.person.organization.identifier" + " = " + childId;
+		if (this.childAffilList.size() > 0) {
+			for (String child : this.childAffilList) {
+				query = query + " OR " + "escidoc.publication.creator.person.organization.identifier" + " = " + child;
 			}
 		} 
 		// close the brackets of the query
@@ -176,8 +173,13 @@ public class ReportWorkspaceBean extends FacesBean {
 		ItemContainerSearchResult result;
 		try {
 			result = this.searchService.searchForItemContainer(cqlQuery);
+			totalNrOfSerchResultItems = Integer.parseInt(result.getTotalNumberOfResults().toString());
 			logger.info("Search result total nr: " + Integer.parseInt(result.getTotalNumberOfResults().toString()));
-			itemListAsString = xmlTransforming.transformToItemList(result.extractItemsOfSearchResult());
+			if (totalNrOfSerchResultItems > 0){
+				itemListAsString = xmlTransforming.transformToItemList(result.extractItemsOfSearchResult());
+			} else {
+				info(getMessage("ReportNoItemsFound"));
+			}
 		} 
 		catch (Exception e) {
 			logger.error("Error when trying to find search service.", e);
@@ -198,12 +200,22 @@ public class ReportWorkspaceBean extends FacesBean {
 	}
 		
 	private byte[] doReportTransformation(byte[] src) {
+		String childConfig = "";
 		byte[] result = null;
 		Format source = new Format(exportFormat, "application/xml", "UTF-8");
 		Format target = new Format(outputFormat, "application/xml", "UTF-8");
 		// set the config for the transformation, the institut's name is used for CoNE
-		configuration.put("institutsName", this.organization.getName().toString());
+		if (this.childAffilList.size() > 0 ){
+			for (String childId: this.childAffilList){
+				childConfig += childId + " ";
+			}
+			logger.info("CHILD Config " + childConfig);
+			configuration.put("institutsId", childConfig);
+		} else {
+			configuration.put("institutsId", this.organization.getIdentifier());
+		}
 		try {
+			this.transformer.getConfiguration(source, target);
 			result = this.transformer.transform(src, source, target, "escidoc", configuration);
 		} catch (TransformationNotSupportedException e) {
 			logger.error("This transformation is not supported.", e);
@@ -211,20 +223,34 @@ public class ReportWorkspaceBean extends FacesBean {
 			e.printStackTrace();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return result;
 
 	}
 	
-	public List<AffiliationVOPresentation> getChildOUs(String orgId) throws Exception {
+	public List<String> getChildOUs(String orgId) throws Exception {
+		List<String> affListAsString = new ArrayList<String>();
 		OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
 		String topLevelOU = ouHandler.retrieve(orgId);
 		AffiliationVO affVO = xmlTransforming.transformToAffiliation(topLevelOU);
+		
 		AffiliationVOPresentation aff = new AffiliationVOPresentation(affVO);
 		List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
-		affList.addAll(aff.getChildren());
-		return affList;
+		if (aff.getHasChildren()){
+			affList.addAll(aff.getChildren());
+			for (AffiliationVOPresentation a : affList) {
+				String childId = a.getIdPath();
+				childId = childId.substring(0, childId.indexOf(" "));
+				affListAsString.add(childId);
+			}
+		}
+		return affListAsString;
 	}
-
+	
+	
+	
 
 }
