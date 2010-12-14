@@ -84,7 +84,7 @@
 	<xsl:param name="root-ou" select="'dummy-root-ou'"/>
 	<xsl:param name="source-name" select="'eDoc'"/>
 	
-	<xsl:param name="import-name" select="'FHI'"/>
+	<xsl:param name="import-name" select="'OTHER'"/>
 	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
 	
