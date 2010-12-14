@@ -1,0 +1,31 @@
+<s:sortorder xmlns:s="http://sorting">
+<s:authorship>
+		<s:genre priority="1"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/monograph</s:name></s:genre>
+		<s:genre priority="2"><s:name>http://purl.org/eprint/type/Thesis</s:name></s:genre>
+		<s:genre priority="3"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary</s:name></s:genre>
+		<s:genre priority="4"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift</s:name></s:genre>
+		<s:genre priority="5"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition</s:name></s:genre>
+		<s:genre priority="6"><s:name>http://purl.org/eprint/type/ConferencePaper</s:name></s:genre>
+		<s:genre priority="7"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook</s:name></s:genre>
+		<s:genre priority="8"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia</s:name></s:genre>
+		<s:genre priority="9"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/article</s:name></s:genre>
+		<s:genre priority="10"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/case-note</s:name></s:genre>
+		<s:genre priority="11"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/case-study</s:name></s:genre>
+		<s:genre priority="12"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/book-review</s:name></s:genre>
+		<s:genre priority="13"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article</s:name></s:genre>
+		<s:genre priority="14"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</s:name></s:genre>
+</s:authorship>
+
+<s:first_editorship>
+	<s:genre priority="1"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/monograph</s:name></s:genre>
+	<s:genre priority="2"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/collected-edition</s:name></s:genre>
+	<s:genre priority="3"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/commentary</s:name></s:genre>
+	<s:genre priority="4"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/handbook</s:name></s:genre>
+	<s:genre priority="5"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</s:name></s:genre>
+</s:first_editorship>
+<s:second_editorship>
+	<s:genre priority="1"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/journal</s:name></s:genre>
+	<s:genre priority="2"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/series</s:name></s:genre>
+</s:second_editorship>
+</s:sortorder>
+
