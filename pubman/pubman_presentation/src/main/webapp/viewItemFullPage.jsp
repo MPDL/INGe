@@ -119,10 +119,10 @@
 									<h:commandLink id="lnkDeleteFromBasket" action="#{ViewItemFull.removeFromBasket}" value="#{lbl.ViewItemFull_lblRemoveFromBasket}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isInBasket}"/>
 
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isCandidateOfYearbook}" />
-									<h:commandLink id="lnkAddToYearbook" styleClass="free_area0" value="#{lbl.Yearbook_addToYearbook}" type ="reset" action="#{ViewItemFull.addToYearbookMember}" immediate="true" rendered="#{ViewItemFull.isCandidateOfYearbook}"/>
+									<h:commandLink id="lnkAddToYearbook" styleClass="free_area0" value="#{lbl.Yearbook_addToYearbookViewItem}" type ="reset" action="#{ViewItemFull.addToYearbookMember}" immediate="true" rendered="#{ViewItemFull.isCandidateOfYearbook}"/>
 
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isMemberOfYearbook}" />
-									<h:commandLink id="lnkRemoveFromYearbook" styleClass="free_area0" value="#{lbl.Yearbook_removeFromYearbook}" action="#{ViewItemFull.removeMemberFromYearbook}" rendered="#{ViewItemFull.isMemberOfYearbook}"/>
+									<h:commandLink id="lnkRemoveFromYearbook" styleClass="free_area0" value="#{lbl.Yearbook_removeFromYearbookViewItem}" action="#{ViewItemFull.removeMemberFromYearbook}" rendered="#{ViewItemFull.isMemberOfYearbook}"/>
 
 	
 								<!-- content menu lower line ends here -->
