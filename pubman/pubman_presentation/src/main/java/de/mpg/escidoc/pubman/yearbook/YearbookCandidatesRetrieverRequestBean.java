@@ -132,7 +132,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
             }
             else
             {
-                setSelectedOrgUnit(yisb.getYearbookItem().getMetadata().getCreators().get(0).getOrganization().getIdentifier()); 
+                setSelectedOrgUnit(getSessionBean().getOrgUnitSelectItems().get(0).getValue().toString()); 
             }
             
         }
@@ -353,10 +353,16 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         }
         String contentModel = MetadataSearchCriterion.getINDEX_CONTENT_TYPE() + "=\"" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication") + "\"";
         String objectType = MetadataSearchCriterion.getINDEX_OBJECT_TYPE() + "=\"item\""; 
-        String orgUnitSelected = MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS() + "=\"" + getSelectedOrgUnit() + "\"";
+        
+        //String orgUnitSelected = MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS() + "=\"" + getSelectedOrgUnit() + "\"";
        
-        PlainCqlQuery query = new PlainCqlQuery(objectType + " AND " + contentModel + " AND (" + context + ") AND " + orgUnit + " AND " +orgUnitSelected + " NOT ( " + getCandidatesQuery().getCqlQuery() + " )");
-        return query;
+        String query = objectType + " AND " + contentModel + " AND (" + context + ") NOT ( " + getCandidatesQuery().getCqlQuery() + " )";
+        
+        if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
+        {
+            query += " AND " + MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS() + "=\"" + getSelectedOrgUnit() + "\"";
+        }
+        return new PlainCqlQuery(query);
     }
     
     public static MetadataSearchQuery getMemberQuery(PubItemVO yearbookItem) throws Exception
