@@ -34,6 +34,8 @@ package de.mpg.escidoc.services.transformation;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -357,6 +359,130 @@ public class Util
             //throw new RuntimeException(e);
         }
     }
+    
+    /**
+     * Queries CoNE service and returns the result as DOM node.
+     * The returned XML has the following structure:
+     * <cone>
+     *   <author>
+     *     <familyname>Buxtehude-Mölln</familyname>
+     *     <givenname>Heribert</givenname>
+     *     <prefix>von und zu</prefix>
+     *     <title>König</title>
+     *   </author>
+     *   <author>
+     *     <familyname>Müller</familyname>
+     *     <givenname>Peter</givenname>
+     *   </author>
+     * </authors>
+     * 
+     * @param Single instituteId for an institute without departments or list of Ids. Every department has his own Id.
+     * @return 
+     */
+	public static Node queryReportPersonCone(String model, String query) {
+		DocumentBuilder documentBuilder;
+		String queryUrl;
+		List<String> childIds = new ArrayList<String>();
+		// get the childOUs if any in the query
+		if (query.contains(" ")) {
+			String[] result = query.split("\\s+");
+			for (String s : result) {
+				childIds.add(s);
+			}
+		}
+
+		try {
+			documentBuilder = DocumentBuilderFactoryImpl.newInstance()
+					.newDocumentBuilder();
+
+			Document document = documentBuilder.newDocument();
+			Element element = document.createElement("cone");
+			document.appendChild(element);
+
+			queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
+					+ model
+					+ "/query?format=jquery&escidoc:position/dc:identifier=\""
+					+ query + "\"";
+
+			HttpClient client = new HttpClient();
+			if (childIds.size() > 0) {
+				// execute a method for every child ou
+				for (String childId : childIds) {
+					queryUrl = PropertyReader
+							.getProperty("escidoc.cone.service.url")
+							+ model
+							+ "/query?format=jquery&escidoc:position/dc:identifier=\""
+							+ childId + "\"";
+					executeGetMethod(client, queryUrl, documentBuilder,
+							document, element);
+				}
+			} else {
+				// there are no child ous, methid is called once
+				executeGetMethod(client, queryUrl, documentBuilder, document,
+						element);
+			}
+
+			return document;
+		} catch (Exception e) {
+			logger
+					.error("Error querying CoNE service. This is normal during unit tests. "
+							+ "Otherwise it should be clarified if any measures have to be taken.");
+			return null;
+		}
+	}
+	
+	/**
+     * Execute the GET-method.
+     * @param client
+     * @param queryUrl
+     * @param documentBuilder
+     * @param document
+     * @param element
+     * @return true if the array contains the format object, else false
+     */
+	private static void executeGetMethod(HttpClient client, String queryUrl,
+			DocumentBuilder documentBuilder, Document document, Element element) {
+		try {
+			GetMethod method = new GetMethod(queryUrl);
+			ProxyHelper.executeMethod(client, method);
+			logger.info("queryURL from executeGetMethod  " + queryUrl);
+
+			if (method.getStatusCode() == 200) {
+				String[] results = method.getResponseBodyAsString().split("\n");
+				for (String result : results) {
+					if (!"".equals(result.trim())) {
+						String detailsUrl = result.split("\\|")[1];
+						GetMethod detailMethod = new GetMethod(detailsUrl + "?format=rdf");
+                        
+                        logger.info(detailMethod.getPath());
+                        logger.info(detailMethod.getQueryString());
+                        
+                        ProxyHelper.setProxy(client, detailsUrl);
+                        client.executeMethod(detailMethod);
+                        if (detailMethod.getStatusCode() == 200)
+                        {
+                            Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
+                            element.appendChild(document.importNode(details.getFirstChild(), true));
+                        }
+                        else
+                        {
+                            logger.error("Error querying CoNE: Status "
+                                    + detailMethod.getStatusCode() + "\n" + detailMethod.getResponseBodyAsString());
+                        }
+					}
+				}
+
+			} else {
+				logger.error("Error querying CoNE: Status "
+						+ method.getStatusCode() + "\n"
+						+ method.getResponseBodyAsString());
+			}
+		} catch (Exception e) {
+			logger
+					.error("Error querying CoNE service. This is normal during unit tests. "
+							+ "Otherwise it should be clarified if any measures have to be taken.");
+		}
+	}
     
     public static Node getSize(String url)
     {
