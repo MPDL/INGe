@@ -430,8 +430,8 @@ public class LoginHelper extends FacesBean
     
     public boolean getIsYearbookEditor()
     {
-    	ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
-    	if(clsb.getYearbookContextListSize()>0)
+    	ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class); 
+    	if(getIsDepositor() && clsb.getYearbookContextListSize()>0)
     	{
     		return true;
     	}
