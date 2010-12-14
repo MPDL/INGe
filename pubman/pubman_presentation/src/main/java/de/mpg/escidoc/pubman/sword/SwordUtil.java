@@ -30,10 +30,14 @@
 
 package de.mpg.escidoc.pubman.sword;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
 import java.net.FileNameMap;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -41,6 +45,8 @@ import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -89,8 +95,10 @@ import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
@@ -396,12 +404,11 @@ public class SwordUtil extends FacesBean
         throws ItemInvalidException, ContentStreamNotFoundException, Exception
     {
         String item = null;
-        Vector < byte[]> attachements = new Vector< byte[]>();
-        Vector < String> attachementsNames = new Vector< String>();
+        List<FileVO> attachements = new ArrayList<FileVO>();
+        //List<String> attachementsNames = new ArrayList< String>();
         PubItemVO pubItem = null;
-        int size = 0;
         final int bufLength = 1024;
-        byte[] buffer = new byte[ bufLength ];
+        char[] buffer = new char[ bufLength ];
         int readReturn;
         int count = 0;
 
@@ -409,42 +416,93 @@ public class SwordUtil extends FacesBean
         {
             ZipEntry zipentry;
             ZipInputStream zipinputstream = new ZipInputStream(in);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            //ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
             while ((zipentry = zipinputstream.getNextEntry()) != null)
             {
-                count++;
+                count++; 
                 this.logger.debug("Processing zip entry file: " + zipentry.getName());
-                baos = new ByteArrayOutputStream();
-                while ((readReturn = zipinputstream.read(buffer)) != -1)
-                {
-                   baos.write(buffer, 0, readReturn);
-                }
-
+                
                 String name = URLDecoder.decode(zipentry.getName(), "UTF-8");
                 name = name.replaceAll("/", "_slsh_");
                 this.filenames.add(name);
+                boolean metadata = false;
                 
                 //check if the file is a metadata file
                 for (int i = 0; i < this.fileEndings.length; i++)
                 {
+                    
                     String ending = this.fileEndings[i];
                     if (name.endsWith(ending))
                     {
+                        metadata=true;
                         //Retrieve the metadata
-                        size = (int) zipentry.getSize();
-                        item = new String(baos.toByteArray(), 0, size, "UTF-8");
+                        
+                        StringWriter sw = new StringWriter();
+                        Reader reader = new BufferedReader(new InputStreamReader(zipinputstream, "UTF-8"));
+                        
+                        while ((readReturn = reader.read(buffer)) != -1)
+                        {
+                           sw.write(buffer, 0, readReturn);
+                        }
+                        
+                        item = new String(sw.toString());  
                         this.depositXml = item;
                         this.depositXmlFileName = name;
+                        pubItem = createItem(item, user);
+                        
+                        //if not escidoc format, add as component
+                        if(!this.currentDeposit.getFormatNamespace().equals(this.mdFormatEscidoc))
+                        {
+                        	attachements.add(convertToFileAndAdd(new ByteArrayInputStream(item.getBytes("UTF-8")), name, user, zipentry));
+                        }
                     }
                 }
+                
+                if(!metadata)
+                {
+                    attachements.add(convertToFileAndAdd(zipinputstream, name, user, zipentry));
+                }
 
-                attachements.add(baos.toByteArray());
-                attachementsNames.add(name);
+                //attachements.add(baos.toByteArray());
+                //attachementsNames.add(name);
 
                 zipinputstream.closeEntry();
             }
-        zipinputstream.close();
+            zipinputstream.close();
+            
+            
+            //Collections.sort(attachements, new FileVOcomparator());
+            
+        
+            for(FileVO newFile : attachements)
+            {
+                boolean existing = false;
+                for(FileVO existingFile : pubItem.getFiles()) 
+                {
+                    if(existingFile.getName().replaceAll("/", "_slsh_").equals(newFile.getName()))
+                    {
+                        //file already exists, replace content
+                        existingFile.setContent(newFile.getContent());
+                        existingFile.getDefaultMetadata().setSize(newFile.getDefaultMetadata().getSize());
+                        existing = true;
+                        if(existingFile.getVisibility().equals(Visibility.PRIVATE))
+                        {
+                            existingFile.setVisibility(Visibility.AUDIENCE);
+                        }
+                    }
+                }
+                
+                
+                if(!existing)
+                {
+                    pubItem.getFiles().add(newFile);
+                }
+                
+            }
+            
+        
+    
 
         }
         catch (Exception e)
@@ -457,7 +515,8 @@ public class SwordUtil extends FacesBean
             this.depositServlet.setError("No zip file was provided.");
             throw new SWORDContentTypeException();
         }
-        pubItem = this.processFiles(item, attachements, attachementsNames, user);
+        
+        //pubItem = this.processFiles(item, attachements, attachementsNames, user);
 
         return pubItem;
     }
@@ -470,7 +529,7 @@ public class SwordUtil extends FacesBean
      * @throws TechnicalException
      * @throws SWORDContentTypeException
      */
-    private PubItemVO processFiles(String item, Vector<byte[]> files, Vector<String> names, AccountUserVO user)
+    private PubItemVO createItem(String item, AccountUserVO user)
         throws ItemInvalidException, ContentStreamNotFoundException, Exception
     {
         PubItemVO itemVO = null;
@@ -518,6 +577,15 @@ public class SwordUtil extends FacesBean
             itemVO = xmlTransforming.transformToPubItem(item);
             
             
+            //REMOVE!!!
+            /*
+            List<OrganizationVO> orgList = itemVO.getMetadata().getCreators().get(0).getPerson().getOrganizations();
+            if(orgList==null || orgList.size()==0)
+            {
+            	
+            }
+            */
+            
             //Set Version to null in order to force PubItemDepositingBean to create a new item.
             itemVO.setVersion(null);
 
@@ -535,14 +603,16 @@ public class SwordUtil extends FacesBean
         }
 
         //Attach files to the item
+        /*
         for (int i = 0; i < files.size(); i++)
         {
             byte[] file = files.get(i);
             String name = names.get(i);
             this.convertToFileAndAdd(file, name, user, itemVO);
-            //itemVO.getFiles().add(fileVO);
+           
         }
 
+    */
         return itemVO;
     }
 
@@ -714,7 +784,7 @@ public class SwordUtil extends FacesBean
      * @return FileVO
      * @throws Exception
      */
-    private FileVO convertToFileAndAdd (byte[] file, String name, AccountUserVO user, PubItemVO itemVO)
+    private FileVO convertToFileAndAdd (InputStream zipinputstream, String name, AccountUserVO user, ZipEntry zipEntry)
         throws Exception
     {
         boolean existing = false;
@@ -722,7 +792,7 @@ public class SwordUtil extends FacesBean
         FileVO fileVO = new FileVO();
         String fileXml = null;
 
-        ByteArrayInputStream in = new ByteArrayInputStream(file);
+        //ByteArrayInputStream in = new ByteArrayInputStream(file);
         FileNameMap fileNameMap = URLConnection.getFileNameMap();
         String mimeType = fileNameMap.getContentTypeFor(name);
         ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
@@ -738,7 +808,7 @@ public class SwordUtil extends FacesBean
             mimeType = "text/plain";
         }
 
-        URL fileURL = this.uploadFile(in, mimeType, user.getHandle());
+        URL fileURL = this.uploadFile(zipinputstream, mimeType, user.getHandle(), zipEntry);
 
         if (fileURL != null && !fileURL.toString().trim().equals(""))
         {
@@ -784,7 +854,7 @@ public class SwordUtil extends FacesBean
             formatVO.setValue(mimeType);
             fileVO.getDefaultMetadata().getFormats().add(formatVO);
             fileVO.setContent(fileURL.toString());
-            fileVO.getDefaultMetadata().setSize(file.length);
+            fileVO.getDefaultMetadata().setSize((int)zipEntry.getSize());
             //This is the provided metadata file which we store as a component
             if (!name.endsWith(".pdf"))
             {
@@ -798,6 +868,7 @@ public class SwordUtil extends FacesBean
             
             
             //if escidoc item: check if it has already components with this filename. If true, use existing file information.
+            /*
             if(this.currentDeposit.getFormatNamespace().equals(this.mdFormatEscidoc))
             {
                 for(FileVO existingFile : itemVO.getFiles())
@@ -807,6 +878,10 @@ public class SwordUtil extends FacesBean
                         existingFile.setContent(fileURL.toString());
                         existingFile.getDefaultMetadata().setSize(file.length);
                         existing = true;
+                        if(existingFile.getVisibility().equals(Visibility.PRIVATE))
+                        {
+                            existingFile.setVisibility(Visibility.AUDIENCE);
+                        }
                     }
                 }
                 
@@ -815,13 +890,18 @@ public class SwordUtil extends FacesBean
                 {
                     existing = true;
                 }
+                
+                
             }
+            */
         }
 
+        /*
         if(!existing)
         {
             itemVO.getFiles().add(fileVO);
         }
+        */
         return fileVO;
     }
 
@@ -833,13 +913,13 @@ public class SwordUtil extends FacesBean
      * @return The URL of the uploaded file.
      * @throws Exception If anything goes wrong...
      */
-    protected URL uploadFile(InputStream in, String mimetype, String userHandle)
+    protected URL uploadFile(InputStream in, String mimetype, String userHandle, ZipEntry zipEntry)
         throws Exception
     {
         // Prepare the HttpMethod.
         String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
         PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-        method.setRequestEntity(new InputStreamRequestEntity(in));
+        method.setRequestEntity(new InputStreamRequestEntity(in, -1));
         method.setRequestHeader("Content-Type", mimetype);
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
         // Execute the method with HttpClient.
@@ -847,7 +927,7 @@ public class SwordUtil extends FacesBean
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
         InitialContext context = new InitialContext();
-        XmlTransformingBean ctransforming = new XmlTransformingBean();
+        XmlTransformingBean ctransforming = new XmlTransformingBean(); 
         return ctransforming.transformUploadResponseToFileURL(response);
     }
 
