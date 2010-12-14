@@ -486,10 +486,13 @@ public class SwordUtil extends FacesBean
                         existingFile.setContent(newFile.getContent());
                         existingFile.getDefaultMetadata().setSize(newFile.getDefaultMetadata().getSize());
                         existing = true;
+                        
+                        /*
                         if(existingFile.getVisibility().equals(Visibility.PRIVATE))
                         {
                             existingFile.setVisibility(Visibility.AUDIENCE);
                         }
+                        */
                     }
                 }
                 
