@@ -1,6 +1,7 @@
 package de.mpg.escidoc.pubman.search.bean;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -8,6 +9,7 @@ import javax.naming.InitialContext;
 
 import de.mpg.escidoc.pubman.search.bean.criterion.ContextCriterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
+import de.mpg.escidoc.pubman.util.SelectItemComparator;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 
@@ -47,11 +49,14 @@ public class ContextCriterionCollection
 	{
 		getContexts();
 		contextList = new ArrayList<SelectItem>();
-		contextList.add(new SelectItem("", "--"));
+		
         for (ContextVO c : contexts)
         {
         	contextList.add(new SelectItem(c.getReference().getObjectId(),c.getName()));
         }
+        
+        Collections.sort(contextList, new SelectItemComparator());
+        contextList.add(0,new SelectItem("", "--"));
 		return contextList;
 	}
     
