@@ -62,7 +62,7 @@ public class FileCriterion extends Criterion
     @Override
     public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException
     {
-       ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>(); 
+       ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
        
        String visibility = null;
        String storage = null;
@@ -133,6 +133,11 @@ public class FileCriterion extends Criterion
        {
            if(this.excludeCategory == true)
            {
+        	   if(criterions.size()==0)
+        	   {
+        		   criterions.add( new MetadataSearchCriterion(
+               			  MetadataSearchCriterion.CriterionType.OBJECT_TYPE, "item", MetadataSearchCriterion.LogicalOperator.AND));
+        	   } 
                MetadataSearchCriterion criterion = 
                    new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_CONTENT_CATEGORY,
                            this.contentCategory, MetadataSearchCriterion.LogicalOperator.NOT);
