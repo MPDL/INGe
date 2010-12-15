@@ -2693,7 +2693,22 @@ public class ViewItemFull extends FacesBean
             InternationalizationHelper ih = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
             
             //Use special apa style if language is set to japanese
-            if("ja".equalsIgnoreCase(ih.getLocale())) 
+            boolean isJapanese = false;
+            
+            if(getPubItem().getMetadata().getLanguages()!=null)
+            {
+            	for (String lang : getPubItem().getMetadata().getLanguages())
+            	{
+            		if ("jpn".equals(lang)) 
+            		{
+            			isJapanese = true;
+            			break;
+            		}
+            	}
+            }
+            
+            
+            if(isJapanese || "ja".equalsIgnoreCase(ih.getLocale())) 
             {
                 expFormat.setName("APA(CJK)");
             }
