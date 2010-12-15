@@ -1357,7 +1357,6 @@
 					<xsl:when test="$gen='book-item' and not(exists(booktitle))">
 						<xsl:call-template name="phydescPubl"/>
 					</xsl:when>
-					 -->
 					<xsl:when test="$gen='book-item' or $gen='book' or $gen='thesis'">
 						<xsl:call-template name="phydescPubl"/>
 					</xsl:when>
@@ -1902,16 +1901,16 @@
 						<xsl:when test="$source-name = 'eDoc-AEI'">
 							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' MPI for Gravitational Physics'))"/>
 						</xsl:when>
-						<xsl:when test="$source-name = 'eDoc-NPH'">
+						<xsl:when test="$import-name = 'NPH'">
 							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' MPI for Nuclear Physics'))"/>
 						</xsl:when>
-						<xsl:when test="$source-name = 'eDoc-FHI'">
+						<xsl:when test="$simport-name = 'FHI'">
 							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' Fritz Haber Institute'))"/>
 						</xsl:when>
-						<xsl:when test="$source-name = 'eDoc-CBS'">
+						<xsl:when test="$import-name = 'CBS'">
 							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' MPI for Human Cognitive and Brain Sciences'))"/>
 						</xsl:when>
-						<xsl:when test="$source-name = 'eDoc-BPC'">
+						<xsl:when test="$import-name = 'BPC'">
 							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' MPI for biophysical chemistry'))"/>
 						</xsl:when>
 						<xsl:otherwise>
