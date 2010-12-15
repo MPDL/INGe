@@ -1352,8 +1352,7 @@
 				<xsl:element name="eterms:total-number-of-pages">
 					<xsl:value-of select="phydesc"/>
 				</xsl:element>
-				<!--  <xsl:choose>
-					<!-- 
+				<!-- <xsl:choose>
 					<xsl:when test="$gen='book-item' and not(exists(booktitle))">
 						<xsl:call-template name="phydescPubl"/>
 					</xsl:when>
@@ -1371,7 +1370,7 @@
 					<xsl:when test="not($gen=$dependentGenre/type)">
 						<xsl:call-template name="phydescPubl"/>
 					</xsl:when>
-				</xsl:choose>-->
+				</xsl:choose> -->
 			</xsl:if>
 			
 			<!-- DEGREE -->
@@ -1904,7 +1903,7 @@
 						<xsl:when test="$import-name = 'NPH'">
 							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' MPI for Nuclear Physics'))"/>
 						</xsl:when>
-						<xsl:when test="$simport-name = 'FHI'">
+						<xsl:when test="$import-name = 'FHI'">
 							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' Fritz Haber Institute'))"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'CBS'">
