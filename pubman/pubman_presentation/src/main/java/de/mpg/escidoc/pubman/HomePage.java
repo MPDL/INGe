@@ -133,6 +133,60 @@ public class HomePage extends BreadcrumbPage
     }
     
     /**
+     * Reads the survey URL from the properties file.
+     * @return policyUrl as String
+     */
+    public String getSurveyUrl()
+    {
+        String url = ""; 
+        try
+        {
+            url = PropertyReader.getProperty("escidoc.pubman.survey.url");
+        }
+        catch (Exception e)
+        {
+            HomePage.logger.error("Could not read property: 'escidoc.pubman.survey.url' from properties file.", e);
+        }
+        return url;
+    }
+    
+    /**
+     * Reads the survey Title from the properties file.
+     */
+    public String getSurveyTitle()
+    {
+        String url = "";
+        try
+        {
+            url = PropertyReader.getProperty("escidoc.pubman.survey.title");
+        }
+        catch (Exception e)
+        {
+            HomePage.logger.error("Could not read property: 'escidoc.pubman.survey.title' from properties file.", e);
+        }
+        return url;
+    }
+    
+    /**
+     * Reads the survey ToolTip from the properties file.
+     */
+    public String getSurveyTooltip()
+    {
+        String url = "";
+        try
+        {
+            url = PropertyReader.getProperty("escidoc.pubman.survey.tooltip");
+        }
+        catch (Exception e)
+        {
+            HomePage.logger.error("Could not read property: 'escidoc.pubman.survey.tooltip' from properties file.", e);
+        }
+        return url;
+    }
+    
+    
+    
+    /**
      * Reads the contact URL from the properties file.
      * @return contactUrl as String
      */

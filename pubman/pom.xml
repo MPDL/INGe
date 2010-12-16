@@ -647,8 +647,14 @@
 		<escidoc.pubman.yearbook.context.id>escidoc:241288</escidoc.pubman.yearbook.context.id>
 		<escidoc.pubman.yearbook.content-model.id>escidoc:245286</escidoc.pubman.yearbook.content-model.id>
 		
+		<!-- Externalisation of home page content -->
 		<escidoc.pubman.logo.url>/pubman/resources/images/pubman_logo.png</escidoc.pubman.logo.url>
 		<escidoc.pubman.home.content.url></escidoc.pubman.home.content.url>
+		
+		<!-- Additional link in meta menu -->
+		<escidoc.pubman.survey.url></escidoc.pubman.survey.url>
+		<escidoc.pubman.survey.title></escidoc.pubman.survey.title>
+		<escidoc.pubman.survey.tooltip></escidoc.pubman.survey.tooltip>
 		
 	</properties>
 
