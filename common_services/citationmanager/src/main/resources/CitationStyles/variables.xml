@@ -45,6 +45,24 @@
 	<variable name="l_series">'http://purl.org/escidoc/metadata/ves/publication-types/series'</variable>
 	<variable name="l_manuscript">'http://purl.org/escidoc/metadata/ves/publication-types/manuscript'</variable>
 	<variable name="l_other">'http://purl.org/escidoc/metadata/ves/publication-types/other'</variable>
+	<!-- jus genre labels -->
+	<variable name="l_monograph"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/monograph']]></variable>
+	<variable name="l_contr-to-collect-ed"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition']]></variable>
+	<variable name="l_case-note"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/case-note']]></variable>
+	<variable name="l_opinion"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/opinion']]></variable>
+	<variable name="l_case-study"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/case-study']]></variable>
+	<variable name="l_book-review"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/book-review']]></variable>
+	<variable name="l_contr-to-commentary"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary']]></variable>
+	<variable name="l_contr-to-festschrift"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift']]></variable>
+	<variable name="l_contr-to-handbook"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook']]></variable>
+	<variable name="l_contr-to-encyclopedia"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia']]></variable>
+	<variable name="l_newspaper-article"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article']]></variable>
+	<variable name="l_collected-edition"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/collected-edition']]></variable>
+	<variable name="l_commentary"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/commentary']]></variable>
+	<variable name="l_festschrift"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/festschrift']]></variable>
+	<variable name="l_handbook"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/handbook']]></variable>
+	<variable name="l_editorial"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/editorial']]></variable>
+	
 
 	<!-- creator labels -->
 	<variable name="l_author">'http://www.loc.gov/loc.terms/relators/AUT'</variable>
