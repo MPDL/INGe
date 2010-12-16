@@ -296,7 +296,7 @@
 	<cs-layout-definition name="journal-article-etc">
 		<parameters>
 			<valid-if><![CDATA[
-				$genre = ( $l_article, $l_paper ) 
+				$genre = ( $l_article, $l_paper, $l_case-note, $l_book-review, $l_case-study, $l_editorial, $l_newspaper-article ) 
 				or ( $genre = ( $l_other, $l_paper, $l_conference-report, $l_conference-paper) and $source-type = $l_journal )  
 			]]></valid-if>
 			<delimiter value="" />
@@ -333,7 +333,7 @@
 	<cs-layout-definition name="book-etc">
 		<parameters>
 			<valid-if><![CDATA[
-				$genre = ( $l_book, $l_proceedings) 
+				$genre = ( $l_book, $l_proceedings, $l_monograph, $l_commentary, $l_collected-edition, $l_handbook, $l_festschrift ) 
 				or ( $genre = ( $l_conference-report, $l_conference-paper, $l_other ) and 
 					not($source-type = ($l_journal, $l_proceedings, $l_book ))  
 				)  
@@ -486,7 +486,7 @@
 	<cs-layout-definition name="book-item-etc">
 		<parameters>
 			<valid-if><![CDATA[
-				$genre = $l_book-item
+				$genre = ($l_book-item, $l_contr-to-collect-ed, $l_contr-to-handbook, $l_contr-to-encyclopedia, $l_contr-to-festschrift, $l_contr-to-commentary )
 				or ( $genre = $l_other and $source-type = $l_book )  
 				or ( 
 					 $genre = ( $l_conference-report, $l_conference-paper )   
@@ -609,7 +609,7 @@
 	-->
 	<cs-layout-definition name="manuscript">
 		<parameters>
-			<valid-if><![CDATA[$genre = $l_manuscript]]></valid-if>
+			<valid-if><![CDATA[$genre = ($l_manuscript, $l_opinion)]]></valid-if>
 			<ends-with value=" Unpublished Manuscript." />
 		</parameters>
 		<elements>
