@@ -184,6 +184,23 @@ public class HomePage extends BreadcrumbPage
         return url;
     }
     
+    /**
+     * Reads the survey styles from the properties file.
+     */
+    public String getSurveyStyles()
+    {
+        String url = "";
+        try
+        {
+            url = PropertyReader.getProperty("escidoc.pubman.survey.styles");
+        }
+        catch (Exception e)
+        {
+            HomePage.logger.error("Could not read property: 'escidoc.pubman.survey.styles' from properties file.", e);
+        }
+        return url;
+    }
+    
     
     
     /**

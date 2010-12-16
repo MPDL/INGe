@@ -54,7 +54,7 @@
 
 	<!-- Optional survey link, defined in properties -->
 	<h:panelGroup  rendered="#{HomePage.surveyUrl!=null and not empty HomePage.surveyUrl}">
-		<h:outputLink id="lnkSurvey" target="_blank" styleClass="medium_area0_p8 endline" value="#{HomePage.surveyUrl}">
+		<h:outputLink id="lnkSurvey" target="_blank" styleClass="medium_area0_p8 endline" value="#{HomePage.surveyUrl}" style="#{HomePage.surveyStyles}">
 			<h:outputText value="#{HomePage.surveyTitle}" title="#{HomePage.surveyTooltip}"/>
 		</h:outputLink>
 		<h:panelGroup styleClass="seperator"></h:panelGroup>
