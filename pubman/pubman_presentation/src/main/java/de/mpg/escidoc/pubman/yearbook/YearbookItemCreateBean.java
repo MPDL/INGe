@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,6 +44,7 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.pubman.util.SelectItemComparator;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
@@ -433,14 +435,12 @@ public class YearbookItemCreateBean extends FacesBean
         	 AccountUserVO userVO = (AccountUserVO)rec.getData();
         	 if(!userVO.getReference().getObjectId().equals(loginHelper.getAccountUser().getReference().getObjectId()))
         	 {
-        		 userAccountSelectItems.add(new SelectItem(userVO.getReference().getObjectId(), userVO.getName())); 
+        		 userAccountSelectItems.add(new SelectItem(userVO.getReference().getObjectId(), userVO.getName() + " (" + userVO.getUserid() + ")")); 
         	 }
         	 
          }
-         
-         
-        
-         
+
+         Collections.sort(userAccountSelectItems, new SelectItemComparator());
          
 		/*
 		for(PubContextVOPresentation context : clsb.getModeratorContextList())
