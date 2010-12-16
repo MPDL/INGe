@@ -89,6 +89,54 @@
                         <xsl:variable name="l_other">
                             <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/other'"/>
                         </xsl:variable>
+                        <xsl:variable name="l_monograph">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/monograph'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_contr-to-collect-ed">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_case-note">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/case-note'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_opinion">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/opinion'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_case-study">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/case-study'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_book-review">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/book-review'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_contr-to-commentary">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_contr-to-festschrift">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_contr-to-handbook">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_contr-to-encyclopedia">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_newspaper-article">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_collected-edition">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/collected-edition'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_commentary">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/commentary'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_festschrift">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/festschrift'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_handbook">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/handbook'"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_editorial">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/editorial'"/>
+                        </xsl:variable>
                         <xsl:variable name="l_author">
                             <xsl:value-of select="'http://www.loc.gov/loc.terms/relators/AUT'"/>
                         </xsl:variable>
@@ -778,15 +826,18 @@
 		      </xsl:for-each>
 	   </xsl:template>
     <!--### Runtime Functions ###-->
-	<xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_year">
+	<xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:get_year">
 		      <xsl:param name="date"/>
 		      <xsl:value-of select="substring($date,1,4)"/>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_month">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:get_month">
 		      <xsl:param name="date"/>
 		      <xsl:value-of select="substring($date,6,2)"/>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_month_name">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:get_month_name">
 		      <xsl:param name="date"/>
 		      <xsl:variable name="months">
 			         <m n="0?1">January</m>
@@ -804,19 +855,45 @@
 		      </xsl:variable>
 		      <xsl:value-of select="     $months/m[     matches(      tokenize($date, '-')[2], @n     )     ]   "/>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_initials">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:get_initials">
 		      <xsl:param name="str"/>
 		      <xsl:variable name="delim" select="if (contains ($str, '-')) then '-' else ' '"/>
 		      <xsl:for-each select="tokenize(normalize-space ($str), '\s+|\.\s+|\-\s*')">
 			         <xsl:value-of select="concat(substring (., 1, 1), if (position()!=last())then concat ('.', $delim) else '.')"/>
 		      </xsl:for-each>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:cleanCitation">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:fname_initials">
+		      <xsl:param name="fname"/>
+		      <xsl:param name="gname"/>
+		      <xsl:param name="delim"/>
+		
+		      <xsl:value-of select="    if ( jfunc:isCJK(concat($fname, $gname) ) )     then string-join( ($fname, $gname), $delim )    else string-join( ($fname, func:get_initials($gname)), $delim )   "/>
+		
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:initials_fname">
+		      <xsl:param name="gname"/>
+		      <xsl:param name="fname"/>
+		      <xsl:param name="delim"/>
+		
+		      <xsl:value-of select="    if ( jfunc:isCJK(concat($fname, $gname) ) )     then string-join( ($fname, $gname), $delim )    else string-join( (func:get_initials($gname), $fname), $delim )   "/>
+		
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:escapeMarkupTags">
+		      <xsl:param name="str"/>
+		      <xsl:value-of select="jfunc:escapeMarkupTags($str)"/>
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:cleanCitation">
 		      <xsl:param name="str"/>
 			     <xsl:value-of select="     normalize-space (     functx:replace-multi (      $str,      ( '([.,?!:;])\s*(&lt;[/]span&gt;)\s*\1', '([.,?!:;])\s*\1', '\.&#34;\.', '\s+([.,?!:;])', '\s*(&lt;[/]?span&gt;)\s*([.,?!:;])', '([?!])+\.' ),      ( '$1$2',         '$1',    '.&#34;',  '$1',     '$1$2',         '$1' )     )     )    "/>
 			     <!-- 																	.".=>." ??? -->
 	</xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="functx:replace-multi"
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="functx:replace-multi"
                   as="xs:string?">
 	       <xsl:param name="arg" as="xs:string?"/> 
 	       <xsl:param name="changeFrom" as="xs:string*"/> 
@@ -825,26 +902,55 @@
 	       <xsl:sequence select="      if (count($changeFrom) &gt; 0)     then functx:replace-multi(            replace($arg, $changeFrom[1],                       functx:if-absent($changeTo[1],'')),            $changeFrom[position() &gt; 1],            $changeTo[position() &gt; 1])     else $arg   "/>
 	   
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="functx:if-absent" as="item()*">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="functx:if-absent"
+                  as="item()*">
 	       <xsl:param name="arg" as="item()*"/> 
 	       <xsl:param name="value" as="item()*"/> 
 	 
 	       <xsl:sequence select="       if (exists($arg))      then $arg      else $value   "/>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:get_reverse_date">
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:get_reverse_date">
 		      <xsl:param name="input_date"/>
 		      <xsl:if test="$input_date[.!=''] ">
 			         <xsl:value-of select="concat(substring($input_date,9,2),'.',substring($input_date,6,2),'.',substring($input_date,1,4))"/>
 		      </xsl:if>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle"
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
                   name="func:getCitationStyleForJournal">
 		      <xsl:param name="idType"/>
 		      <xsl:param name="idValue"/>
 		      <xsl:value-of select="jfunc:getCitationStyleForJournal($idType,$idValue)"/>
 	   </xsl:function>
-    <xsl:function xmlns="http://www.escidoc.de/citationstyle" name="func:substringAfterWhitespace">
-		      <xsl:param name="inputWithSpace"/>
-		      <xsl:value-of select="substring-after($inputWithSpace,' ')"/>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:substringAfterEdition">
+		      <xsl:param name="inputWithSpaceComma"/>
+		      <xsl:value-of select="substring-before(substring-after($inputWithSpaceComma,', '), ' ')"/>
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:substringBeforeEdition">
+		      <xsl:param name="inputWithSpaceComma"/>
+		      <xsl:value-of select="substring-before(substring-before($inputWithSpaceComma,', '), ' ')"/>
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:substringBeforeInstalment">
+		      <xsl:param name="inputWithInstalment"/>
+		      <xsl:value-of select="      if (contains($inputWithInstalment, 'instl'))      then substring-before($inputWithInstalment, 'instl')        else if (contains($inputWithInstalment, 'Lf'))      then substring-before($inputWithInstalment, 'Lf')        else ''      "/>
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:substringBeforeSince">
+		      <xsl:param name="inputWithSince"/>
+	       <xsl:value-of select="       if (contains($inputWithSince, 'since'))       then substring-before($inputWithSince, 'since')         else if (contains($inputWithSince, 'seit'))       then substring-before($inputWithSince, 'seit')         else ''       "/>
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:substringAfterSince">
+	       <xsl:param name="inputWithSince"/>
+		      <xsl:value-of select="      if (contains($inputWithSince, 'since'))      then substring-after($inputWithSince, 'since')        else if (contains($inputWithSince, 'seit'))      then substring-after($inputWithSince, 'seit')        else ''      "/>
+	   </xsl:function>
+    <xsl:function xmlns="http://www.escidoc.de/citationstyle" xmlns:exslt="http://exslt.org/common"
+                  name="func:substringAfterReviewOf">
+		      <xsl:param name="inputReviewTitle"/>
+		      <xsl:value-of select="substring-after($inputReviewTitle,'Review of:')"/>
 	   </xsl:function>
 </xsl:stylesheet>
