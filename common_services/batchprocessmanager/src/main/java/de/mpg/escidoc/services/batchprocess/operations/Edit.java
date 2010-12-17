@@ -27,21 +27,21 @@ public class Edit extends Operation
     {
         try
         {
-//            transformer = Transformer.getTransformer(CommandHelper.getArgument("-t", args, true));
-//            elements.setElements(transformer.transform(elements.getElements()));
-//            update(elements);
-//            if (CoreServiceObjectStatus.SUBMITTED.equals(CommandHelper.getStatusEnumValue(CommandHelper.getArgument(
-//                    "-s", args, false)))
-//                    || CoreServiceObjectStatus.RELEASED.equals(CommandHelper.getStatusEnumValue(CommandHelper
-//                            .getArgument("-s", args, false))))
-//            {
-//                new Submit().execute(args);
-//            }
-//            if (CoreServiceObjectStatus.RELEASED.equals(CommandHelper.getStatusEnumValue(CommandHelper.getArgument(
-//                    "-s", args, false))))
-//            {
-//                new Release().execute(args);
-//            }
+            transformer = Transformer.getTransformer(CommandHelper.getArgument("-t", args, true));
+            elements.setElements(transformer.transform(elements.getElements()));
+            update(elements);
+            if (CoreServiceObjectStatus.SUBMITTED.equals(CommandHelper.getStatusEnumValue(CommandHelper.getArgument(
+                    "-s", args, false)))
+                    || CoreServiceObjectStatus.RELEASED.equals(CommandHelper.getStatusEnumValue(CommandHelper
+                            .getArgument("-s", args, false))))
+            {
+                new Submit().execute(args);
+            }
+            if (CoreServiceObjectStatus.RELEASED.equals(CommandHelper.getStatusEnumValue(CommandHelper.getArgument(
+                    "-s", args, false))))
+            {
+                new Release().execute(args);
+            }
         }
         catch (Exception e)
         {
@@ -71,7 +71,9 @@ public class Edit extends Operation
             for (ItemVO ivo : new ArrayList<ItemVO>(list.getElements()))
             {
                 String xml = xmlTransforming.transformToItem(ivo);
+                System.out.print("Updating item " + ivo.getVersion().getObjectIdAndVersion() + " ...");
                 xml = ih.update(ivo.getVersion().getObjectId(), xml);
+                System.out.println("done!");
                 updated.add(xmlTransforming.transformToItem(xml));
                 this.report.addEntry("Update" + ivo.getVersion().getObjectId(), "Edit "
                         + ivo.getVersion().getObjectId(), ReportEntryStatusType.FINE);

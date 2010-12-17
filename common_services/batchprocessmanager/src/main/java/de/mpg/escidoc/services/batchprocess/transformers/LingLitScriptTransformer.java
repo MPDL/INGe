@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatusType;
@@ -18,6 +20,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.framework.AdminHelper;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 public class LingLitScriptTransformer extends Transformer<PubItemVO>
 {
@@ -29,8 +32,12 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         System.out.println("Number of items: " + list.size());
         for (PubItemVO item : list)
         {
+            System.out.println("Transforming item " + item.getVersion().getObjectIdAndVersion() + "!");
             item = removeURI(item);
+            item = removeEmptySubjects(item);
+            item = removeBrokenIdentifiers(item);
             item = transformAlternativeTitle(item);
+            item = transformTitle(item);
             item = transformDegree(item);
             item = assignUserGroup(item);
             item = transformLocators(item);
@@ -42,17 +49,58 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         return list;
     }
 
+    private PubItemVO removeBrokenIdentifiers(PubItemVO item)
+    {
+        for (FileVO fileVO : item.getFiles())
+        {
+            if (fileVO.getDefaultMetadata().getIdentifiers() != null)
+            {
+                fileVO.getDefaultMetadata().getIdentifiers().clear();
+            }
+        }
+        return item;
+    }
+
+    private PubItemVO removeEmptySubjects(PubItemVO item)
+    {
+        for (int i = item.getMetadata().getSubjects().size() - 1; i>= 0; i--)
+        {
+            if ("".equals(item.getMetadata().getSubjects().get(i).getValue()))
+            {
+                item.getMetadata().getSubjects().remove(i);
+            }
+            else if ("ISO639_3".equals(item.getMetadata().getSubjects().get(i).getType()))
+            {
+                try
+                {
+                    String newSubject = getConeLanguageNameByTitle(item.getMetadata().getSubjects().get(i).getValue());
+                    item.getMetadata().getSubjects().get(i).setValue(newSubject);
+                }
+                catch (Exception e)
+                {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        return item;
+    }
+
     public PubItemVO transformAlternativeTitle(PubItemVO item)
     {
-        for (SourceVO titles : item.getMetadata().getSources())
+        for (SourceVO source : item.getMetadata().getSources())
         {
-            String title = titles.getTitle().getValue();
+            String title = source.getTitle().getValue();
             if (!(title.equals("") || (title == null)))
             {
                 if (title.indexOf(";") > 0)
                 {
-                    title = title.substring(0, titles.getTitle().getValue().indexOf(";") - 1);
+                    title = title.substring(0, source.getTitle().getValue().indexOf(";") - 1);
+                    source.getTitle().setValue(title);
                     processingAlternativeTitles(item, title);
+                    
+                    String spareSpaces = "\n             ";
+                    TextVO sTitle = source.getTitle();
+                    sTitle.setValue(sTitle.getValue().replace(spareSpaces, ""));
                 }
                 else
                 {
@@ -62,35 +110,61 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         }
         return item;
     }
+    
+    public PubItemVO transformTitle(PubItemVO item)
+    {
+        String spareSpaces = "\n             ";
+        TextVO title = item.getMetadata().getTitle();
+        title.setValue(title.getValue().replace(spareSpaces, ""));
+        return item;
+    }
 
     public PubItemVO transformFreeKeyWords(PubItemVO item)
     {
         String fkw = item.getMetadata().getFreeKeywords().getValue();
         List<String> list = new ArrayList<String>();
         item.getMetadata().getLanguages().addAll(list);
-        String locClass = "";
+        String locClass = null;
         String locSubjectHeading = "";
         String[] fields = fkw.split(",");
         if (fields.length > 0)
         {
             for (int i = 0; i < fields.length; i++)
             {
-                if (fields[i].contains("ISO 639-3 : "))
+                if (fields[i].matches("\\s*((ISO 639-3 ?: ?)|(ISO-Code 639 ?: ?)).+"))
                 {
-                    fields[i] = fields[i].replace("ISO 639-3 : ", "");
+                    fields[i] = fields[i].replaceAll("\\s*(ISO 639-3 ?: ?)|(ISO-Code 639 ?: ?)", "");
                     String[] langs = fields[i].split("/");
                     for (int j = 0; j < langs.length; j++)
                     {
                         String lang = langs[j].trim();
                         if (lang.matches("\\b[a-z][a-z][a-z]\\b"))
                         {
-                            item.getMetadata().getSubjects().add(new TextVO(langs[j], lang, "eterms:ISO639_3"));
+                            try
+                            {
+                                TextVO newSubject = new TextVO(getConeLanguageName(lang), null, "ISO639_3");
+                                if (!item.getMetadata().getSubjects().contains(newSubject))
+                                {
+                                    item.getMetadata().getSubjects().add(newSubject);
+                                }
+                            }
+                            catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
                 }
-                else if (i == 0 && fields[i].replace(" ", "").matches("\\b[A-Z0-9.]+\\b"))
+                else if (fields[i].trim().matches("\\b[A-Z0-9.]+\\b(\\s.+)?"))
                 {
-                    locClass = "LoC Class: " + fields[i];
+                    if (locClass == null)
+                    {
+                        locClass = "LoC Class: ";
+                    }
+                    else
+                    {
+                        locClass += ", ";
+                    }
+                    locClass += fields[i];
                 }
                 else
                 {
@@ -100,9 +174,9 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
                     }
                     else
                     {
-                        locSubjectHeading += "LoC Subject Heading: ";
+                        locSubjectHeading += "LoC Subject Headings: ";
                     }
-                    locSubjectHeading += fields[i];
+                    locSubjectHeading += fields[i].trim();
                 }
             }
         }
@@ -111,10 +185,18 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
             logger.error("Error parsing freekeywords");
         }
         fkw = "";
-        fkw += locClass;
-        if (!"".equals(locClass) && !"".equals(locSubjectHeading))
+        
+        if ("LoC Subject Headings: ".equals(locSubjectHeading))
         {
-            fkw += ", ";
+            locSubjectHeading = "";
+        }
+        if (locClass != null)
+        {
+            fkw += locClass;
+        }
+        if (locClass != null && !"".equals(locClass) && !"".equals(locSubjectHeading))
+        {
+            fkw += ",\n";
         }
         fkw += locSubjectHeading;
         item.getMetadata().getFreeKeywords().setValue(fkw);
@@ -317,6 +399,12 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
                     {
                         source.getAlternativeTitles().remove(i);
                     }
+                    else
+                    {
+                        String spareSpaces = "\n             ";
+                        TextVO altTitle = source.getAlternativeTitles().get(i);
+                        altTitle.setValue(altTitle.getValue().replace(spareSpaces, ""));
+                    }
                 }
             }
         }
@@ -348,4 +436,58 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
     {
         return CoreServiceObjectType.ITEM;
     }
+
+    public static String getConeLanguageName(String code) throws Exception
+    {
+        if (code != null && !"".equals(code.trim()))
+        {
+
+            HttpClient client = new HttpClient();
+            GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url") + "iso639-3/query?dc:identifier=\"" + code + "\"&format=json&lang=en");
+            getMethod.setRequestHeader("Connection", "close");
+            client.executeMethod(getMethod);
+            String response = getMethod.getResponseBodyAsString();
+            Pattern pattern = Pattern.compile("\"value\" : \\[?\\s*\"(.+)\"");
+            Matcher matcher = pattern.matcher(response);
+            if (matcher.find())
+            {
+                return matcher.group(1);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public static String getConeLanguageNameByTitle(String title) throws Exception
+    {
+        if (title != null && !"".equals(title.trim()))
+        {
+
+            HttpClient client = new HttpClient();
+            GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url") + "iso639-3/query?dc:title=\"" + title + "\"&format=json&lang=en");
+            client.executeMethod(getMethod);
+            String response = getMethod.getResponseBodyAsString();
+            Pattern pattern = Pattern.compile("\"value\" : \\[?\\s*\"(.+)\"");
+            Matcher matcher = pattern.matcher(response);
+            if (matcher.find())
+            {
+                return matcher.group(1);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }
+
 }

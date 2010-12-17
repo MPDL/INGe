@@ -1,19 +1,13 @@
 package de.mpg.escidoc.services.batchprocess.elements;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 
-import javax.xml.rpc.ServiceException;
-
-import org.apache.commons.httpclient.HttpException;
-
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.escidoc.services.batchprocess.BatchProcess.CoreServiceObjectType;
 import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatusType;
 import de.mpg.escidoc.services.batchprocess.helper.CoreServiceHelper;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.framework.AdminHelper;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class LingLitAllElements extends Elements<ItemVO>
@@ -28,17 +22,15 @@ public class LingLitAllElements extends Elements<ItemVO>
     {
         try
         {
-            setUserHandle(AdminHelper.loginUser("bibliothek_mpi_eva", "bibliothek"));
+            setUserHandle(AdminHelper.loginUser(PropertyReader.getProperty("escidoc.user.name"), PropertyReader.getProperty("escidoc.user.password")));
         }
         catch (Exception e)
         {
-            throw new RuntimeException("Error login:" + e);
+            throw new RuntimeException("Login error. Please make sure the user credentials (escidoc.user.name, escidoc.user.password) are provided in your settings.xml file." + e);
         }
     }
 
-    private static final String LOCAL_TAG3 = "LingLit Import 2010-04-01 10:10";
-    private static final String LOCAL_TAG2 = "Linglit Import 3 2010-03-05 17:04";
-    private static final String LOCAL_TAG = "Import all Linglit 3 2010-11-18 17:48";
+    private static final String LOCAL_TAG = "Import all Linglit 8 2010-12-10 09:47";
 
     @Override
     public void retrieveElements()
@@ -52,11 +44,16 @@ public class LingLitAllElements extends Elements<ItemVO>
             elements.addAll(CoreServiceHelper.transformSearchResultXmlToListOfItemVO(seachResultXml));
             report.addEntry("retrieveElements", "Get Data", ReportEntryStatusType.FINE);
             System.out.println(elements.size() + " items found");
-            for (ItemVO i : elements ) 
+            for (int i = elements.size() - 1; i >= 0; i--)
             {
-            	if ("1".equals(i.getVersion().getVersionNumber()))
+            	if (elements.get(i).getVersion().getVersionNumber() == 1)
             	{
-            		System.out.println(i.getVersion().getObjectId() + " was not edited");
+            		System.out.println(elements.get(i).getVersion().getObjectId() + " was not edited");
+            	}
+            	else
+            	{
+            	    System.out.println(elements.get(i).getVersion().getObjectId() + " was edited, removed from the list");
+            	    elements.remove(i);
             	}
 			}
         }

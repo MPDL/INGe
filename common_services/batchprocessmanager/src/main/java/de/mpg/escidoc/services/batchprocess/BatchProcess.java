@@ -27,9 +27,18 @@ public abstract class BatchProcess
     {
         operation = Operation.factory(args);
         logger.info("Batch process starting...");
-        operation.execute(args);
-        logger.info("Batch Process done!");
-        logger.info(report.printReport());
+        try
+        {
+            operation.execute(args);
+            logger.info("Batch Process done!");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally
+        {
+            logger.info(report.printReport());
+        }
     }
 
     public void run(String[] args)

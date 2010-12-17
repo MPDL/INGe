@@ -22,10 +22,10 @@ public class CoreServiceHelper
         return filter;
     }
 
-    public static List<ItemVO> transformSearchResultXmlToListOfItemVO(String seachResultXml) throws Exception
+    public static List<ItemVO> transformSearchResultXmlToListOfItemVO(String searchResultXml) throws Exception
     {
         XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-        SearchRetrieveResponseVO response = xmlTransforming.transformToSearchRetrieveResponse(seachResultXml);
+        SearchRetrieveResponseVO response = xmlTransforming.transformToSearchRetrieveResponse(searchResultXml);
         List<ItemVO> list = new ArrayList<ItemVO>();
         if (response.getRecords() != null)
         {
