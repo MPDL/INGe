@@ -40,12 +40,12 @@
 
 <link href="<h:outputText value='#{ApplicationBean.commonPresentationUrl}'/>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
 <h:outputText value="#{ApplicationBean.pubmanStyleTags}" escape="false"/>
-<!-- <link href="<h:outputText value='#{ApplicationBean.commonPresentationUrl}'/>resources/cssFramework/themes/skin_MPG_V3/styles/theme.css" id="MPG Final" type="text/css" title="MPG Final" rel="alternate stylesheet"/>-->
+<link href="<h:outputText value='#{ApplicationBean.commonPresentationUrl}'/>resources/cssFramework/themes/skin_blue/styles/theme.css" id="Blue" type="text/css" title="Blue" rel="alternate stylesheet"/>
 <script type="text/javascript" language="JavaScript">var cookieVersion = "<h:outputText value='#{ApplicationBean.cookieVersion}'/>";</script>
 <link rel="search" type="application/opensearchdescription+xml" title="<h:outputText value='#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}'/>" href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />search/OpenSearch.jsp" />
 <meta http-equiv="pragma" content="no-cache"/>
 <meta http-equiv="cache-control" content="no-cache"/>
 <meta http-equiv="expires" content="0"/>
 <script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
-
 <script src="./resources/commonJavaScript/eSciDoc_javascript.js" language="JavaScript" type="text/javascript">;</script>
+<script type="text/javascript" language="JavaScript" src="./resources/commonJavaScript/jquery/jsnow.js"></script>
