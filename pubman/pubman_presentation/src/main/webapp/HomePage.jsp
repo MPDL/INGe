@@ -45,6 +45,7 @@
 				<meta name="description" content="Title: #{lbl.Pubman_descriptionMetaTag}"></meta>
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 				<jsp:directive.include file="home/HomePageFeedLinks.jspf" />
+
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{HomePage.beanName}" styleClass="noDisplay" />
