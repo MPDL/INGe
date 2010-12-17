@@ -374,6 +374,11 @@ public class YearbookItemSessionBean extends FacesBean
            validateItem(pubItem);
         }
         
+        if(invalidItemMap.size()==0)
+        {
+        	info(getMessage("Yearbook_allItemsValid"));
+        }
+        
         changeToInvalidItems();
         return "";
         
