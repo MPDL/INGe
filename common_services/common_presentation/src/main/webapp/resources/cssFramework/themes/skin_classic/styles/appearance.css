@@ -102,7 +102,7 @@ h1, h4, h5 {
  */
 /*GENERAL*/
 body {
-     background-color: #EAF4F7;
+    background-color: #EBF5F7 !important;
     color: #515151;
     line-height: 145%;
 }
