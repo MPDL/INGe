@@ -35,6 +35,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 import java.util.regex.Matcher;
@@ -354,7 +355,83 @@ public class Util
         catch (Exception e)
         {
             logger.error("Error querying CoNE service. This is normal during unit tests. " +
-            		"Otherwise it should be clarified if any measures have to be taken.");
+                    "Otherwise it should be clarified if any measures have to be taken.");
+            return null;
+            //throw new RuntimeException(e);
+        }
+    }
+    
+    public static Node queryConeExact(String model, String name, String ou)
+    {
+        DocumentBuilder documentBuilder;
+
+        try
+        {
+            documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+        
+            Document document = documentBuilder.newDocument();
+            Element element = document.createElement("cone");
+            document.appendChild(element);
+            
+            String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
+                 + model + "/query?format=jquery&dc:title=\"" + URLEncoder.encode(name, "ISO-8859-15")
+                 + "\"&escidoc:position/eprints:affiliatedOrganization=" + URLEncoder.encode(ou, "ISO-8859-15");
+            String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
+                + model + "/resource/$1?format=rdf";
+            HttpClient client = new HttpClient();
+            GetMethod method = new GetMethod(queryUrl);
+            ProxyHelper.executeMethod(client, method);
+            if (method.getStatusCode() == 200)
+            {
+                ArrayList<String> results = new ArrayList<String>();
+                results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
+                queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
+                    + model + "/query?format=jquery&dcterms:alternative=\"" + URLEncoder.encode(name, "ISO-8859-15")
+                    + "\"&escidoc:position/eprints:affiliatedOrganization=" + URLEncoder.encode(ou, "ISO-8859-15");
+                client = new HttpClient();
+                method = new GetMethod(queryUrl);
+                ProxyHelper.executeMethod(client, method);
+                if (method.getStatusCode() == 200)
+                {
+                    results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
+                    for (String result : results)
+                    {
+                        if (!"".equals(result.trim()))
+                        {
+                            String id = result.split("\\|")[1];
+                            GetMethod detailMethod = new GetMethod(id + "?format=rdf");
+                            
+                            logger.info(detailMethod.getPath());
+                            logger.info(detailMethod.getQueryString());
+                            
+                            ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
+                            client.executeMethod(detailMethod);
+                            if (detailMethod.getStatusCode() == 200)
+                            {
+                                Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
+                                element.appendChild(document.importNode(details.getFirstChild(), true));
+    
+                            }
+                            else
+                            {
+                                logger.error("Error querying CoNE: Status "
+                                        + detailMethod.getStatusCode() + "\n" + detailMethod.getResponseBodyAsString());
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                logger.error("Error querying CoNE: Status "
+                        + method.getStatusCode() + "\n" + method.getResponseBodyAsString());
+            }
+            return document;
+        }
+        catch (Exception e)
+        {
+            logger.error("Error querying CoNE service. This is normal during unit tests. " +
+                    "Otherwise it should be clarified if any measures have to be taken.");
             return null;
             //throw new RuntimeException(e);
         }
