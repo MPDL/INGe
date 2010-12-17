@@ -116,6 +116,9 @@
 				<h:panelGroup rendered="#{subjectVocab == 'mpipks'}">
 					<h:outputText value="#{lbl.mpipksDesc}" />
 				</h:panelGroup>
+				<h:panelGroup rendered="#{subjectVocab == 'iso639-3'}">
+					<h:outputText value="#{lbl.iso6393Desc}" />
+				</h:panelGroup>
 			</div>			
 		</tr:iterator>
 	</div>
