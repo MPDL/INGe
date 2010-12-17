@@ -45,6 +45,7 @@
 				<meta name="description" content="Title: #{lbl.Pubman_descriptionMetaTag}"></meta>
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 				<jsp:directive.include file="home/HomePageFeedLinks.jspf" />
+			<script type="text/javascript" language="JavaScript" src="./resources/commonJavaScript/jquery/jsnow.js"></script>
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{HomePage.beanName}" styleClass="noDisplay" />
@@ -138,7 +139,12 @@
 					$(window).scrollTop($("input[id$='offset']").val());
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop())});
 				});
-				</script>				
+				</script>
+				<script type="text/javascript" language="JavaScript">
+				$(function() {
+						$().jSnow();
+						});
+				</script>			
 			</body>
 		</html>
 	</f:view>
