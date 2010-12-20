@@ -84,7 +84,7 @@
 	<xsl:param name="root-ou" select="'dummy-root-ou'"/>
 	<xsl:param name="source-name" select="'eDoc'"/>
 	
-	<xsl:param name="import-name" select="'OTHER'"/>
+	<xsl:param name="import-name" select="'CBS'"/>
 	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
 	
@@ -1962,6 +1962,9 @@
 							
 							<xsl:if test="not($source)">
 								<xsl:choose>
+									<xsl:when test="$import-name = 'CBS' and (@internextern='mpg' or @internextern='unknown')">
+										<xsl:comment> Case CBS </xsl:comment>
+									</xsl:when>
 									<xsl:when test="@internextern='mpg' and exists(../../../docaff/affiliation) and ($is-mpgsunit = true()) or ($is-mpgunit = true())">
 										
 										<xsl:for-each select="../../../docaff/affiliation">
@@ -2016,7 +2019,6 @@
 												<xsl:value-of select="$root-ou"/>
 											</dc:identifier>
 										</xsl:element>
-									
 									</xsl:when>
 									<xsl:when test=". = ../creator[1] and @internextern='unknown' and not(../creator[@internextern = 'mpg']) and ../../../docaff/affiliation and not(../../../docaff_external)">
 										
@@ -2116,6 +2118,11 @@
 							<xsl:choose>
 								<xsl:when test="$coneCreator/cone/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)]">
 									<xsl:for-each select="$coneCreator/cone/rdf:RDF[1]/rdf:Description/escidoc:position">
+										<xsl:comment>pubdate: <xsl:value-of select="$publication-date"/></xsl:comment>
+										<xsl:comment>start: <xsl:value-of select="rdf:Description/escidoc:start-date"/></xsl:comment>
+										<xsl:comment>start &lt; pubdate <xsl:value-of select="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date)"/></xsl:comment>
+										<xsl:comment>end: <xsl:value-of select="rdf:Description/escidoc:end-date"/></xsl:comment>
+										<xsl:comment>pubdate &lt; end<xsl:value-of select="escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)"/></xsl:comment>
 										<xsl:if test="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)">
 											<xsl:comment> Case 8 </xsl:comment>
 											<organization:organization>
@@ -2299,11 +2306,53 @@
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>-->
+	
+	<!-- 
+	################################## ORIGINAL ########################
 	<xsl:template match="abstract">
 		<xsl:element name="dcterms:abstract">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
+	################################## ORIGINAL ########################
+	 -->
+	<!-- #################### TEST TEST TEST ########################## --> 
+	<xsl:template match="abstract">
+		<xsl:choose>
+			<xsl:when test="$import-name = 'CBS' and (number(substring(../datepublished,1,4)) &lt;= 2007) and (../genre='Article' or ../genre='InBook')">
+				<xsl:comment>
+				JAHR &lt;=2007
+					<xsl:value-of select="substring(../datepublished,1,4)"></xsl:value-of>
+				DATUM
+					<xsl:value-of select="../datepublished"/>
+				GENRE ARTICLE OR INBOOK
+					<xsl:value-of select="../genre"></xsl:value-of>
+				</xsl:comment>
+				<xsl:element name="dcterms:abstract"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:comment>
+				JAHR > 2007
+					<xsl:value-of select="substring(../datepublished,1,4)"></xsl:value-of>
+				DATUM
+					<xsl:value-of select="../datepublished"/>
+				GENRE OTHERS
+					<xsl:value-of select="../genre"></xsl:value-of>
+				</xsl:comment>
+				<xsl:element name="dcterms:abstract">
+					<xsl:value-of select="."/>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+		
+		<!-- 
+		<xsl:when test="exists(../../basic/datepublished)">
+			<xsl:value-of select="../../basic/datepublished"/>
+		</xsl:when>
+		 -->
+	</xsl:template>
+	<!-- #################### TEST TEST TEST ########################## --> 
+	
 	<xsl:template match="datepublished">
 		<xsl:element name="dcterms:issued">
 			<xsl:value-of select="."/>
