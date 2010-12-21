@@ -479,24 +479,21 @@ public class Util
 			queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
 					+ model
 					+ "/query?format=jquery&escidoc:position/dc:identifier=\""
-					+ query + "\"";
+					+ query + "\"&n=0";
 
 			HttpClient client = new HttpClient();
 			if (childIds.size() > 0) {
 				// execute a method for every child ou
 				for (String childId : childIds) {
-					queryUrl = PropertyReader
-							.getProperty("escidoc.cone.service.url")
+					queryUrl = PropertyReader.getProperty("escidoc.cone.service.url") 
 							+ model
 							+ "/query?format=jquery&escidoc:position/dc:identifier=\""
-							+ childId + "\"";
-					executeGetMethod(client, queryUrl, documentBuilder,
-							document, element);
+							+ childId + "\"&n=0";
+					executeGetMethod(client, queryUrl, documentBuilder, document, element);
 				}
 			} else {
 				// there are no child ous, methid is called once
-				executeGetMethod(client, queryUrl, documentBuilder, document,
-						element);
+				executeGetMethod(client, queryUrl, documentBuilder, document, element);
 			}
 
 			return document;
@@ -519,6 +516,7 @@ public class Util
      */
 	private static void executeGetMethod(HttpClient client, String queryUrl,
 			DocumentBuilder documentBuilder, Document document, Element element) {
+		String previousUrl = null;
 		try {
 			GetMethod method = new GetMethod(queryUrl);
 			ProxyHelper.executeMethod(client, method);
@@ -529,23 +527,27 @@ public class Util
 				for (String result : results) {
 					if (!"".equals(result.trim())) {
 						String detailsUrl = result.split("\\|")[1];
-						GetMethod detailMethod = new GetMethod(detailsUrl + "?format=rdf");
+						// if there is an alternative name, take only the first occurrence
+						if (!detailsUrl.equalsIgnoreCase(previousUrl)){
+							GetMethod detailMethod = new GetMethod(detailsUrl + "?format=rdf");
+							previousUrl = detailsUrl;
+						
+							logger.info(detailMethod.getPath());
+							logger.info(detailMethod.getQueryString());
                         
-                        logger.info(detailMethod.getPath());
-                        logger.info(detailMethod.getQueryString());
-                        
-                        ProxyHelper.setProxy(client, detailsUrl);
-                        client.executeMethod(detailMethod);
-                        if (detailMethod.getStatusCode() == 200)
-                        {
-                            Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
-                            element.appendChild(document.importNode(details.getFirstChild(), true));
-                        }
-                        else
-                        {
-                            logger.error("Error querying CoNE: Status "
-                                    + detailMethod.getStatusCode() + "\n" + detailMethod.getResponseBodyAsString());
-                        }
+							ProxyHelper.setProxy(client, detailsUrl);
+							client.executeMethod(detailMethod);
+							if (detailMethod.getStatusCode() == 200)
+							{
+								Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
+								element.appendChild(document.importNode(details.getFirstChild(), true));
+							}
+							else
+							{
+								logger.error("Error querying CoNE: Status "
+										+ detailMethod.getStatusCode() + "\n" + detailMethod.getResponseBodyAsString());
+							}
+						}
 					}
 				}
 
