@@ -170,16 +170,16 @@ public class HomePage extends BreadcrumbPage
     /**
      * Reads the survey ToolTip from the properties file.
      */
-    public String getSurveyTooltip()
+    public String getSurveyText()
     {
         String url = "";
         try
         {
-            url = PropertyReader.getProperty("escidoc.pubman.survey.tooltip");
+            url = PropertyReader.getProperty("escidoc.pubman.survey.text");
         }
         catch (Exception e)
         {
-            HomePage.logger.error("Could not read property: 'escidoc.pubman.survey.tooltip' from properties file.", e);
+            HomePage.logger.error("Could not read property: 'escidoc.pubman.survey.text' from properties file.", e);
         }
         return url;
     }

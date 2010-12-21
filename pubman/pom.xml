@@ -654,7 +654,7 @@
 		<!-- Additional link in meta menu -->
 		<escidoc.pubman.survey.url></escidoc.pubman.survey.url>
 		<escidoc.pubman.survey.title></escidoc.pubman.survey.title>
-		<escidoc.pubman.survey.tooltip></escidoc.pubman.survey.tooltip>
+		<escidoc.pubman.survey.text></escidoc.pubman.survey.text>
 		<escidoc.pubman.survey.styles></escidoc.pubman.survey.styles>
 		
 	</properties>

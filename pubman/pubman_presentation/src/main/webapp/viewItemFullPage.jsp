@@ -159,7 +159,7 @@
 							</h:panelGroup>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-								
+								<!-- JSF messages -->
 								<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.numberOfMessages == 1}"/>
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{ViewItemFull.hasErrorMessages and ViewItemFull.numberOfMessages != 1}">
 									<h2><h:outputText  value="#{lbl.warning_lblMessageHeader}"/></h2>
@@ -188,6 +188,25 @@
 									</tr:iterator>
 									</ul>	
 							   </h:panelGroup>
+							   <!-- Survey link -->
+							   <h:panelGroup layout="block" style="margin-top:1em;" rendered="#{HomePage.surveyUrl!=null and not empty HomePage.surveyUrl}">
+									<div class="xHuge_area2_p6 messageArea">
+										<span class="half_area0">
+											<h2><h:outputText value="#{HomePage.surveyTitle}"/></h2>
+											</span>
+											<span class="huge_area0"> 
+												<h:outputText value="#{HomePage.surveyText}"/>
+											</span> 
+											<span class="free_area0">
+											<div class="medium_area2_p6 small_marginLExcl">
+											
+											<h:outputLink  styleClass="activeButton" value="#{HomePage.surveyUrl}" title="User Survey" target="_blank">
+												<h:outputText value="User Survey"/>
+											</h:outputLink>
+												</div>
+											</span>
+									</div>
+								</h:panelGroup>
 								<!-- Subheadline ends here -->
 							</div>
 						</div>
