@@ -62,7 +62,7 @@
 	<xsl:variable name="genreSeries"
 		select="'http://purl.org/escidoc/metadata/ves/publication-types/series'" />
 
-	<xsl:param name="institutsId" />
+	<xsl:param name="institutsId"/>
 	
 	<xsl:key name="autorshipGenreOrder" match="s:sortorder/s:authorship/s:genre/@priority"
 		use="../s:name" />
@@ -109,7 +109,7 @@
 									select="$item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentAuthorId 
 						and publication:publication/eterms:creator/@role=$authorRole]">
 									<xsl:sort
-										select="string-join((publication:publication/eterms:creator[person:person/eterms:complete-name != $currentAuthorName]/person:person/eterms:sort-name), '; ')" />
+										select="string-join((publication:publication/eterms:creator[person:person/eterms:concat-complete-name != $currentAuthorName]/person:person/eterms:sort-name), '; ')" />
 									<xsl:sort
 										select="key('autorshipGenreOrder', publication:publication/@type)"
 										data-type="number" />
@@ -141,13 +141,15 @@
 				<xsl:choose>
 					<xsl:when
 						test="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentFirstEditorId 
-						and publication:publication/eterms:creator/@role=$editorRole]) &gt; 0">
+								and publication:publication/eterms:creator/@role=$editorRole and
+								(publication:publication/@type = $genreCollectedEdition or 
+								publication:publication/@type = $genreMonograph or
+								publication:publication/@type = $genreCommentary or
+								publication:publication/@type = $genreHandbook or
+								publication:publication/@type = $genreProceedings)]) &gt; 0">
 						<xsl:element name="EDITOR_1">
 							<xsl:attribute name="id" select="$currentFirstEditorId" />
 							<xsl:attribute name="name" select="$currentFirstEditorName" />
-							<xsl:attribute name="firstEditorListCount"
-								select="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentFirstEditorId 
-						and publication:publication/eterms:creator/@role=$editorRole])" />
 							<xsl:variable name="currentFirstEditorList">
 								<xsl:for-each
 									select="$item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentFirstEditorId and 
@@ -158,7 +160,7 @@
 								publication:publication/@type = $genreHandbook or
 								publication:publication/@type = $genreProceedings)]">
 									<xsl:sort
-										select="string-join((publication:publication/eterms:creator[person:person/eterms:complete-name != $currentFirstEditorName]/person:person/eterms:sort-name), '; ')" />
+										select="string-join((publication:publication/eterms:creator[person:person/eterms:concat-complete-name != $currentFirstEditorName]/person:person/eterms:sort-name), '; ')" />
 									<xsl:sort
 										select="key('firstListEditorshipGenreOrder', publication:publication/@type)"
 										data-type="number" />
@@ -194,11 +196,6 @@
 						<xsl:element name="EDITOR_2">
 							<xsl:attribute name="id" select="$currentSecondEditorId" />
 							<xsl:attribute name="name" select="$currentSecondEditorName" />
-							<xsl:attribute name="editorListCount"
-								select="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentSecondEditorId and 
-						publication:publication/eterms:creator/@role=$editorRole and
-						(publication:publication/@type = $genreJournal or
-						publication:publication/@type = $genreSeries)])" />
 							<xsl:variable name="currentSecondEditorList">
 								<xsl:for-each
 									select="$item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentSecondEditorId and 
@@ -206,7 +203,7 @@
 								(publication:publication/@type = $genreJournal or
 								publication:publication/@type = $genreSeries)]">
 									<xsl:sort
-										select="string-join((publication:publication/eterms:creator[person:person/eterms:complete-name != $currentSecondEditorName]/person:person/eterms:sort-name), '; ')" />
+										select="string-join((publication:publication/eterms:creator[person:person/eterms:concat-complete-name != $currentSecondEditorName]/person:person/eterms:sort-name), '; ')" />
 									<xsl:sort
 										select="key('secondListEditorshipGenreOrder', publication:publication/@type)"
 										data-type="number" />
@@ -229,31 +226,47 @@
 		</xsl:element>
 			
 	</xsl:template>
-
+	
+	<!--
+		Writes the name of creator pattern only in the first occurrence
+		Basedow, Jürgen, Citation Style
+		- , Citation Style (second publication from this author)
+		
+		Basedow, Jürgen; Klaus J. Hopt, Citation Style
+		Basedow, Jürgen; Yasuhiro Okuda, Citation Style
+		- ,  Citation Style (second publication with this author pattern)
+	-->
 	<xsl:template match="escidocItem:item" mode="sortedAuthorList">
 		<xsl:param name="authorName" />
 		<xsl:param name="authorCitationName" />
 		<xsl:variable name="authorString"
-			select="string-join((escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/publication:publication/eterms:creator/person:person/eterms:complete-name[. != $authorName]), '; ')" />
+			select="string-join((escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/publication:publication/eterms:creator/person:person/eterms:concat-complete-name[. != $authorName]), '; ')" />
 		<xsl:variable name="pos" select="position()" />
 		<xsl:variable name="is-first"
-			select="not(exists(../escidocItem:item[position() &lt; $pos][(string-join((escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/publication:publication/eterms:creator/person:person/eterms:complete-name[. != $authorName]), '; ') = $authorString)]))" />
+			select="not(exists(../escidocItem:item[position() &lt; $pos][(string-join((escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/publication:publication/eterms:creator/person:person/eterms:concat-complete-name[. != $authorName]), '; ') = $authorString)]))" />
 		<xsl:choose>
 			<xsl:when test="$is-first">
 				<xsl:choose>
-					<!-- when single author write the citation style name of the author -->
+					<!-- 
+					if there is only one author for this publication, e.g. the current author, and this is his first publication of 
+					particular type, write the citation style name of the author 
+					-->
 					<xsl:when test="string-length($authorString) = 0">
 						<xsl:value-of select="$authorCitationName" />
 					</xsl:when>
 					<!--
-						when more than one author write the citation style name of the
-						first author and the other author separated with semicolon
+						if there is more then one author for this publication write the citation style name of the
+						first author and the other authors from the author String separated with semicolon
 					-->
 					<xsl:otherwise>
 						<xsl:value-of select="$authorCitationName" />; <xsl:value-of select="$authorString" />
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
+			<!--
+				if there is more then one publication of the same pattern of names, e.g. single author or 
+				more authors, write -
+			-->
 			<xsl:otherwise>
 				<xsl:value-of>--</xsl:value-of>
 			</xsl:otherwise>
@@ -295,8 +308,13 @@
 			<eterms:sort-name>
 				<xsl:value-of select="eterms:family-name" />
 				<xsl:text>, </xsl:text>
-				<xsl:value-of select="eterms:given-name" />
+				<xsl:value-of select ="eterms:given-name" />
 			</eterms:sort-name>
+			<eterms:concat-complete-name>
+				<xsl:value-of select="eterms:given-name" />
+				<xsl:text> </xsl:text>
+				<xsl:value-of select="eterms:family-name" />
+			</eterms:concat-complete-name>
 			<xsl:apply-templates mode="sort-creators" />
 		</xsl:copy>
 	</xsl:template>
