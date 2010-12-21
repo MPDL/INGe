@@ -84,7 +84,7 @@
 	<xsl:param name="root-ou" select="'dummy-root-ou'"/>
 	<xsl:param name="source-name" select="'eDoc'"/>
 	
-	<xsl:param name="import-name" select="'CBS'"/>
+	<xsl:param name="import-name" select="'OTHER'"/>
 	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
 	
@@ -884,7 +884,7 @@
 			</ec:properties>
 			<xsl:element name="ec:content">
 				<xsl:choose>
-					<xsl:when test="$import-name = 'BPC'">
+					<xsl:when test="$import-name = 'BPC' and not(exists(../../basic/fturl)) and contains($bpc-files, ../@id)">
 						<xsl:attribute name="xlink:href">
 							<xsl:text>http://www.mpibpc.mpg.de/fb/pdfs/</xsl:text><xsl:value-of select="$filename"/>
 						</xsl:attribute>
