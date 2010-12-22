@@ -12,6 +12,7 @@ import de.mpg.escidoc.services.batchprocess.helper.CommandHelper;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.AdminHelper;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class SingleItem extends Elements<ItemVO>
@@ -30,7 +31,8 @@ public class SingleItem extends Elements<ItemVO>
         escidocId = CommandHelper.getArgument("-id", args, true);
         try
         {
-            setUserHandle(AdminHelper.loginUser("bibliothek_mpi_eva", "bibliothek"));
+            logger.info("Logging in " + ServiceLocator.getFrameworkUrl());
+        	setUserHandle(AdminHelper.loginUser(PropertyReader.getProperty("escidoc.user.name"), PropertyReader.getProperty("escidoc.user.password")));
         }
         catch (Exception e)
         {

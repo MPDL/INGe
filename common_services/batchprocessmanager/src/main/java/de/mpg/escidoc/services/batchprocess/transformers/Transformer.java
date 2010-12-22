@@ -1,5 +1,6 @@
 package de.mpg.escidoc.services.batchprocess.transformers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.services.batchprocess.BatchProcess;
@@ -7,7 +8,8 @@ import de.mpg.escidoc.services.batchprocess.BatchProcess.CoreServiceObjectType;
 
 public abstract class Transformer<ObjectType> extends BatchProcess
 {
-    public static Transformer<?> getTransformer(String name)
+    
+	public static Transformer<?> getTransformer(String name)
     {
         try
         {
@@ -22,4 +24,5 @@ public abstract class Transformer<ObjectType> extends BatchProcess
     public abstract List<ObjectType> transform(List<ObjectType> list);
 
     public abstract CoreServiceObjectType getObjectType();
+    
 }

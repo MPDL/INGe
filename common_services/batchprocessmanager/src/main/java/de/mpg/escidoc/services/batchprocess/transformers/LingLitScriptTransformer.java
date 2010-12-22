@@ -32,17 +32,21 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         System.out.println("Number of items: " + list.size());
         for (PubItemVO item : list)
         {
-            System.out.println("Transforming item " + item.getVersion().getObjectIdAndVersion() + "!");
-            item = removeURI(item);
-            item = removeEmptySubjects(item);
-            item = removeBrokenIdentifiers(item);
-            item = transformAlternativeTitle(item);
-            item = transformTitle(item);
-            item = transformDegree(item);
-            item = assignUserGroup(item);
-            item = transformLocators(item);
-            item = transformFreeKeyWords(item);
-            item = setIsoToLanguages(item);
+            if (!this.getTransformed().contains(item.getVersion().getObjectId())) 
+            {
+            	System.out.println("Transforming item " + item.getVersion().getObjectIdAndVersion() + "!");
+            	item = removeURI(item);
+	            item = removeEmptySubjects(item);
+	            item = removeBrokenIdentifiers(item);
+	            item = transformAlternativeTitle(item);
+	            item = transformTitle(item);
+	            item = transformDegree(item);
+	            item = assignUserGroup(item);
+	            item = transformLocators(item);
+	            item = transformFreeKeyWords(item);
+	            item = setIsoToLanguages(item);
+            }
+            
             report.addEntry("Transform" + item.getVersion().getObjectId(), "Transform "
                     + item.getVersion().getObjectId(), ReportEntryStatusType.FINE);
         }
@@ -94,11 +98,10 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
             {
                 if (title.indexOf(";") > 0)
                 {
-                    title = title.substring(0, source.getTitle().getValue().indexOf(";") - 1);
+                	String spareSpaces = "\n             ";
+                	title = title.substring(0, source.getTitle().getValue().indexOf(";") - 1);
                     source.getTitle().setValue(title);
-                    processingAlternativeTitles(item, title);
-                    
-                    String spareSpaces = "\n             ";
+                    processingAlternativeTitles(item, title.replace(spareSpaces, ""));
                     TextVO sTitle = source.getTitle();
                     sTitle.setValue(sTitle.getValue().replace(spareSpaces, ""));
                 }
@@ -109,6 +112,31 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
             }
         }
         return item;
+    }
+    
+    private void processingAlternativeTitles(PubItemVO item, String title)
+    {
+        for (SourceVO source : item.getMetadata().getSources())
+        {
+            for (int i = 0; i < source.getAlternativeTitles().size(); i++)
+            {
+                String subtitle = source.getAlternativeTitles().get(i).getValue();
+                String spareSpaces = "\n             ";
+                if (!(subtitle.equals("") || subtitle == null))
+                {
+                    if (subtitle.replace(spareSpaces, "").equals(title))
+                    {
+                        source.getAlternativeTitles().remove(i);
+                    }
+                    else
+                    {
+                        
+                        TextVO altTitle = source.getAlternativeTitles().get(i);
+                        altTitle.setValue(altTitle.getValue().replace(spareSpaces, ""));
+                    }
+                }
+            }
+        }
     }
     
     public PubItemVO transformTitle(PubItemVO item)
@@ -386,29 +414,6 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         return item;
     }
 
-    private void processingAlternativeTitles(PubItemVO item, String title)
-    {
-        for (SourceVO source : item.getMetadata().getSources())
-        {
-            for (int i = 0; i < source.getAlternativeTitles().size(); i++)
-            {
-                String subtitle = source.getAlternativeTitles().get(i).getValue();
-                if (!(subtitle.equals("") || subtitle == null))
-                {
-                    if (subtitle.equals(title))
-                    {
-                        source.getAlternativeTitles().remove(i);
-                    }
-                    else
-                    {
-                        String spareSpaces = "\n             ";
-                        TextVO altTitle = source.getAlternativeTitles().get(i);
-                        altTitle.setValue(altTitle.getValue().replace(spareSpaces, ""));
-                    }
-                }
-            }
-        }
-    }
 
     public PubItemVO transformDegree(PubItemVO item)
     {

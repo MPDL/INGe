@@ -6,6 +6,7 @@ import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatusType;
 import de.mpg.escidoc.services.batchprocess.helper.CoreServiceHelper;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -30,7 +31,7 @@ public class LingLitAllElements extends Elements<ItemVO>
         }
     }
 
-    private static final String LOCAL_TAG = "Import all Linglit 8 2010-12-10 09:47";
+    private static final String LOCAL_TAG = "test before live 4 2010-12-21 10:23";
 
     @Override
     public void retrieveElements()
@@ -49,6 +50,11 @@ public class LingLitAllElements extends Elements<ItemVO>
             	if (elements.get(i).getVersion().getVersionNumber() == 1)
             	{
             		System.out.println(elements.get(i).getVersion().getObjectId() + " was not edited");
+            	}
+            	else if(elements.get(i).getVersion().getVersionNumber() != 1 && !elements.get(i).getVersion().getState().equals(State.RELEASED))
+            	{
+            		this.getTransformed().add(elements.get(i).getVersion().getObjectId());
+            		System.out.println(elements.get(i).getVersion().getObjectId() + " was edited, but not released.");
             	}
             	else
             	{

@@ -28,6 +28,8 @@ public class Edit extends Operation
         try
         {
             transformer = Transformer.getTransformer(CommandHelper.getArgument("-t", args, true));
+            transformer.setTransformed(elements.getTransformed());
+            this.setTransformed(elements.getTransformed());
             elements.setElements(transformer.transform(elements.getElements()));
             update(elements);
             if (CoreServiceObjectStatus.SUBMITTED.equals(CommandHelper.getStatusEnumValue(CommandHelper.getArgument(
@@ -70,13 +72,20 @@ public class Edit extends Operation
         {
             for (ItemVO ivo : new ArrayList<ItemVO>(list.getElements()))
             {
-                String xml = xmlTransforming.transformToItem(ivo);
-                System.out.print("Updating item " + ivo.getVersion().getObjectIdAndVersion() + " ...");
-                xml = ih.update(ivo.getVersion().getObjectId(), xml);
-                System.out.println("done!");
-                updated.add(xmlTransforming.transformToItem(xml));
-                this.report.addEntry("Update" + ivo.getVersion().getObjectId(), "Edit "
-                        + ivo.getVersion().getObjectId(), ReportEntryStatusType.FINE);
+            	if (!this.getTransformed().contains(ivo.getVersion().getObjectId())) 
+            	{
+            		String xml = xmlTransforming.transformToItem(ivo);
+                    System.out.print("Updating item " + ivo.getVersion().getObjectIdAndVersion() + " ...");
+                    xml = ih.update(ivo.getVersion().getObjectId(), xml);
+                    System.out.println("done!");
+                    updated.add(xmlTransforming.transformToItem(xml));
+                    this.report.addEntry("Update" + ivo.getVersion().getObjectId(), "Edit "
+                            + ivo.getVersion().getObjectId(), ReportEntryStatusType.FINE);
+            	}
+            	else
+            	{
+            		updated.add(ivo);
+            	}
             }
         }
         elements.setElements(updated);

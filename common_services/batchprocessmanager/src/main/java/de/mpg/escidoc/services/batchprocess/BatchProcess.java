@@ -1,5 +1,8 @@
 package de.mpg.escidoc.services.batchprocess;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.batchprocess.elements.Elements;
@@ -19,6 +22,7 @@ public abstract class BatchProcess
     }
 
     protected static Elements elements = null;
+    private List<String> transformed = new ArrayList<String>();
     protected static Operation operation = null;
     protected static BatchProcessReport report = new BatchProcessReport();
     private static final Logger logger = Logger.getLogger(BatchProcess.class);
@@ -49,4 +53,16 @@ public abstract class BatchProcess
         logger.info("Batch Process done!");
         logger.info(report.printReport());
     }
+
+	public List<String> getTransformed() 
+	{
+		return transformed;
+	}
+
+	public void setTransformed(List<String> transformed) 
+	{
+		this.transformed = transformed;
+	}
+    
+
 }

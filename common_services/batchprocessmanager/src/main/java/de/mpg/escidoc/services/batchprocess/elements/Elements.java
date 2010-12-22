@@ -49,7 +49,8 @@ public abstract class Elements<ListElementType> extends BatchProcess
         this.elements = elements;
     }
 
-    public String getUserHandle()
+
+	public String getUserHandle()
     {
         return userHandle;
     }
