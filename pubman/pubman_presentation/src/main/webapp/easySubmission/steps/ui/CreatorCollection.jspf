@@ -97,7 +97,7 @@
 					<h:inputText id="inpcreator_persons_person_family_name_optional" styleClass="large_txtInput personSuggest familyName" value="#{creator.person.familyName}" rendered="#{!(genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'easy-submission' || genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'all')}"/>
 					<h:inputText id="inppersons_person_given_name_optional" styleClass="large_txtInput givenName" value="#{creator.person.givenName}"/>
 					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" value="#{creator.autoPasteValue}"/>
-					<tr:commandButton id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations" action="#{creator.addOrganization}"/>
+					
 					<h:inputText id="inppersons_person_ous_optional" styleClass="xSmall_txtInput ouNumber" value="#{creator.ouNumbers}"/>
 					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{creator.person.identifier.id}"/>
 					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{creator.person.identifier.id}" rendered="#{creator.person.identifier.id != null and creator.person.identifier.id != ''}" target="_blank">&nbsp;</h:outputLink>
@@ -107,6 +107,7 @@
 						<tr:commandButton id="btnRemoveCreator" shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn groupTool remove" disabled="#{creator.singleCreator}" action="#{creator.remove}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
 					</h:panelGroup>
 				</h:panelGroup>
+				<tr:commandButton id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations" action="#{creator.addOrganization}"/>
 <%-- If Organization is Creator --%>
 				<h:panelGroup layout="block" styleClass="full_area0 suggestAnchor" rendered="#{creator.organizationType and !(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'easy-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
 <%-- Creator role --%>
