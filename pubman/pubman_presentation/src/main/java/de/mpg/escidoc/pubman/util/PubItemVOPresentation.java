@@ -230,7 +230,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             WrappedLocalTag wrappedLocalTag = new WrappedLocalTag();
             wrappedLocalTag.setParent(this);
             wrappedLocalTag.setValue(this.getLocalTags().get(i));
-            wrappedLocalTags.add(wrappedLocalTag);
+            if(wrappedLocalTag.getValue().length()>0)
+            	wrappedLocalTags.add(wrappedLocalTag);
         }
         
     }
