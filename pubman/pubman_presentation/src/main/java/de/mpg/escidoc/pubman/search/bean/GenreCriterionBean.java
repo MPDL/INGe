@@ -222,7 +222,9 @@ public class GenreCriterionBean extends CriterionBean
         setSearchOpinion(false); 
         setSearchEditorial(false); 
         setSearchContributionToHandbook(false);
-
+        setSearchHandbook(false);
+        setSearchPatent(false);
+        
         genreCriterionVO.getGenre().clear();
         genreCriterionVO.setSearchString("");
         
