@@ -131,6 +131,9 @@ public class PersonCriterionBean extends CriterionBean
         setSearchTranslator(false);
         setSearchHonoree(false);
         setSearchReferee(false);
+        setSearchInventor(false);
+        setSearchApplicant(false);
+
 
         personCriterionVO.getCreatorRole().clear();
         personCriterionVO.setSearchString("");
