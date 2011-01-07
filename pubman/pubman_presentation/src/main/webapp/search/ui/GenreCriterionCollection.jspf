@@ -179,7 +179,7 @@
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchPatent" value="#{genreCriterionBean.searchPatent}" />
-							<h:outputLabel title="#{tip.adv_search_lblChkGenre_patent}" value="#{lbl.adv_search_lblChkGenre_patent}" for="genreCriterionBean_searchHandbook" />
+							<h:outputLabel title="#{tip.adv_search_lblChkGenre_patent}" value="#{lbl.adv_search_lblChkGenre_patent}" for="genreCriterionBean_searchPatent" />
 						</span>
 						
 						<span class="large_checkbox tiny_marginRIncl">
@@ -332,6 +332,11 @@
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchHandbookMultiple" value="#{genreCriterionBean.searchHandbook}" />
 							<h:outputLabel title="#{tip.adv_search_lblChkGenre_handbook}" value="#{lbl.adv_search_lblChkGenre_handbook}" for="genreCriterionBean_searchHandbook" />
+						</span>
+						
+						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchPatentMultiple" value="#{genreCriterionBean.searchPatent}" />
+							<h:outputLabel title="#{tip.adv_search_lblChkGenre_patent}" value="#{lbl.adv_search_lblChkGenre_patent}" for="genreCriterionBean_searchPatent" />
 						</span>
 						
 						<span class="large_checkbox tiny_marginRIncl">
