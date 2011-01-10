@@ -93,9 +93,6 @@
 					<dcterms:issued>2008</dcterms:issued>
 					<source:source type="http://purl.org/escidoc/metadata/ves/publication-types/proceedings">
 						<dc:title>The Second Annual Spitzer Science Center Conference: Infrared Diagnostics of Galaxy Evolution</dc:title>
-						<eterms:publishing-info>
-							<dc:publisher>ASP</dc:publisher>
-						</eterms:publishing-info>
 						<eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
 							<person:person>
 								<eterms:complete-name>Ranga-Ram Chary</eterms:complete-name>
@@ -119,12 +116,14 @@
 						</eterms:creator>
 						<eterms:start-page>88</eterms:start-page>
 						<eterms:end-page>88</eterms:end-page>
+						<eterms:publishing-info>
+							<dc:publisher>ASP</dc:publisher>
+						</eterms:publishing-info>
 						<dc:identifier xsi:type="eterms:ISBN">978-1-58381-325-6</dc:identifier>
 					</source:source>
 					<source:source type="http://purl.org/escidoc/metadata/ves/publication-types/series">
 						<dc:title>ASP conference series</dc:title>
 						<eterms:volume>381</eterms:volume>
-						<dc:identifier xsi:type="eterms:ISBN">978-1-58381-325-6</dc:identifier>
 					</source:source>
 					<event:event>
 						<dc:title>2nd annual Spitzer Science Center international conference</dc:title>
@@ -171,6 +170,7 @@
 					</eterms:publishing-info>
 					<dcterms:dateAccepted>2008</dcterms:dateAccepted>
 					<eterms:total-number-of-pages>VIII, 122 S. : Ill., graph. Darst.</eterms:total-number-of-pages>
+					<eterms:degree>http://purl.org/escidoc/metadata/ves/academic-degrees/diploma</eterms:degree>
 					<dcterms:abstract>This thesis reports on the first production of a degenerate three-component Fermi gas in equilibrium. The sample consists of 6Li atoms in the three lowest Zeeman sublevels. Its production is enabled through the control of interactions by means of Feshbach resonances. For weak interactions the three-state mixture exhibits a remarkable stability with lifetimes exceeding 30 seconds. This represents an excellent starting point for future experiments. In the course of this thesis, we analyzed the collisional stability of such a threecomponent sample as a function of the magnetic field and thus also as a function of the interaction strength. In the region below 600 Gauss we observed a strongly varying three-body loss and found two loss resonances at about 127 Gauss and at 500 Gauss. The observed three-body loss coefficient varies over almost three orders of magnitude. We were able to explain this behavior with a model utilizing the universality of systems with large scattering lengths. In this model, the loss resonances are due to a universal three-body bound state that crosses the threeatom continuum twice. Additionally, further measurements could be performed in the region of unitary two-body interactions near the Feshbach resonances.</dcterms:abstract>
 				</pub:publication>
 			</mdr:md-record>
