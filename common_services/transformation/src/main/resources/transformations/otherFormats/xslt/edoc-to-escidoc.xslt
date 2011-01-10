@@ -1348,7 +1348,7 @@
 				<xsl:call-template name="createEvent"/>
 			</xsl:if>
 			<!-- TOTAL NUMBER OF PAGES -->
-			<xsl:if test="phydesc and not($dependentGenre[type = $gen])">
+			<xsl:if test="phydesc">
 				<xsl:element name="eterms:total-number-of-pages">
 					<xsl:value-of select="phydesc"/>
 				</xsl:element>
@@ -1573,13 +1573,7 @@
 				<xsl:with-param name="is-source" select="true()"/>
 				<xsl:with-param name="sources-count" select="$sources-count"/>
 			</xsl:call-template>
-		</xsl:for-each>
-		<xsl:if test="phydesc and $dependentGenre[type = $gen]">
-			<xsl:element name="eterms:total-number-of-pages">
-				<xsl:value-of select="phydesc"/>
-			</xsl:element>
-		</xsl:if>
-	
+		</xsl:for-each>	
 	</xsl:template>
 	
 	<!-- SOURCE IDENTIFIERS -->
@@ -1626,13 +1620,7 @@
 
 		<!-- SEQUENCE_NR -->
 		<xsl:apply-templates select="artnum"/>
-		
-		<xsl:if test="phydesc and $dependentGenre[type = $gen]">
-			<xsl:element name="eterms:total-number-of-pages">
-				<xsl:value-of select="phydesc"/>
-			</xsl:element>
-		</xsl:if>
-		
+	
 		<!--  <xsl:call-template name="createSourceIdentifiers"/>-->
 		<xsl:for-each select="../identifiers/identifier[@type != 'issn' or not($issn-save)]">
 			<xsl:call-template name="createIDs">
@@ -1676,12 +1664,7 @@
 		<xsl:apply-templates select="epage"/>
 		<!-- SEQUENCE_NR -->
 		<xsl:apply-templates select="artnum"/>
-		<!--NUMBER OF PAGES -->
-		<xsl:if test="phydesc and $dependentGenre[type = $gen]">
-			<xsl:element name="eterms:total-number-of-pages">
-				<xsl:value-of select="phydesc"/>
-			</xsl:element>
-		</xsl:if>
+		
 		<xsl:if test="exists(publisher) or exists(editiondescription)">
 			<xsl:element name="eterms:publishing-info">
 				<xsl:call-template name="createPublishinginfo"/>
@@ -1753,12 +1736,6 @@
 		<!-- VOLUME -->
 		<xsl:apply-templates select="volume"/>
 		
-		<xsl:if test="phydesc and $dependentGenre[type = $gen]">
-			<xsl:element name="eterms:total-number-of-pages">
-				<xsl:value-of select="phydesc"/>
-			</xsl:element>
-		</xsl:if>
-		
 		<!-- <xsl:call-template name="createSourceIdentifiers"/>-->
 		<xsl:for-each select="../identifiers/identifier[@type != 'isbn' or not($isbn-save)]">
 			<xsl:call-template name="createIDs">
@@ -1792,16 +1769,7 @@
 					<xsl:apply-templates select="issuenr"/>
 				</xsl:element>
 			</xsl:if>
-			<xsl:if test="phydesc and not($dependentGenre[type = $gen])">
-				<xsl:element name="eterms:total-number-of-pages">
-					<xsl:value-of select="phydesc"/>
-				</xsl:element>
-			</xsl:if>
-			<xsl:if test="phydesc and $dependentGenre[type = $gen]">
-				<xsl:element name="eterms:total-number-of-pages">
-					<xsl:value-of select="phydesc"/>
-				</xsl:element>
-			</xsl:if>
+			
 		</xsl:if>
 		<!-- CREATOR -->
 		<xsl:for-each select="creators/creator[@type = 'proceedingscontributorfn']">
@@ -1815,6 +1783,12 @@
 		<xsl:apply-templates select="spage"/>
 		<!-- END-PAGE -->
 		<xsl:apply-templates select="epage"/>
+		
+		<xsl:if test="exists(publisher)">
+			<xsl:element name="eterms:publishing-info">
+				<xsl:call-template name="createPublishinginfo"/>
+			</xsl:element>
+		</xsl:if>
 		
 		<!-- <xsl:call-template name="createSourceIdentifiers"/>-->
 		<xsl:for-each select="../identifiers/identifier[@type != 'issn' or not($issn-save)]">
