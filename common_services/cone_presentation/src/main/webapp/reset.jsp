@@ -45,36 +45,44 @@
 %>
 
 <%
+	
 	response.setHeader("Content-Type", "text/plain");
 
 	boolean loggedIn = getLoggedIn(request);
 
-	Querier querier = QuerierFactory.newQuerier(loggedIn);
-	
-	out.println("Reset started...");
-	out.flush();
-
-	List<String> models = new ArrayList<String>();
-	
-	models.add(request.getParameter("model"));
-	
-	for (String modelName : models)
+	if (loggedIn)
 	{
-	    
-	    Model model = ModelList.getInstance().getModelByAlias(modelName);
-	    
-	    List<String> ids = querier.getAllIds(model.getName());
-	    for (String id : ids)
-	    {
-	        TreeFragment details = querier.details(model.getName(), id, "*");
-	        querier.delete(model.getName(), id);
-	        querier.create(model.getName(), id, details);
-	        out.println("resetting resource " + id);
-	        out.flush();
-	    }
-	}
+		Querier querier = QuerierFactory.newQuerier(loggedIn);
+		
+		out.println("Reset started...");
+		out.flush();
 	
-	out.println("...finished");
-
-	querier.release();
+		List<String> models = new ArrayList<String>();
+		
+		models.add(request.getParameter("model"));
+		
+		for (String modelName : models)
+		{
+		    
+		    Model model = ModelList.getInstance().getModelByAlias(modelName);
+		    
+		    List<String> ids = querier.getAllIds(model.getName());
+		    for (String id : ids)
+		    {
+		        TreeFragment details = querier.details(model.getName(), id, "*");
+		        querier.delete(model.getName(), id);
+		        querier.create(model.getName(), id, details);
+		        out.println("resetting resource " + id);
+		        out.flush();
+		    }
+		}
+		
+		out.println("...finished");
+	
+		querier.release();
+	}
+	else
+	{
+		out.println("Not logged in!");
+	}
 %>
