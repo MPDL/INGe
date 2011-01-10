@@ -2102,14 +2102,14 @@
 							<!-- CBS OU depend on date (affiliatedInstitution depend on publication-date) -->
 							<xsl:variable name="publication-date">
 								<xsl:choose>
-									<xsl:when test="exists(../../basic/datepublished)">
-										<xsl:value-of select="../../basic/datepublished"/>
+									<xsl:when test="exists(ancestor::record/metadata/basic/datepublished)">
+										<xsl:value-of select="ancestor::record/metadata/basic/datepublished"/>
 									</xsl:when>
-									<xsl:when test="exists(../../basic/dateaccepted)">
-										<xsl:value-of select="../../basic/dateaccepted"/>
+									<xsl:when test="exists(ancestor::record/metadata/basic/dateaccepted)">
+										<xsl:value-of select="ancestor::record/metadata/basic/dateaccepted"/>
 									</xsl:when>
-									<xsl:when test="exists(../../basic/dateofevent)">
-										<xsl:value-of select="../../basic/dateofevent"/>
+									<xsl:when test="exists(ancestor::record/metadata/basic/dateofevent)">
+										<xsl:value-of select="ancestor::record/metadata/basic/dateofevent"/>
 									</xsl:when>
 								</xsl:choose>
 							</xsl:variable>
