@@ -40,7 +40,7 @@
     function initialize() 
     {    	
       var feedControl = new google.feeds.FeedControl();
-      feedControl.addFeed('<h:outputText value="#{ApplicationBean.pubmanBlogFeedUrl}"/>', "");
+      feedControl.addFeed('<h:outputText value="#{ApplicationBean.pubmanBlogFeedUrl}" escape="false"/>', "");
       feedControl.setNumEntries(4);
       feedControl.setLinkTarget(google.feeds.LINK_TARGET_BLANK); 
       feedControl.draw(document.getElementById("feedControl"));
