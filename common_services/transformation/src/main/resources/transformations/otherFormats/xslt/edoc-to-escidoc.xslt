@@ -945,7 +945,6 @@
 										<xsl:otherwise>any-fulltext</xsl:otherwise>
 									</xsl:choose>
 								</xsl:variable>
-								<xsl:comment>Comment: <xsl:value-of select="lower-case(@comment)"/></xsl:comment>
 								<eterms:content-category>
 									<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
 								</eterms:content-category>
@@ -981,6 +980,11 @@
 								</xsl:choose>
 							</xsl:otherwise>
 						</xsl:choose>
+						<xsl:if test="$import-name = 'FHI' and contains(lower-case(@comment), 'arxiv')">
+							<xsl:element name="dc:description">
+								<xsl:value-of select="@comment"/>
+							</xsl:element>
+						</xsl:if>
 						<xsl:choose>
 							<xsl:when test="ends-with($filename, '.doc')">
 								<dc:format xsi:type="dcterms:IMT">application/msword</dc:format>
@@ -999,7 +1003,7 @@
 						</xsl:if>
 						<xsl:choose>
 							<xsl:when test="$import-name = 'FHI'">
-								<xsl:call-template name="copyrightFHI"/>
+								<!-- <xsl:call-template name="copyrightFHI"/>-->
 							</xsl:when>
 							<xsl:when test="$import-name = 'BPC'">
 							</xsl:when>
@@ -1380,7 +1384,7 @@
 					<xsl:when test="'habilitation' = lower-case(genre)">habilitation</xsl:when>
 					<xsl:when test="'thesis' = lower-case(genre)">
 						<xsl:choose>
-							<xsl:when test="'diplom = lower-case(../editiondescription)'">diploma</xsl:when>
+							<xsl:when test="'diplom' = lower-case(../editiondescription)">diploma</xsl:when>
 							<xsl:when test="'magister' = lower-case(../editiondescription)">magister</xsl:when>
 							<xsl:when test="'staatsexamen' = lower-case(../editiondescription)">staatsexamen</xsl:when>
 							<xsl:when test="'master' = lower-case(../editiondescription)">master</xsl:when>
