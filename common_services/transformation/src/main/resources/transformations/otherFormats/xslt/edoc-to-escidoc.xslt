@@ -84,7 +84,7 @@
 	<xsl:param name="root-ou" select="'dummy-root-ou'"/>
 	<xsl:param name="source-name" select="'eDoc'"/>
 	
-	<xsl:param name="import-name" select="'OTHER'"/>
+	<xsl:param name="import-name" select="'FHI'"/>
 	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
 	
@@ -1251,11 +1251,9 @@
 				</xsl:choose>
 			</xsl:if>
 			
-			<!-- DATES -->
-			<xsl:apply-templates select="datemodified"/>
-			<xsl:apply-templates select="datesubmitted"/>
-			<xsl:apply-templates select="dateaccepted"/>
-			<xsl:apply-templates select="datepublished"/>
+			<!-- DATES -->			
+			<xsl:call-template name="createDates"/>
+			
 			<!-- REVIEW METHOD -->
 			<xsl:apply-templates select="refereed"/>
 			
@@ -1287,15 +1285,6 @@
 			<!-- Check whether there is 1 source which will save the isbn -->
 			<xsl:variable name="issn-save" select="titleofseries or journaltitle" as="xs:boolean"/>
 			
-			<xsl:if test="journaltitle">
-				<xsl:element name="source:source">
-					<xsl:call-template name="createJournal">
-						<xsl:with-param name="sources-count" select="$sources-count"/>
-						<xsl:with-param name="gen" select="$gen"/>
-						<xsl:with-param name="isbn-save" select="$isbn-save"/>
-					</xsl:call-template>
-				</xsl:element>
-			</xsl:if>
 			<xsl:if test="issuetitle">
 				<xsl:element name="source:source">
 					<xsl:call-template name="createIssue">
@@ -1305,6 +1294,17 @@
 						</xsl:call-template>
 				</xsl:element>
 			</xsl:if>
+			
+			<xsl:if test="journaltitle">
+				<xsl:element name="source:source">
+					<xsl:call-template name="createJournal">
+						<xsl:with-param name="sources-count" select="$sources-count"/>
+						<xsl:with-param name="gen" select="$gen"/>
+						<xsl:with-param name="isbn-save" select="$isbn-save"/>
+					</xsl:call-template>
+				</xsl:element>
+			</xsl:if>
+			
 			<xsl:if test="booktitle">
 				<xsl:element name="source:source">
 					<xsl:call-template name="createBook">
@@ -1872,19 +1872,19 @@
 				<xsl:variable name="coneCreator">
 					<xsl:choose>
 						<xsl:when test="$source-name = 'eDoc-AEI'">
-							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' MPI for Gravitational Physics'))"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Gravitational Physics')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'NPH'">
-							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' MPI for Nuclear Physics'))"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Nuclear Physics')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'FHI'">
-							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' Fritz Haber Institute'))"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Fritz Haber Institute')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'CBS'">
-							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' MPI for Human Cognitive and Brain Sciences'))"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Human Cognitive and Brain Sciences')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'BPC'">
-							<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' MPI for biophysical chemistry'))"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for biophysical chemistry')"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
@@ -1920,17 +1920,17 @@
 							<xsl:variable name="collection" select="../../../docaff/collection"/>
 							<xsl:variable name="position" select="position()"/>
 							
-							<xsl:variable name="is-mpgsunit">
+							<xsl:variable name="has-mpgsunit">
 								<xsl:call-template name="check-equality">
 									<xsl:with-param name="list" select="$collection-mapping/mapping/edoc-collection"/>
-									<xsl:with-param name="value" select="/record/docaff/affiliation/mpgsunit"/>
+									<xsl:with-param name="value" select="//record/docaff/affiliation/mpgsunit"/>
 								</xsl:call-template>
 							</xsl:variable>
 							
-							<xsl:variable name="is-mpgunit">
+							<xsl:variable name="has-mpgunit">
 								<xsl:call-template name="check-equality">
 									<xsl:with-param name="list" select="$collection-mapping/mapping/edoc-collection"/>
-									<xsl:with-param name="value" select="/record/docaff/affiliation/mpgunit"/>
+									<xsl:with-param name="value" select="//record/docaff/affiliation/mpgunit"/>
 								</xsl:call-template>
 							</xsl:variable>
 							
@@ -1939,37 +1939,50 @@
 									<xsl:when test="$import-name = 'CBS' and (@internextern='mpg' or @internextern='unknown')">
 										<xsl:comment> Case CBS </xsl:comment>
 									</xsl:when>
-									<xsl:when test="@internextern='mpg' and exists(../../../docaff/affiliation) and ($is-mpgsunit = true()) or ($is-mpgunit = true())">
-										
+									<xsl:when test="$import-name = 'AEI' and @internextern='mpg' and exists(../../../docaff/affiliation) and ($has-mpgsunit = true() or $has-mpgunit = true())">
+										<!-- Special Case for AEI -->
 										<xsl:for-each select="../../../docaff/affiliation">
 											<xsl:variable name="mpgunit" select="normalize-space(mpgunit)"/>
 											<xsl:variable name="mpgsunit" select="normalize-space(mpgsunit)"/>
 											
-											<xsl:if test="($is-mpgsunit = true()) or ($is-mpgunit = true())">
-												<xsl:comment> Case 1 </xsl:comment>
-												<xsl:element name="organization:organization">
-													<xsl:element name="dc:title">
-														<xsl:choose>
-															<xsl:when test="$mpgsunit != ''">
-																<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($mpgsunit)]/escidoc-ou"/>
-															</xsl:when>
-															<xsl:otherwise>
-																<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($mpgunit)]/escidoc-ou"/>
-															</xsl:otherwise>
-														</xsl:choose>
+											<xsl:variable name="is-mpgsunit">
+												<xsl:call-template name="check-equality">
+													<xsl:with-param name="list" select="$collection-mapping/mapping/edoc-collection"/>
+													<xsl:with-param name="value" select="$mpgsunit"/>
+												</xsl:call-template>
+											</xsl:variable>
+											
+											<xsl:variable name="is-mpgunit">
+												<xsl:call-template name="check-equality">
+													<xsl:with-param name="list" select="$collection-mapping/mapping/edoc-collection"/>
+													<xsl:with-param name="value" select="$mpgunit"/>
+												</xsl:call-template>
+											</xsl:variable>
+											
+											<xsl:choose>
+												<xsl:when test="$is-mpgsunit = true() and $mpgsunit != ''">
+													<xsl:comment> Case 1a (AEI) </xsl:comment>
+													<xsl:element name="organization:organization">
+														<xsl:element name="dc:title">
+															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($mpgsunit)]/escidoc-ou"/>
+														</xsl:element>
+														<dc:identifier>
+															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgsunit))]/escidoc-id"/>
+														</dc:identifier>
 													</xsl:element>
-													<dc:identifier>
-														<xsl:choose>
-															<xsl:when test="$mpgsunit != ''">
-																<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgsunit))]/escidoc-id"/>
-															</xsl:when>
-															<xsl:otherwise>
-																<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgunit))]/escidoc-id"/>
-															</xsl:otherwise>
-														</xsl:choose>
-													</dc:identifier>
-												</xsl:element>
-											</xsl:if>
+												</xsl:when>
+												<xsl:when test="$is-mpgunit = true() and $mpgunit != ''">
+													<xsl:comment> Case 1b (AEI) </xsl:comment>
+													<xsl:element name="organization:organization">
+														<xsl:element name="dc:title">
+															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($mpgunit)]/escidoc-ou"/>
+														</xsl:element>
+														<dc:identifier>
+															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgunit))]/escidoc-id"/>
+														</dc:identifier>
+													</xsl:element>
+												</xsl:when>
+											</xsl:choose>
 										</xsl:for-each>
 									</xsl:when>
 									<xsl:when test="@internextern='mpg' and $collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)] and not(../../../docaff/affiliation/*[lower-case(.) = lower-case($collection)])">
@@ -2327,6 +2340,59 @@
 	</xsl:template>
 	<!-- #################### TEST TEST TEST ########################## --> 
 	
+	<!-- Publication dates -->
+	<xsl:template name="createDates">
+		<xsl:choose>
+			<xsl:when test="pubstatus = 'accepted'">
+				<xsl:choose>
+					<xsl:when test="exists(dateaccepted) and dateaccepted != ''">
+						<xsl:element name="dcterms:dateAccepted">
+							<xsl:value-of select="dateaccepted"/>
+						</xsl:element>
+					</xsl:when>
+					<xsl:when test="exists(datepublished) and datepublished != ''">
+						<xsl:element name="dcterms:dateAccepted">
+							<xsl:value-of select="datepublished"/>
+						</xsl:element>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="pubstatus = 'submitted'">
+				<xsl:choose>
+					<xsl:when test="exists(datesubmitted) and datesubmitted != ''">
+						<xsl:element name="dcterms:dateSubmitted">
+							<xsl:value-of select="datesubmitted"/>
+						</xsl:element>
+					</xsl:when>
+					<xsl:when test="exists(datepublished) and datepublished != ''">
+						<xsl:element name="dcterms:dateSubmitted">
+							<xsl:value-of select="datepublished"/>
+						</xsl:element>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="pubstatus = 'unpublished'">
+				<xsl:choose>
+					<xsl:when test="exists(datecreated) and datecreated != ''">
+						<xsl:element name="dcterms:created">
+							<xsl:value-of select="datesubmitted"/>
+						</xsl:element>
+					</xsl:when>
+					<xsl:when test="exists(datepublished) and datepublished != ''">
+						<xsl:element name="dcterms:created">
+							<xsl:value-of select="datepublished"/>
+						</xsl:element>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="datemodified"/>
+				<xsl:apply-templates select="datesubmitted"/>
+				<xsl:apply-templates select="dateaccepted"/>
+				<xsl:apply-templates select="datepublished"/>
+			</xsl:otherwise>
+			</xsl:choose>
+	</xsl:template>
 	<xsl:template match="datepublished">
 		<xsl:element name="dcterms:issued">
 			<xsl:value-of select="."/>
@@ -2341,20 +2407,15 @@
 		<xsl:element name="dcterms:dateAccepted">
 			<xsl:value-of select="."/>
 		</xsl:element>
-		<!-- Not useful (was changed after FHI feedback) -->
-		<!-- 
-		<xsl:if test="../genre='PhD-Thesis'">
-			<xsl:element name="dcterms:issued">
-				<xsl:value-of select="."/>
-			</xsl:element>
-		</xsl:if>
-		 -->
 	</xsl:template>
 	<xsl:template match="datesubmitted">
 		<xsl:element name="dcterms:dateSubmitted">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
+	<!-- End dates -->
+	
+	
 	<xsl:template match="titlealt">
 		<xsl:element name="dcterms:alternative">
 			<xsl:value-of select="."/>
