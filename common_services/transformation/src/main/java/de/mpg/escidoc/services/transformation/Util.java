@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -45,6 +45,7 @@ import javax.xml.parsers.DocumentBuilder;
 
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
+import org.apache.axis.encoding.Base64;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -60,6 +61,7 @@ import org.w3c.dom.Node;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsType;
+import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -324,7 +326,7 @@ public class Util
                     if (!"".equals(result.trim()))
                     {
                         String id = result.split("\\|")[1];
-                        GetMethod detailMethod = new GetMethod(id + "?format=rdf");
+                        GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle=" + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
                         
                         logger.info(detailMethod.getPath());
                         logger.info(detailMethod.getQueryString());
@@ -399,7 +401,7 @@ public class Util
                         if (!"".equals(result.trim()))
                         {
                             String id = result.split("\\|")[1];
-                            GetMethod detailMethod = new GetMethod(id + "?format=rdf");
+                            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
                             
                             logger.info(detailMethod.getPath());
                             logger.info(detailMethod.getQueryString());
