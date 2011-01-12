@@ -1384,16 +1384,17 @@
 					<xsl:when test="'habilitation' = lower-case(genre)">habilitation</xsl:when>
 					<xsl:when test="'thesis' = lower-case(genre)">
 						<xsl:choose>
-							<xsl:when test="'diplom' = lower-case(../editiondescription)">diploma</xsl:when>
-							<xsl:when test="'magister' = lower-case(../editiondescription)">magister</xsl:when>
-							<xsl:when test="'staatsexamen' = lower-case(../editiondescription)">staatsexamen</xsl:when>
-							<xsl:when test="'master' = lower-case(../editiondescription)">master</xsl:when>
-							<xsl:when test="'bachelor' = lower-case(../editiondescription)">bachelor</xsl:when>
+							<xsl:when test="'diplom' = lower-case(editiondescription)">diploma</xsl:when>
+							<xsl:when test="'magister' = lower-case(editiondescription)">magister</xsl:when>
+							<xsl:when test="'staatsexamen' = lower-case(editiondescription)">staatsexamen</xsl:when>
+							<xsl:when test="'master' = lower-case(editiondescription)">master</xsl:when>
+							<xsl:when test="'bachelor' = lower-case(editiondescription)">bachelor</xsl:when>
+							<xsl:otherwise><xsl:value-of select="editiondescription"/></xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
-					<xsl:otherwise></xsl:otherwise>
 				</xsl:choose>
 			</xsl:variable>
+			<xsl:comment>DEGREE-TYPE: <xsl:value-of select="$degree-type"/></xsl:comment>
 			<xsl:if test="exists($degree-type) and $degree-type != ''">
 				<xsl:element name="eterms:degree">
 					<xsl:value-of select="$degree-ves/enum[. = $degree-type]/@uri"/>
