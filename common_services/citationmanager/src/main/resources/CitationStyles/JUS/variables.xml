@@ -63,9 +63,6 @@
 				else '']]>
 		</variable>
 		
-		<!-- jus genre labels 
-		the default PubMan Labels can be found in the upper variables.xml-->
-		
 		<!-- source specific data-->
 		<variable name="sourceGenre"><![CDATA[pub:publication/source:source[1]/@type]]></variable>
 		<variable name="sourceStartPage"><![CDATA[pub:publication/source:source[1]/e:start-page/text()]]></variable>
