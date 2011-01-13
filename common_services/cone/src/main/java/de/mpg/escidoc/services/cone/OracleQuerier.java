@@ -8,7 +8,7 @@
  * information: Portions Copyright [yyyy] [name of copyright owner] CDDL HEADER END
  */
 /*
- * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische Information mbH
+ * Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische Information mbH
  * and Max-Planck- Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved. Use is subject to license
  * terms.
  */
@@ -940,5 +940,24 @@ public class OracleQuerier implements Querier
     public boolean getLoggedIn(){
     	return this.loggedIn;
     }
-    
+
+    public void cleanup() throws Exception
+    {
+        if (connection.isClosed())
+        {
+            throw new RuntimeException("Connection was already closed.");
+        }
+
+        String query = "delete from matches m1 where m1.id in ( select id from matches left join triples on id = subject where subject is null)";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.executeUpdate();
+        statement.close();
+        
+        query = "delete from results r1 where r1.id in ( select id from results left join triples on id = subject where subject is null)";
+        statement = connection.prepareStatement(query);
+        statement.executeUpdate();
+        
+        statement.close();
+    }
+
 }

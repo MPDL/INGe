@@ -8,7 +8,7 @@
  * information: Portions Copyright [yyyy] [name of copyright owner] CDDL HEADER END
  */
 /*
- * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische Information mbH
+ * Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische Information mbH
  * and Max-Planck- Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved. Use is subject to license
  * terms.
  */
@@ -153,4 +153,6 @@ public interface Querier
     public void setLoggedIn(boolean loggedIn);
     
     public boolean getLoggedIn();
+    
+    public void cleanup() throws Exception;
 }

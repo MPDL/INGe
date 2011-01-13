@@ -8,7 +8,7 @@
  * information: Portions Copyright [yyyy] [name of copyright owner] CDDL HEADER END
  */
 /*
- * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische Information mbH
+ * Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft für wissenschaftlich-technische Information mbH
  * and Max-Planck- Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved. Use is subject to license
  * terms.
  */
@@ -298,12 +298,13 @@ public class SQLQuerier implements Querier
         
         String[] subQueries = getSubqueries(modelName, searchPairs);
         
-        String joinClause = subQueries[0];
-        String subQuery = subQueries[1];
-        String order1 = subQueries[2];
-        String order2 = subQueries[3];
+        String fromExtension = subQueries[0];
+        String joinClause = subQueries[1];
+        String subQuery = subQueries[2];
+        String order1 = subQueries[3];
+        String order2 = subQueries[4];
         
-        String query = "select r1.id, r1.value, r1.lang from results r1 inner join triples triples0 on r1.id = triples0.subject " + joinClause +
+        String query = "select distinct r1.*" + fromExtension + " from results r1 inner join triples triples0_0 on r1.id = triples0_0.subject " + joinClause +
             "where " + subQuery;
 
         if (!"*".equals(language))
@@ -348,7 +349,7 @@ public class SQLQuerier implements Querier
     
     private String[] getSubqueries(String modelName, Pair<String>[] searchPairs, int level) throws Exception
     {
-        return getSubqueries(modelName, searchPairs, null, level);
+        return getSubqueries(modelName, searchPairs, null, level, 0);
     }
     
     private String[] getSubqueries(Pair<String>[] searchPairs, Predicate parentPredicate) throws Exception
@@ -358,30 +359,49 @@ public class SQLQuerier implements Querier
     
     private String[] getSubqueries(Pair<String>[] searchPairs, Predicate parentPredicate, int level) throws Exception
     {
-        return getSubqueries(null, searchPairs, parentPredicate, level);
+        return getSubqueries(null, searchPairs, parentPredicate, level, 0);
     }
     
-    private String[] getSubqueries(String modelName, Pair<String>[] searchPairs, Predicate parentPredicate, int level) throws Exception
+    private String[] getSubqueries(String modelName, Pair<String>[] searchPairs, Predicate parentPredicate, int level, int counter) throws Exception
     {
-        String subQuery;
+        String fromExtension = "";
+        String subQuery = "";
         String joinClause = "";
-        String table = "triples" + level;
-        
-        if (modelName == null)
-        {
-            subQuery = table + ".model is null and ";
-        }
-        else
-        {
-            subQuery = table + ".model = '" + modelName + "' and ";
-        }
         String order1 = "";
         String order2 = "";
+        boolean first = true;
 
         ArrayList<Pair<String>> allPairs = new ArrayList<Pair<String>>();
         
         for (Pair<String> pair : searchPairs)
         {
+            String table = "triples" + counter + "_" + level;
+            
+            if (first)
+            {
+                first = false;
+            }
+            else
+            {
+                counter++;
+                table = "triples" + counter + "_" + level;
+                joinClause += " inner join triples " + table + " on triples" + (counter - 1) + "_" + level + ".subject = " + table + ".subject ";
+            }
+            
+            if (counter > 0)
+            {
+                subQuery += " and ";
+            }
+            
+            if (modelName == null)
+            {
+                subQuery += table + ".model is null ";
+            }
+            else
+            {
+                subQuery += table + ".model = '" + modelName + "' ";
+            }
+
             String key = pair.getKey();
             if (key.matches("^[a-zA-Z0-9]+:.+"))
             {
@@ -391,6 +411,7 @@ public class SQLQuerier implements Querier
                     if (ModelList.getInstance().getDefaultNamepaces().get(namespace).equals(prefix))
                     {
                         key = key.replaceFirst("^[a-zA-Z0-9]+:", namespace);
+                        break;
                     }
                 }
                 
@@ -408,7 +429,7 @@ public class SQLQuerier implements Querier
             {
                 if (key.equals(predicate.getId()))
                 {
-                    subQuery += " " + table + ".predicate = '" + key + "' ";
+                    subQuery += " and " + table + ".predicate = '" + key + "' ";
                     String[] results = formatSearchString(pair.getValue());
                     for (String result : results)
                     {
@@ -419,10 +440,21 @@ public class SQLQuerier implements Querier
                         else
                         {
                             subQuery += " and " + table + ".object ilike '%" + result + "%'";
-                            order1 += table + ".object ilike '" + pair.getValue() + "' desc, ";
-                            order2 += table + ".object ilike '" + pair.getValue() + "%' desc, " + table + ".object ilike '% " + pair.getValue() + "%' desc, ";
                         }
                     }
+                    if (!pair.getValue().startsWith("\"") || !pair.getValue().endsWith("\""))
+                    {
+                        order1 += "r1.value ilike '" + pair.getValue() + "' desc, ";
+                        fromExtension += ", r1.value ilike '" + pair.getValue() + "'";
+                        
+                        order2 += "r1.value ilike '" + pair.getValue() + "%' desc, "
+                                + "r1.value ilike '% " + pair.getValue() + "%' desc, "
+                                + "r1.value ilike '%" + pair.getValue() + "%' desc, ";
+                        fromExtension += ", r1.value ilike '" + pair.getValue() + "%'"
+                        		+ ", r1.value ilike '% " + pair.getValue() + "%'"
+                        		+ ", r1.value ilike '%" + pair.getValue() + "%'";
+                    }
+
                     break;
                 }
                 else if (key.startsWith(predicate.getId()))
@@ -432,41 +464,30 @@ public class SQLQuerier implements Querier
                     {
                         String subModelName = predicate.getResourceModel();
                         Pair<String> subPair = new Pair<String>(key.replaceFirst(predicate.getId() + "/", ""), pair.getValue());
-                        joinClause = " inner join triples triples" + (level +  1) + " on " + table + ".object = triples" + (level +  1) + ".subject ";
-                        subQuery = " " + table + ".predicate = '" + predicate.getId() + "' and ";
-                        subResult = getSubqueries(subModelName, new Pair[]{subPair}, level + 1);
+                        joinClause += " inner join triples triples" + counter + "_" + (level +  1) + " on " + table + ".object = triples" + counter + "_" + (level +  1) + ".subject ";
+                        subQuery += " and " + table + ".predicate = '" + predicate.getId() + "' ";
+                        subResult = getSubqueries(subModelName, new Pair[]{subPair}, null, level + 1, counter);
                     }
                     else
                     {
                         Pair<String> subPair = new Pair<String>(key.replaceFirst(predicate.getId() + "/", ""), pair.getValue());
-                        joinClause = " inner join triples triples" + (level +  1) + " on " + table + ".object = triples" + (level +  1) + ".subject ";
-                        subQuery = " " + table + ".predicate = '" + predicate.getId() + "' and ";
-                        subResult = getSubqueries(new Pair[]{subPair}, predicate, level + 1);
+                        joinClause += " inner join triples triples" + counter + "_" + (level +  1) + " on " + table + ".object = triples" + counter + "_" + (level +  1) + ".subject ";
+                        subQuery += " and " + table + ".predicate = '" + predicate.getId() + "' ";
+                        subResult = getSubqueries(null, new Pair[]{subPair}, predicate, level + 1, counter);
                     }
-                    joinClause += subResult[0];
-                    subQuery += subResult[1];
-                    order1 = subResult[2];
-                    order1 = subResult[3];
+                    
+                    fromExtension += subResult[0];
+                    joinClause += subResult[1];
+                    subQuery += subResult[2];
+                    order1 += subResult[3];
+                    order2 += subResult[4];
                 }
             }
         }
-        for (Pair<String> pair : allPairs)
-        {
-            
-            if (pair.getValue().startsWith("\"") && pair.getValue().endsWith("\""))
-            {
-                subQuery += " object ilike '" + pair.getValue().substring(1,pair.getValue().length() - 1) + "')";
-            }
-            else
-            {
-                subQuery += " object ilike '%" + pair.getValue() + "%')";
-                order1 += "('|' || object || '|') ilike '%|" + pair.getValue() + "|%' desc, ";
-                order2 += "('|' || object || '|') ilike '%|" + pair.getValue() + "%' desc, ('|' || object || '|') ilike '% " + pair.getValue() + "%' desc, ";
-            }
-        }
+
         return new String[]
         {
-            joinClause, subQuery, order1, order2
+            fromExtension, joinClause, subQuery, order1, order2
         };
     }
 
@@ -1011,6 +1032,25 @@ public class SQLQuerier implements Querier
     
     public boolean getLoggedIn(){
     	return this.loggedIn;
+    }
+
+    public void cleanup() throws Exception
+    {
+        if (connection.isClosed())
+        {
+            throw new RuntimeException("Connection was already closed.");
+        }
+
+        String query = "delete from matches m1 where m1.id in ( select id from matches left join triples on id = subject where subject is null)";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.executeUpdate();
+        statement.close();
+        
+        query = "delete from results r1 where r1.id in ( select id from results left join triples on id = subject where subject is null)";
+        statement = connection.prepareStatement(query);
+        statement.executeUpdate();
+        
+        statement.close();
     }
     
 }
