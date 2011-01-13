@@ -2347,57 +2347,52 @@
 	
 	<!-- Publication dates -->
 	<xsl:template name="createDates">
-		<xsl:choose>
-			<xsl:when test="pubstatus = 'accepted'">
+			<xsl:if test="exists(dateaccepted) and dateaccepted != ''">
+				<xsl:element name="dcterms:dateAccepted">
+					<xsl:value-of select="dateaccepted"/>
+				</xsl:element>
+			</xsl:if>
+			<xsl:if test="exists(datecreated) and datecreated != ''">
+				<xsl:element name="dcterms:created">
+					<xsl:value-of select="datecreated"/>
+				</xsl:element>
+			</xsl:if>
+			<xsl:if test="exists(datesubmitted) and datesubmitted != ''">
+				<xsl:element name="dcterms:dateSubmitted">
+					<xsl:value-of select="datesubmitted"/>
+				</xsl:element>
+			</xsl:if>
+			<xsl:if test="exists(datemodified) and datemodified != ''">
+				<xsl:element name="dcterms:modified">
+					<xsl:value-of select="datemodified"/>
+				</xsl:element>
+			</xsl:if>
+			<xsl:if test="exists(datepublished) and datepublished != ''">
 				<xsl:choose>
-					<xsl:when test="exists(dateaccepted) and dateaccepted != ''">
-						<xsl:element name="dcterms:dateAccepted">
-							<xsl:value-of select="dateaccepted"/>
-						</xsl:element>
-					</xsl:when>
-					<xsl:when test="exists(datepublished) and datepublished != ''">
+					<xsl:when test="pubstatus = 'accepted'">
 						<xsl:element name="dcterms:dateAccepted">
 							<xsl:value-of select="datepublished"/>
 						</xsl:element>
 					</xsl:when>
-				</xsl:choose>
-			</xsl:when>
-			<xsl:when test="pubstatus = 'submitted'">
-				<xsl:choose>
-					<xsl:when test="exists(datesubmitted) and datesubmitted != ''">
-						<xsl:element name="dcterms:dateSubmitted">
-							<xsl:value-of select="datesubmitted"/>
-						</xsl:element>
-					</xsl:when>
-					<xsl:when test="exists(datepublished) and datepublished != ''">
+					<xsl:when test="pubstatus = 'submitted'">
 						<xsl:element name="dcterms:dateSubmitted">
 							<xsl:value-of select="datepublished"/>
 						</xsl:element>
 					</xsl:when>
-				</xsl:choose>
-			</xsl:when>
-			<xsl:when test="pubstatus = 'unpublished'">
-				<xsl:choose>
-					<xsl:when test="exists(datecreated) and datecreated != ''">
-						<xsl:element name="dcterms:created">
-							<xsl:value-of select="datesubmitted"/>
-						</xsl:element>
-					</xsl:when>
-					<xsl:when test="exists(datepublished) and datepublished != ''">
+					<xsl:when test="pubstatus = 'unpublished'">
 						<xsl:element name="dcterms:created">
 							<xsl:value-of select="datepublished"/>
 						</xsl:element>
 					</xsl:when>
+					<xsl:otherwise>
+						<xsl:element name="dcterms:issued">
+							<xsl:value-of select="datepublished"/>
+						</xsl:element>
+					</xsl:otherwise>
 				</xsl:choose>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:apply-templates select="datemodified"/>
-				<xsl:apply-templates select="datesubmitted"/>
-				<xsl:apply-templates select="dateaccepted"/>
-				<xsl:apply-templates select="datepublished"/>
-			</xsl:otherwise>
-			</xsl:choose>
+			</xsl:if>
 	</xsl:template>
+	<!-- old templates -->
 	<xsl:template match="datepublished">
 		<xsl:element name="dcterms:issued">
 			<xsl:value-of select="."/>
