@@ -1029,13 +1029,36 @@
 			</valid-if>
 		</parameters>
 		<elements>
-			<layout-element ref="$title" />
-			<layout-element ref="$source-title-volume" />
-			<layout-element ref="$edition" />
-			<layout-element ref="$source-publisher-place" />
-			<layout-element ref="$date" />
-			<layout-element ref="$degree" />
-			<layout-element ref="$publisher-without-place" />
+			<layout-element ref="$title"/>
+			<layout-element>
+				<parameters>
+					<valid-if><![CDATA[
+						exists(pub:publication/source:source[1])
+					]]>
+					</valid-if>
+				</parameters>
+				<elements>
+					<layout-element ref="$source-title-volume" />
+					<layout-element ref="$edition" />
+					<layout-element ref="$source-publisher-place" />
+					<layout-element ref="$date" />
+					<layout-element ref="$degree" />
+					<layout-element ref="$publisher-without-place" />
+				</elements>
+			</layout-element>
+			<layout-element>
+				<parameters>
+					<valid-if><![CDATA[
+						not(pub:publication/source:source[1])
+					]]>
+					</valid-if>
+				</parameters>
+				<elements>
+					<layout-element ref="$date" />
+					<layout-element ref="$degree" />
+					<layout-element ref="$publisher-place" />
+				</elements>
+			</layout-element>
 			<layout-element ref="$pages" />
 		</elements>
 	</cs-layout-definition>
