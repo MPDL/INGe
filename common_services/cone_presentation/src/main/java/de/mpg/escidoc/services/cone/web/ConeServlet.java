@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -52,7 +52,7 @@
 */
 
 /*
-* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -87,6 +87,7 @@ import de.mpg.escidoc.services.cone.QuerierFactory;
 import de.mpg.escidoc.services.cone.formatter.Formatter;
 import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.Rdfs;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -328,7 +329,18 @@ public class ConeServlet extends HttpServlet
                 out.print(ResourceUtil.getResourceAsString(PropertyReader.getProperty("escidoc.cone.modelsxml.path")));
             }
             catch (Exception e) {
-                new ServletException(e);
+                throw new ServletException(e);
+            }
+        }
+        else if ("rdfs".equals(action))
+        {
+            response.setContentType("text/xml");
+            try
+            {
+                out.print(Rdfs.getModelAsRdfs(null).toString());
+            }
+            catch (Exception e) {
+                throw new ServletException(e);
             }
         }
         
