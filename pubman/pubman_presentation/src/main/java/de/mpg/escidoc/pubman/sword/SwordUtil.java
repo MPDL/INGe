@@ -111,6 +111,7 @@ import de.mpg.escidoc.services.pubman.depositing.DepositingException;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.escidoc.services.pubman.exceptions.PubManException;
 import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 import de.mpg.escidoc.services.validation.ItemInvalidException;
 import de.mpg.escidoc.services.validation.ItemValidating;
@@ -504,6 +505,33 @@ public class SwordUtil extends FacesBean
                 
             }
             
+            if (this.currentDeposit.getFormatNamespace().equals(this.mdFormatPeerTEI))
+            {
+                //Copyright information are imported from metadata file
+                InitialContext initialContext = new InitialContext();
+                XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+                Transformation transformer = new TransformationBean();
+                Format teiFormat = 
+                    new Format("peer_tei", "application/xml", "UTF-8");
+                Format escidocComponentFormat = 
+                    new Format("eSciDoc-publication-component", "application/xml", "UTF-8"); 
+                String fileXml = new String (transformer.transform(this.depositXml.getBytes(),
+                        teiFormat, escidocComponentFormat, "escidoc"),"UTF-8");
+                try
+                {
+                    FileVO transformdedFileVO = xmlTransforming.transformToFileVO(fileXml);
+                    for(FileVO pubItemFile : pubItem.getFiles())
+                    {
+                    	pubItemFile.getDefaultMetadata().setRights(transformdedFileVO.getDefaultMetadata().getRights());
+                    	pubItemFile.getDefaultMetadata().setCopyrightDate(transformdedFileVO.getDefaultMetadata().getCopyrightDate());
+                    }
+                }
+                catch (TechnicalException e)
+                {
+                    this.logger.error("File Xml could not be transformed into FileVO. " , e);
+                }
+            }
+            
         
     
 
@@ -790,16 +818,16 @@ public class SwordUtil extends FacesBean
     private FileVO convertToFileAndAdd (InputStream zipinputstream, String name, AccountUserVO user, ZipEntry zipEntry)
         throws Exception
     {
-        boolean existing = false;
+
         MdsFileVO mdSet = new MdsFileVO();
         FileVO fileVO = new FileVO();
-        String fileXml = null;
+
 
         //ByteArrayInputStream in = new ByteArrayInputStream(file);
         FileNameMap fileNameMap = URLConnection.getFileNameMap();
         String mimeType = fileNameMap.getContentTypeFor(name);
-        ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
-        Transformation transformer = appBean.getTransformationService();
+       
+        
 
         //Hack: FileNameMap class does not know tei, bibtex and endnote
         if (name.endsWith(".tei"))
@@ -815,27 +843,7 @@ public class SwordUtil extends FacesBean
 
         if (fileURL != null && !fileURL.toString().trim().equals(""))
         {
-            if (this.currentDeposit.getFormatNamespace().equals(this.mdFormatPeerTEI))
-            {
-                //Copyright information are imported from metadata file
-                InitialContext initialContext = new InitialContext();
-                XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-                Format teiFormat = 
-                    new Format("peer_tei", "application/xml", "UTF-8");
-                Format escidocComponentFormat = 
-                    new Format("eSciDoc-publication-component", "application/xml", "UTF-8");
-                fileXml = new String (transformer.transform(this.depositXml.getBytes(),
-                        teiFormat, escidocComponentFormat, "escidoc"),"UTF-8");
-                try
-                {
-                    fileVO = xmlTransforming.transformToFileVO(fileXml);
-                    mdSet = fileVO.getDefaultMetadata();
-                }
-                catch (TechnicalException e)
-                {
-                    this.logger.error("File Xml could not be transformed into FileVO. " , e);
-                }
-            }
+            
             
             if (this.currentDeposit.getContentDisposition()!= null
                     && !this.currentDeposit.getContentDisposition().equals(""))
