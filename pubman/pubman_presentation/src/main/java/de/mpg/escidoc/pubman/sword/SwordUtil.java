@@ -465,17 +465,12 @@ public class SwordUtil extends FacesBean
                     attachements.add(convertToFileAndAdd(zipinputstream, name, user, zipentry));
                 }
 
-                //attachements.add(baos.toByteArray());
-                //attachementsNames.add(name);
-
                 zipinputstream.closeEntry();
             }
             zipinputstream.close();
-            
-            
-            //Collections.sort(attachements, new FileVOcomparator());
-            
+
         
+            // Now add the components to the Pub Item (if they do not exist. If they exist, use the existing component metadata and just change the content)
             for(FileVO newFile : attachements)
             {
                 boolean existing = false;
@@ -487,13 +482,6 @@ public class SwordUtil extends FacesBean
                         existingFile.setContent(newFile.getContent());
                         existingFile.getDefaultMetadata().setSize(newFile.getDefaultMetadata().getSize());
                         existing = true;
-                        
-                        /*
-                        if(existingFile.getVisibility().equals(Visibility.PRIVATE))
-                        {
-                            existingFile.setVisibility(Visibility.AUDIENCE);
-                        }
-                        */
                     }
                 }
                 
@@ -505,6 +493,8 @@ public class SwordUtil extends FacesBean
                 
             }
             
+            
+            //If peer format, add additional copyright information to component. They are read from the TEI metadata.
             if (this.currentDeposit.getFormatNamespace().equals(this.mdFormatPeerTEI))
             {
                 //Copyright information are imported from metadata file
