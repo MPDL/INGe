@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+<installation version="1.0">
+    <!-- 
+        The info section.
+        The meaning of the tags should be natural ...
+    -->
+	<info>
+		<appname>eSciDoc PubMan</appname>
+		<appversion>@{project.version}</appversion>
+		<authors>
+			<author name="MPDL Development Team" email="pubman-support@gwdg.de"/>
+		</authors>
+		<url>http://www.mpdl.mpg.de/</url>
+	</info>
+
+    <!-- 
+        The gui preferences indication.
+        Sets the installer window to 640x480. It will not be able to change the size.
+    -->
+	<guiprefs width="800" height="600" resizable="no">
+		<modifier key="useButtonIcons" value="no"/>
+		<modifier key="labelGap" value="2"/>
+		<modifier key="layoutAnchor" value="NORTHWEST"/>
+		<modifier key="useHeadingPanel" value="yes"/>
+		<modifier key="headingImageOnLeft" value="yes"/>
+		<modifier key="headingLineCount" value="1"/>
+		<modifier key="headingFontSize" value="1.5"/>
+		<modifier key="headingBackgroundColor" value="0x00ffffff"/>
+		<modifier key="headingPanelCounter" value="text"/>
+		<modifier key="headingPanelCounterPos" value="inHeading"/>
+	</guiprefs>
+
+    <!-- 
+        The locale section.
+        Asks here to include the English and French langpacks.
+    -->
+	<locale>
+		<langpack iso3="eng"/>
+        <!-- <langpack iso3="deu"/> -->
+	</locale>
+
+    <!-- 
+        The resources section.
+        The ids must be these ones if you want to use the LicencePanel and/or the InfoPanel.
+    -->
+	<resources>
+		<res id="LicencePanel.licence" src="Licence.txt"/>
+		<res id="HTMLInfoPanel.info" src="Info.html"/>
+		<res id="userInputSpec.xml" src="res/userInputSpec.xml" />
+		<res id="userInputLang.xml_eng" src="res/userInputLang.xml_eng" />
+		<res id="Heading.image" src="img/escidoc-logo-small.jpg" />
+	</resources>
+
+    <!-- 
+        The panels section.
+        We indicate here which panels we want to use. The order will be respected.
+    -->
+	<panels>
+		<!-- Information --><panel classname="HTMLInfoPanel"/>
+		<!-- Licensing Agreements--><panel classname="LicencePanel"/>
+		<!-- Select Installation Packages --><panel classname="PacksPanel"/>
+		<!-- Core Service Connectivity --><panel classname="UserInputPanel" id="UserInputPanel.0"/>
+		<!-- PubMan General Settings --><panel classname="UserInputPanel" id="UserInputPanel.1"/>
+		<!-- Mail Server Settings --><panel classname="UserInputPanel" id="UserInputPanel.2" condition="conf_selected"/>
+		<!-- CoNE Settings--><panel classname="UserInputPanel" id="UserInputPanel.3"/>
+		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConeConfigurationPanel"/>
+		<!-- Initial DataSet --><panel classname="UserInputPanel" id="UserInputPanel.4"/>
+		<!-- ID of the External Organisation --><panel classname="UserInputPanel" id="UserInputPanel.5" condition="not_dataset_selected"/>
+		<!-- Publication Content Model ID --><panel classname="UserInputPanel" id="UserInputPanel.6" condition="not_dataset_selected"/>
+		<!-- Import Content Model ID --><panel classname="UserInputPanel" id="UserInputPanel.7" condition="not_dataset_selected"/>
+		<!-- Pubman Style Information --><panel classname="UserInputPanel" id="UserInputPanel.8" condition="conf_selected"/>
+		<!-- PubMan Presentation --><panel classname="UserInputPanel" id="UserInputPanel.9" condition="conf_selected"/>
+		<!-- Search Engine SiteMap --><panel classname="UserInputPanel" id="UserInputPanel.10" condition="conf_selected"/>
+		<!-- Search&Export Service --><panel classname="UserInputPanel" id="UserInputPanel.11" condition="conf_selected"/>
+
+		<panel classname="TargetPanel"/>
+		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel"/>
+		<panel classname="InstallPanel"/>
+		<panel classname="FinishPanel"/>
+	</panels>
+	
+	<jar src="dependency/plexus-utils.jar"/>
+	<jar src="../pubman_installer.jar"/>
+	<jar src="dependency/commons-httpclient.jar"/>
+	<jar src="dependency/commons-codec.jar"/>
+	<jar src="dependency/commons-discovery.jar"/>
+	<jar src="dependency/commons-logging.jar"/>
+	<jar src="dependency/javaee.jar"/>
+	<jar src="dependency/wss4j.jar"/>
+	<jar src="dependency/axis.jar"/>
+	<jar src="dependency/axis-jaxrpc.jar"/>
+	<jar src="dependency/axis-saaj.jar"/>
+	<jar src="dependency/axis-wsdl4j.jar"/>
+	<jar src="dependency/log4j.jar"/>
+	<jar src="dependency/framework_access.jar"/>
+	<jar src="dependency/xmlsec.jar"/>
+	<jar src="dependency/postgresql.jar"/>
+	<jar src="dependency/cone.jar"/>
+	<jar src="dependency/common_logic.jar"/>
+
+    <!-- 
+        The packs section.
+        We specify here our packs.
+    -->
+	<packs>
+		<pack name="PubMan" required="yes" id="pack_pubman">
+			<description>PubMan binary and configuration</description>
+			<file src="jboss/validation-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
+			<file src="jboss/pid-cache-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
+			<file src="pubman_ear.ear" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
+		</pack>
+		<pack name="Application Server" parent="PubMan" required="no" id="pack_jboss">
+			<description>JBoss Application Server 4.2.2 GA</description>
+			<file src="jboss/jboss-4.2.2.GA.zip" targetdir="$INSTALL_PATH" unpack="true"/>
+			<file src="jboss/jboss_license.txt" overwrite="true" targetdir="$INSTALL_PATH/jboss/"/>
+		</pack>
+		<pack name="Initial Dataset" required="no" id="pack_dataset">
+			<description>Creates an Initial Dataset on the Core Service Instance</description>
+		</pack>
+		<pack name="Advanced configuration" required="no" id="pack_conf">
+			<description>Customize PubMan in Detail</description>
+		</pack>
+	</packs>
+	
+	<conditions>
+		<condition type="packselection" id="pubman_selected">
+			<packid>pack_pubman</packid>
+		</condition>
+		<condition type="packselection" id="jboss_selected">
+			<packid>pack_jboss</packid>
+		</condition>
+		<condition type="packselection" id="dataset_selected">
+			<packid>pack_dataset</packid>
+		</condition>
+		<condition type="not" id="not_dataset_selected">
+			<condition type="ref" refid="dataset_selected"/>
+		</condition>
+		<condition type="packselection" id="conf_selected">
+			<packid>pack_conf</packid>
+		</condition>
+		<condition type="not" id="not_conf_selected">
+			<condition type="ref" refid="conf_selected"/>
+		</condition>
+	</conditions>
+	
+	<variables>
+        <!-- Hostname of the installation server -->
+		<variable name="CoreserviceUrl" value=""/>
+		<variable name="CoreserviceAdminUser" value="sysadmin"/>
+		<variable name="CoreserviceAdminPassword" value=""/>
+		<variable name="InitialUserPassword" value=""/>
+		<variable name="InstanceUrl" value=""/>
+		<variable name="MailHost" value=""/>
+		<variable name="MailSenderAdress" value=""/>
+		<variable name="MailUseAuthentication" value=""/>
+		<variable name="MailUsername" value=""/>
+		<variable name="MailPassword" value=""/>
+		<variable name="ExternalOrganisationID" value=""/>
+		<variable name="ConeHost" value="localhost"/>
+		<variable name="ConeDatabase" value="cone"/>
+		<variable name="ConePort" value="5432"/>
+		<variable name="ConeUser" value="postgres"/>
+		<variable name="ConePassword" value=""/>
+		<variable name="StyleSheetStandardURL" value="./resources/eSciDoc_CSS_v2/themes/skin_PubMan/styles/theme.css"/>
+		<variable name="StyleSheetStandardType" value="stylesheet"/>
+		<variable name="StyleSheetStandardApply" value="true"/>
+		<variable name="StyleSheetContrastURL" value="./resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css"/>
+		<variable name="StyleSheetContrastType" value="alternate stylesheet"/>
+		<variable name="StyleSheetContrastApply" value="true"/>
+		<variable name="StyleSheetClassicURL" value="./resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css"/>
+		<variable name="StyleSheetClassicType" value="alternate stylesheet"/>
+		<variable name="StyleSheetClassicApply" value="true"/>
+		<variable name="FavIconURL" value="./resources/pubman_favicon.ico"/>
+		<variable name="FavIconApply" value="true"/>
+		<variable name="ConeCreateJournals" value="true"/>
+		<variable name="ConeCreateLanguages" value="true"/>
+		<variable name="ConeCreateDDC" value="true"/>
+		<variable name="ConeCreateMimetypes" value="true"/>
+		<variable name="ConeCreateEscidocMimeTypes" value="true"/>
+		<variable name="ConeCreateCcLicenses" value="true"/>
+	</variables>
+	
+	<listeners>
+		<listener installer="SummaryLoggerInstallerListener" />
+		<listener installer="AntActionInstallerListener" />
+	</listeners>
+
+</installation>
