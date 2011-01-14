@@ -388,7 +388,7 @@ public class SQLQuerier implements Querier
                 joinClause += " inner join triples " + table + " on triples" + (counter - 1) + "_" + level + ".subject = " + table + ".subject ";
             }
             
-            if (counter > 0)
+            if (counter > 0 || level > 0)
             {
                 subQuery += " and ";
             }
@@ -507,12 +507,13 @@ public class SQLQuerier implements Querier
         
         String[] subQueries = getSubqueries(modelName, searchPairs);
         
-        String joinClause = subQueries[0];
-        String subQuery = subQueries[1];
-        String order1 = subQueries[2];
-        String order2 = subQueries[3];
+        String fromExtension = subQueries[0];
+        String joinClause = subQueries[1];
+        String subQuery = subQueries[2];
+        String order1 = subQueries[3];
+        String order2 = subQueries[4];
         
-        String query = "select r1.id, r1.value, r1.lang from results r1 inner join triples triples0 on r1.id = triples0.subject " + joinClause +
+        String query = "select r1.* from results r1 inner join triples triples0 on r1.id = triples0.subject " + joinClause +
             "where " + subQuery;
 
         if (!"*".equals(language))
