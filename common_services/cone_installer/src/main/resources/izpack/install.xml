@@ -81,7 +81,6 @@
 	</panels>
 	
 	<jar src="dependency/plexus-utils.jar"/>
-	<jar src="../pubman_installer.jar"/>
 	<jar src="dependency/commons-httpclient.jar"/>
 	<jar src="dependency/commons-codec.jar"/>
 	<jar src="dependency/commons-discovery.jar"/>
@@ -104,19 +103,14 @@
         We specify here our packs.
     -->
 	<packs>
-		<pack name="PubMan" required="yes" id="pack_pubman">
-			<description>PubMan binary and configuration</description>
-			<file src="jboss/validation-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
-			<file src="jboss/pid-cache-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
-			<file src="pubman_ear.ear" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
+		<pack name="CoNE" required="yes" id="pack_cone">
+			<description>CoNE binary and configuration</description>
+			<file src="cone_ear.ear" targetdir="$INSTALL_PATH/jboss/server/default/deploy"/>
 		</pack>
-		<pack name="Application Server" parent="PubMan" required="no" id="pack_jboss">
+		<pack name="Application Server" parent="CoNE" required="no" id="pack_jboss">
 			<description>JBoss Application Server 4.2.2 GA</description>
 			<file src="jboss/jboss-4.2.2.GA.zip" targetdir="$INSTALL_PATH" unpack="true"/>
 			<file src="jboss/jboss_license.txt" overwrite="true" targetdir="$INSTALL_PATH/jboss/"/>
-		</pack>
-		<pack name="Initial Dataset" required="no" id="pack_dataset">
-			<description>Creates an Initial Dataset on the Core Service Instance</description>
 		</pack>
 		<pack name="Advanced configuration" required="no" id="pack_conf">
 			<description>Customize PubMan in Detail</description>
@@ -124,17 +118,11 @@
 	</packs>
 	
 	<conditions>
-		<condition type="packselection" id="pubman_selected">
-			<packid>pack_pubman</packid>
+		<condition type="packselection" id="cone_selected">
+			<packid>pack_cone</packid>
 		</condition>
 		<condition type="packselection" id="jboss_selected">
 			<packid>pack_jboss</packid>
-		</condition>
-		<condition type="packselection" id="dataset_selected">
-			<packid>pack_dataset</packid>
-		</condition>
-		<condition type="not" id="not_dataset_selected">
-			<condition type="ref" refid="dataset_selected"/>
 		</condition>
 		<condition type="packselection" id="conf_selected">
 			<packid>pack_conf</packid>
