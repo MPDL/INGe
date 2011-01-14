@@ -76,6 +76,7 @@ public class IdentifierVO extends ValueObject implements Cloneable
         PMC ("http://purl.org/escidoc/metadata/terms/0.1/PMC"),
         BMC ("http://purl.org/escidoc/metadata/terms/0.1/BMC"),
         BIBTEX_CITEKEY ("http://purl.org/escidoc/metadata/terms/0.1/BIBTEX-CITEKEY"),
+        SSRN ("http://purl.org/escidoc/metadata/terms/0.1/SSRN"),
         /*SFX should not be in here*/
         //SFX ("http://purl.org/escidoc/metadata/terms/0.1/SFX"),
         PATENT_NR ("http://purl.org/escidoc/metadata/terms/0.1/PATENT-NR"),
