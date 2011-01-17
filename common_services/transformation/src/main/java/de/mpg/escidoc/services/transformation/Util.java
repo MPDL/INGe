@@ -377,22 +377,24 @@ public class Util
             
             String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                  + model + "/query?format=jquery&dc:title=\"" + URLEncoder.encode(name, "ISO-8859-15")
-                 + "\"&escidoc:position/eprints:affiliatedOrganization=" + URLEncoder.encode(ou, "ISO-8859-15");
+                 + "\"&escidoc:position/eprints:affiliatedInstitution=" + URLEncoder.encode(ou, "ISO-8859-15");
             String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                 + model + "/resource/$1?format=rdf";
             HttpClient client = new HttpClient();
             GetMethod method = new GetMethod(queryUrl);
             ProxyHelper.executeMethod(client, method);
+            logger.info("CoNE query: " + queryUrl + " returned " + method.getResponseBodyAsString());
             if (method.getStatusCode() == 200)
             {
                 ArrayList<String> results = new ArrayList<String>();
                 results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
                 queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                     + model + "/query?format=jquery&dcterms:alternative=\"" + URLEncoder.encode(name, "ISO-8859-15")
-                    + "\"&escidoc:position/eprints:affiliatedOrganization=" + URLEncoder.encode(ou, "ISO-8859-15");
+                    + "\"&escidoc:position/eprints:affiliatedInstitution=" + URLEncoder.encode(ou, "ISO-8859-15");
                 client = new HttpClient();
                 method = new GetMethod(queryUrl);
                 ProxyHelper.executeMethod(client, method);
+                logger.info("CoNE query: " + queryUrl + " returned " + method.getResponseBodyAsString());
                 if (method.getStatusCode() == 200)
                 {
                     results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
@@ -402,12 +404,10 @@ public class Util
                         {
                             String id = result.split("\\|")[1];
                             GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
-                            
-                            logger.info(detailMethod.getPath());
-                            logger.info(detailMethod.getQueryString());
-                            
+
                             ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
                             client.executeMethod(detailMethod);
+                            logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned " + detailMethod.getResponseBodyAsString());
                             if (detailMethod.getStatusCode() == 200)
                             {
                                 Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
