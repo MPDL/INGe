@@ -29,19 +29,19 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman</groupId>
-		<version>6.2.0-SNAPSHOT</version>
+		<version>6.2.0</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman_installer</artifactId>
 	<name>pubman_installer</name>
 	<packaging>jar</packaging>
-	<version>6.2.0-SNAPSHOT</version>
+	<version>6.2.0</version>
 	
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_installer</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_installer</developerConnection>
-		<url>https://zim02.gwdg.de/repos/pubman/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-6.2.0/pubman_installer</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-6.2.0/pubman_installer</developerConnection>
+		<url>https://zim02.gwdg.de/repos/pubman/tags/pubman-6.2.0</url>
 	</scm>
 	
 	<build>
@@ -221,20 +221,20 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_ear</artifactId>
-			<version>6.2.0-SNAPSHOT</version>
+			<version>6.2.0</version>
 			<scope>provided</scope>
 			<type>ear</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>1.0.56-SNAPSHOT</version>
+			<version>1.0.57</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.52-SNAPSHOT</version>
+			<version>1.0.53</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -257,13 +257,13 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>cone</artifactId>
-			<version>1.2.8-SNAPSHOT</version>
+			<version>1.2.9</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.49-SNAPSHOT</version>
+			<version>1.1.50</version>
 			<scope>compile</scope>
 		</dependency>
 	
