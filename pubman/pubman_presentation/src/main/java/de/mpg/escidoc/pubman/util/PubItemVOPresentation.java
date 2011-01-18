@@ -230,7 +230,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             WrappedLocalTag wrappedLocalTag = new WrappedLocalTag();
             wrappedLocalTag.setParent(this);
             wrappedLocalTag.setValue(this.getLocalTags().get(i));
-            if(wrappedLocalTag.getValue().length()>0)
+            System.out.println("wrappedLocalTag.getValue().length() = "+wrappedLocalTag.getValue().length());
+            if(wrappedLocalTag.getValue().length()>0 || wrappedLocalTags.size()==0)
             	wrappedLocalTags.add(wrappedLocalTag);
         }
         
@@ -1398,6 +1399,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 
         public String getValue()
         {
+        	System.out.println("WrappedLocalTag = "+value);
+        	System.out.println("WrappedLoaclTag. length = " + value.length());
             return value;
         }
 
