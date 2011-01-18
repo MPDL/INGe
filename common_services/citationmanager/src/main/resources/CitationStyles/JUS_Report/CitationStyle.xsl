@@ -2555,6 +2555,13 @@
                                                                         <xsl:with-param name="les">
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$publisher-place"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$date"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
@@ -2563,13 +2570,6 @@
                                                                             <le>
                                                                                 <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$degree"/>
-                                                                                    <xsl:copy-of select="$var"/>
-                                                                                </xsl:variable>
-                                                                                <xsl:copy-of select="$var"/>
-                                                                            </le>
-                                                                            <le>
-                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$publisher-place"/>
                                                                                     <xsl:copy-of select="$var"/>
                                                                                 </xsl:variable>
                                                                                 <xsl:copy-of select="$var"/>

@@ -1054,9 +1054,9 @@
 					</valid-if>
 				</parameters>
 				<elements>
+					<layout-element ref="$publisher-place" />
 					<layout-element ref="$date" />
 					<layout-element ref="$degree" />
-					<layout-element ref="$publisher-place" />
 				</elements>
 			</layout-element>
 			<layout-element ref="$pages" />
