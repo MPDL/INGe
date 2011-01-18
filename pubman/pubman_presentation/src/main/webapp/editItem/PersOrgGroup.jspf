@@ -100,7 +100,7 @@
 					</h:selectOneMenu>
 					<h:selectOneMenu id="selcreatorTypeString" value="#{creator.typeString}" styleClass="small_select"
 						rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}"
-						onchange="$('.hiddenButtonPasteOrganizations').click();">
+						onchange="submit();">
 						<f:selectItems value="#{EditItemSessionBean.creatorTypes}" />
 					</h:selectOneMenu>
 					<h:inputText id="inpcreator_persons_person_family_name_optional"
@@ -110,7 +110,8 @@
 						value="#{creator.person.givenName}" />
 					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField"
 						value="#{creator.autoPasteValue}" />
-					
+					<tr:commandButton id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations"
+						action="#{creator.addOrganization}" />
 					<h:inputText id="inppersons_person_ous_optional" styleClass="xSmall_txtInput ouNumber" value="#{creator.ouNumbers}" />
 					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier"
 						value="#{creator.person.identifier.id}" />
@@ -127,8 +128,7 @@
 								rendered="#{genre.creator_person_organization_repeatable != 'false'}" />
 						</h:panelGroup>
 				</h:panelGroup>
-				<tr:commandButton id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations"
-						action="#{creator.addOrganization}" />
+				
 <%-- If Organization is Creator --%>
 				<h:panelGroup layout="block" styleClass="full_area0 suggestAnchor" 
 					rendered="#{creator.organizationType and !(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
@@ -141,7 +141,7 @@
 					</h:selectOneMenu>
 					<h:selectOneMenu id="selcreatorOrgTypeString" styleClass="small_select" value="#{creator.typeString}"
 						rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' && genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}"
-						onchange="$('.hiddenButtonPasteOrganizations').click();">
+						onchange="submit();">
 						<f:selectItems value="#{EditItemSessionBean.creatorTypes}" />
 					</h:selectOneMenu>
 					<h:inputText id="inpcreator_organization_name_optional"
