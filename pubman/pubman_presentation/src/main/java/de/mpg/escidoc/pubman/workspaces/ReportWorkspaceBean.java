@@ -120,9 +120,9 @@ public class ReportWorkspaceBean extends FacesBean {
 				}
 				if (itemListReportTransformed != null){
 					HttpServletResponse resp = (HttpServletResponse) this.getExternalContext().getResponse();
-					resp.setContentType("text/xml; charset=UTF-8");
+					resp.setContentType("text/html; charset=UTF-8");
 					
-					resp.addHeader("Content-Disposition", "attachment; filename=" +"report.xml");
+					resp.addHeader("Content-Disposition", "attachment; filename=" +"report.html");
 					
 					ServletOutputStream stream = resp.getOutputStream();
 					ByteArrayInputStream bais = new ByteArrayInputStream(itemListReportTransformed);
