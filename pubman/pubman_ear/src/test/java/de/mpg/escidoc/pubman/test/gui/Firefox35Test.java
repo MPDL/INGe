@@ -13,6 +13,7 @@ public class Firefox35Test extends PubmanGuiTestcase
 
     @Before
     public void setUp() throws Exception {
-        setUp("http://localhost:8080/", "*firefox /usr/lib/firefox-3.5.4/firefox");
+//        setUp("http://localhost:8080/", "*firefox /usr/lib/firefox-3.5.4/firefox");
+        setUp("http://localhost:8080/", "*firefox");
     }
 }

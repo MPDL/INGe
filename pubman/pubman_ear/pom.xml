@@ -773,9 +773,9 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.openqa.selenium.client-drivers</groupId>
+			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
 			<artifactId>selenium-java-client-driver</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>1.0.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -952,7 +952,8 @@
 							</configuration>
 						</configuration>
 					</plugin>
-					<plugin>
+					<!-- TODO: Selenium tests from TestSuite.html -->
+					<!-- plugin>
 						<artifactId>maven-antrun-plugin</artifactId>
 						<executions>
 							<execution>
@@ -963,12 +964,8 @@
 										<taskdef resource="selenium-ant.properties">
 											<classpath refid="maven.plugin.classpath"/>
 										</taskdef>
-                                        <!--
                                             <selenese suite="src/test/resources/selenium/TestSuite.html" browser="*chrome /usr/lib/firefox/firefox-2-bin" timeoutInSeconds="180" port="5555" results="${project.build.directory}/selenium-firefox-results.html" startURL="http://localhost:${cargo.port}" />
-                                        -->
-                                        <!--
                                             <selenese suite="src/test/resources/selenium/TestSuite.html" browser="*chrome /usr/lib/firefox-3.5.3/firefox-3.5" timeoutInSeconds="180" port="4445" results="${project.build.directory}/selenium-firefox-results.html" startURL="http://localhost:${cargo.port}" />
-                                        -->
 									</tasks>
 								</configuration>
 								<goals>
@@ -982,17 +979,12 @@
 								<artifactId>ant-nodeps</artifactId>
 								<version>1.6.5</version>
 							</dependency>
-							<dependency>
-								<groupId>org.openqa.selenium.server</groupId>
-								<artifactId>selenium-server</artifactId>
-								<version>1.0-SNAPSHOT</version>
-							</dependency>
 						</dependencies>
-					</plugin>
+					</plugin -->
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>selenium-maven-plugin</artifactId>
-						<version>1.0-SNAPSHOT</version>
+						<version>1.1</version>
 						<executions>
 							<execution>
 								<id>start-selenium</id>
@@ -1002,9 +994,6 @@
 								</goals>
 								<configuration>
 									<background>true</background>
-									<port>4444</port>
-									<logOutput>true</logOutput>
-									<multiWindow>true</multiWindow>
 								</configuration>
 							</execution>
 						</executions>
@@ -1021,6 +1010,7 @@
 							</execution>
 						</executions>
 					</plugin>
+					<!-- Selenium tests from JUnits -->					
 					<plugin>
 						<artifactId>maven-surefire-plugin</artifactId>
 						<executions>
