@@ -358,6 +358,18 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
        
         String query = objectType + " AND " + contentModel + " AND (" + context + ") NOT ( " + getCandidatesQuery().getCqlQuery() + " )";
         
+        //Remove the members
+        if(yisb.getNumberOfMembers()>0)
+        {
+        	
+            for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
+            {
+            	query += " NOT " + MetadataSearchCriterion.getINDEX_IDENTIFIER() + "=\"" + rel.getTargetItemRef().getObjectId() + "\"";
+            }
+        }
+    	
+        
+        //Add the selected org unit filter
         if (!getSelectedOrgUnit().toLowerCase().equals("all")) 
         {
             query += " AND " + MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS() + "=\"" + getSelectedOrgUnit() + "\"";
