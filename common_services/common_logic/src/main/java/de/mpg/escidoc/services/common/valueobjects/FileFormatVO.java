@@ -87,6 +87,12 @@ public class FileFormatVO extends ValueObject
     
     public static final String ESCIDOC_XML_NAME = "escidoc_xml";
     public static final String ESCIDOC_XML_MIMETYPE = "application/xml";
+    
+    public static final String EDOC_IMPORT_NAME = "edoc_import";
+    public static final String EDOC_IMPORT_MIMETYPE = "application/xml";
+    
+    public static final String EDOC_EXPORT_NAME = "edoc_export";
+    public static final String EDOC_EXPORT_MIMETYPE = "application/xml";
 
     public static final String DEFAULT_NAME = PDF_NAME;
     public static final String DEFAULT_MIMETYPE = PDF_MIMETYPE;
@@ -108,6 +114,8 @@ public class FileFormatVO extends ValueObject
                 put(ESCIDOC_SNIPPET_NAME, "xml");
                 put(XML_NAME, "xml");
                 put(ESCIDOC_XML_NAME, "xml");
+                put(EDOC_IMPORT_NAME, "xml");
+                put(EDOC_EXPORT_NAME, "xml");
                 put(DEFAULT_NAME, "pdf");
 	    	}  
     	};
@@ -126,6 +134,8 @@ public class FileFormatVO extends ValueObject
     			put(ESCIDOC_SNIPPET_NAME, ESCIDOC_SNIPPET_MIMETYPE);
     			put(XML_NAME, XML_MIMETYPE);
     			put(ESCIDOC_XML_NAME, ESCIDOC_XML_MIMETYPE);
+                put(EDOC_IMPORT_NAME, EDOC_IMPORT_MIMETYPE);
+                put(EDOC_EXPORT_NAME, EDOC_EXPORT_MIMETYPE);
     			put(DEFAULT_NAME, DEFAULT_MIMETYPE);
     		}  
 		};
@@ -141,6 +151,8 @@ public class FileFormatVO extends ValueObject
 				put(ESCIDOC_SNIPPET_NAME, DEFAULT_CHARSET);
 				put(XML_NAME, DEFAULT_CHARSET);
 				put(ESCIDOC_XML_NAME, DEFAULT_CHARSET);
+				put(EDOC_IMPORT_NAME, DEFAULT_CHARSET);
+				put(EDOC_EXPORT_NAME, DEFAULT_CHARSET);
 			}  
 		};
     

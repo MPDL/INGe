@@ -156,6 +156,7 @@ public class RestServlet extends HttpServlet
                 outputFormat = 
                 	exportFormat.equalsIgnoreCase("XML") ? "xml" : 
                 	exportFormat.equalsIgnoreCase("ESCIDOC_XML") ? "escidoc_xml" : 
+                	exportFormat.toUpperCase().startsWith("EDOC_") ? "xml" : 
                 	FileFormatVO.TEXT_NAME;
             } 
             else
