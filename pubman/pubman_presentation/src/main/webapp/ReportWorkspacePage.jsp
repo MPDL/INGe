@@ -50,7 +50,7 @@
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{WorkspacesPage.beanName}" styleClass="noDisplay" />
-			<tr:form usesUpload="true" onsubmit="fullItemReload();">
+			<tr:form id="formTest" usesUpload="true">
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			<!-- start: skip link navigation -->
@@ -149,7 +149,6 @@
 					document.getElementById('reportWorkspace').style.opacity='0.4';
 					document.getElementById('reportWorkspace').style.bg='FFF';
 					document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea half_marginLIncl smallThrobber');
-					
 				}
 			</script>
 			</body>
