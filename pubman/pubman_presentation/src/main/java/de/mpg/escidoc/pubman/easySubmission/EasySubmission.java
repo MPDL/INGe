@@ -1733,7 +1733,7 @@ public class EasySubmission extends FacesBean
             if (adminDescriptorVO instanceof PublicationAdminDescriptorVO)
             {
                 allowedGenres = ((PublicationAdminDescriptorVO)adminDescriptorVO).getAllowedGenres();
-                return this.i18nHelper.getSelectItemsForEnum(true,
+                return this.i18nHelper.getSelectItemsForEnum(false,
                         allowedGenres.toArray(new MdsPublicationVO.Genre[] {}));
             }
         }
