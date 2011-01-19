@@ -107,7 +107,7 @@
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
 									<h:selectOneMenu id="selExportFormatName" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
-											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
+											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS_EXTENDED}"/>
 									</h:selectOneMenu>
 									<h:commandButton id="btnUpdateExportFormats" title="#{tip.export_btFormat}" styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />	
 									<h:selectOneMenu id="selFileFormat" value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableFileFormats}">

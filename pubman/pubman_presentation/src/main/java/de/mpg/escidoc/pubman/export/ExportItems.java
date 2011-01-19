@@ -30,6 +30,7 @@
 package de.mpg.escidoc.pubman.export;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.component.html.HtmlMessages;
@@ -167,6 +168,13 @@ public class ExportItems extends FacesBean
         SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS};
         return EXPORTFORMAT_OPTIONS;
     }
+    
+    public SelectItem[] getEXPORTFORMAT_OPTIONS_EXTENDED()
+    {
+        SelectItem[] EXPORTFORMAT_OPTIONS = Arrays.copyOf(getEXPORTFORMAT_OPTIONS(), getEXPORTFORMAT_OPTIONS().length+1);
+        EXPORTFORMAT_OPTIONS[EXPORTFORMAT_OPTIONS.length-1]= new SelectItem("EDOC_IMPORT", "EDOC_IMPORT");
+        return EXPORTFORMAT_OPTIONS;
+    }
  
     public SelectItem[] getFILEFORMAT_OPTIONS()
     {
@@ -180,7 +188,8 @@ public class ExportItems extends FacesBean
         SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[]{FILEFORMAT_PDF, FILEFORMAT_ODT, FILEFORMAT_RTF, FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_LINKED, FILEFORMAT_HTML_STYLED, FILEFORMAT_ESCIDOC_SNIPPET};
         return FILEFORMAT_OPTIONS;
     }
-
+    
+    
 
     /*
      * Gets the session bean. 
