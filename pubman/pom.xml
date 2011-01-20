@@ -520,6 +520,7 @@
 		<escidoc.cone.language.default>en</escidoc.cone.language.default>
 		<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
 		<escidoc.cone.modelsxml.path>models.xml</escidoc.cone.modelsxml.path>
+		<escidoc.cone.rdfs.template>models2rdfs.xsl</escidoc.cone.rdfs.template>
 		
 		<!-- searchAndExport service -->
 		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test and escidoc.content-model.objid=escidoc:persistent4</escidoc.search.and.export.default.sql.query>
