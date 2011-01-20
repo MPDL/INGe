@@ -349,6 +349,13 @@
 	      	<artifactId>geoip</artifactId>
 	      	<version>1.2.3</version>
     	</dependency>
+	    <dependency>
+	    	<groupId>de.mpg.escidoc.services</groupId>
+	    	<artifactId>common_presentation</artifactId>
+	    	<version>1.0.37-SNAPSHOT</version>
+	    	<type>war</type>
+	    	<scope>compile</scope>
+	    </dependency>
 	</dependencies>
 	
 	<profiles>
