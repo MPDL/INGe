@@ -263,8 +263,8 @@
 			if (counter == 2 && empty)
 			{
 				
-				$input.parents('.itemBlockContent').find('.organizationName').val(orgName == null ? "" : orgName);
-				$input.parents('.itemBlockContent').find('.organizationIdentifier').val(orgIdString == null ? "" : orgIdString);
+				$input.parents('.itemBlockContent').find('.personOrganizations').find('.organizationName').val(orgName == null ? "" : orgName);
+				$input.parents('.itemBlockContent').find('.personOrganizations').find('.organizationIdentifier').val(orgIdString == null ? "" : orgIdString);
 
 				if (orgIdString != null && orgIdString != '')
 				{
