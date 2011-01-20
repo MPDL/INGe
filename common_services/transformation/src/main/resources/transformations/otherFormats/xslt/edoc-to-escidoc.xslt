@@ -1770,9 +1770,7 @@
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="issuenr">
-				<xsl:element name="eterms:issue">
-					<xsl:apply-templates select="issuenr"/>
-				</xsl:element>
+				<xsl:apply-templates select="issuenr"/>
 			</xsl:if>
 			
 		</xsl:if>
@@ -1821,7 +1819,7 @@
 		<!-- CREATOR ROLE -->
 		<xsl:choose>
 			<xsl:when test="@role='advisor'">
-				<xsl:attribute name="role" select="$creator-ves/enum[. = 'advisor']/@uri"/>
+				<xsl:attribute name="role" select="$creator-ves/enum[. = 'scientific advisor']/@uri"/>
 			</xsl:when>
 			<xsl:when test="@role='artist'">
 				<xsl:attribute name="role" select="$creator-ves/enum[. = 'artist']/@uri"/>
