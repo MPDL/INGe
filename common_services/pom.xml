@@ -214,8 +214,8 @@
 		<module>search_presentation</module>
 		<module>search_ear</module>
 		<module>cone</module>
-		<module>cone_ear</module>
 		<module>cone_presentation</module>
+		<module>cone_ear</module>
 		<module>dataacquisition</module>
 		<module>dataacquisition_presentation</module>
 		<module>dataacquisition_ear</module>
@@ -506,6 +506,7 @@
 		<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
 		<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 		<escidoc.cone.modelsxml.path>models.xml</escidoc.cone.modelsxml.path>
+		<escidoc.cone.rdfs.template>models2rdfs.xsl</escidoc.cone.rdfs.template>
 		
 		<escidoc.cone.mimetype.pattern>application/vnd.cone-(.+)</escidoc.cone.mimetype.pattern>
 		<escidoc.pubman.genres.configuration>Genres.xml</escidoc.pubman.genres.configuration>
