@@ -669,7 +669,6 @@ public class ImportProcess extends Thread
         }
     }
 
-    // TODO: Implementation
     private boolean checkDuplicatesByIdentifier(PubItemVO itemVO)
     {
         try
@@ -734,8 +733,9 @@ public class ImportProcess extends Thread
         }
         catch (Exception e)
         {
-            log.addDetail(ErrorLevel.ERROR, e);
-            log.finishItem();
+            log.addDetail(ErrorLevel.WARNING, e);
+            // An error while checking for duplicates should not cause the item not to be imported.
+            //log.finishItem();
             return false;
         }
     }
