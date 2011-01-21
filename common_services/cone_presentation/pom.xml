@@ -31,14 +31,14 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.52</version>
+		<version>1.0.53-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>cone_presentation</artifactId>
 	<packaging>war</packaging>
 	<name>cone_presentation</name>
-	<version>1.2.11</version>
+	<version>1.2.12-SNAPSHOT</version>
 	<build>
 		<plugins>
 			<plugin>
@@ -115,13 +115,13 @@
 	    <dependency>
 	    	<groupId>de.mpg.escidoc.services</groupId>
 	    	<artifactId>cone</artifactId>
-	    	<version>1.2.11</version>
+	    	<version>1.2.12-SNAPSHOT</version>
 	    	<scope>provided</scope>
 	    </dependency>
 	    <dependency>
 	    	<groupId>de.mpg.escidoc.services</groupId>
 	    	<artifactId>common_logic</artifactId>
-	    	<version>1.1.52</version>
+	    	<version>1.1.53-SNAPSHOT</version>
 	    	<type>ejb</type>
 	    	<scope>provided</scope>
 	    </dependency>
