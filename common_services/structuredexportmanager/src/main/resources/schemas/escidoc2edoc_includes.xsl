@@ -287,7 +287,7 @@
 					<!-- case: import -->
 					<xsl:when test="$type='import'">
 						<xsl:variable name="da" select="normalize-space(dc:identifier)"/>
-						<xsl:message select="$da"/>
+<!--						<xsl:message select="$da"/>-->
 						<xsl:variable name="da" select="$escd2edoc_daffs/map[@escd=$da]"/>
 						<xsl:if test="$da!=''">
 							<xsl:element name="aff">
@@ -304,12 +304,12 @@
 								<xsl:attribute name="id" select="dc:identifier"/>
 								<xsl:value-of select="dc:title"/>
 							</xsl:element>
-							<xsl:if test="..">
+							<xsl:if test="exists(..)">
 								<xsl:element name="mpgsunit">
 									<xsl:attribute name="id" select="../dc:identifier"/>
 									<xsl:value-of select="../dc:title"/>
 								</xsl:element>
-								<xsl:if test="../..">
+								<xsl:if test="exists(../../dc:identifier)">
 									<xsl:element name="mpgssunit">
 										<xsl:attribute name="id" select="../../dc:identifier"/>
 										<xsl:value-of select="../../dc:title"/>
@@ -321,7 +321,7 @@
 				</xsl:choose>
 			</xsl:for-each>
 		</xsl:variable>
-		<xsl:message select="$daffs"/>
+<!--		<xsl:message select="$daffs"/>-->
 		<!-- exclude duplicates -->
 		<xsl:for-each select="$daffs/*[not(.=following::node())]">
 			<xsl:copy-of select="."/>
@@ -336,7 +336,6 @@
 	 -->	
 	<xsl:function name="func:getNonMpgAffiliations">
 		<xsl:param name="ous"/>
-<!--		<xsl:message select="func:getOUTree($ous/dc:identifier)//aff[@mpg='false']"/>-->
 		<xsl:variable name="affs">
 			<xsl:for-each select="func:getOUTree($ous/dc:identifier)//aff[@mpg='false']">
 				<xsl:element name="aff">
@@ -353,7 +352,7 @@
 		</xsl:variable>
 		<xsl:if test="$affs">
 			<xsl:element name="docaff_external">
-				<xsl:value-of select="string-join($affs/aff, '; ')"/>
+				<xsl:value-of select="string-join($affs/aff[.!=''], '; ')"/>
 			</xsl:element>
 		</xsl:if>
 		
@@ -368,17 +367,21 @@
 	</xsl:function>
 	
 	
-	<xsl:function name="func:getOUTree">
+	<xsl:function name="func:getOUTree" as="item()*">
 		<xsl:param name="ids"/>
-		<xsl:for-each select="$ids[.!='']">
-			<xsl:call-template name="getOU">
-				<xsl:with-param name="ou" select="func:getOUXml(.)"/>
-			</xsl:call-template>
-		</xsl:for-each>
+		<!-- root in needed for //aff[@mpg] matching -->
+		<!-- doesn't work otherwise!! -->
+		<xsl:element name="ou_tree_root">
+			<xsl:for-each select="$ids[.!='']">
+				<xsl:call-template name="getOU">
+					<xsl:with-param name="ou" select="func:getOUXml(.)"/>
+				</xsl:call-template>
+			</xsl:for-each>
+		</xsl:element>
 	</xsl:function>
 
 
-	<xsl:template name="getOU">
+	<xsl:template name="getOU" as="item()*">
 		<xsl:param name="ou"/>
 		
 		<xsl:element name="aff">
@@ -411,7 +414,7 @@
 	</xsl:template>
 
 
-	<xsl:function name="func:getOUXml">
+	<xsl:function name="func:getOUXml" as="item()*">
 		<xsl:param name="id"/>
 		<xsl:copy-of select="
 			$OUs[substring-after(@xlink:href, '/oum/organizational-unit/')=$id]

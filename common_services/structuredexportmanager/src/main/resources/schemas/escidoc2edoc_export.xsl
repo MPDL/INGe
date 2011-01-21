@@ -68,12 +68,14 @@
 	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
-	<xsl:include href="escidoc2edoc_includes.xsl"/>	
+	<xsl:include href="escidoc2edoc_includes.xsl"/>
+		
 
 	<xsl:template match="/*">
 		<xsl:choose>
 			<xsl:when test="count(//pub:publication)>0">
 				<xsl:element name="edoc">
+				
 					<xsl:for-each select="//pub:publication">
 						<xsl:call-template name="record"/>
 					</xsl:for-each>
@@ -86,6 +88,7 @@
 	</xsl:template>
 
 	<xsl:template name="record">
+	
 	
 		<xsl:element name="record">
 			<xsl:attribute name="id" select="../../../@objid"/>
