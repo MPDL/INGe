@@ -127,7 +127,7 @@
 						<configuration>
 							<tasks>
 								<copy todir="${staging.dir}">
-									<fileset dir="${basedir}/src/izpack" />
+									<fileset dir="${basedir}/src/izpack"/>
 								</copy>
 							</tasks>
 						</configuration>
@@ -228,13 +228,13 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>1.0.59</version>
+			<version>1.0.60-SNAPSHOT</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.55</version>
+			<version>1.0.56-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -257,13 +257,13 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>cone</artifactId>
-			<version>1.2.11</version>
+			<version>1.2.12-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.52</version>
+			<version>1.1.53-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 	
