@@ -63,6 +63,7 @@
 		<iso:active pattern="conference_paper_rules"/>
 		<iso:active pattern="proceedings_rules"/>
 		<iso:active pattern="book_rules"/>
+		<iso:active pattern="thesis_rules"/>
 		<iso:active pattern="issue_rules"/>
 		<iso:active pattern="journal_rules"/>
 		<iso:active pattern="series_rules"/>
@@ -79,6 +80,7 @@
 		<iso:active pattern="conference_paper_rules"/>
 		<iso:active pattern="proceedings_rules"/>
 		<iso:active pattern="book_rules"/>
+		<iso:active pattern="thesis_rules"/>
 		<iso:active pattern="issue_rules"/>
 		<iso:active pattern="journal_rules"/>
 		<iso:active pattern="series_rules"/>
@@ -208,6 +210,9 @@
 		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/conferencepaper']/source:source">
 			<iso:report test="not(dc:title != '')">SourceTitleNotProvided</iso:report>
 		</iso:rule>
+		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/conferencepaper']">
+			<iso:report test="not(source:source[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/proceedings'])">SourceGenreMustBeProceedings</iso:report>
+		</iso:rule>
 	</iso:pattern>
 	
 	<!--  Proceedings -->
@@ -268,18 +273,18 @@
 
 	<!-- Thesis -->
 	<iso:pattern name="thesis_rules" id="thesis_rules">
-		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/thesis']">
+		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/Thesis']">
 			<iso:report test="not(dcterms:issued != '' or escidoc:published-online != '')">PublishingDateNotProvided</iso:report>
 			<iso:report test="not(exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)]))">NoMaxPlanckAffiliation</iso:report>
 			<iso:report test="not(dc:title != '')">TitleNotProvided</iso:report>
 			<iso:report test="not(escidoc:degree != 'http://purl.org/escidoc/metadata/ves/academic-degrees/phd' or dcterms:dateAccepted != '')">DateAcceptedNotProvided</iso:report>
 		</iso:rule>
-		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/thesis']/escidoc:creator[exists(person:person)]">
+		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/Thesis']/escidoc:creator[exists(person:person)]">
 			<iso:report test="not(@role != '')">CreatorRoleNotProvided</iso:report>
 			<iso:report test="not(person:person/escidoc:family-name != '')">CreatorFamilyNameNotProvided</iso:report>
 			<iso:report test="not(person:person/escidoc:given-name != '')">CreatorGivennameNotProvided</iso:report>
 		</iso:rule>
-		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/thesis']">
+		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/Thesis']">
 			<iso:report test="not(escidoc:publishing-info/dc:publisher != '')">PublisherNotProvided</iso:report>
 			<iso:report test="not(escidoc:publishing-info/escidoc:publisher != '')">PublisherPlaceNotProvided</iso:report>
 		</iso:rule>
