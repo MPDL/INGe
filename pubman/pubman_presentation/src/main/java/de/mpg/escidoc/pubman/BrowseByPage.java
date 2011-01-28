@@ -153,7 +153,7 @@ public class BrowseByPage extends BreadcrumbPage
                 localLang = "en";
             }
             URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+type + "/query?f=options&"+
-                    this.bbBean.getQuery()+"=\"" + URLEncoder.encode(startChar, "UTF-8") + "*\"&n=0&lang=*");
+                    this.bbBean.getQuery()+"=\"" + URLEncoder.encode(startChar, "UTF-8") + "*\"&n=0&lang=en");
             URLConnection conn = coneUrl.openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();

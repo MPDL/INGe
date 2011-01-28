@@ -231,7 +231,7 @@ public class BrowseBySessionBean extends FacesBean
         
         try
         {
-            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url") +this.selectedValue + "/all?format=options&lang=*");           
+            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url") +this.selectedValue + "/all?format=options&lang=en");           
             URLConnection conn = coneUrl.openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
