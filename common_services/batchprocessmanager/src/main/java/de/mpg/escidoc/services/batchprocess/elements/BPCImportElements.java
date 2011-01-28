@@ -30,20 +30,35 @@
 
 package de.mpg.escidoc.services.batchprocess.elements;
 
-import java.util.List;
-
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatusType;
 import de.mpg.escidoc.services.batchprocess.helper.CoreServiceHelper;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
-public class LingLitAllElements extends Elements<ItemVO>
+/**
+ * TODO Description
+ *
+ * @author franke (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
+public class BPCImportElements extends Elements<ItemVO>
 {
-    public LingLitAllElements(String[] args)
+
+    //private static final String LOCAL_TAG = "BPC IMPORT PART1 2010-12-16 09:30";
+    //private static final String LOCAL_TAG = "BPC IMPORT PART2 2010-12-21 11:15";
+    //private static final String LOCAL_TAG = "BPC IMPORT PART3 2010-12-21 14:11";
+    //private static final String LOCAL_TAG = "BPC IMPORT PART4 2010-12-21 15:44";
+    //private static final String LOCAL_TAG = "BPC IMPORT PART5 2010-12-21 16:36";
+    //private static final String LOCAL_TAG = "BPC IMPORT PART6 2010-12-21 17:37";
+    //private static final String LOCAL_TAG = "Nachimport_BPC_1 2011-01-18 09:39";
+    private static final String LOCAL_TAG = "Nachimport_BPC%";
+
+    public BPCImportElements(String[] args)
     {
         super(args);
     }
@@ -61,8 +76,6 @@ public class LingLitAllElements extends Elements<ItemVO>
         }
     }
 
-    private static final String LOCAL_TAG = "test before live 4 2010-12-21 10:23";
-
     @Override
     public void retrieveElements()
     {
@@ -75,33 +88,11 @@ public class LingLitAllElements extends Elements<ItemVO>
             elements.addAll(CoreServiceHelper.transformSearchResultXmlToListOfItemVO(seachResultXml));
             report.addEntry("retrieveElements", "Get Data", ReportEntryStatusType.FINE);
             System.out.println(elements.size() + " items found");
-            for (int i = elements.size() - 1; i >= 0; i--)
-            {
-            	if (elements.get(i).getVersion().getVersionNumber() == 1)
-            	{
-            		System.out.println(elements.get(i).getVersion().getObjectId() + " was not edited");
-            	}
-            	else if(elements.get(i).getVersion().getVersionNumber() != 1 && !elements.get(i).getVersion().getState().equals(State.RELEASED))
-            	{
-            		this.getTransformed().add(elements.get(i).getVersion().getObjectId());
-            		System.out.println(elements.get(i).getVersion().getObjectId() + " was edited, but not released.");
-            	}
-            	else
-            	{
-            	    System.out.println(elements.get(i).getVersion().getObjectId() + " was edited, removed from the list");
-            	    elements.remove(i);
-            	}
-			}
         }
         catch (Exception e)
         {
-            throw new RuntimeException("Error initializing LingLitAllElements.java: ", e);
+            throw new RuntimeException("Error initializing BPCImportElements: ", e);
         }
-    }
-
-    public List<ItemVO> getElements()
-    {
-        return elements;
     }
 
     @Override
@@ -109,4 +100,5 @@ public class LingLitAllElements extends Elements<ItemVO>
     {
         return CoreServiceObjectType.ITEM;
     }
+    
 }

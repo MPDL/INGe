@@ -65,7 +65,7 @@ public class Edit extends Operation
     private void updateItems(Elements list) throws Exception
     {
         ItemHandler ih = ServiceLocator.getItemHandler(elements.getUserHandle());
-        String e = elements.getUserHandle();
+        String handle = elements.getUserHandle();
         XmlTransformingBean xmlTransforming = new XmlTransformingBean();
         List<ItemVO> updated = new ArrayList<ItemVO>();
         if (list.getElements() != null)
@@ -75,12 +75,18 @@ public class Edit extends Operation
             	if (!this.getTransformed().contains(ivo.getVersion().getObjectId())) 
             	{
             		String xml = xmlTransforming.transformToItem(ivo);
-                    System.out.print("Updating item " + ivo.getVersion().getObjectIdAndVersion() + " ...");
-                    xml = ih.update(ivo.getVersion().getObjectId(), xml);
-                    System.out.println("done!");
-                    updated.add(xmlTransforming.transformToItem(xml));
-                    this.report.addEntry("Update" + ivo.getVersion().getObjectId(), "Edit "
+            		try
+            		{
+            		    logger.info("Updating item " + ivo.getVersion().getObjectIdAndVersion() + " ...");
+            		    xml = ih.update(ivo.getVersion().getObjectId(), xml);
+            		    System.out.println("done!");
+            		    updated.add(xmlTransforming.transformToItem(xml));
+            		    this.report.addEntry("Update" + ivo.getVersion().getObjectId(), "Edit "
                             + ivo.getVersion().getObjectId(), ReportEntryStatusType.FINE);
+                    }
+                    catch (Exception e) {
+                        logger.error("error", e);
+                    }
             	}
             	else
             	{
