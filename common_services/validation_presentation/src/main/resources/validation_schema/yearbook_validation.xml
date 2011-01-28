@@ -121,9 +121,15 @@
 
 	<!-- Publications need a publishing date and the year of this date has to be the current year -->
 	<iso:pattern name="publishing_date_and_year" id="publishing_date_and_year">
-		<iso:rule context="publication:publication">
+		<iso:rule context="publication:publication[@type != 'http://purl.org/eprint/type/Thesis'
+				and @type != 'http://purl.org/escidoc/metadata/ves/publication-types/journal'
+				and @type != 'http://purl.org/escidoc/metadata/ves/publication-types/series']">
 			<iso:assert test="dcterms:issued != '' or escidoc:published-online != ''">PublishingDateNotProvided</iso:assert>
+			
+			<!-- Year must be current year -->
 			<iso:assert test="starts-with(dcterms:issued, $year) or starts-with(escidoc:published-online, $year)">PublishingDateNotCorrect1</iso:assert>
+			
+			<!-- One of the dates is not in the current year -->
 			<iso:report test="not((dcterms:issued = '' or starts-with(dcterms:issued, $year)) and (escidoc:published-online = '' or starts-with(escidoc:published-online, $year)))">PublishingDateNotCorrect2</iso:report>
 		</iso:rule>
 	</iso:pattern>
@@ -155,7 +161,6 @@
 				or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift'
 				or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition']">
 			<iso:report test="not(source:source/escidoc:sequence-number != '' or (source:source/escidoc:start-page != '' and source:source/escidoc:end-page != ''))">NoSequenceInformationGiven</iso:report>
-			<iso:report test="not(dcterms:issued != '' or escidoc:published-online != '')">PublishingDateNotProvided</iso:report>
 			<iso:report test="not(exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)]))">NoMaxPlanckAffiliation</iso:report>
 			<iso:report test="not(dc:title != '')">TitleNotProvided</iso:report>
 		</iso:rule>
@@ -198,10 +203,9 @@
 	<iso:pattern name="conference_paper_rules" id="conference_paper_rules">
 		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/conferencepaper']">
 			<iso:report test="not(source:source/escidoc:sequence-number != '' or (source:source/escidoc:start-page != '' and source:source/escidoc:end-page != ''))">NoSequenceInformationGiven</iso:report>
-			<iso:report test="not(dcterms:issued != '' or escidoc:published-online != '')">PublishingDateNotProvided</iso:report>
 			<iso:report test="not(exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)]))">NoMaxPlanckAffiliation</iso:report>
 			<iso:report test="not(dc:title != '')">TitleNotProvided</iso:report>
-			<iso:report test="not(source:source[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/proceedings'])">SourceGenreMustBeProceedings</iso:report>
+			<iso:report test="not(exists(source:source[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/proceedings']))">SourceGenreMustBeProceedings</iso:report>
 		</iso:rule>
 		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/conferencepaper']/escidoc:creator[exists(person:person)]">
 			<iso:report test="not(@role != '')">CreatorRoleNotProvided</iso:report>
@@ -216,22 +220,18 @@
 	<!--  Proceedings -->
 	<iso:pattern name="proceedings_rules" id="proceedings_rules">
 		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/proceedings']">
-			<iso:report test="not(source:source/escidoc:sequence-number != '' or (source:source/escidoc:start-page != '' and source:source/escidoc:end-page != ''))">NoSequenceInformationGiven</iso:report>
-			<iso:report test="not(dcterms:issued != '' or escidoc:published-online != '')">PublishingDateNotProvided</iso:report>
 			<iso:report test="not(exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)]))">NoMaxPlanckAffiliation</iso:report>
 			<iso:report test="not(dc:title != '')">TitleNotProvided</iso:report>
 			<iso:report test="not(escidoc:total-number-of-pages != '')">TotalNumberOfPagesNotProvided</iso:report>
 			<iso:report test="not(escidoc:publishing-info/dc:publisher != '')">PublisherNotProvided</iso:report>
 			<iso:report test="not(escidoc:publishing-info/escidoc:place != '')">PublisherPlaceNotProvided</iso:report>
+			<iso:report test="not(event:event/dc:title != '')">EventTitleRequired</iso:report>
+			<iso:report test="not(event:event/escidoc:place != '')">EventPlaceRequired</iso:report>
 		</iso:rule>
 		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/proceedings']/escidoc:creator[exists(person:person)]">
 			<iso:report test="not(@role != '')">CreatorRoleNotProvided</iso:report>
 			<iso:report test="not(person:person/escidoc:family-name != '')">CreatorFamilyNameNotProvided</iso:report>
 			<iso:report test="not(person:person/escidoc:given-name != '')">CreatorGivennameNotProvided</iso:report>
-		</iso:rule>
-		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/proceedings']/event:event">
-			<iso:report test="not(dc:title != '')">EventTitleRequired</iso:report>
-			<iso:report test="not(escidoc:place != '')">EventPlaceRequired</iso:report>
 		</iso:rule>
 	</iso:pattern>
 	
@@ -242,8 +242,6 @@
 				or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/handbook'
 				or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/collected-edition'
 				or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/festschrift']">
-			<iso:report test="not(source:source/escidoc:sequence-number != '' or (source:source/escidoc:start-page != '' and source:source/escidoc:end-page != ''))">NoSequenceInformationGiven</iso:report>
-			<iso:report test="not(dcterms:issued != '' or escidoc:published-online != '')">PublishingDateNotProvided</iso:report>
 			<iso:report test="not(exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)]))">NoMaxPlanckAffiliation</iso:report>
 			<iso:report test="not(dc:title != '')">TitleNotProvided</iso:report>
 			<iso:report test="not(escidoc:total-number-of-pages != '')">TotalNumberOfPagesNotProvided</iso:report>
@@ -267,7 +265,13 @@
 			<iso:report test="not(dcterms:issued != '' or escidoc:published-online != '')">PublishingDateNotProvided</iso:report>
 			<iso:report test="not(exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)]))">NoMaxPlanckAffiliation</iso:report>
 			<iso:report test="not(dc:title != '')">TitleNotProvided</iso:report>
-			<iso:report test="not(escidoc:degree != 'http://purl.org/escidoc/metadata/ves/academic-degrees/phd' or dcterms:dateAccepted != '')">DateAcceptedNotProvided</iso:report>
+			
+			<!-- DateAccepted is required -->
+			<iso:assert test="dcterms:dateAccepted != ''">DateAcceptedNotProvided</iso:assert>
+						
+			<!-- Year must be current year -->
+			<iso:assert test="starts-with(dcterms:dateAccepted, $year)">DateAcceptedNotCorrect1</iso:assert>
+			
 			<iso:report test="not(escidoc:publishing-info/dc:publisher != '')">PublisherNotProvided</iso:report>
 			<iso:report test="not(escidoc:publishing-info/escidoc:place != '')">PublisherPlaceNotProvided</iso:report>
 		</iso:rule>
@@ -282,7 +286,6 @@
 	<iso:pattern name="issue_rules" id="issue_rules">
 		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/issue']">
 			<iso:report test="not(source:source/escidoc:sequence-number != '' or (source:source/escidoc:start-page != '' and source:source/escidoc:end-page != ''))">NoSequenceInformationGiven</iso:report>
-			<iso:report test="not(dcterms:issued != '')">PublishingDateNotProvided</iso:report>
 			<iso:report test="not(exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)]))">NoMaxPlanckAffiliation</iso:report>
 			<iso:report test="not(dc:title != '')">TitleNotProvided</iso:report>
 		</iso:rule>
@@ -300,6 +303,10 @@
 	<iso:pattern name="journal_rules" id="journal_rules">
 		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/journal']">
 			<iso:report test="not(dcterms:issued != '' or escidoc:published-online != '')">PublishingDateNotProvided</iso:report>
+			
+			<!-- One of the dates is not in the current year -->
+			<iso:report test="not((dcterms:issued = '' or starts-with(dcterms:issued, $year)) and (escidoc:published-online = '' or starts-with(escidoc:published-online, $year)))">PublishingDateNotCorrect2</iso:report>
+			
 			<iso:report test="not(exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)]))">NoMaxPlanckAffiliation</iso:report>
 			<iso:report test="not(dc:title != '')">TitleNotProvided</iso:report>
 			<iso:report test="not(escidoc:publishing-info/dc:publisher != '')">PublisherNotProvided</iso:report>
@@ -316,6 +323,10 @@
 	<iso:pattern name="series_rules" id="series_rules">
 		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/series']">
 			<iso:report test="not(dcterms:issued != '' or escidoc:published-online != '')">PublishingDateNotProvided</iso:report>
+			
+			<!-- One of the dates is not in the current year -->
+			<iso:report test="not((dcterms:issued = '' or starts-with(dcterms:issued, $year)) and (escidoc:published-online = '' or starts-with(escidoc:published-online, $year)))">PublishingDateNotCorrect2</iso:report>
+			
 			<iso:report test="not(exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)]))">NoMaxPlanckAffiliation</iso:report>
 			<iso:report test="not(dc:title != '')">TitleNotProvided</iso:report>
 			<iso:report test="not(escidoc:publishing-info/dc:publisher != '')">PublisherNotProvided</iso:report>
@@ -350,6 +361,7 @@
 			<iso:report test="not(exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)]))">NoMaxPlanckAffiliation</iso:report>
 			<iso:report test="not(dc:title != '')">TitleNotProvided</iso:report>
 			<iso:report test="not(escidoc:total-number-of-pages != '')">TotalNumberOfPagesNotProvided</iso:report>
+			<iso:report test="not(exists(source:source[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/series']))">SourceGenreShouldBeSeries</iso:report>
 		</iso:rule>
 		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/Report']/escidoc:creator[exists(person:person)]">
 			<iso:report test="not(@role != '')">CreatorRoleNotProvided</iso:report>
@@ -357,7 +369,6 @@
 			<iso:report test="not(person:person/escidoc:given-name != '')">CreatorGivennameNotProvided</iso:report>
 		</iso:rule>
 		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/Report']/source:source">
-			<iso:report test="not(@type = 'http://purl.org/escidoc/metadata/ves/publication-types/series')">SourceGenreShouldBeSeries</iso:report>
 			<iso:report test="not(dc:title != '')">SourceTitleNotProvided</iso:report>
 			<iso:report test="not(escidoc:publishing-info/escidoc:edition != '')">SourceEditionNotProvided</iso:report>
 		</iso:rule>
