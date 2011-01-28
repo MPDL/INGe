@@ -159,7 +159,7 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
         return buffer.toString();
     }
     
-    private String normalizeFromQuery(String fromQuery)
+    public String normalizeFromQuery(String fromQuery)
     {
         if (fromQuery == null)
         {
@@ -206,7 +206,7 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
         }
     }
     
-    private String[] normalizeToQuery(String toQuery)
+    public String[] normalizeToQuery(String toQuery)
     {
         if (toQuery == null)
         {
