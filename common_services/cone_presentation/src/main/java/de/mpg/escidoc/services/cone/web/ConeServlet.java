@@ -127,8 +127,6 @@ public class ConeServlet extends HttpServlet
     	}
     };
     
-    Formatter formatter;
-    
     /**
      * {@inheritDoc}
      */
@@ -137,6 +135,8 @@ public class ConeServlet extends HttpServlet
     {
         request.setCharacterEncoding(DEFAULT_ENCODING);
         response.setCharacterEncoding(DEFAULT_ENCODING);
+        
+        Formatter formatter;
         
         PrintWriter out = response.getWriter();
         
@@ -241,7 +241,8 @@ public class ConeServlet extends HttpServlet
         
         formatter = Formatter.getFormatter(format);
 
-        logger.debug("Querying for '" + model + "'");
+        logger.info("Formatter is '" + formatter + "'");
+        logger.info("Querying for '" + model + "'");
         
 //        if ("explain".equals(model))
 //        {
@@ -272,7 +273,7 @@ public class ConeServlet extends HttpServlet
             {
                 if (query != null)
                 {
-                    queryAction(query, limit, lang, modeType, response, model, loggedIn);
+                    queryAction(query, limit, lang, modeType, response, formatter, model, loggedIn);
                 }
                 else
                 {
@@ -284,7 +285,7 @@ public class ConeServlet extends HttpServlet
                             searchFields.add(new Pair<String>(key.toString(), fixURLEncoding(request.getParameter(key.toString()))));
                         }
                     }
-                    queryFieldsAction(searchFields.toArray(new Pair[]{}), limit, lang, modeType, response, model, loggedIn);
+                    queryFieldsAction(searchFields.toArray(new Pair[]{}), limit, lang, modeType, response, formatter, model, loggedIn);
                 }
             }
             catch (Exception e)
@@ -296,7 +297,7 @@ public class ConeServlet extends HttpServlet
         {
             try
             {
-                allAction(request, response, model, loggedIn);
+                allAction(request, response, formatter, model, loggedIn);
             }
             catch (Exception e)
             {
@@ -314,7 +315,7 @@ public class ConeServlet extends HttpServlet
             
             try
             {
-                detailAction(id, lang, response, out, model, loggedIn);
+                detailAction(id, lang, response, formatter, out, model, loggedIn);
             }
             catch (Exception e)
             {
@@ -390,7 +391,7 @@ public class ConeServlet extends HttpServlet
      * @param model
      * @throws IOException
      */
-    private void allAction(HttpServletRequest request, HttpServletResponse response, String modelName, boolean loggedIn) throws Exception
+    private void allAction(HttpServletRequest request, HttpServletResponse response, Formatter formatter, String modelName, boolean loggedIn) throws Exception
     {
         Model model = ModelList.getInstance().getModelByAlias(modelName);
 
@@ -443,6 +444,7 @@ public class ConeServlet extends HttpServlet
             String id,
             String lang,
             HttpServletResponse response,
+            Formatter formatter,
             PrintWriter out,
             String modelName,
             boolean loggedIn)
@@ -522,7 +524,7 @@ public class ConeServlet extends HttpServlet
      * @param model
      * @throws IOException
      */
-    private void queryAction(String query, int limit, String lang, Querier.ModeType modeType, HttpServletResponse response, String modelName, boolean loggedIn)
+    private void queryAction(String query, int limit, String lang, Querier.ModeType modeType, HttpServletResponse response, Formatter formatter, String modelName, boolean loggedIn)
         throws Exception
     {
         Model model = ModelList.getInstance().getModelByAlias(modelName);
@@ -589,7 +591,7 @@ public class ConeServlet extends HttpServlet
      * @param model
      * @throws IOException
      */
-    private void queryFieldsAction(Pair[] searchFields, int limit, String lang, Querier.ModeType modeType, HttpServletResponse response, String modelName, boolean loggedIn)
+    private void queryFieldsAction(Pair[] searchFields, int limit, String lang, Querier.ModeType modeType, HttpServletResponse response, Formatter formatter, String modelName, boolean loggedIn)
         throws Exception
     {
         Model model = ModelList.getInstance().getModelByAlias(modelName);
