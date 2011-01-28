@@ -12,12 +12,7 @@ public class FullSubmissionTest extends SeleneseTestCase {
 	public void setUp() throws Exception {
 //		selenium = new DefaultSelenium("localhost", 4444, "*chrome", "http://dev-pubman.mpdl.mpg.de/");
 		selenium = new DefaultSelenium("localhost", 4444, "*firefox3 C:/Program Files (x86)/Mozilla Firefox/firefox.exe", "http://localhost:8080/");
-
 		selenium.start();
-	}
-
-	@Test
-	public void testLogin() throws Exception {
 		selenium.open("/pubman/");
 		selenium.click("form1:Header:lnkLoginLogout");
 		selenium.waitForPageToLoad("30000");
@@ -28,18 +23,9 @@ public class FullSubmissionTest extends SeleneseTestCase {
 		selenium.select("form1:Header:selSelectLocale", "label=English");
 		selenium.waitForPageToLoad("30000");
 	}
-	
+
 	@Test
 	public void testFull_Submission_testing_submit() throws Exception {
-		selenium.open("/pubman/");
-		selenium.click("form1:Header:lnkLoginLogout");
-		selenium.waitForPageToLoad("30000");
-		selenium.type("j_username", "demo");
-		selenium.type("j_password", "demo");
-		selenium.click("Abschicken");
-		selenium.waitForPageToLoad("30000");
-		selenium.select("form1:Header:selSelectLocale", "label=English");
-		selenium.waitForPageToLoad("30000");
 		selenium.click("form1:Header:lnkSubmission");
 		selenium.waitForPageToLoad("30000");
 		selenium.click("lnkNewSubmission");
@@ -107,15 +93,6 @@ public class FullSubmissionTest extends SeleneseTestCase {
 	
 	@Test
 	public void testFull_Submission_testing_release() throws Exception {
-		selenium.open("/pubman/");
-		selenium.click("form1:Header:lnkLoginLogout");
-		selenium.waitForPageToLoad("30000");
-		selenium.type("j_username", "demo");
-		selenium.type("j_password", "demo");
-		selenium.click("Abschicken");
-		selenium.waitForPageToLoad("30000");
-		selenium.select("form1:Header:selSelectLocale", "label=English");
-		selenium.waitForPageToLoad("30000");
 		selenium.click("form1:Header:lnkSubmission");
 		selenium.waitForPageToLoad("30000");
 		selenium.click("lnkNewSubmission");
@@ -193,15 +170,6 @@ public class FullSubmissionTest extends SeleneseTestCase {
 	
 	@Test
 	public void testFull_Submission_testing_submit_and_release() throws Exception {
-		selenium.open("/pubman/");
-		selenium.click("form1:Header:lnkLoginLogout");
-		selenium.waitForPageToLoad("30000");
-		selenium.type("j_username", "demo");
-		selenium.type("j_password", "demo");
-		selenium.click("Abschicken");
-		selenium.waitForPageToLoad("30000");
-		selenium.select("form1:Header:selSelectLocale", "label=English");
-		selenium.waitForPageToLoad("30000");
 		selenium.click("form1:Header:lnkSubmission");
 		selenium.waitForPageToLoad("30000");
 		selenium.click("lnkNewSubmission");
