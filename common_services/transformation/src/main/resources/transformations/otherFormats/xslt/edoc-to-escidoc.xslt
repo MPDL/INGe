@@ -2427,7 +2427,7 @@
 	
 	<xsl:template match="language">
 		<xsl:variable name="coneLanguage">
-			<xsl:copy-of select="Util:queryCone('iso639-3', .)"/>
+			<xsl:copy-of select="Util:queryCone('iso639-3', concat('&quot;', ., '&quot;'))"/>
 		</xsl:variable>
 		<xsl:variable name="language" select="."/>
 		
