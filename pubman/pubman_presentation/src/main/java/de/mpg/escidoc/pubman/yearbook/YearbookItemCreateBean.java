@@ -218,12 +218,15 @@ public class YearbookItemCreateBean extends FacesBean
 			
       
 			//date query
+			
+			//date query for date issued & published-online
 			ArrayList<CriterionType> dateTypeList = new ArrayList<CriterionType>();
 			dateTypeList.add(CriterionType.DATE_ISSUED);
 			dateTypeList.add(CriterionType.DATE_PUBLISHED_ONLINE);
 			MetadataDateSearchCriterion mdDate = new MetadataDateSearchCriterion(dateTypeList, getDateFrom(), getDateTo());
 			String datequery1 = mdDate.generateCqlQuery();
 			
+			//date query for date accepted (only if publication is of type Thesis)
 			dateTypeList = new ArrayList<CriterionType>();
 			dateTypeList.add(CriterionType.DATE_ACCEPTED);
 			mdDate = new MetadataDateSearchCriterion(dateTypeList, getDateFrom(), getDateTo());
