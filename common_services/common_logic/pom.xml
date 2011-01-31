@@ -31,19 +31,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.53</version>
+		<version>1.0.54-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>common_logic</artifactId>
 	<packaging>ejb</packaging>
 	<name>common_logic</name>
-	<version>1.1.53</version>
+	<version>1.1.54-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.53</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.53</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.53</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
@@ -132,7 +132,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.56</version>
+			<version>1.0.57-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
