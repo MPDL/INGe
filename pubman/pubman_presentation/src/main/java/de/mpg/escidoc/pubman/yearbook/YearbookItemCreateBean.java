@@ -221,15 +221,24 @@ public class YearbookItemCreateBean extends FacesBean
 			ArrayList<CriterionType> dateTypeList = new ArrayList<CriterionType>();
 			dateTypeList.add(CriterionType.DATE_ISSUED);
 			dateTypeList.add(CriterionType.DATE_PUBLISHED_ONLINE);
-			
 			MetadataDateSearchCriterion mdDate = new MetadataDateSearchCriterion(dateTypeList, getDateFrom(), getDateTo());
+			String datequery1 = mdDate.generateCqlQuery();
 			
-			String datequery = mdDate.generateCqlQuery();
+			dateTypeList = new ArrayList<CriterionType>();
+			dateTypeList.add(CriterionType.DATE_ACCEPTED);
+			mdDate = new MetadataDateSearchCriterion(dateTypeList, getDateFrom(), getDateTo());
+			String datequery2 = "( " + mdDate.generateCqlQuery() + " ) AND escidoc.publication.type=\"http://purl.org/eprint/type/Thesis\"";
+			
+			
+			String datequery = "(( " + datequery1 + ") OR (" + datequery2 + " ))";
+			
 			
 			mds.getSubjects().add(new TextVO("escidoc.publication.issued>=\"" + getDateFrom() + "\""));
 			mds.getSubjects().add(new TextVO("escidoc.publication.issued<=\"" + getDateTo() + "\""));
 			mds.getSubjects().add(new TextVO("escidoc.publication.published-online>=\"" + getDateFrom() + "\""));
 			mds.getSubjects().add(new TextVO("escidoc.publication.published-online<=\"" + getDateTo() + "\""));
+			mds.getSubjects().add(new TextVO("escidoc.publication.dateAccepted>=\"" + getDateFrom() + "\""));
+			mds.getSubjects().add(new TextVO("escidoc.publication.dateAccepted<=\"" + getDateTo() + "\""));
 			
 			//org query
 			String orgIndex = "escidoc.any-organization-pids=\"" + getAffiliation().getReference().getObjectId() + "\"";
