@@ -83,6 +83,7 @@ public abstract class PubmanGuiModules extends SeleneseTestCase
     {
         PubmanUser pubmanUser = new PubmanUser( type, this.properties );
         loginPubman(pubmanUser.getUsername(), pubmanUser.getPassword());
+
         for( PubmanUser.UserRights right : PubmanUser.UserRights.values() ) {
             if( pubmanUser.isAuthorized(right) ) {
                 verifyTrue(selenium.isElementPresent(pubmanUser.getUserRightLinkHomepage(right)));
@@ -118,8 +119,8 @@ public abstract class PubmanGuiModules extends SeleneseTestCase
     {
         switch (type)
         {
-            case Item:
-                PubmanItem item = new PubmanItem(ItemType.Item, GenreType.OTHER);
+            case Other:
+                PubmanItem item = new PubmanItem(ItemType.Other, GenreType.OTHER);
                 PubmanItemBasic basic = new PubmanItemBasic("selenium testitem");
                 item.addBasic(basic);
                 PubmanItemContent content = new PubmanItemContent("keywords", "011 - Bibliographies", "contentAbstract");
@@ -136,6 +137,8 @@ public abstract class PubmanGuiModules extends SeleneseTestCase
                        "orgaAddress", "volume", "123", "publisher", "place", IdentifierType.ESCIDOC, "escidoc:65432", "edition", "issue", "1", "4231", "222" );
                 item.addSource(source);
                 return item;
+            case Paper:
+            	
             case ItemWithFile:
                 return null;
             case ItemWithFileAndLocator:
@@ -276,37 +279,48 @@ public abstract class PubmanGuiModules extends SeleneseTestCase
         typeAndCheck("editSource:0:inpSourceDetailSeqNumber", "58896");
         selenium.click("editSource:0:btnRemoveEditItem_btRemoveSource"); 
     }
+    
+    
 
     public String doEasySubmission(PubmanItem item)
     {
         selenium.click("form1:Header:lnkSubmission");
         selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
-        selenium.click("lblSubmission_lnkEasySubmission");
+        selenium.click("lnkSubmission_lnkEasySubmission");
         selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
-        selenium.click("easySubmission:CollectionSelection:iterDepositorContextList:lnkSelectForEasySubmissionFirst");
+//        selenium.click("easySubmission:CollectionSelection:iterDepositorContextList:lnkSelectForEasySubmissionFirst");
+		selenium.click("//a[text()='PubMan Test Collection']");
         selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
-        
         doEasySubmissionStep1( item );
-        
+       
         selenium.click("easySubmission:easySubmissionStep1Manual:lnkNext");
         selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
         
         doEasySubmissionStep2(item);
-        
         selenium.click("easySubmission:easySubmissionStep2Manual:lnkNext");
+
         selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
         
         doEasySubmissionStep3(item);
         
         selenium.click("easySubmission:easySubmissionStep3Manual:lnkSave");
         selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
-        String objectId = selenium.getText("txtObjectIdAndVersion");
-        log.info("Created object: " + objectId);
-        return objectId;
+//        String objectId = selenium.getText("txtObjectIdAndVersion");
+//        log.info("Created object: " + objectId);
+//        return objectId;
+        return "";
     }
     
     public void doEasySubmissionStep1(PubmanItem item) {
-        selenium.click("easySubmission:easySubmissionStep1Manual:btnChangeGenre");
+		for (int second = 0;; second++) {
+			if (second >= 60) fail("timeout");
+			try { if (selenium.isElementPresent("easySubmission:easySubmissionStep1Manual:selGenre")) break; } catch (Exception e) {}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
         selenium.select("easySubmission:easySubmissionStep1Manual:selGenre", "value=" + item.getGenre());
         selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
         typeAndCheck("easySubmission:easySubmissionStep1Manual:inpItemMetadataTitle", item.getBasicList().get(0).title);
@@ -348,7 +362,7 @@ public abstract class PubmanGuiModules extends SeleneseTestCase
     }
     public void doEasySubmissionStep2(PubmanItem item) {
         if( item.getPersonOrganizationList().get(0).creatorRole != null ) {
-            selenium.select("easySubmission:easySubmissionStep2Manual:iterCreatorCollection:0:selRoleString",
+            selenium.select("easySubmission:easySubmissionStep2Manual:iterCreatorOrganisationAuthors:0:selCreatorRoleString",
                     "value=" + item.getPersonOrganizationList().get(0).creatorRole.toString());
         }
         for( int i=0; i < item.getPersonOrganizationList().size(); i++ ) {
@@ -356,14 +370,17 @@ public abstract class PubmanGuiModules extends SeleneseTestCase
                 selenium.click("easySubmission:easySubmissionStep2Manual:iterCreatorCollection:"+i+":selCreatorTypeString:"+
                         item.getPersonOrganizationList().get(i).creatorType.ordinal());
             }
-            typeAndCheck("easySubmission:easySubmissionStep2Manual:iterCreatorCollection:"+i+":inpCreatorPersonFamilyName",
+            typeAndCheck("easySubmission:easySubmissionStep2Manual:iterCreatorOrganisationAuthors:"+i+":inpcreator_persons_person_family_name_optional",
                     item.getPersonOrganizationList().get(i).lastName);
-            typeAndCheck("easySubmission:easySubmissionStep2Manual:iterCreatorCollection:"+i+":inpCreatorPersonGivenName",
+            typeAndCheck("easySubmission:easySubmissionStep2Manual:iterCreatorOrganisationAuthors:"+i+":inppersons_person_given_name_optional",
                     item.getPersonOrganizationList().get(i).firstName);
+            
+            typeAndCheck("easySubmission:easySubmissionStep2Manual:iterCreatorOrganisationAuthors:"+i+":inppersons_person_ous_optional",
+            		""+item.getPersonOrganizationList().get(i).getOrganizationList().size());
             for( int u = 0; u < item.getPersonOrganizationList().get(i).getOrganizationList().size(); u++ ) {
-                typeAndCheck("easySubmission:easySubmissionStep2Manual:iterCreatorCollection:"+i+":iterCreatorPersonOrganisation:0:inpPersOrgaName",
+                typeAndCheck("easySubmission:easySubmissionStep2Manual:iterCreatorOrganisation:"+i+":inporganizations_organization_name",
                         item.getPersonOrganizationList().get(i).getOrganizationList().get(u).orgaName);
-                typeAndCheck("easySubmission:easySubmissionStep2Manual:iterCreatorCollection:"+i+":iterCreatorPersonOrganisation:0:inpPersOrgaAddress",
+                typeAndCheck("easySubmission:easySubmissionStep2Manual:iterCreatorOrganisation:"+i+":inporganizations_organization_address",
                         item.getPersonOrganizationList().get(i).getOrganizationList().get(u).orgaAddress);
                 // if we have more data, open another section
                 if( (u + 1) < item.getPersonOrganizationList().get(i).getOrganizationList().size() ) {
@@ -378,7 +395,7 @@ public abstract class PubmanGuiModules extends SeleneseTestCase
             }
         }
         typeAndCheck("easySubmission:easySubmissionStep2Manual:inpFreeKeywords", item.getContentList().get(0).keywords);
-        typeAndCheck("easySubmission:easySubmissionStep2Manual:inpSubject", item.getContentList().get(0).ddcSubject);
+ //       typeAndCheck("easySubmission:easySubmissionStep2Manual:inpSubjectValue", item.getContentList().get(0).ddcSubject);
         typeAndCheck("easySubmission:easySubmissionStep2Manual:inpAbstract", item.getContentList().get(0).contentAbstract);
     }
     public void doEasySubmissionStep3(PubmanItem item) {
@@ -398,15 +415,270 @@ public abstract class PubmanGuiModules extends SeleneseTestCase
                 item.getSourceList().get(0).genre.toString());
         typeAndCheck("easySubmission:easySubmissionStep3Manual:inpSourceTitle", 
                 item.getSourceList().get(0).title);
-        typeAndCheck("easySubmission:easySubmissionStep3Manual:inpSourceDetailsVolume", 
-                item.getSourceList().get(0).volume);
-        typeAndCheck("easySubmission:easySubmissionStep3Manual:inpSourceDetailsIssue", 
-                item.getSourceList().get(0).issue);
+//        typeAndCheck("easySubmission:easySubmissionStep3Manual:inpSourceDetailsVolume", 
+//                item.getSourceList().get(0).volume);
+//        typeAndCheck("easySubmission:easySubmissionStep3Manual:inpSourceDetailsIssue", 
+//                item.getSourceList().get(0).issue);
         typeAndCheck("easySubmission:easySubmissionStep3Manual:inpSourceDetailsStartPage", 
                 item.getSourceList().get(0).startPage);
         typeAndCheck("easySubmission:easySubmissionStep3Manual:inpSourceDetailsEndPage", 
                 item.getSourceList().get(0).endPage); 
     }
+
+    public void doFullSubmission(PubmanItem item){
+		full_Submission_testing_submit(item);
+		full_Submission_testing_release(item);
+		full_Submission_testing_submit_and_release(item);    	
+    }
+	public void full_Submission_testing_submit(PubmanItem item) {
+		selenium.click("form1:Header:lnkSubmission");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("lnkNewSubmission");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("//a[text()='PubMan Test Collection']");
+		for (int second = 0;; second++) {
+			if (second >= 60) fail("timeout");
+			try { if (selenium.isElementPresent("cboGenre")) break; } catch (Exception e) {}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		selenium.select("cboGenre", "label=Paper");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("inputTitleText", "full submission paper submit");
+		selenium.select("iterCreatorOrganisationAuthors:0:selCreatorRoleString", "label=Editor");
+		selenium.mouseDown("iterCreatorOrganisationAuthors:0:inpcreator_persons_person_family_name_optional");
+		selenium.keyPress("iterCreatorOrganisationAuthors:0:inpcreator_persons_person_family_name_optional", "\\109");
+		selenium.keyPress("iterCreatorOrganisationAuthors:0:inpcreator_persons_person_family_name_optional", "\\97");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		selenium.mouseOver("//ul[3]/li[2]");
+		selenium.click("//ul[3]/li[2]");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		selenium.click("lnkValidate");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		verifyTrue(selenium.isTextPresent("If genre is not equal to \"Series\" or \"Journal\" or \"Other\" or \"Manuscript\" at least one date has to be provided."));
+		selenium.click("//input[@type='button']");
+		selenium.type("txtDatePublishedInPrint", "2011-01-21");
+		selenium.click("lnkValidate");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		verifyTrue(selenium.isTextPresent("The Item is valid."));
+		selenium.click("//input[@type='button']");
+		selenium.click("lnkSave");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("Header:lnkDepWorkspace");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("//li//*[.='full submission paper submit']");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("lnkEdit");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("fileUploads:0:inpAddFileFromUrl", "http://www.atsdr.cdc.gov/tfacts92.pdf");
+		selenium.click("fileUploads:0:btnUploadFileFromUrl");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("locatorUploads:0:inpAddUrl", "http://de.wikipedia.org/wiki/Selenium");
+		selenium.click("locatorUploads:0:btnSaveUrl");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.select("fileUploads:0:selFileContentCategory", "label=Any fulltext");
+		selenium.select("locatorUploads:0:selLocatorContentCategory", "label=Any fulltext");
+		selenium.click("lnkValidate");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("//input[@type='button']");
+		selenium.click("lnkSaveAndSubmit");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("//div[@id='content']/div[2]/div[1]/div[2]/div/div[3]/span/textarea", "a test case with MD");
+		selenium.click("lnkSave");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("Header:quickSearchString", "full submission paper");
+		selenium.click("Header:btnQuickSearchStart");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("Header:quickSearchString", "full submission paper");
+		selenium.click("Header:quickSearchCheckBox");
+		selenium.click("Header:btnQuickSearchStart");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		verifyTrue(selenium.isTextPresent("full submission paper submit"));
+	}
+	
+
+	public void full_Submission_testing_release(PubmanItem item){
+		selenium.click("Header:lnkSubmission");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("lnkNewSubmission");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("//a[text()='PubMan Test Collection']");
+		for (int second = 0;; second++) {
+			if (second >= 60) fail("timeout");
+			try { if (selenium.isElementPresent("cboGenre")) break; } catch (Exception e) {}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		selenium.select("cboGenre", "label=Paper");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("inputTitleText", "full submission paper release");
+		selenium.select("iterCreatorOrganisationAuthors:0:selCreatorRoleString", "label=Editor");
+		selenium.mouseDown("iterCreatorOrganisationAuthors:0:inpcreator_persons_person_family_name_optional");
+		selenium.keyPress("iterCreatorOrganisationAuthors:0:inpcreator_persons_person_family_name_optional", "\\109");
+		selenium.keyPress("iterCreatorOrganisationAuthors:0:inpcreator_persons_person_family_name_optional", "\\97");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		selenium.mouseOver("//ul[3]/li[2]");
+		selenium.click("//ul[3]/li[2]");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		selenium.click("lnkValidate");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		verifyTrue(selenium.isTextPresent("If genre is not equal to \"Series\" or \"Journal\" or \"Other\" or \"Manuscript\" at least one date has to be provided."));
+		selenium.click("//input[@type='button']");
+		selenium.type("txtDatePublishedInPrint", "2011-01-21");
+		selenium.click("lnkValidate");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		verifyTrue(selenium.isTextPresent("The Item is valid."));
+		selenium.click("//input[@type='button']");
+		selenium.click("lnkSaveAndSubmit");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("lnkSave");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("lnkRelease");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("//div[@id='content']/div[2]/div[1]/div[2]/div/div[3]/span/textarea", "the item is released");
+		selenium.click("lnkRelease");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("Header:lnkDepWorkspace");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("//li//*[.='full submission paper release']");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("lnkModify");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("fileUploads:0:inpAddFileFromUrl", "http://www.atsdr.cdc.gov/tfacts92.pdf");
+		selenium.click("fileUploads:0:btnUploadFileFromUrl");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("locatorUploads:0:inpAddUrl", "http://de.wikipedia.org/wiki/Selenium");
+		selenium.click("locatorUploads:0:btnSaveUrl");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.select("fileUploads:0:selFileContentCategory", "label=Any fulltext");
+		selenium.select("locatorUploads:0:selLocatorContentCategory", "label=Any fulltext");
+		selenium.click("lnkValidate");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("//input[@type='button']");
+		selenium.click("lnkSaveAndSubmit");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("lnkSave");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("lnkRelease");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("lnkRelease");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("Header:quickSearchString", "full submission");
+		selenium.click("Header:btnQuickSearchStart");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("Header:quickSearchString", "full submission");
+		selenium.click("Header:quickSearchCheckBox");
+		selenium.click("Header:btnQuickSearchStart");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		verifyTrue(selenium.isTextPresent("full submission paper release"));
+	}
+	
+
+	public void full_Submission_testing_submit_and_release(PubmanItem item){
+		selenium.click("Header:lnkSubmission");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("lnkNewSubmission");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("//a[text()='PubMan Test Collection']");
+		for (int second = 0;; second++) {
+			if (second >= 60) fail("timeout");
+			try { if (selenium.isElementPresent("cboGenre")) break; } catch (Exception e) {}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		selenium.select("cboGenre", "label=Paper");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("inputTitleText", "full submission paper submit and release");
+		selenium.select("iterCreatorOrganisationAuthors:0:selCreatorRoleString", "label=Editor");
+		selenium.mouseDown("iterCreatorOrganisationAuthors:0:inpcreator_persons_person_family_name_optional");
+		selenium.keyPress("iterCreatorOrganisationAuthors:0:inpcreator_persons_person_family_name_optional", "\\109");
+		selenium.keyPress("iterCreatorOrganisationAuthors:0:inpcreator_persons_person_family_name_optional", "\\97");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		selenium.mouseOver("//ul[3]/li[2]");
+		selenium.click("//ul[3]/li[2]");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		selenium.click("lnkValidate");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		verifyTrue(selenium.isTextPresent("If genre is not equal to \"Series\" or \"Journal\" or \"Other\" or \"Manuscript\" at least one date has to be provided."));
+		selenium.click("//input[@type='button']");
+		selenium.type("txtDatePublishedInPrint", "2011-01-21");
+		selenium.click("lnkValidate");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		verifyTrue(selenium.isTextPresent("The Item is valid."));
+		selenium.click("//input[@type='button']");
+		selenium.click("lnkSave");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("Header:lnkDepWorkspace");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("//li//*[.='full submission paper submit and release']");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("lnkEdit");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("fileUploads:0:inpAddFileFromUrl", "http://www.atsdr.cdc.gov/tfacts92.pdf");
+		selenium.click("fileUploads:0:btnUploadFileFromUrl");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("locatorUploads:0:inpAddUrl", "http://de.wikipedia.org/wiki/Selenium");
+		selenium.click("locatorUploads:0:btnSaveUrl");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.select("fileUploads:0:selFileContentCategory", "label=Any fulltext");
+		selenium.select("locatorUploads:0:selLocatorContentCategory", "label=Any fulltext");
+		selenium.click("lnkValidate");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("//input[@type='button']");
+		selenium.click("lnkSaveAndSubmit");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("//div[@id='content']/div[2]/div[1]/div[2]/div/div[3]/span/textarea", "a test case with MD");
+		selenium.click("lnkSave");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.click("lnkRelease");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("//div[@id='content']/div[2]/div[1]/div[2]/div/div[3]/span/textarea", "the item is released");
+		selenium.click("lnkRelease");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("Header:quickSearchString", "full submission");
+		selenium.click("Header:btnQuickSearchStart");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		selenium.type("Header:quickSearchString", "full submission");
+		selenium.click("Header:quickSearchCheckBox");
+		selenium.click("Header:btnQuickSearchStart");
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+		verifyTrue(selenium.isTextPresent("full submission paper submit and release"));
+	}
     
     public void checkViewItemPage( PubmanItem item ) {
         
@@ -417,4 +689,10 @@ public abstract class PubmanGuiModules extends SeleneseTestCase
             selenium.type(target, value);
         }
     }
+    
+    public void switchPageLanguage(String language){
+		selenium.select("form1:Header:selSelectLocale", "label=" + language);
+		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+    }
+
 }

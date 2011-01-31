@@ -61,8 +61,18 @@ public abstract class PubmanGuiTestcase extends PubmanGuiModules
     @Test
     public void testPMTS1SaveItem() {
         loginPubmanForType( PubmanUser.UserType.DepositorModeratorSimpleStandardWF);
-        PubmanItem item = createPubItem(PubmanItem.ItemType.Item);
+        PubmanItem item = createPubItem(PubmanItem.ItemType.Other);
+        switchPageLanguage("English");
         doEasySubmission( item );
         logoutPubman();
     }
+    
+	@Test
+	public void testPMTS_49_Full_Submission_Testing() throws Exception{
+		loginPubmanForType(PubmanUser.UserType.DepositorModeratorSimpleStandardWF);
+		switchPageLanguage("English");
+		PubmanItem item = createPubItem(PubmanItem.ItemType.Paper);
+		doFullSubmission(item);
+		logoutPubman();
+	}
 }

@@ -38,10 +38,12 @@ import java.util.List;
 public class PubmanItem
 {
     public enum ItemType {
-        Item,
+//        Item,
         ItemWithFile,
         ItemWithLocator,
-        ItemWithFileAndLocator
+        ItemWithFileAndLocator, 
+        Other,
+        Paper,
     }
     
     public enum GenreType {
