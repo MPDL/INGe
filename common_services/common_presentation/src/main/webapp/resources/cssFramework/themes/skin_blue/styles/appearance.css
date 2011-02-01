@@ -121,13 +121,22 @@ body .wrapper, body .footer {
         border-right: 0px #FFFFFF !important;
         border-bottom: 0px #FFFFFF !important;
         border-left: 0px #FFFFFF !important;
+		list-style:none !important;
 }
 
-.itemHeader, .listItemLine, .blockHeader, .blockHeader *, .itemLine, .itemBlock, .itemBlockContent * {
+	/*Print Lists*/
+
+.listItemLine, .blockHeader, .blockHeader *, .listItem {
         text-align: left !important;
         float: left !important;
         clear: both !important;
-        text-indent: 0px !important;
+}
+
+	/*Print Items*/
+
+.itemLine, .itemBlockContent, .fullItem .blockHeader {
+        text-align: left !important;
+        float: left !important;
 }
 
 .paginator * {
