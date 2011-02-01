@@ -50,12 +50,6 @@
     background: url('../../../globalImages/logo.png') no-repeat top left;
 }
 
-/*PUT IN HEADER LOGO FOR PRINT DISPLAY HERE*/
-@media print { .contentMenu {list-style-image:
-        url('../../../globalImages/logo.png');
-}
-}
-
 .themePark {
     /*	background: inherit; */
     /*	background-image: url('../images/logo_overlay_beta.gif');*/
