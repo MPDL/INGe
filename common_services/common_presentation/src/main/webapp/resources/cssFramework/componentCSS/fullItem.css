@@ -32,6 +32,12 @@
 
 /*GENERAL*/
 
+@media print {
+
+	.messageArea {display: none;}
+
+}
+
 .fullItem {
 	border-top-width: 0.19em !important;
 	border-top-style: solid;
