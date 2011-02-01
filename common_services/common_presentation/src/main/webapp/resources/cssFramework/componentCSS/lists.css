@@ -389,7 +389,7 @@
 /*PRINT RELATED DEFINITIONS*/
 
 @media print {
-	.itemList input, .itemList select, .itemList .seperator, .itemList .collapse, .itemList .expand {
+	.itemList input, .itemList select, .itemList .seperator, .listItem .collapse, .listItem .expand {
 		display: none !important;
 	}
 	
@@ -397,7 +397,7 @@
 		display: none !important;
 	}
 	
-	.itemList {
+	.itemList, .listItem {
 		border-top-width: 0px !important;
 	}
 }
