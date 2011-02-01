@@ -197,7 +197,7 @@ public class LoginHelper extends FacesBean
             fetchAccountUser(this.eSciDocUserHandle);
             this.btnLoginLogout = "login_btLogout";
           //reinitialize ContextList
-//            ((ContextListSessionBean)getSessionBean(ContextListSessionBean.class)).init();
+            ((ContextListSessionBean)getSessionBean(ContextListSessionBean.class)).init();
             
         }
 
