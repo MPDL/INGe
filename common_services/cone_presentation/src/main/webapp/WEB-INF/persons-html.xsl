@@ -287,7 +287,7 @@
 											<xsl:if test="eterms:degree != ''"><xsl:value-of select="eterms:degree"/><xsl:text> </xsl:text></xsl:if> <xsl:value-of select="dc:title"/>
 										</h2>
 										<h3>
-											<xsl:for-each select="eterms:position/rdf:Description[not(exists(eterms:end-date)) or eterms:end-date = '' or xs:date(eterms:end-date) &gt;= current-date()]/eprints:affiliatedInstitution">
+											<xsl:for-each select="eterms:position/rdf:Description[not(exists(eterms:end-date)) or eterms:end-date = '' or escidoc:date(eterms:end-date, true()) &gt;= current-date()]/eprints:affiliatedInstitution">
 												<xsl:sort select="."/>
 												<xsl:value-of select="."/><xsl:if test="position() != last()">, </xsl:if> 
 											</xsl:for-each>
@@ -306,9 +306,10 @@
 										<xsl:value-of select="escidoc:label('researcher_profile')"/>
 									</h3>
 									<span class="seperator">&#160;</span>
-									<div class="free_area0 itemBlockContent endline">
-										<xsl:for-each select="eterms:position/rdf:Description[not(exists(dc:end-date)) or dc:end-date = '' or xs:date(dc:end-date) &gt;= current-date()]">
-											<xsl:sort select="eterms:organization[0]"/>
+									<div class="free_area0 itemBlockContent endline">									
+									
+										<xsl:for-each select="eterms:position/rdf:Description[not(exists(eterms:end-date)) or eterms:end-date = '' or (escidoc:date(eterms:end-date, true()) &gt;= current-date())]">
+											<xsl:sort select="eprints:affiliatedInstitution[0]"/>
 											<div class="free_area0 endline itemLine noTopBorder">
 												<b class="xLarge_area0 endline labelLine">
 													<xsl:value-of select="escidoc:label('current_position')"/><span class="noDisplay">: </span>
@@ -316,9 +317,9 @@
 												<span class="xHuge_area0 xTiny_marginLExcl endline">
 													<xsl:value-of select="eterms:position-name"/>
 													<xsl:text> </xsl:text>
-													<xsl:if test="eterms:organization">
+													<xsl:if test="eprints:affiliatedInstitution">
 														<xsl:if test="exists(eterms:position-name)">(</xsl:if>
-														<xsl:for-each select="eterms:organization">
+														<xsl:for-each select="eprints:affiliatedInstitution">
 															<xsl:value-of select="."/>
 															<xsl:if test="position() != last()">, </xsl:if>
 														</xsl:for-each>
@@ -327,8 +328,8 @@
 												</span>
 											</div>
 										</xsl:for-each>
-										<xsl:for-each select="eterms:position/rdf:Description[dc:end-date != '' and xs:date(dc:end-date) &lt; current-date()]">
-											<xsl:sort select="dc:end-date" order="descending"/>	
+										<xsl:for-each select="eterms:position/rdf:Description[eterms:end-date != '' and escidoc:date(eterms:end-date, true()) &lt; current-date()]">
+											<xsl:sort select="eterms:end-date" order="descending"/>	
 											<div class="free_area0 endline itemLine noTopBorder">
 												<b class="xLarge_area0 endline labelLine">
 													<xsl:value-of select="escidoc:label('former_position')"/><span class="noDisplay">: </span>
@@ -336,9 +337,9 @@
 												<span class="xHuge_area0 xTiny_marginLExcl endline">
 													<xsl:value-of select="eterms:position-name"/>
 													<xsl:text> </xsl:text>
-													<xsl:if test="eterms:organization">
+													<xsl:if test="eprints:affiliatedInstitution">
 														<xsl:if test="exists(eterms:position-name)">(</xsl:if>
-														<xsl:for-each select="eterms:organization">
+														<xsl:for-each select="eprints:affiliatedInstitution">
 															<xsl:value-of select="."/>
 															<xsl:if test="position() != last()">, </xsl:if>
 														</xsl:for-each>
@@ -569,6 +570,47 @@
 			<xsl:when test="not(exists($labels/language[@id = $lang]/label[@id = $name]))">### Label '<xsl:value-of select="$name"/>' nor found ###</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="$labels/language[@id = $lang]/label[@id = $name]"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:function>
+	
+	<xsl:function name="escidoc:date" as="xs:date">
+		<xsl:param name="text"/>
+		<xsl:param name="last" as="xs:boolean"/>
+		
+		<xsl:choose>
+			<xsl:when test="string-length($text) = 4">
+				<xsl:choose>
+					<xsl:when test="$last">
+						<xsl:value-of select="xs:date(concat($text, '-12-31'))"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="xs:date(concat($text, '-01-01'))"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="string-length($text) = 7">
+				<xsl:choose>
+					<xsl:when test="$last">
+						<xsl:choose>
+							<xsl:when test="substring-after($text, '-') = '01'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
+							<xsl:when test="substring-after($text, '-') = '03'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
+							<xsl:when test="substring-after($text, '-') = '05'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
+							<xsl:when test="substring-after($text, '-') = '07'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
+							<xsl:when test="substring-after($text, '-') = '08'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
+							<xsl:when test="substring-after($text, '-') = '10'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
+							<xsl:when test="substring-after($text, '-') = '12'"><xsl:value-of select="xs:date(concat($text, '-31'))"/></xsl:when>
+							<xsl:when test="substring-after($text, '-') = '02'"><xsl:value-of select="xs:date(concat($text, '-28'))"/></xsl:when>
+							<xsl:otherwise><xsl:value-of select="xs:date(concat($text, '-30'))"/></xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="xs:date(concat($text, '-01'))"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="xs:date($text)"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:function>
