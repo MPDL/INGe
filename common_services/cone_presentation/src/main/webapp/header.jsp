@@ -243,6 +243,9 @@
 		
 		function checkField(element, model, predicate, formField, counter, popup, shouldBeUnique)
 		{
+			mx = tempX;
+			my = tempY;
+			
 			if (typeof popup == 'undefined')
 			{
 				popup = false;
@@ -365,7 +368,7 @@
 									}
 									html += '</ul>\n';
 									
-									showDialog(html);
+									showDialog(html, element);
 									
 								}
 								else
@@ -416,23 +419,74 @@
 
 		}
 		
-		function showDialog(html)
+		function showDialog(html, element)
 		{
 			$('.messageArea').append(html);
-			$('.messageArea').css('position', 'fixed');
+			$('.messageArea').css('position', 'absolute');
 			$('.messageArea').css('z-index', '2001');
-			$('.messageArea').css('left', '722px');
-			$('.messageArea').css('top', '139px');
+			$('.messageArea').css('left', mx);
+			$('.messageArea').css('top', my);
 			$('.messageArea').removeClass('noDisplay');
+			
+			document.getElementById('fullItem').style.opacity='0.4';
+			document.getElementById('fullItem').style.bg='FFF';
+			$('*').attr('readonly', true);
+		    $(':input : file').attr('disabled', true);
 		}
 
 		function closeDialog()
 		{
 			$('.dialog').remove();
 			$('.messageArea').addClass('noDisplay');
+			
+			document.getElementById('fullItem').style.opacity='1';
+			document.getElementById('fullItem').style.bg='FFF';
+			$('*').attr('readonly', false);
+		    $(':input : file').attr('disabled', false);
 		}
 		
 	</script>
+	
+	<script language="JavaScript1.2">
+<!--
+
+// Detect if the browser is IE or not.
+// If it is not IE, we assume that the browser is NS.
+var IE = document.all?true:false
+
+// If NS -- that is, !IE -- then set up for mouse capture
+if (!IE) document.captureEvents(Event.MOUSEMOVE)
+
+// Set-up to use getMouseXY function onMouseMove
+document.onmousemove = getMouseXY;
+
+// Temporary variables to hold mouse x-y pos.s
+var tempX = 0
+var tempY = 0
+var mx = 0
+var my = 0
+
+// Main function to retrieve mouse x-y pos.s
+
+function getMouseXY(e) {
+  if (IE) { // grab the x-y pos.s if browser is IE
+    tempX = event.clientX + document.body.scrollLeft
+    tempY = event.clientY + document.body.scrollTop
+  } else {  // grab the x-y pos.s if browser is NS
+    tempX = e.pageX
+    tempY = e.pageY
+  }  
+  // catch possible negative values in NS4
+  if (tempX < 0){tempX = 0}
+  if (tempY < 0){tempY = 0}  
+  // show the position values in the form named Show
+  // in the text fields named MouseX and MouseY
+
+  return true
+}
+
+//-->
+</script>
 	<script type="text/javascript" src="/cone/js/jquery-1.2.6.min.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.jdialog.min.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.dimensions.js">;</script>

@@ -739,7 +739,7 @@
 <%@page import="de.mpg.escidoc.services.cone.ModelList.Event"%><html>
 	<jsp:include page="header.jsp"/>
 	<body onload="self.pageLoaded = true;checkFields()">
-		<div class="full wrapper">
+		<div class="full wrapper" id="fullItem">
 			<jsp:include page="navigation.jsp"/>
 			<div id="content" class="full_area0 clear">
 			<!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
