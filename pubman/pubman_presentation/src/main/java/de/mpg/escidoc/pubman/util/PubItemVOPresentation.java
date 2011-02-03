@@ -168,10 +168,12 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 
 		// set up some pre-requisites
 		//the list of numbered affiliated organizations
-		createAffiliatedOrganizationList();
+		//createAffiliatedOrganizationList();
+		//NBU: removed not used, but spending a lot of time when many authors
 
 		// the list of creators (persons and organizations)
-		createCreatorList();
+		//createCreatorList();
+		//NBU: removed not used, but spending a lot of time when many authors
 
 		// get the first source of the item (if available)
 		if (item.getMetadata().getSources() != null && item.getMetadata().getSources().size() > 0)
@@ -179,7 +181,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 			this.firstSource = item.getMetadata().getSources().get(0);
 		}
 
-		getCountCreators();
+		//getCountCreators();
+		//NBU: removed not used, but spending a lot of time when many authors
 
 		// get the search result hits
 		if (this.searchHitList != null && this.searchHitList.size() > 0)
