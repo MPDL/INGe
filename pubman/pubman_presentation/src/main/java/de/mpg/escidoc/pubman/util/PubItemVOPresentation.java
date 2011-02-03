@@ -294,117 +294,78 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 		this.shortView = !mediumView;
 	}
 
+
 	/**
 	 * Distinguish between Persons and organization as creators and returns them formatted as string.
 	 * @return String the  formatted creators
 	 */
 	public String getCreators()
 	{
-		StringBuffer creators = new StringBuffer();
+		int creatorsNo = getMetadata().getCreators().size();
+		return getCreators(creatorsNo);
 
-		if (getMetadata().getCreators() != null)
+	}
+
+	/**
+	 * Formats the display of the creators (internal use only, used for different views)
+	 * @return String the  formatted creators
+	 */
+
+	private String getCreators(int creatorMaximum)
+	{
+		StringBuffer creators = new StringBuffer();
+		for (int i = 0; i < creatorMaximum; i++)
 		{
-			for (int i = 0; i < getMetadata().getCreators().size(); i++)
+			if (getMetadata().getCreators().get(i).getPerson() != null)
 			{
-				if (getMetadata().getCreators().get(i).getPerson() != null)
+				if (getMetadata().getCreators().get(i).getPerson().getFamilyName() != null)
 				{
-					if (getMetadata().getCreators().get(i).getPerson().getFamilyName() != null)
-					{
-						creators.append(getMetadata().getCreators().get(i).getPerson().getFamilyName());
-					}
+					creators.append(getMetadata().getCreators().get(i).getPerson().getFamilyName());
 					if (getMetadata()
-							.getCreators()
-							.get(i)
-							.getPerson()
-							.getFamilyName() != null
-							&& getMetadata()
 							.getCreators()
 							.get(i)
 							.getPerson()
 							.getGivenName() != null)
 					{
 						creators.append(", ");
-					}
-					if (getMetadata().getCreators().get(i).getPerson().getGivenName() != null)
-					{
 						creators.append(getMetadata().getCreators().get(i).getPerson().getGivenName());
 					}
 				}
-				else if (getMetadata().getCreators().get(i).getOrganization() != null)
-				{
-					if (getMetadata().getCreators().get(i).getOrganization().getName().getValue() != null)
-					{
-						creators.append(
-								getMetadata().getCreators().get(i).getOrganization().getName().getValue());
-					}
-				}
-				if (i < getMetadata().getCreators().size() - 1)
-				{
-					creators.append("; ");
-				}
 			}
+			else if (getMetadata().getCreators().get(i).getOrganization() != null)
+			{
+				creators.append(
+						getMetadata().getCreators().get(i).getOrganization().getName().getValue());
+			}
+
+			if (i < creatorMaximum - 1)
+			{
+				creators.append("; ");
+			}
+
 		}
+
 		return creators.toString();
 	}
 
+
 	public String getCreatorsShort()
 	{
-		int creatorMaximum = 4;
-		StringBuffer creators = new StringBuffer();
+		int creatorsMax = 4;
+		int creatorsNo = getMetadata().getCreators().size();
+		String creators;
 
-		if (getMetadata().getCreators().size() < creatorMaximum)
+		if (creatorsNo <= creatorsMax)
 		{
-			creatorMaximum = getMetadata().getCreators().size();
+			creators=getCreators(creatorsNo);
+		}
+		else
+		{
+			creators=getCreators(creatorsMax);
+			creators= creators.toString() + " ...";
 		}
 
-		if (getMetadata().getCreators() != null)
-		{
-			for (int i = 0; i < creatorMaximum; i++)
-			{
-				if (getMetadata().getCreators().get(i).getPerson() != null)
-				{
-					if (getMetadata().getCreators().get(i).getPerson().getFamilyName() != null)
-					{
-						creators.append(getMetadata().getCreators().get(i).getPerson().getFamilyName());
-					}
-					if (getMetadata()
-							.getCreators()
-							.get(i)
-							.getPerson()
-							.getFamilyName() != null
-							&& getMetadata()
-							.getCreators()
-							.get(i)
-							.getPerson()
-							.getGivenName() != null)
-					{
-						creators.append(", ");
-					}
-					if (getMetadata().getCreators().get(i).getPerson().getGivenName() != null)
-					{
-						creators.append(getMetadata().getCreators().get(i).getPerson().getGivenName());
-					}
-				}
-				else if (getMetadata().getCreators().get(i).getOrganization() != null)
-				{
-					if (getMetadata().getCreators().get(i).getOrganization().getName().getValue() != null)
-					{
-						creators.append(
-								getMetadata().getCreators().get(i).getOrganization().getName().getValue());
-					}
-				}
-				if (i < creatorMaximum - 1)
-				{
-					creators.append("; ");
-				}
-			}
-
-		}
-		if (getMetadata().getCreators().size() > creatorMaximum)
-		{
-			return creators.toString() + " ...";
-		}
-		return creators.toString();
+		return creators;
 	}
 
 	/**
