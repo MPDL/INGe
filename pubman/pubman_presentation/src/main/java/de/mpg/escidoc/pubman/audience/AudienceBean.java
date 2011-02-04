@@ -344,7 +344,13 @@ public class AudienceBean extends FacesBean
             {
                 for(int l = 0; l < grantsToRevoke.size(); l++)
                 {
-                    grantsToRevoke.get(l).getGrant().revokeInCoreservice(loginHelper.getESciDocUserHandle(), DUMMY_REVOKE_COMMENT);
+                    try {
+						grantsToRevoke.get(l).getGrant().revokeInCoreservice(loginHelper.getESciDocUserHandle(), DUMMY_REVOKE_COMMENT);
+						
+					} catch (RuntimeException e) {
+						logger.error("Error while revoking grant: ", e);
+						error(getMessage("AudienceErrorRevokingGrant"));
+					}
                 }
             }
             // create grants that have been changed
@@ -359,7 +365,7 @@ public class AudienceBean extends FacesBean
                     catch (RuntimeException rE)
                     {
                     	logger.error("Error while creating grant: ", rE);
-                        // just do nothing if grant already exists
+                    	error(getMessage("AudienceErrorAssigningGrant"));
                     }
                 }
             }
