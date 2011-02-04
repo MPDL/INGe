@@ -269,6 +269,7 @@ public class AudienceBean extends FacesBean
      */
     public String save() 
     {
+    	boolean error=false;
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class); 
         AudienceSessionBean asb = this.getAudienceSessionBean();
         
@@ -318,9 +319,11 @@ public class AudienceBean extends FacesBean
                             // check if user group has been changed 
                             if(grants.get(k).getGrant().getGrantedTo().equals(this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j).getGrant().getGrantedTo()))
                             {
+                            	//If user group has NOT changed, remove Grant from grants to be revoked
                                 grantsToRevoke.remove(k);
                             }
-                            else
+                            //If user group has changed, revoke old grant and add new grant, except if no user group is selected for new grant
+                            else if(!this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j).getGrant().getGrantedTo().equals(""))
                             {
                                 //grantsToRevoke.remove(k);
                                 grantsToCreate.add(this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(j));
@@ -340,7 +343,7 @@ public class AudienceBean extends FacesBean
             }
             
             // revoke the grants to be revoked
-            if(grantsToRevoke != null)
+            if(grantsToRevoke != null) 
             {
                 for(int l = 0; l < grantsToRevoke.size(); l++)
                 {
@@ -350,11 +353,12 @@ public class AudienceBean extends FacesBean
 					} catch (RuntimeException e) {
 						logger.error("Error while revoking grant: ", e);
 						error(getMessage("AudienceErrorRevokingGrant"));
+						error=true;
 					}
                 }
             }
             // create grants that have been changed
-            if(grantsToCreate != null)  
+            if(grantsToCreate != null && !error)  
             {
                 for(int m = 0; m < grantsToCreate.size(); m++)
                 {
@@ -366,11 +370,17 @@ public class AudienceBean extends FacesBean
                     {
                     	logger.error("Error while creating grant: ", rE);
                     	error(getMessage("AudienceErrorAssigningGrant"));
+                    	error=true;
                     }
                 }
             }
         }
+        
         this.getAudienceSessionBean().cleanUp();
+        if(!error)
+        {
+        	info(getMessage("AudienceSuccessfullyChanged"));
+        }
         return ViewItemFull.LOAD_VIEWITEM;
     }
     
