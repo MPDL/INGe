@@ -31,19 +31,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.54</version>
+		<version>1.0.55-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>citationmanager_ear</artifactId>
 	<name>citationmanager_ear</name>
 	<packaging>ear</packaging>
-	<version>1.0.59</version>
+	<version>1.0.60-SNAPSHOT</version>
 	
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.54</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.54</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.54</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager_ear</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager_ear</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 	
 	<build>
@@ -213,20 +213,20 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.57</version>
+			<version>1.0.58-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.59</version>
+			<version>1.0.60-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.54</version>
+			<version>1.1.55-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -305,7 +305,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.42</version>
+			<version>1.0.43-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>
 <!--		<dependency>-->
