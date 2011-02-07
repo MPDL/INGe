@@ -31,6 +31,7 @@
 package de.mpg.escidoc.pubman;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 
 /**
@@ -40,7 +41,7 @@ import de.mpg.escidoc.pubman.submitItem.SubmitItem;
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 23.08.2007
  */
-public class SubmitItemPage extends BreadcrumbPage
+public class SubmitItemPage extends FacesBean
 {
     /**
      * Public constructor.
@@ -72,10 +73,12 @@ public class SubmitItemPage extends BreadcrumbPage
         fragment.handleMessage();
     }
 
+    /*
     @Override
     public boolean isItemSpecific() 
     {
         return true;
     }
+    */
 
 }

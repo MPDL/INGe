@@ -30,12 +30,15 @@ package de.mpg.escidoc.pubman;
 
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 public class PubManRequestBean extends FacesBean
 {
     public static final String BEAN_NAME = "PubManRequestBean";
-    
+    private static Logger logger = Logger.getLogger(PubManRequestBean.class);
     private String helpAnchor = "";
     private String requestedPage = "";
     
@@ -81,6 +84,46 @@ public class PubManRequestBean extends FacesBean
 
     public void setRequestedPage(String requestedPage) {
         this.requestedPage = requestedPage;
+    }
+    
+    
+    /**
+     * Reads the policy URL from the properties file.
+     * @return policyUrl as String
+     */
+    public String getPolicyUrl()
+    {
+        String url = "";
+        try
+        {
+            url = PropertyReader.getProperty("escidoc.pubman.policy.url");
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not read property: 'escidoc.pubman.policy.url' from properties file.", e);
+        }
+
+        return url;
+    }
+    
+    
+    /**
+     * Reads the contact URL from the properties file.
+     * @return contactUrl as String
+     */
+    public String getContactUrl()
+    {
+        String url = "";
+        try
+        {
+            url = PropertyReader.getProperty("escidoc.pubman.contact.url");
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not read property: 'escidoc.pubman.contact.url' from properties file.", e);
+        }
+
+        return url;
     }
     
     

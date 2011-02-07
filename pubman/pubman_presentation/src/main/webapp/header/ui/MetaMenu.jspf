@@ -44,11 +44,11 @@
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 	<!-- Policy -->
-	<h:commandLink id="lnkPolicy" styleClass="large_area0_p8 endline" title="#{tip.mainMenu_lnkPolicy}" onclick="loadBlog('#{HomePage.policyUrl}');return false" value="#{lbl.mainMenu_lnkPolicy}" />
+	<h:commandLink id="lnkPolicy" styleClass="large_area0_p8 endline" title="#{tip.mainMenu_lnkPolicy}" onclick="loadBlog('#{PubManRequestBean.policyUrl}');return false" value="#{lbl.mainMenu_lnkPolicy}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 	<!-- Contact -->
-	<h:commandLink id="lnkContact" styleClass="medium_area0_p8 endline" title="#{tip.contact}" onclick="loadAbout('#{HomePage.contactUrl}');return false" value="#{lbl.contact}" />
+	<h:commandLink id="lnkContact" styleClass="medium_area0_p8 endline" title="#{tip.contact}" onclick="loadAbout('#{PubManRequestBean.contactUrl}');return false" value="#{lbl.contact}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 	<!-- LogIn, LogOut -->
