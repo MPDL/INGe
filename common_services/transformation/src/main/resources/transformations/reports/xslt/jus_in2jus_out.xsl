@@ -274,7 +274,7 @@
 					<xsl:when test="string-length($authorString) = 0">
 						<xsl:text disable-output-escaping="yes">&lt;span class="Italic"&gt;&lt;i&gt;</xsl:text>
 							<xsl:value-of select="$authorCitationName" />
-						<xsl:text disable-output-escaping="yes">&lt;/i&gt;&lt;/span&gt;</xsl:text>
+						<xsl:text disable-output-escaping="yes">&lt;/i&gt;&lt;/span&gt;</xsl:text>,
 					</xsl:when>
 					<!--
 						when more than one author write the citation style name of the
@@ -286,17 +286,17 @@
 							<xsl:when test="$pos = 1">
 								<xsl:text disable-output-escaping="yes">&lt;span class="Italic"&gt;&lt;i&gt;</xsl:text>
 								<xsl:value-of select="$authorCitationName" />
-								<xsl:text disable-output-escaping="yes">&lt;/i&gt;&lt;/span&gt;</xsl:text>; <xsl:value-of select="$authorString" />
+								<xsl:text disable-output-escaping="yes">&lt;/i&gt;&lt;/span&gt;</xsl:text>; <xsl:value-of select="$authorString" />,
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:value-of select="$authorCitationName" />; <xsl:value-of select="$authorString" />
+								<xsl:value-of select="$authorCitationName" />; <xsl:value-of select="$authorString" />,
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of>-</xsl:value-of>
+				<xsl:value-of>- </xsl:value-of>
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:variable name="bibCitation" select="escidocItem:properties/prop:content-model-specific/dcterms:bibliographicCitation"/>
