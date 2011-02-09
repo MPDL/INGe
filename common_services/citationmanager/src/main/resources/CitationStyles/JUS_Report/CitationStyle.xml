@@ -513,9 +513,6 @@
 
 		<!--  TITLE -->
 		<layout-element name="title">
-			<parameters>
-				<starts-with value=", " />
-			</parameters>
 			<elements>
 				<layout-element ref="pub:publication/dc:title/text()" />
 			</elements>
@@ -570,9 +567,6 @@
 		See preconditions Case Note: http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Case_Note
 		-->
 		<layout-element name="legal-case">
-			<parameters>
-				<starts-with value=", " />
-			</parameters>
 			<elements>
 				<layout-element ref="pub:publication/dc:title/text()" />
 				<layout-element>
