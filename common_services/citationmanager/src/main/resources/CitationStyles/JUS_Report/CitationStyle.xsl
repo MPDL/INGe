@@ -1963,14 +1963,6 @@
                                                                         <xsl:with-param name="delimiter" select="' '"/>
                                                                     </xsl:call-template>
                                                                 </xsl:variable>
-                                                                <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                                                    <xsl:if test="exists($var) and $var!=''">
-                                                                        <xsl:text>, </xsl:text>
-                                                                    </xsl:if>
-                                                                    <xsl:copy-of select="$var"/>
-                                                                </xsl:variable>
                                                                 <xsl:copy-of select="$var"/>
                                                             </xsl:if>
                                                         </xsl:variable>
