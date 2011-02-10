@@ -509,7 +509,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>cone_presentation</artifactId>
-			<version>1.2.12-SNAPSHOT</version>
+			<version>1.2.13-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
@@ -578,7 +578,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>cone</artifactId>
-			<version>1.2.12-SNAPSHOT</version>
+			<version>1.2.13-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>jar</type>
 		</dependency>
@@ -823,7 +823,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_presentation</artifactId>
-			<version>1.0.41-SNAPSHOT</version>
+			<version>1.0.43-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
