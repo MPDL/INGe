@@ -772,7 +772,6 @@
 						$genre != $l_case-note
 						]]>
 						</valid-if>
-					<starts-with value=", " />
 				</parameters>
 				<elements>
 					<!-- set the ReviewOf-prefix in localized tags -->
