@@ -48,7 +48,7 @@
 		<xsl:value-of select="normalize-space($ou/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title)"/>
 		
 		<xsl:if test="normalize-space($ou/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = ''">
-			ERROR
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:OuNotFound' ), 'Ou not found')"/>
 		</xsl:if>
 		
 		<xsl:choose>
