@@ -165,7 +165,7 @@ public class ImportLog
      */
     protected ImportLog()
     {
-        // TODO MF: Redirect if not logged in.
+
     }
     
     /**
