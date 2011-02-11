@@ -21,6 +21,7 @@ public class FireFox36Test extends PubmanGuiTestcase
 		selenium.start();
 	}
 
+
 	@After
 	public void tearDown() throws Exception {
 		selenium.stop();

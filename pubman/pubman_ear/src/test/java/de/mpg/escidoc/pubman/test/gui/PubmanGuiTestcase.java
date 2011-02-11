@@ -34,6 +34,19 @@ import org.junit.Test;
 
 import de.mpg.escidoc.pubman.test.gui.modules.PubmanGuiModules;
 import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemBasic;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemContent;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemDetails;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemEvent;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemPersonOrganizations;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemSource;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.CreatorRole;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.CreatorType;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.GenreType;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.IdentifierType;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.ItemType;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemDetails.ReviewType;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemSource.SourceGenre;
 import de.mpg.escidoc.pubman.test.gui.modules.login.PubmanUser;
 
 /**
@@ -75,4 +88,5 @@ public abstract class PubmanGuiTestcase extends PubmanGuiModules
 		doFullSubmission(item);
 		logoutPubman();
 	}
+
 }

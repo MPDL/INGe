@@ -117,27 +117,40 @@ public abstract class PubmanGuiModules extends SeleneseTestCase
 
     public PubmanItem createPubItem(ItemType type)
     {
+    	PubmanItem item;
+    	PubmanItemBasic basic;
+    	PubmanItemContent content;
+    	PubmanItemEvent event;
+    	PubmanItemDetails  details;
+    	PubmanItemPersonOrganizations persOrg;
+    	PubmanItemSource source;
+    	
         switch (type)
         {
             case Other:
-                PubmanItem item = new PubmanItem(ItemType.Other, GenreType.OTHER);
-                PubmanItemBasic basic = new PubmanItemBasic("selenium testitem");
+                item = new PubmanItem(ItemType.Other, GenreType.OTHER);
+                basic = new PubmanItemBasic("selenium testitem other");
                 item.addBasic(basic);
-                PubmanItemContent content = new PubmanItemContent("keywords", "011 - Bibliographies", "contentAbstract");
+                content = new PubmanItemContent("keywords", "011 - Bibliographies", "contentAbstract");
                 item.addContent(content);
-                PubmanItemEvent event = new PubmanItemEvent("eventTitle", "placeOfEvent", "2008-10-10", "2009-11-11");
+                event = new PubmanItemEvent("eventTitle", "placeOfEvent", "2008-10-10", "2009-11-11");
                 item.addEvent(event);
-                PubmanItemDetails  details = new PubmanItemDetails("de", "2000", "2001", "2002", "2003",
+                details = new PubmanItemDetails("de", "2000", "2001", "2002", "2003",
                         "2004", "2005", "123", "tableOfContent", ReviewType.INTERNAL, IdentifierType.ESCIDOC, "escidoc:12345");
                 item.addDetails(details);
-                PubmanItemPersonOrganizations persOrg = new PubmanItemPersonOrganizations(null, false, null, null, CreatorRole.AUTHOR, 
+                persOrg = new PubmanItemPersonOrganizations(null, false, null, null, CreatorRole.AUTHOR, 
                         "firstName", "lastName", "orgaName", "orgaAdress");
                 item.addPersonOrganisation(persOrg);
-                PubmanItemSource source = new PubmanItemSource( SourceGenre.BOOK, "testbuch", CreatorRole.ARTIST, CreatorType.Person, "familyName", "givenName", "orgaName",
+                source = new PubmanItemSource( SourceGenre.BOOK, "testbuch", CreatorRole.ARTIST, CreatorType.Person, "familyName", "givenName", "orgaName",
                        "orgaAddress", "volume", "123", "publisher", "place", IdentifierType.ESCIDOC, "escidoc:65432", "edition", "issue", "1", "4231", "222" );
                 item.addSource(source);
                 return item;
             case Paper:
+            	item = new PubmanItem(ItemType.Paper, GenreType.PAPER);
+            	basic = new PubmanItemBasic("selenium testitem paper");
+            	item.addBasic(basic);
+            	//not finished
+            	return item;
             	
             case ItemWithFile:
                 return null;
@@ -445,9 +458,9 @@ public abstract class PubmanGuiModules extends SeleneseTestCase
 				e.printStackTrace();
 			}
 		}
-		selenium.select("cboGenre", "label=Paper");
+		selenium.select("cboGenre", "value=" + item.getGenre());
 		selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
-		selenium.type("inputTitleText", "full submission paper submit");
+		selenium.type("inputTitleText", item.getBasicList().get(0).title+"full submission paper submit");
 		selenium.select("iterCreatorOrganisationAuthors:0:selCreatorRoleString", "label=Editor");
 		selenium.mouseDown("iterCreatorOrganisationAuthors:0:inpcreator_persons_person_family_name_optional");
 		selenium.keyPress("iterCreatorOrganisationAuthors:0:inpcreator_persons_person_family_name_optional", "\\109");
