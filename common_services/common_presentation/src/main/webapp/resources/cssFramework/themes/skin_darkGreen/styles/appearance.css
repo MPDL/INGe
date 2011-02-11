@@ -114,34 +114,48 @@ body .wrapper, body .footer {
 }
 
 /*FF3.x Print Issue (No more relevant in FF4)*/
-
-@media print {
-				body * {
-						overflow: visible !important;
-						float: none !important;
-						border-top: 0px #FFFFFF !important;
-						border-right: 0px #FFFFFF !important;
-						border-bottom: 0px #FFFFFF !important;
-						border-left: 0px #FFFFFF !important;
-				}
-				.itemHeader, .listItemLine, .blockHeader, .blockHeader *, .itemLine, .itemBlock, .itemBlockContent * {
-						text-align: left !important;
-						float: left !important;
-						clear: both !important;
-						text-indent: 0px !important;
-				}
-				.paginator * {
-						float: left !important;
-				}
-				.blockHeader {
-						font-size: 1.4em !important;
-						margin-bottom: 0.6em !important;
-				}
-				.min_imgBtn, .std_imgBtn, .big_imgBtn, .lineToolSection, .formButtonArea {
-						visibility: hidden !important;
-				}
+@media print {body * {
+        overflow: visible !important;
+        float: none !important;
+        border-top: 0px #FFFFFF !important;
+        border-right: 0px #FFFFFF !important;
+        border-bottom: 0px #FFFFFF !important;
+        border-left: 0px #FFFFFF !important;
+		list-style:none !important;
 }
 
+	/*Print Lists*/
+
+.listItemLine, .blockHeader, .blockHeader *, .listItem {
+        text-align: left !important;
+        float: left !important;
+        clear: both !important;
+}
+
+	/*Print Items*/
+
+.itemLine, .itemBlockContent, .fullItem .blockHeader {
+        text-align: left !important;
+        float: left !important;
+}
+
+.paginator * {
+        float: left !important;
+}
+
+.blockHeader {
+        font-size: 1.4em !important;
+        margin-bottom: 0.6em !important;
+}
+
+.min_imgBtn, .std_imgBtn, .big_imgBtn, .lineToolSection, .formButtonArea {
+        visibility: hidden !important;
+}
+
+.messageArea {
+        visibility:hidden !important;
+}
+}
 
 input, button, textarea, select {
     color: #000000;
