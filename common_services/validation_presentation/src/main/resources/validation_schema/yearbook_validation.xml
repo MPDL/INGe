@@ -242,7 +242,6 @@
 	<!-- Issue -->
 	<iso:pattern name="issue_rules" id="issue_rules">
 		<iso:rule context="publication:publication[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/issue']">
-			<iso:report test="not(source:source/escidoc:sequence-number != '' or (source:source/escidoc:start-page != '' and source:source/escidoc:end-page != ''))">NoSequenceInformationGiven</iso:report>
 			<iso:report test="not(exists(escidoc:creator/person:person/organization:organization[escidoc-util:is-child(dc:identifier)])) and not(exists(escidoc:creator/organization:organization[escidoc-util:is-child(dc:identifier)]))">NoMaxPlanckAffiliation</iso:report>
 			<iso:report test="not(dc:title != '')">TitleNotProvided</iso:report>
 			<iso:report test="not(source:source/dc:title != '')">SourceTitleNotProvided</iso:report>
@@ -326,7 +325,7 @@
 		</iso:rule>
 		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/Report']/source:source">
 			<iso:report test="not(dc:title != '')">SourceTitleNotProvided</iso:report>
-			<iso:report test="not(escidoc:publishing-info/escidoc:edition != '')">SourceEditionNotProvided</iso:report>
+			<iso:report test="not(escidoc:volume != '')">SourceVolumeNotProvided</iso:report>
 		</iso:rule>
 	</iso:pattern>
 
