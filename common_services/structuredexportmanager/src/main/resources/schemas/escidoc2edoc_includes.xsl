@@ -51,10 +51,8 @@
 	xmlns:person="${xsd.metadata.person}"
     >
 	
-	<xsl:param name="pubman_instance">${escidoc.pubman.instance.url}</xsl:param>
-<!--	<xsl:param name="pubman_instance">http://pubman.mpdl.mpg.de/pubman</xsl:param>-->
-	<xsl:param name="coreservice_instance">${escidoc.common.framework.url}</xsl:param>
-<!--	<xsl:param name="coreservice_instance">http://coreservice.mpdl.mpg.de</xsl:param>	-->
+	<xsl:param name="pubman_instance"/>
+	<xsl:param name="coreservice_instance"/>
 	
 	<xsl:variable name="vm" select="document('ves-mapping.xml')/mappings"/>
 	

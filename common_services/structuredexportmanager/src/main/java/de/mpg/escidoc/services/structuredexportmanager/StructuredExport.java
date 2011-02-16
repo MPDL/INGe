@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -60,6 +61,7 @@ import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.common.util.LocalURIResolver;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Structured Export Manager. 
@@ -179,9 +181,9 @@ public class StructuredExport implements StructuredExportHandler {
 
 			//set URIResolver for xsl:include or xsl:import
 			transFact.setURIResolver(
-					new URIResolver(){
+					new URIResolver() {
 						public Source resolve(String href, String base)
-								throws TransformerException {
+								throws TransformerException	{
 //							logger.info("href: " + href);
 //							logger.info("base: " + base);
 							if( href != null && href.toLowerCase().startsWith( "http://" ) )
@@ -221,6 +223,17 @@ public class StructuredExport implements StructuredExportHandler {
 				logger.debug("Transformer:" + trans);
 				 
 				trans.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+				
+				// URLs to the pubman_instance and to the coreservice_instance 
+				// defined as parameters to be able to test the EDOC_* exports in different instances
+				// see http://jira.mpdl.mpg.de/browse/PUBMAN-1867
+				if (exportFormat.toUpperCase().startsWith("EDOC_"))
+				{
+					trans.setParameter("pubman_instance", PropertyReader.getProperty("escidoc.pubman.instance.url"));
+					trans.setParameter("coreservice_instance", PropertyReader.getProperty("escidoc.framework_access.framework.url"));
+				};
+				
+				
 //				logger.info("ENCODING:" + trans.getOutputProperty(OutputKeys.ENCODING)) ;
 				
 				trans.transform(xmlSource, result);
@@ -237,6 +250,8 @@ public class StructuredExport implements StructuredExportHandler {
 			} catch (TransformerException e) {
 				// TODO Auto-generated catch block
 				throw new StructuredExportManagerException(e);
+			} catch (URISyntaxException e) {
+				throw new StructuredExportManagerException("Problems by setParameters:", e);
 			}
 	}	
 
