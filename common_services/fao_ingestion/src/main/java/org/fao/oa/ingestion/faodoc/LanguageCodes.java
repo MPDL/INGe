@@ -22,7 +22,7 @@ import com.hp.hpl.jena.vocabulary.RDFS;
  */
 public class LanguageCodes
 {
-    public final String ISO639_RDF_URI = "file:///home/frank/data/AFDB/639-core.rdf";
+    public final String ISO639_RDF_URI = "file:///home/frank/data/FAO/URIs/639-core.rdf";
     public final String ISO639_NS = "http://psi.oasis-open.org/iso/639/#";
 
     public String[] getIso639Codes(String lang)

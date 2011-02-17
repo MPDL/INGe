@@ -257,7 +257,7 @@ public class EimsDatastream
         }
         // E-23
         // add eims:waicent_published
-        if (eimsItem.getWaicentPublished() != null)
+        if (eimsItem.getWaicentPublished() != null && eimsItem.getWaicentPublished() != "")
         {
             eims.setWaicentPublished(new BigInteger(eimsItem.getWaicentPublished()));
         }

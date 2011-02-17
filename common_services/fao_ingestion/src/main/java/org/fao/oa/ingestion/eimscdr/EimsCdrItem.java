@@ -18,6 +18,7 @@ import noNamespace.URLType;
 
 import org.apache.xmlbeans.XmlException;
 import org.fao.oa.ingestion.utils.IngestionProperties;
+import org.fao.oa.ingestion.utils.XBeanUtils;
 
 /**
  * utility class to get a list of -or a single- EIMS_CDR resource item(s).
@@ -39,10 +40,10 @@ public class EimsCdrItem
     {
         String[] filenames = IngestionProperties.get("eims.export.file.names").split(" ");
         String[] filenames_articles = IngestionProperties.get("eims.export.file.names.articles").split(" ");
-        parseTest(filenames_articles);
-        //ArrayList<ItemType> itemList = allEIMSItemsAsList(filenames_articles, "articles");
-        //ItemType item = getById(itemList, "43364");
-        //System.out.println(item.xmlText());
+        //parseTest(filenames);
+        ArrayList<ItemType> itemList = allEIMSItemsAsList(filenames, "articles");
+        ItemType item = getById(itemList, "287038");
+        System.out.println(item.xmlText(XBeanUtils.getFoxmlOpts()));
     }
 
     /**
@@ -76,7 +77,7 @@ public class EimsCdrItem
         int noUrl = 0;
         for (String name : names)
         {
-            File eimsItemFile = new File(EIMS_BASE_DIR_ARTICLES + name);
+            File eimsItemFile = new File(EIMS_BASE_DIR + name);
             System.out.println("Attempt to parse file " + eimsItemFile.getName());
             try
             {
@@ -84,6 +85,7 @@ public class EimsCdrItem
                 ItemType[] items = resDoc.getEimsresources().getItemArray();
                 System.out.println(name + " contains " + items.length + " items");
                 eimsitems = eimsitems + items.length;
+                /*
                 for (ItemType i : items)
                 {
                     if (i.getDateCreated() != null)
@@ -97,6 +99,7 @@ public class EimsCdrItem
                         noUrl++;
                     }
                 }
+                */
             }
             catch (XmlException e)
             {
@@ -134,7 +137,7 @@ public class EimsCdrItem
             {
                 if (genretype.equalsIgnoreCase("articles"))
                 {
-                    eimsFile = new File(EIMS_BASE_DIR_ARTICLES + name);
+                    eimsFile = new File(EIMS_BASE_DIR + name);
                 }
             }
             try
@@ -164,7 +167,7 @@ public class EimsCdrItem
         }
         System.out.println("List contains " + allEIMSItemsList.size() + " EIMS items");
         System.out.println("maintypes are " + maintypeList.toString());
-        // System.out.println("genres are " + genreList.toString());
+        System.out.println("genres are " + genreList.toString());
         return allEIMSItemsList;
     }
 

@@ -87,11 +87,12 @@ public class AgrovocSkos
         
         //model = ModelFactory.createDefaultModel();
         //model.read(AGROVOC_RDF);
-        
+        /*
         RDFReader reader = model.getReader();
         reader.setProperty("error-mode", "lax");
         reader.setProperty("WARN_STRING_NOT_NORMAL_FORM_C", "EM_IGNORE");
         reader.setProperty("WARN_REDEFINITION_OF_ID","EM_IGNORE");
+        */
         //reader.read(model, AGROVOC_RDF);
         //reader.read(model, "rmi://frank02/server1#agrovoc");
         

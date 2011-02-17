@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class ChangeEimsResources
 {
-    static String eimsDir = IngestionProperties.get("eims.export.file.location.articles");
+    static String eimsDir = IngestionProperties.get("eims.export.file.location");
     
     public static void main(String ... strings)
     {
