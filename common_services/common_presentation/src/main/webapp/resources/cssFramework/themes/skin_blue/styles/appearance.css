@@ -88,7 +88,7 @@ body, label, input, textarea, select, button, input.numberLabel, h2, h3, h6, a {
 }
 
 input[type = text], textarea {
-    font-family: Courier, "Courier New", serif;
+    font-family: "Courier New", Courier, serif;
 }
 
 h1, h4, h5 {
