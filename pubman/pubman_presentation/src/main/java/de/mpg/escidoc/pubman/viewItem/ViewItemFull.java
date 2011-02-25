@@ -50,9 +50,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.apache.commons.httpclient.HttpMethod;
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
@@ -115,7 +113,6 @@ import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
-import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -313,7 +310,7 @@ public class ViewItemFull extends FacesBean
 						.equals(getItemControllerSessionBean().getCurrentPubItem().getVersion()
 								.getObjectIdAndVersion()))
 				{
-					HttpSession session = (HttpSession)getFacesContext().getExternalContext().getSession(false);
+					//HttpSession session = (HttpSession)getFacesContext().getExternalContext().getSession(false);
 					getViewItemSessionBean().itemChanged();
 					// pubManStatistics.logStatisticPubItemEvent(new PubItemVO(pubItem), null,
 					// PubItemSimpleStatistics.StatisticItemEventType.retrieval, session.getId(),
@@ -428,6 +425,7 @@ public class ViewItemFull extends FacesBean
 					this.isOwner = false;
 					for (GrantVO grant : this.loginHelper.getAccountUser().getGrants())
 					{
+						//TODO NBU: escidoc:role-system-administrator shall be checked from the predefined roles and not fixed as string
 						if (grant.getObjectRef() != null
 								&& grant.getObjectRef().equals(this.pubItem.getContext().getObjectId())
 								&& (grant.getRole().equals("escidoc:role-system-administrator")
@@ -439,6 +437,7 @@ public class ViewItemFull extends FacesBean
 					}
 				}
 			}
+			//TODO NBU: bring all this action links setters into separate method
 			this.isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(
 					RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
 					+ ViewItemFull.FUNCTION_MODIFY);
@@ -488,15 +487,19 @@ public class ViewItemFull extends FacesBean
 			createCreatorsList();
 			// clear source list first
 			this.sourceList.clear();
-			for (int i = 0; i < this.pubItem.getMetadata().getSources().size(); i++)
+			if (this.pubItem.getMetadata().getSources().size()>0)
 			{
-				this.sourceList.add(new SourceBean(this.pubItem.getMetadata().getSources().get(i)));
+				for (int i = 0; i < this.pubItem.getMetadata().getSources().size(); i++)
+				{
+					this.sourceList.add(new SourceBean(this.pubItem.getMetadata().getSources().get(i)));
+				}
 			}
 			// the list of files
 			// Check if the item is also in the search result list
 			PubItemListSessionBean pilsb = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
 			List<PubItemVOPresentation> currentPubItemList = pilsb.getCurrentPartList();
-			List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
+			//removed unnecessary creation of new array list
+			//List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
 			if (currentPubItemList != null)
 			{
 				for (int i = 0; i < currentPubItemList.size(); i++)
@@ -537,23 +540,27 @@ public class ViewItemFull extends FacesBean
 				logViewAction();
 			}
 
-			for (TextVO subject : this.pubItem.getMetadata().getSubjects())
+			//TODO: remove into separate method
+			if (this.pubItem.getMetadata().getSubjects().size()>0)
 			{
-				if (subject.getType() != null && subject.getType().equals(SubjectClassification.ISO639_3.name()))
+				for (TextVO subject : this.pubItem.getMetadata().getSubjects())
 				{
-					try
+					if (subject.getType() != null && subject.getType().equals(SubjectClassification.ISO639_3.name()))
 					{
-						subject.setLanguage(CommonUtils.getConeLanguageCode(subject.getValue()));
-					}
-					catch (Exception e)
-					{
-						throw new RuntimeException("Error retrieving language code for '" + subject.getValue() + "'", e);
+						try
+						{
+							subject.setLanguage(CommonUtils.getConeLanguageCode(subject.getValue()));
+						}
+						catch (Exception e)
+						{
+							throw new RuntimeException("Error retrieving language code for '" + subject.getValue() + "'", e);
+						}
 					}
 				}
 			}
 
 			//if item is currently part of invalid yearbook items, show Validation Messages
-			ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+			//ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
 			if(loginHelper.getIsYearbookEditor())
 			{
 				yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
@@ -884,12 +891,12 @@ public class ViewItemFull extends FacesBean
 		return retVal;
 	}
 
+	//TODO NBU: check if this method is indeed used or not
 	/**
 	 * Adds a cookie named "escidocCookie" that holds the eScidoc user handle to the provided http method object.
 	 * 
 	 * @author Tobias Schraut
 	 * @param method The http method to add the cookie to.
-	 */
 	private void addHandleToMethod(final HttpMethod method, String eSciDocUserHandle)
 	{
 		// Staging file resource is protected, access needs authentication and
@@ -897,6 +904,7 @@ public class ViewItemFull extends FacesBean
 		// Put the handle in the cookie "escidocCookie"
 		method.setRequestHeader("Cookie", "escidocCookie=" + eSciDocUserHandle);
 	}
+	 */
 
 	/**
 	 * Displays validation messages.
@@ -1056,7 +1064,7 @@ public class ViewItemFull extends FacesBean
 	 * @param  tempOrganizationListInstance List of organizations that need to be sorted
 	 * @param  int The position of the affiliation in the list of the organizations
 	 */
-	private ViewItemOrganization formatCreatorOrganization (OrganizationVO tempOrganizationListInstance, int affiliationPosition)
+	public static ViewItemOrganization formatCreatorOrganization (OrganizationVO tempOrganizationListInstance, int affiliationPosition)
 	{
 		ViewItemOrganization viewOrganization = new ViewItemOrganization();
 		//set the organization view object to values from the current temp organization
@@ -1082,7 +1090,7 @@ public class ViewItemFull extends FacesBean
 	 * @param creator creator object for which the organization index shall be set
 	 * @param sortOrganizationList sorted list of organizations in the publication item
 	 */
-	private String formatCreatorOrganizationIndex(CreatorVO creator, List<OrganizationVO> sortOrganizationList)
+	public static String formatCreatorOrganizationIndex(CreatorVO creator, List<OrganizationVO> sortOrganizationList)
 	{
 		int organizationsFound = 0;
 		StringBuffer annotation = new StringBuffer();
