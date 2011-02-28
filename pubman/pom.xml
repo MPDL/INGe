@@ -634,6 +634,8 @@
 		<escidoc.transformation.mab.stylesheet.filename>transformations/otherFormats/xslt/mabxml2escidoc.xsl</escidoc.transformation.mab.stylesheet.filename>
 		<escidoc.transformation.report.sortorder.filename>transformations/reports/conf/reportSortOrder.xml</escidoc.transformation.report.sortorder.filename>
 		
+		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
+		
 		<escidoc.pubman.genres.configuration>Genres.xml</escidoc.pubman.genres.configuration>
 		
 
