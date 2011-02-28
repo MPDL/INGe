@@ -10,7 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletOutputStream;
@@ -30,6 +33,7 @@ import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
 import de.mpg.escidoc.services.transformation.Configurable;
+import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -39,6 +43,8 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
  *
  */
 public class ReportWorkspaceBean extends FacesBean {
+
+	private static final long serialVersionUID = 1L;
 
 	private static Logger logger = Logger.getLogger(ReportWorkspaceBean.class);
 
@@ -54,15 +60,52 @@ public class ReportWorkspaceBean extends FacesBean {
 	private CitationStyleHandler citationStyleHandler;
 
 	String cqlQuery = null;
-	String exportFormat = "jus_in";
-	String outputFormat = "jus_out";
-
 	String csExportFormat = "JUS_Report";
 	String csOutputFormat = "escidoc_snippet";
 	String index = "escidoc_all";
 
 	private Map<String, String> configuration = null;
 	List<String> childAffilList;
+	
+	private static final Format JUS_REPORT_SNIPPET_FORMAT = new Format("jus_report_snippet", "application/xml", "UTF-8");
+	private List<SelectItem> outputFormats = new ArrayList<SelectItem>();
+	private Format format;
+
+	private Converter formatConverter = new Converter()
+    {
+        public Object getAsObject(FacesContext arg0, javax.faces.component.UIComponent arg1, String value)
+        {
+            if (value != null && !"".equals(value))
+            {
+                String[] parts = value.split("[\\[\\,\\]]");
+                if (parts.length > 3)
+                {
+                    return new Format(parts[1], parts[2], parts[3]);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
+        public String getAsString(FacesContext arg0, UIComponent arg1, Object format)
+        {
+            if (format instanceof Format)
+            {
+                return ((Format) format).toString();
+            }
+            else
+            {
+                return null;
+            }
+        }
+    };
+	    
 
 	public ReportWorkspaceBean() {
 		InitialContext initialContext;
@@ -74,6 +117,14 @@ public class ReportWorkspaceBean extends FacesBean {
 			this.citationStyleHandler = (CitationStyleHandler) initialContext.lookup(CitationStyleHandler.SERVICE_NAME);
 			this.configuration = new HashMap<String, String>();
 			this.childAffilList = new ArrayList<String>();
+			Format[] targetFormats = ((Transformation)this.transformer).getTargetFormats(JUS_REPORT_SNIPPET_FORMAT);
+			for (Format f: targetFormats){
+				if (!JUS_REPORT_SNIPPET_FORMAT.matches(f))
+				{
+					String formatName = f.getName() + "_" + ("text/html".equals(f.getType()) ? "html" : "indesign");
+					outputFormats.add(new SelectItem(f, getLabel(formatName)));
+				}
+			}
 		} catch (NamingException e) {
 			throw new RuntimeException("Search service not initialized", e);
 		}
@@ -95,7 +146,40 @@ public class ReportWorkspaceBean extends FacesBean {
 	public void setReportYear(String reportYear) {
 		this.reportYear = reportYear;
 	}
-	  
+	
+	public Format getFormat() {
+		return format;
+	}
+
+	public void setFormat(Format format) {
+		this.format = format;
+	}
+	
+	public List<SelectItem> getOutputFormats() {
+		return outputFormats;
+	}
+
+	public void setOutputFormats(List<SelectItem> outputFormats) {
+		this.outputFormats = outputFormats;
+	}
+
+	  /**
+     * @return the formatConverter
+     */
+    public Converter getFormatConverter()
+    {
+        return formatConverter;
+    }
+
+    /**
+     * @param formatConverter the formatConverter to set
+     */
+    public void setFormatConverter(Converter formatConverter)
+    {
+        this.formatConverter = formatConverter;
+    }
+	
+	
 	public String generateReport(){
 		String itemLsitSearchResult = null;
 		byte[] itemListCS  = null;
@@ -108,7 +192,8 @@ public class ReportWorkspaceBean extends FacesBean {
 			return null;
 		} else {
 			try {
-				logger.info("Start generation report for YEAR " + this.reportYear + ", ORG " + this.organization.getIdentifier());
+				logger.info("Start generation report for YEAR " + this.reportYear + ", ORG " + this.organization.getIdentifier() + 
+						", FORMAT " + this.format + " " + this.format.getName());
 				
 				itemLsitSearchResult = doSearchItems();
 				if (itemLsitSearchResult != null){
@@ -119,10 +204,11 @@ public class ReportWorkspaceBean extends FacesBean {
 					logger.info("Transformed result: \n" + new String(itemListReportTransformed));
 				}
 				if (itemListReportTransformed != null){
-					HttpServletResponse resp = (HttpServletResponse) this.getExternalContext().getResponse();
+					HttpServletResponse resp = (HttpServletResponse) FacesBean.getExternalContext().getResponse();
 					resp.setContentType("text/html; charset=UTF-8");
 					
-					resp.addHeader("Content-Disposition", "attachment; filename=" +"report.html");
+					String fileName = "text/html".equals(this.format.getType()) ? "Jus_Report.html" : "Jus_Report_InDesign.xml";
+					resp.addHeader("Content-Disposition", "attachment; filename=" + fileName);
 					
 					ServletOutputStream stream = resp.getOutputStream();
 					ByteArrayInputStream bais = new ByteArrayInputStream(itemListReportTransformed);
@@ -202,8 +288,7 @@ public class ReportWorkspaceBean extends FacesBean {
 	private byte[] doReportTransformation(byte[] src) {
 		String childConfig = "";
 		byte[] result = null;
-		Format source = new Format(exportFormat, "application/xml", "UTF-8");
-		Format target = new Format(outputFormat, "application/xml", "UTF-8");
+		
 		// set the config for the transformation, the institut's name is used for CoNE
 		if (this.childAffilList.size() > 0 ){
 			for (String childId: this.childAffilList){
@@ -215,8 +300,8 @@ public class ReportWorkspaceBean extends FacesBean {
 			configuration.put("institutsId", this.organization.getIdentifier());
 		}
 		try {
-			this.transformer.getConfiguration(source, target);
-			result = this.transformer.transform(src, source, target, "escidoc", configuration);
+			
+			result = this.transformer.transform(src, JUS_REPORT_SNIPPET_FORMAT, this.format, "escidoc", configuration);
 		} catch (TransformationNotSupportedException e) {
 			logger.error("This transformation is not supported.", e);
 			error("This transformation is not supported.");
