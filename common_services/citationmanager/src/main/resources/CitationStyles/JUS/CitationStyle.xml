@@ -707,6 +707,37 @@
 
 			</elements>
 		</layout-element>
+		
+		<!-- SOURCE TITLE VOLUME 
+		for Paper -->
+		<layout-element name="source-title-volume-paper">
+			<parameters>
+				<valid-if><![CDATA[exists(pub:publication/source:source[1])]]></valid-if>
+			</parameters>
+			<elements>
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[exists(pub:publication/source:source[1]/e:volume/text())]]></valid-if>
+						<starts-with value="(" />
+						<ends-with value="), " />
+						<delimiter value=", " />
+					</parameters>
+					<elements>
+						<layout-element ref="pub:publication/source:source[1]/dc:title/text()" />
+						<layout-element ref="$firstSourceVolume" />
+					</elements>
+				</layout-element>
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[not(pub:publication/source:source[1]/e:volume/text())]]></valid-if>
+						<starts-with value=", " />
+					</parameters>
+					<elements>
+						<layout-element ref="pub:publication/source:source[1]/dc:title/text()" />
+					</elements>
+				</layout-element>
+			</elements>
+		</layout-element>
 
 		<!--ID	ONLINE PUBLICATION -->
 		<layout-element name="id-online-publication">
@@ -726,6 +757,29 @@
 					</elements>
 				</layout-element>
 				<layout-element ref="$onlineIdValue" />
+			</elements>
+		</layout-element>
+		
+		<!--ID	ONLINE PUBLICATION PAPER -->
+		<layout-element name="id-online-publication-paper">
+			<parameters>
+				<valid-if><![CDATA[exists(pub:publication/e:published-online/text())
+						and not(pub:publication/dcterms:issued/text())]]></valid-if>
+				<starts-with value=", " />
+				<delimiter value=", "/>
+			</parameters>
+			<elements>
+				<layout-element ref="$onlineIdValuePaper"/>
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[exists(pub:publication/e:published-online/text())
+						and not(pub:publication/dcterms:issued/text())]]></valid-if>
+					</parameters>
+					<elements>
+						<layout-element
+						ref="func:get_reverse_date(pub:publication/e:published-online/text())" />
+					</elements>
+				</layout-element>
 			</elements>
 		</layout-element>
 
@@ -1395,6 +1449,42 @@
 			<layout-element ref="$second-or-more-creators" />
 		</elements>
 	</cs-layout-definition>
+	
+	<cs-layout-definition name="paper">
+		<parameters>
+			<valid-if><![CDATA[
+				$genre = $l_paper
+			]]>
+			</valid-if>
+		</parameters>
+		<elements>
+			<layout-element ref="$first-creator"/>
+			<layout-element ref="$title" />
+			<layout-element ref="$source-title-volume-paper"/>
+			<layout-element ref="$publisher-place" />
+			<layout-element>
+				<parameters>
+					<valid-if><![CDATA[exists(pub:publication/source:source[1])]]></valid-if>
+				</parameters>
+				<elements>
+					<layout-element ref="$date" />
+				</elements>
+			</layout-element>
+			<layout-element>
+				<parameters>
+					<valid-if><![CDATA[not(pub:publication/source:source[1])]]></valid-if>
+					<starts-with value=", "/>
+				</parameters>
+				<elements>
+					<layout-element ref="$date" />
+				</elements>
+			</layout-element>
+			<layout-element ref="$pages" />
+			<layout-element ref="$id-online-publication-paper"/>
+			<layout-element ref="$second-or-more-creators-with-dot" />
+		</elements>
+	</cs-layout-definition>
+	
 
 	<!--
 
