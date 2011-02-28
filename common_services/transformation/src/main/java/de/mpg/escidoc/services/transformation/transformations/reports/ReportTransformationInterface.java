@@ -46,29 +46,30 @@ public class ReportTransformationInterface implements Transformation, Configurab
 	private final Logger logger = Logger
 			.getLogger(ReportTransformationInterface.class);
 
-	private static final Format JUS_IN_FORMAT = new Format("jus_in", "application/xml", "UTF-8");
-	private static final Format JUS_OUT_FORMAT = new Format("jus_out", "application/xml", "UTF-8");
+	private static final Format JUS_REPORT_SNIPPET_FORMAT = new Format("jus_report_snippet", "application/xml", "UTF-8");
+	private static final Format JUS_OUT_FORMAT_INDESIGN = new Format("jus_out", "application/xml", "UTF-8");
+	private static final Format JUS_OUT_FORMAT_HTML = new Format("jus_out", "text/html", "UTF-8");
 
-	private ReportTransformation trasformer;
+	private ReportTransformation transformer;
 
 	public ReportTransformationInterface() {
-		this.trasformer = new ReportTransformation();
+		this.transformer = new ReportTransformation();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Format[] getSourceFormats() throws RuntimeException {
-		 return new Format[]{JUS_IN_FORMAT};
+		 return new Format[]{JUS_REPORT_SNIPPET_FORMAT};
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Format[] getSourceFormats(Format trg) throws RuntimeException {
-		if (trg != null && trg.matches(JUS_OUT_FORMAT))
+		if (trg != null && (trg.matches(JUS_OUT_FORMAT_INDESIGN) || trg.matches(JUS_OUT_FORMAT_HTML)))
         {
-			return new Format[]{JUS_IN_FORMAT};
+			return new Format[]{JUS_REPORT_SNIPPET_FORMAT};
         }
         else
         {
@@ -88,9 +89,9 @@ public class ReportTransformationInterface implements Transformation, Configurab
 	 * {@inheritDoc}
 	 */
 	public Format[] getTargetFormats(Format src) throws RuntimeException {
-		if (src != null && src.matches(JUS_IN_FORMAT))
+		if (src != null && src.matches(JUS_REPORT_SNIPPET_FORMAT))
         {
-			return new Format[]{JUS_OUT_FORMAT};
+			return new Format[]{JUS_OUT_FORMAT_INDESIGN, JUS_OUT_FORMAT_HTML};
         }
         else
         {
@@ -140,12 +141,11 @@ public class ReportTransformationInterface implements Transformation, Configurab
 		String transformedXml = null;
 
 		String srcFormatName = srcFormat.getName();
-		String trgFormatName = trgFormat.getName();
 
 		if (srcFormat.getName().toLowerCase().startsWith("jus")) {
 			try {
 				if (configuration != null) {
-					transformedXml = this.trasformer.reportTransform(srcFormatName, trgFormatName, new String(src,"UTF-8"), configuration);
+					transformedXml = this.transformer.reportTransform(srcFormatName, trgFormat, new String(src,"UTF-8"), configuration);
 				} else {
 					this.logger.warn("Transformation without parameter institutsId is not supported: \n"
 							+ srcFormat.getName() + ", " + srcFormat.getType() + ", "
@@ -186,7 +186,7 @@ public class ReportTransformationInterface implements Transformation, Configurab
 	 */
 	public List<String> getConfigurationValues(Format srcFormat,
 			Format trgFormat, String key) throws Exception {
-		logger.info("get config values " + JUS_IN_FORMAT);
+		logger.info("get config values " + JUS_REPORT_SNIPPET_FORMAT);
 		return null;
 	}
 

@@ -53,10 +53,11 @@ public class ReportTransformation {
      * could be single Id or several Ids separated with whitespace. 
      * @return String The generated String with appended sort order 
      */
-	public String reportTransform(String formatFrom, String formatTo,
+	public String reportTransform(String formatFrom, Format formatTo,
 			String itemXML, Map<String, String> configuration)
 			throws TransformationNotSupportedException {
-		String xsltUri = formatFrom.toLowerCase() + "2" + formatTo.toLowerCase() + ".xsl";
+			
+		String xsltUri = formatFrom.toLowerCase() + "2" + formatTo.getName().toLowerCase() + "_" + ("text/html".equals(formatTo.getType()) ? "html" : "indesign") + ".xsl";
 
 		TransformerFactory factory = new TransformerFactoryImpl();
 		factory.setURIResolver(new LocalUriResolver(this.REPORT_XSLT_LOCATION));
@@ -73,13 +74,14 @@ public class ReportTransformation {
 				logger.info("Starting transformation with params " + key + ", "
 						+ configuration.get(key));
 			}
-
+			transformer.setParameter("indesign-namespace", configuration.get(PropertyReader.getProperty("escidoc.report.indesign.namespace")));
+			
 			String itemXMLwithSortOrder = appendSortOrderToItemXml(itemXML);
-
+			
 			StringReader xmlSource = new StringReader(itemXMLwithSortOrder);
 			transformer.transform(new StreamSource(xmlSource),
 					new StreamResult(writer));
-		} catch (TransformerException e) {
+		} catch (Exception e) {
 			this.logger.error(
 					"An error occurred during a other format transformation.",
 					e);
