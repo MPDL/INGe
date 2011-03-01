@@ -264,7 +264,7 @@
 						</xsl:choose>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of>- </xsl:value-of>
+						<xsl:value-of>&#8211; </xsl:value-of>
 					</xsl:otherwise>
 				</xsl:choose>
 				<xsl:variable name="bibCitation" select="escidocItem:properties/prop:content-model-specific/dcterms:bibliographicCitation"/>
