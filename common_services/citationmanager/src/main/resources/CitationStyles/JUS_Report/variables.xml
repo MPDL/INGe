@@ -119,7 +119,7 @@
 					then 'source_URI'
 					
 					else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])
-					then 'external_URLLL'
+					then 'external_URL'
 					
 					else ''
 				else '']]>

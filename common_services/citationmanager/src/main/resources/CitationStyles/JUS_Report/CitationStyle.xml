@@ -896,7 +896,17 @@
 		<elements>
 			<layout-element ref="$title" />
 			<layout-element ref="$in-prefix" />
-			<layout-element ref="$source-editors" />
+			<layout-element>
+				<parameters>
+					<valid-if><![CDATA[
+					$genre != $l_contr-to-festschrift
+					]]>
+				</valid-if>
+				</parameters>
+				<elements>
+					<layout-element ref="$source-editors" />
+				</elements>
+			</layout-element>
 			<layout-element ref="$source-title-volume-contr" />
 			<layout-element ref="$edition" />
 			<layout-element ref="$source-publisher-place" />
