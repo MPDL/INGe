@@ -3033,7 +3033,26 @@
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
+                                                        <!--valid-if--><xsl:variable name="var">
+                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;$genre != $l_contr-to-festschrift&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;">
+                                                                <xsl:variable name="var">
+                                                                    <xsl:call-template name="applyDelimiter">
+                                                                        <xsl:with-param name="les">
+                                                                            <le>
+                                                                                <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is available ###--><xsl:variable name="var" select="$source-editors"/>
+                                                                                    <xsl:copy-of select="$var"/>
+                                                                                </xsl:variable>
+                                                                                <xsl:copy-of select="$var"/>
+                                                                            </le>
+                                                                        </xsl:with-param>
+                                                                        <xsl:with-param name="delimiter" select="' '"/>
+                                                                    </xsl:call-template>
+                                                                </xsl:variable>
+                                                                <xsl:copy-of select="$var"/>
+                                                            </xsl:if>
+                                                        </xsl:variable>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$var"/>
