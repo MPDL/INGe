@@ -121,7 +121,7 @@
 		                %><tr><%
 		                for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++)
 						{
-						    %><td valign="top"><%= (rs.getObject(i) == null ? "---" : rs.getObject(i).toString().replace("<", "&lt;").replace("\n", "<br/>")) %></td><%
+						    %><td valign="top"><%= (rs.getObject(i) == null ? "---" : rs.getObject(i).toString().replace("&", "&amp;").replace("<", "&lt;").replace("\n", "<br/>")) %></td><%
 						}
 		                %></tr><%
 		            }
