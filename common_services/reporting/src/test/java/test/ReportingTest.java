@@ -29,7 +29,17 @@
 
 package test;
 
+import static org.junit.Assert.fail;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import javax.xml.rpc.ServiceException;
+
 import org.apache.log4j.Logger;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.reporting.ReportFHI;
@@ -38,11 +48,34 @@ public class ReportingTest {
 
 	private Logger logger = Logger.getLogger(ReportingTest.class);
 
+	static ReportFHI rep;
+
+	
+	@BeforeClass
+	public static void getReportInstance() throws IOException, URISyntaxException, ServiceException
+	{
+		rep = new ReportFHI();
+	}
+	
 	@Test
-	// @Ignore
-	public final void testReportFHI() throws Exception 
+//	 @Ignore
+	public final void testReportGeneration() throws Exception 
 	{
 		ReportFHI rep = new ReportFHI();
+		for (String att: rep.generateReport())
+		{
+			if (new File(att).length() == 0)
+			{
+				fail("Empty attachment file: " + att);
+			}
+		}
+		
+	}
+	
+	@Test
+	@Ignore
+	public final void testReportAndSend() throws Exception 
+	{
 		rep.generateAndSendReport();
 	}
 

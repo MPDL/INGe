@@ -257,9 +257,10 @@ public class ReportFHI {
 	
 	/**
 	 * Generate month report and send it per email 
+	 * @throws JRException 
 	 * @throws JRException
 	 */
-	public static void generateAndSendReport() throws JRException
+	public static String[] generateReport() throws JRException
 	{
 		
 		String[] formats = rprops.getProperty("FHI.report.formats").split(",");
@@ -270,11 +271,12 @@ public class ReportFHI {
 		
     	//get main report
     	JasperReport jr = null;
-		   	JasperDesign jd = JRXmlLoader.load(JRLoader.getLocationInputStream("FHI_Bibilothek_report.jrxml"));
-		   	jr = JasperCompileManager.compileReport(jd);
+	   	JasperDesign jd;
+		jd = JRXmlLoader.load(JRLoader.getLocationInputStream("FHI_Bibilothek_report.jrxml"));
+	   	jr = JasperCompileManager.compileReport(jd);
     	if ( jr == null )
     	{
-			throw new RuntimeException("Cannot load JasperReport XML: " + "FHI_Bibilothek_report.jrxml");
+			throw new RuntimeException("Compiled report is null: " + "FHI_Bibilothek_report.jrxml");
     	}
     	
     	Document doc = getXmlDataSource();
@@ -283,13 +285,14 @@ public class ReportFHI {
 		params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, doc);
 		
 		//fill report in memory
-		JasperPrint jasperPrint= JasperFillManager.fillReport(
+		JasperPrint jasperPrint;
+		jasperPrint = JasperFillManager.fillReport(
 				jr,
 				params,
 				new JRXmlDataSource(doc, jr.getQuery().getText())
 		);
 		
-		ArrayList<String> att = new ArrayList<String>();
+		ArrayList<String> atts = new ArrayList<String>();
 		String fn;
 		//save in files in formats
 		for (String f: formats)
@@ -301,7 +304,7 @@ public class ReportFHI {
 				fn = "FHI_Bibilothek_report.pdf";
 				pdfExp.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, fn);
 				pdfExp.exportReport();
-				att.add(fn);
+				atts.add(fn);
 			}
 			else if ("rtf".equalsIgnoreCase(f))
 			{
@@ -310,10 +313,16 @@ public class ReportFHI {
 				fn = "FHI_Bibilothek_report.rtf";
 				rtfExp.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, fn);
 				rtfExp.exportReport();
-				att.add(fn);
+				atts.add(fn);
 			}
 		}
 		
+		return atts.toArray(new String[atts.size()]);
+    	 
+    }	
+	
+	public static void sendReport(String[] attFileNames)
+	{
 		// send email with attachments 
 		String toEmails = rprops.getProperty("FHI.recipients.addresses");
 		if (toEmails != null && !toEmails.trim().equals(""))
@@ -333,8 +342,8 @@ public class ReportFHI {
 						rprops.getProperty("FHI.reply.to.addresses").split(","),
 						rprops.getProperty("FHI.subject") + ", von " + timeRange[0] + " bis " + timeRange[1], 
 						new String(rprops.getProperty("FHI.body")),
-						att.toArray(new String[att.size()])
-						);
+						attFileNames
+				);
 			}
 			catch (TechnicalException e) 
 			{
@@ -343,9 +352,17 @@ public class ReportFHI {
 			}
 		}
 		
-    	 
-    }		
+	}
 
+	
+	/**
+	 * Generate month report and send it per email 
+	 * @throws JRException
+	 */
+	public static void generateAndSendReport() throws JRException
+	{
+		sendReport(generateReport());
+    }		
 	
     /**
      * Load report properties
