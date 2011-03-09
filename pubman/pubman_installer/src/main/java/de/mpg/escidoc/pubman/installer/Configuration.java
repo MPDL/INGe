@@ -78,6 +78,9 @@ public class Configuration
     public static final String KEY_PM_STYLESHEET_CLASSIC_URL = "escidoc.pubman.stylesheet.classic.url";
     public static final String KEY_PM_STYLESHEET_CLASSIC_TYPE = "escidoc.pubman.stylesheet.classic.type";
     public static final String KEY_PM_STYLESHEET_CLASSIC_APPLY = "escidoc.pubman.stylesheet.classic.apply";
+    // PubMan Logo URL
+    public static final String KEY_PM_LOGO_URL = "escidoc.pubman.logo.url";
+    public static final String KEY_PM_LOGO_APPLY = "escidoc.pubman.logo.apply";
     public static final String KEY_PM_FAVICON_URL = "escidoc.pubman.favicon.url";
     public static final String KEY_PM_FAVICON_APPLY = "escidoc.pubman.favicon.apply";
     public static final String KEY_UNAPI_DOWNLOAD_SERVER = "escidoc.unapi.download.server";
@@ -99,6 +102,11 @@ public class Configuration
     public static final String KEY_SORT_KEYS_LINK = "escidoc.search.and.export.default.sort.keys";
     public static final String KEY_SORT_ORDER_LINK = "escidoc.search.and.export.default.sort.order";
     public static final String KEY_MAX_RECORDS_LINK = "escidoc.search.and.export.maximum.records";
+    // Panel 12 NEW NEW NEW
+    public static final String KEY_PB_HOME_CONTENT_URL = "escidoc.pubman.home.content.url";
+    public static final String KEY_PB_SURVEY_URL = "escidoc.pubman.survey.url";
+    public static final String KEY_PB_SURVEY_TITLE = "escidoc.pubman.survey.title";
+    public static final String KEY_PB_SURVEY_TEXT = "escidoc.pubman.survey.text";
    
     public Configuration(String fileName) throws IOException
     {

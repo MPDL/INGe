@@ -255,6 +255,16 @@
             <spec txt="Type of the classic Style (rel tag):" size="25" set="${StyleSheetClassicType}" />
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Stylesheet Type must not be empty string." />
         </field>
+        <!-- ########################## NEW START ######################### -->
+        <field type="divider" align="bottom" />
+        <field type="check" variable="PubManLogoApply">
+		  <spec txt="Use PubMan Logo" true="true" false="false" set="${PubManLogoApply}" size="25"/>
+		</field>
+        <field type="text" align="left" variable="PubManLogoURL">
+            <spec txt="URL of the PubMan Logo:" size="25" set="${PubManLogoURL}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="PubManLogo URL must not be empty string." />
+        </field>
+        <!-- ########################## NEW END ########################### -->
         <field type="divider" align="bottom" />
         <field type="check" variable="FavIconApply">
 		  <spec txt="Use FavIcon" true="true" false="false" set="${FavIconApply}" size="25"/>
@@ -369,6 +379,39 @@
             <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Please enter the number of records">
             	<param name="pattern" value="[1-9]\d*"/>
             </validator>
+        </field>
+        <field type="space" />
+        <field type="divider" align="bottom" />
+    </panel>
+ 
+ 
+    <!-- ===========================   Panel 12 : Home Page Content and Survey Advertisements   =============================== -->
+    <panel order="12">
+        <createForPack name="PubMan" />
+        <field type="title" txt="Home Page Content and Survey Advertisements" bold="true" size="1" />
+        <field type="divider" align="top" /> 
+        <field type="space" />
+        <field type="staticText" align="left"
+            txt="Here you can optionally specify an URL to external HTML content which will be displayed on Pubman's homepage instead of the standard content. (e.g. http://example.org/pubman_home.html). Leave the field blank if you do not want to use this feature. " />  
+        <field type="staticText" align="left"
+            txt="If you want to add content for different languages, please add a valid language code suffix ( '.en',  '.de', '.ja') to the HTML's filename (e.g. pubman_home.html.en). The suffix must not be provided in this field, it will be automatically added by Pubman, depending on the selected language. If no HTML for the selected language is found, the specified standard content (pubman_home.html) will be used. " />
+        <field type="text" align="left" variable="escidoc.pubman.home.content.url">
+            <spec txt="URL to external HTML content  :" size="15" align="left" set="${escidoc.pubman.home.content.url}"/>
+        </field>
+        <field type="space" />
+        <field type="divider" align="top" /> 
+        <field type="space" />
+		<field type="staticText" align="left"
+            txt="Pubman can optionally display survey advertisements with a link on every item page. Leave the fields blank if you do not want to use this feature." />
+        <field type="title" txt="Home Page Content and Survey Advertisements" bold="true" size="1" />
+        <field type="text" align="left" variable="escidoc.pubman.survey.url">
+            <spec txt="The URL which leads to the current survey  :" size="15" align="right" set="${escidoc.pubman.survey.url}"/>
+        </field>
+        <field type="text" align="left" variable="escidoc.pubman.survey.title">
+            <spec txt="The title of the survey  :" size="15" align="left" set="${escidoc.pubman.survey.title}"/>
+        </field>
+        <field type="text" align="left" variable="escidoc.pubman.survey.text">
+            <spec txt="A short description of the survey  :" size="15" align="left" set="${escidoc.pubman.survey.text}"/>
         </field>
         <field type="space" />
         <field type="divider" align="bottom" />

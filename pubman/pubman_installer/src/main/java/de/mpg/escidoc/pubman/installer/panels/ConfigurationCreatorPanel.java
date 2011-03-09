@@ -143,6 +143,9 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
                 .put(Configuration.KEY_PM_STYLESHEET_CLASSIC_APPLY, idata.getVariable("StyleSheetClassicApply"));
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_CLASSIC_URL, idata.getVariable("StyleSheetClassicURL"));
         userConfigValues.put(Configuration.KEY_PM_STYLESHEET_CLASSIC_TYPE, idata.getVariable("StyleSheetClassicType"));
+        // PumMan Logo URL
+        userConfigValues.put(Configuration.KEY_PM_LOGO_URL, idata.getVariable("PubManLogoURL"));
+        userConfigValues.put(Configuration.KEY_PM_LOGO_APPLY, idata.getVariable("PubManLogoApply"));
         userConfigValues.put(Configuration.KEY_PM_FAVICON_URL, idata.getVariable("FavIconURL"));
         userConfigValues.put(Configuration.KEY_PM_FAVICON_APPLY, idata.getVariable("FavIconApply"));
         
@@ -170,8 +173,12 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         userConfigValues.put(Configuration.KEY_SORT_KEYS_LINK, idata.getVariable("escidoc.search.and.export.default.sort.keys"));
         userConfigValues.put(Configuration.KEY_SORT_ORDER_LINK, idata.getVariable("escidoc.search.and.export.default.sort.order"));
         userConfigValues.put(Configuration.KEY_MAX_RECORDS_LINK, idata.getVariable("escidoc.search.and.export.maximum.records"));
-
-        
+        // Panel 12 NEW NEW NEW
+        userConfigValues.put(Configuration.KEY_PB_HOME_CONTENT_URL, idata.getVariable("escidoc.pubman.home.content.url"));
+        userConfigValues.put(Configuration.KEY_PB_SURVEY_URL, idata.getVariable("escidoc.pubman.survey.url"));
+        userConfigValues.put(Configuration.KEY_PB_SURVEY_TITLE, idata.getVariable("escidoc.pubman.survey.title"));
+        userConfigValues.put(Configuration.KEY_PB_SURVEY_TEXT, idata.getVariable("escidoc.pubman.survey.text"));
+       
         configuration.setProperties(userConfigValues);
         configuration.store(idata.getInstallPath() + "/jboss/server/default/conf/pubman.properties");
         // also store in local pubman properties
