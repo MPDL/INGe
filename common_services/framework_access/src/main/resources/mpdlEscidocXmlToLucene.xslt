@@ -67,7 +67,6 @@ Notes:
     
     <!-- WRITE THE XML THAT GETS RETURNED BY THE SEARCH -->
 	<xsl:template name="writeSearchXmlItem">
-		
 		<xsl:for-each select="/*[local-name()='item']">
 			<xsl:copy>
 				<xsl:copy-of select="@*"/>
@@ -205,7 +204,6 @@ Notes:
     <!-- WRITE INDEX FOR CONTAINER -->
 	<xsl:template name="processContainer">
 		<xsl:variable name="PID" select="string-helper:removeVersionIdentifier(/*[local-name()='container']/@objid)"/>
-
         <!-- START IndexDocument -->
 		<IndexDocument> 
             <!-- Gsearch needs PID to find object when updating -->
@@ -649,19 +647,13 @@ Notes:
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<xsl:for-each select="$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']/*[local-name()='person']">
-				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='family-name']"/>
-				</element>
-				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='given-name']"/>
+				<element index="UN_TOKENIZED">
+					<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
 				</element>
 			</xsl:for-each>
 			<xsl:for-each select="$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']/*[local-name()='person']">
-				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='family-name']"/>
-				</element>
-				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='given-name']"/>
+				<element index="UN_TOKENIZED">
+					<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
@@ -672,19 +664,13 @@ Notes:
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<xsl:for-each select="$ITEM_METADATAPATH/*[local-name()='publication']//*[local-name()='source']/*[local-name()='creator']/*[local-name()='person']">
-				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='family-name']"/>
-				</element>
-				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='given-name']"/>
+				<element index="UN_TOKENIZED">
+					<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
 				</element>
 			</xsl:for-each>
 			<xsl:for-each select="$CONTAINER_METADATAPATH/*[local-name()='publication']//*[local-name()='source']/*[local-name()='creator']/*[local-name()='person']">
-				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='family-name']"/>
-				</element>
-				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='given-name']"/>
+				<element index="UN_TOKENIZED">
+					<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
