@@ -69,6 +69,11 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>SearchResultListPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.SearchResultListPage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>AdvancedSearch</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.desktop.AdvancedSearch</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
@@ -356,6 +361,11 @@
 	<managed-bean>
 		<managed-bean-name>BrowseByPage</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.BrowseByPage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>BrowseByBreadcrumbPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.BrowseByBreadcrumbPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>

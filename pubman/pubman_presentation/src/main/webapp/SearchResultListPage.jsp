@@ -53,6 +53,8 @@
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{SearchRetrieverRequestBean.beanName}" styleClass="noDisplay" />
+			<h:outputText value="#{SearchResultListPage.beanName}" styleClass="noDisplay" />
+			
 			<tr:form usesUpload="true">
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
