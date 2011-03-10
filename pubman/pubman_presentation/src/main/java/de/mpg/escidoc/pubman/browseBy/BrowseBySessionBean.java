@@ -228,7 +228,6 @@ public class BrowseBySessionBean extends FacesBean
     public List<LinkVO> getConeAll ()
     {
         List<LinkVO> links = new ArrayList<LinkVO>();
-        BrowseByPage bbPage = new BrowseByPage();
         
         try
         {

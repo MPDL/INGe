@@ -69,32 +69,6 @@
 								<!-- Headline ends here -->
 							</div>
 						</div>
-<!--  
-						<div class="small_marginLIncl subHeaderSection">
-							<div class="contentMenu">
-							
-								<div class="free_area0 sub">
-																	
-									<h:commandLink id="lnkBrowseBy_lnkOrgMenu" title="" action="#{Navigation.loadBrowseBy}" immediate="true">
-										<h:outputText value="Organizational Unit"/>
-									</h:commandLink>
-									<h:outputText styleClass="seperator void" />
-									<h:commandLink id="lnkBrowseBy_lnkCreatorMenu" title="" action="#{Navigation.loadBrowseBy}" immediate="true">
-										<h:outputText value="Creator"/>
-									</h:commandLink>
-									<h:outputText styleClass="seperator void" />
-									<h:commandLink id="lnkBrowseBy_lnkSubjectMenu" title="" action="#{Navigation.loadBrowseBy}">
-										<h:outputText value="Subject"/>
-									</h:commandLink>
-								
-								</div>
-							
-							</div>
-							<div class="subHeader">							
-									&#160;
-							</div>
-						</div>
--->
 					</div>			
 					<div class="full_area0">
 						<div class="full_area0 fullItem">

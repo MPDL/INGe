@@ -1240,18 +1240,6 @@ public class ItemControllerSessionBean extends FacesBean
 		{
 			CreatorVO creator = pubItem.getMetadata().getCreators().get(i);
 
-			// build completeName out of givenName and familyName
-			if (creator.getPerson() != null && creator.getPerson().getCompleteName() == null)
-			{
-				String completeName = new String();
-				if (creator.getPerson().getGivenName() != null)
-				{
-					completeName.concat(creator.getPerson().getGivenName() + " ");
-				}
-				completeName.concat(creator.getPerson().getFamilyName());
-				creator.getPerson().setCompleteName(completeName);
-			}
-
 			// delete unfilled PersonOrganizations
 			if (creator.getPerson() != null && creator.getPerson().getOrganizations() != null)
 			{
