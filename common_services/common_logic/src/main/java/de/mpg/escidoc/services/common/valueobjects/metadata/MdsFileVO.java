@@ -3,6 +3,7 @@ package de.mpg.escidoc.services.common.valueobjects.metadata;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 
 public class MdsFileVO extends MetadataSetVO
@@ -151,4 +152,57 @@ public class MdsFileVO extends MetadataSetVO
         this.license = license;
     }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        else if (!(obj instanceof MdsFileVO))
+        {
+            return false;
+        }
+        MdsFileVO other = (MdsFileVO) obj;
+        if (!(this.contentCategory == null && other.contentCategory == null) && (this.contentCategory == null || !this.contentCategory.equals(other.contentCategory)))
+        {
+            return false;
+        }
+        else if (!(this.copyrightDate == null && other.copyrightDate == null) && (this.copyrightDate == null || !this.copyrightDate.equals(other.copyrightDate)))
+        {
+            return false;
+        }
+        else if (!(this.description == null && other.description == null) && (this.description == null || !this.description.equals(other.description)))
+        {
+            return false;
+        }
+        else if (!(this.embargoUntil == null && other.embargoUntil == null) && (this.embargoUntil == null || !this.embargoUntil.equals(other.embargoUntil)))
+        {
+            return false;
+        }
+        else if (!(this.formats == null && other.formats == null) && (this.formats == null || !this.formats.equals(other.formats)))
+        {
+            return false;
+        }
+        else if (!(this.identifiers == null && other.identifiers == null) && (this.identifiers == null || !this.identifiers.equals(other.identifiers)))
+        {
+            return false;
+        }
+        else if (!(this.license == null && other.license == null) && (this.license == null || !this.license.equals(other.license)))
+        {
+            return false;
+        }
+        else if (!(this.rights == null && other.rights == null) && (this.rights == null || !this.rights.equals(other.rights)))
+        {
+            return false;
+        }
+        else if (this.size != other.size)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 }

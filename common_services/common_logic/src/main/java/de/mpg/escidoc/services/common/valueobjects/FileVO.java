@@ -532,4 +532,83 @@ public class FileVO extends ValueObject implements Cloneable
         this.checksumAlgorithm = checksumAlgorithm;
     }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        else if (!(obj instanceof FileVO))
+        {
+            return false;
+        }
+        FileVO other = (FileVO) obj;
+        if (!(this.checksum == null && other.checksum == null) && (this.checksum == null || !this.checksum.equals(other.checksum)))
+        {
+            return false;
+        }
+        else if (!(this.checksumAlgorithm == null && other.checksumAlgorithm == null) && (this.checksumAlgorithm == null || !this.checksumAlgorithm.equals(other.checksumAlgorithm)))
+        {
+            return false;
+        }
+        else if (!(this.content == null && other.content == null) && (this.content == null || !this.content.equals(other.content)))
+        {
+            return false;
+        }
+        else if (!(this.contentCategory == null && other.contentCategory == null) && (this.contentCategory == null || !this.contentCategory.equals(other.contentCategory)))
+        {
+            return false;
+        }
+        else if (!(this.createdByRO == null && other.createdByRO == null) && (this.createdByRO == null || !this.createdByRO.equals(other.createdByRO)))
+        {
+            return false;
+        }
+        else if (!(this.creationDate == null && other.creationDate == null) && (this.creationDate == null || !this.creationDate.equals(other.creationDate)))
+        {
+            return false;
+        }
+        else if (!(this.description == null && other.description == null) && (this.description == null || !this.description.equals(other.description)))
+        {
+            return false;
+        }
+        else if (!(this.lastModificationDate == null && other.lastModificationDate == null) && (this.lastModificationDate == null || !this.lastModificationDate.equals(other.lastModificationDate)))
+        {
+            return false;
+        }
+        else if (!(this.metadataSets == null && other.metadataSets == null) && (this.metadataSets == null || !this.metadataSets.equals(other.metadataSets)))
+        {
+            return false;
+        }
+        else if (!(this.mimeType == null && other.mimeType == null) && (this.mimeType == null || !this.mimeType.equals(other.mimeType)))
+        {
+            return false;
+        }
+        else if (!(this.name == null && other.name == null) && (this.name == null || !this.name.equals(other.name)))
+        {
+            return false;
+        }
+        else if (!(this.pid == null && other.pid == null) && (this.pid == null || !this.pid.equals(other.pid)))
+        {
+            return false;
+        }
+        else if (!(this.reference == null && other.reference == null) && (this.reference == null || !this.reference.equals(other.reference)))
+        {
+            return false;
+        }
+        else if (!(this.storage == null && other.storage == null) && (this.storage == null || !this.storage.equals(other.storage)))
+        {
+            return false;
+        }
+        else if (!(this.visibility == null && other.visibility == null) && (this.visibility == null || !this.visibility.equals(other.visibility)))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    
 }

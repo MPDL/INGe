@@ -68,4 +68,30 @@ public class FormatVO extends ValueObject
     {
         this.type = type;
     }
+    
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        else if (!(obj instanceof FormatVO))
+        {
+            return false;
+        }
+        FormatVO other = (FormatVO) obj;
+        if (!(this.type == null && other.type == null) && (this.type == null || !this.type.equals(other.type)))
+        {
+            return false;
+        }
+        else if (!(this.value == null && other.value == null) && (this.value == null || !this.value.equals(other.value)))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 }
