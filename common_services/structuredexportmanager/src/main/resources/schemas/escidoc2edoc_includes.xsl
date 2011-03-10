@@ -60,17 +60,20 @@
 	<xsl:variable name="escd2edoc_daffs">
 		<map escd="escidoc:55201">11683</map> 	 
 		<map escd="escidoc:24007">1528</map> 	 
-		<map escd="escidoc:24027">12859</map> 	 
 		<map escd="escidoc:159875">2724</map> 	 
 		<map escd="escidoc:159888">2725</map>
-<!--	Kernphysik 	 
-		<map escd="">4851</map>
-	FHI		 	 
-		<map escd="">1515</map>
-	Biophysikalische Chemie	 
-		<map escd="">3315</map>
-    Kognitions- und Neurowissenschaften	
-		<map escd="">18314</map--> 	 
+<!--	Kernphysik  	 
+		<map escd="">4851</map> -->
+<!--	FHI		 	 
+		<map escd="">1515</map> -->
+<!--	Biophysikalische Chemie	 -->
+		<map escd="escidoc:persistent28">3315</map>
+<!--    Kognitions- und Neurowissenschaften	
+		<map escd="">18314</map> 	-->
+<!--	Chemische Ökologie 	 	 		-->
+		<map escd="escidoc:24027">12859</map>
+<!--	Human Cognitive and Brain Sciences -->
+		<map escd="escidoc:634548">18314</map>
 	</xsl:variable>	
  		
 	
