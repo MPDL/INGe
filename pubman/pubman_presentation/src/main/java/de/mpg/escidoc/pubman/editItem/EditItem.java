@@ -870,7 +870,7 @@ public class EditItem extends FacesBean
         {
             sourceBean.bindCreatorsToVO(sourceBean.getSource().getCreators());
         }
-        // write creators back to VO
+        // write sources back to VO
         this.getEditItemSessionBean().bindSourcesToVO(item.getMetadata().getSources());
         return true;
     }

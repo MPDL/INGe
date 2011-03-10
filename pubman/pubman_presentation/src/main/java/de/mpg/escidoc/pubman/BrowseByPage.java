@@ -31,6 +31,7 @@ package de.mpg.escidoc.pubman;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -47,6 +48,7 @@ import org.apache.myfaces.trinidad.component.UIXIterator;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.browseBy.BrowseBySessionBean;
+import de.mpg.escidoc.pubman.util.LinkVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 
@@ -62,6 +64,8 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 public class BrowseByPage extends BreadcrumbPage
 {
     private static Logger logger = Logger.getLogger(BrowseByPage.class);
+    
+    public static final String BEAN_NAME = "BrowseByPage";
     
     private final String persSearchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();
     private final String subSearchIndex = MetadataSearchCriterion.getINDEX_TOPIC();
@@ -330,7 +334,6 @@ public class BrowseByPage extends BreadcrumbPage
     @Override
     public boolean isItemSpecific()
     {
-        // TODO Auto-generated method stub
         return false;
     }
     
@@ -438,77 +441,4 @@ public class BrowseByPage extends BreadcrumbPage
         return anyYearSearchIndex;
     }
     
-    /**
-     * 
-     * Class for link objects in the browse by presentation
-     *
-     * @author kleinfe1 (initial creation)
-     * @author $Author$ (last modification)
-     * @version $Revision$ $LastChangedDate$
-     *
-     */
-    public class LinkVO
-    {
-        String label;
-        String value;
-        
-        public LinkVO(String label, String value)
-        {
-            this.label = label;
-            this.value = value;
-        }
-        
-        public String getLabel()
-        {
-            return this.label;
-        }
-        
-        public void setLabel(String label)
-        {
-            this.label = label;
-        }
-        
-        public String getValue()
-        {
-            return this.value;
-        }
-        
-        public void setValue(String value)
-        {
-            this.value = value;
-        }
-
-        public String getEncodedLabel()
-        {
-            try
-            {
-                return URLEncoder.encode(this.label, "UTF-8");
-            }
-            catch (Exception e)
-            {
-                throw new RuntimeException(e);
-            }
-        }
-        
-        @Override
-        public boolean equals(Object obj)
-        {
-            if (!(obj instanceof LinkVO))
-            {
-                return false;
-            }
-            else if (!label.equals(((LinkVO) obj).getLabel()))
-            {
-                return false;
-            }
-            else if (!value.equals(((LinkVO) obj).getValue()))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-    }
 }

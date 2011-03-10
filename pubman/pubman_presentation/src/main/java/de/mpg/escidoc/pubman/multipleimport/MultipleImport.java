@@ -44,6 +44,7 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
@@ -64,7 +65,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class MultipleImport extends FacesBean
+public class MultipleImport extends BreadcrumbPage
 {
     
     private static final Logger logger = Logger.getLogger(MultipleImport.class);
@@ -417,6 +418,12 @@ public class MultipleImport extends FacesBean
     public void setFormatConverter(Converter formatConverter)
     {
         this.formatConverter = formatConverter;
+    }
+
+    @Override
+    public boolean isItemSpecific()
+    {
+        return false;
     }
 
 }

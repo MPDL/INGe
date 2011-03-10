@@ -154,12 +154,6 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         return "YearbookPage.jsp";
     }
 
-    @Override
-    public boolean isItemSpecific() 
-    {
-        return false;
-    } 
- 
     public String addSelectedToYearbook()
     {
         YearbookItemSessionBean yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class); 

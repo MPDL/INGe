@@ -49,6 +49,7 @@
 				
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
+				<h:outputText value="#{MultipleImport.beanName}" styleClass="noDisplay" />
 				<script type="text/javascript">
 					var detailsAwaiting = '<tr class="full_area0 importDetails"><td colspan="8" class="full_area0"><div class="big_imgArea half_marginLIncl smallThrobber"></div></td></tr>';
 				</script>

@@ -167,14 +167,6 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
     {
         return "YearbookModeratorPage.jsp";
     }
-
-    @Override
-    public boolean isItemSpecific() 
-    {
-        return false;
-    } 
- 
-   
     
     public List<SelectItem> getOrgUnitSelectItems()
     {

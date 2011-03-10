@@ -69,7 +69,8 @@ public class RedirectServlet extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        String id = req.getPathInfo().substring(1); 
+        String id = req.getPathInfo().substring(1);
+        boolean download = ("download".equals(req.getParameter("mode")));
         if (id != null && id.contains("/component/"))
         {
             String[] pieces = id.split("/");
@@ -130,6 +131,10 @@ public class RedirectServlet extends HttpServlet
                         for (Header header : method.getResponseHeaders())
                         {
                             resp.setHeader(header.getName(), header.getValue());
+                        }
+                        if (download)
+                        {
+                            resp.setHeader("Content-Disposition", "attachment");
                         }
                         input = method.getResponseBodyAsStream();
                     }

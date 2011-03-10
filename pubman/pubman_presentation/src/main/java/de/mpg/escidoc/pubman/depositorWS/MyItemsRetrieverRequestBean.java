@@ -437,12 +437,6 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         return "DepositorWSPage.jsp";
     }
 
-    @Override
-    public boolean isItemSpecific() 
-    {
-        return false;
-    }
-
     /**
      * @return the importSelectItems
      */

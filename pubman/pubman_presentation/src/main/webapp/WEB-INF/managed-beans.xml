@@ -149,6 +149,16 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>ViewRevisionsPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.ViewRevisionsPage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>LocalTagsPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.LocalTagsPage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>LoginHelper</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.util.LoginHelper</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
@@ -207,6 +217,11 @@
 		<managed-bean-name>DepositorWSSessionBean</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>DepositorWSPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.DepositorWSPage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>SearchResultListSessionBean</managed-bean-name>
@@ -342,7 +357,12 @@
 		<managed-bean-name>BrowseByPage</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.BrowseByPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>		
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>BrowseBySelectPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.BrowseBySelectPage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ContextListSessionBean</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.contextList.ContextListSessionBean</managed-bean-class>
@@ -481,6 +501,11 @@
 	<managed-bean>
 		<managed-bean-name>CartItemsRetrieverRequestBean</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.basket.CartItemsRetrieverRequestBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>CartItemsPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.CartItemsPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>

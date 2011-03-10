@@ -36,6 +36,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.SortColumn;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.SortDirection;
@@ -50,11 +51,13 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class ImportWorkspace extends FacesBean
+public class ImportWorkspace extends BreadcrumbPage
 {
     
     private ImportLog.SortColumn sortColumn = SortColumn.STARTDATE;
     private ImportLog.SortDirection sortDirection = SortDirection.DESCENDING;
+    
+    public static final String BEAN_NAME = "ImportWorkspace";
     
     private List<ImportLog> imports = null;
     
@@ -67,6 +70,7 @@ public class ImportWorkspace extends FacesBean
      */
     public ImportWorkspace()
     {
+        super.init();
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         AccountUserVO user = loginHelper.getAccountUser();
         
@@ -202,6 +206,12 @@ public class ImportWorkspace extends FacesBean
             if (currentImport.getFormat().equalsIgnoreCase(MultipleImport.ESCIDOC_FORMAT.getName())) {label=getLabel("ENUM_IMPORT_FORMAT_ESCIDOC");}
         }
         return label;
+    }
+
+    @Override
+    public boolean isItemSpecific()
+    {
+        return false;
     }
     
 }

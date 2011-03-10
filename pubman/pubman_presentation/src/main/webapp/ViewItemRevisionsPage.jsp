@@ -51,6 +51,7 @@
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{RevisionsRetrieverRequestBean.beanName}" styleClass="noDisplay" />
+			<h:outputText value="#{ViewRevisionsPage.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>

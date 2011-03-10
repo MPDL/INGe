@@ -43,24 +43,38 @@
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine newBlock" rendered="#{index.index > 0}"/>
 
 <%-- File name --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText value="#{lbl.ViewItemMedium_lblFileName}"/><span class="noDisplay">: <br /></span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<tr:goLink id="lnkCitationURL" targetFrame="." destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}" shortDesc="#{file.file.description}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-							<h:outputText value="#{file.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-						</tr:goLink>
-						<!-- Link for fulltext searchhits with open pdf params-->
-						<tr:goLink id="lnkSearchHitsURL" targetFrame="." destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}#search=#{file.openPDFSearchParameter}" shortDesc="#{file.file.description}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-							<h:outputText value="#{file.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-						</tr:goLink>
-						<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn and !file.isVisible and !(ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}"/>
-						<h:outputText value=" (#{file.contentCategory})" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
-						<h:commandLink id="lnkChecksum" value=" [#{file.checksumAlgorithmAsString}]" action="#{file.displayChecksum}" target="_blank" rendered="#{file.checksumAlgorithmAsString!=null and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}"/>		
+			<div class="free_area0 endline itemLine firstLine">
+				<span class="xLarge_area0 endline labelLine featureIcon">
+					<span class="noDisplay">: </span>
 				</span>
-			</h:panelGroup>
+				<span class="large_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{file.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+					<h:outputText value=" (#{file.contentCategory})" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+					<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
+					<h:outputText value=", #{file.fileSize}"/>
+				</span>
+				<span class="large_area0 xTiny_marginLExcl endline">
+					<span class="viewFileIcon"></span>
+					<tr:goLink id="lnkCitationURL" targetFrame="_blank" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+						<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
+					</tr:goLink>
+					<!-- Link for fulltext searchhits with open pdf params-->
+					<tr:goLink id="lnkSearchHitsURL" targetFrame="_blank" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}#search=#{file.openPDFSearchParameter}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+						<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
+					</tr:goLink>
+				</span>
+				<span class="large_area0 xTiny_marginLExcl endline">
+					<span class="downloadFileIcon"></span>
+					<tr:goLink id="lnkCitationURLDownload" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+						<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
+					</tr:goLink>
+					<!-- Link for fulltext searchhits with open pdf params-->
+					<tr:goLink id="lnkSearchHitsURLDownload" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download#search=#{file.openPDFSearchParameter}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+						<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
+					</tr:goLink>
+				</span>
+			</div>
+			
 
 <%-- File description --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
@@ -91,7 +105,8 @@
 					<h:outputText value="#{lbl.ViewItemMedium_lblFileMimeTypeSize}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{file.file.mimeType} / #{file.fileSize}"/>
+					<h:outputText value="#{file.file.mimeType}"/>
+					<h:commandLink id="lnkChecksum" value=" / [#{file.checksumAlgorithmAsString}]" action="#{file.displayChecksum}" target="_blank" rendered="#{file.checksumAlgorithmAsString!=null and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}"/>
 				</span>
 			</h:panelGroup>
 

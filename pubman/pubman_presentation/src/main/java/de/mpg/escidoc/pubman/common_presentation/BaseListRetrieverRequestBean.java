@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
@@ -22,7 +23,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * @param <ListElementType> The Type of the list elements managed by this bean
  * @param <FilterType> The type of filters managed by this bean
  */
-public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> extends BreadcrumbPage
+public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> extends FacesBean
 {
     private static Logger logger = Logger.getLogger(BaseListRetrieverRequestBean.class);
     private BasePaginatorListSessionBean<ListElementType, FilterType> basePaginatorListSessionBean;

@@ -331,10 +331,4 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         
     }
 
-    @Override
-    public boolean isItemSpecific() 
-    {
-        return false;
-    }
-
 }

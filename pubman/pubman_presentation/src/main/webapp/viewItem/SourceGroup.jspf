@@ -92,7 +92,7 @@
 					<tr:iterator var="sourceCreatorPerson" value="#{source.sourceCreatorArray}" binding="#{ViewItemFull.sourceCreatorPersonsIterator}" varStatus="index" rows="0">
 						<h:panelGroup styleClass="free_area0 creator">
 							<h:outputText value="#{sourceCreatorPerson.formattedDisplay}" escape="false"/>
-							<h:panelGroup rendered="#{sourceCreatorPerson.portfolioLink != null}">
+							<h:panelGroup rendered="#{sourceCreatorPerson.portfolioLink != null and sourceCreatorPerson.portfolioLink != ''}">
 								&#160;
 								<h:outputLink id="lnkSourceCreatorPersonPortfolioLink" styleClass="authorCard" value="#{sourceCreatorPerson.portfolioLink}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 							</h:panelGroup>							

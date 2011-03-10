@@ -113,10 +113,4 @@ public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         return "ViewItemRevisionsPage.jsp";
     }
 
-    @Override
-    public boolean isItemSpecific() 
-    {
-        return true;
-    }
-
 }

@@ -47,9 +47,10 @@ import javax.naming.InitialContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.BrowseByPage;
-import de.mpg.escidoc.pubman.BrowseByPage.LinkVO;
+
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.util.LinkVO;
 import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
@@ -254,7 +255,7 @@ public class BrowseBySessionBean extends FacesBean
                 String[] parts = line.split("\\|");
                 if (parts.length == 2)
                 {
-                    LinkVO link = bbPage.new LinkVO(parts[1], parts[0]);
+                    LinkVO link = new LinkVO(parts[1], parts[0]);
                     links.add(link);
                 }
             }

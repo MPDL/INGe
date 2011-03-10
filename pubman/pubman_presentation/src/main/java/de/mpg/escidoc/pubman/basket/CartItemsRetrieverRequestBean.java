@@ -225,10 +225,4 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         
     }
 
-    @Override
-    public boolean isItemSpecific()
-    {
-        return false;
-    }
-
 }

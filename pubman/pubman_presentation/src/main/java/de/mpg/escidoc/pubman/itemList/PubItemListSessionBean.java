@@ -673,14 +673,15 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         else
         {
             
-                if(getPageType().equals("SearchResult"))
-                {
-                    setSelectedSortBy(SORT_CRITERIA.RELEVANCE.name());
-                }
-                else
-                {
+// This is commented out due to PUBMAN-1907
+//                if(getPageType().equals("SearchResult"))
+//                {
+//                    setSelectedSortBy(SORT_CRITERIA.RELEVANCE.name());
+//                }
+//                else
+//                {
                     setSelectedSortBy(SORT_CRITERIA.MODIFICATION_DATE.name());
-                }
+//                }
 
         }
         
