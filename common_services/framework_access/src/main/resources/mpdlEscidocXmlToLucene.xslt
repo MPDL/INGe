@@ -303,7 +303,13 @@ Notes:
 			<xsl:call-template name="writeIndexField">
 				<xsl:with-param name="context" select="$CONTEXTNAME"/>
 				<xsl:with-param name="fieldname">metadata</xsl:with-param>
-				<xsl:with-param name="fieldvalue" select="text()"/>
+				<xsl:with-param name="fieldvalue">
+					<xsl:call-template name="removeSubSupStr">
+						<xsl:with-param name="name" select="$path"/>
+						<xsl:with-param name="str" select="text()"/>
+					</xsl:call-template>
+				</xsl:with-param>
+<!--				<xsl:with-param name="fieldvalue" select="text()"/>-->
 				<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
 				<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
 			</xsl:call-template>
@@ -498,14 +504,21 @@ Notes:
 				<xsl:attribute name="IFname">
 					<xsl:value-of select="concat($context,'.',$fieldname)"/>
 				</xsl:attribute>
-				<xsl:choose>
-					<xsl:when test="$isDateOrDecimal = true()">
-						<xsl:value-of select="translate($fieldvalue, 'TZ', 'tz')"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="$fieldvalue"/>
-					</xsl:otherwise>
-				</xsl:choose>
+				
+				<xsl:call-template name="removeSubSupStr">
+					<xsl:with-param name="name" select="$fieldname"/>
+					<xsl:with-param name="str">
+						<xsl:choose>
+							<xsl:when test="$isDateOrDecimal = true()">
+								<xsl:value-of select="translate($fieldvalue, 'TZ', 'tz')"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="$fieldvalue"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:with-param>
+				</xsl:call-template>
+				
 			</IndexField>
 			<xsl:call-template name="writeSortField">
 				<xsl:with-param name="context" select="$context"/>
@@ -525,7 +538,12 @@ Notes:
 				<xsl:attribute name="IFname">
 					<xsl:value-of select="concat($SORTCONTEXTPREFIX,'.',$context,'.',$fieldname)"/>
 				</xsl:attribute>
-				<xsl:value-of select="string-helper:getNormalizedString($fieldvalue)"/>
+				<xsl:call-template name="removeSubSupStr">
+					<xsl:with-param name="name" select="$fieldname"/>
+					<xsl:with-param name="str">
+						<xsl:value-of select="string-helper:getNormalizedString($fieldvalue)"/>
+					</xsl:with-param>
+				</xsl:call-template>
 			</IndexField>
 		</xsl:if>
 	</xsl:template>
@@ -548,6 +566,118 @@ Notes:
 			</xsl:for-each>
 		</xsl:for-each>
 	</xsl:template>
+
+	<!-- REMOVE SUB AND SUP TAGS -->
+	<xsl:template name="removeSubSup">
+		<xsl:param name="elem" />
+		<xsl:call-template name="removeSubSupStr">
+			<xsl:with-param name="name" select="local-name($elem)" />
+			<xsl:with-param name="str" select="$elem/*"/>
+		</xsl:call-template>	
+	</xsl:template>
+		
+	<!-- REMOVE SUB AND SUP TAGS -->
+	<xsl:template name="removeSubSupStr">
+		<xsl:param name="name" />
+		<xsl:param name="str" />
+<!--				<xsl:message>HERE!!!!!!!!!!!!!</xsl:message>-->
+<!--				<xsl:message>name: <xsl:value-of select="$name"/></xsl:message>-->
+<!--				<xsl:message>str: <xsl:value-of select="$str"/></xsl:message>-->
+			<xsl:choose>
+<!--				FIELDS WHERE SUB/SUPs should be removed-->
+				<xsl:when test="
+					contains(
+						concat(
+						',title,alternative,abstract,',
+						',publication.title,publication.alternative,publication.abstract,',
+						',publication.source.title,publication.source.alternative,publication.source.abstract,'
+						),
+					  	concat(',', $name, ',')
+					)">
+					
+						<xsl:call-template name="removeTag">
+							<xsl:with-param name="str">
+								<xsl:call-template name="removeTag">
+									<xsl:with-param name="str" select="$str" />
+									<xsl:with-param name="tag" select="'sub'" />
+								</xsl:call-template>
+							</xsl:with-param>
+							<xsl:with-param name="tag" select="'sup'" />
+						</xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$str" />
+				</xsl:otherwise>
+			</xsl:choose>
+
+	</xsl:template>	
+	
+	<!-- REMOVE TAG -->
+	<xsl:template name="removeTag">
+		<xsl:param name="str"/>
+		<xsl:param name="tag"/>
+		<xsl:if test="contains($str, concat('&lt;', $tag, '&gt;'))">
+			<xsl:call-template name="replace-substring">
+			     <xsl:with-param name="original">
+					<xsl:call-template name="replace-substring">
+					     <xsl:with-param name="original" select="$str"/>
+					     <xsl:with-param name="substring" select="concat('&lt;', $tag, '&gt;')"/>
+					</xsl:call-template>
+			     </xsl:with-param>
+			     <xsl:with-param name="substring" select="concat('&lt;/', $tag, '&gt;')"/>
+			</xsl:call-template>
+		</xsl:if>
+	</xsl:template>
+	
+	<!-- REPLACE STRING -->
+	<xsl:template name="replace-substring">
+	    <xsl:param name="original"/>
+	    <xsl:param name="substring"/>
+	    <xsl:param name="replacement" select="''"/>
+	    <xsl:variable name="first">
+	      <xsl:choose>
+	        <xsl:when test="contains($original, $substring)">
+	          <xsl:value-of select="substring-before($original, $substring)"/>
+	        </xsl:when>
+	        <xsl:otherwise>
+	          <xsl:value-of select="$original"/>
+	        </xsl:otherwise>
+	      </xsl:choose>
+	    </xsl:variable>
+	    <xsl:variable name="middle">
+	      <xsl:choose>
+	        <xsl:when test="contains($original, $substring)">
+	          <xsl:value-of select="$replacement"/>
+	        </xsl:when>
+	        <xsl:otherwise>
+	          <xsl:text></xsl:text>
+	        </xsl:otherwise>
+	      </xsl:choose>
+	    </xsl:variable>
+	    <xsl:variable name="last">
+	      <xsl:choose>
+	        <xsl:when test="contains($original, $substring)">
+	          <xsl:choose>
+	            <xsl:when test="contains(substring-after($original, $substring), $substring)">
+	              <xsl:call-template name="replace-substring">
+	                <xsl:with-param name="original"><xsl:value-of select="substring-after($original, $substring)"/></xsl:with-param>
+	                <xsl:with-param name="substring"><xsl:value-of select="$substring"/></xsl:with-param>
+	                <xsl:with-param name="replacement"><xsl:value-of select="$replacement"/></xsl:with-param>
+	              </xsl:call-template>
+	            </xsl:when>
+	            <xsl:otherwise>
+	              <xsl:value-of select="substring-after($original, $substring)"/>
+	            </xsl:otherwise>
+	          </xsl:choose>
+	        </xsl:when>
+	        <xsl:otherwise>
+	          <xsl:text></xsl:text>
+	        </xsl:otherwise>
+	      </xsl:choose>
+	    </xsl:variable>
+	    <xsl:value-of select="concat($first, $middle, $last)"/>
+	</xsl:template>
+	
         
     <!-- SORTFIELDS -->
 	<xsl:variable name="sortfields">
@@ -827,7 +957,10 @@ Notes:
 			<xsl:for-each select="xalan:nodeset($fields)/*">
 				<xsl:variable name="name" select="name()"/>
 				<element index="TOKENIZED">
-					<xsl:value-of select="."/>
+					<xsl:call-template name="removeSubSup">
+						<xsl:with-param name="elem" select="."/>
+					</xsl:call-template>
+<!--						<xsl:value-of select="."/>-->
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
@@ -852,7 +985,10 @@ Notes:
 			<xsl:for-each select="xalan:nodeset($fields)/*">
 				<xsl:variable name="name" select="name()"/>
 				<element index="TOKENIZED">
-					<xsl:value-of select="."/>
+					<xsl:call-template name="removeSubSup">
+						<xsl:with-param name="elem" select="."/>
+					</xsl:call-template>
+<!--						<xsl:value-of select="."/>-->
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
@@ -893,19 +1029,31 @@ Notes:
 			</xsl:attribute>
 			<xsl:for-each select="$ITEM_METADATAPATH/*[local-name()='publication']//*[local-name()='source']">
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='title']"/>
+					<xsl:call-template name="removeSubSup">
+						<xsl:with-param name="elem" select="./*[local-name()='title']"/>
+					</xsl:call-template>
 				</element>
+<!--					<xsl:value-of select="./*[local-name()='title']"/>-->
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='alternative']"/>
+					<xsl:call-template name="removeSubSup">
+						<xsl:with-param name="elem" select="./*[local-name()='alternative']"/>
+					</xsl:call-template>
 				</element>
+<!--					<xsl:value-of select="./*[local-name()='alternative']"/>-->
 			</xsl:for-each>
 			<xsl:for-each select="$CONTAINER_METADATAPATH/*[local-name()='publication']//*[local-name()='source']">
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='title']"/>
+					<xsl:call-template name="removeSubSup">
+						<xsl:with-param name="elem" select="./*[local-name()='title']"/>
+					</xsl:call-template>
 				</element>
+<!--					<xsl:value-of select="./*[local-name()='title']"/>-->
 				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='alternative']"/>
+					<xsl:call-template name="removeSubSup">
+						<xsl:with-param name="elem" select="./*[local-name()='alternative']"/>
+					</xsl:call-template>
 				</element>
+<!--					<xsl:value-of select="./*[local-name()='alternative']"/>-->
 			</xsl:for-each>
 		</userdefined-index>
 
@@ -1477,10 +1625,11 @@ Notes:
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<xsl:variable name="fields">
-				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='title']"/>
-				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='alternative']"/>
-				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='title']"/>
-				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='alternative']"/>
+				<!-- FIRSTLY: fields where SUB/SUP are not to be removed -->
+				<xsl:copy-of select="$ITEM_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='title']"/>
+				<xsl:copy-of select="$ITEM_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='alternative']"/>
+				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='title']"/>
+				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='alternative']"/>
 			</xsl:variable>
 			<xsl:for-each select="xalan:nodeset($fields)/*">
 				<xsl:variable name="name" select="name()"/>
@@ -1488,27 +1637,60 @@ Notes:
 					<xsl:value-of select="."/>
 				</element>
 			</xsl:for-each>
+			<!-- SECONDLY: fields where SUB/SUP are to be removed -->
+			<xsl:variable name="fields">
+				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='title']"/>
+				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='alternative']"/>
+				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='title']"/>
+				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='alternative']"/>
+			</xsl:variable>
+			<xsl:for-each select="xalan:nodeset($fields)/*">
+				<xsl:variable name="name" select="name()"/>
+				<element index="TOKENIZED">
+					<xsl:call-template name="removeSubSup">
+						<xsl:with-param name="elem" select="."/>
+					</xsl:call-template>
+				</element>
+			</xsl:for-each>
 		</userdefined-index>
 		<userdefined-index name="any-topic">
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
+			<!-- FIRSTLY: fields where SUB/SUP are not to be removed -->
 			<xsl:variable name="fields">
-				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='title']"/>
-				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='alternative']"/>
+				<xsl:copy-of select="$ITEM_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='title']"/>
+				<xsl:copy-of select="$ITEM_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='alternative']"/>
 				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='tableOfContents']"/>
-				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='abstract']"/>
+				<xsl:copy-of select="$ITEM_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='abstract']"/> 
 				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='subject']"/>
-				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='title']"/>
-				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='alternative']"/>
+				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='title']"/>
+				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='alternative']"/>
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='tableOfContents']"/>
-				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='abstract']"/>
+				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='abstract']"/>
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='subject']"/>
 			</xsl:variable>
 			<xsl:for-each select="xalan:nodeset($fields)/*">
 				<xsl:variable name="name" select="name()"/>
 				<element index="TOKENIZED">
 					<xsl:value-of select="."/>
+				</element>
+			</xsl:for-each>
+			<!-- SECONDLY: fields where SUB/SUP are to be removed -->
+			<xsl:variable name="fields">
+				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='title']"/>
+				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='alternative']"/>
+				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='abstract']"/> 
+				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='title']"/>
+				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='alternative']"/>
+				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='abstract']"/>
+			</xsl:variable>
+			<xsl:for-each select="xalan:nodeset($fields)/*">
+				<xsl:variable name="name" select="name()"/>
+				<element index="TOKENIZED">
+					<xsl:call-template name="removeSubSup">
+						<xsl:with-param name="elem" select="."/>
+					</xsl:call-template>
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
@@ -1670,9 +1852,7 @@ Notes:
 			</xsl:variable>
 			<xsl:for-each select="xalan:nodeset($fields)/*">
 				<xsl:variable name="name" select="name()"/>
-				<element index="TOKENIZED">
 					<xsl:value-of select="."/>
-				</element>
 			</xsl:for-each>
 		</userdefined-index>
 		<userdefined-index name="any-identifier">
@@ -1750,5 +1930,8 @@ Notes:
 			</xsl:for-each>
 		</userdefined-index>
 	</xsl:variable>
+	
+	
+	
 
 </xsl:stylesheet>
