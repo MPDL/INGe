@@ -21,6 +21,7 @@ public class DateCriterionBean extends CriterionBean
     // ACCEPTED, CREATED, MODIFIED, PUBLISHED_ONLINE, PUBLISHED_PRINT, SUBMITTED
     private boolean searchAccepted, searchCreated, searchModified;
     private boolean searchPublishedOnline, searchPublishedPrint, searchSubmitted;
+    private boolean searchEventStart, searchEventEnd;
     
     public DateCriterionBean()
     {
@@ -66,6 +67,11 @@ public class DateCriterionBean extends CriterionBean
                 searchPublishedPrint = true;
             else if (DateType.SUBMITTED.equals(date))
                 searchSubmitted = true;
+            else if (DateType.EVENT_START.equals(date))
+                searchEventStart = true;
+            else if (DateType.EVENT_END.equals(date))
+                searchEventEnd = true;
+            
         }
     }
     
@@ -84,6 +90,8 @@ public class DateCriterionBean extends CriterionBean
         setSearchPublishedOnline(true);
         setSearchPublishedPrint(true);
         setSearchSubmitted(true);
+        setSearchEventStart(true);
+        setSearchEventEnd(true);
 
         // navigation refresh
         return null;
@@ -101,6 +109,8 @@ public class DateCriterionBean extends CriterionBean
         setSearchPublishedOnline(false);
         setSearchPublishedPrint(false);
         setSearchSubmitted(false);
+        setSearchEventStart(false);
+        setSearchEventEnd(false);
 
         dateCriterionVO.getDateType().clear();
         dateCriterionVO.setSearchString("");
@@ -241,6 +251,46 @@ public class DateCriterionBean extends CriterionBean
         }
     }
 
+    public boolean isSearchEventStart()
+    {
+        return searchEventStart;
+    }
 
+    public void setSearchEventStart(boolean searchEventStart)
+    {
+        this.searchEventStart = searchEventStart;
+        if (searchEventStart == true)
+        {
+            if (!dateCriterionVO.getDateType().contains(DateType.EVENT_START))
+            {
+                dateCriterionVO.getDateType().add(DateType.EVENT_START);
+            }
+        }
+        else
+        {
+            dateCriterionVO.getDateType().remove(DateType.EVENT_START);
+        }
+    }
+    
+    public boolean isSearchEventEnd()
+    {
+        return searchEventEnd;
+    }
+
+    public void setSearchEventEnd(boolean searchEventEnd)
+    {
+        this.searchEventEnd = searchEventEnd;
+        if (searchEventEnd == true)
+        {
+            if (!dateCriterionVO.getDateType().contains(DateType.EVENT_END))
+            {
+                dateCriterionVO.getDateType().add(DateType.EVENT_END);
+            }
+        }
+        else
+        {
+            dateCriterionVO.getDateType().remove(DateType.EVENT_END);
+        }
+    }
 
 }

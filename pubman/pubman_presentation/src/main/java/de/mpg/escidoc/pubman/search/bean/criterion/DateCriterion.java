@@ -50,7 +50,7 @@ public class DateCriterion extends Criterion
     
     public enum DateType
     {
-        ACCEPTED, CREATED, MODIFIED, PUBLISHED_ONLINE, PUBLISHED_PRINT, SUBMITTED
+        ACCEPTED, CREATED, MODIFIED, PUBLISHED_ONLINE, PUBLISHED_PRINT, SUBMITTED, EVENT_START, EVENT_END
     }
     
     //date range for the search criterion
@@ -137,6 +137,10 @@ public class DateCriterion extends Criterion
             return CriterionType.DATE_ISSUED;
         case SUBMITTED:
             return CriterionType.DATE_SUBMITTED;
+        case EVENT_START:
+            return CriterionType.DATE_EVENT_START;
+        case EVENT_END:
+            return CriterionType.DATE_EVENT_END;
         default:
             throw new TechnicalException( "DateType is unknown. Cannot map." );
         }
@@ -152,6 +156,8 @@ public class DateCriterion extends Criterion
             dateList.add( DateType.PUBLISHED_ONLINE );
             dateList.add( DateType.PUBLISHED_PRINT );
             dateList.add( DateType.SUBMITTED );
+            dateList.add( DateType.EVENT_START );
+            dateList.add( DateType.EVENT_END );
             for( int i = 0; i < dateList.size(); i++ ) {
                 list.add( getCriterionByDateType( dateList.get( i ) ) );
             }
