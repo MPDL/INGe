@@ -32,7 +32,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
 
-<h:panelGroup layout="block" styleClass="full_area0" id="editSource" rendered="#{!(genre.sources_display == 'false' && genre.sources_form_id == 'full-submission' || genre.sources_display == 'false' && genre.sources_form_id == 'all')}">
+<h:panelGroup layout="block" styleClass="full_area0" id="editSource" rendered="#{EditItem.pubItem!=null and !(genre.sources_display == 'false' && genre.sources_form_id == 'full-submission' || genre.sources_display == 'false' && genre.sources_form_id == 'all')}">
 <tr:iterator var="sourceBean" value="#{EditItemSessionBean.sources}">
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock free_area0">
 		<h3 class="xLarge_area0_p8 endline blockHeader"><h:outputText value="#{genre.sources_label}" converter="GenreLabelConverter" /><h:outputText value="#{sourceBean.position + 1}" />
