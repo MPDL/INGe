@@ -37,7 +37,7 @@ public class MetadataSearchCriterion implements Serializable
     public enum CriterionType
     {
         TITLE, ANY, ANY_INCLUDE, ABSTRACT, PERSON, PERSON_ROLE, ORGANIZATION, ORGANIZATION_PIDS, GENRE, DATE_ANY,
-        DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, TOPIC,
+        DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, DATE_EVENT_START, DATE_EVENT_END, TOPIC,
         SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CONTEXT_NAME, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE,
         COMPONENT_ACCESSIBILITY, COMPONENT_STORAGE, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY, COMPONENT_COMPOUND_PROPERTIES, LOCAL_TAG, COPYRIGHT_DATE, 
         EMBARGO_DATE, DEGREE, PERSON_IDENTIFIER, LATEST_RELEASE_OBJID
@@ -109,6 +109,10 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_DATE_MODIFIED = "escidoc.publication.modified";
     /** Index for the published online date. */
     private static final String INDEX_DATE_PUBLISHED_ONLINE = "escidoc.publication.published-online";
+    /** Index for the event start date. */
+    private static final String INDEX_DATE_EVENT_START = "escidoc.publication.event.start-date";
+    /** Index for the event end date. */
+    private static final String INDEX_DATE_EVENT_END = "escidoc.publication.event.end-date";
     /** Index for topics. */
     private static final String INDEX_TOPIC = "escidoc.publication.subject";
     /** Index for sources. */
@@ -470,6 +474,12 @@ public class MetadataSearchCriterion implements Serializable
             case DATE_ISSUED:
                 indexes.add(INDEX_DATE_ISSUED);
                 break;
+            case DATE_EVENT_START:
+                indexes.add(INDEX_DATE_EVENT_START);
+                break;
+            case DATE_EVENT_END:
+                indexes.add(INDEX_DATE_EVENT_END);
+                break;    
             case OBJECT_TYPE:
                 indexes.add(INDEX_OBJECT_TYPE);
                 break;
@@ -752,6 +762,16 @@ public class MetadataSearchCriterion implements Serializable
     public static String getINDEX_DATE_PUBLISHED_ONLINE()
     {
         return INDEX_DATE_PUBLISHED_ONLINE;
+    }
+    
+    public static String getINDEX_DATE_EVENT_START()
+    {
+        return INDEX_DATE_EVENT_START;
+    }
+    
+    public static String getINDEX_DATE_EVENT_END()
+    {
+        return INDEX_DATE_EVENT_END;
     }
 
     public static String getINDEX_TOPIC()
