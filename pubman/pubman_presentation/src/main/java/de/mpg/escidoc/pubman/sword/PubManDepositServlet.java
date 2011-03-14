@@ -396,9 +396,6 @@ public class PubManDepositServlet extends HttpServlet
            checkCalc = "0"+checkCalc;
        }
 
-       System.out.println("Checksum calculated: " + checkCalc);
-       System.out.println("Checksum header: " + md5);
-       
        if (md5.equals(checkCalc))
        {
            check = true;
