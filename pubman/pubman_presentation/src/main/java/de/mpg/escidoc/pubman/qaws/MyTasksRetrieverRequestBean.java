@@ -75,10 +75,12 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 	public void init()
 	{
 		//affiliationMap = new HashMap<String, AffiliationVOPresentation>();
-		checkLogin();
+		checkForLogin();
+		LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 		initSelectionMenu();
 
 	}
+
 
 	@Override
 	public int getTotalNumberOfRecords()
@@ -90,9 +92,14 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 	public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
 	{
 		List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
+		LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+
+		if (!loginHelper.isLoggedIn() || !loginHelper.getIsModerator())
+			return returnList;
+
 		try
 		{
-			LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+			if (loginHelper.getESciDocUserHandle() == null) return returnList;
 			InitialContext initialContext = new InitialContext();
 			XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
 
@@ -176,6 +183,11 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 			String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
 
 			ItemVOListWrapper itemList = xmlTransforming.transformToItemListWrapper(xmlItemList);
+			//NBU
+			if (itemList.getItemVOList().size()==0 || itemList ==null)
+			{
+				return returnList;
+			}
 
 			List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
 			for(ItemVO item : itemList.getItemVOList())
@@ -211,7 +223,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 
 			if (aff.getHasChildren())
 			{
-
 				for(AffiliationVOPresentation childAff : aff.getChildren()){
 					addOrgFiltersRecursive(childAff, filter);
 				}
@@ -244,9 +255,11 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 		 */
 		super.readOutParameters();
 
+
 		String context = getExternalContext().getRequestParameterMap().get(parameterSelectedContext);
 		if (context==null)
 		{
+
 			//select first context as default, if there's only one
 			if (getContextSelectItems().size()==2)
 			{
@@ -371,6 +384,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         setItemStateSelectItems(itemStateSelectItems);
 		 */
 
+		LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+
 		//Contexts (Collections)
 		ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
 		List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
@@ -396,31 +411,36 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 
 		// Init imports
 		List<SelectItem> importSelectItems = new ArrayList<SelectItem>();
-		importSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
-
-		try
+		if (loginHelper.getIsModerator())
 		{
-			Connection connection = ImportLog.getConnection();
-			String sql = "select * from ESCIDOC_IMPORT_LOG where ? like '%,' || context || ',%'";
-			PreparedStatement statement = connection.prepareStatement(sql);
 
-			statement.setString(1, contextString);
 
-			ResultSet resultSet = statement.executeQuery();
+			importSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
 
-			while (resultSet.next())
+			try
 			{
-				SelectItem selectItem = new SelectItem(resultSet.getString("name") + " " + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
-				importSelectItems.add(selectItem);
-			}
-			resultSet.close();
-			statement.close();
-		}
-		catch (Exception e) {
-			logger.error("Error getting imports from database", e);
-			error("Error getting imports from database");
-		}
+				Connection connection = ImportLog.getConnection();
+				String sql = "select * from ESCIDOC_IMPORT_LOG where ? like '%,' || context || ',%'";
+				PreparedStatement statement = connection.prepareStatement(sql);
 
+				statement.setString(1, contextString);
+
+				ResultSet resultSet = statement.executeQuery();
+
+				while (resultSet.next())
+				{
+					SelectItem selectItem = new SelectItem(resultSet.getString("name") + " " + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
+					importSelectItems.add(selectItem);
+				}
+				resultSet.close();
+				statement.close();
+			}
+			catch (Exception e) {
+				logger.error("Error getting imports from database", e);
+				error("Error getting imports from database");
+			}
+
+		}
 		setImportSelectItems(importSelectItems);
 	}
 
