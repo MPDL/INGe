@@ -92,7 +92,6 @@ import de.mpg.escidoc.pubman.util.CreatorDisplay;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
-import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreators.Type;
 import de.mpg.escidoc.pubman.viewItem.bean.SourceBean;
@@ -119,7 +118,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -193,7 +191,8 @@ public class ViewItemFull extends FacesBean
 	 */
 	private ArrayList<ViewItemCreators> creators;
 
-	private List<SourceBean> sourceList = new ArrayList<SourceBean>();
+	private List<SourceBean> sourceList;
+	//= new ArrayList<SourceBean>();
 	private LoginHelper loginHelper;
 	/** The url used for the citation */
 	private String citationURL;
@@ -224,6 +223,7 @@ public class ViewItemFull extends FacesBean
 	private boolean isModifyDisabled;
 	private boolean isCreateNewRevisionDisabled;
 	private boolean isFromEasySubmission;
+	private boolean isFromSearchResult;
 	private PubItemDepositing pubItemDepositing;
 	private boolean isWorkflowStandard;
 	private boolean isWorkflowSimple;
@@ -235,6 +235,28 @@ public class ViewItemFull extends FacesBean
 	private YearbookItemSessionBean yisb;
 	private boolean isMemberOfYearbook;
 	private boolean isCandidateOfYearbook;
+
+	//for inclusion into the ViewItemFull page, test if rendering conditions can be made faster
+	private boolean canEdit = false;
+	private boolean canSubmit = false;
+	private boolean canRelease = false;
+	private boolean canAccept = false;
+	private boolean canRevise = false;
+	private boolean canDelete = false;
+	private boolean canWithdraw = false;
+	private boolean canModify = false;
+	private boolean canCreateNewRevision = false;
+	private boolean canCreateFromTemplate = false;
+	private boolean canAddToBasket = false;
+	private boolean canDeleteFromBasket = false;
+	private boolean canViewLocalTags = false;
+	private boolean canManageAudience = false;
+	private boolean canShowItemLog = false;
+	private boolean canShowStatistics = false;
+	private boolean canShowRevisions = false;
+	private boolean canShowReleaseHistory = false;
+	private boolean canShowLastMessage = false;
+
 
 	/**
 	 * Public constructor.
@@ -271,6 +293,7 @@ public class ViewItemFull extends FacesBean
 		{
 			throw new RuntimeException("Syntax of property 'escidoc.framework_access.framework.url' not correct", uE);
 		}
+
 		// Try to get the validation service
 		try
 		{
@@ -284,6 +307,7 @@ public class ViewItemFull extends FacesBean
 		{
 			throw new RuntimeException("Validation service not initialized", ne);
 		}
+
 		try
 		{
 			this.defaultSize = Integer.parseInt(PropertyReader
@@ -294,9 +318,13 @@ public class ViewItemFull extends FacesBean
 			throw new RuntimeException("Property escidoc.pubman_presentation.viewFullItem.defaultSize size not found",
 					e);
 		}
+
+
 		boolean logViewAction = false;
 		// Try to get a pubitem either via the controller session bean or an URL Parameter
 		itemID = request.getParameter(ViewItemFull.PARAMETERNAME_ITEM_ID);
+
+
 		if (itemID != null)
 		{
 			try
@@ -310,11 +338,7 @@ public class ViewItemFull extends FacesBean
 						.equals(getItemControllerSessionBean().getCurrentPubItem().getVersion()
 								.getObjectIdAndVersion()))
 				{
-					//HttpSession session = (HttpSession)getFacesContext().getExternalContext().getSession(false);
 					getViewItemSessionBean().itemChanged();
-					// pubManStatistics.logStatisticPubItemEvent(new PubItemVO(pubItem), null,
-					// PubItemSimpleStatistics.StatisticItemEventType.retrieval, session.getId(),
-					// request.getHeader("referer"), request.getRemoteHost());
 				}
 				this.getItemControllerSessionBean().setCurrentPubItem(this.pubItem);
 				logViewAction = true;
@@ -355,14 +379,11 @@ public class ViewItemFull extends FacesBean
 		{
 			this.pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
 		}
+
 		String subMenu = request.getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
-		if (subMenu != null)
-		{
-			getViewItemSessionBean().setSubMenu(subMenu);
-		}
-		// check if arriving from easy submission
-		// EasySubmission easySubmissionRequestBean = (EasySubmission)getRequestBean(EasySubmission.class);
-		// this.isFromEasySubmission = easySubmissionRequestBean.getFromEasySubmission();
+
+		if (subMenu != null) getViewItemSessionBean().setSubMenu(subMenu);
+
 		if (this.pubItem != null)
 		{
 
@@ -371,6 +392,7 @@ public class ViewItemFull extends FacesBean
 			{
 				String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url")
 				+ PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+
 				this.itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
 						getPubItem().getVersion().getObjectIdAndVersion());
 				if (!pubmanUrl.endsWith("/"))
@@ -388,8 +410,6 @@ public class ViewItemFull extends FacesBean
 						latestVersionItemPattern = latestVersionItemPattern.substring(1, latestVersionItemPattern.length());
 					this.setLatestVersionURL(pubmanUrl + latestVersionItemPattern);
 				}
-
-
 			}
 			catch (Exception e)
 			{
@@ -399,27 +419,49 @@ public class ViewItemFull extends FacesBean
 
 
 			// DiT: multiple new conditions for link-activation added
-			this.isModerator = this.loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
+			/*this.isModerator = this.loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
 			this.isPrivilegedViewer = this.loginHelper.getAccountUser().isPrivilegedViewer(this.pubItem.getContext());
+
 			ContextListSessionBean contextListSessionBean = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
 			this.isDepositor = this.loginHelper.getAccountUser().isDepositor()
 			&& contextListSessionBean.getDepositorContextList() != null
-			&& contextListSessionBean.getDepositorContextList().size() > 0;
-			// isDepositor = loginHelper.getAccountUser().isDepositor();
-			/*
-			 * //Check if item has revisions try { List revisions =
-			 * this.getItemControllerSessionBean().retrieveRevisions(this.pubItem); if (revisions != null &&
-			 * revisions.size() > 0) { this.setHasRevision(true); } else { this.setHasRevision(false); } } catch
-			 * (Exception e1) { this.setHasRevision(false); logger.warn("Could not retrieve list of revisions.", e1); }
-			 */
+			&& contextListSessionBean.getDepositorContextList().size() > 0; */
+
 			this.isOwner = true;
+
 			if (this.pubItem.getOwner() != null)
 			{
 				this.isOwner = (this.loginHelper.getAccountUser().getReference() != null ? this.loginHelper
 						.getAccountUser().getReference().getObjectId().equals(this.pubItem.getOwner().getObjectId()) : false);
+
+				if (this.loginHelper.getAccountUser().getReference() != null  && this.loginHelper.getUserGrants()!=null)
+				{
+					for (GrantVO grant : this.loginHelper.getUserGrants())
+					{
+						//TODO NBU: escidoc:role-system-administrator shall be checked from the predefined roles and not fixed as string
+						if (grant.getObjectRef() != null)
+						{
+							//if user has Moderator privileges for this context
+							if (grant.isModerator(this.pubItem.getContext())) this.isModerator = true;
+
+							//if user has Privileged viewer privileges for this context
+							if (grant.getRole().equals(PredefinedRoles.PRIVILEGEDVIEWER.frameworkValue())
+									&&
+									grant.getObjectRef().equals(this.pubItem.getContext().getObjectId())) this.isPrivilegedViewer = true;
+
+							//if user has Depositor privileges in general
+							if (grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())) this.isDepositor = true;
+
+							//if user has System administrator privileges he can do all actions as isOwner
+							//Note: previous PubMan version was setting-the owner if user had any privilege as moderator or depositor
+							//but strangely could not understand why additional check again
+							if (grant.getRole().equals("escidoc:role-system-administrator")) this.isOwner = true;
+						}
+					}
+				}
 				/*
 				 * Check if user has grants on context
-				 */
+
 				if (this.isOwner)
 				{
 					this.isOwner = false;
@@ -435,8 +477,9 @@ public class ViewItemFull extends FacesBean
 							this.isOwner = true;
 						}
 					}
-				}
+				} */
 			}
+
 			//TODO NBU: bring all this action links setters into separate method
 			this.isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(
 					RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
@@ -461,6 +504,7 @@ public class ViewItemFull extends FacesBean
 			this.isStateInRevision = this.pubItem.getVersion().getState().toString()
 			.equals(PubItemVO.State.IN_REVISION.toString());
 			this.isPublicStateReleased = this.pubItem.getPublicStatus() == PubItemVO.State.RELEASED;
+
 			// display a warn message if the item version is not the latest
 			if (this.isLatestVersion == false)
 			{
@@ -477,32 +521,35 @@ public class ViewItemFull extends FacesBean
 				this.isWorkflowSimple = true;
 				this.isWorkflowStandard = false;
 			}
+
 			if (this.isStateWithdrawn)
 			{
 				getViewItemSessionBean().itemChanged();
 			}
-
 			// set up some pre-requisites
 			// the list of numbered affiliated organizations
 			createCreatorsList();
+
 			// clear source list first
-			this.sourceList.clear();
 			if (this.pubItem.getMetadata().getSources().size()>0)
 			{
+				this.sourceList= new ArrayList<SourceBean>();
 				for (int i = 0; i < this.pubItem.getMetadata().getSources().size(); i++)
 				{
 					this.sourceList.add(new SourceBean(this.pubItem.getMetadata().getSources().get(i)));
 				}
 			}
+
 			// the list of files
 			// Check if the item is also in the search result list
 			PubItemListSessionBean pilsb = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
 			List<PubItemVOPresentation> currentPubItemList = pilsb.getCurrentPartList();
+
 			//removed unnecessary creation of new array list
 			//List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
 			if (currentPubItemList != null)
 			{
-				for (int i = 0; i < currentPubItemList.size(); i++)
+				for (int i=currentPubItemList.size()-1; i>=0; i--)
 				{
 					if (this.pubItem.getVersion().getObjectId()
 							.equals(currentPubItemList.get(i).getVersion().getObjectId()))
@@ -513,8 +560,12 @@ public class ViewItemFull extends FacesBean
 							if (currentPubItemList.get(i).getSearchHitList() != null
 									&& currentPubItemList.get(i).getSearchHitList().size() > 0)
 							{
+								this.pubItem.setSearchResult(true);
+								this.pubItem.setSearchHitList(currentPubItemList.get(i).getSearchHitList());
+								this.pubItem.setScore(currentPubItemList.get(i).getScore());
+								this.pubItem.setSearchHitBeanList();
+								//this.pubItem = new PubItemVOPresentation(new PubItemResultVO(this.pubItem, currentPubItemList.get(i).getSearchHitList(), currentPubItemList.get(i).getScore()));
 
-								this.pubItem = new PubItemVOPresentation(new PubItemResultVO(this.pubItem, currentPubItemList.get(i).getSearchHitList(), currentPubItemList.get(i).getScore()));
 							}
 						}
 					}
@@ -535,13 +586,19 @@ public class ViewItemFull extends FacesBean
 				logger.error("Error getting unapi url property", e);
 				throw new RuntimeException(e);
 			}
+
+
 			if (logViewAction)
 			{
 				logViewAction();
 			}
 
-			//TODO: remove into separate method
-			if (this.pubItem.getMetadata().getSubjects().size()>0)
+
+			//TODO: remove into separate method, must this be in the initializer?
+			//not certain why is this method it always returns null (for languages or not)
+			//therefore now it is commented, if needed again to be uncomented and getConeLanguageCode to be fixed
+
+			/*if (this.pubItem.getMetadata().getSubjects().size()>0)
 			{
 				for (TextVO subject : this.pubItem.getMetadata().getSubjects())
 				{
@@ -557,7 +614,7 @@ public class ViewItemFull extends FacesBean
 						}
 					}
 				}
-			}
+			}*/
 
 			//if item is currently part of invalid yearbook items, show Validation Messages
 			//ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
@@ -606,6 +663,7 @@ public class ViewItemFull extends FacesBean
 			}
 		}
 
+		setLinks();
 	}
 
 
@@ -1055,6 +1113,7 @@ public class ViewItemFull extends FacesBean
 						//this.getOrganizationArray().add(formattedOrganization);
 			}
 		} //end for each creator in the list
+
 	}
 
 	/**
@@ -1079,6 +1138,10 @@ public class ViewItemFull extends FacesBean
 			//{
 			viewOrganization.setOrganizationInfoPage(tempOrganizationListInstance.getName().getValue(),
 					tempOrganizationListInstance.getAddress());
+
+			viewOrganization.setOrganizationDescription(tempOrganizationListInstance.getName().getValue(),
+					tempOrganizationListInstance.getAddress(), tempOrganizationListInstance.getIdentifier());
+
 		}
 		return viewOrganization;
 
@@ -2364,6 +2427,7 @@ public class ViewItemFull extends FacesBean
 
 	public boolean getIsInBasket()
 	{
+		if (this.pubItem == null) return false;
 		PubItemStorageSessionBean pubItemStorage = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
 		return pubItemStorage.getStoredPubItems().containsKey(this.pubItem.getVersion().getObjectIdAndVersion());
 	}
@@ -2747,6 +2811,196 @@ public class ViewItemFull extends FacesBean
 		this.isCandidateOfYearbook = isCandidateOfYearbook;
 	}
 
+	private void setLinks()
+	{
+		if (!this.isStateWithdrawn &&
+				((this.isStatePending || this.isStateInRevision) && this.isLatestVersion && this.isOwner)
+				|| (this.isStateSubmitted && this.isLatestVersion && this.isModerator))
+		{
+			this.canEdit = true;
+		}
+
+		if (!this.isStateWithdrawn &&
+				(this.isStatePending || this.isStateInRevision) &&
+				this.isLatestVersion && this.isOwner && this.isWorkflowStandard)
+		{
+			this.canSubmit = true;
+		}
+
+		if (!this.isStateWithdrawn && this.isOwner && this.isLatestVersion &&
+				(((this.isStatePending || this.isStateSubmitted) && this.isWorkflowSimple) ||
+						(this.isWorkflowStandard && this.isModerator && this.isStateSubmitted)))
+		{
+			this.canRelease = true;
+
+		}
+
+		if (!this.isStateWithdrawn && this.isStateSubmitted && this.isLatestVersion && this.isModerator && !this.isOwner && !this.isModifyDisabled)
+		{
+			this.canAccept = true;
+		}
+
+		if (!this.isStateWithdrawn && (this.isStateSubmitted && this.isLatestVersion && this.isModerator && !this.isModifyDisabled && this.isWorkflowStandard)){
+			this.canRevise = true;
+		}
+
+		if (!this.isStateWithdrawn && !this.isPublicStateReleased && (this.isStatePending || this.isStateInRevision) && this.isLatestVersion && this.isOwner)
+		{
+			this.canDelete = true;
+		}
+
+		if (!this.isStateWithdrawn && (this.isStateReleased && this.isLatestVersion) && (this.isOwner || this.isModerator))
+		{
+			this.canWithdraw = true;
+		}
+
+		if (!this.isStateWithdrawn && this.isStateReleased && this.isLatestVersion && !this.isModifyDisabled && (this.isModerator || this.isOwner))
+		{
+			this.canModify = true;
+		}
+
+		if (!this.isStateWithdrawn && this.isStateReleased && this.isLatestRelease && !this.isCreateNewRevisionDisabled && this.isDepositor)
+		{
+			this.canCreateNewRevision = true;
+		}
+
+		if (!this.isStateWithdrawn && this.isLatestVersion && !this.isCreateNewRevisionDisabled && this.isDepositor)
+		{
+			this.canCreateFromTemplate = true;
+		}
+
+		if (!this.isStateWithdrawn && !this.getIsInBasket() )
+		{
+			this.canAddToBasket = true;
+		}
+
+		if (!this.isStateWithdrawn && this.getIsInBasket())
+		{
+			this.canDeleteFromBasket = true;
+		}
+
+		if (this.isLatestVersion && !this.isStateWithdrawn)
+		{
+			this.canViewLocalTags = true;
+		}
+
+		if (this.getHasAudience() && !this.isStateWithdrawn)
+		{
+			this.canManageAudience  = true;
+		}
+
+		if (this.isLatestVersion && !this.isStateWithdrawn && this.isLoggedIn && (this.isOwner || this.isModerator))
+		{
+			this.canShowItemLog = true;
+		}
+
+		if (this.isLatestRelease && !this.isStateWithdrawn)
+		{
+			this.canShowStatistics = true;
+			this.canShowRevisions = true;
+		}
+
+		if (this.pubItem != null && (!this.isStateWithdrawn && this.isLatestRelease) || (this.isStateWithdrawn && this.pubItem.getVersion().getVersionNumber() > 1))
+		{
+			this.canShowReleaseHistory = true;
+		}
+
+		if (this.pubItem != null && this.pubItem.getVersion().getLastMessage() != null && !this.pubItem.getVersion().getLastMessage().contentEquals(""))
+		{
+			this.canShowLastMessage = true;
+		}
+	}
+
+	public boolean isCanEdit() {
+		return canEdit;
+	}
+
+	public boolean isCanSubmit() {
+		return canSubmit;
+	}
+
+	public boolean isCanRelease() {
+		return canRelease;
+	}
+
+
+	public boolean isCanAccept() {
+		return canAccept;
+	}
+
+
+	public boolean isCanRevise() {
+		return canRevise;
+	}
+
+
+	public boolean isCanDelete() {
+		return canDelete;
+	}
+
+	public boolean isCanWithdraw() {
+		return canWithdraw;
+	}
+
+
+	public boolean isCanModify() {
+		return canModify;
+	}
+
+
+	public boolean isCanCreateNewRevision() {
+		return canCreateNewRevision;
+	}
+
+
+	public boolean isCanCreateFromTemplate() {
+		return canCreateFromTemplate;
+	}
+
+
+	public boolean isCanAddToBasket() {
+		return canAddToBasket;
+	}
+
+
+	public boolean isCanDeleteFromBasket() {
+		return canDeleteFromBasket;
+	}
+
+
+	public boolean isCanViewLocalTags() {
+		return canViewLocalTags;
+	}
+
+
+	public boolean isCanManageAudience() {
+		return canManageAudience;
+	}
+
+
+	public boolean isCanShowItemLog() {
+		return canShowItemLog;
+	}
+
+
+	public boolean isCanShowStatistics() {
+		return canShowStatistics;
+	}
+
+
+	public boolean isCanShowRevisions() {
+		return canShowRevisions;
+	}
+
+
+	public boolean isCanShowReleaseHistory() {
+		return canShowReleaseHistory;
+	}
+
+
+	public boolean isCanShowLastMessage() {
+		return canShowLastMessage;
+	}
 
 
 
