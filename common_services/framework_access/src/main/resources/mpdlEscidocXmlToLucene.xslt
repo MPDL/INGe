@@ -777,19 +777,31 @@ Notes:
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<xsl:for-each select="$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']/*[local-name()='person']">
-<!--				<element index="TOKENIZED">-->
-<!--					<xsl:value-of select="./*[local-name()='family-name']"/>-->
-<!--				</element>-->
-<!--				<element index="TOKENIZED">-->
-<!--					<xsl:value-of select="./*[local-name()='given-name']"/>-->
-<!--				</element>-->
 				<element index="TOKENIZED">
 					<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
 				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat('---------------------',position())"/>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat(./*[local-name()='given-name'],' ', ./*[local-name()='family-name'])"/>
+				</element>
+			    <element index="TOKENIZED">
+					<xsl:value-of select="concat('---------------------',position(),'_2')"/>
+				</element>
 			</xsl:for-each>
 			<xsl:for-each select="$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']/*[local-name()='person']">
-				<element index="UN_TOKENIZED">
+				<element index="TOKENIZED">
 					<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat('---------------------',position())"/>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="concat(./*[local-name()='given-name'],' ', ./*[local-name()='family-name'])"/>
+				</element>
+			    <element index="TOKENIZED">
+					<xsl:value-of select="concat('---------------------',position(),'_2')"/>
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
