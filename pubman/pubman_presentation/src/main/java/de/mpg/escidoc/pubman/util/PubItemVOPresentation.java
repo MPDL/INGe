@@ -48,7 +48,6 @@ import de.mpg.escidoc.pubman.viewItem.bean.SearchHitBean;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -105,28 +104,33 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	/**
 	 * The list of formatted creators (persons AND organizations) in an ArrayList.
 	 */
-	private ArrayList<String> allCreatorsList = new ArrayList<String>();
+	private ArrayList<String> allCreatorsList;
+	//= new ArrayList<String>();
 
 	/**
 	 * the first source of the item (for display in the medium view)
 	 */
-	private SourceVO firstSource = new SourceVO();
+	private SourceVO firstSource;
+	//= new SourceVO();
 
 	/**
 	 * List of hits. Every hit in files contains the file reference and the text fragments of the search hit.
 	 */
-	private java.util.List<SearchHitVO> searchHitList = new java.util.ArrayList<SearchHitVO>();
+	private java.util.List<SearchHitVO> searchHitList;
+	//= new java.util.ArrayList<SearchHitVO>();
 
 	/**
 	 * List of search hits wrapped in a display optimized bean
 	 */
-	private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
+	private List<SearchHitBean> searchHits;
+	//= new ArrayList<SearchHitBean>();
 
 	private boolean isSearchResult = false;
 
 	private boolean isFromEasySubmission;
 
-	private List<WrappedLocalTag> wrappedLocalTags = new ArrayList<WrappedLocalTag>();
+	private List<WrappedLocalTag> wrappedLocalTags;
+	//= new ArrayList<WrappedLocalTag>();
 
 	/**
 	 * Validation messages that should be displayed in item list
@@ -146,45 +150,54 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	public PubItemVOPresentation(PubItemVO item)
 	{
 		super(item);
-
-		fileBeanList = new ArrayList<FileBean>();
-		locatorBeanList = new ArrayList<FileBean>();
-
-
-
 		if (item instanceof PubItemResultVO)
 		{
+			this.searchHitList = new java.util.ArrayList<SearchHitVO>();
 			this.searchHitList = ((PubItemResultVO) item).getSearchHitList();
 			this.isSearchResult = true;
 			this.score=((PubItemResultVO) item).getScore();
 		}
 
-		initFileBeans();
 
 		if (this.getVersion() != null && this.getVersion().getState() != null)
 		{
 			this.released = this.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
 		}
 
-		// set up some pre-requisites
-		//the list of numbered affiliated organizations
-		//createAffiliatedOrganizationList();
-		//NBU: removed not used, but spending a lot of time when many authors
-
-		// the list of creators (persons and organizations)
-		//createCreatorList();
-		//NBU: removed not used, but spending a lot of time when many authors
-
 		// get the first source of the item (if available)
 		if (item.getMetadata().getSources() != null && item.getMetadata().getSources().size() > 0)
 		{
+			this.firstSource = new SourceVO();
 			this.firstSource = item.getMetadata().getSources().get(0);
 		}
-
-		//getCountCreators();
-		//NBU: removed not used, but spending a lot of time when many authors
-
 		// get the search result hits
+
+		setSearchHitBeanList();
+
+		//Check the local tags
+		if (this.getLocalTags().isEmpty())
+		{
+			this.getLocalTags().add("");
+		}
+		else
+		{
+			wrappedLocalTags= new ArrayList<WrappedLocalTag>();
+			for (int i = 0; i < this.getLocalTags().size(); i++)
+			{
+				WrappedLocalTag wrappedLocalTag = new WrappedLocalTag();
+				wrappedLocalTag.setParent(this);
+				wrappedLocalTag.setValue(this.getLocalTags().get(i));
+				if(wrappedLocalTag.getValue().length()>0 || wrappedLocalTags.size()==0)
+					wrappedLocalTags.add(wrappedLocalTag);
+			}
+		}
+
+	}
+
+	public void setSearchHitBeanList()
+	{
+		initFileBeans();
+
 		if (this.searchHitList != null && this.searchHitList.size() > 0)
 		{
 			String beforeSearchHitString;
@@ -198,6 +211,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 				{
 					if (searchHitList.get(i).getHitReference() != null)
 					{
+						this.searchHits = new ArrayList<SearchHitBean>();
 						for (int j = 0; j < searchHitList.get(i).getTextFragmentList().size(); j++)
 						{
 							int startPosition = 0;
@@ -219,27 +233,22 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 
 			}
 		}
-
-		if (this.getLocalTags().isEmpty())
-		{
-			this.getLocalTags().add("");
-		}
-
-
-		for (int i = 0; i < this.getLocalTags().size(); i++)
-		{
-			WrappedLocalTag wrappedLocalTag = new WrappedLocalTag();
-			wrappedLocalTag.setParent(this);
-			wrappedLocalTag.setValue(this.getLocalTags().get(i));
-			if(wrappedLocalTag.getValue().length()>0 || wrappedLocalTags.size()==0)
-				wrappedLocalTags.add(wrappedLocalTag);
-		}
 	}
 
 	public void initFileBeans()
 	{
-		fileBeanList.clear();
-		locatorBeanList.clear();
+
+
+		if (this.getFiles().isEmpty())
+		{
+			return;
+		}
+
+		this.fileBeanList = new ArrayList<FileBean>();
+		this.locatorBeanList = new ArrayList<FileBean>();
+
+		//fileBeanList.clear();
+		//locatorBeanList.clear();
 
 		for(FileVO file : getFiles())
 		{
@@ -251,7 +260,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 			// add files
 			else
 			{
-				if(searchHitList!=null && searchHitList.size()>0 && !getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
+				if( searchHitList!=null && searchHitList.size()>0 && !getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
 				{
 					this.fileBeanList.add(new FileBean(file, getVersion().getState(), searchHitList));
 				}
@@ -406,6 +415,16 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 
 	public String getDatesAsString()
 	{
+		if ((getMetadata().getDateAccepted()==null) &&
+				(getMetadata().getDateCreated()==null)  &&
+				(getMetadata().getDateModified() ==null)  &&
+				(getMetadata().getDatePublishedInPrint() ==null)&&
+				(getMetadata().getDatePublishedOnline() ==null) &&
+				(getMetadata().getDateSubmitted() ==null))
+		{
+			return "";
+		}
+
 		ArrayList<String> dates = new ArrayList<String>();
 
 		if (getMetadata().getDateCreated()!=null && !getMetadata().getDateCreated().equals(""))
@@ -494,20 +513,24 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	 */
 	public String getStartEndPageSource()
 	{
-		StringBuffer startEndPage = new StringBuffer();
-		if(this.firstSource != null)
+		if (this.firstSource==null)
 		{
-			if(this.firstSource.getStartPage() != null)
-			{
-				startEndPage.append(this.firstSource.getStartPage());
-			}
-
-			if(this.firstSource.getEndPage() != null && !this.firstSource.getEndPage().trim().equals(""))
-			{
-				startEndPage.append(" - ");
-				startEndPage.append(this.firstSource.getEndPage());
-			}
+			return "";
 		}
+		StringBuffer startEndPage = new StringBuffer();
+		//		if(this.firstSource != null)
+		//		{
+		if(this.firstSource.getStartPage() != null)
+		{
+			startEndPage.append(this.firstSource.getStartPage());
+		}
+
+		if(this.firstSource.getEndPage() != null && !this.firstSource.getEndPage().trim().equals(""))
+		{
+			startEndPage.append(" - ");
+			startEndPage.append(this.firstSource.getEndPage());
+		}
+		//		}
 		return startEndPage.toString();
 	}
 
@@ -517,39 +540,42 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	 */
 	public String getPublishingInfo()
 	{
+		if (getMetadata().getPublishingInfo()==null)
+		{
+			return "";
+		}
+
 		StringBuffer publishingInfo = new StringBuffer();
 		publishingInfo.append("");
-		if(getMetadata().getPublishingInfo() != null)
+
+		// Edition
+		if(getMetadata().getPublishingInfo().getEdition() != null)
 		{
-			// Edition
-			if(getMetadata().getPublishingInfo().getEdition() != null)
-			{
-				publishingInfo.append(getMetadata().getPublishingInfo().getEdition());
-			}
+			publishingInfo.append(getMetadata().getPublishingInfo().getEdition());
+		}
 
-			// Comma
-			if((getMetadata().getPublishingInfo().getEdition() != null && !getMetadata().getPublishingInfo().getEdition().trim().equals("")) && ((getMetadata().getPublishingInfo().getPlace() != null && !getMetadata().getPublishingInfo().getPlace().trim().equals("")) || (getMetadata().getPublishingInfo().getPublisher() != null && !getMetadata().getPublishingInfo().getPublisher().trim().equals(""))))
-			{
-				publishingInfo.append(". ");
-			}
+		// Comma
+		if((getMetadata().getPublishingInfo().getEdition() != null && !getMetadata().getPublishingInfo().getEdition().trim().equals("")) && ((getMetadata().getPublishingInfo().getPlace() != null && !getMetadata().getPublishingInfo().getPlace().trim().equals("")) || (getMetadata().getPublishingInfo().getPublisher() != null && !getMetadata().getPublishingInfo().getPublisher().trim().equals(""))))
+		{
+			publishingInfo.append(". ");
+		}
 
-			// Place
-			if(getMetadata().getPublishingInfo().getPlace() != null)
-			{
-				publishingInfo.append(getMetadata().getPublishingInfo().getPlace().trim());
-			}
+		// Place
+		if(getMetadata().getPublishingInfo().getPlace() != null)
+		{
+			publishingInfo.append(getMetadata().getPublishingInfo().getPlace().trim());
+		}
 
-			// colon
-			if(getMetadata().getPublishingInfo().getPublisher() != null && !getMetadata().getPublishingInfo().getPublisher().trim().equals("") && getMetadata().getPublishingInfo().getPlace() != null && !getMetadata().getPublishingInfo().getPlace().trim().equals(""))
-			{
-				publishingInfo.append(" : ");
-			}
+		// colon
+		if(getMetadata().getPublishingInfo().getPublisher() != null && !getMetadata().getPublishingInfo().getPublisher().trim().equals("") && getMetadata().getPublishingInfo().getPlace() != null && !getMetadata().getPublishingInfo().getPlace().trim().equals(""))
+		{
+			publishingInfo.append(" : ");
+		}
 
-			// Publisher
-			if(getMetadata().getPublishingInfo().getPublisher() != null)
-			{
-				publishingInfo.append(getMetadata().getPublishingInfo().getPublisher().trim());
-			}
+		// Publisher
+		if(getMetadata().getPublishingInfo().getPublisher() != null)
+		{
+			publishingInfo.append(getMetadata().getPublishingInfo().getPublisher().trim());
 		}
 		return publishingInfo.toString();
 	}
@@ -560,7 +586,13 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	 */
 	public String getPublishingInfoSource()
 	{
+		if (this.firstSource == null)
+		{
+			return "";
+		}
+
 		StringBuffer publishingInfoSource = new StringBuffer();
+
 		publishingInfoSource.append("");
 		if(this.firstSource.getPublishingInfo() != null)
 		{
@@ -704,139 +736,6 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	}
 
 	/**
-	 * Generates the affiliated organization list as one string for presenting it in the jsp via the dynamic html component.
-	 * Doubled organizations will be detected and merged. All organizzations will be numbered.
-	 */
-	private void createAffiliatedOrganizationList()
-	{
-		String formattedOrganization = "";
-		List<CreatorVO> tempCreatorList;
-		List<OrganizationVO> tempOrganizationList = null;
-		List<OrganizationVO> sortOrganizationList = null;
-		this.organizationArray = new ArrayList<String>();
-		this.organizationList = new ArrayList<ViewItemOrganization>();
-		tempOrganizationList = new ArrayList<OrganizationVO>();
-		sortOrganizationList = new ArrayList<OrganizationVO>();
-		tempCreatorList = getMetadata().getCreators();
-		int affiliationPosition = 0;
-		for (int i = 0; i < tempCreatorList.size(); i++)
-		{
-			CreatorVO creator = new CreatorVO();
-			creator = tempCreatorList.get(i);
-			if (creator.getPerson() != null)
-			{
-				if (creator.getPerson().getOrganizations().size() > 0)
-				{
-					for (int listSize = 0; listSize < creator.getPerson().getOrganizations().size(); listSize++)
-					{
-						tempOrganizationList.add(creator.getPerson().getOrganizations().get(listSize));
-					}
-					for (int j = 0; j < tempOrganizationList.size(); j++)
-					{
-						// if the organization is not in the list already, put
-						// it in.
-						if (!sortOrganizationList.contains(tempOrganizationList.get(j)))
-						{
-							affiliationPosition++;
-							sortOrganizationList.add(tempOrganizationList.get(j));
-							ViewItemOrganization viewOrganization = new ViewItemOrganization();
-							if(tempOrganizationList.get(j).getName() != null)
-							{
-								viewOrganization.setOrganizationName(tempOrganizationList.get(j).getName().getValue());
-							}
-							viewOrganization.setOrganizationAddress(tempOrganizationList.get(j).getAddress());
-							viewOrganization.setOrganizationIdentifier(tempOrganizationList.get(j).getIdentifier());
-							viewOrganization.setPosition(new Integer(affiliationPosition).toString());
-							if(tempOrganizationList.get(j).getName() != null)
-							{
-								viewOrganization.setOrganizationInfoPage(tempOrganizationList.get(j).getName().getValue(),
-										tempOrganizationList.get(j).getAddress());
-							}
-							this.organizationList.add(viewOrganization);
-						}
-					}
-				}
-			}
-		}
-		// save the List in the backing bean for later use.
-		this.affiliatedOrganizationsList = sortOrganizationList;
-		// generate a 'well-formed' list for presentation in the jsp
-		for (int k = 0; k < sortOrganizationList.size(); k++)
-		{
-			String name = sortOrganizationList.get(k).getName() != null ? sortOrganizationList.get(k).getName().getValue() : "";
-			formattedOrganization = "<p>"+(k + 1) + ": " + name +"</p>" + "<p>" + sortOrganizationList.get(k).getAddress() + "</p>" + "<p>" + sortOrganizationList.get(k).getIdentifier() + "</p>";
-			this.organizationArray.add(formattedOrganization);
-		}
-	}
-
-	/**
-	 * Generates the creator list as list of formatted Strings.
-	 * 
-	 * @return String formatted creator list as string
-	 */
-	private void createCreatorList()
-	{
-		StringBuffer creatorList = new StringBuffer();
-		String formattedCreator = "";
-		this.creatorArray = new ArrayList<String>();
-		this.creatorOrganizationsArray = new ArrayList<ViewItemCreatorOrganization>();
-		// counter for organization array
-		int counterOrganization = 0;
-		StringBuffer annotation;
-		ObjectFormatter formatter = new ObjectFormatter();
-
-
-		for (int i = 0; i < getMetadata().getCreators().size(); i++)
-		{
-			CreatorVO creator = new CreatorVO();
-			creator = getMetadata().getCreators().get(i);
-			annotation = new StringBuffer();
-			int organizationsFound = 0;
-			for (int j = 0; j < this.affiliatedOrganizationsList.size(); j++)
-			{
-				if (creator.getPerson() != null)
-				{
-					if (creator.getPerson().getOrganizations().contains(this.affiliatedOrganizationsList.get(j)))
-					{
-						if (organizationsFound == 0)
-						{
-							annotation.append("   [");
-						}
-						if (organizationsFound > 0 && j < this.affiliatedOrganizationsList.size())
-						{
-							annotation.append(",");
-						}
-						annotation.append(new Integer(j + 1).toString());
-						organizationsFound++;
-					}
-				}
-			}
-			if (annotation.length() > 0)
-			{
-				annotation.append("]");
-			}
-			formattedCreator = formatter.formatCreator(creator) + annotation.toString();
-			if (creator.getPerson() != null)
-			{
-				this.creatorArray.add(formattedCreator);
-			}
-			if (creator.getOrganization() != null)
-			{
-				ViewItemCreatorOrganization creatorOrganization = new ViewItemCreatorOrganization();
-				creatorOrganization.setOrganizationName(formattedCreator);
-				creatorOrganization.setPosition(new Integer(counterOrganization).toString());
-				creatorOrganization.setOrganizationAddress(creator.getOrganization().getAddress());
-				creatorOrganization.setOrganizationInfoPage(formattedCreator, creator.getOrganization()
-						.getAddress());
-				this.creatorOrganizationsArray.add(creatorOrganization);
-				counterOrganization++;
-			}
-			creatorList.append(formattedCreator);
-			this.allCreatorsList.add(formattedCreator);
-		}
-	}
-
-	/**
 	 * Returns the ApplicationBean.
 	 * 
 	 * @return a reference to the scoped data bean (ApplicationBean)
@@ -890,22 +789,27 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	 */
 	public String getFileInfo()
 	{
+		if (this.getFileList()==null)
+		{
+			return "";
+		}
+
 		StringBuffer files = new StringBuffer();
 
-		if (this.getFileList() != null)
-		{
-			files.append(this.getFileList().size());
+		//		if (this.getFileList() != null)
+		//		{
+		files.append(this.getFileList().size());
 
-			// if there is only 1 file, display "File attached", otherwise display "Files attached" (plural)
-			if (this.getFileList().size() == 1)
-			{
-				files.append(" " + getLabel("ViewItemShort_lblFileAttached"));
-			}
-			else
-			{
-				files.append(" " + getLabel("ViewItemShort_lblFilesAttached"));
-			}
+		// if there is only 1 file, display "File attached", otherwise display "Files attached" (plural)
+		if (this.getFileList().size() == 1)
+		{
+			files.append(" " + getLabel("ViewItemShort_lblFileAttached"));
 		}
+		else
+		{
+			files.append(" " + getLabel("ViewItemShort_lblFilesAttached"));
+		}
+		//		}
 		return files.toString();
 	}
 
@@ -918,22 +822,27 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	 */
 	public String getLocatorInfo()
 	{
+		if (this.getLocatorList()==null)
+		{
+			return "";
+		}
+
 		StringBuffer locators = new StringBuffer();
 
-		if (this.getLocatorList() != null)
-		{
-			locators.append(this.getLocatorList().size());
+		//		if (this.getLocatorList() != null)
+		//		{
+		locators.append(this.getLocatorList().size());
 
-			// if there is only 1 locator, display "Locator", otherwise display "Locators" (plural)
-			if (this.getLocatorList().size() == 1)
-			{
-				locators.append(" " + getLabel("ViewItemShort_lblLocatorAttached"));
-			}
-			else
-			{
-				locators.append(" " + getLabel("ViewItemShort_lblLocatorsAttached"));
-			}
+		// if there is only 1 locator, display "Locator", otherwise display "Locators" (plural)
+		if (this.getLocatorList().size() == 1)
+		{
+			locators.append(" " + getLabel("ViewItemShort_lblLocatorAttached"));
 		}
+		else
+		{
+			locators.append(" " + getLabel("ViewItemShort_lblLocatorsAttached"));
+		}
+		//		}
 		return locators.toString();
 	}
 
@@ -943,9 +852,10 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	 */
 	private List<FileVO> getFileList()
 	{
-		List<FileVO> fileList = new ArrayList<FileVO>();
+		List<FileVO> fileList =null;
 		if(this.getFiles() != null)
 		{
+			fileList = new ArrayList<FileVO>();
 			for(int i = 0; i < this.getFiles().size(); i++)
 			{
 				if(this.getFiles().get(i).getStorage() == FileVO.Storage.INTERNAL_MANAGED)
@@ -968,9 +878,10 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	 */
 	private List<FileVO> getLocatorList()
 	{
-		List<FileVO> locatorList = new ArrayList<FileVO>();
+		List<FileVO> locatorList = null;
 		if(this.getFiles() != null)
 		{
+			locatorList = new ArrayList<FileVO>();
 			for(int i = 0; i < this.getFiles().size(); i++)
 			{
 				if(this.getFiles().get(i).getStorage() == FileVO.Storage.EXTERNAL_URL)
@@ -1221,6 +1132,10 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 		return searchHitList;
 	}
 
+	public void setSearchHitList(java.util.List<SearchHitVO> searchHitList) {
+		this.searchHitList=searchHitList;
+	}
+
 	public ArrayList<String> getOrganizationArray() {
 		return organizationArray;
 	}
@@ -1460,13 +1375,16 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 		//add published online date if no publisched print date
 		else if(getMetadata().getDatePublishedOnline()!= null && getMetadata().getDatePublishedOnline()!="")
 			descriptionMetaTag += "; " + getLabel("ViewItemShort_lblDatePublishedOnline") + ": "+getMetadata().getDatePublishedOnline();
+
 		//add open access component
-		for(FileBean file :getFileBeanList())
-		{
-			if(file.getIsVisible()==true)
+		if (getFileBeanList() != null && getFileBeanList().size()>0) {
+			for(FileBean file :getFileBeanList())
 			{
-				descriptionMetaTag += "; Open Access";
-				break;
+				if(file.getIsVisible()==true)
+				{
+					descriptionMetaTag += "; Open Access";
+					break;
+				}
 			}
 		}
 		//add keywords
