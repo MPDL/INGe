@@ -44,6 +44,7 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.search.AffiliationDetail;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -62,20 +63,22 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
 	private List<AffiliationVO> predecessors = new java.util.ArrayList<AffiliationVO>();
 
 	private List<AffiliationVO> successors = null;
+	private boolean hasChildren = false;
 
 	public AffiliationVOPresentation(AffiliationVO affiliation)
 	{
 		super(affiliation);
 		this.namePath = getDetails().getName();
 		this.idPath = getReference().getObjectId();
-
 		this.predecessors = getAffiliationVOfromRO(getPredecessorAffiliations());
+		this.hasChildren = affiliation.getHasChildren();
 
 	}
 
 	public List<AffiliationVOPresentation> getChildren() throws Exception
 	{
-		if (children == null)
+
+		if (children == null && isHasChildren())
 		{
 			children = ((ItemControllerSessionBean) FacesContext.getCurrentInstance().getExternalContext()
 					.getSessionMap().get("ItemControllerSessionBean")).searchChildAffiliations(this);
@@ -274,7 +277,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
 	}
 
 	private List<AffiliationVO> getAffiliationVOfromRO( List<AffiliationRO> affiliations  )
-	{
+	{ /*
 		List<AffiliationVO> transformedAffs = new ArrayList<AffiliationVO>();
 		InitialContext initialContext = null;
 		XmlTransforming xmlTransforming = null;
@@ -298,6 +301,51 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
 		{
 			return transformedAffs;
 		}
+	 */
+		return retrieveAllOrganizationalUnits(affiliations);
+	}
+
+
+	/**
+	 * @Retrieves list of all contexts for which user has granted privileges @see LoginHelper.getUserGrants
+	 * @throws SecurityException
+	 * @throws TechnicalException
+	 */
+	private  List<AffiliationVO> retrieveAllOrganizationalUnits(List<AffiliationRO> affiliations)
+	{
+
+		String filterString="<param>";
+		boolean hasAffs = false;
+		List<AffiliationVO> transformedAffs = new ArrayList<AffiliationVO>();
+
+
+		for( AffiliationRO affiliation : affiliations )
+		{
+			filterString=filterString.concat("<filter name=\"/id\">"+affiliation.getObjectId()+"</filter>" );
+			hasAffs=true;
+		}
+
+		filterString=filterString.concat("</param>");
+
+		if (hasAffs)
+		{
+
+			try
+			{
+				OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
+				InitialContext initialContext = new InitialContext();
+				XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+
+				String ouXml = ouHandler.retrieveOrganizationalUnits(filterString);
+				transformedAffs=xmlTransforming.transformToAffiliationList(ouXml);
+			}
+			catch (Exception e)
+			{
+				return transformedAffs;
+			}
+		}
+		return transformedAffs;
+
 	}
 
 	/**
@@ -381,6 +429,13 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
 	{
 		fetchSuccessors();
 		return ( this.successors.size() != 0 );
+	}
+
+	/**
+	 * @return the hasChildren
+	 */
+	public boolean isHasChildren() {
+		return hasChildren;
 	}
 
 
