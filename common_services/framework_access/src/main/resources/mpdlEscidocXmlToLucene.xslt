@@ -572,7 +572,7 @@ Notes:
 		<xsl:param name="elem" />
 		<xsl:call-template name="removeSubSupStr">
 			<xsl:with-param name="name" select="local-name($elem)" />
-			<xsl:with-param name="str" select="$elem/*"/>
+			<xsl:with-param name="str" select="$elem"/>
 		</xsl:call-template>	
 	</xsl:template>
 		
@@ -580,9 +580,9 @@ Notes:
 	<xsl:template name="removeSubSupStr">
 		<xsl:param name="name" />
 		<xsl:param name="str" />
-<!--				<xsl:message>HERE!!!!!!!!!!!!!</xsl:message>-->
-<!--				<xsl:message>name: <xsl:value-of select="$name"/></xsl:message>-->
-<!--				<xsl:message>str: <xsl:value-of select="$str"/></xsl:message>-->
+				<xsl:message>HERE!!!!!!!!!!!!!</xsl:message>
+				<xsl:message>name: <xsl:value-of select="$name"/></xsl:message>
+				<xsl:message>str: <xsl:value-of select="$str"/></xsl:message>
 			<xsl:choose>
 <!--				FIELDS WHERE SUB/SUPs should be removed-->
 				<xsl:when test="
@@ -616,17 +616,21 @@ Notes:
 	<xsl:template name="removeTag">
 		<xsl:param name="str"/>
 		<xsl:param name="tag"/>
-		<xsl:if test="contains($str, concat('&lt;', $tag, '&gt;'))">
-			<xsl:call-template name="replace-substring">
-			     <xsl:with-param name="original">
-					<xsl:call-template name="replace-substring">
-					     <xsl:with-param name="original" select="$str"/>
-					     <xsl:with-param name="substring" select="concat('&lt;', $tag, '&gt;')"/>
-					</xsl:call-template>
-			     </xsl:with-param>
-			     <xsl:with-param name="substring" select="concat('&lt;/', $tag, '&gt;')"/>
-			</xsl:call-template>
-		</xsl:if>
+		<xsl:choose>
+			<xsl:when test="contains($str, concat('&lt;', $tag, '&gt;'))">
+				<xsl:call-template name="replace-substring">
+				     <xsl:with-param name="original">
+						<xsl:call-template name="replace-substring">
+						     <xsl:with-param name="original" select="$str"/>
+						     <xsl:with-param name="substring" select="concat('&lt;', $tag, '&gt;')"/>
+						</xsl:call-template>
+				     </xsl:with-param>
+				     <xsl:with-param name="substring" select="concat('&lt;/', $tag, '&gt;')"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise><xsl:value-of select="$str"/></xsl:otherwise>
+		</xsl:choose>
+		
 	</xsl:template>
 	
 	<!-- REPLACE STRING -->
