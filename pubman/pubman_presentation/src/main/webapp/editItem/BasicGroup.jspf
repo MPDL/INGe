@@ -31,7 +31,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!(genre.item_basic_display == 'false' && genre.item_basic_form_id == 'full-submission' || genre.item_basic_display == 'false' && genre.item_basic_form_id == 'all')}">
+<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{EditItem.pubItem!=null and !(genre.item_basic_display == 'false' && genre.item_basic_form_id == 'full-submission' || genre.item_basic_display == 'false' && genre.item_basic_form_id == 'all')}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter"/>
 	</h3>
