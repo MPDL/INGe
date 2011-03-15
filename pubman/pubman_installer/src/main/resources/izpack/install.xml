@@ -73,7 +73,7 @@
 		<!-- PubMan Presentation --><panel classname="UserInputPanel" id="UserInputPanel.9" condition="conf_selected"/>
 		<!-- Search Engine SiteMap --><panel classname="UserInputPanel" id="UserInputPanel.10" condition="conf_selected"/>
 		<!-- Search&Export Service --><panel classname="UserInputPanel" id="UserInputPanel.11" condition="conf_selected"/>
-		<!-- PANEL 12 NEW NEW NEW --><panel classname="UserInputPanel" id="UserInputPanel.12" condition="conf_selected"/>
+		<!-- Home Page Content and Survey Advertisements --><panel classname="UserInputPanel" id="UserInputPanel.12" condition="conf_selected"/>
 
 		<panel classname="TargetPanel"/>
 		<panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel"/>
@@ -163,13 +163,9 @@
 		<variable name="ConePort" value="5432"/>
 		<variable name="ConeUser" value="postgres"/>
 		<variable name="ConePassword" value=""/>
-		<!-- ###################################### NEW START ######################################
-		<variable name="StyleSheetStandardURL" value="./resources/eSciDoc_CSS_v2/themes/skin_PubMan/styles/theme.css"/>
-		-->
 		<variable name="StyleSheetStandardURL" value="/common/resources/cssFramework/themes/skin_standard/styles/theme.css"/>
 		<variable name="PubManLogoURL" value="/pubman/resources/images/pubman_logo.png"/>
 		<variable name="PubManLogoApply" value="true"/>
-		<!-- ###################################### NEW END ######################################## -->
 		<variable name="StyleSheetStandardType" value="stylesheet"/>
 		<variable name="StyleSheetStandardApply" value="true"/>
 		<variable name="StyleSheetContrastURL" value="./resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css"/>

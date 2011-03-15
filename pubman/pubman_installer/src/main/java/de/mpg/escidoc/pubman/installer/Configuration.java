@@ -102,7 +102,7 @@ public class Configuration
     public static final String KEY_SORT_KEYS_LINK = "escidoc.search.and.export.default.sort.keys";
     public static final String KEY_SORT_ORDER_LINK = "escidoc.search.and.export.default.sort.order";
     public static final String KEY_MAX_RECORDS_LINK = "escidoc.search.and.export.maximum.records";
-    // Panel 12 NEW NEW NEW
+    // Panel 12 : Home Page Content and Survey Advertisements
     public static final String KEY_PB_HOME_CONTENT_URL = "escidoc.pubman.home.content.url";
     public static final String KEY_PB_SURVEY_URL = "escidoc.pubman.survey.url";
     public static final String KEY_PB_SURVEY_TITLE = "escidoc.pubman.survey.title";
