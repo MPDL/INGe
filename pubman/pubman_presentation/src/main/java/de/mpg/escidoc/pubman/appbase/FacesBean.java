@@ -453,14 +453,12 @@ public class FacesBean extends InternationalizedImpl implements Serializable
 	{
 
 		LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-		Login login = (Login) getSessionBean(Login.class);
-
 		//if not logged in redirect to login page
 		if (!loginHelper.isLoggedIn())
 		{
 			try
 			{
-				login = new Login();
+				Login login = new Login();
 				login.loginLogout();
 			}
 			catch (Exception e)
