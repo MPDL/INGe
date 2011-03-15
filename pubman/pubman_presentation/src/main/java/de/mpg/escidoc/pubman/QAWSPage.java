@@ -30,6 +30,9 @@
 
 package de.mpg.escidoc.pubman;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
@@ -68,30 +71,31 @@ public class QAWSPage extends BreadcrumbPage
 	public void init()
 	{
 		super.init();
-		checkForLogin();
-		/*FacesContext fc = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-        String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("UserHandle: " + userHandle);
-        }
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+		String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
-        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        if(loginHelper == null)
-        {
-            loginHelper = new LoginHelper();
-        }
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("UserHandle: " + userHandle);
+		}
 
-        try
-        {
-            loginHelper.checkLogin();
-        }
-        catch (Exception e)
-        {
-            logger.error("Could not login." + "\n" + e.toString());
-        }*/
+		LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+		if(loginHelper == null)
+		{
+			loginHelper = new LoginHelper();
+		}
+
+		try
+		{
+			//loginHelper.checkLogin();
+			checkForLogin();
+		}
+		catch (Exception e)
+		{
+			logger.error("Could not login." + "\n" + e.toString());
+		}
 
 		this.getViewItemSessionBean().setHasBeenRedirected(true);
 
