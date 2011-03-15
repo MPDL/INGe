@@ -72,6 +72,7 @@ public class AffiliationTree extends FacesBean
 		affiliations = CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean()
 				.searchTopLevelAffiliations());
 		timestamp = new Date().getTime();
+
 	}
 
 	public List<AffiliationVOPresentation> getAffiliations()
@@ -167,7 +168,7 @@ public class AffiliationTree extends FacesBean
 	 */
 	private void addChildAffiliationsToMenu(List<AffiliationVOPresentation> affs, List<SelectItem> affSelectItems, int level) throws Exception
 	{
-		if ( affs==null )
+		if ( affs==null)
 		{
 			return;
 		}
@@ -186,7 +187,10 @@ public class AffiliationTree extends FacesBean
 		{
 			affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
 			affiliationMap.put(aff.getReference().getObjectId(), aff);
-			addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
+			if (aff.getChildren() != null)
+			{
+				addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
+			}
 		}
 	}
 
