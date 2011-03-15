@@ -71,7 +71,7 @@
 							</div>
 						</div>
 						<div class="small_marginLIncl subHeaderSection">
-							<div class="contentMenu">
+							<div class="contentMenu" rendered="#{LoginHelper.isDepositor}">
 							<!-- content menu starts here -->
 								<div class="free_area0 sub">
 								<!-- content menu upper line starts here -->
