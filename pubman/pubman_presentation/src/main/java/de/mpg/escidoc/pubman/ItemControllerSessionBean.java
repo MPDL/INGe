@@ -101,6 +101,7 @@ import de.mpg.escidoc.services.search.query.PlainCqlQuery;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
+
 /**
  * Handles all actions on/with items, calls to the framework.
  * 
@@ -1757,49 +1758,24 @@ public class ItemControllerSessionBean extends FacesBean
 		}
 
 		String xmlItem = "";
+
 		//login with escidoc user handle
 		if(loginHelper.getESciDocUserHandle() != null)
 		{
-
-			//            try
-			//            {
-
 			xmlItem = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieve(itemID);
-			//            }
-			//            catch (AuthenticationException e)
-			//            {
-			//                logger.debug(e.toString());
-			//                Login login = (Login) getSessionBean(Login.class);
-			//                login.forceLogout();
-			//                throw e;
-			//            }
-
 		}
 		//anonymous login
 		else
 		{
-
-			//            try
-			//            {
 			xmlItem = ServiceLocator.getItemHandler().retrieve(itemID);
-			//            }
-			//            catch (AuthenticationException e)
-			//            {
-			//                logger.debug(e.toString());
-			//                Login login = (Login) getSessionBean(Login.class);
-			//                login.forceLogout();
-			//                throw e;
-			//            }
-		}
 
-		// transform the xml item
-		if (logger.isDebugEnabled())
-		{
-			logger.debug("Transforming items...");
+			// transform the xml item
+			if (logger.isDebugEnabled())
+			{
+				logger.debug("Transforming items...");
+			}
 		}
-		PubItemVO item = this.xmlTransforming.transformToPubItem(xmlItem);
-
-		return new PubItemVOPresentation(item);
+		return new PubItemVOPresentation(this.xmlTransforming.transformToPubItem(xmlItem));
 	}
 
 	/**
