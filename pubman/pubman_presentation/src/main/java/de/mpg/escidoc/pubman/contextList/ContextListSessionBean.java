@@ -77,7 +77,7 @@ public class ContextListSessionBean extends FacesBean
 	 */
 	public ContextListSessionBean()
 	{
-		init();
+		//init();
 	}
 
 	@Override
@@ -91,8 +91,8 @@ public class ContextListSessionBean extends FacesBean
 		{
 			logger.error("Could not create context list.", e);
 		}
-
 	}
+
 
 
 	private List<PubContextVOPresentation> retrieveModeratorContexts()
@@ -385,8 +385,15 @@ public class ContextListSessionBean extends FacesBean
 					this.allPrivilegedContextList= CommonUtils.convertToPubCollectionVOPresentationList(xmlTransforming.transformToContextList(contextList));
 				}
 
+
+				this.depositorContextList = new ArrayList<PubContextVOPresentation>();
+				this.moderatorContextList = new ArrayList<PubContextVOPresentation>();
+				this.yearbookContextList = new ArrayList<PubContextVOPresentation>();
+				this.yearbookModeratorContextList = new ArrayList<PubContextVOPresentation>();
+
 				for (PubContextVOPresentation context:this.allPrivilegedContextList)
 				{
+
 					for (GrantVO grant:this.loginHelper.getUserGrants())
 					{
 						if (!grant.getObjectRef().equals("") && grant.getObjectRef().equals(context.getReference().getObjectId()) &&
