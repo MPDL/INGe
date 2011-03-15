@@ -52,7 +52,7 @@
 				<link rel="stylesheet" href="http://labs.creativecommons.org/demos/jswidget/tags/0.97/example_web_app/example-widget-style.css" />
 
 			</head>
-			<body lang="#{InternationalizationHelper.locale}">
+			<body lang="#{InternationalizationHelper.locale}" rendered="#{EditItem.pubItem!=null}">
 
 			<h:outputText value="#{EditItemPage.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true" onsubmit="fullItemReload();">
@@ -61,9 +61,9 @@
 			
 				<jsp:directive.include file="header/Header.jspf" />
 
-				<div id="content" class="full_area0 clear">
+				<div id="content" class="full_area0 clear" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
-					<div class="clear">
+					<div class="clear" rendered="#{EditItem.pubItem!=null}">
 						<div class="headerSection">
 							
 						<jsp:directive.include file="header/Breadcrumb.jspf" />
@@ -152,7 +152,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="full_area0">
+					<div class="full_area0" rendered="#{EditItem.pubItem!=null}">
 						<div id="fullItem" class="full_area0 fullItem">
 							<div class="full_area0 fullItemControls">
 								<span class="full_area0_p5">
@@ -200,6 +200,7 @@
 								</span>
 							</div>
 
+
 						 	<jsp:directive.include file="editItem/BasicGroup.jspf" />
 							<jsp:directive.include file="editItem/FilesGroup.jspf" />
 							<jsp:directive.include file="editItem/LocatorsGroup.jspf" />
@@ -224,7 +225,6 @@
 						
 						<div class="full_area0 formButtonArea">
 							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.EditItem_lnkCancel}" action="#{EditItem.cancel}"/>
-							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkDelete" binding ="#{EditItem.lnkDelete}" onclick="if(!confirm('#{msg.deleteMessage}'))return false;" value="#{lbl.EditItem_lnkDelete}" onmousedown="if(!confirmDelete('form1:EditItem'))return false;" action="#{EditItem.delete}"/>
 							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkRelease" binding ="#{EditItem.lnkRelease}"  value="#{lbl.actionMenu_lnkRelease}" action="#{EditItem.saveAndSubmit}"/>
 							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkReleaseReleasedItem" binding ="#{EditItem.lnkReleaseReleasedItem}"  value="#{lbl.actionMenu_lnkRelease}" action="#{EditItem.saveAndRelease}"/>
 							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkAccept" binding ="#{EditItem.lnkAccept}"  value="#{lbl.EditItem_lnkAccept}" action="#{EditItem.saveAndAccept}"/>
