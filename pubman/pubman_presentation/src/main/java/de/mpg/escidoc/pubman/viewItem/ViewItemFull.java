@@ -549,7 +549,7 @@ public class ViewItemFull extends FacesBean
 			//List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
 			if (currentPubItemList != null)
 			{
-				for (int i=currentPubItemList.size()-1; i>=0; i--)
+				for (int i=0; i<currentPubItemList.size();i++)
 				{
 					if (this.pubItem.getVersion().getObjectId()
 							.equals(currentPubItemList.get(i).getVersion().getObjectId()))
