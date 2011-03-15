@@ -274,86 +274,93 @@ public class AffiliationBean extends FacesBean
 	 * 
 	 * @return string, identifying the page that should be navigated to after this method call
 	 */
-	 public String startSearchForAffiliation(AffiliationVO affiliation)
-	 {
-		 try
-		 {
-			 ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
-			 criteria.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS,
-					 affiliation.getReference().getObjectId()));
-			 criteria.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE,
-					 "item", MetadataSearchCriterion.LogicalOperator.AND));
+	public String startSearchForAffiliation(AffiliationVO affiliation)
+	{
+		try
+		{
+			ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
+			criteria.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS,
+					affiliation.getReference().getObjectId()));
+			criteria.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE,
+					"item", MetadataSearchCriterion.LogicalOperator.AND));
 
-			 ArrayList<String> contentTypes = new ArrayList<String>();
-			 String contentTypeIdPublication = PropertyReader.getProperty(PROPERTY_CONTENT_MODEL);
-			 contentTypes.add(contentTypeIdPublication);
+			ArrayList<String> contentTypes = new ArrayList<String>();
+			String contentTypeIdPublication = PropertyReader.getProperty(PROPERTY_CONTENT_MODEL);
+			contentTypes.add(contentTypeIdPublication);
 
-			 MetadataSearchQuery query = new MetadataSearchQuery(contentTypes, criteria);
+			MetadataSearchQuery query = new MetadataSearchQuery(contentTypes, criteria);
 
-			 String cql = query.getCqlQuery();
+			String cql = query.getCqlQuery();
 
-			 try
-			 {
-				 LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
-				 InitialContext ic = new InitialContext();
-				 StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
-				 sl.logSearch(getSessionId(), getIP(), affiliation.getDefaultMetadata().getName(), cql, loginHelper.getLoggedIn(),"pubman", AdminHelper.getAdminUserHandle());
-			 }
+			try
+			{
+				LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
+				InitialContext ic = new InitialContext();
+				StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
+				sl.logSearch(getSessionId(), getIP(), affiliation.getDefaultMetadata().getName(), cql, loginHelper.getLoggedIn(),"pubman", AdminHelper.getAdminUserHandle());
+			}
 
-			 catch (Exception e)
-			 {
-				 logger.error("Could not log statistical data", e);
-			 }
+			catch (Exception e)
+			{
+				logger.error("Could not log statistical data", e);
+			}
 
 
-			 //redirect to SearchResultPage which processes the query
-			 getExternalContext().redirect("SearchResultListPage.jsp?"
-					 + SearchRetrieverRequestBean.parameterCqlQuery
-					 + "="
-					 + URLEncoder.encode(cql)
-					 + "&"
-					 + SearchRetrieverRequestBean.parameterSearchType
-					 + "=org");
+			//redirect to SearchResultPage which processes the query
+			getExternalContext().redirect("SearchResultListPage.jsp?"
+					+ SearchRetrieverRequestBean.parameterCqlQuery
+					+ "="
+					+ URLEncoder.encode(cql)
+					+ "&"
+					+ SearchRetrieverRequestBean.parameterSearchType
+					+ "=org");
 
-		 }
-		 catch (Exception e)
-		 {
-			 logger.error("Could not search for items." + "\n" + e.toString());
-			 ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+		}
+		catch (Exception e)
+		{
+			logger.error("Could not search for items." + "\n" + e.toString());
+			((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
 
-			 return ErrorPage.LOAD_ERRORPAGE;
-		 }
+			return ErrorPage.LOAD_ERRORPAGE;
+		}
 
-		 return "";
-	 }
+		return "";
+	}
 
-	 public List<AffiliationVOPresentation> getTopLevelAffiliations()
-	 {
-		 List<AffiliationVO> tops = null;
-		 try
-		 {
-			 tops = this.getItemControllerSessionBean().searchTopLevelAffiliations();
-		 } catch (Exception e)
-		 {
-			 logger.error("TopLevel affiliations cannot be fetched.");
-			 tops = new ArrayList<AffiliationVO>();
-		 }
+	public List<AffiliationVOPresentation> getTopLevelAffiliations()
+	{
 
-		 List<AffiliationVOPresentation> topsPres = new ArrayList<AffiliationVOPresentation>();
-		 for(int i = 0; i < tops.size(); i++)
-		 {
-			 topsPres.add(new AffiliationVOPresentation(tops.get(i)));
-		 }
-		 return topsPres;
-	 }
+		AffiliationTree affTree = (AffiliationTree)getSessionBean(AffiliationTree.class);
+		List<AffiliationVOPresentation> topsPres = new ArrayList<AffiliationVOPresentation>();
+		topsPres=affTree.getAffiliations();
+		if (topsPres != null && topsPres.size()>0)
+			return topsPres;
 
-	 public List<AffiliationVOPresentation> getTopLevelAffs()
-	 {
-		 return topLevelAffs;
-	 }
+		List<AffiliationVO> tops = null;
+		try
+		{
+			tops = this.getItemControllerSessionBean().searchTopLevelAffiliations();
+		} catch (Exception e)
+		{
+			logger.error("TopLevel affiliations cannot be fetched.");
+			tops = new ArrayList<AffiliationVO>();
+		}
 
-	 public void setTopLevelAffs(List<AffiliationVOPresentation> topLevelAffs)
-	 {
-		 this.topLevelAffs = topLevelAffs;
-	 }
+		for(int i = 0; i < tops.size(); i++)
+		{
+			topsPres.add(new AffiliationVOPresentation(tops.get(i)));
+		}
+
+		return topsPres;
+	}
+
+	public List<AffiliationVOPresentation> getTopLevelAffs()
+	{
+		return topLevelAffs;
+	}
+
+	public void setTopLevelAffs(List<AffiliationVOPresentation> topLevelAffs)
+	{
+		this.topLevelAffs = topLevelAffs;
+	}
 }
