@@ -49,8 +49,8 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-			<h:outputText value="#{MyTasksRetrieverRequestBean.beanName}" styleClass="noDisplay" />
-			<h:outputText value="#{QAWSPage.beanName}" styleClass="noDisplay" />
+			<h:outputText value="#{MyTasksRetrieverRequestBean.beanName}" styleClass="noDisplay" rendered="#{LoginHelper.loggedIn}"/>
+			<h:outputText value="#{QAWSPage.beanName}" styleClass="noDisplay" rendered="#{LoginHelper.loggedIn}"/>
 			<tr:form usesUpload="true">
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
