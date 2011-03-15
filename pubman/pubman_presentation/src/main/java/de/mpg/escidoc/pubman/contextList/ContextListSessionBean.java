@@ -387,7 +387,6 @@ public class ContextListSessionBean extends FacesBean
 
 				for (PubContextVOPresentation context:this.allPrivilegedContextList)
 				{
-					System.out.println("Context id "+ context.getType().toLowerCase() +" of type has ID "+context.getReference().getObjectId());
 					for (GrantVO grant:this.loginHelper.getUserGrants())
 					{
 						if (!grant.getObjectRef().equals("") && grant.getObjectRef().equals(context.getReference().getObjectId()) &&
