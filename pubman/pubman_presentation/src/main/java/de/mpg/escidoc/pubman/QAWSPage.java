@@ -81,11 +81,11 @@ public class QAWSPage extends BreadcrumbPage
 			logger.debug("UserHandle: " + userHandle);
 		}
 
-		LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-		if(loginHelper == null)
-		{
-			loginHelper = new LoginHelper();
-		}
+		//LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+		//if(loginHelper == null)
+		//{
+		//	loginHelper = new LoginHelper();
+		//}
 
 		try
 		{
