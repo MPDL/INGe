@@ -697,3 +697,24 @@
 		background-repeat: no-repeat;
 		background-position: center left;
 	}
+
+.viewFileIcon {
+	background-image: url('../images/All_File_EyeTrue_15_Static.gif');
+	background-repeat: no-repeat;
+	background-position: bottom left;
+	padding-left: 2.10em !important;
+}
+
+.downloadFileIcon {
+	background-image: url('../images/All_File_ArrowDownload_15_Static.gif');
+	background-repeat: no-repeat;
+	background-position: bottom left;
+	padding-left: 2.10em !important;
+}  	
+
+.featureIcon {
+	background-image: url('../images/All_Status_ItemSolo_31_Static.gif');
+	background-repeat: no-repeat;
+	background-position: right;
+	height: 2.90em !important;
+}
