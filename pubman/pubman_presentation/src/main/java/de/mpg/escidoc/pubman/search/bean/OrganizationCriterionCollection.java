@@ -138,7 +138,7 @@ public class OrganizationCriterionCollection
         List<OrganizationCriterion> returnList = new ArrayList<OrganizationCriterion>();
         for (OrganizationCriterion vo : parentVO)
         {
-            if (((vo.getSearchString() != null && vo.getSearchString().length() > 0) || vo.getAffiliation() != null))
+            if (((vo.getSearchString() != null && vo.getSearchString().length() > 0) || (vo.getAffiliation() != null && vo.getAffiliation().getReference().getObjectId() != null && !"".equals(vo.getAffiliation().getReference().getObjectId()))))
             {
                 returnList.add(vo);
             }

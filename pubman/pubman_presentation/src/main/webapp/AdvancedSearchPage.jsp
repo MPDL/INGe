@@ -128,7 +128,7 @@
 				languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>iso639-1/query?format=json';
 				/*languageDetailsBaseURL = '$1?format=json';*/
 				languageDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
-
+				organizationSuggestURL = 'OrganizationSuggest.jsp';
 
 
 

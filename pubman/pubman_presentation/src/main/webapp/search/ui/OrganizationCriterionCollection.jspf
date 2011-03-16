@@ -45,15 +45,17 @@
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				
-				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline" rendered="#{organizationCriterionBean.organizationCriterionVO.affiliationEmpty}">
+				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline suggestAnchor">
                     <h:outputLabel id="lblOrganizationSearchTermEmptyFirst" styleClass="xDouble_label" value="#{lbl.adv_search_lblSearchTerm}" />
-                    <h:inputText id="organizationSearchTermEmptyFirst" styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" />
-                    <tr:commandButton id="btnSelectOrganisationEmptyFirst" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" action="#{organizationCriterionBean.selectOrganisation}" />
-                </h:panelGroup>
-                <h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline" rendered="#{!organizationCriterionBean.organizationCriterionVO.affiliationEmpty}">
-                    <h:outputLabel id="lblOrganizationSearchTermFirst" styleClass="xDouble_label" value="Organization" />
-                    <h:inputText id="organizationSearchTermFirst" styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.affiliationName}" disabled="#{!organizationCriterionBean.organizationCriterionVO.affiliationEmpty}"/>
-                    <tr:commandButton id="btnSelectOrganisationFirst" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" action="#{organizationCriterionBean.selectOrganisation}" />
+                    <h:inputText id="organizationSearchTermEmptyFirst" styleClass="xDouble_txtInput organizationSuggest organizationName"
+						value="#{organizationCriterionBean.organizationCriterionVO.searchString}"/>
+					<h:inputText id="organizationSearchTermEmptyIdentifier" styleClass="noDisplay organizationIdentifier"
+						value="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId}" />
+					<h:outputLink styleClass="small_area0 ouCard ouLink"
+						rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != null and organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != ''}" value="#"
+						onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{organization.identifier}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
+					<h:panelGroup rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId == null || organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId == ''}"
+						styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>
                 </h:panelGroup>
 				
 				<span class="large_area0_p8 lineToolSection">

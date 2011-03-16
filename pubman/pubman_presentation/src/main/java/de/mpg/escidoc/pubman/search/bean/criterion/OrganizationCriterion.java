@@ -34,6 +34,8 @@ import java.util.ArrayList;
 
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 
@@ -55,6 +57,9 @@ public class OrganizationCriterion extends Criterion
     public OrganizationCriterion()
     {
         super();
+        AffiliationVO affiliationVO = new AffiliationVO();
+        affiliationVO.setReference(new AffiliationRO());
+        affiliation = new AffiliationVOPresentation(affiliationVO);
     }
     
     /**
@@ -62,7 +67,7 @@ public class OrganizationCriterion extends Criterion
      */
     public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
         ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-        if(getAffiliation() != null)
+        if(getAffiliation() != null && getAffiliation().getReference().getObjectId() != null && !"".equals(getAffiliation().getReference().getObjectId()))
         {
             MetadataSearchCriterion criterion = 
                 new MetadataSearchCriterion( CriterionType.ORGANIZATION_PIDS, getAffiliation().getReference().getObjectId());
