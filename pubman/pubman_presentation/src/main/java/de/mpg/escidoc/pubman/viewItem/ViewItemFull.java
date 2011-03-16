@@ -117,6 +117,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO.AlternativeTitleType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
@@ -128,6 +129,9 @@ import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
+
+
+
 
 /**
  * Backing bean for ViewItemFull.jspf (for viewing items in a full context).
@@ -3017,7 +3021,49 @@ public class ViewItemFull extends FacesBean
 		return canShowLastMessage;
 	}
 
+	/*{
+	ABBREVIATION("http://purl.org/escidoc/metadata/terms/0.1/ABBREVIATION"),
+	HTML("http://purl.org/escidoc/metadata/terms/0.1/HTML"),
+	LATEX("http://purl.org/escidoc/metadata/terms/0.1/LATEX"),
+	MATHML("http://purl.org/escidoc/metadata/terms/0.1/MATHML"),
+	OTHER("http://purl.org/escidoc/metadata/terms/0.1/OTHER");
 
+	private String uri;
 
+	private AlternativeTitleType(String uri)
+	{
+		this.uri=uri;
+	}
+
+	public String getUri()
+	{
+		return uri;
+	}
+}*/
+
+	public String getEnum_alternativetitletype_abbreviation()
+	{
+		return AlternativeTitleType.ABBREVIATION.toString();
+	}
+
+	public String getEnum_alternativetitletype_other()
+	{
+		return AlternativeTitleType.OTHER.toString();
+	}
+
+	public String getEnum_alternativetitletype_latex()
+	{
+		return AlternativeTitleType.LATEX.toString();
+	}
+
+	public String getEnum_alternativetitletype_mathml()
+	{
+		return AlternativeTitleType.MATHML.toString();
+	}
+
+	public String getEnum_alternativetitletype_html()
+	{
+		return AlternativeTitleType.HTML.toString();
+	}
 
 }
