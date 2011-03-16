@@ -452,11 +452,11 @@ public class ViewItemFull extends FacesBean
 							//if user has Depositor privileges in general
 							if (grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())) this.isDepositor = true;
 
-							//if user has System administrator privileges he can do all actions as isOwner
-							//Note: previous PubMan version was setting-the owner if user had any privilege as moderator or depositor
-							//but strangely could not understand why additional check again
-							if (grant.getRole().equals("escidoc:role-system-administrator")) this.isOwner = true;
 						}
+						//if user has System administrator privileges he can do all actions as isOwner
+						//Note: previous PubMan version was setting-the owner if user had any privilege as moderator or depositor
+						//but strangely could not understand why additional check again
+						if (grant.getRole().equals("escidoc:role-system-administrator")) this.isOwner = true;
 					}
 				}
 				/*
