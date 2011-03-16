@@ -44,35 +44,40 @@
 
 <%-- File name --%>
 			<div class="free_area0 endline itemLine firstLine">
-				<span class="xLarge_area0 endline labelLine featureIcon">
-					<span class="noDisplay">: </span>
-				</span>
-				<span class="large_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{file.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-					<h:outputText value=" (#{file.contentCategory})" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-					<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
-					<h:outputText value=", #{file.fileSize}"/>
-				</span>
-				<span class="large_area0 xTiny_marginLExcl endline">
-					<span class="viewFileIcon"></span>
-					<tr:goLink id="lnkCitationURL" targetFrame="_blank" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-						<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
-					</tr:goLink>
-					<!-- Link for fulltext searchhits with open pdf params-->
-					<tr:goLink id="lnkSearchHitsURL" targetFrame="_blank" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}#search=#{file.openPDFSearchParameter}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-						<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
-					</tr:goLink>
-				</span>
-				<span class="large_area0 xTiny_marginLExcl endline">
-					<span class="downloadFileIcon"></span>
-					<tr:goLink id="lnkCitationURLDownload" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-						<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
-					</tr:goLink>
-					<!-- Link for fulltext searchhits with open pdf params-->
-					<tr:goLink id="lnkSearchHitsURLDownload" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download#search=#{file.openPDFSearchParameter}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-						<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
-					</tr:goLink>
-				</span>
+				<div class="free_area0 endline itemLine firstLine">
+					<span class="xLarge_area0 endline labelLine featureIcon">
+						<span class="noDisplay">: </span>
+					</span>
+					<div class="xHuge_area0 xTiny_marginLExcl endline">
+						<div class="xHuge_area0 endline">
+							<h:outputText value="#{file.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+							<h:outputText value=" (#{file.contentCategory})" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+							<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
+							<h:outputText value=", #{file.fileSize}"/>
+						</div>
+						<div class="xHuge_area0 endline marginTExcl075">
+							<span class="viewFileIcon"></span>
+							<tr:goLink id="lnkCitationURL" targetFrame="_blank" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+								<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
+							</tr:goLink>
+							<!-- Link for fulltext searchhits with open pdf params-->
+							<tr:goLink id="lnkSearchHitsURL" targetFrame="_blank" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}#search=#{file.openPDFSearchParameter}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+								<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
+							</tr:goLink>
+						</div>
+					
+						<div class="xHuge_area0 endline">
+							<span class="downloadFileIcon"></span>
+							<tr:goLink id="lnkCitationURLDownload" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+								<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
+							</tr:goLink>
+							<!-- Link for fulltext searchhits with open pdf params-->
+							<tr:goLink id="lnkSearchHitsURLDownload" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download#search=#{file.openPDFSearchParameter}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+								<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
+							</tr:goLink>
+						</div>
+					</div>
+				</div>
 			</div>
 			
 
