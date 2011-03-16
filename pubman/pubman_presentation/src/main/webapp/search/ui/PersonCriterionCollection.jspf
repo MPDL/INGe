@@ -46,7 +46,9 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel id="lblPersonSearchString" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
-					<h:inputText id="personSearchString" styleClass="quad_txtInput" immediate="true" value="#{personCriterionBean.personCriterionVO.searchString}" />
+					<h:inputText id="personSearchString"
+						styleClass="quad_txtInput personSuggest" value="#{personCriterionBean.personCriterionVO.searchString}"/>
+					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{personCriterionBean.personCriterionVO.identifier}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />

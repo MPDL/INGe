@@ -223,7 +223,7 @@
 		$input.blur();
 		$input.focus();
 		fillField('personIdentifier', personId, parent, true);
-		
+
 		if (personId != null && personId != '')
 		{
 			$(parent).find('.authorLink').replaceWith('<a href="' + personId + '" class="small_area0 authorCard authorLink" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');

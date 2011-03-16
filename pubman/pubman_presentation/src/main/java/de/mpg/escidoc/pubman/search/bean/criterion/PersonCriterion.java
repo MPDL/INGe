@@ -51,6 +51,7 @@ public class PersonCriterion extends Criterion
 {
     //creator role for the search criterion
     private List<CreatorRole> creatorRole;
+    private String identifier;
 
     /**
      * constructor.
@@ -70,6 +71,16 @@ public class PersonCriterion extends Criterion
         this.creatorRole = creatorRole;
     }
     
+    public String getIdentifier()
+    {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier)
+    {
+        this.identifier = identifier;
+    }
+
     private String getRolesAsStringList() {
         StringBuffer buffer = new StringBuffer();
         for( int i = 0; i < creatorRole.size(); i++ ) {
@@ -83,13 +94,24 @@ public class PersonCriterion extends Criterion
     
     public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
         ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-        if( isSearchStringEmpty() == true ) {
+        if( isSearchStringEmpty() )
+        {
             return criterions;
         }
-        else {
-            MetadataSearchCriterion criterion = 
-                new MetadataSearchCriterion( CriterionType.PERSON, getSearchString() );
-            criterions.add( criterion );
+        else
+        {
+            if (identifier == null || "".equals(identifier))
+            {
+                MetadataSearchCriterion criterion = 
+                    new MetadataSearchCriterion( CriterionType.PERSON, getSearchString() );
+                criterions.add( criterion );
+            }
+            else
+            {
+                MetadataSearchCriterion criterion = 
+                    new MetadataSearchCriterion( CriterionType.PERSON_IDENTIFIER, identifier );
+                criterions.add( criterion );
+            }
             if( creatorRole.size() != 0 ) {
                 MetadataSearchCriterion criterion1 = 
                     new MetadataSearchCriterion( CriterionType.PERSON_ROLE, getRolesAsStringList(), LogicalOperator.AND );

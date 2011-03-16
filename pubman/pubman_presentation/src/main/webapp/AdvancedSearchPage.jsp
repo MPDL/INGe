@@ -126,10 +126,11 @@
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 				});
 				languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>iso639-1/query?format=json';
+				personSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>persons/query?lang=*';
 				/*languageDetailsBaseURL = '$1?format=json';*/
 				languageDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
 				organizationSuggestURL = 'OrganizationSuggest.jsp';
-
+				personDetailsBaseURL = '$1?format=json<![CDATA[&]]>lang=$2';
 
 
 
