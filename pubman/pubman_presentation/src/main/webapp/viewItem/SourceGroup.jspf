@@ -63,10 +63,18 @@
 		<tr:iterator var="altTitle" value="#{source.source.alternativeTitles}" binding="#{ViewItemFull.sourceTitleIterator}" varStatus="index">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText value="#{lbl.ViewItemFull_lblSourceAlternativeTitle}"/><span class="noDisplay">: </span>
+					&#160;
+					<h:outputText value="#{lbl.ViewItemFull_lblSourceAlternativeTitle}" rendered="#{altTitle.type ==null}"/>
+					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_ABBREVIATION}" rendered="#{altTitle.type!=null and ViewItemFull.enum_alternativetitletype_abbreviation == altTitle.type}"/>
+					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_OTHER}" rendered="#{altTitle.type!=null and ViewItemFull.enum_alternativetitletype_other == altTitle.type}"/>
+					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_HTML}" rendered="#{altTitle.type!=null and ViewItemFull.enum_alternativetitletype_html == altTitle.type}"/>
+					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_MATHML}" rendered="#{altTitle.type!=null and ViewItemFull.enum_alternativetitletype_mathml == altTitle.type}"/>
+					<h:outputText value="#{lbl.ENUM_ALTERNATIVETITLETYPE_LATEX}" rendered="#{altTitle.type!=null and ViewItemFull.enum_alternativetitletype_latex == altTitle.type}"/>
+					<span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{altTitle.value}" converter="HTMLSubSupConverter" escape="false"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{altTitle.value == ''}" escape="false"/>
 				</span>
 			</h:panelGroup>
 		</tr:iterator>
