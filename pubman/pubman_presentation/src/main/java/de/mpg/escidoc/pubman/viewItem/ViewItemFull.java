@@ -302,6 +302,7 @@ public class ViewItemFull extends FacesBean
 			this.itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
 			this.pubManStatistics = (PubItemSimpleStatistics)initialContext
 			.lookup(PubItemSimpleStatistics.SERVICE_NAME);
+
 		}
 		catch (NamingException ne)
 		{
@@ -323,7 +324,6 @@ public class ViewItemFull extends FacesBean
 		boolean logViewAction = false;
 		// Try to get a pubitem either via the controller session bean or an URL Parameter
 		itemID = request.getParameter(ViewItemFull.PARAMETERNAME_ITEM_ID);
-
 
 		if (itemID != null)
 		{
@@ -380,10 +380,10 @@ public class ViewItemFull extends FacesBean
 			this.pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
 		}
 
+
 		String subMenu = request.getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
 
 		if (subMenu != null) getViewItemSessionBean().setSubMenu(subMenu);
-
 		if (this.pubItem != null)
 		{
 
@@ -416,16 +416,6 @@ public class ViewItemFull extends FacesBean
 				e.printStackTrace();
 				this.citationURL = "";
 			}
-
-
-			// DiT: multiple new conditions for link-activation added
-			/*this.isModerator = this.loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
-			this.isPrivilegedViewer = this.loginHelper.getAccountUser().isPrivilegedViewer(this.pubItem.getContext());
-
-			ContextListSessionBean contextListSessionBean = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-			this.isDepositor = this.loginHelper.getAccountUser().isDepositor()
-			&& contextListSessionBean.getDepositorContextList() != null
-			&& contextListSessionBean.getDepositorContextList().size() > 0; */
 
 			this.isOwner = true;
 
@@ -480,13 +470,6 @@ public class ViewItemFull extends FacesBean
 				} */
 			}
 
-			//TODO NBU: bring all this action links setters into separate method
-			this.isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(
-					RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
-					+ ViewItemFull.FUNCTION_MODIFY);
-			this.isCreateNewRevisionDisabled = this.getRightsManagementSessionBean().isDisabled(
-					RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
-					+ ViewItemFull.FUNCTION_NEW_REVISION);
 			// @author Markus Haarlaender - setting properties for Action Links
 			this.isLoggedIn = this.loginHelper.isLoggedIn();
 			this.isLatestVersion = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestVersion()
@@ -494,15 +477,15 @@ public class ViewItemFull extends FacesBean
 			this.isLatestRelease = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestRelease()
 			.getVersionNumber();
 			this.isStateWithdrawn = this.pubItem.getPublicStatus().toString()
-			.equals(PubItemVO.State.WITHDRAWN.toString());
+			.equals(PubItemVO.State.WITHDRAWN.toString())  && !this.isStateWithdrawn;
 			this.isStateSubmitted = this.pubItem.getVersion().getState().toString()
-			.equals(PubItemVO.State.SUBMITTED.toString());
+			.equals(PubItemVO.State.SUBMITTED.toString())  && !this.isStateWithdrawn;;
 			this.isStateReleased = this.pubItem.getVersion().getState().toString()
-			.equals(PubItemVO.State.RELEASED.toString());
+			.equals(PubItemVO.State.RELEASED.toString()) && !this.isStateWithdrawn;
 			this.isStatePending = this.pubItem.getVersion().getState().toString()
-			.equals(PubItemVO.State.PENDING.toString());
+			.equals(PubItemVO.State.PENDING.toString()) && !this.isStateWithdrawn;;
 			this.isStateInRevision = this.pubItem.getVersion().getState().toString()
-			.equals(PubItemVO.State.IN_REVISION.toString());
+			.equals(PubItemVO.State.IN_REVISION.toString()) && !this.isStateWithdrawn;;
 			this.isPublicStateReleased = this.pubItem.getPublicStatus() == PubItemVO.State.RELEASED;
 
 			// display a warn message if the item version is not the latest
@@ -528,6 +511,7 @@ public class ViewItemFull extends FacesBean
 			}
 			// set up some pre-requisites
 			// the list of numbered affiliated organizations
+
 			createCreatorsList();
 
 			// clear source list first
@@ -551,54 +535,54 @@ public class ViewItemFull extends FacesBean
 			{
 				for (int i=0; i<currentPubItemList.size();i++)
 				{
-					if (this.pubItem.getVersion().getObjectId()
-							.equals(currentPubItemList.get(i).getVersion().getObjectId()))
-					{
-						if (this.pubItem.getVersion().getVersionNumber() == currentPubItemList.get(i).getVersion()
-								.getVersionNumber())
-						{
-							if (currentPubItemList.get(i).getSearchHitList() != null
-									&& currentPubItemList.get(i).getSearchHitList().size() > 0)
-							{
-								this.pubItem.setSearchResult(true);
-								this.pubItem.setSearchHitList(currentPubItemList.get(i).getSearchHitList());
-								this.pubItem.setScore(currentPubItemList.get(i).getScore());
-								this.pubItem.setSearchHitBeanList();
-								//this.pubItem = new PubItemVOPresentation(new PubItemResultVO(this.pubItem, currentPubItemList.get(i).getSearchHitList(), currentPubItemList.get(i).getScore()));
+					if ( (this.pubItem.getVersion().getObjectId()
+							.equals(currentPubItemList.get(i).getVersion().getObjectId())) &&
 
-							}
-						}
+							(this.pubItem.getVersion().getVersionNumber() == currentPubItemList.get(i).getVersion()
+									.getVersionNumber()) &&
+
+									(currentPubItemList.get(i).getSearchHitList() != null
+											&& currentPubItemList.get(i).getSearchHitList().size() > 0) )
+					{
+						this.pubItem.setSearchResult(true);
+						this.pubItem.setSearchHitList(currentPubItemList.get(i).getSearchHitList());
+						this.pubItem.setScore(currentPubItemList.get(i).getScore());
+						this.pubItem.setSearchHitBeanList();
+						//this.pubItem = new PubItemVOPresentation(new PubItemResultVO(this.pubItem, currentPubItemList.get(i).getSearchHitList(), currentPubItemList.get(i).getScore()));
+
 					}
 				}
 			}
-			// Unapi Export
-			try
-			{
-				this.unapiURLdownload = PropertyReader.getProperty("escidoc.unapi.download.server");
-				this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
-				this.unapiEscidoc = this.unapiURLdownload + "?id=" + itemID + "&format=escidoc";
-				this.unapiEndnote = this.unapiURLdownload + "?id=" + itemID + "&format=endnote";
-				this.unapiBibtex = this.unapiURLdownload + "?id=" + itemID + "&format=bibtex";
-				this.unapiApa = this.unapiURLdownload + "?id=" + itemID + "&format=apa";
-			}
-			catch (Exception e)
-			{
-				logger.error("Error getting unapi url property", e);
-				throw new RuntimeException(e);
-			}
+
+		}
+		// Unapi Export
+		try
+		{
+			this.unapiURLdownload = PropertyReader.getProperty("escidoc.unapi.download.server");
+			this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
+			this.unapiEscidoc = this.unapiURLdownload + "?id=" + itemID + "&format=escidoc";
+			this.unapiEndnote = this.unapiURLdownload + "?id=" + itemID + "&format=endnote";
+			this.unapiBibtex = this.unapiURLdownload + "?id=" + itemID + "&format=bibtex";
+			this.unapiApa = this.unapiURLdownload + "?id=" + itemID + "&format=apa";
+		}
+		catch (Exception e)
+		{
+			logger.error("Error getting unapi url property", e);
+			throw new RuntimeException(e);
+		}
 
 
-			if (logViewAction)
-			{
-				logViewAction();
-			}
+		if (logViewAction)
+		{
+			logViewAction();
+		}
 
 
-			//TODO: remove into separate method, must this be in the initializer?
-			//not certain why is this method it always returns null (for languages or not)
-			//therefore now it is commented, if needed again to be uncomented and getConeLanguageCode to be fixed
+		//TODO: remove into separate method, must this be in the initializer?
+		//not certain why is this method it always returns null (for languages or not)
+		//therefore now it is commented, if needed again to be uncomented and getConeLanguageCode to be fixed
 
-			/*if (this.pubItem.getMetadata().getSubjects().size()>0)
+		/*if (this.pubItem.getMetadata().getSubjects().size()>0)
 			{
 				for (TextVO subject : this.pubItem.getMetadata().getSubjects())
 				{
@@ -616,53 +600,51 @@ public class ViewItemFull extends FacesBean
 				}
 			}*/
 
-			//if item is currently part of invalid yearbook items, show Validation Messages
-			//ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
-			if(loginHelper.getIsYearbookEditor())
+		//if item is currently part of invalid yearbook items, show Validation Messages
+		//ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+		if(loginHelper.getIsYearbookEditor())
+		{
+
+			yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
+
+			if(yisb.getYearbookItem() != null)
 			{
-				yisb = (YearbookItemSessionBean) getSessionBean(YearbookItemSessionBean.class);
-				if(yisb.getYearbookItem() != null)
+				if(yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId()) != null)
 				{
-					if(yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId()) != null)
-					{
-						try {
-							//revalidate
-							yisb.validateItem(getPubItem());
-							YearbookInvalidItemRO invItem = yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId());
-							if(invItem!=null)
-							{
-								((PubItemVOPresentation)this.getPubItem()).setValidationReport(invItem.getValidationReport());
-							}
-
-						} catch (Exception e) {
-							logger.error("Error in Yaerbook validation", e);
-						}
-					}
-
-
-
-					try
-					{
-						if(ItemVO.State.PENDING.equals(yisb.getYearbookItem().getVersion().getState()))
+					try {
+						//revalidate
+						yisb.validateItem(getPubItem());
+						YearbookInvalidItemRO invItem = yisb.getInvalidItemMap().get(getPubItem().getVersion().getObjectId());
+						if(invItem!=null)
 						{
-							this.isCandidateOfYearbook = yisb.isCandidate(this.pubItem.getVersion().getObjectId());
-							if(!(this.isCandidateOfYearbook) && yisb.getNumberOfMembers()>0)
-							{
-								this.isMemberOfYearbook = yisb.isMember(this.pubItem.getVersion().getObjectId());
-							}
+							((PubItemVOPresentation)this.getPubItem()).setValidationReport(invItem.getValidationReport());
 						}
 
-
-					}
-					catch (Exception e)
-					{
-						e.printStackTrace();
+					} catch (Exception e) {
+						logger.error("Error in Yearbook validation", e);
 					}
 				}
 
-			}
-		}
 
+
+				try
+				{
+					if(ItemVO.State.PENDING.equals(yisb.getYearbookItem().getVersion().getState()))
+					{
+						this.isCandidateOfYearbook = yisb.isCandidate(this.pubItem.getVersion().getObjectId());
+						if(!(this.isCandidateOfYearbook) && yisb.getNumberOfMembers()>0)
+						{
+							this.isMemberOfYearbook = yisb.isMember(this.pubItem.getVersion().getObjectId());
+						}
+					}
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+
+		}
 		setLinks();
 	}
 
@@ -1899,8 +1881,33 @@ public class ViewItemFull extends FacesBean
 
 	public boolean getHasAbstracts()
 	{
-		return this.pubItem.getMetadata().getAbstracts() != null
+		return !this.pubItem.getMetadata().getAbstracts().isEmpty()
 		&& this.pubItem.getMetadata().getAbstracts().size() > 0;
+	}
+
+	public boolean getHasSubjects()
+	{
+		boolean hasNotEmptySubjects = false;
+		for (TextVO subject:this.pubItem.getMetadata().getSubjects())
+		{
+			if (subject.getValue().length()>0)
+			{
+				hasNotEmptySubjects=true;
+				return hasNotEmptySubjects;
+			}
+		}
+		return hasNotEmptySubjects;
+	}
+
+	public boolean getHasFreeKeywords()
+	{
+		return this.pubItem.getMetadata().getFreeKeywords() != null
+		&& this.pubItem.getMetadata().getFreeKeywords().getValue().length()>0;
+	}
+
+	public boolean getHasContentGroup()
+	{
+		return getHasAbstracts() || getHasFreeKeywords() || getHasSubjects();
 	}
 
 	public String getGenre()
@@ -2909,6 +2916,14 @@ public class ViewItemFull extends FacesBean
 		{
 			this.canShowLastMessage = true;
 		}
+
+		this.isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(
+				RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
+				+ ViewItemFull.FUNCTION_MODIFY);
+		this.isCreateNewRevisionDisabled = this.getRightsManagementSessionBean().isDisabled(
+				RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
+				+ ViewItemFull.FUNCTION_NEW_REVISION);
+
 	}
 
 	public boolean isCanEdit() {
