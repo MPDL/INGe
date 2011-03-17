@@ -149,6 +149,52 @@
 			else '']]>
 		</variable>
 		
+		<variable name="onlineIdTypePaper">
+			<![CDATA[
+				if ($genre = $l_paper) then 
+					if (pub:publication/dc:identifier[@xsi:type='eterms:SSRN']) 
+					then 'SSRN'
+					
+					else if (pub:publication/dc:identifier[@xsi:type='eterms:URN']) 
+					then 'URN'
+					
+					else if (pub:publication/dc:identifier[@xsi:type='eterms:URI']) 
+					then 'URI'
+					
+					else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])
+					then 'external_URL'
+					
+					else if (pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:SSRN']) 
+					then 'source_SSRN'
+					
+					else ''
+				else '']]>
+		</variable>
+		
+		<variable name="onlineIdValuePaper">
+			<![CDATA[
+			if ($genre = $l_paper) then 
+				if ($onlineIdTypePaper = 'SSRN') 
+				then normalize-space(pub:publication/dc:identifier[@xsi:type='eterms:SSRN']/text())
+				
+				else if ($onlineIdTypePaper = 'URN') 
+				then pub:publication/dc:identifier[@xsi:type='eterms:URN']/text()
+				
+				else if ($onlineIdTypePaper = 'URI') 
+				then pub:publication/dc:identifier[@xsi:type='eterms:URI']/text()
+				
+				else if (../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url'])
+				then ../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='external-url']/@xlink:href
+				
+				else if ($onlineIdTypePaper = 'source_SSRN') 
+				then pub:publication/source:source[1]/dc:identifier[@xsi:type='eterms:SSRN']/text()
+				
+				
+				else ''
+				
+			else '']]>
+		</variable>
+		
 		
 		<!-- idType of the source of a journal. 
 		then (../../escidocComponents:components/escidocComponents:component/escidocComponents:properties/prop:file-name/text())
