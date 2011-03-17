@@ -358,7 +358,6 @@ public class ContextListSessionBean extends FacesBean
 	private  void retrieveAllContextsForUser() throws SecurityException, TechnicalException
 	{
 		if (this.loginHelper.isLoggedIn() && this.loginHelper.getUserGrants() != null){
-
 			try
 			{
 				// Create filter
@@ -367,11 +366,15 @@ public class ContextListSessionBean extends FacesBean
 
 				for (GrantVO grant:this.loginHelper.getUserGrants())
 				{
-					filterString=filterString.concat("<filter name=\"/id\">"+grant.getObjectRef()+"</filter>" );
-					hasGrants=true;
+					if ( grant.getObjectRef() != null)
+					{
+						filterString=filterString.concat("<filter name=\"/id\">"+grant.getObjectRef()+"</filter>" );
+						hasGrants=true;
+					}
 
 				}
 				// ... and transform filter to xml
+
 
 				if (hasGrants){
 					filterString=filterString.concat("</param>");
@@ -385,7 +388,6 @@ public class ContextListSessionBean extends FacesBean
 					this.allPrivilegedContextList= CommonUtils.convertToPubCollectionVOPresentationList(xmlTransforming.transformToContextList(contextList));
 				}
 
-
 				this.depositorContextList = new ArrayList<PubContextVOPresentation>();
 				this.moderatorContextList = new ArrayList<PubContextVOPresentation>();
 				this.yearbookContextList = new ArrayList<PubContextVOPresentation>();
@@ -393,35 +395,42 @@ public class ContextListSessionBean extends FacesBean
 
 				for (PubContextVOPresentation context:this.allPrivilegedContextList)
 				{
+					//TODO NBU: change this dummy looping once AccountUserVO provides method for isDepositor(ObjectRef)
+					//At present it only provides this function for Moderator and Privileged viewer
 
 					for (GrantVO grant:this.loginHelper.getUserGrants())
 					{
-						if (!grant.getObjectRef().equals("") && grant.getObjectRef().equals(context.getReference().getObjectId()) &&
-								grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue()) &&
-								context.getType().toLowerCase().equals(("PubMan".toLowerCase())))
+						if ((grant.getObjectRef() != null) && !grant.getObjectRef().equals(""))
 						{
 
-							this.depositorContextList.add(context);
-						}
-						if (!grant.getObjectRef().equals("") && grant.getObjectRef().equals(context.getReference().getObjectId()) &&
-								grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue()) &&
-								context.getType().toLowerCase().equals(("PubMan".toLowerCase())))
-						{
-							this.moderatorContextList.add(context);
-						}
+							if (!grant.getObjectRef().equals("") && grant.getObjectRef().equals(context.getReference().getObjectId()) &&
+									grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue()) &&
+									context.getType().toLowerCase().equals(("PubMan".toLowerCase())))
+							{
 
-						if (!grant.getObjectRef().equals("") && grant.getObjectRef().equals(context.getReference().getObjectId())  &&
-								grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue()) &&
-								context.getType().toLowerCase().equals(("Yearbook".toLowerCase())))
-						{
-							this.yearbookContextList.add(context);
-						}
+								this.depositorContextList.add(context);
+							}
+							if (!grant.getObjectRef().equals("") && grant.getObjectRef().equals(context.getReference().getObjectId()) &&
+									grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue()) &&
+									context.getType().toLowerCase().equals(("PubMan".toLowerCase())))
+							{
 
-						if (!grant.getObjectRef().equals("") && grant.getObjectRef().equals(context.getReference().getObjectId())  &&
-								grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue()) &&
-								context.getType().toLowerCase().equals(("Yearbook".toLowerCase())))
-						{
-							this.yearbookModeratorContextList.add(context);
+								this.moderatorContextList.add(context);
+							}
+
+							if (!grant.getObjectRef().equals("") && grant.getObjectRef().equals(context.getReference().getObjectId())  &&
+									grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue()) &&
+									context.getType().toLowerCase().equals(("Yearbook".toLowerCase())))
+							{
+								this.yearbookContextList.add(context);
+							}
+
+							if (!grant.getObjectRef().equals("") && grant.getObjectRef().equals(context.getReference().getObjectId())  &&
+									grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue()) &&
+									context.getType().toLowerCase().equals(("Yearbook".toLowerCase())))
+							{
+								this.yearbookModeratorContextList.add(context);
+							}
 						}
 					}
 				}
