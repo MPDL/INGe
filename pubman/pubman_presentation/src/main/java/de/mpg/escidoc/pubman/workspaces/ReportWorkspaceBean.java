@@ -237,8 +237,8 @@ public class ReportWorkspaceBean extends FacesBean {
 		int totalNrOfSerchResultItems = 0;
 		// create an initial query with the given reportYear and the org id
 		String query = "escidoc.publication.compound.dates" + " = " + this.reportYear + " AND " +
-				"(" + "escidoc.publication.creator.person.organization.identifier" + " = " + this.organization.getIdentifier();
-		
+				"(" + "escidoc.publication.creator.person.organization.identifier" + " = " + this.organization.getIdentifier() +
+				" OR " + "escidoc.publication.source.creator.person.organization.identifier" + " = " + this.organization.getIdentifier();
 		try {
 			// get a list of children of the given org
 			this.childAffilList = getChildOUs(this.organization.getIdentifier());
@@ -249,7 +249,8 @@ public class ReportWorkspaceBean extends FacesBean {
 		// when there are children, concat the org ids to the query 
 		if (this.childAffilList.size() > 0) {
 			for (String child : this.childAffilList) {
-				query = query + " OR " + "escidoc.publication.creator.person.organization.identifier" + " = " + child;
+				query = query + " OR " + "escidoc.publication.creator.person.organization.identifier" + " = " + child +
+				" OR " + "escidoc.publication.source.creator.person.organization.identifier" + " = " + child;
 			}
 		} 
 		// close the brackets of the query
