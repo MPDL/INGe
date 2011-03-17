@@ -439,7 +439,7 @@
 		</layout-element>
 
 		<!--
-			SOURCE PUBLISHER PLACE for publication like Contr. to collected
+			SOURCE PUBLISHER PLACE for publications with source like Contr. to collected
 			edition
 		-->
 		<layout-element name="source-publisher-place">
@@ -1460,6 +1460,10 @@
 		</elements>
 	</cs-layout-definition>
 	
+	<!--
+		PAPER Citation Style, see:
+		http://colab.mpdl.mpg.de/mediawiki/JusCMS_Func_Spec_Legal_Citation_Styles_HH_%26_Muc#Paper
+	-->
 	<cs-layout-definition name="paper">
 		<parameters>
 			<valid-if><![CDATA[
@@ -1471,10 +1475,11 @@
 			<layout-element ref="$first-creator"/>
 			<layout-element ref="$title" />
 			<layout-element ref="$source-title-volume-paper"/>
+			<layout-element ref="$source-publisher-place"/>
 			<layout-element ref="$publisher-place" />
 			<layout-element>
 				<parameters>
-					<valid-if><![CDATA[exists(pub:publication/source:source[1])]]></valid-if>
+					<valid-if><![CDATA[exists(pub:publication/source:source[1]) or exists(pub:publication/e:publishing-info)]]></valid-if>
 				</parameters>
 				<elements>
 					<layout-element ref="$date" />
@@ -1482,7 +1487,7 @@
 			</layout-element>
 			<layout-element>
 				<parameters>
-					<valid-if><![CDATA[not(pub:publication/source:source[1])]]></valid-if>
+					<valid-if><![CDATA[not(pub:publication/source:source[1]) and not(pub:publication/e:publishing-info)]]></valid-if>
 					<starts-with value=", "/>
 				</parameters>
 				<elements>
