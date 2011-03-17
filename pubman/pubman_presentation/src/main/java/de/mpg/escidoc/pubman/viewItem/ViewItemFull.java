@@ -108,7 +108,6 @@ import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
-import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
@@ -388,6 +387,7 @@ public class ViewItemFull extends FacesBean
 		String subMenu = request.getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
 
 		if (subMenu != null) getViewItemSessionBean().setSubMenu(subMenu);
+
 		if (this.pubItem != null)
 		{
 
@@ -430,49 +430,31 @@ public class ViewItemFull extends FacesBean
 
 				if (this.loginHelper.getAccountUser().getReference() != null  && this.loginHelper.getUserGrants()!=null)
 				{
-					for (GrantVO grant : this.loginHelper.getUserGrants())
+					this.isModerator = false;
+					this.isPrivilegedViewer=false;
+					this.isDepositor = false;
+
+
+					this.isModerator= this.loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
+					this.isDepositor= this.loginHelper.getIsDepositor();
+					this.isPrivilegedViewer = this.loginHelper.getAccountUser().isPrivilegedViewer(this.pubItem.getContext());
+
+					if (!this.isOwner)
 					{
-						//TODO NBU: escidoc:role-system-administrator shall be checked from the predefined roles and not fixed as string
-						if (grant.getObjectRef() != null)
+						for (GrantVO grant : this.loginHelper.getUserGrants())
 						{
-							//if user has Moderator privileges for this context
-							if (grant.isModerator(this.pubItem.getContext())) this.isModerator = true;
-
-							//if user has Privileged viewer privileges for this context
-							if (grant.getRole().equals(PredefinedRoles.PRIVILEGEDVIEWER.frameworkValue())
-									&&
-									grant.getObjectRef().equals(this.pubItem.getContext().getObjectId())) this.isPrivilegedViewer = true;
-
-							//if user has Depositor privileges in general
-							if (grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())) this.isDepositor = true;
-
+							if (grant.getRole().equals("escidoc:role-system-administrator"))
+							{
+								this.isOwner = true;
+								break;
+							}
 						}
-						//if user has System administrator privileges he can do all actions as isOwner
-						//Note: previous PubMan version was setting-the owner if user had any privilege as moderator or depositor
-						//but strangely could not understand why additional check again
-						if (grant.getRole().equals("escidoc:role-system-administrator")) this.isOwner = true;
 					}
+
 				}
-				/*
-				 * Check if user has grants on context
 
-				if (this.isOwner)
-				{
-					this.isOwner = false;
-					for (GrantVO grant : this.loginHelper.getAccountUser().getGrants())
-					{
-						//TODO NBU: escidoc:role-system-administrator shall be checked from the predefined roles and not fixed as string
-						if (grant.getObjectRef() != null
-								&& grant.getObjectRef().equals(this.pubItem.getContext().getObjectId())
-								&& (grant.getRole().equals("escidoc:role-system-administrator")
-										|| grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue()) || grant
-										.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())))
-						{
-							this.isOwner = true;
-						}
-					}
-				} */
 			}
+
 
 			// @author Markus Haarlaender - setting properties for Action Links
 			this.isLoggedIn = this.loginHelper.isLoggedIn();
@@ -481,7 +463,7 @@ public class ViewItemFull extends FacesBean
 			this.isLatestRelease = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestRelease()
 			.getVersionNumber();
 			this.isStateWithdrawn = this.pubItem.getPublicStatus().toString()
-			.equals(PubItemVO.State.WITHDRAWN.toString())  && !this.isStateWithdrawn;
+			.equals(PubItemVO.State.WITHDRAWN.toString());
 			this.isStateSubmitted = this.pubItem.getVersion().getState().toString()
 			.equals(PubItemVO.State.SUBMITTED.toString())  && !this.isStateWithdrawn;;
 			this.isStateReleased = this.pubItem.getVersion().getState().toString()
@@ -650,6 +632,7 @@ public class ViewItemFull extends FacesBean
 
 		}
 		setLinks();
+
 	}
 
 
@@ -2824,6 +2807,13 @@ public class ViewItemFull extends FacesBean
 
 	private void setLinks()
 	{
+		this.isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(
+				RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
+				+ ViewItemFull.FUNCTION_MODIFY);
+		this.isCreateNewRevisionDisabled = this.getRightsManagementSessionBean().isDisabled(
+				RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
+				+ ViewItemFull.FUNCTION_NEW_REVISION);
+
 		if (!this.isStateWithdrawn &&
 				((this.isStatePending || this.isStateInRevision) && this.isLatestVersion && this.isOwner)
 				|| (this.isStateSubmitted && this.isLatestVersion && this.isModerator))
@@ -2920,13 +2910,6 @@ public class ViewItemFull extends FacesBean
 		{
 			this.canShowLastMessage = true;
 		}
-
-		this.isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(
-				RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
-				+ ViewItemFull.FUNCTION_MODIFY);
-		this.isCreateNewRevisionDisabled = this.getRightsManagementSessionBean().isDisabled(
-				RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "."
-				+ ViewItemFull.FUNCTION_NEW_REVISION);
 
 	}
 

@@ -81,7 +81,7 @@ public class ViewItemFullPage extends BreadcrumbPage
 			logger.debug("UserHandle: " + userHandle);
 		}
 
-		LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+		/*		LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 		if(loginHelper == null)
 		{
 			loginHelper = new LoginHelper();
@@ -95,7 +95,7 @@ public class ViewItemFullPage extends BreadcrumbPage
 				logger.error("Could not login." + "\n" + e.toString());
 			}
 		}
-
+		 */
 	}
 
 	/**
