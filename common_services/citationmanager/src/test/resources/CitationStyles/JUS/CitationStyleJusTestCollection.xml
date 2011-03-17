@@ -3457,8 +3457,8 @@
             </eterms:publishing-info>
           </source:source>
           <eterms:total-number-of-pages>49</eterms:total-number-of-pages>
-           <dcterms:abstract><![CDATA[JUS:<span class="Italic">Zimmermann, Reinhard</span>, Erbunwürdigkeit, Die Entwicklung eines Rechtsinstituts im Spiegel europäischer Kodifikationen, in: Peter Apathy et al. (<localized class="editor">ed.</localized>), Festschrift für Helmut Koziol zum 70. Geburtstag, Jan Sramek Verlag, Wien 2010, 463 - 511.]]></dcterms:abstract>
-			<dcterms:abstract><![CDATA[JUS_Report:Erbunwürdigkeit, Die Entwicklung eines Rechtsinstituts im Spiegel europäischer Kodifikationen, in: Peter Apathy et al. (Hg.), Festschrift für Helmut Koziol zum 70. Geburtstag, Jan Sramek Verlag, Wien 2010, 463 - 511.]]></dcterms:abstract>
+           <dcterms:abstract><![CDATA[JUS:<span class="Italic">Zimmermann, Reinhard</span>, Erbunwürdigkeit, Die Entwicklung eines Rechtsinstituts im Spiegel europäischer Kodifikationen, in: Festschrift für Helmut Koziol zum 70. Geburtstag, Jan Sramek Verlag, Wien 2010, 463 - 511.]]></dcterms:abstract>
+			<dcterms:abstract><![CDATA[JUS_Report:Erbunwürdigkeit, Die Entwicklung eines Rechtsinstituts im Spiegel europäischer Kodifikationen, in: Festschrift für Helmut Koziol zum 70. Geburtstag, Jan Sramek Verlag, Wien 2010, 463 - 511.]]></dcterms:abstract>
         </publication:publication>
       </escidocMetadataRecords:md-record>
     </escidocMetadataRecords:md-records>
@@ -4697,5 +4697,265 @@
       </escidocMetadataRecords:md-records>
       <escidocComponents:components xml:base="http://193.174.132.114"/>
   </escidocItem:item>
-	
+   <!-- 2.25 PAPER -->
+  <escidocItem:item objid="escidoc:56051" last-modification-date="2011-02-18T10:49:30.815Z">
+      <escidocItem:properties>
+         <prop:creation-date>2011-02-18T10:47:38.456Z</prop:creation-date>
+         <srel:created-by objid="escidoc:35001"/>
+         <prop:public-status>released</prop:public-status>
+         <prop:public-status-comment/>
+         <srel:context objid="escidoc:40002"/>
+         <srel:content-model objid="escidoc:3001"/>
+         <prop:lock-status>unlocked</prop:lock-status>
+         <prop:pid>hdl:someHandle/test/escidoc:56051</prop:pid>
+         <prop:version objid="escidoc:56051:1">
+            <version:number>1</version:number>
+            <version:date>2011-02-18T10:49:30.815Z</version:date>
+            <version:status>released</version:status>
+            <srel:modified-by objid="escidoc:35001"/>
+            <version:comment/>
+            <version:pid>hdl:someHandle/test/escidoc:56051:1</version:pid>
+         </prop:version>
+         <prop:latest-version objid="escidoc:56051:1">
+            <version:number>1</version:number>
+            <version:date>2011-02-18T10:49:30.815Z</version:date>
+         </prop:latest-version>
+         <prop:latest-release objid="escidoc:56051:1">
+            <release:number>1</release:number>
+            <release:date>2011-02-18T10:49:30.815Z</release:date>
+            <release:pid>hdl:someHandle/test/escidoc:56051:1</release:pid>
+         </prop:latest-release>
+         <prop:content-model-specific>
+            <local-tags>
+               <local-tag/>
+            </local-tags>
+         </prop:content-model-specific>
+      </escidocItem:properties>
+      <escidocMetadataRecords:md-records>
+         <escidocMetadataRecords:md-record name="escidoc">
+            <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                     xmlns:dcterms="http://purl.org/dc/terms/"
+                                     xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                                     xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                                     xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                                     xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                                     xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                                     xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case"
+                                     type="http://purl.org/escidoc/metadata/ves/publication-types/paper">
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Drexl</eterms:family-name>
+                     <eterms:given-name>Josef</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Intellectual Property and Competition Law, MPI for Intellectual Property, Competition and Tax Law, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:4</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://193.174.132.114/cone/persons/resource/persons51178</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Conde Gallego</eterms:family-name>
+                     <eterms:given-name>Beatriz</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Intellectual Property and Competition Law, MPI for Intellectual Property, Competition and Tax Law, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:4</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://193.174.132.114/cone/persons/resource/persons51268</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Enchelmaier</eterms:family-name>
+                     <eterms:given-name>Stefan</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Intellectual Property and Competition Law, MPI for Intellectual Property, Competition and Tax Law, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:4</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://193.174.132.114/cone/persons/resource/persons51181</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Mackenrodt</eterms:family-name>
+                     <eterms:given-name>Mark-Oliver</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Intellectual Property and Competition Law, MPI for Intellectual Property, Competition and Tax Law, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:4</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://193.174.132.114/cone/persons/resource/persons51223</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>Podszun</eterms:family-name>
+                     <eterms:given-name>Rupprecht</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Intellectual Property and Competition Law, MPI for Intellectual Property, Competition and Tax Law, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:4</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://193.174.132.114/cone/persons/resource/persons51236</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <dc:title>European Commission - White Paper: Damages Actions for breach of the EC Antitrust Rules - Comments by the Max Planck Institute for Intellectual Property, Competition and Tax Law</dc:title>
+               <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
+               <eterms:published-online xsi:type="dcterms:W3CDTF">2009</eterms:published-online>
+               <dcterms:issued xsi:type="dcterms:W3CDTF">2008</dcterms:issued>
+               <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+                  <dc:title>IIC - international review of intellectual property and competition law</dc:title>
+                  <dcterms:alternative xsi:type="eterms:ABBREVIATION">IIC</dcterms:alternative>
+                  <eterms:volume>39</eterms:volume>
+                  <eterms:issue/>
+                  <eterms:start-page>799</eterms:start-page>
+                  <eterms:end-page>811</eterms:end-page>
+                  <eterms:sequence-number/>
+                  <eterms:total-number-of-pages/>
+                  <dc:identifier xsi:type="eterms:ISSN">0018-9855</dc:identifier>
+                  <dc:identifier xsi:type="eterms:ZDB">280974-6</dc:identifier>
+                  <dc:identifier xsi:type="eterms:CONE">http://193.174.132.114/cone/journals/resource/954925405686</dc:identifier>
+               </source:source>
+               <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/series">
+                  <dc:title>Max Planck Institute for Intellectual Property, Competition &amp; Tax Law Research Paper Series</dc:title>
+                  <eterms:volume>No. 09-07</eterms:volume>
+                  <eterms:issue/>
+                  <eterms:start-page/>
+                  <eterms:end-page/>
+                  <eterms:sequence-number/>
+                  <eterms:total-number-of-pages/>
+               </source:source>
+               <eterms:total-number-of-pages>13</eterms:total-number-of-pages>
+               <dcterms:subject>private enforcement, European competition law, antitrust, damages, civil liability, standing
+of indirect purchasers, collective redress, access to evidence, passing-on defence, limitation periods</dcterms:subject>
+               <dcterms:abstract><![CDATA[JUS:<span class="Italic">Drexl, Josef</span>, European Commission - White Paper: Damages Actions for breach of the EC Antitrust Rules - Comments by the Max Planck Institute for Intellectual Property, Competition and Tax Law (IIC - international review of intellectual property and competition law, 39), 2008, 13 <localized class="page">pp.</localized> (<localized class="togetherWith">together with</localized> Beatriz Conde Gallego et al.).]]></dcterms:abstract>
+			   <dcterms:abstract><![CDATA[JUS_Report:European Commission - White Paper: Damages Actions for breach of the EC Antitrust Rules - Comments by the Max Planck Institute for Intellectual Property, Competition and Tax Law (IIC - international review of intellectual property and competition law, 39), 2008, 13 S.]]></dcterms:abstract>
+               <dc:subject xsi:type="eterms:DDC"/>
+               <dcterms:tableOfContents/>
+            </publication:publication>
+         </escidocMetadataRecords:md-record>
+      </escidocMetadataRecords:md-records>
+      <escidocComponents:components xml:base="http://193.174.132.114">
+         <escidocComponents:component objid="escidoc:56050">
+            <escidocComponents:properties>
+               <prop:creation-date>2011-02-18T10:47:38.222Z</prop:creation-date>
+               <prop:valid-status>valid</prop:valid-status>
+               <prop:visibility>public</prop:visibility>
+               <prop:pid>hdl:someHandle/test/escidoc:56050</prop:pid>
+               <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
+               <prop:file-name>Drexl, Josef - European Commission - White Paper - Damages Actions for breach of the EC Antitrust Rules - 18.02.2011.pdf</prop:file-name>
+               <prop:mime-type>application/pdf</prop:mime-type>
+               <prop:checksum>fc1a15e962078d4d26d170819aea7022</prop:checksum>
+               <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+            </escidocComponents:properties>
+            <escidocComponents:content xlink:type="simple"
+                                       xlink:title="Drexl, Josef - European Commission - White Paper - Damages Actions for breach of the EC Antitrust Rules - 18.02.2011.pdf"
+                                       storage="internal-managed"
+                                       xlink:href="${escidoc.pubman.instance.url}/item/escidoc:56051:1/component/escidoc:56050/Drexl, Josef - European Commission - White Paper - Damages Actions for breach of the EC Antitrust Rules - 18.02.2011.pdf"/>
+            <escidocMetadataRecords:md-records>
+               <escidocMetadataRecords:md-record name="escidoc">
+                  <file:file xmlns:dc="http://purl.org/dc/elements/1.1/"
+                             xmlns:dcterms="http://purl.org/dc/terms/"
+                             xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                             xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                             xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                             xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                             xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                             xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case">
+                     <dc:title>Drexl, Josef - European Commission - White Paper - Damages Actions for breach of the EC Antitrust Rules - 18.02.2011.pdf</dc:title>
+                     <dc:description/>
+                     <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+                     <dcterms:extent>173011</dcterms:extent>
+                     <dcterms:dateCopyrighted/>
+                     <dc:rights/>
+                     <dcterms:license/>
+                  </file:file>
+               </escidocMetadataRecords:md-record>
+            </escidocMetadataRecords:md-records>
+         </escidocComponents:component>
+      </escidocComponents:components>
+  </escidocItem:item>
+  
+  <escidocItem:item objid="escidoc:56032" last-modification-date="2011-02-18T08:09:48.081Z">
+      <escidocItem:properties>
+         <prop:creation-date>2011-02-14T16:09:50.863Z</prop:creation-date>
+         <srel:created-by objid="escidoc:35001"/>
+         <prop:public-status>released</prop:public-status>
+         <prop:public-status-comment/>
+         <srel:context objid="escidoc:40002"/>
+         <srel:content-model objid="escidoc:3001"/>
+         <prop:lock-status>unlocked</prop:lock-status>
+         <prop:pid>hdl:someHandle/test/escidoc:56032</prop:pid>
+         <prop:version objid="escidoc:56032:3">
+            <version:number>3</version:number>
+            <version:date>2011-02-18T08:09:48.081Z</version:date>
+            <version:status>released</version:status>
+            <srel:modified-by objid="escidoc:35001"/>
+            <version:comment/>
+            <version:pid>hdl:someHandle/test/escidoc:56032:3</version:pid>
+         </prop:version>
+         <prop:latest-version objid="escidoc:56032:3">
+            <version:number>3</version:number>
+            <version:date>2011-02-18T08:09:48.081Z</version:date>
+         </prop:latest-version>
+         <prop:latest-release objid="escidoc:56032:3">
+            <release:number>3</release:number>
+            <release:date>2011-02-18T08:09:48.081Z</release:date>
+            <release:pid>hdl:someHandle/test/escidoc:56032:3</release:pid>
+         </prop:latest-release>
+         <prop:content-model-specific>
+            <local-tags>
+               <local-tag/>
+            </local-tags>
+         </prop:content-model-specific>
+      </escidocItem:properties>
+      <escidocMetadataRecords:md-records>
+         <escidocMetadataRecords:md-record name="escidoc">
+            <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                     xmlns:dcterms="http://purl.org/dc/terms/"
+                                     xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                                     xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                                     xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                                     xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                                     xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                                     xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case"
+                                     type="http://purl.org/escidoc/metadata/ves/publication-types/paper">
+               <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                  <person:person>
+                     <eterms:complete-name/>
+                     <eterms:family-name>von Lewinski</eterms:family-name>
+                     <eterms:given-name>Silke</eterms:given-name>
+                     <organization:organization>
+                        <dc:title>Intellectual Property and Competition Law, MPI for Intellectual Property, Competition and Tax Law, Max Planck Society</dc:title>
+                        <eterms:address/>
+                        <dc:identifier>escidoc:4</dc:identifier>
+                     </organization:organization>
+                     <dc:identifier xsi:type="eterms:CONE">http://193.174.132.114/cone/persons/resource/persons51221</dc:identifier>
+                  </person:person>
+               </eterms:creator>
+               <dc:title>Answers on Germany Relating to the Questionnaire to National Experts contained in the Appendix to the Study on Transfer of the Rights of Performers to Producers of Audiovisual Fixations</dc:title>
+               <eterms:publishing-info>
+                  <dc:publisher>World Intellectual Property Organization</dc:publisher>
+                  <eterms:place>Geneva</eterms:place>
+               </eterms:publishing-info>
+               <dcterms:issued xsi:type="dcterms:W3CDTF">2003</dcterms:issued>
+               <eterms:total-number-of-pages>29</eterms:total-number-of-pages>
+               <dcterms:subject/>
+               <dc:subject xsi:type="eterms:DDC"/>
+               <dcterms:abstract><![CDATA[JUS:<span class="Italic">von Lewinski, Silke</span>, Answers on Germany Relating to the Questionnaire to National Experts contained in the Appendix to the Study on Transfer of the Rights of Performers to Producers of Audiovisual Fixations, World Intellectual Property Organization, Geneva 2003, 29 <localized class="page">pp.</localized>]]></dcterms:abstract>
+			   <dcterms:abstract><![CDATA[JUS_Report:Answers on Germany Relating to the Questionnaire to National Experts contained in the Appendix to the Study on Transfer of the Rights of Performers to Producers of Audiovisual Fixations, World Intellectual Property Organization, Geneva 2003, 29 S.]]></dcterms:abstract>
+               <dcterms:tableOfContents/>
+            </publication:publication>
+         </escidocMetadataRecords:md-record>
+      </escidocMetadataRecords:md-records>
+      <escidocComponents:components xml:base="http://193.174.132.114"/>
+  </escidocItem:item>
 </escidocItemList:item-list>
