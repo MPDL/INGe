@@ -450,20 +450,6 @@ class JusXmlHandler extends DefaultHandler {
 			citationStyleMap.put(journalIdTypeValue, citationStyle);
 //			logger.info("READ citation style " +  coneValue + ", Zitierstil: " + citationStyle);
 		} 
-		/*else if (currentElement.equals("type")& !tempString.trim().equals("")) {
-			
-			idType = tempString.substring(tempString.lastIndexOf("/") + 1);
-			
-			journalIdTypeValue = new Pair();
-			journalIdTypeValue.setKey(idType);
-			//logger.info("idType " + idType);
-
-		} else if (currentElement.equals("value") & !tempString.trim().equals("")) {
-			//logger.info("idValue " + tempString);
-			journalIdTypeValue.setValue(tempString);
-			logger.info("READ citation style 2 " +  tempString + ", Zitierstil: " + citationStyle);
-			citationStyleMap.put(journalIdTypeValue, citationStyle);
-		}*/
 		else if (currentElement.equals("type")& !tempString.trim().equals("")) {
 			idType = tempString.substring(tempString.lastIndexOf("/") + 1);
 			
