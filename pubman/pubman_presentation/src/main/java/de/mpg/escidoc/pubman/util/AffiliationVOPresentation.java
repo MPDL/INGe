@@ -315,37 +315,43 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
 	{
 
 		String filterString="<param>";
-		boolean hasAffs = false;
 		List<AffiliationVO> transformedAffs = new ArrayList<AffiliationVO>();
 
-
-		for( AffiliationRO affiliation : affiliations )
+		if (affiliations.size()== 0 )
+			return transformedAffs;
+		try
 		{
-			filterString=filterString.concat("<filter name=\"/id\">"+affiliation.getObjectId()+"</filter>" );
-			hasAffs=true;
-		}
+			InitialContext initialContext = new InitialContext();
+			XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+			OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
 
-		filterString=filterString.concat("</param>");
-
-		if (hasAffs)
-		{
-
-			try
+			if (affiliations.size()==1)
 			{
-				OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
-				InitialContext initialContext = new InitialContext();
-				XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+
+				String ouXml = ouHandler.retrieve(affiliations.get(0).getObjectId());
+				AffiliationVO affVO = xmlTransforming.transformToAffiliation(ouXml);
+				transformedAffs.add(affVO);
+				return transformedAffs;
+			}
+			else{
+
+				for( AffiliationRO affiliation : affiliations )
+				{
+					filterString=filterString.concat("<filter name=\"/id\">"+affiliation.getObjectId()+"</filter>" );
+				}
+
+				filterString=filterString.concat("</param>");
 
 				String ouXml = ouHandler.retrieveOrganizationalUnits(filterString);
 				transformedAffs=xmlTransforming.transformToAffiliationList(ouXml);
-			}
-			catch (Exception e)
-			{
-				return transformedAffs;
+
 			}
 		}
+		catch (Exception e)
+		{
+			return transformedAffs;
+		}
 		return transformedAffs;
-
 	}
 
 	/**
@@ -405,14 +411,18 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
 				OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler(userHandle);
 				String ouXml = ouHandler.retrieveSuccessors(reference.getObjectId());
 				Logger logger = Logger.getLogger(AffiliationVOPresentation.class);
-				logger.info(ouXml);
+				logger.debug(ouXml);
 				List<AffiliationRO> affROs = xmlTransforming.transformToSuccessorAffiliationList(ouXml);
-				List<AffiliationVO> affVOs = getAffiliationVOfromRO(affROs);
-				this.successors = affVOs;
+				this.successors = new ArrayList<AffiliationVO>();
+				if (affROs != null && affROs.size()>0)
+				{
+					List<AffiliationVO> affVOs = getAffiliationVOfromRO(affROs);
+					this.successors = affVOs;
+				}
 			}
 			catch (Exception e)
 			{
-				this.successors = new java.util.ArrayList<AffiliationVO>();
+				this.successors = new ArrayList<AffiliationVO>();
 			}
 		}
 		else
