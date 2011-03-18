@@ -64,10 +64,8 @@
 							<tr:goLink id="lnkSearchHitsURL" targetFrame="_blank" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}#search=#{file.openPDFSearchParameter}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
 								<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
 							</tr:goLink>
-						</div>
-					
-						<div class="xHuge_area0 endline">
-							<span class="downloadFileIcon"></span>
+						
+							<span class="downloadFileIcon tiny_marginLExcl"></span>
 							<tr:goLink id="lnkCitationURLDownload" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
 								<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
 							</tr:goLink>
