@@ -218,7 +218,7 @@ public class SQLQuerier implements Querier
             subQuery += " and";
             if (searchStrings[i].startsWith("\"") && searchStrings[i].endsWith("\""))
             {
-                subQuery += " ('|' || value || '|') ilike '%|" + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
+                subQuery += " ('|' || matches.value || '|') ilike '%|" + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
             }
             else
             {
