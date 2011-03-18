@@ -117,11 +117,13 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
                 {
                     if (overwrite && !removedPredicates.contains(predicateName) && (!(otherObject instanceof LocalizedString) || !"".equals(((LocalizedString)otherObject).getValue())))
                     {
-                        for (LocalizedTripleObject myObject : get(predicateName))
+                        for (int i = 0; i < get(predicateName).size(); i++)
                         {
+                            LocalizedTripleObject myObject = get(predicateName).get(i);
                             if ((myObject.getLanguage() == null && otherObject.getLanguage() == null) || myObject.getLanguage().equals(otherObject.getLanguage()))
                             {
                                     get(predicateName).remove(myObject);
+                                    i--;
                                     removedPredicates.add(predicateName);
                             }
                         }
