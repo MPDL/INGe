@@ -122,7 +122,7 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
                             if ((myObject.getLanguage() == null && otherObject.getLanguage() == null) || myObject.getLanguage().equals(otherObject.getLanguage()))
                             {
                                     get(predicateName).remove(myObject);
-                                    break;
+                                    removedPredicates.add(predicateName);
                             }
                         }
                     }
