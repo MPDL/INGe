@@ -30,9 +30,11 @@ package de.mpg.escidoc.services.cone.util;
 
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -105,13 +107,15 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
     // Add predicates of other if this predicate does not exist yet, otherwise overwrite it.
     public void merge(TreeFragment other, boolean overwrite)
     {
+        Set<String> removedPredicates = new HashSet<String>();
+        
         for (String predicateName : other.keySet())
         {
             if (get(predicateName) != null)
             {
                 for (LocalizedTripleObject otherObject : other.get(predicateName))
                 {
-                    if (overwrite && (!(otherObject instanceof LocalizedString) || !"".equals(((LocalizedString)otherObject).getValue())))
+                    if (overwrite && !removedPredicates.contains(predicateName) && (!(otherObject instanceof LocalizedString) || !"".equals(((LocalizedString)otherObject).getValue())))
                     {
                         for (LocalizedTripleObject myObject : get(predicateName))
                         {
