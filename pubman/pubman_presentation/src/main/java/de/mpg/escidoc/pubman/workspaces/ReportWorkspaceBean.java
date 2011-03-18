@@ -236,7 +236,7 @@ public class ReportWorkspaceBean extends FacesBean {
 		String itemListAsString = null;
 		int totalNrOfSerchResultItems = 0;
 		// create an initial query with the given reportYear and the org id
-		String query = "escidoc.publication.compound.dates" + " = " + this.reportYear + " AND " +
+		String query = "escidoc.publication.compound.dates" + " = " + this.reportYear + "* AND " +
 				"(" + "escidoc.publication.creator.person.organization.identifier" + " = " + this.organization.getIdentifier() +
 				" OR " + "escidoc.publication.source.creator.person.organization.identifier" + " = " + this.organization.getIdentifier();
 		try {
