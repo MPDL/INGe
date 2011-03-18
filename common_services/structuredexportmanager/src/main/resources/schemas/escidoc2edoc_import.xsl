@@ -195,14 +195,14 @@
 			<xsl:copy-of select="func:genElementIf((
 				@type='http://purl.org/eprint/type/Thesis',	
 				'dateaccepted', 
-				func:getDate(func:coalesce(($dp, dcterms:dateAccepted)))
+				func:getDate(func:coalesce((dcterms:dateAccepted, $dp)))
 			))"/>
 
 			<!-- DATEPUBLISHED -->
 			<!-- no datepublished for thesises-->
 			<xsl:copy-of select="func:genElementIf((
 				$dp!='' and @type!='http://purl.org/eprint/type/Thesis',	
-				'dateaccepted', 
+				'datepublished', 
 				func:getDate($dp)
 			))"/>
 			

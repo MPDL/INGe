@@ -74,6 +74,10 @@
 		<map escd="escidoc:24027">12859</map>
 <!--	Human Cognitive and Brain Sciences -->
 		<map escd="escidoc:634548">18314</map>
+		
+		<!-- Wissenschaftsgeschichte -->
+		<map escd="escidoc:XXX">1526</map>
+		
 	</xsl:variable>	
  		
 	
