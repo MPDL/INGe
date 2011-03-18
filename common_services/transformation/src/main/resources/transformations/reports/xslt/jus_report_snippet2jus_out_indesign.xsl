@@ -85,7 +85,7 @@
 		
 		<xsl:element name="report">
 			<xsl:namespace name="aid" select="$indesign-namespace" />
-			<xsl:element name="Authorship">
+			<xsl:element name="authorship">
 			<xsl:element name="h1"><xsl:attribute name="cstyle" namespace="http://ns.adobe.com/AdobeInDesign/4.0/" select="'h1'"/>Autorenschaften</xsl:element>
 			
 			<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
@@ -100,7 +100,7 @@
 						<xsl:when
 							test="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentAuthorId 
 							and publication:publication/eterms:creator/@role=$authorRole]) &gt; 0">
-							<xsl:element name="p">
+							<xsl:element name="p"><xsl:attribute name="aid:pstyle" select="'p'"/>
 								<xsl:variable name="currentAuthorList">
 									<xsl:for-each
 										select="$item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentAuthorId 
@@ -138,7 +138,7 @@
 				(publication:publication/@type = $genreJournal or
 				publication:publication/@type = $genreSeries)])" />
 			
-			<xsl:element name="Editorship_1">
+			<xsl:element name="editorship-1">
 				<xsl:element name="h1"><xsl:attribute name="aid:cstyle" select="'h1'"/>Herausgeberschaften</xsl:element>
 					<xsl:element name="h2"><xsl:attribute name="aid:cstyle" select="'h2'"/>Sammel- und Tagungsbände/Herausgeber- und Verfassungswerke</xsl:element>
 						<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
@@ -153,7 +153,7 @@
 								<xsl:when
 									test="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentFirstEditorId 
 									and publication:publication/eterms:creator/@role=$editorRole]) &gt; 0">
-										<xsl:element name="p">
+										<xsl:element name="p"><xsl:attribute name="aid:pstyle" select="'p'"/>
 										<xsl:variable name="currentFirstEditorList">
 											<xsl:for-each
 												select="$item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentFirstEditorId and 
@@ -183,7 +183,7 @@
 							</xsl:choose>
 						</xsl:for-each>
 			</xsl:element>	
-			<xsl:element name="Editorship_2">
+			<xsl:element name="editorship-2">
 				<xsl:element name="h2"><xsl:attribute name="aid:cstyle" select="'h2'"/>Zeitschriften, Schriftenreihen, Material- und Gesetzessamlungen</xsl:element>	
 				<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
 					<xsl:sort select="foaf:family_name" />
@@ -199,7 +199,7 @@
 							and publication:publication/eterms:creator/@role=$editorRole 
 							and (publication:publication/@type = $genreJournal 
 							or publication:publication/@type = $genreSeries)]) &gt; 0">
-							<xsl:element name="p">
+							<xsl:element name="p"><xsl:attribute name="aid:pstyle" select="'p'"/>
 								<xsl:variable name="currentSecondEditorList">
 									<xsl:for-each
 										select="$item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentSecondEditorId and 
@@ -243,13 +243,13 @@
 			<xsl:variable name="is-first"
 				select="not(exists(../escidocItem:item[position() &lt; $pos][(string-join((escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/publication:publication/eterms:creator/person:person/eterms:concat-complete-name[. != $authorName]), '; ') = $authorString)]))" />
 			
-			<xsl:element name="publication">
+			<xsl:element name="publication"><xsl:attribute name="aid:pstyle" select="'publication'"/>
 				<xsl:choose>
 					<xsl:when test="$is-first">
 						<xsl:choose>
 							<!-- when single author write the citation style name of the author in italic style -->
 							<xsl:when test="string-length($authorString) = 0">
-								<xsl:element name="authorName">
+								<xsl:element name="author-name">
 									<xsl:attribute name="aid:cstyle" select="'italics'"/>
 										<xsl:value-of select="$authorCitationName" /></xsl:element>, </xsl:when>
 							<!--
@@ -258,7 +258,7 @@
 								publication in the list, write the name of the author in italic style.
 							-->
 							<xsl:otherwise>
-								<xsl:element name="authorName">
+								<xsl:element name="author-name">
 									<xsl:attribute name="aid:cstyle" select="'italics'"/>
 										<xsl:value-of select="$authorCitationName" />; <xsl:value-of select="$authorString" /></xsl:element>, </xsl:otherwise>
 						</xsl:choose>
@@ -274,7 +274,7 @@
 							<xsl:variable name="beforeOccurance" select="substring-before($bibCitation, '&lt;span class')"/>
 							<xsl:variable name="occurance" select="substring-after(substring-before($bibCitation, '&lt;/'), '&gt;')"/>		
 							<xsl:value-of select="$beforeOccurance"/> 
-							<xsl:element name="ReviewOf">
+							<xsl:element name="review-of">
 								<xsl:attribute name="aid:cstyle" select="'italics'"/>
 								<xsl:value-of select="$occurance"/>
 							</xsl:element>
@@ -284,6 +284,7 @@
 							<xsl:value-of select="$bibCitation"/>			
 						</xsl:otherwise>
 					</xsl:choose>
+					<xsl:text>&#x0D;</xsl:text>
 			</xsl:element>
 		</xsl:template>
 	
