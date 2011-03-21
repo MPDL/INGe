@@ -78,7 +78,8 @@
 			<h1><h:outputText value="#{lbl.ViewItemPage}" /></h1>
 			<!-- Headline ends here --></div>
 			</div>
-			<div class="small_marginLIncl subHeaderSection"><h:panelGroup
+			<div class="small_marginLIncl subHeaderSection">
+			<h:panelGroup
 				layout="block" styleClass="contentMenu"
 				rendered="#{ViewItemFull.pubItem != null}">
 				<!-- content menu starts here -->
@@ -379,7 +380,7 @@
 						rendered="#{ViewItemFull.isStateSubmitted}" />
 					<h:panelGroup
 						styleClass="big_imgArea xSmall_marginLExcl releasedItem"
-						rendered="#{ViewItemFull.isStateReleased and !ViewItemFull.isStateWithdrawn}" />
+						rendered="#{ViewItemFull.isStateReleased}" />
 					<h:panelGroup
 						styleClass="big_imgArea xSmall_marginLExcl inRevisionItem"
 						rendered="#{ViewItemFull.isStateInRevision}" />
