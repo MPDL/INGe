@@ -1386,7 +1386,19 @@ public class ItemControllerSessionBean extends FacesBean
 		if (pubItem.getMetadata().getEvent() != null
 				&& (pubItem.getMetadata().getEvent().getTitle() == null
 						|| pubItem.getMetadata().getEvent().getTitle().getValue() == null
-						|| pubItem.getMetadata().getEvent().getTitle().getValue().length() == 0))
+						|| pubItem.getMetadata().getEvent().getTitle().getValue().length() == 0)
+						    && (pubItem.getMetadata().getEvent().getStartDate() == null
+						        || pubItem.getMetadata().getEvent().getStartDate().length() == 0)
+						            && (pubItem.getMetadata().getEvent().getEndDate() == null
+						                || pubItem.getMetadata().getEvent().getEndDate().length() == 0)
+						                    && (pubItem.getMetadata().getEvent().getPlace() == null
+						                        || pubItem.getMetadata().getEvent().getPlace().getValue() == null
+						                        || pubItem.getMetadata().getEvent().getPlace().getValue().length() == 0)
+						                            && (pubItem.getMetadata().getEvent().getAlternativeTitles() == null
+						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().size() == 0
+						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().get(1) == null
+						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().get(1).getValue() == null
+						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().get(1).getValue().length() == 0))
 		{
 			pubItem.getMetadata().setEvent(null);
 		}
