@@ -785,13 +785,7 @@ Notes:
 					<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:value-of select="concat('---------------------',position())"/>
-				</element>
-				<element index="TOKENIZED">
 					<xsl:value-of select="concat(./*[local-name()='given-name'],' ', ./*[local-name()='family-name'])"/>
-				</element>
-			    <element index="TOKENIZED">
-					<xsl:value-of select="concat('---------------------',position(),'_2')"/>
 				</element>
 			</xsl:for-each>
 			<xsl:for-each select="$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']/*[local-name()='person']">
@@ -799,13 +793,7 @@ Notes:
 					<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
 				</element>
 				<element index="TOKENIZED">
-					<xsl:value-of select="concat('---------------------',position())"/>
-				</element>
-				<element index="TOKENIZED">
 					<xsl:value-of select="concat(./*[local-name()='given-name'],' ', ./*[local-name()='family-name'])"/>
-				</element>
-			    <element index="TOKENIZED">
-					<xsl:value-of select="concat('---------------------',position(),'_2')"/>
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
