@@ -1394,11 +1394,12 @@ public class ItemControllerSessionBean extends FacesBean
 						                    && (pubItem.getMetadata().getEvent().getPlace() == null
 						                        || pubItem.getMetadata().getEvent().getPlace().getValue() == null
 						                        || pubItem.getMetadata().getEvent().getPlace().getValue().length() == 0)
-						                            && (pubItem.getMetadata().getEvent().getAlternativeTitles() == null
-						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().size() == 0
-						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().get(1) == null
-						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().get(1).getValue() == null
-						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().get(1).getValue().length() == 0))
+        						                    && (pubItem.getMetadata().getEvent().getInvitationStatus() == null)
+        						                            && (pubItem.getMetadata().getEvent().getAlternativeTitles() == null
+        						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().size() == 0
+        						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().get(1) == null
+        						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().get(1).getValue() == null
+        						                                || pubItem.getMetadata().getEvent().getAlternativeTitles().get(1).getValue().length() == 0))
 		{
 			pubItem.getMetadata().setEvent(null);
 		}
