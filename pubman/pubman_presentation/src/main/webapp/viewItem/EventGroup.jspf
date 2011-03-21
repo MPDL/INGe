@@ -45,6 +45,7 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{ViewItemFull.pubItem.metadata.event.title.value}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.event.title.value == null || ViewItemFull.pubItem.metadata.event.title.value == ''}"/>
 			</span>
 		</div>
 
