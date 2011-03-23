@@ -2142,7 +2142,8 @@
                                                                                             <xsl:with-param name="les">
                                                                                                 <le>
                                                                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="pub:publication/dcterms:alternative[1]/text()"/>
+	<!--### @ref is available ###--><xsl:variable name="var"
+                                                                                                                      select="func:escapeMarkupTags(pub:publication/dcterms:alternative[1]/text())"/>
                                                                                                         <!--
 				start-with/ends-with
 			--><xsl:variable name="var">
