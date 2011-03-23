@@ -66,13 +66,13 @@ public class PubManDepositServlet extends HttpServlet
 {
 
     private static final long serialVersionUID = 1L;
-    private final Logger logger = Logger.getLogger(PubManDepositServlet.class);
+    private Logger logger = Logger.getLogger(PubManDepositServlet.class);
     private String collection;
     PubManSwordServer pubMan;
     private String error = "";
     private PubManSwordErrorDocument errorDoc;
     private boolean validDeposit = true;
-    private final String md5Header = "";
+    private String md5Header = "";
 
     /**
      * Process the GET request. This will return an unimplemented response.
