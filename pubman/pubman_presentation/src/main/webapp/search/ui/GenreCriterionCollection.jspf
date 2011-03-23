@@ -403,7 +403,7 @@
 								<h:selectBooleanCheckbox id="degreeCriterionBean_magister" value="#{degreeCriterionBean.searchMagister}" />
 								<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_MAGISTER}"/>
 							</span>
-					<a class="medium_area0 xTiny_marginRIncl showMoreCheckboxes" >mehr..</a>
+					<a class="medium_area0 xTiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
