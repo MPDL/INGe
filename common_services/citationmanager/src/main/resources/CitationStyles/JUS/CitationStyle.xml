@@ -1470,6 +1470,7 @@
 				$genre = $l_paper
 			]]>
 			</valid-if>
+			<ends-with value="." />
 		</parameters>
 		<elements>
 			<layout-element ref="$first-creator"/>
@@ -1494,9 +1495,33 @@
 					<layout-element ref="$date" />
 				</elements>
 			</layout-element>
-			<layout-element ref="$pages" />
-			<layout-element ref="$id-online-publication-paper"/>
-			<layout-element ref="$second-or-more-creators-with-dot" />
+			<layout-element>
+				<parameters>
+					<valid-if><![CDATA[
+						exists(pub:publication/e:published-online/text())
+					]]>
+					</valid-if>
+					<ends-with value="." />
+				</parameters>
+				<elements>
+					<layout-element ref="$pages" />
+					<layout-element ref="$id-online-publication-paper"/>
+					<layout-element ref="$second-or-more-creators"/>
+				</elements>
+			</layout-element>
+			<layout-element>
+				<parameters>
+					<valid-if><![CDATA[
+						not(pub:publication/e:published-online/text())
+					]]>
+					</valid-if>
+				</parameters>
+				<elements>
+					<layout-element ref="$pages" />
+					<layout-element ref="$second-or-more-creators-with-dot"/>
+				</elements>
+			</layout-element>
+			
 		</elements>
 	</cs-layout-definition>
 	
