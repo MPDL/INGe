@@ -359,7 +359,7 @@
 							<valid-if><![CDATA[$genre = $l_book]]></valid-if>
 						</parameters>
 						<elements>
-							<layout-element ref="pub:publication/dcterms:alternative[1]/text()">
+							<layout-element ref="func:escapeMarkupTags(pub:publication/dcterms:alternative[1]/text())">
 								<parameters>
 									<starts-with value=": "/>
 									<font-style ref="ITALIC" />
