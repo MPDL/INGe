@@ -128,7 +128,6 @@
 					<tr:goLink id="lnkFileURL" targetFrame="." destination="#{item.link}/component/#{fileBean.file.reference.objectId}/#{fileBean.file.name}" shortDesc="#{fileBean.file.description}" rendered="#{fileBean.file.mimeType!='application/pdf'}">
 						<h:outputText value="#{fileBean.fileName}"/>
 					</tr:goLink>
-					<h:outputText value=" (#{fileBean.numberOfSearchHits} #{lbl.SearchResultList_hits})"/>
 					<br/>
 					<tr:iterator id="fileSearchHitIterator" var="hit" value="#{fileBean.searchHits}" varStatus="index" >
 							<h:outputText value="#{hit.beforeSearchHitString}"/>

@@ -65,7 +65,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class MultipleImport extends BreadcrumbPage
+public class MultipleImport extends FacesBean
 {
     
     private static final Logger logger = Logger.getLogger(MultipleImport.class);
@@ -138,6 +138,8 @@ public class MultipleImport extends BreadcrumbPage
     
     public MultipleImport()
     {
+        super.init();
+        
         //Standard formats
         importFormats.add(new SelectItem(ENDNOTE_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ENDNOTE")));
         importFormats.add(new SelectItem(BIBTEX_FORMAT, getLabel("ENUM_IMPORT_FORMAT_BIBTEX")));
@@ -418,12 +420,6 @@ public class MultipleImport extends BreadcrumbPage
     public void setFormatConverter(Converter formatConverter)
     {
         this.formatConverter = formatConverter;
-    }
-
-    @Override
-    public boolean isItemSpecific()
-    {
-        return false;
     }
 
 }

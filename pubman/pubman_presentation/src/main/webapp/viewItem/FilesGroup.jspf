@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -57,8 +57,8 @@
 							<h:outputText value=", #{file.fileSize}"/>
 						</div>
 						<div class="xHuge_area0 endline marginTExcl075">
-							<span class="viewFileIcon"></span>
 							<tr:goLink id="lnkCitationURL" targetFrame="_blank" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+								<span class="viewFileIcon"></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
 							</tr:goLink>
 							<!-- Link for fulltext searchhits with open pdf params-->
@@ -66,8 +66,8 @@
 								<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
 							</tr:goLink>
 						
-							<span class="downloadFileIcon tiny_marginLExcl"></span>
 							<tr:goLink id="lnkCitationURLDownload" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+								<span class="downloadFileIcon tiny_marginLExcl"></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
 							</tr:goLink>
 							<!-- Link for fulltext searchhits with open pdf params-->
