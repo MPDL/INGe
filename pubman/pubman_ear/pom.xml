@@ -73,11 +73,6 @@
 							<artifactId>common_presentation</artifactId>
 							<contextRoot>/common</contextRoot>
 						</webModule>
-						<webModule>
-							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>aa_presentation</artifactId>
-							<contextRoot>/auth</contextRoot>
-						</webModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>common_logic</artifactId>
@@ -93,13 +88,6 @@
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>framework_access</artifactId>
-							<includeInApplicationXml>
-                                true
-                            </includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>aa_logic</artifactId>
 							<includeInApplicationXml>
                                 true
                             </includeInApplicationXml>
@@ -838,20 +826,6 @@
 			<version>1.0.44-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>aa_presentation</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
-			<type>war</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>aa_logic</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
-			<type>jar</type>
-			<scope>provided</scope>
 		</dependency>
 		
 	</dependencies>
