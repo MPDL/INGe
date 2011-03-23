@@ -46,68 +46,68 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  */
 public class WorkspacesPage extends BreadcrumbPage
 {
-	private static Logger logger = Logger.getLogger(WorkspacesPage.class);
-	public static final String BEAN_NAME = "WorkspacesPage";
-	// The referring GUI Tool Page
-	public static final String GT_WORKSPACES_PAGE = "GTWorkspacesPage.jsp";
+    private static Logger logger = Logger.getLogger(WorkspacesPage.class);
+    public static final String BEAN_NAME = "WorkspacesPage";
+    // The referring GUI Tool Page
+    public static final String GT_WORKSPACES_PAGE = "GTWorkspacesPage.jsp";
 
 
 
-	/**
-	 * Public constructor.
-	 */
-	public WorkspacesPage()
-	{
-		this.init();
-	}
+    /**
+     * Public constructor.
+     */
+    public WorkspacesPage()
+    {
+        this.init();
+    }
 
-	/**
-	 * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
-	 * a URL, or indirectly via page navigation.
-	 */
-	@Override
-	public void init()
-	{
-		super.init();
-		checkForLogin();
+    /**
+     * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
+     * a URL, or indirectly via page navigation.
+     */
+    @Override
+    public void init()
+    {
+        super.init();
+        checkForLogin();
 
-	}
+    }
 
-	/**
-	 * Redirets to the referring GUI Tool page.
-	 * 
-	 * @return a navigation string
-	 */
-	protected String redirectToGUITool()
-	{
-		FacesContext fc = FacesContext.getCurrentInstance();
-		try
-		{
-			fc.getExternalContext().redirect(GT_WORKSPACES_PAGE);
-		}
-		catch (IOException e)
-		{
-			logger.error("Could not redirect to GUI Tool View item page." + "\n" + e.toString());
-		}
-		return "";
-	}
-
-
-	/**
-	 * Returns the ViewItemSessionBean.
-	 * 
-	 * @return a reference to the scoped data bean (ViewItemSessionBean)
-	 */
-	protected ViewItemSessionBean getViewItemSessionBean()
-	{
-		return (ViewItemSessionBean)getSessionBean(ViewItemSessionBean.class);
-	}
+    /**
+     * Redirets to the referring GUI Tool page.
+     * 
+     * @return a navigation string
+     */
+    protected String redirectToGUITool()
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        try
+        {
+            fc.getExternalContext().redirect(GT_WORKSPACES_PAGE);
+        }
+        catch (IOException e)
+        {
+            logger.error("Could not redirect to GUI Tool View item page." + "\n" + e.toString());
+        }
+        return "";
+    }
 
 
-	@Override
-	public boolean isItemSpecific()
-	{
-		return false;
-	}
+    /**
+     * Returns the ViewItemSessionBean.
+     * 
+     * @return a reference to the scoped data bean (ViewItemSessionBean)
+     */
+    protected ViewItemSessionBean getViewItemSessionBean()
+    {
+        return (ViewItemSessionBean)getSessionBean(ViewItemSessionBean.class);
+    }
+
+
+    @Override
+    public boolean isItemSpecific()
+    {
+        return false;
+    }
 
 }

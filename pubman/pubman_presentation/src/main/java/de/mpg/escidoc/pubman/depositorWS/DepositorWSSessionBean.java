@@ -42,78 +42,79 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
  */
 public class DepositorWSSessionBean extends FacesBean
 {
-	public static final String BEAN_NAME = "DepositorWSSessionBean";
-	@SuppressWarnings("unused")
-	private static final Logger LOGGER = Logger.getLogger(DepositorWSSessionBean.class);
+    public static final String BEAN_NAME = "DepositorWSSessionBean";
+    @SuppressWarnings("unused")
+    private static final Logger LOGGER = Logger.getLogger(DepositorWSSessionBean.class);
 
-	/** default value for the selected item state */
-	private String selectedItemState = "PENDING";
+    /** default value for the selected item state */
+    private String selectedItemState = "PENDING";
 
-	/**
-	 * ScT: the main menu topics on the left side.
-	 */
-	private boolean myWorkspace = false;
-	private boolean depositorWS = false;
-	private boolean newSubmission = false;
+    /**
+     * ScT: the main menu topics on the left side.
+     */
+    private boolean myWorkspace = false;
+    private boolean depositorWS = false;
+    private boolean newSubmission = false;
 
-	/**
-	 * Public constructor.
-	 */
-	public DepositorWSSessionBean()
-	{
-	}
+    /**
+     * Public constructor.
+     */
+    public DepositorWSSessionBean()
+    {
+    }
 
-	/**
+    /**
      * This method is called when this bean is initially added to session scope. Typically, this occurs as a result of
-	 * evaluating a value binding or method binding expression, which utilizes the managed bean facility to instantiate
-	 * this bean and store it into session scope.
-	 */
-	public void init()
-	{
-		// Perform initializations inherited from our superclass
+     * evaluating a value binding or method binding expression, which utilizes the managed bean facility to instantiate
+     * this bean and store it into session scope.
+     */
+    @Override
+    public void init()
+    {
+        // Perform initializations inherited from our superclass
         super.init();
-	}
+    }
 
 
 
-	public String getSelectedItemState()
-	{
-		return selectedItemState;
-	}
+    public String getSelectedItemState()
+    {
+        return selectedItemState;
+    }
 
-	public void setSelectedItemState(String selectedItemState)
-	{
-		this.selectedItemState = selectedItemState;
-	}
+    public void setSelectedItemState(String selectedItemState)
+    {
+        this.selectedItemState = selectedItemState;
+    }
 
-	public boolean getDepositorWS()
-	{
-		return depositorWS;
-	}
+    public boolean getDepositorWS()
+    {
+        return depositorWS;
+    }
 
-	public void setDepositorWS(boolean depositorWS)
-	{
-		this.depositorWS = depositorWS;
-	}
+    public void setDepositorWS(boolean depositorWS)
+    {
+        this.depositorWS = depositorWS;
+    }
 
-	public boolean getMyWorkspace()
-	{
-		return myWorkspace;
-	}
+    public boolean getMyWorkspace()
+    {
+        return myWorkspace;
+    }
 
-	public void setMyWorkspace(boolean myWorkspace)
-	{
-		this.myWorkspace = myWorkspace;
-	}
+    public void setMyWorkspace(boolean myWorkspace)
+    {
+        this.myWorkspace = myWorkspace;
+    }
 
-	public boolean getNewSubmission()
-	{
-		return newSubmission;
-	}
+    public boolean getNewSubmission()
+    {
+        return newSubmission;
+    }
 
-	public void setNewSubmission(boolean newSubmission)
-	{
-		this.newSubmission = newSubmission;
-	}
+    public void setNewSubmission(boolean newSubmission)
+    {
+        this.newSubmission = newSubmission;
+    }
 
 }

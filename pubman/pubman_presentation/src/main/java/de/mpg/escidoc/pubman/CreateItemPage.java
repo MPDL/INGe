@@ -41,28 +41,28 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
  */
 public class CreateItemPage extends FacesBean
 {
-	@SuppressWarnings("unused")
-	private static Logger logger = Logger.getLogger(CreateItemPage.class);
+    @SuppressWarnings("unused")
+    private static Logger logger = Logger.getLogger(CreateItemPage.class);
 
-	/**
-	 * Public constructor
-	 */
-	public CreateItemPage()
-	{
-		this.init();
-	}
+    /**
+     * Public constructor
+     */
+    public CreateItemPage()
+    {
+        this.init();
+    }
 
-	/**
-	 * Callback method that is called whenever a page is navigated to, either directly via a URL, or indirectly via page
-	 * navigation.
-	 */
-	@Override
-	public void init()
-	{
-		// Perform initializations inherited from our superclass
-		super.init();
-		checkForLogin();
+    /**
+     * Callback method that is called whenever a page is navigated to, either directly via a URL, or indirectly via page
+     * navigation.
+     */
+    @Override
+    public void init()
+    {
+        // Perform initializations inherited from our superclass
+        super.init();
+        checkForLogin();
 
-	}
+    }
 
 }

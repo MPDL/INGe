@@ -50,86 +50,86 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  */
 public class QAWSPage extends BreadcrumbPage
 {
-	private static Logger logger = Logger.getLogger(QAWSPage.class);
-	public static final String BEAN_NAME = "QAWSPage";
+    private static Logger logger = Logger.getLogger(QAWSPage.class);
+    public static final String BEAN_NAME = "QAWSPage";
 
 
 
-	/**
-	 * Public constructor.
-	 */
-	public QAWSPage()
-	{
-		this.init();
-	}
+    /**
+     * Public constructor.
+     */
+    public QAWSPage()
+    {
+        this.init();
+    }
 
-	/**
-	 * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
-	 * a URL, or indirectly via page navigation.
-	 */
-	@Override
-	public void init()
-	{
-		super.init();
+    /**
+     * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
+     * a URL, or indirectly via page navigation.
+     */
+    @Override
+    public void init()
+    {
+        super.init();
 
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-		String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
-		if (logger.isDebugEnabled())
-		{
-			logger.debug("UserHandle: " + userHandle);
-		}
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("UserHandle: " + userHandle);
+        }
 
-		//LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-		//if(loginHelper == null)
-		//{
-		//	loginHelper = new LoginHelper();
-		//}
+        //LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        //if(loginHelper == null)
+        //{
+        //	loginHelper = new LoginHelper();
+        //}
 
-		try
-		{
-			//loginHelper.checkLogin();
-			checkForLogin();
-		}
-		catch (Exception e)
-		{
-			logger.error("Could not login." + "\n" + e.toString());
-		}
+        try
+        {
+            //loginHelper.checkLogin();
+            checkForLogin();
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not login." + "\n" + e.toString());
+        }
 
-		this.getViewItemSessionBean().setHasBeenRedirected(true);
+        this.getViewItemSessionBean().setHasBeenRedirected(true);
 
-	}
+    }
 
-	/**
-	 * Returns the ViewItemSessionBean.
-	 * 
-	 * @return a reference to the scoped data bean (ViewItemSessionBean)
-	 */
-	protected ViewItemSessionBean getViewItemSessionBean()
-	{
-		return (ViewItemSessionBean)getBean(ViewItemSessionBean.class);
-	}
+    /**
+     * Returns the ViewItemSessionBean.
+     * 
+     * @return a reference to the scoped data bean (ViewItemSessionBean)
+     */
+    protected ViewItemSessionBean getViewItemSessionBean()
+    {
+        return (ViewItemSessionBean)getBean(ViewItemSessionBean.class);
+    }
 
-	public boolean getIsModerator()
-	{
-		LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-		boolean isModerator = false;
+    public boolean getIsModerator()
+    {
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        boolean isModerator = false;
 
-		if (loginHelper.isLoggedIn())
-		{
-			isModerator = loginHelper.getAccountUser().isModerator();
-		}
+        if (loginHelper.isLoggedIn())
+        {
+            isModerator = loginHelper.getAccountUser().isModerator();
+        }
 
-		return isModerator;
+        return isModerator;
 
 
-	}
+    }
 
-	@Override
-	public boolean isItemSpecific()
-	{
-		return false;
-	}
+    @Override
+    public boolean isItemSpecific()
+    {
+        return false;
+    }
 
 }

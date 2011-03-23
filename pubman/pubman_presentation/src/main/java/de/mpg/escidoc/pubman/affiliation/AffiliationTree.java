@@ -53,158 +53,158 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
  */
 public class AffiliationTree extends FacesBean
 {
-	public static final String BEAN_NAME = "AffiliationTree";
-	private List<AffiliationVOPresentation> affiliations;
-	private long timestamp;
-	private List<SelectItem> affiliationSelectItems;
-	private Map<String, AffiliationVOPresentation> affiliationMap;
+    public static final String BEAN_NAME = "AffiliationTree";
+    private List<AffiliationVOPresentation> affiliations;
+    private long timestamp;
+    private List<SelectItem> affiliationSelectItems;
+    private Map<String, AffiliationVOPresentation> affiliationMap;
 
-	boolean started = false;
+    boolean started = false;
 
-	/**
-	 * Default constructor.
-	 * 
-	 * @throws Exception Any exception
-	 */
-	public AffiliationTree() throws Exception
-	{
-		affiliationMap = new HashMap<String, AffiliationVOPresentation>();
-		affiliations = CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean()
-				.searchTopLevelAffiliations());
-		timestamp = new Date().getTime();
+    /**
+     * Default constructor.
+     * 
+     * @throws Exception Any exception
+     */
+    public AffiliationTree() throws Exception
+    {
+        affiliationMap = new HashMap<String, AffiliationVOPresentation>();
+        affiliations = CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean()
+                .searchTopLevelAffiliations());
+        timestamp = new Date().getTime();
 
-	}
+    }
 
-	public List<AffiliationVOPresentation> getAffiliations()
-	{
-		return affiliations;
-	}
+    public List<AffiliationVOPresentation> getAffiliations()
+    {
+        return affiliations;
+    }
 
-	public void setAffiliations(List<AffiliationVOPresentation> affiliations)
-	{
-		this.affiliations = affiliations;
-	}
+    public void setAffiliations(List<AffiliationVOPresentation> affiliations)
+    {
+        this.affiliations = affiliations;
+    }
 
-	private ItemControllerSessionBean getItemControllerSessionBean()
-	{
-		return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-	}
+    private ItemControllerSessionBean getItemControllerSessionBean()
+    {
+        return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
+    }
 
-	/**
-	 * Is called from JSF to reload the ou data.
-	 * 
-	 * @return Just a dummy message
-	 * @throws Exception Any exception
-	 */
-	public String getResetMessage() throws Exception
-	{
-		affiliations = CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean()
-				.searchTopLevelAffiliations());
-		affiliationSelectItems = null;
-		timestamp = new Date().getTime();
-		return getMessage("Affiliations_reloaded");
-	}
+    /**
+     * Is called from JSF to reload the ou data.
+     * 
+     * @return Just a dummy message
+     * @throws Exception Any exception
+     */
+    public String getResetMessage() throws Exception
+    {
+        affiliations = CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean()
+                .searchTopLevelAffiliations());
+        affiliationSelectItems = null;
+        timestamp = new Date().getTime();
+        return getMessage("Affiliations_reloaded");
+    }
 
-	public long getTimestamp()
-	{
-		return timestamp;
-	}
+    public long getTimestamp()
+    {
+        return timestamp;
+    }
 
-	public void setTimestamp(long timestamp)
-	{
-		this.timestamp = timestamp;
-	}
+    public void setTimestamp(long timestamp)
+    {
+        this.timestamp = timestamp;
+    }
 
-	public void setAffiliationSelectItems(List<SelectItem> affiliationsSelectItem)
-	{
-		this.affiliationSelectItems = affiliationsSelectItem;
-	}
+    public void setAffiliationSelectItems(List<SelectItem> affiliationsSelectItem)
+    {
+        this.affiliationSelectItems = affiliationsSelectItem;
+    }
 
-	/**
-	 * Returns SelectItems for a menu with all organizational units.
-	 * @return
-	 * @throws Exception
-	 */
-	public List<SelectItem> getAffiliationSelectItems() throws Exception
-	{
+    /**
+     * Returns SelectItems for a menu with all organizational units.
+     * @return
+     * @throws Exception
+     */
+    public List<SelectItem> getAffiliationSelectItems() throws Exception
+    {
 
 
 
-		if (affiliationSelectItems == null)
-		{
+        if (affiliationSelectItems == null)
+        {
 
-			if (started)
-			{
-				while (affiliationSelectItems == null)
-				{
-					Thread.sleep(1000);
-				}
-			}
-			else
-			{
-				started = true;
+            if (started)
+            {
+                while (affiliationSelectItems == null)
+                {
+                    Thread.sleep(1000);
+                }
+            }
+            else
+            {
+                started = true;
 
-				List<SelectItem> list = new ArrayList<SelectItem>();
-				list.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+                List<SelectItem> list = new ArrayList<SelectItem>();
+                list.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
 
-				List<AffiliationVOPresentation> topLevelAffs = getAffiliations();
-				addChildAffiliationsToMenu(topLevelAffs, list, 0);
+                List<AffiliationVOPresentation> topLevelAffs = getAffiliations();
+                addChildAffiliationsToMenu(topLevelAffs, list, 0);
 
-				affiliationSelectItems = list;
+                affiliationSelectItems = list;
 
-				((QAWSSessionBean) getSessionBean(QAWSSessionBean.class)).setOrgUnitSelectItems(affiliationSelectItems);
-			}
-		}
+                ((QAWSSessionBean) getSessionBean(QAWSSessionBean.class)).setOrgUnitSelectItems(affiliationSelectItems);
+            }
+        }
 
-		return affiliationSelectItems;
-	}
+        return affiliationSelectItems;
+    }
 
-	/**
-	 * Adds the list of the given affiliations to the filter select.
-	 * @param affs
-	 * @param affSelectItems
-	 * @param level
-	 * @throws Exception
-	 */
-	private void addChildAffiliationsToMenu(List<AffiliationVOPresentation> affs, List<SelectItem> affSelectItems, int level) throws Exception
-	{
-		if ( affs==null)
-		{
-			return;
-		}
+    /**
+     * Adds the list of the given affiliations to the filter select.
+     * @param affs
+     * @param affSelectItems
+     * @param level
+     * @throws Exception
+     */
+    private void addChildAffiliationsToMenu(List<AffiliationVOPresentation> affs, List<SelectItem> affSelectItems, int level) throws Exception
+    {
+        if ( affs==null)
+        {
+            return;
+        }
 
-		String prefix = "";
-		for (int i = 0; i < level; i++)
-		{
-			//2 save blanks
-			prefix += '\u00A0';
-			prefix += '\u00A0';
-			prefix += '\u00A0';
-		}
-		//1 right angle
-		prefix += '\u2514';
-		for (AffiliationVOPresentation aff : affs)
-		{
-			affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
-			affiliationMap.put(aff.getReference().getObjectId(), aff);
-			if (aff.getChildren() != null)
-			{
-				addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
-			}
-		}
-	}
+        String prefix = "";
+        for (int i = 0; i < level; i++)
+        {
+            //2 save blanks
+            prefix += '\u00A0';
+            prefix += '\u00A0';
+            prefix += '\u00A0';
+        }
+        //1 right angle
+        prefix += '\u2514';
+        for (AffiliationVOPresentation aff : affs)
+        {
+            affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
+            affiliationMap.put(aff.getReference().getObjectId(), aff);
+            if (aff.getChildren() != null)
+            {
+                addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
+            }
+        }
+    }
 
-	public void setAffiliationMap(Map<String, AffiliationVOPresentation> affiliationMap)
-	{
-		this.affiliationMap = affiliationMap;
-	}
+    public void setAffiliationMap(Map<String, AffiliationVOPresentation> affiliationMap)
+    {
+        this.affiliationMap = affiliationMap;
+    }
 
-	/**
-	 * Returns a Map that contains all affiliations with their id as key. Only fully available if getAffiliationSelectItems() is called before.
-	 * @return
-	 */
-	public Map<String, AffiliationVOPresentation> getAffiliationMap()
-	{
-		return affiliationMap;
-	}
+    /**
+     * Returns a Map that contains all affiliations with their id as key. Only fully available if getAffiliationSelectItems() is called before.
+     * @return
+     */
+    public Map<String, AffiliationVOPresentation> getAffiliationMap()
+    {
+        return affiliationMap;
+    }
 }

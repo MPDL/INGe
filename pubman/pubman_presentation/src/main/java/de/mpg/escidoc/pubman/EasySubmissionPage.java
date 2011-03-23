@@ -47,40 +47,40 @@ import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
  */
 public class EasySubmissionPage extends BreadcrumbPage
 {
-	private static Logger logger = Logger.getLogger(EasySubmissionPage.class);
+    private static Logger logger = Logger.getLogger(EasySubmissionPage.class);
 
-	public static final String BEAN_NAME = "EasySubmissionPage";
+    public static final String BEAN_NAME = "EasySubmissionPage";
 
-	/**
-	 * Public constructor.
-	 */
-	public EasySubmissionPage()
-	{
-		this.init();
-	}
+    /**
+     * Public constructor.
+     */
+    public EasySubmissionPage()
+    {
+        this.init();
+    }
 
-	/**
-	 * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
-	 * a URL, or indirectly via page navigation.
-	 */
-	@Override
-	public void init()
-	{
-		// Perform initializations inherited from our superclass
-		super.init();
-		checkForLogin();
-	}
+    /**
+     * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
+     * a URL, or indirectly via page navigation.
+     */
+    @Override
+    public void init()
+    {
+        // Perform initializations inherited from our superclass
+        super.init();
+        checkForLogin();
+    }
 
-	@Override
-	protected Method getDefaultAction() throws NoSuchMethodException
-	{
-		EasySubmission easySubmission = (EasySubmission) getRequestBean(EasySubmission.class);
-		return easySubmission.getClass().getMethod("newEasySubmission", null);
-	}
+    @Override
+    protected Method getDefaultAction() throws NoSuchMethodException
+    {
+        EasySubmission easySubmission = (EasySubmission) getRequestBean(EasySubmission.class);
+        return easySubmission.getClass().getMethod("newEasySubmission", null);
+    }
 
-	@Override
-	public boolean isItemSpecific()
-	{
-		return true;
-	}
+    @Override
+    public boolean isItemSpecific()
+    {
+        return true;
+    }
 }

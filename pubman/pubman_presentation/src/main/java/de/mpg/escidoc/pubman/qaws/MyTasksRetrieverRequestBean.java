@@ -67,16 +67,16 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 
     public MyTasksRetrieverRequestBean()
     {
-	super();
+        super();
 
     }
 
     @Override
     public void init()
     {
-	//affiliationMap = new HashMap<String, AffiliationVOPresentation>();
-	checkForLogin();
-	initSelectionMenu();
+        //affiliationMap = new HashMap<String, AffiliationVOPresentation>();
+        checkForLogin();
+        initSelectionMenu();
 
     }
 
@@ -84,126 +84,126 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     @Override
     public int getTotalNumberOfRecords()
     {
-	return this.numberOfRecords;
+        return this.numberOfRecords;
     }
 
     @Override
     public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {
-	List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
-	LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
-	if (!loginHelper.isLoggedIn() || !loginHelper.getIsModerator())
-	    return returnList;
+        if (!loginHelper.isLoggedIn() || !loginHelper.getIsModerator())
+            return returnList;
 
-	try
-	{
-	    if (loginHelper.getESciDocUserHandle() == null) return returnList;
-	    InitialContext initialContext = new InitialContext();
-	    XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+        try
+        {
+            if (loginHelper.getESciDocUserHandle() == null) return returnList;
+            InitialContext initialContext = new InitialContext();
+            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
 
-	    checkSortCriterias(sc);
-	    // define the filter criteria
-	    FilterTaskParamVO filter = new FilterTaskParamVO();
+            checkSortCriterias(sc);
+            // define the filter criteria
+            FilterTaskParamVO filter = new FilterTaskParamVO();
 
-	    Filter f2 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
-	    filter.getFilterList().add(f2);
+            Filter f2 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+            filter.getFilterList().add(f2);
 
-	    if (getSelectedItemState().toLowerCase().equals("all"))
-	    {
-		Filter f3 = filter.new ItemStatusFilter(PubItemVO.State.SUBMITTED);
-		filter.getFilterList().add(0,f3);
-		Filter f12 = filter.new ItemStatusFilter(PubItemVO.State.RELEASED);
-		filter.getFilterList().add(0,f12);
-		Filter f13 = filter.new ItemStatusFilter(PubItemVO.State.IN_REVISION);
-		filter.getFilterList().add(0,f13);
+            if (getSelectedItemState().toLowerCase().equals("all"))
+            {
+                Filter f3 = filter.new ItemStatusFilter(PubItemVO.State.SUBMITTED);
+                filter.getFilterList().add(0,f3);
+                Filter f12 = filter.new ItemStatusFilter(PubItemVO.State.RELEASED);
+                filter.getFilterList().add(0,f12);
+                Filter f13 = filter.new ItemStatusFilter(PubItemVO.State.IN_REVISION);
+                filter.getFilterList().add(0,f13);
 
-		//all public status except withdrawn
-		Filter f4 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
-		filter.getFilterList().add(0,f4);
-		Filter f6 = filter.new ItemPublicStatusFilter(PubItemVO.State.SUBMITTED);
-		filter.getFilterList().add(0,f6);
-		Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
-		filter.getFilterList().add(0,f7);
-	    }
-	    else
-	    {
-		Filter f3 = filter.new ItemStatusFilter(PubItemVO.State.valueOf(getSelectedItemState()));
-		filter.getFilterList().add(0,f3);
+                //all public status except withdrawn
+                Filter f4 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
+                filter.getFilterList().add(0,f4);
+                Filter f6 = filter.new ItemPublicStatusFilter(PubItemVO.State.SUBMITTED);
+                filter.getFilterList().add(0,f6);
+                Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
+                filter.getFilterList().add(0,f7);
+            }
+            else
+            {
+                Filter f3 = filter.new ItemStatusFilter(PubItemVO.State.valueOf(getSelectedItemState()));
+                filter.getFilterList().add(0,f3);
 
-		//all public status except withdrawn
-		Filter f4 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
-		filter.getFilterList().add(0,f4);
-		Filter f6 = filter.new ItemPublicStatusFilter(PubItemVO.State.SUBMITTED);
-		filter.getFilterList().add(0,f6);
-		Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
-		filter.getFilterList().add(0,f7);
-	    }
-
-
-	    if (getSelectedContext().toLowerCase().equals("all"))
-	    {
-		// add all contexts for which the user has moderator rights (except the "all" item of the menu)
-		for(int i=1; i<getContextSelectItems().size(); i++)
-		{
-		    String contextId = (String)getContextSelectItems().get(i).getValue();
-		    filter.getFilterList().add(filter.new ContextFilter(contextId));
-		}
-
-	    }
-	    else
-	    {
-		Filter f10 = filter.new ContextFilter(getSelectedContext());
-		filter.getFilterList().add(f10);
-	    }
-
-	    if (!getSelectedOrgUnit().toLowerCase().equals("all"))
-	    {
-		AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
-		addOrgFiltersRecursive(affTree.getAffiliationMap().get(getSelectedOrgUnit()), filter);
-	    }
-
-	    if (!getSelectedImport().toLowerCase().equals("all"))
-	    {
-		Filter f10 = filter.new LocalTagFilter(getSelectedImport());
-		filter.getFilterList().add(f10);
-	    }
-
-	    Filter f11 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
-	    filter.getFilterList().add(f11);
-	    Filter f8 = filter.new LimitFilter(String.valueOf(limit));
-	    filter.getFilterList().add(f8);
-	    Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
-	    filter.getFilterList().add(f9);
+                //all public status except withdrawn
+                Filter f4 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
+                filter.getFilterList().add(0,f4);
+                Filter f6 = filter.new ItemPublicStatusFilter(PubItemVO.State.SUBMITTED);
+                filter.getFilterList().add(0,f6);
+                Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
+                filter.getFilterList().add(0,f7);
+            }
 
 
-	    String xmlparam = xmlTransforming.transformToFilterTaskParam(filter);
+            if (getSelectedContext().toLowerCase().equals("all"))
+            {
+                // add all contexts for which the user has moderator rights (except the "all" item of the menu)
+                for(int i=1; i<getContextSelectItems().size(); i++)
+                {
+                    String contextId = (String)getContextSelectItems().get(i).getValue();
+                    filter.getFilterList().add(filter.new ContextFilter(contextId));
+                }
 
-	    String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
+            }
+            else
+            {
+                Filter f10 = filter.new ContextFilter(getSelectedContext());
+                filter.getFilterList().add(f10);
+            }
 
-	    ItemVOListWrapper itemList = xmlTransforming.transformToItemListWrapper(xmlItemList);
-	    //NBU
-	    if (itemList.getItemVOList().size()==0 || itemList ==null)
-	    {
-		return returnList;
-	    }
+            if (!getSelectedOrgUnit().toLowerCase().equals("all"))
+            {
+                AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
+                addOrgFiltersRecursive(affTree.getAffiliationMap().get(getSelectedOrgUnit()), filter);
+            }
 
-	    List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-	    for(ItemVO item : itemList.getItemVOList())
-	    {
-		pubItemList.add(new PubItemVO(item));
-	    }
+            if (!getSelectedImport().toLowerCase().equals("all"))
+            {
+                Filter f10 = filter.new LocalTagFilter(getSelectedImport());
+                filter.getFilterList().add(f10);
+            }
 
-	    numberOfRecords = Integer.parseInt(itemList.getNumberOfRecords());
-	    returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
-	}
-	catch (Exception e)
-	{
-	    logger.error("Error in retrieving items", e);
-	    error("Error in retrieving items");
-	    numberOfRecords = 0;
-	}
-	return returnList;
+            Filter f11 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
+            filter.getFilterList().add(f11);
+            Filter f8 = filter.new LimitFilter(String.valueOf(limit));
+            filter.getFilterList().add(f8);
+            Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
+            filter.getFilterList().add(f9);
+
+
+            String xmlparam = xmlTransforming.transformToFilterTaskParam(filter);
+
+            String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
+
+            ItemVOListWrapper itemList = xmlTransforming.transformToItemListWrapper(xmlItemList);
+            //NBU
+            if (itemList.getItemVOList().size()==0 || itemList ==null)
+            {
+                return returnList;
+            }
+
+            List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+            for(ItemVO item : itemList.getItemVOList())
+            {
+                pubItemList.add(new PubItemVO(item));
+            }
+
+            numberOfRecords = Integer.parseInt(itemList.getNumberOfRecords());
+            returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
+        }
+        catch (Exception e)
+        {
+            logger.error("Error in retrieving items", e);
+            error("Error in retrieving items");
+            numberOfRecords = 0;
+        }
+        return returnList;
 
 
     }
@@ -215,23 +215,23 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     private void addOrgFiltersRecursive(AffiliationVOPresentation aff, FilterTaskParamVO filter)
     {
-	try
-	{
-	    Filter f = filter.new PersonsOrganizationsFilter(aff.getReference().getObjectId());
-	    filter.getFilterList().add(f);
+        try
+        {
+            Filter f = filter.new PersonsOrganizationsFilter(aff.getReference().getObjectId());
+            filter.getFilterList().add(f);
 
-	    if (aff.getHasChildren())
-	    {
-		for(AffiliationVOPresentation childAff : aff.getChildren()){
-		    addOrgFiltersRecursive(childAff, filter);
-		}
-	    }
-	}
-	catch (Exception e)
-	{
-	    logger.error("Error in retrieving organizations", e);
-	    error ("Couldn't retrieve all organizational units for the filter menu");
-	}
+            if (aff.getHasChildren())
+            {
+                for(AffiliationVOPresentation childAff : aff.getChildren()){
+                    addOrgFiltersRecursive(childAff, filter);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("Error in retrieving organizations", e);
+            error ("Couldn't retrieve all organizational units for the filter menu");
+        }
 
     }
 
@@ -241,7 +241,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     @Override
     public void readOutParameters()
     {
-	/*
+        /*
         String selectedItemState = getExternalContext().getRequestParameterMap().get(parameterSelectedItemState);
         if (selectedItemState==null)
         {
@@ -251,46 +251,46 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         {
             setSelectedItemState(selectedItemState);
         }
-	 */
-	super.readOutParameters();
+         */
+        super.readOutParameters();
 
 
-	String context = getExternalContext().getRequestParameterMap().get(parameterSelectedContext);
-	if (context==null)
-	{
+        String context = getExternalContext().getRequestParameterMap().get(parameterSelectedContext);
+        if (context==null)
+        {
 
-	    //select first context as default, if there's only one
-	    if (getContextSelectItems().size()==2)
-	    {
-		setSelectedContext((String)getContextSelectItems().get(1).getValue());
-	    }
-	    else
-	    {
-		setSelectedContext((String)getContextSelectItems().get(0).getValue());
-	    }
-	}
-	else
-	{
-	    setSelectedContext(context);
-	}
+            //select first context as default, if there's only one
+            if (getContextSelectItems().size()==2)
+            {
+                setSelectedContext((String)getContextSelectItems().get(1).getValue());
+            }
+            else
+            {
+                setSelectedContext((String)getContextSelectItems().get(0).getValue());
+            }
+        }
+        else
+        {
+            setSelectedContext(context);
+        }
 
 
-	String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
-	if (orgUnit==null)
-	{
-	    setSelectedOrgUnit("all");
-	}
-	else
-	{
-	    setSelectedOrgUnit(orgUnit);
-	}
+        String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
+        if (orgUnit==null)
+        {
+            setSelectedOrgUnit("all");
+        }
+        else
+        {
+            setSelectedOrgUnit(orgUnit);
+        }
 
     }
 
     @Override
     public String getType()
     {
-	return "MyTasks";
+        return "MyTasks";
     }
 
     /**
@@ -299,8 +299,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     public void setSelectedContext(String selectedContext)
     {
-	this.getQAWSSessionBean().setSelectedContext(selectedContext);
-	getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedContext, selectedContext);
+        this.getQAWSSessionBean().setSelectedContext(selectedContext);
+        getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedContext, selectedContext);
     }
 
     /**
@@ -309,7 +309,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     public String getSelectedContext()
     {
-	return this.getQAWSSessionBean().getSelectedContext();
+        return this.getQAWSSessionBean().getSelectedContext();
     }
 
     /**
@@ -318,24 +318,24 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     public String getSelectedContextLabel()
     {
-	String returnString = "";
+        String returnString = "";
 
-	if (!getSelectedContext().equals("all"))
-	{
-	    ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
-	    List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
+        if (!getSelectedContext().equals("all"))
+        {
+            ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+            List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
 
 
-	    for(PubContextVOPresentation contextVO : contextVOList)
-	    {
-		if(contextVO.getReference().getObjectId().equals(getSelectedContext()))
-		{
-		    returnString = contextVO.getName();
-		    break;
-		}
-	    }
-	}
-	return returnString;
+            for(PubContextVOPresentation contextVO : contextVOList)
+            {
+                if(contextVO.getReference().getObjectId().equals(getSelectedContext()))
+                {
+                    returnString = contextVO.getName();
+                    break;
+                }
+            }
+        }
+        return returnString;
     }
 
     /**
@@ -344,8 +344,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     public String getSelectedOrgUnitLabel()
     {
-	AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
-	return (getSelectedOrgUnit() == null ? "" : affTree.getAffiliationMap().get(getSelectedOrgUnit()).getNamePath());
+        AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
+        return (getSelectedOrgUnit() == null ? "" : affTree.getAffiliationMap().get(getSelectedOrgUnit()).getNamePath());
 
     }
 
@@ -357,14 +357,14 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     @Override
     public List<SelectItem> getItemStateSelectItems()
     {
-	List<SelectItem> itemStateSelectItems = new ArrayList<SelectItem>();
-	itemStateSelectItems.add(new SelectItem("all",getLabel("ItemList_filterAllExceptPendingWithdrawn")));
-	itemStateSelectItems.add(new SelectItem(PubItemVO.State.SUBMITTED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.SUBMITTED))));
-	itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.RELEASED))));
-	itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.IN_REVISION))));
-	setItemStateSelectItems(itemStateSelectItems);
+        List<SelectItem> itemStateSelectItems = new ArrayList<SelectItem>();
+        itemStateSelectItems.add(new SelectItem("all",getLabel("ItemList_filterAllExceptPendingWithdrawn")));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.SUBMITTED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.SUBMITTED))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.RELEASED))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.IN_REVISION))));
+        setItemStateSelectItems(itemStateSelectItems);
 
-	return itemStateSelectItems;
+        return itemStateSelectItems;
     }
 
     /**
@@ -373,7 +373,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     private void initSelectionMenu()
     {
 
-	/*
+        /*
         //item states
         List<SelectItem> itemStateSelectItems = new ArrayList<SelectItem>();
         itemStateSelectItems.add(new SelectItem("all",getLabel("EditItem_NO_ITEM_SET")));
@@ -381,75 +381,75 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.RELEASED))));
         itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.IN_REVISION))));
         setItemStateSelectItems(itemStateSelectItems);
-	 */
+         */
 
-	LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
-	//Contexts (Collections)
-	ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
-	List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
+        //Contexts (Collections)
+        ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+        List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
 
-	contextSelectItems = new ArrayList<SelectItem>();
-	contextSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+        contextSelectItems = new ArrayList<SelectItem>();
+        contextSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
 
-	//The contextString variable is needed for selection of Imports (see below) for privileged contexts
-	String contextString = "";
+        //The contextString variable is needed for selection of Imports (see below) for privileged contexts
+        String contextString = "";
 
-	for(int i=0; i<contextVOList.size(); i++)
-	{
-	    String workflow = "null";
-	    if (contextVOList.get(i).getAdminDescriptor().getWorkflow()!= null)
-	    {
-		workflow = contextVOList.get(i).getAdminDescriptor().getWorkflow().toString();
-	    }
-	    contextSelectItems.add(new SelectItem(contextVOList.get(i).getReference().getObjectId(), contextVOList.get(i).getName()+" -- "+workflow));
-	    contextString += "'"+contextVOList.get(i).getReference().getObjectId()+"'";
-	    if (i!=contextVOList.size()-1)
-	    {
-		contextString += ", ";
-	    }
-	}
+        for(int i=0; i<contextVOList.size(); i++)
+        {
+            String workflow = "null";
+            if (contextVOList.get(i).getAdminDescriptor().getWorkflow()!= null)
+            {
+                workflow = contextVOList.get(i).getAdminDescriptor().getWorkflow().toString();
+            }
+            contextSelectItems.add(new SelectItem(contextVOList.get(i).getReference().getObjectId(), contextVOList.get(i).getName()+" -- "+workflow));
+            contextString += "'"+contextVOList.get(i).getReference().getObjectId()+"'";
+            if (i!=contextVOList.size()-1)
+            {
+                contextString += ", ";
+            }
+        }
 
-	//commented out, as the loop for setting context-select list is used
-	//for (PubContextVOPresentation pubContextVOPresentation : contextVOList)
-	//{
-	//    contextString += "'"+pubContextVOPresentation.getReference().getObjectId() + "',";
-	//}
+        //commented out, as the loop for setting context-select list is used
+        //for (PubContextVOPresentation pubContextVOPresentation : contextVOList)
+        //{
+        //    contextString += "'"+pubContextVOPresentation.getReference().getObjectId() + "',";
+        //}
 
 
-	List<SelectItem> importSelectItems = new ArrayList<SelectItem>();
-	if (loginHelper.getIsModerator())
-	{
+        List<SelectItem> importSelectItems = new ArrayList<SelectItem>();
+        if (loginHelper.getIsModerator())
+        {
 
-	    importSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+            importSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
 
-	    try
-	    {
-		Connection connection = ImportLog.getConnection();
-		//Statement - shall use context index
-		//String sql = "select * from ESCIDOC_IMPORT_LOG where ? like '%,' || context || ',%'";
-		String sql = "select * from ESCIDOC_IMPORT_LOG where context in ( ? )";
-		PreparedStatement statement = connection.prepareStatement(sql);
+            try
+            {
+                Connection connection = ImportLog.getConnection();
+                //Statement - shall use context index
+                //String sql = "select * from ESCIDOC_IMPORT_LOG where ? like '%,' || context || ',%'";
+                String sql = "select * from ESCIDOC_IMPORT_LOG where context in ( ? )";
+                PreparedStatement statement = connection.prepareStatement(sql);
 
-		statement.setString(1, contextString);
+                statement.setString(1, contextString);
 
-		ResultSet resultSet = statement.executeQuery();
+                ResultSet resultSet = statement.executeQuery();
 
-		while (resultSet.next())
-		{
-		    SelectItem selectItem = new SelectItem(resultSet.getString("name") + " " + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
-		    importSelectItems.add(selectItem);
-		}
-		resultSet.close();
-		statement.close();
-	    }
-	    catch (Exception e) {
-		logger.error("Error getting imports from database", e);
-		error("Error getting imports from database");
-	    }
+                while (resultSet.next())
+                {
+                    SelectItem selectItem = new SelectItem(resultSet.getString("name") + " " + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
+                    importSelectItems.add(selectItem);
+                }
+                resultSet.close();
+                statement.close();
+            }
+            catch (Exception e) {
+                logger.error("Error getting imports from database", e);
+                error("Error getting imports from database");
+            }
 
-	}
-	setImportSelectItems(importSelectItems);
+        }
+        setImportSelectItems(importSelectItems);
     }
 
     /**
@@ -485,7 +485,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     public void setContextSelectItems(List<SelectItem> contextSelectItems)
     {
-	this.contextSelectItems = contextSelectItems;
+        this.contextSelectItems = contextSelectItems;
     }
 
     /**
@@ -494,7 +494,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     public List<SelectItem> getContextSelectItems()
     {
-	return contextSelectItems;
+        return contextSelectItems;
     }
 
     /**
@@ -503,17 +503,17 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     public String changeContext()
     {
-	try
-	{
+        try
+        {
 
-	    getBasePaginatorListSessionBean().setCurrentPageNumber(1);
-	    getBasePaginatorListSessionBean().redirect();
-	}
-	catch (Exception e)
-	{
-	    error("Could not redirect");
-	}
-	return "";
+            getBasePaginatorListSessionBean().setCurrentPageNumber(1);
+            getBasePaginatorListSessionBean().redirect();
+        }
+        catch (Exception e)
+        {
+            error("Could not redirect");
+        }
+        return "";
 
     }
 
@@ -523,17 +523,17 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     public String changeOrgUnit()
     {
-	try
-	{
+        try
+        {
 
-	    getBasePaginatorListSessionBean().setCurrentPageNumber(1);
-	    getBasePaginatorListSessionBean().redirect();
-	}
-	catch (Exception e)
-	{
-	    error("Could not redirect");
-	}
-	return "";
+            getBasePaginatorListSessionBean().setCurrentPageNumber(1);
+            getBasePaginatorListSessionBean().redirect();
+        }
+        catch (Exception e)
+        {
+            error("Could not redirect");
+        }
+        return "";
     }
 
     /**
@@ -543,39 +543,39 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     protected QAWSSessionBean getQAWSSessionBean()
     {
-	return (QAWSSessionBean)getSessionBean(QAWSSessionBean.class);
+        return (QAWSSessionBean)getSessionBean(QAWSSessionBean.class);
     }
 
     @Override
     public String getListPageName()
     {
-	return "QAWSPage.jsp";
+        return "QAWSPage.jsp";
     }
 
     public List<SelectItem> getOrgUnitSelectItems()
     {
-	if (getQAWSSessionBean().getOrgUnitSelectItems() != null)
-	{
-	    return this.getQAWSSessionBean().getOrgUnitSelectItems();
-	}
-	else
-	{
-	    List<SelectItem> list = new ArrayList<SelectItem>();
-	    list.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
-	    list.add(new SelectItem("", getLabel("qaws_lblLoading") + " >--->--->--->--->--->--->--->---"));
-	    return list;
-	}
+        if (getQAWSSessionBean().getOrgUnitSelectItems() != null)
+        {
+            return this.getQAWSSessionBean().getOrgUnitSelectItems();
+        }
+        else
+        {
+            List<SelectItem> list = new ArrayList<SelectItem>();
+            list.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+            list.add(new SelectItem("", getLabel("qaws_lblLoading") + " >--->--->--->--->--->--->--->---"));
+            return list;
+        }
     }
 
     public void setSelectedOrgUnit(String selectedOrgUnit)
     {
-	this.getQAWSSessionBean().setSelectedOrgUnit(selectedOrgUnit);
-	getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedOrgUnit, selectedOrgUnit);
+        this.getQAWSSessionBean().setSelectedOrgUnit(selectedOrgUnit);
+        getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedOrgUnit, selectedOrgUnit);
     }
 
     public String getSelectedOrgUnit()
     {
-	return this.getQAWSSessionBean().getSelectedOrgUnit();
+        return this.getQAWSSessionBean().getSelectedOrgUnit();
     }
 
 }

@@ -50,111 +50,111 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  */
 public class DepositorWSPage extends BreadcrumbPage
 {
-	private static Logger logger = Logger.getLogger(DepositorWSPage.class);
-	public static final String BEAN_NAME = "DepositorWSPage";
+    private static Logger logger = Logger.getLogger(DepositorWSPage.class);
+    public static final String BEAN_NAME = "DepositorWSPage";
 
-	// the referring GUI Tool Page
-	public final static String GT_DEPOSITOR_WORKSPACE_PAGE = "GTDepositorWSPage.jsp";
-	// constants for error and status messages
-	public static final String MESSAGE_NO_ITEM_SELECTED = "depositorWS_NoItemSelected";
-	public static final String MESSAGE_WRONG_ITEM_STATE = "depositorWS_wrongItemState";
-	public static final String MESSAGE_SUCCESSFULLY_SUBMITTED = "depositorWS_SuccessfullySubmitted";
-	public static final String MESSAGE_SUCCESSFULLY_RELEASED = "depositorWS_SuccessfullyReleased";
-	public static final String MESSAGE_NOT_SUCCESSFULLY_SUBMITTED = "depositorWS_NotSuccessfullySubmitted";
-	public static final String MESSAGE_SUCCESSFULLY_WITHDRAWN = "depositorWS_SuccessfullyWithdrawn";
-	public static final String MESSAGE_SUCCESSFULLY_DELETED = "depositorWS_SuccessfullyDeleted";
-	public static final String MESSAGE_SUCCESSFULLY_SAVED = "depositorWS_SuccessfullySaved";
-	public static final String MESSAGE_SUCCESSFULLY_ACCEPTED = "depositorWS_SuccessfullyAccepted";
-	public static final String MESSAGE_MANY_ITEMS_SELECTED = "depositorWS_ManyItemsSelected";
-	public static final String MESSAGE_SUCCESSFULLY_REVISED = "depositorWS_SuccessfullyRevised";
-	public static final String NO_WITHDRAWAL_COMMENT_GIVEN = "depositorWS_NoWithdrawalCommentGiven";
+    // the referring GUI Tool Page
+    public final static String GT_DEPOSITOR_WORKSPACE_PAGE = "GTDepositorWSPage.jsp";
+    // constants for error and status messages
+    public static final String MESSAGE_NO_ITEM_SELECTED = "depositorWS_NoItemSelected";
+    public static final String MESSAGE_WRONG_ITEM_STATE = "depositorWS_wrongItemState";
+    public static final String MESSAGE_SUCCESSFULLY_SUBMITTED = "depositorWS_SuccessfullySubmitted";
+    public static final String MESSAGE_SUCCESSFULLY_RELEASED = "depositorWS_SuccessfullyReleased";
+    public static final String MESSAGE_NOT_SUCCESSFULLY_SUBMITTED = "depositorWS_NotSuccessfullySubmitted";
+    public static final String MESSAGE_SUCCESSFULLY_WITHDRAWN = "depositorWS_SuccessfullyWithdrawn";
+    public static final String MESSAGE_SUCCESSFULLY_DELETED = "depositorWS_SuccessfullyDeleted";
+    public static final String MESSAGE_SUCCESSFULLY_SAVED = "depositorWS_SuccessfullySaved";
+    public static final String MESSAGE_SUCCESSFULLY_ACCEPTED = "depositorWS_SuccessfullyAccepted";
+    public static final String MESSAGE_MANY_ITEMS_SELECTED = "depositorWS_ManyItemsSelected";
+    public static final String MESSAGE_SUCCESSFULLY_REVISED = "depositorWS_SuccessfullyRevised";
+    public static final String NO_WITHDRAWAL_COMMENT_GIVEN = "depositorWS_NoWithdrawalCommentGiven";
 
-	/**
-	 * Public constructor.
-	 */
-	public DepositorWSPage()
-	{
-		this.init();
-	}
+    /**
+     * Public constructor.
+     */
+    public DepositorWSPage()
+    {
+        this.init();
+    }
 
-	/**
-	 * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
-	 * a URL, or indirectly via page navigation.
-	 */
-	@Override
-	public void init()
-	{
-		super.init();
+    /**
+     * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
+     * a URL, or indirectly via page navigation.
+     */
+    @Override
+    public void init()
+    {
+        super.init();
 
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-		String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
-		if (logger.isDebugEnabled())
-		{
-			logger.debug("UserHandle: " + userHandle);
-		}
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("UserHandle: " + userHandle);
+        }
 
-		LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-		if(loginHelper == null)
-		{
-			loginHelper = new LoginHelper();
-		}
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        if(loginHelper == null)
+        {
+            loginHelper = new LoginHelper();
+        }
 
-		try
-		{
-			//loginHelper.checkLogin();
-			checkForLogin();
-		}
-		catch (Exception e)
-		{
-			logger.error("Could not login." + "\n" + e.toString());
-		}
+        try
+        {
+            //loginHelper.checkLogin();
+            checkForLogin();
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not login." + "\n" + e.toString());
+        }
 
-		this.getViewItemSessionBean().setHasBeenRedirected(true);
-
-
-	}
+        this.getViewItemSessionBean().setHasBeenRedirected(true);
 
 
-
-	/**
-	 * Redirets to the referring GUI Tool page.
-	 * @author Tobias Schraut
-	 * @return a navigation string
-	 */
-	protected String redirectToGUITool()
-	{
-		FacesContext fc = FacesContext.getCurrentInstance();
-
-		try
-		{
-			fc.getExternalContext().redirect(GT_DEPOSITOR_WORKSPACE_PAGE);
-		}
-		catch (IOException e)
-		{
-			logger.error("Could not redirect to GUI Tool Search result list page." + "\n" + e.toString());
-		}
-
-		return "";
-	}
+    }
 
 
-	/**
-	 * Returns the ViewItemSessionBean.
-	 * 
-	 * @return a reference to the scoped data bean (ViewItemSessionBean)
-	 */
-	protected ViewItemSessionBean getViewItemSessionBean()
-	{
-		return (ViewItemSessionBean)getSessionBean(ViewItemSessionBean.class);
-	}
 
-	@Override
-	public boolean isItemSpecific()
-	{
-		return false;
-	}
+    /**
+     * Redirets to the referring GUI Tool page.
+     * @author Tobias Schraut
+     * @return a navigation string
+     */
+    protected String redirectToGUITool()
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+
+        try
+        {
+            fc.getExternalContext().redirect(GT_DEPOSITOR_WORKSPACE_PAGE);
+        }
+        catch (IOException e)
+        {
+            logger.error("Could not redirect to GUI Tool Search result list page." + "\n" + e.toString());
+        }
+
+        return "";
+    }
+
+
+    /**
+     * Returns the ViewItemSessionBean.
+     * 
+     * @return a reference to the scoped data bean (ViewItemSessionBean)
+     */
+    protected ViewItemSessionBean getViewItemSessionBean()
+    {
+        return (ViewItemSessionBean)getSessionBean(ViewItemSessionBean.class);
+    }
+
+    @Override
+    public boolean isItemSpecific()
+    {
+        return false;
+    }
 
 
 }

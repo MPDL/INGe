@@ -49,39 +49,39 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  */
 public class ViewItemFullPage extends BreadcrumbPage
 {
-	private static Logger logger = Logger.getLogger(ViewItemFullPage.class);
+    private static Logger logger = Logger.getLogger(ViewItemFullPage.class);
 
-	// The referring GUI Tool Page
-	public static final String GT_VIEW_ITEM_FULL_PAGE = "GTViewItemFullPage.jsp";
+    // The referring GUI Tool Page
+    public static final String GT_VIEW_ITEM_FULL_PAGE = "GTViewItemFullPage.jsp";
 
-	/**
-	 * Public constructor.
-	 */
-	public ViewItemFullPage()
-	{
-		this.init();
-	}
+    /**
+     * Public constructor.
+     */
+    public ViewItemFullPage()
+    {
+        this.init();
+    }
 
-	/**
-	 * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
-	 * a URL, or indirectly via page navigation.
-	 */
-	@Override
-	public void init()
-	{
-		// Perform initializations inherited from our superclass
-		super.init();
+    /**
+     * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
+     * a URL, or indirectly via page navigation.
+     */
+    @Override
+    public void init()
+    {
+        // Perform initializations inherited from our superclass
+        super.init();
 
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-		String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
-		if (logger.isDebugEnabled())
-		{
-			logger.debug("UserHandle: " + userHandle);
-		}
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("UserHandle: " + userHandle);
+        }
 
-		/*		LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        /*		LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 		if(loginHelper == null)
 		{
 			loginHelper = new LoginHelper();
@@ -95,45 +95,45 @@ public class ViewItemFullPage extends BreadcrumbPage
 				logger.error("Could not login." + "\n" + e.toString());
 			}
 		}
-		 */
-	}
+         */
+    }
 
-	/**
-	 * Redirets to the referring GUI Tool page.
-	 *
-	 * @return a navigation string
-	 */
-	protected String redirectToGUITool()
-	{
-		FacesContext fc = FacesContext.getCurrentInstance();
-		try
-		{
-			this.getViewItemSessionBean().setHasBeenRedirected(true);
-			fc.getExternalContext().redirect(GT_VIEW_ITEM_FULL_PAGE);
-		}
-		catch (IOException e)
-		{
-			logger.error("Could not redirect to GUI Tool View item page." + "\n" + e.toString());
-		}
-		return "";
-	}
+    /**
+     * Redirets to the referring GUI Tool page.
+     *
+     * @return a navigation string
+     */
+    protected String redirectToGUITool()
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        try
+        {
+            this.getViewItemSessionBean().setHasBeenRedirected(true);
+            fc.getExternalContext().redirect(GT_VIEW_ITEM_FULL_PAGE);
+        }
+        catch (IOException e)
+        {
+            logger.error("Could not redirect to GUI Tool View item page." + "\n" + e.toString());
+        }
+        return "";
+    }
 
 
 
-	/**
-	 * Returns the ViewItemSessionBean.
-	 *
-	 * @return a reference to the scoped data bean (ViewItemSessionBean)
-	 */
-	protected ViewItemSessionBean getViewItemSessionBean()
-	{
-		return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
-	}
+    /**
+     * Returns the ViewItemSessionBean.
+     *
+     * @return a reference to the scoped data bean (ViewItemSessionBean)
+     */
+    protected ViewItemSessionBean getViewItemSessionBean()
+    {
+        return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
+    }
 
-	@Override
-	public boolean isItemSpecific()
-	{
-		return true;
-	}
+    @Override
+    public boolean isItemSpecific()
+    {
+        return true;
+    }
 
 }

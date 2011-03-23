@@ -1,32 +1,32 @@
 /*
-*
-* CDDL HEADER START
-*
-* The contents of this file are subject to the terms of the
-* Common Development and Distribution License, Version 1.0 only
-* (the "License"). You may not use this file except in compliance
-* with the License.
-*
-* You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
-* See the License for the specific language governing permissions
-* and limitations under the License.
-*
-* When distributing Covered Code, include this CDDL HEADER in each
-* file and include the License file at license/ESCIDOC.LICENSE.
-* If applicable, add the following below this CDDL HEADER, with the
-* fields enclosed by brackets "[]" replaced with your own identifying
-* information: Portions Copyright [yyyy] [name of copyright owner]
-*
-* CDDL HEADER END
-*/
+ *
+ * CDDL HEADER START
+ *
+ * The contents of this file are subject to the terms of the
+ * Common Development and Distribution License, Version 1.0 only
+ * (the "License"). You may not use this file except in compliance
+ * with the License.
+ *
+ * You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ * or http://www.escidoc.de/license.
+ * See the License for the specific language governing permissions
+ * and limitations under the License.
+ *
+ * When distributing Covered Code, include this CDDL HEADER in each
+ * file and include the License file at license/ESCIDOC.LICENSE.
+ * If applicable, add the following below this CDDL HEADER, with the
+ * fields enclosed by brackets "[]" replaced with your own identifying
+ * information: Portions Copyright [yyyy] [name of copyright owner]
+ *
+ * CDDL HEADER END
+ */
 
 /*
-* Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
-* All rights reserved. Use is subject to license terms.
-*/ 
+ * Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
+ * für wissenschaftlich-technische Information mbH and Max-Planck-
+ * Gesellschaft zur Förderung der Wissenschaft e.V.
+ * All rights reserved. Use is subject to license terms.
+ */
 
 package de.mpg.escidoc.pubman.editItem.bean;
 
@@ -74,7 +74,7 @@ public class SourceBean extends EditItemBean
     private CoreCommandButton btnChooseCollection = new CoreCommandButton();
     private String hiddenAlternativeTitlesField;
     private String hiddenIdsField;
-    
+
     private List<SourceBean> list;
 
     /**
@@ -111,7 +111,7 @@ public class SourceBean extends EditItemBean
         {
             bindCreatorsToBean(source.getCreators());
         }
-        identifierCollection = new IdentifierCollection(source.getIdentifiers()); 
+        identifierCollection = new IdentifierCollection(source.getIdentifiers());
         titleCollection = new TitleCollection(source);
         if (source.getPublishingInfo() == null)
         {
@@ -183,11 +183,11 @@ public class SourceBean extends EditItemBean
      */
     public SelectItem[] getSourceGenreOptions()
     {
-        
+
         InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
-                .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                        InternationalizationHelper.BEAN_NAME);
-        
+        .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
+                InternationalizationHelper.BEAN_NAME);
+
         ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
         SelectItem NO_ITEM_SET = new SelectItem("", bundleLabel.getString("EditItem_NO_ITEM_SET"));
         SelectItem GENRE_BOOK = new SelectItem(SourceVO.Genre.BOOK, bundleLabel.getString("ENUM_GENRE_BOOK"));
@@ -208,7 +208,7 @@ public class SourceBean extends EditItemBean
         return new SelectItem[]{ NO_ITEM_SET, GENRE_BOOK, GENRE_ISSUE, GENRE_JOURNAL, GENRE_PROCEEDINGS, GENRE_SERIES,
                 GENRE_COLLECTED_EDITION,GENRE_HANDBOOK, GENRE_FESTSCHRIFT, GENRE_COMMENTARY, GENRE_NEWSPAPER, GENRE_ENCYCLOPEDIA, GENRE_MULTI_VOLUME};
     }
-    
+
     public boolean getAutosuggestJournals()
     {
         return autosuggestJournals;
@@ -236,16 +236,16 @@ public class SourceBean extends EditItemBean
      * 
      * @return
      */
-    public String parseAndSetAlternativeTitlesAndIds() 
+    public String parseAndSetAlternativeTitlesAndIds()
     {
         //clear old alternative titles
-        AlternativeTitleManager altTitleManager = getTitleCollection().getAlternativeTitleManager(); 
+        AlternativeTitleManager altTitleManager = getTitleCollection().getAlternativeTitleManager();
         altTitleManager.getObjectList().clear();
-        
+
         //clear old identifiers
         IdentifierManager idManager = getIdentifierCollection().getIdentifierManager();
         idManager.getObjectList().clear();
-        
+
         if (!getHiddenAlternativeTitlesField().trim().equals(""))
         {
             altTitleManager.getObjectList().addAll(parseAlternativeTitles(getHiddenAlternativeTitlesField()));
@@ -322,16 +322,16 @@ public class SourceBean extends EditItemBean
         }
         return -1;
     }
-    
+
     public String add()
     {
-    	
-    	SourceVO sourceVO = new SourceVO();
-    	if(sourceVO.getIdentifiers().size()==0)
-    	{
-    		sourceVO.getIdentifiers().add(new IdentifierVO());
-    	}
-    	
+
+        SourceVO sourceVO = new SourceVO();
+        if(sourceVO.getIdentifiers().size()==0)
+        {
+            sourceVO.getIdentifiers().add(new IdentifierVO());
+        }
+
         SourceBean newSourceBean = new SourceBean(sourceVO, this.list);
         CreatorVOPresentation newSourceCreator = new CreatorVOPresentation(newSourceBean.getCreators(), newSourceBean);
         newSourceCreator.setType(CreatorType.PERSON);
@@ -346,18 +346,18 @@ public class SourceBean extends EditItemBean
         newSourceBean.initOrganizationsFromCreators();
         return "";
     }
-    
+
     public String remove()
     {
         list.remove(this);
         return "";
     }
-    
+
     public boolean isSingleElement()
     {
         return (this.list.size() == 1);
     }
-    
+
     public String getJournalSuggestClass()
     {
         if (source.getGenre() == Genre.JOURNAL)
@@ -369,7 +369,7 @@ public class SourceBean extends EditItemBean
             return "";
         }
     }
-    
+
     public void setHiddenIdsField(String hiddenIdsField)
     {
         this.hiddenIdsField = hiddenIdsField;
@@ -399,5 +399,5 @@ public class SourceBean extends EditItemBean
     {
         this.list = list;
     }
-    
+
 }

@@ -57,237 +57,237 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class Login extends FacesBean
 {
-	public static String LOGIN_URL = "/aa/login";
-	public static String LOGOUT_URL = "/aa/logout/clear.jsp";
-	final public static String BEAN_NAME = "Login";
-	private String btnLoginLogout = "login_btLogin";
-	private String displayUserName = "";
-	private boolean loggedIn = false;
-	private static Logger logger = Logger.getLogger(Login.class);
-	private HtmlInputText txtLogin = new HtmlInputText();
-	private HtmlInputText txtPassword = new HtmlInputText();
+    public static String LOGIN_URL = "/aa/login";
+    public static String LOGOUT_URL = "/aa/logout/clear.jsp";
+    final public static String BEAN_NAME = "Login";
+    private String btnLoginLogout = "login_btLogin";
+    private String displayUserName = "";
+    private boolean loggedIn = false;
+    private static Logger logger = Logger.getLogger(Login.class);
+    private HtmlInputText txtLogin = new HtmlInputText();
+    private HtmlInputText txtPassword = new HtmlInputText();
 
-	/**
-	 * public constructor
-	 */
-	public Login()
-	{
-		this.init();
-	}
+    /**
+     * public constructor
+     */
+    public Login()
+    {
+        this.init();
+    }
 
-	/**
-	 * Callback method that is called whenever a page is navigated to, either directly via a URL, or indirectly via page
-	 * navigation.
-	 */
-	@Override
-	public void init()
-	{
-		// Perform initializations inherited from our superclass
-		super.init();
-	}
+    /**
+     * Callback method that is called whenever a page is navigated to, either directly via a URL, or indirectly via page
+     * navigation.
+     */
+    @Override
+    public void init()
+    {
+        // Perform initializations inherited from our superclass
+        super.init();
+    }
 
-	/**
-	 * gets the parameters out of the faces context
-	 * 
-	 * @param name Name of the parameter that should be found in the faces context
-	 * @return String value of the faces context parameter
-	 */
-	public String getFacesParamValue(String name)
-	{
-        return (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get(name);
-	}
+    /**
+     * gets the parameters out of the faces context
+     * 
+     * @param name Name of the parameter that should be found in the faces context
+     * @return String value of the faces context parameter
+     */
+    public String getFacesParamValue(String name)
+    {
+        return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get(name);
+    }
 
-	/**
-	 * one method for login and logout according to the current login state
-	 * 
-	 * @return String empty navigation string for reloading the page
-	 */
-	public String loginLogout() throws ServletException, IOException, ServiceException, URISyntaxException
-	{
-		FacesContext fc = FacesContext.getCurrentInstance();
-		LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-		String userHandle = loginHelper.getESciDocUserHandle();
+    /**
+     * one method for login and logout according to the current login state
+     * 
+     * @return String empty navigation string for reloading the page
+     */
+    public String loginLogout() throws ServletException, IOException, ServiceException, URISyntaxException
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        String userHandle = loginHelper.getESciDocUserHandle();
 
-		if (loginHelper.isLoggedIn() && loginHelper.getESciDocUserHandle() != null)
-		{
-			// logout mechanism
-			loginHelper.setBtnLoginLogout("login_btLogin");
-			if (userHandle != null)
-			{
-				long zeit = -System.currentTimeMillis();
+        if (loginHelper.isLoggedIn() && loginHelper.getESciDocUserHandle() != null)
+        {
+            // logout mechanism
+            loginHelper.setBtnLoginLogout("login_btLogin");
+            if (userHandle != null)
+            {
+                long zeit = -System.currentTimeMillis();
 
-				zeit += System.currentTimeMillis();
-				logger.info("logout->" + zeit + "ms");
-				//                loginHelper.setLoggedIn(false);
-				//                loginHelper.getAccountUser().setName("");
-				//                loginHelper.setESciDocUserHandle(null);
-				//                depWSSessionBean.setMyWorkspace(false);
-				//                depWSSessionBean.setDepositorWS(false);
-				//                depWSSessionBean.setNewSubmission(false);
+                zeit += System.currentTimeMillis();
+                logger.info("logout->" + zeit + "ms");
+                //                loginHelper.setLoggedIn(false);
+                //                loginHelper.getAccountUser().setName("");
+                //                loginHelper.setESciDocUserHandle(null);
+                //                depWSSessionBean.setMyWorkspace(false);
+                //                depWSSessionBean.setDepositorWS(false);
+                //                depWSSessionBean.setNewSubmission(false);
 
-				// Logout mechanism
+                // Logout mechanism
 
-				logout();
-				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-				session.invalidate();
-			}
-		}
-		else
-		{
-			fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
-		}
-		return "";
-	}
+                logout();
+                HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+                session.invalidate();
+            }
+        }
+        else
+        {
+            fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
+        }
+        return "";
+    }
 
-	/**
-	 * @param fc
-	 * @throws IOException
-	 * @throws ServiceException
-	 * @throws URISyntaxException
-	 */
-	public void logout() throws IOException, ServiceException, URISyntaxException
-	{
-		FacesContext fc = FacesContext.getCurrentInstance();
-		// Deactivated because of import tool
-		fc.getExternalContext().redirect(
-				ServiceLocator.getLoginUrl() + LOGOUT_URL + "?target="
-				+ URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
-						+ PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-						+ "?logout=true", "UTF-8"));
-		//fc.getExternalContext().redirect(PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "?logout=true");
-	}
+    /**
+     * @param fc
+     * @throws IOException
+     * @throws ServiceException
+     * @throws URISyntaxException
+     */
+    public void logout() throws IOException, ServiceException, URISyntaxException
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        // Deactivated because of import tool
+        fc.getExternalContext().redirect(
+                ServiceLocator.getLoginUrl() + LOGOUT_URL + "?target="
+                + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
+                        + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                        + "?logout=true", "UTF-8"));
+        //fc.getExternalContext().redirect(PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "?logout=true");
+    }
 
-	/**
-	 * method for brutal logout if authentication errors occur in the framework
-	 *
-	 * @return String navigation string for loading the login error page
-	 */
-	public String forceLogout()
-	{
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-		try
-		{
+    /**
+     * method for brutal logout if authentication errors occur in the framework
+     *
+     * @return String navigation string for loading the login error page
+     */
+    public String forceLogout()
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        try
+        {
 
-			fc.getExternalContext().redirect(
-					ServiceLocator.getLoginUrl() + LOGIN_URL + "?target=" + request.getRequestURL().toString());
+            fc.getExternalContext().redirect(
+                    ServiceLocator.getLoginUrl() + LOGIN_URL + "?target=" + request.getRequestURL().toString());
 
-			//fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
+            //fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
 
-		}
-		catch (IOException e)
-		{
-			logger.error("Could not redirect to Fremework login page", e);
-		}
-		catch (ServiceException e)
-		{
-			logger.error("Could not redirect to Fremework login page", e);
-		}
-		catch (URISyntaxException e)
-		{
-			logger.error("Could not redirect to Fremework login page", e);
-		}
+        }
+        catch (IOException e)
+        {
+            logger.error("Could not redirect to Fremework login page", e);
+        }
+        catch (ServiceException e)
+        {
+            logger.error("Could not redirect to Fremework login page", e);
+        }
+        catch (URISyntaxException e)
+        {
+            logger.error("Could not redirect to Fremework login page", e);
+        }
 
-		return "";
-	}
+        return "";
+    }
 
-	/**
-	 * method for brutal logout if authantication errors occur in the framework
-	 *
-	 * @return String navigation string for loading the login error page
-	 */
-	public String forceLogout(String itemID)
-	{
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-		try
-		{
-			fc.getExternalContext().redirect(
-					ServiceLocator.getLoginUrl() + LOGIN_URL + "?target=" + request.getRequestURL() + "?itemId=" + itemID);
-			//fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
-		}
-		catch (IOException e)
-		{
-			logger.error("Could not redirect to Fremework login page", e);
-		}
-		catch (ServiceException e)
-		{
-			logger.error("Could not redirect to Fremework login page", e);
-		}
-		catch (URISyntaxException e)
-		{
-			logger.error("Could not redirect to Fremework login page", e);
-		}
+    /**
+     * method for brutal logout if authantication errors occur in the framework
+     *
+     * @return String navigation string for loading the login error page
+     */
+    public String forceLogout(String itemID)
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        try
+        {
+            fc.getExternalContext().redirect(
+                    ServiceLocator.getLoginUrl() + LOGIN_URL + "?target=" + request.getRequestURL() + "?itemId=" + itemID);
+            //fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
+        }
+        catch (IOException e)
+        {
+            logger.error("Could not redirect to Fremework login page", e);
+        }
+        catch (ServiceException e)
+        {
+            logger.error("Could not redirect to Fremework login page", e);
+        }
+        catch (URISyntaxException e)
+        {
+            logger.error("Could not redirect to Fremework login page", e);
+        }
 
 
-		return "";
-	}
+        return "";
+    }
 
-	// Getters and Setters
-	public String getBtnLoginLogout()
-	{
-		return btnLoginLogout;
-	}
+    // Getters and Setters
+    public String getBtnLoginLogout()
+    {
+        return btnLoginLogout;
+    }
 
-	public void setBtnLoginLogout(String btnLoginLogout)
-	{
-		this.btnLoginLogout = btnLoginLogout;
-	}
+    public void setBtnLoginLogout(String btnLoginLogout)
+    {
+        this.btnLoginLogout = btnLoginLogout;
+    }
 
-	public boolean isLoggedIn()
-	{
-		return loggedIn;
-	}
+    public boolean isLoggedIn()
+    {
+        return loggedIn;
+    }
 
-	public boolean getLoggedIn()
-	{
-		return loggedIn;
-	}
+    public boolean getLoggedIn()
+    {
+        return loggedIn;
+    }
 
-	public void setLoggedIn(boolean loggedIn)
-	{
-		this.loggedIn = loggedIn;
-	}
+    public void setLoggedIn(boolean loggedIn)
+    {
+        this.loggedIn = loggedIn;
+    }
 
-	public String getDisplayUserName()
-	{
-		return displayUserName;
-	}
+    public String getDisplayUserName()
+    {
+        return displayUserName;
+    }
 
-	public void setDisplayUserName(String displayUserName)
-	{
-		this.displayUserName = displayUserName;
-	}
+    public void setDisplayUserName(String displayUserName)
+    {
+        this.displayUserName = displayUserName;
+    }
 
-	public HtmlInputText getTxtLogin()
-	{
-		return txtLogin;
-	}
+    public HtmlInputText getTxtLogin()
+    {
+        return txtLogin;
+    }
 
-	public void setTxtLogin(HtmlInputText txtLogin)
-	{
-		this.txtLogin = txtLogin;
-	}
+    public void setTxtLogin(HtmlInputText txtLogin)
+    {
+        this.txtLogin = txtLogin;
+    }
 
-	public HtmlInputText getTxtPassword()
-	{
-		return txtPassword;
-	}
+    public HtmlInputText getTxtPassword()
+    {
+        return txtPassword;
+    }
 
-	public void setTxtPassword(HtmlInputText txtPassword)
-	{
-		this.txtPassword = txtPassword;
-	}
+    public void setTxtPassword(HtmlInputText txtPassword)
+    {
+        this.txtPassword = txtPassword;
+    }
 
-	private String getLoginUrlFromCurrentBreadcrumb() throws IOException, URISyntaxException, ServiceException
-	{
-		BreadcrumbItemHistorySessionBean breadCrumbHistory = (BreadcrumbItemHistorySessionBean)getSessionBean(BreadcrumbItemHistorySessionBean.class);
+    private String getLoginUrlFromCurrentBreadcrumb() throws IOException, URISyntaxException, ServiceException
+    {
+        BreadcrumbItemHistorySessionBean breadCrumbHistory = (BreadcrumbItemHistorySessionBean)getSessionBean(BreadcrumbItemHistorySessionBean.class);
 
-		String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
-		if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
+        String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+        if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
 
-		//Use double URL encoding here because the login mechanism gives back the decoded URL parameters.
-		String url =  ServiceLocator.getLoginUrl() + LOGIN_URL + "?target=" + pubmanUrl + "faces/" + URLEncoder.encode(URLEncoder.encode(breadCrumbHistory.getCurrentItem().getPage(), "UTF-8"),"UTF-8");
-		return url;
-	}
+        //Use double URL encoding here because the login mechanism gives back the decoded URL parameters.
+        String url =  ServiceLocator.getLoginUrl() + LOGIN_URL + "?target=" + pubmanUrl + "faces/" + URLEncoder.encode(URLEncoder.encode(breadCrumbHistory.getCurrentItem().getPage(), "UTF-8"),"UTF-8");
+        return url;
+    }
 }

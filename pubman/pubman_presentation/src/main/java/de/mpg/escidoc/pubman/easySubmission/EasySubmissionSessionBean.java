@@ -53,131 +53,131 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
  */
 public class EasySubmissionSessionBean extends EditItemBean
 {
-	public static final String BEAN_NAME = "EasySubmissionSessionBean";
-	private static Logger logger = Logger.getLogger(EasySubmissionSessionBean.class);
+    public static final String BEAN_NAME = "EasySubmissionSessionBean";
+    private static Logger logger = Logger.getLogger(EasySubmissionSessionBean.class);
 
-	public static final String SUBMISSION_METHOD_MANUAL = "MANUAL";
-	public static final String SUBMISSION_METHOD_FETCH_IMPORT = "FETCH_IMPORT";
+    public static final String SUBMISSION_METHOD_MANUAL = "MANUAL";
+    public static final String SUBMISSION_METHOD_FETCH_IMPORT = "FETCH_IMPORT";
 
-	public static final String IMPORT_METHOD_EXTERNAL = "EXTERNAL";
-	public static final String IMPORT_METHOD_BIBTEX = "BIBTEX";
+    public static final String IMPORT_METHOD_EXTERNAL = "EXTERNAL";
+    public static final String IMPORT_METHOD_BIBTEX = "BIBTEX";
 
-	public static final String DATE_PUBLISHED_IN_PRINT = "DATE_PUBLISHED_IN_PRINT";
+    public static final String DATE_PUBLISHED_IN_PRINT = "DATE_PUBLISHED_IN_PRINT";
 
-	public static final String ES_STEP1 = "STEP1";
-	public static final String ES_STEP2 = "STEP2";
-	public static final String ES_STEP3 = "STEP3";
-	public static final String ES_STEP4 = "STEP4";
-	public static final String ES_STEP5 = "STEP5";
-
-
-	private String currentSubmissionMethod = SUBMISSION_METHOD_MANUAL;
-
-	private String currentSubmissionStep = ES_STEP1;
-
-	private String currentDateType = DATE_PUBLISHED_IN_PRINT;
-
-	private String importMethod = EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL;
-
-	private OrganizationVO currentlySelecting = null;
-
-	private ContextVO context;
-
-	//private PubItemVO currentItem;
-
-	private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
-
-	private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
-
-	private String selectedDate;
-
-	//For import service
-	private String currentExternalServiceType = "";
-	private String currentFTLabel = "";
-	private boolean fulltext = true;
-
-	private String radioSelectFulltext;
-	private HtmlSelectOneRadio radioSelectReference = new HtmlSelectOneRadio();
+    public static final String ES_STEP1 = "STEP1";
+    public static final String ES_STEP2 = "STEP2";
+    public static final String ES_STEP3 = "STEP3";
+    public static final String ES_STEP4 = "STEP4";
+    public static final String ES_STEP5 = "STEP5";
 
 
-	private boolean importSourceRefresh = false;
-	public SelectItem[] FULLTEXT_OPTIONS;
-	public SelectItem[] EXTERNAL_SERVICE_OPTIONS;
-	public SelectItem[] REFERENCE_OPTIONS;
+    private String currentSubmissionMethod = SUBMISSION_METHOD_MANUAL;
+
+    private String currentSubmissionStep = ES_STEP1;
+
+    private String currentDateType = DATE_PUBLISHED_IN_PRINT;
+
+    private String importMethod = EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL;
+
+    private OrganizationVO currentlySelecting = null;
+
+    private ContextVO context;
+
+    //private PubItemVO currentItem;
+
+    private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
+
+    private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
+
+    private String selectedDate;
+
+    //For import service
+    private String currentExternalServiceType = "";
+    private String currentFTLabel = "";
+    private boolean fulltext = true;
+
+    private String radioSelectFulltext;
+    private HtmlSelectOneRadio radioSelectReference = new HtmlSelectOneRadio();
 
 
-	private String genreBundle = "Genre_ARTICLE";
-	/**
-	 * A creator bean that holds the data from the author copy&paste organizations
-	 */
-	private CreatorBean authorCopyPasteOrganizationsCreatorBean;
-
-	/**
-	 * Stores a string from a hidden input field (set by javascript) that indicates whether the author copy&paste elements are to be displayed or not.
-	 */
-	private String showAuthorCopyPaste;
-	private String creatorParseString;
-
-	/**
-	 * Public constructor.
-	 */
-	public EasySubmissionSessionBean()
-	{
-		this.currentSubmissionStep = ES_STEP1;
-		this.importSourceRefresh = false;
-		initAuthorCopyPasteCreatorBean();
+    private boolean importSourceRefresh = false;
+    public SelectItem[] FULLTEXT_OPTIONS;
+    public SelectItem[] EXTERNAL_SERVICE_OPTIONS;
+    public SelectItem[] REFERENCE_OPTIONS;
 
 
-	}
+    private String genreBundle = "Genre_ARTICLE";
+    /**
+     * A creator bean that holds the data from the author copy&paste organizations
+     */
+    private CreatorBean authorCopyPasteOrganizationsCreatorBean;
 
-	/**
-	 * This method cleans up the EasySubmissionSessionBean
-	 * 
-	 */
-	public void cleanup()
-	{
-		super.clean();
+    /**
+     * Stores a string from a hidden input field (set by javascript) that indicates whether the author copy&paste elements are to be displayed or not.
+     */
+    private String showAuthorCopyPaste;
+    private String creatorParseString;
 
-		this.getFiles().clear();
-		this.getLocators().clear();
-		this.setGenreBundle("Genre_ARTICLE");
-		this.setSelectedDate("");
-		this.initAuthorCopyPasteCreatorBean();
-		this.setCurrentSubmissionStep(ES_STEP3);
-	}
-
-	public String getCurrentSubmissionMethod()
-	{
-		return currentSubmissionMethod;
-	}
-
-	public void setCurrentSubmissionMethod(String currentSubmissionMethod)
-	{
-		this.currentSubmissionMethod = currentSubmissionMethod;
-	}
-
-	public String getCurrentSubmissionStep()
-	{
-		return currentSubmissionStep;
-	}
-
-	public void setCurrentSubmissionStep(String currentSubmissionStep)
-	{
-		this.currentSubmissionStep = currentSubmissionStep;
-	}
-
-	public ContextVO getContext()
-	{
-		return context;
-	}
-
-	public void setContext(ContextVO context)
-	{
-		this.context = context;
-	}
+    /**
+     * Public constructor.
+     */
+    public EasySubmissionSessionBean()
+    {
+        this.currentSubmissionStep = ES_STEP1;
+        this.importSourceRefresh = false;
+        initAuthorCopyPasteCreatorBean();
 
 
-	/*public PubItemVO getCurrentItem() {
+    }
+
+    /**
+     * This method cleans up the EasySubmissionSessionBean
+     * 
+     */
+    public void cleanup()
+    {
+        super.clean();
+
+        this.getFiles().clear();
+        this.getLocators().clear();
+        this.setGenreBundle("Genre_ARTICLE");
+        this.setSelectedDate("");
+        this.initAuthorCopyPasteCreatorBean();
+        this.setCurrentSubmissionStep(ES_STEP3);
+    }
+
+    public String getCurrentSubmissionMethod()
+    {
+        return currentSubmissionMethod;
+    }
+
+    public void setCurrentSubmissionMethod(String currentSubmissionMethod)
+    {
+        this.currentSubmissionMethod = currentSubmissionMethod;
+    }
+
+    public String getCurrentSubmissionStep()
+    {
+        return currentSubmissionStep;
+    }
+
+    public void setCurrentSubmissionStep(String currentSubmissionStep)
+    {
+        this.currentSubmissionStep = currentSubmissionStep;
+    }
+
+    public ContextVO getContext()
+    {
+        return context;
+    }
+
+    public void setContext(ContextVO context)
+    {
+        this.context = context;
+    }
+
+
+    /*public PubItemVO getCurrentItem() {
         return currentItem;
     }
 
@@ -186,186 +186,186 @@ public class EasySubmissionSessionBean extends EditItemBean
         this.currentItem = currentItem;
     }*/
 
-	public List<PubFileVOPresentation> getFiles() {
-		return files;
-	}
+    public List<PubFileVOPresentation> getFiles() {
+        return files;
+    }
 
-	public void setFiles(List<PubFileVOPresentation> files) {
-		this.files = files;
-	}
+    public void setFiles(List<PubFileVOPresentation> files) {
+        this.files = files;
+    }
 
-	public List<PubFileVOPresentation> getLocators() {
-		return locators;
-	}
+    public List<PubFileVOPresentation> getLocators() {
+        return locators;
+    }
 
-	public void setLocators(List<PubFileVOPresentation> locators) {
-		this.locators = locators;
-	}
+    public void setLocators(List<PubFileVOPresentation> locators) {
+        this.locators = locators;
+    }
 
-	public String getCurrentDateType() {
-		return currentDateType;
-	}
+    public String getCurrentDateType() {
+        return currentDateType;
+    }
 
-	public void setCurrentDateType(String currentDateType) {
-		this.currentDateType = currentDateType;
-	}
+    public void setCurrentDateType(String currentDateType) {
+        this.currentDateType = currentDateType;
+    }
 
-	public String getImportMethod() {
-		return importMethod;
-	}
+    public String getImportMethod() {
+        return importMethod;
+    }
 
-	public void setImportMethod(String importMethod) {
-		this.importMethod = importMethod;
-	}
+    public void setImportMethod(String importMethod) {
+        this.importMethod = importMethod;
+    }
 
-	public String getCurrentExternalServiceType() {
-		return currentExternalServiceType;
-	}
+    public String getCurrentExternalServiceType() {
+        return currentExternalServiceType;
+    }
 
-	public void setCurrentExternalServiceType(String currentExternalServiceType) {
-		this.currentExternalServiceType = currentExternalServiceType;
-	}
+    public void setCurrentExternalServiceType(String currentExternalServiceType) {
+        this.currentExternalServiceType = currentExternalServiceType;
+    }
 
-	public OrganizationVO getCurrentlySelecting() {
-		return currentlySelecting;
-	}
+    public OrganizationVO getCurrentlySelecting() {
+        return currentlySelecting;
+    }
 
-	public void setCurrentlySelecting(OrganizationVO currentlySelecting) {
-		this.currentlySelecting = currentlySelecting;
-	}
-
-
-	public String getSelectedDate() {
-		return selectedDate;
-	}
-
-	public void setSelectedDate(String selectedDate) {
-		this.selectedDate = selectedDate;
-	}
-
-	public String getCurrentFTLabel() {
-		return currentFTLabel;
-	}
-
-	public void setCurrentFTLabel(String currentFTLabel) {
-		this.currentFTLabel = currentFTLabel;
-	}
-
-	public boolean isImportSourceRefresh() {
-		return importSourceRefresh;
-	}
+    public void setCurrentlySelecting(OrganizationVO currentlySelecting) {
+        this.currentlySelecting = currentlySelecting;
+    }
 
 
-	public void setImportSourceRefresh(boolean importSourceRefresh) {
-		this.importSourceRefresh = importSourceRefresh;
-	}
+    public String getSelectedDate() {
+        return selectedDate;
+    }
 
-	public SelectItem[] getFULLTEXT_OPTIONS() {
-		return FULLTEXT_OPTIONS;
-	}
+    public void setSelectedDate(String selectedDate) {
+        this.selectedDate = selectedDate;
+    }
 
-	public void setFULLTEXT_OPTIONS(SelectItem[] fulltext_options) {
-		FULLTEXT_OPTIONS = fulltext_options;
-	}
+    public String getCurrentFTLabel() {
+        return currentFTLabel;
+    }
 
-	public SelectItem[] getEXTERNAL_SERVICE_OPTIONS() {
-		return EXTERNAL_SERVICE_OPTIONS;
-	}
+    public void setCurrentFTLabel(String currentFTLabel) {
+        this.currentFTLabel = currentFTLabel;
+    }
 
-
-	public void setEXTERNAL_SERVICE_OPTIONS(SelectItem[] external_service_options) {
-		EXTERNAL_SERVICE_OPTIONS = external_service_options;
-	}
-
-	public String getRadioSelectFulltext()
-	{
-		return radioSelectFulltext;
-	}
-
-	public void setRadioSelectFulltext(String radioSelectFulltext)
-	{
-		this.radioSelectFulltext = radioSelectFulltext;
-	}
-
-	public HtmlSelectOneRadio getRadioSelectReference()
-	{
-		return radioSelectReference;
-	}
-
-	public void setRadioSelectReference(HtmlSelectOneRadio radioSelectReference)
-	{
-		this.radioSelectReference = radioSelectReference;
-	}
-
-	public String getGenreBundle() {
-		return genreBundle;
-	}
-
-	public void setGenreBundle(String genreBundle) {
-		this.genreBundle = genreBundle;
-	}
-
-	public void setAuthorCopyPasteOrganizationsCreatorBean(CreatorBean authorCopyPasteOrganizationsCreatorBean)
-	{
-		this.authorCopyPasteOrganizationsCreatorBean = authorCopyPasteOrganizationsCreatorBean;
-	}
-
-	public CreatorBean getAuthorCopyPasteOrganizationsCreatorBean()
-	{
-		return authorCopyPasteOrganizationsCreatorBean;
-	}
-
-	@Override
-	public void setShowAuthorCopyPaste(String showAuthorCopyPaste)
-	{
-		this.showAuthorCopyPaste = showAuthorCopyPaste;
-	}
-
-	@Override
-	public String getShowAuthorCopyPaste()
-	{
-		return showAuthorCopyPaste;
-	}
+    public boolean isImportSourceRefresh() {
+        return importSourceRefresh;
+    }
 
 
-	@Override
-	public String getCreatorParseString() {
-		return creatorParseString;
-	}
+    public void setImportSourceRefresh(boolean importSourceRefresh) {
+        this.importSourceRefresh = importSourceRefresh;
+    }
 
-	@Override
-	public void setCreatorParseString(String creatorParseString) {
-		this.creatorParseString = creatorParseString;
-	}
+    public SelectItem[] getFULLTEXT_OPTIONS() {
+        return FULLTEXT_OPTIONS;
+    }
+
+    public void setFULLTEXT_OPTIONS(SelectItem[] fulltext_options) {
+        FULLTEXT_OPTIONS = fulltext_options;
+    }
+
+    public SelectItem[] getEXTERNAL_SERVICE_OPTIONS() {
+        return EXTERNAL_SERVICE_OPTIONS;
+    }
 
 
-	public SelectItem[] getREFERENCE_OPTIONS()
-	{
-		return this.REFERENCE_OPTIONS;
-	}
+    public void setEXTERNAL_SERVICE_OPTIONS(SelectItem[] external_service_options) {
+        EXTERNAL_SERVICE_OPTIONS = external_service_options;
+    }
 
-	public void setREFERENCE_OPTIONS(SelectItem[] reference_options)
-	{
-		this.REFERENCE_OPTIONS = reference_options;
-	}
+    public String getRadioSelectFulltext()
+    {
+        return radioSelectFulltext;
+    }
 
-	public boolean isFulltext()
-	{
-		return fulltext;
-	}
+    public void setRadioSelectFulltext(String radioSelectFulltext)
+    {
+        this.radioSelectFulltext = radioSelectFulltext;
+    }
 
-	public void setFulltext(boolean fulltext)
-	{
-		this.fulltext = fulltext;
-	}
+    public HtmlSelectOneRadio getRadioSelectReference()
+    {
+        return radioSelectReference;
+    }
 
-	/**
-	 * (Re)-initializes the PersonOPrganisationManager that manages the author copy&paste organizations.
-	 */
-	 public void initAuthorCopyPasteCreatorBean()
-	{
-		setShowAuthorCopyPaste("");
-	}
+    public void setRadioSelectReference(HtmlSelectOneRadio radioSelectReference)
+    {
+        this.radioSelectReference = radioSelectReference;
+    }
+
+    public String getGenreBundle() {
+        return genreBundle;
+    }
+
+    public void setGenreBundle(String genreBundle) {
+        this.genreBundle = genreBundle;
+    }
+
+    public void setAuthorCopyPasteOrganizationsCreatorBean(CreatorBean authorCopyPasteOrganizationsCreatorBean)
+    {
+        this.authorCopyPasteOrganizationsCreatorBean = authorCopyPasteOrganizationsCreatorBean;
+    }
+
+    public CreatorBean getAuthorCopyPasteOrganizationsCreatorBean()
+    {
+        return authorCopyPasteOrganizationsCreatorBean;
+    }
+
+    @Override
+    public void setShowAuthorCopyPaste(String showAuthorCopyPaste)
+    {
+        this.showAuthorCopyPaste = showAuthorCopyPaste;
+    }
+
+    @Override
+    public String getShowAuthorCopyPaste()
+    {
+        return showAuthorCopyPaste;
+    }
+
+
+    @Override
+    public String getCreatorParseString() {
+        return creatorParseString;
+    }
+
+    @Override
+    public void setCreatorParseString(String creatorParseString) {
+        this.creatorParseString = creatorParseString;
+    }
+
+
+    public SelectItem[] getREFERENCE_OPTIONS()
+    {
+        return this.REFERENCE_OPTIONS;
+    }
+
+    public void setREFERENCE_OPTIONS(SelectItem[] reference_options)
+    {
+        this.REFERENCE_OPTIONS = reference_options;
+    }
+
+    public boolean isFulltext()
+    {
+        return fulltext;
+    }
+
+    public void setFulltext(boolean fulltext)
+    {
+        this.fulltext = fulltext;
+    }
+
+    /**
+     * (Re)-initializes the PersonOPrganisationManager that manages the author copy&paste organizations.
+     */
+    public void initAuthorCopyPasteCreatorBean()
+    {
+        setShowAuthorCopyPaste("");
+    }
 
 }
 

@@ -50,63 +50,63 @@ import de.mpg.escidoc.pubman.desktop.Navigation;
  */
 public class EditItemPage extends BreadcrumbPage
 {
-	private static Logger logger = Logger.getLogger(EditItemPage.class);
+    private static Logger logger = Logger.getLogger(EditItemPage.class);
 
-	//The referring GUI Tool Page
-	public final static String GT_EDIT_ITEM_PAGE = "GTEditItemPage.jsp";
+    //The referring GUI Tool Page
+    public final static String GT_EDIT_ITEM_PAGE = "GTEditItemPage.jsp";
 
-	/**
-	 * Public constructor.
-	 */
-	public EditItemPage()
-	{
-		this.init();
-	}
+    /**
+     * Public constructor.
+     */
+    public EditItemPage()
+    {
+        this.init();
+    }
 
-	/**
-	 * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
-	 * a URL, or indirectly via page navigation.
-	 */
-	@Override
-	public void init()
-	{
-		// Perform initializations inherited from our superclass
-		super.init();
-		checkForLogin();
-		//redirect to the referring GUI Tool page if the application has been started as GUI Tool
+    /**
+     * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
+     * a URL, or indirectly via page navigation.
+     */
+    @Override
+    public void init()
+    {
+        // Perform initializations inherited from our superclass
+        super.init();
+        checkForLogin();
+        //redirect to the referring GUI Tool page if the application has been started as GUI Tool
 
-	}
+    }
 
-	/**
-	 * Redirects to the referring GUI Tool page.
-	 * @author Tobias Schraut
-	 * @return a navigation string
-	 */
-	protected String redirectToGUITool()
-	{
-		FacesContext fc = FacesContext.getCurrentInstance();
-		try
-		{
-			fc.getExternalContext().redirect(GT_EDIT_ITEM_PAGE);
-		}
-		catch (IOException e)
-		{
-			logger.error("Could not redirect to GUI Tool Search result list page." + "\n" + e.toString());
-		}
-		return "";
-	}
+    /**
+     * Redirects to the referring GUI Tool page.
+     * @author Tobias Schraut
+     * @return a navigation string
+     */
+    protected String redirectToGUITool()
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        try
+        {
+            fc.getExternalContext().redirect(GT_EDIT_ITEM_PAGE);
+        }
+        catch (IOException e)
+        {
+            logger.error("Could not redirect to GUI Tool Search result list page." + "\n" + e.toString());
+        }
+        return "";
+    }
 
-	@Override
-	protected Method getDefaultAction() throws NoSuchMethodException
-	{
-		return Navigation.class.getMethod("newSubmission", null);
-	}
+    @Override
+    protected Method getDefaultAction() throws NoSuchMethodException
+    {
+        return Navigation.class.getMethod("newSubmission", null);
+    }
 
-	@Override
-	public boolean isItemSpecific()
-	{
-		return true;
-	}
+    @Override
+    public boolean isItemSpecific()
+    {
+        return true;
+    }
 
 
 }

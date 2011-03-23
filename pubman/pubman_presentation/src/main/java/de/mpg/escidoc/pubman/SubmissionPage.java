@@ -44,34 +44,34 @@ import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
  */
 public class SubmissionPage extends BreadcrumbPage
 {
-	@SuppressWarnings("unused")
-	private static Logger logger = Logger.getLogger(SubmissionPage.class);
+    @SuppressWarnings("unused")
+    private static Logger logger = Logger.getLogger(SubmissionPage.class);
 
-	/**
-	 * Public constructor
-	 */
-	public SubmissionPage()
-	{
-		this.init();
-	}
+    /**
+     * Public constructor
+     */
+    public SubmissionPage()
+    {
+        this.init();
+    }
 
-	/**
-	 * Callback method that is called whenever a page is navigated to, either directly via a URL, or indirectly via page
-	 * navigation.
-	 */
-	@Override
-	public void init()
-	{
-		// Perform initializations inherited from our superclass
-		super.init();
-		checkForLogin();
+    /**
+     * Callback method that is called whenever a page is navigated to, either directly via a URL, or indirectly via page
+     * navigation.
+     */
+    @Override
+    public void init()
+    {
+        // Perform initializations inherited from our superclass
+        super.init();
+        checkForLogin();
 
-	}
+    }
 
-	@Override
-	public boolean isItemSpecific()
-	{
-		return false;
-	}
+    @Override
+    public boolean isItemSpecific()
+    {
+        return false;
+    }
 
 }

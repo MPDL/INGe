@@ -41,105 +41,105 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
  */
 public class ViewItemOrganization
 {
-	// the position of the organization within the list
-	private String position;
-	// The Name of the organization
-	private String organizationName;
-	// the address of the organization
-	private String organizationAddress;
-	// the identifier of the organization
-	private String organizationIdentifier;
-	// the html code of the organization info page popup window
-	private String organizationInfoPage;
-	/** the link to the corresponding AffiliationDetailPage */
-	private String organizationDescription;
-	/** the display in View Item pages */
+    // the position of the organization within the list
+    private String position;
+    // The Name of the organization
+    private String organizationName;
+    // the address of the organization
+    private String organizationAddress;
+    // the identifier of the organization
+    private String organizationIdentifier;
+    // the html code of the organization info page popup window
+    private String organizationInfoPage;
+    /** the link to the corresponding AffiliationDetailPage */
+    private String organizationDescription;
+    /** the display in View Item pages */
 
-	public String getOrganizationAddress()
-	{
-		return organizationAddress;
-	}
+    public String getOrganizationAddress()
+    {
+        return organizationAddress;
+    }
 
-	public void setOrganizationAddress(String organizationAddress)
-	{
-		this.organizationAddress = organizationAddress;
-	}
+    public void setOrganizationAddress(String organizationAddress)
+    {
+        this.organizationAddress = organizationAddress;
+    }
 
-	public String getOrganizationName()
-	{
-		return organizationName;
-	}
+    public String getOrganizationName()
+    {
+        return organizationName;
+    }
 
-	public void setOrganizationName(String organizationName)
-	{
-		this.organizationName = organizationName;
-	}
+    public void setOrganizationName(String organizationName)
+    {
+        this.organizationName = organizationName;
+    }
 
-	public String getPosition()
-	{
-		return position;
-	}
+    public String getPosition()
+    {
+        return position;
+    }
 
-	public void setPosition(String position)
-	{
-		this.position = position;
-	}
+    public void setPosition(String position)
+    {
+        this.position = position;
+    }
 
-	public String getOrganizationIdentifier()
-	{
-		return organizationIdentifier;
-	}
+    public String getOrganizationIdentifier()
+    {
+        return organizationIdentifier;
+    }
 
-	public void setOrganizationIdentifier(String organizationIdentifier)
-	{
-		this.organizationIdentifier = organizationIdentifier;
-	}
+    public void setOrganizationIdentifier(String organizationIdentifier)
+    {
+        this.organizationIdentifier = organizationIdentifier;
+    }
 
-	public String getOrganizationInfoPage()
-	{
-		return organizationInfoPage;
-	}
+    public String getOrganizationInfoPage()
+    {
+        return organizationInfoPage;
+    }
 
 
 
-	// the information page (popup window)
-	public void setOrganizationInfoPage(String organizationName, String organizationAddress)
-	{
-		String addr = "";
-		if (organizationAddress != null)
-		{
-			addr = organizationAddress;
-		}
-		this.organizationInfoPage = "'<html><head><title>Organisationp</title></head><body scroll=no bgcolor=#FFFFFC><br/><p style=font-family:verdana,arial;font-size:12px>"
-			+ CommonUtils.htmlEscape(organizationName)
-			+ "</p><p style=font-family:verdana,arial;font-size:12px>"
-			+ CommonUtils.htmlEscape(addr) + "</p></body></html>'";
-	}
+    // the information page (popup window)
+    public void setOrganizationInfoPage(String organizationName, String organizationAddress)
+    {
+        String addr = "";
+        if (organizationAddress != null)
+        {
+            addr = organizationAddress;
+        }
+        this.organizationInfoPage = "'<html><head><title>Organisationp</title></head><body scroll=no bgcolor=#FFFFFC><br/><p style=font-family:verdana,arial;font-size:12px>"
+            + CommonUtils.htmlEscape(organizationName)
+            + "</p><p style=font-family:verdana,arial;font-size:12px>"
+            + CommonUtils.htmlEscape(addr) + "</p></body></html>'";
+    }
 
-	public boolean getHasOrganizationalIdentifier()
-	{
-		if(this.organizationIdentifier == null || this.organizationIdentifier.equals(""))
-		{
-			return false;
-		}
-		else return true;
-	}
+    public boolean getHasOrganizationalIdentifier()
+    {
+        if(this.organizationIdentifier == null || this.organizationIdentifier.equals(""))
+        {
+            return false;
+        }
+        else return true;
+    }
 
-	public void setOrganizationDescription(String organizationName, String organizationAddress, String organizationIdentifier)
-	{
+    public void setOrganizationDescription(String organizationName, String organizationAddress, String organizationIdentifier)
+    {
 
-		String addr = organizationName;
-		if (organizationAddress != null)
-		{
-			addr = addr+", "+organizationAddress;
-		}
+        String addr = organizationName;
+        if (organizationAddress != null)
+        {
+            addr = addr+", "+organizationAddress;
+        }
 
-		this.organizationDescription = addr;
+        this.organizationDescription = addr;
 
-	}
-	public String getOrganizationDescription()
-	{
-		return organizationDescription;
-	}
+    }
+    public String getOrganizationDescription()
+    {
+        return organizationDescription;
+    }
 
 }
