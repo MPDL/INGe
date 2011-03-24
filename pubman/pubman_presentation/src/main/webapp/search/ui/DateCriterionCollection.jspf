@@ -47,11 +47,11 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="double_area0 xTiny_marginRIncl">
 						<h:outputLabel id="lblStartDateFirst" styleClass="double_label" for="startDateFirst" value="#{lbl.adv_search_lblFrom}" />
-						<h:inputText styleClass="double_txtInput dateJSInput" id="startDateFirst" immediate="true" value="#{dateCriterionBean.dateCriterionVO.from}" />
+						<h:inputText styleClass="double_txtInput dateJSInput" id="startDateFirst" value="#{dateCriterionBean.dateCriterionVO.from}" />
 					</span>
 					<span class="double_area0 xTiny_marginRIncl">
 						<h:outputLabel id="lblEndDateFirst" styleClass="double_label" for="endDateFirst" value="#{lbl.adv_search_lblTo}" />
-						<h:inputText styleClass="double_txtInput dateJSInput" id="endDateFirst" immediate="true" value="#{dateCriterionBean.dateCriterionVO.to}" />
+						<h:inputText styleClass="double_txtInput dateJSInput" id="endDateFirst" value="#{dateCriterionBean.dateCriterionVO.to}" />
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
@@ -69,11 +69,11 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="double_area0 xTiny_marginRIncl">
 						<h:outputLabel id="lblStartDatesFollowing" styleClass="double_label" for="startDatesFollowing" value="#{lbl.adv_search_lblFrom}" />
-						<h:inputText styleClass="double_txtInput dateJSInput" id="startDatesFollowing" immediate="true" value="#{dateCriterionBean.dateCriterionVO.from}" />
+						<h:inputText styleClass="double_txtInput dateJSInput" id="startDatesFollowing" value="#{dateCriterionBean.dateCriterionVO.from}" />
 					</span>
 					<span class="double_area0 xTiny_marginRIncl">
 						<h:outputLabel id="lblEndDatesFollowing" styleClass="double_label" for="endDatesFollowing" value="#{lbl.adv_search_lblTo}" />
-						<h:inputText styleClass="double_txtInput dateJSInput" id="endDatesFollowing" immediate="true" value="#{dateCriterionBean.dateCriterionVO.to}" />
+						<h:inputText styleClass="double_txtInput dateJSInput" id="endDatesFollowing" value="#{dateCriterionBean.dateCriterionVO.to}" />
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
