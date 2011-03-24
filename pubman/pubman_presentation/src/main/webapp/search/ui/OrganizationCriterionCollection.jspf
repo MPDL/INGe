@@ -38,7 +38,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 
-		<tr:iterator id="organizationCriterion" var="organizationCriterionBean" value="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.objectDM}" binding="#{organizationCriterionIterator}" varStatus="index">
+		<tr:iterator id="organizationCriterion" rows="0" var="organizationCriterionBean" value="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.objectDM}" binding="#{organizationCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{organizationCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">

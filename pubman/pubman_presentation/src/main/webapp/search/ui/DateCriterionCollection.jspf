@@ -38,7 +38,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
 
-		<tr:iterator id="dateCriterion" var="dateCriterionBean" value="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.dateCriterionIterator}" varStatus="index">
+		<tr:iterator id="dateCriterion" rows="0" var="dateCriterionBean" value="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.dateCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.dateCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">

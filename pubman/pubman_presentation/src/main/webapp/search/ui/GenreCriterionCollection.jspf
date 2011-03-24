@@ -39,7 +39,7 @@
 	<div class="free_area0 itemBlockContent hideAdvSearchGenreBlockIfVoid endline">
 
 <!-- Start Genre -->
-		<tr:iterator id="genreCriterion" var="genreCriterionBean" value="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.genreCriterionIterator}" varStatus="index">
+		<tr:iterator id="genreCriterion" rows="0" var="genreCriterionBean" value="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.genreCriterionIterator}" varStatus="index">
 			
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.genreCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -366,7 +366,7 @@
 <!-- End Genre -->
 
 <!-- Start Degree -->
-		<tr:iterator id="degreeCriterion" var="degreeCriterionBean" value="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.degreeCriterionIterator}" varStatus="index">
+		<tr:iterator id="degreeCriterion" rows="0" var="degreeCriterionBean" value="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.degreeCriterionIterator}" varStatus="index">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" >
 				<span class="xLarge_area0_p8 endline labelLine clear">  
 					<h:outputText value="#{lbl.EditItem_lblDegreeType}" />

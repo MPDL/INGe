@@ -38,7 +38,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 
-		<tr:iterator id="eventCriterion" var="eventCriterionBean" value="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.objectDM}" binding="#{eventCriterionIterator}" varStatus="index">
+		<tr:iterator id="eventCriterion" rows="0" var="eventCriterionBean" value="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.objectDM}" binding="#{eventCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{eventCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">

@@ -38,7 +38,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
 
-		<tr:iterator id="anyFieldCriterion" var="anyFieldCriterionBean" value="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.anyFieldCriterionIterator}" varStatus="index">
+		<tr:iterator id="anyFieldCriterion" rows="0" var="anyFieldCriterionBean" value="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.anyFieldCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.anyFieldCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">

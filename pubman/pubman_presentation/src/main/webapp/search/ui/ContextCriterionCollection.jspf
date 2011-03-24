@@ -38,7 +38,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
 	
-		<tr:iterator id="contextCriterion" var="contextCriterionBean" value="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionBean}">
+		<tr:iterator id="contextCriterion" rows="0" var="contextCriterionBean" value="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionBean}">
 	
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">

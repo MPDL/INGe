@@ -38,7 +38,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 
-		<tr:iterator id="identifierCriterion" var="identifierCriterionBean" value="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.objectDM}" binding="#{identifierCriterionIterator}" varStatus="index">
+		<tr:iterator id="identifierCriterion" rows="0" var="identifierCriterionBean" value="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.objectDM}" binding="#{identifierCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{identifierCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
