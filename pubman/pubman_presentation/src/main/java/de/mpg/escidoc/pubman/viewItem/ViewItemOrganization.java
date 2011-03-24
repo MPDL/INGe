@@ -129,9 +129,14 @@ public class ViewItemOrganization
     {
 
         String addr = organizationName;
-        if (organizationAddress != null)
+        if (organizationAddress != null && organizationAddress != "")
         {
             addr = addr+", "+organizationAddress;
+        }
+
+        if (organizationIdentifier != null && organizationIdentifier != "")
+        {
+            addr = addr+", "+organizationIdentifier;
         }
 
         this.organizationDescription = addr;

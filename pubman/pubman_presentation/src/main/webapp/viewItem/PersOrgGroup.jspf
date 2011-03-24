@@ -48,7 +48,7 @@
 					<!-- Display {ViewItemFull.defaultSize} creators by default -->
 					<tr:iterator var="creator" value="#{ViewItemFull.creators}" rows="#{ViewItemFull.defaultSize}" varStatus="creatorStatus"> 
 						<h:panelGroup id="txtCreatorPersonFormattedDisplay" styleClass="free_area0 creator clear" rendered="#{creator.creatorType == 'PERSON'}">
-							<h:outputText value="#{creator.creatorObj.formattedDisplay}" escape="false"/>
+							<h:outputText value="#{creator.creatorObj.formattedDisplay}, #{creator.creatorRole}" escape="false"/>
 							<h:panelGroup rendered="#{creator.creatorObj.portfolioLink != null}">
 								&#160;
 								<h:outputLink id="lnkCreatorPersonPortfolioLink" styleClass="authorCard" value="#{creator.creatorObj.portfolioLink}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
@@ -68,7 +68,7 @@
 					<!-- Hidden creators, visible after clicking on more -->
 					<tr:iterator var="creator" value="#{ViewItemFull.creators}" varStatus="creatorStatus" first="#{ViewItemFull.defaultSize}" rows="#{ViewItemFull.creatorArraySize}" rendered="#{ViewItemFull.creatorArraySize > ViewItemFull.defaultSize}"> 
 						<h:panelGroup id="txtCreatorPersonFormattedHidden" styleClass="free_area0 creator creatorHidden tiny_marginRIncl" rendered="#{creator.creatorType == 'PERSON'}">
-							<h:outputText value="#{creator.creatorObj.formattedDisplay}" escape="false"/>
+							<h:outputText value="#{creator.creatorObj.formattedDisplay}, #{creator.creatorRole}" escape="false"/>
 							<h:panelGroup rendered="#{creator.creatorObj.portfolioLink != null}">
 								&#160;
 								<h:outputLink id="lnkCreatorPersonPortfolioLink" styleClass="authorCard" value="#{creator.creatorObj.portfolioLink}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>

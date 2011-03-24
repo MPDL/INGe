@@ -42,6 +42,7 @@ import de.mpg.escidoc.pubman.util.CreatorDisplay;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreators;
+import de.mpg.escidoc.pubman.viewItem.ViewItemCreators.Type;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
@@ -76,7 +77,7 @@ public class SourceBean extends FacesBean
     /**
      * The list of formatted creators in an ArrayList.
      */
-    private ArrayList<CreatorDisplay> sourceCreatorArray;
+    private ArrayList<ViewItemCreators> sourceCreatorArray;
 
     /**
      * The list of formatted creators which are organizations in an ArrayList.
@@ -86,7 +87,7 @@ public class SourceBean extends FacesBean
     /**
      * The list of source creators as VO List.
      */
-    private ArrayList<ViewItemCreators> creators;
+    // private ArrayList<ViewItemCreators> creators;
 
     private String identifiers;
 
@@ -144,7 +145,7 @@ public class SourceBean extends FacesBean
         //temporary list of All creators, retrieved directly from the metadata
         tempCreatorList = this.getSource().getCreators();
         //the list of creators is initialized to a new array list
-        this.setSourceCreatorArray(new ArrayList<CreatorDisplay>());
+        this.setSourceCreatorArray(new ArrayList<ViewItemCreators>());
         int affiliationPosition = 0;
 
         //for each creator in the list
@@ -159,6 +160,7 @@ public class SourceBean extends FacesBean
             creator1 = tempCreatorList.get(i);
 
             CreatorDisplay creatorDisplay = new CreatorDisplay();
+            ViewItemCreators creator = new ViewItemCreators();
 
             //if the creator is a person add his organization to the sorted organization list
             if (creator1.getPerson() != null)
@@ -203,7 +205,11 @@ public class SourceBean extends FacesBean
                     }
                 }
 
-                this.sourceCreatorArray.add(creatorDisplay);
+                //this.sourceCreatorArray.add(creatorDisplay);
+                creator.setCreatorType(Type.PERSON.toString());
+                creator.setCreatorObj(creatorDisplay);
+                creator.setCreatorRole(creator1.getRoleString());
+                this.sourceCreatorArray.add(creator);
             } //end if creator is a person
 
             if (creator1.getOrganization() != null)
@@ -217,6 +223,10 @@ public class SourceBean extends FacesBean
                 creatorOrganization.setOrganizationInfoPage(formattedCreator, creator1.getOrganization().getAddress());
                 creatorOrganization.setIdentifier(creator1.getOrganization().getIdentifier());
                 this.sourceCreatorOrganizationsArray.add(creatorOrganization);
+                creator.setCreatorType(Type.ORGANIZATION.toString());
+                creator.setCreatorObj(creatorOrganization);
+                creator.setCreatorRole(creator1.getRoleString());
+                this.sourceCreatorArray.add(creator);
             }
 
             counterOrganization++;
@@ -314,7 +324,6 @@ public class SourceBean extends FacesBean
     protected ApplicationBean getApplicationBean()
     {
         return (ApplicationBean) FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), ApplicationBean.BEAN_NAME);
-
     }
 
     public String getGenre()
@@ -381,12 +390,12 @@ public class SourceBean extends FacesBean
         this.sourceAffiliatedOrganizationsList = sourceAffiliatedOrganizationsList;
     }
 
-    public ArrayList<CreatorDisplay> getSourceCreatorArray()
+    public ArrayList<ViewItemCreators> getSourceCreatorArray()
     {
         return sourceCreatorArray;
     }
 
-    public void setSourceCreatorArray(ArrayList<CreatorDisplay> sourceCreatorArray)
+    public void setSourceCreatorArray(ArrayList<ViewItemCreators> sourceCreatorArray)
     {
         this.sourceCreatorArray = sourceCreatorArray;
     }
@@ -402,7 +411,7 @@ public class SourceBean extends FacesBean
 
     public boolean getHasCreator()
     {
-        if (this.sourceCreatorArray.size() > 0 && this.sourceCreatorOrganizationsArray.size() > 0)
+        if (this.sourceCreatorArray.size() > 0)
         {
             return true;
         }
@@ -416,13 +425,5 @@ public class SourceBean extends FacesBean
             return true;
         }
         return false;
-    }
-
-    public ArrayList<ViewItemCreators> getCreators() {
-        return creators;
-    }
-
-    public void setCreators(ArrayList<ViewItemCreators> creators) {
-        this.creators = creators;
     }
 }

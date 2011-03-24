@@ -1047,6 +1047,7 @@ public class ViewItemFull extends FacesBean
                 }
                 creator.setCreatorType(Type.PERSON.toString());
                 creator.setCreatorObj(creatorDisplay);
+                creator.setCreatorRole(creator1.getRoleString());
 
                 this.creators.add(creator);
             } //end if creator is a person
@@ -1063,6 +1064,7 @@ public class ViewItemFull extends FacesBean
                 creatorOrganization.setIdentifier(creator1.getOrganization().getIdentifier());
                 creator.setCreatorType(Type.ORGANIZATION.toString());
                 creator.setCreatorObj(creatorOrganization);
+                creator.setCreatorRole(creator1.getRoleString());
                 this.creators.add(creator);
             }
 
