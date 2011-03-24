@@ -49,7 +49,7 @@
                     <h:outputLabel id="lblOrganizationSearchTermEmptyFirst" styleClass="xDouble_label" value="#{lbl.adv_search_lblSearchTerm}" />
                     <h:inputText id="organizationSearchTermEmptyFirst" styleClass="xDouble_txtInput organizationSuggest organizationName"
 						value="#{organizationCriterionBean.organizationCriterionVO.searchString}"/>
-					<h:inputText id="organizationSearchTermEmptyIdentifier" styleClass="noDisplay organizationIdentifier"
+					<h:inputText id="organizationSearchTermEmptyFirstIdentifier" styleClass="noDisplay organizationIdentifier"
 						value="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId}" />
 					<h:outputLink styleClass="small_area0 ouCard ouLink"
 						rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != null and organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != ''}" value="#"
@@ -61,31 +61,29 @@
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAddOrganizationCriterionFirst" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />
 					<tr:commandButton id="btnRemoveOrganizationCriterionFirst" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size == 1}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}"/>
-<%-- 
-					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{organizationCriterionBean.clearCriterion}" />
---%>
 				</span>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{organizationCriterionIterator.rowIndex > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<span class="noDisplay"> </span>
 				</b>
-				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline" rendered="#{organizationCriterionBean.organizationCriterionVO.affiliationEmpty}">
-					<h:outputLabel id="lblOrganizationSearchTermEmpty" styleClass="xDouble_label" value="#{lbl.adv_search_lblSearchTerm}" />
-					<h:inputText id="organizationSearchTermEmpty" styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.searchString}"/>
-					<tr:commandButton id="btnSelectOrganisationEmpty" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" action="#{organizationCriterionBean.selectOrganisation}" />
-				</h:panelGroup>
-				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline" rendered="#{!organizationCriterionBean.organizationCriterionVO.affiliationEmpty}">
-                    <h:outputLabel id="lblOrganizationSearchTerm" styleClass="xDouble_label" value="Organization" />
-                    <h:inputText id="organizationSearchTerm" styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.affiliationName}" disabled="#{!organizationCriterionBean.organizationCriterionVO.affiliationEmpty}"/>
-                    <tr:commandButton id="btnSelectOrganisation" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" action="#{organizationCriterionBean.selectOrganisation}" />
+				
+				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline suggestAnchor">
+                    <h:outputLabel id="lblOrganizationSearchTermEmpty" styleClass="xDouble_label" value="#{lbl.adv_search_lblSearchTerm}" />
+                    <h:inputText id="organizationSearchTermEmpty" styleClass="xDouble_txtInput organizationSuggest organizationName"
+						value="#{organizationCriterionBean.organizationCriterionVO.searchString}"/>
+					<h:inputText id="organizationSearchTermEmptyIdentifier" styleClass="noDisplay organizationIdentifier"
+						value="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId}" />
+					<h:outputLink styleClass="small_area0 ouCard ouLink"
+						rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != null and organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != ''}" value="#"
+						onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{organization.identifier}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
+					<h:panelGroup rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId == null || organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId == ''}"
+						styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>
                 </h:panelGroup>
+
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAddOrganizationCriterion" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />
 					<tr:commandButton id="btnRemoveOrganizationCriterion" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size == 1}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}"/>
-<%-- 
-					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{organizationCriterionBean.clearCriterion}" />
---%>
 				</span>
 			</h:panelGroup>
 
