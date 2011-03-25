@@ -254,8 +254,8 @@ public class SearchBean implements Search
                     logger.warn(diagnostic.getUri());
                     logger.warn(diagnostic.getMessage());
                     logger.warn(diagnostic.getDetails());
-                    throw new TechnicalException("Search request failed for query: " 
-                            + searchRetrieveRequest.getQuery());
+                    //throw new TechnicalException("Search request failed for query: " 
+                    //        + searchRetrieveRequest.getQuery());
                 }
             }
         }
