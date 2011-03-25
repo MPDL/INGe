@@ -155,6 +155,9 @@ public class MetadataSearchCriterion implements Serializable
     /** Index for person identifier. */
     private static final String INDEX_PERSON_IDENTIFIER = "escidoc.publication.creator.person.identifier";
     
+    /** Index for person identifier. */
+    private static final String INDEX_LATEST_RELEASE_OBJID = "escidoc.property.latest-release.objid";
+    
     
     /** String to be used to represent an empty search term. */
     private static final String EMPTY_SEARCH_TERM = "''";
@@ -500,7 +503,9 @@ public class MetadataSearchCriterion implements Serializable
             case PERSON_IDENTIFIER:
                 indexes.add(INDEX_PERSON_IDENTIFIER);
                 break;
-                
+            case LATEST_RELEASE_OBJID:
+                indexes.add(INDEX_LATEST_RELEASE_OBJID);
+                break;
             default:
                 throw new TechnicalException("The index is unknown. Cannot map to index name.");
         }
