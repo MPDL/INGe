@@ -75,87 +75,91 @@ public class MetadataSearchCriterion implements Serializable
     private static final String BOOLEAN_LESS_THAN_EQUALS = "<=";
     private static final String BOOLEAN_GREATER = ">";
 
-    /** Index for the content-type. */
+    /** Index field for the content-type. */
     private static final String INDEX_CONTENT_TYPE = "escidoc.content-model.objid";
-    /** Index for any-title. */
+    /** Index field for any-title. */
     private static final String INDEX_TITLE = "escidoc.publication.title";
-    /** Index for metadata. */
+    /** Index field for metadata. */
     private static final String INDEX_METADATA = "escidoc.metadata";
-    /** Index for any-title. */
+    /** Index field for any-title. */
     private static final String INDEX_ABSTRACT = "escidoc.publication.abstract";
-    /** Index for fulltexts. */
+    /** Index field for fulltexts. */
     private static final String INDEX_FULLTEXT = "escidoc.fulltext";
-    /** Index for persons. */
+    /** Index field for persons. */
     private static final String INDEX_PERSON = "escidoc.publication.creator.person.compound.person-complete-name";
-    /** Index for creator roles. */
+    /** Index field for creator roles. */
     private static final String INDEX_PERSON_ROLE = "escidoc.publication.creator.role";
-    /** Index for organizations. */
+    /** Index field for organizations. */
     private static final String INDEX_ORGANIZATION = "escidoc.any-organizations";
-    /** Index for organization pids. */
+    /** Index field for organization pids. */
     private static final String INDEX_ORGANIZATION_PIDS = "escidoc.any-organization-pids";
-    /** Index for genre. */
+    /** Index field for genre. */
     private static final String INDEX_GENRE = "escidoc.publication.type";
-    /** Index for dates. */
+    /** Index field for dates. */
     private static final String INDEX_DATE_ANY = "escidoc.publication.compound.dates";
-    /** Index for creation date. */
+    /** Index field for creation date. */
     private static final String INDEX_DATE_CREATED = "escidoc.publication.created";
-    /** Index for the accepted date. */
+    /** Index field for the accepted date. */
     private static final String INDEX_DATE_ACCEPTED = "escidoc.publication.dateAccepted";
-    /** Index for the submitted date. */
+    /** Index field for the submitted date. */
     private static final String INDEX_DATE_SUBMITTED = "escidoc.publication.dateSubmitted";
-    /** Index for the issued date. */
+    /** Index field for the issued date. */
     private static final String INDEX_DATE_ISSUED = "escidoc.publication.issued";
-    /** Index for the modified date. */
+    /** Index field for the modified date. */
     private static final String INDEX_DATE_MODIFIED = "escidoc.publication.modified";
-    /** Index for the published online date. */
+    /** Index field for the published online date. */
     private static final String INDEX_DATE_PUBLISHED_ONLINE = "escidoc.publication.published-online";
-    /** Index for topics. */
+    /** Index field for the evebt start date. */
+    private static final String INDEX_DATE_EVENT_START = "escidoc.publication.event.start-date";
+    /** Index field for the evebt start date. */
+    private static final String INDEX_DATE_EVENT_END = "escidoc.publication.event.end-date";
+    /** Index field for topics. */
     private static final String INDEX_TOPIC = "escidoc.publication.subject";
-    /** Index for sources. */
+    /** Index field for sources. */
     private static final String INDEX_SOURCE = "escidoc.publication.source.any.title";
-    /** Index for events. */
+    /** Index field for events. */
     private static final String INDEX_EVENT = "escidoc.any-event";
-    /** Index for identifiers. */
+    /** Index field for identifiers. */
     private static final String INDEX_IDENTIFIER = "escidoc.any-identifier";
-    /** Index for object ids of contexts. */
+    /** Index field for object ids of contexts. */
     private static final String INDEX_CONTEXT_OBJECTID = "escidoc.context.objid";
-    /** Index for name of contexts. */
+    /** Index field for name of contexts. */
     private static final String INDEX_CONTEXT_NAME = "escidoc.context.name";
-    /** Index for languages. */
+    /** Index field for languages. */
     private static final String INDEX_LANGUAGE = "escidoc.publication.language";
-    /** Index for object types. */
+    /** Index field for object types. */
     private static final String INDEX_OBJECT_TYPE = "escidoc.objecttype";
     
     /** COMPONENTS **/
-    /** Index for the created-by object id. */
+    /** Index field for the created-by object id. */
     private static final String INDEX_CREATED_BY_OBJECTID = "escidoc.component.created-by.objid";
-    /** Index for component availability. */
+    /** Index field for component availability. */
     private static final String INDEX_COMPONENT_ACCESSIBILITY = "escidoc.component.creation-date";
     
     private static final String INDEX_COMPONENT_STORAGE = "escidoc.component.content.storage";
-    /** Index for component visibility. */
+    /** Index field for component visibility. */
     private static final String INDEX_COMPONENT_VISIBILITY = "escidoc.component.visibility";
-    /** Index for component content category. */
+    /** Index field for component content category. */
     private static final String INDEX_COMPONENT_CONTENT_CATEGORY = "escidoc.component.content-category";
-    /** Index for copyright date. */
+    /** Index field for copyright date. */
     private static final String INDEX_COPYRIGHT_DATE = "escidoc.component.file.dateCopyrighted";
-    /** Index for copyright date. */
+    /** Index field for copyright date. */
     private static final String INDEX_EMBARGO_DATE = "escidoc.component.file.available";
-    /** Index for compound properties. */
+    /** Index field for compound properties. */
     private static final String INDEX_COMPOUND_PROPERTIES = "escidoc.component.compound.properties";
     
 
 
-	/** Index for local tags. */
+	/** Index field for local tags. */
     private static final String INDEX_LOCAL_TAG = "escidoc.property.content-model-specific.local-tags.local-tag";
     
-    /** Index for degree. */
+    /** Index field for degree. */
     private static final String INDEX_DEGREE = "escidoc.publication.degree";
     
-    /** Index for person identifier. */
+    /** Index field for person identifier. */
     private static final String INDEX_PERSON_IDENTIFIER = "escidoc.publication.creator.person.identifier";
     
-    /** Index for person identifier. */
+    /** Index field for person identifier. */
     private static final String INDEX_LATEST_RELEASE_OBJID = "escidoc.property.latest-release.objid";
     
     
@@ -506,8 +510,14 @@ public class MetadataSearchCriterion implements Serializable
             case LATEST_RELEASE_OBJID:
                 indexes.add(INDEX_LATEST_RELEASE_OBJID);
                 break;
+            case DATE_EVENT_START:
+                indexes.add(INDEX_DATE_EVENT_START);
+                break;
+            case DATE_EVENT_END:
+                indexes.add(INDEX_DATE_EVENT_END);
+                break;
             default:
-                throw new TechnicalException("The index is unknown. Cannot map to index name.");
+                throw new TechnicalException("The index " + type.name() + " is unknown. Cannot map to index name.");
         }
         
         return indexes;
