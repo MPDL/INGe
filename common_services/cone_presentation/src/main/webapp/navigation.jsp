@@ -82,7 +82,7 @@
 				<% if (getLoggedIn(request)) { %>
 					<a class="medium_area0_p8 endline" href="logout.jsp?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Logout</a>
 				<% } else { %>
-					<a class="medium_area0_p8 endline" href="<%= PropertyReader.getProperty("escidoc.framework_access.login.url") %>/aa/login?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Login</a>
+					<a class="medium_area0_p8 endline" href="<%= PropertyReader.getProperty("escidoc.framework_access.login.url") %>/aa/login?target=<%= URLEncoder.encode(PropertyReader.getProperty("escidoc.cone.service.url") + request.getPathInfo().substring(1), "UTF-8") %>">Login</a>
 				<% } %>
 				<span class="seperator"></span>
 		
