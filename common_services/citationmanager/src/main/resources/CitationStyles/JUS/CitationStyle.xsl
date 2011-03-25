@@ -3689,7 +3689,7 @@
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                                         <!--valid-if--><xsl:variable name="var">
-                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;exists(pub:publication/e:published-online/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;exists(pub:publication/e:published-online/text()) or $creatorsCount&gt;1&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;">
                                                                 <xsl:variable name="var">
                                                                     <xsl:call-template name="applyDelimiter">
                                                                         <xsl:with-param name="les">
@@ -3737,7 +3737,7 @@
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                                         <!--valid-if--><xsl:variable name="var">
-                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(pub:publication/e:published-online/text())&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;">
+                                                            <xsl:if test="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;not(pub:publication/e:published-online/text()) and $creatorsCount=1&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;">
                                                                 <xsl:variable name="var">
                                                                     <xsl:call-template name="applyDelimiter">
                                                                         <xsl:with-param name="les">
@@ -3769,14 +3769,6 @@
                                             </xsl:with-param>
                                             <xsl:with-param name="delimiter" select="' '"/>
                                         </xsl:call-template>
-                                    </xsl:variable>
-                                    <!--
-				start-with/ends-with
-			--><xsl:variable name="var">
-                                        <xsl:copy-of select="$var"/>
-                                        <xsl:if test="exists($var) and $var!=''">
-                                            <xsl:text>.</xsl:text>
-                                        </xsl:if>
                                     </xsl:variable>
                                     <xsl:copy-of select="$var"/>
                                 </xsl:variable>

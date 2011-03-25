@@ -1470,7 +1470,6 @@
 				$genre = $l_paper
 			]]>
 			</valid-if>
-			<ends-with value="." />
 		</parameters>
 		<elements>
 			<layout-element ref="$first-creator"/>
@@ -1498,7 +1497,7 @@
 			<layout-element>
 				<parameters>
 					<valid-if><![CDATA[
-						exists(pub:publication/e:published-online/text())
+						exists(pub:publication/e:published-online/text()) or $creatorsCount>1
 					]]>
 					</valid-if>
 					<ends-with value="." />
@@ -1512,7 +1511,7 @@
 			<layout-element>
 				<parameters>
 					<valid-if><![CDATA[
-						not(pub:publication/e:published-online/text())
+						not(pub:publication/e:published-online/text()) and $creatorsCount=1
 					]]>
 					</valid-if>
 				</parameters>
