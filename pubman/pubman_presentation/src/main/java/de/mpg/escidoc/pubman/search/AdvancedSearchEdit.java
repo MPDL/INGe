@@ -194,7 +194,7 @@ public class AdvancedSearchEdit extends FacesBean
      * Starts the advanced search.
      * iterates a TreeMap with all criterion masks with entered data and
      * fills a list with CriterionVO's to be passed to the PubItemSearching interface.
-     * @return (String): identifying the page that should be navigated to after this methodcall. 
+     * @return (String): identifying the page that should be navigated to after this method call. 
      */
     public String startSearch()
     {
@@ -322,7 +322,8 @@ public class AdvancedSearchEdit extends FacesBean
     }
       
     private ArrayList<MetadataSearchCriterion> transformToSearchCriteria
-        ( Criterion predecessor, Criterion transformMe ) throws TechnicalException {
+        ( Criterion predecessor, Criterion transformMe ) throws TechnicalException
+    {
         
         // we're on the first element of the criteria
         if( predecessor == null ) {

@@ -3,6 +3,9 @@ package de.mpg.escidoc.pubman.search.bean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.OrganizationCriterion;
+import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
+import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 
 /**
  * POJO bean to deal with one OrganizationCriterionVO.
@@ -51,7 +54,9 @@ public class OrganizationCriterionBean extends CriterionBean
     public String clearCriterion()
     {
         organizationCriterionVO.setSearchString("");
-        organizationCriterionVO.setAffiliation(null);
+        AffiliationVO affiliationVO = new AffiliationVO();
+        affiliationVO.setReference(new AffiliationRO());
+        organizationCriterionVO.setAffiliation(new AffiliationVOPresentation(affiliationVO));
         
         // navigation refresh
         return null;
