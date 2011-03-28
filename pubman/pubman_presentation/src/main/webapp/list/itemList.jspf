@@ -147,10 +147,13 @@
  					<h:panelGroup styleClass="big_imgArea statusIcon releasedItem tiny_marginLExcl" rendered="#{item.isStateReleased and !item.isStateWithdrawn}" />
  					<h:panelGroup styleClass="big_imgArea statusIcon inRevisionItem tiny_marginLExcl" rendered="#{item.isStateInRevision}" />
 					<span class="noDisplay">(</span>
- 					<h:outputLabel id="lblItemPublicState" styleClass="medium_label xTiny_marginLExcl" rendered="#{item.isStateWithdrawn}">
+ 					<h:outputLabel id="lblItemPublicState" styleClass="medium_label" rendered="#{item.isStateWithdrawn}">
  						<h:outputText value="#{item.itemPublicState}" />
  					</h:outputLabel>
- 					<h:outputLabel id="lblItemState" styleClass="medium_label xTiny_marginLExcl" rendered="#{!item.isStateWithdrawn}">
+ 					<h:outputLabel id="lblItemState" styleClass="medium_label xTiny_marginLExcl" rendered="#{!item.isStateWithdrawn and !item.isStateInRevision}">
+ 						<h:outputText value="#{item.itemState}" />
+ 					</h:outputLabel>
+ 					<h:outputLabel id="lblItemRevisionState" styleClass="medium_label" rendered="#{!item.isStateWithdrawn and item.isStateInRevision}">
  						<h:outputText value="#{item.itemState}" />
  					</h:outputLabel>
  					<span class="noDisplay">)</span>

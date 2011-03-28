@@ -35,55 +35,51 @@ import java.lang.reflect.Method;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 
 /**
- * BackingBean for EasySubmissionPage.jsp. This one is empty because all code is implemented in the BackingBean of the
- * fragment.
+ * BackingBean for EasySubmissionPage.jsp, Step3Import.
  *
  * @author: mfranke
  * @author: $Author: mfranke$
- * @version: $Revision$ $LastChangedDate$
+ * @version: $Revision: 4295 $ $LastChangedDate: 2011-03-14 16:32:34 +0100 (Mo, 14 Mrz 2011) $
  */
-public class EasySubmissionPage extends BreadcrumbPage
+public class FetchMetadataPage extends BreadcrumbPage
 {
-    private static Logger logger = Logger.getLogger(EasySubmissionPage.class);
+	private static Logger logger = Logger.getLogger(FetchMetadataPage.class);
 
-    public static final String BEAN_NAME = "EasySubmissionPage";
+	public static final String BEAN_NAME = "FetchMetadataPage";
 
-    /**
-     * Public constructor.
-     */
-    public EasySubmissionPage()
-    {
-        this.init();
-    }
+	/**
+	 * Public constructor.
+	 */
+	public FetchMetadataPage()
+	{
+		this.init();
+	}
 
-    /**
-     * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
-     * a URL, or indirectly via page navigation.
-     */
-    @Override
-    public void init()
-    {
-        // Perform initializations inherited from our superclass
-        super.init();
-        checkForLogin();
-    }
-    
+	/**
+	 * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
+	 * a URL, or indirectly via page navigation.
+	 */
+	@Override
+	public void init()
+	{
+		// Perform initializations inherited from our superclass
+		super.init();
+		checkForLogin();
+	}
+
     @Override
     protected Method getDefaultAction() throws NoSuchMethodException
     {
         EasySubmission easySubmission = (EasySubmission) getRequestBean(EasySubmission.class);
-        return easySubmission.getClass().getMethod("newEasySubmission", null);
+        return easySubmission.getClass().getMethod("newImport", null);
     }
 
-    @Override
-    public boolean isItemSpecific()
-    {
-        // TODO Auto-generated method stub
-        return false;
-    }
-    
+	@Override
+	public boolean isItemSpecific()
+	{
+		return true;
+	}
 }

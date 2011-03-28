@@ -260,6 +260,15 @@
 		<from-view-id>
 		*</from-view-id>
 		<navigation-case>
+			<from-outcome>loadNewFetchMetadata</from-outcome>
+			<to-view-id>
+			/FetchMetadataPage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+		*</from-view-id>
+		<navigation-case>
 			<from-outcome>loadViewStatistics</from-outcome>
 			<to-view-id>
 			/ViewItemStatisticsPage.jsp</to-view-id>

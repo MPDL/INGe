@@ -52,7 +52,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-			<h:outputText value="#{EasySubmissionPage.beanName}" styleClass="noDisplay" />
+			<h:outputText value="#{FetchMetadataPage.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true" onsubmit="fullItemReload();">
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
@@ -66,8 +66,8 @@
                 </div>   
                 
 				<div id="content" class="full_area0 clear">
-				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
-					<jsp:directive.include file="./easySubmission/EasySubmission.jspf"/>
+				<!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
+					<jsp:directive.include file="./easySubmission/steps/Step3Import.jspf"/>
 				<!-- end: content section -->
 				</div>
 				

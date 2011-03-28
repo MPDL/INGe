@@ -448,7 +448,7 @@ public class EasySubmission extends FacesBean
         }
         // set the current submission method for edit item to import (for GUI purpose)
         this.getEditItemSessionBean().setCurrentSubmission(EditItemSessionBean.SUBMISSION_METHOD_IMPORT);
-        return "loadNewEasySubmission";
+        return "loadNewFetchMetadata";
     }
 
     /**
@@ -623,7 +623,13 @@ public class EasySubmission extends FacesBean
         }
         EditItem editItem = (EditItem)getRequestBean(EditItem.class);
         editItem.setFromEasySubmission(true);
-        return (this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false));
+        String returnValue = (this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false));
+        if (returnValue != null && !"".equals(returnValue))
+        {
+            getEasySubmissionSessionBean().cleanup();
+        }
+        return returnValue;
+        
         // /*
         // * FrM: Validation with validation point "default"
         // */
@@ -1607,7 +1613,7 @@ public class EasySubmission extends FacesBean
         }
         this.getEasySubmissionSessionBean().setCurrentExternalServiceType(
                 this.sourceSelect.getSubmittedValue().toString());
-        return "loadNewEasySubmission";
+        return "loadNewFetchMetadata";
     }
 
     private void setBibTexInfo()

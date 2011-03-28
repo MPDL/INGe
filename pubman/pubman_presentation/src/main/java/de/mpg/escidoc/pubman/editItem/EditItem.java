@@ -950,6 +950,18 @@ public class EditItem extends FacesBean
             return "";
         }
 
+        // cleanup item according to genre specific MD specification
+        GenreSpecificItemManager itemManager = new GenreSpecificItemManager(getPubItem(),
+                GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+        try
+        {
+            this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Error while cleaning up item genre specificly", e);
+        }
+        
         // start: check if the item has been changed
         PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
         PubItemVO oldPubItem = null;

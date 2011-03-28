@@ -35,7 +35,7 @@
 
 <div class="clear">
 	<div class="headerSection">
-		
+	<h:outputText value="#{EasySubmissionBreadcrumbPage.beanName}" styleClass="noDisplay" />
 	<jsp:directive.include file="../../header/Breadcrumb.jspf" />
 
 		<div id="contentSkipLinkAnchor" class="clear headLine">

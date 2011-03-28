@@ -269,11 +269,6 @@
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>BreadcrumbNavigation</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.breadcrumb.BreadcrumbNavigation</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
 		<managed-bean-name>BreadcrumbItemHistorySessionBean</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
@@ -429,6 +424,11 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>FetchMetadataPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.FetchMetadataPage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>EasySubmission</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.easySubmission.EasySubmission</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
@@ -542,6 +542,11 @@
         <managed-bean-name>MultipleImport</managed-bean-name>
         <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.MultipleImport</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>NewMultipleImport</managed-bean-name>
+        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.NewMultipleImport</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>ImportWorkspace</managed-bean-name>
