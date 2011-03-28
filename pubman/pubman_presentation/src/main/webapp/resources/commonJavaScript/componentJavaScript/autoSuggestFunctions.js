@@ -400,10 +400,8 @@
 	
 	function selectLanguageDetails(details)
 	{
-		var identifier = (typeof details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_identifier != 'undefined' ?
-				details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_identifier : null);
-		var name = (typeof details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_identifier != 'undefined' ?
-				details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_title : null);
+		var identifier = details.http_purl_org_dc_elements_1_1_identifier;
+		var name = details.http_purl_org_dc_elements_1_1_title;
 		var id3;
 		if (identifier != null && !(typeof identifier.splice === 'function') && identifier.length == 3)
 		{
