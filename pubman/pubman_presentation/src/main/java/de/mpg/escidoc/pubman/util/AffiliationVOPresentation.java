@@ -42,6 +42,7 @@ import org.apache.log4j.Logger;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.AffiliationDetail;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -80,8 +81,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
 
         if (children == null && isHasChildren())
         {
-            children = ((ItemControllerSessionBean) FacesContext.getCurrentInstance().getExternalContext()
-                    .getSessionMap().get("ItemControllerSessionBean")).searchChildAffiliations(this);
+        	children = ((ItemControllerSessionBean) FacesBean.getSessionBean(ItemControllerSessionBean.class)).searchChildAffiliations(this);
         }
         return children;
     }
