@@ -400,14 +400,14 @@ h6 {
 }
 
 .third_txtInput, .third_txtInput input {	/* erweitert 2011-03-29 - Marco Schlender */
-	padding-left: 0.09em;
-    padding-right: 0.09em;
-    border-width: 0.09em;
+	padding-left: 0.0909em;
+    padding-right: 0.0909em;
+    border-width: 0.0909em;
     margin: 0px;
     display: inline;
-    margin-right: 0.09em;
+    margin-right: 0.0909em;
     float: left;
-	width:34.5455em;
+	width:34.3636em;
 }
 
 .quad_txtInput, .quad_txtInput input {
