@@ -137,6 +137,7 @@ public class PersonCriterionBean extends CriterionBean
 
         personCriterionVO.getCreatorRole().clear();
         personCriterionVO.setSearchString("");
+        personCriterionVO.setIdentifier(null);
         
         // navigation refresh
         return null;
