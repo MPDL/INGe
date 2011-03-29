@@ -51,6 +51,7 @@ import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.GenreSpecificItemManager;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.RelationVOPresentation;
@@ -1203,6 +1204,18 @@ public class ItemControllerSessionBean extends FacesBean
 		if (pubItem != null)
 		{
 			PubItemVO itemVO = new PubItemVO(pubItem);
+			
+			// cleanup item according to genre specific MD specification
+	        GenreSpecificItemManager itemManager = new GenreSpecificItemManager(itemVO,
+	                GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+	        try
+	        {
+	            itemVO = (PubItemVO) itemManager.cleanupItem();
+	        }
+	        catch (Exception e)
+	        {
+	            throw new RuntimeException("Error while cleaning up item genre specifcly", e);
+	        }
 			ValidationReportVO report = this.itemValidating.validateItemObject(itemVO, validationPoint);
 			currentItemValidationReport = report;
 		}
