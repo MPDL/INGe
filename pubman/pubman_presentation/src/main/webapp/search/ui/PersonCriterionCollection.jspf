@@ -46,9 +46,14 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline personArea">
 					<h:outputLabel id="lblPersonSearchString" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
-					<h:inputText id="personSearchString"
-						styleClass="quad_txtInput personSuggest" value="#{personCriterionBean.personCriterionVO.searchString}"/>
+					<h:inputText id="personSearchString" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"/>
+					<h:inputText id="personSearchStringFilled" styleClass="third_txtInput" value="#{personCriterionBean.personCriterionVO.searchString}" readonly="true" rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}"/>
 					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{personCriterionBean.personCriterionVO.identifier}" />
+					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{personCriterionBean.personCriterionVO.identifier}"
+							rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}" target="_blank">&nbsp;</h:outputLink>
+					<h:panelGroup rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"
+						styleClass="xSmall_area0 authorLink">&nbsp;
+					</h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />
@@ -61,8 +66,14 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline personArea">
 					<h:outputLabel id="lblPersonSearchStringMultiple" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
-					<h:inputText id="personSearchStringMultiple" styleClass="quad_txtInput personSuggest" value="#{personCriterionBean.personCriterionVO.searchString}" />
+					<h:inputText id="personSearchStringMultiple" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"/>
+					<h:inputText id="personSearchStringMultipleFilled" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}"/>
 					<h:inputText id="inppersons_identifierMultiple" styleClass="noDisplay personIdentifier" value="#{personCriterionBean.personCriterionVO.identifier}" />
+					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{personCriterionBean.personCriterionVO.identifier}"
+							rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}" target="_blank">&nbsp;</h:outputLink>
+					<h:panelGroup rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"
+						styleClass="xSmall_area0 authorLink">&nbsp;
+					</h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAddMultiple" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />

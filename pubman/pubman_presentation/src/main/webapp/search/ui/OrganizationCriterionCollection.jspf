@@ -47,8 +47,8 @@
 				
 				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline suggestAnchor">
                     <h:outputLabel id="lblOrganizationSearchTermEmptyFirst" styleClass="xDouble_label" value="#{lbl.adv_search_lblSearchTerm}" />
-                    <h:inputText id="organizationSearchTermEmptyFirst" styleClass="xDouble_txtInput organizationSuggest organizationName"
-						value="#{organizationCriterionBean.organizationCriterionVO.searchString}"/>
+                    <h:inputText id="organizationSearchTermEmptyFirst" styleClass="third_txtInput organizationSuggest organizationName disableAfter" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId == null || organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId == ''}"/>
+                    <h:inputText id="organizationSearchTermEmptyFirstFilled" styleClass="third_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != null and organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != ''}"/>
 					<h:inputText id="organizationSearchTermEmptyFirstIdentifier" styleClass="noDisplay organizationIdentifier"
 						value="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId}" />
 					<h:outputLink styleClass="small_area0 ouCard ouLink"
@@ -70,8 +70,8 @@
 				
 				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline suggestAnchor">
                     <h:outputLabel id="lblOrganizationSearchTermEmpty" styleClass="xDouble_label" value="#{lbl.adv_search_lblSearchTerm}" />
-                    <h:inputText id="organizationSearchTermEmpty" styleClass="xDouble_txtInput organizationSuggest organizationName"
-						value="#{organizationCriterionBean.organizationCriterionVO.searchString}"/>
+                    <h:inputText id="organizationSearchTermEmpty" styleClass="third_txtInput organizationSuggest organizationName disableAfter" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId == null || organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId == ''}"/>
+                    <h:inputText id="organizationSearchTermEmptyFilled" styleClass="third_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != null and organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != ''}"/>
 					<h:inputText id="organizationSearchTermEmptyIdentifier" styleClass="noDisplay organizationIdentifier"
 						value="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId}" />
 					<h:outputLink styleClass="small_area0 ouCard ouLink"

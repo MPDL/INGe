@@ -230,6 +230,14 @@
 			
 		}
 
+		// Try to disable input field
+		$.each($(parent).find('.disableAfter'),
+				function ()
+				{
+					$(this).attr('readonly', true);
+				}
+		);
+		
 		var counter = 1;
 		var found = false;
 		var empty = true;
@@ -339,6 +347,14 @@
 			$(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
 			
 		}
+
+		// Try to disable input field
+		$.each($(parent).find('.disableAfter'),
+				function ()
+				{
+					$(this).attr('readonly', true);
+				}
+		);
 		
 	}
 	
