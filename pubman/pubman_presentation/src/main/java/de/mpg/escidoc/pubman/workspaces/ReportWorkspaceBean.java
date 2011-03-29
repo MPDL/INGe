@@ -236,9 +236,13 @@ public class ReportWorkspaceBean extends FacesBean {
 		String itemListAsString = null;
 		int totalNrOfSerchResultItems = 0;
 		// create an initial query with the given reportYear and the org id
-		String query = "escidoc.publication.compound.dates" + " = " + this.reportYear + "* AND " +
-				"(" + "escidoc.publication.creator.person.organization.identifier" + " = " + this.organization.getIdentifier() +
-				" OR " + "escidoc.publication.source.creator.person.organization.identifier" + " = " + this.organization.getIdentifier();
+		String query = 
+			"(escidoc.publication.compound.dates=\"" + this.reportYear + "*\" OR " +
+			"escidoc.publication.type=\"http://purl.org/escidoc/metadata/ves/publication-types/journal\" OR " +
+			"escidoc.publication.type=\"http://purl.org/escidoc/metadata/ves/publication-types/series\") AND " + 
+			
+			"(escidoc.publication.creator.person.organization.identifier=\"" + this.organization.getIdentifier() +
+			"\" OR escidoc.publication.source.creator.person.organization.identifier=\"" + this.organization.getIdentifier() + "\" ";
 		try {
 			// get a list of children of the given org
 			this.childAffilList = getChildOUs(this.organization.getIdentifier());
@@ -249,8 +253,8 @@ public class ReportWorkspaceBean extends FacesBean {
 		// when there are children, concat the org ids to the query 
 		if (this.childAffilList.size() > 0) {
 			for (String child : this.childAffilList) {
-				query = query + " OR " + "escidoc.publication.creator.person.organization.identifier" + " = " + child +
-				" OR " + "escidoc.publication.source.creator.person.organization.identifier" + " = " + child;
+				query = query + "OR escidoc.publication.creator.person.organization.identifier=\"" + child +
+				"\" OR escidoc.publication.source.creator.person.organization.identifier=\"" + child +"\"";
 			}
 		} 
 		// close the brackets of the query
@@ -300,19 +304,20 @@ public class ReportWorkspaceBean extends FacesBean {
 		} else {
 			configuration.put("institutsId", this.organization.getIdentifier());
 		}
-		try {
-			
-			result = this.transformer.transform(src, JUS_REPORT_SNIPPET_FORMAT, this.format, "escidoc", configuration);
-		} catch (TransformationNotSupportedException e) {
-			logger.error("This transformation is not supported.", e);
-			error("This transformation is not supported.");
-			e.printStackTrace();
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+			try
+			{
+				result = this.transformer.transform(src, JUS_REPORT_SNIPPET_FORMAT, this.format, "escidoc", configuration);
+			}
+			catch (TransformationNotSupportedException e)
+			{
+				throw new RuntimeException(e);
+			}
+			catch (RuntimeException e)
+			{
+				throw new RuntimeException(e);
+			}
+
 		return result;
 
 	}
@@ -325,6 +330,7 @@ public class ReportWorkspaceBean extends FacesBean {
 		
 		AffiliationVOPresentation aff = new AffiliationVOPresentation(affVO);
 		List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
+		//if (aff.getChildren()!= null && aff.getChildren().size() > 0){
 		if (aff.getHasChildren()){
 			affList.addAll(aff.getChildren());
 			for (AffiliationVOPresentation a : affList) {
@@ -332,7 +338,7 @@ public class ReportWorkspaceBean extends FacesBean {
 				childId = childId.substring(0, childId.indexOf(" "));
 				affListAsString.add(childId);
 			}
-		}
+		} 
 		return affListAsString;
 	}
 	
