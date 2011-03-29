@@ -191,6 +191,9 @@ public class EasySubmission extends FacesBean
     /** pub context name. */
     private String contextName = null;
     private String locatorUpload;
+    
+    // Dummy for language autosuggest
+    private String alternativeLanguageName;
 
     /**
      * Public constructor.
@@ -2716,4 +2719,21 @@ public class EasySubmission extends FacesBean
     {
         this.locatorUpload = locatorUpload;
     }
+
+    /**
+     * @return the alternativeLanguageName
+     */
+    public String getAlternativeLanguageName()
+    {
+        return alternativeLanguageName;
+    }
+
+    /**
+     * @param alternativeLanguageName the alternativeLanguageName to set
+     */
+    public void setAlternativeLanguageName(String alternativeLanguageName)
+    {
+        this.alternativeLanguageName = alternativeLanguageName;
+    }
+    
 }
