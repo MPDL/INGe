@@ -29,19 +29,19 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman</groupId>
-		<version>6.2.6</version>
+		<version>6.2.6-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman_logic_ear</artifactId>
 	<name>pubman_logic_ear</name>
 	<packaging>ear</packaging>
-	<version>6.2.6</version>
+	<version>6.2.6-SNAPSHOT</version>
 	
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-6.2.6/pubman_logic_ear</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-6.2.6/pubman_logic_ear</developerConnection>
-		<url>https://zim02.gwdg.de/repos/pubman/tags/pubman-6.2.6</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic_ear</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic_ear</developerConnection>
+		<url>https://zim02.gwdg.de/repos/pubman/</url>
 	</scm>
 	
 	<build>
@@ -556,7 +556,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_logic</artifactId>
-			<version>6.2.6</version>
+			<version>6.2.6-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -904,14 +904,14 @@
 									<tasks>
 										<!-- copy a default jboss server configuration -->
 										<copy todir="${project.build.directory}">
-											<fileset dir="src/jboss/configuration42x" />
+											<fileset dir="src/jboss/configuration42x"/>
 										</copy>
 										<!-- copy over the validation datasource descriptor -->
-										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${project.build.directory}/jboss/server/deploy" />
+										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${project.build.directory}/jboss/server/deploy"/>
 										<!-- copy over the jboss service descriptor -->
-										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf" />
+										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf"/>
 											<!-- copy over the configuration file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${project.build.directory}/jboss/server/conf" />
+										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${project.build.directory}/jboss/server/conf"/>
 									</tasks>
 								</configuration>
 							</execution>
