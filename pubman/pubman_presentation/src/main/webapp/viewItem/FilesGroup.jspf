@@ -51,9 +51,9 @@
 					</span>
 					<div class="xHuge_area0 xTiny_marginLExcl endline">
 						<div class="xHuge_area0 endline">
-							<h:outputText value="#{file.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-							<h:outputText value=" (#{file.contentCategory})" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-							<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
+							<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+							<h:outputText value=" (#{file.contentCategory})" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+							<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
 							<h:outputText value=", #{file.fileSize}"/>
 						</div>
 						<div class="xHuge_area0 endline marginTExcl075">
