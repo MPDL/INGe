@@ -224,7 +224,8 @@ public class ReportWorkspaceBean extends FacesBean {
 					faces.responseComplete();
 				} 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Error while generatiring report output file.", e);
+			error("Error while generatiring output file.");
 		}
 		return null;
 		}
@@ -285,7 +286,7 @@ public class ReportWorkspaceBean extends FacesBean {
 			exportData = citationStyleHandler.getOutput(csExportFormat, csOutputFormat, itemListAsString);
 		} catch (Exception e) {
 			logger.error("Error when trying to find citation service.", e);
-			error("Did not found Citation service");
+			error("Did not find Citation service");
 		}
 		return exportData;
 	}
