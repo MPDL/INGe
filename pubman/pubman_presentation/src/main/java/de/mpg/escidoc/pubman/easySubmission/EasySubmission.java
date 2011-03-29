@@ -1268,6 +1268,16 @@ public class EasySubmission extends FacesBean
         return "loadNewEasySubmission";
     }
 
+    public String validateAndLoadStep3Manual()
+    {
+     // validate
+        if (validate("easy_submission_step_4", "loadNewEasySubmission") == null)
+        {
+            return "";
+        }
+        return loadStep3Manual();
+    }
+
     public String loadStep3Manual()
     {
         this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
