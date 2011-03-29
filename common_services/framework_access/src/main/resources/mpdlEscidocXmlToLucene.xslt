@@ -58,6 +58,9 @@ Notes:
 
     <!-- Paths to Struct-Map -->
 	<xsl:variable name="STRUCT_MAP_PATH" select="/*[local-name()='container']/*[local-name()='struct-map']"/>
+	
+	  <!-- Paths to Content-Relations -->
+    <xsl:variable name="CONTENT_RELATIONS_PATH" select="/*/*[local-name()='relations']/*[local-name()='relation']"/>
 
     <!-- COMPONENT TYPES THAT DONT GET INDEXED -->
 	<xsl:variable name="NON_SUPPORTED_COMPONENT_TYPES"> http://purl.org/escidoc/metadata/ves/content-categories/correspondence http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement </xsl:variable>
@@ -67,6 +70,7 @@ Notes:
     
     <!-- WRITE THE XML THAT GETS RETURNED BY THE SEARCH -->
 	<xsl:template name="writeSearchXmlItem">
+		
 		<xsl:for-each select="/*[local-name()='item']">
 			<xsl:copy>
 				<xsl:copy-of select="@*"/>
@@ -160,6 +164,12 @@ Notes:
 				<xsl:with-param name="context" select="$PROPERTY_CONTEXTNAME"/>
 			</xsl:call-template>
             
+              <!-- INDEX CONTENT-RELATIONS -->
+            <xsl:call-template name="processContentRelations">
+                <xsl:with-param name="path" select="$CONTENT_RELATIONS_PATH"/>
+                <xsl:with-param name="context" select="$CONTEXTNAME"/>
+            </xsl:call-template>
+            
             <!-- INDEX METADATA -->
 			<xsl:call-template name="processMetadata">
 				<xsl:with-param name="path" select="$ITEM_METADATAPATH"/>
@@ -204,6 +214,7 @@ Notes:
     <!-- WRITE INDEX FOR CONTAINER -->
 	<xsl:template name="processContainer">
 		<xsl:variable name="PID" select="string-helper:removeVersionIdentifier(/*[local-name()='container']/@objid)"/>
+
         <!-- START IndexDocument -->
 		<IndexDocument> 
             <!-- Gsearch needs PID to find object when updating -->
@@ -251,7 +262,13 @@ Notes:
 				<xsl:with-param name="path" select="$CONTAINER_METADATAPATH"/>
 				<xsl:with-param name="context" select="$CONTEXTNAME"/>
 			</xsl:call-template>
-            
+			
+			 <!-- INDEX CONTENT-RELATIONS -->
+            <xsl:call-template name="processContentRelations">
+                <xsl:with-param name="path" select="$CONTENT_RELATIONS_PATH"/>
+                <xsl:with-param name="context" select="$CONTEXTNAME"/>
+            </xsl:call-template>
+                        
             <!-- INDEX STRUCT-MAP -->
 			<xsl:for-each select="$STRUCT_MAP_PATH">
 				<xsl:call-template name="processElementTree">
@@ -401,6 +418,21 @@ Notes:
 			</xsl:call-template>
 		</xsl:for-each>
 	</xsl:template>
+	
+	 <!-- PROCESS CONTENT-RELATIONS -->
+    <xsl:template name="processContentRelations">
+        <xsl:param name="path"/>
+        <xsl:param name="context"/>
+        <xsl:for-each select="$path">
+            <xsl:call-template name="writeIndexField">
+                <xsl:with-param name="context" select="$context"/>
+                <xsl:with-param name="fieldname">content-relation</xsl:with-param>
+                <xsl:with-param name="fieldvalue" select="concat(./@predicate, ' ', ./@objid)"/>
+                <xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
+                <xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
+            </xsl:call-template>
+        </xsl:for-each>
+    </xsl:template>
 
     <!-- RECURSIVE ITERATION FOR COMPONENTS (FULLTEXTS) -->
     <!-- STORE EVERYTHING IN FIELD fulltext FOR SEARCH-->
@@ -804,13 +836,19 @@ Notes:
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<xsl:for-each select="$ITEM_METADATAPATH/*[local-name()='publication']//*[local-name()='source']/*[local-name()='creator']/*[local-name()='person']">
-				<element index="UN_TOKENIZED">
-					<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
+				<element index="TOKENIZED">
+					<xsl:value-of select="./*[local-name()='family-name']"/>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="./*[local-name()='given-name']"/>
 				</element>
 			</xsl:for-each>
 			<xsl:for-each select="$CONTAINER_METADATAPATH/*[local-name()='publication']//*[local-name()='source']/*[local-name()='creator']/*[local-name()='person']">
-				<element index="UN_TOKENIZED">
-					<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
+				<element index="TOKENIZED">
+					<xsl:value-of select="./*[local-name()='family-name']"/>
+				</element>
+				<element index="TOKENIZED">
+					<xsl:value-of select="./*[local-name()='given-name']"/>
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
@@ -1043,13 +1081,11 @@ Notes:
 						<xsl:with-param name="elem" select="./*[local-name()='title']"/>
 					</xsl:call-template>
 				</element>
-<!--					<xsl:value-of select="./*[local-name()='title']"/>-->
 				<element index="TOKENIZED">
 					<xsl:call-template name="removeSubSup">
 						<xsl:with-param name="elem" select="./*[local-name()='alternative']"/>
 					</xsl:call-template>
 				</element>
-<!--					<xsl:value-of select="./*[local-name()='alternative']"/>-->
 			</xsl:for-each>
 			<xsl:for-each select="$CONTAINER_METADATAPATH/*[local-name()='publication']//*[local-name()='source']">
 				<element index="TOKENIZED">
@@ -1057,13 +1093,11 @@ Notes:
 						<xsl:with-param name="elem" select="./*[local-name()='title']"/>
 					</xsl:call-template>
 				</element>
-<!--					<xsl:value-of select="./*[local-name()='title']"/>-->
 				<element index="TOKENIZED">
 					<xsl:call-template name="removeSubSup">
 						<xsl:with-param name="elem" select="./*[local-name()='alternative']"/>
 					</xsl:call-template>
 				</element>
-<!--					<xsl:value-of select="./*[local-name()='alternative']"/>-->
 			</xsl:for-each>
 		</userdefined-index>
 
@@ -1862,7 +1896,9 @@ Notes:
 			</xsl:variable>
 			<xsl:for-each select="xalan:nodeset($fields)/*">
 				<xsl:variable name="name" select="name()"/>
+				<element index="TOKENIZED">
 					<xsl:value-of select="."/>
+				</element>
 			</xsl:for-each>
 		</userdefined-index>
 		<userdefined-index name="any-identifier">
@@ -1924,15 +1960,15 @@ Notes:
 			<xsl:for-each select="$COMPONENT_PROPERTIESPATH">
 				<xsl:variable name="fields">
 					<xsl:value-of select="concat(.//*[local-name()='visibility'],' ')"/>
-					<xsl:value-of select="concat(.//*[local-name()='pid'],' ')"/>
+					<xsl:value-of select="concat(../*[local-name()='content']/@storage,' ')"/>
 					<xsl:value-of select="concat(.//*[local-name()='content-category'],' ')"/>
-					<xsl:value-of select="concat(.//*[local-name()='file-name'],' ')"/>
 					<xsl:value-of select="concat(.//*[local-name()='mime-type'],' ')"/>
 					<xsl:value-of select="concat(.//*[local-name()='valid-status'],' ')"/>
-					<xsl:value-of select="concat(.//*[local-name()='checksum'],' ')"/>
 					<xsl:value-of select="concat(.//*[local-name()='created-by'],' ')"/>
 					<xsl:value-of select="concat(.//*[local-name()='creation-date'],' ')"/>
-					<xsl:value-of select="../*[local-name()='content']/@storage"/>
+					<xsl:value-of select="concat(.//*[local-name()='checksum'],' ')"/>
+					<xsl:value-of select="concat(.//*[local-name()='pid'],' ')"/>
+					<xsl:value-of select=".//*[local-name()='file-name']"/>
 				</xsl:variable>
 				<element index="TOKENIZED">
 					<xsl:value-of select="$fields"/>
@@ -1940,8 +1976,5 @@ Notes:
 			</xsl:for-each>
 		</userdefined-index>
 	</xsl:variable>
-	
-	
-	
 
 </xsl:stylesheet>
