@@ -399,6 +399,17 @@ h6 {
     width: 24.83em;
 }
 
+.third_txtInput, .third_txtInput input {	/* erweitert 2011-03-29 - Marco Schlender */
+	padding-left: 0.09em;
+    padding-right: 0.09em;
+    border-width: 0.09em;
+    margin: 0px;
+    display: inline;
+    margin-right: 0.09em;
+    float: left;
+	width:34.5455em;
+}
+
 .quad_txtInput, .quad_txtInput input {
     width: 38.65em;
 }
