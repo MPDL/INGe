@@ -85,7 +85,7 @@
 		
 		<xsl:element name="report">
 			<xsl:namespace name="aid" select="$indesign-namespace" />
-			<xsl:element name="Authorship">
+			<xsl:element name="authorship">
 			<xsl:element name="h1"><xsl:attribute name="cstyle" namespace="http://ns.adobe.com/AdobeInDesign/4.0/" select="'h1'"/>Autorenschaften</xsl:element><xsl:text>
 			
  </xsl:text>
@@ -142,7 +142,7 @@
 				(publication:publication/@type = $genreJournal or
 				publication:publication/@type = $genreSeries)])" />
 			
-			<xsl:element name="Editorship_1">
+			<xsl:element name="editorship_1">
 				<xsl:element name="h1"><xsl:attribute name="aid:cstyle" select="'h1'"/>Herausgeberschaften</xsl:element><xsl:text>&#x0D;</xsl:text>
 				<xsl:element name="h2"><xsl:attribute name="aid:cstyle" select="'h2'"/>Sammel- und Tagungsbände/Herausgeber- und Verfassungswerke</xsl:element><xsl:text>
 					
@@ -196,7 +196,7 @@
 							</xsl:choose>
 						</xsl:for-each>
 			</xsl:element>	
-			<xsl:element name="Editorship_2">
+			<xsl:element name="editorship_2">
 				<xsl:element name="h2"><xsl:attribute name="aid:cstyle" select="'h2'"/>Zeitschriften, Schriftenreihen, Material- und Gesetzessamlungen</xsl:element><xsl:text>
 </xsl:text>	
 				<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
@@ -265,7 +265,7 @@
 						<xsl:choose>
 							<!-- when single author write the citation style name of the author in italic style -->
 							<xsl:when test="string-length($authorString) = 0">
-								<xsl:element name="authorName">
+								<xsl:element name="author-name">
 									<xsl:attribute name="aid:cstyle" select="'italics'"/>
 										<xsl:value-of select="$authorCitationName" /></xsl:element>, </xsl:when>
 							<!--
@@ -274,7 +274,7 @@
 								publication in the list, write the name of the author in italic style.
 							-->
 							<xsl:otherwise>
-								<xsl:element name="authorName">
+								<xsl:element name="author-name">
 									<xsl:attribute name="aid:cstyle" select="'italics'"/>
 										<xsl:value-of select="$authorCitationName" />; <xsl:value-of select="$authorString" /></xsl:element>, </xsl:otherwise>
 						</xsl:choose>
@@ -290,7 +290,7 @@
 							<xsl:variable name="beforeOccurance" select="substring-before($bibCitation, '&lt;span class')"/>
 							<xsl:variable name="occurance" select="substring-after(substring-before($bibCitation, '&lt;/'), '&gt;')"/>		
 							<xsl:value-of select="$beforeOccurance"/> 
-							<xsl:element name="ReviewOf">
+							<xsl:element name="review-of">
 								<xsl:attribute name="aid:cstyle" select="'italics'"/>
 								<xsl:value-of select="$occurance"/>
 							</xsl:element>
