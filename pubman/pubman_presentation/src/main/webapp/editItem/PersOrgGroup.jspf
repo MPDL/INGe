@@ -152,9 +152,9 @@
 						styleClass="noDisplay organizationIdentifier small_marginRExcl" value="#{creator.organization.identifier}" />
 					<h:outputLink styleClass="min_imgBtn ouCard ouLink"
 						rendered="#{creator.organization.identifier != null and creator.organization.identifier != ''}" value="#"
-						onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.organization.identifier}', 980, 400, 'Details');return false"></h:outputLink>
+						onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.organization.identifier}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
 					<h:panelGroup rendered="#{creator.organization.identifier == null || creator.organization.identifier == ''}"
-						styleClass="min_imgBtn ouLink"></h:panelGroup>
+						styleClass="min_imgBtn ouLink">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:panelGroup>
 					<h:panelGroup layout="block">
 						<tr:commandButton id="btnAddCreatorOrg" shortDesc="#{tip.EditItem_addCreator}"
 							styleClass="min_imgBtn groupTool add" action="#{creator.add}"
