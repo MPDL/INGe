@@ -142,7 +142,7 @@
 				(publication:publication/@type = $genreJournal or
 				publication:publication/@type = $genreSeries)])" />
 			
-			<xsl:element name="editorship_1">
+			<xsl:element name="editorship-1">
 				<xsl:element name="h1"><xsl:attribute name="aid:cstyle" select="'h1'"/>Herausgeberschaften</xsl:element><xsl:text>&#x0D;</xsl:text>
 				<xsl:element name="h2"><xsl:attribute name="aid:cstyle" select="'h2'"/>Sammel- und Tagungsbände/Herausgeber- und Verfassungswerke</xsl:element><xsl:text>
 					
@@ -196,7 +196,7 @@
 							</xsl:choose>
 						</xsl:for-each>
 			</xsl:element>	
-			<xsl:element name="editorship_2">
+			<xsl:element name="editorship-2">
 				<xsl:element name="h2"><xsl:attribute name="aid:cstyle" select="'h2'"/>Zeitschriften, Schriftenreihen, Material- und Gesetzessamlungen</xsl:element><xsl:text>
 </xsl:text>	
 				<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
