@@ -441,17 +441,21 @@ public class EasySubmission extends FacesBean
                 && contextListSessionBean.getDepositorContextList().size() > 1)
         {
             easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
+            // set the current submission method for edit item to import (for GUI purpose)
+            this.getEditItemSessionBean().setCurrentSubmission(EditItemSessionBean.SUBMISSION_METHOD_IMPORT);
+            return "loadNewEasySubmission";
         }
         // Skip Collection selection for Import & Easy Sub if only one Collection
         else
         {
             contextListSessionBean.getDepositorContextList().get(0).selectForEasySubmission();
             easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
+            // set the current submission method for edit item to import (for GUI purpose)
+            this.getEditItemSessionBean().setCurrentSubmission(EditItemSessionBean.SUBMISSION_METHOD_IMPORT);
             this.init();
+            return "loadNewFetchMetadata";
         }
-        // set the current submission method for edit item to import (for GUI purpose)
-        this.getEditItemSessionBean().setCurrentSubmission(EditItemSessionBean.SUBMISSION_METHOD_IMPORT);
-        return "loadNewFetchMetadata";
+
     }
 
     /**

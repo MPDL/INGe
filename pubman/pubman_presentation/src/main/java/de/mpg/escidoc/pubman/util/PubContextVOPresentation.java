@@ -105,7 +105,14 @@ public class PubContextVOPresentation extends ContextVO
         ((ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class))
                 .createNewPubItem(EasySubmission.LOAD_EASYSUBMISSION, getReference());
         easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
-        return EasySubmission.LOAD_EASYSUBMISSION;
+        if (easySubmissionSessionBean.getCurrentSubmissionMethod() == EasySubmissionSessionBean.SUBMISSION_METHOD_FETCH_IMPORT)
+        {
+            return "loadNewFetchMetadata";
+        }
+        else
+        {
+            return "loadEasySubmission";
+        }
     }
     
     /**
