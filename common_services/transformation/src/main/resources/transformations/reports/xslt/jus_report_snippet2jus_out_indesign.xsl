@@ -37,7 +37,7 @@
 	xmlns:s="http://sorting"
 	xmlns:aid="http://ns.adobe.com/AdobeInDesign/4.0/">
 
-<xsl:output method="xml" indent="yes" 
+	<xsl:output method="xml" indent="no" 
 		encoding="UTF-8" />
 		
 	<xsl:param name="indesign-namespace" select="'http://ns.adobe.com/AdobeInDesign/4.0/'"/>
@@ -85,8 +85,10 @@
 		
 		<xsl:element name="report">
 			<xsl:namespace name="aid" select="$indesign-namespace" />
-			<xsl:element name="authorship">
-			<xsl:element name="h1"><xsl:attribute name="cstyle" namespace="http://ns.adobe.com/AdobeInDesign/4.0/" select="'h1'"/>Autorenschaften</xsl:element>
+			<xsl:element name="Authorship">
+			<xsl:element name="h1"><xsl:attribute name="cstyle" namespace="http://ns.adobe.com/AdobeInDesign/4.0/" select="'h1'"/>Autorenschaften</xsl:element><xsl:text>
+			
+ </xsl:text>
 			
 			<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
 					<xsl:sort select="foaf:family_name" />
@@ -120,6 +122,8 @@
 									<xsl:with-param name="authorCitationName"
 										select="$currentAuthorCitationStyleName" />
 								</xsl:apply-templates>
+								<xsl:text>
+</xsl:text>
 							</xsl:element>
 						</xsl:when>
 					</xsl:choose>
@@ -138,9 +142,11 @@
 				(publication:publication/@type = $genreJournal or
 				publication:publication/@type = $genreSeries)])" />
 			
-			<xsl:element name="editorship-1">
-				<xsl:element name="h1"><xsl:attribute name="aid:cstyle" select="'h1'"/>Herausgeberschaften</xsl:element>
-					<xsl:element name="h2"><xsl:attribute name="aid:cstyle" select="'h2'"/>Sammel- und Tagungsbände/Herausgeber- und Verfassungswerke</xsl:element>
+			<xsl:element name="Editorship_1">
+				<xsl:element name="h1"><xsl:attribute name="aid:cstyle" select="'h1'"/>Herausgeberschaften</xsl:element><xsl:text>&#x0D;</xsl:text>
+				<xsl:element name="h2"><xsl:attribute name="aid:cstyle" select="'h2'"/>Sammel- und Tagungsbände/Herausgeber- und Verfassungswerke</xsl:element><xsl:text>
+					
+</xsl:text>
 						<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
 							<xsl:sort select="foaf:family_name" />
 							<xsl:sort select="foaf:givenname" />
@@ -152,7 +158,12 @@
 							<xsl:choose>
 								<xsl:when
 									test="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentFirstEditorId 
-									and publication:publication/eterms:creator/@role=$editorRole]) &gt; 0">
+									and publication:publication/eterms:creator/@role=$editorRole and
+									(publication:publication/@type = $genreCollectedEdition or 
+									publication:publication/@type = $genreMonograph or
+									publication:publication/@type = $genreCommentary or
+									publication:publication/@type = $genreHandbook or
+									publication:publication/@type = $genreProceedings)]) &gt; 0">
 										<xsl:element name="p"><xsl:attribute name="aid:pstyle" select="'p'"/>
 										<xsl:variable name="currentFirstEditorList">
 											<xsl:for-each
@@ -178,13 +189,16 @@
 											<xsl:with-param name="authorCitationName"
 												select="$currentFirstEditorCitationStyleName" />
 										</xsl:apply-templates>
+										<xsl:text>
+</xsl:text>
 									</xsl:element>
 								</xsl:when>
 							</xsl:choose>
 						</xsl:for-each>
 			</xsl:element>	
-			<xsl:element name="editorship-2">
-				<xsl:element name="h2"><xsl:attribute name="aid:cstyle" select="'h2'"/>Zeitschriften, Schriftenreihen, Material- und Gesetzessamlungen</xsl:element>	
+			<xsl:element name="Editorship_2">
+				<xsl:element name="h2"><xsl:attribute name="aid:cstyle" select="'h2'"/>Zeitschriften, Schriftenreihen, Material- und Gesetzessamlungen</xsl:element><xsl:text>
+</xsl:text>	
 				<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
 					<xsl:sort select="foaf:family_name" />
 					<xsl:sort select="foaf:givenname" />
@@ -221,6 +235,8 @@
 									<xsl:with-param name="authorCitationName"
 										select="$currentSecondEditorCitationStyleName" />
 								</xsl:apply-templates>
+								<xsl:text>
+</xsl:text>
 							</xsl:element>
 						</xsl:when>
 					</xsl:choose>
@@ -249,7 +265,7 @@
 						<xsl:choose>
 							<!-- when single author write the citation style name of the author in italic style -->
 							<xsl:when test="string-length($authorString) = 0">
-								<xsl:element name="author-name">
+								<xsl:element name="authorName">
 									<xsl:attribute name="aid:cstyle" select="'italics'"/>
 										<xsl:value-of select="$authorCitationName" /></xsl:element>, </xsl:when>
 							<!--
@@ -258,13 +274,13 @@
 								publication in the list, write the name of the author in italic style.
 							-->
 							<xsl:otherwise>
-								<xsl:element name="author-name">
+								<xsl:element name="authorName">
 									<xsl:attribute name="aid:cstyle" select="'italics'"/>
 										<xsl:value-of select="$authorCitationName" />; <xsl:value-of select="$authorString" /></xsl:element>, </xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of>&#8211; </xsl:value-of>
+						<xsl:text>&#8211;	</xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
 				<xsl:variable name="bibCitation" select="escidocItem:properties/prop:content-model-specific/dcterms:bibliographicCitation"/>
@@ -274,14 +290,14 @@
 							<xsl:variable name="beforeOccurance" select="substring-before($bibCitation, '&lt;span class')"/>
 							<xsl:variable name="occurance" select="substring-after(substring-before($bibCitation, '&lt;/'), '&gt;')"/>		
 							<xsl:value-of select="$beforeOccurance"/> 
-							<xsl:element name="review-of">
+							<xsl:element name="ReviewOf">
 								<xsl:attribute name="aid:cstyle" select="'italics'"/>
 								<xsl:value-of select="$occurance"/>
 							</xsl:element>
-							<xsl:value-of select="$afterOccurance"/>			
+							<xsl:value-of select="$afterOccurance"/>		
 						</xsl:when>
 						<xsl:otherwise>		
-							<xsl:value-of select="$bibCitation"/>			
+							<xsl:value-of select="$bibCitation"/>
 						</xsl:otherwise>
 					</xsl:choose>
 					<xsl:text>&#x0D;</xsl:text>
