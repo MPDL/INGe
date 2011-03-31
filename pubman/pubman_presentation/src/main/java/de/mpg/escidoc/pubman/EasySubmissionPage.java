@@ -83,7 +83,7 @@ public class EasySubmissionPage extends BreadcrumbPage
     public boolean isItemSpecific()
     {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
     
 }

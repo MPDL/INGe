@@ -70,6 +70,7 @@ import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.GenreSpecificItemManager;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
@@ -1419,7 +1420,20 @@ public class EasySubmission extends FacesBean
             {
                 this.getEasySubmissionSessionBean().bindCreatorsToVO(pubItem.getMetadata().getCreators());
             }
-            ValidationReportVO report = this.itemValidating.validateItemObject(new PubItemVO(pubItem), validationPoint);
+            PubItemVO itemVO = new PubItemVO(pubItem);
+            
+            // cleanup item according to genre specific MD specification
+            GenreSpecificItemManager itemManager = new GenreSpecificItemManager(itemVO,
+                    GenreSpecificItemManager.SUBMISSION_METHOD_EASY);
+            try
+            {
+                itemVO = (PubItemVO) itemManager.cleanupItem();
+            }
+            catch (Exception e)
+            {
+                throw new RuntimeException("Error while cleaning up item genre specificly", e);
+            }
+            ValidationReportVO report = this.itemValidating.validateItemObject(itemVO, validationPoint);
             if (!report.isValid())
             {
                 for (ValidationReportItemVO item : report.getItems())

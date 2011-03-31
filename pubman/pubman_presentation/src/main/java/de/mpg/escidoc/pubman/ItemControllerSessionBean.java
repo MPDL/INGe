@@ -1214,7 +1214,7 @@ public class ItemControllerSessionBean extends FacesBean
 	        }
 	        catch (Exception e)
 	        {
-	            throw new RuntimeException("Error while cleaning up item genre specifcly", e);
+	            throw new RuntimeException("Error while cleaning up item genre specificly", e);
 	        }
 			ValidationReportVO report = this.itemValidating.validateItemObject(itemVO, validationPoint);
 			currentItemValidationReport = report;
