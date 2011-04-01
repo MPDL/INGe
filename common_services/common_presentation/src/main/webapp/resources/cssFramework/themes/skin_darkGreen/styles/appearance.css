@@ -47,6 +47,10 @@
  INPUT TEXT		#000000
  FORM BG			#FFFFFF
  
+ 
+ COLOR EEEEEE was changed to EEEEEE; - 2011-03-28
+ COLOR 303030 was changed to 262626; - 2011-03-28
+ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
  */
 /*FONT DEFINITION*/
 /*HEADER*/
@@ -63,7 +67,6 @@ h2 {
 
 /*H3*/
 h3 {
-    font-weight: normal;
 }
 
 /*H4*/
@@ -77,7 +80,7 @@ h5 {
 /*H6*/
 h6 {
     font-weight: bold;
-    color: #BBBBBB;
+    color: #EEEEEE;
     margin: 0px;
 }
 
@@ -88,7 +91,7 @@ body, label, input, textarea, select, button, input.numberLabel, h2, h3, h6, a {
 }
 
 input[type = text], textarea {
-    font-family: "Courier New", Courier, serif;
+    font-family: Courier, "Courier New", serif;
 }
 
 h1, h4, h5 {
@@ -102,13 +105,13 @@ h1, h4, h5 {
  */
 /*GENERAL*/
 body {
-    background-color: #303030;
-    color: #BBBBBB;
+    background-color: #434343;
+    color: #EEEEEE;
     line-height: 145%;
 }
 
 body .wrapper, body .footer {
-    background-color: #303030;
+    background-color: #262626;
     border-right: 1px dotted #6CAD2F;
     border-left: 1px dotted #6CAD2F;
 }
@@ -167,7 +170,7 @@ a, a:visited {
 }
 
 a.OraLinkDisabled {
-    color: #BBBBBB;
+    color: #EEEEEE;
     cursor: default;
 }
 
@@ -212,7 +215,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .itemList .seperator {
-    background-color: #303030;
+    /*background-color: #393939; */
+    background-color: #262626; /* erweitert 2011-03-30 - Marco */
 }
 
 .fullItem .seperator, .tiledList .seperator {
@@ -220,7 +224,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
-    border-color: #303030;
+    /*border-color: #393939;*/
+    border-color: #262626; /* erweitert 2011-03-30 - Marco */
 }
 
 .fullItem .fullItemControls .seperator {
@@ -233,13 +238,15 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     border-color: #486131;
 }
 
-.itemList .seperator, .fullItem .seperator, .tileControlIconArea {
-    border-color: #BAB4B3 !important;
+.itemList .seperator, .fullItem .seperator {
+    border-color: #BAB4B3;
 }
 
 .contentMenu .void {
-    border-color: #303030;
-    background-color: #303030;
+    /*border-color: #393939;
+     background-color: #393939;*/
+    border-color: #262626; /* erweitert 2011-03-30 - Marco */
+    background-color: #262626; /* erweitert 2011-03-30 - Marco */
 }
 
 /*HEADER
@@ -263,17 +270,18 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
  */
 /*COLORING FOR ALL MENU INPUTS AND LABELS*/
 .metaMenu input, .metaMenu button, .metaMenu a, .quickSearchMenu a, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input, .contentMenu a {
-    background-color: #303030;
+    /*background-color: #393939;*/
+    background-color: #262626; /* erweitert 2011-03-30 - Marco */
     color: #6CAD2F;
 }
 
 .quickSearchCheckBoxMenu label {
-    color: #BBBBBB;
+    color: #EEEEEE;
 }
 
 .logoAlternate span {
     font-weight: bold;
-    color: #BBBBBB;
+    color: #EEEEEE;
 }
 
 .logoAlternate span a {
@@ -281,7 +289,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .contentMenu span {
-    color: #BBBBBB;
+    color: #EEEEEE;
 }
 
 .metaMenu input:hover, .metaMenu input:focus, .metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .quickSearchCheckBoxMenu label:hover, .quickSearchCheckBoxMenu label:focus, .advancedSearchMenu input:hover, .advancedSearchMenu input:focus, .advancedSearchMenu a:hover, .advancedSearchMenu a:focus, .organisationSearchMenu input:hover, .organisationSearchMenu input:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .mainMenu input:hover, .mainMenu input:focus, .mainMenu a:hover, .mainMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, .contentMenu a:hover, .contentMenu a:focus {
@@ -325,24 +333,25 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
  -----------------------------------------------*/
 /*EXT. PAGINATOR*/
 .paginatorFallbackGoBtn {
-    background-color: #303030;
+    background-color: #393939;
     color: #6CAD2F;
 }
 
 /*PAGE BROWSER*/
 .pageBrowser input, .pageBrowser button, .pageBrowser a {
-    background-color: #303030;
+    /*background-color: #393939;*/
+    background-color: #262626; /* erweitert 2011-03-30 - Marco */
     color: #6CAD2F;
 }
 
 .pageBrowser input:hover, .pageBrowser button:hover, .pageBrowser a:hover, .pageBrowser input:focus, .pageBrowser button:focus, .pageBrowser a:focus {
-    color: #BBBBBB;
+    color: #EEEEEE;
     cursor: pointer;
 }
 
 .pageBrowser .actual, .pageBrowser .actual:hover, .pageBrowser .actual:focus {
     font-weight: bold;
-    color: #BBBBBB;
+    color: #EEEEEE;
     cursor: pointer;
 }
 @media print { .pageBrowser .actual {
@@ -389,8 +398,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 /*SELECT MENU*/
-.itemList .checkBoxSelectButton {
-    background-color: #303030;
+.itemList .checkboxSelectButton {
+    background-color: #393939;
     cursor: pointer;
 }
 
@@ -403,30 +412,31 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .selectMenu, .selectMenu input {
-    background-color: #303030;
+    background-color: #393939;
 }
 
-.selectMenu a {
-    color: #147DA2;
+.selectMenu span {
+    font-weight: bold;
 }
 
 .selectMenu a:hover, .selectMenu input:hover {
     background-color: #6CAD2F;
-    color: #000000;
+    color: #FFFFFF;
 }
 
 .statusArea .ascSort, .statusArea .desSort, th .ascSort, th .desSort {
-    background-color: #303030;
+    background-color: #393939;
 }
 
 .listBackground .ascSort, .listBackground .descSort {
-    background-color: #303030;
+    background-color: #393939;
 }
 
 /*LIST ITEM*/
 /*GENERAL*/
 .listItem, .listItem td {
     border-top-color: #BAB4B3 !important;
+    background-color: #3C3C3C; /* erweitert 2011-03-30 - Marco */
 }
 
 .searchHit {
@@ -434,7 +444,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .preListHeader, .fullItem, .tiledList, .listBackground, .listBackground .seperator {
-    background-color: #303030;
+    background-color: #393939;
 }
 
 .tiledList .metaDataSection, .itemTile .tileIconArea {
@@ -469,7 +479,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .fullItem .easySubmissionHeader b.actual {
-    color: #BBBBBB;
+    color: #EEEEEE;
 }
 
 /*FULL ITEM HEADER*/
@@ -501,11 +511,11 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .itemBlock .newBlock {
-    border-top-color: #BBBBBB;
+    border-top-color: #EEEEEE;
 }
 
 .affHover {
-    background-color: #303030;
+    background-color: #393939;
 }
 
 .add, .remove {
@@ -537,10 +547,44 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*SINGLE ELEMENTS*/
 .dateJSLabel {
     background-color: #DCECF1;
-    color: #BBBBBB;
+    color: #EEEEEE;
 }
 
+.dialogBox {
+    background-color: #3C3C3C;
+}
+
+/* CSS3 Enhancements */
+.bordst0 {
+    -moz-border-radius: 6px 6px 6px 6px;
+    -webkit-border-radius: 6px 6px 6px 6px;
+    border-radius: 6px 6px 6px 6px;
+    border: 0px;
+}
+ /* border-radius = CSS3 */
+.shadst1 {
+    -moz-box-shadow: 5px 5px 5px #111111;
+    box-shadow: 5px 5px 5px #111111;
+    -webkit-box-shadow: 5px 5px 5px #111111;
+}
+ /* CSS3 in: FF > 3.5, Safari + Chrome */
 /*FORM BUTTONS*/
+.dialogCancelButton {
+    float: left;
+    color: #6CAD2F;
+    background-color: #3C3C3C;
+    border-top-color: #262626;
+    border-right: #6CAD2F solid 0.091em;
+    border-bottom: #6CAD2F solid 0.091em;
+    border-left-color: #262626;
+}
+
+.dialogCancelButton:hover {
+    color: #FFFFFF;
+    background-color: #262626;
+    border-color: #FFFFFF;
+}
+
 .cancelButton, .activeButton {
     border-style: solid;
     padding-top: 0.10em;
@@ -550,16 +594,16 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .cancelButton {
     float: left;
     color: #6CAD2F;
-    background-color: #303030;
-    border-top-color: #303030;
+    background-color: #393939;
+    border-top-color: #393939;
     border-right-color: #6CAD2F;
     border-bottom-color: #6CAD2F;
-    border-left-color: #303030;
+    border-left-color: #393939;
 }
 
 .cancelButton:hover {
     color: #FFFFFF;
-    background-color: #303030;
+    background-color: #393939;
     border-color: #FFFFFF;
 }
 
@@ -572,7 +616,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .activeButton:hover {
     color: #FFFFFF !important;
-    background-color: #303030 !important;
+    background-color: #393939 !important;
     border-color: #FFFFFF;
 }
 
@@ -580,7 +624,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .ac_results {
     border-style: solid;
     border-color: #6CAD2F;
-    background-color: #303030;
+    background-color: #393939;
 }
 
 .ac_results li {
@@ -609,12 +653,11 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .messageArea {
     border-width: 1px !important;
     border-style: solid;
-    background-color: #303030;
+    background-color: #393939;
 }
 
 .infoMessageArea {
-	border: 1px solid #56871B !important;
-    border-color: #56871B;
+    border-color: #FF7F00;
 }
 
 .infoMessageArea h2 {
@@ -622,9 +665,9 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .errorMessageArea {
-	border: 1px solid #E95A29 !important; 
-    border-color: #E95A29;
+    border-color: #FF7F00;
 }
+
 .errorMessageArea h2 {
     color: #FF7F00;
 }
@@ -662,13 +705,37 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     background-color: #F43E71 !important;
 }
 
-.successMessageArea {
-    border: 1px solid #147DA2 !important;
-    border-color: #147DA2;
+.itemTile .tileIconArea {
+    background-color: #BBBBBB !important;
+    height: 10.2727em !important;
+    line-height: 10.2727em !important;
+    padding: 1em 0em 0.4545em 0.0em !important;
+    text-align: center;
 }
 
-.inputInfoBox, .inputInfoBox a {
-	text-align: center;
-	font-weight: bolder;
-	font-family: serif;
+.tileIconAreaSelected {
+    background: none repeat scroll 0 0 #33698F;
+    border: 0em none !important;
+    height: 10.4545em;
+    line-height: 10.4545em;
+    padding: 0.8182em 0em 0.4545em 0em !important;
+}
+
+.tileIconAreaSelected a {
+    color: #33698F; /* erweitert 2011-03-30 - Marco */
+}
+
+.tileTitle2LinesArea {
+    margin-top: 0.1818em;
+    margin-bottom: 0.5455em;
+    height: 3em;
+    max-height: 3em;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.footPrintActionLine {
+    background-color: #3C3C3C;
+    border-bottom-width: 0.10em;
+    border-bottom-style: solid;
 }
