@@ -219,13 +219,11 @@ body .wrapper {
 }
 
 /*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .pageBrowser .backward {
-    /*		padding-left: 0px;
-     */
+    padding-left: 0px;
 }
 
 /*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .pageBrowser .backward {
-    /*		padding-left: 0px;
-     */
+    padding-left: 0px;
 }
 
 .pageBrowser .backward:hover, .pageBrowser .backward:focus {
@@ -666,6 +664,20 @@ body .wrapper {
     background-position: bottom left;
     padding-left: 2.10em !important;
 }
+
+.editFileIcon {
+    background-image: url('../images/All_Status_AlbumEdit_15_Active.png');
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    padding-left: 2.10em !important;
+}
+
+.viewFileIcon {
+    background-image: url('../images/All_File_EyeTrue_15_Active.png');
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    padding-left: 2.10em !important;
+}
 @media print { .files, .locators {
         padding-left: 0em !important;
 }
@@ -736,24 +748,16 @@ body .wrapper {
     background-position: center center;
 }
 
-.viewFileIcon {
-	background-image: url('../images/All_File_EyeTrue_15_Static.gif');
-	background-repeat: no-repeat;
-	background-position: bottom left;
-	padding-left: 2.10em !important;
-}
-
 .downloadFileIcon {
-	background-image: url('../images/All_File_ArrowDownload_15_Static.gif');
-	background-repeat: no-repeat;
-	background-position: bottom left;
-	padding-left: 2.10em !important;
-}  	
+    background-image: url('../images/All_File_ArrowDownload_15_Static.gif');
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    padding-left: 2.10em !important;
+}
 
 .featureIcon {
-	background-image: url('../images/All_Status_ItemSolo_31_Static.gif');
-	background-repeat: no-repeat;
-	background-position: right;
-	height: 2.90em !important;
+    background-image: url('../images/All_Status_ItemSolo_31_Static.gif');
+    background-repeat: no-repeat;
+    background-position: right;
+    height: 2.90em !important;
 }
-
