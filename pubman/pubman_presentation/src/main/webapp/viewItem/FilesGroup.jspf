@@ -43,7 +43,7 @@
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine newBlock" rendered="#{index.index > 0}"/>
 
 <%-- File name --%>
-	<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
+	<h:panelGroup layout="block">
 			<div class="free_area0 endline itemLine firstLine">
 				<div class="free_area0 endline itemLine firstLine">
 					<span class="xLarge_area0 endline labelLine featureIcon">
