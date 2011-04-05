@@ -663,31 +663,24 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 
 .itemTile .tileIconArea {
 	background-color:#BBBBBB !important;
-	height:10.2727em !important;
-	line-height:10.2727em !important;
-	padding:1em 0em 0.4545em 0.0em !important;
-	text-align:center;
 }
 
 
 .tileIconAreaSelected {
     background: none repeat scroll 0 0 #33698F;
   	border:0em none !important;
-    height: 10.4545em;
-    line-height: 10.4545em;
-    padding:0.8182em 0em 0.4545em 0em !important;
 }
-
+/*
 .tileIconAreaSelected a {
-	color:#33698F; /* erweitert 2011-03-30 - Marco */
+	color:#33698F; /* erweitert 2011-03-30 - Marco *//*
 }
 
 
 .footPrintActionLine {
 	background-color:#3C3C3C;
-	border-bottom-width: 0.10em; 
+	border-bottom-width: 0.0909em; 
 	border-bottom-style: solid;
 }
-
+*/
 .full_area0 .noTopBorder { background-color:#3C3C3C; } /* erweitert 2011-03-30 */
 .pageBrowser { background-color:#262626; } /* erweitert 2011-03-30 */

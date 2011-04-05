@@ -210,25 +210,36 @@
 }
 
 .itemTile .tileIconArea {
-	border: 0.10em !important;
-	height: 11.56em;
-	line-height: 11.56em;
+	border: 0.0909em !important; 
+/*	height: 11.56em;
+	line-height: 11.56em; */
+	height:10.2727em;
+	line-height:10.2727em;
 	text-align:center;
 	
 	background: #282828;
-	padding: 18px 11px 0px 0px; 
-
+	
+/*	padding: 18px 11px 0px 0px; */
+	padding:1.1818em 0em 0.2727em 0.0em; 
 }
 
 .tileIconAreaSelected {
-	border: 0.10em !important;
-	height: 11.56em;
-	line-height: 11.56em;
+	border: 0.0909em !important; 
+/*	height: 11.56em;
+	line-height: 11.56em; */
+	height:10.2727em;
+	line-height:10.2727em;
 	text-align:center;
 	
 	background: #757575;
-	padding: 18px 11px 0px 0px; 
+	
+/*	padding: 18px 11px 0px 0px; */
+	padding:1em 0em 0.4545em 0.0em; 
+}
 
+.tileControlIconArea {	/* new in content but predefined in Component Library - 2011-04-05 Marco */
+	height:3em;
+	max-height:3em;
 }
 
 .itemTile .tileIconArea img {
