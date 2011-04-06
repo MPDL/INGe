@@ -160,7 +160,16 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         userConfigValues.put(Configuration.KEY_VIEW_ITEM_SIZE, idata.getVariable("escidoc.pubman_presentation.viewFullItem.defaultSize"));
         userConfigValues.put(Configuration.KEY_POLICY_LINK, idata.getVariable("escidoc.pubman.policy.url"));
         userConfigValues.put(Configuration.KEY_CONTACT_LINK, idata.getVariable("escidoc.pubman.contact.url"));
-        userConfigValues.put(Configuration.KEY_ACCESS_LOGIN_LINK, idata.getVariable("escidoc.framework_access.login.url"));
+        
+        // Login URL
+        if (idata.getVariable("escidoc.framework_access.login.url") == null || "".equals(idata.getVariable("escidoc.framework_access.login.url")))
+        {
+            userConfigValues.put(Configuration.KEY_ACCESS_LOGIN_LINK, idata.getVariable("CoreserviceUrl"));
+        }
+        else
+        {
+            userConfigValues.put(Configuration.KEY_ACCESS_LOGIN_LINK, idata.getVariable("escidoc.framework_access.login.url"));
+        }
         userConfigValues.put(Configuration.KEY_BLOG_NEWS_LINK, idata.getVariable("escidoc.pubman.blog.news"));
         userConfigValues.put(Configuration.KEY_VOCAB_LINK, idata.getVariable("escidoc.cone.subjectVocab"));
         userConfigValues.put(Configuration.KEY_ACCESS_CONF_GENRES_LINK, idata.getVariable("escidoc.pubman.genres.configuration"));
@@ -179,6 +188,10 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
         userConfigValues.put(Configuration.KEY_PB_SURVEY_TITLE, idata.getVariable("escidoc.pubman.survey.title"));
         userConfigValues.put(Configuration.KEY_PB_SURVEY_TEXT, idata.getVariable("escidoc.pubman.survey.text"));
        
+        // Others
+        userConfigValues.put(Configuration.KEY_CONE_SERVICE_URL, idata.getVariable("InstanceUrl") + "/cone/");
+        userConfigValues.put(Configuration.KEY_SYNDICATION_SERVICE_URL, idata.getVariable("InstanceUrl") + "/syndication/");
+        
         configuration.setProperties(userConfigValues);
         configuration.store(idata.getInstallPath() + "/jboss/server/default/conf/pubman.properties");
         // also store in local pubman properties
@@ -250,8 +263,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
     {
         if (this.haveToInsertConeData() == true)
         {
-            ConeDataset coneDataset = new ConeDataset(idata.getVariable("ConeHost"), idata.getVariable("ConePort"),
-                    idata.getVariable("ConeDatabase"), idata.getVariable("ConeUser"), idata.getVariable("ConePassword"));
+            ConeDataset coneDataset = new ConeDataset(idata);
             this.coneInsertProcess = new ConeInsertProcess(coneDataset, idata, this);
             getLayoutHelper().completeLayout();
             this.coneInsertProcess.start();

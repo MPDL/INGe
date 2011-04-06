@@ -12,8 +12,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
+
+import com.izforge.izpack.installer.InstallData;
 
 import de.mpg.escidoc.pubman.installer.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList;
@@ -59,18 +63,22 @@ public class ConeDataset
     private String coneUser; 
     private String conePassword;
     
+    private InstallData idata;
+    
     
     public ConeDataset() {
         
     }
     
-    public ConeDataset(String coneServer, String conePort, String coneDatabase, String coneUser, String conePassword)
+    public ConeDataset(InstallData idata)
     {
-    	this.coneServer = coneServer;
-    	this.conePort = conePort;
-    	this.coneDatabase = coneDatabase;
-    	this.coneUser = coneUser;
-    	this.conePassword = conePassword;
+        this.idata = idata;
+        
+    	this.coneServer = idata.getVariable("ConeHost");
+    	this.conePort = idata.getVariable("ConePort");
+    	this.coneDatabase = idata.getVariable("ConeDatabase");
+    	this.coneUser = idata.getVariable("ConeUser");
+    	this.conePassword = idata.getVariable("ConePassword");
     }
 
     public String getResourceAsString(final String fileName) throws FileNotFoundException, Exception
@@ -111,6 +119,10 @@ public class ConeDataset
     
     public void connectToDB(String dbName) throws Exception
     {
+        if (dbName == null || "".equals(dbName))
+        {
+            dbName = "postgres";
+        }
     	connection = DriverManager.getConnection(CONE_DB_CONNECTION_TYPE +
         		this.coneServer +
                 ":" +
@@ -136,12 +148,25 @@ public class ConeDataset
             BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
             StringBuffer query = new StringBuffer();
             String queryPart = "";
+            Pattern pattern = Pattern.compile("\\$\\{([^\\}\\n]+)\\}");
             while ((queryPart = br.readLine()) != null)
             {
             	//if(queryPart != null && queryPart.endsWith(";"))
 	            //{
-            		query.append(queryPart);
-            		query.append("\n");
+                Matcher matcher = pattern.matcher(queryPart);
+                int start = 0;
+                while (matcher.find(start))
+                {
+                    String varName = matcher.group(1);
+                    if (idata.getVariable(varName) != null)
+                    {
+                        queryPart = matcher.replaceFirst(idata.getVariable(varName));
+                    }
+                    start = matcher.end();
+                }
+            
+        		query.append(queryPart);
+        		query.append("\n");
             	//}
             }
             

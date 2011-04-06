@@ -107,6 +107,9 @@ public class Configuration
     public static final String KEY_PB_SURVEY_URL = "escidoc.pubman.survey.url";
     public static final String KEY_PB_SURVEY_TITLE = "escidoc.pubman.survey.title";
     public static final String KEY_PB_SURVEY_TEXT = "escidoc.pubman.survey.text";
+    // Others
+    public static final String KEY_CONE_SERVICE_URL = "escidoc.cone.service.url";
+    public static final String KEY_SYNDICATION_SERVICE_URL = "escidoc.syndication.service.url";
    
     public Configuration(String fileName) throws IOException
     {

@@ -1,1 +1,1 @@
-SELECT datname FROM "pg_database" where datname = 'cone';
+SELECT datname FROM "pg_database" where datname = '${ConeDatabase}';

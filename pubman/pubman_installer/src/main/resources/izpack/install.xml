@@ -164,14 +164,14 @@
 		<variable name="ConeUser" value="postgres"/>
 		<variable name="ConePassword" value=""/>
 		<variable name="StyleSheetStandardURL" value="/common/resources/cssFramework/themes/skin_standard/styles/theme.css"/>
-		<variable name="PubManLogoURL" value="/pubman/resources/images/pubman_logo.png"/>
+		<variable name="PubManLogoURL" value="./resources/images/pubman_logo.png"/>
 		<variable name="PubManLogoApply" value="true"/>
 		<variable name="StyleSheetStandardType" value="stylesheet"/>
 		<variable name="StyleSheetStandardApply" value="true"/>
-		<variable name="StyleSheetContrastURL" value="./resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css"/>
+		<variable name="StyleSheetContrastURL" value="/common/resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css"/>
 		<variable name="StyleSheetContrastType" value="alternate stylesheet"/>
 		<variable name="StyleSheetContrastApply" value="true"/>
-		<variable name="StyleSheetClassicURL" value="./resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css"/>
+		<variable name="StyleSheetClassicURL" value="/common/resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css"/>
 		<variable name="StyleSheetClassicType" value="alternate stylesheet"/>
 		<variable name="StyleSheetClassicApply" value="true"/>
 		<variable name="FavIconURL" value="./resources/pubman_favicon.ico"/>
