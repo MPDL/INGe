@@ -1240,14 +1240,18 @@
 					<xsl:when test="$gen='book' or $gen='proceedings' or $gen='thesis'">
 						<!-- case: book or proceedings -->
 						<xsl:element name="eterms:publishing-info">
-							<xsl:call-template name="createPublishinginfo"/>
+							<xsl:call-template name="createPublishinginfo">
+								<xsl:with-param name="genre" select="$gen"/>
+							</xsl:call-template>
 						</xsl:element>
 					</xsl:when>
 					<xsl:when test="$gen='book-item'">
 						<!-- case: book-item without source book -->
 						<xsl:if test="not(exists(booktitle))">
 							<xsl:element name="eterms:publishing-info">
-								<xsl:call-template name="createPublishinginfo"/>
+								<xsl:call-template name="createPublishinginfo">
+									<xsl:with-param name="genre" select="$gen"/>
+								</xsl:call-template>
 							</xsl:element>
 						</xsl:if>
 					</xsl:when>
@@ -1415,9 +1419,12 @@
 	</xsl:template>
 	
 	<xsl:template name="createPublishinginfo">
+		<xsl:param name="genre"/>
 		<xsl:apply-templates select="publisher"/>
 		<xsl:apply-templates select="publisheradd"/>
-		<xsl:apply-templates select="editiondescription"/>
+		<xsl:if test="$genre != 'thesis'">
+			<xsl:apply-templates select="editiondescription"/>
+		</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match="corporatebody">
@@ -1889,18 +1896,27 @@
 						<xsl:when test="$import-name = 'BPC'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for biophysical chemistry')"/>
 						</xsl:when>
+						<xsl:when test="$import-name = 'MPIK'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Nuclear Physics')"/>
+						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:variable>
+				
 				<xsl:variable name="multiplePersonsFound" select="exists($coneCreator/cone/rdf:RDF/rdf:Description[@rdf:about != $coneCreator/cone/rdf:RDF/rdf:Description/@rdf:about])"/>
+				
+				<xsl:copy-of select="$coneCreator/cone/*"></xsl:copy-of>
+
+				<xsl:value-of select="count($coneCreator/*)"/>
 				
 				<xsl:choose>
 					<xsl:when test="$multiplePersonsFound">
 						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching --', concat($creatornfamily, ', ', creatorngiven), '--'))"/>
 					</xsl:when>
 					<xsl:when test="not(exists($coneCreator/cone/rdf:RDF/rdf:Description))">
+						<xsl:comment>NOT FOUND IN CONE: <xsl:value-of select="$coneCreator/cone"/></xsl:comment>
 						<xsl:element name="person:person">
 							<xsl:element name="eterms:complete-name">
 								<xsl:value-of select="concat($creatorngivenNew, ' ', creatornfamily)"/>
@@ -2078,6 +2094,7 @@
 						</xsl:element>
 					</xsl:when>
 					<xsl:otherwise>
+						<xsl:comment>CONE CREATOR</xsl:comment>
 						<person:person>
 							<eterms:family-name>
 								<xsl:value-of select="$creatornfamily"/>
