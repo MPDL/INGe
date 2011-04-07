@@ -396,9 +396,12 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	
 		/*GENERAL*/
 		
+	.listItem {
+		background-color:#313131;
+	}
 	.listItem, .listItem td {
 		border-top-color: #BAB4B3 !important;
-		background-color:#3C3C3C; /* erweitert 2011-03-30 - Marco */
+/*		background-color:#3C3C3C; *//* erweitert 2011-03-30 - Marco */
 	}
 	
 	.searchHit {
@@ -406,19 +409,24 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	.preListHeader, .fullItem, .tiledList, .listBackground, .listBackground .seperator {
-		background-color: #393939;
+		background-color: #3C3C3C;
 	}
-
+	
+/*	.listBackground, .listBackground td {
+		background-color:#313131;
+	}
+	*/
 	.tiledList .metaDataSection, .itemTile .tileIconArea {
 		border-color: #BAB4B3 !important;
 		border-style: solid;
 	}
 	
-	.tiledList .inAlbum, .fullItem .inAlbum, .activeAlbum, .activeAlbum .seperator {
+	.tiledList .inAlbum, .fullItem .inAlbum, .activeAlbum, .activeAlbum .seperator, .activeAlbum td { /* .activeAlbum td - erweitert 2011-04-06 - Marco */
 		background-color: #484848;
 		color: #FFFFFF;
 	}
-
+	
+	
 		/*ITEM HEADER*/
 		
 	.fullItem .itemHeadline b {
@@ -670,17 +678,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
     background: none repeat scroll 0 0 #33698F;
   	border:0em none !important;
 }
-/*
-.tileIconAreaSelected a {
-	color:#33698F; /* erweitert 2011-03-30 - Marco *//*
-}
 
-
-.footPrintActionLine {
-	background-color:#3C3C3C;
-	border-bottom-width: 0.0909em; 
-	border-bottom-style: solid;
-}
-*/
 .full_area0 .noTopBorder { background-color:#3C3C3C; } /* erweitert 2011-03-30 */
 .pageBrowser { background-color:#262626; } /* erweitert 2011-03-30 */
+.tileIconAreaSelected a img { border-color:#33698F; } /* erweitert 2011-04-06 */

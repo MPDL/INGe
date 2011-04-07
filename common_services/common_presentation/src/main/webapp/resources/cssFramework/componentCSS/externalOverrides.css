@@ -94,3 +94,65 @@
 		position: absolute;
 		display: none;
 }
+
+/*PLUPLOAD Component*/
+.plupload_header {
+	padding:0.3636em;
+}
+.plupload_header_title {
+	font-size:2em;
+}
+
+.plupload_file_name {
+	float:left;
+	width:18.83em;
+	margin-left:1.37em;
+}
+.plupload_file_action {
+	float:left;
+	width:8.65em;
+}
+.plupload_file_status {
+	float:right;
+	width:5.74em;
+}
+.plupload_file_size {
+	float:right;
+	width:5.74em;
+}
+.plupload_total_status {
+	float:right;
+	width: 5.74em;
+}
+
+
+.plupload_filelist {
+	height:20em;
+	overflow-y:auto;
+}
+
+.plupload_filelist li {
+	list-style-type:none;
+}
+
+
+.plupload_filelist_footer .plupload_file_name {
+	width:25.37em;
+}
+.plupload_filelist_footer .plupload_file_action {
+	width:auto;
+}
+.plupload_buttons {
+	float:left;
+	width:11.56em;
+}
+.plupload_buttons .plupload_start, .plupload_buttons .plupload_disabled {
+	margin-left:1.37em;
+}
+
+.plupload_filelist {
+	background-color:#E4E4E4;
+	color:#262626;
+}
+
+
