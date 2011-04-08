@@ -1,6 +1,7 @@
+<?xml version="1.0"?>
 <document>
 	<properties>
-		<author email="endres@mpdl.mpg.de">Thomas Endres</author>
+		<author email="makarenko@mpdl.mpg.de">Vlad Makarenko</author>
 		<title>Download</title>
 	</properties>
 	<!-- Optional HEAD element, which is copied as is into the XHTML <head> element -->
@@ -37,18 +38,11 @@
 							</a>
 						</td>
 					</tr>
-					<tr>
-						<td>PubMan (graphical installer), coreservice version 1.1.4</td>
-						<td>
-							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman_download_release/pubman_installer-pm6.0.1-cs1.1.4.jar">pubman_installer-pm6.0.1-cs1.1.4.jar
-							</a>
-						</td>
-					</tr>
 				</tbody>
 			</table>
-
+			
 			<h3>System requirements</h3>
-
+			
 			<table border="1">
 				<tbody>
 					<tr>
@@ -65,20 +59,20 @@
 					</tr>
 				</tbody>
 			</table>
-
+			
 			<h3>Installation instructions (graphical installer)</h3>
 			<ul>
 				<li>Download the PubMan installer</li>
-                <li>Install and setup a coreservice instance ( <a href="https://www.escidoc.org/JSPWiki/en/DownloadInfrastructure">Installation instructions</a> ) on a currently separate jboss</li>
-                <li>Start the installer (a Java JRE 1.6 has to be installed)</li>
-                <li>Provide necessary information and wait until the installation procedure has finished</li>
-                <li>Start the PubMan jboss server</li>
+				<li>Install and setup a coreservice instance ( <a href="https://www.escidoc.org/JSPWiki/en/DownloadInfrastructure">Installation instructions</a> ) on a currently separate jboss</li>
+				<li>Start the installer (a Java JRE 1.6 has to be installed)</li>
+				<li>Provide necessary information and wait until the installation procedure has finished</li>
+				<li>Start the PubMan jboss server</li>
 			</ul>
-
+		
 		</section>
 		<section name="Archiva artifacts">
 			<p>The Archiva server provides project artifacts like binary packages, source packages and downloadable javadoc documentation.</p>
-
+			
 			<table border="1">
 				<thead>
 					<tr>
@@ -92,39 +86,39 @@
 						<td>pubman_logic</td>
 						<td>Provides the logic of PubMan</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_logic">archiva dir</a>
+							<a href="http://archiva.mpdl.mpg.de/archiva/browse/de.mpg.escidoc.pubman/pubman_logic">archiva dir</a>
 						</td>
-
+					
 					</tr>
 					<td>pubman_presentation</td>
 					<td>Provides the presentation layer of PubMan</td>
 					<td>
-						<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_presentation">archiva dir</a>
+						<a href="http://archiva.mpdl.mpg.de/archiva/browse/de.mpg.escidoc.pubman/pubman_presentation">archiva dir</a>
 					</td>
 					<tr>
 						<td>pubman_ear</td>
 						<td>Provides the ear, the deployable to jboss servers</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_ear">archiva dir</a>
+							<a href="http://archiva.mpdl.mpg.de/archiva/browse/de.mpg.escidoc.pubman/pubman_ear">archiva dir</a>
 						</td>
 					</tr>
 					<tr>
 						<td>pubman_logic_ear</td>
 						<td>Pubman logic integration tests</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_logic_ear">archiva dir</a>
+							<a href="http://archiva.mpdl.mpg.de/archiva/browse/de.mpg.escidoc.pubman/pubman_logic_ear">archiva dir</a>
 						</td>
 					</tr>
-                    <tr>
-                        <td>pubman_installer</td>
-                        <td>Pubman Installer</td>
-                        <td>
-                            <a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_installer">archiva dir</a>
-                        </td>
-                    </tr>
+					<tr>
+						<td>pubman_installer</td>
+						<td>Pubman Installer</td>
+						<td>
+							<a href="http://archiva.mpdl.mpg.de/archiva/browse/de.mpg.escidoc.pubman/pubman_installer">archiva dir</a>
+						</td>
+					</tr>
 				</tbody>
 			</table>
-
+		
 		</section>
 	</body>
 </document>
