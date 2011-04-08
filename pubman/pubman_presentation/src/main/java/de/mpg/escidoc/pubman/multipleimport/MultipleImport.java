@@ -94,7 +94,7 @@ public class MultipleImport extends FacesBean
     private Format format;
     private String name;
     
-    private List<SelectItem> configParameters = new ArrayList<SelectItem>();
+    private List<SelectItem> configParameters =null;
     private Map<String, List<SelectItem>> parametersValues;
     
     private boolean rollback = true;
@@ -255,7 +255,7 @@ public class MultipleImport extends FacesBean
         }
     }
 
-	public List<SelectItem> getConfigParameters() throws Exception
+	public List<SelectItem> initConfigParameters() throws Exception
     {
     	TransformationBean transformation = new TransformationBean();
     	Map<String, String> config = transformation.getConfiguration(format, ESCIDOC_FORMAT);
@@ -269,7 +269,7 @@ public class MultipleImport extends FacesBean
         		List<SelectItem> list = new ArrayList<SelectItem>();
         		if (values != null)
         		{
-            		for (String str : values) list.add(new SelectItem(str));
+            		for (String str : values) list.add(new SelectItem(str, str));
             		parametersValues.put(key, list);
         		}
         		configParameters.add(new SelectItem(config.get(key), key));
@@ -278,6 +278,12 @@ public class MultipleImport extends FacesBean
 		
     	return configParameters;
     }
+	
+	public  List<SelectItem> getConfigParameters() throws Exception
+	{
+		if (configParameters == null) initConfigParameters();
+		return configParameters;
+	}
     
     public void setConfigParameters(List<SelectItem> list)
     {
