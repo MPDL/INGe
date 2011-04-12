@@ -39,17 +39,19 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.reporting.ReportFHI;
 
-public class ReportingTest {
+public class ReportingTest 
+{
 
+	@SuppressWarnings("unused")
 	private Logger logger = Logger.getLogger(ReportingTest.class);
 
+	boolean DEBUG = true;
+	
 	static ReportFHI rep;
-
 	
 	@BeforeClass
 	public static void getReportInstance() throws IOException, URISyntaxException, ServiceException
@@ -58,25 +60,22 @@ public class ReportingTest {
 	}
 	
 	@Test
-//	 @Ignore
-	public final void testReportGeneration() throws Exception 
+	public final void testReport() throws Exception 
 	{
-		ReportFHI rep = new ReportFHI();
-		for (String att: rep.generateReport())
+		if (DEBUG) 
 		{
-			if (new File(att).length() == 0)
+			for (String att: rep.generateReport())
 			{
-				fail("Empty attachment file: " + att);
+				if (new File(att).length() == 0)
+				{
+					fail("Empty attachment file: " + att);
+				}
 			}
+		}
+		else 
+		{
+			rep.generateAndSendReport();
 		}
 		
 	}
-	
-	@Test
-	@Ignore
-	public final void testReportAndSend() throws Exception 
-	{
-		rep.generateAndSendReport();
-	}
-
 }

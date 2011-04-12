@@ -43,6 +43,8 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Stack;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
@@ -97,6 +99,14 @@ public class ReportFHI {
 	private static TransformerFactory tf = new net.sf.saxon.TransformerFactoryImpl();
 
 	private static EmailHandlingBean emailHandler = new EmailHandlingBean(); 
+	
+	private static final int FLAGS = Pattern.CASE_INSENSITIVE | Pattern.DOTALL;  
+	
+	private static final Pattern AMPS_ALONE = Pattern.compile(
+			"\\&(?!\\w+?;)",
+			FLAGS
+	);
+
 
 	private static String adminHandler;
 
@@ -131,7 +141,7 @@ public class ReportFHI {
 
     //Generate time range query
     //Take all docs from the last month
-    private static String[] getStartEndDateOfQuery()
+    public static String[] getStartEndDateOfQuery()
     {
     	Calendar lastMonth = GregorianCalendar.getInstance();
 		
@@ -177,8 +187,7 @@ public class ReportFHI {
 	        		rprops.getProperty("FHI.query") +
 	        		"%20and%20" +
 	        		getTimeRangeQuery() +
-	        		"" /*+
-	        		" sortby \"/id\""*/
+	        		rprops.getProperty("FHI.sort.by") 
 	        		);
 	        HttpClient client = new HttpClient();
 			ProxyHelper.executeMethod(client, method);
@@ -187,11 +196,11 @@ public class ReportFHI {
 	        {         
 	        	itemList = method.getResponseBodyAsString();
 	        	
-	        	//escape all &, otherwise filler will throw an exception 
-	        	itemList = replaceAllTotal(itemList, "&", "&amp;");
-	        	
-//	        	if (logger.isDebugEnabled())
-//	        		writeToFile("target/search-res.xml", itemList.getBytes());
+	        	//escape all alone &, otherwise filler throws an exception 
+	        	itemList = replaceAllTotal(itemList, AMPS_ALONE, "&amp;");
+	    		
+	        	if (logger.isDebugEnabled())
+	        		writeToFile("target/search-res.xml", itemList.getBytes());
 	        	logger.debug(itemList);
 	        	
 	        }
@@ -237,7 +246,7 @@ public class ReportFHI {
 			throw new RuntimeException("Cannot transform item-list XML containers:", e);
 		}
 		
-		logger.debug(sw.toString());
+//		logger.debug(sw.toString());
 		
 		
 		try 
@@ -256,9 +265,9 @@ public class ReportFHI {
     
 	
 	/**
-	 * Generate month report and send it per email 
-	 * @throws JRException 
+	 * Generate month report files (formats are specified in properties)
 	 * @throws JRException
+	 * @return list of paths to the generated reports 
 	 */
 	public static String[] generateReport() throws JRException
 	{
@@ -321,6 +330,10 @@ public class ReportFHI {
     	 
     }	
 	
+	/**
+	 * Send report per email(s)
+	 * @param attFileNames - array of paths to report files 
+	 */
 	public static void sendReport(String[] attFileNames)
 	{
 		// send email with attachments 
@@ -423,7 +436,12 @@ public class ReportFHI {
 	    		.replaceAll(replacement);
     }
 
+    public static String replaceAllTotal(String what, Pattern p, String replacement)
+    {
+    	return p.matcher(what).replaceAll(replacement);
+    }    
     
+
 	
     protected static void writeToFile(String fileName, byte[] content) throws IOException
     {
