@@ -81,28 +81,32 @@
 
 	
 	<xsl:template match="publication:publication">
-		<xsl:element name="{name()}">
-			<xsl:copy-of select="@*" />
-				<xsl:element name="eterms:authors">
-					<xsl:for-each select="eterms:creator">
-						<xsl:variable name="au" select="
-							string-join((
-								string-join((person:person/eterms:family-name, person:person/eterms:given-name), ', '),
-								organization:organization/dc:title
-							), '; ')
-						"/>
-						<xsl:value-of select="
-							if (not(empty($au))) 
-							then concat($au, if (position()!=last()) then '; ' else '')  
-							else ''
-						"/>
-					</xsl:for-each>
-				</xsl:element>
-				<xsl:element name="eterms:source-titles">
-					<xsl:value-of select="string-join((source:source/dc:title[.!='']), '; ')"/>
-				</xsl:element>
-			<xsl:apply-templates />
-		</xsl:element>
+		<!-- ONLY FHI SPECIFIC!!! -->
+	    <!-- hack: negation is not implement for REST interface -->
+		<xsl:if test="not(exists(dcterms:issued) or exists(eterms:published-online))">
+			<xsl:element name="{name()}">
+				<xsl:copy-of select="@*" />
+					<xsl:element name="eterms:authors">
+						<xsl:for-each select="eterms:creator">
+							<xsl:variable name="au" select="
+								string-join((
+									string-join((person:person/eterms:family-name, person:person/eterms:given-name), ', '),
+									organization:organization/dc:title
+								), '; ')
+							"/>
+							<xsl:value-of select="
+								if (not(empty($au))) 
+								then concat($au, if (position()!=last()) then '; ' else '')  
+								else ''
+							"/>
+						</xsl:for-each>
+					</xsl:element>
+					<xsl:element name="eterms:source-titles">
+						<xsl:value-of select="string-join((source:source/dc:title[.!='']), '; ')"/>
+					</xsl:element>
+				<xsl:apply-templates />
+			</xsl:element>
+		</xsl:if>
 	</xsl:template>
 	
 
