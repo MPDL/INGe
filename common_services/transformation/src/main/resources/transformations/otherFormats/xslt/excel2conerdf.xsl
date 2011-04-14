@@ -12,11 +12,12 @@
 
 	<xsl:template match="/">
 		<rdf:RDF>
-			
+
 			<xsl:for-each select="//excel:Row">
 				<xsl:variable name="pos" select="position()"/>
 				
-				<xsl:if test="excel:Cell[1]/excel:Data != '' and excel:Cell[1]/excel:Data != 'Nachname' and (string-length(//excel:Row[$pos - 1]/excel:Cell[1]/excel:Data) = 0 or //excel:Row[$pos - 1]/@ss:Index != '')">
+				<!--  <xsl:if test="excel:Cell[1]/excel:Data != '' and excel:Cell[1]/excel:Data != 'Nachname' and (string-length(//excel:Row[$pos - 1]/excel:Cell[1]/excel:Data) = 0 or //excel:Row[$pos - 1]/@ss:Index != '')">-->
+				<xsl:if test="excel:Cell[1]/excel:Data != '' and excel:Cell[1]/excel:Data != 'Nachname' and excel:Cell[4]/excel:Data != ''">
 					
 					<xsl:variable name="main" select="//excel:Row[position() &gt;= $pos and excel:Cell[3] != ''][1]"/>
 
@@ -55,6 +56,9 @@
 								<xsl:variable name="ou-path">
 									<xsl:call-template name="get-ou-path">
 										<xsl:with-param name="id" select="$escidoc-ou"/>
+										<xsl:with-param name="familyname" select="$familyname"/>
+										<xsl:with-param name="givenname" select="$givenname"/>
+										<xsl:with-param name="ouname" select="$ouname"/>
 									</xsl:call-template>
 								</xsl:variable>
 							
@@ -81,13 +85,16 @@
 	
 	<xsl:template name="get-ou-path">
 		<xsl:param name="id"/>
+		<xsl:param name="familyname"/>
+		<xsl:param name="givenname"/>
+		<xsl:param name="ouname"/>
 		
 		<xsl:variable name="ou" select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit[@objid = $id]"/>
 	
 		<xsl:value-of select="normalize-space($ou/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title)"/>
 		
 		<xsl:if test="normalize-space($ou/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = ''">
-			ERROR
+			ERROR with "<xsl:value-of select="$ouname"/>" for <xsl:value-of select="$familyname"/>,  <xsl:value-of select="$givenname"/>
 		</xsl:if>
 		
 		<xsl:choose>
@@ -103,11 +110,18 @@
 	<xsl:template name="alternative-name">
 		<xsl:param name="pos"/>
 		<xsl:param name="main"/>
+		<xsl:param name="direction"/>
 		<xsl:choose>
 			<xsl:when test="//excel:Row[$pos] = $main">
 				<xsl:call-template name="alternative-name">
 					<xsl:with-param name="pos" select="$pos + 1"/>
 					<xsl:with-param name="main" select="$main"/>
+					<xsl:with-param name="direction">forward</xsl:with-param>
+				</xsl:call-template>
+				<xsl:call-template name="alternative-name">
+					<xsl:with-param name="pos" select="$pos - 1"/>
+					<xsl:with-param name="main" select="$main"/>
+					<xsl:with-param name="direction">backward</xsl:with-param>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="string-length(//excel:Row[$pos]/excel:Cell[1]/excel:Data) = 0 or //excel:Row[$pos]/@ss:Index != ''"/>
@@ -117,10 +131,20 @@
 					<xsl:text>, </xsl:text>
 					<xsl:value-of select="normalize-space(//excel:Row[$pos]/excel:Cell[2]/excel:Data)"/>
 				</dcterms:alternative>
-				<xsl:call-template name="alternative-name">
-					<xsl:with-param name="pos" select="$pos + 1"/>
-					<xsl:with-param name="main" select="$main"/>
-				</xsl:call-template>
+				<xsl:if test="$direction = 'forward'">
+					<xsl:call-template name="alternative-name">
+						<xsl:with-param name="pos" select="$pos + 1"/>
+						<xsl:with-param name="main" select="$main"/>
+						<xsl:with-param name="direction">forward</xsl:with-param>
+					</xsl:call-template>
+				</xsl:if>
+				<xsl:if test="$direction = 'backward'">
+					<xsl:call-template name="alternative-name">
+						<xsl:with-param name="pos" select="$pos - 1"/>
+						<xsl:with-param name="main" select="$main"/>
+						<xsl:with-param name="direction">backward</xsl:with-param>
+					</xsl:call-template>
+				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose>
 	
