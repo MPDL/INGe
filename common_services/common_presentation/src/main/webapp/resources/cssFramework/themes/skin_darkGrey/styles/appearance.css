@@ -40,8 +40,8 @@ LIGHT LINES		#A1CBDA
 DROPDOWN/BG		#DCECF1
 INPUT BG		#F3F8FA
 PAGE TITLE		#0F313E
-ERROR MSG		#E95A29
-SUCCESS MSG		#56871B
+ERROR MSG		#D80000
+SUCCESS MSG		#00712B
 DEACTIVATED		#827775
 DEA LIGHT		#CDC9C8
 TEXT			#524240
@@ -619,19 +619,19 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	.infoMessageArea {
-		border-color: #FF7F00;
+		border-color: #00712B;
 	}
 	
 	.infoMessageArea h2 {
-		color: #FF7F00;
+		color: #00712B;
 	}
 	
 	.errorMessageArea {
-		border-color: #FF7F00;
+		border-color: #D80000;
 	}
 	
 	.errorMessageArea h2 {
-		color: #FF7F00;
+		color: #D80000;
 	}
 	
 	.absoluteMessageArea {
@@ -647,13 +647,17 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	
 /*ERROR OR WARNING MESSAGES*/
 	.falseValue, .messageError, .messageWarn, .messageFatal {
-		color: #FF7F00;
+		color: #D80000;
 	}
 	
 /*STATUS OR SUCCESS MESSAGE*/
-	.messageStatus {
-		color: #FF7F00;
-	}
+.messageSuccess {
+    color: #00712B;
+}
+
+.messageStatus {
+	color: #00712B;
+}
 
 /*MANDATORY FIELD*/
 	.mandatory {

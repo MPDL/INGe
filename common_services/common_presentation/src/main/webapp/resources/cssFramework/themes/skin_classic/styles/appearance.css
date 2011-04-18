@@ -636,6 +636,10 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 /*STATUS OR SUCCESS MESSAGE*/
+.messageSuccess {
+    color: #66852C;
+}
+
 .messageStatus {
     color: #66852C;
 }
