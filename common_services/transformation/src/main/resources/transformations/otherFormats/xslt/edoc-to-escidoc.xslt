@@ -631,7 +631,7 @@
 							</local-tags>
 						</xsl:when>
 						<xsl:when test="$import-name = 'CBS'">
-							<xsl:call-template name="authorcomment"/>
+							<xsl:call-template name="authorcommentCBS"/>
 						</xsl:when>
 					</xsl:choose>
 				</xsl:element>
@@ -762,6 +762,23 @@
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
+						<xsl:when test="$import-name = 'MPIMET'">
+						<xsl:choose>
+							<xsl:when test="$access='MPG' or $access='INSTITUT'">
+								<prop:visibility>audience</prop:visibility>
+							</xsl:when>
+							<xsl:when test="$access='PUBLIC'">
+								<prop:visibility>public</prop:visibility>
+							</xsl:when>
+							<xsl:otherwise>
+								<!-- ERROR -->
+								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
+					<xsl:when test="$import-name = 'MPIE' or $import-name = 'MPIA'">
+						<prop:visibility>private</prop:visibility>
+					</xsl:when>
 					<xsl:otherwise>
 						<xsl:choose>
 							<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
@@ -827,9 +844,14 @@
 							<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
 						</prop:content-category>
 					</xsl:when>
-					<xsl:when test="$import-name = 'BPC'">
+					<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET'">
 						<prop:content-category>
 							<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+						</prop:content-category>
+					</xsl:when>
+					<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE'">
+						<prop:content-category>
+							<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 						</prop:content-category>
 					</xsl:when>
 					<xsl:when test="$genre-mapping/genres/genre[edoc-genre = $comment]">
@@ -949,9 +971,14 @@
 									<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
 								</eterms:content-category>
 							</xsl:when>
-							<xsl:when test="$import-name = 'BPC'">
+							<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET'">
 								<eterms:content-category>
 									<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+								</eterms:content-category>
+							</xsl:when>
+							<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE'">
+								<eterms:content-category>
+									<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 								</eterms:content-category>
 							</xsl:when>
 							<xsl:when test="$genre-mapping/genres/genre[edoc-genre = $comment]">
@@ -985,6 +1012,11 @@
 								<xsl:value-of select="@comment"/>
 							</xsl:element>
 						</xsl:if>
+						<xsl:if test="($import-name = 'MPIE' or $import-name = 'MPIA') and exists(@comment)">
+							<xsl:element name="dc:description">
+								<xsl:value-of select="@comment"/>
+							</xsl:element>
+						</xsl:if>
 						<xsl:choose>
 							<xsl:when test="ends-with($filename, '.doc')">
 								<dc:format xsi:type="dcterms:IMT">application/msword</dc:format>
@@ -1005,7 +1037,15 @@
 							<xsl:when test="$import-name = 'FHI'">
 								<!-- <xsl:call-template name="copyrightFHI"/>-->
 							</xsl:when>
-							<xsl:when test="$import-name = 'BPC'">
+							<xsl:when test="$import-name = 'MPIMET'">
+								<xsl:element name="dc:rights">
+									<xsl:value-of select="concat('eDoc_access: ', $access)"/>
+								</xsl:element>
+								<xsl:element name="dc:rights">
+									<xsl:value-of select="../../../rights/copyright"/>
+								</xsl:element>
+							</xsl:when>
+							<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIA' or $import-name = 'MPIE'">
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:element name="dc:rights">
@@ -1404,8 +1444,11 @@
 					<xsl:value-of select="$degree-ves/enum[. = $degree-type]/@uri"/>
 				</xsl:element>
 			</xsl:if>
+			
 			<!-- ABSTRACT -->
 			<xsl:apply-templates select="abstract"/>
+			<xsl:call-template name="abstractMPIEMPIA"/>
+			
 			<!-- SUBJECT -->
 			<xsl:apply-templates select="discipline"/>
 			
@@ -1899,6 +1942,15 @@
 						<xsl:when test="$import-name = 'MPIK'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Nuclear Physics')"/>
 						</xsl:when>
+						<xsl:when test="$import-name = 'MPIE'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Extraterrestrial Physics')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIA'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Astrophysics')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIMET'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI für Meteorologie')"/>
+						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
 						</xsl:otherwise>
@@ -1907,16 +1959,13 @@
 				
 				<xsl:variable name="multiplePersonsFound" select="exists($coneCreator/cone/rdf:RDF/rdf:Description[@rdf:about != $coneCreator/cone/rdf:RDF/rdf:Description/@rdf:about])"/>
 				
-				<xsl:copy-of select="$coneCreator/cone/*"></xsl:copy-of>
-
-				<xsl:value-of select="count($coneCreator/*)"/>
 				
 				<xsl:choose>
 					<xsl:when test="$multiplePersonsFound">
 						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching --', concat($creatornfamily, ', ', creatorngiven), '--'))"/>
 					</xsl:when>
 					<xsl:when test="not(exists($coneCreator/cone/rdf:RDF/rdf:Description))">
-						<xsl:comment>NOT FOUND IN CONE: <xsl:value-of select="$coneCreator/cone"/></xsl:comment>
+						<xsl:comment>NOT FOUND IN CONE</xsl:comment>
 						<xsl:element name="person:person">
 							<xsl:element name="eterms:complete-name">
 								<xsl:value-of select="concat($creatorngivenNew, ' ', creatornfamily)"/>
@@ -1955,6 +2004,17 @@
 							
 							<xsl:if test="not($source)">
 								<xsl:choose>
+									<xsl:when test="$import-name = 'MPIK' and @internextern='unknown' and  exists(../../../docaff/docaff_external)">
+										<xsl:comment> Case MPIK for unknown user with external affiliation </xsl:comment>
+											<xsl:element name="organization:organization">
+												<xsl:element name="dc:title">
+													<xsl:value-of select="./../../../docaff/docaff_external"/>
+												</xsl:element>
+												<dc:identifier>
+													<xsl:value-of select="$external-ou"/>
+												</dc:identifier>
+											</xsl:element>
+									</xsl:when>									
 									<xsl:when test="$import-name = 'CBS' and (@internextern='mpg' or @internextern='unknown')">
 										<xsl:comment> Case CBS </xsl:comment>
 									</xsl:when>
@@ -2337,6 +2397,9 @@
 				</xsl:comment>
 				<xsl:element name="dcterms:abstract"/>
 			</xsl:when>
+			<xsl:when test="$import-name = 'MPIE' or $import-name = 'MPIA'">
+				<xsl:comment>Abstract not mapped</xsl:comment>
+			</xsl:when>
 			<xsl:otherwise>
 				<xsl:comment>
 				JAHR > 2007
@@ -2522,19 +2585,16 @@
 		<xsl:variable name="freekeywords">
 			<xsl:if test="exists(keywords)">
 				<xsl:value-of select="normalize-space(keywords)"/>
-				<xsl:text>
-</xsl:text>
+				<xsl:text></xsl:text>
 			</xsl:if>
 			<xsl:if test="exists(discipline)">
 				<xsl:value-of select="normalize-space(discipline)"/>
-				<xsl:text>
-</xsl:text>
+				<xsl:text></xsl:text>
 			</xsl:if>
 			<xsl:if test="$import-name = 'FHI'">
 				<xsl:if test="exists(../../docaff/docaff_researchcontext)">
 					<xsl:value-of select="normalize-space(../../docaff/docaff_researchcontext)"/>
-					<xsl:text>
-</xsl:text>
+					<xsl:text></xsl:text>
 				</xsl:if>
 			</xsl:if>
 		</xsl:variable>
@@ -2554,7 +2614,7 @@
 		
 	<!-- CBS templates -->
 	
-	<xsl:template name="authorcomment">
+	<xsl:template name="authorcommentCBS">
 		<xsl:if test="starts-with(lower-case(./basic/authorcomment), lower-case('meeting abstract'))">
 			<local-tags>
 				<local-tag>
@@ -2563,6 +2623,16 @@
 			</local-tags>
 		</xsl:if>
 	</xsl:template>
+	
+	<!-- MPIE - MPIA templates -->
+	<xsl:template name="abstractMPIEMPIA">
+		<xsl:if test="exists(authorcomment) and ($import-name = 'MPIE' or $import-name = 'MPIA')">
+			<xsl:element name="dcterms:abstract">
+				<xsl:value-of select="authorcomment"/>
+			</xsl:element>
+		</xsl:if>
+	</xsl:template>
+	
 	
 	<xsl:function name="escidocFunctions:smaller" as="xs:boolean">
 		<xsl:param name="value1"/>
