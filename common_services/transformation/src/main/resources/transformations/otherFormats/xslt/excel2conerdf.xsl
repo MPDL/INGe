@@ -12,18 +12,28 @@
 
 	<xsl:template match="/">
 		<rdf:RDF>
-
 			<xsl:for-each select="//excel:Row">
 				<xsl:variable name="pos" select="position()"/>
 				
 				<!--  <xsl:if test="excel:Cell[1]/excel:Data != '' and excel:Cell[1]/excel:Data != 'Nachname' and (string-length(//excel:Row[$pos - 1]/excel:Cell[1]/excel:Data) = 0 or //excel:Row[$pos - 1]/@ss:Index != '')">-->
-				<xsl:if test="excel:Cell[1]/excel:Data != '' and excel:Cell[1]/excel:Data != 'Nachname' and excel:Cell[4]/excel:Data != ''">
+				<xsl:if test="excel:Cell[1]/excel:Data != '' and excel:Cell[1]/excel:Data != 'Nachname' and excel:Cell[3]/excel:Data = 'X'">
 					
 					<xsl:variable name="main" select="//excel:Row[position() &gt;= $pos and excel:Cell[3] != ''][1]"/>
 
 					<xsl:variable name="familyname" select="normalize-space(string($main/excel:Cell[1]/excel:Data[1]))"/>
 					<xsl:variable name="givenname" select="normalize-space($main/excel:Cell[2]/excel:Data)"/>
-					<xsl:variable name="ouname" select="normalize-space($main/excel:Cell[4]/excel:Data)"/>
+					
+					<xsl:variable name="ouname">
+						<xsl:choose>
+							<xsl:when test="normalize-space($main/excel:Cell[4]/excel:Data) != ''">
+								<xsl:value-of select="normalize-space($main/excel:Cell[4]/excel:Data)"/>	
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="normalize-space($main/excel:Cell[3]/excel:Data)"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					
 					
 					<xsl:variable name="old-entry" select="$cone-list/rdf:RDF/rdf:Description[contains(./dc:title, concat($familyname, ', ', $givenname)) and contains(./dc:title , $ouname)]"/>
 
@@ -46,41 +56,116 @@
 							<xsl:with-param name="pos" select="$pos"/>
 							<xsl:with-param name="main" select="$main"/>
 						</xsl:call-template>
-						<escidoc:position>
-							<rdf:Description>
-
-								<xsl:variable name="escidoc-ou">
-									<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ouname]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid"/>
-								</xsl:variable>
-							
-								<xsl:variable name="ou-path">
-									<xsl:call-template name="get-ou-path">
-										<xsl:with-param name="id" select="$escidoc-ou"/>
-										<xsl:with-param name="familyname" select="$familyname"/>
-										<xsl:with-param name="givenname" select="$givenname"/>
-										<xsl:with-param name="ouname" select="$ouname"/>
-									</xsl:call-template>
-								</xsl:variable>
-							
-								<eprint:affiliatedInstitution>
-									<xsl:value-of select="$ou-path"/>
-								</eprint:affiliatedInstitution>
-								
-								
-								<xsl:if test="$escidoc-ou != ''">
-									<dc:identifier>
-										<xsl:value-of select="$escidoc-ou"/>
-									</dc:identifier>
-								</xsl:if>
-							</rdf:Description>
-						</escidoc:position>
+						
+						<xsl:call-template name="get-affiliations">
+							<xsl:with-param name="col" select="1"/>
+							<xsl:with-param name="pos" select="$pos"/>
+							<xsl:with-param name="familyname" select="$familyname"/>
+							<xsl:with-param name="givenname" select="$givenname"/>
+							<xsl:with-param name="direction" select="'both'"/>
+						</xsl:call-template>
+						
+						
 						<escidoc:degree>
 							<xsl:value-of select="$main/excel:Cell[5]/excel:Data"/>
+							<xsl:if test="$main/excel:Cell[3]/@ss:Index = 4 and normalize-space($main/excel:Cell[3]/excel:Data) != ''">
+								<xsl:value-of select="$main/excel:Cell[4]/excel:Data"/>
+							</xsl:if>
+							<xsl:if test="$main/excel:Cell[4]/@ss:Index = 5">
+								<xsl:value-of select="$main/excel:Cell[4]/excel:Data"/>
+							</xsl:if>
 						</escidoc:degree>
 					</rdf:Description>
 				</xsl:if>
 			</xsl:for-each>
 		</rdf:RDF>
+	</xsl:template>
+	
+	<xsl:template name="get-affiliations">
+		<xsl:param name="pos"/>
+		<xsl:param name="col"/>
+		<xsl:param name="familyname"/>
+		<xsl:param name="givenname"/>
+		<xsl:param name="direction"/>
+		
+		<xsl:if test="normalize-space(//excel:Row[$pos]/excel:Cell[$col]/excel:Data) != '' 
+					  and 
+					  (		($col = 4 and not(exists(//excel:Row[$pos]/excel:Cell[$col]/@ss:Index))) 
+					  		or  
+					  		//excel:Row[$pos]/excel:Cell[$col]/@ss:Index = 4
+					  )
+					  and ( not(exists(//excel:Row[$pos]/excel:Cell[$col - 1]/@ss:Index)) or //excel:Row[$pos]/excel:Cell[$col - 1]/@ss:Index != 4)
+					  and normalize-space(//excel:Row[$pos]/excel:Cell[$col]/excel:Data) != 'Abteilung'">
+			<xsl:call-template name="write-affiliation">
+				<xsl:with-param name="ouname" select="normalize-space(//excel:Row[$pos]/excel:Cell[$col]/excel:Data)"/>
+				<xsl:with-param name="familyname" select="$familyname"/>
+				<xsl:with-param name="givenname" select="$givenname"/>
+			</xsl:call-template>
+		</xsl:if>
+		
+		<xsl:if test="string-length(//excel:Row[$pos]/excel:Cell[$col + 1]/excel:Data) != 0">
+			<xsl:call-template name="get-affiliations">
+				<xsl:with-param name="pos" select="$pos"/>
+				<xsl:with-param name="col" select="$col + 1"/>
+				<xsl:with-param name="familyname" select="$familyname"/>
+				<xsl:with-param name="givenname" select="$givenname"/>
+				<xsl:with-param name="direction" select="'none'"/>
+			</xsl:call-template>
+		</xsl:if>
+		
+		<xsl:if test="string-length(//excel:Row[$pos + 1]/excel:Cell[1]/excel:Data) != 0 and ($direction = 'forward' or $direction = 'both')">
+			<xsl:call-template name="get-affiliations">
+				<xsl:with-param name="pos" select="$pos + 1"/>
+				<xsl:with-param name="col" select="1"/>
+				<xsl:with-param name="familyname" select="$familyname"/>
+				<xsl:with-param name="givenname" select="$givenname"/>
+				<xsl:with-param name="direction" select="'forward'"/>
+			</xsl:call-template>
+			
+		</xsl:if>
+		
+		<xsl:if test="string-length(//excel:Row[$pos - 1]/excel:Cell[1]/excel:Data) != 0 and ($direction = 'backward' or $direction = 'both')">
+			<xsl:call-template name="get-affiliations">
+				<xsl:with-param name="pos" select="$pos - 1"/>
+				<xsl:with-param name="col" select="1"/>
+				<xsl:with-param name="familyname" select="$familyname"/>
+				<xsl:with-param name="givenname" select="$givenname"/>
+				<xsl:with-param name="direction" select="'backward'"/>
+			</xsl:call-template>
+		</xsl:if>
+		
+	</xsl:template>
+	
+	<xsl:template name="write-affiliation">
+		<xsl:param name="ouname"/>
+		<xsl:param name="familyname"/>
+		<xsl:param name="givenname"/>
+		<escidoc:position>
+			<rdf:Description>
+				<xsl:variable name="escidoc-ou">
+					<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ouname or normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dcterms:alternative) = $ouname]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid"/>
+				</xsl:variable>
+			
+				<xsl:variable name="ou-path">
+					<xsl:call-template name="get-ou-path">
+						<xsl:with-param name="id" select="$escidoc-ou"/>
+						<xsl:with-param name="familyname" select="$familyname"/>
+						<xsl:with-param name="givenname" select="$givenname"/>
+						<xsl:with-param name="ouname" select="$ouname"/>
+					</xsl:call-template>
+				</xsl:variable>
+			
+				<eprint:affiliatedInstitution>
+					<xsl:value-of select="$ou-path"/>
+				</eprint:affiliatedInstitution>
+				
+				<xsl:if test="$escidoc-ou != ''">
+					<dc:identifier>
+						<xsl:value-of select="$escidoc-ou"/>
+					</dc:identifier>
+				</xsl:if>
+			</rdf:Description>
+		</escidoc:position>
 	</xsl:template>
 	
 	<xsl:template name="get-ou-path">
