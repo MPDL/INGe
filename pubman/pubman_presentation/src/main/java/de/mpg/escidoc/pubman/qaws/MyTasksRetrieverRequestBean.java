@@ -391,10 +391,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 
         contextSelectItems = new ArrayList<SelectItem>();
         contextSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
-
-        //The contextString variable is needed for selection of Imports (see below) for privileged contexts
-        String contextString = "";
-
         for(int i=0; i<contextVOList.size(); i++)
         {
             String workflow = "null";
@@ -403,51 +399,40 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
                 workflow = contextVOList.get(i).getAdminDescriptor().getWorkflow().toString();
             }
             contextSelectItems.add(new SelectItem(contextVOList.get(i).getReference().getObjectId(), contextVOList.get(i).getName()+" -- "+workflow));
-            contextString += "'"+contextVOList.get(i).getReference().getObjectId()+"'";
-            if (i!=contextVOList.size()-1)
-            {
-                contextString += ", ";
-            }
+  
         }
-
-        //commented out, as the loop for setting context-select list is used
-        //for (PubContextVOPresentation pubContextVOPresentation : contextVOList)
-        //{
-        //    contextString += "'"+pubContextVOPresentation.getReference().getObjectId() + "',";
-        //}
-
-
-        List<SelectItem> importSelectItems = new ArrayList<SelectItem>();
-        if (loginHelper.getIsModerator())
+        
+        String contextString = ",";
+        for (PubContextVOPresentation pubContextVOPresentation : contextVOList)
         {
-
-            importSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
-
-            try
+            contextString += pubContextVOPresentation.getReference().getObjectId() + ",";
+        }
+        
+        // Init imports
+        List<SelectItem> importSelectItems = new ArrayList<SelectItem>();
+        importSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+        
+        try
+        {
+            Connection connection = ImportLog.getConnection();
+            String sql = "select * from ESCIDOC_IMPORT_LOG where ? like '%,' || context || ',%'";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            statement.setString(1, contextString);
+            
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next())
             {
-                Connection connection = ImportLog.getConnection();
-                //Statement - shall use context index
-                //String sql = "select * from ESCIDOC_IMPORT_LOG where ? like '%,' || context || ',%'";
-                String sql = "select * from ESCIDOC_IMPORT_LOG where context in ( ? )";
-                PreparedStatement statement = connection.prepareStatement(sql);
-
-                statement.setString(1, contextString);
-
-                ResultSet resultSet = statement.executeQuery();
-
-                while (resultSet.next())
-                {
-                    SelectItem selectItem = new SelectItem(resultSet.getString("name") + " " + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
-                    importSelectItems.add(selectItem);
-                }
-                resultSet.close();
-                statement.close();
+                SelectItem selectItem = new SelectItem(resultSet.getString("name") + " " + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
+                importSelectItems.add(selectItem);
             }
-            catch (Exception e) {
-                logger.error("Error getting imports from database", e);
-                error("Error getting imports from database");
-            }
-
+            resultSet.close();
+            statement.close();
+        }
+        catch (Exception e) {
+            logger.error("Error getting imports from database", e);
+            error("Error getting imports from database");
         }
         setImportSelectItems(importSelectItems);
     }
