@@ -565,6 +565,41 @@ public class Util
 		}
 	}
     
+	public static Node querySSRNId(String conePersonUrl){
+		DocumentBuilder documentBuilder;
+		HttpClient client = new HttpClient();
+		try {
+			documentBuilder = DocumentBuilderFactoryImpl.newInstance()
+			.newDocumentBuilder();
+
+			Document document = documentBuilder.newDocument();
+			Element element = document.createElement("cone");
+			document.appendChild(element);
+			GetMethod detailMethod = new GetMethod(conePersonUrl + "?format=rdf");
+			ProxyHelper.setProxy(client, conePersonUrl);
+			client.executeMethod(detailMethod);
+			if (detailMethod.getStatusCode() == 200)
+			{
+				Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
+				element.appendChild(document.importNode(details.getFirstChild(), true));
+				return document;
+			}
+			else
+			{
+				logger.error("Error querying CoNE: Status "
+						+ detailMethod.getStatusCode() + "\n" + detailMethod.getResponseBodyAsString());
+				return null;
+			}
+			
+		}catch (Exception e) {
+			logger
+			.error("Error querying CoNE service. This is normal during unit tests. "
+					+ "Otherwise it should be clarified if any measures have to be taken.");
+			return null;
+		}
+		
+	}
+	
     public static Node getSize(String url)
     {
         DocumentBuilder documentBuilder;
