@@ -1,12 +1,23 @@
 package de.mpg.escidoc.services.batchprocess.helper;
 
+import gov.loc.www.zing.srw.RecordType;
+import gov.loc.www.zing.srw.SearchRetrieveResponseType;
+import gov.loc.www.zing.srw.StringOrXmlFragment;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.axis.message.MessageElement;
+
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchResultVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 public class CoreServiceHelper
@@ -35,5 +46,36 @@ public class CoreServiceHelper
             }
         }
         return list;
+    }
+
+    public static List<ItemVO> transformSearchResultXmlToListOfItemVO(SearchRetrieveResponseType searchResult) throws Exception
+    {
+        XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+        ArrayList<ItemVO> resultList = new ArrayList<ItemVO>();
+        if (searchResult.getRecords() != null)
+        {
+            for (RecordType record : searchResult.getRecords().getRecord())
+            {
+                StringOrXmlFragment data = record.getRecordData();
+                MessageElement[] messages = data.get_any();
+                // Data is in the first record
+                if (messages.length == 1)
+                {
+                    String searchResultItem = null;
+                    try
+                    {
+                        searchResultItem = messages[0].getAsString();
+                    }
+                    catch (Exception e) 
+                    {
+                        throw new TechnicalException("Error getting search result message.", e);
+                    }
+                    SearchResultElement itemResult = xmlTransforming.transformToSearchResult(searchResultItem);
+                    ItemVO itemVO = (ItemResultVO) itemResult;
+                    resultList.add(itemVO);
+                }
+            }
+        }
+        return resultList;
     }
 }

@@ -1,28 +1,13 @@
 package de.mpg.escidoc.services.batchprocess.transformers;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.batchprocess.BatchProcess.CoreServiceObjectType;
 import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatusType;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
-import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 public class BPCImportTransformer extends Transformer<PubItemVO>

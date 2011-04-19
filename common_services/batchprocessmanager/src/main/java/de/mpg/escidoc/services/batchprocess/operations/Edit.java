@@ -72,7 +72,7 @@ public class Edit extends Operation
         {
             for (ItemVO ivo : new ArrayList<ItemVO>(list.getElements()))
             {
-            	if (!this.getTransformed().contains(ivo.getVersion().getObjectId())) 
+            	if (this.getTransformed().contains(ivo.getVersion().getObjectId())) 
             	{
             		String xml = xmlTransforming.transformToItem(ivo);
             		try
