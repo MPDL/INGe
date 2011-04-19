@@ -302,7 +302,7 @@ public class Util
     public static Node queryCone(String model, String query)
     {
         DocumentBuilder documentBuilder;
-
+        String queryUrl = null;
         try
         {
             documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
@@ -311,13 +311,14 @@ public class Util
             Element element = document.createElement("cone");
             document.appendChild(element);
             
-            String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
+            queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                  + model + "/query?format=jquery&q=" + URLEncoder.encode(query, "ISO-8859-15");
             String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                 + model + "/resource/$1?format=rdf";
             HttpClient client = new HttpClient();
             GetMethod method = new GetMethod(queryUrl);
             ProxyHelper.executeMethod(client, method);
+            
             if (method.getStatusCode() == 200)
             {
                 String[] results = method.getResponseBodyAsString().split("\n");
@@ -337,7 +338,6 @@ public class Util
                         {
                             Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
                             element.appendChild(document.importNode(details.getFirstChild(), true));
-
                         }
                         else
                         {
@@ -352,12 +352,14 @@ public class Util
                 logger.error("Error querying CoNE: Status "
                         + method.getStatusCode() + "\n" + method.getResponseBodyAsString());
             }
+            
             return document;
         }
         catch (Exception e)
         {
-            logger.error("Error querying CoNE service. This is normal during unit tests. " +
-                    "Otherwise it should be clarified if any measures have to be taken.");
+            logger.error("Error querying CoNE service. This is normal during unit tests. (" + queryUrl +
+            		") .Otherwise it should be clarified if any measures have to be taken.");
+            logger.debug("Stacktrace", e);
             return null;
             //throw new RuntimeException(e);
         }
@@ -376,8 +378,8 @@ public class Util
             document.appendChild(element);
             
             String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
-                 + model + "/query?format=jquery&dc:title=\"" + URLEncoder.encode(name, "ISO-8859-15")
-                 + "\"&escidoc:position/eprints:affiliatedInstitution=" + URLEncoder.encode(ou, "ISO-8859-15");
+                 + model + "/query?format=jquery&dc:title=\"" + URLEncoder.encode(name, "UTF-8")
+                 + "\"&escidoc:position/eprints:affiliatedInstitution=" + URLEncoder.encode(ou, "UTF-8");
             String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                 + model + "/resource/$1?format=rdf";
             HttpClient client = new HttpClient();
@@ -389,8 +391,8 @@ public class Util
                 ArrayList<String> results = new ArrayList<String>();
                 results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
                 queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
-                    + model + "/query?format=jquery&dcterms:alternative=\"" + URLEncoder.encode(name, "ISO-8859-15")
-                    + "\"&escidoc:position/eprints:affiliatedInstitution=" + URLEncoder.encode(ou, "ISO-8859-15");
+                    + model + "/query?format=jquery&dcterms:alternative=\"" + URLEncoder.encode(name, "UTF-8")
+                    + "\"&escidoc:position/eprints:affiliatedInstitution=" + URLEncoder.encode(ou, "UTF-8");
                 client = new HttpClient();
                 method = new GetMethod(queryUrl);
                 ProxyHelper.executeMethod(client, method);
@@ -412,7 +414,6 @@ public class Util
                             {
                                 Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
                                 element.appendChild(document.importNode(details.getFirstChild(), true));
-    
                             }
                             else
                             {
@@ -427,7 +428,7 @@ public class Util
             {
                 logger.error("Error querying CoNE: Status "
                         + method.getStatusCode() + "\n" + method.getResponseBodyAsString());
-            }
+            }            
             return document;
         }
         catch (Exception e)
