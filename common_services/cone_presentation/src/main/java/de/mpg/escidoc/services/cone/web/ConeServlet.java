@@ -361,7 +361,7 @@ public class ConeServlet extends HttpServlet
         {
             try
             {
-                String utf8 = new String(brokenValue.getBytes("ISO-8859-15"), "UTF-8");
+                String utf8 = new String(brokenValue.getBytes("ISO-8859-1"), "UTF-8");
                 if (utf8.equals(brokenValue) || utf8.contains("�") || utf8.length() == brokenValue.length())
                 {
                     return brokenValue;
