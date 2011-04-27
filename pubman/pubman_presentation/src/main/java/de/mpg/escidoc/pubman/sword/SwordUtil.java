@@ -208,7 +208,7 @@ public class SwordUtil extends FacesBean
             pwd = sdr.getPassword();
             try
             {
-                String handle = this.loginUser(username, pwd);
+                String handle = AdminHelper.loginUser(username, pwd);
                 loginHelper.setESciDocUserHandle(handle);
                 userVO = loginHelper.getAccountUser();
             }
