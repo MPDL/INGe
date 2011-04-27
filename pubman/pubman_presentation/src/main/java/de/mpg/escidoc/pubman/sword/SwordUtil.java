@@ -104,6 +104,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
@@ -385,7 +386,7 @@ public class SwordUtil extends FacesBean
 
         try
         {
-            handle = this.loginUser(user, pwd);
+            handle = AdminHelper.loginUser(user, pwd);
             loginHelper.fetchAccountUser(handle);
         }
         catch (Exception e)
