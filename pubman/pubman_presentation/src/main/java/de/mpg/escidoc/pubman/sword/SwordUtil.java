@@ -265,7 +265,8 @@ public class SwordUtil extends FacesBean
     public boolean checkCollection (String collection, AccountUserVO user)
     {
         List < PubContextVOPresentation > contextList = null;
-        ContextListSessionBean contextListBean = new ContextListSessionBean();
+        ContextListSessionBean contextListBean = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+        contextListBean.init();
         contextList = contextListBean.getDepositorContextList();
         for (int i = 0; i < contextList.size(); i++)
         {
@@ -389,6 +390,7 @@ public class SwordUtil extends FacesBean
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             return null;
         }
         return loginHelper.getAccountUser();

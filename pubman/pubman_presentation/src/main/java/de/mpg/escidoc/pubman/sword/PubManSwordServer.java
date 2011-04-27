@@ -56,6 +56,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
@@ -178,7 +179,8 @@ public class PubManSwordServer
         {
             SwordUtil util = new SwordUtil();
             List < PubContextVOPresentation > contextList = null;
-            ContextListSessionBean contextListBean = new ContextListSessionBean();
+            ContextListSessionBean contextListBean = (ContextListSessionBean) FacesBean.getSessionBean(ContextListSessionBean.class);
+            contextListBean.init();
             contextList = contextListBean.getDepositorContextList();
             DocumentBuilder documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
 

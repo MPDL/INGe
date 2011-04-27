@@ -244,6 +244,9 @@ public class LoginHelper extends FacesBean
             this.accountUser.setAttributes(transforming.transformToUserAttributesList(attributesXml));
             // add the user handle to the transformed account user
             this.accountUser.setHandle(userHandle);
+            this.setESciDocUserHandle(userHandle);
+            this.setLoggedIn(true);
+            this.setWasLoggedIn(true);
             //Why is this needed in here?
             //no setGrants in AccountUserVO
             //no use of the userGrants further
@@ -262,6 +265,11 @@ public class LoginHelper extends FacesBean
         }
         catch (AuthenticationException e)
         {
+            login.forceLogout();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
             login.forceLogout();
         }
     }
