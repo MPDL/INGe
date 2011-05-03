@@ -117,7 +117,7 @@
 			</span>
 		</div>
 	
-		<a id="lnkHideGroupPersOrg" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblCreators}" /></a>	
+		<a id="lnkHideGroupPersOrg" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
 	</div>
-	<a id="lnkShowGroupPersOrg" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemFull_lblCreators}" /></a>
+	<a id="lnkShowGroupPersOrg" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 </h:panelGroup>

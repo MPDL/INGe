@@ -68,7 +68,7 @@
 
 		</tr:iterator>
 
-		<a id="lnkHideGroupLocator" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblSubHeaderLocators}" /></a>	
+		<a id="lnkHideGroupLocator" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
 	</h:panelGroup>
-	<a id="lnkShowGroupLocator" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemFull_lblSubHeaderLocators}" /></a>
+	<a id="lnkShowGroupLocator" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 </h:panelGroup>

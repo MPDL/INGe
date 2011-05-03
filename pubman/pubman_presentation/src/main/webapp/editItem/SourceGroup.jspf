@@ -351,14 +351,10 @@
 	</h:panelGroup>
 	<a class="free_area0 collapse">
 		<h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " />
-		<h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter" />
-		<h:outputText value="#{sourceBean.position + 1}" />
 	</a>
 		</div>
 		<a class="free_area0 expand">
 			<h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" />
-			<h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter" />
-			<h:outputText value="#{sourceBean.position + 1}" />
 		</a>
 	</h:panelGroup>
 </tr:iterator>

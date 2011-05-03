@@ -213,7 +213,7 @@
 			</h:panelGroup>
 
 		</tr:iterator>
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /><h:outputText value="#{genre.files_label}" converter="GenreLabelConverter"/></a>	
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /></a>	
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /><h:outputText value="#{genre.files_label}" converter="GenreLabelConverter"/></a>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /></a>
 </h:panelGroup>

@@ -148,7 +148,7 @@
 			</span>
 		</div>
 
-		<a id="lnkHideGroupDetails" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblSubHeaderDetails}" /></a>	
+		<a id="lnkHideGroupDetails" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
 	</h:panelGroup>
-	<a id="lnkShowGroupDetails" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemFull_lblSubHeaderDetails}" /></a>
+	<a id="lnkShowGroupDetails" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 </h:panelGroup>

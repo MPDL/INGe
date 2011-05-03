@@ -116,7 +116,7 @@
 			</h:panelGroup>
 		</tr:iterator>	
 	
-		<a id="lnkHideGroupBasic" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblBasic}" /></a>	
+		<a id="lnkHideGroupBasic" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
 	</h:panelGroup>
-	<a id="lnkShowGroupBasic" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemFull_lblBasic}" /></a>
+	<a id="lnkShowGroupBasic" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 </h:panelGroup>
