@@ -84,7 +84,7 @@
 	<xsl:param name="root-ou" select="'dummy-root-ou'"/>
 	<xsl:param name="source-name" select="'eDoc'"/>
 	
-	<xsl:param name="import-name" select="'OTHER'"/>
+	<xsl:param name="import-name" select="'MPIK'"/>
 	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
 	
@@ -1362,6 +1362,7 @@
 					</xsl:call-template>
 				</xsl:element>
 			</xsl:if>
+			
 			<xsl:if test="titleofproceedings">
 				<xsl:element name="source:source">
 					<xsl:call-template name="createProceedings">
@@ -1371,6 +1372,7 @@
 					</xsl:call-template>
 				</xsl:element>
 			</xsl:if>
+			
 			<xsl:if test="titleofseries">
 				<xsl:element name="source:source">
 					<xsl:call-template name="createSeries">
@@ -1396,29 +1398,10 @@
 				<xsl:call-template name="createEvent"/>
 			</xsl:if>
 			<!-- TOTAL NUMBER OF PAGES -->
-			<xsl:if test="phydesc">
-				<xsl:element name="eterms:total-number-of-pages">
-					<xsl:value-of select="phydesc"/>
-				</xsl:element>
-				<!-- <xsl:choose>
-					<xsl:when test="$gen='book-item' and not(exists(booktitle))">
-						<xsl:call-template name="phydescPubl"/>
-					</xsl:when>
-					<xsl:when test="$gen='book-item' or $gen='book' or $gen='thesis'">
-						<xsl:call-template name="phydescPubl"/>
-					</xsl:when>
-					<xsl:when test="$gen='conference-paper' and not(exists(titleofproceedings)) and exists(phydesc)">
-						<xsl:call-template name="phydescPubl"/>
-					</xsl:when>
-					<xsl:when test="$gen=$dependentGenre/type">
-						<xsl:if test="not(exists(titleofproceedings)) and not(exists(booktitle)) and not(exists(issuetitle)) and not(exists(journaltitle)) and not(exists(titleodseries))">
-							<xsl:call-template name="phydescPubl"/>
-						</xsl:if>
-					</xsl:when>
-					<xsl:when test="not($gen=$dependentGenre/type)">
-						<xsl:call-template name="phydescPubl"/>
-					</xsl:when>
-				</xsl:choose> -->
+			<xsl:if test="phydesc and
+					not($dependentGenre[type = $gen] and
+					(exists(titleofproceedings) or exists(booktitle) or exists(issuetitle) or exists(journaltitle) or exists(titleofseries)))">
+				<xsl:call-template name="phydescPubl"/>
 			</xsl:if>
 			
 			<!-- DEGREE -->
@@ -1605,15 +1588,21 @@
 		
 		<!-- ISSUE -->
 		<xsl:apply-templates select="issuenr"/>
-		<!-- START_PAGE -->
-		<xsl:apply-templates select="spage"/>
-		<!-- END-PAGE -->
-		<xsl:apply-templates select="epage"/>
+		
+		<xsl:if test="not(exists(issuetitle))">
+			<!-- START_PAGE -->
+			<xsl:apply-templates select="spage"/>
+			<!-- END-PAGE -->
+			<xsl:apply-templates select="epage"/>
+		</xsl:if>
 		
 		<xsl:if test="not(exists(issuetitle))">
 			<!-- SEQUENCE_NR -->
 			<xsl:apply-templates select="artnum"/>
 		</xsl:if>
+		
+		<!-- Total number of pages -->
+		<xsl:call-template name="phydescPubl"/>
 
 		<!-- PUBLISHININFO -->
 		<xsl:if test="not(exists(issuetitle)) and (exists(publisher) or exists(editiondescription))">
@@ -1672,9 +1661,17 @@
 			</xsl:element>
 		</xsl:for-each>
 		<xsl:apply-templates select="issuecorporatebody"/>
+		
+		<!-- START_PAGE -->
+		<xsl:apply-templates select="spage"/>
+		<!-- END-PAGE -->
+		<xsl:apply-templates select="epage"/>
 
 		<!-- SEQUENCE_NR -->
 		<xsl:apply-templates select="artnum"/>
+			
+		<!-- Total number of pages -->
+		<xsl:call-template name="phydescPubl"/>
 	
 		<!--  <xsl:call-template name="createSourceIdentifiers"/>-->
 		<xsl:for-each select="../identifiers/identifier[@type != 'issn' or not($issn-save)]">
@@ -1720,6 +1717,9 @@
 		<!-- SEQUENCE_NR -->
 		<xsl:apply-templates select="artnum"/>
 		
+		<!-- Total number of pages -->
+		<xsl:call-template name="phydescPubl"/>
+			
 		<xsl:if test="exists(publisher) or exists(editiondescription)">
 			<xsl:element name="eterms:publishing-info">
 				<xsl:call-template name="createPublishinginfo"/>
@@ -1738,11 +1738,11 @@
 	
 	</xsl:template>
 	
-	<!-- <xsl:template name="phydescPubl">
+	<xsl:template name="phydescPubl">
 		<xsl:element name="eterms:total-number-of-pages">
 			<xsl:value-of select="phydesc"/>
 		</xsl:element>
-	</xsl:template>-->
+	</xsl:template>
 	
 	<!-- <xsl:template name="phydescSource">
 		<xsl:element name="eterms:sequence-number">
@@ -1836,6 +1836,9 @@
 		<xsl:apply-templates select="spage"/>
 		<!-- END-PAGE -->
 		<xsl:apply-templates select="epage"/>
+				
+		<!-- Total number of pages -->
+		<xsl:call-template name="phydescPubl"/>
 		
 		<xsl:if test="exists(publisher)">
 			<xsl:element name="eterms:publishing-info">
