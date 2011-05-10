@@ -31,8 +31,13 @@
 package de.mpg.escidoc.services.transformation;
 
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,6 +66,7 @@ import org.w3c.dom.Node;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsType;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
@@ -726,5 +732,64 @@ public class Util
     public static void log(String str)
     {
         System.out.println(str);
+    }
+    
+    /**
+     *  Command line transformation.
+     *  
+     * @param see usage
+     * @throws Exception Any exception
+     */
+    public static void main(String[] args) throws Exception
+    {
+        if (args.length < 7)
+        {
+            System.out.println("Usage: ");
+            System.out.println("Util <srcFile> <srcFormatName> <srcFormatType> <srcFormatEncoding> <trgFormatName> <trgFormatType> <trgFormatEncoding> [<trgFile> [<service>]]");
+            System.out.println("Example:");
+            System.out.println("Util /tmp/source.xml eDoc application/xml UTF-8 eSciDoc application/xml UTF-8 /tmp/target.xml");
+        }
+        else
+        {
+            // Init
+            Transformation transformation = new TransformationBean(true);
+            Format srcFormat = new Format(args[1], args[2], args[3]);
+            Format trgFormat = new Format(args[4], args[5], args[6]);
+            File srcFile = new File(args[0]);
+            OutputStream trgStream;
+            if (args.length > 7)
+            {
+                trgStream = new FileOutputStream(new File(args[7]));
+            }
+            else
+            {
+                trgStream = System.out;
+            }
+            String service = "eSciDoc";
+            if (args.length > 8)
+            {
+                service = args[8];
+            }
+            
+            // Get file content
+            FileInputStream inputStream = new FileInputStream(srcFile);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[2048];
+            int read;
+            while ((read = inputStream.read(buffer)) != -1)
+            {
+                outputStream.write(buffer, 0, read);
+            }
+            byte[] content = outputStream.toByteArray();
+            
+            // Transform
+            byte[] result = transformation.transform(content, srcFormat, trgFormat, service);
+            
+            // Stream back
+            trgStream.write(result);
+            trgStream.close();
+            
+        }
+        
     }
 }

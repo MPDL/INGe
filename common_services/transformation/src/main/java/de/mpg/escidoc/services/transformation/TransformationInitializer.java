@@ -64,7 +64,7 @@ public class TransformationInitializer
             else
             {
                 searchDir = this.setJbossSearchPath();   
-                File dir = new File(searchDir);       
+                File dir = new File(searchDir);
                 String[] children = dir.list();
               
                 if (children != null)

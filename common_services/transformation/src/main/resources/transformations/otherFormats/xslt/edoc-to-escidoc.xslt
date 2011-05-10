@@ -1307,7 +1307,7 @@
 			
 			<!-- Number of sources -->
 			<xsl:variable name="sources-count">
-				<xsl:value-of select="count(journaltitle|issuetitle|booktitle|titleofseries|titleofproceedings|titleofseries)"/>
+				<xsl:value-of select="count(journaltitle|issuetitle|booktitle|titleofseries|titleofproceedings)"/>
 			</xsl:variable>
 			
 			<!-- 
@@ -1710,6 +1710,7 @@
 		<xsl:if test="not(exists(titleofseries))">
 			<xsl:apply-templates select="volume"/>
 		</xsl:if>
+		
 		<!-- START_PAGE -->
 		<xsl:apply-templates select="spage"/>
 		<!-- END-PAGE -->
@@ -1791,6 +1792,13 @@
 		<!-- VOLUME -->
 		<xsl:apply-templates select="volume"/>
 		
+		<xsl:if test="not(exists(issuetitle|journaltitle|booktitle|titleofproceedings))">
+			<!-- START_PAGE -->
+			<xsl:apply-templates select="spage"/>
+			<!-- END-PAGE -->
+			<xsl:apply-templates select="epage"/>
+		</xsl:if>
+
 		<!-- <xsl:call-template name="createSourceIdentifiers"/>-->
 		<xsl:for-each select="../identifiers/identifier[@type != 'isbn' or not($isbn-save)]">
 			<xsl:call-template name="createIDs">
