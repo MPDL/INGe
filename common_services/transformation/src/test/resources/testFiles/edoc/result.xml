@@ -3,7 +3,7 @@
 	<ei:item>
 		<ei:properties>
 			<srel:context objid="dummy-context"/>
-			<srel:content-model objid="escidoc:persistent4"/>
+			<srel:content-model objid="${escidoc.framework_access.content-model.id.publication}"/>
 			<prop:content-model-specific>
 				<local-tags>
 					<local-tag>Yearbook 2009</local-tag>
@@ -139,7 +139,7 @@
 	<ei:item>
 		<ei:properties>
 			<srel:context objid="dummy-context"/>
-			<srel:content-model objid="escidoc:persistent4"/>
+			<srel:content-model objid="${escidoc.framework_access.content-model.id.publication}"/>
 			<prop:content-model-specific>
 				<local-tags>
 					<local-tag>Yearbook 2009</local-tag>
@@ -166,7 +166,6 @@
 					<eterms:publishing-info>
 						<dc:publisher>Ruprecht-Karls Universität</dc:publisher>
 						<eterms:place>Heidelberg, Germany</eterms:place>
-						<eterms:edition>diplom</eterms:edition>
 					</eterms:publishing-info>
 					<dcterms:dateAccepted>2008</dcterms:dateAccepted>
 					<eterms:total-number-of-pages>VIII, 122 S. : Ill., graph. Darst.</eterms:total-number-of-pages>

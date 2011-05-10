@@ -131,7 +131,7 @@ public class EndNoteTransformation implements Transformation
 	 * @see de.mpg.escidoc.services.transformation.Transformation#getSourceFormats(de.mpg.escidoc.services.transformation.valueObjects.Format)
 	 */
 	public Format[] getSourceFormats(Format trg) throws RuntimeException {
-		if (ESCIDOC_ITEM_FORMAT.equals(trg) || ESCIDOC_ITEM_LIST_FORMAT.equals(trg))
+		if (trg != null && (trg.matches(ESCIDOC_ITEM_FORMAT) || trg.matches(ESCIDOC_ITEM_LIST_FORMAT)))
 		{
 			return new Format[]{ENDNOTE_FORMAT, ENDNOTE_ICE_FORMAT};
 		}

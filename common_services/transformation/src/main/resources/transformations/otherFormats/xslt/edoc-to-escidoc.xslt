@@ -1846,7 +1846,9 @@
 		<xsl:apply-templates select="epage"/>
 				
 		<!-- Total number of pages -->
-		<xsl:call-template name="phydescPubl"/>
+		<xsl:if test="phydesc">
+			<xsl:call-template name="phydescPubl"/>
+		</xsl:if>
 		
 		<xsl:if test="exists(publisher)">
 			<xsl:element name="eterms:publishing-info">
