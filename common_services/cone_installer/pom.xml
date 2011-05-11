@@ -198,12 +198,6 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>framework_access</artifactId>
-			<version>1.0.52-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.codehaus.izpack</groupId>
 			<artifactId>izpack-standalone-compiler</artifactId>
 			<version>${izpack-standalone.version}</version>
