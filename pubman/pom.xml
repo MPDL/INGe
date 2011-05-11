@@ -1,3 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
@@ -187,79 +216,45 @@
 		<url>https://zim02.gwdg.de/repos/pubman/</url>
 	</scm>
 
-	<distributionManagement>
-		<repository>
-			<id>deployment.webdav</id>
-			<name>Archiva deployment</name>
-			<url>
-				dav:http://archiva.mpdl.mpg.de/archiva/repository/internal
-			</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots.webdav</id>
-			<url>
-				dav:http://archiva.mpdl.mpg.de/archiva/repository/snapshots
-			</url>
-		</snapshotRepository>
-		<site>
-			<id>website</id>
-			<url>
-				scp://escidoc1.escidoc.mpg.de:/srv/www/staging/projects/pubman
-			</url>
-		</site>
-	</distributionManagement>
+ 	<repositories>
+        <repository>
+            <id>central</id>
+            <url>http://central</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
-	<repositories>
-		<repository>
-			<id>deployment.webdav</id>
-			<name>Archiva Managed Internal Repository</name>
-			<url>
-				http://archiva.mpdl.mpg.de/archiva/repository/internal
-			</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>snapshots.webdav</id>
-			<name>Archiva Managed Snapshot Repository</name>
-			<url>
-				http://archiva.mpdl.mpg.de/archiva/repository/snapshots
-			</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <url>http://central</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+    
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Nexus Managed Releases</name>
+            <url>http://rd.mpdl.mpg.de/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Nexus Managed Snapshots</name>
+            <url>http://rd.mpdl.mpg.de/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>Archiva plugin snapshots</id>
-			<url>http://archiva.mpdl.mpg.de/archiva/repository/snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</pluginRepository>
-                <pluginRepository>
-			<id>Archiva plugin internal</id>
-			<url>http://archiva.mpdl.mpg.de/archiva/repository/internal</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</pluginRepository>
-	</pluginRepositories>
 	<build>
 		<resources>
 			<resource>
@@ -708,22 +703,14 @@
 				<!-- URL of stylesheets in common-presentation -->
 				<escidoc.pubman.common.presentation.url>http://localhost:8080/common/</escidoc.pubman.common.presentation.url>
 			</properties>
-			
-				<distributionManagement>
-				<repository>
-					<id>deployment.webdav</id>
-					<name>Archiva deployment</name>
-					<url>dav:http://archiva.mpdl.mpg.de/archiva/repository/internal</url>
-				</repository>
-				<snapshotRepository>
-					<id>snapshots.webdav</id>
-					<url>dav:http://archiva.mpdl.mpg.de/archiva/repository/snapshots</url>
-				</snapshotRepository>
+
+			<distributionManagement>
 				<site>
 					<id>website</id>
 					<url>scp://escidoc1.escidoc.mpg.de:/srv/www/staging/projects/pubman</url>
 				</site>
 			</distributionManagement>
+
 		</profile>
 		<profile>
 			<id>env-testing-continuum</id>
@@ -750,20 +737,12 @@
 				<escidoc.pubman.common.presentation.url>http://dev-pubman.mpdl.mpg.de/common/</escidoc.pubman.common.presentation.url>
 			</properties>
 			<distributionManagement>
-				<repository>
-					<id>deployment.webdav</id>
-					<name>Archiva deployment</name>
-					<url>dav:http://archiva.mpdl.mpg.de/archiva/repository/internal</url>
-				</repository>
-				<snapshotRepository>
-					<id>snapshots.webdav</id>
-					<url>dav:http://archiva.mpdl.mpg.de/archiva/repository/snapshots</url>
-				</snapshotRepository>
 				<site>
 					<id>website</id>
 					<url>scp://escidoc1.escidoc.mpg.de:/srv/www/00_default/projects/snapshots/pubman</url>
 				</site>
 			</distributionManagement>
+
 		</profile>
 		<profile>
 			<id>env-production-escidoc2</id>
@@ -805,6 +784,4 @@
 			</properties>
 		</profile>
 	</profiles>
-
-
 </project>
