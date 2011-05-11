@@ -46,5 +46,6 @@
 <meta http-equiv="pragma" content="no-cache"/>
 <meta http-equiv="cache-control" content="no-cache"/>
 <meta http-equiv="expires" content="0"/>
+<script type="text/javascript" language="JavaScript" src="resources/commonJavaScript/jquery/jquery.min.js">;</script>
 <script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
 <script src="./resources/commonJavaScript/eSciDoc_javascript.js" language="JavaScript" type="text/javascript">;</script>
