@@ -482,7 +482,9 @@
 		<escidoc.pubman.sitemap.retrieve.timeout>20</escidoc.pubman.sitemap.retrieve.timeout>
 
 		<!-- URL of the FIZ framework instance -->
-		<escidoc.common.framework.url>http://dev-coreservice.mpdl.mpg.de:80</escidoc.common.framework.url>
+		<escidoc.framework_access.framework.url>http://dev-coreservice.mpdl.mpg.de</escidoc.framework_access.framework.url>
+		<escidoc.common.framework.url>http://dev-coreservice.mpdl.mpg.de</escidoc.common.framework.url>
+		<escidoc.framework_access.login.url>http://dev-coreservice.mpdl.mpg.de</escidoc.framework_access.login.url>
 		
 		<!-- Identifier of the content type "publication" in the actual framework instance -->
 		<escidoc.framework_access.content-model.id.publication>escidoc:persistent4</escidoc.framework_access.content-model.id.publication>
@@ -624,6 +626,7 @@
 		<!-- Transformation stylesheets -->
 		<escidoc.transformation.endnote.ice.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl</escidoc.transformation.endnote.ice.stylesheet.filename>
 		<escidoc.transformation.endnote.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl</escidoc.transformation.endnote.stylesheet.filename>
+		<escidoc.transformation.endnote.configuration.filename>transformations/otherFormats/conf/endnote.properties</escidoc.transformation.endnote.configuration.filename>
 		<escidoc.transformation.edoc.stylesheet.filename>transformations/otherFormats/xslt/edoc-to-escidoc.xslt</escidoc.transformation.edoc.stylesheet.filename>
 		<escidoc.transformation.edoc.configuration.filename>transformations/otherFormats/conf/edoc.properties</escidoc.transformation.edoc.configuration.filename>
 		<escidoc.transformation.mab.stylesheet.filename>transformations/otherFormats/xslt/mabxml2escidoc.xsl</escidoc.transformation.mab.stylesheet.filename>
