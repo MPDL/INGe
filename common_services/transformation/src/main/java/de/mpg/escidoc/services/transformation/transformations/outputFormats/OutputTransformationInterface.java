@@ -67,7 +67,7 @@ public class OutputTransformationInterface implements Transformation
      */
     public OutputTransformationInterface()
     {
-        this.util = new Util();
+
     }
     
     /**

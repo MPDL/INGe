@@ -20,7 +20,6 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 public class WoSImportTester {
 
 	private static final Logger logger = Logger.getLogger(WoSImportTester.class);
-    private Util util = new Util();
     WoSTransformation wosTransformer = new WoSTransformation();
 	
 	/**

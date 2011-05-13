@@ -20,7 +20,6 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 public class MABImportTester {
     
     private static final Logger logger = Logger.getLogger(MABImportTester.class);
-    private Util util = new Util();
     MABTransformation mapTransformer = new MABTransformation();
 
 	/**

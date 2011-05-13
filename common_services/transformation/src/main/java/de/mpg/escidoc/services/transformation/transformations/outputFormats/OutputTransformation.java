@@ -103,10 +103,9 @@ public class OutputTransformation
         byte[] output = null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Map<String, Object> params = new HashMap<String, Object>();
-        Util util = new Util();
         Document document = null;
         JRExporter exporter = null;   
-        Styles style = util.getStyleInfo (srcFormat);
+        Styles style = Util.getStyleInfo(srcFormat);
         
         ByteArrayInputStream bais = new ByteArrayInputStream(src);
         BufferedInputStream bis = new BufferedInputStream(bais);

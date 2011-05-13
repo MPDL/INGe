@@ -90,7 +90,6 @@ public class OtherFormatsTransformationInterface implements Transformation
      */
     public OtherFormatsTransformationInterface()
     {
-        this.util = new Util();
         this.transformer = new OtherFormatsTransformation();
     }
     

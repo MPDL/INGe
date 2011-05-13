@@ -24,7 +24,6 @@ public class EndNoteImportTest
 	private final Logger logger = Logger.getLogger(EndNoteImportTest.class);
 	
 	Transformation transformation;
-	private Util util = new Util();
 	
     private Format inputFormatICE = new Format("EndNote-ICE", "text/plain", "UTF-8");
     private Format inputFormat = new Format("EndNote", "text/plain", "UTF-8");

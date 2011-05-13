@@ -74,6 +74,10 @@
 	<xsl:param name="is-item-list" select="true()"/>
 	<xsl:param name="source-name" select="''"/>
 	
+	<!-- Configuration parameters -->
+	<xsl:param name="Flavor" select="'OTHER'"/>
+	<xsl:param name="CoNE" select="'false'"/>
+	
 	<xsl:param name="fulltext-location" select="'http://www.clib-jena.mpg.de/theses/ice/'"/>
 	
 	<xsl:param name="refType" />
@@ -308,7 +312,9 @@
 			<xsl:if test="G">
 				<xsl:element name="dc:language">
 					<xsl:attribute name="xsi:type">dcterms:RFC3066</xsl:attribute>
-					<xsl:value-of select="G"/>
+					<xsl:choose>
+						<xsl:when test="G = 'English'">eng</xsl:when>
+					</xsl:choose>
 				</xsl:element>
 			</xsl:if> 
 			
@@ -435,6 +441,9 @@
 					<xsl:when test="(I or Y or QUESTION) and $refType = 'Report'">
 						<xsl:value-of select="string-join((I, Y, QUESTION), ', ')" />
 					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="I" />
+					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:variable>
 			<xsl:variable name="place">
@@ -910,7 +919,85 @@
 		
 		 
 		<xsl:choose>
+			<xsl:when test="$CoNE = 'false'">
+				<xsl:element name="person:person">
+					<xsl:element name="eterms:family-name">
+						<xsl:value-of select="$person/familyname"/>
+					</xsl:element>
+					<xsl:element name="eterms:given-name">
+						<xsl:value-of select="$person/givenname"/>
+					</xsl:element>
+					<xsl:element name="eterms:complete-name">
+						<xsl:value-of select="."/>
+					</xsl:element>
+					<xsl:choose>
+						<xsl:when test="not($isSource)">
+							<organization:organization>
+								<dc:title>Max Planck Society</dc:title>
+								<dc:identifier><xsl:value-of select="$root-ou"/></dc:identifier>
+							</organization:organization>
+						</xsl:when>
+					</xsl:choose>
+				</xsl:element>
+			</xsl:when>
 			<xsl:when test="$source-name = 'endnote-ice'">
+			
+				<xsl:variable name="additionalAuthorInformation" select="normalize-space(escidoc:get-part(../NUM_3, ',', $pos))"/>
+
+				<xsl:variable name="iris-id" select="substring-before(substring-after($additionalAuthorInformation, '-'), '-')"/>
+				<xsl:variable name="ou-id" select="substring-after(substring-after($additionalAuthorInformation, '-'), '-')"/>
+			
+				<xsl:comment><xsl:value-of select="(substring-after($additionalAuthorInformation, '-') = '-')"/></xsl:comment>
+			
+				<xsl:variable name="cone-creator">
+					<xsl:if test="$pos != 0 and not(substring-after($additionalAuthorInformation, '-') = '-')">
+						<xsl:if test="not(starts-with($additionalAuthorInformation, concat($pos, '-')))">
+							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:CustomizedFieldError' ), concat('The customized field %3 has a wrong format: ´', $additionalAuthorInformation, '´. Should start with ´', $pos, '-´'))"/>
+						</xsl:if>
+						<xsl:comment>Querying CoNE for ´<xsl:value-of select="concat('Chemical Ecology ', $iris-id)"/>´</xsl:comment>
+						<xsl:copy-of select="Util:queryCone('persons', concat('Chemical Ecology ', $iris-id))"/>
+					</xsl:if>
+				</xsl:variable>
+				
+				<xsl:variable name="multiplePersonsFound" select="exists($cone-creator/cone/rdf:RDF/rdf:Description[@rdf:about != preceding-sibling::attribute/@rdf:about])"/>
+		
+				<xsl:if test="$multiplePersonsFound">
+					<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($person/familyname, ', ', $person/givenname), '-'))"/>
+				</xsl:if>
+				
+				<xsl:if test="exists($cone-creator/cone) and not(exists($cone-creator/cone/rdf:RDF/rdf:Description))"> 
+					<xsl:comment>Iris-ID <xsl:value-of select="$iris-id"/> not found in CoNE service!</xsl:comment>
+				</xsl:if>
+				
+				<xsl:choose>
+					<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
+						<person:person>
+							<eterms:family-name><xsl:value-of select="$person/familyname"/></eterms:family-name>
+							<eterms:given-name><xsl:value-of select="$person/givenname"/></eterms:given-name>
+							<xsl:if test="exists($ou-mapping-ice/unit[code = $ou-id])">
+								<organization:organization>
+									<dc:title><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/name_en"/>, MPI for Chemical Ecology, Max Planck Society</dc:title>
+									<dc:identifier><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/escidoc_id"/></dc:identifier>
+								</organization:organization>
+							</xsl:if>
+							<dc:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/cone/rdf:RDF[1]/rdf:Description/@rdf:about"/></dc:identifier>
+						</person:person>
+					</xsl:when>
+					<xsl:otherwise>
+						<person:person>
+							<eterms:family-name><xsl:value-of select="$person/familyname"/></eterms:family-name>
+							<eterms:given-name><xsl:value-of select="$person/givenname"/></eterms:given-name>
+							<xsl:if test="exists($ou-mapping-ice/unit[code = $ou-id])">
+								<organization:organization>
+									<dc:title><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/name_en"/></dc:title>
+									<dc:identifier><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/escidoc_id"/></dc:identifier>
+								</organization:organization>
+							</xsl:if>
+						</person:person>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="$source-name = 'endnote-bcg'">
 			
 				<xsl:variable name="additionalAuthorInformation" select="normalize-space(escidoc:get-part(../NUM_3, ',', $pos))"/>
 

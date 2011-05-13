@@ -67,7 +67,7 @@ public class FeedTransformationInterface implements Transformation
      */
     public FeedTransformationInterface()
     {
-        this.util = new Util();
+
     }
     
     /**

@@ -67,7 +67,6 @@ public class ThirdPartyTransformationInterface implements de.mpg.escidoc.service
      */
     public ThirdPartyTransformationInterface()
     {
-        this.util = new Util();
         this.transformer = new ThirdPartyTransformation();
     }
     

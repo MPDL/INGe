@@ -31,7 +31,6 @@
 package de.mpg.escidoc.services.transformation;
 
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -66,7 +65,6 @@ import org.w3c.dom.Node;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsType;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
@@ -84,6 +82,14 @@ public class Util
 {
     private static Logger logger = Logger.getLogger(Util.class);
     
+    /**
+     * Hide constructor of static class
+     */
+    private Util()
+    {
+        
+    }
+    
     // Jasper styles enum
     public static enum Styles { APA, AJP, Default }; 
     
@@ -92,7 +98,7 @@ public class Util
      * @param sl as SimpleLiteral
      * @return String
      */
-    public String simpleLiteralTostring(SimpleLiteral sl)
+    public static String simpleLiteralTostring(SimpleLiteral sl)
     {
         return sl.toString().substring(sl.toString().indexOf(">") + 1, sl.toString().lastIndexOf("<"));
     }
@@ -102,7 +108,7 @@ public class Util
      * @param formats as Format[]
      * @return xml as String
      */
-    public String createFormatsXml(Format[] formats)
+    public static String createFormatsXml(Format[] formats)
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try
@@ -146,7 +152,7 @@ public class Util
      * @param src2
      * @return true if equal, else false
      */
-    public boolean isFormatEqual(Format src1, Format src2)
+    public static boolean isFormatEqual(Format src1, Format src2)
     {       
         if (!src1.getName().toLowerCase().trim().equals(src2.getName().toLowerCase().trim())) 
         { return false; }
@@ -170,7 +176,7 @@ public class Util
      * @param formatsV as Vector
      * @return Format[]
      */
-    public Format[] formatVectorToFormatArray(Vector<Format> formatsV)
+    public static Format[] formatVectorToFormatArray(Vector<Format> formatsV)
     {
         Format[] formatsA = new Format[formatsV.size()];     
         for (int i = 0; i < formatsV.size(); i++)
@@ -185,7 +191,7 @@ public class Util
      * @param dirtyVector as Format Vector
      * @return Vector with unique entries
      */
-    public Vector<Format> getRidOfDuplicatesInVector(Vector<Format> dirtyVector)
+    public static Vector<Format> getRidOfDuplicatesInVector(Vector<Format> dirtyVector)
     {
         Vector<Format> cleanVector = new Vector<Format>();
         Format format1;
@@ -199,7 +205,7 @@ public class Util
             for (int x = i + 1; x < dirtyVector.size(); x++)
             {
                 format2 = (Format) dirtyVector.get(x);
-                if (this.isFormatEqual(format1, format2))
+                if (isFormatEqual(format1, format2))
                 {
                     duplicate = true;
                 }
@@ -219,7 +225,7 @@ public class Util
      * @param format
      * @return true if the array contains the format object, else false
      */
-    public boolean containsFormat(Format[] formatArray, Format format)
+    public static boolean containsFormat(Format[] formatArray, Format format)
     {
         if (formatArray == null || format == null)
         {
@@ -228,7 +234,7 @@ public class Util
         for (int i = 0; i < formatArray.length; i++) 
         {
             Format tmp = formatArray[i];
-            if (this.isFormatEqual(format, tmp))
+            if (isFormatEqual(format, tmp))
             {
                 return true;
             }
@@ -242,7 +248,7 @@ public class Util
      * @param allFormatsV as Format[] Vector
      * @return Format[]
      */
-    public Format[] mergeFormats(Vector<Format[]> allFormatsV)
+    public static Format[] mergeFormats(Vector<Format[]> allFormatsV)
     {
         Vector<Format> tmpV = new Vector<Format>();
         Format[] tmpA;
@@ -259,8 +265,8 @@ public class Util
 	            }
             }
         }
-        tmpV = this.getRidOfDuplicatesInVector(tmpV);
-        return this.formatVectorToFormatArray(tmpV);
+        tmpV = getRidOfDuplicatesInVector(tmpV);
+        return formatVectorToFormatArray(tmpV);
     }
     
     /**
@@ -268,7 +274,7 @@ public class Util
      * @param mimetype
      * @return
      */
-    public String normalizeMimeType(String mimetype)
+    public static String normalizeMimeType(String mimetype)
     {
         String thisMimetype = mimetype;
         if (mimetype.toLowerCase().equals("text/xml"))
@@ -716,7 +722,7 @@ public class Util
      * @param type
      * @return type of style (APA | AJP | Default)
      */
-    public Styles getStyleInfo(Format format)
+    public static Styles getStyleInfo(Format format)
     {
         if (format.getName().toLowerCase().contains("apa"))
         {

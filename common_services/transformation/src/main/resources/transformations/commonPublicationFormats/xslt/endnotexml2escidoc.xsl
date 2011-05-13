@@ -73,6 +73,10 @@
 	<xsl:param name="context" select="'dummy:context'"/>
 	<xsl:param name="content-model" select="'dummy:content-model'"/>
 	<xsl:param name="root-ou"/>
+	
+	<!-- Configuration parameters -->
+	<xsl:param name="Flavor" select="'OTHER'"/>
+	<xsl:param name="CoNE" select="'false'"/>
 
 	<xsl:param name="is-item-list" select="true()"/>
 	<xsl:param name="source-name" select="''"/>
@@ -780,52 +784,76 @@
 		
 		<xsl:variable name="person" select="AuthorDecoder:parseAsNode(.)/authors/author[1]"/>
 		
-		<xsl:variable name="cone-creator" select="Util:queryCone('persons', concat($person/familyname, ', ', $person/givenname))"/>
-		
-		<xsl:variable name="multiplePersonsFound" select="exists($cone-creator/cone/rdf:RDF/rdf:Description[@rdf:about != preceding-sibling::attribute/@rdf:about])"/>
-	
-		<xsl:if test="$multiplePersonsFound">
-			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($person/familyname, ', ', $person/givenname), '-'))"/>
-		</xsl:if>
-		
-		<xsl:element name="person:person">
-			<xsl:element name="eterms:family-name">
-				<xsl:value-of select="$person/familyname"/>
-			</xsl:element>
-			<xsl:element name="eterms:given-name">
-				<xsl:value-of select="$person/givenname"/>
-			</xsl:element>
-			<xsl:element name="eterms:complete-name">
-				<xsl:value-of select="."/>
-			</xsl:element>
-			<xsl:choose>
-				<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description/esc:position)">
-					<xsl:for-each select="$cone-creator/cone/rdf:RDF[1]/rdf:Description/esc:position">
-						<organization:organization>
-							<dc:title>
-								<xsl:value-of select="rdf:Description/esc:organization"/>
-							</dc:title>
-							<dc:identifier>
-								<xsl:value-of select="rdf:Description/dc:identifier"/>
-							</dc:identifier>
-						</organization:organization>
-					</xsl:for-each>
-				</xsl:when>
-				<xsl:when test="not($isSource)">
-					<organization:organization>
-						<dc:title>Max Planck Society</dc:title>
-						<dc:identifier><xsl:value-of select="$root-ou"/></dc:identifier>
-					</organization:organization>
-				</xsl:when>
-			</xsl:choose>
-			<xsl:choose>
-				<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
-					<dc:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/cone/rdf:RDF[1]/rdf:Description[1]/@rdf:about"/></dc:identifier>
-				</xsl:when>
-			</xsl:choose>
+		<xsl:choose>
+			<xsl:when test="$CoNE = 'false'">
+				<xsl:element name="person:person">
+					<xsl:element name="eterms:family-name">
+						<xsl:value-of select="$person/familyname"/>
+					</xsl:element>
+					<xsl:element name="eterms:given-name">
+						<xsl:value-of select="$person/givenname"/>
+					</xsl:element>
+					<xsl:element name="eterms:complete-name">
+						<xsl:value-of select="."/>
+					</xsl:element>
+					<xsl:choose>
+						<xsl:when test="not($isSource)">
+							<organization:organization>
+								<dc:title>Max Planck Society</dc:title>
+								<dc:identifier><xsl:value-of select="$root-ou"/></dc:identifier>
+							</organization:organization>
+						</xsl:when>
+					</xsl:choose>
+				</xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:variable name="cone-creator" select="Util:queryCone('persons', concat($person/familyname, ', ', $person/givenname))"/>
+				
+				<xsl:variable name="multiplePersonsFound" select="exists($cone-creator/cone/rdf:RDF/rdf:Description[@rdf:about != preceding-sibling::attribute/@rdf:about])"/>
 			
-		</xsl:element>
-		
+				<xsl:if test="$multiplePersonsFound">
+					<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($person/familyname, ', ', $person/givenname), '-'))"/>
+				</xsl:if>
+				
+				<xsl:element name="person:person">
+					<xsl:element name="eterms:family-name">
+						<xsl:value-of select="$person/familyname"/>
+					</xsl:element>
+					<xsl:element name="eterms:given-name">
+						<xsl:value-of select="$person/givenname"/>
+					</xsl:element>
+					<xsl:element name="eterms:complete-name">
+						<xsl:value-of select="."/>
+					</xsl:element>
+					<xsl:choose>
+						<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description/esc:position)">
+							<xsl:for-each select="$cone-creator/cone/rdf:RDF[1]/rdf:Description/esc:position">
+								<organization:organization>
+									<dc:title>
+										<xsl:value-of select="rdf:Description/esc:organization"/>
+									</dc:title>
+									<dc:identifier>
+										<xsl:value-of select="rdf:Description/dc:identifier"/>
+									</dc:identifier>
+								</organization:organization>
+							</xsl:for-each>
+						</xsl:when>
+						<xsl:when test="not($isSource)">
+							<organization:organization>
+								<dc:title>Max Planck Society</dc:title>
+								<dc:identifier><xsl:value-of select="$root-ou"/></dc:identifier>
+							</organization:organization>
+						</xsl:when>
+					</xsl:choose>
+					<xsl:choose>
+						<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
+							<dc:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/cone/rdf:RDF[1]/rdf:Description[1]/@rdf:about"/></dc:identifier>
+						</xsl:when>
+					</xsl:choose>
+					
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 	

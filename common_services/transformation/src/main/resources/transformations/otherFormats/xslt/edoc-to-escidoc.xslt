@@ -84,7 +84,9 @@
 	<xsl:param name="root-ou" select="'dummy-root-ou'"/>
 	<xsl:param name="source-name" select="'eDoc'"/>
 	
-	<xsl:param name="import-name" select="'MPIK'"/>
+	<!-- Configuration parameters -->
+	<xsl:param name="import-name" select="'OTHER'"/>
+	<xsl:param name="CoNE" select="'true'"/>
 	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
 	
@@ -881,7 +883,9 @@
 					</xsl:otherwise>
 				</xsl:choose>
 				<xsl:variable name="mime-type">
-					<xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', substring($filename, string-length($filename) - 3), '&quot;'))"/>
+					<xsl:if test="$CoNE = 'true'">
+						<xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', substring($filename, string-length($filename) - 3), '&quot;'))"/>
+					</xsl:if>
 				</xsl:variable>
 				<xsl:choose>
 					<xsl:when test="exists($mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title)">
@@ -1937,6 +1941,9 @@
 				
 				<xsl:variable name="coneCreator">
 					<xsl:choose>
+						<xsl:when test="$CoNE = 'false'">
+							<!-- No CoNE -->
+						</xsl:when>
 						<xsl:when test="$source-name = 'eDoc-AEI'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Gravitational Physics')"/>
 						</xsl:when>
@@ -1971,7 +1978,6 @@
 				</xsl:variable>
 				
 				<xsl:variable name="multiplePersonsFound" select="exists($coneCreator/cone/rdf:RDF/rdf:Description[@rdf:about != $coneCreator/cone/rdf:RDF/rdf:Description/@rdf:about])"/>
-				
 				
 				<xsl:choose>
 					<xsl:when test="$multiplePersonsFound">
@@ -2520,7 +2526,9 @@
 	
 	<xsl:template match="language">
 		<xsl:variable name="coneLanguage">
-			<xsl:copy-of select="Util:queryCone('iso639-3', concat('&quot;', ., '&quot;'))"/>
+			<xsl:if test="$CoNE = 'true'">
+				<xsl:copy-of select="Util:queryCone('iso639-3', concat('&quot;', ., '&quot;'))"/>
+			</xsl:if>
 		</xsl:variable>
 		<xsl:variable name="language" select="."/>
 		

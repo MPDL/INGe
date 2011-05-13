@@ -67,7 +67,6 @@ public class StandardTransformationInterface implements Transformation
      */
     public StandardTransformationInterface()
     {
-        this.util = new Util();
         this.transformer = new StandardTransformation();
     }
     

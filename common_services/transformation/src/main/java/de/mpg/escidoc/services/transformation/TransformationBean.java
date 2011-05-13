@@ -53,8 +53,7 @@ public class TransformationBean implements Transformation, Configurable
 {
     
     private final Logger logger = Logger.getLogger(TransformationBean.class);    
-    private Util util;
-    private TransformationInitializer initializer;
+    private static TransformationInitializer initializer = null;
     private Class transformationClass = null;
  
     /**
@@ -62,16 +61,20 @@ public class TransformationBean implements Transformation, Configurable
      */
     public TransformationBean()
     {
-        this.util = new Util();
-        this.initializer = new TransformationInitializer();
-        this.initializer.initializeTransformationModules();
+        if (initializer == null)
+        {
+            initializer = new TransformationInitializer();
+            initializer.initializeTransformationModules();
+        }
     }
     
     public TransformationBean(boolean local)
     {
-        this.util = new Util();
-        this.initializer = new TransformationInitializer();
-        this.initializer.initializeTransformationModules(local);
+        if (initializer == null)
+        {
+            initializer = new TransformationInitializer();
+            initializer.initializeTransformationModules(local);
+        }
     }
     
     /**
@@ -92,7 +95,7 @@ public class TransformationBean implements Transformation, Configurable
     public String getSourceFormatsAsXml() throws RuntimeException
     {
         Format[] allFormats = this.getSourceFormats();       
-        return this.util.createFormatsXml(allFormats);
+        return Util.createFormatsXml(allFormats);
     }
 
     /**
@@ -102,7 +105,7 @@ public class TransformationBean implements Transformation, Configurable
         throws RuntimeException
     {
         Format[] allFormats = this.getTargetFormats(new Format(srcFormatName, srcType, srcEncoding));
-        return this.util.createFormatsXml(allFormats);
+        return Util.createFormatsXml(allFormats);
     }
 
     /**
@@ -114,7 +117,7 @@ public class TransformationBean implements Transformation, Configurable
         String thisMethodName = "getTargetFormats";
         
         //Normalize mimetype to avoid that e.g. application/xml and text/xml need two different transformations
-        src.setType(this.util.normalizeMimeType(src.getType()));
+        src.setType(Util.normalizeMimeType(src.getType()));
         allTargetFormats = this.callMethodOnTransformationModules(thisMethodName, src);
         
         return allTargetFormats;
@@ -126,7 +129,7 @@ public class TransformationBean implements Transformation, Configurable
     public Format[] getSourceFormats(Format trg) throws RuntimeException
     {
         //Normalize mimetype to avoid that e.g. application/xml and text/xml need two different transformations
-        trg.setType(this.util.normalizeMimeType(trg.getType()));
+        trg.setType(Util.normalizeMimeType(trg.getType()));
         
         Format[] allSourceFormats = null;
         String thisMethodName = "getSourceFormats";
@@ -156,7 +159,7 @@ public class TransformationBean implements Transformation, Configurable
         throws TransformationNotSupportedException, RuntimeException
     {
         //Normalize mimetype to avoid that e.g. application/xml and text/xml need two different transformations
-        srcFormat.setType(this.util.normalizeMimeType(srcFormat.getType()));
+        srcFormat.setType(Util.normalizeMimeType(srcFormat.getType()));
         
         if (service.toLowerCase().equals("escidoc"))
         {
@@ -252,7 +255,7 @@ public class TransformationBean implements Transformation, Configurable
             }
         }
         
-        return this.util.mergeFormats(allFormats);    
+        return Util.mergeFormats(allFormats);    
     }
     
     private Class getTransformationClassForTransformation(Format source, Format target) 
@@ -281,7 +284,7 @@ public class TransformationBean implements Transformation, Configurable
                 //Execute the method
                 targets = (Format[]) method.invoke(transformationClass.newInstance(), source);
                 
-                if (this.util.containsFormat(targets, target))
+                if (Util.containsFormat(targets, target))
                 {
                     return transformationClass;
                 }
@@ -310,7 +313,7 @@ public class TransformationBean implements Transformation, Configurable
         for (int i = 0; i < targetArr.length; i++)
         {
             Format target = targetArr[i];
-            if (this.util.isFormatEqual(target, to))
+            if (Util.isFormatEqual(target, to))
             {
                 return true;
             }
@@ -323,7 +326,7 @@ public class TransformationBean implements Transformation, Configurable
             Map<String, String> configuration) throws TransformationNotSupportedException, RuntimeException
     {
         //Normalize mimetype to avoid that e.g. application/xml and text/xml need two different transformations
-        srcFormat.setType(this.util.normalizeMimeType(srcFormat.getType()));
+        srcFormat.setType(Util.normalizeMimeType(srcFormat.getType()));
         
         if (service.toLowerCase().equals("escidoc"))
         {

@@ -33,6 +33,7 @@ package de.mpg.escidoc.services.transformation.transformations.commonPublication
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -140,7 +141,7 @@ public class CommonTransformation
      * @param srcFormat
      * @param trgFormat
      * @param service
-     * @return endnote as byte[]
+     * @return bibtex as byte[]
      * @throws RuntimeException
      */
     public byte[] transformBibtexToEscidoc(byte[] src, Format srcFormat, Format trgFormat, String service)
@@ -160,30 +161,5 @@ public class CommonTransformation
         
         return escidoc;
     }
-    
-    /**
-     * Transformation endnote to eSciDoc format.
-     * @param src
-     * @param srcFormat
-     * @param trgFormat
-     * @param service
-     * @return endnote as byte[]
-     * @throws RuntimeException
-     */
-    public byte[] transformEndnoteToEscidoc(byte[] src, Format srcFormat, Format trgFormat, String service)
-        throws RuntimeException
-    {
-        byte[] escidoc = null;
-        EndNoteTransformation endTransformer = new EndNoteTransformation();
-        try
-        {
-            escidoc = endTransformer.endnoteTransform(src, srcFormat, trgFormat, service);
-        }
-        catch(TransformationNotSupportedException e)
-        {
-            logger.warn("Transformation Not Supported", e);
-            return null;
-        }
-        return escidoc;
-    }
+
 }

@@ -30,6 +30,8 @@
 
 package de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
@@ -38,6 +40,7 @@ import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationTy
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsType;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.transformation.Configurable;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.Util;
@@ -52,7 +55,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
  *
  */
 @TransformationModule
-public class CommonTransformationInterface implements Transformation
+public class CommonTransformationInterface implements Transformation, Configurable
 {
 
     private final Logger logger = Logger.getLogger(CommonTransformationInterface.class);
@@ -68,7 +71,6 @@ public class CommonTransformationInterface implements Transformation
      */
     public CommonTransformationInterface()
     {
-        this.util = new Util();
         this.commonTrans = new CommonTransformation();
     }
     
@@ -186,7 +188,7 @@ public class CommonTransformationInterface implements Transformation
     /**
      * {@inheritDoc}
      */
-    public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
+    public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service, Map<String, String> configuration)
         throws TransformationNotSupportedException, RuntimeException
     {
         byte[] result = null;
@@ -200,11 +202,6 @@ public class CommonTransformationInterface implements Transformation
         if (srcFormat.getName().equalsIgnoreCase("bibtex"))
         {
             result = this.bibtexTransform(src, srcFormat, trgFormat, service);
-            supported = true;
-        }
-        if (srcFormat.getName().toLowerCase().startsWith("endnote"))
-        {
-            result = this.endnoteTransform(src, srcFormat, trgFormat, service);
             supported = true;
         }
        
@@ -283,31 +280,6 @@ public class CommonTransformationInterface implements Transformation
         return result;
     }
     
-    private byte[] endnoteTransform(byte[] src, Format srcFormat, Format trgFormat, String service)
-    throws TransformationNotSupportedException
-{
-    byte[] result = null;
-    boolean supported = false;
-
-    //TODO 
-    if (trgFormat.getName().toLowerCase().startsWith("escidoc"))
-    {       
-        result = this.commonTrans.transformEndnoteToEscidoc(src, srcFormat, trgFormat, service);
-        if (result != null)
-        {
-            supported = true;
-        }              
-    }
-    if (!supported)
-    {
-        this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", " + srcFormat.getType() 
-                + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName() + ", " + trgFormat.getType() 
-                + ", " + trgFormat.getEncoding());
-        throw new TransformationNotSupportedException();
-    }
-    return result;
-}
-    
     /**
      * {@inheritDoc}
      */
@@ -351,4 +323,24 @@ public class CommonTransformationInterface implements Transformation
         Format[] dummy = new Format[sourceFormats.size()];
         return sourceFormats.toArray(dummy);
     }
+
+    public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
+            throws TransformationNotSupportedException, RuntimeException
+    {
+        return transform(src, srcFormat, trgFormat, service, null);
+    }
+
+    public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key) throws Exception
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
+    
 }

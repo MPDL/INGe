@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +33,6 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 public class TransformationTest
 {
     public static TransformationBean trans;
-    private Util util = new Util();
     private final Logger logger = Logger.getLogger(TransformationTest.class);
     
 
@@ -245,8 +245,12 @@ public class TransformationTest
          Format edoc = new Format("eDoc", "application/xml", "UTF-8");
          Format escidoc = new Format("escidoc-publication-item-list", "application/xml", "UTF-8");    
          
+         Map<String, String> configuration = new HashMap<String, String>();
+         configuration.put("import-name", "OTHER");
+         configuration.put("CoNE", "false");
+         
          String result;
-         byte[] resultBytes = this.trans.transform(ResourceUtil.getResourceAsBytes("testFiles/edoc/test.xml"), edoc, escidoc, "escidoc");
+         byte[] resultBytes = this.trans.transform(ResourceUtil.getResourceAsBytes("testFiles/edoc/test.xml"), edoc, escidoc, "escidoc", configuration);
          result = new String(resultBytes, "UTF-8");
          
          String compare = ResourceUtil.getResourceAsString("testFiles/edoc/result.xml");
@@ -288,7 +292,11 @@ public class TransformationTest
          
          Map<String, String> conf = this.trans.getConfiguration(edoc, escidoc);
          System.out.println(conf);
-         System.out.println(this.trans.getConfigurationValues(edoc, escidoc, "a"));
+         
+         assertTrue(conf.containsKey("CoNE"));
+         assertTrue("true".equals(conf.get("CoNE")));
+         
+         conf.put("CoNE", "false");
          
          byte[] resultBytes = this.trans.transform(ResourceUtil.getResourceAsBytes("testFiles/edoc/test.xml"), edoc, escidoc, "escidoc", conf);
          result = new String(resultBytes, "UTF-8");

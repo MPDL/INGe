@@ -20,7 +20,6 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 public class RISImportTester {
 
     private final Logger logger = Logger.getLogger(RISImportTester.class);
-    private Util util = new Util();
     RISTransformation risTransformer = new RISTransformation();
     
 	/**

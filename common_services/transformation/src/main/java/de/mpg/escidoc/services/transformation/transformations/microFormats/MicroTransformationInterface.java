@@ -67,7 +67,7 @@ public class MicroTransformationInterface implements de.mpg.escidoc.services.tra
      */
     public MicroTransformationInterface()
     {
-        this.util = new Util();
+
     }
     
     /**
