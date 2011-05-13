@@ -75,8 +75,9 @@ public class ElementsWithNonPublicFiles extends Elements<ItemVO>
         }
     }
 
-    private static final String QUERY = "( ( escidoc.objecttype=\"item\" ) and ( ( escidoc.context.objid=\"escidoc:690624\" ) and ( ( escidoc.component.creation-date>\"''\" ) and ( escidoc.component.visibility=\"private\" ) or ( escidoc.component.creation-date>\"''\" ) and ( escidoc.component.visibility=\"audience\" ) ) ) ) and ( escidoc.content-model.objid=\"escidoc:persistent4\" )";
-
+//    private static final String QUERY = "((escidoc.objecttype=\"item\") and ((escidoc.context.objid=\"escidoc:644575\") and (( escidoc.component.creation-date>\"''\") and (( escidoc.component.visibility=\"private\" ) not (escidoc.component.visibility=\"audience\"))))) and (escidoc.content-model.objid=\"escidoc:persistent4\")";
+    private static final String QUERY = "escidoc.objid=escidoc:735602 or escidoc.objid=escidoc:736770 or escidoc.objid=escidoc:736804 or escidoc.objid=escidoc:737423 or escidoc.objid=escidoc:737799 or escidoc.objid=escidoc:737953 or escidoc.objid=escidoc:738241 or escidoc.objid=escidoc:738374 or escidoc.objid=escidoc:738492 or escidoc.objid=escidoc:739693 or escidoc.objid=escidoc:741012 or escidoc.objid=escidoc:741041 or escidoc.objid=escidoc:741089 or escidoc.objid=escidoc:741494 or escidoc.objid=escidoc:741512 or escidoc.objid=escidoc:741523 or escidoc.objid=escidoc:741904 or escidoc.objid=escidoc:742347 or escidoc.objid=escidoc:742490 or escidoc.objid=escidoc:742507 or escidoc.objid=escidoc:742509 or escidoc.objid=escidoc:742672 or escidoc.objid=escidoc:742734 or escidoc.objid=escidoc:742970 or escidoc.objid=escidoc:742992 or escidoc.objid=escidoc:743003 or escidoc.objid=escidoc:743106 or escidoc.objid=escidoc:743146";
+    
     @Override
     public void retrieveElements()
     {

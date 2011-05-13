@@ -28,7 +28,7 @@ public class ReloadFileTransformer extends Transformer<ItemVO>
 {
     private static Logger logger = Logger.getLogger(ReloadFileTransformer.class);
     private static Map<String, Map<String, String>> fileMap = null;
-    private static final String filename = "target/classes/ExportCBSMain.xml";
+    private static final String filename = "target/classes/ExportFHIFull.xml";
 
     @Override
     public List<ItemVO> transform(List<ItemVO> list)
@@ -44,6 +44,7 @@ public class ReloadFileTransformer extends Transformer<ItemVO>
                 {
                 	System.out.println("Transforming item " + item.getVersion().getObjectIdAndVersion() + "!");
                 	item = reloadFile(item);
+                	//getTransformed().add(item.getVersion().getObjectId());
                 }
                 
                 report.addEntry("Transform" + item.getVersion().getObjectId(), "Transform "
