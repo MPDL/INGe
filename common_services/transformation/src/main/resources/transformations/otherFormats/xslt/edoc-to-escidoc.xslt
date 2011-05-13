@@ -851,7 +851,7 @@
 							<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
 						</prop:content-category>
 					</xsl:when>
-					<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE'">
+					<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH'">
 						<prop:content-category>
 							<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 						</prop:content-category>
@@ -980,7 +980,7 @@
 									<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
 								</eterms:content-category>
 							</xsl:when>
-							<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE'">
+							<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH'">
 								<eterms:content-category>
 									<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 								</eterms:content-category>
@@ -1387,15 +1387,15 @@
 				</xsl:element>
 			</xsl:if>
 			
-			<!-- isPartOf RELATION -->
-			<xsl:if test="../relations/relation[@reltype='ispartof']">
+			<!-- NOT MAPPED ANYMORE !!! isPartOf RELATION -->
+			<!--  <xsl:if test="../relations/relation[@reltype='ispartof']">
 				<xsl:element name="source:source">
 					<xsl:attribute name="type" select="'series'"/>
 					<xsl:element name="dc:title">
 						<xsl:value-of select="../relations/relation[@reltype='ispartof']"/>
 					</xsl:element>
 				</xsl:element>
-			</xsl:if>
+			</xsl:if>-->
 
 			<!-- EVENT -->
 			<xsl:if test="exists(nameofevent)">
@@ -1969,7 +1969,14 @@
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Astrophysics')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIMET'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI für Meteorologie')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Meteorology')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'ETH'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI für ethnologische Forschung')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIPRIV'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI für europäische Rechtsgeschichte')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'External Organizations')"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
@@ -1986,9 +1993,9 @@
 					<xsl:when test="not(exists($coneCreator/cone/rdf:RDF/rdf:Description))">
 						<xsl:comment>NOT FOUND IN CONE</xsl:comment>
 						<xsl:element name="person:person">
-							<xsl:element name="eterms:complete-name">
+							<!--  <xsl:element name="eterms:complete-name">
 								<xsl:value-of select="concat($creatorngivenNew, ' ', creatornfamily)"/>
-							</xsl:element>
+							</xsl:element>-->
 							<xsl:element name="eterms:family-name">
 								<xsl:value-of select="creatornfamily"/>
 							</xsl:element>

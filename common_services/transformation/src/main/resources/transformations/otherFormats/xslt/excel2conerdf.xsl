@@ -18,7 +18,7 @@
 			<xsl:for-each select="//excel:Row">
 
 				<xsl:variable name="pos" select="position()"/>
-				
+
 				<!--  <xsl:if test="excel:Cell[1]/excel:Data != '' and excel:Cell[1]/excel:Data != 'Nachname' and (string-length(//excel:Row[$pos - 1]/excel:Cell[1]/excel:Data) = 0 or //excel:Row[$pos - 1]/@ss:Index != '')">-->
 				<xsl:if test="excel:Cell[1]/excel:Data != '' and excel:Cell[1]/excel:Data != 'Nachname' and lower-case(excel:Cell[3]/excel:Data) = 'x'">
 					
