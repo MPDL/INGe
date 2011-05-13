@@ -234,7 +234,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.59</version>
+			<version>1.0.60-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
