@@ -71,7 +71,6 @@
 					type="http://purl.org/escidoc/metadata/ves/publication-types/other">
 					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 						<person:person>
-							<eterms:complete-name />
 							<eterms:family-name>Brown</eterms:family-name>
 							<eterms:given-name>Paul</eterms:given-name>
 							
@@ -108,30 +107,6 @@
 							</dc:identifier>
 						</person:person>
 					</eterms:creator>
-<!--					<eterms:creator role="http://www.loc.gov/loc.terms/relators/CMM">-->
-<!--						<person:person>-->
-<!--							<eterms:complete-name />-->
-<!--							<eterms:family-name>Müller</eterms:family-name>-->
-<!--							<eterms:given-name>Juliane</eterms:given-name>-->
-<!--							<organization:organization>-->
-<!--								<dc:title>Max Planck Digital Library, Max Planck Society-->
-<!--								</dc:title>-->
-<!--								<eterms:address>Munich, DE</eterms:address>-->
-<!--								<dc:identifier>escidoc:persistent26</dc:identifier>-->
-<!--							</organization:organization>-->
-<!--							<organization:organization>-->
-<!--								<dc:title>Department Research and Development, Max Planck-->
-<!--									Digital Library, Max Planck Society</dc:title>-->
-<!--								<eterms:address>Munich, DE</eterms:address>-->
-<!--								<dc:identifier>escidoc:persistent1</dc:identifier>-->
-<!--							</organization:organization>-->
-<!--							<organization:organization>-->
-<!--								<dc:title>Max Planck Gesellschaft</dc:title>-->
-<!--								<eterms:address>München</eterms:address>-->
-<!--								<dc:identifier />-->
-<!--							</organization:organization>-->
-<!--						</person:person>-->
-<!--					</eterms:creator>-->
  					<eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
 						<organization:organization>
 							<dc:title>Max Planck Society</dc:title>
@@ -139,41 +114,6 @@
 							<dc:identifier>escidoc:persistent13</dc:identifier>
 						</organization:organization>
 					</eterms:creator>
-<!--					<eterms:creator role="http://www.loc.gov/loc.terms/relators/CTB">
-						<organization:organization>
-							<dc:title>Max Planck Digital Library, Max Planck Society
-							</dc:title>
-							<eterms:address>Munich, DE</eterms:address>
-							<dc:identifier>escidoc:persistent26</dc:identifier>
-						</organization:organization>
-					</eterms:creator>
-					<eterms:creator role="http://www.loc.gov/loc.terms/relators/ART">
-						<person:person>
-							<eterms:complete-name />
-							<eterms:family-name>Palmkvist</eterms:family-name>
-							<eterms:given-name>Jakob</eterms:given-name>
-							<organization:organization>
-								<dc:title>Quantum Gravity &amp; Unified Theories, AEI-Golm, MPI
-									for Gravitational Physics, Max Planck Society</dc:title>
-								<eterms:address />
-								<dc:identifier />
-							</organization:organization>
-							<dc:identifier xsi:type="eterms:CONE">http://qa-pubman.mpdl.mpg.de:8080/cone/persons/resource/persons20714
-							</dc:identifier>
-						</person:person>
-					</eterms:creator>
-					<eterms:creator role="http://www.loc.gov/loc.terms/relators/TRL">
-						<person:person>
-							<eterms:complete-name />
-							<eterms:family-name>Paul</eterms:family-name>
-							<eterms:given-name>Paule</eterms:given-name>
-							<organization:organization>
-								<dc:title>External Organizations</dc:title>
-								<eterms:address />
-								<dc:identifier>escidoc:persistent22</dc:identifier>
-							</organization:organization>
-						</person:person>
-					</eterms:creator> -->
 					<dc:title>Transformation Test Item </dc:title>
 					<dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
 					<dc:language xsi:type="dcterms:ISO639-3">deu</dc:language>
@@ -205,7 +145,6 @@
 						type="http://purl.org/escidoc/metadata/ves/publication-types/series">
 					<eterms:creator role="http://www.loc.gov/loc.terms/relators/TRL">
 						<person:person>
-							<eterms:complete-name />
 							<eterms:family-name>Paul</eterms:family-name>
 							<eterms:given-name>Paule</eterms:given-name>
 							<organization:organization>
@@ -244,7 +183,6 @@
 						<dc:title>Library Hi Tech News</dc:title>
 						<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 							<person:person>
-								<eterms:complete-name />
 								<eterms:family-name>Boyle</eterms:family-name>
 								<eterms:given-name>Owen</eterms:given-name>
 								<organization:organization>
@@ -295,7 +233,6 @@
 						</eterms:creator>
 						<eterms:creator role="http://www.loc.gov/loc.terms/relators/TRL">
 							<person:person>
-								<eterms:complete-name />
 								<eterms:family-name>Anni</eterms:family-name>
 								<eterms:given-name>Anna</eterms:given-name>
 								<organization:organization>

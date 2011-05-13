@@ -236,7 +236,6 @@
 				<xsl:value-of select="$profiles/profile[.='person']/@uri"/>
 			</xsl:attribute>
 			<!-- name -->
-			<xsl:apply-templates select="eterms:complete-name"/>
 			<xsl:apply-templates select="eterms:given-name"/>
 			<xsl:apply-templates select="eterms:family-name"/>
 		</xsl:element>
@@ -266,11 +265,6 @@
 	</xsl:template>
 	
 	<!-- PERSON NAMES -->
-	<xsl:template match="eterms:complete-name">
-		<xsl:element name="eterms:complete-name">
-			<xsl:value-of select="."/>
-		</xsl:element>
-	</xsl:template>
 	<xsl:template match="eterms:given-name">
 		<xsl:element name="eterms:given-name">
 			<xsl:value-of select="."/>

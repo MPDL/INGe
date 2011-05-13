@@ -15,63 +15,54 @@
 				<pub:publication type="http://purl.org/eprint/type/ConferencePaper">
 					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 						<person:person>
-							<eterms:complete-name>C. K. Xu</eterms:complete-name>
 							<eterms:family-name>Xu</eterms:family-name>
 							<eterms:given-name>C. K.</eterms:given-name>
 						</person:person>
 					</eterms:creator>
 					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 						<person:person>
-							<eterms:complete-name>P. N. Appleton</eterms:complete-name>
 							<eterms:family-name>Appleton</eterms:family-name>
 							<eterms:given-name>P. N.</eterms:given-name>
 						</person:person>
 					</eterms:creator>
 					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 						<person:person>
-							<eterms:complete-name>M. Dopita</eterms:complete-name>
 							<eterms:family-name>Dopita</eterms:family-name>
 							<eterms:given-name>M.</eterms:given-name>
 						</person:person>
 					</eterms:creator>
 					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 						<person:person>
-							<eterms:complete-name>Y. Gao</eterms:complete-name>
 							<eterms:family-name>Gao</eterms:family-name>
 							<eterms:given-name>Y.</eterms:given-name>
 						</person:person>
 					</eterms:creator>
 					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 						<person:person>
-							<eterms:complete-name>N. Y. Lu</eterms:complete-name>
 							<eterms:family-name>Lu</eterms:family-name>
 							<eterms:given-name>N. Y.</eterms:given-name>
 						</person:person>
 					</eterms:creator>
 					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 						<person:person>
-							<eterms:complete-name>C. Popescu</eterms:complete-name>
 							<eterms:family-name>Popescu</eterms:family-name>
 							<eterms:given-name>C.</eterms:given-name>
 						</person:person>
 					</eterms:creator>
 					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 						<person:person>
-							<eterms:complete-name>W. T. Reach</eterms:complete-name>
 							<eterms:family-name>Reach</eterms:family-name>
 							<eterms:given-name>W. T.</eterms:given-name>
 						</person:person>
 					</eterms:creator>
 					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 						<person:person>
-							<eterms:complete-name>J. Sulentic</eterms:complete-name>
 							<eterms:family-name>Sulentic</eterms:family-name>
 							<eterms:given-name>J.</eterms:given-name>
 						</person:person>
 					</eterms:creator>
 					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 						<person:person>
-							<eterms:complete-name>R. Tuffs</eterms:complete-name>
 							<eterms:family-name>Tuffs</eterms:family-name>
 							<eterms:given-name>R.</eterms:given-name>
                      <!-- Case 3 -->
@@ -83,7 +74,6 @@
 					</eterms:creator>
 					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 						<person:person>
-							<eterms:complete-name>M. Yun</eterms:complete-name>
 							<eterms:family-name>Yun</eterms:family-name>
 							<eterms:given-name>M.</eterms:given-name>
 						</person:person>
@@ -95,21 +85,18 @@
 						<dc:title>The Second Annual Spitzer Science Center Conference: Infrared Diagnostics of Galaxy Evolution</dc:title>
 						<eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
 							<person:person>
-								<eterms:complete-name>Ranga-Ram Chary</eterms:complete-name>
 								<eterms:family-name>Chary</eterms:family-name>
 								<eterms:given-name>Ranga-Ram</eterms:given-name>
 							</person:person>
 						</eterms:creator>
 						<eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
 							<person:person>
-								<eterms:complete-name>Harry I. Teplitz</eterms:complete-name>
 								<eterms:family-name>Teplitz</eterms:family-name>
 								<eterms:given-name>Harry I.</eterms:given-name>
 							</person:person>
 						</eterms:creator>
 						<eterms:creator role="http://www.loc.gov/loc.terms/relators/EDT">
 							<person:person>
-								<eterms:complete-name>Kartik Sheth</eterms:complete-name>
 								<eterms:family-name>Sheth</eterms:family-name>
 								<eterms:given-name>Kartik</eterms:given-name>
 							</person:person>
@@ -151,7 +138,6 @@
 				<pub:publication type="http://purl.org/eprint/type/Thesis">
 					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 						<person:person>
-							<eterms:complete-name>Andre Niklas Wenz</eterms:complete-name>
 							<eterms:family-name>Wenz</eterms:family-name>
 							<eterms:given-name>Andre Niklas</eterms:given-name>
                      <!-- Case 3 -->

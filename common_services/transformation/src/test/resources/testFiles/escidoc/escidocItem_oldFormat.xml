@@ -48,7 +48,6 @@
 			<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book-item">
 				<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="editor">
 					<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
-						<escidoc:complete-name></escidoc:complete-name>
 						<escidoc:family-name>Dreyer</escidoc:family-name>
 						<escidoc:given-name>Malte</escidoc:given-name>
 						<escidoc:organization>
@@ -69,7 +68,6 @@
 					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">test</dc:title>
 					<escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="editor">
 						<escidoc:person>
-							<escidoc:complete-name></escidoc:complete-name>
 							<escidoc:family-name>Tschida</escidoc:family-name>
 							<escidoc:given-name>U.</escidoc:given-name>
 						</escidoc:person>

@@ -1096,9 +1096,6 @@
 					<xsl:element name="eterms:given-name">
 						<xsl:value-of select="$person/givenname"/>
 					</xsl:element>
-					<xsl:element name="eterms:complete-name">
-						<xsl:value-of select="."/>
-					</xsl:element>
 					<xsl:choose>
 						<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description/esc:position)">
 							<xsl:for-each select="$cone-creator/cone/rdf:RDF[1]/rdf:Description/esc:position">

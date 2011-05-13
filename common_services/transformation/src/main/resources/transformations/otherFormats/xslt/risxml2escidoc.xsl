@@ -335,10 +335,6 @@
 		<xsl:param name="givenname"/>
 		<xsl:param name="title"/>
 		<xsl:element name="person:person">
-			
-			<xsl:element name="eterms:complete-name">
-				<xsl:value-of select="."/>
-			</xsl:element>
 			<xsl:element name="eterms:family-name">
 				<xsl:value-of select="$familyname"/>
 			</xsl:element>
@@ -426,14 +422,8 @@
 		<xsl:param name="string"/>
 		<xsl:choose>
 			<xsl:when test="substring-before($string,';')=''">
-				<xsl:element name="eterms:complete-name">
-					<xsl:value-of select="$string"/>
-				</xsl:element>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:element name="eterms:complete-name">
-					<xsl:value-of select="substring-before($string,';')"/>
-				</xsl:element>
 				<xsl:call-template name="parseCreators">
 					<xsl:with-param name="string" select="substring-after($string,';')"/>
 				</xsl:call-template>

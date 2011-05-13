@@ -382,9 +382,6 @@
 			<xsl:element name="pub:creator">
 				<xsl:attribute name="role">http://www.loc.gov/loc.terms/relators/AUT</xsl:attribute>
 				<xsl:element name="e:person">
-					<xsl:element name="e:complete-name">
-						<xsl:value-of select="mods:displayForm"/>
-					</xsl:element>
 					<xsl:if test=".//mods:namePart/@type='family'">
 						<xsl:element name="e:family-name">
 							<xsl:value-of select="mods:namePart[@type='family']"/>

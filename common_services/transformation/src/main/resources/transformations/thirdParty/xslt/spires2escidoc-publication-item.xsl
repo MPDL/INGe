@@ -169,10 +169,6 @@
 	</xsl:template>
 	<xsl:template name="createPerson">
 		<xsl:element name="person:person">
-			
-			<xsl:element name="eterms:complete-name">
-				<xsl:value-of select="."/>
-			</xsl:element>	
 			<xsl:element name="eterms:family-name">
 				<xsl:value-of select="."/>
 			</xsl:element>		

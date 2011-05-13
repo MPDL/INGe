@@ -140,14 +140,8 @@
 		
 		<xsl:if test="count(eterms:creator[@role='author']/person:person)!=0 or count(eterms:creator[@role='author']/eterms:organization)!=0">
 				<xsl:variable name="creators">
-				<xsl:for-each select="eterms:creator[@role='author']/person:person">
-					<xsl:value-of select="concat(eterms:complete-name,'; ')"/>
-				</xsl:for-each>
 				<xsl:for-each select="eterms:creator[@role='author']/eterms:organization">
 					<xsl:value-of select="concat(eterms:organization-name, '; ')"/>
-				</xsl:for-each>
-				<xsl:for-each select="source:source/eterms:creator[@role='author']/person:person">
-					<xsl:value-of select="concat(eterms:complete-name,'; ')"/>
 				</xsl:for-each>
 				<xsl:for-each select="source:source/eterms:creator[@role='author']/eterms:organization">
 					<xsl:value-of select="concat(eterms:organization-name, '; ')"/>
@@ -160,9 +154,6 @@
 			</xsl:if>		
 			<xsl:if test="count(eterms:creator[@role!='author']/person:person)!=0 or count(eterms:creator[@role!='author']/eterms:organization)!=0">
 				<xsl:variable name="creators">
-				<xsl:for-each select="eterms:creator[@role!='author']/person:person">
-					<xsl:value-of select="concat(eterms:complete-name,'; ')"/>
-				</xsl:for-each>
 				<xsl:for-each select="eterms:creator[@role!='author']/eterms:organization">
 					<xsl:value-of select="concat(eterms:organization-name, '; ')"/>
 				</xsl:for-each>

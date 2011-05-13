@@ -793,9 +793,6 @@
 					<xsl:element name="eterms:given-name">
 						<xsl:value-of select="$person/givenname"/>
 					</xsl:element>
-					<xsl:element name="eterms:complete-name">
-						<xsl:value-of select="."/>
-					</xsl:element>
 					<xsl:choose>
 						<xsl:when test="not($isSource)">
 							<organization:organization>
@@ -821,9 +818,6 @@
 					</xsl:element>
 					<xsl:element name="eterms:given-name">
 						<xsl:value-of select="$person/givenname"/>
-					</xsl:element>
-					<xsl:element name="eterms:complete-name">
-						<xsl:value-of select="."/>
 					</xsl:element>
 					<xsl:choose>
 						<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description/esc:position)">

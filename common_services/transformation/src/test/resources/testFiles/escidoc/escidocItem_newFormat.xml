@@ -62,7 +62,6 @@
 			<publication:publication type="http://purl.org/eprint/type/Book">
 				<escidoc:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 					<person:person>
-						<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 						<escidoc:family-name>Meier</escidoc:family-name>
 						<escidoc:given-name>Hans</escidoc:given-name>
 						<escidoc:alternative-name>Werner</escidoc:alternative-name>

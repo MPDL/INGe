@@ -67,7 +67,6 @@
                                                     type="article">
                     <publication:creator role="author">
                         <escidoc:person>
-                            <escidoc:complete-name>Ulrich Drobnig</escidoc:complete-name>
                             <escidoc:family-name>Drobnig</escidoc:family-name>
                             <escidoc:given-name>Ulrich</escidoc:given-name>
                             <escidoc:organization>
@@ -79,7 +78,6 @@
                     </publication:creator>
                     <publication:creator role="author">
                         <escidoc:person>
-                            <escidoc:complete-name/>
                             <escidoc:family-name>Mossavi</escidoc:family-name>
                             <escidoc:given-name>Kasem</escidoc:given-name>
                             <escidoc:organization>

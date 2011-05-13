@@ -334,9 +334,6 @@
 			<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
 			<xsl:element name="person:person">
 				<xsl:call-template name="createPersonName"/>
-				<xsl:element name="eterms:complete-name">
-					<xsl:value-of select="."/>
-				</xsl:element>
 				<xsl:if test="../mab101">
 					<xsl:element name="eterms:alternative-name">
 						<xsl:value-of select="../mab101"/>
@@ -810,9 +807,6 @@
 		<xsl:element name="eterms:creator">
 			<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
 			<xsl:element name="person:person">
-				<xsl:element name="eterms:complete-name">
-					<xsl:value-of select="."/>
-				</xsl:element>
 			</xsl:element>
 		</xsl:element>
 	</xsl:template>

@@ -72,7 +72,6 @@
          <pub:publication type="conference-paper">
             <eterms:creator role="author">
                <person:person>
-                  <eterms:complete-name>Bern, Z.</eterms:complete-name>
                   <eterms:family-name>Bern, Z.</eterms:family-name>
                   <organization:organization>
                      <dc:title>UCLA</dc:title>
@@ -81,7 +80,6 @@
             </eterms:creator>
             <eterms:creator role="author">
                <person:person>
-                  <eterms:complete-name>Dixon, Lance J.</eterms:complete-name>
                   <eterms:family-name>Dixon, Lance J.</eterms:family-name>
                   <organization:organization>
                      <dc:title>SLAC</dc:title>
@@ -90,7 +88,6 @@
             </eterms:creator>
             <eterms:creator role="author">
                <person:person>
-                  <eterms:complete-name>Kosower, D.A.</eterms:complete-name>
                   <eterms:family-name>Kosower, D.A.</eterms:family-name>
                   <organization:organization>
                      <dc:title>Saclay</dc:title>

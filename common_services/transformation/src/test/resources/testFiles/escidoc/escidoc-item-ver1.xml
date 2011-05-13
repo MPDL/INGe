@@ -66,7 +66,6 @@
 					type="thesis">
 					<publication:creator role="author">
 						<escidoc:person>
-							<escidoc:complete-name />
 							<escidoc:family-name>Bäumel</escidoc:family-name>
 							<escidoc:given-name>S.</escidoc:given-name>
 							<escidoc:organization>
@@ -78,7 +77,6 @@
 					</publication:creator>
 					<publication:creator role="author">
 						<escidoc:person>
-							<escidoc:complete-name />
 							<escidoc:family-name>Bäumel</escidoc:family-name>
 							<escidoc:given-name>S.</escidoc:given-name>
 							<escidoc:organization>

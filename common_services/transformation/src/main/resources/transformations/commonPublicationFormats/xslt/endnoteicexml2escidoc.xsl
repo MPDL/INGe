@@ -813,6 +813,16 @@
 	<!-- CREATORS -->
 	<xsl:template name="createCreators">
 		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
+		
+		<xsl:variable name="additionalAuthorInformation" select="tokenize(NUM_3, '\n'"/>
+		<xsl:variable name="institute-authors-positions">
+			<xsl:for-each select="$additionalAuthorInformation">
+				<xsl:variable name="author-pos" select="substring-before(., '-')"/>
+				<xsl:variable name="ou-id" select="substring-after(., '-')"/>
+				<pos><xsl:value-of select="$author-pos"/></pos>
+			</xsl:for-each>
+		</xsl:variable>
+		
 		<xsl:for-each select="A|E|Y|QUESTION">
 			<xsl:if test="name(.)='A'">
 				<xsl:choose>
@@ -836,6 +846,7 @@
 						<xsl:call-template name="createCreator">
 							<xsl:with-param name="role" select="$creator-ves/enum[.='author']/@uri"/>
 							<xsl:with-param name="pos" select="count(../A[position() &lt; $currentAuthorPosition]) + 1"/>
+							<xsl:with-param name="institute-authors-positions" select="$institute-authors-positions"/>
 						</xsl:call-template>
 					</xsl:when>
 					<xsl:when test="$refType='Edited Book'">
@@ -890,6 +901,7 @@
 		<xsl:param name="role"/>
 		<xsl:param name="isSource"/>
 		<xsl:param name="pos" select="0"/>
+		<xsl:param name="institute-authors-positions"/>
 		
 		<xsl:choose>
 			<xsl:when test="$isSource">
@@ -906,6 +918,7 @@
 					<xsl:call-template name="createPerson">
 						<xsl:with-param name="isSource" select="$isSource"/>
 						<xsl:with-param name="pos" select="$pos"/>
+						<xsl:with-param name="institute-authors-positions" select="$institute-authors-positions"/>
 					</xsl:call-template>				
 				</xsl:element>
 			</xsl:otherwise>
@@ -915,9 +928,10 @@
 	<xsl:template name="createPerson">
 		<xsl:param name="isSource"/>
 		<xsl:param name="pos" select="0"/>
-		<xsl:variable name="person" select="AuthorDecoder:parseAsNode(.)/authors/author[1]"/>
+		<xsl:param name="institute-authors-positions"/>
 		
-		 
+		<xsl:variable name="person" select="AuthorDecoder:parseAsNode(.)/authors/author[1]"/>
+
 		<xsl:choose>
 			<xsl:when test="$CoNE = 'false'">
 				<xsl:element name="person:person">
@@ -927,20 +941,9 @@
 					<xsl:element name="eterms:given-name">
 						<xsl:value-of select="$person/givenname"/>
 					</xsl:element>
-					<xsl:element name="eterms:complete-name">
-						<xsl:value-of select="."/>
-					</xsl:element>
-					<xsl:choose>
-						<xsl:when test="not($isSource)">
-							<organization:organization>
-								<dc:title>Max Planck Society</dc:title>
-								<dc:identifier><xsl:value-of select="$root-ou"/></dc:identifier>
-							</organization:organization>
-						</xsl:when>
-					</xsl:choose>
 				</xsl:element>
 			</xsl:when>
-			<xsl:when test="$source-name = 'endnote-ice'">
+			<xsl:when test="$Flavor = 'ICE'">
 			
 				<xsl:variable name="additionalAuthorInformation" select="normalize-space(escidoc:get-part(../NUM_3, ',', $pos))"/>
 
@@ -997,60 +1000,61 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
-			<xsl:when test="$source-name = 'endnote-bcg'">
-			
-				<xsl:variable name="additionalAuthorInformation" select="normalize-space(escidoc:get-part(../NUM_3, ',', $pos))"/>
-
-				<xsl:variable name="iris-id" select="substring-before(substring-after($additionalAuthorInformation, '-'), '-')"/>
-				<xsl:variable name="ou-id" select="substring-after(substring-after($additionalAuthorInformation, '-'), '-')"/>
-			
-				<xsl:comment><xsl:value-of select="(substring-after($additionalAuthorInformation, '-') = '-')"/></xsl:comment>
-			
-				<xsl:variable name="cone-creator">
-					<xsl:if test="$pos != 0 and not(substring-after($additionalAuthorInformation, '-') = '-')">
-						<xsl:if test="not(starts-with($additionalAuthorInformation, concat($pos, '-')))">
-							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:CustomizedFieldError' ), concat('The customized field %3 has a wrong format: ´', $additionalAuthorInformation, '´. Should start with ´', $pos, '-´'))"/>
-						</xsl:if>
-						<xsl:comment>Querying CoNE for ´<xsl:value-of select="concat('Chemical Ecology ', $iris-id)"/>´</xsl:comment>
-						<xsl:copy-of select="Util:queryCone('persons', concat('Chemical Ecology ', $iris-id))"/>
-					</xsl:if>
-				</xsl:variable>
-				
-				<xsl:variable name="multiplePersonsFound" select="exists($cone-creator/cone/rdf:RDF/rdf:Description[@rdf:about != preceding-sibling::attribute/@rdf:about])"/>
-		
-				<xsl:if test="$multiplePersonsFound">
-					<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($person/familyname, ', ', $person/givenname), '-'))"/>
-				</xsl:if>
-				
-				<xsl:if test="exists($cone-creator/cone) and not(exists($cone-creator/cone/rdf:RDF/rdf:Description))"> 
-					<xsl:comment>Iris-ID <xsl:value-of select="$iris-id"/> not found in CoNE service!</xsl:comment>
-				</xsl:if>
-				
+			<xsl:when test="$Flavor = 'BGC'">
 				<xsl:choose>
-					<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
-						<person:person>
-							<eterms:family-name><xsl:value-of select="$person/familyname"/></eterms:family-name>
-							<eterms:given-name><xsl:value-of select="$person/givenname"/></eterms:given-name>
-							<xsl:if test="exists($ou-mapping-ice/unit[code = $ou-id])">
-								<organization:organization>
-									<dc:title><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/name_en"/>, MPI for Chemical Ecology, Max Planck Society</dc:title>
-									<dc:identifier><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/escidoc_id"/></dc:identifier>
-								</organization:organization>
+					<xsl:when test="$institute-authors-positions[pos = $pos]">
+						<xsl:variable name="cone-creator">
+							<xsl:if test="$pos != 0 and not(substring-after($additionalAuthorInformation, '-') = '-')">
+								<xsl:if test="not(starts-with($additionalAuthorInformation, concat($pos, '-')))">
+									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:CustomizedFieldError' ), concat('The customized field %3 has a wrong format: ´', $additionalAuthorInformation, '´. Should start with ´', $pos, '-´'))"/>
+								</xsl:if>
+								<xsl:comment>Querying CoNE for ´<xsl:value-of select="concat($person/familyname, ', ', $person/givenname)"/>´</xsl:comment>
+								<xsl:copy-of select="Util:queryConeExact('persons', concat($person/familyname, ', ', $person/givenname), 'MPI for Biogeochemistry')"/>
 							</xsl:if>
-							<dc:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/cone/rdf:RDF[1]/rdf:Description/@rdf:about"/></dc:identifier>
-						</person:person>
+						</xsl:variable>
+						
+						<xsl:variable name="multiplePersonsFound" select="exists($cone-creator/cone/rdf:RDF/rdf:Description[@rdf:about != preceding-sibling::attribute/@rdf:about])"/>
+				
+						<xsl:if test="$multiplePersonsFound">
+							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($person/familyname, ', ', $person/givenname), '-'))"/>
+						</xsl:if>
+						
+						<xsl:if test="exists($cone-creator/cone) and not(exists($cone-creator/cone/rdf:RDF/rdf:Description))"> 
+							<xsl:comment><xsl:value-of select="concat($person/familyname, ', ', $person/givenname)"/> not found in CoNE service!</xsl:comment>
+						</xsl:if>
+						
+						<xsl:choose>
+							<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
+								<person:person>
+									<eterms:family-name><xsl:value-of select="$person/familyname"/></eterms:family-name>
+									<eterms:given-name><xsl:value-of select="$person/givenname"/></eterms:given-name>
+									<xsl:if test="exists($cone-creator/cone/rdf:RDF/rdf:Description/escidoc:position)">
+										<organization:organization>
+											<dc:title><xsl:value-of select="$cone-creator/cone[1]/rdf:RDF[1]/rdf:Description[1]/escidoc:position/eprints:affiliatedInstitution"/></dc:title>
+											<dc:identifier><xsl:value-of select="$cone-creator/cone[1]/rdf:RDF[1]/rdf:Description[1]/escidoc:position/dc:identifier"/></dc:identifier>
+										</organization:organization>
+									</xsl:if>
+									<dc:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/cone[1]/rdf:RDF[1]/rdf:Description[1]/@rdf:about"/></dc:identifier>
+								</person:person>
+							</xsl:when>
+							<xsl:otherwise>
+								<person:person>
+									<eterms:family-name><xsl:value-of select="$person/familyname"/></eterms:family-name>
+									<eterms:given-name><xsl:value-of select="$person/givenname"/></eterms:given-name>
+									<xsl:comment>WARNING: Author is marked as institute member, but was not found in CoNE</xsl:comment>
+								</person:person>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:when>
 					<xsl:otherwise>
-						<person:person>
-							<eterms:family-name><xsl:value-of select="$person/familyname"/></eterms:family-name>
-							<eterms:given-name><xsl:value-of select="$person/givenname"/></eterms:given-name>
-							<xsl:if test="exists($ou-mapping-ice/unit[code = $ou-id])">
-								<organization:organization>
-									<dc:title><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/name_en"/></dc:title>
-									<dc:identifier><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/escidoc_id"/></dc:identifier>
-								</organization:organization>
-							</xsl:if>
-						</person:person>
+						<xsl:element name="person:person">
+							<xsl:element name="eterms:family-name">
+								<xsl:value-of select="$person/familyname"/>
+							</xsl:element>
+							<xsl:element name="eterms:given-name">
+								<xsl:value-of select="$person/givenname"/>
+							</xsl:element>
+						</xsl:element>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
@@ -1069,9 +1073,6 @@
 					</xsl:element>
 					<xsl:element name="eterms:given-name">
 						<xsl:value-of select="$person/givenname"/>
-					</xsl:element>
-					<xsl:element name="eterms:complete-name">
-						<xsl:value-of select="."/>
 					</xsl:element>
 					<xsl:choose>
 						<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description/esc:position)">

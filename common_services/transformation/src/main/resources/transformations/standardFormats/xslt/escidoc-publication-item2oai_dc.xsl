@@ -93,17 +93,10 @@
 					"/>
 
 					<xsl:if test="person:person!=''">
-						<xsl:if test="person:person/eterms:complete-name!=''">
-							<xsl:element name="{$creatorType}">
-								<xsl:value-of select="person:person/eterms:complete-name" />
-							</xsl:element>
-						</xsl:if>
-						<xsl:if test="person:person/eterms:complete-name=''">
-							<xsl:element name="{$creatorType}">
-								<xsl:value-of
-									select="string-join((person:person/eterms:family-name, person:person/eterms:given-name), ', ' ) " />
-							</xsl:element>
-						</xsl:if>
+						<xsl:element name="{$creatorType}">
+							<xsl:value-of
+								select="string-join((person:person/eterms:family-name, person:person/eterms:given-name), ', ' ) " />
+						</xsl:element>
 						<xsl:if test="person:person/organization:organization!=''">
 							<xsl:element name="dc:contributor">
 								<xsl:value-of select="person:person/organization:organization/dc:title" />
@@ -175,14 +168,7 @@
 					<xsl:for-each
 						select="source:source[1][$stype=('book', 'proceedings', 'issue', 'other')]/eterms:creator">
 						<xsl:if test="./person:person!=''">
-							<xsl:if test="./person:person/eterms:complete-name!=''">
-								<xsl:value-of
-									select="concat(' ', ./person:person/eterms:complete-name)" />
-							</xsl:if>
-							<xsl:if test="./person:person/eterms:complete-name=''">
-								<xsl:value-of
-									select="concat(' ', string-join((./person:person/eterms:family-name, ./person:person/eterms:given-name), ', ' ))" />
-							</xsl:if>
+							<xsl:value-of select="concat(' ', string-join((./person:person/eterms:family-name, ./person:person/eterms:given-name), ', ' ))" />
 						</xsl:if>
 						<xsl:if test="./organization:organization/dc:title!=''">
 							<xsl:value-of select="concat(' ', ./organization:organization/dc:title)" />

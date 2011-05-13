@@ -1947,9 +1947,6 @@
 						<xsl:when test="$source-name = 'eDoc-AEI'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Gravitational Physics')"/>
 						</xsl:when>
-						<xsl:when test="$import-name = 'NPH'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Nuclear Physics')"/>
-						</xsl:when>
 						<xsl:when test="$import-name = 'FHI'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Fritz Haber Institute')"/>
 						</xsl:when>
@@ -1974,9 +1971,10 @@
 						<xsl:when test="$import-name = 'ETH'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI für ethnologische Forschung')"/>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIPRIV'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI für europäische Rechtsgeschichte')"/>
+						<xsl:when test="$import-name = 'MPIeR'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for European Legal History')"/>
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'External Organizations')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Fachbeirat des MPIeR')"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))"/>
@@ -1993,9 +1991,6 @@
 					<xsl:when test="not(exists($coneCreator/cone/rdf:RDF/rdf:Description))">
 						<xsl:comment>NOT FOUND IN CONE</xsl:comment>
 						<xsl:element name="person:person">
-							<!--  <xsl:element name="eterms:complete-name">
-								<xsl:value-of select="concat($creatorngivenNew, ' ', creatornfamily)"/>
-							</xsl:element>-->
 							<xsl:element name="eterms:family-name">
 								<xsl:value-of select="creatornfamily"/>
 							</xsl:element>
@@ -2189,7 +2184,7 @@
 								<xsl:value-of select="$creatorngivenNew"/>
 							</eterms:given-name>
 							<dc:identifier xsi:type="eterms:CONE">
-								<xsl:value-of select="$coneCreator/cone/rdf:RDF[1]/rdf:Description/@rdf:about"/>
+								<xsl:value-of select="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/@rdf:about"/>
 							</dc:identifier>
 							
 							<!-- CBS OU depend on date (affiliatedInstitution depend on publication-date) -->
@@ -2209,8 +2204,8 @@
 							<xsl:comment><xsl:value-of select="escidocFunctions:smaller($coneCreator/cone/rdf:RDF[1]/rdf:Description/escidoc:position[1]/rdf:Description/escidoc:start-date, $publication-date)"/></xsl:comment>
 							<xsl:comment><xsl:value-of select="escidocFunctions:smaller($coneCreator/cone/rdf:RDF[1]/rdf:Description/escidoc:position[2]/rdf:Description/escidoc:start-date, $publication-date)"/></xsl:comment>
 							<xsl:choose>
-								<xsl:when test="$coneCreator/cone/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)]">
-									<xsl:for-each select="$coneCreator/cone/rdf:RDF[1]/rdf:Description/escidoc:position">
+								<xsl:when test="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)]">
+									<xsl:for-each select="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position">
 										<xsl:comment>pubdate: <xsl:value-of select="$publication-date"/></xsl:comment>
 										<xsl:comment>start: <xsl:value-of select="rdf:Description/escidoc:start-date"/></xsl:comment>
 										<xsl:comment>start &lt; pubdate <xsl:value-of select="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date)"/></xsl:comment>
