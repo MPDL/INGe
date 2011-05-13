@@ -290,6 +290,7 @@ public class SwordUtil extends FacesBean
      * @throws ServiceException
      * @throws URISyntaxException
      */
+    @Deprecated
     public String loginUser(String userid, String password)
         throws HttpException, IOException, ServiceException, URISyntaxException
     {
