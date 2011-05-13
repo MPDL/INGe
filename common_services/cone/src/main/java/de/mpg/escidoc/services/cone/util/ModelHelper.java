@@ -223,7 +223,7 @@ public class ModelHelper
                             {
                                 singleString = singleString.substring(singleString.indexOf(":") + 1);
                             }
-                            newResult.add(singleString.replace("&#3A;", ":").replace("&#x2C;", ","));
+                            newResult.add(singleString.replace("&#x3A;", ":").replace("&#x2C;", ","));
                         }
                         
                         strings = new ArrayList<String>();
