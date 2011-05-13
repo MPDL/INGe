@@ -134,10 +134,9 @@ public class CitationTransformation
     {
         byte[] result = null;
         Transformation transformer = new TransformationBean();
-        Util util = new Util();
         
         //Create input format
-        Styles style = util.getStyleInfo (trgFormat);
+        Styles style = Util.getStyleInfo(trgFormat);
         String formatName = "snippet";
         if (style == Styles.APA || style == Styles.AJP) {formatName += "_" + style.toString();}
         Format input = new Format (formatName, "application/xml", "UTF-8");

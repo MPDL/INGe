@@ -67,7 +67,6 @@ public class CitationTransformationInterface implements Transformation
      */
     public CitationTransformationInterface()
     {
-        this.util = new Util();
     }
     
     /**
