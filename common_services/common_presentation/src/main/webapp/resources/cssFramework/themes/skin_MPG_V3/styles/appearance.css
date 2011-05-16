@@ -417,10 +417,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     filter: alpha(opacity=91);
 }
 
-.itemList .checkBoxCloseSelectButton:hover, .selectMenu .checkBoxCloseSelectButton:focus {
-    background-color: transparent;
-}
-
 .selectMenu, .selectMenu input {
     background-color: #F3F5F5;
 }

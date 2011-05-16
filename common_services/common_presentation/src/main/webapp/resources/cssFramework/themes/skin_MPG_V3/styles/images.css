@@ -22,7 +22,7 @@
  * CDDL HEADER END
  */
 /*
- * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+ * Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
  * für wissenschaftlich-technische Information mbH and Max-Planck-
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
@@ -32,16 +32,14 @@
  * COMPONENT RELATED IMAGES
  *
  */
- 
 /*Body Background*/
-
 body {
-	background: url("../images/all_background_1.png ") repeat-x scroll left top;
+    background: url("../images/all_background_1.png ") repeat-x scroll left top;
 }
 
 body .wrapper {
-	background-image:url("../images/all_header_and_logo.jpg");
-	background-repeat:no-repeat !important;
+    background-image: url("../images/all_header_and_logo.jpg");
+    background-repeat: no-repeat !important;
 }
 
 .headerLogo, .themePark {
@@ -59,8 +57,6 @@ body .wrapper {
  -----------------------------------------------
  */
 /*HEADER LOGO*/
-
-
 /*PUT IN HEADER LOGO FOR PRINT DISPLAY HERE*/
 @media print { .contentMenu {list-style-image:
         url('../../../globalImages/logo.png');
@@ -106,23 +102,22 @@ body .wrapper {
  }
  */
 /*SORTING IMAGES FOR CONTENT MENU*/
-
 .ascSort {
     background-image: url('../images/All_Sorting_TriangleAscending_15_Active.png');
     background-repeat: no-repeat;
-    background-position: right;
+    background-position: bottom right;
 }
 
 .ascSort:hover, .ascSort:focus {
     background-image: url('../images/All_Sorting_TriangleAscending_15_Hover.png');
     background-repeat: no-repeat;
-    background-position: right;
+    background-position: bottom right;
 }
 
 .ascSort:disabled {
     background-image: url('../images/All_Sorting_TriangleAscending_15_Deactivated.png');
     background-repeat: no-repeat;
-    background-position: right;
+    background-position: bottom right;
 }
 
 .desSort {
@@ -154,9 +149,7 @@ body .wrapper {
  |[ Lists & Full Item ]                        |
  |         [        Footer       ]             |
  -----------------------------------------------*/
-
 /*START PAGE*/
-
 .submIcon {
     background-image: url('../images/All_Start_TeaserNew_31_Static.png');
     background-repeat: no-repeat;
@@ -274,45 +267,20 @@ body .wrapper {
 }
 
 /*LIST COMPONENT*/
-
 .itemList, .tiledList, .fullItem {
-	background:url("../images/all_ramp_list.png ") scroll left top;
+    background: url("../images/all_ramp_list.png ") scroll left top;
 }
 
-.itemList .checkBoxSelectButton {
-    background-image: url('../images/All_DropDown_TriangleOpen_15_Active.png');
+.itemList .checkboxSelectButton {
+    background-image: url('../images/All_ListView_Select_15_Active.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.itemList .checkBoxSelectButton:hover, .itemList .checkBoxSelectButton:focus {
-    background-image: url('../images/All_DropDown_TriangleOpen_15_Hover.png');
-    background-repeat: no-repeat;
-    background-position: center;
+.itemList .checkboxSelectButton:hover, .itemList .checkboxSelectButton:focus {
 }
 
-.itemList .checkBoxSelectButton:disabled {
-    background-image: url('../images/All_DropDown_TriangleOpen_15_Deactivated.png');
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.selectMenu .checkBoxCloseSelectButton {
-    background-image: url('../images/All_DropDown_CrossClose_15_Active.png');
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-
-.selectMenu .checkBoxCloseSelectButton:hover, .selectMenu .checkBoxCloseSelectButton:focus {
-    background-image: url('../images/All_DropDown_CrossClose_15_Hover.png');
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-
-.selectMenu .checkBoxCloseSelectButton:disabled {
-    background-image: url('../images/All_DropDown_CrossClose_15_Deactivated.png');
-    background-repeat: no-repeat;
-    background-position: center center;
+.itemList .checkboxSelectButton:disabled {
 }
 
 .submittedItem {
@@ -487,52 +455,52 @@ body .wrapper {
 }
 
 /*MISC*/
-.collapse, .expand /*, .files, .locators*/ {
+.collapseTriangle, .expandTriangle /*, .files, .locators*/ {
     cursor: pointer;
 }
 
-.collapse {
-    background-image: url('../images/All_ListView_MinusSmallview_15_Active.png');
+.collapseTriangle {
+    background-image: url('../images/All_View_TriangleOpen_15_Active.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
 
-.collapse:hover, .collapse:focus {
-    background-image: url('../images/All_ListView_MinusSmallview_15_Hover.png');
+.collapseTriangle:hover, .collapseTriangle:focus {
+    background-image: url('../images/All_View_TriangleOpen_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
 
-.collapse:disabled {
-    background-image: url('../images/All_ListView_MinusSmallview_15_Deactivated.png');
+.collapseTriangle:disabled {
+    background-image: url('../images/All_View_TriangleOpen_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
 
-.expand {
-    background-image: url('../images/All_ListView_PlusMediumview_15_Active.png');
+.expandTriangle {
+    background-image: url('../images/All_View_TriangleClose_15_Active.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
 
-.expand:hover, .expand:focus {
-    background-image: url('../images/All_ListView_PlusMediumview_15_Hover.png');
+.expandTriangle:hover, .expandTriangle:focus {
+    background-image: url('../images/All_View_TriangleClose_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
 
-.expand:disabled {
-    background-image: url('../images/All_ListView_PlusMediumview_15_Deactivated.png');
+.expandTriangle:disabled {
+    background-image: url('../images/All_View_TriangleClose_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
-@media print { .collapse, .expand {
+@media print { .collapseTriangle, .expandTriangle {
         display: none !important;
 }
 }
@@ -760,22 +728,22 @@ body .wrapper {
 }
 
 .viewFileIcon {
-	background-image: url('../images/All_File_EyeTrue_15_Static.gif');
-	background-repeat: no-repeat;
-	background-position: bottom left;
-	padding-left: 2.10em !important;
+    background-image: url('../images/All_File_EyeTrue_15_Static.gif');
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    padding-left: 2.10em !important;
 }
 
 .downloadFileIcon {
-	background-image: url('../images/All_File_ArrowDownload_15_Static.gif');
-	background-repeat: no-repeat;
-	background-position: bottom left;
-	padding-left: 2.10em !important;
-}  	
+    background-image: url('../images/All_File_ArrowDownload_15_Static.gif');
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    padding-left: 2.10em !important;
+}
 
 .featureIcon {
-	background-image: url('../images/All_Status_ItemSolo_31_Static.gif');
-	background-repeat: no-repeat;
-	background-position: right;
-	height: 2.90em !important;
+    background-image: url('../images/All_Status_ItemSolo_31_Static.gif');
+    background-repeat: no-repeat;
+    background-position: right;
+    height: 2.90em !important;
 }

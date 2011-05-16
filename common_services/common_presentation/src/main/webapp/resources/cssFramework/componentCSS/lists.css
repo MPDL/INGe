@@ -55,7 +55,7 @@
 	border-style: solid;
 }
 
-.itemList .collapse, .itemList .expand {
+.itemList .collapseTriangle, .itemList .expandTriangle {
 	display: none;
 }
 
@@ -101,7 +101,8 @@
 }
 
 .listHeader input {
-	float: right;
+	float: left;
+	border: none;
 }
 	
 .listHeader a, .listHeader span, .listHeader thead {
@@ -111,7 +112,7 @@
 	margin-right: -0.11em;
 }
 
-.listHeader .collapse, .listHeader .collapse:hover, .listHeader .collapse:focus, .listHeader .expand, .listHeader .expand:hover, .listHeader .expand:focus {
+.listHeader .collapseTriangle, .listHeader .collapseTriangle:hover, .listHeader .collapseTriangle:focus, .listHeader .expandTriangle, .listHeader .expandTriangle:hover, .listHeader .expandTriangle:focus {
 	line-height: normal;
 	margin-left: 0.19em;
 	background-position: left;
@@ -123,17 +124,14 @@
 }
 	/*SELECT MENU*/
 	
-.itemList .checkBoxSelectButton {
+.itemList .checkboxSelectButton {
 	margin-top: 0.19em;
 	margin-right: 0.19em;
+	float: right;
 }
 
-	/*REPLACEMENT HACK FOR IE LESS THAN 6*/
-	* html .itemList th .checkBoxSelectButton {
-	margin-right: -1.19em;
-	}
 	/*REPLACEMENT HACK FOR IE 7*/
-	*:first-child+html .itemList th .checkBoxSelectButton {
+	*:first-child+html .itemList th .checkboxSelectButton {
 	margin-right: -1.19em;
 	}
 
@@ -145,15 +143,18 @@
 }
 
 .selectMenu {
-	position: absolute;
-	border-style: solid;
-	border-top-width: 0px !important;
-	z-index: 3;
+     border-style: solid;
+     border-top-width: 0px ! important;
+     position: absolute;
+     margin-top: -0.37em;
+     margin-left: 4.2em;
+     z-index: 3;
 }
 
 .selectMenu input {
 	margin-left: 0.56em;
 	margin-top: 0.19em;
+	border: 0px;
 }
 
 .selectMenu span {
@@ -191,7 +192,7 @@
 
 	/*GENERAL*/
 	
-.listItem {
+.listItem, .mediaSideBar {
 	list-style: none;
 }
 
@@ -199,7 +200,7 @@
 	 vertical-align: top;
 }
 	
-.listItem, .listItem td {
+.listItem, .listItem td, .mediaSideBar {
 	border-top-width: 0.09em !important;
 	border-top-style: solid !important;
 }
@@ -268,11 +269,11 @@
 .listItem .itemHeader {
 	margin-bottom: -0.37em;
 }
-*/
+
 .loggedIn .listItem .itemHeader {
 	margin-bottom: -3.19em;
 }
-*/
+
 .listItem .shortView, .listItem .mediumView {
 	margin-bottom: 0.5em;
 }
@@ -294,6 +295,10 @@
 
 .listHeader .itemHeader {
 	width: 38.65em;
+}
+
+.listHeader .allCheckBox {
+	float: left;
 }
 
 .loggedIn .listHeader .itemHeader {
@@ -319,7 +324,7 @@
 
 	/*ITEM BODY*/
 
-.listItem .collapse, .listItem .expand {
+.listItem .collapseTriangle, .listItem .expandTriangle {
 	float: left;
 	line-height: normal;
 	padding-left: 1.36em;
@@ -391,6 +396,23 @@
 	float: right;
 }
 
+.citeAuthor {
+}
+
+.citeDate {
+}
+		
+.citeLink {
+}
+		
+.citeSource {
+	font-style: italic;
+}
+		
+.citeID {
+}
+		
+
 	/*STATUS RELATED ITEM ELEMENTS*/
 
 .listHeader .status, .listItem .status {
@@ -414,7 +436,7 @@
 /*PRINT RELATED DEFINITIONS*/
 
 @media print {
-	.itemList input, .itemList select, .itemList .seperator, .listItem .collapse, .listItem .expand {
+	.itemList input, .itemList select, .itemList .seperator, .listItem .collapseTriangle, .listItem .expandTriangle {
 		display: none !important;
 	}
 	
