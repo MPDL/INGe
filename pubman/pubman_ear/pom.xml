@@ -839,20 +839,6 @@
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>aa_presentation</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
-			<type>war</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>aa_logic</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
-			<type>jar</type>
-			<scope>provided</scope>
-		</dependency>
 		
 	</dependencies>
 
