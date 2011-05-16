@@ -171,6 +171,7 @@ function include_javascripts() {
 		include_dom(jsURL + 'componentJavaScript/eSciDoc_item_list.js');
 		include_dom(jsURL + 'componentJavaScript/eSciDoc_full_item.js');
 		include_dom(jsURL + 'componentJavaScript/eSciDoc_single_elements.js');
+		include_dom(jsURL + 'externalJavaScript/jquery.checkboxes.pack.js');
 		include_dom(coneURL + 'js/jquery.suggest.js')
 		include_dom(jsURL + 'componentJavaScript/autoSuggestFunctions.js');
 		/*REITERATION NEEDED TO START ALL INCLUDED JAVASCRIPTS*/
