@@ -73,11 +73,11 @@
 							<artifactId>common_presentation</artifactId>
 							<contextRoot>/common</contextRoot>
 						</webModule>
-						<webModule>
-							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>aa_presentation</artifactId>
-							<contextRoot>/auth</contextRoot>
-						</webModule>
+<!--						<webModule>-->
+<!--							<groupId>de.mpg.escidoc.services</groupId>-->
+<!--							<artifactId>aa_presentation</artifactId>-->
+<!--							<contextRoot>/auth</contextRoot>-->
+<!--						</webModule>-->
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>common_logic</artifactId>
@@ -97,13 +97,13 @@
                                 true
                             </includeInApplicationXml>
 						</jarModule>
-						<jarModule>
-							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>aa_logic</artifactId>
-							<includeInApplicationXml>
-                                true
-                            </includeInApplicationXml>
-						</jarModule>
+<!--						<jarModule>-->
+<!--							<groupId>de.mpg.escidoc.services</groupId>-->
+<!--							<artifactId>aa_logic</artifactId>-->
+<!--							<includeInApplicationXml>-->
+<!--                                true-->
+<!--                            </includeInApplicationXml>-->
+<!--						</jarModule>-->
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>cone</artifactId>
