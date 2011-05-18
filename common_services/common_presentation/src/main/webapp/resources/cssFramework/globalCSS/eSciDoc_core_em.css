@@ -76,6 +76,10 @@ body .wrapper {
     margin-bottom: -2.00em;
 }
 
+textarea {
+	resize:vertical;
+}
+
 .noDisplay {
     display: none !important;
 }
