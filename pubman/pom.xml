@@ -454,7 +454,7 @@
 		<escidoc.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</escidoc.pubman.contact.url>
 		
 		<!-- Properties for PubMan standard theme-->
-		<escidoc.pubman.stylesheet.standard.url>/common/resources/cssFramework/themes/skin_MPG_V3/styles/theme.css</escidoc.pubman.stylesheet.standard.url>
+		<escidoc.pubman.stylesheet.standard.url>/common/resources/cssFramework/themes/skin_MPG/styles/theme.css</escidoc.pubman.stylesheet.standard.url>
 		<escidoc.pubman.stylesheet.standard.type>stylesheet</escidoc.pubman.stylesheet.standard.type>
 		<escidoc.pubman.stylesheet.standard.apply>true</escidoc.pubman.stylesheet.standard.apply>
 		
