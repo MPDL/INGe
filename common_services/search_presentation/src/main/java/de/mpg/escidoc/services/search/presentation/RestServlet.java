@@ -33,6 +33,7 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
@@ -120,7 +121,7 @@ public class RestServlet extends HttpServlet
             // Init exporting service
             InitialContext ctx = new InitialContext();
             itemContainerSearch = (Search) ctx.lookup(Search.SERVICE_NAME);
-            cqlQuery = req.getParameter("cqlQuery");
+            cqlQuery = fixURLEncoding(req.getParameter("cqlQuery"));
             if (!checkVal(cqlQuery))
             {
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "cqlQuery is not defined in the QueryString: " + qs);
@@ -368,6 +369,39 @@ public class RestServlet extends HttpServlet
 			searchCounter--;
 			LOGGER.debug("Number of the concurrent searches 2:" + searchCounter);
     	}
+    }
+
+    /**
+     * Transforms broken ISO-8859-1 strings into (hopefully) correct UTF-8 strings.
+     * 
+     * @param brokenValue
+     * @return
+     */
+    private String fixURLEncoding(String brokenValue)
+    {
+        if (brokenValue != null)
+        {
+            try
+            {
+                String utf8 = new String(brokenValue.getBytes("ISO-8859-1"), "UTF-8");
+                if (utf8.equals(brokenValue) || utf8.contains("�") || utf8.length() == brokenValue.length())
+                {
+                    return brokenValue;
+                }
+                else
+                {
+                    return utf8;
+                }
+            }
+            catch (UnsupportedEncodingException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
+        else
+        {
+            return null;
+        }
     }
 
 }
