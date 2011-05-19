@@ -493,19 +493,15 @@ public class ImportLog
         stringWriter.write("\n");
         
         StackTraceElement[] stackTraceElements = exception.getStackTrace();
-        for (StackTraceElement stackTraceElement : stackTraceElements)
-        {
-            //at TimeTest.main(TimeTest.java:47)
-            stringWriter.write("\tat ");
-            stringWriter.write(stackTraceElement.getClassName());
-            stringWriter.write(".");
-            stringWriter.write(stackTraceElement.getMethodName());
-            stringWriter.write("(");
-            stringWriter.write(stackTraceElement.getFileName());
-            stringWriter.write(":");
-            stringWriter.write(stackTraceElement.getLineNumber() + "");
-            stringWriter.write(")\n");
-        }
+        stringWriter.write("\tat ");
+        stringWriter.write(stackTraceElements[0].getClassName());
+        stringWriter.write(".");
+        stringWriter.write(stackTraceElements[0].getMethodName());
+        stringWriter.write("(");
+        stringWriter.write(stackTraceElements[0].getFileName());
+        stringWriter.write(":");
+        stringWriter.write(stackTraceElements[0].getLineNumber() + "");
+        stringWriter.write(")\n");
         if (exception.getCause() != null)
         {
             stringWriter.write(getExceptionMessage(exception.getCause())); 

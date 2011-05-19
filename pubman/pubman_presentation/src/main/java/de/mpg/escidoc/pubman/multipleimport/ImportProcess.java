@@ -30,6 +30,7 @@ package de.mpg.escidoc.pubman.multipleimport;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -96,7 +97,6 @@ public class ImportProcess extends Thread
     private InputStream inputStream;
     private Transformation transformation;
     private ItemValidating itemValidating;
-    private ValidationTransforming validationTransforming;
     private XmlTransforming xmlTransforming;
     private PubItemDepositing pubItemDepositing;
     private Search search;
@@ -122,6 +122,7 @@ public class ImportProcess extends Thread
     private static final Format WOS_FORMAT = new Format("wos", "text/plain", "utf-8");
     private static final Format MAB_FORMAT = new Format("mab", "text/plain", "UTF-8");
     private String name;
+    private long lastBeat = 0;
 
     public ImportProcess(String name, String fileName, InputStream inputStream, Format format,
             ContextRO escidocContext, AccountUserVO user, boolean rollback, int duplicateStrategy, Map<String, String> configuration)
@@ -199,7 +200,6 @@ public class ImportProcess extends Thread
             this.duplicateStrategy = duplicateStrategy;
             InitialContext context = new InitialContext();
             this.itemValidating = (ItemValidating) context.lookup(ItemValidating.SERVICE_NAME);
-            this.validationTransforming = (ValidationTransforming) context.lookup(ValidationTransforming.SERVICE_NAME);
             this.xmlTransforming = (XmlTransforming) context.lookup(XmlTransforming.SERVICE_NAME);
             this.pubItemDepositing = (PubItemDepositing) context.lookup(PubItemDepositing.SERVICE_NAME);
             this.search = (Search) context.lookup(Search.SERVICE_NAME);
@@ -401,6 +401,7 @@ public class ImportProcess extends Thread
                             break;
                         }
                     }
+                    heartBeat();
                 }
             }
             catch (Exception e)
@@ -491,6 +492,26 @@ public class ImportProcess extends Thread
                     log.addDetail(ErrorLevel.ERROR, e);
                     fail();
                 }
+            }
+        }
+    }
+
+    /**
+     * Send a request to the framework every 30 minutes to make sure the user handle will not expire.
+     */
+    private void heartBeat()
+    {
+        long now = new Date().getTime();
+        if ((now - lastBeat) > 1000 * 60 * 30)
+        {
+            logger.info("Refreshing " + log.getUserHandle());
+            lastBeat = now;
+            try
+            {
+                ServiceLocator.getContextHandler(log.getUserHandle()).retrieve(log.getContext());
+            }
+            catch (Exception e) {
+                logger.warn("Heartbeat error", e);
             }
         }
     }
