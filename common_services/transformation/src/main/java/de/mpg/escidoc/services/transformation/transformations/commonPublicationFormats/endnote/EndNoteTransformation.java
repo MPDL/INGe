@@ -115,7 +115,7 @@ public class EndNoteTransformation implements Transformation, Configurable
             	
             	String fileName;
             	
-            	if (flavor != null && ("ICE".equals(flavor) || "BCG".equals(flavor)))
+            	if (flavor != null && ("ICE".equals(flavor) || "BGC".equals(flavor)))
             	{
             		fileName = PropertyReader.getProperty("escidoc.transformation.endnote.ice.stylesheet.filename");
             	}

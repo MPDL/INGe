@@ -65,6 +65,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Configurable;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
+import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;

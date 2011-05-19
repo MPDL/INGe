@@ -87,7 +87,7 @@
 	<!-- Configuration parameters -->
 	<xsl:param name="import-name" select="'OTHER'"/>
 	<xsl:param name="CoNE" select="'true'"/>
-	
+
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
 	
 	<xsl:param name="a" select="''"/>
@@ -1969,7 +1969,7 @@
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Meteorology')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'ETH'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI für ethnologische Forschung')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Social Anthropology')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIeR'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for European Legal History')"/>
@@ -2201,8 +2201,6 @@
 									</xsl:when>
 								</xsl:choose>
 							</xsl:variable>
-							<xsl:comment><xsl:value-of select="escidocFunctions:smaller($coneCreator/cone/rdf:RDF[1]/rdf:Description/escidoc:position[1]/rdf:Description/escidoc:start-date, $publication-date)"/></xsl:comment>
-							<xsl:comment><xsl:value-of select="escidocFunctions:smaller($coneCreator/cone/rdf:RDF[1]/rdf:Description/escidoc:position[2]/rdf:Description/escidoc:start-date, $publication-date)"/></xsl:comment>
 							<xsl:choose>
 								<xsl:when test="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)]">
 									<xsl:for-each select="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position">

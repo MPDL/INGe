@@ -4,6 +4,7 @@
 	
 	<xsl:param name="ou-url" select="'http://migration-coreservice.mpdl.mpg.de:8080'"/>
 	<xsl:param name="cone-url" select="'http://migration-pubman.mpdl.mpg.de:8080/cone'"/>
+	<xsl:param name="check-existance" select="false()"/>
 	
 	<xsl:variable name="ou-list" select="document(concat($ou-url, '/srw/search/escidocou_all?query=(escidoc.objid=e*)&amp;maximumRecords=10000'))"/>
 	<xsl:variable name="cone-list" select="document(concat($cone-url, '/persons/all?format=rdf'))"/>
@@ -42,7 +43,7 @@
 					<xsl:variable name="old-entry" select="$cone-list/rdf:RDF/rdf:Description[contains(./dc:title, concat($familyname, ', ', $givenname)) and contains(./dc:title , $ouname)]"/>
 
 					<rdf:Description>
-						<xsl:if test="exists($old-entry)">
+						<xsl:if test="exists($old-entry) and $check-existance">
 							<xsl:attribute name="rdf:about" select="$old-entry/@rdf:about"/>
 						</xsl:if>
 						<dc:title>
@@ -180,7 +181,15 @@
 		
 		<xsl:variable name="ou" select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit[@objid = $id]"/>
 	
-		<xsl:value-of select="normalize-space($ou/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title)"/>
+		<xsl:choose>
+			<xsl:when test="$ouname != ''">
+				<xsl:value-of select="$ouname"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="normalize-space($ou/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title)"/>
+			</xsl:otherwise>
+		</xsl:choose>
+		
 		
 		<xsl:if test="normalize-space($ou/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = ''">
 			ERROR with "<xsl:value-of select="$ouname"/>" for <xsl:value-of select="$familyname"/>,  <xsl:value-of select="$givenname"/>

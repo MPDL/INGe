@@ -40,6 +40,7 @@ import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import java.util.regex.Matcher;
@@ -81,6 +82,8 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 public class Util
 {
     private static Logger logger = Logger.getLogger(Util.class);
+    private static long coneSessionTimestamp = 0;
+    private static String coneSession = null;
     
     /**
      * Hide constructor of static class
@@ -291,7 +294,7 @@ public class Util
         }
         return thisMimetype;
     }
-    
+
     /**
      * Queries CoNE service and returns the result as DOM node.
      * The returned XML has the following structure:
@@ -317,6 +320,8 @@ public class Util
         String queryUrl = null;
         try
         {
+            System.out.println("queryCone: " + model);
+            
             documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
         
             Document document = documentBuilder.newDocument();
@@ -329,6 +334,13 @@ public class Util
                 + model + "/resource/$1?format=rdf";
             HttpClient client = new HttpClient();
             GetMethod method = new GetMethod(queryUrl);
+            
+            String coneSession = getConeSession();
+            
+            if (coneSession != null)
+            {
+                method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
+            }
             ProxyHelper.executeMethod(client, method);
             
             if (method.getStatusCode() == 200)
@@ -340,12 +352,15 @@ public class Util
                     {
                         String id = result.split("\\|")[1];
                         GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle=" + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
-                        
                         logger.info(detailMethod.getPath());
                         logger.info(detailMethod.getQueryString());
                         
-                        ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
-                        client.executeMethod(detailMethod);
+                        if (coneSession != null)
+                        {
+                            detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
+                        }
+                        ProxyHelper.executeMethod(client, detailMethod);
+
                         if (detailMethod.getStatusCode() == 200)
                         {
                             Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
@@ -377,12 +392,65 @@ public class Util
         }
     }
     
+    public static String getConeSession() throws Exception
+    {
+        long now = new Date().getTime();
+        if (coneSession == null || (now - coneSessionTimestamp) > 1000 * 60 * 30)
+        {
+            String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url");
+            HttpClient client = new HttpClient();
+            GetMethod method = new GetMethod(queryUrl);
+            try
+            {
+                client.executeMethod(method);
+            }
+            catch (Exception e) {
+                logger.warn("Error while retrieving CoNE session", e);
+                return null;
+            }
+            Header[] cookies = method.getResponseHeaders("Set-Cookie");
+            if (cookies != null && cookies.length > 0)
+            {
+                for (Header cookie : cookies)
+                {
+                    if (cookie.getValue().startsWith("JSESSIONID="))
+                    {
+                        int end = cookie.getValue().indexOf(";", 11);
+                        if (end >= 0)
+                        {
+                            coneSession = cookie.getValue().substring(11, end);
+                            coneSessionTimestamp = now;
+                            logger.info("Refreshing CoNE session: " + coneSession);
+                            return coneSession;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+        else
+        {
+            return coneSession;
+        }
+    }
+
+    /**
+     * Queries the CoNE service and transforms the result into a DOM node.
+     * 
+     * @param model The type of object (e.g. "persons")
+     * @param name The query string.
+     * @param ou Specialty for persons
+     * @param coneSession A JSESSIONID to not produce a new session with each call.
+     * @return A DOM node containing the results.
+     */
     public static Node queryConeExact(String model, String name, String ou)
     {
         DocumentBuilder documentBuilder;
 
         try
         {
+            System.out.println("queryConeExact: " + model);
+            
             documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
         
             Document document = documentBuilder.newDocument();
@@ -396,6 +464,13 @@ public class Util
                 + model + "/resource/$1?format=rdf";
             HttpClient client = new HttpClient();
             GetMethod method = new GetMethod(queryUrl);
+            
+            String coneSession = getConeSession();
+            
+            if (coneSession != null)
+            {
+                method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
+            }
             ProxyHelper.executeMethod(client, method);
             logger.info("CoNE query: " + queryUrl + " returned " + method.getResponseBodyAsString());
             if (method.getStatusCode() == 200)
@@ -407,6 +482,10 @@ public class Util
                     + "\"&escidoc:position/eprints:affiliatedInstitution=" + URLEncoder.encode(ou, "UTF-8");
                 client = new HttpClient();
                 method = new GetMethod(queryUrl);
+                if (coneSession != null)
+                {
+                    method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
+                }
                 ProxyHelper.executeMethod(client, method);
                 logger.info("CoNE query: " + queryUrl + " returned " + method.getResponseBodyAsString());
                 if (method.getStatusCode() == 200)
