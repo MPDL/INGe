@@ -52,7 +52,7 @@ FORM BG			#FFFFFF
 
 
 COLOR EEEEEE was changed to EEEEEE; - 2011-03-28
-COLOR 303030 was changed to 262626; - 2011-03-28
+COLOR 303030 was changed to 292929; - 2011-03-28
 COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 */
 
@@ -109,7 +109,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	body .wrapper, body .footer {
-		background-color: #262626;
+		background-color: #292929;
 		border-right: 1px dotted #6CAD2F;
 		border-left: 1px dotted #6CAD2F;
 	}
@@ -167,7 +167,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	
 	.itemList .seperator {
 		/*background-color: #393939; */
-		background-color:#262626;  /* erweitert 2011-03-30 - Marco */
+		background-color:#292929;  /* erweitert 2011-03-30 - Marco */
 	}
 	
 	.fullItem .seperator, .tiledList .seperator {
@@ -176,7 +176,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	
 	.metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
 		/*border-color: #393939;*/
-		border-color:#262626;  /* erweitert 2011-03-30 - Marco */
+		border-color:#292929;  /* erweitert 2011-03-30 - Marco */
 	}
 	
 	.fullItem .fullItemControls .seperator {
@@ -196,8 +196,8 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	.contentMenu .void {
 		/*border-color: #393939;
 		background-color: #393939;*/
-		border-color:#262626;		/* erweitert 2011-03-30 - Marco */
-		background-color:#262626;	/* erweitert 2011-03-30 - Marco */
+		border-color:#292929;		/* erweitert 2011-03-30 - Marco */
+		background-color:#292929;	/* erweitert 2011-03-30 - Marco */
 	}
 
 /*HEADER
@@ -222,7 +222,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	/*COLORING FOR ALL MENU INPUTS AND LABELS*/
 	.metaMenu input, .metaMenu button, .metaMenu a, .quickSearchMenu a, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input, .contentMenu a {
 		/*background-color: #393939;*/
-		background-color:#262626;  /* erweitert 2011-03-30 - Marco */
+		background-color:#292929;  /* erweitert 2011-03-30 - Marco */
 		color: #6CAD2F;
 	}
 
@@ -292,7 +292,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	/*PAGE BROWSER*/
 	.pageBrowser input, .pageBrowser button, .pageBrowser a {
 		/*background-color: #393939;*/
-		background-color:#262626;  /* erweitert 2011-03-30 - Marco */
+		background-color:#292929;  /* erweitert 2011-03-30 - Marco */
 		color: #6CAD2F;
 	}
 	
@@ -534,15 +534,15 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 		float: left;
 		color: #6CAD2F;
 		background-color: #3C3C3C;
-		border-top-color: #262626;
+		border-top-color: #292929;
 		border-right: #6CAD2F solid 0.091em;
 		border-bottom: #6CAD2F solid 0.091em;
-		border-left-color: #262626;
+		border-left-color: #292929;
 	}
 	
 	.dialogCancelButton:hover {
 		color: #FFFFFF;
-		background-color: #262626;
+		background-color: #292929;
 		border-color: #FFFFFF;
 	}
 	
@@ -674,7 +674,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	
 
 .itemTile .tileIconArea {
-	background-color:#BBBBBB !important;
+	background-color:#494949 !important;
 }
 
 
@@ -684,5 +684,5 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 }
 
 .full_area0 .noTopBorder { background-color:#3C3C3C; } /* erweitert 2011-03-30 */
-.pageBrowser { background-color:#262626; } /* erweitert 2011-03-30 */
+.pageBrowser { background-color:#292929; } /* erweitert 2011-03-30 */
 .tileIconAreaSelected a img { border-color:#33698F; } /* erweitert 2011-04-06 */

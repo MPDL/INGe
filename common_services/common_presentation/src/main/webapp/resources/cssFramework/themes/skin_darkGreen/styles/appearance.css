@@ -725,6 +725,11 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     padding: 0.8182em 0em 0.4545em 0em !important;
 }
 
+.tileIconAreaWithdrawn {
+	color:red;
+  	border:1em none !important;
+}
+
 .tileIconAreaSelected a {
     color: #33698F; /* erweitert 2011-03-30 - Marco */
 }
