@@ -230,6 +230,26 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 		color: #EEEEEE;
 	} 
 	
+	.quickSearchMenu {
+		line-height:1.63em;
+		display:table-cell; 
+		vertical-align:middle;
+	}
+	
+	.quickSearchMenu input[type=radio] {
+		border:0;
+		padding-left:0;
+		margin:0;
+	}
+	.quickSearchMenu table tr td:first-child {
+		padding-left:0em;
+	}
+	
+	.quickSearchMenu label {
+		padding:0;
+		margin-right:0.72em;
+	}
+	
 	.logoAlternate span {
 		font-weight: bold;
 		color: #EEEEEE;
@@ -265,7 +285,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	.contentMenu span, .contentMenu input, .contentMenu a {
-		font-weight: bold;
+	/*	font-weight: bold; */
 	}
 
 /*Content
@@ -356,6 +376,9 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 		font-weight: normal;
 	}
 	
+	.headLine h1 {
+		color:#FFFFFF;
+	}
 		/*SELECT MENU*/
 	
 	.itemList .checkboxSelectButton {
@@ -385,7 +408,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	.statusArea .ascSort, .statusArea .desSort, th .ascSort, th .desSort {
-		background-color: #393939;
+		background-color:transparent;
 	}
 	
 	.listBackground .ascSort, .listBackground .descSort {
