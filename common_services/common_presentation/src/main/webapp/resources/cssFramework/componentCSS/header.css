@@ -42,7 +42,7 @@
 /*META MENU*/
 
 	.metaMenu {
-		height: 2.73em;
+		height: 2em;
 		line-height: normal;
 	}
 	
@@ -84,6 +84,15 @@
 		border-bottom-style: solid;
 	}
 	
+	.metaMenu input[type=text] {
+		height:1.2727em;
+		font-size:0.75em;
+	}
+	.metaMenu input[type=password] {
+		height:1.2727em;
+		font-size:0.75em;
+	}
+	
 	.logoAlternate, .logoAlternate * {
 		float: left !important;
 	}
@@ -107,9 +116,9 @@
 	
 	.searchMenu .quickSearchBtn {
 		float: left;
-		height: 1.65em;
+	/*	height: 1.65em;	*/
 		margin-left: 0.37em;
-		margin-right: 2.37em;
+	/*	margin-right: 2.37em; */
 	}
 
 	.searchMenu .quickSearchIcon {
@@ -129,7 +138,7 @@
 	}
 	
 	.advancedSearchMenu, .organisationSearchMenu {
-		text-align: right;
+	/*	text-align: right; */
 		padding-top: 0em;
 		margin-top: 0.09em;
 	}
@@ -140,13 +149,14 @@
 		margin-top: 1.27em;
 		margin-bottom: 1.55em;
 		padding-left: 5.74em !important;
+		padding-top:0.45em;
+		display:inline;
 	}
 
 	.mainMenu input, .mainMenu a, .mainMenu span {
 		text-align: left;
 		text-decoration: none;
 		font-size: 16px !important;
-		font-weight: bold;
 		margin-right: 0.80em;
 	}
 
@@ -227,6 +237,14 @@
 }
 
 /*CONTENT MENU*/
+.contentHeader {
+	clear:left; 
+	padding-top:0.09em; 
+	padding-bottom:0.4545em;
+	overflow:hidden; 
+	line-height:2.18em;
+}
+
 	.contentMenu * {
 		float: left;
 		line-height: normal;

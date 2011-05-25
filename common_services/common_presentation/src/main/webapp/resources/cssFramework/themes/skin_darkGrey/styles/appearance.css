@@ -33,7 +33,6 @@
 /*
 ALL COLORS USED
 
-BACKGROUND		#EAF4F7
 LINK COLOR		#147DA2 Replaced with: #6CAD2F 
 AUTHOR/ORG BG	        #4397B4
 LIGHT LINES		#A1CBDA
@@ -44,11 +43,17 @@ ERROR MSG		#D80000
 SUCCESS MSG		#00712B
 DEACTIVATED		#827775
 DEA LIGHT		#CDC9C8
-TEXT			#524240
 TEXT LIGHT		#BAB4B3
 MOUSEOVER		#382926
 INPUT TEXT		#000000
-FORM BG			#FFFFFF
+FORM BG			#f0f0f0
+
+
+BODY-Background								#434343
+WRAPPER-Background 							#292929
+CONTENT-Background							#313131
+OVERLAY-Background (e.g. Dialog, Tooltip)	#3C3C3C
+TEXT										#f0f0f0
 
 
 COLOR EEEEEE was changed to EEEEEE; - 2011-03-28
@@ -103,7 +108,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 */
 /*GENERAL*/
 	body {
-		background-color: #434343;
+		background-color: #292929;
 		color: #EEEEEE;
 		line-height: 145%;
 	}
@@ -171,7 +176,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	.fullItem .seperator, .tiledList .seperator {
-		background-color: #FFFFFF;
+		background-color: #f0f0f0;
 	}
 	
 	.metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
@@ -180,12 +185,12 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	.fullItem .fullItemControls .seperator {
-		background-color: #FFFFFF;
+		background-color: #f0f0f0;
 		border-color: #6CAD2F;
 	}
 	
 	.fullItem .easySubmissionHeader .seperator {
-		background-color: #FFFFFF;
+		background-color: #f0f0f0;
 		border-color: #486131;
 	}
 	
@@ -264,7 +269,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	.metaMenu input:hover, .metaMenu input:focus, .metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .quickSearchCheckBoxMenu label:hover, .quickSearchCheckBoxMenu label:focus, .advancedSearchMenu input:hover, .advancedSearchMenu input:focus, .advancedSearchMenu a:hover, .advancedSearchMenu a:focus, .organisationSearchMenu input:hover, .organisationSearchMenu input:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .mainMenu input:hover, .mainMenu input:focus, .mainMenu a:hover, .mainMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, .contentMenu a:hover, .contentMenu a:focus  {
-		color: #FFFFFF;
+		color: #f0f0f0;
 	}
 
 	.quickSearchMenu input:hover, .quickSearchMenu input:focus {
@@ -281,13 +286,16 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	.breadcrumb li a:hover, .breadcrumb li a:focus {
-		color: #FFFFFF;
+		color: #f0f0f0;
 	}
 	
 	.contentMenu span, .contentMenu input, .contentMenu a {
 	/*	font-weight: bold; */
 	}
-
+	
+	.advancedSearchMenu {
+		margin-top:0.18em;
+	}
 /*Content
 
 -----------------------------------------------
@@ -358,13 +366,13 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	.itemList, .tiledList, .fullItem {
-		border-bottom-color: #BAB4B3;
+		border-bottom-color: #262626;
 	}
 	
 	/*PRE-HEADER*/
 
 	.preListHeader {
-		border-top-color: #BAB4B3;
+		border-top-color: #292929 !important; 
 	}
 	
 	/*LIST HEADER*/
@@ -377,7 +385,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	.headLine h1 {
-		color:#FFFFFF;
+		color:#f0f0f0;
 	}
 		/*SELECT MENU*/
 	
@@ -404,7 +412,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 
 	.selectMenu a:hover, .selectMenu input:hover {
 		background-color: #6CAD2F;
-		color: #FFFFFF;
+		color: #f0f0f0;
 	}
 	
 	.statusArea .ascSort, .statusArea .desSort, th .ascSort, th .desSort {
@@ -432,7 +440,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	.preListHeader, .fullItem, .tiledList, .listBackground, .listBackground .seperator {
-		background-color: #3C3C3C;
+		background-color: #313131;
 	}
 	
 /*	.listBackground, .listBackground td {
@@ -446,7 +454,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	
 	.tiledList .inAlbum, .fullItem .inAlbum, .activeAlbum, .activeAlbum .seperator, .activeAlbum td { /* .activeAlbum td - erweitert 2011-04-06 - Marco */
 		background-color: #484848;
-		color: #FFFFFF;
+		color: #f0f0f0;
 	}
 	
 	
@@ -483,7 +491,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	.fullItem .fullItemControls .actual {
-		color: #FFFFFF;
+		color: #f0f0f0;
 		background-color: #6CAD2F;
 	}
 	
@@ -531,7 +539,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	.fullItem .groupBtn:hover, .fullItem .groupBtn:focus {
-		color: #FFFFFF;
+		color: #f0f0f0;
 		cursor: pointer;
 	}
 	
@@ -564,9 +572,9 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	.dialogCancelButton:hover {
-		color: #FFFFFF;
+		color: #f0f0f0;
 		background-color: #292929;
-		border-color: #FFFFFF;
+		border-color: #f0f0f0;
 	}
 	
 	.cancelButton, .activeButton {
@@ -586,22 +594,22 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	.cancelButton:hover {
-		color: #FFFFFF;
+		color: #f0f0f0;
 		background-color: #393939;
-		border-color: #FFFFFF;
+		border-color: #f0f0f0;
 	}
 	
 	.activeButton {
 		float: right;
-		color: #FFFFFF !important;
+		color: #f0f0f0 !important;
 		background-color: #6CAD2F !important;
 		border-color: #6CAD2F;
 	}
 	
 	.activeButton:hover {
-		color: #FFFFFF !important;
+		color: #f0f0f0 !important;
 		background-color: #393939 !important;
-		border-color: #FFFFFF;
+		border-color: #f0f0f0;
 	}
 	
 /*AUTOSUGGEST*/
@@ -626,7 +634,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	.ac_match {
 		font-family: sans-serif;
 		font-weight: bold;
-		color: #FFFFFF;
+		color: #f0f0f0;
 	}
 
 /*BLANK INPUT*/
@@ -665,7 +673,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	.fixMessageBlockBtn, .fixErrorMessageBlockBtn, .fixSuccessMessageBlockBtn {
 		float: right;
 		overflow: auto;
-		background-color: #FFFFFF;
+		background-color: #f0f0f0;
 	}
 	
 /*ERROR OR WARNING MESSAGES*/
@@ -706,6 +714,43 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
   	border:0em none !important;
 }
 
-.full_area0 .noTopBorder { background-color:#3C3C3C; } /* erweitert 2011-03-30 */
+.full_area0 .noTopBorder { background-color:#313131; } /* erweitert 2011-03-30 */
 .pageBrowser { background-color:#292929; } /* erweitert 2011-03-30 */
 .tileIconAreaSelected a img { border-color:#33698F; } /* erweitert 2011-04-06 */
+
+/*Richfaces Overwrite*/
+.rich-tool-tip {
+        background-color: #3C3C3C;
+}
+
+.contentHeader {
+	border-top-style:solid;
+	border-top-width:0.1818em; 
+	border-top-color:#6CAD2F;
+	background-color:#313131;
+}
+.contentHeader .preListHeader {
+	border:0;
+}
+
+.listHeader {
+	background-color:#313131;
+}
+
+.historyText {
+	color:#486330;
+}
+
+.hitsLabel {
+	margin-left:0.27em;
+}
+
+.contentMenu {
+	padding-top:0;
+}
+.itemList input[type="button"] {
+	margin-top:-0.001em;
+}
+.fullItem .detailedItem {
+	border-color:#292929 !important;
+}
