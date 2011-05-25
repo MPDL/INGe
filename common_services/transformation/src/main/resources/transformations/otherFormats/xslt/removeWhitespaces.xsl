@@ -36,7 +36,12 @@
 <xsl:stylesheet version="2.0"
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		xmlns:srw="http://www.loc.gov/zing/srw/">
+		xmlns:srw="http://www.loc.gov/zing/srw/"
+		xmlns:dc="http://purl.org/dc/elements/1.1/"
+		xmlns:eprints="http://purl.org/eprint/terms/"
+		xmlns:dcterms="http://purl.org/dc/terms/"
+		xmlns:foaf="http://xmlns.com/foaf/0.1/"
+		xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/">
 	
 		<xsl:output method="xml" encoding="UTF-8"/>
 		
@@ -49,6 +54,8 @@
 					<xsl:value-of select="normalize-space(.)"/>
 				</xsl:for-each>
 			</xsl:copy>
+			<xsl:text>
+</xsl:text>
 		
 		</xsl:template>
 		

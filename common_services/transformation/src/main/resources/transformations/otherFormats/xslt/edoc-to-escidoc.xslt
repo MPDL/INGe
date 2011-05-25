@@ -1941,7 +1941,10 @@
 				
 				<xsl:variable name="coneCreator">
 					<xsl:choose>
-						<xsl:when test="$CoNE = 'false'">
+						<xsl:when test="$CoNE = 'false' or (@internextern != 'mpg' and ($import-name = 'MPIE' or $import-name = 'MPIA'))">
+							<!-- No CoNE -->
+						</xsl:when>
+						<xsl:when test="$source and ($import-name = 'MPIE' or $import-name = 'MPIA')">
 							<!-- No CoNE -->
 						</xsl:when>
 						<xsl:when test="$source-name = 'eDoc-AEI'">
