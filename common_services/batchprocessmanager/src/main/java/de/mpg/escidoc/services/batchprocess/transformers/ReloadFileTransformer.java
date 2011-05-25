@@ -28,7 +28,9 @@ public class ReloadFileTransformer extends Transformer<ItemVO>
 {
     private static Logger logger = Logger.getLogger(ReloadFileTransformer.class);
     private static Map<String, Map<String, String>> fileMap = null;
-    private static final String filename = "target/classes/ExportFHIFull.xml";
+    private static final String filename = "target/classes/ExportBPCFull.xml";
+    //private static final String filename = "target/classes/ExportFHIFull.xml";
+    //private static final String filename = "target/classes/ExportCBSMain.xml";
 
     @Override
     public List<ItemVO> transform(List<ItemVO> list)
@@ -40,15 +42,22 @@ public class ReloadFileTransformer extends Transformer<ItemVO>
 
             try
             {
-                if (!this.getTransformed().contains(item.getVersion().getObjectId()) && item.getVersion().getVersionNumber() == 1)
+                if (!this.getTransformed().contains(item.getVersion().getObjectId()))
                 {
                 	System.out.println("Transforming item " + item.getVersion().getObjectIdAndVersion() + "!");
                 	item = reloadFile(item);
                 	//getTransformed().add(item.getVersion().getObjectId());
+                	report.addEntry("Transform" + item.getVersion().getObjectId(), "Transform "
+                            + item.getVersion().getObjectId(), ReportEntryStatusType.FINE);
+                }
+                else
+                {
+                    System.out.println("Ignoring item " + item.getVersion().getObjectIdAndVersion() + "!");
+                    report.addEntry("Ignore" + item.getVersion().getObjectId(), "Ignore "
+                            + item.getVersion().getObjectId(), ReportEntryStatusType.FINE);
                 }
                 
-                report.addEntry("Transform" + item.getVersion().getObjectId(), "Transform "
-                        + item.getVersion().getObjectId(), ReportEntryStatusType.FINE);
+                
             }
             catch (Exception e) {
                 throw new RuntimeException("Error transforming elements: ", e);
@@ -81,17 +90,13 @@ public class ReloadFileTransformer extends Transformer<ItemVO>
         
         for (FileVO file : item.getFiles())
         {
-            if (file.getVisibility() == Visibility.AUDIENCE || file.getVisibility() == Visibility.PRIVATE)
+            file.getReference().setObjectId(null);
+            String filename = file.getName();
+            if (getFileMap().containsKey(id) && getFileMap().get(id).containsKey(filename))
             {
-                file.getReference().setObjectId(null);
-                String filename = file.getName();
-                if (getFileMap().containsKey(id) && getFileMap().get(id).containsKey(filename))
-                {
-                    String url = getFileMap().get(id).get(filename);
-                    file.setContent(url);
-                    getTransformed().add(item.getVersion().getObjectId());
-                }
-                
+                String url = getFileMap().get(id).get(filename);
+                file.setContent(url);
+                getTransformed().add(item.getVersion().getObjectId());
             }
         }
         return item;
