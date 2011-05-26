@@ -98,17 +98,17 @@ All rights reserved. Use is subject to license terms.
 <table class="full_area0 itemList <h:outputText value='loggedIn' rendered='#{LoginHelper.loggedIn}' />" rules="none" style="border-collapse: collapse;">
   <thead class="listHeader" style="text-align: left; vertical-align:top;">
     <tr class="full_area0">
-      	<th class="free_area0_p8 endline itemSelectArea">
-      		<input type="button" class="min_imgBtn checkBoxSelectButton"/>
-			<div class="large_area1 xTiny_marginLIncl selectMenu" style="display: none;">
-				<input type="button" class="min_imgBtn checkBoxCloseSelectButton"></input>
-				<span class="medium_area0_p8"><h:outputText value="#{lbl.List_SelectItem}"/></span>
-				<h:commandLink title="#{tip.List_lkAll}" disabled="true" styleClass="large_area0 selectAll"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkAllOnPage}"/></span></h:commandLink>
- 				<%-- <a class="large_area0 selectTotal"><span class="medium_area0_p8 tiny_marginLIncl">All</span></a>--%>
- 				<h:commandLink title="#{tip.List_lkNone}" disabled="true" styleClass="large_area0 selectNone"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkNone}"/></span></h:commandLink>
-			</div>
-			&nbsp;
-      	</th>
+     		<th class="free_area0_p8 endline itemSelectArea">
+ 			<input type="checkbox" class="allCheckBox"/>
+ 			<input type="button" id="btcheckBoxSelectButton" class="min_imgBtn checkboxSelectButton"/>
+ 			<div class="large_area1 xTiny_marginLIncl selectMenu" style="display: none;">
+ 				<span class="medium_area0_p8"><h:outputText value="#{lbl.List_SelectItem}"/></span>
+ 				<h:commandLink id="lnkList_lkAll" title="#{tip.List_lkAll}" disabled="true" styleClass="large_area0 selectAll"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkAllOnPage}"/></span></h:commandLink>
+ 				<h:commandLink id="lnkList_lkToggle" title="#{tip.List_lkToggle}" disabled="true" styleClass="large_area0 toggleAll"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkToggleAll}"/></span></h:commandLink>
+ 				<h:commandLink id="lnkList_lkNone" title="#{tip.List_lkNone}" disabled="true" styleClass="large_area0 selectNone"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkNone}"/></span></h:commandLink>
+ 			</div>
+ 			&nbsp;
+ 		</th>
       	<th class="free_area0 endline status statusArea">
       		<span class="seperator"></span>
 			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="free_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'STATE'}" action="#{PubItemListSessionBean.changeToSortByState}">
