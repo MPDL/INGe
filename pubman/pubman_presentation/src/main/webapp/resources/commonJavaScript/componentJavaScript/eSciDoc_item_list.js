@@ -79,7 +79,7 @@ function addItemListFunctions(){
         $(this).parents('.selectMenu').hide();
     });
 	    $('.selectMenu').find('.toggleAll').click(function(){
-        $('.itemHeader').toggleCheckboxes();
+        $('.listItem').toggleCheckboxes();
         $(this).parents('.selectMenu').hide();
     });
     $('.selectMenu').find('.selectNone').click(function(){
