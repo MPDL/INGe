@@ -120,22 +120,22 @@ body .wrapper {
     background-position: bottom right;
 }
 
-.desSort {
+.desSort, .checkboxSelectButton {
     background-image: url('../images/All_Sorting_TriangleDescending_15_Active.png');
     background-repeat: no-repeat;
-    background-position: right;
+    background-position: bottom right;
 }
 
-.desSort:hover, .desSort:focus {
+.desSort:hover, .desSort:focus, .checkboxSelectButton:hover, .checkboxSelectButton:focus {
     background-image: url('../images/All_Sorting_TriangleDescending_15_Hover.png');
     background-repeat: no-repeat;
-    background-position: right;
+    background-position: bottom right;
 }
 
-.desSort:disabled {
+.desSort:disabled, .checkboxSelectButton:disabled {
     background-image: url('../images/All_Sorting_TriangleDescending_15_Deactivated.png');
     background-repeat: no-repeat;
-    background-position: right;
+    background-position: bottom right;
 }
 
 /*BODY*/
@@ -269,18 +269,6 @@ body .wrapper {
 /*LIST COMPONENT*/
 .itemList, .tiledList, .fullItem {
     background: url("../images/all_ramp_list.png ") scroll left top;
-}
-
-.itemList .checkboxSelectButton {
-    background-image: url('../images/All_ListView_Select_15_Active.gif');
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.itemList .checkboxSelectButton:hover, .itemList .checkboxSelectButton:focus {
-}
-
-.itemList .checkboxSelectButton:disabled {
 }
 
 .submittedItem {
