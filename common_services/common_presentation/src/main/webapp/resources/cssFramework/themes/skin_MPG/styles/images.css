@@ -36,11 +36,11 @@
 /*Body Background*/
 
 body {
-	background: url("../images/all_background_1.png ") repeat-x scroll left top;
+	background: url("../images/all_background_1.png") repeat-x scroll left top;
 }
 
 body .wrapper {
-	background-image:url("../images/all_header_and_logo.jpg");
+	background-image:url("../images/all_header_and_logo.png");
 	background-repeat:no-repeat !important;
 }
 
@@ -69,7 +69,7 @@ body .wrapper {
 
 .smallThrobber {
     background: inherit;
-    background-image: url('../images/throbber_31x31.gif ');
+    background-image: url('../images/throbber_31x31.gif');
     background-repeat: no-repeat;
     background-position: center center;
     margin-top: 1.37em;
@@ -78,7 +78,7 @@ body .wrapper {
 
 .bigThrobber {
     background: inherit;
-    background-image: url('../images/throbber_63x63.gif ');
+    background-image: url('../images/throbber_63x63.gif');
     background-repeat: no-repeat;
     background-position: center center;
     margin-top: 2.83em;
@@ -276,7 +276,7 @@ body .wrapper {
 /*LIST COMPONENT*/
 
 .itemList, .tiledList, .fullItem {
-	background:url("../images/all_ramp_list.png ") scroll left top;
+	background:url("../images/all_ramp_list.png") scroll left top;
 }
 
 .itemList .checkBoxSelectButton {
