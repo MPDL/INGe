@@ -78,14 +78,9 @@
 	
 	<xsl:template match="/*">			
 		<!-- create entry for each item -->
-		<xsl:choose>
-			<xsl:when test="count(//pub:publication)>0">
-				<xsl:apply-templates select="//pub:publication"/>	
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoItemsForTransforamtion' ), 'Empty item list')"/>
-			</xsl:otherwise>
-		</xsl:choose>				
+
+		<xsl:apply-templates select="//pub:publication"/>	
+			
 	</xsl:template>	
 	
 	<!-- create entry -->
