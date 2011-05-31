@@ -97,7 +97,7 @@
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon submIcon">&#160;</span> </span>
 		<h2>Dateneingabe</h2>
-		Wollen Sie eine neue Publikation ertellen? Folgende Möglickeiten können Sie nutzen:
+		Wollen Sie eine neue Publikation ertellen? Folgende Möglichkeiten können Sie nutzen:
 		<ul style="list-style-position: outside">
 			<li>Die <h:commandLink id="lnkEasySubmission_de" title="#{tlt.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
 				<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
