@@ -72,6 +72,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
+import org.apache.xml.utils.res.IntArrayWrapper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -107,7 +108,9 @@ public class ReportFHI {
 			FLAGS
 	);
 
-
+	
+	//number of the last months to be processed
+	
 	private static String adminHandler;
 
 	private static Properties rprops; 
@@ -120,6 +123,7 @@ public class ReportFHI {
 	public static String emailWithAuthProp;
 	public static String emailAuthUserProp ;
 	public static String emailAuthPwdProp;
+
 	
 	
 	public ReportFHI() throws IOException, URISyntaxException, ServiceException
@@ -135,28 +139,43 @@ public class ReportFHI {
         adminHandler = AdminHelper.loginUser(USER_NAME, USER_PASSWD);
 
         rprops = loadReportProperties();
+      
+
         
 	}
 	
 
     //Generate time range query
-    //Take all docs from the last month
+    //Take all docs from the last months
     public static String[] getStartEndDateOfQuery()
     {
-    	Calendar lastMonth = GregorianCalendar.getInstance();
 		
-    	//a
-		lastMonth.add(Calendar.MONTH, -1);
+    	SimpleDateFormat dateformatter = new SimpleDateFormat("yyyy-MM-");
+    	int months;
+		try 
+		{
+			months = new Integer(rprops.getProperty("FHI.report.months.range")).intValue();
+		} 
+		catch (Exception e) 
+		{
+			throw new RuntimeException("Cannot read/convert FHI.report.months.range:", e);		
+		};
 		
-		SimpleDateFormat dateformatter = new SimpleDateFormat("yyyy-MM-");
+    	//from
+    	Calendar fromMonth = GregorianCalendar.getInstance();
+		fromMonth.add(Calendar.MONTH, - months);
+		String fromYearMonth = dateformatter.format(fromMonth.getTime());
 		
-		String yearMonth = dateformatter.format(lastMonth.getTime());
+		//to
+    	Calendar toMonth = GregorianCalendar.getInstance();
+		toMonth.add(Calendar.MONTH, - 1);
+		String toYearMonth = dateformatter.format(toMonth.getTime());
 		
 		return new String[] {
-				yearMonth +
-				String.format("%02d", lastMonth.getActualMinimum(Calendar.DAY_OF_MONTH) ),
-				yearMonth + 
-				lastMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
+				fromYearMonth +
+				String.format("%02d", fromMonth.getActualMinimum(Calendar.DAY_OF_MONTH) ),
+				toYearMonth + 
+				toMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
 		};
     }
     
