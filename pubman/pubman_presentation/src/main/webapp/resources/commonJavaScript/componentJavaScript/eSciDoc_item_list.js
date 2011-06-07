@@ -63,7 +63,7 @@ function addItemListFunctions(){
         $(this).siblings('.selectMenu').toggle(100);
     });
 // Select options    
-     var tog = "";
+     var tog = '';
      $('.listHeader').find('.allCheckBox').click(function(){
      $('.itemList').find("input[type=checkbox]").attr("checked", !tog);
      tog = !tog;
@@ -85,34 +85,6 @@ function addItemListFunctions(){
     });
 	$(this).parents('.selectMenu').hide();
     
-    /* Old Checkbox stuff
-     var tog = false;
-     $('.listHeader').find('.allCheckBox').click(function(){
-     $('.itemList').find("input[type=checkbox]").attr("checked", !tog);
-     tog = !tog;
-     });
-     $('.selectMenu').find('.selectTotal').click(function(){
-     $(this).parents('.itemList').find('.itemCheckBox').each(function(i, elem){
-     elem.checked = true;
-     });
-     $(this).parents('.selectMenu').hide();
-     });
-     $('.selectMenu').find('.selectAll').click(function(){
-     $(this).parents('.itemList').find('.itemCheckBox').each(function(i, elem){
-     elem.checked = true;
-     });
-     $(this).parents('.selectMenu').hide();
-     });
-     $('.selectMenu').find('.toggleAll').click(function(){
-     $('.listItem').toggleCheckboxes();
-     $(this).parents('.selectMenu').hide();
-     });
-     $('.selectMenu').find('.selectNone').click(function(){
-     $(this).parents('.itemList').find('.itemCheckBox').each(function(i, elem){
-     elem.checked = false;
-     });
-     });
-     */
     $('.selectMenu').find('a').each(function(i, elem){
         $(elem).click(function(){
             $(this).parents('.selectMenu').hide()
