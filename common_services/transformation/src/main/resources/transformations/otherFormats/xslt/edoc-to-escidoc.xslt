@@ -33,35 +33,7 @@
 	$Revision: 747 $ 
 	$LastChangedDate: 2008-07-21 19:15:26 +0200 (Mo, 21 Jul 2008) $
 -->
-<xsl:stylesheet version="2.0"
-		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		xmlns:fn="http://www.w3.org/2005/xpath-functions"
-		xmlns:xlink="http://www.w3.org/1999/xlink"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns:dc="http://purl.org/dc/elements/1.1/"
-		xmlns:dcterms="http://purl.org/dc/terms/"
-		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-		xmlns:ei="${xsd.soap.item.item}"
-		xmlns:mdr="${xsd.soap.common.mdrecords}"
-		xmlns:mdp="${xsd.metadata.escidocprofile}"
-		xmlns:ec="${xsd.soap.item.components}"
-		xmlns:prop="${xsd.soap.common.prop}"
-		xmlns:srel="${xsd.soap.common.srel}"
-		xmlns:version="${xsd.soap.common.version}"
-		xmlns:release="${xsd.soap.common.release}"
-		xmlns:file="${xsd.metadata.file}"
-		xmlns:pub="${xsd.metadata.publication}"
-		xmlns:person="${xsd.metadata.person}"
-		xmlns:source="${xsd.metadata.source}"
-		xmlns:eterms="${xsd.metadata.terms}"
-		xmlns:event="${xsd.metadata.event}"
-		xmlns:organization="${xsd.metadata.organization}"
-		xmlns:escidocFunctions="urn:escidoc:functions"
-		xmlns:escidoc="${xsd.metadata.terms}"
-		xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
-		xmlns:itemlist="${xsd.soap.item.itemlist}"
-		xmlns:eprints="http://purl.org/eprint/terms/">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ei="${xsd.soap.item.item}" xmlns:mdr="${xsd.soap.common.mdrecords}" xmlns:mdp="${xsd.metadata.escidocprofile}" xmlns:ec="${xsd.soap.item.components}" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:version="${xsd.soap.common.version}" xmlns:release="${xsd.soap.common.release}" xmlns:file="${xsd.metadata.file}" xmlns:pub="${xsd.metadata.publication}" xmlns:person="${xsd.metadata.person}" xmlns:source="${xsd.metadata.source}" xmlns:eterms="${xsd.metadata.terms}" xmlns:event="${xsd.metadata.event}" xmlns:organization="${xsd.metadata.organization}" xmlns:escidocFunctions="urn:escidoc:functions" xmlns:escidoc="${xsd.metadata.terms}" xmlns:Util="java:de.mpg.escidoc.services.transformation.Util" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:eprints="http://purl.org/eprint/terms/">
 	
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	
@@ -87,7 +59,7 @@
 	<!-- Configuration parameters -->
 	<xsl:param name="import-name" select="'OTHER'"/>
 	<xsl:param name="CoNE" select="'true'"/>
-
+	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
 	
 	<xsl:param name="a" select="''"/>
@@ -545,6 +517,144 @@
 		</genres>
 	</xsl:variable>
 	
+	<xsl:variable name="evolbio-author-comment-exceptions">
+		<edoc>
+			<id>65099</id>
+			<id>65100</id>
+			<id>225770</id>
+			<id>225790</id>
+			<id>230557</id>
+			<id>236429</id>
+			<id>241176</id>
+			<id>241177</id>
+			<id>246861</id>
+			<id>250731</id>
+			<id>250732</id>
+			<id>255734</id>
+			<id>256554</id>
+			<id>260983</id>
+			<id>261137</id>
+			<id>269957</id>
+			<id>275435</id>
+			<id>275660</id>
+			<id>276986</id>
+			<id>277561</id>
+			<id>277564</id>
+			<id>277565</id>
+			<id>281439</id>
+			<id>281746</id>
+			<id>282184</id>
+			<id>282340</id>
+			<id>282387</id>
+			<id>284832</id>
+			<id>284867</id>
+			<id>284954</id>
+			<id>284976</id>
+			<id>285103</id>
+			<id>285660</id>
+			<id>285848</id>
+			<id>285906</id>
+			<id>285907</id>
+			<id>285908</id>
+			<id>285909</id>
+			<id>285910</id>
+			<id>285914</id>
+			<id>285991</id>
+			<id>287322</id>
+			<id>287331</id>
+			<id>287357</id>
+			<id>442360</id>
+			<id>442366</id>
+		</edoc>
+	</xsl:variable>
+	
+	<xsl:variable name="evolbio-copyright-exceptions">
+		<edoc>
+			<id>35332</id>
+			<id>219656</id>
+			<id>219661</id>
+			<id>219666</id>
+			<id>219667</id>
+			<id>219668</id>
+			<id>219670</id>
+			<id>233550</id>
+			<id>233553</id>
+			<id>233555</id>
+			<id>237825</id>
+			<id>278038</id>
+			<id>278043</id>
+			<id>278047</id>
+			<id>281416</id>
+			<id>281417</id>
+			<id>281418</id>
+			<id>281419</id>
+			<id>281420</id>
+			<id>281421</id>
+			<id>281425</id>
+			<id>281427</id>
+			<id>281888</id>
+			<id>281891</id>
+			<id>281894</id>
+			<id>281901</id>
+			<id>281908</id>
+			<id>281914</id>
+			<id>281918</id>
+			<id>281922</id>
+			<id>281972</id>
+			<id>281973</id>
+			<id>281974</id>
+			<id>281975</id>
+			<id>281978</id>
+			<id>282170</id>
+			<id>282184</id>
+			<id>282340</id>
+			<id>282358</id>
+			<id>282361</id>
+			<id>282364</id>
+			<id>282368</id>
+			<id>282369</id>
+			<id>282370</id>
+			<id>282371</id>
+			<id>282373</id>
+			<id>282380</id>
+			<id>284825</id>
+			<id>284826</id>
+			<id>284827</id>
+			<id>284828</id>
+			<id>284829</id>
+			<id>284830</id>
+			<id>284832</id>
+			<id>284860</id>
+			<id>284861</id>
+			<id>284863</id>
+			<id>284864</id>
+			<id>284865</id>
+			<id>284867</id>
+			<id>285106</id>
+			<id>287322</id>
+			<id>287331</id>
+			<id>287343</id>
+			<id>287357</id>
+			<id>289963</id>
+			<id>474956</id>
+			<id>475487</id>
+			<id>498979</id>
+		</edoc>
+	</xsl:variable>
+	
+	<xsl:variable name="evolbio-file-comment-exceptions">
+		<edoc>
+			<id>210673</id>
+			<id>237825</id>
+			<id>282184</id>
+			<id>284832</id>
+			<id>284867</id>
+			<id>287322</id>
+			<id>287357</id>
+			<id>475487</id>
+		</edoc>
+	</xsl:variable>
+	
 	<xsl:variable name="authors">
 		<authors/>
 	</xsl:variable>
@@ -665,7 +775,7 @@
 							
 							<xsl:call-template name="createComponent">
 								<xsl:with-param name="filename" select="$filename"/>
-								<xsl:with-param name="access"  select="$access"/>
+								<xsl:with-param name="access" select="$access"/>
 							</xsl:call-template>
 											
 							<!-- Locators don't exist in Edoc: will be out commented until new mapping specification -->			
@@ -675,19 +785,20 @@
 									<xsl:with-param name="access" select="$access"/>
 								</xsl:call-template>
 							</xsl:if>-->
-							
+						
 						</xsl:when>
-					</xsl:choose>					
+					</xsl:choose>
 				</xsl:for-each>
 				<xsl:if test="$import-name = 'BPC'">
 					<xsl:if test="not(exists(basic/fturl)) and contains($bpc-files, ../@id)">
 						<xsl:comment>BPC IMPORT: Record has a File in BPC server. Create a Component for this file</xsl:comment>
-							<xsl:call-template name="createComponent">
-								<xsl:with-param name="filename">
-									<xsl:value-of select="../@id"/><xsl:text>.pdf</xsl:text>
-								</xsl:with-param>
-								<xsl:with-param name="access"  select="INSTITUT"/>
-							</xsl:call-template>
+						<xsl:call-template name="createComponent">
+							<xsl:with-param name="filename">
+								<xsl:value-of select="../@id"/>
+								<xsl:text>.pdf</xsl:text>
+							</xsl:with-param>
+							<xsl:with-param name="access" select="INSTITUT"/>
+						</xsl:call-template>
 					</xsl:if>
 				</xsl:if>
 			</xsl:element>
@@ -706,11 +817,13 @@
 		<xsl:param name="filename"/>
 		<xsl:param name="access"/>
 		<!-- FILE -->
+
 		<xsl:element name="ec:component">
 						
 			<!-- fturl-comment as content-category? -->
 			<xsl:variable name="comment" select="@comment"/>
-			
+			<xsl:variable name="edoc-id" select="../../../@id"/>
+						
 			<ec:properties>
 				<xsl:choose>
 					<xsl:when test="$import-name = 'BPC'">
@@ -764,7 +877,7 @@
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
-						<xsl:when test="$import-name = 'MPIMET'">
+					<xsl:when test="$import-name = 'MPIMET'">
 						<xsl:choose>
 							<xsl:when test="$access='MPG' or $access='INSTITUT'">
 								<prop:visibility>audience</prop:visibility>
@@ -780,6 +893,20 @@
 					</xsl:when>
 					<xsl:when test="$import-name = 'MPIE' or $import-name = 'MPIA'">
 						<prop:visibility>private</prop:visibility>
+					</xsl:when>
+					<xsl:when test="$import-name = 'EVOLBIO'">
+						<xsl:choose>
+							<xsl:when test="$access='INSTITUT' or $access='MPG' or $access = 'USER'">
+								<prop:visibility>audience</prop:visibility>
+							</xsl:when>
+							<xsl:when test="$access='PUBLIC'">
+								<prop:visibility>public</prop:visibility>
+							</xsl:when>
+							<xsl:otherwise>
+								<!-- ERROR -->
+								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:choose>
@@ -841,7 +968,8 @@
 								<xsl:otherwise>any-fulltext</xsl:otherwise>
 							</xsl:choose>
 						</xsl:variable>
-						<xsl:comment>Comment: <xsl:value-of select="lower-case(@comment)"/></xsl:comment>
+						<xsl:comment>Comment: <xsl:value-of select="lower-case(@comment)"/>
+						</xsl:comment>
 						<prop:content-category>
 							<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
 						</prop:content-category>
@@ -854,6 +982,12 @@
 					<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH'">
 						<prop:content-category>
 							<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
+						</prop:content-category>
+					</xsl:when>
+					<xsl:when test="$import-name = 'EVOLBIO'">
+						<xsl:comment>EVOLBIO</xsl:comment>
+						<prop:content-category>
+							<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
 						</prop:content-category>
 					</xsl:when>
 					<xsl:when test="$genre-mapping/genres/genre[edoc-genre = $comment]">
@@ -889,7 +1023,9 @@
 				</xsl:variable>
 				<xsl:choose>
 					<xsl:when test="exists($mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title)">
-						<prop:mime-type><xsl:value-of select="$mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title"/></prop:mime-type>
+						<prop:mime-type>
+							<xsl:value-of select="$mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title"/>
+						</prop:mime-type>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:comment>Mime Type for <xsl:value-of select="$filename"/> not found in CONE</xsl:comment>
@@ -912,7 +1048,8 @@
 				<xsl:choose>
 					<xsl:when test="$import-name = 'BPC' and not(exists(../../basic/fturl)) and contains($bpc-files, ../@id)">
 						<xsl:attribute name="xlink:href">
-							<xsl:text>http://www.mpibpc.mpg.de/fb/pdfs/</xsl:text><xsl:value-of select="$filename"/>
+							<xsl:text>http://www.mpibpc.mpg.de/fb/pdfs/</xsl:text>
+							<xsl:value-of select="$filename"/>
 						</xsl:attribute>
 					</xsl:when>
 					<xsl:otherwise>
@@ -975,7 +1112,7 @@
 									<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
 								</eterms:content-category>
 							</xsl:when>
-							<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET'">
+							<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET' or $import-name = 'EVOLBIO'">
 								<eterms:content-category>
 									<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
 								</eterms:content-category>
@@ -1011,16 +1148,33 @@
 								</xsl:choose>
 							</xsl:otherwise>
 						</xsl:choose>
-						<xsl:if test="$import-name = 'FHI' and contains(lower-case(@comment), 'arxiv')">
-							<xsl:element name="dc:description">
-								<xsl:value-of select="@comment"/>
-							</xsl:element>
-						</xsl:if>
-						<xsl:if test="($import-name = 'MPIE' or $import-name = 'MPIA') and exists(@comment)">
-							<xsl:element name="dc:description">
-								<xsl:value-of select="@comment"/>
-							</xsl:element>
-						</xsl:if>
+						<xsl:choose>
+							<xsl:when test="$import-name = 'FHI' and contains(lower-case(@comment), 'arxiv')">
+								<xsl:element name="dc:description">
+									<xsl:value-of select="@comment"/>
+								</xsl:element>
+							</xsl:when>
+							<xsl:when test="($import-name = 'MPIE' or $import-name = 'MPIA') and exists(@comment)">
+								<xsl:element name="dc:description">
+									<xsl:value-of select="@comment"/>
+								</xsl:element>
+							</xsl:when>
+							<xsl:when test="$import-name = 'EVOLBIO'">
+								<xsl:if test="exists($evolbio-file-comment-exceptions/edoc[id = $edoc-id]) or exists($evolbio-author-comment-exceptions/edoc[id = $edoc-id])">
+									<xsl:element name="dc:description">
+										<xsl:if test="exists($evolbio-file-comment-exceptions/edoc[id = $edoc-id])">
+											<xsl:value-of select="@comment"/>
+										</xsl:if>
+										<xsl:if test="exists($evolbio-file-comment-exceptions/edoc[id = $edoc-id]) and exists($evolbio-author-comment-exceptions/edoc[id = $edoc-id])">
+											<xsl:text> / </xsl:text>
+										</xsl:if>
+										<xsl:if test="exists($evolbio-author-comment-exceptions/edoc[id = $edoc-id])">
+											<xsl:value-of select="../authorcomment"/>
+										</xsl:if>
+									</xsl:element>
+								</xsl:if>
+							</xsl:when>
+						</xsl:choose>
 						<xsl:choose>
 							<xsl:when test="ends-with($filename, '.doc')">
 								<dc:format xsi:type="dcterms:IMT">application/msword</dc:format>
@@ -1032,15 +1186,14 @@
 								<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
 							</xsl:otherwise>
 						</xsl:choose>
-						<xsl:if test="exists(@size)">							
+						<xsl:if test="exists(@size)">
 							<dcterms:extent>
 								<xsl:value-of select="@size"/>
 							</dcterms:extent>
 						</xsl:if>
 						<xsl:choose>
 							<xsl:when test="$import-name = 'FHI'">
-								<!-- <xsl:call-template name="copyrightFHI"/>-->
-							</xsl:when>
+								<!-- <xsl:call-template name="copyrightFHI"/>--></xsl:when>
 							<xsl:when test="$import-name = 'MPIMET'">
 								<xsl:element name="dc:rights">
 									<xsl:value-of select="concat('eDoc_access: ', $access)"/>
@@ -1049,7 +1202,13 @@
 									<xsl:value-of select="../../../rights/copyright"/>
 								</xsl:element>
 							</xsl:when>
-							<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIA' or $import-name = 'MPIE'">
+							<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIA' or $import-name = 'MPIE'"></xsl:when>
+							<xsl:when test="$import-name = 'EVOLBIO'">
+								<xsl:if test="exists($evolbio-copyright-exceptions/edoc[id = $edoc-id])">
+									<xsl:element name="dc:rights">
+										<xsl:value-of select="../../../rights/copyright"/>
+									</xsl:element>
+								</xsl:if>
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:element name="dc:rights">
@@ -1303,7 +1462,7 @@
 				</xsl:choose>
 			</xsl:if>
 			
-			<!-- DATES -->			
+			<!-- DATES -->
 			<xsl:call-template name="createDates"/>
 			
 			<!-- REVIEW METHOD -->
@@ -1340,10 +1499,10 @@
 			<xsl:if test="issuetitle">
 				<xsl:element name="source:source">
 					<xsl:call-template name="createIssue">
-							<xsl:with-param name="sources-count" select="$sources-count"/>
-							<xsl:with-param name="gen" select="$gen"/>
-							<xsl:with-param name="issn-save" select="$issn-save"/>
-						</xsl:call-template>
+						<xsl:with-param name="sources-count" select="$sources-count"/>
+						<xsl:with-param name="gen" select="$gen"/>
+						<xsl:with-param name="issn-save" select="$issn-save"/>
+					</xsl:call-template>
 				</xsl:element>
 			</xsl:if>
 			
@@ -1402,9 +1561,7 @@
 				<xsl:call-template name="createEvent"/>
 			</xsl:if>
 			<!-- TOTAL NUMBER OF PAGES -->
-			<xsl:if test="phydesc and
-					not($dependentGenre[type = $gen] and
-					(exists(titleofproceedings) or exists(booktitle) or exists(issuetitle) or exists(journaltitle) or exists(titleofseries)))">
+			<xsl:if test="phydesc and not($dependentGenre[type = $gen] and (exists(titleofproceedings) or exists(booktitle) or exists(issuetitle) or exists(journaltitle) or exists(titleofseries)))">
 				<xsl:call-template name="phydescPubl"/>
 			</xsl:if>
 			
@@ -1420,12 +1577,15 @@
 							<xsl:when test="'staatsexamen' = lower-case(editiondescription)">staatsexamen</xsl:when>
 							<xsl:when test="'master' = lower-case(editiondescription)">master</xsl:when>
 							<xsl:when test="'bachelor' = lower-case(editiondescription)">bachelor</xsl:when>
-							<xsl:otherwise><xsl:value-of select="editiondescription"/></xsl:otherwise>
+							<xsl:otherwise>
+								<xsl:value-of select="editiondescription"/>
+							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
 				</xsl:choose>
 			</xsl:variable>
-			<xsl:comment>DEGREE-TYPE: <xsl:value-of select="$degree-type"/></xsl:comment>
+			<xsl:comment>DEGREE-TYPE: <xsl:value-of select="$degree-type"/>
+			</xsl:comment>
 			<xsl:if test="exists($degree-type) and $degree-type != ''">
 				<xsl:element name="eterms:degree">
 					<xsl:value-of select="$degree-ves/enum[. = $degree-type]/@uri"/>
@@ -1523,20 +1683,14 @@
 		2) Bei abhängigen Genres wird die ISBN und ISSN immer in die Quelle geschrieben.
 		3) Bei abhängigen Genres mit 2 Quellen werden ISBN/ISSN folgendermaßen aufgeteilt
 	-->
-						
+	
 	<xsl:template name="createIDs">
 		<xsl:param name="gen"/>
 		<xsl:param name="has-source" as="xs:boolean"/>
 		<xsl:param name="is-source" as="xs:boolean"/>
 		<xsl:param name="sources-count"/>
-				
-		<xsl:if test="	((@type='issn' or @type='isbn') and not($dependentGenre[type = $gen]) and not($is-source) and ($sources-count &lt; 2))
-						or
-						((@type='issn' or @type='isbn') and $dependentGenre[type = $gen] and $is-source and ($sources-count = 1))
-						or
-						((@type='issn' or @type='isbn') and $dependentGenre[type = $gen] and ($sources-count &gt; 1))
-						or
-						(not(@type='issn' or @type='isbn') and not($is-source))">
+		
+		<xsl:if test=" ((@type='issn' or @type='isbn') and not($dependentGenre[type = $gen]) and not($is-source) and ($sources-count &lt; 2)) or ((@type='issn' or @type='isbn') and $dependentGenre[type = $gen] and $is-source and ($sources-count = 1)) or ((@type='issn' or @type='isbn') and $dependentGenre[type = $gen] and ($sources-count &gt; 1)) or (not(@type='issn' or @type='isbn') and not($is-source))">
 			<xsl:element name="dc:identifier">
 				<xsl:choose>
 					<xsl:when test="@type='doi'">
@@ -1621,7 +1775,7 @@
 				<xsl:with-param name="is-source" select="true()"/>
 				<xsl:with-param name="sources-count" select="$sources-count"/>
 			</xsl:call-template>
-		</xsl:for-each>	
+		</xsl:for-each>
 	</xsl:template>
 	
 	<!-- SOURCE IDENTIFIERS -->
@@ -1724,7 +1878,7 @@
 		
 		<!-- Total number of pages -->
 		<xsl:call-template name="phydescPubl"/>
-			
+		
 		<xsl:if test="exists(publisher) or exists(editiondescription)">
 			<xsl:element name="eterms:publishing-info">
 				<xsl:call-template name="createPublishinginfo"/>
@@ -1834,7 +1988,7 @@
 			<xsl:if test="issuenr">
 				<xsl:apply-templates select="issuenr"/>
 			</xsl:if>
-			
+		
 		</xsl:if>
 		<!-- CREATOR -->
 		<xsl:for-each select="creators/creator[@type = 'proceedingscontributorfn']">
@@ -1942,11 +2096,9 @@
 				<xsl:variable name="coneCreator">
 					<xsl:choose>
 						<xsl:when test="$CoNE = 'false' or (@internextern != 'mpg' and ($import-name = 'MPIE' or $import-name = 'MPIA'))">
-							<!-- No CoNE -->
-						</xsl:when>
+							<!-- No CoNE --></xsl:when>
 						<xsl:when test="$source and ($import-name = 'MPIE' or $import-name = 'MPIA')">
-							<!-- No CoNE -->
-						</xsl:when>
+							<!-- No CoNE --></xsl:when>
 						<xsl:when test="$source-name = 'eDoc-AEI'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Gravitational Physics')"/>
 						</xsl:when>
@@ -1973,6 +2125,9 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'ETH'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Social Anthropology')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'EVOLBIO'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Evolutionary Biology')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIeR'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for European Legal History')"/>
@@ -2028,17 +2183,17 @@
 							
 							<xsl:if test="not($source)">
 								<xsl:choose>
-									<xsl:when test="$import-name = 'MPIK' and @internextern='unknown' and  exists(../../../docaff/docaff_external)">
+									<xsl:when test="$import-name = 'MPIK' and @internextern='unknown' and exists(../../../docaff/docaff_external)">
 										<xsl:comment> Case MPIK for unknown user with external affiliation </xsl:comment>
-											<xsl:element name="organization:organization">
-												<xsl:element name="dc:title">
-													<xsl:value-of select="./../../../docaff/docaff_external"/>
-												</xsl:element>
-												<dc:identifier>
-													<xsl:value-of select="$external-ou"/>
-												</dc:identifier>
+										<xsl:element name="organization:organization">
+											<xsl:element name="dc:title">
+												<xsl:value-of select="./../../../docaff/docaff_external"/>
 											</xsl:element>
-									</xsl:when>									
+											<dc:identifier>
+												<xsl:value-of select="$external-ou"/>
+											</dc:identifier>
+										</xsl:element>
+									</xsl:when>
 									<xsl:when test="$import-name = 'CBS' and (@internextern='mpg' or @internextern='unknown')">
 										<xsl:comment> Case CBS </xsl:comment>
 									</xsl:when>
@@ -2207,11 +2362,16 @@
 							<xsl:choose>
 								<xsl:when test="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)]">
 									<xsl:for-each select="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position">
-										<xsl:comment>pubdate: <xsl:value-of select="$publication-date"/></xsl:comment>
-										<xsl:comment>start: <xsl:value-of select="rdf:Description/escidoc:start-date"/></xsl:comment>
-										<xsl:comment>start &lt; pubdate <xsl:value-of select="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date)"/></xsl:comment>
-										<xsl:comment>end: <xsl:value-of select="rdf:Description/escidoc:end-date"/></xsl:comment>
-										<xsl:comment>pubdate &lt; end<xsl:value-of select="escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)"/></xsl:comment>
+										<xsl:comment>pubdate: <xsl:value-of select="$publication-date"/>
+										</xsl:comment>
+										<xsl:comment>start: <xsl:value-of select="rdf:Description/escidoc:start-date"/>
+										</xsl:comment>
+										<xsl:comment>start &lt; pubdate <xsl:value-of select="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date)"/>
+										</xsl:comment>
+										<xsl:comment>end: <xsl:value-of select="rdf:Description/escidoc:end-date"/>
+										</xsl:comment>
+										<xsl:comment>pubdate &lt; end<xsl:value-of select="escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)"/>
+										</xsl:comment>
 										<xsl:if test="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)">
 											<xsl:comment> Case 8 </xsl:comment>
 											<organization:organization>
@@ -2359,7 +2519,7 @@
 			</xsl:if>
 		</xsl:element>
 	</xsl:template>
-
+	
 	<xsl:template match="artnum">
 		<eterms:sequence-number>
 			<xsl:value-of select="."/>
@@ -2405,7 +2565,7 @@
 	</xsl:template>
 	################################## ORIGINAL ########################
 	 -->
-	<!-- #################### TEST TEST TEST ########################## --> 
+	<!-- #################### TEST TEST TEST ########################## -->
 	<xsl:template match="abstract">
 		<xsl:choose>
 			<xsl:when test="$import-name = 'CBS' and (number(substring(../datepublished,1,4)) &lt;= 2007) and (../genre='Article' or ../genre='InBook')">
@@ -2447,50 +2607,50 @@
 	
 	<!-- Publication dates -->
 	<xsl:template name="createDates">
-			<xsl:if test="exists(dateaccepted) and dateaccepted != ''">
-				<xsl:element name="dcterms:dateAccepted">
-					<xsl:value-of select="dateaccepted"/>
-				</xsl:element>
-			</xsl:if>
-			<xsl:if test="exists(datecreated) and datecreated != ''">
-				<xsl:element name="dcterms:created">
-					<xsl:value-of select="datecreated"/>
-				</xsl:element>
-			</xsl:if>
-			<xsl:if test="exists(datesubmitted) and datesubmitted != ''">
-				<xsl:element name="dcterms:dateSubmitted">
-					<xsl:value-of select="datesubmitted"/>
-				</xsl:element>
-			</xsl:if>
-			<xsl:if test="exists(datemodified) and datemodified != ''">
-				<xsl:element name="dcterms:modified">
-					<xsl:value-of select="datemodified"/>
-				</xsl:element>
-			</xsl:if>
-			<xsl:if test="exists(datepublished) and datepublished != ''">
-				<xsl:choose>
-					<xsl:when test="pubstatus = 'accepted'">
-						<xsl:element name="dcterms:dateAccepted">
-							<xsl:value-of select="datepublished"/>
-						</xsl:element>
-					</xsl:when>
-					<xsl:when test="pubstatus = 'submitted'">
-						<xsl:element name="dcterms:dateSubmitted">
-							<xsl:value-of select="datepublished"/>
-						</xsl:element>
-					</xsl:when>
-					<xsl:when test="pubstatus = 'unpublished'">
-						<xsl:element name="dcterms:created">
-							<xsl:value-of select="datepublished"/>
-						</xsl:element>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:element name="dcterms:issued">
-							<xsl:value-of select="datepublished"/>
-						</xsl:element>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:if>
+		<xsl:if test="exists(dateaccepted) and dateaccepted != ''">
+			<xsl:element name="dcterms:dateAccepted">
+				<xsl:value-of select="dateaccepted"/>
+			</xsl:element>
+		</xsl:if>
+		<xsl:if test="exists(datecreated) and datecreated != ''">
+			<xsl:element name="dcterms:created">
+				<xsl:value-of select="datecreated"/>
+			</xsl:element>
+		</xsl:if>
+		<xsl:if test="exists(datesubmitted) and datesubmitted != ''">
+			<xsl:element name="dcterms:dateSubmitted">
+				<xsl:value-of select="datesubmitted"/>
+			</xsl:element>
+		</xsl:if>
+		<xsl:if test="exists(datemodified) and datemodified != ''">
+			<xsl:element name="dcterms:modified">
+				<xsl:value-of select="datemodified"/>
+			</xsl:element>
+		</xsl:if>
+		<xsl:if test="exists(datepublished) and datepublished != ''">
+			<xsl:choose>
+				<xsl:when test="pubstatus = 'accepted'">
+					<xsl:element name="dcterms:dateAccepted">
+						<xsl:value-of select="datepublished"/>
+					</xsl:element>
+				</xsl:when>
+				<xsl:when test="pubstatus = 'submitted'">
+					<xsl:element name="dcterms:dateSubmitted">
+						<xsl:value-of select="datepublished"/>
+					</xsl:element>
+				</xsl:when>
+				<xsl:when test="pubstatus = 'unpublished'">
+					<xsl:element name="dcterms:created">
+						<xsl:value-of select="datepublished"/>
+					</xsl:element>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:element name="dcterms:issued">
+						<xsl:value-of select="datepublished"/>
+					</xsl:element>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:if>
 	</xsl:template>
 	<!-- old templates -->
 	<xsl:template match="datepublished">
@@ -2535,14 +2695,15 @@
 		</xsl:variable>
 		<xsl:variable name="language" select="."/>
 		
-		 <xsl:for-each select="$coneLanguage/cone/rdf:RDF/rdf:Description[dc:title = $language]/dc:identifier">
-               <xsl:comment>Language: <xsl:value-of select="."/></xsl:comment>
-               <xsl:if test="string-length(.) = 3">
-                       <xsl:element name="dc:language">
-                               <xsl:value-of select="."/>
-                       </xsl:element>
-               </xsl:if>
-       </xsl:for-each>
+		<xsl:for-each select="$coneLanguage/cone/rdf:RDF/rdf:Description[dc:title = $language]/dc:identifier">
+			<xsl:comment>Language: <xsl:value-of select="."/>
+			</xsl:comment>
+			<xsl:if test="string-length(.) = 3">
+				<xsl:element name="dc:language">
+					<xsl:value-of select="."/>
+				</xsl:element>
+			</xsl:if>
+		</xsl:for-each>
 	</xsl:template>
 	
 	<xsl:template name="validation">
@@ -2629,7 +2790,7 @@
 		</xsl:if>
 	</xsl:template>
 
-	<!-- FHI Templates -->	
+	<!-- FHI Templates -->
 	<xsl:template name="copyrightFHI">
 		<xsl:element name="dc:rights">
 			<xsl:value-of select="../../../rights/copyright"/>
@@ -2662,8 +2823,12 @@
 		<xsl:param name="value1"/>
 		<xsl:param name="value2"/>
 		<xsl:choose>
-			<xsl:when test="not(exists($value1)) or $value1 = ''"><xsl:value-of select="true()"/></xsl:when>
-			<xsl:when test="not(exists($value2)) or $value2 = ''"><xsl:value-of select="true()"/></xsl:when>
+			<xsl:when test="not(exists($value1)) or $value1 = ''">
+				<xsl:value-of select="true()"/>
+			</xsl:when>
+			<xsl:when test="not(exists($value2)) or $value2 = ''">
+				<xsl:value-of select="true()"/>
+			</xsl:when>
 			<xsl:otherwise>
 				<xsl:variable name="date1" select="substring(concat($value1, '-01-01'), 1, 10)"/>
 				<xsl:variable name="date2" select="substring(concat($value2, '-ZZ-ZZ'), 1, 10)"/>
