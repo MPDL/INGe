@@ -612,9 +612,6 @@ Notes:
 	<xsl:template name="removeSubSupStr">
 		<xsl:param name="name" />
 		<xsl:param name="str" />
-				<xsl:message>HERE!!!!!!!!!!!!!</xsl:message>
-				<xsl:message>name: <xsl:value-of select="$name"/></xsl:message>
-				<xsl:message>str: <xsl:value-of select="$str"/></xsl:message>
 			<xsl:choose>
 <!--				FIELDS WHERE SUB/SUPs should be removed-->
 				<xsl:when test="
