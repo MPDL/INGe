@@ -190,10 +190,10 @@ All rights reserved. Use is subject to license terms.
 		<h:panelGroup>
 		    <tr class="full_area0 listItem">
 		      	<td class="free_area0 endline">
-		      		<span class="free_area0_p8 endline itemSelectArea">
+		      		<label class="free_area0_p8 endline itemSelectArea">
 						<h:selectBooleanCheckbox styleClass="itemCheckBox" value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}" rendered="#{item.showCheckbox}"/>
 						&#160;
-		      		</span>
+		      		</label>
 		      	</td>
 		      	<td class="free_area0 endline status">
 		      		<span class="seperator"></span>
