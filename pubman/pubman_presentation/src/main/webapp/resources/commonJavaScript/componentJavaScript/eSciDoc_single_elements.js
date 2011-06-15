@@ -159,7 +159,7 @@ function showPubWomanStyle() {
 	alert('PubWoman style activated! Happy easter!');
 }
 
-raiseBunny();
+// raiseBunny();
 
 /*QUICK SEARCH INITIALISATION*/
 
