@@ -114,7 +114,7 @@ public class ModelList
     {
         for (Model model : getList())
         {
-            if (model.getAliases().contains(alias))
+            if (model.getName().equals(alias) || model.getAliases().contains(alias))
             {
                 return model;
             }
@@ -302,7 +302,7 @@ public class ModelList
                     {
                         model.setLocalizedResultPattern(true);
                     }
-                    else if (predicate.isResource() && isSubResourceLocalized(predicate.getId() + "|", predicate.getResourceModel(), pattern))
+                    else if (predicate.isResource() && isSubResourceLocalized(predicate.getId() + "|", predicate.getResourceModel(), pattern, new Stack<String>()))
                     {
                         model.setLocalizedResultPattern(true);
                     }
@@ -356,7 +356,7 @@ public class ModelList
             }
         }
 
-        private boolean isSubResourceLocalized(String prefix, String modelName, String pattern) throws SAXException
+        private boolean isSubResourceLocalized(String prefix, String modelName, String pattern, Stack<String> modelStack) throws SAXException
         {
             Model model = null;
             try
@@ -374,15 +374,17 @@ public class ModelList
             {
                 throw new SAXException("Error getting sub model '" + modelName + "'", e);
             }
+            
             for (Predicate predicate : model.getPredicates())
             {
                 if (predicate.isLocalized() && pattern.contains("<" + prefix + predicate.getId() + ">"))
                 {
                     return true;
                 }
-                else if (predicate.isResource() && isSubResourceLocalized(prefix + predicate.getId() + "|", predicate.getResourceModel(), pattern))
+                else if (predicate.isResource() && !modelStack.contains(modelName))
                 {
-                    return true;
+                    modelStack.push(modelName);
+                    return isSubResourceLocalized(prefix + predicate.getId() + "|", predicate.getResourceModel(), pattern, modelStack);
                 }
             }
             return false;
