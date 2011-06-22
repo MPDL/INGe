@@ -30,22 +30,69 @@
 /*
  ALL COLORS USED
  
- BACKGROUND		#FFFFFF
- LINK COLOR		#044585
- AUTHOR/ORG BG	#3391D4
- LIGHT LINES			#99C8E9
- DROPDOWN/BG		#D9EBF7
- INPUT BG		#F2F8FC
- PAGE TITLE		#004373
- ERROR MSG		#D80000
- SUCCESS MSG		#0F3834
- DEACTIVATED		#777777
- DEA LIGHT		#C9C9C9
- TEXT			#A4A4A4
- TEXT LIGHT		#AEAEAE
- MOUSEOVER		#1B1B1B
- INPUT TEXT		#000000
- FORM BG			#F2F8FC
+PRIMARY COLORS
+==============
+BACKGROUND					#EAF4F7
+BG - DROPDOWN				#DAE3ED
+BG - AUTHOR / ORG			#366A9D
+BG - SELECTED IMAGES		#CCDFDD
+
+LINK COLOR					#044585
+MOUSEOVER / HOVER			#012846
+ACTIVE MENU					#9BB5CE
+DEACTIVATED					#9BB5CE
+
+INPUT TEXT					#000000
+INPUT BG					#F4F5F5
+INPUT BORDER				#9FAFAE
+
+TEXT						#3A3B3B
+PAGE TITLE / SITE TITLE		#004465
+ERROR MSG					#BE0031
+SUCCESS MSG					#0F3834
+
+LIGHT LINES					#9BB5CE
+NORMAL LINES				#B0B1B1
+SHORT LINES					#CFD1D1
+STATIC ICON					#3A3B3B
+
+NOT CLICKABLE				#888B8B
+NOT CLICKABLE - AUTHOR BG	#A0A2A2
+
+  PRIMARY BUTTON NORMAL
+  =====================
+	TEXT					#CDDAE7
+	BG						#336984
+	BORDER-RIGHT			#044585
+	BORDER-BOTTOM			#044585
+  PRIMARY BUTTON HOVER
+  ====================
+	BG						#012846
+	BORDER					#012846
+
+
+  SECONDARY BUTTON NORMAL
+  =======================
+	TEXT					#044585
+    BORDER-RIGHT			#044585
+    BORDER-BOTTOM			#044585
+  SECONDARY BUTTON HOVER
+  ======================
+	TEXT 					#012846
+    BORDER-RIGHT		 	#012846
+    BORDER-BOTTOM		 	#012846
+
+
+FREE TO USE COLOR:			#CDDAE7
+
+
+
+SECONDARY COLORS
+================
+positive (INFO MSG)			#DAE160
+warning	(NOTICE MSG)		#FF8304
+VISITED LINK				#A02E00
+
  
  */
 /*FONT DEFINITION*/
@@ -102,18 +149,22 @@ h1, h4, h5 {
 /*GENERAL*/
 body {
     background-color: #6FA3A9 !important;
-    color: #000000;
+    color: #3A3B3B;
     line-height: 145%;
 }
 
 body .footer {
-	background-color:#B1D5DC;
+/*	background-color:#B1D5DC; */
+	background-color:#E8FBFB;
 	margin-top:2em;
 }
 
 body .wrapper {
-	background-color:#B1D5DC;
+/*	background-color:#B1D5DC; */
+	background-color:#E8FBFB;
 }
+
+
 
 /*FF3.x Print Issue (No more relevant in FF4)*/
 @media print {
@@ -126,7 +177,7 @@ body .wrapper {
         border-left: 0px #FFFFFF !important;
 		list-style:none !important;
 	}
-
+	
 	/*Print Lists*/
 	.listItemLine, .blockHeader, .blockHeader *, .listItem {
 	        text-align: left !important;
@@ -172,8 +223,13 @@ a.OraLinkDisabled {
     cursor: default;
 }
 
+a.OraLinkDisabled:hover {
+    color: #888B8B;
+    cursor: default;
+}
+
 a:hover, a:focus, input:hover, input:focus, button:hover, button:focus {
-    color: #000000;
+    color: #012846;
     text-decoration: none;
 }
 
@@ -191,8 +247,7 @@ input[type="text"], textarea, select {
 }
 
 a:hover, a:focus {
-    /*	text-decoration: underline; */
-    cursor: pointer;
+	cursor: pointer;
 }
 
 a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.disabled {
@@ -201,6 +256,10 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 /*SEPERATORS*/
+.sub.action .seperator {
+	background-color: #9BB5CE;
+	border-color: #B1D5DC;
+}
 .contentMenu .seperator, .pageBrowser .seperator {
 	background-color:#888B8B;
 }
@@ -283,8 +342,27 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color: #0F3834;
     color: #FFFFFF;
 }
-.metaMenu select {
-	margin: 3px 0px 5px 6px !important; 
+
+/*CUSTOMIZED SELECTBOX - changed metaMenu select / created selectionBox + selectContainer -2011-06-17 */
+.selectContainer select {
+	margin-top:-1.63em;
+	filter:alpha(opacity=0);
+	opacity:0;
+	-moz-opacity:0;
+	cursor:pointer;
+}
+
+.selectionBox {
+	padding-right:2.09em;
+	color:#FFFFFF;
+	text-align:right;
+	cursor:pointer;
+}
+.selectContainer {
+	padding-top:0.3636em;
+	background-color:#006D70; 
+	padding-bottom:0.18em;
+	height:1.72em; 
 }
 
 .footer .metaMenu a {
@@ -297,11 +375,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	float:left;
 	background-color: #0F3834;
 	padding-left:0.001em; /* bugfixing for 1px-calculation in difference browser */
-}
-
-.mainMenu input, .mainMenu a {
-    background-color: transparent;
-    color: #FFFFFF;
 }
 
 .quickSearchMenu a, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a {
@@ -327,13 +400,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     font-weight: normal;
 }
 
-.contentMenu span {
-	font-size: 109%;
-    color: #000000;
-}
-
-.metaMenu input:hover, .metaMenu input:focus, .metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu input:hover, .quickSearchMenu input:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .advancedSearchMenu input:hover, .advancedSearchMenu input:focus, .advancedSearchMenu a:hover, .advancedSearchMenu a:focus, .organisationSearchMenu input:hover, .organisationSearchMenu input:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .mainMenu input:hover, .mainMenu input:focus, .mainMenu a:hover, .mainMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, .contentMenu a:hover, .contentMenu a:focus {
-    color: #888B8B;
+.metaMenu input:hover, .metaMenu input:focus, .metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu input:hover, .quickSearchMenu input:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .advancedSearchMenu input:hover, .advancedSearchMenu input:focus, .advancedSearchMenu a:hover, .advancedSearchMenu a:focus, .organisationSearchMenu input:hover, .organisationSearchMenu input:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, .contentMenu a:hover, .contentMenu a:focus {
+    color: #012846;
 }
 
 /*COLORING FOR BREADCRUMB SLASHES*/
@@ -349,10 +417,40 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .breadcrumb li a:hover, .breadcrumb li a:focus {
     color: #012846;
 }
-
+/*
 .contentMenu span, .contentMenu input, .contentMenu a {
-	font-size: 109%;
+	font-size: 1em;
 }
+*/
+/*MENU-STYLES*/
+.mainMenu input {
+	background-color: transparent;
+	color: #FFFFFF;
+}
+.mainMenu input:hover, .mainMenu input:focus {
+	color: #012846;
+}
+
+.mainMenu a {
+	background-color: transparent;
+	color: #FFFFFF;
+}
+.mainMenu a:hover, .mainMenu a:focus {
+	color: #012846;
+}
+
+.mainMenu {
+	text-transform:uppercase;
+	color:#9BB5CE;	/*general color for main menu text*/
+}
+
+.sub {
+	text-transform:uppercase;
+}
+.sub.action {
+	text-transform:none;
+}
+
 
 /*Content
  
@@ -360,7 +458,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
  
  |         [      Paginator      ]             |
  
- |                               	          |
+ |                               	           |
  
  |[ Lists & Full Item ]                        |
  
@@ -424,18 +522,46 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 /*LIST HEADER*/
+
+/** BIBLIST VIEW **/
+.listHeader .headerSwitchView {
+	padding: 0 !important;
+	margin-top:0.1818em;
+	margin-left:0.7272em;
+}
+.listHeader .statusArea {
+	margin-top:-0.1818em;
+}
+
+/** TABLE VIEW **/
+thead.listHeader a, thead.listHeader span, thead.listHeader {
+	padding-top:0.1818em;
+}
+thead.listHeader .statusArea {
+	margin-top:0;
+}
+
+
+tbody .listItem a, tbody .listItem span {
+	padding-top:0.1818em;
+}
+tbody .listItem span.statusArea {
+	margin-top:-0.2727em;
+}
+
+
 /*GENERAL*/
 .listHeader a, .listHeader span {
     line-height: normal;
     font-weight: normal;
 }
 
-/*SELECT MENU*/
-.itemList .checkBoxSelectButton {
-    background-color: transparent;
-    cursor: pointer;
+.itemSelectArea {
+	padding-top:0 !important;
+	margin-top:0em !important;
 }
 
+/*SELECT MENU*/
 .selectMenu {
     border-color: #9FAFAE;
     opacity: 0.91;
@@ -490,6 +616,12 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 /*ITEM HEADER*/
+.itemHeader .itemHeadline {
+	padding: 0 !important;
+	margin-top:0.2727em;
+	margin-left:0.7272em;
+}
+
 .fullItem .itemHeadline b {
     font-size: 16px !important;
     font-weight: normal;
@@ -585,37 +717,32 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     border-style: solid;    
     padding-top: 0.10em;
     padding-bottom: 0.10em;
-    
+    border-top:0;
+	border-left:0;
 }
 
 .cancelButton {
     float: left;
     color: #044585;
-    border-top-color: #FFFFFF;
     border-right-color: #044585;
     border-bottom-color: #044585;
-    border-left-color: #FFFFFF;
 }
 
 .cancelButton:hover {
     color: #012846;
-    background-color: #FFFFFF;
-    border-top-color: #FFFFFF;
     border-right-color: #012846;
     border-bottom-color: #012846;
-    border-left-color: #FFFFFF;
 }
 
 .activeButton {
     float: right;
-    color: #FFFFFF !important;
-	background-color: #0F3834 !important;
+    color: #CCDFDD !important;
+	background-color: #044585 !important;
     border-color: #044585;
 }
 
 .activeButton:hover {
-    color: #000000 !important;
-    background-color: #FFFFFF !important;
+    background-color: #012846 !important;
 }
 
 /*AUTOSUGGEST*/
@@ -724,6 +851,15 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	font-family: serif;
 	border-left-width: 2px !important;
 	border-right-width: 2px !important;
+}
+
+.mainMenu {
+	margin-top:0.2727em !important;
+}
+
+.searchMenu {
+	margin-top:4.5454em !important;
+	margin-bottom:0.7272em;
 }
 
 .searchMenu .quickSearchBtn {

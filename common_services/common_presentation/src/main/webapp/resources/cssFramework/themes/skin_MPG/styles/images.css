@@ -40,12 +40,18 @@ body {
 }
 
 body .wrapper {
-	background-image:url("../images/all_header_and_logo.png");
+	background-image:url("../images/mpg_bg_100.jpg");
 	background-repeat:no-repeat !important;
 }
 
+.headerLogo {
+	background-image:none !important;
+	background-repeat:no-repeat;
+}
+
 .headerLogo, .themePark {
-    visibility: hidden;
+   /* visibility: hidden; */
+  height:6em !important;
 }
 
 /*HEADER
@@ -62,9 +68,10 @@ body .wrapper {
 
 
 /*PUT IN HEADER LOGO FOR PRINT DISPLAY HERE*/
-@media print { .contentMenu {list-style-image:
-        url('../../../globalImages/logo.png');
-}
+@media print { 
+	.contentMenu {list-style-image:
+	        url('../../../globalImages/logo.png');
+	}
 }
 
 .smallThrobber {
@@ -276,25 +283,33 @@ body .wrapper {
 /*LIST COMPONENT*/
 
 .itemList, .tiledList, .fullItem {
-	background:url("../images/all_ramp_list.png") scroll left top;
+/*	background:url("../images/all_ramp_list.png") scroll left top; */
+	background:none;
 }
 
-.itemList .checkBoxSelectButton {
-    background-image: url('../images/All_DropDown_TriangleOpen_15_Active.png');
+.checkBoxSelectButton {
+	background-image: url('../images/All_ListView_Select_15_Active.gif');
     background-repeat: no-repeat;
     background-position: center;
+	margin-top:0.18em;
 }
 
-.itemList .checkBoxSelectButton:hover, .itemList .checkBoxSelectButton:focus {
+.checkBoxSelectButton:hover, .checkBoxSelectButton:focus {
     background-image: url('../images/All_DropDown_TriangleOpen_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.itemList .checkBoxSelectButton:disabled {
+.checkBoxSelectButton:disabled {
     background-image: url('../images/All_DropDown_TriangleOpen_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.selectboxIcon {
+	background-image:url("../images/All_ListView_Select_15_Active.gif");
+	background-position:right;
+	background-repeat:no-repeat;
 }
 
 .selectMenu .checkBoxCloseSelectButton {
@@ -319,6 +334,16 @@ body .wrapper {
     background-image: url('../images/All_Status_ItemSubmitted_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
+}
+
+.submitSuccessful {
+	background-image: url('../images/All_Work_Done_15_Static.png');
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.listItem td .statusIcon {
+    margin-top: 0.27em !important;
 }
 
 .pendingItem {
