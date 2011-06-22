@@ -32,15 +32,73 @@
 
 <span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu">
 	<!-- meta Menu starts here -->
-
-	<!-- Language -->
-	<h:selectOneMenu id="selSelectLocale" value="#{PubManSessionBean.locale}" immediate="true" onchange="submit();" valueChangeListener="#{PubManSessionBean.changeLanguage}" styleClass="medium_select" title="#{tip.Home_Header_Language}">
-		<f:selectItem itemValue="en" itemLabel="#{lbl.ENUM_LANGUAGE_EN}"/>
-		<f:selectItem itemValue="de" itemLabel="#{lbl.ENUM_LANGUAGE_DE}"/>
-		<f:selectItem itemValue="ja" itemLabel="#{lbl.ENUM_LANGUAGE_JA}"/>
-	</h:selectOneMenu>
+	<script type="text/javascript">
+			
+		/*********************************************************************
+		 * PAGE FUNCTIONS
+		 */
+		function returnSelectboxInfo(obj, format, output) {
+			var return_value = '';
+			
+			switch (format) {
+				case 0:	//Selectbox text
+					return_value = obj.options[obj.selectedIndex].text;
+					break;
+				case 1: //Selectbox value
+					return_value = obj.value;
+					break;
+			}
+			
+			switch (return_value) {
+				case 'undefined':
+				case '':
+					return_value = '...please select...';
+					break;
+			}
+			
+			switch (output) {
+				case 0:
+					return return_value;
+					break;
+				case 1:
+					alert(return_value);
+					break;
+				default:
+					return return_value;
+					break;
+			}
+		}
+		
+		function updateSelect(source_obj) {
+			var value = returnSelectboxInfo(source_obj, 0);
+			console.log("Value: "+value);
+			if (source_obj.previousElementSibling) {
+				source_obj.previousElementSibling.innerHTML = '<span class="free_label">'+value+'</span>';
+			} else {
+				source_obj.previousSibling.innerHTML = '<span class="free_label">'+value+'</span>';
+			}
+		}
+	</script>
+	<style type="text/css">
+		/*
+		option {
+			background-color:#0099FF;
+			height:2em; /* only in FF */ 
+			padding-top:1.23em; /* only in FF */ 
+			margin-top:1.23em; /* only in FF */ 
+		} */
+	</style>
+	<div class="medium_area0 endline selectContainer">
+		<div class="medium_select selectboxIcon selectionBox">value</div>
+		<h:selectOneMenu id="selSelectLocale" value="#{PubManSessionBean.locale}" style="background-color:#006D70; border:none; color:#FFFFFF;" onchange="submit();" title="#{tip.Home_Header_Language}" immediate="true" valueChangeListener="#{PubManSessionBean.changeLanguage}">
+			<f:selectItem itemValue="en" itemLabel="#{lbl.ENUM_LANGUAGE_EN}" />
+			<f:selectItem itemValue="de" itemLabel="#{lbl.ENUM_LANGUAGE_DE}" />
+			<f:selectItem itemValue="ja" itemLabel="#{lbl.ENUM_LANGUAGE_JA}" />
+		</h:selectOneMenu>
+	</div>
+	<h:panelGroup styleClass="seperator"></h:panelGroup>
 	<!-- Help -->
-	<h:commandLink id="lnkHelp" styleClass="small_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="setStyleCookie(); loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
+	<h:commandLink id="lnkHelp" styleClass="medium_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 	<!-- Policy -->

@@ -92,19 +92,18 @@
 									<h:outputLink id="lnkMenuQAWorkspace" title="#{tip.chooseWorkspace_QAWorkspace}"  value="#{ApplicationBean.appContext}QAWSPage.jsp" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
 										<h:outputText value="#{lbl.chooseWorkspace_optMenuQAWorkspace}" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}"/>
 									</h:outputLink>
-									<h:outputText styleClass="seperator void" />
 									
+									<h:outputText styleClass="seperator void" rendered="#{(LoginHelper.isModerator || LoginHelper.isDepositor) and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 									<h:outputLink id="lnkSubmission_lnkImportWorkspaceMenu" title="#{tip.chooseWorkspace_ImportWorkspace}" value="#{ApplicationBean.appContext}ImportWorkspace.jsp" rendered="#{(LoginHelper.isModerator || LoginHelper.isDepositor) and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 										<h:outputText value="#{lbl.chooseWorkspace_optMenuImportWorkspace}"/>
 									</h:outputLink>  
-									<h:outputText styleClass="seperator void" />
 									
-									
+									<h:outputText styleClass="seperator void" rendered="#{LoginHelper.isYearbookEditor}" />
 									<h:outputLink id="lnkMenuYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookPage.jsp" rendered="#{LoginHelper.isYearbookEditor}">
 										<h:outputText value="#{lbl.chooseWorkspace_optMenuYearbookWorkspace}"/>
 									</h:outputLink>
-									<h:outputText styleClass="seperator void" />
 									
+									<h:outputText styleClass="seperator void" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ReportWorkspacePage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}" />
 									<h:outputLink id="lnkMenuReportWorkspace" title="#{tip.chooseWorkspace_ReportWorkspace}" value="#{ApplicationBean.appContext}ReportWorkspacePage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ReportWorkspacePage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}">
 										<h:outputText value="#{lbl.chooseWorkspace_optMenuReportWorkspace}"/>
 									</h:outputLink>
@@ -115,16 +114,16 @@
 								</div>
 							<!-- content menu ends here -->
 							</div>
-							<div class="subHeader">
-								<!-- Subheadline starts here -->
-									<h:outputText value="#{msg.chooseWorkspace}"/>
-								<!-- Subheadline ends here -->
-							</div>
+							
 						</div>
 					</div>		
 					<div class="full_area0">
 						<div class="full_area0 fullItem">
-						
+							<div class="full_area0 small_marginLExcl">
+								<!-- Subheadline starts here -->
+								<h3><h:outputText value="#{msg.chooseWorkspace}"/></h3>
+								<!-- Subheadline ends here -->
+							</div>
 							<jsp:directive.include file="workspaces/ChooseWorkspace.jspf"/>
 
 						</div>

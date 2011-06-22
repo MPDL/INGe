@@ -47,98 +47,97 @@
 				<jsp:directive.include file="home/HomePageFeedLinks.jspf" />
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-			<h:outputText value="#{HomePage.beanName}" styleClass="noDisplay" />
-			<h:form id="form1">
-			<div class="full wrapper">
-			<h:inputHidden id="offset"></h:inputHidden>
-
-				<!-- import header -->
-				<jsp:directive.include file="header/Header.jspf" />
-				<div id="content" class="full_area0 clear">
-				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
-					<div class="clear">
-						<div class="headerSection">
-							
-						<jsp:directive.include file="header/Breadcrumb.jspf" />
-				
-							<div id="contentSkipLinkAnchor" class="clear headLine">
-								<!-- Headline starts here -->
-								<h1><h:outputText value="#{lbl.HomePage}" /></h1>
-								<!-- Headline ends here -->
-							</div>
-						</div>
-						<div class="small_marginLIncl subHeaderSection">
-							<div class="contentMenu">
-							<!-- content menu starts here -->
-								<div class="free_area0 sub">
-								<!-- content menu upper line starts here -->
-									&#160;
-								<!-- content menu upper line ends here -->
+				<h:outputText value="#{HomePage.beanName}" styleClass="noDisplay" />
+				<h:form id="form1">
+					<div class="full wrapper">
+						<h:inputHidden id="offset"></h:inputHidden>
+		
+						<!-- import header -->
+						<jsp:directive.include file="header/Header.jspf" />
+						<div id="content" class="full_area0 clear">
+						<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+							<div class="clear">
+								<div class="headerSection">
+									
+								<jsp:directive.include file="header/Breadcrumb.jspf" />
+						
+									<div id="contentSkipLinkAnchor" class="clear headLine">
+										<!-- Headline starts here -->
+										<h1><h:outputText value="#{lbl.HomePage}" /></h1>
+										<!-- Headline ends here -->
+									</div>
 								</div>
-							<!-- content menu ends here -->
+								<div class="small_marginLIncl subHeaderSection">
+									<div class="contentMenu">
+									<!-- content menu starts here -->
+										<div class="free_area0 sub">
+										<!-- content menu upper line starts here -->
+											&#160;
+										<!-- content menu upper line ends here -->
+										</div>
+									<!-- content menu ends here -->
+									</div>
+									<div class="subHeader">
+										<!-- Subheadline starts here -->
+										<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.numberOfMessages == 1}"/>
+										<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{HomePage.hasErrorMessages and HomePage.numberOfMessages != 1}">
+											<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
+											<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.hasMessages}"/>
+										</h:panelGroup>
+										<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{HomePage.hasMessages and !HomePage.hasErrorMessages and HomePage.numberOfMessages != 1}">
+											<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
+											<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.hasMessages}"/>
+										</h:panelGroup>
+										<h:outputText value="&#160;" rendered="#{!HomePage.hasErrorMessages}" />
+										<!-- Subheadline ends here -->
+									</div>
+								</div>
 							</div>
-							<div class="subHeader">
-								<!-- Subheadline starts here -->
-								<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.numberOfMessages == 1}"/>
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{HomePage.hasErrorMessages and HomePage.numberOfMessages != 1}">
-									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
-									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.hasMessages}"/>
-								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{HomePage.hasMessages and !HomePage.hasErrorMessages and HomePage.numberOfMessages != 1}">
-									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
-									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.hasMessages}"/>
-								</h:panelGroup>
-								<h:outputText value="&#160;" rendered="#{!HomePage.hasErrorMessages}" />
-								<!-- Subheadline ends here -->
+							<div class="full_area0">
+								<div class="full_area0 infoPage">
+									<!-- Main Content -->
+									
+									<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{!PubManSessionBean.loggedIn and InternationalizationHelper.homeContent!=null}">
+										<h:outputText value="#{InternationalizationHelper.homeContent}" escape="false"/>
+									</h:panelGroup>
+									
+									<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{!PubManSessionBean.loggedIn and InternationalizationHelper.homeContent==null}">
+										<jsp:directive.include file="home/StartPageLoggedOut.jspf" />
+									</h:panelGroup>
+									
+									<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{PubManSessionBean.loggedIn}">
+										<jsp:directive.include file="home/StartPageLoggedIn.jspf" />
+									</h:panelGroup>
+									
+									<!-- Side Panels -->
+									<h:panelGroup styleClass="sideSectionArea">
+										<h:panelGroup styleClass="free_area0_p8 sideSection">
+											<jsp:directive.include file="home/LastReleased.jspf" />
+											<h:panelGroup rendered="#{ApplicationBean.pubmanBlogFeedUrl != ''}" >
+												<jsp:directive.include file="home/BlogIntegration.jspf"  />
+											</h:panelGroup>
+											<h:panelGroup>
+												<div id="searchCloudDiv">&#160;</div>
+											</h:panelGroup>
+										</h:panelGroup>
+									</h:panelGroup>
+									
+								</div>	
 							</div>
 						</div>
-					</div>
-					<div class="full_area0">
-						<div class="full_area0 infoPage">
-							<!-- Main Content -->
-							
-							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{!PubManSessionBean.loggedIn and InternationalizationHelper.homeContent!=null}">
-								<h:outputText value="#{InternationalizationHelper.homeContent}" escape="false"/>
-							</h:panelGroup>
-							
-							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{!PubManSessionBean.loggedIn and InternationalizationHelper.homeContent==null}">
-								<jsp:directive.include file="home/StartPageLoggedOut.jspf" />
-							</h:panelGroup>
-							
-							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{PubManSessionBean.loggedIn}">
-								<jsp:directive.include file="home/StartPageLoggedIn.jspf" />
-							</h:panelGroup>
-							
-
-							<!-- Side Panels -->
-							<h:panelGroup styleClass="sideSectionArea">
-								<h:panelGroup styleClass="free_area0_p8 sideSection">
-									<jsp:directive.include file="home/LastReleased.jspf" />
-									<h:panelGroup rendered="#{ApplicationBean.pubmanBlogFeedUrl != ''}" >
-										<jsp:directive.include file="home/BlogIntegration.jspf"  />
-									</h:panelGroup>
-									<h:panelGroup>
-										<div id="searchCloudDiv"></div>
-									</h:panelGroup>
-								</h:panelGroup>
-							</h:panelGroup>
-							
-						</div>	
-					</div>
-				</div>
-				<!-- end: content section -->
-				</div>
-				<jsp:directive.include file="footer/Footer.jspf" />
+						<!-- end: content section -->
+						<jsp:directive.include file="footer/Footer.jspf" />
+						<script type="text/javascript">
+							$("input[id$='offset']").submit(function() {
+								$(this).val($(window).scrollTop());
+							});
+							$(document).ready(function () {
+								$(window).scrollTop($("input[id$='offset']").val());
+								$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop())});
+							});
+						</script>
+					</div> <!-- end: full wrapper -->
 				</h:form>
-				<script type="text/javascript">
-				$("input[id$='offset']").submit(function() {
-					$(this).val($(window).scrollTop());
-				});
-				$(document).ready(function () {
-					$(window).scrollTop($("input[id$='offset']").val());
-					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop())});
-				});
-				</script>				
 			</body>
 		</html>
 	</f:view>

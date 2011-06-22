@@ -103,8 +103,8 @@
 									      	<th class="tiny_area0">
 												&#160;
 									      	</th>
+									      	<th class="free_area0"><h:panelGroup styleClass="seperator"></h:panelGroup></th>
 									      	<th class="free_area0 endline status statusArea">
-									      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 									      		<h:outputLink id="lnkSort1" value="ImportWorkspace.jsp?sortColumn=STATUS&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'STATUS'}">
 													<h:outputText styleClass="medium_area0_p8" value="#{lbl.import_workspace_status}"/>
 												</h:outputLink>

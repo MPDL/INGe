@@ -74,8 +74,19 @@
 			</div>
 		<!-- content menu ends here -->
 		</div>
-		<div class="subHeader">
+		
+	</div>
+</div>		
+
+<div id="ImgFullItem">
+	<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;"></div>
+</div>
+	
+<div id="fullItem" class="full_area0">
+	<div class="full_area0 fullItem">
+		<div class="full_area0 small_marginLExcl">
 			<!-- Subheadline starts here -->
+			<h3>
 				<h:outputText value="#{msg.create_Item_Select_Collection}"/>
 				<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.numberOfMessages == 1}"/>
 				<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{EasySubmissionSessionBean.hasErrorMessages and EasySubmissionSessionBean.numberOfMessages != 1}">
@@ -87,18 +98,9 @@
 					<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
 				</h:panelGroup>
 				&#160;
+			</h3>
 			<!-- Subheadline ends here -->
 		</div>
-	</div>
-</div>		
-
-<div id="ImgFullItem">
-	<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;"></div>
-</div>
-	
-<div id="fullItem" class="full_area0">
-	<div class="full_area0 fullItem">
-
 		<jsp:directive.include file="../contextList.jspf"/>
 
 	</div>

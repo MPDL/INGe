@@ -38,7 +38,7 @@ if(typeof coneURL=='undefined') {
 	var coneURL = '../../cone/';
 }
 var hiddenThemesEnabled = false;
-
+/*
 function applyCookieStyle() {
 	var cookieValue = ""
 	var cookie = "layout=";
@@ -125,7 +125,7 @@ function setStyleCookie() {
 		}
 	}
 }
-
+*/
 var included = false;
 
  /*INCLUDES EXTERNAL JAVASCRIPT TO PAGE DOM*/
@@ -162,6 +162,7 @@ function install_javascripts() {
 	installDateTextbox();
 	installSameHeight();
 	bindSuggests();
+	themeCookieInit();
 }
 
 /*INCLUDES EXTERNAL JAVASCRIPTS*/
@@ -182,5 +183,5 @@ function include_javascripts() {
 }
 
 include_javascripts();
-applyCookieStyle();
-window.onunload=function(e){setStyleCookie();};
+//applyCookieStyle();
+//window.onunload=function(e){setStyleCookie();};

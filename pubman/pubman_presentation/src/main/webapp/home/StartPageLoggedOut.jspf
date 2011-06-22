@@ -47,20 +47,21 @@
     <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><h:outputText value="#{lbl.Home_Link_Support }"/></a>
 	<br/><br/>
 	<h3>Search for publications here</h3>
-	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
+	<span class="huge_area0 xSmall_marginLIncl searchMenu" style="float:left; margin-top:0px !important;">
 		<span class="quickSearchMenu">
-			<input id="inpSearchForPublications" class="large_txtInput quickSearchTextInput" type="text">
+			<input id="inpSearchForPublications" class="large_txtInput quickSearchTextInput" type="text" />
 		</span>
-		<input id="btnGo" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();"/>
-	</p>
-	<br/><br/>
+		<input id="btnGo" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
+	</span>
+	<div class="clear">&#160;</div>
+	
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or browse through different categories.</a>
 	<br/><br/>
 	<h2>
 	Short PubMan Introduction Video
 	</h2>
 	<a href="http://pubman.blogs.mpdl.mpg.de/2009/02/13/introduction-into-pubman-via-screencast-availabel-now/" target="_blank"><img src="/pubman/images/screencast.jpg" class="huge videoPreview"/></a>
-	<br/><br/>
+	<br/><br/><br/>
 	<h2>
 	PubMan Interfaces
 	</h2>
@@ -78,35 +79,36 @@
 <!-- HOMEPAGE GERMAN VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
 	<h2>
-	PubMan <h:outputText value="#{ApplicationBean.shortVersion}"/> - Eine eSciDoc Anwendung für Publikationsdaten 
+		PubMan <h:outputText value="#{ApplicationBean.shortVersion}"/> - Eine eSciDoc Anwendung für Publikationsdaten 
 	</h2>
 	<p>
-	Pubman bietet Ihnen die Möglichkeit Ihre Publikationen und ergänzendes Material dauerhaft zu veröffentlichen.
+		PubMan bietet Ihnen die Möglichkeit Ihre Publikationen und ergänzendes Material dauerhaft zu veröffentlichen.
 	</p>
 	<p>
-	Ihre gesammelten Veröffentlichungen können Sie in einem "Reseacher Portfolio" präsentieren.
+		Ihre gesammelten Veröffentlichungen können Sie in einem "Reseacher Portfolio" präsentieren.
 	</p>	
 	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">Lesen Sie mehr </a>
 	<h:outputText value="|"/>
     <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><h:outputText value="#{lbl.Home_Link_Support }"/></a>
 	<br/><br/>
 	<h3>Suchen Sie hier nach Publikationen</h3>
-	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
+	<span class="huge_area0 xSmall_marginLIncl searchMenu" style="float:left; margin-top:0px !important;">
 		<span class="quickSearchMenu">
-			<input id="inpSearchForPublicationsDe" class="large_txtInput quickSearchTextInput" type="text">
+			<input id="inpSearchForPublicationsDe" class="large_txtInput quickSearchTextInput" type="text" />
 		</span>
-		<input id="btnLos" class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
-	</p>
-	<br/><br/>
+		<input id="btnLos" class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
+	</span>
+	<div class="clear">&#160;</div>
+	
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... oder browsen Sie durch verschiedene Kategorien.</a>
-	<br/><br/>
+	<br/><br/><br/>
 	<h2>
-	PubMan Einf&uuml;hrungsvideo
+		PubMan Einf&uuml;hrungsvideo
 	</h2>
 	<a href="http://pubman.blogs.mpdl.mpg.de/2009/02/13/introduction-into-pubman-via-screencast-availabel-now/" target="_blank"><img src="/pubman/images/screencast.jpg" class="huge videoPreview"/></a>
 	<br/><br/>
 	<h2>
-	PubMan Schnittstellen
+		PubMan Schnittstellen
 	</h2>
 	<span>		
 	<h4>Suche und Export</h4>
@@ -147,15 +149,16 @@
     <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><h:outputText value="#{lbl.Home_Link_Support }"/></a>
 	<br/><br/>
 	<h3>文献検索</h3>
-	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
+	<span class="huge_area0 xSmall_marginLIncl searchMenu" style="float:left; margin-top:0px !important;">
 		<span class="quickSearchMenu">
 			<input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text">
 		</span>
 		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
-	</p>
-	<br/><br/>
+	</span>
+	<div class="clear">&#160;</div>
+	
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>
-	<br/><br/>
+	<br/><br/><br/>
 	<h2>
 	PubMan紹介ビデオ
 	</h2>
@@ -190,15 +193,16 @@
     <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><h:outputText value="#{lbl.Home_Link_Support }"/></a>
 	<br/><br/>
 	<h3>文献検索</h3>
-	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
+	<span class="huge_area0 xSmall_marginLIncl searchMenu" style="float:left; margin-top:0px !important;">
 		<span class="quickSearchMenu">
 			<input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text">
 		</span>
 		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
-	</p>
-	<br/><br/>
+	</span>
+	<div class="clear">&#160;</div>
+	
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>
-	<br/><br/>
+	<br/><br/><br/>
 	<h2>
 	PubMan紹介ビデオ
 	</h2>

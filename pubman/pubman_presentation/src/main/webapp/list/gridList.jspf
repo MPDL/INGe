@@ -100,7 +100,7 @@ All rights reserved. Use is subject to license terms.
     <tr class="full_area0">
      		<th class="free_area0_p8 endline itemSelectArea">
  			<input type="checkbox" class="allCheckBox"/>
- 			<input type="button" id="btcheckBoxSelectButton" class="min_imgBtn checkboxSelectButton"/>
+ 			<input type="button" id="btcheckBoxSelectButton" class="min_imgBtn checkBoxSelectButton"/>
  			<div class="large_area1 xTiny_marginLIncl selectMenu" style="display: none;">
  				<span class="medium_area0_p8"><h:outputText value="#{lbl.List_SelectItem}"/></span>
  				<h:commandLink id="lnkList_lkAll" title="#{tip.List_lkAll}" disabled="true" styleClass="large_area0 selectAll"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkAllOnPage}"/></span></h:commandLink>

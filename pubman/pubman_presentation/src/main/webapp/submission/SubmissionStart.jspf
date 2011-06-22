@@ -48,11 +48,9 @@
 	</h3>
 	<div class="free_area0 itemBlockContent endline">		
 		<div class="free_area0 endline itemLine firstLine">
-			<b class="xLarge_area0 endline labelLine">
-				<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
+			<span class="quad_area0_p8 noPaddingTopBottom endline">
 				<h:outputText value="#{lbl.submission_descEasySubmission}" />
+				<br /><br />
 			</span>
 		</div>
 	</div>
@@ -76,11 +74,9 @@
 	</h3>
 	<div class="free_area0 itemBlockContent endline">		
 		<div class="free_area0 endline itemLine firstLine">
-			<b class="xLarge_area0 endline labelLine">
-				<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
+			<span class="quad_area0_p8 noPaddingTopBottom endline">
 				<h:outputText value="#{lbl.submission_descNewSubmission}" />
+				<br /><br />
 			</span>
 		</div>
 	</div>
@@ -104,11 +100,9 @@
 	</h3>
 	<div class="free_area0 itemBlockContent endline">		
 		<div class="free_area0 endline itemLine firstLine">
-			<b class="xLarge_area0 endline labelLine">
-				<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
+			<span class="quad_area0_p8 noPaddingTopBottom endline">
 				<h:outputText value="#{lbl.submission_descImport}" />
+				<br /><br />
 			</span>
 		</div>
 	</div>
@@ -133,11 +127,9 @@
 		</h3>
 		<div class="free_area0 itemBlockContent endline">		
 			<div class="free_area0 endline itemLine firstLine">
-				<b class="xLarge_area0 endline labelLine">
-					<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<span class="quad_area0_p8 noPaddingTopBottom endline">
 					<h:outputText value="#{lbl.submission_descMultipleImport}" />
+					<br /><br />
 				</span>
 			</div>
 		</div>
