@@ -227,13 +227,15 @@
 		<module>sword_presentation</module>
 		<module>pid_cache_presentation</module>
 		<module>pid_cache_ear</module>
+		<module>aa_logic</module>
+		<module>aa_presentation</module>
 
 	</modules>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.42</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.42</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.42</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/trunk/common_services</url>
 	</scm>
 
 	<repositories>
@@ -608,6 +610,37 @@
 		<escidoc.transformation.report.sortorder.filename>transformations/reports/conf/reportSortOrder.xml</escidoc.transformation.report.sortorder.filename>
 		
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
+		
+		<!-- AA -->
+		<escidoc.aa.instance.url>http://localhost:8080/aa_presentation</escidoc.aa.instance.url>
+		<escidoc.aa.default.target>http://localhost:8080/aa_presentation/clientLogin</escidoc.aa.default.target>
+		<escidoc.aa.public.key.file>public.key</escidoc.aa.public.key.file>
+		<escidoc.aa.private.key.file>private.key</escidoc.aa.private.key.file>
+		<escidoc.aa.config.file>conf.xml</escidoc.aa.config.file>
+		<escidoc.aa.ip.table>ips.xml</escidoc.aa.ip.table>
+		<escidoc.aa.client.start.class>de.mpg.escidoc.services.aa.web.client.EscidocAaClientStart</escidoc.aa.client.start.class>
+		<escidoc.aa.client.finish.class>de.mpg.escidoc.services.aa.web.client.EscidocAaClientFinish</escidoc.aa.client.finish.class>
+		
+		<!--Common presentation -->
+				
+		<!-- URL of stylesheets in common-presentation -->
+		<escidoc.common.presentation.url>http://localhost:8080/common/</escidoc.common.presentation.url>
+
+		<!-- Properties for common standard theme-->
+		<escidoc.common.stylesheet.standard.url>/common/resources/cssFramework/themes/skin_MPG/styles/theme.css</escidoc.common.stylesheet.standard.url>
+		<escidoc.common.stylesheet.standard.type>stylesheet</escidoc.common.stylesheet.standard.type>
+		<escidoc.common.stylesheet.standard.apply>true</escidoc.common.stylesheet.standard.apply>
+		
+		<!-- Properties for common contrast theme-->
+		<escidoc.common.stylesheet.contrast.url>/common/resources/cssFramework/themes/skin_highContrast/styles/theme.css</escidoc.common.stylesheet.contrast.url>
+		<escidoc.common.stylesheet.contrast.type>alternate stylesheet</escidoc.common.stylesheet.contrast.type>
+		<escidoc.common.stylesheet.contrast.apply>true</escidoc.common.stylesheet.contrast.apply>
+		
+		<!-- Properties for common classic theme-->
+		<escidoc.common.stylesheet.classic.url>/common/resources/cssFramework/themes/skin_classic/styles/theme.css</escidoc.common.stylesheet.classic.url>
+		<escidoc.common.stylesheet.classic.type>alternate stylesheet</escidoc.common.stylesheet.classic.type>
+		<escidoc.common.stylesheet.classic.apply>true</escidoc.common.stylesheet.classic.apply>
+
 	</properties>
 
 	<profiles>
