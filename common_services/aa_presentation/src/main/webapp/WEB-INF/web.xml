@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app id="aa">
+	<display-name>Control of Named Entities</display-name>
+	
+	<!-- Property Initializer -->
+	<servlet>
+		<servlet-name>PropertyInitializer</servlet-name>
+		<servlet-class>de.mpg.escidoc.services.aa.web.PropertyInitializer</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<!-- AA Servlets -->
+	<servlet>
+		<servlet-name>AaStart</servlet-name>
+		<servlet-class>de.mpg.escidoc.services.aa.web.AaStart</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>AaFinish</servlet-name>
+		<servlet-class>de.mpg.escidoc.services.aa.web.AaFinish</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>AaClientStart</servlet-name>
+		<servlet-class>de.mpg.escidoc.services.aa.web.client.StartClientServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>AaClientFinish</servlet-name>
+		<servlet-class>de.mpg.escidoc.services.aa.web.client.FinalClientServlet</servlet-class>
+	</servlet>
+	
+	<session-config>
+		<session-timeout>120</session-timeout>
+	</session-config>
+
+	<servlet-mapping>
+		<servlet-name>AaStart</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AaFinish</servlet-name>
+		<url-pattern>/return</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AaClientStart</servlet-name>
+		<url-pattern>/clientLogin</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AaClientFinish</servlet-name>
+		<url-pattern>/clientReturn</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>PropertyInitializer</servlet-name>
+		<url-pattern>/reload</url-pattern>
+	</servlet-mapping>
+
+	<!-- Welcome files -->
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
