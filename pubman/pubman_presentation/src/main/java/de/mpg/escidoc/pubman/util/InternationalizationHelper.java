@@ -30,6 +30,7 @@ package de.mpg.escidoc.pubman.util;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -61,7 +62,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * @author: Tobias Schraut, created 04.07.2007
  * @version: $Revision$ $LastChangedDate$ Revised by ScT: 20.08.2007
  */
-public class InternationalizationHelper
+public class InternationalizationHelper implements Serializable
 {
 
     public static final String BEAN_NAME = "InternationalizationHelper";
@@ -104,7 +105,7 @@ public class InternationalizationHelper
      */
     public enum SelectComponentAvailability
     {
-        SELECT_HAS_FILES, SELECT_HAS_LOCATORS, SELECT_HAS_COMPONENTS, SELECT_HAS_NO_COMPONENTS
+        SELECT_HAS_FILES, SELECT_HAS_LOCATORS, SELECT_HAS_COMPONENTS, SELECT_HAS_NO_COMPONENTS, SELECT_HAS_FILES_ONLY, SELECT_HAS_LOCATORS_ONLY
     }
     
    /**

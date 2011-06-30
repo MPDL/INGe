@@ -1243,10 +1243,19 @@ public class EasySubmission extends FacesBean
         return "loadEditItem";
     }
 
-    public String cancelEasySubmission()
+    public String cancel()
     {
         this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP1);
-        return "loadHome";
+        try
+        {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("faces/SubmissionPage.jsp");
+        }
+        catch (Exception e)
+        {
+            logger.error(
+                    "Cancel error: could not find context to redirect to SubmissionPage.jsp in Full Submssion", e);
+        }
+        return null;
     }
 
     public String loadStep1()

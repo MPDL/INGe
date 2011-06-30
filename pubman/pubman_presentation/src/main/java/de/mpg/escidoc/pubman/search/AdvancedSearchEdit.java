@@ -100,6 +100,7 @@ public class AdvancedSearchEdit extends FacesBean
     
 
     private UIXIterator anyFieldCriterionIterator = new UIXIterator();
+    private UIXIterator contextCriterionIterator = new UIXIterator();
     private UIXIterator personCriterionIterator = new UIXIterator();
     private UIXIterator dateCriterionIterator = new UIXIterator();
     private UIXIterator genreCriterionIterator = new UIXIterator();
@@ -200,13 +201,10 @@ public class AdvancedSearchEdit extends FacesBean
     {
         ArrayList<Criterion> criterionList = new ArrayList<Criterion>();
          
-        // collect VO's from internal collections
-        // we have to ensure, that no empty criterions are moved to the criterionVOList
-        if(contextCriterionCollection.getFilledCriterion()!=null)
-        	criterionList.add(contextCriterionCollection.getFilledCriterion());
         criterionList.addAll( anyFieldCriterionCollection.getFilledCriterion() );
+        criterionList.addAll( contextCriterionCollection.getFilledCriterion() );
         criterionList.addAll( personCriterionCollection.getFilledCriterion() );
-        criterionList.addAll( dateCriterionCollection.getFilledCriterion() );       
+        criterionList.addAll( dateCriterionCollection.getFilledCriterion() );
         criterionList.addAll( genreCriterionCollection.getFilledCriterion() );
         criterionList.addAll( degreeCriterionCollection.getFilledCriterion() );
         criterionList.addAll( organizationCriterionCollection.getFilledCriterion() );
@@ -453,6 +451,16 @@ public class AdvancedSearchEdit extends FacesBean
     public void setAnyFieldCriterionIterator(UIXIterator anyFieldCriterionIterator)
     {
         this.anyFieldCriterionIterator = anyFieldCriterionIterator;
+    }
+
+    public UIXIterator getContextCriterionIterator()
+    {
+        return contextCriterionIterator;
+    }
+
+    public void setContextCriterionIterator(UIXIterator contextCriterionIterator)
+    {
+        this.contextCriterionIterator = contextCriterionIterator;
     }
 
     public UIXIterator getPersonCriterionIterator()

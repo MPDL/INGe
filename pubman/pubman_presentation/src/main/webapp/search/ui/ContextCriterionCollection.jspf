@@ -38,7 +38,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
 	
-		<tr:iterator id="contextCriterion" rows="0" var="contextCriterionBean" value="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionBean}">
+		<tr:iterator id="contextCriterion" rows="0" var="contextCriterionBean" value="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.contextCriterionIterator}">
 	
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -49,10 +49,20 @@
 					<h:outputLabel id="context" styleClass="noDisplay" value="#{contextCriterionBean.context}"/>
 
 					<b class="quad_label">&#160;</b>
-					<h:selectOneMenu styleClass="large_select" id="selectContext" value="#{contextCriterionBean.contextCriterionVO.searchString}">
-						<f:selectItems value="#{AdvancedSearchEdit.contextCriterionCollection.contextList}"/>
-					</h:selectOneMenu>
-
+					
+					<div class="xLarge_area0 endline selectContainer">
+						<div class="xLarge_select selectboxIcon selectionBox">
+							<h:outputText value="#{contextCriterionBean.contextName}" rendered="#{contextCriterionBean.contextCriterionVO.searchString != null}"/>
+							<h:outputText value="--" rendered="#{contextCriterionBean.contextCriterionVO.searchString == null}"/>
+						</div>
+						<h:selectOneMenu style="background-color:#006D70; border:none; color:#FFFFFF;" onchange="submit();" id="selectContext" value="#{contextCriterionBean.contextCriterionVO.searchString}">
+							<f:selectItems value="#{AdvancedSearchEdit.contextCriterionCollection.contextList}"/>
+						</h:selectOneMenu>
+					</div>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton id="btnAddFollowing" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemoveFollowing" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionManager.size == 1}" action="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionManager.removeObject}"/>
 				</span>
 			</h:panelGroup>
 				
@@ -60,7 +70,7 @@
             <h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
                 <h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{contextCriterionBean.logicOperator}">
                     <f:selectItems value="#{contextCriterionBean.logicOptions}"/>
-                </h:selectOneMenu>              
+                </h:selectOneMenu>           
             </h:panelGroup>
 		</tr:iterator>
 	</div>

@@ -102,6 +102,7 @@ import de.mpg.escidoc.pubman.yearbook.YearbookItemSessionBean;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
+import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
@@ -177,6 +178,8 @@ public class ViewItemFull extends FacesBean
     private UIXIterator fileIterator = new UIXIterator();
     private UIXIterator locatorIterator = new UIXIterator();
     private ContextVO context = null;
+    private AccountUserVO creator = null;
+    
     /**
      * The list of formatted organzations in an ArrayList.
      */
@@ -1581,6 +1584,28 @@ public class ViewItemFull extends FacesBean
             contextName = this.context.getName();
         }
         return contextName;
+    }
+
+    /**
+     * Gets the name of the Collection the item belongs to.
+     * 
+     * @return String formatted Collection name
+     */
+    public String getCreatorName()
+    {
+        if (this.creator == null)
+        {
+            ItemControllerSessionBean itemControllerSessionBean = getItemControllerSessionBean();
+            try
+            {
+                this.creator = itemControllerSessionBean.retrieveCreator(this.pubItem.getOwner().getObjectId());
+            }
+            catch (Exception e)
+            {
+                logger.error("Error retrieving context", e);
+            }
+        }
+        return creator.getName();
     }
 
     /**

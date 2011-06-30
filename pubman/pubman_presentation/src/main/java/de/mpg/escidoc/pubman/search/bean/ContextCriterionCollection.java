@@ -7,6 +7,9 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 
+import de.mpg.escidoc.pubman.appbase.DataModelManager;
+import de.mpg.escidoc.pubman.search.bean.AnyFieldCriterionCollection.AnyFieldCriterionManager;
+import de.mpg.escidoc.pubman.search.bean.criterion.AnyFieldCriterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.ContextCriterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.util.SelectItemComparator;
@@ -21,6 +24,8 @@ public class ContextCriterionCollection
     private ContextCriterionBean contextCriterionBean;
     private List<SelectItem> contextList;
     
+    private ContextCriterionManager contextCriterionManager;
+    
     /**
      * CTOR to create a new ArrayList<CriterionVO> 
      * starting with one empty new ContextCriterionVO
@@ -28,7 +33,7 @@ public class ContextCriterionCollection
     public ContextCriterionCollection()
     {
     	try{
-            InitialContext initialContext = new InitialContext();
+            InitialContext initialContext = new InitialContext(); 
             // initialize used Beans
             this.pubItemDepositing = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
     		getContextList();
@@ -37,6 +42,9 @@ public class ContextCriterionCollection
     		e.printStackTrace();
     	}
 		contextCriterionBean = new ContextCriterionBean(contexts);
+		contextCriterionManager = new ContextCriterionManager();
+		
+		System.out.println();
     }
     
     public void getContexts() throws Exception
@@ -52,11 +60,11 @@ public class ContextCriterionCollection
 		
         for (ContextVO c : contexts)
         {
-        	contextList.add(new SelectItem(c.getReference().getObjectId(),c.getName()));
+        	contextList.add(new SelectItem(c.getReference().getObjectId(), c.getName()));
         }
         
         Collections.sort(contextList, new SelectItemComparator());
-        contextList.add(0,new SelectItem("", "--"));
+        contextList.add(0, new SelectItem("", "--"));
 		return contextList;
 	}
     
@@ -65,14 +73,20 @@ public class ContextCriterionCollection
 		contextCriterionBean.clearCriterion();
     }
 
-	public Criterion getFilledCriterion()
+    public List<Criterion> getFilledCriterion()
     {
-        if(contextCriterionBean.getContextCriterionVO()!=null && contextCriterionBean.getContextCriterionVO().getSearchString()!=null && contextCriterionBean.getContextCriterionVO().getSearchString().length()>0)
-        	return contextCriterionBean.getCriterionVO();
-        else
-        	return null;
-    } 
-	
+        List<Criterion> returnList = new ArrayList<Criterion>();
+        for (ContextCriterionBean bean : contextCriterionManager.getObjectList())
+        {
+            Criterion vo = bean.getCriterionVO();
+            if ((vo != null && vo.getSearchString() != null && vo.getSearchString().length() > 0))
+            {
+                returnList.add(vo);
+            }
+        }
+        return returnList;
+    }
+    
 	public ContextCriterionBean getContextCriterionBean() 
 	{
 		return contextCriterionBean;
@@ -92,6 +106,67 @@ public class ContextCriterionCollection
 	{
 		this.contextList = contextList;
 	}
+    
+    public ContextCriterionManager getContextCriterionManager()
+    {
+        return contextCriterionManager;
+    }
+
+    public void setContextCriterionManager(ContextCriterionManager contextCriterionManager)
+    {
+        this.contextCriterionManager = contextCriterionManager;
+    }
 
 
+    /**
+     * Specialized DataModelManager to deal with objects of type ContextCriterionBean
+     */
+    public class ContextCriterionManager extends DataModelManager<ContextCriterionBean>
+    {
+        //List<CriterionVO> parentVO;
+        
+//        public AnyFieldCriterionManager(List<CriterionVO> parentVO)
+//        {
+//            setParentVO(parentVO);
+//        }
+        
+        public ContextCriterionManager()
+        {
+            if (getSize() == 0)
+            {
+                List<ContextCriterionBean> beanList = new ArrayList<ContextCriterionBean>();
+                beanList.add(createNewObject());
+                setObjectList(beanList);
+            }
+        }
+        
+        public ContextCriterionBean createNewObject()
+        {
+            ContextCriterion newVO = new ContextCriterion();
+            // create a new wrapper pojo
+            ContextCriterionBean contextCriterionBean = new ContextCriterionBean(newVO);
+            // we do not have direct access to the original list
+            // so we have to add the new VO on our own
+            //parentVO.add(newVO);
+            return contextCriterionBean;
+        }
+        
+        @Override
+        protected void removeObjectAtIndex(int i)
+        {
+            // due to wrapped data handling
+            super.removeObjectAtIndex(i);
+            //parentVO.remove(i);
+        }
+
+        public List<ContextCriterionBean> getDataListFromVO()
+        {
+            return this.objectList;
+        }
+        
+        public int getSize()
+        {
+            return getObjectDM().getRowCount();
+        }
+    }
 }

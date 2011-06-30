@@ -41,6 +41,7 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.violated.OptimisticLockingException;
+import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
@@ -2062,7 +2063,8 @@ public class ItemControllerSessionBean extends FacesBean
 				{
 					try
 					{
-						pubItemStatistic.logPubItemExport(pubItem, ip, userAgent, sessId, loginHelper.getLoggedIn(), referer, exportFormatVO);
+					    PubItemVO clone = new PubItemVO(pubItem);
+						pubItemStatistic.logPubItemExport(clone, ip, userAgent, sessId, loginHelper.getLoggedIn(), referer, exportFormatVO);
 					}
 					catch (Exception e)
 					{
@@ -2567,6 +2569,32 @@ public class ItemControllerSessionBean extends FacesBean
 		return navigationStringToGoBack;
 	}
 
+	/**
+	 * Return the value object of the owner of the item.
+	 */
+	public AccountUserVO retrieveCreator(String ownerId)
+    {
+	    try
+	    {
+    	    String handle = loginHelper.getESciDocUserHandle();
+    	    if (handle != null)
+    	    {
+    	        UserAccountHandler userAccountHandler = ServiceLocator.getUserAccountHandler(handle);
+    	        //return userAccountHandler.retrieveUserAccounts(in0)
+    	    }
+    	    else
+    	    {
+    	        return null;
+    	    }
+	    }
+	    catch (Exception e)
+	    {
+            logger.error("Error retrieving item owner", e);
+            logger.error("Returning null");
+        }
+        return null;
+    }
+	
 	public String getStatisticValue(String reportDefinitionType) throws Exception
 	{
 		return pubItemStatistic.getNumberOfItemOrFileRequests(reportDefinitionType, this.getCurrentPubItem().getVersion().getObjectId(), loginHelper.getAccountUser());

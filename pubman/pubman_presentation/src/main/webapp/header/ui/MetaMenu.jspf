@@ -89,7 +89,7 @@
 		} */
 	</style>
 	<div class="medium_area0 endline selectContainer">
-		<div class="medium_select selectboxIcon selectionBox">value</div>
+		<div class="medium_select selectboxIcon selectionBox"><h:outputText value="#{PubManSessionBean.localeString}"/></div>
 		<h:selectOneMenu id="selSelectLocale" value="#{PubManSessionBean.locale}" style="background-color:#006D70; border:none; color:#FFFFFF;" onchange="submit();" title="#{tip.Home_Header_Language}" immediate="true" valueChangeListener="#{PubManSessionBean.changeLanguage}">
 			<f:selectItem itemValue="en" itemLabel="#{lbl.ENUM_LANGUAGE_EN}" />
 			<f:selectItem itemValue="de" itemLabel="#{lbl.ENUM_LANGUAGE_DE}" />

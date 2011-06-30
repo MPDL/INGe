@@ -76,36 +76,48 @@ public class FileCriterion extends Criterion
        {
            if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_NO_COMPONENTS.toString()))
            {
-        	  //dummy always true query to avoid NOT at first place
-         	  criterions.add( new MetadataSearchCriterion(
+               //dummy always true query to avoid NOT at first place
+         	   criterions.add( new MetadataSearchCriterion(
          			  MetadataSearchCriterion.CriterionType.OBJECT_TYPE, "item", MetadataSearchCriterion.LogicalOperator.AND));
-         	  criterions.add( new MetadataSearchCriterion(
+         	   criterions.add( new MetadataSearchCriterion(
 	         		  MetadataSearchCriterion.CriterionType.COMPONENT_ACCESSIBILITY, MetadataSearchCriterion.LogicalOperator.NOT));
-         	  	// if no components are selected, go away immediately (no sense to check further file stuff) 
-         	  	return criterions;
+         	   // if no components are selected, go away immediately (no sense to check further file stuff) 
+         	   return criterions;
            }
            else if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_COMPONENTS.toString()))
            {
         	   criterions.add( new MetadataSearchCriterion(
         			   MetadataSearchCriterion.CriterionType.COMPONENT_ACCESSIBILITY, MetadataSearchCriterion.LogicalOperator.AND));
            }
+           else if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_FILES_ONLY.toString()))
+           {
+               storage = "internal-managed";    
+               criterions.add( new MetadataSearchCriterion(
+                       MetadataSearchCriterion.CriterionType.COMPONENT_STORAGE, storage, MetadataSearchCriterion.LogicalOperator.AND));
+               criterions.add( new MetadataSearchCriterion(
+                       MetadataSearchCriterion.CriterionType.COMPONENT_STORAGE, "external-url", MetadataSearchCriterion.LogicalOperator.NOT));
+                   
+           }
+           else if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_LOCATORS_ONLY.toString()))
+           {
+               storage = "external-url";    
+               criterions.add( new MetadataSearchCriterion(
+                       MetadataSearchCriterion.CriterionType.COMPONENT_STORAGE, storage , MetadataSearchCriterion.LogicalOperator.AND));
+               criterions.add( new MetadataSearchCriterion(
+                       MetadataSearchCriterion.CriterionType.COMPONENT_STORAGE, "internal-managed" , MetadataSearchCriterion.LogicalOperator.NOT));
+           }
            else if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_FILES.toString()))
            {
-        	   storage = "internal-managed";    
-        	   criterions.add( new MetadataSearchCriterion(
-        			   MetadataSearchCriterion.CriterionType.COMPONENT_STORAGE, storage, MetadataSearchCriterion.LogicalOperator.AND));
-        	   criterions.add( new MetadataSearchCriterion(
-        			   MetadataSearchCriterion.CriterionType.COMPONENT_STORAGE, "external-url", MetadataSearchCriterion.LogicalOperator.NOT));
-                   
+               storage = "internal-managed";    
+               criterions.add( new MetadataSearchCriterion(
+                       MetadataSearchCriterion.CriterionType.COMPONENT_STORAGE, storage, MetadataSearchCriterion.LogicalOperator.AND));                   
            }
            else if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_LOCATORS.toString()))
            {
-        	   storage = "external-url";    
-        	   criterions.add( new MetadataSearchCriterion(
-        			   MetadataSearchCriterion.CriterionType.COMPONENT_STORAGE, storage , MetadataSearchCriterion.LogicalOperator.AND));
-        	   criterions.add( new MetadataSearchCriterion(
-        			   MetadataSearchCriterion.CriterionType.COMPONENT_STORAGE, "internal-managed" , MetadataSearchCriterion.LogicalOperator.NOT));
-           }
+               storage = "external-url";    
+               criterions.add( new MetadataSearchCriterion(
+                       MetadataSearchCriterion.CriterionType.COMPONENT_STORAGE, storage , MetadataSearchCriterion.LogicalOperator.AND));
+               }
        }
        
        

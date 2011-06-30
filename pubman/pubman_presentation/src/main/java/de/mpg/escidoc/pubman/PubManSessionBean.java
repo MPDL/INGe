@@ -69,6 +69,11 @@ public class PubManSessionBean extends FacesBean
         this.locale = i18nHelper.getLocale();
     }
 
+    public String getLocaleString()
+    {
+        return getLabel("ENUM_LANGUAGE_" + locale.toUpperCase());
+    }
+    
     //     Getters and Setters
     
     public String getLocale() {

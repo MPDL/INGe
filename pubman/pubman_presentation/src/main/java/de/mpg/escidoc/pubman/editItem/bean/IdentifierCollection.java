@@ -31,6 +31,9 @@
 package de.mpg.escidoc.pubman.editItem.bean;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -93,6 +96,17 @@ public class IdentifierCollection
         {
             selectItemList.add(new SelectItem(type.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_" + type.toString())));
         }
+        
+        // Sort identifiers alphabetically
+        Collections.sort(selectItemList, new Comparator<SelectItem>()
+        {
+            @Override
+            public int compare(SelectItem o1, SelectItem o2)
+            {
+                return o1.getLabel().toLowerCase().compareTo(o2.getLabel().toLowerCase());
+            }
+        });
+        
         return selectItemList.toArray(new SelectItem[]{});
     }
 

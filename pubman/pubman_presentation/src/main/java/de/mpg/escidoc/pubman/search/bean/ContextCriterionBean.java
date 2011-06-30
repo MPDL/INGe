@@ -34,8 +34,10 @@ import java.util.List;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 
+import de.mpg.escidoc.pubman.search.AdvancedSearchEdit;
 import de.mpg.escidoc.pubman.search.bean.criterion.ContextCriterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
@@ -116,9 +118,24 @@ public class ContextCriterionBean extends CriterionBean {
 	{
 		this.contexts = contexts;
 	} 
- 
-	public Criterion getCriterionVO() {
+	 
+    public Criterion getCriterionVO()
+    {
 
-		return contextCriterionVO;
-	}
+        return contextCriterionVO;
+    }
+    
+    public String getContextName() throws Exception
+    {
+        AdvancedSearchEdit advancedSearchEdit = (AdvancedSearchEdit) getSessionBean(AdvancedSearchEdit.class);
+        
+        for(SelectItem contextItem : advancedSearchEdit.getContextCriterionCollection().getContextList())
+        {
+            if(contextItem.getValue().equals(contextCriterionVO.getSearchString()))
+            {
+                return contextItem.getLabel();
+            }
+        }
+        return null;
+    }
 }

@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.pubman.util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -1273,7 +1274,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         this.wrappedLocalTags = wrappedLocalTags;
     }
 
-    public class WrappedLocalTag
+    public class WrappedLocalTag implements Serializable
     {
         private String value;
         private PubItemVOPresentation parent;

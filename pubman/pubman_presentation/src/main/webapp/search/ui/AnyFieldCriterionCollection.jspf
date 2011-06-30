@@ -67,9 +67,6 @@
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAddFollowing" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.addObject}" />
 					<tr:commandButton id="btnRemoveFollowing" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.size == 1}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.removeObject}"/>
-<%-- 
-					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{anyFieldCriterionBean.clearCriterion}" />
---%>
 				</span>
 			</h:panelGroup>
 
