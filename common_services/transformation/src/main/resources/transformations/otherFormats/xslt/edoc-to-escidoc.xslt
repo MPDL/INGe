@@ -910,8 +910,11 @@
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:choose>
-							<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
+							<xsl:when test="$access='USER'">
 								<prop:visibility>private</prop:visibility>
+							</xsl:when>
+							<xsl:when test="$access='INSTITUT' or $access='MPG'">
+								<prop:visibility>audience</prop:visibility>
 							</xsl:when>
 							<xsl:when test="$access='PUBLIC'">
 								<prop:visibility>public</prop:visibility>
