@@ -13,24 +13,25 @@ import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatus
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
-public class LingLitScriptTransformer extends Transformer<PubItemVO>
+public class LingLitScriptTransformer extends Transformer<ItemVO>
 {
     private static Logger logger = Logger.getLogger(LingLitScriptTransformer.class);
 
     @Override
-    public List<PubItemVO> transform(List<PubItemVO> list)
+    public List<ItemVO> transform(List<ItemVO> list)
     {
         System.out.println("Number of items: " + list.size());
-        for (PubItemVO item : list)
+        for (ItemVO item : list)
         {
             if (!this.getTransformed().contains(item.getVersion().getObjectId())) 
             {
@@ -41,19 +42,20 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
 	            item = transformAlternativeTitle(item);
 	            item = transformTitle(item);
 	            item = transformDegree(item);
-	            item = assignUserGroup(item);
+	            //item = assignUserGroup(item);
 	            item = transformLocators(item);
 	            item = transformFreeKeyWords(item);
 	            item = setIsoToLanguages(item);
+	            
+	            report.addEntry("Transform" + item.getVersion().getObjectId(), "Transform "
+	                    + item.getVersion().getObjectId(), ReportEntryStatusType.FINE);
+	            this.getTransformed().add(item.getVersion().getObjectId());
             }
-            
-            report.addEntry("Transform" + item.getVersion().getObjectId(), "Transform "
-                    + item.getVersion().getObjectId(), ReportEntryStatusType.FINE);
         }
         return list;
     }
 
-    private PubItemVO removeBrokenIdentifiers(PubItemVO item)
+    private ItemVO removeBrokenIdentifiers(ItemVO item)
     {
         for (FileVO fileVO : item.getFiles())
         {
@@ -65,20 +67,20 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         return item;
     }
 
-    private PubItemVO removeEmptySubjects(PubItemVO item)
+    private ItemVO removeEmptySubjects(ItemVO item)
     {
-        for (int i = item.getMetadata().getSubjects().size() - 1; i>= 0; i--)
+        for (int i = ((MdsPublicationVO) item.getMetadataSets().get(0)).getSubjects().size() - 1; i>= 0; i--)
         {
-            if ("".equals(item.getMetadata().getSubjects().get(i).getValue()))
+            if ("".equals(((MdsPublicationVO) item.getMetadataSets().get(0)).getSubjects().get(i).getValue()))
             {
-                item.getMetadata().getSubjects().remove(i);
+                ((MdsPublicationVO) item.getMetadataSets().get(0)).getSubjects().remove(i);
             }
-            else if ("ISO639_3".equals(item.getMetadata().getSubjects().get(i).getType()))
+            else if ("ISO639_3".equals(((MdsPublicationVO) item.getMetadataSets().get(0)).getSubjects().get(i).getType()))
             {
                 try
                 {
-                    String newSubject = getConeLanguageNameByTitle(item.getMetadata().getSubjects().get(i).getValue());
-                    item.getMetadata().getSubjects().get(i).setValue(newSubject);
+                    String newSubject = getConeLanguageNameByTitle(((MdsPublicationVO) item.getMetadataSets().get(0)).getSubjects().get(i).getValue());
+                    ((MdsPublicationVO) item.getMetadataSets().get(0)).getSubjects().get(i).setValue(newSubject);
                 }
                 catch (Exception e)
                 {
@@ -89,9 +91,9 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         return item;
     }
 
-    public PubItemVO transformAlternativeTitle(PubItemVO item)
+    public ItemVO transformAlternativeTitle(ItemVO item)
     {
-        for (SourceVO source : item.getMetadata().getSources())
+        for (SourceVO source : ((MdsPublicationVO) item.getMetadataSets().get(0)).getSources())
         {
             String title = source.getTitle().getValue();
             if (!(title.equals("") || (title == null)))
@@ -114,9 +116,9 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         return item;
     }
     
-    private void processingAlternativeTitles(PubItemVO item, String title)
+    private void processingAlternativeTitles(ItemVO item, String title)
     {
-        for (SourceVO source : item.getMetadata().getSources())
+        for (SourceVO source : ((MdsPublicationVO) item.getMetadataSets().get(0)).getSources())
         {
             for (int i = 0; i < source.getAlternativeTitles().size(); i++)
             {
@@ -139,19 +141,19 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         }
     }
     
-    public PubItemVO transformTitle(PubItemVO item)
+    public ItemVO transformTitle(ItemVO item)
     {
         String spareSpaces = "\n             ";
-        TextVO title = item.getMetadata().getTitle();
+        TextVO title = ((MdsPublicationVO) item.getMetadataSets().get(0)).getTitle();
         title.setValue(title.getValue().replace(spareSpaces, ""));
         return item;
     }
 
-    public PubItemVO transformFreeKeyWords(PubItemVO item)
+    public ItemVO transformFreeKeyWords(ItemVO item)
     {
-        String fkw = item.getMetadata().getFreeKeywords().getValue();
+        String fkw = ((MdsPublicationVO) item.getMetadataSets().get(0)).getFreeKeywords().getValue();
         List<String> list = new ArrayList<String>();
-        item.getMetadata().getLanguages().addAll(list);
+        ((MdsPublicationVO) item.getMetadataSets().get(0)).getLanguages().addAll(list);
         String locClass = null;
         String locSubjectHeading = "";
         String[] fields = fkw.split(",");
@@ -171,9 +173,9 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
                             try
                             {
                                 TextVO newSubject = new TextVO(getConeLanguageName(lang), null, "ISO639_3");
-                                if (!item.getMetadata().getSubjects().contains(newSubject))
+                                if (!((MdsPublicationVO) item.getMetadataSets().get(0)).getSubjects().contains(newSubject))
                                 {
-                                    item.getMetadata().getSubjects().add(newSubject);
+                                    ((MdsPublicationVO) item.getMetadataSets().get(0)).getSubjects().add(newSubject);
                                 }
                             }
                             catch (Exception e) {
@@ -227,13 +229,13 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
             fkw += ",\n";
         }
         fkw += locSubjectHeading;
-        item.getMetadata().getFreeKeywords().setValue(fkw);
+        ((MdsPublicationVO) item.getMetadataSets().get(0)).getFreeKeywords().setValue(fkw);
         return item;
     }
 
-    public PubItemVO setIsoToLanguages(PubItemVO item)
+    public ItemVO setIsoToLanguages(ItemVO item)
     {
-        List<String> languages = item.getMetadata().getLanguages();
+        List<String> languages = ((MdsPublicationVO) item.getMetadataSets().get(0)).getLanguages();
         for (int i = 0; i < languages.size(); i++)
         {
             String currentIsoLangValue = languages.get(i);
@@ -371,7 +373,7 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         }
     }
 
-    public PubItemVO assignUserGroup(PubItemVO item)
+    public ItemVO assignUserGroup(ItemVO item)
     {
         for (FileVO f : item.getFiles())
         {
@@ -398,7 +400,7 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
         return item;
     }
 
-    private PubItemVO transformLocators(PubItemVO item)
+    private ItemVO transformLocators(ItemVO item)
     {
         for (int i = 0; i < item.getFiles().size(); i++)
         {
@@ -415,22 +417,22 @@ public class LingLitScriptTransformer extends Transformer<PubItemVO>
     }
 
 
-    public PubItemVO transformDegree(PubItemVO item)
+    public ItemVO transformDegree(ItemVO item)
     {
-        if (DegreeType.MAGISTER.equals(item.getMetadata().getDegree()))
+        if (DegreeType.MAGISTER.equals(((MdsPublicationVO) item.getMetadataSets().get(0)).getDegree()))
         {
-            item.getMetadata().setDegree(DegreeType.MASTER);
+            ((MdsPublicationVO) item.getMetadataSets().get(0)).setDegree(DegreeType.MASTER);
         }
         return item;
     }
 
-    public PubItemVO removeURI(PubItemVO item)
+    public ItemVO removeURI(ItemVO item)
     {
-        for (int i = 0; i < item.getMetadata().getIdentifiers().size(); i++)
+        for (int i = 0; i < ((MdsPublicationVO) item.getMetadataSets().get(0)).getIdentifiers().size(); i++)
         {
-            if (IdType.URI.equals(item.getMetadata().getIdentifiers().get(i).getType()))
+            if (IdType.URI.equals(((MdsPublicationVO) item.getMetadataSets().get(0)).getIdentifiers().get(i).getType()))
             {
-                item.getMetadata().getIdentifiers().remove(i);
+                ((MdsPublicationVO) item.getMetadataSets().get(0)).getIdentifiers().remove(i);
             }
         }
         return item;

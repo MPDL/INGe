@@ -33,22 +33,29 @@ package de.mpg.escidoc.services.batchprocess.elements;
 import gov.loc.www.zing.srw.SearchRetrieveRequestType;
 import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 
-import java.util.List;
-
 import org.apache.axis.types.NonNegativeInteger;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatusType;
 import de.mpg.escidoc.services.batchprocess.helper.CoreServiceHelper;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
-public class LingLitAllElements extends Elements<ItemVO>
+/**
+ * TODO Description
+ *
+ * @author franke (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
+public class BPCPublicFiles extends Elements<ItemVO>
 {
-    public LingLitAllElements(String[] args)
+
+
+    public BPCPublicFiles(String[] args)
     {
         super(args);
     }
@@ -65,49 +72,26 @@ public class LingLitAllElements extends Elements<ItemVO>
             throw new RuntimeException("Login error. Please make sure the user credentials (escidoc.user.name, escidoc.user.password) are provided in your settings.xml file." + e);
         }
     }
-
-    private static final String LOCAL_TAG = "LingLit Import 2010-04-01 10:10";
-    private static final String SEARCH_QUERY = "escidoc.context.objid=\"escidoc:37005\" and escidoc.content-model.objid=\"escidoc:persistent4\"";
-
+    
+    private static final String QUERY = "escidoc.objid=\"escidoc:641589\" or escidoc.objid=\"escidoc:641599\" or escidoc.objid=\"escidoc:598347\" or escidoc.objid=\"escidoc:598345\" or escidoc.objid=\"escidoc:641614\" or escidoc.objid=\"escidoc:641608\" or escidoc.objid=\"escidoc:641627\" or escidoc.objid=\"escidoc:641648\" or escidoc.objid=\"escidoc:641689\" or escidoc.objid=\"escidoc:641619\" or escidoc.objid=\"escidoc:641625\" or escidoc.objid=\"escidoc:641621\" or escidoc.objid=\"escidoc:641631\" or escidoc.objid=\"escidoc:641633\" or escidoc.objid=\"escidoc:641686\" or escidoc.objid=\"escidoc:641638\" or escidoc.objid=\"escidoc:597657\" or escidoc.objid=\"escidoc:587999\" or escidoc.objid=\"escidoc:641716\" or escidoc.objid=\"escidoc:641642\" or escidoc.objid=\"escidoc:641646\" or escidoc.objid=\"escidoc:641680\" or escidoc.objid=\"escidoc:641652\" or escidoc.objid=\"escidoc:641644\" or escidoc.objid=\"escidoc:641656\" or escidoc.objid=\"escidoc:641654\" or escidoc.objid=\"escidoc:596006\" or escidoc.objid=\"escidoc:598970\" or escidoc.objid=\"escidoc:597650\" or escidoc.objid=\"escidoc:597648\" or escidoc.objid=\"escidoc:596002\" or escidoc.objid=\"escidoc:641676\" or escidoc.objid=\"escidoc:641660\" or escidoc.objid=\"escidoc:641712\" or escidoc.objid=\"escidoc:641674\" or escidoc.objid=\"escidoc:597847\" or escidoc.objid=\"escidoc:641668\" or escidoc.objid=\"escidoc:641710\" or escidoc.objid=\"escidoc:588131\" or escidoc.objid=\"escidoc:641706\" or escidoc.objid=\"escidoc:641666\" or escidoc.objid=\"escidoc:641704\" or escidoc.objid=\"escidoc:598939\" or escidoc.objid=\"escidoc:597612\" or escidoc.objid=\"escidoc:597560\" or escidoc.objid=\"escidoc:598672\"";
+    
     @Override
     public void retrieveElements()
     {
         try
         {
+
             SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
             searchRetrieveRequest.setVersion("1.1");
-            searchRetrieveRequest.setQuery(SEARCH_QUERY);
+            searchRetrieveRequest.setQuery(QUERY);
             searchRetrieveRequest.setMaximumRecords(new NonNegativeInteger(maximumNumberOfElements + ""));
             searchRetrieveRequest.setRecordPacking("xml");
             SearchRetrieveResponseType searchResult = ServiceLocator.getSearchHandler("escidoc_all").searchRetrieveOperation(searchRetrieveRequest);
 
-            List<ItemVO> list = CoreServiceHelper.transformSearchResultXmlToListOfItemVO(searchResult);
-            for (ItemVO itemVO : list)
-            {
-                if (!(itemVO.getLocalTags().contains(LOCAL_TAG)))
-                {
-                    elements.add(itemVO);
-                }
-            }
+            elements.addAll(CoreServiceHelper.transformSearchResultXmlToListOfItemVO(searchResult));
             report.addEntry("retrieveElements", "Get Data", ReportEntryStatusType.FINE);
             System.out.println(elements.size() + " items found");
-//            for (int i = elements.size() - 1; i >= 0; i--)
-//            {
-//            	if (elements.get(i).getVersion().getVersionNumber() == 1)
-//            	{
-//            		System.out.println(elements.get(i).getVersion().getObjectId() + " was not edited");
-//            	}
-//            	else if(elements.get(i).getVersion().getVersionNumber() != 1 && !elements.get(i).getVersion().getState().equals(State.RELEASED))
-//            	{
-//            		this.getTransformed().add(elements.get(i).getVersion().getObjectId());
-//            		System.out.println(elements.get(i).getVersion().getObjectId() + " was edited, but not released.");
-//            	}
-//            	else
-//            	{
-//            	    System.out.println(elements.get(i).getVersion().getObjectId() + " was edited, removed from the list");
-//            	    elements.remove(i);
-//            	}
-//			}
+            
         }
         catch (Exception e)
         {
@@ -115,14 +99,10 @@ public class LingLitAllElements extends Elements<ItemVO>
         }
     }
 
-    public List<ItemVO> getElements()
-    {
-        return elements;
-    }
-
     @Override
     public CoreServiceObjectType getObjectType()
     {
         return CoreServiceObjectType.ITEM;
     }
+    
 }
