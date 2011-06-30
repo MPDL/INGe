@@ -333,11 +333,20 @@
 			<xsl:otherwise></xsl:otherwise>
 		</xsl:choose>
 		<!-- SOURCE CREATOR -->
-		<xsl:variable name="role" select="$creator-ves/enum[@uri=eterms:creator/@role]"/>
-		<xsl:if test="exists($role='author' or $role='editor')">
+		<xsl:if test="exists(eterms:creator[@role = $creator-ves/enum[.='author']/@uri or @role = $creator-ves/enum[.='editor']/@uri]/*)">
 			<xsl:text disable-output-escaping="yes">note = "</xsl:text>	
-				<xsl:apply-templates select="eterms:creator/person:person[parent::*/parent::source:source]"/>
-				<xsl:apply-templates select="eterms:creator/organization:organization[parent::*/parent::source:source]"/>
+				<xsl:for-each select="eterms:creator[@role = $creator-ves/enum[.='author']/@uri or @role = $creator-ves/enum[.='editor']/@uri]">
+					<xsl:if test="position() &gt; 1">; </xsl:if>
+					<xsl:variable name="role" select="@role"/>
+					<xsl:choose>
+						<xsl:when test="exists(person:person)">
+							<xsl:value-of select="$creator-ves/enum[@uri = $role]"/>: <xsl:value-of select="person:person/eterms:family-name"/>, <xsl:value-of select="person:person/eterms:given-name"/>
+						</xsl:when>
+						<xsl:when test="exists(organization:organization)">
+							<xsl:value-of select="$creator-ves/enum[@uri = $role]"/>: <xsl:value-of select="organization:organization/dc:title"/>
+						</xsl:when>
+					</xsl:choose>
+				</xsl:for-each>
 			<xsl:text disable-output-escaping="yes">",&#xD;&#xA;</xsl:text>
 		</xsl:if>
 		
@@ -369,7 +378,6 @@
 		</xsl:if>		
 		<!-- TODO SOURCE HOWPUBLISHED -->		
 	</xsl:template>
-	
 	
 	<xsl:template match="eterms:publishing-info/eterms:edition">
 		<xsl:if test=".!=''">

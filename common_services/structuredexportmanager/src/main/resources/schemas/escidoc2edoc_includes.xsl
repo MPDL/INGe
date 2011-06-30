@@ -100,9 +100,12 @@
 				"/>
 				<xsl:if test="local-name()='person'">
 					<xsl:variable name="ouo" select="func:getOUTree(organization:organization/dc:identifier)"/>
-					<xsl:attribute name="internextern" select="
-						if ( $ouo[@mpg='false'] or $ouo//aff[@mpg='false'] ) then 'unknown' else 'mpg'
-					"/>
+					<xsl:attribute name="internextern">
+						<xsl:choose>
+							<xsl:when test="$ouo[@mpg='true'] or $ouo//aff[@mpg='true']">mpg</xsl:when>
+							<xsl:otherwise>unknown</xsl:otherwise>
+						</xsl:choose>
+					</xsl:attribute>
 					
 					<xsl:if test="$type='import'">
 					
