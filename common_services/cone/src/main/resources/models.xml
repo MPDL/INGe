@@ -331,6 +331,33 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation&gt;,x}: &gt;
 			</pattern>
 		</result>
 	</model>
+	<model>
+		<name>imago</name>
+		<aliases>
+			<alias>imago</alias>
+		</aliases>
+		<description>Imago Thesaurus</description>
+		<open>true</open>
+		<primary-identifier control="true" generate-cone-id="false"></primary-identifier>
+		<predicates>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" localized="true" mandatory="true" multiple="false" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Alternative Name" value="http://purl.org/dc/terms/alternative" localized="true" mandatory="false" multiple="true" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
+			<predicate name="Parent" value="http://purl.org/dc/elements/1.1/relation" generateObject="false" localized="false" mandatory="false" multiple="true" modify="true" resourceModel="imago" includeResource="true" searchable="true" restricted="false" shouldBeUnique="false"></predicate>
+		</predicates>
+		<result>
+			<pattern>
+&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
+&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
+&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
+&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+			</pattern>
+		</result>
+	</model>
 	<formats>
 		<format id="html">
 			<mime-type id="text/html"/>

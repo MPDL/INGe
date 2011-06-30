@@ -227,6 +227,7 @@ public class ModelList
                         Boolean.parseBoolean(attributes.getValue("mandatory")),
                         Boolean.parseBoolean(attributes.getValue("localized")),
                         Boolean.parseBoolean(attributes.getValue("generateObject")),
+                        (attributes.getValue("includeResource") == null ? true : Boolean.parseBoolean(attributes.getValue("includeResource"))),
                         Boolean.parseBoolean(attributes.getValue("searchable")),
                         Boolean.parseBoolean(attributes.getValue("restricted")),
                         Boolean.parseBoolean(attributes.getValue("overwrite")),
@@ -793,6 +794,7 @@ public class ModelList
         private boolean localized;
         private List<Predicate> predicates = new ArrayList<Predicate>();
         private boolean generateObject = false;
+        private boolean includeResource = true;
         private String resourceModel;
         private boolean searchable;
         private boolean restricted;
@@ -824,6 +826,7 @@ public class ModelList
                 boolean mandatory,
                 boolean localized,
                 boolean generateObject,
+                boolean includeResource,
                 boolean searchable,
                 boolean restricted,
                 boolean overwrite,
@@ -840,6 +843,7 @@ public class ModelList
             this.localized = localized;
             this.name = name;
             this.generateObject = generateObject;
+            this.includeResource = includeResource;
             this.searchable = searchable;
             this.restricted = restricted;
             this.overwrite = overwrite;
@@ -955,6 +959,16 @@ public class ModelList
         public List<Predicate> getPredicates()
         {
             return predicates;
+        }
+
+        public boolean isIncludeResource()
+        {
+            return includeResource;
+        }
+
+        public void setIncludeResource(boolean includeResource)
+        {
+            this.includeResource = includeResource;
         }
 
         public boolean isGenerateObject()

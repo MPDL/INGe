@@ -93,6 +93,7 @@
 		<xs:attribute name="searchable" type="xs:boolean" default="true" use="optional"/>
 		<xs:attribute name="generateObject" type="xs:boolean" default="true" use="optional"/>
 		<xs:attribute name="resourceModel" type="xs:NCName" use="optional"/>
+		<xs:attribute name="includeResource" type="xs:boolean" use="optional"/>
 		<xs:attribute name="default" type="xs:string" default="" use="optional"/>
 		<xs:attribute name="overwrite" type="xs:boolean" use="optional"/>
 		<xs:attribute name="event" type="EventType" use="optional"/>

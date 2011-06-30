@@ -671,14 +671,14 @@ public class SQLQuerier implements Querier
                 {
                 	if (!predicate.isRestricted() || loggedIn)
                 	{
-	                    if (predicate.isResource() && !(idStack.contains(object)))
+	                    if (predicate.isResource() && !(idStack.contains(object)) && predicate.isIncludeResource())
 	                    {
 	                        idStack.push(object);
 	                        localizedTripleObject = details(predicate.getResourceModel(), object, language, idStack, connection);
 	                        idStack.pop();
 	                        localizedTripleObject.setLanguage(lang);
 	                    }
-	                    else if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
+	                    else if (!predicate.isResource() && predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
 	                    {
 	                        localizedTripleObject = details(null, predicate.getPredicates(), object, language, idStack, connection);
 	                        localizedTripleObject.setLanguage(lang);

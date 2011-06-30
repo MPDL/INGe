@@ -407,7 +407,7 @@ public class ModelHelper
                             strings.addAll(replacePattern(treeValue, line, predicate.getPredicate(subPredicateName), lang, loggedIn, prefix + predicate.getId() + "|"));
                         }
                     }
-                    else if (predicate.isResource() && value instanceof TreeFragment)
+                    else if (predicate.isResource() && value instanceof TreeFragment && predicate.isIncludeResource())
                     {
                         Querier querier = QuerierFactory.newQuerier(loggedIn);
                         TreeFragment treeFragment = querier.details(predicate.getResourceModel(), ((TreeFragment)value).getSubject(), lang);
@@ -418,7 +418,7 @@ public class ModelHelper
                             strings.addAll(replacePattern(treeFragment, line, newModel.getPredicate(subPredicateName), lang, loggedIn, prefix + predicate.getId() + "|"));
                         }
                     }
-                    else if (predicate.isResource() && value instanceof LocalizedString)
+                    else if (predicate.isResource() && value instanceof LocalizedString && predicate.isIncludeResource())
                     {
                         Querier querier = QuerierFactory.newQuerier(loggedIn);
                         TreeFragment treeFragment = querier.details(predicate.getResourceModel(), ((LocalizedString)value).getValue(), lang);

@@ -35,6 +35,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import de.mpg.escidoc.services.aa.AuthenticationVO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 
 /**
@@ -71,7 +72,7 @@ public class EditHelper
     
     public static String getCurrentUser(HttpServletRequest request)
     {
-        AccountUserVO user = (AccountUserVO) request.getSession().getAttribute("user");
-        return user.getReference().getObjectId();
+        AuthenticationVO user = (AuthenticationVO) request.getSession().getAttribute("user");
+        return user.getUserId();
     }
 }
