@@ -1,65 +1,68 @@
 package de.mpg.escidoc.services.cone.web;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
-import de.escidoc.www.services.aa.UserAccountHandler;
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.GrantVO;
-import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.aa.Aa;
+import de.mpg.escidoc.services.aa.AuthenticationVO.Role;
 
 public class Login
 {
 
-	public static boolean checkLogin(HttpServletRequest request, String userHandle, boolean strict) throws Exception
+    /**
+     * Hide constructor of the static class.
+     */
+    private Login()
+    {}
+    
+	public static boolean checkLogin(HttpServletRequest request, boolean strict)
 	{
-		XmlTransforming xmlTransforming = new XmlTransformingBean();
-		boolean showWarning = false;
-	    UserAccountHandler userAccountHandler = ServiceLocator.getUserAccountHandler(userHandle);
-	    String xmlUser = userAccountHandler.retrieve(userHandle);
 	    
-	    AccountUserVO accountUser = xmlTransforming.transformToAccountUser(xmlUser);
-	    // add the user handle to the transformed account user
-	    accountUser.setHandle(userHandle);
-	    request.getSession().setAttribute("user_handle_exist",Boolean.TRUE);
-	    String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(accountUser.getReference().getObjectId());
-	    List<GrantVO> grants = xmlTransforming.transformToGrantVOList(userGrantXML);
-	    
-	    request.getSession().setAttribute("logged_in", Boolean.TRUE);
+	    Aa aa = null;
+	    try
+	    {
+	        aa = new Aa(request);
+	    }
+	    catch (Exception e)
+	    {
+            throw new RuntimeException(e);
+        }
+	    if (aa != null && aa.getAuthenticationVO() != null)
+	    {
+	        request.getSession().setAttribute("logged_in", Boolean.TRUE);
+	    }
+	    else
+	    {
+	        return false;
+	    }
 	    
 	    if (!strict)
 	    {
 	    	return true;
 	    }
 	    
-        showWarning = true;
+        boolean showWarning = true;
         
-	    for (GrantVO grant : grants)
+	    for (Role role : aa.getAuthenticationVO().getRoles())
 	    {
-	        accountUser.getGrants().add(grant);
-	        if ("escidoc:role-system-administrator".equals(grant.getRole()))
+	        if ("escidoc:role-system-administrator".equals(role.getKey()))
 	        {
-	            request.getSession().setAttribute("user", accountUser);
-	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
+	            request.getSession().setAttribute("user", aa.getAuthenticationVO());
 	    		request.getSession().setAttribute("edit_open_vocabulary", Boolean.TRUE);
 	    		request.getSession().setAttribute("edit_closed_vocabulary", Boolean.TRUE);
 	    		showWarning = false;
 	    		break;
 	        }
-	        if ("escidoc:role-cone-open-vocabulary-editor".equals(grant.getRole()))
+	        if ("escidoc:role-cone-open-vocabulary-editor".equals(role.getKey()))
 	        {
-	        	request.getSession().setAttribute("user", accountUser);
+	        	request.getSession().setAttribute("user", aa.getAuthenticationVO());
 	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
 	    		request.getSession().setAttribute("edit_open_vocabulary", Boolean.TRUE);	    		
 	        	showWarning = false;
 	        	continue;
 	        }
-	        if ("escidoc:role-cone-closed-vocabulary-editor".equals(grant.getRole()))
+	        if ("escidoc:role-cone-closed-vocabulary-editor".equals(role.getKey()))
 	        {
-	        	request.getSession().setAttribute("user", accountUser);
+	        	request.getSession().setAttribute("user", aa.getAuthenticationVO());
 	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
 	    		request.getSession().setAttribute("edit_closed_vocabulary", Boolean.TRUE);	    		
 	        	showWarning = false;
@@ -71,4 +74,16 @@ public class Login
 	    
 	}
 	
+	public static boolean getLoggedIn(HttpServletRequest request)
+    {
+	    if (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue())
+        {
+            return true;
+        }
+	    else
+	    {
+	        checkLogin(request, true);
+	        return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
+	    }
+    }
 }

@@ -27,14 +27,8 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
+<%@page import="de.mpg.escidoc.services.cone.web.Login"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
-<%!
-	private boolean getLoggedIn(HttpServletRequest request)
-	{
-	    return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
-	}
-%>
 
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -66,7 +60,7 @@
 						</div>
 					</div>
 					<div class="full_area0">
-						<% if (request.getSession() != null && getLoggedIn(request)) {
+						<% if (request.getSession() != null && Login.getLoggedIn(request)) {
 							
 							boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue());
 							boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue());

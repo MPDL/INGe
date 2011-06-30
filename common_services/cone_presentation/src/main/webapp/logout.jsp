@@ -7,6 +7,7 @@
 	request.getSession().removeAttribute("edit_open_vocabulary");
 	request.getSession().removeAttribute("edit_closed_vocabulary");
 	request.getSession().removeAttribute("user_handle_exist");
+	request.getSession().removeAttribute("authenticention");
 
-	response.sendRedirect(PropertyReader.getProperty("escidoc.framework_access.framework.url") + "/aa/logout?target=" + URLEncoder.encode(request.getParameter("target"), "UTF-8"));
+	response.sendRedirect("index.jsp");
 %>

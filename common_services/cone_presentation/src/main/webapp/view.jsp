@@ -27,6 +27,7 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
+<%@page import="de.mpg.escidoc.services.cone.web.Login"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="de.mpg.escidoc.services.cone.Querier" %>
 <%@ page import="de.mpg.escidoc.services.cone.QuerierFactory" %>
@@ -40,13 +41,6 @@
 <%@ page import="de.mpg.escidoc.services.cone.util.TreeFragment" %>
 <%@ page import="de.mpg.escidoc.services.cone.util.LocalizedTripleObject" %>
 <%@ page import="java.io.StringWriter" %>
-
-<%!
-	private boolean getLoggedIn(HttpServletRequest request)
-	{
-	    return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
-	}
-%>
 
 <%!
 
@@ -118,7 +112,7 @@
 	
 	if (uri != null && !"".equals(uri) && modelName != null && !"".equals(modelName))
 	{
-	    boolean loggedIn = getLoggedIn(request);
+	    boolean loggedIn = Login.getLoggedIn(request);
 		
 		Querier querier = QuerierFactory.newQuerier(loggedIn);
 		
@@ -147,7 +141,7 @@
 					<div class="small_marginLIncl subHeaderSection">
 						<div class="contentMenu">
 							<div class="free_area0 sub">
-								<% if (getLoggedIn(request)) { %>
+								<% if (Login.getLoggedIn(request)) { %>
 								
 									<% if (model.isOpen() &&
 										(request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue())) { %>

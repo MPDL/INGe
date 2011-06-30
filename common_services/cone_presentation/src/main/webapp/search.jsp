@@ -27,6 +27,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
+<%@page import="de.mpg.escidoc.services.cone.web.Login"%>
 <%@page import="de.mpg.escidoc.services.cone.util.LocalizedString"%>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -44,12 +45,6 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.util.Enumeration" %>
 
-<%!
-	private boolean getLoggedIn(HttpServletRequest request)
-	{
-	    return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
-	}
-%>
 <%
 	
 	List<? extends Describable> results = null;
@@ -72,11 +67,10 @@
 	    
 	}
 	request.getSession().setAttribute("latestSearch", path);
+	boolean loggedIn = Login.getLoggedIn(request);
 	
 	if (request.getParameter("searchterm") != null && !"".equals(request.getParameter("searchterm")))
 	{
-	    boolean loggedIn = getLoggedIn(request);
-		
 		Querier querier = QuerierFactory.newQuerier(loggedIn);
 	   
 	    if (request.getParameter("lang") != null && !"".equals(request.getParameter("lang")))
@@ -176,7 +170,7 @@
 														 }	
 													 } %>
 													<span class="large_area0_p8 lineToolSection">
-														<% if (getLoggedIn(request)) { %>
+														<% if (loggedIn) { %>
 															<% 
 															if((Boolean)request.getSession().getAttribute("open_model") &&																	
 																	(request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue())) { %>

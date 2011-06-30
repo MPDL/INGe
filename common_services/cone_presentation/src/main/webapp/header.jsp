@@ -33,11 +33,11 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>CoNE - Control of Named Entities</title>
-	<link href="<%= PropertyReader.getProperty("escidoc.pubman.common.presentation.url") %>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
+	<link href="<%= PropertyReader.getProperty("escidoc.common.presentation.url") %>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
 
-	<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") %>" id="highContrastTheme" type="text/css" title="high contrast" rel="alternate stylesheet"/>
-	<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") %>" id="classicTheme" type="text/css" title="classic" rel="alternate stylesheet"/>	
-	<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") %>" id="PubManTheme" type="text/css" title="PubMan" rel="stylesheet"/>
+	<link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.contrast.url") %>" id="HighContrastTheme" type="text/css" title="high contrast" rel="alternate stylesheet"/>
+	<link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.classic.url") %>" id="ClassicTheme" type="text/css" title="classic" rel="alternate stylesheet"/>	
+	<link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.standard.url") %>" id="BlueTheme" type="text/css" title="blue" rel="stylesheet"/>
 
 	<script language="JavaScript" type="text/javascript">
 		  function applyCookieStyle() {

@@ -27,6 +27,7 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
+<%@page import="de.mpg.escidoc.services.cone.web.Login"%>
 <%@page import="de.mpg.escidoc.services.cone.ModelList.Predicate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
@@ -61,13 +62,6 @@
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="java.util.regex.Matcher"%>
 <%@page import="de.mpg.escidoc.services.cone.util.LocalizedString"%>
-
-<%!
-	private boolean getLoggedIn(HttpServletRequest request)
-	{
-	    return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
-	}
-%>
 
 <%!
 	private void removeIdentifierPrefixes(TreeFragment fragment, Model model) throws Exception
@@ -113,8 +107,9 @@
 							<div class="subHeader">
 								<%
 									errors = new ArrayList<String>();
-
-									if (!getLoggedIn(request))
+									boolean loggedIn = Login.getLoggedIn(request);
+									
+									if (!loggedIn)
 									{
 									    errors.add("You are not logged in!");
 									}
@@ -159,7 +154,7 @@
 										}
 										
 										SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-										RDFHandler rdfHandler = new RDFHandler(getLoggedIn(request));
+										RDFHandler rdfHandler = new RDFHandler(loggedIn);
 										try {
 											parser.parse(uploadedStream, rdfHandler);
 										}
@@ -167,9 +162,7 @@
 										{
 											errors.add("Invalid RDF file!<br/>" + e.getMessage());
 										}
-	
-										boolean loggedIn = getLoggedIn(request);
-										
+
 										Querier querier = QuerierFactory.newQuerier(loggedIn);
 										
 										List<LocalizedTripleObject> results = rdfHandler.getResult();

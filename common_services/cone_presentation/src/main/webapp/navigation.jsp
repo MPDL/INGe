@@ -42,22 +42,10 @@
 <%@ page import="de.mpg.escidoc.services.common.valueobjects.GrantVO" %>
 <%@ page import="de.mpg.escidoc.services.cone.web.Login"%>
 
-<%!
-	private boolean getLoggedIn(HttpServletRequest request)
-	{
-	    return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
-	}
-%>
-
 <%
 
-	boolean showWarning = false;
+	boolean showWarning = Login.checkLogin(request, true);
 	
-	if (request.getParameter("eSciDocUserHandle") != null)
-	{
-		String userHandle = new String(Base64.decodeBase64(request.getParameter("eSciDocUserHandle").getBytes()));
-	    showWarning = Login.checkLogin(request, userHandle, true);
-	}
 %>
 
 
@@ -66,7 +54,7 @@
 	<span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu">
 		<!-- logo alternate area starts here -->
 		<div class="free_area0 small_marginLExcl logoAlternate">
-			<a href="" >
+			<a href="">
 				<span>eSciDoc.</span>
 				<span>CoNE</span>
 			</a>
@@ -79,10 +67,10 @@
 
 			<!-- Login -->
 		
-				<% if (getLoggedIn(request)) { %>
-					<a class="medium_area0_p8 endline" href="logout.jsp?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Logout</a>
+				<% if (Login.getLoggedIn(request)) { %>
+					<a class="medium_area0_p8 endline" href="logout.jsp?target=<%= URLEncoder.encode(PropertyReader.getProperty("escidoc.cone.service.url") + request.getServletPath().substring(1), "UTF-8") %>">Logout</a>
 				<% } else { %>
-					<a class="medium_area0_p8 endline" href="<%= PropertyReader.getProperty("escidoc.framework_access.login.url") %>/aa/login?target=<%= URLEncoder.encode(PropertyReader.getProperty("escidoc.cone.service.url") + request.getServletPath().substring(1), "UTF-8") %>">Login</a>
+					<a class="medium_area0_p8 endline" href="/auth/login.jsp">Login</a>
 				<% } %>
 				<span class="seperator"></span>
 		

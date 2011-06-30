@@ -52,13 +52,13 @@
 				<link type="text/css" rel="stylesheet">
 					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.common.presentation.url" />resources/cssFramework/main.css</xsl:attribute>
 				</link>
-				<link id="highContrastTheme" type="text/css" title="kontrastreich" rel="alternate stylesheet">
+				<link id="HighContrastTheme" type="text/css" title="kontrastreich" rel="alternate stylesheet">
 					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.stylesheet.contrast.url" /></xsl:attribute>
 				</link>
-				<link id="classicTheme" type="text/css" title="classic" rel="alternate stylesheet">
+				<link id="ClassicTheme" type="text/css" title="classic" rel="alternate stylesheet">
 					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.stylesheet.classic.url" /></xsl:attribute>
 				</link>
-				<link id="PubManTheme" type="text/css" title="PubMan" rel="stylesheet">
+				<link id="BlueTheme" type="text/css" title="Blue" rel="stylesheet">
 					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.stylesheet.standard.url" /></xsl:attribute>
 				</link>
 				
@@ -312,7 +312,15 @@
 											<xsl:sort select="eprints:affiliatedInstitution[0]"/>
 											<div class="free_area0 endline itemLine noTopBorder">
 												<b class="xLarge_area0 endline labelLine">
-													<xsl:value-of select="escidoc:label('current_position')"/><span class="noDisplay">: </span>
+													<xsl:choose>
+														<xsl:when test="not(exists(eterms:end-date)) and not(exists(eterms:start-date))">
+															<xsl:value-of select="escidoc:label('position')"/><span class="noDisplay">: </span>
+														</xsl:when>
+														<xsl:otherwise>
+															<xsl:value-of select="escidoc:label('current_position')"/><span class="noDisplay">: </span>
+														</xsl:otherwise>
+													</xsl:choose>
+													
 												</b>
 												<span class="xHuge_area0 xTiny_marginLExcl endline">
 													<xsl:value-of select="eterms:position-name"/>
@@ -505,6 +513,7 @@
 			<label id="language_not_provided">The selected language is not supported by this service.</label>
 			<label id="researcher_profile">Researcher Profile</label>
 			<label id="current_position">Current Position</label>
+			<label id="position">Position</label>
 			<label id="former_position">Former Position</label>
 			<label id="awards">Awards</label>
 			<label id="phone">Phone</label>
@@ -523,6 +532,7 @@
 			<label id="language_not_provided">Die gewählte Sprache wird von diesem Service nicht unterstützt.</label>
 			<label id="researcher_profile">Forscherprofil</label>
 			<label id="current_position">Aktuelle Position</label>
+			<label id="position">Position</label>
 			<label id="former_position">Ehemalige Position</label>
 			<label id="awards">Auszeichnungen</label>
 			<label id="phone">Telefon</label>
@@ -541,6 +551,7 @@
 			<label id="language_not_provided">このサービスでは指定された言語に対応していません。</label>
 			<label id="researcher_profile">研究者プロフィール</label>
 			<label id="current_position">現職</label>
+			<label id="position">現職</label>
 			<label id="former_position">旧役職</label>
 			<label id="awards">受賞歴</label>
 			<label id="phone">電話番号</label>

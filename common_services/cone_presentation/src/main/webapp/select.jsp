@@ -27,6 +27,7 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
+<%@page import="de.mpg.escidoc.services.cone.web.Login"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -39,13 +40,6 @@
 <%@page import="java.util.Set"%>
 <%@page import="de.mpg.escidoc.services.cone.Querier"%>
 <%@page import="de.mpg.escidoc.services.cone.QuerierFactory"%>
-
-<%!
-	private boolean getLoggedIn(HttpServletRequest request)
-	{
-	    return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
-	}
-%>
 
 <html>
 	<jsp:include page="header.jsp"/>
@@ -66,14 +60,14 @@
 				<div class="full_area0">
 					<%
 						Set<Model> modelList = ModelList.getInstance().getList();
-						boolean loggedIn = getLoggedIn(request);
+						boolean loggedIn = Login.getLoggedIn(request);
 					
 						Querier querier = QuerierFactory.newQuerier(loggedIn);
 					%>
 
 					<div class="full_area0 fullItem">
 						
-						<% if (getLoggedIn(request)) {
+						<% if (loggedIn) {
 						
 							boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue());
 							boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue());

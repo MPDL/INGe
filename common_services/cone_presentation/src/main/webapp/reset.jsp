@@ -1,4 +1,5 @@
 
+<%@page import="de.mpg.escidoc.services.cone.web.Login"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.util.ArrayList"%><%--
 
@@ -37,18 +38,11 @@
 <%@ page import="de.mpg.escidoc.services.cone.QuerierFactory" %>
 <%@ page import="de.mpg.escidoc.services.cone.Querier" %>
 
-<%!
-	private boolean getLoggedIn(HttpServletRequest request)
-	{
-	    return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
-	}
-%>
-
 <%
 	
 	response.setHeader("Content-Type", "text/plain");
 
-	boolean loggedIn = getLoggedIn(request);
+	boolean loggedIn = Login.getLoggedIn(request);
 
 	if (loggedIn)
 	{

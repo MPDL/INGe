@@ -161,30 +161,17 @@ public class ConeServlet extends HttpServlet
         {
             loggedIn = getLoggedIn(request);
         }
-        String userHandle = (request.getParameter("eSciDocUserHandle") != null ? request.getParameter("eSciDocUserHandle") : request.getParameter("h"));
-        if (!loggedIn && userHandle != null)
+        
+        if (!loggedIn && "true".equals((request.getParameter("redirect") != null ? request.getParameter("redirect") : request.getParameter("r"))))
         {
-        	try
-        	{
-        		userHandle = new String(Base64.decodeBase64(userHandle.getBytes()), "UTF-8");
-        		loggedIn = Login.checkLogin(request, userHandle, false);
-        	}
-        	catch (Exception e)
-        	{
-				logger.error("Error decoding user handle", e);
-			}
-        	
-        }
-        else if (!loggedIn && "true".equals((request.getParameter("redirect") != null ? request.getParameter("redirect") : request.getParameter("r"))))
-        {
-        	try
-        	{
-        		response.sendRedirect(PropertyReader.getProperty("escidoc.framework_access.login.url") + "/aa/login?target=" + URLEncoder.encode(PropertyReader.getProperty("escidoc.cone.service.url") + request.getServletPath() + "?" + request.getQueryString(), "ASCII"));
-        	}
-        	catch (Exception e)
-        	{
-				throw new ServletException("Error redirecting to Login", e);
-			}
+            try
+            {
+                response.sendRedirect(PropertyReader.getProperty("escidoc.aa.instance.url") + "login");
+            }
+            catch (Exception e)
+            {
+                throw new ServletException("Error redirecting to Login", e);
+            }
         }
         
         if (path.length == 3 && "".equals(path[2]))

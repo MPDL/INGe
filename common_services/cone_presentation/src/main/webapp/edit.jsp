@@ -27,6 +27,7 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
+<%@page import="de.mpg.escidoc.services.cone.web.Login"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	this.request = request;
@@ -54,13 +55,6 @@
 <%@ page import="java.io.StringWriter" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashSet" %>
-
-<%!
-	private boolean getLoggedIn(HttpServletRequest request)
-	{
-	    return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
-	}
-%>
 
 <%!
 	List<String> errors;
@@ -258,7 +252,7 @@
 			                {
 	        		            out.append("<br/>");
 	    		                out.append("\n<span class=\"free_area0 large_negMarginLExcl\">");
-	        		            out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":" + counter + ":", path + predicate.getId() + "/", getLoggedIn(request)));
+	        		            out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + "_" + counter + "_", path + predicate.getId() + "/", Login.getLoggedIn(request)));
 	        		            out.append("</span>");
 	            	    	}
 			                
@@ -455,7 +449,7 @@
 	            	    {
 	            	        TreeFragment fragment = new TreeFragment(paramValue, langValue);
 	            	        objects.add(fragment);
-	            	        mapFormValues(model, predicate.getPredicates(), request, paramNames, fragment, paramName + ":" + i + ":");
+	            	        mapFormValues(model, predicate.getPredicates(), request, paramNames, fragment, paramName + "_" + i + "_");
 	            	    }
 	            	    else if (predicate.isResource())
 	            	    {
@@ -476,7 +470,7 @@
     	            	    {
     	            	        TreeFragment fragment = new TreeFragment(generatedObject, langValue);
     	            	        objects.add(fragment);
-    	            	        mapFormValues(model, predicate.getPredicates(), request, paramNames, fragment, paramName + ":" + i + ":");
+    	            	        mapFormValues(model, predicate.getPredicates(), request, paramNames, fragment, paramName + "_" + i + "_");
     	            	    }
     	            	    else
     	            	    {
@@ -574,7 +568,7 @@
 
 	Enumeration<String> paramNames = request.getParameterNames();
 	
-	boolean loggedIn = getLoggedIn(request);
+	boolean loggedIn = Login.getLoggedIn(request);
 	
 	querier = QuerierFactory.newQuerier(loggedIn);
 	
@@ -868,7 +862,7 @@
 											</span>
 										</span>
 										<% if (model != null) { %>
-											<%= displayPredicates(model, results, uri, model.getPredicates(), "", "", getLoggedIn(request)) %>
+											<%= displayPredicates(model, results, uri, model.getPredicates(), "", "", Login.getLoggedIn(request)) %>
 										<% } %>	
 									</div>
 									<div class="free_area0 xTiny_marginLIncl">
