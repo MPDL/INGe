@@ -74,7 +74,7 @@ public class RetrieveTest
         GetMethod method = new GetMethod(serviceUrl + "iso639-1/all?format=options");
         client.executeMethod(method);
         
-        assertTrue("Request did not return 200 Ok status", method.getStatusCode() == 200);
+        assertTrue("Request to " + serviceUrl + "iso639-1/all?format=options" + " did not return 200 Ok status, but status " + method.getStatusCode(), method.getStatusCode() == 200);
         
         String result = getResponseAsString(method);
         
@@ -100,7 +100,7 @@ public class RetrieveTest
         GetMethod method = new GetMethod(serviceUrl + "ddc/query?q=b&format=html");
         client.executeMethod(method);
         
-        assertTrue("Request did not return 200 Ok status, but " + method.getStatusCode(), method.getStatusCode() == 200);
+        assertTrue("Request to " + serviceUrl + "ddc/query?q=b&format=html" + " did not return 200 Ok status, but " + method.getStatusCode(), method.getStatusCode() == 200);
         
         String result = getResponseAsString(method);
 

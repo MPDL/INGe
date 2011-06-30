@@ -67,6 +67,11 @@
 							<artifactId>common_presentation</artifactId>
 							<contextRoot>/common</contextRoot>
 						</webModule>
+						<webModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>aa_presentation</artifactId>
+							<contextRoot>/auth</contextRoot>
+						</webModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>common_logic</artifactId>
@@ -81,6 +86,13 @@
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>cone</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>aa_logic</artifactId>
 							<includeInApplicationXml>
 								true
 							</includeInApplicationXml>
@@ -135,6 +147,21 @@
 							</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
+							<groupId>commons-discovery</groupId>
+							<artifactId>commons-discovery</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>wss4j</groupId>
+							<artifactId>wss4j</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
+						
+						<jarModule>
 							<groupId>richfaces</groupId>
 							<artifactId>richfaces-api</artifactId>
 							<includeInApplicationXml>
@@ -177,10 +204,10 @@
 							</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
-                            <groupId>com.maxmind.geoip</groupId>
-                            <artifactId>geoip</artifactId>
-                            <includeInApplicationXml>true</includeInApplicationXml>
-                        </jarModule>
+							<groupId>com.maxmind.geoip</groupId>
+							<artifactId>geoip</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -288,7 +315,7 @@
 			<version>2.0-beta</version>
 			<scope>compile</scope>
 		</dependency>
-	
+		
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
@@ -338,29 +365,54 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-	      <groupId>commons-httpclient</groupId>
-	      <artifactId>commons-httpclient</artifactId>
-	      <version>3.0.1</version>
-	      <scope>test</scope>
-	    </dependency>
-	    <dependency>
-	    	<groupId>de.mpg.escidoc.services</groupId>
-	    	<artifactId>cone</artifactId>
-	    	<version>1.2.16-SNAPSHOT</version>
-	    	<scope>compile</scope>
-	    </dependency>
-	    <dependency>
-	      	<groupId>com.maxmind.geoip</groupId>
-	      	<artifactId>geoip</artifactId>
-	      	<version>1.2.3</version>
-    	</dependency>
-	    <dependency>
-	    	<groupId>de.mpg.escidoc.services</groupId>
-	    	<artifactId>common_presentation</artifactId>
-	    	<version>1.0.45-SNAPSHOT</version>
-	    	<type>war</type>
-	    	<scope>compile</scope>
-	    </dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.0.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-discovery</groupId>
+			<artifactId>commons-discovery</artifactId>
+			<version>0.2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>cone</artifactId>
+			<version>1.2.16-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.maxmind.geoip</groupId>
+			<artifactId>geoip</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>wss4j</groupId>
+			<artifactId>wss4j</artifactId>
+			<version>1.5.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>common_presentation</artifactId>
+			<version>1.0.45-SNAPSHOT</version>
+			<type>war</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>aa_logic</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>aa_presentation</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+			<type>war</type>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 	
 	<profiles>
@@ -451,7 +503,6 @@
 		</profile>
 	</profiles>
 	<dependencyManagement>
-		<dependencies>
-		</dependencies>
+		<dependencies></dependencies>
 	</dependencyManagement>
 </project>
