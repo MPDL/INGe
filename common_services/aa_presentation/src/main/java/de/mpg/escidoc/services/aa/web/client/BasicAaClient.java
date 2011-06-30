@@ -58,9 +58,9 @@ public class BasicAaClient extends FinalClient
         authenticationVO.setType(Type.USER);
         if (testLogin(request, response))
         {
-            authenticationVO.setFullName("Insider");
+            authenticationVO.setFullName("System Administrator");
             Role role = authenticationVO.new Role();
-            role.setKey("escidoc:insider");
+            role.setKey("escidoc:role-system-administrator");
             authenticationVO.getRoles().add(role);
         }
         else
