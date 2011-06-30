@@ -50,6 +50,7 @@ import org.apache.log4j.Logger;
 
 import com.sun.syndication.io.FeedException;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.syndication.Syndication;
 import de.mpg.escidoc.services.syndication.SyndicationException;
 import de.mpg.escidoc.services.syndication.Utils;
@@ -98,8 +99,16 @@ public class RestServlet extends HttpServlet
     protected final void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
             IOException
     {
-
-    	String url = req.getRequestURL().toString();
+        
+        String url = null;
+        try
+        {
+        	url = PropertyReader.getProperty("escidoc.syndication.service.url") + req.getServletPath() + req.getPathInfo();
+        }
+        catch (Exception e)
+        {
+            handleException(e, resp);
+        }
     	String q = req.getQueryString();
     	
     	if (Utils.checkVal(q))

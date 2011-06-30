@@ -138,7 +138,7 @@ public class Feeds
 	 * @param uri is URI to be matched
 	 * @return matched <code>feed</code>
 	 */
-	public Feed matchFeedByUri( String uri ) 
+	public Feed matchFeedByUri( String uri )
 	{
 		for ( Feed f : (List<Feed>) feeds )
 		{
