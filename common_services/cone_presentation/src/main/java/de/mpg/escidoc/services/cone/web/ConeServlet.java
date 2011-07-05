@@ -89,6 +89,7 @@ import de.mpg.escidoc.services.cone.util.Describable;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.Rdfs;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
+import de.mpg.escidoc.services.cone.util.UrlHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
@@ -238,7 +239,7 @@ public class ConeServlet extends HttpServlet
         
         if ("query".equals(action))
         {
-            String query = fixURLEncoding(request.getParameter("query") != null ? request.getParameter("query") : request.getParameter("q"));
+            String query = UrlHelper.fixURLEncoding(request.getParameter("query") != null ? request.getParameter("query") : request.getParameter("q"));
             int limit = -1;
             String mode = (request.getParameter("mode") != null ? request.getParameter("mode") : request.getParameter("m"));
             Querier.ModeType modeType = Querier.ModeType.FAST;
@@ -269,7 +270,7 @@ public class ConeServlet extends HttpServlet
                     {
                         if (!RESERVED_PARAMETERS.contains(key))
                         {
-                            searchFields.add(new Pair<String>(key.toString(), fixURLEncoding(request.getParameter(key.toString()))));
+                            searchFields.add(new Pair<String>(key.toString(), UrlHelper.fixURLEncoding(request.getParameter(key.toString()))));
                         }
                     }
                     queryFieldsAction(searchFields.toArray(new Pair[]{}), limit, lang, modeType, response, formatter, model, loggedIn);
@@ -335,40 +336,6 @@ public class ConeServlet extends HttpServlet
         response.setHeader("Connection", "close");
         
     }
-
-    /**
-     * Transforms broken ISO-8859-1 strings into (hopefully) correct UTF-8 strings.
-     * 
-     * @param brokenValue
-     * @return
-     */
-    private String fixURLEncoding(String brokenValue)
-    {
-        if (brokenValue != null)
-        {
-            try
-            {
-                String utf8 = new String(brokenValue.getBytes("ISO-8859-1"), "UTF-8");
-                if (utf8.equals(brokenValue) || utf8.contains("�") || utf8.length() == brokenValue.length())
-                {
-                    return brokenValue;
-                }
-                else
-                {
-                    return utf8;
-                }
-            }
-            catch (UnsupportedEncodingException e)
-            {
-                throw new RuntimeException(e);
-            }
-        }
-        else
-        {
-            return null;
-        }
-    }
-    
     
     /**
      * Retrieve the whole list of entities.

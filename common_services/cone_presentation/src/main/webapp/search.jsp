@@ -27,6 +27,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
+<%@page import="de.mpg.escidoc.services.cone.util.UrlHelper"%>
 <%@page import="de.mpg.escidoc.services.cone.web.Login"%>
 <%@page import="de.mpg.escidoc.services.cone.util.LocalizedString"%>
 <%
@@ -55,7 +56,7 @@
 	while (params.hasMoreElements())
 	{
 	    String param = params.nextElement().toString();
-	    queryString += param + "=" + URLEncoder.encode(request.getParameter(param), "ISO-8859-15");
+	    queryString += param + "=" + URLEncoder.encode(UrlHelper.fixURLEncoding(request.getParameter(param)), "UTF-8");
 	    if (params.hasMoreElements())
 	    {
 	        queryString += "&";
