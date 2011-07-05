@@ -97,15 +97,15 @@
 						<h:outputText value="#{ImportData.import.errorLevel}"/>
 					</h:panelGroup>
 	      			<h:panelGroup rendered="#{ImportData.import.finished}">
-						<h:outputLink styleClass="small_area0_p8 noPaddingTopBottom endline" value="ImportWorkspaceRemove.jsp?id=#{ImportData.importId}">
+						<h:outputLink styleClass="small_area0_p8 noPaddingTopBottom endline" title="#{tip.import_workspace_remove_import}" value="ImportWorkspaceRemove.jsp?id=#{ImportData.importId}">
 							<h:outputText value="#{lbl.import_workspace_remove_import}"/>
 						</h:outputLink>
 
-						<h:outputLink styleClass="small_area0_p8 noPaddingTopBottom endline" value="ImportWorkspaceDelete.jsp?id=#{ImportData.importId}" rendered="#{ImportData.import.importedItems}">
+						<h:outputLink styleClass="small_area0_p8 noPaddingTopBottom endline" title="#{tip.import_workspace_delete_items}" value="ImportWorkspaceDelete.jsp?id=#{ImportData.importId}" rendered="#{ImportData.import.importedItems}">
 							<h:outputText value="#{lbl.import_workspace_delete_items}"/>
 						</h:outputLink>
 
-						<h:outputLink styleClass="large_area0_p8 noPaddingTopBottom endline"  value="ImportWorkspaceRelease.jsp?id=#{ImportData.importId}" rendered="#{ImportData.import.importedItems}">
+						<h:outputLink styleClass="large_area0_p8 noPaddingTopBottom endline"  title="#{tip.import_workspace_submit_release_items}" value="ImportWorkspaceRelease.jsp?id=#{ImportData.importId}" rendered="#{ImportData.import.importedItems}">
 							<h:outputText value="#{lbl.import_workspace_submit_release_items}"/>
 						</h:outputLink>
 					</h:panelGroup>

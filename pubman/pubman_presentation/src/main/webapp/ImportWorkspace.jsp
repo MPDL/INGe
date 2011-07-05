@@ -238,15 +238,15 @@
 																<h:outputText value="#{import.errorLevel}"/>
 															</h:panelGroup>
 											      			<h:panelGroup rendered="#{import.finished}">
-																<tr:commandLink id="lnkRemove" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.remove}">
+																<tr:commandLink id="lnkRemove" shortDesc="#{tip.import_workspace_remove_import}" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.remove}">
 																	<h:outputText value="#{lbl.import_workspace_remove_import}"/>
 																</tr:commandLink>
 	
-																<tr:commandLink id="lnkDeleteAll" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.deleteAll}" rendered="#{import.importedItems}">
+																<tr:commandLink id="lnkDeleteAll" shortDesc="#{tip.import_workspace_delete_items}" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.deleteAll}" rendered="#{import.importedItems}">
 																	<h:outputText value="#{lbl.import_workspace_delete_items}"/>
 																</tr:commandLink>
 
-																<tr:commandLink id="lnkSubmitAndReleaseAll" styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitAndReleaseAll}" rendered="#{import.importedItems}">
+																<tr:commandLink id="lnkSubmitAndReleaseAll" shortDesc="#{tip.import_workspace_submit_release_items}" styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitAndReleaseAll}" rendered="#{import.importedItems}">
 																	<h:outputText value="#{lbl.import_workspace_submit_release_items}"/>
 																</tr:commandLink>
 															</h:panelGroup>
