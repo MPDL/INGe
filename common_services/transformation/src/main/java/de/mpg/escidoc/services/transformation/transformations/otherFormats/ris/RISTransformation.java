@@ -134,6 +134,7 @@ public class RISTransformation implements Transformation{
                 }
                 
                 transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+                transformer.setParameter("external-organization", PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
                 
         		transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
         		

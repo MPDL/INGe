@@ -64,6 +64,7 @@
 	<xsl:param name="user" select="'dummy:user'"/>
 	<xsl:param name="context" select="'dummy:context'"/>
 	<xsl:param name="content-model"/>
+	<xsl:param name="external-organization" select="'dummy-external-ou'"/>
 	
 	<xsl:param name="is-item-list" select="true()"/>
 	
@@ -352,7 +353,7 @@
 			<xsl:otherwise>
 				<organization:organization>
 					<dc:title>External Organizations</dc:title>
-					<dc:identifier>${escidoc.pubman.external.organisation.id}</dc:identifier>
+					<dc:identifier><xsl:value-of select="$external-organization"/></dc:identifier>
 				</organization:organization>
 				</xsl:otherwise>
 			</xsl:choose>	

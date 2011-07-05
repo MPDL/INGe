@@ -74,6 +74,7 @@
 	<xsl:param name="localPrefix"/>
 	<xsl:param name="localSuffix" select="'.pdf'"/>
 	<xsl:param name="locator-filename-substitute" select="'external resource'"/>
+	<xsl:param name="external-organization" select="'dummy-external-ou'"/>
 	
 	<xsl:param name="content-model"/>
 	<!--
@@ -348,7 +349,7 @@
 						</xsl:when>
 						<xsl:otherwise>
 							<dc:title>External Organizations</dc:title>
-							<dc:identifier>${escidoc.pubman.external.organisation.id}</dc:identifier>
+							<dc:identifier><xsl:value-of select="$external-organization"/></dc:identifier>
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:element>
@@ -424,7 +425,7 @@
 							</xsl:when>
 							<xsl:otherwise>
 								<dc:title>External Organizations</dc:title>
-								<dc:identifier>${escidoc.pubman.external.organisation.id}</dc:identifier>
+								<dc:identifier><xsl:value-of select="$external-organization"/></dc:identifier>
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:element>
