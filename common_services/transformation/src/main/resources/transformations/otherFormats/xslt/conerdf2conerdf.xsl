@@ -34,7 +34,19 @@
 	
 	
 	<xsl:template match="escidoc:position/rdf:Description/dc:identifier">
-		<xsl:variable name="ou" select="substring-before(../eprints:affiliatedInstitution, ',')"/>
+		<xsl:variable name="ou">
+			<xsl:choose>
+				<xsl:when test="contains(../eprints:affiliatedInstitution, ',')">
+					<xsl:value-of select="substring-before(../eprints:affiliatedInstitution, ',')"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="../eprints:affiliatedInstitution"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:if test="normalize-space($ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid) = ''">
+			<xsl:message>ERROR with "<xsl:value-of select="$ou"/>"</xsl:message>
+		</xsl:if>
 		<xsl:element name="dc:identifier">
 			<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid"/>
 		</xsl:element>

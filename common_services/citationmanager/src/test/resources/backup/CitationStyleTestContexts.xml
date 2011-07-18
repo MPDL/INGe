@@ -58,6 +58,8 @@
 						</allowed-genre>
 						<allowed-genre>http://purl.org/eprint/type/ConferencePaper
 						</allowed-genre>
+						<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstracts
+						</allowed-genre>
 						<allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
 						<allowed-genre>http://purl.org/eprint/type/ConferencePoster
 						</allowed-genre>

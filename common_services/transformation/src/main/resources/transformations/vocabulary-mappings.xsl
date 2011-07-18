@@ -12,6 +12,7 @@
 		<enum uri="http://purl.org/eprint/type/BookItem">book-item</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/proceedings">proceedings</enum>
 		<enum uri="http://purl.org/eprint/type/ConferencePaper">conference-paper</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract">meeting-abstract</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/conference-report">conference-report</enum>
 		<enum uri="http://purl.org/eprint/type/ConferencePoster">poster</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/article">article</enum>

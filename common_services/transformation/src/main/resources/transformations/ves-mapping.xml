@@ -43,6 +43,7 @@
 			<map v1="book-item">http://purl.org/eprint/type/BookItem</map>
 			<map v1="proceedings">http://purl.org/escidoc/metadata/ves/publication-types/proceedings</map>
 			<map v1="conference-paper">http://purl.org/eprint/type/ConferencePaper</map>
+			<map v1="meeting-abstract">http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract</map>
 			<map v1="talk-at-event">http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</map>
 			<map v1="conference-report">http://purl.org/escidoc/metadata/ves/publication-types/conference-report</map>
 			<map v1="poster">http://purl.org/eprint/type/ConferencePoster</map>
@@ -67,6 +68,7 @@
 			<map v2="http://purl.org/eprint/type/BookItem">book-item</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/proceedings">proceedings</map>
 			<map v2="http://purl.org/eprint/type/ConferencePaper">conference-paper</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract">meeting-abstract</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/conference-report">conference-report</map>
 			<map v2="http://purl.org/eprint/type/ConferencePoster">poster</map>
 			<map v2="http://purl.org/eprint/type/Report">report</map>
@@ -110,7 +112,8 @@
 			<map v2="http://purl.org/eprint/type/BookItem" edoc="In Book">2</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/proceedings" edoc="Proceedings">28</map>
 			<map v2="http://purl.org/eprint/type/ConferencePaper" edoc="Conference Paper">7</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event" edoc="Talk-at-Event">9</map> ????
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract" edoc="Conference Paper">7</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event" edoc="Talk-at-Event">9</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/conference-report"  edoc="Conference Report">10</map>
 			<map v2="http://purl.org/eprint/type/ConferencePoster" edoc="Poster">9</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture" edoc="Lecture/Courseware">13</map>

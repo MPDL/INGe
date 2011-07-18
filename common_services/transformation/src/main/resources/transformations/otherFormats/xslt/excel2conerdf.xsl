@@ -70,7 +70,6 @@
 							<xsl:with-param name="direction" select="'both'"/>
 						</xsl:call-template>
 						
-						
 						<escidoc:degree>
 							<xsl:value-of select="$main/excel:Cell[5]/excel:Data"/>
 							<xsl:if test="$main/excel:Cell[3]/@ss:Index = 4 and normalize-space($main/excel:Cell[3]/excel:Data) != ''">
@@ -192,6 +191,7 @@
 		
 		
 		<xsl:if test="normalize-space($ou/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = ''">
+			<xsl:message>ERROR with "<xsl:value-of select="$ouname"/>" for <xsl:value-of select="$familyname"/>,  <xsl:value-of select="$givenname"/> at <xsl:value-of select="$id"/></xsl:message>
 			ERROR with "<xsl:value-of select="$ouname"/>" for <xsl:value-of select="$familyname"/>,  <xsl:value-of select="$givenname"/> at <xsl:value-of select="$id"/>
 		</xsl:if>
 		

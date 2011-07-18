@@ -35,6 +35,7 @@
 	<variable name="l_book-item">'http://purl.org/eprint/type/BookItem'</variable>
 	<variable name="l_proceedings">'http://purl.org/escidoc/metadata/ves/publication-types/proceedings'</variable>
 	<variable name="l_conference-paper">'http://purl.org/eprint/type/ConferencePaper'</variable>
+    <variable name="l_meeting-abstract">'http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract'</variable>
 	<variable name="l_conference-report">'http://purl.org/escidoc/metadata/ves/publication-types/conference-report'</variable>
 	<variable name="l_poster">'http://purl.org/eprint/type/ConferencePoster'</variable>
 	<variable name="l_report">'http://purl.org/eprint/type/Report'</variable>

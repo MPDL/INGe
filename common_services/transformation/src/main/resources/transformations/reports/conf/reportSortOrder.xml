@@ -17,6 +17,7 @@
 		<s:genre priority="15"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/book-review</s:name></s:genre>
 		<s:genre priority="16"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</s:name></s:genre>
 		<s:genre priority="17"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article</s:name></s:genre>
+		<s:genre priority="17"><s:name>http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract</s:name></s:genre>
 </s:authorship>
 
 

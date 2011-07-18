@@ -267,6 +267,8 @@ public class MetadataSearchCriterion implements Serializable
         this.typeList.add(type);
     }
 
+    MetadataSearchCriterion() {}
+    
     /**
      * Constructor with criterion type, search term, boolean operator and
      * logical operator.

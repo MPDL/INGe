@@ -133,6 +133,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
         BOOK_ITEM("http://purl.org/eprint/type/BookItem"),
         PROCEEDINGS("http://purl.org/escidoc/metadata/ves/publication-types/proceedings"),
         CONFERENCE_PAPER("http://purl.org/eprint/type/ConferencePaper"),
+        MEETING_ABSTRACT("http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract"),
         TALK_AT_EVENT("http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event"),
         CONFERENCE_REPORT("http://purl.org/escidoc/metadata/ves/publication-types/conference-report"),
         POSTER("http://purl.org/eprint/type/ConferencePoster"),

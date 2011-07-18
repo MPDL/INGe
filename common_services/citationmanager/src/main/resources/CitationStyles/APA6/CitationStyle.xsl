@@ -59,6 +59,9 @@
                         <xsl:variable name="l_conference-paper">
                             <xsl:value-of select="'http://purl.org/eprint/type/ConferencePaper'"/>
                         </xsl:variable>
+                        <xsl:variable name="l_meeting-abstract">
+                            <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract'"/>
+                        </xsl:variable>
                         <xsl:variable name="l_conference-report">
                             <xsl:value-of select="'http://purl.org/escidoc/metadata/ves/publication-types/conference-report'"/>
                         </xsl:variable>

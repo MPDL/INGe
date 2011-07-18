@@ -395,11 +395,17 @@
 		<xsl:element name="source:source">	
 			<xsl:attribute name="type" select="$genre-ves/enum[.='journal']/@uri"/>
 			<xsl:for-each select="../pm:journal-meta">
-				<xsl:apply-templates select="pm:journal-title"/>
+				<!-- <xsl:apply-templates select="pm:journal-title"/>
 				<xsl:apply-templates select="pm:journal-subtitle"/>
 				<xsl:apply-templates select="pm:trans-title"/>
 				<xsl:apply-templates select="pm:trans-subtitle"/>
-				<xsl:apply-templates select="pm:abbrev-journal-title"/>				
+				<xsl:apply-templates select="pm:abbrev-journal-title"/>-->
+				<!-- Fix by Christian Steiger, 2011-07-18 -->
+				<xsl:apply-templates select="pm:journal-title-group/pm:journal-title"/>
+				<xsl:apply-templates select="pm:journal-title-group/pm:journal-subtitle"/>
+				<xsl:apply-templates select="pm:journal-title-group/pm:trans-title"/>
+				<xsl:apply-templates select="pm:journal-title-group/pm:trans-subtitle"/>
+				<xsl:apply-templates select="pm:journal-title-group/pm:abbrev-journal-title"/>		
 				<xsl:call-template name="createVolume"/>
 				<xsl:call-template name="createIssueNo"/>
 				<xsl:call-template name="createPages"/>

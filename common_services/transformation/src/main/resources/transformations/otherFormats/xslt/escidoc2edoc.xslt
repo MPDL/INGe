@@ -242,6 +242,7 @@
 			</xsl:if>
 			<xsl:if test="not(@type=(
 					'http://purl.org/eprint/type/ConferencePaper', 
+					'http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract', 
 					'http://purl.org/escidoc/metadata/ves/publication-types/webpage', 
 					'http://purl.org/escidoc/metadata/ves/publication-types/issue', 
 					'http://purl.org/escidoc/metadata/ves/publication-types/paper', 
@@ -253,7 +254,8 @@
 			<!-- MPIPL specific, genre InBook: publisher from source -->
 			<xsl:if test="@type=(
 					'http://purl.org/eprint/type/BookItem', 
-					'http://purl.org/eprint/type/ConferencePaper'
+					'http://purl.org/eprint/type/ConferencePaper', 
+					'http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract'
 				) and source:source[1]/eterms:publishing-info/dc:publisher!=''
 			">
 				<xsl:element name="publisher">
@@ -262,7 +264,8 @@
 			</xsl:if>
 			<xsl:if test="@type=(
 					'http://purl.org/eprint/type/BookItem', 
-					'http://purl.org/eprint/type/ConferencePaper'
+					'http://purl.org/eprint/type/ConferencePaper', 
+					'http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract'
 				) and source:source[1]/eterms:publishing-info/dc:publisher=''
 			">
 				<xsl:message select="concat('YB: publisher should be defined in source for genre: ', @type ,', item id: ', $objid)"/>
@@ -290,7 +293,8 @@
 			<!-- MPIPL specific, genre InBook: publisheradd from source -->
 			<xsl:if test="@type=(
 					'http://purl.org/eprint/type/BookItem', 
-					'http://purl.org/eprint/type/ConferencePaper'
+					'http://purl.org/eprint/type/ConferencePaper',
+					'http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract'
 				) and source:source[1]/eterms:publishing-info/eterms:place[1]!=''
 			">
 				<xsl:element name="publisheradd">
@@ -299,7 +303,8 @@
 			</xsl:if>
 			<xsl:if test="@type=(
 					'http://purl.org/eprint/type/BookItem', 
-					'http://purl.org/eprint/type/ConferencePaper'
+					'http://purl.org/eprint/type/ConferencePaper', 
+					'http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract'
 				) and source:source[1]/eterms:publishing-info/eterms:place[1]=''
 			">
 				<xsl:message select="concat('YB: publisheradd should be defined in source for genre: ', @type,', item id: ', $objid)"/>
