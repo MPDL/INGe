@@ -70,7 +70,7 @@ var mpdlCSS = new function() {
 	this.enablePageStyle = function (theme_id) {
 		var timeOutDate = mpdlDate.getNextDate(mpdlCookie.cookieTimeout, mpdlDate.now('date'));
 		mpdlCookie.setCookie(layoutCookieName, theme_id, null, timeOutDate);
-		console.log("enablePageStyle: "+theme_id);
+//		console.log("enablePageStyle: "+theme_id);
 		var el = document.getElementsByTagName("link");
 		
 		for (var i = 0; i < el.length; i++ ) {

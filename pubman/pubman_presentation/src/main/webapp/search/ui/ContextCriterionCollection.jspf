@@ -31,7 +31,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<div class="full_area0 itemBlock noTopBorder">
+<div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{lbl.adv_search_lbHeaderCollection}" />
 	</h3>
@@ -50,12 +50,15 @@
 
 					<b class="quad_label">&#160;</b>
 					
-					<div class="xLarge_area0 endline selectContainer">
-						<div class="xLarge_select selectboxIcon selectionBox">
+					<div class="free_area1 third_txtInput endline selectContainer">
+						<div class="free_area0 third_txtInput">
+							<span class="free_area0 third_txtInput selectionBox" style="white-space:nowrap; width:32.4545em;">
 							<h:outputText value="#{contextCriterionBean.contextName}" rendered="#{contextCriterionBean.contextCriterionVO.searchString != null}"/>
 							<h:outputText value="--" rendered="#{contextCriterionBean.contextCriterionVO.searchString == null}"/>
+							</span>
+							<div class="selectboxIcon" style="margin-right:0.3636em;">&nbsp;</div>
 						</div>
-						<h:selectOneMenu style="background-color:#006D70; border:none; color:#FFFFFF;" onchange="submit();" id="selectContext" value="#{contextCriterionBean.contextCriterionVO.searchString}">
+						<h:selectOneMenu onchange="submit();" id="selectContext" value="#{contextCriterionBean.contextCriterionVO.searchString}">
 							<f:selectItems value="#{AdvancedSearchEdit.contextCriterionCollection.contextList}"/>
 						</h:selectOneMenu>
 					</div>
@@ -71,7 +74,23 @@
                 <h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{contextCriterionBean.logicOperator}">
                     <f:selectItems value="#{contextCriterionBean.logicOptions}"/>
                 </h:selectOneMenu>           
-            </h:panelGroup>
+			</h:panelGroup>
+			<%--
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
+			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
+				<h:panelGroup layout="block" styleClass="small_area1 endline selectContainer xSmall_marginLExcl">
+					<div class="small_area0">
+						<span class="xSmall_area0 selectionBox" style="white-space:nowrap;">
+							<h:outputText value="#{contextCriterionBean.logicOperatorName}" />
+						</span>
+						<div class="selectboxIcon" style="margin-right:0.3636em;">&nbsp;</div>
+					</div>
+					<h:selectOneMenu styleClass="small_select replace" id="boolVal1" onchange="updateSelect(this);" value="#{contextCriterionBean.logicOperator}">
+						<f:selectItems value="#{contextCriterionBean.logicOptions}"/>
+					</h:selectOneMenu>
+				</h:panelGroup>
+			</h:panelGroup>
+			 --%>
 		</tr:iterator>
 	</div>
 

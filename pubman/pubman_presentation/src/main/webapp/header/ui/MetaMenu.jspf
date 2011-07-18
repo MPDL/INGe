@@ -69,28 +69,42 @@
 			}
 		}
 		
-		function updateSelect(source_obj) {
-			var value = returnSelectboxInfo(source_obj, 0);
-			console.log("Value: "+value);
-			if (source_obj.previousElementSibling) {
-				source_obj.previousElementSibling.innerHTML = '<span class="free_label">'+value+'</span>';
+		function returnParentNode(node) {
+			if (node.previousElementSibling) {
+				return node.previousElementSibling;
 			} else {
-				source_obj.previousSibling.innerHTML = '<span class="free_label">'+value+'</span>';
+				return node.previousSibling;
 			}
 		}
+		
+		function write(node, content) {
+			if (node.innerHTML = content) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		function updateSelect(source_obj) {
+			var parentNode = returnParentNode(source_obj);
+			var value = returnSelectboxInfo(source_obj, 0);
+			console.log("Value: "+value);
+			
+			if (parentNode.getElementsByClassName('selectionBox')[0]) {
+				write(parentNode.getElementsByClassName('selectionBox')[0], value);
+			} else {
+				write(parentNode, '<span class="large_area0 selectionBox" style="white-space:nowrap;">'+value+'</span><div class="selectboxIcon" style="margin-right:0.3636em;">&nbsp;</div>');
+			}
+			
+		}
 	</script>
-	<style type="text/css">
-		/*
-		option {
-			background-color:#0099FF;
-			height:2em; /* only in FF */ 
-			padding-top:1.23em; /* only in FF */ 
-			margin-top:1.23em; /* only in FF */ 
-		} */
-	</style>
+	
 	<div class="medium_area0 endline selectContainer">
-		<div class="medium_select selectboxIcon selectionBox"><h:outputText value="#{PubManSessionBean.localeString}"/></div>
-		<h:selectOneMenu id="selSelectLocale" value="#{PubManSessionBean.locale}" style="background-color:#006D70; border:none; color:#FFFFFF;" onchange="submit();" title="#{tip.Home_Header_Language}" immediate="true" valueChangeListener="#{PubManSessionBean.changeLanguage}">
+		<div class="medium_area0">
+			<span class="small_area0 selectionBox" style="white-space:nowrap;"><h:outputText value="#{PubManSessionBean.localeString}"/></span>
+			<div class="selectboxIcon" style="padding-right:1.1818em;">&#160;</div>
+		</div>
+		<h:selectOneMenu id="selSelectLocale" value="#{PubManSessionBean.locale}" styleClass="medium_area0" onchange="submit();" title="#{tip.Home_Header_Language}" immediate="true" valueChangeListener="#{PubManSessionBean.changeLanguage}">
 			<f:selectItem itemValue="en" itemLabel="#{lbl.ENUM_LANGUAGE_EN}" />
 			<f:selectItem itemValue="de" itemLabel="#{lbl.ENUM_LANGUAGE_DE}" />
 			<f:selectItem itemValue="ja" itemLabel="#{lbl.ENUM_LANGUAGE_JA}" />

@@ -109,7 +109,7 @@ All rights reserved. Use is subject to license terms.
  			</div>
  			&nbsp;
  		</th>
-      	<th class="free_area0 endline status statusArea">
+      	<th class="free_area0 endline status statusArea" style="width:9.27em;">
       		<span class="seperator"></span>
 			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="free_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'STATE'}" action="#{PubItemListSessionBean.changeToSortByState}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_STATE}"/>
