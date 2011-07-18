@@ -3,8 +3,9 @@
     <journal-meta>
       <journal-id journal-id-type="nlm-ta">Nucleic Acids Res</journal-id>
       <journal-id journal-id-type="publisher-id">Nucleic Acids Research</journal-id>
-
-      <journal-title>Nucleic Acids Research</journal-title>
+      <journal-title-group>
+          <journal-title>Nucleic Acids Research</journal-title>
+      </journal-title-group>
       <issn pub-type="ppub">0305-1048</issn>
       <issn pub-type="epub">1362-4962</issn>
       <publisher>

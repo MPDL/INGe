@@ -2,7 +2,9 @@
   <front>
     <journal-meta>
       <journal-id journal-id-type="nlm-ta">BMC Plant Biol</journal-id>
-      <journal-title>BMC Plant Biology</journal-title>
+      <journal-title-group>
+      	<journal-title>BMC Plant Biology</journal-title>
+      </journal-title-group>
 
       <issn pub-type="epub">1471-2229</issn>
       <publisher>
