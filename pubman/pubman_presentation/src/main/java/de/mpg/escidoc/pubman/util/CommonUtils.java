@@ -328,9 +328,13 @@ public class CommonUtils extends InternationalizedImpl
             {
                 return matcher.group(1);
             }
-            else
+            else if ("en".equals(locale))
             {
                 return null;
+            }
+            else
+            {
+                return getConeLanguageName(code, "en");
             }
         }
         else

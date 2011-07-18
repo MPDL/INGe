@@ -322,6 +322,38 @@
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" label="g_source_sequence_number" form-id="all"/>
 			</group>
 		</genre>
+		<genre id="MEETING_ABSTRACT" label="ENUM_GENRE_MEETING_ABSTRACT">
+			<!-- this is new for CBS -->
+			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
+				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
+			</group>
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="publishing_info" repeatable="false" display="false" label="g_publishing_info" optional="true" form-id="all"/>
+				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_total_number_of_pages"/>
+				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="easy-submission"/>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_review_method"/>
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all" label="g_item_degree"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all" label="g_item_location"/>
+				<group id="item_language" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_item_language"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="all" label="g_item_toc"/>
+			</group>
+			<group id="events" repeatable="false" display="true" optional="true" form-id="all" label="g_events" class-attribute="metadata.event">
+				<field id="event_title" repeatable="false" display="true" optional="true" label="event_title" class-attribute="metadata.event.title"/>
+			</group>
+			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
+				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
+					<group id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
+				</group>
+				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
+				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
+				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission">
+					<field id="source_issue" repeatable="false" display="false" optional="true" label="source_issue"/>
+				</group>
+				<group id="source_sequence_number" repeatable="false" display="false" optional="true" label="g_source_sequence_number" form-id="easy-submission"/>
+				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
+			</group>
+		</genre>
 		<genre id="CONFERENCE_PAPER" label="ENUM_GENRE_CONFERENCE_PAPER">
 			<!-- this is in the excel sheet Proceedings paper -->
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">

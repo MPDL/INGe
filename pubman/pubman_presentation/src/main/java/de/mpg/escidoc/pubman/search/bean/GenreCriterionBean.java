@@ -18,7 +18,7 @@ public class GenreCriterionBean extends CriterionBean
     private GenreCriterion genreCriterionVO;
     
     // selection fields for the MdsPublicationVO.Genre enum
-    private boolean searchArticle, searchBook, searchBookItem, searchCoursewareLecture, searchConferencePaper, searchConferenceReport;
+    private boolean searchArticle, searchBook, searchBookItem, searchCoursewareLecture, searchConferencePaper, searchMeetingAbstract, searchConferenceReport;
     private boolean searchIssue, searchJournal, searchManuscript, searchOther, searchPaper, searchPoster;
     private boolean searchProceedings, searchReport, searchSeries, searchTalkAtEvent, searchThesis;
     // JUS
@@ -68,6 +68,8 @@ public class GenreCriterionBean extends CriterionBean
                 searchBookItem = true;
             else if (MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(genre))
                 searchConferencePaper = true;
+            else if (MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(genre))
+                searchMeetingAbstract = true;
             else if (MdsPublicationVO.Genre.CONFERENCE_REPORT.equals(genre))
                 searchConferenceReport = true;
             else if (MdsPublicationVO.Genre.COURSEWARE_LECTURE.equals(genre))
@@ -146,6 +148,7 @@ public class GenreCriterionBean extends CriterionBean
         setSearchBook(true);
         setSearchBookItem(true);
         setSearchConferencePaper(true);
+        setSearchMeetingAbstract(true);
         setSearchConferenceReport(true);
         setSearchCoursewareLecture(true);
         setSearchIssue(true);
@@ -193,6 +196,7 @@ public class GenreCriterionBean extends CriterionBean
         setSearchBook(false);
         setSearchBookItem(false);
         setSearchConferencePaper(false);
+        setSearchMeetingAbstract(false);
         setSearchConferenceReport(false);
         setSearchCoursewareLecture(false);
         setSearchIssue(false);
@@ -314,6 +318,27 @@ public class GenreCriterionBean extends CriterionBean
         else
         {
             genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.CONFERENCE_PAPER);
+        }
+    }
+
+    public boolean isSearchMeetingAbstract()
+    {
+        return searchMeetingAbstract;
+    }
+
+    public void setSearchMeetingAbstract(boolean searchMeetingAbstract)
+    {
+        this.searchMeetingAbstract = searchMeetingAbstract;
+        if (searchMeetingAbstract)
+        {
+            if (!genreCriterionVO.getGenre().contains(MdsPublicationVO.Genre.MEETING_ABSTRACT))
+            {
+                genreCriterionVO.getGenre().add(MdsPublicationVO.Genre.MEETING_ABSTRACT);
+            }
+        }
+        else
+        {
+            genreCriterionVO.getGenre().remove(MdsPublicationVO.Genre.MEETING_ABSTRACT);
         }
     }
 

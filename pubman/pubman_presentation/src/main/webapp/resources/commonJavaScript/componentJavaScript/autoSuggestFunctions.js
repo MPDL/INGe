@@ -395,7 +395,6 @@
 				});
 
 		bindJournalSuggest();
-		
 		$('.languageSuggest').suggest(languageSuggestURL, { onSelect: selectLanguage});
 		$('.subjectSuggest').each(
 			function(i,ele){
@@ -418,23 +417,33 @@
 	{
 		var identifier = details.http_purl_org_dc_elements_1_1_identifier;
 		var name = details.http_purl_org_dc_elements_1_1_title;
-		var id3;
-		if (identifier != null && !(typeof identifier.splice === 'function') && identifier.length == 3)
+		
+		
+		if (typeof name == 'undefined')
 		{
-			id3 = identifier;
+			var url = details.id;
+			$.getJSON(languageDetailsBaseURL.replace('$1', url).replace('$2', 'en'), selectLanguageDetails);
 		}
-		else if (identifier != null)
+		else
 		{
-			for (var i=0; i < identifier.length; i++)
+			var id3;
+			if (identifier != null && !(typeof identifier.splice === 'function') && identifier.length == 3)
 			{
-				if (identifier[i].length == 3)
+				id3 = identifier;
+			}
+			else if (identifier != null)
+			{
+				for (var i=0; i < identifier.length; i++)
 				{
-					id3 = identifier[i];
+					if (identifier[i].length == 3)
+					{
+						id3 = identifier[i];
+					}
 				}
 			}
+			
+			$input.val(id3);
+			$input.parents('.'+languageSuggestCommonParentClass).find('.languageText').val(name);
 		}
-		
-		$input.val(id3);
-		$input.parents('.'+languageSuggestCommonParentClass).find('.languageText').val(name);
 	}
 	

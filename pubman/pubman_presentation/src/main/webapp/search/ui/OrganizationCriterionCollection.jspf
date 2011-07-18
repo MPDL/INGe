@@ -53,7 +53,7 @@
 						value="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId}" />
 					<h:outputLink styleClass="small_area0 ouCard ouLink"
 						rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != null and organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != ''}" value="#"
-						onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{organization.identifier}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
+						onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
 					<h:panelGroup rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId == null || organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId == ''}"
 						styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>
                 </h:panelGroup>
@@ -71,12 +71,12 @@
 				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline suggestAnchor">
                     <h:outputLabel id="lblOrganizationSearchTermEmpty" styleClass="xDouble_label" value="#{lbl.adv_search_lblSearchTerm}" />
                     <h:inputText id="organizationSearchTermEmpty" styleClass="third_txtInput organizationSuggest organizationName disableAfter" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId == null || organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId == ''}"/>
-                    <h:inputText id="organizationSearchTermEmptyFilled" styleClass="third_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != null and organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != ''}"/>
+                    <h:inputText id="organizationSearchTermEmptyFilled" styleClass="third_txtInput organizationSuggest organizationName disableAfter" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != null and organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != ''}"/>
 					<h:inputText id="organizationSearchTermEmptyIdentifier" styleClass="noDisplay organizationIdentifier"
 						value="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId}" />
 					<h:outputLink styleClass="small_area0 ouCard ouLink"
 						rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != null and organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId != ''}" value="#"
-						onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{organization.identifier}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
+						onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
 					<h:panelGroup rendered="#{organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId == null || organizationCriterionBean.organizationCriterionVO.affiliation.reference.objectId == ''}"
 						styleClass="xSmall_area0 ouLink">&nbsp;</h:panelGroup>
                 </h:panelGroup>

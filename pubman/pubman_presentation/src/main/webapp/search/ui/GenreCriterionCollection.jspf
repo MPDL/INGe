@@ -69,6 +69,10 @@
 							<h:outputLabel title="#{tip.adv_search_lblChkGenre_conferencepap}" value="#{lbl.adv_search_lblChkGenre_conferencepap}" for="genreCriterionBean_searchConferencePaper" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchMeetingAbstract" value="#{genreCriterionBean.searchMeetingAbstract}" />
+							<h:outputLabel title="#{tip.adv_search_lblChkGenre_meetingabstract}" value="#{lbl.adv_search_lblChkGenre_meetingabstract}" for="genreCriterionBean_searchMeetingAbstract" />
+						</span>
+						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchConferenceReport" value="#{genreCriterionBean.searchConferenceReport}" />
 							<h:outputLabel title="#{tip.adv_search_lblChkGenre_conferencerep}" value="#{lbl.adv_search_lblChkGenre_conferencerep}" for="genreCriterionBean_searchConferenceReport" />
 						</span>
