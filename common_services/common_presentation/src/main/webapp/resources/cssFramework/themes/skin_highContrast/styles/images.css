@@ -374,6 +374,17 @@ body .wrapper {
 }
 
 /*SELECT REPLACEMENT*/
+
+.metaMenu .selectboxIcon {
+	background-image:url("../images/All_Sorting_TriangleDescending_15_Deactivated.gif");
+	margin-top:-0.0909em;
+}
+.selectboxIcon {
+	background-image:url("../images/All_Sorting_TriangleDescending_15_Deactivated.gif");
+	background-position:right;
+	background-repeat:no-repeat;
+}
+
 .replace .open {
     background-image: url('../images/All_DropDown_TriangleOpen_15_Active.gif');
     background-repeat: no-repeat;

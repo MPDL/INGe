@@ -352,6 +352,74 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     border-color: #1B1B1B;
 }
 
+/*CUSTOMIZED SELECTBOX - changed metaMenu select / created selectionBox + selectContainer -2011-06-17 */
+.metaMenu .selectContainer select {
+	float:right;
+	margin-top:-1.63em;
+	margin-left:auto;
+	margin-right:-0.0909em;
+	
+	filter:alpha(opacity=0);
+	opacity:0;
+	-moz-opacity:0;
+	cursor:pointer;
+	background-color:#FFFFFF;
+	color:#000000;
+}
+.metaMenu .selectionBox {
+	color:#0076C9;
+	margin-left:0.5454em;
+	float:left;
+}
+.metaMenu .selectContainer {
+	margin-left:0.001em;
+	padding-top:0.3636em;
+	padding-bottom:0.18em;
+	height:1.72em; 
+	border:none;
+	background-color:#FFFFFF;
+}
+
+
+
+.selectContainer select {
+	float:left;
+	margin-top:-1.3636em;
+	margin-left:-0.0909em;
+	filter:alpha(opacity=0);
+	opacity:0;
+	-moz-opacity:0;
+	cursor:pointer;
+	background-color:#FFFFFF;
+	color:#3A3B3B;
+	border-bottom-color:#9fafae;
+	border-style:none;
+}
+.selectContainer .selectionBox {
+	padding-left:0.2727em !important;
+}
+.selectionBox {
+	color:#3A3B3B;
+	text-align:left;
+	cursor:pointer;
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	height:1.3636em;
+	overflow:hidden;
+}
+.selectContainer {
+	padding-top:0em;
+	padding-bottom:0.18em;
+	height:1.3636em; 
+	background-color:#F2F8FC;
+	border:0.0909em solid #A4A4A4;
+}
+
+
+
+
+
+
+
 /*LISTS & FULL ITEM*/
 /*GENERAL*/
 .itemList, .tiledList, .fullItem {
@@ -666,4 +734,10 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	font-family: serif;
 	border-left-width: 2px !important;
 	border-right-width: 2px !important;
+}
+
+
+.languageArea .readonlyInput {
+	background-color:transparent;
+	border:none;
 }

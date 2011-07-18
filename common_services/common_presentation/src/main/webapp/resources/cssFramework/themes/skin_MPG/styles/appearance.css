@@ -130,16 +130,24 @@ h6 {
 /*GENERAL*/
 /*FONT RELATED*/
 body, label, button, input.numberLabel, h2, h3, h6, a {
-    font-family: Trebuchet, "Trebuchet MS", sans-serif;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
 }
 
 input[type = text], textarea, input, select {
-    font-family: "Courier New", Courier, serif;
+	font-family: Verdana,Arial,Helvetica,sans-serif;
 }
 
 h1, h4, h5 {
     font-family: "Myriad Pro Condensed", "Arial Narrow", sans-serif;
 }
+
+
+/* HELP PAGE */
+.maketitle h2 {
+	margin-top:7em;
+}
+
+
 
 /*
  *
@@ -338,31 +346,70 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .metaMenu button {
-    font-size: 109%;
+    font-size: 100%;
 	background-color: #0F3834;
     color: #FFFFFF;
 }
 
 /*CUSTOMIZED SELECTBOX - changed metaMenu select / created selectionBox + selectContainer -2011-06-17 */
-.selectContainer select {
+.metaMenu .selectContainer select {
+	float:right;
 	margin-top:-1.63em;
+	margin-left:auto;
+	margin-right:-0.0909em;
+	
 	filter:alpha(opacity=0);
 	opacity:0;
 	-moz-opacity:0;
 	cursor:pointer;
+	background-color:#006D70;
+	color:#FFFFFF;
+}
+.metaMenu .selectionBox {
+	color:#FFFFFF;
+	margin-left:0.5454em;
+	float:left;
 }
 
-.selectionBox {
-	padding-right:2.09em;
-	color:#FFFFFF;
-	text-align:right;
-	cursor:pointer;
-}
-.selectContainer {
+.metaMenu .selectContainer {
+	margin-left:0.001em;
 	padding-top:0.3636em;
-	background-color:#006D70; 
 	padding-bottom:0.18em;
 	height:1.72em; 
+	border:none;
+	background-color:#006D70;
+}
+
+.selectContainer select {
+	float:left;
+	margin-top:-1.3636em;
+	margin-left:-0.0909em;
+	filter:alpha(opacity=0);
+	opacity:0;
+	-moz-opacity:0;
+	cursor:pointer;
+	background-color:#FFFFFF;
+	color:#3A3B3B;
+	border-bottom-color:#9fafae;
+	border-style:none;
+}
+.selectContainer .selectionBox {
+	padding-left:0.2727em !important;
+}
+.selectionBox {
+	color:#3A3B3B;
+	text-align:left;
+	cursor:pointer;
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	height:1.3636em;
+	overflow:hidden;
+}
+.selectContainer {
+	padding-top:0em;
+	padding-bottom:0.18em;
+	height:1.3636em; 
+	background-color:#FFFFFF;
+	border:0.0909em solid #9fafae;
 }
 
 .footer .metaMenu a {
@@ -387,8 +434,23 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	color:#000000;
 }
 
+.quickSearchTextInput {
+	height:1.5454em;
+	padding-top:0;
+	padding-bottom:0;
+}
+
+.searchMenu .quickSearchBtn {
+	padding-top:0;
+}
+
+.advancedSearchMenu, .organisationSearchMenu {
+	margin-top:0.1818em;
+}
+
 .quickSearchBtn {
-	font-family: Trebuchet, "Trebuchet MS", sans-serif;
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	height:1.7272em;
 }
 
 .logoAlternate span {
@@ -510,6 +572,17 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*LISTS & FULL ITEM*/
 /*GENERAL*/
+
+.header {
+	height:14em;
+}
+
+.header .mainMenu {
+	margin-top:9em !important;
+}
+
+
+
 .itemList, .tiledList, .fullItem {
     border-top-color: #044585;
     border-bottom-color: #AEAEAE;
@@ -762,7 +835,8 @@ tbody .listItem span.statusArea {
 
 .ac_over {
     cursor: pointer;
-    background-color: #366A9D;
+/*	background-color: #366A9D !important; */
+	background-color:#006D70 !important;
     color: #FFFFFF !important;
 }
 
@@ -854,18 +928,25 @@ tbody .listItem span.statusArea {
 }
 
 .mainMenu {
-	margin-top:0.2727em !important;
+	margin-top:-3em !important;
 }
 
 .searchMenu {
-	margin-top:4.5454em !important;
+	margin-top:4.2727em !important;
 	margin-bottom:0.7272em;
+	padding-top:0.2727em;
 }
 
-.searchMenu .quickSearchBtn {
-	padding:0;
+.searchMenu .quickSearchIcon {
+	margin-top:-0.4545em;
+	margin-right:0.5454em;
 }
 
 .fullItem .messageSuccess b {
 	color:#0F3834;
+}
+
+.languageArea .readonlyInput {
+	background-color:transparent;
+	border:none;
 }

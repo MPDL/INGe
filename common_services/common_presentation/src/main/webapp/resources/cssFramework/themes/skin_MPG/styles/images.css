@@ -288,7 +288,7 @@ body .wrapper {
 }
 
 .checkBoxSelectButton {
-	background-image: url('../images/All_ListView_Select_15_Active.gif');
+	background-image: url('../images/All_View_TriangleClose_15_Active');
     background-repeat: no-repeat;
     background-position: center;
 	margin-top:0.18em;
@@ -306,8 +306,13 @@ body .wrapper {
     background-position: center;
 }
 
+.metaMenu .selectboxIcon {
+	background-image:url("../images/All_Sorting_TriangleDescending_15_Deactivated.png");
+	margin-top:-0.0909em;
+}
+
 .selectboxIcon {
-	background-image:url("../images/All_ListView_Select_15_Active.gif");
+	background-image:url("../images/All_Sorting_TriangleDescending_15_Static.png");
 	background-position:right;
 	background-repeat:no-repeat;
 }
