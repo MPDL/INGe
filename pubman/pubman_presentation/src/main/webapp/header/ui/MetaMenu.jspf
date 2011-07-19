@@ -98,19 +98,12 @@
 			
 		}
 	</script>
+	<h:selectOneMenu id="selSelectLocale" value="#{PubManSessionBean.locale}" immediate="true" onchange="submit();" valueChangeListener="#{PubManSessionBean.changeLanguage}" styleClass="medium_select" title="#{tip.Home_Header_Language}">
+		<f:selectItem itemValue="en" itemLabel="#{lbl.ENUM_LANGUAGE_EN}"/>
+		<f:selectItem itemValue="de" itemLabel="#{lbl.ENUM_LANGUAGE_DE}"/>
+		<f:selectItem itemValue="ja" itemLabel="#{lbl.ENUM_LANGUAGE_JA}"/>
+	</h:selectOneMenu>
 	
-	<div class="medium_area0 endline selectContainer">
-		<div class="medium_area0">
-			<span class="small_area0 selectionBox" style="white-space:nowrap;"><h:outputText value="#{PubManSessionBean.localeString}"/></span>
-			<div class="selectboxIcon" style="padding-right:1.1818em;">&#160;</div>
-		</div>
-		<h:selectOneMenu id="selSelectLocale" value="#{PubManSessionBean.locale}" styleClass="medium_area0" onchange="submit();" title="#{tip.Home_Header_Language}" immediate="true" valueChangeListener="#{PubManSessionBean.changeLanguage}">
-			<f:selectItem itemValue="en" itemLabel="#{lbl.ENUM_LANGUAGE_EN}" />
-			<f:selectItem itemValue="de" itemLabel="#{lbl.ENUM_LANGUAGE_DE}" />
-			<f:selectItem itemValue="ja" itemLabel="#{lbl.ENUM_LANGUAGE_JA}" />
-		</h:selectOneMenu>
-	</div>
-	<h:panelGroup styleClass="seperator"></h:panelGroup>
 	<!-- Help -->
 	<h:commandLink id="lnkHelp" styleClass="medium_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
