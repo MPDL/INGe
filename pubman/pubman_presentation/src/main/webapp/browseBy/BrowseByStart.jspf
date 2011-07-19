@@ -47,11 +47,9 @@
 	</h3>
 	<div class="free_area0 itemBlockContent endline">		
 		<div class="free_area0 endline itemLine firstLine">
-			<b class="xLarge_area0 endline labelLine">
-				<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
+			<span class="quad_area0_p8 noPaddingTopBottom endline">
 				<h:outputText value="#{lbl.BrowseByOrgDesc }" />
+				<br /><br />
 			</span>
 		</div>
 	</div>
@@ -76,11 +74,9 @@
 	</h3>
 	<div class="free_area0 itemBlockContent endline">		
 		<div class="free_area0 endline itemLine firstLine">
-			<b class="xLarge_area0 endline labelLine">
-				<h:outputText value="#{lbl.submission_lblDescription}"/><span class="noDisplay">: </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
+			<span class="quad_area0_p8 noPaddingTopBottom endline">
 				<h:outputText value="#{lbl.BrowseByCreatorDesc }" />
+				<br /><br />
 			</span>
 		</div>
 	</div>
@@ -98,32 +94,33 @@
 	</span>
 </div>
 <div class="full_area0 itemBlock noTopBorder">
-	<h3 class="xLarge_area0_p8 endline blockHeader">
-		&#160;
-	</h3>
-	<div class="free_area0 itemBlockContent endline">	
-		<tr:iterator var="subjectVocab" id="subjectVocabIter" value="#{BrowseBySessionBean.controlledVocabs}" binding="#{BrowseByPage.subjectIterator}" varStatus="index" rows="0">
-			<div class="xHuge_area0 firstLine">
-				<b class="xLarge_area0 labelLine">
-					<tr:commandButton id="lnkSubject" styleClass="medium_marginLExcl free_area0 groupBtn" text="#{subjectVocab}" action="#{BrowseByPage.loadBrowseBySubject}" immediate="true">
-					</tr:commandButton>
-					<span class="noDisplay">: </span>
-				</b>
-				
-				<h:panelGroup  rendered="#{subjectVocab == 'ddc'}">
-					<h:outputText value="#{lbl.ddcDesc}" />
-				</h:panelGroup>
-				<h:panelGroup rendered="#{subjectVocab == 'mpipks'}">
-					<h:outputText value="#{lbl.mpipksDesc}" />
-				</h:panelGroup>
-				<h:panelGroup rendered="#{subjectVocab == 'iso639-3'}">
-					<h:outputText value="#{lbl.iso6393Desc}" />
-				</h:panelGroup>
-			</div>			
-		</tr:iterator>
+	<h3 class="xLarge_area0_p8 endline blockHeader"> &#160; </h3>
+	<div class="free_area0 itemBlockContent endline">
+		<p>
+			<tr:iterator var="subjectVocab" id="subjectVocabIter" value="#{BrowseBySessionBean.controlledVocabs}" binding="#{BrowseByPage.subjectIterator}" varStatus="index" rows="0">
+				<div class="quad_area0_p8 noPaddingTopBottom firstLine">
+					<b class="medium_area0 labelLine">
+						<tr:commandButton id="lnkSubject" styleClass="free_area0 groupBtn" text="#{subjectVocab}" action="#{BrowseByPage.loadBrowseBySubject}" immediate="true">
+						</tr:commandButton> <span class="noDisplay">: </span>
+					</b>
+					<h:panelGroup  rendered="#{subjectVocab == 'ddc'}">
+						<h:outputText value="#{lbl.ddcDesc}" />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{subjectVocab == 'mpipks'}">
+						<h:outputText value="#{lbl.mpipksDesc}" />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{subjectVocab == 'iso639-3'}">
+						<h:outputText value="#{lbl.iso6393Desc}" />
+					</h:panelGroup>
+				</div>
+			</tr:iterator>
+		</p>
+		
 	</div>
+	<div style="line-height:2em;">&#160;</div>
 </div>
 <!-- Browse By Year -->
+	
 <div class="full_area0 itemHeader">
 	<span class="xLarge_area0 endline">
 		&#160;
@@ -143,11 +140,9 @@
 	</h3>
 	<div class="free_area0 itemBlockContent endline">		
 		<div class="free_area0 endline itemLine firstLine">
-			<b class="xLarge_area0 endline labelLine">
-				<h:outputText value="#{lbl.submission_lblDescription}"/><span class="noDisplay">: </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
+			<span class="quad_area0_p8 noPaddingTopBottom endline">
 				<h:outputText value="#{lbl.BrowseByYearDesc }" />
+				<br /><br />
 			</span>
 		</div>
 	</div>
