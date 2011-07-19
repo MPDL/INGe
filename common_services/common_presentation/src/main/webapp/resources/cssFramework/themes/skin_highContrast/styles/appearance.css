@@ -741,3 +741,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color:transparent;
 	border:none;
 }
+
+.labelLine .groupBtn {
+	float:right;
+	text-align:right;
+}

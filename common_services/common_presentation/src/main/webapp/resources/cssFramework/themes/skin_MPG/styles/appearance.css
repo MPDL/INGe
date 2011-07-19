@@ -685,7 +685,8 @@ tbody .listItem span.statusArea {
 
 .tiledList .inAlbum, .fullItem .inAlbum, .activeAlbum, .activeAlbum .seperator {
     background-color: #BADF4A;
-    border-color: #548E00 !important;
+  /*  border-color: #548E00 !important; */
+	border-color:#0F3834 !important;
 }
 
 /*ITEM HEADER*/
@@ -865,7 +866,8 @@ tbody .listItem span.statusArea {
 }
 
 .infoMessageArea h2 {
-    color: #548E00;
+  /*  color: #548E00; */
+	color:#0F3834;
 }
 
 .errorMessageArea {
@@ -898,7 +900,8 @@ tbody .listItem span.statusArea {
 }
 
 .messageStatus {
-    color: #548E00;
+  /*  color: #548E00; */
+	color:#0F3834;
 }
 
 /*MANDATORY FIELD*/
@@ -949,4 +952,9 @@ tbody .listItem span.statusArea {
 .languageArea .readonlyInput {
 	background-color:transparent;
 	border:none;
+}
+
+.labelLine .groupBtn {
+	float:right;
+	text-align:right;
 }
