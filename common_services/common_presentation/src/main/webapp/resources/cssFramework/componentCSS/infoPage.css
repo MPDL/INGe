@@ -73,6 +73,8 @@
 
 .mainSection h3 {
 	font-size: 200% !important;
+	line-height:1.3em;
+	font-weight:normal;
 }
 
 .infoPage h2, .infoPage .mainSection h2, .infoPage .sideSection h2 {
