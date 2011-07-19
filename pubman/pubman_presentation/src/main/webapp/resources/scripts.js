@@ -72,6 +72,15 @@ function loadBlog(url)
 
 function loadHelp(url, anchor)
 {
+	var tmpUrl = url;
+	if (!url.match("http:")) {
+		tmpUrl = location+url;
+	}
+	
+	var searchString = "mpdl.mpg.de/help";
+	if (tmpUrl.match(searchString)) {
+		url = tmpUrl.split("mpdl.mpg.de/").join("mpdl.mpg.de/pubman/faces/");
+	}
 	// use the h:output tag to output the bean property
 	openCenteredWindow(url + anchor, 600, 400, "Help"); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
 }
