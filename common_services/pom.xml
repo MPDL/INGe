@@ -627,7 +627,7 @@
 		<escidoc.common.presentation.url>http://localhost:8080/common/</escidoc.common.presentation.url>
 
 		<!-- Properties for common standard theme-->
-		<escidoc.common.stylesheet.standard.url>/common/resources/cssFramework/themes/skin_MPG/styles/theme.css</escidoc.common.stylesheet.standard.url>
+		<escidoc.common.stylesheet.standard.url>/common/resources/cssFramework/themes/skin_blue/styles/theme.css</escidoc.common.stylesheet.standard.url>
 		<escidoc.common.stylesheet.standard.type>stylesheet</escidoc.common.stylesheet.standard.type>
 		<escidoc.common.stylesheet.standard.apply>true</escidoc.common.stylesheet.standard.apply>
 		
