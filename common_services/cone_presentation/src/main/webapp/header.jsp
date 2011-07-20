@@ -40,6 +40,9 @@
 	<link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.standard.url") %>" id="BlueTheme" type="text/css" title="blue" rel="stylesheet"/>
 
 	<script language="JavaScript" type="text/javascript">
+	
+	var layoutCookieName = 'customStyleSheet';
+	
 		  function applyCookieStyle() {
 				var cookieValue = ""
 				var cookie = "layout=";
@@ -79,7 +82,7 @@
 			}
 		
 			function setStyleCookie() {
-				var cookieValue = "";
+				var cookieValue = "BlueTheme";
 				if(document.getElementsByTagName) {
 					var el = document.getElementsByTagName("link");
 					for (var i = 0; i < el.length; i++ ) {
