@@ -80,37 +80,37 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.62-SNAPSHOT</version>
+			<version>1.0.62</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.60-SNAPSHOT</version>
+			<version>1.0.60</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.64-SNAPSHOT</version>
+			<version>1.0.64</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.57-SNAPSHOT</version>
+			<version>1.1.57</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<version>1.0.54-SNAPSHOT</version>
+			<version>1.0.54</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.45-SNAPSHOT</version>
+			<version>1.0.45</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
