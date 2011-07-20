@@ -575,7 +575,7 @@
 		<xsd.metadata.person>http://purl.org/escidoc/metadata/profiles/0.1/person</xsd.metadata.person>
 		
 		<!-- syndication service -->
-		<escidoc.syndication.service.url>http://localhost:8080/syndication/</escidoc.syndication.service.url>
+		<escidoc.syndication.service.url>http://localhost:8080/syndication</escidoc.syndication.service.url>
 		<escidoc.syndication.maximum.records>50</escidoc.syndication.maximum.records>
 		<escidoc.syndication.ttl>0</escidoc.syndication.ttl>
 		<escidoc.syndication.feeds.xml.path>resources/feeds.xml</escidoc.syndication.feeds.xml.path>
