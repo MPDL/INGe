@@ -40,13 +40,9 @@ public class SyndicationServiceTest
     	String result;
     	
     	
-    	String pubman_url = PropertyReader.getProperty("escidoc.pubman.instance.url");
-    	pubman_url = pubman_url.substring(0, pubman_url.indexOf("/pubman")  );
-    	logger.info("pubman base url:" + pubman_url);
+    	String syndication_url = PropertyReader.getProperty("escidoc.syndication.service.url");
 
-    	//Thread.sleep(1000L * 60);
-    	
-    	uri = pubman_url + "/syndication/feed/rss_2.0/releases";
+    	uri = syndication_url + "/feed/rss_2.0/releases";
     	start = System.currentTimeMillis();
     	result =  performGetFeed( uri ); 
     	assertTrue( result!= null );
@@ -54,7 +50,7 @@ public class SyndicationServiceTest
     	logger.info("URI: " + uri + "\n" + "GENERATED FEED:\n" + result );
 //    	Utils.writeToFile("result_rss_093.xml", result);    	
     	
-    	uri = pubman_url + "/syndication/feed/atom_1.0/publications/organization/escidoc:persistent22";
+    	uri = syndication_url + "/feed/atom_1.0/publications/organization/escidoc:persistent22";
     	start = System.currentTimeMillis();
     	result =  performGetFeed( uri );
     	assertTrue( result!= null );
