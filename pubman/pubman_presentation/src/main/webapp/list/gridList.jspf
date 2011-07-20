@@ -102,7 +102,7 @@ All rights reserved. Use is subject to license terms.
  			<input type="checkbox" class="allCheckBox"/>
  			<input type="button" id="btcheckBoxSelectButton" class="min_imgBtn checkBoxSelectButton"/>
  			
- 			<div class="free_area1 xTiny_marginLIncl selectMenu" style="display: none;">
+ 			<div class="large_area1 xTiny_marginLIncl selectMenu" style="display: none;">
  				<span class="large_area0_p8"><h:outputText value="#{lbl.List_SelectItem}"/></span>
  				<br />
  				<h:commandLink id="lnkList_lkAll" title="#{tip.List_lkAll}" disabled="true" styleClass="large_area0_p8 selectAll">
