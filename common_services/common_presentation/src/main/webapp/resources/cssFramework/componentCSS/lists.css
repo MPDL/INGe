@@ -106,7 +106,7 @@
 }
 	
 .listHeader a, .listHeader span, .listHeader thead {
-	padding-top: 0.37em;
+	padding-top: 0.18em; 
 	padding-bottom: 0px;
 	margin: 0px;
 	margin-right: -0.11em;
@@ -119,8 +119,9 @@
 }
 
 .listHeader .headerSwitchView {
-	margin-top:0.3636em;
-	margin-left:0.1818em;
+/*	margin-top:0.3636em;
+	margin-left:0.1818em; */
+	margin-top:0.1818em;
 	padding: 0;
 }
 	/*SELECT MENU*/
@@ -147,8 +148,9 @@
      border-style: solid;
      border-top-width: 0px ! important;
      position: absolute;
-     margin-top: -0.37em;
+     margin-top: 0;
      margin-left: 4.2em;
+	 padding-bottom:0.4545em;
      z-index: 3;
 }
 
@@ -166,6 +168,23 @@
 .selectMenu a span {
 	padding-top: 0em;
 }
+
+.optionHeadlineSeparator {
+	margin:0; 
+	padding:0;
+	background-color:#999999; 
+	height:0.0909em; 
+	border:0 none;
+}
+
+.optionSeparator {
+	margin:0; 
+	padding:0;
+	background-color:#acacac; 
+	height:0.0909em; 
+	border:0 none;
+}
+
 
 	/*STATUS RELATED HEADER ELEMENTS*/
 	
