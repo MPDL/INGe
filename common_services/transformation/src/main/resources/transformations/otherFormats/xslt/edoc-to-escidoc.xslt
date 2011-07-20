@@ -1120,7 +1120,7 @@
 									<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
 								</eterms:content-category>
 							</xsl:when>
-							<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH'">
+							<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO'">
 								<eterms:content-category>
 									<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 								</eterms:content-category>
@@ -1210,6 +1210,20 @@
 								<xsl:if test="exists($evolbio-copyright-exceptions/edoc[id = $edoc-id])">
 									<xsl:element name="dc:rights">
 										<xsl:value-of select="../../../rights/copyright"/>
+									</xsl:element>
+								</xsl:if>
+							</xsl:when>
+							<xsl:when test="$import-name = 'MPINEURO'">
+								<xsl:variable name="copyright" select="../../../rights/copyright"/>
+								<xsl:if test="$comment != '' or $copyright != ''">
+									<xsl:element name="dc:rights">
+										<xsl:if test="$comment != ''">
+											<xsl:value-of select="$comment"/>
+										</xsl:if>
+										<xsl:if test="$comment != '' and $copyright != ''"> / </xsl:if>
+										<xsl:if test="$copyright != ''">
+											<xsl:value-of select="$copyright"/>
+										</xsl:if>
 									</xsl:element>
 								</xsl:if>
 							</xsl:when>
@@ -2132,6 +2146,9 @@
 						<xsl:when test="$import-name = 'EVOLBIO'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Evolutionary Biology')"/>
 						</xsl:when>
+						<xsl:when test="$import-name = 'MPINEURO'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI of Neurobiology')"/>
+						</xsl:when>
 						<xsl:when test="$import-name = 'MPIeR'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for European Legal History')"/>
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'External Organizations')"/>
@@ -2779,10 +2796,9 @@
 				<xsl:value-of select="normalize-space(discipline)"/>
 				<xsl:text></xsl:text>
 			</xsl:if>
-			<xsl:if test="$import-name = 'FHI'">
+			<xsl:if test="$import-name = 'FHI' or $import-name = 'MPINEURO'">
 				<xsl:if test="exists(../../docaff/docaff_researchcontext)">
 					<xsl:value-of select="normalize-space(../../docaff/docaff_researchcontext)"/>
-					<xsl:text></xsl:text>
 				</xsl:if>
 			</xsl:if>
 		</xsl:variable>
