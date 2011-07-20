@@ -31,19 +31,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.57-SNAPSHOT</version>
+		<version>1.0.57</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>reporting</artifactId>
 	<name>reporting</name>
 	<packaging>jar</packaging>
-	<version>0.2-SNAPSHOT</version>
+	<version>0.2</version>
 	
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/reporting</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/reporting</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.57/reporting</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.57/reporting</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.57/reporting</url>
 	</scm>
 	
 	<build>
@@ -87,7 +87,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.60-SNAPSHOT</version>
+			<version>1.0.60</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -129,7 +129,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.57-SNAPSHOT</version>
+			<version>1.1.57</version>
 			<type>ejb</type>
 		</dependency>
 	</dependencies>
