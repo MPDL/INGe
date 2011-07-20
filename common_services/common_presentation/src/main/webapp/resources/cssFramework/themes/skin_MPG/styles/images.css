@@ -516,7 +516,7 @@ body .wrapper {
     background-position: left;
 }
 
-/*MISC*/
+/*MISC - deprecated*/
 .collapse, .expand /*, .files, .locators*/ {
     cursor: pointer;
 }
@@ -562,7 +562,59 @@ body .wrapper {
     background-position: center left;
     padding-left: 2.10em !important;
 }
-@media print { .collapse, .expand {
+
+/* MISC */
+
+.collapseTriangle, .expandTriangle /*, .files, .locators*/ {
+    cursor: pointer;
+}
+
+.collapseTriangle {
+    background-image: url('../images/All_View_TriangleOpen_15_Active.png');
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 2.10em !important;
+}
+
+.collapseTriangle:hover, .collapseTriangle:focus {
+    background-image: url('../images/All_View_TriangleOpen_15_Hover.png');
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 2.10em !important;
+}
+
+.collapseTriangle:disabled {
+    background-image: url('../images/All_View_TriangleOpen_15_Deactivated.png');
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 2.10em !important;
+}
+
+.expandTriangle {
+    background-image: url('../images/All_View_TriangleClose_15_Active.png');
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 2.10em !important;
+}
+
+.expandTriangle:hover, .expandTriangle:focus {
+    background-image: url('../images/All_View_TriangleClose_15_Hover.png');
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 2.10em !important;
+}
+
+.expandTriangle:disabled {
+    background-image: url('../images/All_View_TriangleClose_15_Deactivated.png');
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 2.10em !important;
+}
+
+
+
+
+@media print { .collapse, .expand, .collapseTriangle, .expandTriangle {
         display: none !important;
 }
 }
