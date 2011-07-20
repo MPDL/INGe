@@ -53,10 +53,10 @@ public class KeyGenerator
      */
     public static void main(String[] args) throws Exception
     {
-        KeyPairGenerator kpg = KeyPairGenerator.getInstance("AES");
+        KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
         kpg.initialize(2048);
         KeyPair kp = kpg.genKeyPair();
-        KeyFactory fact = KeyFactory.getInstance("AES");
+        KeyFactory fact = KeyFactory.getInstance("RSA");
         RSAPublicKeySpec pub = fact.getKeySpec(kp.getPublic(), RSAPublicKeySpec.class);
         RSAPrivateKeySpec priv = fact.getKeySpec(kp.getPrivate(), RSAPrivateKeySpec.class);
         saveToFile("public.key", pub.getModulus(), pub.getPublicExponent());
