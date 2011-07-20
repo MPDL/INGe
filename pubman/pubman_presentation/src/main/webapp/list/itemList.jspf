@@ -103,18 +103,18 @@
  			
  			
  			<div class="large_area1 xTiny_marginLIncl selectMenu" style="display: none;">
- 				<span class="large_area0_p8"><h:outputText value="#{lbl.List_SelectItem}"/></span>
+ 				<span class="large_area0_p8" style="text-align:left;"><h:outputText value="#{lbl.List_SelectItem}"/></span>
  				<br />
  				<h:commandLink id="lnkList_lkAll" title="#{tip.List_lkAll}" disabled="true" styleClass="large_area0_p8 selectAll">
- 					<span class="tiny_marginLIncl"><h:outputText value="#{lbl.List_lkAllOnPage}"/></span>
+ 					<span class="free_area0 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkAllOnPage}"/></span>
  				</h:commandLink>
  				<br />
  				<h:commandLink id="lnkList_lkToggle" title="#{tip.List_lkToggle}" disabled="true" styleClass="large_area0_p8 toggleAll">
- 					<span class="tiny_marginLIncl"><h:outputText value="#{lbl.List_lkToggleAll}"/></span>
+ 					<span class="free_area0 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkToggleAll}"/></span>
  				</h:commandLink>
  				<br />
  				<h:commandLink id="lnkList_lkNone" title="#{tip.List_lkNone}" disabled="true" styleClass="large_area0_p8 selectNone">
- 					<span class="tiny_marginLIncl"><h:outputText value="#{lbl.List_lkNone}"/></span>
+ 					<span class="free_area0 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkNone}"/></span>
  				</h:commandLink>
  				<br />
  			</div>
