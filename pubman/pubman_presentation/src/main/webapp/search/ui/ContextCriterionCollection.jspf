@@ -50,7 +50,7 @@
 
 					<b class="quad_label">&#160;</b>
 					
-					<h:selectOneMenu styleClass="large_select" id="selectContext" value="#{contextCriterionBean.contextCriterionVO.searchString}">
+					<h:selectOneMenu styleClass="quad_select" id="selectContext" value="#{contextCriterionBean.contextCriterionVO.searchString}">
 						<f:selectItems value="#{AdvancedSearchEdit.contextCriterionCollection.contextList}"/>
 					</h:selectOneMenu>
 
