@@ -31,6 +31,15 @@
 */
 
 /*GENERAL*/
+/*fix for all IE*/
+input[type=checkbox] {
+	border-width:0;
+	background-color:transparent; 
+}
+input[type=button] {
+	border-width:0;
+	background-color:transparent; 
+}
 
 .itemList, .tiledList {
 	border-top-width: 0.19em !important;
@@ -79,7 +88,12 @@
 }
 
 .itemList input[type="button"] {
-	border-width: 0px;
+	border-width: 0;
+	background-color: transparent;
+}
+.itemList input[type="button"]:hover {
+	border-width: 0;
+	background-color: transparent;
 }
 
 /*PRE-HEADER*/
@@ -154,6 +168,7 @@ div.listHeader span.itemSelectArea {
 	margin-top: 0.19em;
 	margin-right: 0.19em;
 	float: right;
+	background-color: transparent;
 }
 
 	/*REPLACEMENT HACK FOR IE 7*/

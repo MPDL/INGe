@@ -145,11 +145,6 @@ h1, h4, h5 {
 	background-color:#f3f5f5;
 }
 
-input[type=checkbox] {
-	border-width:0;
-	background-color:transparent; 
-}
-
 /* HELP PAGE */
 .maketitle.wrapper {
 	background-image:none;
@@ -623,7 +618,6 @@ tbody .listItem span.statusArea {
 /*SELECT MENU*/
 .itemList .checkBoxSelectButton {
     cursor: pointer;
-	background-color: transparent;
 }
 
 .itemList .checkBoxCloseSelectButton:hover, .selectMenu .checkBoxCloseSelectButton:focus {
