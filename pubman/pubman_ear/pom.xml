@@ -858,7 +858,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_presentation</artifactId>
-			<version>1.0.45</version>
+			<version>1.0.46-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
