@@ -33,64 +33,65 @@
 
 <f:subview id="Import">
 
-<div class="clear">
+<div class="clear headerDistanceFix">
+		<jsp:directive.include file="../../header/Breadcrumb.jspf" />
 		<div id="contentSkipLinkAnchor" class="clear headLine">
 			<!-- Headline starts here -->
 			<h1><h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}"/></h1>
 			<!-- Headline ends here -->
 		</div>
+</div>
+<div class="small_marginLIncl subHeaderSection">
+	<div class="contentMenu">
+	<!-- content menu starts here -->
+		<div class="free_area0 sub">
+			<h:commandLink id="lnkEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+				<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+			</h:commandLink>
+			<h:outputText styleClass="seperator void" />
+			<h:commandLink id="lnkNewSubmission" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
+				<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+			</h:commandLink>
+			<h:outputText styleClass="seperator void" />
+			<span>
+				<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+			</span>
+			<h:outputText styleClass="seperator void" />
+			<h:commandLink id="lnkMultipleImport" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
+				<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+			</h:commandLink>
+		</div>
+		<div class="free_area0 sub action">
+		<!-- content menu lower line starts here -->
+			<h:outputText styleClass="free_area0" value="#{lbl.easy_submission_lblProvideID}" rendered="#{EasySubmission.disableBibtexFields}" />								
+			<h:commandLink title="#{tip.easy_submission_lblProvideID}" id="btn_selectExternal" action="#{EasySubmission.selectImportExternal}" rendered="#{EasySubmission.disableExternalFields}" ><h:outputText value="#{lbl.easy_submission_lblProvideID}" /></h:commandLink>
+			<h:panelGroup styleClass="seperator" />
+			<h:outputText styleClass="free_area0" value="#{lbl.easy_submission_lblUploadBibtex}" rendered="#{EasySubmission.disableExternalFields}" />
+			<h:commandLink title="#{tip.easy_submission_lblUploadBibtex}" id="btn_selectBibtex" action="#{EasySubmission.selectImportBibtex}" rendered="#{EasySubmission.disableBibtexFields}" ><h:outputText value="#{lbl.easy_submission_lblUploadBibtex}" /></h:commandLink>
+		<!-- content menu lower line ends here -->
+		</div>
+	<!-- content menu ends here -->
 	</div>
-	<div class="small_marginLIncl subHeaderSection">
-		<div class="contentMenu">
-		<!-- content menu starts here -->
-			<div class="free_area0 sub">
-				<h:commandLink id="lnkEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
-					<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-				</h:commandLink>
-				<h:outputText styleClass="seperator void" />
-				<h:commandLink id="lnkNewSubmission" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
-					<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
-				</h:commandLink>
-				<h:outputText styleClass="seperator void" />
-				<span>
-					<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-				</span>
-				<h:outputText styleClass="seperator void" />
-				<h:commandLink id="lnkMultipleImport" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
-					<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-				</h:commandLink>
-			</div>
-			<div class="free_area0 sub action">
-			<!-- content menu lower line starts here -->
-				<h:outputText styleClass="free_area0" value="#{lbl.easy_submission_lblProvideID}" rendered="#{EasySubmission.disableBibtexFields}" />								
-				<h:commandLink title="#{tip.easy_submission_lblProvideID}" id="btn_selectExternal" action="#{EasySubmission.selectImportExternal}" rendered="#{EasySubmission.disableExternalFields}" ><h:outputText value="#{lbl.easy_submission_lblProvideID}" /></h:commandLink>
-				<h:panelGroup styleClass="seperator" />
-				<h:outputText styleClass="free_area0" value="#{lbl.easy_submission_lblUploadBibtex}" rendered="#{EasySubmission.disableExternalFields}" />
-				<h:commandLink title="#{tip.easy_submission_lblUploadBibtex}" id="btn_selectBibtex" action="#{EasySubmission.selectImportBibtex}" rendered="#{EasySubmission.disableBibtexFields}" ><h:outputText value="#{lbl.easy_submission_lblUploadBibtex}" /></h:commandLink>
-			<!-- content menu lower line ends here -->
-			</div>
-		<!-- content menu ends here -->
-		</div>
-		<div class="subHeader">
-			<!-- Subheadline starts here -->
-			<h:outputText value="#{lbl.easy_submission_lblCollectionOfItem} #{EasySubmission.contextName}." />
-			<!-- Subheadline ends here -->
-		</div>
-		<div class="subHeader">
-			<!-- Subheadline starts here -->
-				<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.numberOfMessages == 1}"/>
-				<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{EasySubmissionSessionBean.hasErrorMessages and EasySubmissionSessionBean.numberOfMessages != 1}">
-					<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
-					<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
-				</h:panelGroup>
-				<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{EasySubmissionSessionBean.hasMessages and !EasySubmissionSessionBean.hasErrorMessages  and EasySubmissionSessionBean.numberOfMessages != 1}">
-					<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
-					<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
-				</h:panelGroup>
-			<!-- Subheadline ends here -->
-		</div>
+	<div class="subHeader">
+		<!-- Subheadline starts here -->
+		<h:outputText value="#{lbl.easy_submission_lblCollectionOfItem} #{EasySubmission.contextName}." />
+		<!-- Subheadline ends here -->
+	</div>
+	<div class="subHeader">
+		<!-- Subheadline starts here -->
+			<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.numberOfMessages == 1}"/>
+			<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{EasySubmissionSessionBean.hasErrorMessages and EasySubmissionSessionBean.numberOfMessages != 1}">
+				<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
+				<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{EasySubmissionSessionBean.hasMessages and !EasySubmissionSessionBean.hasErrorMessages  and EasySubmissionSessionBean.numberOfMessages != 1}">
+				<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
+				<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
+			</h:panelGroup>
+		<!-- Subheadline ends here -->
 	</div>
 </div>
+
 <div id="ImgFullItem">
 	<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;"></div>
 </div>

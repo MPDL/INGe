@@ -34,7 +34,7 @@
 <f:subview id="easySubmissionStep1Manual">
 
 <div class="clear">
-	<div class="headerSection">
+	<div class="headerSection headerDistanceFix">
 	<h:outputText value="#{EasySubmissionBreadcrumbPage.beanName}" styleClass="noDisplay" />
 	<jsp:directive.include file="../../header/Breadcrumb.jspf" />
 

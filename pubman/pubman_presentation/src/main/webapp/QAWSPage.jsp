@@ -91,7 +91,7 @@
 								<!-- content menu upper line ends here -->
 								</div>
 								<!-- content menu lower line starts here -->
-								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
+								<h:panelGroup layout="block" styleClass="third_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
 									<h:selectOneMenu id="selExportFormatName" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>
@@ -100,7 +100,7 @@
 										<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
+								<h:panelGroup layout="block" styleClass="third_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
 									<!--
 									<h:commandButton id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" action="#{PubItemListSessionBean.exportSelectedDisplay}"/>
 									<h:outputText styleClass="seperator" />
@@ -110,7 +110,7 @@
 									<h:commandLink id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{PubItemListSessionBean.exportSelectedEmail}"/>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">
+								<h:panelGroup layout="block" styleClass="third_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">
 								<!-- content menu lower line starts here -->
 									<h:commandLink id="lnkChangeListTypeToBib" styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}" action="#{PubItemListSessionBean.changeListTypeToBib}">
 										<h:outputText value="#{lbl.List_lblBibList}" />
@@ -123,7 +123,7 @@
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblGridList}" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 sub action ieFilter" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
+								<h:panelGroup layout="block" styleClass="third_area0 sub action ieFilter" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="medium_label" value="#{lbl.ENUM_CRITERIA_STATE} "/>
 									<h:selectOneMenu id="selSelectedItemState" styleClass="large_select replace" value="#{MyTasksRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
@@ -136,13 +136,15 @@
 										<f:selectItems value="#{MyTasksRetrieverRequestBean.contextSelectItems}"/>
 									</h:selectOneMenu>
 									<h:commandButton id="btChangeContext" styleClass="noDisplay changeCollection" action="#{MyTasksRetrieverRequestBean.changeContext}" value="change context"/>
-
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="third_area0 sub action ieFilter" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 									<h:outputText styleClass="medium_label clearLeft" value="#{lbl.qaws_lblOrgUnitSelection} "/>
 									<h:selectOneMenu id="selSelectedOrgUnit" styleClass="quad_select replace endline" value="#{MyTasksRetrieverRequestBean.selectedOrgUnit}" onchange="$(this).parents('div').find('.changeOrgUnit').click();">
 										<f:selectItems value="#{MyTasksRetrieverRequestBean.orgUnitSelectItems}"/>
 									</h:selectOneMenu>
 									<h:commandButton id="btChangeOrgUnit" styleClass="noDisplay changeOrgUnit" action="#{MyTasksRetrieverRequestBean.changeOrgUnit}" value="change org unit"/>
-
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="third_area0 sub action ieFilter" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 									<h:outputText styleClass="medium_label clearLeft" value="#{lbl.qaws_lblMultipleImportTags} "/>
 									<h:selectOneMenu id="selSelectedImport" styleClass="quad_select replace endline" value="#{MyTasksRetrieverRequestBean.selectedImport}" onchange="$(this).parents('div').find('.changeImport').click();">
 										<f:selectItems value="#{MyTasksRetrieverRequestBean.importSelectItems}"/>
@@ -150,7 +152,7 @@
 									<h:commandButton id="btChangeImport" styleClass="noDisplay changeImport" action="#{MyTasksRetrieverRequestBean.changeImport}" value="change import"/>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
+								<h:panelGroup layout="block" styleClass="third_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}" style="width:39.19em !important;">
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy} "/>
 									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
@@ -163,7 +165,7 @@
 								</h:panelGroup>
 							<!-- content menu ends here -->
 							</div>
-							<div class="subHeader">
+							<div class="subHeader" style="max-height:1.6363em;">
 								<h:outputText value="#{PubItemListSessionBean.totalNumberOfElements} #{lbl.SearchResultList_lblItems}"/>
 								<h:outputText value=" ("/>
 								<h:outputText value="#{lbl.ENUM_CRITERIA_STATE} &#34;#{MyTasksRetrieverRequestBean.selectedItemStateLabel}&#34;, " rendered="#{MyTasksRetrieverRequestBean.selectedItemState != null and MyTasksRetrieverRequestBean.selectedItemState != 'all'}"/>
@@ -173,7 +175,7 @@
 								<h:outputText value="#{lbl.ENUM_SORTORDER_DESCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{!PubItemListSessionBean.isAscending}"/>
 								<h:outputText value=")"/>	
 							</div>
-							<div class="subHeader">
+							<div class="subHeader" style="max-height:1.6363em;">
 								<!-- Subheadline starts here -->
 								<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{MyTasksRetrieverRequestBean.numberOfMessages == 1}"/>
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{MyTasksRetrieverRequestBean.hasErrorMessages and MyTasksRetrieverRequestBean.numberOfMessages != 1}">

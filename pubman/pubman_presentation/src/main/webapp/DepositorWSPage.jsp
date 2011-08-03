@@ -128,14 +128,15 @@
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblGridList}" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
+								<h:panelGroup layout="block" styleClass="quad_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="medium_label" value="#{lbl.ENUM_CRITERIA_STATE}"/>
 									<h:selectOneMenu styleClass="xDouble_select replace" id="cboItemstate" value="#{MyItemsRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
 										<f:selectItems id="selectItems" value="#{MyItemsRetrieverRequestBean.itemStateSelectItems}"/>
 									</h:selectOneMenu>
 									<h:commandButton id="btnChangeItemState" title="#{tip.list_btChangeState}" styleClass="noDisplay changeState" value=" "  action="#{MyItemsRetrieverRequestBean.changeItemState}"/>
-									
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="quad_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">	
 									<h:outputText styleClass="medium_label clearLeft" value="#{lbl.qaws_lblMultipleImportTags}" rendered="#{LoginHelper.isModerator}"/>
 									<h:selectOneMenu id="selSelectedImport" styleClass="xDouble_select replace" value="#{MyItemsRetrieverRequestBean.selectedImport}" onchange="$(this).parents('div').find('.changeImport').click();" rendered="#{LoginHelper.isModerator}">
 										<f:selectItems value="#{MyItemsRetrieverRequestBean.importSelectItems}"/>

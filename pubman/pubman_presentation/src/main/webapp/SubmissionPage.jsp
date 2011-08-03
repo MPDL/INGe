@@ -58,56 +58,9 @@
 
 				<div id="content" class="full_area0 clear">
 				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
-					<div class="clear">
-						<div class="headerSection">
-							
-						<jsp:directive.include file="header/Breadcrumb.jspf" />
-				
-							<div id="contentSkipLinkAnchor" class="clear headLine">
-								<!-- Headline starts here -->
-								<h1><h:outputText value="#{lbl.submission_lblSubmissionStart}" /></h1>
-								<!-- Headline ends here -->
-							</div>
-						</div>
-						<div class="small_marginLIncl subHeaderSection">
-							<div class="contentMenu">
-							<!-- content menu starts here -->
-								<div class="free_area0 sub">
-								<!-- content menu lower line starts here -->										
-									<h:commandLink id="lnkSubmission_lnkEasySubmissionMenu" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
-										<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-									</h:commandLink>
-									<h:outputText styleClass="seperator void" />
-									<h:commandLink id="lnkSubmission_lnkNewSubmissionMenu" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
-										<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
-									</h:commandLink>
-									<h:outputText styleClass="seperator void" />
-									<h:commandLink id="lnkSubmission_lnkImportMenu" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
-										<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-									</h:commandLink>
-									<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
-										<h:outputText styleClass="seperator void" />
-										<h:commandLink id="lnkSubmission_lnkMultipleImportMenu" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
-											<h:outputText value="#{lbl.submission_lnkMultipleImport}"/>
-										</h:commandLink>
-									</h:panelGroup>
-								<!-- content menu lower line ends here -->
-								</div>
-							<!-- content menu ends here -->
-							</div>
-							<div class="subHeader">
-								<!-- Subheadline starts here -->
-									&#160;
-								<!-- Subheadline ends here -->
-							</div>
-						</div>
-					</div>			
+						
 					<div class="full_area0">
-						<div class="full_area0 fullItem">
-
-							<jsp:directive.include file="submission/SubmissionStart.jspf" />
-
-						</div>
+						<jsp:directive.include file="submission/SubmissionStart.jspf" />						
 					</div>
 				<!-- end: content section -->
 				</div>

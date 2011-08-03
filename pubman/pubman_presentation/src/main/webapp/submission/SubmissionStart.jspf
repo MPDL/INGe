@@ -28,95 +28,62 @@
              */
 %>
 
+<div class="clear">
+	<div class="headerSection">
+		
+	<jsp:directive.include file="../header/Breadcrumb.jspf" />
 
-<div class="full_area0 itemHeader noTopBorder">
-	<span class="xLarge_area0 endline">
-		&#160;
-	</span>
-	<span class="seperator"></span>
-	<span class="free_area0_p8 endline itemHeadline">
-		<b>
-			<h:commandLink id="lnkSubmission_lnkEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
-				<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-			</h:commandLink>
-		</b>
-	</span>
-</div>
-<div class="full_area0 itemBlock noTopBorder">
-	<h3 class="xLarge_area0_p8 endline blockHeader">
-		&#160;
-	</h3>
-	<div class="free_area0 itemBlockContent endline">		
-		<div class="free_area0 endline itemLine firstLine">
-			<span class="quad_area0_p8 noPaddingTopBottom endline">
-				<h:outputText value="#{lbl.submission_descEasySubmission}" />
-				<br /><br />
-			</span>
+		<div id="contentSkipLinkAnchor" class="clear headLine">
+			<!-- Headline starts here -->
+			<h1><h:outputText value="#{lbl.submission_lblSubmissionStart}" /></h1>
+			<!-- Headline ends here -->
+		</div>
+	</div>
+	<div class="small_marginLIncl subHeaderSection">
+		<div class="contentMenu">
+		<!-- content menu starts here -->
+			<div class="free_area0 sub">
+			<!-- content menu lower line starts here -->										
+				<h:commandLink id="lnkSubmission_lnkEasySubmissionMenu" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+					<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+				</h:commandLink>
+				<h:outputText styleClass="seperator void" />
+				<h:commandLink id="lnkSubmission_lnkNewSubmissionMenu" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
+					<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				</h:commandLink>
+				<h:outputText styleClass="seperator void" />
+				<h:commandLink id="lnkSubmission_lnkImportMenu" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+					<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+				</h:commandLink>
+				<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+					<h:outputText styleClass="seperator void" />
+					<h:commandLink id="lnkSubmission_lnkMultipleImportMenu" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
+						<h:outputText value="#{lbl.submission_lnkMultipleImport}"/>
+					</h:commandLink>
+				</h:panelGroup>
+			<!-- content menu lower line ends here -->
+			</div>
+		<!-- content menu ends here -->
+		</div>
+		<div class="subHeader">
+			<!-- Subheadline starts here -->
+				&#160;
+			<!-- Subheadline ends here -->
 		</div>
 	</div>
 </div>
-<div class="full_area0 itemHeader">
-	<span class="xLarge_area0 endline">
-		&#160;
-	</span>
-	<span class="seperator"></span>
-	<span class="free_area0_p8 endline itemHeadline">
-		<b>
-			<h:commandLink title="#{tip.submission_lnkNewSubmission}" id="lnkNewSubmission" action="#{CreateItem.newSubmission}" immediate="true">
-				<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
-			</h:commandLink>
-		</b>
-	</span>
-</div>
-<div class="full_area0 itemBlock noTopBorder">
-	<h3 class="xLarge_area0_p8 endline blockHeader">
-		&#160;
-	</h3>
-	<div class="free_area0 itemBlockContent endline">		
-		<div class="free_area0 endline itemLine firstLine">
-			<span class="quad_area0_p8 noPaddingTopBottom endline">
-				<h:outputText value="#{lbl.submission_descNewSubmission}" />
-				<br /><br />
-			</span>
-		</div>
-	</div>
-</div>
-<div class="full_area0 itemHeader">
-	<span class="xLarge_area0 endline">
-		&#160;
-	</span>
-	<span class="seperator"></span>
-	<span class="free_area0_p8 endline itemHeadline">
-		<b>
-			<h:commandLink id="lnkSubmission_lnkImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
-				<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-			</h:commandLink>
-		</b>
-	</span>
-</div>
-<div class="full_area0 itemBlock noTopBorder">
-	<h3 class="xLarge_area0_p8 endline blockHeader">
-		&#160;
-	</h3>
-	<div class="free_area0 itemBlockContent endline">		
-		<div class="free_area0 endline itemLine firstLine">
-			<span class="quad_area0_p8 noPaddingTopBottom endline">
-				<h:outputText value="#{lbl.submission_descImport}" />
-				<br /><br />
-			</span>
-		</div>
-	</div>
-</div>
-<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
-	<div class="full_area0 itemHeader">
+
+					
+<div class="full_area0 fullItem">
+	<div class="full_area0 itemHeader noTopBorder">
 		<span class="xLarge_area0 endline">
 			&#160;
 		</span>
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:commandLink id="lnkSubmission_lnkMultipleImport" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
-					<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+				<h:commandLink id="lnkSubmission_lnkEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+					<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 			</b>
 		</span>
@@ -128,10 +95,90 @@
 		<div class="free_area0 itemBlockContent endline">		
 			<div class="free_area0 endline itemLine firstLine">
 				<span class="quad_area0_p8 noPaddingTopBottom endline">
-					<h:outputText value="#{lbl.submission_descMultipleImport}" />
+					<h:outputText value="#{lbl.submission_descEasySubmission}" />
 					<br /><br />
 				</span>
 			</div>
 		</div>
 	</div>
-</h:panelGroup>
+	<div class="full_area0 itemHeader">
+		<span class="xLarge_area0 endline">
+			&#160;
+		</span>
+		<span class="seperator"></span>
+		<span class="free_area0_p8 endline itemHeadline">
+			<b>
+				<h:commandLink title="#{tip.submission_lnkNewSubmission}" id="lnkNewSubmission" action="#{CreateItem.newSubmission}" immediate="true">
+					<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				</h:commandLink>
+			</b>
+		</span>
+	</div>
+	<div class="full_area0 itemBlock noTopBorder">
+		<h3 class="xLarge_area0_p8 endline blockHeader">
+			&#160;
+		</h3>
+		<div class="free_area0 itemBlockContent endline">		
+			<div class="free_area0 endline itemLine firstLine">
+				<span class="quad_area0_p8 noPaddingTopBottom endline">
+					<h:outputText value="#{lbl.submission_descNewSubmission}" />
+					<br /><br />
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="full_area0 itemHeader">
+		<span class="xLarge_area0 endline">
+			&#160;
+		</span>
+		<span class="seperator"></span>
+		<span class="free_area0_p8 endline itemHeadline">
+			<b>
+				<h:commandLink id="lnkSubmission_lnkImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+					<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+				</h:commandLink>
+			</b>
+		</span>
+	</div>
+	<div class="full_area0 itemBlock noTopBorder">
+		<h3 class="xLarge_area0_p8 endline blockHeader">
+			&#160;
+		</h3>
+		<div class="free_area0 itemBlockContent endline">		
+			<div class="free_area0 endline itemLine firstLine">
+				<span class="quad_area0_p8 noPaddingTopBottom endline">
+					<h:outputText value="#{lbl.submission_descImport}" />
+					<br /><br />
+				</span>
+			</div>
+		</div>
+	</div>
+	<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+		<div class="full_area0 itemHeader">
+			<span class="xLarge_area0 endline">
+				&#160;
+			</span>
+			<span class="seperator"></span>
+			<span class="free_area0_p8 endline itemHeadline">
+				<b>
+					<h:commandLink id="lnkSubmission_lnkMultipleImport" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
+						<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+					</h:commandLink>
+				</b>
+			</span>
+		</div>
+		<div class="full_area0 itemBlock noTopBorder">
+			<h3 class="xLarge_area0_p8 endline blockHeader">
+				&#160;
+			</h3>
+			<div class="free_area0 itemBlockContent endline">		
+				<div class="free_area0 endline itemLine firstLine">
+					<span class="quad_area0_p8 noPaddingTopBottom endline">
+						<h:outputText value="#{lbl.submission_descMultipleImport}" />
+						<br /><br />
+					</span>
+				</div>
+			</div>
+		</div>
+	</h:panelGroup>
+</div>

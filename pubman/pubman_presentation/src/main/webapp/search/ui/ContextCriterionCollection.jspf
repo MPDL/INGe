@@ -50,10 +50,19 @@
 
 					<b class="quad_label">&#160;</b>
 					
-					<h:selectOneMenu styleClass="quad_select" id="selectContext" value="#{contextCriterionBean.contextCriterionVO.searchString}">
-						<f:selectItems value="#{AdvancedSearchEdit.contextCriterionCollection.contextList}"/>
-					</h:selectOneMenu>
-
+					<div class="free_area1 third_txtInput endline selectContainer">
+						<div class="free_area0 third_txtInput">
+							<span class="free_area0 third_txtInput selectionBox" style="white-space:nowrap; width:32.4545em;">
+							<h:outputText value="#{contextCriterionBean.contextName}" rendered="#{contextCriterionBean.contextCriterionVO.searchString != null}"/>
+							<h:outputText value="--" rendered="#{contextCriterionBean.contextCriterionVO.searchString == null}"/>
+							</span>
+							<div class="selectboxIcon" style="margin-right:0.3636em;">&nbsp;</div>
+						</div>
+						<h:selectOneMenu onchange="submit();" id="selectContext" value="#{contextCriterionBean.contextCriterionVO.searchString}">
+							<f:selectItems value="#{AdvancedSearchEdit.contextCriterionCollection.contextList}"/>
+						</h:selectOneMenu>
+					</div>
+					
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAddFollowing" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionManager.addObject}" />

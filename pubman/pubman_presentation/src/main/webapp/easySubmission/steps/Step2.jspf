@@ -34,7 +34,7 @@
 <f:subview id="CollectionSelection">
 
 <div class="clear">
-	<div class="headerSection">
+	<div class="headerSection headerDistanceFix">
 	
 	<jsp:directive.include file="../../header/Breadcrumb.jspf" />
 

@@ -51,43 +51,47 @@ function addItemListFunctions(){
     });
 // Openration of the select menu for checkboxes 
 // Start with event on document to close the select menu on click elswhere    
-//    $('html').click(function(){
+    $('html').click(function(){
 //        $('.selectMenu').hide();
-//    });
+    });
     
-    $('.selectMenu').click(function(e){
-        e.stopPropagation();
+    $('.selectMenu').click(function(evt){
+    	evt.preventDefault();
+    	evt.stopPropagation();
+    	evt.stopImmediatePropagation();
     });
     
     function hideElement(element) {
-    	element.hide(0, function() {
-    		$('html').unbind('click');
-    		$('html').unbind('keypress');
+    	element.hide(100);
+    }
+    
+    $('.checkBoxSelectButton').click(function(evt){
+    	evt.preventDefault();
+    	evt.stopPropagation();
+    	evt.stopImmediatePropagation();
+    	
+    	$('body').unbind("click");
+    	$('body').unbind("keydown");
+    	
+    	var cbsButtonPosition = $(this).position();
+    	
+    	var slctMenu = $(this).siblings('.selectMenu');
+    	$('body').one("click", function(evt) {
+    		hideElement(slctMenu);
     	});
-    }
-    
-    function escForElement(evt, element) {
-    	switch (evt.which) {
-	    	case 0:
-	    	case 27:
-	    		hideElement(element);
-    	}
-    }
-    
-    $('.checkBoxSelectButton').click(function(){
-//      $(this).siblings('.selectMenu').toggle(100);
-//    	$('.selectMenu').hide();
-        var slctMenu = $(this).siblings('.selectMenu');
-        slctMenu.toggle(100);
-       
-        if (slctMenu.css('display') != 'none' || Number(slctMenu.css('opacity')) != 0 || Number(slctMenu.css('alpha')) != 0) {
-        	$('html').click(function(){
-        		hideElement($('.selectMenu'));
-            });
-        	$('html').keypress(function(e){
-        		escForElement(e, $('.selectMenu'));
-        	});
-        }
+    	$('body').one('keydown', function(evt){
+			if (Number(evt.which) === 27) {	//check the key-number for number of escape
+				hideElement(slctMenu);
+			}
+		});
+    	slctMenu.toggle(100, function(){
+    		if ($(slctMenu).is(':visible')) {
+    			$(slctMenu).css("left", cbsButtonPosition.left + 10);
+//    			$(slctMenu).css("top", cbsButtonPosition.top - 2);
+        	}
+    	});
+    	
+//    	$(this).siblings('.selectMenu').toggle(100);
     });
     
 // Select options    
@@ -176,3 +180,46 @@ function installItemList(){
     /* ADD LISTENERS TO CHANGED DOM */
     addItemListFunctions();
 }
+
+
+$(document).ready(function(e){
+	$('.selectContainer').each(function() {
+		//check if the selectbox is on metaMenu
+		if ($(this).parent().hasClass("metaMenu")) {
+//			console.log('Parent: ' + $(this).parent().attr('class'))
+		} else {
+			var element = $(this);
+			//Define the new width of customized selectBox
+			var newWidth = element.find('select').width();
+			
+			//if the width of selectbox smaller than 431px it's allowed to resize
+			if (newWidth < 431) {
+				//set the new width to the selectbox container
+				element.find('div:first-child').width(newWidth);
+				//set the new width of selectionBox (info area) on the new width reduced with the selectboxArrow-width (22px incl. margin/padding)
+				element.find('.selectionBox').width(newWidth - 22);
+				//finally set the new width to the global element
+				element.width(newWidth);
+			}
+		}
+	})
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
