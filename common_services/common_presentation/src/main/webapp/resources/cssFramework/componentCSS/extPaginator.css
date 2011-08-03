@@ -85,7 +85,12 @@
 	.pageBrowser input, .pageBrowser button {
 		height: 2.45em;
 	}
-
+	
+	.pageBrowser button:disabled {
+		cursor:default !important;
+		text-decoration:none;
+	}
+	
 	.pageBrowser .seperator, .pageBrowser .actualSeperator {
 		display: block;
 		overflow: hidden;

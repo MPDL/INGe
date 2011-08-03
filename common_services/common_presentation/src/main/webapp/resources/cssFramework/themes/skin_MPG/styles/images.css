@@ -33,26 +33,7 @@
  *
  */
  
-/*Body Background*/
-
-body {
-	background: url("../images/all_background_1.png") repeat-x scroll left top;
-}
-
-body .wrapper {
-	background-image:url("../images/mpg_bg_100.jpg");
-	background-repeat:no-repeat !important;
-}
-
-.headerLogo {
-	background-image:none !important;
-	background-repeat:no-repeat;
-}
-
-.headerLogo, .themePark {
-   /* visibility: hidden; */
-  height:6em !important;
-}
+/*Body Background (none)*/
 
 /*HEADER
  -----------------------------------------------
@@ -65,13 +46,14 @@ body .wrapper {
  -----------------------------------------------
  */
 /*HEADER LOGO*/
+.headerLogo {
 
+}
 
 /*PUT IN HEADER LOGO FOR PRINT DISPLAY HERE*/
-@media print { 
-	.contentMenu {list-style-image:
-	        url('../../../globalImages/logo.png');
-	}
+@media print { .contentMenu {list-style-image:
+		url('../../../globalImages/logo.png');
+}
 }
 
 .smallThrobber {
@@ -113,7 +95,6 @@ body .wrapper {
  }
  */
 /*SORTING IMAGES FOR CONTENT MENU*/
-
 .ascSort {
     background-image: url('../images/All_Sorting_TriangleAscending_15_Active.png');
     background-repeat: no-repeat;
@@ -151,7 +132,13 @@ body .wrapper {
 }
 
 /*BODY*/
+body {
+	background: url("../images/all_background_1.png") repeat-x scroll left top;
+}
+
 body .wrapper {
+	background-image:url("../images/mpg_bg_head_wrapper_100.png");
+	background-repeat:no-repeat !important;
 }
 
 /* CONTENT
@@ -163,9 +150,8 @@ body .wrapper {
  -----------------------------------------------*/
 
 /*START PAGE*/
-
-.submIcon {
-    background-image: url('../images/All_Start_TeaserNew_31_Static.png');
+.myItemsIcon {
+    background-image: url('../images/All_Start_TeaserQa_31_Static.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -176,8 +162,8 @@ body .wrapper {
     background-position: center center;
 }
 
-.myItemsIcon {
-    background-image: url('../images/All_Start_TeaserQa_31_Static.png');
+.submIcon {
+    background-image: url('../images/All_Start_TeaserNew_31_Static.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -281,7 +267,6 @@ body .wrapper {
 }
 
 /*LIST COMPONENT*/
-
 .itemList, .tiledList, .fullItem {
 /*	background:url("../images/all_ramp_list.png") scroll left top; */
 	background:none;
@@ -291,30 +276,19 @@ body .wrapper {
 	background-image: url('../images/All_View_TriangleClose_15_Active.png');
     background-repeat: no-repeat;
     background-position: center;
-	margin-top:0.18em;
+/*	margin-top:0.18em; */
 }
 
 .checkBoxSelectButton:hover, .checkBoxSelectButton:focus {
-    background-image: url('../images/All_DropDown_TriangleOpen_15_Hover.png');
+    background-image: url('../images/All_View_TriangleOpen_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .checkBoxSelectButton:disabled {
-    background-image: url('../images/All_DropDown_TriangleOpen_15_Deactivated.png');
+    background-image: url('../images/All_View_TriangleOpen_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center;
-}
-
-.metaMenu .selectboxIcon {
-	background-image:url("../images/All_Sorting_TriangleDescending_15_Deactivated.png");
-	margin-top:-0.0909em;
-}
-
-.selectboxIcon {
-	background-image:url("../images/All_Sorting_TriangleDescending_15_Static.png");
-	background-position:right;
-	background-repeat:no-repeat;
 }
 
 .selectMenu .checkBoxCloseSelectButton {
@@ -376,24 +350,35 @@ body .wrapper {
 }
 
 .virrMediaTypeV {
-    background-image: url('../images/Virr_Media_TypeVolume_31_Static.png');
+    background-image: url('../images/Virr_Media_TypeVolume_31_Static.gif');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .virrMediaTypeMG {
-    background-image: url('../images/Virr_Media_TypeMonographie_31_Static.png');
+    background-image: url('../images/Virr_Media_TypeMonographie_31_Static.gif');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .virrMediaTypeM {
-    background-image: url('../images/Virr_Media_TypeMultivolume_31_Static.png');
+    background-image: url('../images/Virr_Media_TypeMultivolume_31_Static.gif');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 /*SELECT REPLACEMENT*/
+
+.metaMenu .selectboxIcon {
+	background-image:url("../images/All_Sorting_TriangleDescending_15_Active.png");
+	margin-top:-0.0909em;
+}
+.selectboxIcon {
+	background-image:url("../images/All_Sorting_TriangleDescending_15_Active.png");
+	background-position:right;
+	background-repeat:no-repeat;
+}
+
 .replace .open {
     background-image: url('../images/All_DropDown_TriangleOpen_15_Active.png');
     background-repeat: no-repeat;
@@ -438,7 +423,7 @@ body .wrapper {
 }
 
 .mpgUnit, .affTreeOUIcon {
-    background-image: url('../images/mnrv_23x23.png');
+    background-image: url('../images/mnrv_23x23.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -564,7 +549,6 @@ body .wrapper {
 }
 
 /* MISC */
-
 .collapseTriangle, .expandTriangle /*, .files, .locators*/ {
     cursor: pointer;
 }
@@ -610,9 +594,6 @@ body .wrapper {
     background-position: center left;
     padding-left: 2.10em !important;
 }
-
-
-
 
 @media print { .collapse, .expand, .collapseTriangle, .expandTriangle {
         display: none !important;
@@ -693,37 +674,37 @@ body .wrapper {
 }
 
 .assign {
-    background-image: url('../images/Virr_Work_Assign_31_Active.png');
+    background-image: url('../images/Virr_Work_Assign_31_Active.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .assign:hover, .assign:focus {
-    background-image: url('../images/Virr_Work_Assign_31_Hover.png');
+    background-image: url('../images/Virr_Work_Assign_31_Hover.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .assign:disabled {
-    background-image: url('../images/Virr_Work_Assign_31_Deactivated.png');
+    background-image: url('../images/Virr_Work_Assign_31_Deactivated.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .unassign {
-    background-image: url('../images/Virr_Work_Assign_31_Active.png');
+    background-image: url('../images/Virr_Work_Assign_31_Active.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .unassign:hover, .unassign:focus {
-    background-image: url('../images/Virr_Work_Assign_31_Hover.png');
+    background-image: url('../images/Virr_Work_Assign_31_Hover.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .unassign:disabled {
-    background-image: url('../images/Virr_Work_Assign_31_Deactivated.png');
+    background-image: url('../images/Virr_Work_Assign_31_Deactivated.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -818,25 +799,25 @@ body .wrapper {
 
 .ccLicense {
     padding-left: 1.37em;
-    background-image: url('../images/cc.png');
+    background-image: url('../images/cc.gif');
     background-repeat: no-repeat;
     background-position: center left;
 }
 
 .visibilityIcon {
-    background-image: url('../images/Virr_Visibility_EyeTrue_15_Active.png');
+    background-image: url('../images/Virr_Visibility_EyeTrue_15_Active.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .visibilityIcon:hover, .visibilityIcon:focus {
-    background-image: url('../images/Virr_Visibility_EyeTrue_15_Hover.png');
+    background-image: url('../images/Virr_Visibility_EyeTrue_15_Hover.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .visibilityIcon:disabled {
-    background-image: url('../images/Virr_Visibility_EyeTrue_15_Deactivated.png');
+    background-image: url('../images/Virr_Visibility_EyeTrue_15_Deactivated.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -849,14 +830,14 @@ body .wrapper {
 }
 
 .downloadFileIcon {
-	background-image: url('../images/All_File_ArrowDownload_15_Static.gif');
+	background-image: url('../images/All_File_ArrowDownload_15_Static.png');
 	background-repeat: no-repeat;
 	background-position: bottom left;
 	padding-left: 2.10em !important;
 }  	
 
 .featureIcon {
-	background-image: url('../images/All_Status_ItemSolo_31_Static.gif');
+	background-image: url('../images/All_Status_ItemSolo_31_Static.png');
 	background-repeat: no-repeat;
 	background-position: right;
 	height: 2.90em !important;

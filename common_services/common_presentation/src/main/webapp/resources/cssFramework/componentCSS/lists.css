@@ -46,17 +46,17 @@
 
 .itemList .seperator, .tiledList .seperator {
 	float: left;
-	width: 0.10em;
+	width: 0.0909em;
 	margin: 0px;
 	padding: 0px;
 	border-width: 0px;
-	border-top-width: 1.3em;
+	border-top-width: 1.2727em;
 	height: 0em;
 	border-style: solid;
 }
 
 .itemList .collapseTriangle, .itemList .expandTriangle {
-	display: inline;
+	display: block;
 }
 
 .itemList ol, .itemList ul, .tiledList ol, tiledList ul {
@@ -104,26 +104,50 @@
 	float: left;
 	border: none;
 }
-	
+
+div.listHeader span.itemSelectArea {
+	padding-top:0;
+	padding-bottom:0;
+	margin:0;
+}
+
 .listHeader a, .listHeader span, .listHeader thead {
-	padding-top: 0.18em; 
+	padding-top: 0.1818em; 
 	padding-bottom: 0px;
 	margin: 0px;
-	margin-right: -0.11em;
+	margin-right: -0.0909em;
 }
 
 .listHeader .collapseTriangle, .listHeader .collapseTriangle:hover, .listHeader .collapseTriangle:focus, .listHeader .expandTriangle, .listHeader .expandTriangle:hover, .listHeader .expandTriangle:focus {
 	line-height: normal;
-	margin-left: 0.19em;
+/*	margin-left: 0.1818em; */
 	background-position: left;
 }
 
 .listHeader .headerSwitchView {
-/*	margin-top:0.3636em;
-	margin-left:0.1818em; */
-	margin-top:0.1818em;
+	margin-top:0;
 	padding: 0;
 }
+
+.headerSwitchView .collapseTriangle {
+	display:block;
+	padding:0.1818em 0 0 0;
+}
+
+.headerSwitchView .expandTriangle {
+	display:block;
+	padding:0.1818em 0 0 0;
+}
+
+.headerSwitchView .collapseTriangle span, .headerSwitchView .expandTriangle span {
+	padding-top:0.0909em;
+	height:0.7272em;
+}
+
+.shortView .collapseTriangle {
+	display:none;
+}
+
 	/*SELECT MENU*/
 	
 .itemList .checkboxSelectButton {
@@ -145,13 +169,11 @@
 }
 
 .selectMenu {
-     border-style: solid;
-     border-top-width: 0px ! important;
-     position: absolute;
-     margin-top: -0.1818em;
-     margin-left: 4.2em;
-	 padding-bottom:0.4545em;
-     z-index: 3;
+	border-style: solid;
+	border-top-width: 0px !important;
+	position: absolute;
+	padding-bottom:0.4545em;
+	z-index:3;
 }
 
 th .selectMenu {

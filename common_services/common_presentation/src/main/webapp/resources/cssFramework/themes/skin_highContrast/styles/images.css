@@ -104,57 +104,57 @@
 
 /*SEARCH MENU*/
 .quickSearchIcon {
-    background-image: url('../images/All_Search_LensStart_23_Static.gif');
+    background-image: url('../images/All_Search_LensStart_23_Static.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 /*
  .quickSearchIcon:hover, .quickSearchIcon:focus {
- background-image: url('../images/All_Search_LensStart_15_Hover.gif');
+ background-image: url('../images/All_Search_LensStart_15_Hover.png');
  background-repeat: no-repeat;
  background-position: center center;
  }
  
  .quickSearchIcon:disabled {
- background-image: url('../images/All_Search_LensStart_15_Deactivated.gif');
+ background-image: url('../images/All_Search_LensStart_15_Deactivated.png');
  background-repeat: no-repeat;
  background-position: center center;
  }
  */
 /*SORTING IMAGES FOR CONTENT MENU*/
 .ascSort {
-    background-image: url('../images/All_Sorting_TriangleAscending_15_Active.gif');
+    background-image: url('../images/All_Sorting_TriangleAscending_15_Active.png');
     background-repeat: no-repeat;
     background-position: right;
 }
 
 .ascSort:hover, .ascSort:focus {
-    background-image: url('../images/All_Sorting_TriangleAscending_15_Hover.gif');
+    background-image: url('../images/All_Sorting_TriangleAscending_15_Hover.png');
     background-repeat: no-repeat;
     background-position: right;
 }
 
 .ascSort:disabled {
-    background-image: url('../images/All_Sorting_TriangleAscending_15_Deactivated.gif');
+    background-image: url('../images/All_Sorting_TriangleAscending_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: right;
 }
 
 .desSort {
-    background-image: url('../images/All_Sorting_TriangleDescending_15_Active.gif');
+    background-image: url('../images/All_Sorting_TriangleDescending_15_Active.png');
     background-repeat: no-repeat;
     background-position: right;
 }
 
 .desSort:hover, .desSort:focus {
-    background-image: url('../images/All_Sorting_TriangleDescending_15_Hover.gif');
+    background-image: url('../images/All_Sorting_TriangleDescending_15_Hover.png');
     background-repeat: no-repeat;
     background-position: right;
 }
 
 .desSort:disabled {
-    background-image: url('../images/All_Sorting_TriangleDescending_15_Deactivated.gif');
+    background-image: url('../images/All_Sorting_TriangleDescending_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: right;
 }
@@ -193,25 +193,25 @@ body .wrapper {
 /*EXTENDED PAGINATOR*/
 /*PAGE BROWSER*/
 .pageBrowser .skipToFirst {
-    background-image: url('../images/All_Paginator_ArrowFirst_15_Active.gif');
+    background-image: url('../images/All_Paginator_ArrowFirst_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .pageBrowser .skipToFirst:hover, .pageBrowser .skipToFirst:focus {
-    background-image: url('../images/All_Paginator_ArrowFirst_15_Hover.gif');
+    background-image: url('../images/All_Paginator_ArrowFirst_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .pageBrowser .skipToFirst:disabled {
-    background-image: url('../images/All_Paginator_ArrowFirst_15_Deactivated.gif');
+    background-image: url('../images/All_Paginator_ArrowFirst_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .pageBrowser .backward {
-    background-image: url('../images/All_Paginator_ArrowPrevious_15_Active.gif');
+    background-image: url('../images/All_Paginator_ArrowPrevious_15_Active.png');
     background-repeat: no-repeat;
     background-position: left;
     padding-right: 0px;
@@ -229,19 +229,19 @@ body .wrapper {
 }
 
 .pageBrowser .backward:hover, .pageBrowser .backward:focus {
-    background-image: url('../images/All_Paginator_ArrowPrevious_15_Hover.gif');
+    background-image: url('../images/All_Paginator_ArrowPrevious_15_Hover.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .pageBrowser .backward:disabled {
-    background-image: url('../images/All_Paginator_ArrowPrevious_15_Deactivated.gif');
+    background-image: url('../images/All_Paginator_ArrowPrevious_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .pageBrowser .forward {
-    background-image: url('../images/All_Paginator_ArrowNext_15_Active.gif');
+    background-image: url('../images/All_Paginator_ArrowNext_15_Active.png');
     background-repeat: no-repeat;
     background-position: right;
     padding-right: 20px;
@@ -259,98 +259,104 @@ body .wrapper {
 }
 
 .pageBrowser .forward:hover, .pageBrowser .forward:focus {
-    background-image: url('../images/All_Paginator_ArrowNext_15_Hover.gif');
+    background-image: url('../images/All_Paginator_ArrowNext_15_Hover.png');
     background-repeat: no-repeat;
     background-position: right;
 }
 
 .pageBrowser .forward:disabled {
-    background-image: url('../images/All_Paginator_ArrowNext_15_Deactivated.gif');
+    background-image: url('../images/All_Paginator_ArrowNext_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: right;
 }
 
 .pageBrowser .skipToLast {
-    background-image: url('../images/All_Paginator_ArrowLast_15_Active.gif');
+    background-image: url('../images/All_Paginator_ArrowLast_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .pageBrowser .skipToLast:hover, .pageBrowser .skipToLast:focus {
-    background-image: url('../images/All_Paginator_ArrowLast_15_Hover.gif');
+    background-image: url('../images/All_Paginator_ArrowLast_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .pageBrowser .skipToLast:disabled {
-    background-image: url('../images/All_Paginator_ArrowLast_15_Deactivated.gif');
+    background-image: url('../images/All_Paginator_ArrowLast_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 /*LIST COMPONENT*/
 .itemList .checkBoxSelectButton {
-    background-image: url('../images/All_DropDown_TriangleOpen_15_Active.gif');
+    background-image: url('../images/All_View_TriangleClose_15_Active.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .itemList .checkBoxSelectButton:hover, .itemList .checkBoxSelectButton:focus {
-    background-image: url('../images/All_DropDown_TriangleOpen_15_Hover.gif');
+    background-image: url('../images/All_View_TriangleOpen_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .itemList .checkBoxSelectButton:disabled {
-    background-image: url('../images/All_DropDown_TriangleOpen_15_Deactivated.gif');
+    background-image: url('../images/All_View_TriangleOpen_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .selectMenu .checkBoxCloseSelectButton {
-    background-image: url('../images/All_DropDown_CrossClose_15_Active.gif');
+    background-image: url('../images/All_DropDown_CrossClose_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .selectMenu .checkBoxCloseSelectButton:hover, .selectMenu .checkBoxCloseSelectButton:focus {
-    background-image: url('../images/All_DropDown_CrossClose_15_Hover.gif');
+    background-image: url('../images/All_DropDown_CrossClose_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .selectMenu .checkBoxCloseSelectButton:disabled {
-    background-image: url('../images/All_DropDown_CrossClose_15_Deactivated.gif');
+    background-image: url('../images/All_DropDown_CrossClose_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .submittedItem {
-    background-image: url('../images/All_Status_ItemSubmitted_31_Static.gif');
+    background-image: url('../images/All_Status_ItemSubmitted_31_Static.png');
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.submitSuccessful {
+	background-image: url('../images/All_Work_Done_15_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .pendingItem {
-    background-image: url('../images/All_Status_ItemPending_31_Static.gif');
+    background-image: url('../images/All_Status_ItemPending_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .releasedItem {
-    background-image: url('../images/All_Status_ItemReleased_31_Static.gif');
+    background-image: url('../images/All_Status_ItemReleased_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .inRevisionItem {
-    background-image: url('../images/All_Status_ItemRework_31_Static.gif');
+    background-image: url('../images/All_Status_ItemRework_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .withdrawnItem {
-    background-image: url('../images/All_Status_ItemWithdrawn_31_Static.gif');
+    background-image: url('../images/All_Status_ItemWithdrawn_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
@@ -376,54 +382,54 @@ body .wrapper {
 /*SELECT REPLACEMENT*/
 
 .metaMenu .selectboxIcon {
-	background-image:url("../images/All_Sorting_TriangleDescending_15_Deactivated.gif");
-	margin-top:-0.0909em;
+	background-image:url("../images/All_Sorting_TriangleDescending_15_Active.png");
+	margin-top:-0.1818em;
 }
 .selectboxIcon {
-	background-image:url("../images/All_Sorting_TriangleDescending_15_Deactivated.gif");
+	background-image:url("../images/All_Sorting_TriangleDescending_15_Active.png");
 	background-position:right;
 	background-repeat:no-repeat;
 }
 
 .replace .open {
-    background-image: url('../images/All_DropDown_TriangleOpen_15_Active.gif');
+    background-image: url('../images/All_DropDown_TriangleOpen_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .replace .open:hover, .rangeSelector .open:focus {
-    background-image: url('../images/All_DropDown_TriangleOpen_15_Hover.gif');
+    background-image: url('../images/All_DropDown_TriangleOpen_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .replace .open:disabled {
-    background-image: url('../images/All_DropDown_TriangleOpen_15_Deactivated.gif');
+    background-image: url('../images/All_DropDown_TriangleOpen_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .replace .close {
-    background-image: url('../images/All_DropDown_CrossClose_15_Active.gif');
+    background-image: url('../images/All_DropDown_CrossClose_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .replace .close:hover, .rangeSelector .close:focus {
-    background-image: url('../images/All_DropDown_CrossClose_15_Hover.gif');
+    background-image: url('../images/All_DropDown_CrossClose_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .replace .close:disabled {
-    background-image: url('../images/All_DropDown_CrossClose_15_Deactivated.gif');
+    background-image: url('../images/All_DropDown_CrossClose_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 /*AFFILIATION TREE*/
 .organisationalUnit {
-    background-image: url('../images/All_Status_Organization_23_Static.gif');
+    background-image: url('../images/All_Status_Organization_23_Static.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -436,73 +442,73 @@ body .wrapper {
 
 /*IMPORT WORKSPACE*/
 .importFINISHEDFINE {
-    background-image: url('../images/All_Import_FinishedFine_31_Static.gif');
+    background-image: url('../images/All_Import_FinishedFine_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .importFINISHEDWARNING {
-    background-image: url('../images/All_Import_FinishedProblem_31_Static.gif');
+    background-image: url('../images/All_Import_FinishedProblem_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .importFINISHEDERROR, .importFINISHEDPROBLEM, .importFINISHEDFATAL {
-    background-image: url('../images/All_Import_FinishedError_31_Static.gif');
+    background-image: url('../images/All_Import_FinishedError_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .importPENDINGFINE {
-    background-image: url('../images/All_Import_PendingFine_31_Static.gif');
+    background-image: url('../images/All_Import_PendingFine_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .importPENDINGWARNING {
-    background-image: url('../images/All_Import_PendingProblem_31_Static.gif');
+    background-image: url('../images/All_Import_PendingProblem_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .importPENDINGERROR, .importPENDINGPROBLEM, .importPENDINGFATAL {
-    background-image: url('../images/All_Import_PendingError_31_Static.gif');
+    background-image: url('../images/All_Import_PendingError_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .importROLLBACKFINE {
-    background-image: url('../images/All_Import_RollbackFine_31_Static.gif');
+    background-image: url('../images/All_Import_RollbackFine_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .importROLLBACKWARNING {
-    background-image: url('../images/All_Import_RollbackProblem_31_Static.gif');
+    background-image: url('../images/All_Import_RollbackProblem_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .importROLLBACKERROR, .importROLLBACKPROBLEM, .importROLLBACKFATAL {
-    background-image: url('../images/All_Import_RollbackError_31_Static.gif');
+    background-image: url('../images/All_Import_RollbackError_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .importSUSPENDEDFINE {
-    background-image: url('../images/All_Import_SuspendedFine_31_Static.gif');
+    background-image: url('../images/All_Import_SuspendedFine_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .importSUSPENDEDWARNING {
-    background-image: url('../images/All_Import_SuspendedProblem_31_Static.gif');
+    background-image: url('../images/All_Import_SuspendedProblem_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .importSUSPENDEDERROR, .importSUSPENDEDPROBLEM, .importSUSPENDEDFATAL {
-    background-image: url('../images/All_Import_SuspendedError_31_Static.gif');
+    background-image: url('../images/All_Import_SuspendedError_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
@@ -513,42 +519,42 @@ body .wrapper {
 }
 
 .collapse {
-    background-image: url('../images/All_ListView_MinusSmallview_15_Active.gif');
+    background-image: url('../images/All_ListView_MinusSmallview_15_Active.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
 
 .collapse:hover, .collapse:focus {
-    background-image: url('../images/All_ListView_MinusSmallview_15_Hover.gif');
+    background-image: url('../images/All_ListView_MinusSmallview_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
 
 .collapse:disabled {
-    background-image: url('../images/All_ListView_MinusSmallview_15_Deactivated.gif');
+    background-image: url('../images/All_ListView_MinusSmallview_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
 
 .expand {
-    background-image: url('../images/All_ListView_PlusMediumview_15_Active.gif');
+    background-image: url('../images/All_ListView_PlusMediumview_15_Active.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
 
 .expand:hover, .expand:focus {
-    background-image: url('../images/All_ListView_PlusMediumview_15_Hover.gif');
+    background-image: url('../images/All_ListView_PlusMediumview_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
 
 .expand:disabled {
-    background-image: url('../images/All_ListView_PlusMediumview_15_Deactivated.gif');
+    background-image: url('../images/All_ListView_PlusMediumview_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
@@ -560,47 +566,46 @@ body .wrapper {
 }
 
 .collapseTriangle {
-    background-image: url('../images/All_ListView_MinusSmallview_15_Active.gif');
+    background-image: url('../images/All_View_TriangleOpen_15_Active.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
 
 .collapseTriangle:hover, .collapseTriangle:focus {
-    background-image: url('../images/All_ListView_MinusSmallview_15_Hover.gif');
+    background-image: url('../images/All_View_TriangleOpen_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
 
 .collapseTriangle:disabled {
-   	background-image: url('../images/All_ListView_MinusSmallview_15_Deactivated.gif');
+   	background-image: url('../images/All_View_TriangleOpen_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
 
 .expandTriangle {
-    background-image: url('../images/All_ListView_PlusMediumview_15_Active.gif');
+    background-image: url('../images/All_View_TriangleClose_15_Active.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
 
 .expandTriangle:hover, .expandTriangle:focus {
-    background-image: url('../images/All_ListView_PlusMediumview_15_Hover.gif');
+    background-image: url('../images/All_View_TriangleClose_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
 
 .expandTriangle:disabled {
-	background-image: url('../images/All_ListView_PlusMediumview_15_Deactivated.gif');
+	background-image: url('../images/All_View_TriangleClose_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 2.10em !important;
 }
-
 
 @media print { .collapse, .expand, .collapseTriangle, .expandTriangle {
         display: none !important;
@@ -608,37 +613,37 @@ body .wrapper {
 }
 
 .left {
-    background-image: url('../images/All_Paginator_ArrowPrevious_15_Active.gif');
+    background-image: url('../images/All_Paginator_ArrowPrevious_15_Active.png');
     background-repeat: no-repeat;
     background-position: center left;
 }
 
 .left:hover, .left:focus {
-    background-image: url('../images/All_Paginator_ArrowPrevious_15_Hover.gif');
+    background-image: url('../images/All_Paginator_ArrowPrevious_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center left;
 }
 
 .left:disabled {
-    background-image: url('../images/All_Paginator_ArrowPrevious_15_Deactivated.gif');
+    background-image: url('../images/All_Paginator_ArrowPrevious_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center left;
 }
 
 .right {
-    background-image: url('../images/All_Paginator_ArrowNext_15_Active.gif');
+    background-image: url('../images/All_Paginator_ArrowNext_15_Active.png');
     background-repeat: no-repeat;
     background-position: center left;
 }
 
 .right:hover, .right:focus {
-    background-image: url('../images/All_Paginator_ArrowNext_15_Hover.gif');
+    background-image: url('../images/All_Paginator_ArrowNext_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center left;
 }
 
 .right:disabled {
-    background-image: url('../images/All_Paginator_ArrowNext_15_Deactivated.gif');
+    background-image: url('../images/All_Paginator_ArrowNext_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center left;
 }
@@ -648,38 +653,38 @@ body .wrapper {
 }
 
 .add {
-    background-image: url('../images/All_Complete_PlusAdd_15_Active.gif');
+    background-image: url('../images/All_Complete_PlusAdd_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
     margin-right: 0.37em;
 }
 
 .add:hover, .add:focus {
-    background-image: url('../images/All_Complete_PlusAdd_15_Hover.gif');
+    background-image: url('../images/All_Complete_PlusAdd_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .add:disabled {
-    background-image: url('../images/All_Complete_PlusAdd_15_Deactivated.gif');
+    background-image: url('../images/All_Complete_PlusAdd_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .remove {
-    background-image: url('../images/All_Complete_MinusRemove_15_Active.gif');
+    background-image: url('../images/All_Complete_MinusRemove_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .remove:hover, remove:focus {
-    background-image: url('../images/All_Complete_MinusRemove_15_Hover.gif');
+    background-image: url('../images/All_Complete_MinusRemove_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .remove:disabled {
-    background-image: url('../images/All_Complete_MinusRemove_15_Deactivated.gif');
+    background-image: url('../images/All_Complete_MinusRemove_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -721,44 +726,44 @@ body .wrapper {
 }
 
 .fixMessageBlockBtn {
-    background-image: url('../images/All_DropDown_CrossClose_15_Active.gif');
+    background-image: url('../images/All_DropDown_CrossClose_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .fixMessageBlockBtn:hover, .fixMessageBlockBtn:focus {
-    background-image: url('../images/All_DropDown_CrossClose_15_Hover.gif');
+    background-image: url('../images/All_DropDown_CrossClose_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .fixMessageBlockBtn:disabled {
-    background-image: url('../images/All_DropDown_CrossClose_15_Deactivated.gif');
+    background-image: url('../images/All_DropDown_CrossClose_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .fixErrorMessageBlockBtn {
-    background-image: url('../images/All_DropDown_CrossClose_15_Error.gif');
+    background-image: url('../images/All_DropDown_CrossClose_15_Error.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .fixSuccessMessageBlockBtn {
-    background-image: url('../images/All_DropDown_CrossClose_15_Success.gif');
+    background-image: url('../images/All_DropDown_CrossClose_15_Success.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .files {
-    background-image: url('../images/All_Attached_ClipAttached_15_Static.gif');
+    background-image: url('../images/All_Attached_ClipAttached_15_Static.png');
     background-repeat: no-repeat;
     background-position: bottom left;
     padding-left: 2.10em !important;
 }
 
 .locators {
-    background-image: url('../images/All_Attached_ClipAttached_15_Static.gif');
+    background-image: url('../images/All_Attached_ClipAttached_15_Static.png');
     background-repeat: no-repeat;
     background-position: bottom left;
     padding-left: 2.10em !important;
@@ -771,19 +776,19 @@ body .wrapper {
 .authorCard {
     width: 2.83em;
     height: 1.37em;
-    background-image: url('../images/All_Info_Author_15_Active.gif');
+    background-image: url('../images/All_Info_Author_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .authorCard:hover, .authorCard:focus {
-    background-image: url('../images/All_Info_Author_15_Hover.gif');
+    background-image: url('../images/All_Info_Author_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .authorCard:disabled {
-    background-image: url('../images/All_Info_Author_15_Deactivated.gif');
+    background-image: url('../images/All_Info_Author_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -791,19 +796,19 @@ body .wrapper {
 .ouCard {
     width: 2.83em;
     height: 1.37em;
-    background-image: url('../images/All_Info_Organization_15_Active.gif');
+    background-image: url('../images/All_Info_Organization_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .ouCard:hover, .ouCard:focus {
-    background-image: url('../images/All_Info_Organization_15_Hover.gif');
+    background-image: url('../images/All_Info_Organization_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .ouCard:disabled {
-    background-image: url('../images/All_Info_Organization_15_Deactivated.gif');
+    background-image: url('../images/All_Info_Organization_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -841,14 +846,14 @@ body .wrapper {
 }
 
 .downloadFileIcon {
-	background-image: url('../images/All_File_ArrowDownload_15_Static.gif');
+	background-image: url('../images/All_File_ArrowDownload_15_Static.png');
 	background-repeat: no-repeat;
 	background-position: bottom left;
 	padding-left: 2.10em !important;
 }  	
 
 .featureIcon {
-	background-image: url('../images/All_Status_ItemSolo_31_Static.gif');
+	background-image: url('../images/All_Status_ItemSolo_31_Static.png');
 	background-repeat: no-repeat;
 	background-position: right;
 	height: 2.90em !important;

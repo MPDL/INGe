@@ -37,7 +37,7 @@ BG - DROPDOWN				#DAE3ED
 BG - AUTHOR / ORG			#366A9D
 BG - SELECTED IMAGES		#CCDFDD
 
-LINK COLOR					#044585
+LINK COLOR					#004465
 MOUSEOVER / HOVER			#012846
 ACTIVE MENU					#9BB5CE
 DEACTIVATED					#9BB5CE
@@ -49,7 +49,7 @@ INPUT BORDER				#9FAFAE
 TEXT						#3A3B3B
 PAGE TITLE / SITE TITLE		#004465
 ERROR MSG					#BE0031
-SUCCESS MSG					#0F3834
+SUCCESS MSG					#006F7B
 
 LIGHT LINES					#9BB5CE
 NORMAL LINES				#B0B1B1
@@ -63,8 +63,8 @@ NOT CLICKABLE - AUTHOR BG	#A0A2A2
   =====================
 	TEXT					#CDDAE7
 	BG						#336984
-	BORDER-RIGHT			#044585
-	BORDER-BOTTOM			#044585
+	BORDER-RIGHT			#004465
+	BORDER-BOTTOM			#004465
   PRIMARY BUTTON HOVER
   ====================
 	BG						#012846
@@ -73,9 +73,9 @@ NOT CLICKABLE - AUTHOR BG	#A0A2A2
 
   SECONDARY BUTTON NORMAL
   =======================
-	TEXT					#044585
-    BORDER-RIGHT			#044585
-    BORDER-BOTTOM			#044585
+	TEXT					#004465
+    BORDER-RIGHT			#004465
+    BORDER-BOTTOM			#004465
   SECONDARY BUTTON HOVER
   ======================
 	TEXT 					#012846
@@ -89,9 +89,9 @@ FREE TO USE COLOR:			#CDDAE7
 
 SECONDARY COLORS
 ================
-positive (INFO MSG)			#DAE160
+positive (INFO MSG)			#CEC200
 warning	(NOTICE MSG)		#FF8304
-VISITED LINK				#A02E00
+VISITED LINK				#6E1E16
 
  
  */
@@ -99,7 +99,7 @@ VISITED LINK				#A02E00
 /*HEADER*/
 /*H1*/
 h1 {
-    color: #004465;
+    color: #468EA2;
     font-weight: normal;
 }
 
@@ -141,13 +141,14 @@ h1, h4, h5 {
     font-family: "Myriad Pro Condensed", "Arial Narrow", sans-serif;
 }
 
-
-/* HELP PAGE */
-.maketitle h2 {
-	margin-top:7em;
+* input {
+	background-color:#f3f5f5;
 }
 
-
+/* HELP PAGE */
+.maketitle.wrapper {
+	background-image:none;
+}
 
 /*
  *
@@ -162,13 +163,10 @@ body {
 }
 
 body .footer {
-/*	background-color:#B1D5DC; */
-	background-color:#E8FBFB;
-	margin-top:2em;
+	display:none;
 }
 
 body .wrapper {
-/*	background-color:#B1D5DC; */
 	background-color:#E8FBFB;
 }
 
@@ -222,7 +220,7 @@ input, button, textarea, select {
 }
 
 a, a:visited {
-    color: #044585;
+    color: #004465;
     text-decoration: none;
 }
 
@@ -237,8 +235,7 @@ a.OraLinkDisabled:hover {
 }
 
 a:hover, a:focus, input:hover, input:focus, button:hover, button:focus {
-    color: #012846;
-    text-decoration: none;
+	text-decoration:underline;
 }
 
 input[type="button"]:hover, input[type = "submit"]:hover, input[type = "reset"]:hover, button:hover {
@@ -266,7 +263,9 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*SEPERATORS*/
 .sub.action .seperator {
 	background-color: #9BB5CE;
-	border-color: #B1D5DC;
+/*	border-color: #B1D5DC; */
+	border-width:0;
+	margin-top:0.0909em;
 }
 .contentMenu .seperator, .pageBrowser .seperator {
 	background-color:#888B8B;
@@ -295,12 +294,14 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .pageBrowser .seperator {
-    border-color: #B1D5DC;
+/*	border-color: #B1D5DC; */
+	border-width:0;
+	margin-top:0.7272em;
 }
 
 .fullItem .fullItemControls .seperator {
     background-color: #FFFFFF;
-    border-color: #044585;
+    border-color: #004465;
 }
 
 .fullItem .easySubmissionHeader .seperator {
@@ -337,19 +338,177 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*COLORING FOR ALL MENU INPUTS AND LABELS*/
 .quickSearchCheckBoxMenu label, .contentMenu input, .contentMenu a {
     background-color: transparent;
-    color: #044585;
+    color: #004465;
 }
 
 .metaMenu a {
-	background-color:#006d70;
-	color:#FFFFFF;
+	color: #FFFFFF;
+	background-color:#468EA2;
 }
 
 .metaMenu button {
     font-size: 100%;
-	background-color: #0F3834;
+	background-color: #006F7B;
     color: #FFFFFF;
 }
+
+.footer .metaMenu a {
+	float:left;
+	background-color:transparent;
+	color:#3A3B3B;
+}
+
+.footer .metaMenu .seperator {
+	float:left;
+	background-color: #006F7B;
+	padding-left:0.001em; /* bugfixing for 1px-calculation in difference browser */
+}
+
+.quickSearchMenu a, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a {
+	background-color:transparent;
+	color:#004465;
+}
+
+.quickSearchCheckBoxMenu label {
+	background-color:transparent;
+	color:#000000;
+}
+
+.quickSearchTextInput {
+	height:1.5454em;
+	padding-top:0;
+	padding-bottom:0;
+}
+
+.quickSearchBtn {
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+}
+
+.logoAlternate span {
+    font-weight: bold;
+    color: #888B8B;
+}
+
+.logoAlternate span a {
+    font-weight: normal;
+}
+
+/* HOVER / FOCUS BEHAVIOUR for input, a, button in menu structure*/
+.metaMenu input:hover, .metaMenu input:focus, 
+.quickSearchMenu input:hover, .quickSearchMenu input:focus, 
+.advancedSearchMenu input:hover, .advancedSearchMenu input:focus, 
+.organisationSearchMenu input:hover, .organisationSearchMenu input:focus, 
+.contentMenu input:hover, .contentMenu input:focus {
+	
+}
+
+.metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .advancedSearchMenu a:hover, .advancedSearchMenu a:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .contentMenu a:hover, .contentMenu a:focus {
+	text-decoration:underline;
+}
+
+/*COLORING FOR BREADCRUMB SLASHES*/
+.breadcrumb li {
+    color: #636363;
+}
+
+/*COLORING FOR BREADCRUMB TEXT*/
+.breadcrumb li a, .breadcrumb li a:visited {
+    color: #004465;
+}
+
+.breadcrumb li a:hover, .breadcrumb li a:focus {
+    color: #012846;
+}
+
+/*MENU-STYLES*/
+.mainMenu input {
+	background-color: transparent;
+	color: #FFFFFF;
+}
+.mainMenu input:hover, .mainMenu input:focus {
+	color: #012846;
+}
+
+.mainMenu a {
+	background-color: transparent;
+	color: #FFFFFF;
+}
+.mainMenu a:hover, .mainMenu a:focus {
+	background-image:url("../images/BG_MainNavi_hover_bold.png");
+	background-repeat:no-repeat;
+	height:1.3125em;
+	text-decoration: none;
+}
+
+.mainMenu {
+	text-transform:uppercase;
+	color:#9BB5CE;	/*general color for main menu text*/
+	margin-top:0.2727em;
+}
+
+.sub {
+	text-transform:uppercase;
+}
+.sub.action {
+	text-transform:none;
+}
+
+/*Content
+ 
+ -----------------------------------------------
+ 
+ |         [      Paginator      ]             |
+ 
+ |                               	           |
+ 
+ |[ Lists & Full Item ]                        |
+ 
+ |         [        Footer       ]             |
+ 
+ -----------------------------------------------*/
+/*EXT. PAGINATOR*/
+.paginatorFallbackGoBtn {
+    background-color: #FFFFFF;
+    color: #004465;
+}
+
+/*PAGE BROWSER*/
+.pageBrowser input, .pageBrowser button, .pageBrowser a {
+    background-color: transparent;
+    color: #004465;
+}
+
+.pageBrowser input:hover, .pageBrowser button:hover, .pageBrowser a:hover, .pageBrowser input:focus, .pageBrowser button:focus, .pageBrowser a:focus {
+    color: #888B8B;
+    cursor: pointer;
+}
+
+.pageBrowser .actual, .pageBrowser .actual:hover, .pageBrowser .actual:focus {
+    font-weight: bold;
+    color: #888B8B;
+    cursor: pointer;
+}
+@media print { .pageBrowser .actual {
+        font-weight: normal;
+        background-color: white;
+}
+}
+
+.pageBrowser :disabled, .pageBrowser :disabled:hover, .pageBrowser :disabled:focus, .pageBrowser .deactivated, .pageBrowser .deactivated:hover, .pageBrowser .deactivated:focus {
+    color: #777777;
+}
+
+/* INFO PAGE*/
+.infoPage .sideSection {
+    border-style: solid;
+    border-left-color: #AEAEAE;
+}
+
+.infoPage .videoPreview {
+    border-style: solid;
+    border-color: #012846;
+}
+
 
 /*CUSTOMIZED SELECTBOX - changed metaMenu select / created selectionBox + selectContainer -2011-06-17 */
 .metaMenu .selectContainer select {
@@ -362,7 +521,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	opacity:0;
 	-moz-opacity:0;
 	cursor:pointer;
-	background-color:#006D70;
+	background-color:#468EA2;
 	color:#FFFFFF;
 }
 .metaMenu .selectionBox {
@@ -373,11 +532,16 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .metaMenu .selectContainer {
 	margin-left:0.001em;
-	padding-top:0.3636em;
-	padding-bottom:0.18em;
-	height:1.72em; 
+	padding-top:0.2727em;
+	padding-bottom:0.2727em;
 	border:none;
-	background-color:#006D70;
+	background-color:#468EA2;
+}
+
+.metaMenu .selectContainer:hover, .metaMenu .selectContainer:focus, .metaMenu .selectContainer:active {
+	background-image:url("../images/BG_MainNavi_hover_bold.png");
+	background-repeat:no-repeat;
+	background-position:0.1818em;
 }
 
 .selectContainer select {
@@ -412,179 +576,11 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	border:0.0909em solid #9fafae;
 }
 
-.footer .metaMenu a {
-	float:left;
-	background-color:transparent;
-	color:#3A3B3B;
-}
-
-.footer .metaMenu .seperator {
-	float:left;
-	background-color: #0F3834;
-	padding-left:0.001em; /* bugfixing for 1px-calculation in difference browser */
-}
-
-.quickSearchMenu a, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a {
-	background-color:transparent;
-	color:#044585;
-}
-
-.quickSearchCheckBoxMenu label {
-	background-color:transparent;
-	color:#000000;
-}
-
-.quickSearchTextInput {
-	height:1.5454em;
-	padding-top:0;
-	padding-bottom:0;
-}
-
-.searchMenu .quickSearchBtn {
-	padding-top:0;
-}
-
-.advancedSearchMenu, .organisationSearchMenu {
-	margin-top:0.1818em;
-}
-
-.quickSearchBtn {
-	font-family: Verdana,Arial,Helvetica,sans-serif;
-	height:1.7272em;
-}
-
-.logoAlternate span {
-    font-weight: bold;
-    color: #888B8B;
-}
-
-.logoAlternate span a {
-    font-weight: normal;
-}
-
-.metaMenu input:hover, .metaMenu input:focus, .metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu input:hover, .quickSearchMenu input:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .advancedSearchMenu input:hover, .advancedSearchMenu input:focus, .advancedSearchMenu a:hover, .advancedSearchMenu a:focus, .organisationSearchMenu input:hover, .organisationSearchMenu input:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, .contentMenu a:hover, .contentMenu a:focus {
-    color: #012846;
-}
-
-/*COLORING FOR BREADCRUMB SLASHES*/
-.breadcrumb li {
-    color: #636363;
-}
-
-/*COLORING FOR BREADCRUMB TEXT*/
-.breadcrumb li a, .breadcrumb li a:visited {
-    color: #044585;
-}
-
-.breadcrumb li a:hover, .breadcrumb li a:focus {
-    color: #012846;
-}
-/*
-.contentMenu span, .contentMenu input, .contentMenu a {
-	font-size: 1em;
-}
-*/
-/*MENU-STYLES*/
-.mainMenu input {
-	background-color: transparent;
-	color: #FFFFFF;
-}
-.mainMenu input:hover, .mainMenu input:focus {
-	color: #012846;
-}
-
-.mainMenu a {
-	background-color: transparent;
-	color: #FFFFFF;
-}
-.mainMenu a:hover, .mainMenu a:focus {
-	color: #012846;
-}
-
-.mainMenu {
-	text-transform:uppercase;
-	color:#9BB5CE;	/*general color for main menu text*/
-}
-
-.sub {
-	text-transform:uppercase;
-}
-.sub.action {
-	text-transform:none;
-}
-
-
-/*Content
- 
- -----------------------------------------------
- 
- |         [      Paginator      ]             |
- 
- |                               	           |
- 
- |[ Lists & Full Item ]                        |
- 
- |         [        Footer       ]             |
- 
- -----------------------------------------------*/
-/*EXT. PAGINATOR*/
-.paginatorFallbackGoBtn {
-    background-color: #FFFFFF;
-    color: #044585;
-}
-
-/*PAGE BROWSER*/
-.pageBrowser input, .pageBrowser button, .pageBrowser a {
-    background-color: transparent;
-    color: #044585;
-}
-
-.pageBrowser input:hover, .pageBrowser button:hover, .pageBrowser a:hover, .pageBrowser input:focus, .pageBrowser button:focus, .pageBrowser a:focus {
-    color: #888B8B;
-    cursor: pointer;
-}
-
-.pageBrowser .actual, .pageBrowser .actual:hover, .pageBrowser .actual:focus {
-    font-weight: bold;
-    color: #888B8B;
-    cursor: pointer;
-}
-@media print { .pageBrowser .actual {
-        font-weight: normal;
-        background-color: white;
-}
-}
-
-.pageBrowser :disabled, .pageBrowser :disabled:hover, .pageBrowser :disabled:focus, .pageBrowser .deactivated, .pageBrowser .deactivated:hover, .pageBrowser .deactivated:focus {
-    color: #777777;
-}
-
-/* INFO PAGE*/
-.infoPage .sideSection {
-    border-style: solid;
-    border-left-color: #AEAEAE;
-}
-
-.infoPage .videoPreview {
-    border-style: solid;
-    border-color: #012846;
-}
 
 /*LISTS & FULL ITEM*/
 /*GENERAL*/
-
-.header {
-	height:14em;
-}
-
-.header .mainMenu {
-	margin-top:9em !important;
-}
-
-
-
 .itemList, .tiledList, .fullItem {
-    border-top-color: #044585;
+    border-top-color: #004465;
     border-bottom-color: #AEAEAE;
 	background-color: #B1D5DC;
 }
@@ -595,16 +591,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 /*LIST HEADER*/
-
-/** BIBLIST VIEW **/
-.listHeader .headerSwitchView {
-	padding: 0 !important;
-	margin-top:0.1818em;
-	margin-left:0.7272em;
-}
-.listHeader .statusArea {
-	margin-top:-0.1818em;
-}
 
 /** TABLE VIEW **/
 thead.listHeader a, thead.listHeader span, thead.listHeader {
@@ -629,20 +615,19 @@ tbody .listItem span.statusArea {
     font-weight: normal;
 }
 
-.itemSelectArea {
-	padding-top:0 !important;
-	margin-top:0em !important;
-}
-
 /*SELECT MENU*/
-.selectMenu {
-    border-color: #9FAFAE;
-    opacity: 0.91;
-    filter: alpha(opacity=91);
+.itemList .checkBoxSelectButton {
+    cursor: pointer;
 }
 
 .itemList .checkBoxCloseSelectButton:hover, .selectMenu .checkBoxCloseSelectButton:focus {
     background-color: transparent;
+}
+
+.selectMenu {
+    border-color: #9FAFAE;
+/*    opacity: 0.91;
+    filter: alpha(opacity=91); */
 }
 
 .selectMenu, .selectMenu input {
@@ -650,7 +635,7 @@ tbody .listItem span.statusArea {
 }
 
 .selectMenu a {
-    color: #044585;
+    color: #004465;
 }
 
 .selectMenu a:hover, .selectMenu input:hover {
@@ -675,7 +660,7 @@ tbody .listItem span.statusArea {
 }
 
 .listBackground {
-	border-top: 1px solid #044585 !important;
+	border-top: 1px solid #004465 !important;
 }
 
 .tiledList .metaDataSection, .itemTile .tileIconArea {
@@ -685,8 +670,7 @@ tbody .listItem span.statusArea {
 
 .tiledList .inAlbum, .fullItem .inAlbum, .activeAlbum, .activeAlbum .seperator {
     background-color: #BADF4A;
-  /*  border-color: #548E00 !important; */
-	border-color:#0F3834 !important;
+	border-color:#006F7B !important;
 }
 
 /*ITEM HEADER*/
@@ -727,7 +711,7 @@ tbody .listItem span.statusArea {
 
 .fullItem .fullItemControls .actual {
     color: #FFFFFF;
-    background-color: #044585;
+    background-color: #004465;
 }
 
 /*FULL ITEM BLOCK*/
@@ -765,7 +749,7 @@ tbody .listItem span.statusArea {
 }
 
 .fullItem .groupBtn {
-    color: #044585;
+    color: #004465;
     background-color: transparent;
     text-align: left;
 }
@@ -788,7 +772,7 @@ tbody .listItem span.statusArea {
 
 /*FORM BUTTONS*/
 .cancelButton, .activeButton {
-    border-style: solid;    
+    border-style: solid;
     padding-top: 0.10em;
     padding-bottom: 0.10em;
     border-top:0;
@@ -797,9 +781,9 @@ tbody .listItem span.statusArea {
 
 .cancelButton {
     float: left;
-    color: #044585;
-    border-right-color: #044585;
-    border-bottom-color: #044585;
+    color: #004465;
+    border-right-color: #004465;
+    border-bottom-color: #004465;
 }
 
 .cancelButton:hover {
@@ -809,22 +793,23 @@ tbody .listItem span.statusArea {
 }
 
 .activeButton {
-    float: right;
-    color: #CCDFDD !important;
-	background-color: #044585 !important;
-    border-color: #044585;
+	float: right;
+	color: #FFFFFF;
+	background-color:#468EA2;
+	border-color: #004465;
 }
 
 .activeButton:hover {
-    background-color: #012846 !important;
+	color: #FFFFFF;
+	background-color: #004465;
 }
 
 /*AUTOSUGGEST*/
 
 .ac_results {
     border-color: #9FAFAE;
-    opacity: 0.91;
-    filter: alpha(opacity=91);
+ /*   opacity: 0.91;
+    filter: alpha(opacity=91); */
     border-style: solid;
     background-color: #F3F5F5;
 }
@@ -836,7 +821,6 @@ tbody .listItem span.statusArea {
 
 .ac_over {
     cursor: pointer;
-/*	background-color: #366A9D !important; */
 	background-color:#006D70 !important;
     color: #FFFFFF !important;
 }
@@ -855,7 +839,7 @@ tbody .listItem span.statusArea {
 /*MESSAGE AREAS*/
 .messageArea {
     border-style: solid;
-    border-color: #044585;
+    border-color: #004465;
     background-color: #FFFFFF;
     margin-bottom: 1em;
 }
@@ -866,8 +850,7 @@ tbody .listItem span.statusArea {
 }
 
 .infoMessageArea h2 {
-  /*  color: #548E00; */
-	color:#0F3834;
+	color:#006F7B;
 }
 
 .errorMessageArea {
@@ -896,12 +879,11 @@ tbody .listItem span.statusArea {
 
 /*STATUS OR SUCCESS MESSAGE*/
 .messageSuccess {
-    color: #0F3834;
+    color: #006F7B;
 }
 
 .messageStatus {
-  /*  color: #548E00; */
-	color:#0F3834;
+	color:#006F7B;
 }
 
 /*MANDATORY FIELD*/
@@ -930,23 +912,11 @@ tbody .listItem span.statusArea {
 	border-right-width: 2px !important;
 }
 
-.mainMenu {
-	margin-top:-3em !important;
-}
 
-.searchMenu {
-	margin-top:4.2727em !important;
-	margin-bottom:0.7272em;
-	padding-top:0.2727em;
-}
 
-.searchMenu .quickSearchIcon {
-	margin-top:-0.4545em;
-	margin-right:0.5454em;
-}
 
 .fullItem .messageSuccess b {
-	color:#0F3834;
+	color:#006F7B;
 }
 
 .languageArea .readonlyInput {

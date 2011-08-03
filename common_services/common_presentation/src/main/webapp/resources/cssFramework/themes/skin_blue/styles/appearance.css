@@ -107,11 +107,16 @@ body {
     line-height: 145%;
 }
 
+body .footer {
+	display:none;
+}
+
 body .wrapper, body .footer {
     background-color: #EAF4F7;
     border-right: 1px dotted #147DA2;
     border-left: 1px dotted #147DA2;
 }
+
 
 /*FF3.x Print Issue (No more relevant in FF4)*/
 @media print {body * {
@@ -176,8 +181,7 @@ a:hover, a:focus, input:hover, input:focus, button:hover, button:focus {
     text-decoration: none;
 }
 
-input[type =
-"button"]:hover, input[type = "submit"]:hover, input[type = "reset"]:hover, button:hover {
+input[type = "button"]:hover, input[type = "submit"]:hover, input[type = "reset"]:hover, button:hover {
     cursor: pointer;
 }
 
@@ -192,7 +196,6 @@ input[type =
 }
 
 a:hover, a:focus {
-    /*	text-decoration: underline; */
     cursor: pointer;
 }
 
@@ -294,7 +297,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .contentMenu span, .contentMenu input, .contentMenu a {
-    font-weight: bold;
+/*    font-weight: bold; */
 }
 
 /*Content
@@ -351,6 +354,67 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .infoPage .videoPreview {
     border-style: solid;
     border-color: #382926;
+}
+
+/*CUSTOMIZED SELECTBOX - changed metaMenu select / created selectionBox + selectContainer -2011-06-17 */
+.metaMenu .selectContainer select {
+	float:right;
+	margin-top:-1.63em;
+	margin-left:auto;
+	margin-right:-0.0909em;
+	
+	filter:alpha(opacity=0);
+	opacity:0;
+	-moz-opacity:0;
+	cursor:pointer;
+	background-color:transparent;
+	color:#147DA2;
+}
+.metaMenu .selectionBox {
+	color:#147DA2;
+	margin-left:0.5454em;
+	float:left;
+}
+
+.metaMenu .selectContainer {
+	margin-left:0.001em;
+	padding-top:0.3636em;
+	padding-bottom:0.18em;
+	height:1.72em; 
+	border:none;
+	background-color:transparent;
+}
+
+.selectContainer select {
+	float:left;
+	margin-top:-1.3636em;
+	margin-left:-0.0909em;
+	filter:alpha(opacity=0);
+	opacity:0;
+	-moz-opacity:0;
+	cursor:pointer;
+	background-color:#FFFFFF;
+	color:#3A3B3B;
+	border-bottom-color:#9fafae;
+	border-style:none;
+}
+.selectContainer .selectionBox {
+	padding-left:0.2727em !important;
+}
+.selectionBox {
+	color:#3A3B3B;
+	text-align:left;
+	cursor:pointer;
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	height:1.3636em;
+	overflow:hidden;
+}
+.selectContainer {
+	padding-top:0em;
+	padding-bottom:0.18em;
+	height:1.3636em; 
+	background-color:#FFFFFF;
+	border:0.0909em solid #9fafae;
 }
 
 /*LISTS & FULL ITEM*/
@@ -505,7 +569,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .fullItem .groupBtn {
-    /*font-weight: bold;*/
     color: #147DA2;
     background-color: #FFFFFF;
     text-align: left;

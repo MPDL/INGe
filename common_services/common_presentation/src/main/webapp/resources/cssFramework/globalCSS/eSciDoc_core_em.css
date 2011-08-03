@@ -60,7 +60,7 @@ html > body .wrapper {
 body .wrapper, body .footer {
     margin: 0 auto 0 auto;
     overflow: hidden;
-    width: 84.10em;
+    width: 84.0909em;
 }
 
 body .footer {
@@ -914,6 +914,7 @@ h6 {
 }
 
 .medium_radioBtn input {
+	margin-top:0;
     margin-left: 0px;
     height: 1.3em;
     width: 1.3em;
@@ -1052,6 +1053,7 @@ h6 {
 }
 
 .huge_radioBtn input {
+	margin-top:0;
     margin-left: 0px;
     height: 1.3em;
     width: 1.3em;
@@ -1517,6 +1519,10 @@ h6 {
     float: left;
     display: inline;
     overflow: hidden;
+}
+
+.full_area0 {
+	float:left !important;
 }
 
 .xTiny_area0, .xTiny_area0_p0 {

@@ -106,6 +106,10 @@ body {
     line-height: 145%;
 }
 
+body .footer {
+	display:none;
+}
+
 body .wrapper, body .footer {
     background-color: #FFFFFF;
     border-right: 1px dotted #0076C9;

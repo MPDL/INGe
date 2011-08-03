@@ -42,7 +42,7 @@
 /*META MENU*/
 
 	.metaMenu {
-		height: 2em;
+		height: 2.9091em;
 		line-height: normal;
 	}
 	
@@ -54,26 +54,26 @@
 	
 	.metaMenu a {
 		text-align: left;
-		padding-top: 0.37em;
+		padding-top: 0.1818em;
 	}
 
 	.metaMenu .logButton, .metaMenu button, .metaMenu label {
 		text-align: left;
 		margin-top: 0.27em;
 		padding-top: 0px;
-		padding-left: 0.46em;
+		padding-left: 0.4545em;
 	}
 
 	.metaMenu label {
 		white-space: nowrap;
-		margin-top: 0.36em;
+		margin-top: 0em;
 	}
 
 	.metaMenu .seperator {
 		display: block;
 		overflow: hidden;
 		width: 0.09em;
-		height: 1.65em;
+		height: 1.6363em;
 		margin: 0px;
 		padding: 0px;
 		border-right-width: 0px;
@@ -93,106 +93,136 @@
 		font-size:0.75em;
 	}
 	
+	.metaMenu .selectContainer {
+		margin-right:0.2727em !important;
+	}
+	
+	.metaMenu .medium_area0_p8 {
+		height:1.6363em;
+		max-height:1.6363em;
+		padding-top:0.2727em;
+		padding-bottom:0;
+	}
+	
+	.metaMenu .large_area0_p8 {
+		height:1.6363em;
+		max-height:1.6363em;
+		padding-top:0.2727em !important;
+		padding-bottom:0 !important;
+	}
+	
+	.metaMenu .free_area0_p8 {
+		height:1.6363em;
+		max-height:1.6363em;
+		padding-top:0.2727em !important;
+		padding-bottom:0 !important;
+	}
+	
 	.logoAlternate, .logoAlternate * {
 		float: left !important;
 	}
 
 /*HEADER LOGO*/
+.headerLogo {
+	background-repeat:no-repeat;
+}
 
-	.headerLogo, .themePark {
-		height: 5em;
-	}
+.headerLogo, .themePark {
+	height: 5em;
+}
 
+.LogoNSearch {
+	height:5.7272em;
+}
+	
 /*SEARCH MENU*/
+.searchMenu {
+	float: right;
+	margin-top: 2em;
+}
 
-	.searchMenu {
-		float: right;
-		margin-top: 2em;
-	}
-	
-	.searchMenu * {
-		white-space: nowrap;
-	}
-	
-	.searchMenu .quickSearchBtn {
-		float: left;
-	/*	height: 1.65em;	*/
-		margin-left: 0.37em;
-	/*	margin-right: 2.37em; */
-	}
+.searchMenu * {
+	white-space: nowrap;
+}
 
-	.searchMenu .quickSearchIcon {
-		float: left;
-		margin-right: 0.34em;
-	}
-	
-	.quickSearchCheckBoxMenu > label {
-		margin-top: 0.19em;
-	}
-	
-	.quickSearchTextInput, .quickSearchCheckBoxMenu {
-		text-align: left;
-		float: left;
-		display: inline;
-		text-decoration: none;
-	}
-	
-	.advancedSearchMenu, .organisationSearchMenu {
-	/*	text-align: right; */
-		padding-top: 0em;
-		margin-top: 0.09em;
-	}
+.searchMenu .quickSearchBtn {
+	float: left;
+	margin-left: 0.37em;
+	padding-top:0;
+	height:1.7272em;
+}
+
+.searchMenu .quickSearchIcon {
+	float: left;
+	margin-right: 1em;
+	margin-top:-0.1818em;
+}
+
+.quickSearchCheckBoxMenu > label {
+	margin-top: 0.19em;
+}
+
+.quickSearchTextInput, .quickSearchCheckBoxMenu {
+	text-align: left;
+	float: left;
+	display: inline;
+	text-decoration: none;
+}
+
+.advancedSearchMenu, .organisationSearchMenu {
+	padding-top: 0em;
+	margin-top: 0.1818em;
+}
+
 
 /*MAIN MENU*/
+.mainMenu {
+	padding-left: 5.74em !important;
+	height:2.4545em;
+	max-height:2.4545em;
+	padding-top:0.2727em;
+	display:inline;
+}
 
-	.mainMenu {
-		margin-top: 1.27em;
-		margin-bottom: 1.55em;
-		padding-left: 5.74em !important;
-		padding-top:0.45em;
-		display:inline;
-	}
+.mainMenu input, .mainMenu a, .mainMenu span {
+	text-align: left;
+	text-decoration: none;
+	font-size: 16px !important;
+	margin-right: 0.8181em;
+}
 
-	.mainMenu input, .mainMenu a, .mainMenu span {
-		text-align: left;
-		text-decoration: none;
-		font-size: 16px !important;
-		margin-right: 0.80em;
-	}
-
+	
 /*SUB-HEADER SECTION*/
-	.subHeaderSection {
-		margin-bottom: 0.46em;
-	}
+.subHeaderSection {
+	margin-bottom: 0.4545em;
+}
 
-	/*Force IE7 top-margin*/
-
-	*+html .header {
-		margin-bottom: 1em;
-	}
+/*Force IE7 top-margin*/
+*+html .header {
+	margin-bottom: 1em;
+}
 
 /*BREADCRUMB*/
+.breadcrumb {
+	float: right;
+	white-space: nowrap;
+	overflow: hidden;
+	height:1.6363em;
+}
 
-	.breadcrumb {
-		float: right;
-		white-space: nowrap;
-		overflow: hidden;
-		margin-bottom: -0.56em;
-	}
+.breadcrumb ol {
+	list-style: none;
+	margin: 0px;
+}
 
-	.breadcrumb ol {
-		list-style: none;
-		margin: 0px;
-	}
+.breadcrumb li {
+	float: left;
+	margin: 0px;
+}
 
-	.breadcrumb li {
-		float: left;
-		margin: 0px;
-	}
-
-	.breadcrumb a {
-		text-decoration: none;
-	}
+.breadcrumb a {
+	text-decoration: none;
+}
 	
 @media print {
 	.breadcrumb {
@@ -200,19 +230,23 @@
 	}
 }
 
-/*PAGE HEADER*/
 
-	.headLine {
-		margin: 0px;
-		line-height: normal;
-	}
+/*PAGE HEADER*/
+.headLine {
+	margin: 0px;
+	line-height: normal;
+}
+
+.headLine h1 {
+	display: block;
+	margin: 0px;
+	margin-bottom: 0.28em;
+	margin-top:-0.11em;
+	height:0.9474em;
+	max-height:0.9474em;
+	line-height: normal;
 	
-	.headLine h1 {
-		display: block;
-		margin: 0px;
-		margin-bottom: 0.28em;
-		line-height: normal;
-	}
+}
 	
 @media screen, presentation {
 	.headLine {
@@ -245,93 +279,107 @@
 	line-height:2.18em;
 }
 
-	.contentMenu * {
-		float: left;
-		line-height: normal;
-	}
-	
-	.contentMenu .action * {
-		margin-right: 0.37em;
-	}
+.contentMenu * {
+	float: left;
+	line-height: normal;
+}
 
-	.contentMenu {
-		margin-top: 0em;
-		padding-top: 1.46em;
-	}
-	
-	.contentMenu .sub {
-		overflow: hidden;
-	}
+.contentMenu .action * {
+	margin-right: 0.37em;
+}
 
-	.contentMenu .action {
-		overflow: visible;
-		clear: left;
-		padding: 0px;
-		margin: 0px;
-	}
-	
-		/*REPLACEMENT HACK FOR IE LESS THAN 6*/
-		* html .contentMenu .action {
-			margin-top: -1.28em;
-			width: 100%;
-		}
-		* html .contentMenu .ieFilter {
-			width: 50em;
-		}
-		/*REPLACEMENT HACK FOR IE 7*/
-		*:first-child+html .contentMenu .action {
-			margin-top: -1.28em;
-		}
-		*:first-child+html .ieFilter {
-			width: 50em;
-		}
-		
-	.contentMenu input, .contentMenu a {
-		float: left;
-		text-decoration: none;
-		white-space: nowrap;
-	}
+.contentMenu {
+	margin-top: 0em;
+	padding-top: 1.46em;
+}
 
-	.contentMenu .seperator  {
-		float: left;
-		width: 0.10em;
-		height: 1.15em;
-		margin: 0px;
-		margin-left: 0.46em;
-		margin-right: 0.46em;
-		padding: 0px;
-		border-right-width: 0px;
-		border-left-width: 0px;
-		border-top-width: 0.18em;
-		border-top-style: solid;
-		border-bottom-width: 0.97em;
-		border-bottom-style: solid;
-	}
+.contentMenu .sub {
+	overflow: hidden;
+	height:1.6363em;
+	margin-top:0.0909em;
+}
 
-	.bibList ,.gridList {
-		padding-left: 1.36em;
-	}
+.contentMenu .action {
+	overflow: visible;
+	clear: left;
+	padding: 0px;
+	margin: 0px;
+	height:1.6363em;
+	max-height:1.6363em;
+	padding-top:0.1818em;
+	display:inline;
+	white-space:nowrap;
+}
 
-	.ascSort, .desSort {
-		padding-right: 1.36em;
+	/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+	* html .contentMenu .action {
+		margin-top: -1.28em;
+		width: 100%;
+	}
+	* html .contentMenu .ieFilter {
+		width: 50em;
+	}
+	/*REPLACEMENT HACK FOR IE 7*/
+	*:first-child+html .contentMenu .action {
+		margin-top: -1.28em;
+	}
+	*:first-child+html .ieFilter {
+		width: 50em;
 	}
 	
-	.subHeader {
-		clear: left;
-		margin-top: 0.65em;
-	}
+.contentMenu input, .contentMenu a {
+	float: left;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.contentMenu .seperator  {
+	float: left;
+	width: 0.10em;
+	height: 1.15em;
+	margin: 0px;
+	margin-left: 0.46em;
+	margin-right: 0.46em;
+	padding: 0px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-top-width: 0.18em;
+	border-top-style: solid;
+	border-bottom-width: 0.97em;
+	border-bottom-style: solid;
+}
+
+.bibList ,.gridList {
+	padding-left: 1.36em;
+}
+
+.ascSort, .desSort {
+	padding-right: 1.36em;
+}
 	
-	.singleMessage {
-		list-style-type: none;
-		list-style-position: outside;
-		padding: 0px;
-		margin: 0px;
-	}
+.subHeaderSection .subHeader {
+	float:left;
+/*	margin-top:1.6363em; */
+	padding-top:0.3636em;
+	clear:all;
+}
 	
-	.singleMessage li{
-		padding: 0px;
-		margin: 0px;
-	}
+.subHeader {
+	clear: both;
+	margin-top: 0.65em;
+}
+
+.singleMessage {
+	list-style-type: none;
+	list-style-position: outside;
+	padding: 0px;
+	margin: 0px;
+}
+
+.singleMessage li{
+	padding: 0px;
+	margin: 0px;
+}
 	
 @media print {
 	.contentMenu .sub {
@@ -348,4 +396,8 @@
 		display: list-item;
 		list-style-position: inside;
 	}
+}
+
+.headerDistanceFix {
+	margin-top:-1.4545em;
 }
