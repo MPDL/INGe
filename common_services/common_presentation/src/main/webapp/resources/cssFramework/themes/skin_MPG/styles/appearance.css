@@ -168,7 +168,11 @@ body .footer {
 
 body .wrapper {
 	background-color:#E8FBFB;
-	max-width:84.1818em;	/* fix for IE < 8 */
+	
+	/* fix for IE < 8 */	
+	width:84.0909em !important;
+	max-width:84.0909em !important;
+	overflow:hidden;
 }
 
 
