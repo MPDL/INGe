@@ -168,6 +168,7 @@ body .footer {
 
 body .wrapper {
 	background-color:#E8FBFB;
+	max-width:84.1818em;	/* fix for IE < 8 */
 }
 
 
@@ -263,7 +264,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*SEPERATORS*/
 .sub.action .seperator {
 	background-color: #9BB5CE;
-/*	border-color: #B1D5DC; */
 	border-width:0;
 	margin-top:0.0909em;
 }
