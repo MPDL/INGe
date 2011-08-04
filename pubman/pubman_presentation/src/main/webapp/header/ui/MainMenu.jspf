@@ -30,10 +30,8 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 
- 
-	<!--[if lt IE 8]>
-		<style type="text/css" media="all"> .mainMenu { margin-top:-4.001em !important; } </style>
-	<![endif] -->
+
+	
 
 <div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
 	<!-- main Menu starts here -->
