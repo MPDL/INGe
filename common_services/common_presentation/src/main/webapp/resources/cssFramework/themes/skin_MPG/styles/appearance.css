@@ -678,12 +678,13 @@ tbody .listItem span.statusArea {
 }
 
 /*ITEM HEADER*/
+/*
 .itemHeader .itemHeadline {
 	padding: 0 0 0.3636em 0 !important;
 	margin-top:0.2727em;
 	margin-left:0.7272em;
 }
-
+*/
 .fullItem .itemHeadline b {
     font-size: 16px !important;
     font-weight: normal;
