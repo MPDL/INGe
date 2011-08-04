@@ -795,15 +795,15 @@ tbody .listItem span.statusArea {
 .activeButton {
 	float: right;
 	color: #FFFFFF;
-	background-color:#468EA2;
+	background-color:#468EA2 !important;
 	border-color: #004465;
 }
-
+/*
 .activeButton:hover {
 	color: #FFFFFF;
 	background-color: #004465;
 }
-
+*/
 /*AUTOSUGGEST*/
 
 .ac_results {
