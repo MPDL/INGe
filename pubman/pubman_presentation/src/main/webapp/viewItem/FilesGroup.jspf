@@ -63,6 +63,7 @@
 							</tr:goLink>
 							<!-- Link for fulltext searchhits with open pdf params-->
 							<tr:goLink id="lnkSearchHitsURL" targetFrame="_blank" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}#search=#{file.openPDFSearchParameter}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+								<span class="viewFileIcon"></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
 							</tr:goLink>
 						
@@ -72,6 +73,7 @@
 							</tr:goLink>
 							<!-- Link for fulltext searchhits with open pdf params-->
 							<tr:goLink id="lnkSearchHitsURLDownload" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download#search=#{file.openPDFSearchParameter}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+								<span class="downloadFileIcon tiny_marginLExcl"></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
 							</tr:goLink>
 						</div>
