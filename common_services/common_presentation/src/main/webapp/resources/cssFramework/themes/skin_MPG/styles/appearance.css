@@ -145,6 +145,7 @@ h1, h4, h5 {
 	background-color:#f3f5f5;
 }
 
+
 /* HELP PAGE */
 .maketitle.wrapper {
 	background-image:none;
@@ -167,7 +168,7 @@ body .footer {
 }
 
 body .wrapper {
-	background-color:#E8FBFB;
+	background-color:#E8FBFB !important;
 	
 	/* fix for IE < 8 */	
 	width:84.0909em !important;
@@ -239,7 +240,11 @@ a.OraLinkDisabled:hover {
     cursor: default;
 }
 
-a:hover, a:focus, input:hover, input:focus, button:hover, button:focus {
+input:hover, input:focus {
+	
+}
+
+a:hover, a:focus, button:hover, button:focus {
 	text-decoration:underline;
 }
 
@@ -438,23 +443,20 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	color: #FFFFFF;
 }
 .mainMenu a:hover, .mainMenu a:focus {
-	background-image:url("../images/BG_MainNavi_hover_bold.png");
-	background-repeat:no-repeat;
 	height:1.3125em;
 	text-decoration: none;
+	padding-bottom:0.3125em;
 }
 
 .mainMenu {
-	text-transform:uppercase;
 	color:#9BB5CE;	/*general color for main menu text*/
 	margin-top:0.2727em;
 }
 
-.sub {
-	text-transform:uppercase;
-}
-.sub.action {
-	text-transform:none;
+.mainMenu span.free_area0 {
+	height:1.3125em;
+	text-decoration: none;
+	padding-bottom:0.3125em;
 }
 
 /*Content
@@ -576,7 +578,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	padding-top:0em;
 	padding-bottom:0.18em;
 	height:1.3636em; 
-	background-color:#FFFFFF;
+	background-color:#F3F5F5;
 	border:0.0909em solid #9fafae;
 }
 

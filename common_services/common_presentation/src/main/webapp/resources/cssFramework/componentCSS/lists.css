@@ -40,6 +40,16 @@ input[type=button] {
 	border-width:0;
 	background-color:transparent; 
 }
+input[type=radio] {
+	border-width:0;
+	background-color:transparent; 
+}
+input[type=password]:focus, input[type=text]:focus {
+	background-color:#ffffff;
+}
+textarea:focus {
+	background-color:#ffffff;
+}
 
 .itemList, .tiledList {
 	border-top-width: 0.19em !important;

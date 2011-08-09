@@ -137,31 +137,37 @@ input[type =
 h1 {
     font-size: 38px;
     line-height: 1em;
+	font-weight:normal; /* fix for different browser, e.g. on Macintosh */
 }
 
 /*H2*/
 h2 {
     font-size: 20px !important;
     line-height: 1em;
+	font-weight:normal; /* fix for different browser, e.g. on Macintosh */
 }
 
 /*H3*/
 h3 {
     font-size: 11px !important;
+	font-weight:normal;
 }
 
 /*H4*/
 h4 {
     font-size: 11px;
+	font-weight:normal; /* fix for different browser, e.g. on Macintosh */
 }
 
 /*H5*/
 h5 {
+	font-weight:normal; /* fix for different browser, e.g. on Macintosh */
 }
 
 /*H6*/
 h6 {
     font-size: 11px;
+	font-weight:normal; /* fix for different browser, e.g. on Macintosh */
 }
 
 /*LINEBREAK AND LAST IN LINE*/

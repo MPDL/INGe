@@ -182,6 +182,7 @@
 	max-height:2.4545em;
 	padding-top:0.2727em;
 	display:inline;
+	text-transform:uppercase;
 }
 
 .mainMenu input, .mainMenu a, .mainMenu span {
@@ -297,6 +298,7 @@
 	overflow: hidden;
 	height:1.6363em;
 	margin-top:0.0909em;
+	text-transform:uppercase;
 }
 
 .contentMenu .action {
@@ -309,6 +311,7 @@
 	padding-top:0.1818em;
 	display:inline;
 	white-space:nowrap;
+	text-transform:capitalize;
 }
 
 	/*REPLACEMENT HACK FOR IE LESS THAN 6*/

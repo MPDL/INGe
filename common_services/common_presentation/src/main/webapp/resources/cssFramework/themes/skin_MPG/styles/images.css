@@ -137,6 +137,7 @@ body {
 }
 
 body .wrapper {
+/*	background: url("../images/mpg_bg_head_wrapper_100.png") no-repeat scroll left top; */
 	background-image:url("../images/mpg_bg_head_wrapper_100.png");
 	background-repeat:no-repeat !important;
 }
@@ -841,4 +842,18 @@ body .wrapper {
 	background-repeat: no-repeat;
 	background-position: right;
 	height: 2.90em !important;
+}
+
+
+/* MAIN MENU */
+.mainMenu span.free_area0 {
+	background-image:url("../images/BG_MainNavi_hover_bold.png");
+	background-repeat:no-repeat;
+	background-position: 0 0.2em;
+}
+
+.mainMenu a:hover, .mainMenu a:focus {
+	background-image:url("../images/BG_MainNavi_hover_bold.png");
+	background-repeat:no-repeat;
+	background-position: 0 0.2em;
 }
