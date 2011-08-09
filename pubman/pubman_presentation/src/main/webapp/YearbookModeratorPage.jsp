@@ -158,7 +158,7 @@
 						
 					</h:panelGroup>
 				<div id="ImgFullItem">
-					<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;"></div>
+					<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;">&#160;</div>
 				</div>
 				<!-- end: content section -->
 				</div>

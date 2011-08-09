@@ -293,8 +293,8 @@
 								&#160;
 							</h3>
 							<h:panelGroup styleClass="seperator" />
-							<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.ViewItemFull_lblAll}" /></a>
-							<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblAll}" /></a>
+							<a class="free_area0 expandTriangle"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.ViewItemFull_lblAll}" /></a>
+							<a class="free_area0 collapseTriangle"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblAll}" /></a>
 						</h:panelGroup> 
 
 							<jsp:directive.include file="viewItem/BasicGroup.jspf" />

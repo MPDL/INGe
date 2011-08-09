@@ -36,17 +36,13 @@
 
 	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
 	<f:view locale="#{InternationalizationHelper.userLocale}">
-			<f:loadBundle var="lbl" basename="Label"/>
-			<f:loadBundle var="msg" basename="Messages"/>
-			<f:loadBundle var="tip" basename="Tooltip"/>
+		<f:loadBundle var="lbl" basename="Label"/>
+		<f:loadBundle var="msg" basename="Messages"/>
+		<f:loadBundle var="tip" basename="Tooltip"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
-
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
-
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
-
-
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{BrowseByBreadcrumbPage.beanName}" styleClass="noDisplay" />
@@ -60,28 +56,24 @@
 				<!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
 					<div class="clear">
 						<div class="headerSection">
-							
-						<jsp:directive.include file="header/Breadcrumb.jspf" />
-				
+							<jsp:directive.include file="header/Breadcrumb.jspf" />
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
 								<h1>
 									<h:outputText value="#{lbl.BrowseByCreator}" rendered="#{BrowseByPage.selectedValue == 'persons'}"/>
 									<h:outputText value="#{lbl.BrowseByYear}" rendered="#{BrowseByPage.selectedValue == 'year'}"/>
-									<h:outputText value="#{lbl.BrowseByPage} #{BrowseByPage.selectedValue}" 
-													rendered="#{(BrowseByPage.selectedValue != 'persons') and (BrowseByPage.selectedValue != 'year') }"/>
+									<h:outputText value="#{lbl.BrowseByPage} #{BrowseByPage.selectedValue}" rendered="#{(BrowseByPage.selectedValue != 'persons') and (BrowseByPage.selectedValue != 'year') }"/>
 								</h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
 					</div>			
 					<div class="full_area0">
-							<div class="full_area0 ">
-								<div id="ImgFullItem">
-								<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;"></div>
+						<div class="full_area0 ">
+							<div id="ImgFullItem">
+								<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;">&#160;</div>
 							</div>
 							<jsp:directive.include file="browseBy/BrowseByPage.jspf" />
-
 						</div>
 					</div>
 				<!-- end: content section -->

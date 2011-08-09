@@ -62,29 +62,30 @@
 					<div class="clear">
 						<div class="headerSection">
 							
-						<jsp:directive.include file="header/Breadcrumb.jspf" />
-				
+							<jsp:directive.include file="header/Breadcrumb.jspf" />
+							
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
 								<h1><h:outputText value="#{lbl.search_lblAdvancedSearch}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
-						<div class="small_marginLIncl subHeaderSection">
-							<div class="contentMenu">
+						<h:panelGroup layout="block" styleClass="small_marginLIncl subHeaderSection" rendered="#{AdvancedSearchPage.numberOfMessages > 0}">
+							<h:panelGroup layout="block" styleClass="contentMenu" rendered="false">
 							<!-- content menu starts here -->
-								<div class="free_area0 sub">
+								<h:panelGroup layout="block" styleClass="free_area0 sub">
 								<!-- content menu lower line starts here -->										
 									&#160;
 								<!-- content menu lower line ends here -->
-								</div>
+								</h:panelGroup>
 							<!-- content menu ends here -->
-							</div>
-							<div class="subHeader">
+							</h:panelGroup>
+							 
+							<h:panelGroup layout="block" styleClass="subHeader" rendered="false">
 								<!-- Subheadline starts here -->
 									&#160;
 								<!-- Subheadline ends here -->
-							</div>
+							</h:panelGroup>
 							<div class="subHeader">
                                 <!-- Subheadline starts here -->
                                 <h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AdvancedSearchPage.numberOfMessages == 1}"/>
@@ -99,7 +100,7 @@
                                 <h:outputText value="&#160;" rendered="#{!AdvancedSearchPage.hasErrorMessages}" />
                                 <!-- Subheadline ends here -->
                             </div>
-						</div>
+						</h:panelGroup>
 					</div>			
 					<div class="full_area0">
 						<div class="full_area0 fullItem">
