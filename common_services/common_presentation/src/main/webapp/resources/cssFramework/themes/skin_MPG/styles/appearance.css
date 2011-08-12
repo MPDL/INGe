@@ -449,7 +449,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 .mainMenu {
-	color:#9BB5CE;	/*general color for main menu text*/
+	color:#FFFFFF;	/*general color for main menu text*/
 	margin-top:0.2727em;
 }
 
@@ -599,27 +599,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*LIST HEADER*/
 
 /** TABLE VIEW **/
-thead.listHeader a, thead.listHeader span, thead.listHeader {
-	padding-top:0.1818em;
-}
-thead.listHeader .statusArea {
-	margin-top:0;
-}
 
-
-tbody .listItem a, tbody .listItem span {
-	padding-top:0.1818em;
-}
-tbody .listItem span.statusArea {
-	margin-top:-0.2727em;
-}
-
-
-/*GENERAL*/
-.listHeader a, .listHeader span {
-    line-height: normal;
-    font-weight: normal;
-}
 
 /*SELECT MENU*/
 .itemList .checkBoxSelectButton {
@@ -739,8 +719,8 @@ tbody .listItem span.statusArea {
     border-top-color: #C9C9C9;
 }
 
-.itemBlock .newBlock {
-    border-top-color: #888B8B;
+.itemBlock .newBlock { /*short line color*/
+    border-top-color: #CFD1D1;	
 }
 
 .affHover {
@@ -847,7 +827,7 @@ tbody .listItem span.statusArea {
 .messageArea {
     border-style: solid;
     border-color: #004465;
-    background-color: #FFFFFF;
+    background-color: #E8FBFB;
     margin-bottom: 1em;
 }
 

@@ -75,6 +75,10 @@ body .wrapper {
     margin-bottom: -2.00em;
 }
 
+b {
+	font-weight:normal;
+}
+
 textarea {
 	resize:vertical;
 }
@@ -3867,3 +3871,4 @@ h6 {
  
  /* NEW FROM MARCO */
 .marginTExcl075 { margin-top:0.75em;}
+.marginTExcl6p { margin-top:0.5454em; }

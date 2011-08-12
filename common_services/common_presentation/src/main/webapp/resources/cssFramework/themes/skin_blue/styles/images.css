@@ -85,21 +85,23 @@
 }
 
 .smallThrobber {
-    background: inherit;
+ /*   background: inherit; */
     background-image: url('../images/throbber_31x31.gif');
     background-repeat: no-repeat;
     background-position: center center;
     margin-top: 1.37em;
     margin-bottom: 1.37em;
+	background-color:#ffffff;
 }
 
 .bigThrobber {
-    background: inherit;
+  /*  background: inherit; */
     background-image: url('../images/throbber_63x63.gif');
     background-repeat: no-repeat;
     background-position: center center;
     margin-top: 2.83em;
     margin-bottom: 2.83em;
+	background-color:#ffffff;
 }
 
 /*SEARCH MENU*/
@@ -289,6 +291,24 @@ body .wrapper {
 }
 
 /*LIST COMPONENT*/
+.itemList .itemSelectArea .checkBoxSelectButton {
+    background-image: url('../images/All_DropDown_TriangleOpen_15_Active.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.itemList .itemSelectArea .checkBoxSelectButton:hover, .itemList .itemSelectArea .checkBoxSelectButton:focus {
+    background-image: url('../images/All_DropDown_TriangleOpen_15_Hover.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.itemList .itemSelectArea .checkBoxSelectButton:disabled {
+    background-image: url('../images/All_DropDown_TriangleOpen_15_Deactivated.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .itemList .checkBoxSelectButton {
     background-image: url('../images/All_View_TriangleClose_15_Active.png');
     background-repeat: no-repeat;
@@ -296,13 +316,13 @@ body .wrapper {
 }
 
 .itemList .checkBoxSelectButton:hover, .itemList .checkBoxSelectButton:focus {
-    background-image: url('../images/All_View_TriangleOpen_15_Hover.png');
+    background-image: url('../images/All_View_TriangleClose_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .itemList .checkBoxSelectButton:disabled {
-    background-image: url('../images/All_View_TriangleOpen_15_Deactivated.png');
+    background-image: url('../images/All_View_TriangleClose_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -332,7 +352,7 @@ body .wrapper {
 }
 
 .submitSuccessful {
-	background-image: url('../images/All_Work_Done_15_Static.png');
+	background-image: url('../images/All_Work_Done_15_Success.png');
     background-repeat: no-repeat;
     background-position: left;
 }

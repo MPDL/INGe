@@ -106,6 +106,7 @@
 .fullItem .fullItemControls .seperator {
 	float: right;
 	margin-top: 0.45em;
+	padding-right:0.001em; /* Hack to fix browser-calc for pixel in em */
 }
 
 .fullItem .fullItemControls a {
@@ -210,10 +211,6 @@
 	padding-bottom: 0.37em;
 }
 
-.itemBlock b {
-	font-weight: normal;
-}
-
 .itemBlock .firstLine {
 	border-top-width: 0.00em !important;
 	padding-top: 0.74em;
@@ -269,17 +266,19 @@
 	/*
 	opacity: 0;
 	filter: alpha(opacity=0);
-	*/
+	
 	border-width: 0.0em;
+	*/
+	margin-left:0.1818em;
 }
 
 	/*REPLACEMENT HACK FOR IE LESS THAN 6*/
 	* html .fileSection .fileInput input {
-		border-width: 0.10em;
+		border-width: 0.0909em;
 	}
 	/*REPLACEMENT HACK FOR IE 7*/
 	*:first-child+html .fileSection .fileInput input {
-		border-width: 0.10em;
+		border-width: 0.0909em;
 	}
 
 .fileSection .fileLabel {

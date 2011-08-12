@@ -33,16 +33,17 @@
 /*GENERAL*/
 /*fix for all IE*/
 input[type=checkbox] {
-	border-width:0;
+/*	border-width:0; */
 	background-color:transparent; 
 }
 input[type=button] {
-	border-width:0;
+/*	border-width:0; */
 	background-color:transparent; 
 }
 input[type=radio] {
 	border-width:0;
-	background-color:transparent; 
+	background-color:transparent;
+	margin-left:-0.1818em;
 }
 input[type=password]:focus, input[type=text]:focus {
 	background-color:#ffffff;
@@ -52,8 +53,8 @@ textarea:focus {
 }
 
 .itemList, .tiledList {
-	border-top-width: 0.19em !important;
-	border-bottom-width: 0.10em !important;
+	border-top-width: 0.1818em !important;
+	border-bottom-width: 0.0909em !important;
 	border-top-style: solid;
 	border-bottom-style: solid; 
 }
@@ -117,11 +118,21 @@ textarea:focus {
 /*LIST HEADER*/
 
 	/*GENERAL*/
-	
+
+table .listHeader {	/* IE HACK */
+	float:left; 
+	padding:0; 
+}
+table .listHeader a, table .listHeader span { /* IE HACK */
+	float:left;
+	text-align:left;
+}
+
 .listHeader {
 	overflow: visible;
 	text-align: left;
 	vertical-align: top;
+	height: 3em;
 }
 
 .listHeader input {
@@ -140,6 +151,8 @@ div.listHeader span.itemSelectArea {
 	padding-bottom: 0px;
 	margin: 0px;
 	margin-right: -0.0909em;
+	line-height: normal;
+    font-weight: normal;
 }
 
 .listHeader .collapseTriangle, .listHeader .collapseTriangle:hover, .listHeader .collapseTriangle:focus, .listHeader .expandTriangle, .listHeader .expandTriangle:hover, .listHeader .expandTriangle:focus {
@@ -238,10 +251,6 @@ th .selectMenu {
 
 
 	/*STATUS RELATED HEADER ELEMENTS*/
-	
-.listHeader {
-	height: 3em;
-}
 
 .listHeader .statusArea {
 	width: 9.19em;
