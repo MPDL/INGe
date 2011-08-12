@@ -47,10 +47,10 @@
 
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel id="context" styleClass="noDisplay" value="#{contextCriterionBean.context}"/>
-
+<!-- 
 					<b class="quad_label">&#160;</b>
-					
-					<div class="free_area1 third_txtInput endline selectContainer">
+	 -->				
+					<div class="free_area1 third_txtInput endline selectContainer marginTExcl6p">
 						<div class="free_area0 third_txtInput">
 							<span class="free_area0 third_txtInput selectionBox" style="white-space:nowrap; width:32.4545em;">
 							<h:outputText value="#{contextCriterionBean.contextName}" rendered="#{contextCriterionBean.contextCriterionVO.searchString != null}"/>
@@ -93,6 +93,7 @@
 			</h:panelGroup>
 			 --%>
 		</tr:iterator>
+		<a class="free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderCollection}" /></a>
 	</div>
-
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.adv_search_lbHeaderCollection}" /></a>
 </div>

@@ -102,13 +102,7 @@
 									<h:selectOneMenu id="selFileFormat" value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableFileFormats}">
 										<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>
-									<!--
-								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="xDouble_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT' and PubItemListSessionBean.totalNumberOfElements>0}">
 									
-									<h:commandButton id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" action="#{PubItemListSessionBean.exportAllDisplay}"/>
-									<h:outputText styleClass="seperator" />
-									 -->
 									<h:commandLink id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.exportAllDownload}" />
 									<h:outputText styleClass="seperator" />
 									<h:commandLink id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{PubItemListSessionBean.exportAllEmail}"/>
@@ -127,7 +121,7 @@
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblGridList}" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING' and PubItemListSessionBean.totalNumberOfElements>0}" >
+								<h:panelGroup layout="block" styleClass="xHuge_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING' and PubItemListSessionBean.totalNumberOfElements>0}" >
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy} "/>
 									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >

@@ -38,20 +38,16 @@
 	<ol>
 		<tr:iterator id="BreadcrumbNavigation" var="item">
 			<li>
-
-
 <%-- start has to be reworked anyway --%>
-					<tr:goLink id="lnkDestination" destination="/#{ApplicationBean.appContext}#{item.page}" rendered="#{!item.isLast && item.defaultAction == null}">
-						<tr:outputText value="#{item.pageLabel}" />
-					</tr:goLink>
-					<tr:commandLink id="lnkAction" action="#{item.executeDefaultAction}" rendered="#{!item.isLast && item.defaultAction != null}">
-						<tr:outputText value="#{item.pageLabel}" />
-					</tr:commandLink>
-					<tr:outputText value="#{item.pageLabel}" rendered="#{item.isLast}"/>
-					<tr:outputText value=" / " rendered="#{!item.isLast}"/>
+				<tr:goLink id="lnkDestination" destination="/#{ApplicationBean.appContext}#{item.page}" rendered="#{!item.isLast && item.defaultAction == null}">
+					<tr:outputText value="#{item.pageLabel}" />
+				</tr:goLink>
+				<tr:commandLink id="lnkAction" action="#{item.executeDefaultAction}" rendered="#{!item.isLast && item.defaultAction != null}">
+					<tr:outputText value="#{item.pageLabel}" />
+				</tr:commandLink>
+				<tr:outputText value="#{item.pageLabel}" rendered="#{item.isLast}"/>
+				<tr:outputText value="&#160;/&#160;" rendered="#{!item.isLast}" escape="false"/>
 <%-- stop has to be reworked anyway --%>
-
-
 			</li>
 		</tr:iterator>
 		<li>&#160;</li>

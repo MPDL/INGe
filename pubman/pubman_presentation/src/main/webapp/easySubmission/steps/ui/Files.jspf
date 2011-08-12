@@ -43,12 +43,12 @@
 
 <%-- Add File --%>
 		<h:panelGroup layout="block" styleClass="files" rendered="#{!(genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'easy-submission' || genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'all')}">
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder fileSection"  rendered="#{component.index == 0 && component.size == 0}">
-				<b class="xLarge_area0_p8 endline labelLine clear">
+			<h:panelGroup layout="block" styleClass="free_area0_p6 endline itemLine noTopBorder fileSection xSmall_negMarginLExcl"  rendered="#{component.index == 0 && component.size == 0}">
+				<span class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" />
 						  <h:outputText value="#{lbl.EditItem_lblFile}"/>
 						  <span class="noDisplay">: </span>
-				</b>
+				</span>
 				<div id="ccContentHelper" class="ccContentHelper noDisplay">&#160;</div>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">					
 					<tr:inputFile id="inpFileUploaded" styleClass="fileInput" value="#{EasySubmission.uploadedFile}" valueChangeListener="#{EasySubmission.fileUploaded}"

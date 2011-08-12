@@ -201,7 +201,7 @@
 									<!--JUS content section -->
 									<jsp:directive.include file="editItem/LegalCaseGroup.jspf" />
 									<jsp:directive.include file="editItem/SourceGroup.jspf" />
-		
+									<p>&#160;</p>
 									<div class="free_area0 xTiny_marginLIncl">
 										<h:outputText value="* " />
 										<h:commandLink id="lnkValidate2"  value="#{msg.mandatoryFieldFS1}" action="#{EditItem.validate}"/>

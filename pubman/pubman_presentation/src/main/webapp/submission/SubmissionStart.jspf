@@ -39,7 +39,7 @@
 			<!-- Headline ends here -->
 		</div>
 	</div>
-	<div class="small_marginLIncl subHeaderSection">
+	<h:panelGroup layout="block" styleClass="small_marginLIncl subHeaderSection">
 		<div class="contentMenu">
 		<!-- content menu starts here -->
 			<div class="free_area0 sub">
@@ -65,12 +65,12 @@
 			</div>
 		<!-- content menu ends here -->
 		</div>
-		<div class="subHeader">
+		<h:panelGroup layout="block" styleClass="subHeader" rendered="false">
 			<!-- Subheadline starts here -->
 				&#160;
 			<!-- Subheadline ends here -->
-		</div>
-	</div>
+		</h:panelGroup>
+	</h:panelGroup>
 </div>
 
 					

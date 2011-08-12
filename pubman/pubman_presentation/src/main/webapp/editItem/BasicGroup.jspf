@@ -39,7 +39,7 @@
 	<div class="free_area0 itemBlockContent endline">
 
 <%-- Genre --%>
-		<h:panelGroup layout="block" styleClass="labelLine clear" rendered="#{!(genre.item_basic_item_genre_display == 'false' && genre.item_basic_item_genre_form_id == 'full-submission' || genre.item_basic_item_genre_display == 'false' && genre.item_basic_item_genre_form_id == 'all')}">
+		<h:panelGroup layout="block" styleClass="labelLine marginTExcl6p clear" rendered="#{!(genre.item_basic_item_genre_display == 'false' && genre.item_basic_item_genre_form_id == 'full-submission' || genre.item_basic_item_genre_display == 'false' && genre.item_basic_item_genre_form_id == 'all')}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_genre_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 			</b>

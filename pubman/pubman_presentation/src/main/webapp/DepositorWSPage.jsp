@@ -96,7 +96,7 @@
 								<!-- content menu upper line ends here -->
 								</div>
 								<!-- content menu lower line starts here -->
-								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
+								<h:panelGroup layout="block" styleClass="xHuge_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
 									<h:selectOneMenu id="selExportFormatName" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>
@@ -104,8 +104,10 @@
 									<h:selectOneMenu id="selFileFormat" value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableFileFormats}">
 										<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>
+							<!-- 		
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
+								 -->
 									<!--
 									<h:commandButton title="#{tip.export_btDisplay}" id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" action="#{PubItemListSessionBean.exportSelectedDisplay}"/>
 									<h:outputText styleClass="seperator" />
