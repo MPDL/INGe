@@ -122,7 +122,7 @@
 				<h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter"/>
 			</h3>
 			<span class="seperator"></span>
-			<div class="free_area0 itemBlockContent endline">
+			<div class="free_area0 itemBlockContent marginTExcl6p endline">
 		<%-- Genre --%>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.item_basic_item_genre_display == 'false' && genre.item_basic_item_genre_form_id == 'easy-submission' || genre.item_basic_item_genre_display == 'false' && genre.item_basic_item_genre_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">

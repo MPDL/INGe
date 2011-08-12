@@ -411,7 +411,7 @@
 					<h:outputText value="#{genre.sources_label}" converter="GenreLabelConverter"/>
 				</h3>
 				<span class="seperator"></span>
-				<div class="free_area0 itemBlockContent endline">
+				<div class="free_area0 itemBlockContent marginTExcl6p endline">
 				<h:panelGroup rendered="#{!(genre.sources_source_basic_display == 'false' && genre.sources_source_basic_form_id == 'easy-submission' || genre.sources_source_basic_display == 'false' && genre.sources_source_basic_form_id == 'all')}">
 
 			<%-- Source genre --%>
