@@ -429,13 +429,14 @@ th .selectMenu {
 }
 
 .listItem .statusIcon {
-	position: relative;
-	float: left;
+/*	position: relative;
+	float: left; */
+	margin:0 auto;
 }
 
 .listItem td .statusIcon {
-	margin-top: 0.09em;
-	margin-left: 0em;
+	margin: 0 auto;
+	margin-top: 0.18em;
 }
 
 .listItem .listItemLine {
@@ -512,13 +513,15 @@ th .selectMenu {
 }
 
 .listItem .statusArea {
-	width: 7.65em;
-	padding-top: 0.28em;
+	width: 9.1818em;
+	padding-top: 0.27em;
+	text-align:center;
 }
 
 .listItem td .statusArea {
-	width: 7.74em;
+	width: 9.1818em;
 	padding-top: 0em;
+	text-align:center;
 }
 
 /*PRINT RELATED DEFINITIONS*/
