@@ -57,7 +57,7 @@
 						
 						<h:panelGroup styleClass="free_area0 creator clear"  rendered="#{creator.creatorType == 'ORGANIZATION'}">
 							<h:panelGroup id="txtCreatorOrganizationOrganizationName">
-								<h:outputText value="#{creator.creatorObj.organizationName}"/>
+								<h:outputText value="#{creator.creatorObj.organizationName}, #{creator.creatorRole}"  escape="false"/>
 							</h:panelGroup>
 							&#160;
 							<h:outputLink id="lnkCreatorOrganizationLink" styleClass="ouCard" rendered="#{creator.creatorObj.identifier != null and creator.creatorObj.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.creatorObj.identifier}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
@@ -76,7 +76,7 @@
 						</h:panelGroup>
 						<h:panelGroup styleClass="free_area0 creator creatorHidden tiny_marginRIncl" rendered="#{creator.creatorType == 'ORGANIZATION'}">
 							<h:panelGroup id="txtCreatorOrganizationOrganizationName">
-								<h:outputText value="#{creator.creatorObj.organizationName}"/>
+								<h:outputText value="#{creator.creatorObj.organizationName}, #{creator.creatorRole}"  escape="false"/>
 							</h:panelGroup>
 							&#160;
 							<h:outputLink id="lnkCreatorOrganizationLink" styleClass="ouCard" rendered="#{creator.creatorObj.identifier != null and creator.creatorObj.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.creatorObj.identifier}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
