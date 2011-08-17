@@ -750,6 +750,12 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
+					
+				<!-- URL of the FIZ framework instance -->
+				<escidoc.framework_access.framework.url>http://test-coreservice.mpdl.mpg.de</escidoc.framework_access.framework.url>
+				<escidoc.common.framework.url>http://test-coreservice.mpdl.mpg.de</escidoc.common.framework.url>
+				<escidoc.framework_access.login.url>http://test-coreservice.mpdl.mpg.de</escidoc.framework_access.login.url>
+
 				<escidoc.cone.service.url>http://dev-pubman.mpdl.mpg.de/cone/</escidoc.cone.service.url>
 				<escidoc.import.database.name>/usr/share/jboss/server/default/data/hypersonic/localDB</escidoc.import.database.name>
 				<escidoc.import.surveyor.interval>15</escidoc.import.surveyor.interval>
