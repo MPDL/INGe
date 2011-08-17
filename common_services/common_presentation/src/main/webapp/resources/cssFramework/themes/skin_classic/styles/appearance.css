@@ -92,7 +92,7 @@ input[type = text], textarea {
 }
 
 h1, h4, h5 {
-    font-family: "Myriad Pro Condensed", "Arial Narrow", sans-serif;
+ /*   font-family: "Myriad Pro Condensed", "Arial Narrow", sans-serif; */
 }
 
 /*
@@ -187,7 +187,7 @@ input[type =
 
 input, textarea, select {
     border-style: solid;
-    border-color: #515151;
+    border-color: #A7A7A7;
 }
 
 input[type =
@@ -395,8 +395,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	opacity:0;
 	-moz-opacity:0;
 	cursor:pointer;
-	background-color:#E7E8E2;
-	color:#307086;
+	background-color:#ffffff;
+	color:#000000;
 	border-bottom-color:#9fafae;
 	border-style:none;
 }
@@ -416,7 +416,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	padding-bottom:0.18em;
 	height:1.3636em; 
 	background-color:#F4F8F9;
-	border:0.0909em solid #222222;
+	border:0.0909em solid #A7A7A7;
 }
 
 /*LISTS & FULL ITEM*/

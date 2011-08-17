@@ -135,7 +135,7 @@
 
 /*BODY*/
 body {
-	background: url("../images/all_background_1.jpg") repeat scroll left top;
+	background: url("../images/all_background_1.jpg") repeat-x scroll left top;
 }
 
 body .wrapper {
