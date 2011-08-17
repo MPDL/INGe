@@ -43,7 +43,7 @@
 		Benefit from the MPG service for long-term archiving! <br/>
 	</p>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">Read more</a>
-	<h:outputText value="|"/>
+	<br />
     <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><h:outputText value="#{lbl.Home_Link_Support }"/></a>
 	<br/><br/>
 	<h3>Search for publications here</h3>
@@ -103,7 +103,7 @@
 		Ihre gesammelten Veröffentlichungen können Sie in einem "Reseacher Portfolio" präsentieren.
 	</p>	
 	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">Lesen Sie mehr </a>
-	<h:outputText value="|"/>
+	<br /><br />
     <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><h:outputText value="#{lbl.Home_Link_Support}"/></a>
 	<br/><br/>
 	<h3>Suchen Sie hier nach Publikationen</h3>
