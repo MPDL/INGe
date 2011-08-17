@@ -32,7 +32,7 @@
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>6.3.1-SNAPSHOT</version>
+	<version>7.0.0-SNAPSHOT</version>
 	<name>pubman</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/pubman</url>
 	<description>
@@ -51,17 +51,17 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-
+	
 	<organization>
 		<name>Max Planck Digital Library</name>
 		<url>http://www.mpdl.mpg.de/</url>
 	</organization>
-
+	
 	<issueManagement>
 		<system>Jira</system>
 		<url>http://jira.mpdl.mpg.de/</url>
 	</issueManagement>
-
+	
 	<developers>
 		<developer>
 			<id>mdreyer</id>
@@ -166,7 +166,7 @@
 			<timezone>+2</timezone>
 		</developer>
 		<developer>
-		  <id>haarlaender</id>
+			<id>haarlaender</id>
 			<name>Markus Haarlaender</name>
 			<email>haarlaender@mpdl.mpg.de</email>
 			<roles>
@@ -176,7 +176,7 @@
 			<timezone>+2</timezone>
 		</developer>
 	</developers>
-
+	
 	<mailingLists>
 		<mailingList>
 			<name>Infolist about build-failures, source-code changes etc.</name>
@@ -188,7 +188,7 @@
 			</archive>
 		</mailingList>
 	</mailingLists>
-
+	
 	<ciManagement>
 		<system>Continuum</system>
 		<url>http://continuum.mpdl.mpg.de/continuum</url>
@@ -201,60 +201,60 @@
 			</notifier>
 		</notifiers>
 	</ciManagement>
-
+	
 	<modules>
 		<module>pubman_logic</module>
 		<module>pubman_logic_ear</module>
 		<module>pubman_presentation</module>
 		<module>pubman_ear</module>
-        <module>pubman_installer</module>
-  </modules>
-
+		<module>pubman_installer</module>
+	</modules>
+	
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman</connection>
 		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman</developerConnection>
 		<url>https://zim02.gwdg.de/repos/pubman/</url>
 	</scm>
+ 	
+	<repositories>
+		<repository>
+			<id>central</id>
+			<url>http://central</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
- 	<repositories>
-        <repository>
-            <id>central</id>
-            <url>http://central</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<url>http://central</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>central</id>
-            <url>http://central</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-    
-    <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <name>Nexus Managed Releases</name>
-            <url>http://rd.mpdl.mpg.de/nexus/content/repositories/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>Nexus Managed Snapshots</name>
-            <url>http://rd.mpdl.mpg.de/nexus/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
-
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>Nexus Managed Releases</name>
+			<url>http://rd.mpdl.mpg.de/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Nexus Managed Snapshots</name>
+			<url>http://rd.mpdl.mpg.de/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	
 	<build>
 		<resources>
 			<resource>
@@ -291,7 +291,7 @@
 						</dependency>
 					</dependencies>
 				</plugin>
-
+			
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -321,21 +321,21 @@
 					</descriptors>
 				</configuration>
 			</plugin>
-            <plugin>
-                <groupId>org.codehaus.izpack</groupId>
-                <artifactId>izpack-maven-plugin</artifactId>
-                <version>1.0-alpha-5</version>
-            </plugin>            
+			<plugin>
+				<groupId>org.codehaus.izpack</groupId>
+				<artifactId>izpack-maven-plugin</artifactId>
+				<version>1.0-alpha-5</version>
+			</plugin>
 		</plugins>
-		  <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-webdav</artifactId>
-                <version>1.0-beta-2</version>
-            </extension>
-        </extensions>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav</artifactId>
+				<version>1.0-beta-2</version>
+			</extension>
+		</extensions>
 	</build>
-
+	
 	<reporting>
 		<plugins>
 			<plugin>
@@ -393,18 +393,18 @@
 				<configLocation>http://escidoc1.escidoc.mpg.de/resources/checkstyle/checkstyle.xml</configLocation>
 			</configuration>
 		</plugin>-->
-		<plugin>
+			<plugin>
 				<!-- JavaNCSS - A Source Measurement Suite for Java
 					http://www.kclee.de/clemens/java/javancss/ -->
-			<groupId>org.codehaus.mojo</groupId>
-			<artifactId>javancss-maven-plugin</artifactId>
-		</plugin>
-		<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>javancss-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
 				<!-- A Java package dependency analyzer that generates
 					  design quality metrics http://clarkware.com/software/JDepend.html -->
-			<groupId>org.codehaus.mojo</groupId>
-			<artifactId>jdepend-maven-plugin</artifactId>
-		</plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jdepend-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</reporting>
 
@@ -526,7 +526,7 @@
 		<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 		<escidoc.pubman.root.organisation.id>escidoc:persistent13</escidoc.pubman.root.organisation.id>
 		<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
-
+		
 		<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
 		<escidoc.cone.database.driver.class>org.postgresql.Driver</escidoc.cone.database.driver.class>
 		<escidoc.cone.database.server.name>zim02.gwdg.de</escidoc.cone.database.server.name>
@@ -605,10 +605,10 @@
 		<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.4</xsd.soap.statistic.reportdefinition>
 		<xsd.soap.contentmodel>http://www.escidoc.de/schemas/contentmodel/0.1</xsd.soap.contentmodel>
 		<xsd.soap.contentmodel.contentstreams>http://www.escidoc.de/schemas/contentstreams/0.7</xsd.soap.contentmodel.contentstreams>
-
+		
 		<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
 		<xsd.metadata.dcterms>http://purl.org/dc/terms/</xsd.metadata.dcterms>
-
+		
 		<xsd.soap.toc.toc>http://www.escidoc.de/schemas/toc/0.6</xsd.soap.toc.toc>
 		<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
 		<xsd.soap.result.result>http://www.escidoc.de/schemas/result/0.1</xsd.soap.result.result>
@@ -670,7 +670,7 @@
 		<escidoc.syndication.maximum.records>50</escidoc.syndication.maximum.records>
 		<escidoc.syndication.ttl>0</escidoc.syndication.ttl>
 		<escidoc.syndication.feeds.xml.path>resources/feeds.xml</escidoc.syndication.feeds.xml.path>
-	
+		
 		<organization.logo>http://www.mpdl.mpg.de/mpdl/sys/css/screen/images/logo.gif</organization.logo>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		
@@ -686,27 +686,27 @@
 		<escidoc.pubman.survey.title />
 		<escidoc.pubman.survey.text />
 		<escidoc.pubman.survey.styles />
-		
+	
 	</properties>
-
+	
 	<profiles>
 		<!-- this profile is used by developers -->
 		<profile>
 			<id>env-development</id>
 			<build>
-               <plugins>
-                   <plugin>
-                       <groupId>org.zeroturnaround</groupId>
-                       <artifactId>javarebel-maven-plugin</artifactId>
-                       <executions>
-                           <execution>
-                               <id>generate-rebel-xml</id>
-                               <phase>process-resources</phase>
-                               <goals>
-                                   <goal>generate</goal>
-                               </goals>
-                           </execution>
-                       </executions>
+				<plugins>
+					<plugin>
+						<groupId>org.zeroturnaround</groupId>
+						<artifactId>javarebel-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>generate-rebel-xml</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+							</execution>
+						</executions>
 						<dependencies>
 							<dependency>
 								<groupId>org.codehaus.plexus</groupId>
@@ -714,10 +714,10 @@
 								<version>1.4.1</version>
 								<scope>runtime</scope>
 							</dependency>
-						</dependencies>		                       
-                   </plugin>
-               </plugins>
-           </build> 
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
 			<properties>
 				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 				<escidoc.import.database.name>../server/default/data/hypersonic/localDB</escidoc.import.database.name>
@@ -735,14 +735,14 @@
 				<!-- URL of stylesheets in common-presentation -->
 				<escidoc.pubman.common.presentation.url>http://localhost:8080/common/</escidoc.pubman.common.presentation.url>
 			</properties>
-
+			
 			<distributionManagement>
 				<site>
 					<id>website</id>
 					<url>scp://escidoc1.escidoc.mpg.de:/srv/www/staging/projects/pubman</url>
 				</site>
 			</distributionManagement>
-
+		
 		</profile>
 		<profile>
 			<id>env-testing-continuum</id>
@@ -774,19 +774,19 @@
 					<url>scp://escidoc1.escidoc.mpg.de:/srv/www/00_default/projects/snapshots/pubman</url>
 				</site>
 			</distributionManagement>
-
+		
 		</profile>
 		<profile>
 			<id>env-production-escidoc2</id>
-
+		
 		</profile>
 		<profile>
 			<id>env-production-escidoc3</id>
-
+		
 		</profile>
 		<profile>
 			<id>env-production-escidoc4</id>
-
+		
 		</profile>
 		<profile>
 			<!-- this profile gets activated if os is windows -->
