@@ -158,7 +158,12 @@ input[type="reset"]:hover {
     cursor: pointer;
 }
 input[type="text"] {
-    background-color: #F3F5F5;
+	background-color: #F3F5F5;
+}
+input[type="file"] {
+	background-color: #F3F5F5;
+	border-bottom-color:#000000;
+	border-right-color:#000000;
 }
 input.numberLabel {
 	font-family: Verdana,Arial,Helvetica,sans-serif;
@@ -852,8 +857,8 @@ body .wrapper {
 	color: #004465;
 	border-right-color: #004465;
 	border-bottom-color: #004465;
-	border-top:0;
-	border-left:0;
+	border-top:0 !important;
+	border-left:0 !important;
 	border-style: solid;
 	padding-top: 0.10em;
 	padding-bottom: 0.10em;
@@ -867,8 +872,8 @@ body .wrapper {
 .activeButton {
 	float: right;
 	color: #FFFFFF;
-	border-top:0;
-	border-left:0;
+	border-top:0 !important;
+	border-left:0 !important;
 	background-color:#006F7B !important;
 	border-color: #004465;
 	border-style: solid;
