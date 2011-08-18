@@ -37,6 +37,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -78,7 +79,7 @@ public class BrowseBySessionBean extends FacesBean
     private boolean showChars = true;
     List <LinkVO> searchResults;
     List <String> allResults;
-    private String currentCharacter = "A";
+    private char currentCharacter = 'A';
     private String selectedValue ="persons";
     private String searchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();
     private int yearStart;
@@ -88,7 +89,7 @@ public class BrowseBySessionBean extends FacesBean
 
     public static final char[] CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ".toCharArray();
 
-    Character[] characters = null;
+    char[] characters = null;
 
     private List<String> browseByYears;
 
@@ -113,7 +114,7 @@ public class BrowseBySessionBean extends FacesBean
 
     public void clear()
     {
-        this.currentCharacter ="A";
+        this.currentCharacter = 'A';
         this.selectedValue ="persons";
         this.searchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();
         this.showChars = true;
@@ -150,12 +151,12 @@ public class BrowseBySessionBean extends FacesBean
         this.searchResults = searchResults;
     }
 
-    public String getCurrentCharacter()
+    public char getCurrentCharacter()
     {
         return currentCharacter;
     }
 
-    public void setCurrentCharacter(String currentCharacter)
+    public void setCurrentCharacter(char currentCharacter)
     {
         this.currentCharacter = currentCharacter;
     }
@@ -208,8 +209,15 @@ public class BrowseBySessionBean extends FacesBean
                 //                        characters.add(chr);
                 //                    }
                 //                }
-
-                this.characters = characters.toArray(new Character[]{});
+                
+                this.characters = new char[characters.size()];
+                int counter = 0;
+                
+                for (Iterator iterator = characters.iterator(); iterator.hasNext();)
+                {
+                    Character character = (Character)iterator.next();
+                    this.characters[counter] = character.charValue();
+                }
 
                 this.showChars = true;
             }
@@ -515,12 +523,12 @@ public class BrowseBySessionBean extends FacesBean
         return pubContentModel;
     }
 
-    public Character[] getCharacters()
+    public char[] getCharacters()
     {
         return characters;
     }
 
-    public void setCharacters(Character[] characters)
+    public void setCharacters(char[] characters)
     {
         this.characters = characters;
     }
