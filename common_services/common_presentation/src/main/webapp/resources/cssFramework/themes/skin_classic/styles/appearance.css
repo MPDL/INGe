@@ -346,6 +346,11 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     color: #777777;
 }
 
+/*HEADER-SECTION*/
+.headerSection h1 {
+	font-family: "Myriad Pro Condensed", "Arial Narrow", sans-serif;
+}
+
 /* INFO PAGE*/
 .infoPage .sideSection {
     border-style: solid;

@@ -762,6 +762,10 @@ body .wrapper {
 	border-style: solid;
 }
 
+/***** HEADER-SECTION *****/
+.headerSection h1 {
+	font-family: "Myriad Pro Condensed", "Arial Narrow", sans-serif;
+}
 
 /***** PRE-HEADER *****/
 .preListHeader {
