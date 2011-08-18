@@ -140,7 +140,7 @@ body {
 
 body .wrapper {
 /*	background: url("../images/mpg_bg_head_wrapper_100.png") no-repeat scroll left top; */
-	background-image:url("../images/mpg_bg_head_wrapper_100.png");
+	background-image:url("../images/mpg_bg_head_wrapper_80.png");
 	background-repeat:no-repeat !important;
 }
 
@@ -657,6 +657,10 @@ body .wrapper {
     background-position: center left;
 }
 
+.add, .remove {
+    background-color: transparent;
+}
+
 .add {
     background-image: url('../images/All_Complete_PlusAdd_15_Active.png');
     background-repeat: no-repeat;
@@ -771,7 +775,7 @@ body .wrapper {
     background-image: url('../images/All_Attached_ClipAttached_15_Static.png');
     background-repeat: no-repeat;
     background-position: bottom left;
-    padding-left: 2.10em !important;
+    padding-left: 2.0909em !important;
 }
 @media print { .files, .locators {
         padding-left: 0em !important;
@@ -779,8 +783,8 @@ body .wrapper {
 }
 
 .authorCard {
-    width: 2.83em;
-    height: 1.37em;
+    width: 2.8181em;
+    height: 1.5454em;
     background-image: url('../images/All_Info_Author_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
@@ -799,8 +803,8 @@ body .wrapper {
 }
 
 .ouCard {
-    width: 2.83em;
-    height: 1.37em;
+    width: 2.8181em;
+    height: 1.5454em;
     background-image: url('../images/All_Info_Organization_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
@@ -819,7 +823,7 @@ body .wrapper {
 }
 
 .ccLicense {
-    padding-left: 1.37em;
+    padding-left: 1.3636em;
     background-image: url('../images/cc.gif');
     background-repeat: no-repeat;
     background-position: center left;
@@ -847,14 +851,14 @@ body .wrapper {
 	background-image: url('../images/All_File_EyeTrue_15_Static.gif');
 	background-repeat: no-repeat;
 	background-position: bottom left;
-	padding-left: 2.10em !important;
+	padding-left: 2.0909em !important;
 }
 
 .downloadFileIcon {
 	background-image: url('../images/All_File_ArrowDownload_15_Static.png');
 	background-repeat: no-repeat;
 	background-position: bottom left;
-	padding-left: 2.10em !important;
+	padding-left: 2.0909em !important;
 }  	
 
 .featureIcon {

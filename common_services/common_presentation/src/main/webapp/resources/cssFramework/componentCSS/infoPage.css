@@ -96,6 +96,11 @@
 	padding-bottom: 0em;
 }
 
+.infoPage .mainSection h4 {
+	font-size:120%;
+	margin-bottom:0.4545em;
+}
+
 .infoPage .sideSectionArea { 
 	width: 34em;
 }

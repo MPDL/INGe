@@ -178,6 +178,10 @@ a:focus {
 	text-decoration:underline;
 	cursor: pointer;
 }
+a:active {
+	text-decoration:underline;
+	cursor: pointer;
+}
 a:visited {
 	color: #004465;
 	text-decoration: none;
@@ -185,6 +189,10 @@ a:visited {
 a:disabled {
 	cursor: default;
 	color: #888B8B;
+}
+/* TEXT DECORATION FOR ALL LINKS WITH one or more CLASS-ATTRIBUTE - e.g. images */
+a[class] { 
+	text-decoration:none;
 }
 
 /***TEXTAREA***/
@@ -407,6 +415,14 @@ body .wrapper {
 	font-family: Verdana,Arial,Helvetica,sans-serif;
 }
 
+/***SEARCH MENU***/
+.searchMenu a:hover {
+	text-decoration:underline;
+}
+.searchMenu a:focus {
+	text-decoration:underline;
+}
+
 /***ADVANCED SEARCH MENU***/
 .advancedSearchMenu input {
 	background-color:transparent;
@@ -415,12 +431,6 @@ body .wrapper {
 .advancedSearchMenu a {
 	background-color:transparent;
 	color:#004465;
-}
-.advancedSearchMenu a:hover {
-	text-decoration:underline;
-}
-.advancedSearchMenu a:focus {
-	text-decoration:underline;
 }
 
 /***ORGANISATION SEARCH MENU***/
@@ -848,6 +858,7 @@ body .wrapper {
 	color: #012846;
 	border-right-color: #012846;
 	border-bottom-color: #012846;
+	text-decoration:underline;
 }
 .activeButton {
 	float: right;
@@ -860,12 +871,12 @@ body .wrapper {
 	padding-top: 0.10em;
 	padding-bottom: 0.10em;
 }
-/*
 .activeButton:hover {
-	color: #FFFFFF;
-	background-color: #004465;
+	text-decoration:underline;
+/*	color: #FFFFFF;
+	background-color: #004465;*/
 }
-*/
+
 
 
 
@@ -964,6 +975,9 @@ body .wrapper {
 .underRework {
 	background-color: #F43E71 !important;
 }
+
+
+
 
 
 
