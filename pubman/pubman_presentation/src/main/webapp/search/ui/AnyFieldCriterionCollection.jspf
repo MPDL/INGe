@@ -75,7 +75,7 @@
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:selectOneRadio id="selCriterionType" styleClass="medium_radioBtn xTiny_marginRIncl xHuge_area0" value="#{anyFieldCriterionBean.selectedType}" valueChangeListener="#{anyFieldCriterionBean.processTypeChanged}">
+					<h:selectOneRadio id="selCriterionType" styleClass="medium_radioBtn xTiny_marginRIncl quad_area0" value="#{anyFieldCriterionBean.selectedType}" valueChangeListener="#{anyFieldCriterionBean.processTypeChanged}">
 						<f:selectItems value="#{anyFieldCriterionBean.typeOptions}"/>
 					</h:selectOneRadio>
 				</span>
