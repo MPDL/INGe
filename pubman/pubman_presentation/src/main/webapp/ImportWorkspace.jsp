@@ -253,7 +253,7 @@
 				</tr:form>
 				<script type="text/javascript">
 					function reloadImports() {
-						$('.listItem').find('.statusArea').find('span:not(.FINISHED)').siblings('input').each(
+						$('.listItem').find('.statusArea').find('div:not(.FINISHED)').siblings('input').each(
 							function(i,ele) {
 								$.get($(ele).val(), function(data){
 									$(ele).parents('tr').replaceWith($(data));
@@ -263,7 +263,7 @@
 						window.setTimeout("reloadImports()", 2000);
 					}
 					function reloadDetails() {
-						$('.listItem').find('.statusArea').find('span:not(.FINISHED),span.ajaxedImport').parents('tr').next('.importDetails').each(
+						$('.listItem').find('.statusArea').find('div:not(.FINISHED),span.ajaxedImport').parents('tr').next('.importDetails').each(
 							function(i,ele) {	
 								$.get($(ele).prev('.listItem').find('.detailsLinkArea').find('input').val(), function(data) {
 									$(ele).children('td').empty().append(data);

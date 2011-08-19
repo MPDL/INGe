@@ -43,9 +43,9 @@
 	      	</td>
 	      	<td class="free_area0 endline status">
 	      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-	      		<h:panelGroup styleClass="free_area0_p8 endline statusArea">
-					<h:panelGroup styleClass="big_imgArea statusIcon ajaxedImport #{ImportData.import.status} import#{ImportData.import.status}#{ImportData.import.errorLevel}" />
-					<h:outputLabel id="lblErrorLevel" styleClass="medium_label endline" title="#{ImportData.import.errorLevel}">
+	      		<h:panelGroup styleClass="free_area0 endline statusArea">
+					<h:panelGroup layout="block" styleClass="big_imgArea statusIcon ajaxedImport #{ImportData.import.status} import#{ImportData.import.status}#{ImportData.import.errorLevel}" />
+					<h:outputLabel id="lblErrorLevel" styleClass="free_area0_p3 medium_label endline" title="#{ImportData.import.errorLevel}">
 						<h:panelGroup rendered="#{!ImportData.import.finished}">
 							<h:outputText value="#{ImportData.import.percentage}"/>% - 
 						</h:panelGroup>
