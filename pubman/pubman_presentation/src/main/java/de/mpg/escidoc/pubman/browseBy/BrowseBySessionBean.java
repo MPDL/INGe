@@ -217,6 +217,7 @@ public class BrowseBySessionBean extends FacesBean
                 {
                     Character character = (Character)iterator.next();
                     this.characters[counter] = character.toString();
+                    counter++;
                 }
 
                 this.showChars = true;
