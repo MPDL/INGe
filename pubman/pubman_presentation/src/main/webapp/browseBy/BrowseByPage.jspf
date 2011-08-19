@@ -29,15 +29,26 @@
 %>
 <!-- Character select -->
 <div id="fullItem" class="full_area0 fullItem itemHeader">
-	<h:panelGroup styleClass="full_area0 itemHeader noTopBorder" rendered="#{(BrowseBySessionBean.showChars == true) && (BrowseBySessionBean.selectedValue != 'year')}">
-		<span class="xLarge_area0_p8 blockHeader">
+	<h:panelGroup styleClass="full_area0 itemHeader noTopBorder" style="margin-bottom:0.8181em;" rendered="#{(BrowseBySessionBean.showChars) && (BrowseBySessionBean.selectedValue != 'year')}">
+		<span class="xLarge_area0_p8 blockHeader">&#160;
+		<%--
 			<h:outputText value="#{lbl.BrowseByChooseInitial}"/>
+			 --%>
 		</span>
 		<h:panelGroup styleClass="seperator" />
-		<span class="free_area0_p8 itemHeadline">
+		<span class="free_area0_p8 itemHeadline" style="width:62em;">
 			<tr:iterator var="char" id="charIter" value="#{BrowseBySessionBean.characters}" binding="#{BrowseByPage.characterIterator}" varStatus="index" rows="0">
 				<b>
-					<tr:commandButton id="lnkChar" styleClass="xTiny_area0 free_txtBtn groupBtn" text="#{char}" action="#{BrowseByPage.startCharacterSearch}" immediate="true"/>
+					<h:panelGroup styleClass="xTiny_area0 free_txtBtn groupBtn" rendered="#{BrowseBySessionBean.currentCharacter != char}">
+						<tr:commandLink id="lnkChar" action="#{BrowseByPage.startCharacterSearch}">
+							<h:outputText value="#{char}" />
+						</tr:commandLink>
+					</h:panelGroup>
+					
+					<h:panelGroup styleClass="xTiny_area0 disabled" rendered="#{(BrowseBySessionBean.showChars) and (BrowseBySessionBean.currentCharacter == char)}">
+						<h:outputText value="#{char}" />
+					</h:panelGroup>
+					
 				</b>
 			</tr:iterator>
 		</span>
@@ -69,11 +80,15 @@
 	</h:panelGroup>
 <!-- Character Search Result -->
 <!-- Display link list devided into seperate characters -->
-	<h:panelGroup styleClass="full_area0 itemBlock" rendered="#{(BrowseBySessionBean.showChars == true) && (BrowseBySessionBean.selectedValue != 'year')}">
-		<span class="xLarge_area0_p8 blockHeader endline">
+	<h:panelGroup styleClass="full_area0 itemBlock noTopBorder" rendered="#{(BrowseBySessionBean.showChars == true) && (BrowseBySessionBean.selectedValue != 'year')}">
+		<span class="xLarge_area0_p8 blockHeader endline">&#160;
+		<%--
 			<h:outputText value="#{lbl.BrowseByInitial} #{BrowseBySessionBean.currentCharacter}"/>
+			 --%>
 		</span>
+		<%--
 		<h:panelGroup styleClass="seperator" />
+		 --%>
 		<div class="free_area0 itemBlockContent endline">
 			<tr:iterator var="link" id="linkIter" value="#{BrowseBySessionBean.searchResults}" varStatus="index" rows="0">
 				<div class="free_area0 itemLine noTopBorder">
