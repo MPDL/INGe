@@ -307,6 +307,13 @@ body .wrapper {
 	border:none;
 	background-color:#006F7B;
 }
+.metaMenu .selectContainer .selectboxIcon {
+	float:right;
+	padding:0 0.1818em 0 0;
+	margin:-1.5454em 0 0 0;
+	background-color: #006F7B;
+}
+
 /*
 .metaMenu .selectContainer:hover {
 	background-image:url("../images/BG_MainNavi_hover_bold.png");
@@ -655,6 +662,11 @@ body .wrapper {
     color: #888B8B;
     cursor: default;
 }
+.fullItem .disabled {
+	text-decoration:underline !important;
+	color:#888B8B;
+	cursor:default;
+}
 .fullItem li  {
     border-top-color: #C9C9C9;
 }
@@ -818,6 +830,7 @@ body .wrapper {
 }
 .selectContainer .selectionBox {
 	padding-left:0.2727em !important;
+	white-space:nowrap;
 }
 .selectionBox {
 	color:#3A3B3B;
@@ -830,9 +843,16 @@ body .wrapper {
 .selectContainer {
 	padding-top:0em;
 	padding-bottom:0.18em;
-	height:1.3636em; 
+	height:1.1818em; 
 	background-color:#F3F5F5;
 	border:0.0909em solid #9fafae;
+}
+.selectboxIcon {
+	float:right;
+	padding:0 0.1818em 0 0;
+	margin:-1.3636em 0 0 0;
+	margin-right:0 !important; /*action menu fix*/
+	background-color: #F3F5F5;
 }
 .free_area0.third_txtInput {
 	background-color:#f3f5f5;
@@ -988,8 +1008,6 @@ body .wrapper {
 
 
 
-
-
 /***** UNCATEGORIZED *****/
 .inputInfoBox {
 	text-align: center;
@@ -1037,8 +1055,7 @@ body .wrapper {
 }
 
 
-
-/******************** EXTERNAL CLASSES ********************/
+/******************** EXTERNAL AND JSP CLASSES ********************/
 a.OraLinkDisabled {
 	color: #888B8B;
 	cursor: default;
@@ -1048,7 +1065,9 @@ a.OraLinkDisabled:hover {
 	cursor: default;
 }
 .affHover {
-    background-color: #012846;
+    background-color: #006D70;
+	color:#FFFFFF;
+	padding-left:0.1818em !important;
 }
 
 

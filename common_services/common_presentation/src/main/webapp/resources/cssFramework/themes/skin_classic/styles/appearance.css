@@ -389,7 +389,12 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	border:none;
 	background-color:#E7E8E2;
 }
-
+.metaMenu .selectContainer .selectboxIcon {
+	float:right;
+	padding:0 0.1818em 0 0;
+	margin:-1.5454em 0 0 0;
+	background-color:transparent;
+}
 
 
 .selectContainer select {
@@ -422,6 +427,13 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	height:1.3636em; 
 	background-color:#F4F8F9;
 	border:0.0909em solid #A7A7A7;
+}
+.selectboxIcon {
+	float:right;
+	padding:0 0.1818em 0 0;
+	margin:-1.3636em 0 0 0;
+	margin-right:0 !important; /*action menu fix*/
+	background-color: #F4F8F9;
 }
 
 /*LISTS & FULL ITEM*/

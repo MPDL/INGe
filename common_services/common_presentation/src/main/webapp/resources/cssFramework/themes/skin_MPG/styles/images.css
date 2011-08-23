@@ -396,7 +396,7 @@ body .wrapper {
 }
 .selectboxIcon {
 	background-image:url("../images/All_Sorting_TriangleDescending_15_Active.png");
-	background-position:right;
+	background-position:left;
 	background-repeat:no-repeat;
 }
 
