@@ -148,9 +148,20 @@
 					<span class="xHuge_area0 xTiny_marginLExcl endline subjectArea">
 						<h:panelGroup styleClass="large_area0 largeFormPush">
 							<h:outputLabel id="lblSelectIdentifierType" styleClass="large_area0 xTiny_marginRIncl" value="#{genre.content_item_subject_item_subject_type_label}" converter="GenreLabelConverter"/>
+							
+							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+								<h:panelGroup layout="block" styleClass="large_area0">
+									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+								</h:panelGroup>
+								<h:selectOneMenu id="selSelectIdentifierType" styleClass="replace vocabulary" onfocus="updateSelectionBox(this);" value="#{EasySubmission.subject.type}" onchange="updateSelectionBox(this);">
+									<f:selectItems value="#{EditItem.subjectTypes}" />
+								</h:selectOneMenu>
+							</h:panelGroup>
+						<%--
 							<h:selectOneMenu id="selSelectIdentifierType" styleClass="large_select replace vocabulary" value="#{EasySubmission.subject.type}">
 								<f:selectItems value="#{EditItem.subjectTypes}"/>
-							</h:selectOneMenu>
+							</h:selectOneMenu>	--%>
 						</h:panelGroup>
 						<h:panelGroup styleClass="xDouble_area0">
 							<h:outputLabel id="lblSubjectValue" value="#{genre.content_item_subject_item_subject_value_label}" converter="GenreLabelConverter"/>

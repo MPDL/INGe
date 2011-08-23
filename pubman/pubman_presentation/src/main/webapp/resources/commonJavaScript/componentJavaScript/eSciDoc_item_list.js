@@ -182,37 +182,6 @@ function installItemList(){
 }
 
 
-$(document).ready(function(e){
-	$('.selectContainer').each(function() {
-		//check if the selectbox is on metaMenu
-		if ($(this).parent().hasClass("metaMenu")) {
-//			console.log('Parent: ' + $(this).parent().attr('class'))
-		} else {
-			var element = $(this);
-			//Define the new width of customized selectBox
-			var newWidth = element.find('select').width();
-			
-			//if the width of selectbox smaller than 431px it's allowed to resize
-			if (newWidth < 431) {
-				//set the new width to the selectbox container
-				element.find('div:first-child').width(newWidth);
-				//set the new width of selectionBox (info area) on the new width reduced with the selectboxArrow-width (22px incl. margin/padding)
-				element.find('.selectionBox').width(newWidth - 22);
-				//finally set the new width to the global element
-				element.width(newWidth);
-			}
-		}
-	})
-})
-
-
-
-
-
-
-
-
-
 
 
 

@@ -113,9 +113,20 @@
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<span class="large_area0 largeFormPush">
 							<h:outputLabel id="lblIDType" styleClass="large_label" value="#{lbl.easy_submission_lblIDType}"/>
+							
+							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+								<h:panelGroup layout="block" styleClass="large_area0">
+									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+								</h:panelGroup>
+								<h:selectOneMenu id="selCurrentExternalServiceType" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{EasySubmissionSessionBean.currentExternalServiceType}" onchange="$(this).parents('.itemBlock').find('.hiddenButton').click();" binding="#{EasySubmission.sourceSelect}">
+									<f:selectItems value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}" />
+								</h:selectOneMenu>
+							</h:panelGroup>
+						<%--
 							<h:selectOneMenu id="selCurrentExternalServiceType" styleClass="large_select replace" value="#{EasySubmissionSessionBean.currentExternalServiceType}" onchange="$(this).parents('.itemBlock').find('.hiddenButton').click();" binding="#{EasySubmission.sourceSelect}">
 								<f:selectItems id="selExternalServiceOptions" value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}"/>
-							</h:selectOneMenu>
+							</h:selectOneMenu>	--%>
 							<h:commandButton title="#{tip.easy_submission_btSelectSource}" action="#{EasySubmission.changeImportSource}" immediate="true" styleClass="hiddenButton" id="btnChangeImportSource" value="" style="visibility:hidden;"/>
 						</span>
 						<span class="xDouble_area0">

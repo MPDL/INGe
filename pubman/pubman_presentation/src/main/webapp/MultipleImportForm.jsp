@@ -193,9 +193,21 @@
 															<tr:iterator var="parameter" value="#{MultipleImport.configParameters}">
 																<h:outputLabel styleClass="xLarge_label" value="#{parameter.label} "/>
 																<h:inputText id="inpImportParam" styleClass="xLarge_txtInput" value="#{parameter.value}" rendered="#{MultipleImport.parametersValues[parameter.label] == null}"/>
+																
+																<h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
+																	<h:panelGroup layout="block" styleClass="xLarge_area0">
+																		<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
+																		<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+																	</h:panelGroup>
+																	<h:selectOneMenu onfocus="updateSelectionBox(this);" value="#{parameter.value}" onchange="updateSelectionBox(this);"
+																		rendered="#{MultipleImport.parametersValues[parameter.label] != null}">
+																		<f:selectItems value="#{MultipleImport.parametersValues[parameter.label]}" />
+																	</h:selectOneMenu>
+																</h:panelGroup>
+															<!-- <% /*
 																<h:selectOneMenu  value="#{parameter.value}" rendered="#{MultipleImport.parametersValues[parameter.label] != null}" styleClass="xLarge_select">
 																	<f:selectItems value="#{MultipleImport.parametersValues[parameter.label]}"/>
-																</h:selectOneMenu>
+																</h:selectOneMenu>	*/ %> -->
 															</tr:iterator>
 														</span>
 													</span>

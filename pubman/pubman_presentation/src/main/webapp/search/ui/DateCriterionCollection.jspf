@@ -130,9 +130,19 @@
 			</h:panelGroup>
 
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
-				<h:selectOneMenu id="selDateCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{dateCriterionBean.logicOperator}">
+				
+				<h:panelGroup layout="block" styleClass="small_area1 endline selectContainer marginTExcl6p xSmall_marginLExcl">
+					<h:panelGroup layout="block" styleClass="small_area0">
+						<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+					</h:panelGroup>
+					<h:selectOneMenu id="selDateCriterionLogicOption" styleClass="small_select replace" value="#{dateCriterionBean.logicOperator}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+						<f:selectItems value="#{dateCriterionBean.logicOptions}" />
+					</h:selectOneMenu>
+				</h:panelGroup>
+		<%--	<h:selectOneMenu id="selDateCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{dateCriterionBean.logicOperator}">
 					<f:selectItems value="#{dateCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>				
+				</h:selectOneMenu>	 --%>
 			</h:panelGroup>
 
 		</tr:iterator>

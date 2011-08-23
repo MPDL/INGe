@@ -95,13 +95,36 @@
 								</div>
 								<!-- content menu lower line starts here -->
 								<h:panelGroup layout="block" styleClass="xHuge_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT' and PubItemListSessionBean.totalNumberOfElements>0}">
+									
+									<h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
+										<h:panelGroup layout="block" styleClass="xLarge_area0">
+											<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
+											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+										</h:panelGroup>
+										<h:selectOneMenu id="selExportFormatName" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
+											<f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
+										</h:selectOneMenu>
+									</h:panelGroup>
+								<!-- <% /* 
 									<h:selectOneMenu id="selExportFormatName" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
-											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
-									</h:selectOneMenu>
+										<f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
+									</h:selectOneMenu>	*/ %> -->
+									
 									<h:commandButton id="btnUpdateExportOptions" styleClass="noDisplay exportUpdateButton" action="#{CartItemsRetrieverRequestBean.updateExportOptions}" value="updateExportFormats" />	
+									
+									<h:panelGroup layout="block" styleClass="medium_area1 endline selectContainer" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
+										<h:panelGroup layout="block" styleClass="medium_area0">
+											<h:panelGroup styleClass="medium_area0 selectionBox">&#160;</h:panelGroup>
+											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+										</h:panelGroup>
+										<h:selectOneMenu id="selFileFormat" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);" rendered="#{ExportItemsSessionBean.enableFileFormats}">
+											<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
+										</h:selectOneMenu>
+									</h:panelGroup>
+								<!-- <% /* 
 									<h:selectOneMenu id="selFileFormat" value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableFileFormats}">
 										<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
-									</h:selectOneMenu>
+									</h:selectOneMenu>	*/ %> -->
 									
 									<h:commandLink id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.exportAllDownload}" />
 									<h:outputText styleClass="seperator" />
@@ -124,9 +147,21 @@
 								<h:panelGroup layout="block" styleClass="xHuge_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING' and PubItemListSessionBean.totalNumberOfElements>0}" >
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy} "/>
+									
+									<h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
+										<h:panelGroup layout="block" styleClass="xLarge_area0">
+											<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
+											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+										</h:panelGroup>
+										<h:selectOneMenu id="sortBy" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();">
+											<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
+										</h:selectOneMenu>
+									</h:panelGroup>
+								<!-- <% /* 
 									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
 										<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
-									</h:selectOneMenu>
+									</h:selectOneMenu>	*/ %> -->
+									
 									<h:commandLink title="#{tip.list_ascending}" styleClass="ascSort" value="#{lbl.ItemList_SortOrderAscending}" id="sortOrderAsc" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.displaySortOrder}" action="#{PubItemListSessionBean.changeSortOrder}" />
 									<h:commandLink title="#{tip.list_descending}" styleClass="desSort" value="#{lbl.ItemList_SortOrderDescending}" id="sortOrderDesc" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.displaySortOrder}" action="#{PubItemListSessionBean.changeSortOrder}" />
 									<h:commandButton styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.changeSortBy}"/>

@@ -77,9 +77,20 @@
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
-				<h:selectOneMenu id="selIdentifierCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{identifierCriterionBean.logicOperator}">
+				
+				
+				<h:panelGroup layout="block" styleClass="small_area1 endline selectContainer marginTExcl6p xSmall_marginLExcl">
+					<h:panelGroup layout="block" styleClass="small_area0">
+						<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+					</h:panelGroup>
+					<h:selectOneMenu id="selIdentifierCriterionLogicOption" styleClass="small_select replace" value="#{identifierCriterionBean.logicOperator}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+						<f:selectItems value="#{identifierCriterionBean.logicOptions}" />
+					</h:selectOneMenu>
+				</h:panelGroup>
+		<%--	<h:selectOneMenu id="selIdentifierCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{identifierCriterionBean.logicOperator}">
 					<f:selectItems value="#{identifierCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>				
+				</h:selectOneMenu> 	--%>				
 			</h:panelGroup>
 
 		</tr:iterator>
@@ -107,9 +118,19 @@
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
-				<h:selectOneMenu id="selEventCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{eventCriterionBean.logicOperator}">
+				
+				<h:panelGroup layout="block" styleClass="small_area1 endline selectContainer marginTExcl6p xSmall_marginLExcl">
+					<h:panelGroup layout="block" styleClass="small_area0">
+						<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+					</h:panelGroup>
+					<h:selectOneMenu id="selEventCriterionLogicOption" styleClass="small_select replace" value="#{eventCriterionBean.logicOperator}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+						<f:selectItems value="#{eventCriterionBean.logicOptions}" />
+					</h:selectOneMenu>
+				</h:panelGroup>
+		<%-- 	<h:selectOneMenu id="selEventCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{eventCriterionBean.logicOperator}">
 					<f:selectItems value="#{eventCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>				
+				</h:selectOneMenu>	--%>				
 			</h:panelGroup>
 
 		</tr:iterator>
@@ -140,9 +161,20 @@
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
-				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{sourceCriterionBean.logicOperator}">
+				
+				
+				<h:panelGroup layout="block" styleClass="small_area1 endline selectContainer marginTExcl6p xSmall_marginLExcl">
+					<h:panelGroup layout="block" styleClass="small_area0">
+						<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+					</h:panelGroup>
+					<h:selectOneMenu styleClass="small_select replace" value="#{sourceCriterionBean.logicOperator}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+						<f:selectItems value="#{sourceCriterionBean.logicOptions}" />
+					</h:selectOneMenu>
+				</h:panelGroup>
+		<%--	<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{sourceCriterionBean.logicOperator}">
 					<f:selectItems value="#{sourceCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>				
+				</h:selectOneMenu>	--%>		
 			</h:panelGroup>
 
 		</tr:iterator>
@@ -173,9 +205,19 @@
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
-				<h:selectOneMenu id="selLanguageCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{languageCriterionBean.logicOperator}">
+				
+				<h:panelGroup layout="block" styleClass="small_area1 endline selectContainer marginTExcl6p xSmall_marginLExcl">
+					<h:panelGroup layout="block" styleClass="small_area0">
+						<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+					</h:panelGroup>
+					<h:selectOneMenu id="selLanguageCriterionLogicOption" styleClass="small_select replace" value="#{languageCriterionBean.logicOperator}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+						<f:selectItems value="#{languageCriterionBean.logicOptions}" />
+					</h:selectOneMenu>
+				</h:panelGroup>
+		<%-- 	<h:selectOneMenu id="selLanguageCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{languageCriterionBean.logicOperator}">
 					<f:selectItems value="#{languageCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>				
+				</h:selectOneMenu>	--%>				
 			</h:panelGroup>
 
 		</tr:iterator>
@@ -202,9 +244,19 @@
 
             <h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
             <h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection" rendered="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.size != (AdvancedSearchEdit.localTagCriterionIterator.rowIndex + 1 )}">
-                <h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{localTagCriterionBean.logicOperator}">
+                
+                <h:panelGroup layout="block" styleClass="small_area1 endline selectContainer marginTExcl6p xSmall_marginLExcl">
+					<h:panelGroup layout="block" styleClass="small_area0">
+						<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+					</h:panelGroup>
+					<h:selectOneMenu styleClass="small_select replace" value="#{localTagCriterionBean.logicOperator}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+						<f:selectItems value="#{localTagCriterionBean.logicOptions}" />
+					</h:selectOneMenu>
+				</h:panelGroup>
+		<%--	<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{localTagCriterionBean.logicOperator}">
                     <f:selectItems value="#{localTagCriterionBean.logicOptions}"/>
-                </h:selectOneMenu>              
+                </h:selectOneMenu>	 --%>              
             </h:panelGroup>
 
         </tr:iterator>

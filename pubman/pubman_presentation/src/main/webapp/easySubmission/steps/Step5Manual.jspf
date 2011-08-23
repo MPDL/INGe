@@ -231,9 +231,19 @@
 								<h:panelGroup rendered="#{!(genre.details_identifiers_item_identifier_type_display == 'false' && genre.details_identifiers_item_identifier_type_form_id == 'easy-submission' || genre.details_identifiers_item_identifier_type_display == 'false' && genre.details_identifiers_item_identifier_type_form_id == 'all')}">
 									<span class="large_area0 largeFormPush">
 										<h:outputLabel id="lblDetailsIdentifiersItemIdentifierType" styleClass="large_label" value="#{genre.details_identifiers_item_identifier_type_label}" converter="GenreLabelConverter"/>
-										<h:selectOneMenu id="selTypeString" styleClass="large_select replace" value="#{identifier.typeString}">
+										
+										<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+											<h:panelGroup layout="block" styleClass="large_area0">
+												<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+												<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+											</h:panelGroup>
+											<h:selectOneMenu id="selTypeString" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{identifier.typeString}" onchange="updateSelectionBox(this);">
+												<f:selectItems id="selIdentifierTypes" value="#{EasySubmission.identifierCollection.identifierTypes}" />
+											</h:selectOneMenu>
+										</h:panelGroup>
+								<%--	<h:selectOneMenu id="selTypeString" styleClass="large_select replace" value="#{identifier.typeString}">
 											<f:selectItems id="selIdentifierTypes" value="#{EasySubmission.identifierCollection.identifierTypes}"/>
-										</h:selectOneMenu>
+										</h:selectOneMenu>	--%>
 									</span>
 								</h:panelGroup>
 								<h:panelGroup rendered="#{!(genre.details_identifiers_item_identifier_value_display == 'false' && genre.details_identifiers_item_identifier_value_form_id == 'easy-submission' || genre.details_identifiers_item_identifier_value_display == 'false' && genre.details_identifiers_item_identifier_value_form_id == 'all')}">
@@ -258,9 +268,19 @@
 						<span class="xHuge_area0 xTiny_marginLExcl endline">
 							<span class="large_area0 tiny_marginRIncl">
 								<h:outputLabel styleClass="large_label" for="cboDegreeType" id="lblDegreeType" value="#{genre.details_item_degree_item_degree_label}" converter="GenreLabelConverter"/>
-								<h:selectOneMenu styleClass="large_select replace" id="selDegreeType" value="#{ItemControllerSessionBean.currentPubItem.metadata.degree}">
+								
+								<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+									<h:panelGroup layout="block" styleClass="large_area0">
+										<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+										<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+									</h:panelGroup>
+									<h:selectOneMenu id="selDegreeType" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ItemControllerSessionBean.currentPubItem.metadata.degree}" onchange="updateSelectionBox(this);">
+										<f:selectItems id="selDegreeTypes" value="#{EasySubmission.degreeTypes}" />
+									</h:selectOneMenu>
+								</h:panelGroup>
+						<%--	<h:selectOneMenu styleClass="large_select replace" id="selDegreeType" value="#{ItemControllerSessionBean.currentPubItem.metadata.degree}">
 									<f:selectItems id="selDegreeTypes" value="#{EasySubmission.degreeTypes}" />
-								</h:selectOneMenu>
+								</h:selectOneMenu>	--%>
 							</span>
 						</span>
 					</h:panelGroup>
@@ -420,9 +440,19 @@
 							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_basic_optional != 'true' && genre.sources_source_basic_source_genre_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline">
-							<h:selectOneMenu id="selSourceGenre" styleClass="large_select replace journalPulldown" value="#{EasySubmission.source.genre}" valueChangeListener="#{EasySubmission.chooseSourceGenre}">
+							
+							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+								<h:panelGroup layout="block" styleClass="large_area0">
+									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+								</h:panelGroup>
+								<h:selectOneMenu id="selSourceGenre" styleClass="replace journalPulldown" onfocus="updateSelectionBox(this);" value="#{EasySubmission.source.genre}" valueChangeListener="#{EasySubmission.chooseSourceGenre}" onchange="updateSelectionBox(this);">
+									<f:selectItems id="selSourceGenreOptions" value="#{EasySubmission.sourceGenreOptions}" />
+								</h:selectOneMenu>
+							</h:panelGroup>
+					<%--	<h:selectOneMenu id="selSourceGenre" styleClass="large_select replace journalPulldown" value="#{EasySubmission.source.genre}" valueChangeListener="#{EasySubmission.chooseSourceGenre}">
 								<f:selectItems id="selSourceGenreOptions" value="#{EasySubmission.sourceGenreOptions}"/>
-							</h:selectOneMenu>
+							</h:selectOneMenu>	--%>
 						</span>
 					</h:panelGroup>
 		
@@ -572,9 +602,19 @@
 								<h:panelGroup rendered="#{!(genre.sources_source_identifiers_source_identifier_type_display == 'false' && genre.sources_source_identifiers_source_identifier_type_form_id == 'easy-submission' || genre.sources_source_identifiers_source_identifier_type_display == 'false' && genre.sources_source_identifiers_source_identifier_type_form_id == 'all')}">
 									<span class="large_area0 largeFormPush">
 										<h:outputLabel id="lblDetailsIdentifiersItemIdentifierType" styleClass="large_label" value="#{genre.sources_source_identifiers_source_identifier_type_label}" converter="GenreLabelConverter"/>
-										<h:selectOneMenu id="selTypeString" styleClass="large_select replace" value="#{EasySubmission.sourceIdentifierType}">
+										
+										<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+											<h:panelGroup layout="block" styleClass="large_area0">
+												<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+												<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+											</h:panelGroup>
+											<h:selectOneMenu id="selTypeString" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{EasySubmission.sourceIdentifierType}" onchange="updateSelectionBox(this);">
+												<f:selectItems id="selIdentifierTypes" value="#{EasySubmission.identifierCollection.identifierTypes}" />
+											</h:selectOneMenu>
+										</h:panelGroup>
+								<%--	<h:selectOneMenu id="selTypeString" styleClass="large_select replace" value="#{EasySubmission.sourceIdentifierType}">
 											<f:selectItems id="selIdentifierTypes" value="#{EasySubmission.identifierCollection.identifierTypes}"/>
-										</h:selectOneMenu>
+										</h:selectOneMenu>	--%>
 									</span>
 								</h:panelGroup>
 								<h:panelGroup rendered="#{!(genre.sources_source_identifiers_source_identifier_value_display == 'false' && genre.sources_source_identifiers_source_identifier_value_form_id == 'easy-submission' || genre.sources_source_identifiers_source_identifier_value_display == 'false' && genre.sources_source_identifiers_source_identifier_value_form_id == 'all')}">

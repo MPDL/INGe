@@ -168,6 +168,7 @@ function install_javascripts() {
 function include_javascripts() {
 	if(!included){
 		include_dom(jsURL + 'componentJavaScript/eSciDoc_ext_paginator.js');
+		include_dom(jsURL + 'componentJavaScript/eSciDoc_selectbox.js');
 		include_dom(jsURL + 'componentJavaScript/eSciDoc_item_list.js');
 		include_dom(jsURL + 'componentJavaScript/eSciDoc_full_item.js');
 		include_dom(jsURL + 'componentJavaScript/eSciDoc_single_elements.js');
@@ -180,6 +181,12 @@ function include_javascripts() {
 		addEvent(window, 'load', function(){window.setTimeout('install_javascripts()', 1);});
 	}
 }
+
+
+
+
+
+
 
 include_javascripts();
 applyCookieStyle();

@@ -1,31 +1,31 @@
 <%
-            /* 
-            CDDL HEADER START
+/* 
+CDDL HEADER START
 
-            The contents of this file are subject to the terms of the
-            Common Development and Distribution License, Version 1.0 only
-            (the "License"). You may not use this file except in compliance
-            with the License.
+The contents of this file are subject to the terms of the
+Common Development and Distribution License, Version 1.0 only
+(the "License"). You may not use this file except in compliance
+with the License.
 
-            You can obtain a copy of the license at license/ESCIDOC.LICENSE
-            or http://www.escidoc.de/license.
-            See the License for the specific language governing permissions
-            and limitations under the License.
+You can obtain a copy of the license at license/ESCIDOC.LICENSE
+or http://www.escidoc.de/license.
+See the License for the specific language governing permissions
+and limitations under the License.
 
-            When distributing Covered Code, include this CDDL HEADER in each
-            file and include the License file at license/ESCIDOC.LICENSE.
-            If applicable, add the following below this CDDL HEADER, with the
-            fields enclosed by brackets "[]" replaced with your own identifying
-            information: Portions Copyright [yyyy] [name of copyright owner]
+When distributing Covered Code, include this CDDL HEADER in each
+file and include the License file at license/ESCIDOC.LICENSE.
+If applicable, add the following below this CDDL HEADER, with the
+fields enclosed by brackets "[]" replaced with your own identifying
+information: Portions Copyright [yyyy] [name of copyright owner]
 
-            CDDL HEADER END
+CDDL HEADER END
 
 
-            Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
-            All rights reserved. Use is subject to license terms.
-             */
+Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
+für wissenschaftlich-technische Information mbH and Max-Planck-
+Gesellschaft zur Förderung der Wissenschaft e.V.
+All rights reserved. Use is subject to license terms.
+ */
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
@@ -49,17 +49,35 @@
 				    <span class="large_area0 tiny_marginRIncl">
                         <h:outputLabel styleClass="large_label" value="#{lbl.adv_search_fileComponentAvailability}"/>
                         
-                        <h:selectOneMenu id="selComponentAvailabilityOptions" styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentAvailability}">
+                        <h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+							<h:panelGroup layout="block" styleClass="large_area0">
+								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+							</h:panelGroup>
+							<h:selectOneMenu id="selComponentAvailabilityOptions" styleClass="replace" value="#{fileCriterionBean.fileCriterionVO.componentAvailability}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+								<f:selectItems value="#{fileCriterionBean.componentAvailabilityOptions}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+				<%--	<h:selectOneMenu id="selComponentAvailabilityOptions" styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentAvailability}">
                             <f:selectItems value="#{fileCriterionBean.componentAvailabilityOptions}" />
-                        </h:selectOneMenu>
+                        </h:selectOneMenu>	--%>
                             
                     </span>
 				    <span class="large_area0 tiny_marginRIncl">
                         <h:outputLabel id="lblComponentVisibilityOptions" styleClass="large_label" value="#{lbl.adv_search_fileComponentVisibility}"/>
                         
-                        <h:selectOneMenu id="selComponentVisibilityOptions" styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentVisibility}">
+                        <h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+							<h:panelGroup layout="block" styleClass="large_area0">
+								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+							</h:panelGroup>
+							<h:selectOneMenu id="selComponentVisibilityOptions" styleClass="replace" value="#{fileCriterionBean.fileCriterionVO.componentVisibility}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+								<f:selectItems value="#{fileCriterionBean.componentVisibilityOptions}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+				<%--    <h:selectOneMenu id="selComponentVisibilityOptions" styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentVisibility}">
                             <f:selectItems value="#{fileCriterionBean.componentVisibilityOptions}" />
-                        </h:selectOneMenu>
+                        </h:selectOneMenu>	--%>
                             
                     </span>
 					<span class="large_area0 tiny_marginRIncl">
@@ -74,9 +92,18 @@
 					<span class="large_area0 tiny_marginRIncl">
 						<h:outputLabel id="lblContentCategories" styleClass="large_label" value="#{lbl.adv_search_fileContentCategory}"/>
 						
-						<h:selectOneMenu id="selContentCategories" styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.contentCategory}">
+						<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+							<h:panelGroup layout="block" styleClass="large_area0">
+								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+							</h:panelGroup>
+							<h:selectOneMenu id="selContentCategories" styleClass="replace" value="#{fileCriterionBean.fileCriterionVO.contentCategory}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+								<f:selectItems value="#{fileCriterionBean.contentCategories}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+				<%--	<h:selectOneMenu id="selContentCategories" styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.contentCategory}">
 							<f:selectItems value="#{fileCriterionBean.contentCategories}" />
-						</h:selectOneMenu>
+						</h:selectOneMenu>	--%>
 							
 					</span>
 					<span class="large_area0 tiny_marginRIncl">
@@ -101,14 +128,24 @@
 
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
 		<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
-				<h:selectOneMenu id="selFileCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{fileCriterionBean.logicOperator}">
+				
+				<h:panelGroup layout="block" styleClass="small_area1 endline selectContainer marginTExcl6p xSmall_marginLExcl">
+					<h:panelGroup layout="block" styleClass="small_area0">
+						<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+					</h:panelGroup>
+					<h:selectOneMenu id="selFileCriterionLogicOption" styleClass="small_select replace" value="#{fileCriterionBean.logicOperator}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+						<f:selectItems value="#{fileCriterionBean.logicOptions}" />
+					</h:selectOneMenu>
+				</h:panelGroup>
+		<%--	<h:selectOneMenu id="selFileCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{fileCriterionBean.logicOperator}">
 					<f:selectItems value="#{fileCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>		
+				</h:selectOneMenu>	 --%>
 		</h:panelGroup>
  
        </tr:iterator>
        
-		<a class="free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderFiles}" /></a>
+		<a class="clear free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderFiles}" /></a>
 	</div>
 	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.adv_search_lbHeaderFiles}" /></a>
 </div>

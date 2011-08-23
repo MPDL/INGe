@@ -90,9 +90,20 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.locators_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
+						
+						<h:panelGroup layout="block" styleClass="double_area1 endline selectContainer">
+							<h:panelGroup layout="block" styleClass="double_area0">
+								<h:panelGroup styleClass="double_area0 selectionBox">&#160;</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+							</h:panelGroup>
+							<h:selectOneMenu id="selContentCategoryLoc" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{locator.file.contentCategory}" onchange="updateSelectionBox(this);">
+								<f:selectItems id="selContentCategorysLoc" value="#{EasySubmission.contentCategories}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+					<%--
 						<h:selectOneMenu id="selContentCategoryLoc" styleClass="double_select replace" value="#{locator.file.contentCategory}" >
 							<f:selectItems id="selContentCategorysLoc" value="#{EasySubmission.contentCategories}" />
-						</h:selectOneMenu>
+						</h:selectOneMenu>	--%>
 					</span>
 				</h:panelGroup>
 			</h:panelGroup>

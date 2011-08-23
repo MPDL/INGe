@@ -57,9 +57,21 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline subjectArea">
 					<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.content_item_subject_item_subject_type_display == 'false' && genre.content_item_subject_item_subject_type_form_id == 'full-submission' || genre.content_item_subject_item_subject_type_display == 'false' && genre.content_item_subject_item_subject_type_form_id == 'all')}">
 						<h:outputLabel id="lblSelectIdentifierType" styleClass="large_label" value="#{genre.content_item_subject_item_subject_type_label}" converter="GenreLabelConverter"/>
+						
+						<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+							<div class="large_area0">
+								<span class="large_area0 selectionBox">&#160;</span>
+								<div class="min_imgArea selectboxIcon">&#160;</div>
+							</div>
+							<h:selectOneMenu id="selSelectIdentifierType" onfocus="updateSelectionBox(this);" value="#{subject.type}" styleClass="endline vocabulary" onchange="updateSelectionBox(this);">
+								<f:selectItems value="#{EditItem.subjectTypes}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+					<%--
 						<h:selectOneMenu id="selSelectIdentifierType" styleClass="large_select replace vocabulary" value="#{subject.type}">
 							<f:selectItems value="#{EditItem.subjectTypes}"/>
 						</h:selectOneMenu>
+					--%>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{!(genre.content_item_subject_item_subject_value_display == 'false' && genre.content_item_subject_item_subject_type_display == 'false' && genre.content_item_subject_item_subject_value_form_id == 'full-submission' || genre.content_item_subject_item_subject_type_display == 'false' && genre.content_item_subject_item_subject_value_display == 'false' && genre.content_item_subject_item_subject_type_display == 'false' && genre.content_item_subject_item_subject_value_form_id == 'all')}">
 						<h:outputLabel id="lblSubjectValue" styleClass="xDouble_label" value="#{genre.content_item_subject_item_subject_value_label}" converter="GenreLabelConverter"/>
@@ -85,9 +97,21 @@
 					</b>
 					<span class="xHuge_area0 endline">
 						<h:inputTextarea id="inputAbstractValue" styleClass="xDouble_txtArea tiny_marginRIncl inputTxtArea" value="#{abstract.value}" cols="15" rows="3" />
+						
+						<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+							<div class="large_area0">
+								<span class="large_area0 selectionBox">&#160;</span>
+								<div class="min_imgArea selectboxIcon">&#160;</div>
+							</div>
+							<h:selectOneMenu id="selcreatorOrgTypeString" onfocus="updateSelectionBox(this);" value="#{abstract.language}" styleClass="large_select endline" onchange="updateSelectionBox(this);">
+								<f:selectItems value="#{EditItem.languageOptions}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+						<%-- 
 						<h:selectOneMenu value="#{abstract.language}" styleClass="large_select endline">
 							<f:selectItems value="#{EditItem.languageOptions}"/>
 						</h:selectOneMenu>
+						--%>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
 						<tr:commandButton id="btnAddAbstract" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addAbstract}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" rendered="#{genre.content_item_abstract_repeatable != 'false'}"/>

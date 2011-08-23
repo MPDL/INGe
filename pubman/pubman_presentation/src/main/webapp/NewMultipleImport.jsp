@@ -56,7 +56,7 @@
 						<jsp:directive.include file="header/Header.jspf" />
 							
 							<div id="content" class="full_area0 clear">
-								<!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
+								<!-- <% /* begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) */ %> -->
 
 								<div class="clear">
 				                    <div class="headerSection">
@@ -64,14 +64,14 @@
 				                        <jsp:directive.include file="header/Breadcrumb.jspf" />
 	
 										<div id="contentSkipLinkAnchor" class="clear headLine">
-											<!-- Headline starts here -->
+											<!-- <% /* Headline starts here */ %> -->
 											<h1><h:outputText value="#{lbl.submission_lnkMultipleImport}"/></h1>
-											<!-- Headline ends here -->
+											<!-- <% /* Headline ends here */ %> -->
 										</div>
 				                    </div>
 									<div class="small_marginLIncl subHeaderSection">
 										<div class="contentMenu">
-										<!-- content menu starts here -->
+										<!-- <% /* content menu starts here */ %> -->
 											<div class="free_area0 sub">
 												<h:commandLink id="lnkNewEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
 													<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
@@ -94,19 +94,19 @@
 												</h:outputLink>
 											</div>
 											<div class="free_area0 sub action">
-											<!-- content menu lower line starts here -->
+											<!-- <% /* content menu lower line starts here */ %> -->
 												
-											<!-- content menu lower line ends here -->
+											<!-- <% /* content menu lower line ends here */ %> -->
 											</div>
-										<!-- content menu ends here -->
+										<!-- <% /* content menu ends here */ %> -->
 										</div>
 										<div class="subHeader">
-											<!-- Subheadline starts here -->
+											<!-- <% /* Subheadline starts here */ %> -->
 										 	<h:outputText value="#{lbl.easy_submission_lblCollectionOfItem} #{MultipleImport.context.name}." />
-											<!-- Subheadline ends here -->
+											<!-- <% /* Subheadline ends here */ %> -->
 										</div>
 										<div class="subHeader">
-											<!-- Subheadline starts here -->
+											<!-- <% /* Subheadline starts here */ %> -->
 											<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{MultipleImport.hasErrorMessages}">
 												<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
 												<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
@@ -117,7 +117,7 @@
 												<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
 												<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{MultipleImport.hasMessages}"/>
 											</h:panelGroup>
-											<!-- Subheadline ends here -->
+											<!-- <% /* Subheadline ends here */ %> -->
 										</div>
 									</div>
 				              	</div>
@@ -134,9 +134,20 @@
 														<h:outputText value="#{lbl.multipleImport_importFormat}" /><span class="noDisplay">: </span>
 													</b>
 													<span class="xHuge_area0 xTiny_marginLExcl endline">
-														<h:selectOneMenu id="selFormat" value="#{MultipleImport.format}" converter="#{MultipleImport.formatConverter}">
+														
+														<h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
+															<h:panelGroup layout="block" styleClass="xLarge_area0">
+																<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
+																<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+															</h:panelGroup>
+															<h:selectOneMenu id="selFormat" onfocus="updateSelectionBox(this);" value="#{MultipleImport.format}" onchange="updateSelectionBox(this);"
+																 converter="#{MultipleImport.formatConverter}">
+																<f:selectItems id="selFormats" value="#{MultipleImport.importFormats}" />
+															</h:selectOneMenu>
+														</h:panelGroup>
+ 										<!-- <% /*		<h:selectOneMenu id="selFormat" value="#{MultipleImport.format}" converter="#{MultipleImport.formatConverter}">
 															<f:selectItems id="selFormats" value="#{MultipleImport.importFormats}"/>
-														</h:selectOneMenu>
+														</h:selectOneMenu>	*/ %> -->
 													</span>
 												</h:panelGroup>	
 												<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
@@ -155,7 +166,7 @@
 										<tr:commandLink id="lnkUploadFile" styleClass="free_area1_p8 activeButton" shortDesc="#{tip.easy_submission_btnImport}" action="#{MultipleImport.uploadFile}"><h:outputText value="#{lbl.easy_submission_btnImport}" /></tr:commandLink>
 									</div>
 								</div>
-							<!-- end: content section -->
+							<!-- <% /* end: content section */ %> -->
 							</div>			
 					</div>
 				<jsp:directive.include file="footer/Footer.jspf" />

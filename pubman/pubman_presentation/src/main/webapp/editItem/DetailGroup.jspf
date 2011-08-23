@@ -142,9 +142,20 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="large_area0 tiny_marginRIncl">
 						<h:outputLabel styleClass="large_label" for="cboReviewType" id="lblReviewType" value="#{genre.details_review_method_item_review_method_label}" converter="GenreLabelConverter"/>
+						
+						<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+							<h:panelGroup layout="block" styleClass="large_area0">
+								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+							</h:panelGroup>
+							<h:selectOneMenu id="cboReviewType" styleClass="replace" value="#{EditItem.pubItem.metadata.reviewMethod}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+								<f:selectItems value="#{EditItem.reviewMethods}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+					<%--
 						<h:selectOneMenu styleClass="large_select replace" id="cboReviewType" value="#{EditItem.pubItem.metadata.reviewMethod}" >
 							<f:selectItems value="#{EditItem.reviewMethods}" />
-						</h:selectOneMenu>
+						</h:selectOneMenu>	 --%>
 					</span>
 				</span>
 			</h:panelGroup>
@@ -159,9 +170,20 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.details_identifiers_item_identifier_type_display == 'false' && genre.details_identifiers_item_identifier_type_form_id == 'full-submission' || genre.details_identifiers_item_identifier_type_display == 'false' && genre.details_identifiers_item_identifier_type_form_id == 'all')}">
 						<h:outputLabel id="lblSelectIdentifierType" styleClass="large_label" value="#{genre.details_identifiers_item_identifier_type_label}" converter="GenreLabelConverter"/>
+						
+						<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+							<h:panelGroup layout="block" styleClass="large_area0">
+								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+							</h:panelGroup>
+							<h:selectOneMenu id="selSelectIdentifierType" styleClass="replace" value="#{identifier.typeString}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+								<f:selectItems value="#{EditItem.identifierCollection.identifierTypes}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+					<%--
 						<h:selectOneMenu id="selSelectIdentifierType" styleClass="large_select replace" value="#{identifier.typeString}" >
 							<f:selectItems value="#{EditItem.identifierCollection.identifierTypes}"/>
-						</h:selectOneMenu>
+						</h:selectOneMenu>	 --%>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{!(genre.details_identifiers_item_identifier_value_display == 'false' && genre.details_identifiers_item_identifier_value_form_id == 'full-submission' || genre.details_identifiers_item_identifier_value_display == 'false' && genre.details_identifiers_item_identifier_value_form_id == 'all')}">
 						<h:outputLabel id="lblIdentifierValue" styleClass="xDouble_label" value="#{genre.details_identifiers_item_identifier_value_label}" converter="GenreLabelConverter"/>

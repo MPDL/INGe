@@ -95,13 +95,35 @@
 									</div>
 									<!-- content menu lower line starts here -->
 									<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
+										
+										<h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer">
+											<h:panelGroup layout="block" styleClass="xLarge_area0">
+												<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
+												<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+											</h:panelGroup>
+											<h:selectOneMenu id="selEXPORTFORMAT_OPTIONS" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
+												<f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
+											</h:selectOneMenu>
+										</h:panelGroup>
+									<!-- <% /*
 										<h:selectOneMenu id="selEXPORTFORMAT_OPTIONS" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											<f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
-										</h:selectOneMenu>
+										</h:selectOneMenu>	*/ %> -->
 										<h:commandButton id="btnUpdateExportFormats" styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />	
+										
+										<h:panelGroup layout="block" styleClass="medium_area1 endline selectContainer" rendered="#{ExportItemsSessionBean.enableFileFormats}">
+											<h:panelGroup layout="block" styleClass="medium_area0">
+												<h:panelGroup styleClass="medium_area0 selectionBox">&#160;</h:panelGroup>
+												<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+											</h:panelGroup>
+											<h:selectOneMenu id="selFILEFORMAT_OPTIONS" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);">
+												<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
+											</h:selectOneMenu>
+										</h:panelGroup>
+									<!-- <% /*
 										<h:selectOneMenu id="selFILEFORMAT_OPTIONS" value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableFileFormats}">
 											<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
-										</h:selectOneMenu>
+										</h:selectOneMenu>	*/ %> -->
 									</h:panelGroup>
 									<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
 										<h:commandLink id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.exportSelectedDownload}" />
@@ -125,9 +147,20 @@
 									<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
 									<!-- content menu lower line starts here -->
 										<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy} "/>
+										
+										<h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer">
+											<h:panelGroup layout="block" styleClass="xLarge_area0">
+												<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
+												<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+											</h:panelGroup>
+											<h:selectOneMenu id="sortBy" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();">
+												<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
+											</h:selectOneMenu>
+										</h:panelGroup>
+									<!-- <% /*
 										<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
 											<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
-										</h:selectOneMenu>
+										</h:selectOneMenu>	*/ %> -->
 										<h:commandLink styleClass="ascSort" value="#{lbl.ItemList_SortOrderAscending}" id="sortOrderAsc" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.displaySortOrder}" action="#{PubItemListSessionBean.changeSortOrder}" />
 										<h:commandLink styleClass="desSort" value="#{lbl.ItemList_SortOrderDescending}" id="sortOrderDesc" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.displaySortOrder}" action="#{PubItemListSessionBean.changeSortOrder}" />
 										<h:commandButton id="btnChangeSortBy" styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.changeSortBy}"/>

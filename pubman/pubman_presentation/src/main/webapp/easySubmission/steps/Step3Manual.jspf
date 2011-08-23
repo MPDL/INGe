@@ -129,9 +129,20 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_genre_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						
+						<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+							<h:panelGroup layout="block" styleClass="large_area0">
+								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+							</h:panelGroup>
+							<h:selectOneMenu id="selGenre" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{EasySubmission.item.metadata.genre}" onchange="document.getElementById('easySubmission:easySubmissionStep1Manual:btnChangeGenre').click();" binding="#{EasySubmission.genreSelect}">
+								<f:selectItems value="#{EasySubmission.genres}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+					<%--
 						<h:selectOneMenu id="selGenre" value="#{EasySubmission.item.metadata.genre}" styleClass="large_select replace" onchange="document.getElementById('easySubmission:easySubmissionStep1Manual:btnChangeGenre').click();" binding="#{EasySubmission.genreSelect}">
 							<f:selectItems id="selGenres" value="#{EasySubmission.genres}" />
-						</h:selectOneMenu>
+						</h:selectOneMenu>	--%>
 						<h:commandButton action="#{EasySubmission.changeGenre}" immediate="true" styleClass="hiddenButton" id="btnChangeGenre" value="" style="visibility:hidden;"/>
 					</span>
 				</h:panelGroup>

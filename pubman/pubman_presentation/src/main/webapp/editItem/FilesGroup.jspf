@@ -107,9 +107,20 @@
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.files_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
+					
+					<h:panelGroup layout="block" styleClass="double_area1 endline selectContainer">
+						<h:panelGroup layout="block" styleClass="double_area0">
+							<h:panelGroup styleClass="double_area0 selectionBox">&#160;</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+						</h:panelGroup>
+						<h:selectOneMenu id="selFileContentCategory" styleClass="replace" value="#{component.contentCategoryAsXmlString}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+							<f:selectItems value="#{EditItem.contentCategories}" />
+						</h:selectOneMenu>
+					</h:panelGroup>
+				<%--
 					<h:selectOneMenu id="selFileContentCategory" styleClass="double_select replace" value="#{component.contentCategoryAsXmlString}">
 						<f:selectItems value="#{EditItem.contentCategories}" />
-					</h:selectOneMenu>
+					</h:selectOneMenu>	--%>
 				</span>
 			</h:panelGroup>
 
@@ -135,9 +146,20 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl endline" rendered="#{!(genre.files_component_visibility_display == 'false' && genre.files_component_visibility_form_id == 'full-submission' || genre.files_component_visibility_display == 'false' && genre.files_component_visibility_form_id == 'all')}">
 						<h:outputLabel id="txtFileVisibility" styleClass="xDouble_label" value="#{genre.files_component_visibility_label}" converter="GenreLabelConverter" rendered="#{genre.files_component_visibility_display != 'false'}"/>
+						
+						<h:panelGroup layout="block" styleClass="xDouble_area1 endline selectContainer" rendered="#{genre.files_component_visibility_display != 'false'}">
+							<h:panelGroup layout="block" styleClass="xDouble_area0">
+								<h:panelGroup styleClass="xDouble_area0 selectionBox">&#160;</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+							</h:panelGroup>
+							<h:selectOneMenu id="selFileVisibility" value="#{component.file.visibility}" onfocus="updateSelectionBox(this);" onchange="this.form.submit()">
+								<f:selectItems value="#{EditItem.visibilities}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+					<%--
 						<h:selectOneMenu id="selFileVisibility" styleClass="xDouble_select" value="#{component.file.visibility}" rendered="#{genre.files_component_visibility_display != 'false'}" onchange="this.form.submit()">
 							<f:selectItems value="#{EditItem.visibilities}" />
-						</h:selectOneMenu>
+						</h:selectOneMenu>	--%>
 					</h:panelGroup>
 					<h:panelGroup styleClass="large_area0 tiny_marginLIncl" rendered="#{component.showEmbargoDate}">
 						<label class="large_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="#{lbl.EditItem_lblFileEmbargo}"/></label>

@@ -47,9 +47,20 @@
 					<span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					
+					<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+						<h:panelGroup layout="block" styleClass="large_area0">
+							<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+						</h:panelGroup>
+						<h:selectOneMenu id="selChooseSourceGenre" styleClass="replace journalPulldown" value="#{sourceBean.source.genre}" onfocus="updateSelectionBox(this);" valueChangeListener="#{sourceBean.chooseSourceGenre}" onchange="updateSelectionBox(this);">
+							<f:selectItems value="#{sourceBean.sourceGenreOptions}" />
+						</h:selectOneMenu>
+					</h:panelGroup>
+				<%--
 					<h:selectOneMenu id="selChooseSourceGenre" styleClass="large_select replace journalPulldown" value="#{sourceBean.source.genre}" valueChangeListener="#{sourceBean.chooseSourceGenre}">
 						<f:selectItems value="#{sourceBean.sourceGenreOptions}" />
-					</h:selectOneMenu>
+					</h:selectOneMenu>	 --%>
 				</span>
 				<span class="huge_area0_p8 lineToolSection sourcesControls">
 					<tr:commandButton id="btnAddEditItem_btRemoveSource" styleClass="min_imgBtn groupBtn remove sectionTool" text=" " shortDesc="#{tip.EditItem_btRemoveSource}" action="#{sourceBean.remove}" disabled="#{sourceBean.singleElement}" rendered="#{genre.sources_repeatable != 'false'}" />
@@ -90,9 +101,20 @@
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.sources_source_basic_source_title_alternative_source_title_alternative_type_display == 'false' && genre.sources_source_basic_source_title_alternative_source_title_alternative_type_form_id == 'full-submission' || genre.sources_source_basic_source_title_alternative_source_title_alternative_type_display == 'false' && genre.sources_source_basic_source_title_alternative_source_title_alternative_type_form_id == 'all')}">
 							<h:outputLabel id="lblSelectAltTitleType" styleClass="large_label" value="#{genre.sources_source_basic_source_title_alternative_source_title_alternative_type_label}" converter="GenreLabelConverter" />
+							
+							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+								<h:panelGroup layout="block" styleClass="large_area0">
+									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+								</h:panelGroup>
+								<h:selectOneMenu id="selSelectAlternativeTitleType" styleClass="replace" value="#{altTitle.type}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+									<f:selectItems value="#{sourceBean.titleCollection.alternativeTitleManager.alternativeTitleTypes}" />
+								</h:selectOneMenu>
+							</h:panelGroup>
+						<%--
 							<h:selectOneMenu id="selSelectAlternativeTitleType" styleClass="large_select replace" value="#{altTitle.type}">
 								<f:selectItems value="#{sourceBean.titleCollection.alternativeTitleManager.alternativeTitleTypes}" />
-							</h:selectOneMenu>
+							</h:selectOneMenu>	 --%>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{!(genre.sources_source_basic_source_title_alternative_source_title_alternative_value_display == 'false' && genre.sources_source_basic_source_title_alternative_source_title_alternative_value_form_id == 'full-submission' || genre.sources_source_basic_source_title_alternative_source_title_alternative_value_display == 'false' && genre.sources_source_basic_source_title_alternative_source_title_alternative_value_form_id == 'all')}">
 							<h:outputLabel id="lblAltTitleValue" styleClass="xDouble_label" value="#{genre.sources_source_basic_source_title_alternative_source_title_alternative_value_label}" converter="GenreLabelConverter" />
@@ -127,12 +149,35 @@
 								<span class="large_area0 xSmall_marginRExcl">&nbsp;</span>
 								<span class="xTiny_area0">&nbsp;</span>
 	<%-- Creator role --%>
-							<h:selectOneMenu id="selCreatorRoleString" styleClass="small_select replace" value="#{creator.roleString}" rendered="#{!(genre.sources_source_person_organization_select_roles_display == 'false' && genre.sources_source_person_organization_select_roles_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_display == 'false' && genre.sources_source_person_organization_select_roles_form_id == 'all')}">
+							<h:panelGroup layout="block" styleClass="small_area1 endline selectContainer" 
+								rendered="#{!(genre.sources_source_person_organization_select_roles_display == 'false' && genre.sources_source_person_organization_select_roles_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_display == 'false' && genre.sources_source_person_organization_select_roles_form_id == 'all')}">
+								<h:panelGroup layout="block" styleClass="small_area0">
+									<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
+									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+								</h:panelGroup>
+								<h:selectOneMenu id="selCreatorRoleString" styleClass="replace" value="#{creator.roleString}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+									<f:selectItems value="#{sourceBean.creatorRoles}" />
+								</h:selectOneMenu>
+							</h:panelGroup>
+					<%--	<h:selectOneMenu id="selCreatorRoleString" styleClass="small_select replace" value="#{creator.roleString}" rendered="#{!(genre.sources_source_person_organization_select_roles_display == 'false' && genre.sources_source_person_organization_select_roles_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_display == 'false' && genre.sources_source_person_organization_select_roles_form_id == 'all')}">
 								<f:selectItems value="#{sourceBean.creatorRoles}" />
-							</h:selectOneMenu>
-							<h:selectOneMenu id="selcreatorTypeString" value="#{creator.typeString}" styleClass="small_select" rendered="#{!(genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_select_roles_creator_type_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_select_roles_creator_type_form_id == 'all')}" onchange="submit();">
+							</h:selectOneMenu>	--%>
+							
+							
+							<h:panelGroup layout="block" styleClass="small_area1 endline selectContainer" 
+								rendered="#{!(genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_select_roles_creator_type_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_select_roles_creator_type_form_id == 'all')}">
+								<h:panelGroup layout="block" styleClass="small_area0">
+									<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
+									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+								</h:panelGroup>
+								<h:selectOneMenu id="selcreatorTypeString" styleClass="replace" value="#{creator.typeString}" onfocus="updateSelectionBox(this);" onchange="submit();">
+									<f:selectItems value="#{sourceBean.creatorTypes}" />
+								</h:selectOneMenu>
+							</h:panelGroup>
+					<%--	<h:selectOneMenu id="selcreatorTypeString" value="#{creator.typeString}" styleClass="small_select" rendered="#{!(genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_select_roles_creator_type_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_select_roles_creator_type_form_id == 'all')}" onchange="submit();">
 								<f:selectItems value="#{sourceBean.creatorTypes}" />
-							</h:selectOneMenu>
+							</h:selectOneMenu>	--%>
+							
 							<h:inputText id="inpcreator_persons_person_family_name_optional" styleClass="large_txtInput personSuggest familyName" value="#{creator.person.familyName}" rendered="#{!(genre.sources_source_person_organization_source_persons_person_family_name_display == 'false' && genre.sources_source_person_organization_source_persons_person_family_name_form_id == 'full-submission' || genre.sources_source_person_organization_source_persons_person_family_name_display == 'false' && genre.sources_source_person_organization_source_persons_person_family_name_form_id == 'all')}" />
 							<h:inputText id="inppersons_person_given_name_optional" styleClass="large_txtInput givenName" value="#{creator.person.givenName}" />
 							<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" value="#{creator.autoPasteValue}" />
@@ -152,12 +197,35 @@
 	<%-- Creator role --%>
 						<span class="large_area0 xSmall_marginRExcl">&nbsp;</span>
 						<span class="xTiny_area0">&nbsp;</span>
-						<h:selectOneMenu id="selCreatorOrgRoleString" styleClass="small_select" value="#{creator.roleString}" rendered="#{!(genre.sources_source_person_organization_select_roles_display == 'false' && genre.sources_source_person_organization_select_roles_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_display == 'false' && genre.sources_source_person_organization_select_roles_form_id == 'all')}">
+						
+						<h:panelGroup layout="block" styleClass="small_area1 endline selectContainer" 
+							rendered="#{!(genre.sources_source_person_organization_select_roles_display == 'false' && genre.sources_source_person_organization_select_roles_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_display == 'false' && genre.sources_source_person_organization_select_roles_form_id == 'all')}">
+							<h:panelGroup layout="block" styleClass="small_area0">
+								<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+							</h:panelGroup>
+							<h:selectOneMenu id="selCreatorOrgRoleString" styleClass="replace" value="#{creator.roleString}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+								<f:selectItems value="#{sourceBean.creatorRoles}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+				<%--	<h:selectOneMenu id="selCreatorOrgRoleString" styleClass="small_select" value="#{creator.roleString}" rendered="#{!(genre.sources_source_person_organization_select_roles_display == 'false' && genre.sources_source_person_organization_select_roles_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_display == 'false' && genre.sources_source_person_organization_select_roles_form_id == 'all')}">
 							<f:selectItems value="#{sourceBean.creatorRoles}" />
-						</h:selectOneMenu>
-						<h:selectOneMenu id="selcreatorOrgTypeString" styleClass="small_select" value="#{creator.typeString}" rendered="#{!(genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_select_roles_creator_type_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_select_roles_creator_type_form_id == 'all')}" onchange="submit();">
+						</h:selectOneMenu>	--%>
+						
+						<h:panelGroup layout="block" styleClass="small_area1 endline selectContainer" 
+							rendered="#{!(genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_select_roles_creator_type_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_select_roles_creator_type_form_id == 'all')}">
+							<h:panelGroup layout="block" styleClass="small_area0">
+								<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+							</h:panelGroup>
+							<h:selectOneMenu id="selcreatorOrgTypeString" value="#{creator.typeString}" onfocus="updateSelectionBox(this);" onchange="submit();">
+								<f:selectItems value="#{sourceBean.creatorTypes}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+				<%--	<h:selectOneMenu id="selcreatorOrgTypeString" styleClass="small_select" value="#{creator.typeString}" rendered="#{!(genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_select_roles_creator_type_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_select_roles_creator_type_form_id == 'all')}" onchange="submit();">
 							<f:selectItems value="#{sourceBean.creatorTypes}" />
-						</h:selectOneMenu>
+						</h:selectOneMenu>	--%>
+						
 						<h:inputText id="inpcreator_organization_name_optional" styleClass="huge_txtInput organizationSuggest organizationName xSmall_marginRExcl" value="#{creator.organization.name.value}" rendered="#{!(genre.sources_source_person_organization_source_organizations_organization_name_display == 'false' && genre.sources_source_person_organization_source_organizations_organization_name_form_id == 'full-submission' || genre.sources_source_person_organization_source_organizations_organization_name_display == 'false' && genre.sources_source_person_organization_source_organizations_organization_name_form_id == 'all')}" />
 						<h:inputText id="inpcreator_organization_identifier_optional" styleClass="noDisplay organizationIdentifier small_marginRExcl" value="#{creator.organization.identifier}" />
 						<h:outputLink styleClass="small_area0 ouCard ouLink" rendered="#{creator.organization.identifier != null and creator.organization.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.organization.identifier}', 980, 400, 'Details');return false"></h:outputLink>
@@ -276,9 +344,19 @@
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.sources_source_identifiers_source_identifier_type_display == 'false' && genre.sources_source_identifiers_source_identifier_type_form_id == 'full-submission' || genre.sources_source_identifiers_source_identifier_type_display == 'false' && genre.sources_source_identifiers_source_identifier_type_form_id == 'all')}">
-							<h:selectOneMenu id="selSourceDetailIdentifier" styleClass="large_select replace identifierType" value="#{identifier.typeString}">
+							
+							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+								<h:panelGroup layout="block" styleClass="large_area0">
+									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+								</h:panelGroup>
+								<h:selectOneMenu id="selSourceDetailIdentifier" styleClass="replace identifierType" value="#{identifier.typeString}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+									<f:selectItems value="#{sourceBean.identifierCollection.identifierTypes}" />
+								</h:selectOneMenu>
+							</h:panelGroup>
+					<%--	<h:selectOneMenu id="selSourceDetailIdentifier" styleClass="large_select replace identifierType" value="#{identifier.typeString}">
 								<f:selectItems value="#{sourceBean.identifierCollection.identifierTypes}" />
-							</h:selectOneMenu>
+							</h:selectOneMenu>	--%>
 						</h:panelGroup>
 						<tr:inputText simple="true" id="inpSourceDetailIdentifier" styleClass="xDouble_txtInput identifierValue" value="#{identifier.id}" rendered="#{!(genre.sources_source_identifiers_source_identifier_value_display == 'false' && genre.sources_source_identifiers_source_identifier_value_form_id == 'full-submission' || genre.sources_source_identifiers_source_identifier_value_display == 'false' && genre.sources_source_identifiers_source_identifier_value_form_id == 'all')}" />
 					</span>

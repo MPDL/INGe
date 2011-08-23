@@ -32,77 +32,12 @@
 
 <span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu">
 	<!-- meta Menu starts here -->
-	<script type="text/javascript">
-			
-		/*********************************************************************
-		 * PAGE FUNCTIONS
-		 */
-		function returnSelectboxInfo(obj, format, output) {
-			var return_value = '';
-			
-			switch (format) {
-				case 0:	//Selectbox text
-					return_value = obj.options[obj.selectedIndex].text;
-					break;
-				case 1: //Selectbox value
-					return_value = obj.value;
-					break;
-			}
-			
-			switch (return_value) {
-				case 'undefined':
-				case '':
-					return_value = '...please select...';
-					break;
-			}
-			
-			switch (output) {
-				case 0:
-					return return_value;
-					break;
-				case 1:
-					alert(return_value);
-					break;
-				default:
-					return return_value;
-					break;
-			}
-		}
-		
-		function returnParentNode(node) {
-			if (node.previousElementSibling) {
-				return node.previousElementSibling;
-			} else {
-				return node.previousSibling;
-			}
-		}
-		
-		function write(node, content) {
-			if (node.innerHTML = content) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		
-		function updateSelect(source_obj) {
-			var parentNode = returnParentNode(source_obj);
-			var value = returnSelectboxInfo(source_obj, 0);
-			console.log("Value: "+value);
-			
-			if (parentNode.getElementsByClassName('selectionBox')[0]) {
-				write(parentNode.getElementsByClassName('selectionBox')[0], value);
-			} else {
-				write(parentNode, '<span class="large_area0 selectionBox" style="white-space:nowrap;">'+value+'</span><div class="selectboxIcon" style="margin-right:0.3636em;">&nbsp;</div>');
-			}
-			
-		}
-	</script>
+	
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 	<div class="medium_area0 endline selectContainer">
 		<div class="medium_area0">
-			<span class="small_area0 selectionBox" style="white-space:nowrap;"><h:outputText value="#{PubManSessionBean.localeString}"/></span>
-			<div class="selectboxIcon" style="padding-right:1.1818em;">&#160;</div>
+			<span class="medium_area0 selectionBox"><h:outputText value="#{PubManSessionBean.localeString}"/></span>
+			<div class="min_imgArea selectboxIcon">&#160;</div>
 		</div>
 		<h:selectOneMenu id="selSelectLocale" value="#{PubManSessionBean.locale}" styleClass="medium_area0" onchange="submit();" title="#{tip.Home_Header_Language}" immediate="true" valueChangeListener="#{PubManSessionBean.changeLanguage}">
 			<f:selectItem itemValue="en" itemLabel="#{lbl.ENUM_LANGUAGE_EN}" />
