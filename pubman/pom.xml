@@ -649,6 +649,7 @@
 		<escidoc.transformation.endnote.configuration.filename>transformations/commonPublicationFormats/conf/endnote.properties</escidoc.transformation.endnote.configuration.filename>
 		<escidoc.transformation.edoc.stylesheet.filename>transformations/otherFormats/xslt/edoc-to-escidoc.xslt</escidoc.transformation.edoc.stylesheet.filename>
 		<escidoc.transformation.edoc.configuration.filename>transformations/otherFormats/conf/edoc.properties</escidoc.transformation.edoc.configuration.filename>
+		<escidoc.transformation.bibtex.configuration.filename>transformations/commonPublicationFormats/conf/bibtex.properties</escidoc.transformation.bibtex.configuration.filename>
 		<escidoc.transformation.mab.stylesheet.filename>transformations/otherFormats/xslt/mabxml2escidoc.xsl</escidoc.transformation.mab.stylesheet.filename>
 		<escidoc.transformation.report.sortorder.filename>transformations/reports/conf/reportSortOrder.xml</escidoc.transformation.report.sortorder.filename>
 		
@@ -750,7 +751,10 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-					
+				
+				<!-- Identifier of the content type "publication" in the actual framework instance -->
+				<escidoc.framework_access.content-model.id.publication>escidoc:persistent4</escidoc.framework_access.content-model.id.publication>
+		
 				<!-- URL of the FIZ framework instance -->
 				<escidoc.framework_access.framework.url>http://test-coreservice.mpdl.mpg.de</escidoc.framework_access.framework.url>
 				<escidoc.common.framework.url>http://test-coreservice.mpdl.mpg.de</escidoc.common.framework.url>
