@@ -469,9 +469,6 @@
 		<escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
 				
 		<!--Common presentation -->
-				
-		<!-- URL of stylesheets in common-presentation -->
-		<escidoc.common.presentation.url>http://localhost:8080/common/</escidoc.common.presentation.url>
 
 		<!-- Properties for common standard theme-->
 		<escidoc.common.stylesheet.standard.url>/common/resources/cssFramework/themes/skin_blue/styles/theme.css</escidoc.common.stylesheet.standard.url>
@@ -735,6 +732,9 @@
 				
 				<!-- URL of stylesheets in common-presentation -->
 				<escidoc.pubman.common.presentation.url>http://localhost:8080/common/</escidoc.pubman.common.presentation.url>
+								
+				<!-- URL of stylesheets in common-presentation -->
+				<escidoc.common.presentation.url>http://localhost:8080/common/</escidoc.common.presentation.url>
 			</properties>
 			
 			<distributionManagement>
@@ -777,6 +777,10 @@
 				
 				<!-- URL of stylesheets in common-presentation -->
 				<escidoc.pubman.common.presentation.url>http://dev-pubman.mpdl.mpg.de/common/</escidoc.pubman.common.presentation.url>
+								
+				<!-- URL of stylesheets in common-presentation -->
+				<escidoc.common.presentation.url>http://dev-pubman.mpdl.mpg.de/common/</escidoc.common.presentation.url>
+				
 			</properties>
 			<distributionManagement>
 				<site>
