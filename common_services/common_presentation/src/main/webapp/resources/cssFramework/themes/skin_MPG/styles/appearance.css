@@ -32,32 +32,32 @@
  
 PRIMARY COLORS
 ==============
-BACKGROUND					#EAF4F7
-BG - DROPDOWN				#DAE3ED
-BG - AUTHOR / ORG			#366A9D
-BG - SELECTED IMAGES		#CCDFDD
+BACKGROUND							#EAF4F7
+BG - DROPDOWN						#DAE3ED / D9E3E8
+BG - AUTHOR / ORG					#366A9D
+BG - SELECTED IMAGES				#CCDFDD
 
-LINK COLOR					#004465
-MOUSEOVER / HOVER			#012846
-ACTIVE MENU					#9BB5CE
-DEACTIVATED					#9BB5CE
+LINK COLOR							#004465
+MOUSEOVER / HOVER					#012846
+ACTIVE MENU							#9BB5CE
+DEACTIVATED							#9BB5CE
 
-INPUT TEXT					#000000
-INPUT BG					#F4F5F5
-INPUT BORDER				#9FAFAE
+INPUT TEXT							#000000
+INPUT BG							#F4F5F5
+INPUT BORDER						#9FAFAE
 
-TEXT						#3A3B3B
-PAGE TITLE / SITE TITLE		#004465
-ERROR MSG					#BE0031
-SUCCESS MSG					#006F7B
+TEXT								#3A3B3B
+PAGE TITLE / SITE TITLE				#004465
+ERROR MSG							#BE0031
+SUCCESS MSG							#006F7B
 
-LIGHT LINES					#9BB5CE
-NORMAL LINES				#B0B1B1
-SHORT LINES					#CFD1D1
-STATIC ICON					#3A3B3B
+LIGHT LINES							#9BB5CE
+NORMAL LINES						#B0B1B1
+SHORT LINES							#CFD1D1
+STATIC ICON							#3A3B3B
 
-NOT CLICKABLE				#888B8B
-NOT CLICKABLE - AUTHOR BG	#A0A2A2
+NOT CLICKABLE						#888B8B
+NOT CLICKABLE - AUTHOR BG 80% BG	#A0A2A2
 
   PRIMARY BUTTON NORMAL
   =====================
@@ -399,8 +399,7 @@ body .wrapper {
 }
 .sub.action .seperator {
 	background-color: #9BB5CE;
-	border-width:0;
-	margin-top:0.0909em;
+	border-width:0.0909em;
 }
 
 /***QUICK SEARCH MENU***/
@@ -556,11 +555,13 @@ body .wrapper {
     color: #012846;
     cursor: pointer;
 }
-/*  - declared the current page == not needed because of pageBrowser :disbled settings 
-.pageBrowser .actual {	
-    color: #888B8B;
-    cursor: default;
+ 
+.pageBrowser .actual:disabled {		/* are declared for the current page and are not used for images */
+/*    color: #888B8B;	color and cursor are defined about general disabled settings
+    cursor: default;*/
+	text-decoration:underline;
 }
+/*  - declared the current page == not needed because of pageBrowser :disbled settings
 .pageBrowser .actual:hover {
     color: #012846;
     cursor: pointer;
@@ -603,12 +604,12 @@ body .wrapper {
 /***** ITEM LIST *****/
 .itemList {
 	border-top-color: #004465;
-	border-bottom-color: #AEAEAE;
+	border-bottom-color: #B0B1B1;
 	background-color: #B1D5DC;
 }
 .itemList .seperator {
 	background-color: #FFFFFF;
-	border-color: #AEAEAE;
+	border-color: #B0B1B1;
 }
 .itemList .checkBoxSelectButton {
     cursor: pointer;
@@ -619,10 +620,10 @@ body .wrapper {
 
 /***** LIST ITEM *****/
 .listItem {
-	border-top-color: #AEAEAE !important;
+	border-top-color: #B0B1B1 !important;
 }
 .listItem td {
-	border-top-color: #AEAEAE !important;
+	border-top-color: #B0B1B1 !important;
 }
 .listItem td .itemHeadline b {
     font-size: 11px !important;
@@ -635,12 +636,12 @@ body .wrapper {
 .fullItem {
 /*	background-color: #FFFFFF; */
 	border-top-color: #004465;
-    border-bottom-color: #AEAEAE;
+    border-bottom-color: #B0B1B1;
 	background-color: #B1D5DC;
 }
 .fullItem .seperator  {
-	background-color: #FFFFFF;
-	border-color: #AEAEAE;
+	background-color: transparent;
+	border-color: #B0B1B1;
 }
 .fullItem .messageSuccess b {
 	color:#006F7B;
@@ -672,6 +673,7 @@ body .wrapper {
 }
 .fullItem .itemHeadline b {
     font-size: 16px !important;
+	line-height:145%;
 }
 .fullItem .easySubmissionHeader b {
     color: #000000;
@@ -686,14 +688,14 @@ body .wrapper {
 }
 /*FULL ITEM HEADER*/
 .fullItem .itemHeader {
-    border-top-color: #AEAEAE;
+    border-top-color: #B0B1B1;
 }
 .fullItem .fullItemControls a {
     cursor: pointer;
 }
 .fullItem .fullItemControls .seperator {
-	background-color: #FFFFFF;
-	border-color: #004465;
+	background-color: transparent;
+	border-color: #9BB5CE;
 }
 .fullItem .fullItemControls .actual {
     color: #FFFFFF;
@@ -701,27 +703,27 @@ body .wrapper {
 }
 /*FULL ITEM BLOCK*/
 .fullItem .metaDataSection {
-    border-color: #AEAEAE !important;
+    border-color: #B0B1B1 !important;
     border-style: solid;
 }
 .fullItem .detailedItem {
-    border-color: #AEAEAE !important;
+    border-color: #B0B1B1 !important;
     border-style: solid;
 }
 .fullItem .fullsizedBlock {
-    border-color: #AEAEAE !important;
+    border-color: #B0B1B1 !important;
     border-style: solid;
 }
 .fullItem .splitBlockHeader {
-    border-color: #AEAEAE !important;
+    border-color: #B0B1B1 !important;
     border-style: solid;
 }
 .fullItem .splitBlockBody {
-    border-color: #AEAEAE !important;
+    border-color: #B0B1B1 !important;
     border-style: solid;
 }
 .fullItem .itemBlock {
-    border-top-color: #AEAEAE;
+    border-top-color: #B0B1B1;
 }
 /*ALBUM*/
 .fullItem .inAlbum {
@@ -742,7 +744,7 @@ body .wrapper {
 
 /***** ITEM BLOCK *****/
 .itemBlock .voidBlock {
-	color: #AEAEAE;
+	color: #B0B1B1;
 }
 .itemBlock .itemLine {
 	border-top-color: #C9C9C9;
@@ -756,11 +758,11 @@ body .wrapper {
 .tiledList {
 /*	background-color: #FFFFFF; */
 	border-top-color: #004465;
-    border-bottom-color: #AEAEAE;
+    border-bottom-color: #B0B1B1;
 	background-color: #B1D5DC;
 }
 .tiledList .metaDataSection  {
-    border-color: #AEAEAE !important;
+    border-color: #B0B1B1 !important;
     border-style: solid;
 }
 .tiledList .seperator {
@@ -775,7 +777,7 @@ body .wrapper {
 
 /***** ITEM TILE *****/
 .itemTile .tileIconArea {
-	border-color: #AEAEAE !important;
+	border-color: #B0B1B1 !important;
 	border-style: solid;
 }
 
@@ -786,17 +788,22 @@ body .wrapper {
 
 /***** PRE-HEADER *****/
 .preListHeader {
-	border-top-color: #AEAEAE;
+	border-top-color: #B0B1B1;
 }
 .preListHeader {
     background-color: #FFFFFF;
+}
+
+/***** LISTHEADER *****/
+.listHeader a:hover {
+	text-decoration:underline;
 }
 
 
 /***** INFO PAGE *****/
 .infoPage .sideSection {
 	border-style: solid;
-	border-left-color: #AEAEAE;
+	border-left-color: #B0B1B1;
 }
 .infoPage .videoPreview {
 	border-style: solid;
@@ -919,6 +926,7 @@ body .wrapper {
 .infoMessageArea {
 	border: 1px solid #56871B !important;
     border-color: #56871B;
+	position:absolute;
 }
 .infoMessageArea h2 {
 	color:#006F7B;
@@ -999,7 +1007,7 @@ body .wrapper {
 	color: #FFFFFF;
 }
 .blankInput {
-    color: #AEAEAE;
+    color: #B0B1B1;
 }
 .underRework {
 	background-color: #F43E71 !important;
@@ -1020,6 +1028,9 @@ body .wrapper {
 	font-family: serif;
 	border-left-width: 2px !important;
 	border-right-width: 2px !important;
+}
+.filesSection a:hover {	/* used in bib list as logged in user - for file references */
+	text-decoration:underline;
 }
 .languageArea .readonlyInput {
 	background-color:transparent;
@@ -1056,13 +1067,13 @@ body .wrapper {
 
 
 /******************** EXTERNAL AND JSP CLASSES ********************/
-a.OraLinkDisabled {
-	color: #888B8B;
-	cursor: default;
+a.OraLinkDisabled { /* used e.g. for selectMenu */
+/*	color: #888B8B;
+	cursor: default; */
 }
 a.OraLinkDisabled:hover {
-	color: #888B8B;
-	cursor: default;
+/*	color: #888B8B;
+	cursor: default; */
 }
 .affHover {
     background-color: #006D70;

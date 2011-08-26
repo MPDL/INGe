@@ -402,11 +402,11 @@ body .wrapper {
 /*SELECT REPLACEMENT*/
 
 .metaMenu .selectboxIcon {
-	background-image:url("../images/All_Sorting_TriangleDescending_15_Active.png");
+	background-image:url("../images/All_View_TriangleOpen_15_Active.png");
 	margin-top:-0.2727em;
 }
 .selectboxIcon {
-	background-image:url("../images/All_Sorting_TriangleDescending_15_Active.png");
+	background-image:url("../images/All_View_TriangleOpen_15_Active.png");
 	background-position:left;
 	background-repeat:no-repeat;
 }

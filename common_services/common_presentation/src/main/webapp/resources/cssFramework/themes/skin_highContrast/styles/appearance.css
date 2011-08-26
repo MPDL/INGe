@@ -517,6 +517,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .fullItem .itemHeadline b {
     font-size: 16px !important;
     font-weight: normal;
+	line-height:145%;
 }
 
 .listItem .itemHeadline b {
@@ -684,6 +685,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .infoMessageArea {
 	border: 1px solid #56871B !important;
     border-color: #56871B;
+	position:absolute;
 }
 
 .infoMessageArea h2 {
