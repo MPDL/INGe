@@ -681,6 +681,7 @@ body .wrapper {
 }
 .fullItem .easySubmissionHeader b.actual {
     color: #888B8B;
+/*	text-decoration:underline; */
 }
 .fullItem .easySubmissionHeader .seperator {
 	background-color: #FFFFFF;
@@ -1078,7 +1079,6 @@ a.OraLinkDisabled:hover {
 .affHover {
     background-color: #006D70;
 	color:#FFFFFF;
-	padding-left:0.1818em !important;
 }
 
 
