@@ -118,11 +118,6 @@ textarea:focus {
 /*LIST HEADER*/
 
 	/*GENERAL*/
-
-table .listHeader {	/* IE HACK */
-	float:left; 
-	padding:0; 
-}
 table .listHeader a, table .listHeader span { /* IE HACK */
 	float:left;
 	text-align:left;
