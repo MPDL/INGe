@@ -45,25 +45,25 @@ All rights reserved. Use is subject to license terms.
 		<tr:iterator value="#{versionEntry.eventLogEntries}" var="eventEntry" varStatus="index" binding="#{ItemVersionListSessionBean.eventIterator}">
 
 			<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder" rendered="#{ItemVersionListSessionBean.eventIterator.rowIndex == 0}">
-				<b class="xLarge_area0_p8 endline labelLine clear">
-					<h:outputText value="#{eventEntry.currentTypeLabel}"/><span class="noDisplay">: </span>
-				</b>
+				<span class="xLarge_area0_p8 endline labelLine clear">
+					<h:outputText value="#{eventEntry.currentTypeLabel}"/>&#160;<span class="noDisplay">: </span>
+				</span>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{eventEntry.formattedDate}"/>
 				</span>
 			</h:panelGroup>
 			<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ItemVersionListSessionBean.eventIterator.rowIndex != 0}">
-				<b class="xLarge_area0_p8 endline labelLine clear">
-					<h:outputText value="#{eventEntry.currentTypeLabel}"/><span class="noDisplay">: </span>
-				</b>
+				<span class="xLarge_area0_p8 endline labelLine clear">
+					<h:outputText value="#{eventEntry.currentTypeLabel}"/>&#160;<span class="noDisplay">: </span>
+				</span>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{eventEntry.formattedDate}"/>
 				</span>
 			</h:panelGroup>
 			<div class="free_area0 endline itemLine noTopBorder">
-				<b class="xLarge_area0_p8 endline labelLine clear">
-					<h:outputText value="#{lbl.ViewItemLog_lblComment}" /><span class="noDisplay">: </span>
-				</b>
+				<span class="xLarge_area0_p8 endline labelLine clear">
+					<h:outputText value="#{lbl.ViewItemLog_lblComment}" />&#160;<span class="noDisplay">: </span>
+				</span>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{eventEntry.formattedComment}" />
 				</span>
