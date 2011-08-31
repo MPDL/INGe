@@ -186,6 +186,10 @@ h6 {
 	font-weight:normal; /* fix for different browser, e.g. on Macintosh */
 }
 
+option {	/* fix for FF2 and floating contents */
+	float:none !important;
+}
+
 /*LINEBREAK AND LAST IN LINE*/
 .clear {
     clear: both;

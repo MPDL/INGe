@@ -414,6 +414,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	font-family: Verdana,Arial,Helvetica,sans-serif;
 	height:1.3636em;
 	overflow:hidden;
+	font-weight:normal !important;
 }
 .selectContainer {
 	padding-top:0em;
