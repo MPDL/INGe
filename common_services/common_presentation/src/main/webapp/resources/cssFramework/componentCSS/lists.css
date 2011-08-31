@@ -118,9 +118,26 @@ textarea:focus {
 /*LIST HEADER*/
 
 	/*GENERAL*/
+
+/* 
+ * IE 7 HACK
+ * table view - bug in IE7- 
+ */
+*:first-child+html table input[type="checkbox"] {	
+	height:1.3636em;
+	width:1.3636em;
+}
 table .listHeader a, table .listHeader span { /* IE HACK */
 	float:left;
 	text-align:left;
+}
+
+/* 
+ * IE 8+ hack 
+ */
+.listHeader th:first-child {
+	 height:3em; 
+	 max-height:3em;
 }
 
 .listHeader {
@@ -193,12 +210,12 @@ div.listHeader span.itemSelectArea {
 	*:first-child+html .itemList th .checkboxSelectButton {
 	margin-right: -1.19em;
 	}
-
+	
 .itemSelectArea {
 	overflow: visible;
-	padding-top: 0em;
-	padding-bottom: 0em;
-	width: 3.47em;
+	padding-top: 0;
+	padding-bottom: 0;
+	width: 3.4545em;
 }
 
 .selectMenu {

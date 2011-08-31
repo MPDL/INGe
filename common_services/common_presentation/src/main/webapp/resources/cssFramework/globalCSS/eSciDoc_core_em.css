@@ -57,6 +57,18 @@ html > body .wrapper {
     height: auto !important;
 }
 
+
+/* 
+ * IE 7 HACK
+ * wrapper - bug in IE7- 
+ * 6px to much in width
+ */
+*:first-child+html .full.wrapper {
+	width:83.5454em !important;
+	overflow:hidden;
+}
+
+
 body .wrapper, body .footer {
     margin: 0 auto 0 auto;
     overflow: hidden;
