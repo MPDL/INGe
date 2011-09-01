@@ -238,6 +238,10 @@
 	width: 43.37em;
 }
 
+.itemLine .licenseArea {
+	margin-left:15.8181em;
+}
+
 .fullItem .listItemLine, .fullItem li {
 	padding-top: 0px;
 	padding-bottom: 0px;

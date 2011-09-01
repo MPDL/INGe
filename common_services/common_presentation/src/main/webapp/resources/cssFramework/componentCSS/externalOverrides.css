@@ -154,4 +154,13 @@
 	color:#262626;
 }
 
-
+/* CC License */
+#cc_js_required {
+	width:39.5454em !important;
+}
+#cc_js_jurisdiction_box {
+	width:39.5454em !important;
+}
+#cc_js_license_selected {
+	width:38.4545em !important;
+}
