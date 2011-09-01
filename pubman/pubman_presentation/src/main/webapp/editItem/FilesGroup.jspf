@@ -209,7 +209,7 @@
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">:</span>
 				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl licenseArea endline">
+				<span class="free_area0 licenseArea endline">
 					<h:panelGroup styleClass="quad_area0" rendered="true">
 						<label class="quad_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="#{lbl.EditItem_lblLicencingInfo}"/></label>
 						<h:inputText id="inpLicenseUrl" styleClass="xDouble_txtInput tiny_marginRIncl licenseURL" value="#{component.file.defaultMetadata.license}"/>
@@ -223,9 +223,9 @@
 						<input type="button" onclick="$(this).parents('.messageArea').addClass('noDisplay');" 
 							   value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
 						<div class="ccContent">&#160;</div>
-						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicenseApply}" styleClass="activeButton" 
-									 onclick="$(this).parents('.licenseArea').find('.licenseURL').val($(this).parents('.messageArea').find('#cc_js_result_uri').val()); 									  		   
-									  		  $(this).parents('.messageArea').addClass('noDisplay');"/>
+						<button class="activeButton" onclick="$(this).parents('.licenseArea').find('.licenseURL').val($(this).parents('.messageArea').find('#cc_js_result_uri').val()); 									  		   
+									  		  $(this).parents('.messageArea').addClass('noDisplay');" style="margin-right:0.3636em;"><h:outputText value="#{lbl.EditItem_btnSelectCCLicenseApply}" /></button>
+						
 				     </h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
