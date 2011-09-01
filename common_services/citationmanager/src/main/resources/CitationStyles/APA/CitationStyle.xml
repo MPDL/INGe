@@ -297,7 +297,7 @@
 		<parameters>
 			<valid-if><![CDATA[
 				$genre = ( $l_article, $l_paper, $l_case-note, $l_book-review, $l_case-study, $l_editorial, $l_newspaper-article ) 
-				or ( $genre = ( $l_other, $l_paper, $l_conference-report, $l_conference-paper) and $source-type = $l_journal )  
+				or ( $genre = ( $l_other, $l_paper, $l_conference-report, $l_conference-paper, $l_meeting-abstract) and $source-type = $l_journal )  
 			]]></valid-if>
 			<delimiter value="" />
 		</parameters>
@@ -334,7 +334,7 @@
 		<parameters>
 			<valid-if><![CDATA[
 				$genre = ( $l_book, $l_proceedings, $l_monograph, $l_commentary, $l_collected-edition, $l_handbook, $l_festschrift ) 
-				or ( $genre = ( $l_conference-report, $l_conference-paper, $l_other ) and 
+				or ( $genre = ( $l_conference-report, $l_conference-paper, $l_meeting-abstract, $l_other ) and 
 					not($source-type = ($l_journal, $l_proceedings, $l_book ))  
 				)  
 				or ( $genre = $l_other and not($source-type) )
@@ -489,7 +489,7 @@
 				$genre = ($l_book-item, $l_contr-to-collect-ed, $l_contr-to-handbook, $l_contr-to-encyclopedia, $l_contr-to-festschrift, $l_contr-to-commentary )
 				or ( $genre = $l_other and $source-type = $l_book )  
 				or ( 
-					 $genre = ( $l_conference-report, $l_conference-paper )   
+					 $genre = ( $l_conference-report, $l_conference-paper, $l_meeting-abstract )   
 					 and  $source-type = ( $l_book, $l_proceedings )  
 				)  
 			]]></valid-if>

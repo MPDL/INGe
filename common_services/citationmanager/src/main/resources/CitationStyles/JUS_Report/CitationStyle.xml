@@ -807,6 +807,7 @@
 			$genre = $l_case-study or
 			$genre = $l_editorial or
 			($genre = $l_conference-paper and $sourceGenre = $l_journal) or
+			($genre = $l_meeting-abstract and $sourceGenre = $l_journal) or
 			($genre = $l_conference-report and $sourceGenre = $l_journal)
 			]]>
 			</valid-if>
@@ -940,8 +941,11 @@
 				$genre = $l_contr-to-festschrift or
 				( $genre = $l_conference-report and $sourceGenre = $l_proceedings)or
 				( $genre = $l_conference-paper and $sourceGenre = $l_monograph) or
+				( $genre = $l_meeting-abstract and $sourceGenre = $l_monograph) or
 				( $genre = $l_conference-paper and $sourceGenre = $l_collected-edition) or
-				( $genre = $l_conference-paper and $sourceGenre = $l_proceedings)
+				( $genre = $l_meeting-abstract and $sourceGenre = $l_collected-edition) or
+				( $genre = $l_conference-paper and $sourceGenre = $l_proceedings) or
+				( $genre = $l_meeting-abstract and $sourceGenre = $l_proceedings)
 				 
 			]]>
 			</valid-if>
