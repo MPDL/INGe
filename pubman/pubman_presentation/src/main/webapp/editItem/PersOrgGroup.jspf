@@ -49,7 +49,7 @@
 					title="#{msg.mandatoryField}" value="*" rendered="false" /> <h:outputText
 					value="#{lbl.submission_lblAuthorCopyPasteLabel}" /> <span class="noDisplay">: </span> </b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText styleClass="quad_area0"
-					value="#{lbl.submission_lblAuthorCopyPaste}" /> <h:inputTextarea id="inpcreatorParseString"
+					value="#{lbl.submission_lblAuthorCopyPaste}" /> <h:inputTextarea id="inpcreatorParseString" title="#{EditItemSessionBean.creatorParseString}" 
 					styleClass="xDouble_txtArea tiny_marginRIncl inputTxtArea" value="#{EditItemSessionBean.creatorParseString}"
 					cols="15" rows="3" /> <span class="large_checkbox"> <h:selectBooleanCheckbox id="chkOverwriteStatus"
 					value="#{EditItemSessionBean.overwriteCreators}" /> <h:outputLabel for="chkOverwriteStatus"
@@ -132,17 +132,17 @@
 						<f:selectItems value="#{EditItemSessionBean.creatorTypes}" />
 					</h:selectOneMenu>
 					--%>
-					<h:inputText id="inpcreator_persons_person_family_name_optional"
+					<h:inputText id="inpcreator_persons_person_family_name_optional" title="#{creator.person.familyName}" 
 						styleClass="large_txtInput personSuggest familyName" value="#{creator.person.familyName}"
 						rendered="#{!(genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'all')}" />
-					<h:inputText id="inppersons_person_given_name_optional" styleClass="large_txtInput givenName"
+					<h:inputText id="inppersons_person_given_name_optional" styleClass="large_txtInput givenName" title="#{creator.person.givenName}" 
 						value="#{creator.person.givenName}" />
-					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField"
+					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" title="#{creator.autoPasteValue}" 
 						value="#{creator.autoPasteValue}" />
 					<tr:commandButton id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations"
 						action="#{creator.addOrganization}" />
-					<h:inputText id="inppersons_person_ous_optional" styleClass="xSmall_txtInput ouNumber" value="#{creator.ouNumbers}" />
-					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier"
+					<h:inputText id="inppersons_person_ous_optional" styleClass="xSmall_txtInput ouNumber" value="#{creator.ouNumbers}" title="#{creator.ouNumbers}" />
+					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" title="#{creator.person.identifier.id}" 
 						value="#{creator.person.identifier.id}" />
 					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{creator.person.identifier.id}"
 							rendered="#{creator.person.identifier.id != null and creator.person.identifier.id != ''}" target="_blank">&nbsp;</h:outputLink>
@@ -197,9 +197,9 @@
 					</h:selectOneMenu>	--%>
 					
 					<h:inputText id="inpcreator_organization_name_optional" styleClass="huge_txtInput organizationSuggest organizationName xSmall_marginRExcl"
-						value="#{creator.organization.name.value}"
+						value="#{creator.organization.name.value}" title="#{creator.organization.name.value}"
 						rendered="#{!(genre.creator_person_organization_creator_organizations_organization_name_display == 'false' && genre.creator_person_organization_creator_organizations_organization_name_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_organization_name_display == 'false' && genre.creator_person_organization_creator_organizations_organization_name_form_id == 'all')}" />
-					<h:inputText id="inpcreator_organization_identifier_optional" styleClass="noDisplay organizationIdentifier small_marginRExcl" value="#{creator.organization.identifier}" />
+					<h:inputText id="inpcreator_organization_identifier_optional" styleClass="noDisplay organizationIdentifier small_marginRExcl" value="#{creator.organization.identifier}" title="#{creator.organization.identifier}" />
 					<h:outputLink styleClass="min_imgBtn ouCard ouLink"
 						rendered="#{creator.organization.identifier != null and creator.organization.identifier != ''}" value="#"
 						onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.organization.identifier}', 980, 400, 'Details');return false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h:outputLink>
@@ -234,11 +234,11 @@
 			rendered="#{!(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="suggestAnchor personOrganizations large_marginLExcl clear">
 				<h:outputText styleClass="xTiny_area0 xTiny_marginRExcl labelLine" value="#{organization.number}" />
-				<h:inputText id="inporganizations_organization_name" styleClass="huge_txtInput organizationSuggest organizationName"
+				<h:inputText id="inporganizations_organization_name" styleClass="huge_txtInput organizationSuggest organizationName" title="#{organization.name.value}" 
 					value="#{organization.name.value}" />
-				<h:inputText id="inporganizations_organization_identifier" styleClass="noDisplay organizationIdentifier"
+				<h:inputText id="inporganizations_organization_identifier" styleClass="noDisplay organizationIdentifier" title="#{organization.identifier}" 
 					value="#{organization.identifier}" />
-				<h:inputText id="inporganizations_organization_address" styleClass="xLarge_txtInput organizationAddress"
+				<h:inputText id="inporganizations_organization_address" styleClass="xLarge_txtInput organizationAddress" title="#{organization.address}" 
 					value="#{organization.address}" />
 				<h:outputLink styleClass="small_area0 ouCard ouLink"
 					rendered="#{organization.identifier != null and organization.identifier != ''}" value="#"

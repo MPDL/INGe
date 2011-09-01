@@ -272,7 +272,9 @@
 			{
 				
 				$input.parents('.itemBlockContent').find('.personOrganizations').find('.organizationName').val(orgName == null ? "" : orgName);
+				$input.parents('.itemBlockContent').find('.personOrganizations').find('.organizationName').attr('title', (orgName == null ? "" : orgName));
 				$input.parents('.itemBlockContent').find('.personOrganizations').find('.organizationIdentifier').val(orgIdString == null ? "" : orgIdString);
+				$input.parents('.itemBlockContent').find('.personOrganizations').find('.organizationIdentifier').attr('title', (orgIdString == null ? "" : orgIdString));
 
 				if (orgIdString != null && orgIdString != '')
 				{
@@ -284,6 +286,7 @@
 			else
 			{
 				$input.siblings('.organizationPasteField').val(orgIdString + autopasteInnerDelimiter + (orgName == null ? "" : orgName));
+				$input.siblings('.organizationPasteField').attr('title', (orgIdString + autopasteInnerDelimiter + (orgName == null ? "" : orgName)));
 				fillField('ouNumber', '' + counter, parent);
 				$input.siblings('.hiddenButtonPasteOrganizations').click();
 			}
@@ -305,6 +308,7 @@
 	{
 		var field = $(commonParent).find('.' + name)
 		field.val(value);
+		field.attr('title', value);
 		if (typeof readonly != 'undefined')
 		{
 			$(field).attr('readonly', true);
@@ -443,7 +447,9 @@
 			}
 			
 			$input.val(id3);
+			$input.attr('title', id3);
 			$input.parents('.'+languageSuggestCommonParentClass).find('.languageText').val(name);
+			$input.parents('.'+languageSuggestCommonParentClass).find('.languageText').attr('title', name);
 		}
 	}
 	
