@@ -36,7 +36,7 @@
 <div class="clear breadcrumb">
 	<!-- Breadcrumb starts here -->
 	<ol>
-		<tr:iterator id="BreadcrumbNavigation" var="item">
+		<tr:iterator id="BreadcrumbNavigation" var="item" value="#{BreadcrumbItemHistorySessionBean.breadcrumbs}">
 			<li>
 <%-- start has to be reworked anyway --%>
 				<tr:goLink id="lnkDestination" destination="/#{ApplicationBean.appContext}#{item.page}" rendered="#{!item.isLast && item.defaultAction == null}">
@@ -50,9 +50,9 @@
 <%-- stop has to be reworked anyway --%>
 			</li>
 		</tr:iterator>
-		<li>&#160;</li>
+		<li></li>
 	</ol>
 	<!-- Breadcrumb ends here -->
 </div>
-
+<script type="text/javascript" src="../resources/commonJavaScript/componentJavaScript/breadcrump.js"></script>
 </f:subview>
