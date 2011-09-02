@@ -58,22 +58,22 @@
 						</div>
 						<div class="xHuge_area0 endline marginTExcl6p">
 							<tr:goLink id="lnkCitationURL" targetFrame="_blank" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-								<span class="viewFileIcon"></span>
+								<span class="std_imgBtn viewFileIcon"></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
 							</tr:goLink>
 							<!-- Link for fulltext searchhits with open pdf params-->
 							<tr:goLink id="lnkSearchHitsURL" targetFrame="_blank" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}#search=#{file.openPDFSearchParameter}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-								<span class="viewFileIcon"></span>
+								<span class="std_imgBtn viewFileIcon"></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
 							</tr:goLink>
 						
 							<tr:goLink id="lnkCitationURLDownload" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-								<span class="downloadFileIcon tiny_marginLExcl"></span>
+								<span class="std_imgBtn downloadFileIcon tiny_marginLExcl"></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
 							</tr:goLink>
 							<!-- Link for fulltext searchhits with open pdf params-->
 							<tr:goLink id="lnkSearchHitsURLDownload" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download#search=#{file.openPDFSearchParameter}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
-								<span class="downloadFileIcon tiny_marginLExcl"></span>
+								<span class="std_imgBtn downloadFileIcon tiny_marginLExcl"></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
 							</tr:goLink>
 						</div>
