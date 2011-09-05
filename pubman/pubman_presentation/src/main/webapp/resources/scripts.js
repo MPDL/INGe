@@ -66,24 +66,48 @@ function loadAbout(url)
 
 function loadBlog(url) 
 {
-	
 	openCenteredWindow(url, 900, 500, "Blog");
 }
 
-function loadHelp(url, anchor)
-{
-	var tmpUrl = url;
-	if (!url.match("http:")) {
-		tmpUrl = location+url;
+/**
+ * these function is a help function to check strings for locations and return the right string
+ * @param loc:String - location-string to check
+ * @param format - which page is necessary
+ * @returns a (formatted) string with the right pathname
+ * @see loadHelp() & breadcrump.js
+ */
+function checkLocationString(loc, format) {
+	var new_loc = loc;
+	switch (format) {
+		case 'help':
+			if (!new_loc.match(/faces\//gi)) { //if the folder faces is not into pathname, it must be added for the right link
+				new_loc = loc.replace('pubman/', 'pubman/faces/');
+				if (new_loc.match(/\?/)) { //e.g. in case of logout
+					var locAr = new_loc.split('/');
+					locAr[locAr.length - 1] = '';
+					new_loc = locAr.join('/');
+				}
+			} else if (new_loc.match('.') || new_loc.match('\?')) {
+				var locAr = new_loc.split('/');
+				locAr[locAr.length - 1] = '';
+				new_loc = locAr.join('/');
+			}//otherwise the location string is correct and will be returned
+			break;
 	}
-	
-	var searchString = "mpdl.mpg.de/help";
-	if (tmpUrl.match(searchString)) {
-		url = tmpUrl.split("mpdl.mpg.de/").join("mpdl.mpg.de/pubman/faces/");
-	}
-	// use the h:output tag to output the bean property
-	openCenteredWindow(url + anchor, 600, 400, "Help"); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
+	return new_loc;
 }
+
+function loadHelp(url, anchor)
+{	
+	//if the link is non external link it will be validate on completeness
+	if (!url.match("http:")) {
+		url = checkLocationString(location.href, 'help') + url;
+	}
+	url = url + anchor;
+	//open the new popup window with an absolute url
+	openCenteredWindow(url, 600, 400, "Help"); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
+}
+
 
 function loadDescription(html)
 {
@@ -107,7 +131,7 @@ function openCenteredWindow(page, width, height, windowName)
 	
 	leftPos = Math.floor((bw-width)/2) + bl;
 	topPos = Math.floor((bh-height)/2) + bt;
-
+	
 	attributes = "width=" + width + ", height=" + height + ", top=" + topPos + ", left=" + leftPos + ", resizable=yes, scrollbars=yes";
 	newWindow = window.open(page, windowName, attributes); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
 	newWindow.focus();

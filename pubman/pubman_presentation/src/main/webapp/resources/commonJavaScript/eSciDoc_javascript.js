@@ -155,13 +155,27 @@ function addEvent(obj, evType, fn){
 
 /*START ALL EXTERNAL JAVASCRIPTS*/
 function install_javascripts() {
-	installExtPaginator();
-	installItemList();
-	installFullItem();
-	installQuickSearchShortcut();
-	installDateTextbox();
-	installSameHeight();
-	bindSuggests();
+	if (typeof installExtPaginator == 'function') {
+		installExtPaginator();
+	}
+	if (typeof installItemList == 'function') {
+		installItemList();
+	}
+	if (typeof installItemList == 'function') {
+		installFullItem();
+	}
+	if (typeof installQuickSearchShortcut == 'function') {
+		installQuickSearchShortcut();
+	}
+	if (typeof installDateTextbox == 'function') {
+		installDateTextbox();
+	}
+	if (typeof installSameHeight == 'function') {
+		installSameHeight();
+	}
+	if (typeof bindSuggests == 'function') {
+		bindSuggests();
+	}
 }
 
 /*INCLUDES EXTERNAL JAVASCRIPTS*/
@@ -174,6 +188,7 @@ function include_javascripts() {
 		include_dom(jsURL + 'componentJavaScript/eSciDoc_single_elements.js');
 		include_dom(coneURL + 'js/jquery.suggest.js')
 		include_dom(jsURL + 'componentJavaScript/autoSuggestFunctions.js');
+		include_dom(jsURL + 'componentJavaScript/breadcrump.js');
 		/*REITERATION NEEDED TO START ALL INCLUDED JAVASCRIPTS*/
 		included = true;
 		include_javascripts();
@@ -184,10 +199,8 @@ function include_javascripts() {
 
 
 
-
-
-
-
-include_javascripts();
+if (!(location.pathname.match(/faces\/help\//))) {
+	include_javascripts();
+}
 applyCookieStyle();
 window.onunload=function(e){setStyleCookie();};

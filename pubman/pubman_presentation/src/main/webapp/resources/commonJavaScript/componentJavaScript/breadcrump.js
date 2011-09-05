@@ -7,6 +7,7 @@
  * these fix exist because of double embedded breadcrump in different pages (e.g. simple submission, easy import submission, ...)
  */
 function checkBreadcrump() {
+	
 	if ($('.clear .breadcrumb')[1]) {
 		$('.clear .breadcrumb')[1].innerHTML = $('.clear .breadcrumb')[0].innerHTML;
 		var obj = $($('.clear .breadcrumb')[0]);
@@ -17,9 +18,13 @@ function checkBreadcrump() {
 				$(obj).remove();
 				break;
 			}
-		}		
-		 
+		}
+		
 		$('.headerDistanceFix').removeClass('headerDistanceFix');
 	}
 }
-checkBreadcrump();
+
+$('#content').ready(function(e){
+	alert('content ready: '+e);
+	checkBreadcrump();
+});
