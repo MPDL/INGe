@@ -25,6 +25,5 @@ function checkBreadcrump() {
 }
 
 $('#content').ready(function(e){
-	alert('content ready: '+e);
 	checkBreadcrump();
 });
