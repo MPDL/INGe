@@ -93,7 +93,7 @@
 		</div>
 
 <%-- Affiliations --%>
-		<div class="free_area0 endline itemLine">
+		<div class="free_area0 endline itemLine" style="padding-top:0.1818em;">
 			<b id="lblViewItemFull_lblAffiliations" class="xLarge_area0_p8 endline labelLine">
 				<h:outputText value="#{lbl.ViewItemFull_lblAffiliations}"/><span class="noDisplay">: <br /></span>
 			</b>
