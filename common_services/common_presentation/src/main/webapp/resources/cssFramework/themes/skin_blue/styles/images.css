@@ -814,11 +814,12 @@ body .wrapper {
 }
 
 .ouCard {
-    width: 2.83em;
-    height: 1.37em;
+    width: 2.8181em;
+    height: 1.3636em;
     background-image: url('../images/All_Info_Organization_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
+	padding-top:0.0909em;
 }
 
 .ouCard:hover, .ouCard:focus {
@@ -834,10 +835,12 @@ body .wrapper {
 }
 
 .ccLicense {
-    padding-left: 1.37em;
     background-image: url('../images/cc.gif');
     background-repeat: no-repeat;
     background-position: center left;
+	padding-left: 1.4545em;
+	padding-top:0.1818em;
+	padding-bottom:0.0909em;
 }
 
 .visibilityIcon {
@@ -862,14 +865,16 @@ body .wrapper {
 	background-image: url('../images/All_File_EyeTrue_15_Static.gif');
 	background-repeat: no-repeat;
 	background-position: bottom left;
-	padding-left: 2.10em !important;
+	padding-top:0.0909em;
+	padding-left: 2.0909em !important;
 }
 
 .downloadFileIcon {
 	background-image: url('../images/All_File_ArrowDownload_15_Static.png');
 	background-repeat: no-repeat;
 	background-position: bottom left;
-	padding-left: 2.10em !important;
+	padding-top:0.0909em;
+	padding-left: 2.0909em !important;
 }  	
 
 .featureIcon {
