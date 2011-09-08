@@ -118,6 +118,11 @@ def parse_resource_file( filename )
 end
 
 if $0 == __FILE__
+   opt_tsv = false
+   if ARGV[0] and ARGV[0] =~ /\A-tsv/ # output tsv file.
+      ARGV.shift
+      opt_tsv = true
+   end
    puts "[Usage]  #{$0} resource-files ..." if ARGV.empty?
    ARGV.each do |f|
       if f =~ /(\w+)_([a-z][a-z])\.properties$/ and $2 != "en"
@@ -153,12 +158,12 @@ if $0 == __FILE__
             else
                count[ "only in #{lang}" ] << k
             end
+            puts [ k, orig[k], new[k] ].join( "\t" ) if opt_tsv
          end
-         pp count
-         count.each do |k, v|
-            # pp k
+         if not opt_tsv
+            pp count
+            puts "#{f} total: #{ "%.02f%%" % ( 100 * count["translated"].to_f / orig.keys.size ) } (#{count["translated"]}/#{orig.keys.size})"
          end
-         puts "#{f} total: #{ "%.02f%%" % ( 100 * count["translated"].to_f / orig.keys.size ) } (#{count["translated"]}/#{orig.keys.size})"
       else
          puts "Skip #{f}"
       end
