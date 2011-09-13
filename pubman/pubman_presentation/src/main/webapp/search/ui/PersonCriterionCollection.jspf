@@ -46,9 +46,9 @@ All rights reserved. Use is subject to license terms.
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline personArea">
 					<h:outputLabel id="lblPersonSearchString" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
-					<h:inputText id="personSearchString" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"/>
-					<h:inputText id="personSearchStringFilled" styleClass="third_txtInput" value="#{personCriterionBean.personCriterionVO.searchString}" readonly="true" rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}"/>
-					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{personCriterionBean.personCriterionVO.identifier}" />
+					<h:inputText id="personSearchString" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}" rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"/>
+					<h:inputText id="personSearchStringFilled" styleClass="third_txtInput" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}" readonly="true" rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}"/>
+					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{personCriterionBean.personCriterionVO.identifier}" title="#{personCriterionBean.personCriterionVO.identifier}" />
 					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{personCriterionBean.personCriterionVO.identifier}"
 							rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}" target="_blank">&nbsp;</h:outputLink>
 					<h:panelGroup rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"
@@ -66,9 +66,9 @@ All rights reserved. Use is subject to license terms.
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline personArea">
 					<h:outputLabel id="lblPersonSearchStringMultiple" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
-					<h:inputText id="personSearchStringMultiple" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"/>
-					<h:inputText id="personSearchStringMultipleFilled" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}"/>
-					<h:inputText id="inppersons_identifierMultiple" styleClass="noDisplay personIdentifier" value="#{personCriterionBean.personCriterionVO.identifier}" />
+					<h:inputText id="personSearchStringMultiple" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}" rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"/>
+					<h:inputText id="personSearchStringMultipleFilled" styleClass="third_txtInput personSuggest disableAfter" value="#{personCriterionBean.personCriterionVO.searchString}" title="#{personCriterionBean.personCriterionVO.searchString}" rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}"/>
+					<h:inputText id="inppersons_identifierMultiple" styleClass="noDisplay personIdentifier" value="#{personCriterionBean.personCriterionVO.identifier}" title="#{personCriterionBean.personCriterionVO.identifier}" />
 					<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{personCriterionBean.personCriterionVO.identifier}"
 							rendered="#{personCriterionBean.personCriterionVO.identifier != null and personCriterionBean.personCriterionVO.identifier != ''}" target="_blank">&nbsp;</h:outputLink>
 					<h:panelGroup rendered="#{personCriterionBean.personCriterionVO.identifier == null || personCriterionBean.personCriterionVO.identifier == ''}"
@@ -90,63 +90,63 @@ All rights reserved. Use is subject to license terms.
 					<span class="free_area0 checkboxDoubleGroup">
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchAuthor" value="#{personCriterionBean.searchAuthor}" />
-							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_AUTHOR}" for="personCriterionBean_searchAuthor" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_AUTHOR}" for="personCriterionBean_searchAuthor" title="#{lbl.ENUM_CREATORROLE_AUTHOR}" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchEditor" value="#{personCriterionBean.searchEditor}" />
-							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_EDITOR}" for="personCriterionBean_searchEditor" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_EDITOR}" for="personCriterionBean_searchEditor" title="#{lbl.ENUM_CREATORROLE_EDITOR}" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchAdvisor" value="#{personCriterionBean.searchAdvisor}" />
-							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_ADVISOR}" for="personCriterionBean_searchAdvisor" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_ADVISOR}" for="personCriterionBean_searchAdvisor" title="#{lbl.ENUM_CREATORROLE_ADVISOR}" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchArtist" value="#{personCriterionBean.searchArtist}" />
-							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_ARTIST}" for="personCriterionBean_searchArtist" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_ARTIST}" for="personCriterionBean_searchArtist" title="#{lbl.ENUM_CREATORROLE_ARTIST}" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchCommentator" value="#{personCriterionBean.searchCommentator}" />
-							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_COMMENTATOR}" for="personCriterionBean_searchCommentator" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_COMMENTATOR}" for="personCriterionBean_searchCommentator" title="#{lbl.ENUM_CREATORROLE_COMMENTATOR}" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchContributor" value="#{personCriterionBean.searchContributor}" />
-							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_CONTRIBUTOR}" for="personCriterionBean_searchContributor" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_CONTRIBUTOR}" for="personCriterionBean_searchContributor" title="#{lbl.ENUM_CREATORROLE_CONTRIBUTOR}" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchIllustrator" value="#{personCriterionBean.searchIllustrator}" />
-							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_ILLUSTRATOR}" for="personCriterionBean_searchIllustrator" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_ILLUSTRATOR}" for="personCriterionBean_searchIllustrator" title="#{lbl.ENUM_CREATORROLE_ILLUSTRATOR}" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchPainter" value="#{personCriterionBean.searchPainter}" />
-							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_PAINTER}" for="personCriterionBean_searchPainter" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_PAINTER}" for="personCriterionBean_searchPainter" title="#{lbl.ENUM_CREATORROLE_PAINTER}" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchPhotographer" value="#{personCriterionBean.searchPhotographer}" />
-							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_PHOTOGRAPHER}" for="personCriterionBean_searchPhotographer" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_PHOTOGRAPHER}" for="personCriterionBean_searchPhotographer" title="#{lbl.ENUM_CREATORROLE_PHOTOGRAPHER}" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchTranscriber" value="#{personCriterionBean.searchTranscriber}" />
-							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_TRANSCRIBER}" for="personCriterionBean_searchTranscriber" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_TRANSCRIBER}" for="personCriterionBean_searchTranscriber" title="#{lbl.ENUM_CREATORROLE_TRANSCRIBER}" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchTranslator" value="#{personCriterionBean.searchTranslator}" />
-							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_TRANSLATOR}" for="personCriterionBean_searchTranslator" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_TRANSLATOR}" for="personCriterionBean_searchTranslator" title="#{lbl.ENUM_CREATORROLE_TRANSLATOR}" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchReferee" value="#{personCriterionBean.searchReferee}" />
-							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_REFEREE}" for="personCriterionBean_searchReferee" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_REFEREE}" for="personCriterionBean_searchReferee" title="#{lbl.ENUM_CREATORROLE_REFEREE}" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchHonoree" value="#{personCriterionBean.searchHonoree}" />
-							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_HONOREE}" for="personCriterionBean_searchHonoree" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_HONOREE}" for="personCriterionBean_searchHonoree" title="#{lbl.ENUM_CREATORROLE_HONOREE}" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchInventor" value="#{personCriterionBean.searchInventor}" />
-							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_INVENTOR}" for="personCriterionBean_searchInventor" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_INVENTOR}" for="personCriterionBean_searchInventor" title="#{lbl.ENUM_CREATORROLE_INVENTOR}" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchApplicant" value="#{personCriterionBean.searchApplicant}" />
-							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_APPLICANT}" for="personCriterionBean_searchApplicant" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_APPLICANT}" for="personCriterionBean_searchApplicant" title="#{lbl.ENUM_CREATORROLE_APPLICANT}" />
 						</span>
 						<a class="large_area0 tiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>

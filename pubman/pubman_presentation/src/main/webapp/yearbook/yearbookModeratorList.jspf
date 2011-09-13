@@ -115,7 +115,7 @@
  			<input type="checkbox" class="allCheckBox"/>
  			<input type="button" id="btcheckBoxSelectButton" class="min_imgBtn checkBoxSelectButton"/>
  			<div class="large_area1 xTiny_marginLIncl selectMenu" style="display: none;">
- 				<span class="medium_area0_p8"><h:outputText value="#{lbl.List_SelectItem}"/></span>
+ 				<span class="medium_area0_p8 selectMenuGroupTitle"><h:outputText value="#{lbl.List_SelectItem}"/></span>
  				<h:commandLink id="lnkList_lkAll" title="#{tip.List_lkAll}" disabled="true" styleClass="large_area0 selectAll"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkAllOnPage}"/></span></h:commandLink>
  				<h:commandLink id="lnkList_lkToggle" title="#{tip.List_lkToggle}" disabled="true" styleClass="large_area0 toggleAll"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkToggleAll}"/></span></h:commandLink>
  				<h:commandLink id="lnkList_lkNone" title="#{tip.List_lkNone}" disabled="true" styleClass="large_area0 selectNone"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkNone}"/></span></h:commandLink>

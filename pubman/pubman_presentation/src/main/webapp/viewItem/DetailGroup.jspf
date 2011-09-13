@@ -75,8 +75,8 @@
 					<h:outputLabel id="lblViewItem_lblDatePublishedOnline" styleClass="large_label" value="#{lbl.ViewItem_lblDatePublishedOnline}: "/>
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.datePublishedOnline}"/>
 				</h:panelGroup>
-				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedInPrint != null && ViewItemFull.pubItem.metadata.datePublishedInPrint != ''}" >
-					<h:outputLabel id="lblViewItem_lblDatePublishedInPrint" styleClass="large_label" value="#{lbl.ViewItem_lblDatePublishedInPrint}: "/>
+				<h:panelGroup styleClass="xLarge_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedInPrint != null && ViewItemFull.pubItem.metadata.datePublishedInPrint != ''}" >
+					<h:outputLabel id="lblViewItem_lblDatePublishedInPrint" styleClass="xLarge_label" value="#{lbl.ViewItem_lblDatePublishedInPrint}: "/>
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.datePublishedInPrint}"/>
 				</h:panelGroup>
 			</span>

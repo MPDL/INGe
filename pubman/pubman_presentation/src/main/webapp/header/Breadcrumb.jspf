@@ -54,5 +54,4 @@
 	</ol>
 	<!-- Breadcrumb ends here -->
 </div>
-<script type="text/javascript" src="../resources/commonJavaScript/componentJavaScript/breadcrump.js"></script>
 </f:subview>

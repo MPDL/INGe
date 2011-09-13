@@ -74,8 +74,11 @@ function applyCookieStyle() {
 			if(unescape(dc.substring(start,stop)) == cookieVersion) {isCorrectCookieVersion = true;};
 		}
 	}
+	
+	var el = null;
+	
 	if (cookieValue != "" && isCorrectCookieVersion && document.getElementsByTagName) {
-		var el = document.getElementsByTagName("link");
+		el = document.getElementsByTagName("link");
 		for (var i = 0; i < el.length; i++ ) {
 			if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") == cookieValue && enableHiddenShemes && (el[i].getAttribute("title") == null || el[i].getAttribute("title") == "" ) ) {
 				el[i].setAttribute("title", el[i].getAttribute("id"));
@@ -85,7 +88,18 @@ function applyCookieStyle() {
 				if (el[i].getAttribute("id") == cookieValue) el[i].disabled = false;
 			}
 		}
+	} else if (!cookieValue && document.getElementsByTagName) {
+		el = document.getElementsByTagName("link");
+		for (var j = 0; j < el.length; j++ ) {
+			if (el[j].id && el[j].rel == 'alternate stylesheet' && el[j].title && el[j].type == "text/css") {
+				el[j].disabled = true;
+			} else if (el[j].id && el[j].rel == 'stylesheet' && el[j].title && el[j].type == "text/css") {
+				el[j].disabled = false;
+			}
+		}
 	}
+	
+	setStyleCookie();
 }
 
 function setStyleCookie() {
@@ -100,6 +114,7 @@ function setStyleCookie() {
 			}
 		}
 	}
+	
 	var now = new Date();
 	var exp = new Date(now.getTime() + (1000*60*60*24*30));
 	if(cookieValue != "") {
