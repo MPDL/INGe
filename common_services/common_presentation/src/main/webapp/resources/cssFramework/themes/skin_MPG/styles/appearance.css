@@ -284,7 +284,7 @@ body .wrapper {
 /*META MENU - CUSTOMIZED SELECTBOX*/
 .metaMenu .selectContainer select {
 	float:right;
-	margin-top:-1.63em;
+	margin-top:-1.3636em;
 	margin-left:auto;
 	margin-right:-0.0909em;
 	
@@ -484,6 +484,13 @@ body .wrapper {
 .selectMenu .checkBoxCloseSelectButton:focus {
     background-color: transparent;
 }
+.selectMenuGroupTitle {
+	text-align:left;
+/*	background-color:#006F7B; */
+/*	color:#ffffff; */
+	color:888B8B;
+	text-decoration:underline;
+}
 
 
 
@@ -676,11 +683,11 @@ body .wrapper {
 	line-height:145%;
 }
 .fullItem .easySubmissionHeader b {
-    color: #000000;
+    color: #888B8B;
     font-size: 16px;
 }
 .fullItem .easySubmissionHeader b.actual {
-    color: #888B8B;
+    color: #000000;
 /*	text-decoration:underline; */
 }
 .fullItem .easySubmissionHeader .seperator {
@@ -905,7 +912,7 @@ body .wrapper {
 }
 .activeButton {
 	float: right;
-	color: #FFFFFF;
+	color: #FFFFFF !important;
 	border-top:0 !important;
 	border-left:0 !important;
 	background-color:#006F7B !important;

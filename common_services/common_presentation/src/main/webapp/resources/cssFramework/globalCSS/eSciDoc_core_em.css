@@ -2350,6 +2350,10 @@ option {	/* fix for FF2 and floating contents */
     width: 2.2727em;
 }
 
+.selCriterionType label {
+	margin-right:3em;
+	width:auto !important;
+}
 .small_area1_p2 {
     width: 5.1818em;
 }
