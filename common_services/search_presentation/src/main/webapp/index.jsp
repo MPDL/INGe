@@ -42,14 +42,15 @@
 		<title>eSciDoc SearchAndExport Service</title>
 		
 		<link href="<%= PropertyReader.getProperty("escidoc.pubman.common.presentation.url") %>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>	
-		<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") %>" id="highContrastTheme" type="text/css" title="high contrast" rel="alternate stylesheet"/>
-		<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") %>" id="classicTheme" type="text/css" title="classic" rel="alternate stylesheet"/>	
-		<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") %>" id="PubManTheme" type="text/css" title="PubMan" rel="stylesheet"/>
+		<link href="/common/resources/cssFramework/themes/skin_MPG/styles/theme.css" type="text/css" title="MPG Skin" id="mpgSkin" rel="alternate stylesheet" />
+		<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") %>" id="HighContrast" type="text/css" title="high contrast" rel="alternate stylesheet"/>
+		<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") %>" id="Classic" type="text/css" title="classic" rel="alternate stylesheet"/>	
+		<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") %>" id="Standard" type="text/css" title="blue" rel="stylesheet"/>
 		
 		<link rel="SHORTCUT ICON" href="/pubman/resources/favicon.ico"/>
 		
-		<script src="/pubman/resources/eSciDoc_JavaScript/jquery/jquery.min.js" language="JavaScript" type="text/javascript">;</script>
-		<script src="/pubman/resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/eSciDoc_full_item.js" language="JavaScript" type="text/javascript">;</script>
+		<script src="/pubman/resources/commonJavaScript/jquery/jquery.min.js" language="JavaScript" type="text/javascript">;</script>
+		<script src="/pubman/resources/commonJavaScript/componentJavaScript/eSciDoc_full_item.js" language="JavaScript" type="text/javascript">;</script>
 		<script type="text/javascript">$(document).ready(function(){installFullItem();});</script>
 
 		<script language="JavaScript" type="text/javascript">
@@ -92,7 +93,7 @@
 				}
 			
 				function setStyleCookie() {
-					var cookieValue = "";
+					var cookieValue = "Standard";
 					if(document.getElementsByTagName) {
 						var el = document.getElementsByTagName("link");
 						for (var i = 0; i < el.length; i++ ) {
@@ -126,7 +127,7 @@
 				<a href="#contentSkipLinkAnchor" title="Skiplink to the page content." class="skipLink">Skip to the page content.</a>
 				<a href="#metaMenuSkipLinkAnchor" title="Skiplink to the meta menu." class="skipLink">Skip to the meta menu.</a>
 			<!-- end: skip link navigation -->
-			<div class="full_area0 header clear">
+			<div class="full_area0 header alternateHeader clear">
 				<!-- begin: short header section (including meta menu and main menu)-->
 		
 					<div id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu">
