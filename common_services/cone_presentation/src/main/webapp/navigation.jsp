@@ -49,7 +49,7 @@
 %>
 
 
-<div class="full_area0 header clear">
+<div class="full_area0 header alternateHeader clear">
 <!-- start: header section -->
 	<span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu">
 		<!-- logo alternate area starts here -->

@@ -52,13 +52,13 @@
 				<link type="text/css" rel="stylesheet">
 					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.common.presentation.url" />resources/cssFramework/main.css</xsl:attribute>
 				</link>
-				<link id="HighContrastTheme" type="text/css" title="kontrastreich" rel="alternate stylesheet">
+				<link id="HighContrast" type="text/css" title="high contrast" rel="alternate stylesheet">
 					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.stylesheet.contrast.url" /></xsl:attribute>
 				</link>
-				<link id="ClassicTheme" type="text/css" title="classic" rel="alternate stylesheet">
+				<link id="Classic" type="text/css" title="classic" rel="alternate stylesheet">
 					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.stylesheet.classic.url" /></xsl:attribute>
 				</link>
-				<link id="BlueTheme" type="text/css" title="Blue" rel="stylesheet">
+				<link id="Standard" type="text/css" title="blue" rel="stylesheet">
 					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.stylesheet.standard.url" /></xsl:attribute>
 				</link>
 				
@@ -74,6 +74,9 @@
 						var stop = dc.indexOf(";", start);
 						if (stop == -1) stop = dc.length;
 						cookieValue = unescape(dc.substring(start,stop));
+						if (!document.getElementById(cookieValue)) {
+							cookieValue = "Standard";
+						}
 					}
 				}
 				var enableHiddenShemes = false;
@@ -102,7 +105,7 @@
 			}
 		
 			function setStyleCookie() {
-				var cookieValue = "";
+				var cookieValue = "Standard";
 				if(document.getElementsByTagName) {
 					var el = document.getElementsByTagName("link");
 					for (var i = 0; el.length<xsl:text disable-output-escaping="yes"> > </xsl:text>i; i++ ) {
@@ -214,7 +217,7 @@
 			</head>
 			<body>
 				<div class="full wrapper">
-					<div class="full_area0 header clear">
+					<div class="full_area0 header alternateHeader clear">
 					<!-- start: header section -->
 						<span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu">
 							<!-- logo alternate area starts here -->

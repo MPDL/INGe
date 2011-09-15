@@ -34,14 +34,14 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>CoNE - Control of Named Entities</title>
 	<link href="<%= PropertyReader.getProperty("escidoc.common.presentation.url") %>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
-
-	<link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.contrast.url") %>" id="HighContrastTheme" type="text/css" title="high contrast" rel="alternate stylesheet"/>
-	<link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.classic.url") %>" id="ClassicTheme" type="text/css" title="classic" rel="alternate stylesheet"/>	
-	<link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.standard.url") %>" id="BlueTheme" type="text/css" title="blue" rel="stylesheet"/>
-
-	<script language="JavaScript" type="text/javascript">
+	<link href="/common/resources/cssFramework/main.css" type="text/css" rel="stylesheet" />
+	<link href="/common/resources/cssFramework/themes/skin_MPG/styles/theme.css" type="text/css" title="MPG Skin" id="mpgSkin" rel="alternate stylesheet" />
+	<link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.contrast.url") %>" id="HighContrast" type="text/css" title="high contrast" rel="alternate stylesheet"/>
+	<link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.classic.url") %>" id="Classic" type="text/css" title="classic" rel="alternate stylesheet"/>	
+	<link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.standard.url") %>" id="Standard" type="text/css" title="blue" rel="stylesheet"/>
 	
-	var layoutCookieName = 'customStyleSheet';
+	
+	<script language="JavaScript" type="text/javascript">
 	
 		  function applyCookieStyle() {
 				var cookieValue = ""
@@ -82,7 +82,7 @@
 			}
 		
 			function setStyleCookie() {
-				var cookieValue = "BlueTheme";
+				var cookieValue = "Standard";
 				if(document.getElementsByTagName) {
 					var el = document.getElementsByTagName("link");
 					for (var i = 0; i < el.length; i++ ) {
