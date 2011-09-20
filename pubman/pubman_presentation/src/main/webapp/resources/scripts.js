@@ -91,6 +91,17 @@ function checkLocationString(loc, format) {
 				var locAr = new_loc.split('/');
 				locAr[locAr.length - 1] = '';
 				new_loc = locAr.join('/');
+			}
+			if (new_loc.match('escidoc:')) {
+				var locArr = new_loc.split('/');
+				new_loc = '';
+				for (var j = 0; j < locArr.length; j++) {
+					new_loc += locArr[j]+'/';
+					if (locArr[j] == 'pubman') {
+						new_loc += 'faces/';
+						break;
+					}
+				}
 			}//otherwise the location string is correct and will be returned
 			break;
 	}
