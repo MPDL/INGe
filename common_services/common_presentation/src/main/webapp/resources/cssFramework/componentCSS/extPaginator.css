@@ -83,7 +83,7 @@
 	}
 
 	.pageBrowser input, .pageBrowser button {
-		height: 2.45em;
+		height: 2.4545em;
 	}
 	
 	.pageBrowser button:disabled {
@@ -94,10 +94,10 @@
 	.pageBrowser .seperator, .pageBrowser .actualSeperator {
 		display: block;
 		overflow: hidden;
-		width: 0.09em;
+		width: 0.0909em;
 		height: 1.27em;
 		margin: 0px;
-		padding: 0px;
+		padding: 0.001em;
 		border-right-width: 0px;
 		border-left-width: 0px;
 		border-top-width: 0.65em;

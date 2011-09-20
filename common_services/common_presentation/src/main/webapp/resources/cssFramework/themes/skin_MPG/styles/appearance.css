@@ -159,6 +159,7 @@ input[type="reset"]:hover {
 }
 input[type="text"] {
 	background-color: #F3F5F5;
+	vertical-align:baseline;
 }
 input[type="file"] {
 	background-color: #F3F5F5;
@@ -167,6 +168,12 @@ input[type="file"] {
 }
 input.numberLabel {
 	font-family: Verdana,Arial,Helvetica,sans-serif;
+}
+
+input[type="radio"] {
+	padding-left:0 !important;
+	padding-right:0 !important;
+	margin-right:0.2727em;
 }
 
 /***LINK***/
@@ -217,7 +224,6 @@ select {
     border-color: #9FAFAE;
 	background-color: #F3F5F5;
 }
-
 
 
 /****** COMPONENT DEFINITION ******/
@@ -419,6 +425,7 @@ body .wrapper {
 }
 .quickSearchTextInput {
 	height:1.5454em;
+	line-height:1.5454em; /* for correct alignment in IE - it should be declared and than with the same value*/
 	padding-top:0;
 	padding-bottom:0;
 }
