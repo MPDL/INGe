@@ -119,10 +119,13 @@
 			<jsp:directive.include file="footer/Footer.jspf" />
 			</tr:form>
 			<script type="text/javascript">
-				$("input[id$='offset']").submit(function() {
-					$(this).val($(window).scrollTop());
-				});
+				
 				$(document).ready(function () {
+					
+					$("input[id$='offset']").submit(function() {
+						$(this).val($(window).scrollTop());
+					});
+					
 					$(window).scrollTop($("input[id$='offset']").val());
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 				});
