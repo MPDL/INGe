@@ -781,6 +781,10 @@
 				<!-- URL of stylesheets in common-presentation -->
 				<escidoc.common.presentation.url>http://dev-pubman.mpdl.mpg.de/common/</escidoc.common.presentation.url>
 				
+				<!-- AA -->
+				<escidoc.aa.instance.url>http://dev-pubman.mpdl.mpg.de/aa_presentation</escidoc.aa.instance.url>
+				<escidoc.aa.default.target>http://dev-pubman.mpdl.mpg.de/aa_presentation/clientLogin</escidoc.aa.default.target>
+
 			</properties>
 			<distributionManagement>
 				<site>
