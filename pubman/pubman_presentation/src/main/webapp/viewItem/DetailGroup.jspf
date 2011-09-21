@@ -56,27 +56,27 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateCreated != null && ViewItemFull.pubItem.metadata.dateCreated != ''}" >
-					<h:outputLabel id="lblViewItem_lblDateCreated" styleClass="large_label" value="#{lbl.ViewItem_lblDateCreated}: " />
+					<h:outputLabel id="lblViewItem_lblDateCreated" styleClass="large_label" value="#{lbl.ViewItem_lblDateCreated}: " title="#{lbl.ViewItem_lblDateCreated}: " />
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateCreated}"/>
 				</h:panelGroup>
 				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateModified != null && ViewItemFull.pubItem.metadata.dateModified != ''}" >
-					<h:outputLabel id="lblViewItem_lblDateModified" styleClass="large_label" value="#{lbl.ViewItem_lblDateModified}: " />
+					<h:outputLabel id="lblViewItem_lblDateModified" styleClass="large_label" value="#{lbl.ViewItem_lblDateModified}: " title="#{lbl.ViewItem_lblDateModified}: " />
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateModified}"/>
 				</h:panelGroup>
 				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateSubmitted != null && ViewItemFull.pubItem.metadata.dateSubmitted != ''}" >
-					<h:outputLabel id="lblViewItem_lblDateSubmitted" styleClass="large_label" value="#{lbl.ViewItem_lblDateSubmitted}: "/>
+					<h:outputLabel id="lblViewItem_lblDateSubmitted" styleClass="large_label" value="#{lbl.ViewItem_lblDateSubmitted}: " title="#{lbl.ViewItem_lblDateSubmitted}: "/>
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateSubmitted}"/>
 				</h:panelGroup>
 				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateAccepted != null && ViewItemFull.pubItem.metadata.dateAccepted != ''}" >
-					<h:outputLabel id="lblViewItem_lblDateAccepted" styleClass="large_label" value="#{lbl.ViewItem_lblDateAccepted}: "/>
+					<h:outputLabel id="lblViewItem_lblDateAccepted" styleClass="large_label" value="#{lbl.ViewItem_lblDateAccepted}: " title="#{lbl.ViewItem_lblDateAccepted}: "/>
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateAccepted}"/>
 				</h:panelGroup>
 				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedOnline != null && ViewItemFull.pubItem.metadata.datePublishedOnline != ''}" >
-					<h:outputLabel id="lblViewItem_lblDatePublishedOnline" styleClass="large_label" value="#{lbl.ViewItem_lblDatePublishedOnline}: "/>
+					<h:outputLabel id="lblViewItem_lblDatePublishedOnline" styleClass="large_label" value="#{lbl.ViewItem_lblDatePublishedOnline}: " title="#{lbl.ViewItem_lblDatePublishedOnline}: "/>
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.datePublishedOnline}"/>
 				</h:panelGroup>
-				<h:panelGroup styleClass="xLarge_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedInPrint != null && ViewItemFull.pubItem.metadata.datePublishedInPrint != ''}" >
-					<h:outputLabel id="lblViewItem_lblDatePublishedInPrint" styleClass="xLarge_label" value="#{lbl.ViewItem_lblDatePublishedInPrint}: "/>
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedInPrint != null && ViewItemFull.pubItem.metadata.datePublishedInPrint != ''}" >
+					<h:outputLabel id="lblViewItem_lblDatePublishedInPrint" styleClass="xLarge_label" value="#{lbl.ViewItem_lblDatePublishedInPrint}: " title="#{lbl.ViewItem_lblDatePublishedInPrint}:"/>
 					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.datePublishedInPrint}"/>
 				</h:panelGroup>
 			</span>
