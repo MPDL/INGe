@@ -95,9 +95,10 @@
 		display: block;
 		overflow: hidden;
 		width: 0.0909em;
-		height: 1.27em;
-		margin: 0px;
-		padding: 0.001em;
+		height: 1.2727em;
+		margin: 0;
+		padding: 0;
+		padding-left:0.01em;
 		border-right-width: 0px;
 		border-left-width: 0px;
 		border-top-width: 0.65em;
