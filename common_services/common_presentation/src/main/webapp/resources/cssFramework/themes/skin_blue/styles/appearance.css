@@ -765,3 +765,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     border-left-width: 2px !important;
     border-right-width: 2px !important;
 }
+
+.licenseArea .messageArea {
+	background-color:#FFFFFF;
+}
