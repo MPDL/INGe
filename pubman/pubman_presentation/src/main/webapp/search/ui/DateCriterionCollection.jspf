@@ -96,33 +96,35 @@
 							<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedPrint" value="#{dateCriterionBean.searchPublishedPrint}" />
 							<h:outputLabel id="lblDateCriterionBean_searchPublishedPrint" value="#{lbl.adv_search_lblChkType_publishedpr}" for="dateCriterionBean_searchPublishedPrint" title="#{lbl.adv_search_lblChkType_publishedpr}" />
 						</span>
-						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedOnline" value="#{dateCriterionBean.searchPublishedOnline}" />
-							<h:outputLabel id="lblDateCriterionBean_searchPublishedOnline" value="#{lbl.adv_search_lblChkType_publishedon}" for="dateCriterionBean_searchPublishedOnline" title="#{lbl.adv_search_lblChkType_publishedon}" />
-						</span>
-						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="dateCriterionBean_searchAccepted" value="#{dateCriterionBean.searchAccepted}" />
-							<h:outputLabel id="lblDateCriterionBean_searchAccepted" value="#{lbl.adv_search_lblChkType_accepted}" for="dateCriterionBean_searchAccepted" title="#{lbl.adv_search_lblChkType_accepted}" />
-						</span>
-						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="dateCriterionBean_searchSubmitted" value="#{dateCriterionBean.searchSubmitted}" />
-							<h:outputLabel id="lblDateCriterionBean_searchSubmitted" value="#{lbl.adv_search_lblChkType_submitted}" for="dateCriterionBean_searchSubmitted" title="#{lbl.adv_search_lblChkType_submitted}" />
-						</span>
-						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="dateCriterionBean_searchModified" value="#{dateCriterionBean.searchModified}" />
-							<h:outputLabel id="lblDateCriterionBean_searchModified" value="#{lbl.adv_search_lblChkType_modified}" for="dateCriterionBean_searchModified" title="#{lbl.adv_search_lblChkType_modified}" />
-						</span>
-						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="dateCriterionBean_searchCreated" value="#{dateCriterionBean.searchCreated}" />
-							<h:outputLabel id="lblDateCriterionBean_searchCreated" value="#{lbl.adv_search_lblChkType_created}" for="dateCriterionBean_searchCreated" title="#{lbl.adv_search_lblChkType_created}" />
-						</span>
-						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="dateCriterionBean_searchEventStart" value="#{dateCriterionBean.searchEventStart}" />
-							<h:outputLabel id="lblDateCriterionBean_searchEventStart" value="#{lbl.adv_search_lblChkType_event_start_date}" for="dateCriterionBean_searchEventStart" title="#{lbl.adv_search_lblChkType_event_start_date}" />
-						</span>
-						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="dateCriterionBean_searchEventEnd" value="#{dateCriterionBean.searchEventEnd}" />
-							<h:outputLabel id="lblDdateCriterionBean_searchEventEnd" value="#{lbl.adv_search_lblChkType_event_end_date}" for="dateCriterionBean_searchEventEnd" title="#{lbl.adv_search_lblChkType_event_end_date}" />
+						<span name="checkboxDoubleContainer" style="display:none;">
+							<span class="large_checkbox tiny_marginRIncl">
+								<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedOnline" value="#{dateCriterionBean.searchPublishedOnline}" />
+								<h:outputLabel id="lblDateCriterionBean_searchPublishedOnline" value="#{lbl.adv_search_lblChkType_publishedon}" for="dateCriterionBean_searchPublishedOnline" title="#{lbl.adv_search_lblChkType_publishedon}" />
+							</span>
+							<span class="large_checkbox tiny_marginRIncl">
+								<h:selectBooleanCheckbox id="dateCriterionBean_searchAccepted" value="#{dateCriterionBean.searchAccepted}" />
+								<h:outputLabel id="lblDateCriterionBean_searchAccepted" value="#{lbl.adv_search_lblChkType_accepted}" for="dateCriterionBean_searchAccepted" title="#{lbl.adv_search_lblChkType_accepted}" />
+							</span>
+							<span class="large_checkbox tiny_marginRIncl">
+								<h:selectBooleanCheckbox id="dateCriterionBean_searchSubmitted" value="#{dateCriterionBean.searchSubmitted}" />
+								<h:outputLabel id="lblDateCriterionBean_searchSubmitted" value="#{lbl.adv_search_lblChkType_submitted}" for="dateCriterionBean_searchSubmitted" title="#{lbl.adv_search_lblChkType_submitted}" />
+							</span>
+							<span class="large_checkbox tiny_marginRIncl">
+								<h:selectBooleanCheckbox id="dateCriterionBean_searchModified" value="#{dateCriterionBean.searchModified}" />
+								<h:outputLabel id="lblDateCriterionBean_searchModified" value="#{lbl.adv_search_lblChkType_modified}" for="dateCriterionBean_searchModified" title="#{lbl.adv_search_lblChkType_modified}" />
+							</span>
+							<span class="large_checkbox tiny_marginRIncl">
+								<h:selectBooleanCheckbox id="dateCriterionBean_searchCreated" value="#{dateCriterionBean.searchCreated}" />
+								<h:outputLabel id="lblDateCriterionBean_searchCreated" value="#{lbl.adv_search_lblChkType_created}" for="dateCriterionBean_searchCreated" title="#{lbl.adv_search_lblChkType_created}" />
+							</span>
+							<span class="large_checkbox tiny_marginRIncl">
+								<h:selectBooleanCheckbox id="dateCriterionBean_searchEventStart" value="#{dateCriterionBean.searchEventStart}" />
+								<h:outputLabel id="lblDateCriterionBean_searchEventStart" value="#{lbl.adv_search_lblChkType_event_start_date}" for="dateCriterionBean_searchEventStart" title="#{lbl.adv_search_lblChkType_event_start_date}" />
+							</span>
+							<span class="large_checkbox tiny_marginRIncl">
+								<h:selectBooleanCheckbox id="dateCriterionBean_searchEventEnd" value="#{dateCriterionBean.searchEventEnd}" />
+								<h:outputLabel id="lblDdateCriterionBean_searchEventEnd" value="#{lbl.adv_search_lblChkType_event_end_date}" for="dateCriterionBean_searchEventEnd" title="#{lbl.adv_search_lblChkType_event_end_date}" />
+							</span>
 						</span>
 						<a class="large_area0 tiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>

@@ -121,11 +121,11 @@
 			<script type="text/javascript">
 				
 				$(document).ready(function () {
-					
+					/*
 					$("input[id$='offset']").submit(function() {
 						$(this).val($(window).scrollTop());
 					});
-					
+					*/
 					$(window).scrollTop($("input[id$='offset']").val());
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 				});
