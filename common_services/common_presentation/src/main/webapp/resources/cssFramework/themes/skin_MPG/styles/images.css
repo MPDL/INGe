@@ -438,7 +438,7 @@ body .wrapper {
 
 /*AFFILIATION TREE*/
 .organisationalUnit {
-    background-image: url('../images/All_Status_Organization_23_Static.png');
+    background-image: url('../images/All_Status_Organization_23_Static.png') !important;
     background-repeat: no-repeat;
     background-position: center center;
 }
