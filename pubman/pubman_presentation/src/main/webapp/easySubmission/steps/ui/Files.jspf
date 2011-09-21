@@ -234,7 +234,7 @@
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
 						  <span class="noDisplay">:</span>
 				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl licenseArea endline">
+				<span class="free_area0 xTiny_marginLExcl licenseArea endline">
 					<h:panelGroup styleClass="quad_area0">
 						<label class="quad_label">
 							<span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />">
