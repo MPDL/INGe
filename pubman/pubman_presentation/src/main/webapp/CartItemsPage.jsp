@@ -96,7 +96,7 @@
 								<!-- content menu lower line starts here -->
 								<h:panelGroup layout="block" styleClass="xHuge_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT' and PubItemListSessionBean.totalNumberOfElements>0}">
 									
-									<h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
+									<h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer">
 										<h:panelGroup layout="block" styleClass="xLarge_area0">
 											<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
@@ -112,12 +112,12 @@
 									
 									<h:commandButton id="btnUpdateExportOptions" styleClass="noDisplay exportUpdateButton" action="#{CartItemsRetrieverRequestBean.updateExportOptions}" value="updateExportFormats" />	
 									
-									<h:panelGroup layout="block" styleClass="medium_area1 endline selectContainer" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
+									<h:panelGroup layout="block" styleClass="medium_area1 endline selectContainer" rendered="#{ExportItemsSessionBean.enableFileFormats}">
 										<h:panelGroup layout="block" styleClass="medium_area0">
 											<h:panelGroup styleClass="medium_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="selFileFormat" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);" rendered="#{ExportItemsSessionBean.enableFileFormats}">
+										<h:selectOneMenu id="selFileFormat" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);">
 											<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
@@ -148,7 +148,7 @@
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy} "/>
 									
-									<h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
+									<h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer">
 										<h:panelGroup layout="block" styleClass="xLarge_area0">
 											<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>

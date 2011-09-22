@@ -96,7 +96,7 @@
 								<!-- content menu lower line starts here -->
 								<h:panelGroup layout="block" styleClass="xHuge_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
 									
-									<h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
+									<h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer">
 										<h:panelGroup layout="block" styleClass="xLarge_area0">
 											<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
@@ -112,13 +112,12 @@
 									
 									<h:commandButton id="btnUpdateExportFormats" title="#{tip.export_btFormat}" styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />	
 									
-									<h:panelGroup layout="block" styleClass="medium_area1 endline selectContainer" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
+									<h:panelGroup layout="block" styleClass="medium_area1 endline selectContainer" rendered="#{ExportItemsSessionBean.enableFileFormats}">
 										<h:panelGroup layout="block" styleClass="medium_area0">
 											<h:panelGroup styleClass="medium_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="selFileFormat" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);" 
-											rendered="#{ExportItemsSessionBean.enableFileFormats}">
+										<h:selectOneMenu id="selFileFormat" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);">
 											<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
@@ -156,7 +155,7 @@
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="medium_label" value="#{lbl.ENUM_CRITERIA_STATE}"/>
 									
-									<h:panelGroup layout="block" styleClass="xDouble_area1 endline selectContainer" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
+									<h:panelGroup layout="block" styleClass="xDouble_area1 endline selectContainer">
 										<h:panelGroup layout="block" styleClass="xDouble_area0">
 											<h:panelGroup styleClass="xDouble_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
@@ -174,12 +173,12 @@
 								<h:panelGroup layout="block" styleClass="quad_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">	
 									<h:outputText styleClass="medium_label clearLeft" value="#{lbl.qaws_lblMultipleImportTags}" rendered="#{LoginHelper.isModerator}"/>
 									
-									<h:panelGroup layout="block" styleClass="xDouble_area1 endline selectContainer" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
+									<h:panelGroup layout="block" styleClass="xDouble_area1 endline selectContainer" rendered="#{LoginHelper.isModerator}">
 										<h:panelGroup layout="block" styleClass="xDouble_area0">
 											<h:panelGroup styleClass="xDouble_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="selSelectedImport" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{MyItemsRetrieverRequestBean.selectedImport}" onchange="$(this).parents('div').find('.changeImport').click();" rendered="#{LoginHelper.isModerator}">
+										<h:selectOneMenu id="selSelectedImport" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{MyItemsRetrieverRequestBean.selectedImport}" onchange="$(this).parents('div').find('.changeImport').click();">
 											<f:selectItems value="#{MyItemsRetrieverRequestBean.importSelectItems}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
@@ -194,7 +193,7 @@
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="medium_label" value="#{lbl.ItemList_SortBy}"/>
 									
-									<h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
+									<h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer">
 										<h:panelGroup layout="block" styleClass="xLarge_area0">
 											<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
