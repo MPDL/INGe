@@ -88,8 +88,8 @@ function applyCookieStyle() {
 				if (el[i].getAttribute("id") == cookieValue) el[i].disabled = false;
 			}
 		}
-	} else if ( (!cookieValue && document.getElementsByTagName) || (cookieValue && !document.getElementById(cookieValue)) ) {
-		el = document.getElementsByTagName("link");
+	} else if ( (!cookieValue || (cookieValue && !document.getElementById(cookieValue))) && document.getElementsByTagName ) {
+		el = document.getElementsByTagName("link"); 
 		for (var j = 0; j < el.length; j++ ) {
 			if (el[j].id && el[j].rel == 'alternate stylesheet' && el[j].title && el[j].type == "text/css") {
 				el[j].disabled = true;
