@@ -76,6 +76,14 @@
 		<type>paper</type>
 		<type>poster</type>
 		<type>talk-at-event</type>
+		<type>talk-at-event</type>
+		<type>contribution-to-handbook</type>
+		<type>contribution-to-encyclopedia</type>
+		<type>contribution-to-festschrift</type>
+		<type>contribution-to-commentary</type>
+		<type>contribution-to-collected-edition</type>
+		<type>editorial</type>
+		<type>newspaper-article</type>
 	</xsl:variable>
 	
 	<xsl:variable name="collection-mapping">
@@ -438,6 +446,139 @@
 				<edoc-genre>slides shown at the conference and published on CD</edoc-genre>
 				<pubman-genre>any-fulltext </pubman-genre>
 			</genre>
+			
+			<genre type="MPIGF">
+				<edoc-genre>Abstract</edoc-genre>
+				<pubman-genre>abstract</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>audio file</edoc-genre>
+				<pubman-genre>supplementary-material</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>Draft</edoc-genre>
+				<pubman-genre>pre-print</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>Einleitung und Inhaltsverzeichnis</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>First print: full text</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>full text</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>full text  Springer online open</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>full text : read only</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>full text First Print</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>full text Gewerkschaftliche Monatshefte</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>full text im Nachdruck</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>full text vol. 1</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>full text vol. 2</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>full text: Vortrag</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>full texts</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>fulltesxt</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>Fulltext</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>index</edoc-genre>
+				<pubman-genre>table-of-contents</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>Inhalt und Einleitung</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>Inhalt und Vorwort</edoc-genre>
+				<pubman-genre>table-of-contents</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>Inhaltsverzeichnis</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>Introduction</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>Manuskript</edoc-genre>
+				<pubman-genre>pre-print</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>pdf pre-print</edoc-genre>
+				<pubman-genre>pre-print</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>Pre-print</edoc-genre>
+				<pubman-genre>pre-print</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>Reading sample</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>Table of content</edoc-genre>
+				<pubman-genre>table-of-contents</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>table-of-contents</edoc-genre>
+				<pubman-genre>table-of-contents</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>ToC</edoc-genre>
+				<pubman-genre>table-of-contents</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>ToC im Nachdruck</edoc-genre>
+				<pubman-genre>table-of-contents</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>Volltext</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>Volltext mit freundlicher Genehmigung des Hampp-Verlages</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
+			<genre type="MPIGF">
+				<edoc-genre>Volltext Vortrag</edoc-genre>
+				<pubman-genre>any-fulltext</pubman-genre>
+			</genre>
 			<genre type="default">
 				<edoc-genre>Article</edoc-genre>
 				<pubman-genre>article</pubman-genre>
@@ -777,18 +918,44 @@
 								<xsl:with-param name="filename" select="$filename"/>
 								<xsl:with-param name="access" select="$access"/>
 							</xsl:call-template>
-											
-							<!-- Locators don't exist in Edoc: will be out commented until new mapping specification -->			
-							<!--  <xsl:if test="$createLocatorsForPublicComponents or $access != 'PUBLIC'">
-								<xsl:call-template name="createLocator">
-									<xsl:with-param name="filename" select="$filename"/>
-									<xsl:with-param name="access" select="$access"/>
-								</xsl:call-template>
-							</xsl:if>-->
-						
+
 						</xsl:when>
 					</xsl:choose>
 				</xsl:for-each>
+				<xsl:if test="$import-name = 'MPIGF'">
+					<xsl:for-each select="identifiers/identifier[@type = 'url']">
+						<ec:component>		
+							<ec:properties>
+								<prop:description><xsl:value-of select="@comment"/></prop:description>
+								<prop:visibility>public</prop:visibility>
+								<prop:content-category>
+									<xsl:choose>
+										<xsl:when test="@comment = 'Fulltext via Publisher'"><xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/></xsl:when>
+										<xsl:when test="@comment = 'Abstract'"><xsl:value-of select="$contentCategory-ves/enum[. = 'abstract']/@uri"/></xsl:when>
+										<xsl:otherwise><xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/></xsl:otherwise>
+									</xsl:choose>
+								</prop:content-category>
+								<prop:file-name><xsl:value-of select="."/></prop:file-name>
+							</ec:properties>
+							<ec:content xlink:href="{.}" storage="external-url"/>
+							<mdr:md-records>
+								<mdr:md-record>
+									<file:file>
+										<dc:title><xsl:value-of select="."/></dc:title>
+										<dc:description><xsl:value-of select="@comment"/></dc:description>
+										<eterms:content-category>
+											<xsl:choose>
+												<xsl:when test="@comment = 'Fulltext via Publisher'"><xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/></xsl:when>
+												<xsl:when test="@comment = 'Abstract'"><xsl:value-of select="$contentCategory-ves/enum[. = 'abstract']/@uri"/></xsl:when>
+												<xsl:otherwise><xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/></xsl:otherwise>
+											</xsl:choose>
+										</eterms:content-category>
+									</file:file>
+								</mdr:md-record>
+							</mdr:md-records>
+						</ec:component>
+					</xsl:for-each>
+				</xsl:if>
 				<xsl:if test="$import-name = 'BPC'">
 					<xsl:if test="not(exists(basic/fturl)) and contains($bpc-files, ../@id)">
 						<xsl:comment>BPC IMPORT: Record has a File in BPC server. Create a Component for this file</xsl:comment>
@@ -818,425 +985,469 @@
 		<xsl:param name="access"/>
 		<!-- FILE -->
 
-		<xsl:element name="ec:component">
-						
-			<!-- fturl-comment as content-category? -->
-			<xsl:variable name="comment" select="@comment"/>
-			<xsl:variable name="edoc-id" select="../../../@id"/>
-						
-			<ec:properties>
-				<xsl:choose>
-					<xsl:when test="$import-name = 'BPC'">
-						<xsl:choose>
-							<xsl:when test="contains($bpc-files, ../../../@id)">
-								<prop:visibility>audience</prop:visibility>
-							</xsl:when>
-							<xsl:when test="$access= 'USER'">
-								<prop:visibility>private</prop:visibility>
-							</xsl:when>
-							<xsl:when test="$access='MPG' or $access = 'INSTITUT'">
-								<prop:visibility>audience</prop:visibility>
-							</xsl:when>
-							<xsl:when test="$access='PUBLIC'">
-								<prop:visibility>public</prop:visibility>
-							</xsl:when>
-							<xsl:otherwise>
-								<!-- ERROR -->
-								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:when>
-					<xsl:when test="$import-name = 'FHI'">
-						<xsl:choose>
-							<xsl:when test="$access='USER' or $access='INSTITUT'">
-								<prop:visibility>private</prop:visibility>
-							</xsl:when>
-							<xsl:when test="$access='MPG'">
-								<prop:visibility>audience</prop:visibility>
-							</xsl:when>
-							<xsl:when test="$access='PUBLIC'">
-								<prop:visibility>public</prop:visibility>
-							</xsl:when>
-							<xsl:otherwise>
-								<!-- ERROR -->
-								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:when>
-					<xsl:when test="$import-name = 'CBS'">
-						<xsl:choose>
-							<xsl:when test="$access='MPG' or $access='INSTITUT' or $access='INTERNAL'">
-								<prop:visibility>audience</prop:visibility>
-							</xsl:when>
-							<xsl:when test="$access='PUBLIC'">
-								<prop:visibility>public</prop:visibility>
-							</xsl:when>
-							<xsl:otherwise>
-								<!-- ERROR -->
-								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:when>
-					<xsl:when test="$import-name = 'MPIMET'">
-						<xsl:choose>
-							<xsl:when test="$access='MPG' or $access='INSTITUT'">
-								<prop:visibility>audience</prop:visibility>
-							</xsl:when>
-							<xsl:when test="$access='PUBLIC'">
-								<prop:visibility>public</prop:visibility>
-							</xsl:when>
-							<xsl:otherwise>
-								<!-- ERROR -->
-								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:when>
-					<xsl:when test="$import-name = 'MPIE' or $import-name = 'MPIA'">
-						<prop:visibility>private</prop:visibility>
-					</xsl:when>
-					<xsl:when test="$import-name = 'EVOLBIO'">
-						<xsl:choose>
-							<xsl:when test="$access='INSTITUT' or $access='MPG' or $access = 'USER'">
-								<prop:visibility>audience</prop:visibility>
-							</xsl:when>
-							<xsl:when test="$access='PUBLIC'">
-								<prop:visibility>public</prop:visibility>
-							</xsl:when>
-							<xsl:otherwise>
-								<!-- ERROR -->
-								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:choose>
-							<xsl:when test="$access='USER'">
-								<prop:visibility>private</prop:visibility>
-							</xsl:when>
-							<xsl:when test="$access='INSTITUT' or $access='MPG'">
-								<prop:visibility>audience</prop:visibility>
-							</xsl:when>
-							<xsl:when test="$access='PUBLIC'">
-								<prop:visibility>public</prop:visibility>
-							</xsl:when>
-							<xsl:otherwise>
-								<!-- ERROR -->
-								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:otherwise>
-				</xsl:choose>
-				
-				<xsl:comment>
-					<xsl:value-of select="$comment"/>
-				</xsl:comment>
-				<xsl:comment>
-					<xsl:value-of select="$genre-mapping/genres/genre[edoc-genre = $comment]"/>
-				</xsl:comment>
-				
-				<xsl:choose>
-					<!-- Customized - AEI: prop:content-category -->
-					<xsl:when test="$source-name = 'eDoc-AEI'">
-						<xsl:variable name="content-category">
+		<xsl:if test="not(exists(@size)) or @size != ''">
+
+			<xsl:element name="ec:component">
+							
+				<!-- fturl-comment as content-category? -->
+				<xsl:variable name="comment" select="@comment"/>
+				<xsl:variable name="edoc-id" select="../../../@id"/>
+							
+				<ec:properties>
+					<xsl:choose>
+						<xsl:when test="$import-name = 'BPC'">
 							<xsl:choose>
-								<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'online journal')">publisher-version</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'open access journal')">publisher-version</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'open access article')">publisher-version</xsl:when>
-								<xsl:when test="@comment = '' or not(exists(@comment))">publisher-version</xsl:when>
-								<xsl:otherwise>any-fulltext</xsl:otherwise>
-							</xsl:choose>
-						</xsl:variable>
-						<prop:content-category>
-							<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
-						</prop:content-category>
-					</xsl:when>
-					<!-- Customized - FHI: prop:content-category -->
-					<xsl:when test="$import-name = 'FHI'">
-						<xsl:variable name="content-category">
-							<xsl:choose>
-								<xsl:when test="contains(lower-case(@comment), 'abstract')">abstract</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'author version')">pre-print</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'fulltext')">publisher-version</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'open choice')">publisher-version</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'open access')">publisher-version</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'figure')">supplementary-material</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), '.mpeg-video file')">supplementary-material</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'diagramme')">supplementary-material</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'fragebogen')">supplementary-material</xsl:when>
-								<xsl:when test="contains(lower-case(@comment), 'supporting online material')">supplementary-material</xsl:when>
-								<xsl:otherwise>any-fulltext</xsl:otherwise>
-							</xsl:choose>
-						</xsl:variable>
-						<xsl:comment>Comment: <xsl:value-of select="lower-case(@comment)"/>
-						</xsl:comment>
-						<prop:content-category>
-							<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
-						</prop:content-category>
-					</xsl:when>
-					<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET'">
-						<prop:content-category>
-							<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
-						</prop:content-category>
-					</xsl:when>
-					<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH'">
-						<prop:content-category>
-							<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
-						</prop:content-category>
-					</xsl:when>
-					<xsl:when test="$import-name = 'EVOLBIO'">
-						<xsl:comment>EVOLBIO</xsl:comment>
-						<prop:content-category>
-							<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
-						</prop:content-category>
-					</xsl:when>
-					<xsl:when test="$genre-mapping/genres/genre[edoc-genre = $comment]">
-						<xsl:variable name="content-category" select="$genre-mapping/genres/genre[edoc-genre = $comment]/pubman-genre"/>
-						<prop:content-category>
-							<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
-						</prop:content-category>
-					</xsl:when>
-					<!-- Default: prop:content-category -->
-					<xsl:otherwise>
-						<xsl:choose>
-							<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
-								<prop:content-category>
-									<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
-								</prop:content-category>
-							</xsl:when>
-							<xsl:when test="$access='PUBLIC'">
-								<prop:content-category>
-									<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
-								</prop:content-category>
-							</xsl:when>
-							<xsl:otherwise>
-								<!-- ERROR -->
-								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:otherwise>
-				</xsl:choose>
-				<xsl:variable name="mime-type">
-					<xsl:if test="$CoNE = 'true'">
-						<xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', substring($filename, string-length($filename) - 3), '&quot;'))"/>
-					</xsl:if>
-				</xsl:variable>
-				<xsl:choose>
-					<xsl:when test="exists($mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title)">
-						<prop:mime-type>
-							<xsl:value-of select="$mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title"/>
-						</prop:mime-type>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:comment>Mime Type for <xsl:value-of select="$filename"/> not found in CONE</xsl:comment>
-						<prop:mime-type>application/pdf</prop:mime-type>
-					</xsl:otherwise>
-				</xsl:choose>
-				<!--  <xsl:choose>
-					<xsl:when test="ends-with($filename, '.doc')">
-						<prop:mime-type>application/msword</prop:mime-type>
-					</xsl:when>
-					<xsl:when test="ends-with($filename, '.zip')">
-						<prop:mime-type>application/zip</prop:mime-type>
-					</xsl:when>
-					<xsl:otherwise>
-						<prop:mime-type>application/pdf</prop:mime-type>
-					</xsl:otherwise>
-				</xsl:choose>-->
-			</ec:properties>
-			<xsl:element name="ec:content">
-				<xsl:choose>
-					<xsl:when test="$import-name = 'BPC' and not(exists(../../basic/fturl)) and contains($bpc-files, ../@id)">
-						<xsl:attribute name="xlink:href">
-							<xsl:text>http://www.mpibpc.mpg.de/fb/pdfs/</xsl:text>
-							<xsl:value-of select="$filename"/>
-						</xsl:attribute>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:attribute name="xlink:href" select="."/>
-					</xsl:otherwise>
-				</xsl:choose>
-				<xsl:attribute name="storage" select="'internal-managed'"/>
-			</xsl:element>
-			<xsl:element name="mdr:md-records">
-				<mdr:md-record name="escidoc">
-					<xsl:element name="file:file">
-						<xsl:element name="dc:title">
-							<xsl:choose>
-								<xsl:when test="exists(@filename)">
-									<xsl:value-of select="@filename"/>
+								<xsl:when test="contains($bpc-files, ../../../@id)">
+									<prop:visibility>audience</prop:visibility>
+								</xsl:when>
+								<xsl:when test="$access= 'USER'">
+									<prop:visibility>private</prop:visibility>
+								</xsl:when>
+								<xsl:when test="$access='MPG' or $access = 'INSTITUT'">
+									<prop:visibility>audience</prop:visibility>
+								</xsl:when>
+								<xsl:when test="$access='PUBLIC'">
+									<prop:visibility>public</prop:visibility>
 								</xsl:when>
 								<xsl:otherwise>
-									<xsl:value-of select="$filename"/>
+									<!-- ERROR -->
+									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
 								</xsl:otherwise>
 							</xsl:choose>
-						</xsl:element>
-						<xsl:choose>
-							<!-- Customized - AEI: prop:content-category -->
-							<xsl:when test="$source-name = 'eDoc-AEI'">
-								<xsl:variable name="content-category">
-									<xsl:choose>
-										<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
-										<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
-										<xsl:when test="contains(lower-case(@comment), 'online journal')">publisher-version</xsl:when>
-										<xsl:when test="contains(lower-case(@comment), 'open access journal')">publisher-version</xsl:when>
-										<xsl:when test="contains(lower-case(@comment), 'open access article')">publisher-version</xsl:when>
-										<xsl:when test="@comment = '' or not(exists(@comment))">publisher-version</xsl:when>
-										<xsl:otherwise>any-fulltext</xsl:otherwise>
-									</xsl:choose>
-								</xsl:variable>
-								<eterms:content-category>
-									<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
-								</eterms:content-category>
-							</xsl:when>
-							<!-- Customized - FHI: prop:content-category -->
-							<xsl:when test="$import-name = 'FHI'">
-								<xsl:variable name="content-category">
-									<xsl:choose>
-										<xsl:when test="contains(lower-case(@comment), 'abstract')">abstract</xsl:when>
-										<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
-										<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
-										<xsl:when test="contains(lower-case(@comment), 'author version')">pre-print</xsl:when>
-										<xsl:when test="contains(lower-case(@comment), 'fulltext')">publisher-version</xsl:when>
-										<xsl:when test="contains(lower-case(@comment), 'open choice')">publisher-version</xsl:when>
-										<xsl:when test="contains(lower-case(@comment), 'open access')">publisher-version</xsl:when>
-										<xsl:when test="contains(lower-case(@comment), 'figure')">supplementary-material</xsl:when>
-										<xsl:when test="contains(lower-case(@comment), '.mpeg-video file')">supplementary-material</xsl:when>
-										<xsl:when test="contains(lower-case(@comment), 'diagramme')">supplementary-material</xsl:when>
-										<xsl:when test="contains(lower-case(@comment), 'fragebogen')">supplementary-material</xsl:when>
-										<xsl:when test="contains(lower-case(@comment), 'supporting online material')">supplementary-material</xsl:when>
-										<xsl:otherwise>any-fulltext</xsl:otherwise>
-									</xsl:choose>
-								</xsl:variable>
-								<eterms:content-category>
-									<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
-								</eterms:content-category>
-							</xsl:when>
-							<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET' or $import-name = 'EVOLBIO'">
-								<eterms:content-category>
-									<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
-								</eterms:content-category>
-							</xsl:when>
-							<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO'">
-								<eterms:content-category>
-									<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
-								</eterms:content-category>
-							</xsl:when>
-							<xsl:when test="$genre-mapping/genres/genre[edoc-genre = $comment]">
-								<xsl:variable name="content-category" select="$genre-mapping/genres/genre[edoc-genre = $comment]/pubman-genre"/>
-								<eterms:content-category>
-									<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
-								</eterms:content-category>
-							</xsl:when>
-							<!-- Default: eterms:content-category -->
-							<xsl:otherwise>
+						</xsl:when>
+						<xsl:when test="$import-name = 'FHI'">
+							<xsl:choose>
+								<xsl:when test="$access='USER' or $access='INSTITUT'">
+									<prop:visibility>private</prop:visibility>
+								</xsl:when>
+								<xsl:when test="$access='MPG'">
+									<prop:visibility>audience</prop:visibility>
+								</xsl:when>
+								<xsl:when test="$access='PUBLIC'">
+									<prop:visibility>public</prop:visibility>
+								</xsl:when>
+								<xsl:otherwise>
+									<!-- ERROR -->
+									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
+						<xsl:when test="$import-name = 'CBS'">
+							<xsl:choose>
+								<xsl:when test="$access='MPG' or $access='INSTITUT' or $access='INTERNAL'">
+									<prop:visibility>audience</prop:visibility>
+								</xsl:when>
+								<xsl:when test="$access='PUBLIC'">
+									<prop:visibility>public</prop:visibility>
+								</xsl:when>
+								<xsl:otherwise>
+									<!-- ERROR -->
+									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIMET'">
+							<xsl:choose>
+								<xsl:when test="$access='MPG' or $access='INSTITUT'">
+									<prop:visibility>audience</prop:visibility>
+								</xsl:when>
+								<xsl:when test="$access='PUBLIC'">
+									<prop:visibility>public</prop:visibility>
+								</xsl:when>
+								<xsl:otherwise>
+									<!-- ERROR -->
+									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIE' or $import-name = 'MPIA'">
+							<prop:visibility>private</prop:visibility>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIMF'">
+							<prop:visibility>audience</prop:visibility>
+						</xsl:when>
+						<xsl:when test="$import-name = 'EVOLBIO'">
+							<xsl:choose>
+								<xsl:when test="$access='INSTITUT' or $access='MPG' or $access = 'USER'">
+									<prop:visibility>audience</prop:visibility>
+								</xsl:when>
+								<xsl:when test="$access='PUBLIC'">
+									<prop:visibility>public</prop:visibility>
+								</xsl:when>
+								<xsl:otherwise>
+									<!-- ERROR -->
+									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIGF'">
+							<xsl:choose>
+								<xsl:when test="$access='INSTITUT' or $access='MPG' or $access = 'USER'">
+									<prop:visibility>audience</prop:visibility>
+								</xsl:when>
+								<xsl:when test="$access='PUBLIC'">
+									<prop:visibility>public</prop:visibility>
+								</xsl:when>
+								<xsl:otherwise>
+									<!-- ERROR -->
+									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIINF'">
+							<prop:visibility>private</prop:visibility>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:choose>
+								<xsl:when test="$access='USER'">
+									<prop:visibility>private</prop:visibility>
+								</xsl:when>
+								<xsl:when test="$access='INSTITUT' or $access='MPG'">
+									<prop:visibility>audience</prop:visibility>
+								</xsl:when>
+								<xsl:when test="$access='PUBLIC'">
+									<prop:visibility>public</prop:visibility>
+								</xsl:when>
+								<xsl:otherwise>
+									<!-- ERROR -->
+									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('access level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:otherwise>
+					</xsl:choose>
+					
+					<xsl:comment>
+						<xsl:value-of select="$comment"/>
+					</xsl:comment>
+					<xsl:comment>
+						<xsl:value-of select="$genre-mapping/genres/genre[edoc-genre = $comment]"/>
+					</xsl:comment>
+					
+					<xsl:choose>
+						<!-- Customized - AEI: prop:content-category -->
+						<xsl:when test="$source-name = 'eDoc-AEI'">
+							<xsl:variable name="content-category">
 								<xsl:choose>
-									<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
-										<eterms:content-category>
-											<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
-										</eterms:content-category>
-									</xsl:when>
-									<xsl:when test="$access='PUBLIC'">
-										<eterms:content-category>
-											<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
-										</eterms:content-category>
+									<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'online journal')">publisher-version</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'open access journal')">publisher-version</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'open access article')">publisher-version</xsl:when>
+									<xsl:when test="@comment = '' or not(exists(@comment))">publisher-version</xsl:when>
+									<xsl:otherwise>any-fulltext</xsl:otherwise>
+								</xsl:choose>
+							</xsl:variable>
+							<prop:content-category>
+								<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
+							</prop:content-category>
+						</xsl:when>
+						<!-- Customized - FHI: prop:content-category -->
+						<xsl:when test="$import-name = 'FHI'">
+							<xsl:variable name="content-category">
+								<xsl:choose>
+									<xsl:when test="contains(lower-case(@comment), 'abstract')">abstract</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'author version')">pre-print</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'fulltext')">publisher-version</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'open choice')">publisher-version</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'open access')">publisher-version</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'figure')">supplementary-material</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), '.mpeg-video file')">supplementary-material</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'diagramme')">supplementary-material</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'fragebogen')">supplementary-material</xsl:when>
+									<xsl:when test="contains(lower-case(@comment), 'supporting online material')">supplementary-material</xsl:when>
+									<xsl:otherwise>any-fulltext</xsl:otherwise>
+								</xsl:choose>
+							</xsl:variable>
+							<xsl:comment>Comment: <xsl:value-of select="lower-case(@comment)"/>
+							</xsl:comment>
+							<prop:content-category>
+								<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
+							</prop:content-category>
+						</xsl:when>
+						<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET' or $import-name = 'MPIPF'">
+							<prop:content-category>
+								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+							</prop:content-category>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF'">
+							<prop:content-category>
+								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
+							</prop:content-category>
+						</xsl:when>
+						<xsl:when test="$import-name = 'EVOLBIO'">
+							<xsl:comment>EVOLBIO</xsl:comment>
+							<prop:content-category>
+								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+							</prop:content-category>
+						</xsl:when>
+						<xsl:when test="exists($genre-mapping/genres/genre[@type = $import-name and edoc-genre = $comment])">
+							<xsl:variable name="content-category" select="$genre-mapping/genres/genre[@type = $import-name and edoc-genre = $comment]/pubman-genre"/>
+							<prop:content-category>
+								<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
+							</prop:content-category>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIGF' and exists(../../identifiers/identifier[@type = 'doi' or @comment = 'Fulltext via Publisher'])">
+							<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/></prop:content-category>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIGF' and not(exists($genre-mapping/genres/genre[@type = $import-name and edoc-genre = $comment]))">
+							<prop:content-category>
+								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
+							</prop:content-category>
+						</xsl:when>
+						<!-- Default: prop:content-category -->
+						<xsl:otherwise>
+							<xsl:choose>
+								<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
+									<prop:content-category>
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+									</prop:content-category>
+								</xsl:when>
+								<xsl:when test="$access='PUBLIC'">
+									<prop:content-category>
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
+									</prop:content-category>
+								</xsl:when>
+								<xsl:otherwise>
+									<!-- ERROR -->
+									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:otherwise>
+					</xsl:choose>
+					<xsl:variable name="mime-type">
+						<xsl:if test="$CoNE = 'true'">
+							<xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', substring($filename, string-length($filename) - 3), '&quot;'))"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:choose>
+						<xsl:when test="exists($mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title)">
+							<prop:mime-type>
+								<xsl:value-of select="$mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title"/>
+							</prop:mime-type>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:comment>Mime Type for <xsl:value-of select="$filename"/> not found in CONE</xsl:comment>
+							<prop:mime-type>application/pdf</prop:mime-type>
+						</xsl:otherwise>
+					</xsl:choose>
+					<!--  <xsl:choose>
+						<xsl:when test="ends-with($filename, '.doc')">
+							<prop:mime-type>application/msword</prop:mime-type>
+						</xsl:when>
+						<xsl:when test="ends-with($filename, '.zip')">
+							<prop:mime-type>application/zip</prop:mime-type>
+						</xsl:when>
+						<xsl:otherwise>
+							<prop:mime-type>application/pdf</prop:mime-type>
+						</xsl:otherwise>
+					</xsl:choose>-->
+				</ec:properties>
+				<xsl:element name="ec:content">
+					<xsl:choose>
+						<xsl:when test="$import-name = 'BPC' and not(exists(../../basic/fturl)) and contains($bpc-files, ../@id)">
+							<xsl:attribute name="xlink:href">
+								<xsl:text>http://www.mpibpc.mpg.de/fb/pdfs/</xsl:text>
+								<xsl:value-of select="$filename"/>
+							</xsl:attribute>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:attribute name="xlink:href" select="."/>
+						</xsl:otherwise>
+					</xsl:choose>
+					<xsl:attribute name="storage" select="'internal-managed'"/>
+				</xsl:element>
+				<xsl:element name="mdr:md-records">
+					<mdr:md-record name="escidoc">
+						<xsl:element name="file:file">
+							<xsl:element name="dc:title">
+								<xsl:choose>
+									<xsl:when test="exists(@filename)">
+										<xsl:value-of select="@filename"/>
 									</xsl:when>
 									<xsl:otherwise>
-										<!-- ERROR -->
-										<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+										<xsl:value-of select="$filename"/>
 									</xsl:otherwise>
 								</xsl:choose>
-							</xsl:otherwise>
-						</xsl:choose>
-						<xsl:choose>
-							<xsl:when test="$import-name = 'FHI' and contains(lower-case(@comment), 'arxiv')">
-								<xsl:element name="dc:description">
-									<xsl:value-of select="@comment"/>
-								</xsl:element>
-							</xsl:when>
-							<xsl:when test="($import-name = 'MPIE' or $import-name = 'MPIA') and exists(@comment)">
-								<xsl:element name="dc:description">
-									<xsl:value-of select="@comment"/>
-								</xsl:element>
-							</xsl:when>
-							<xsl:when test="$import-name = 'EVOLBIO'">
-								<xsl:if test="exists($evolbio-file-comment-exceptions/edoc[id = $edoc-id]) or exists($evolbio-author-comment-exceptions/edoc[id = $edoc-id])">
+							</xsl:element>
+							<xsl:choose>
+								<!-- Customized - AEI: prop:content-category -->
+								<xsl:when test="$source-name = 'eDoc-AEI'">
+									<xsl:variable name="content-category">
+										<xsl:choose>
+											<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
+											<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
+											<xsl:when test="contains(lower-case(@comment), 'online journal')">publisher-version</xsl:when>
+											<xsl:when test="contains(lower-case(@comment), 'open access journal')">publisher-version</xsl:when>
+											<xsl:when test="contains(lower-case(@comment), 'open access article')">publisher-version</xsl:when>
+											<xsl:when test="@comment = '' or not(exists(@comment))">publisher-version</xsl:when>
+											<xsl:otherwise>any-fulltext</xsl:otherwise>
+										</xsl:choose>
+									</xsl:variable>
+									<eterms:content-category>
+										<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
+									</eterms:content-category>
+								</xsl:when>
+								<!-- Customized - FHI: prop:content-category -->
+								<xsl:when test="$import-name = 'FHI'">
+									<xsl:variable name="content-category">
+										<xsl:choose>
+											<xsl:when test="contains(lower-case(@comment), 'abstract')">abstract</xsl:when>
+											<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
+											<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
+											<xsl:when test="contains(lower-case(@comment), 'author version')">pre-print</xsl:when>
+											<xsl:when test="contains(lower-case(@comment), 'fulltext')">publisher-version</xsl:when>
+											<xsl:when test="contains(lower-case(@comment), 'open choice')">publisher-version</xsl:when>
+											<xsl:when test="contains(lower-case(@comment), 'open access')">publisher-version</xsl:when>
+											<xsl:when test="contains(lower-case(@comment), 'figure')">supplementary-material</xsl:when>
+											<xsl:when test="contains(lower-case(@comment), '.mpeg-video file')">supplementary-material</xsl:when>
+											<xsl:when test="contains(lower-case(@comment), 'diagramme')">supplementary-material</xsl:when>
+											<xsl:when test="contains(lower-case(@comment), 'fragebogen')">supplementary-material</xsl:when>
+											<xsl:when test="contains(lower-case(@comment), 'supporting online material')">supplementary-material</xsl:when>
+											<xsl:otherwise>any-fulltext</xsl:otherwise>
+										</xsl:choose>
+									</xsl:variable>
+									<eterms:content-category>
+										<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
+									</eterms:content-category>
+								</xsl:when>
+								<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET' or $import-name = 'EVOLBIO'">
+									<eterms:content-category>
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+									</eterms:content-category>
+								</xsl:when>
+								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO'">
+									<eterms:content-category>
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
+									</eterms:content-category>
+								</xsl:when>
+								<xsl:when test="$genre-mapping/genres/genre[@type = $import-name and edoc-genre = $comment]">
+									<xsl:variable name="content-category" select="$genre-mapping/genres/genre[@type = $import-name and edoc-genre = $comment]/pubman-genre"/>
+									<eterms:content-category>
+										<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
+									</eterms:content-category>
+								</xsl:when>
+								<xsl:when test="$import-name = 'MPIGF' and not(exists($genre-mapping/genres/genre[@type = $import-name and edoc-genre = $comment]))">
+									<eterms:content-category>
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
+									</eterms:content-category>
+								</xsl:when>
+								<!-- Default: eterms:content-category -->
+								<xsl:otherwise>
+									<xsl:choose>
+										<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
+											<eterms:content-category>
+												<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+											</eterms:content-category>
+										</xsl:when>
+										<xsl:when test="$access='PUBLIC'">
+											<eterms:content-category>
+												<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
+											</eterms:content-category>
+										</xsl:when>
+										<xsl:otherwise>
+											<!-- ERROR -->
+											<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:otherwise>
+							</xsl:choose>
+							<xsl:choose>
+								<xsl:when test="$import-name = 'FHI' and contains(lower-case(@comment), 'arxiv')">
 									<xsl:element name="dc:description">
-										<xsl:if test="exists($evolbio-file-comment-exceptions/edoc[id = $edoc-id])">
-											<xsl:value-of select="@comment"/>
-										</xsl:if>
-										<xsl:if test="exists($evolbio-file-comment-exceptions/edoc[id = $edoc-id]) and exists($evolbio-author-comment-exceptions/edoc[id = $edoc-id])">
-											<xsl:text> / </xsl:text>
-										</xsl:if>
-										<xsl:if test="exists($evolbio-author-comment-exceptions/edoc[id = $edoc-id])">
-											<xsl:value-of select="../authorcomment"/>
-										</xsl:if>
+										<xsl:value-of select="@comment"/>
 									</xsl:element>
-								</xsl:if>
-							</xsl:when>
-						</xsl:choose>
-						<xsl:choose>
-							<xsl:when test="ends-with($filename, '.doc')">
-								<dc:format xsi:type="dcterms:IMT">application/msword</dc:format>
-							</xsl:when>
-							<xsl:when test="ends-with($filename, '.zip')">
-								<dc:format xsi:type="dcterms:IMT">application/zip</dc:format>
-							</xsl:when>
-							<xsl:otherwise>
-								<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
-							</xsl:otherwise>
-						</xsl:choose>
-						<xsl:if test="exists(@size)">
-							<dcterms:extent>
-								<xsl:value-of select="@size"/>
-							</dcterms:extent>
-						</xsl:if>
-						<xsl:choose>
-							<xsl:when test="$import-name = 'FHI'">
-								<!-- <xsl:call-template name="copyrightFHI"/>--></xsl:when>
-							<xsl:when test="$import-name = 'MPIMET'">
-								<xsl:element name="dc:rights">
-									<xsl:value-of select="concat('eDoc_access: ', $access)"/>
-								</xsl:element>
-								<xsl:element name="dc:rights">
-									<xsl:value-of select="../../../rights/copyright"/>
-								</xsl:element>
-							</xsl:when>
-							<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIA' or $import-name = 'MPIE'"></xsl:when>
-							<xsl:when test="$import-name = 'EVOLBIO'">
-								<xsl:if test="exists($evolbio-copyright-exceptions/edoc[id = $edoc-id])">
+								</xsl:when>
+								<xsl:when test="($import-name = 'MPIE' or $import-name = 'MPIA' or $import-name = 'MPIPF') and exists(@comment)">
+									<xsl:element name="dc:description">
+										<xsl:value-of select="@comment"/>
+									</xsl:element>
+								</xsl:when>
+								<xsl:when test="$import-name = 'EVOLBIO'">
+									<xsl:if test="exists($evolbio-file-comment-exceptions/edoc[id = $edoc-id]) or exists($evolbio-author-comment-exceptions/edoc[id = $edoc-id])">
+										<xsl:element name="dc:description">
+											<xsl:if test="exists($evolbio-file-comment-exceptions/edoc[id = $edoc-id])">
+												<xsl:value-of select="@comment"/>
+											</xsl:if>
+											<xsl:if test="exists($evolbio-file-comment-exceptions/edoc[id = $edoc-id]) and exists($evolbio-author-comment-exceptions/edoc[id = $edoc-id])">
+												<xsl:text> / </xsl:text>
+											</xsl:if>
+											<xsl:if test="exists($evolbio-author-comment-exceptions/edoc[id = $edoc-id])">
+												<xsl:value-of select="../authorcomment"/>
+											</xsl:if>
+										</xsl:element>
+									</xsl:if>
+								</xsl:when>
+							</xsl:choose>
+							<xsl:choose>
+								<xsl:when test="ends-with($filename, '.doc')">
+									<dc:format xsi:type="dcterms:IMT">application/msword</dc:format>
+								</xsl:when>
+								<xsl:when test="ends-with($filename, '.zip')">
+									<dc:format xsi:type="dcterms:IMT">application/zip</dc:format>
+								</xsl:when>
+								<xsl:otherwise>
+									<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+								</xsl:otherwise>
+							</xsl:choose>
+							<xsl:if test="exists(@size) and @size != ''">
+								<dcterms:extent>
+									<xsl:value-of select="@size"/>
+								</dcterms:extent>
+							</xsl:if>
+							<xsl:choose>
+								<xsl:when test="$import-name = 'FHI'">
+									<!-- <xsl:call-template name="copyrightFHI"/>--></xsl:when>
+								<xsl:when test="$import-name = 'MPIMET'">
+									<xsl:element name="dc:rights">
+										<xsl:value-of select="concat('eDoc_access: ', $access)"/>
+									</xsl:element>
 									<xsl:element name="dc:rights">
 										<xsl:value-of select="../../../rights/copyright"/>
 									</xsl:element>
-								</xsl:if>
-							</xsl:when>
-							<xsl:when test="$import-name = 'MPINEURO'">
-								<xsl:variable name="copyright" select="../../../rights/copyright"/>
-								<xsl:if test="$comment != '' or $copyright != ''">
+								</xsl:when>
+								<xsl:when test="$import-name = 'MPIGF' or $import-name = 'MPIINF'">
+									<xsl:if test="exists(../../../rights/copyright)">
+										<xsl:element name="dc:rights">
+											<xsl:value-of select="../../../rights/copyright"/>
+										</xsl:element>
+									</xsl:if>
+								</xsl:when>
+								<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIA' or $import-name = 'MPIE'"></xsl:when>
+								<xsl:when test="$import-name = 'EVOLBIO'">
+									<xsl:if test="exists($evolbio-copyright-exceptions/edoc[id = $edoc-id])">
+										<xsl:element name="dc:rights">
+											<xsl:value-of select="../../../rights/copyright"/>
+										</xsl:element>
+									</xsl:if>
+								</xsl:when>
+								<xsl:when test="$import-name = 'MPINEURO'">
+									<xsl:variable name="copyright" select="../../../rights/copyright"/>
+									<xsl:if test="$comment != '' or $copyright != ''">
+										<xsl:element name="dc:rights">
+											<xsl:if test="$comment != ''">
+												<xsl:value-of select="$comment"/>
+											</xsl:if>
+											<xsl:if test="$comment != '' and $copyright != ''">; </xsl:if>
+											<xsl:if test="$copyright != ''">
+												<xsl:value-of select="$copyright"/>
+											</xsl:if>
+										</xsl:element>
+									</xsl:if>
+								</xsl:when>
+								<xsl:otherwise>
 									<xsl:element name="dc:rights">
-										<xsl:if test="$comment != ''">
-											<xsl:value-of select="$comment"/>
-										</xsl:if>
-										<xsl:if test="$comment != '' and $copyright != ''"> / </xsl:if>
-										<xsl:if test="$copyright != ''">
-											<xsl:value-of select="$copyright"/>
-										</xsl:if>
+										<xsl:value-of select="concat('eDoc_access: ', $access)"/>
 									</xsl:element>
-								</xsl:if>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:element name="dc:rights">
-									<xsl:value-of select="concat('eDoc_access: ', $access)"/>
-								</xsl:element>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:element>
-				</mdr:md-record>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:element>
+					</mdr:md-record>
+				</xsl:element>
 			</xsl:element>
-		</xsl:element>
+			
+		</xsl:if>
 	
 	</xsl:template>
 	
@@ -1300,9 +1511,18 @@
 	<xsl:template match="basic">
 		<xsl:choose>
 			<xsl:when test="genre='Article'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'article'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIGF' and (contains(title, 'Rezension') or contains(title, 'Book Review'))">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'book-review'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'article'"/>
+						</xsl:call-template>
+					</xsl:otherwise>	
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Report'">
 				<xsl:call-template name="createEntry">
@@ -1310,9 +1530,32 @@
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Book'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'book'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIGF'">
+						<xsl:choose>
+							<xsl:when test="exists(../creators/creator[@role = 'author']) and not(exists(../creators/creator[@role = 'editor']))">
+								<xsl:call-template name="createEntry">
+									<xsl:with-param name="gen" select="'book'"/>
+								</xsl:call-template>
+							</xsl:when>
+							<xsl:when test="exists(../creators/creator[@role = 'editor']) and not(exists(../creators/creator[@role = 'author']))">
+								<xsl:call-template name="createEntry">
+									<xsl:with-param name="gen" select="'collected-edition'"/>
+								</xsl:call-template>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownGenre' ), 'The genre mapping for this item is ambiguous. Please check the creator section.')"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'book'"/>
+						</xsl:call-template>
+					</xsl:otherwise>
+				</xsl:choose>
+				
+				
 			</xsl:when>
 			<xsl:when test="genre='Conference-Paper'">
 				<xsl:call-template name="createEntry">
@@ -1330,9 +1573,18 @@
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='InBook'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'book-item'"/>
-				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIGF'">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'contribution-to-collected-edition'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'book-item'"/>
+						</xsl:call-template>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Issue'">
 				<xsl:call-template name="createEntry">
@@ -1533,6 +1785,17 @@
 				</xsl:element>
 			</xsl:if>
 			
+			<xsl:choose>
+				<xsl:when test="booktitle and ($import-name = 'MPIGF')">
+					<xsl:element name="source:source">
+						<xsl:call-template name="createCollectedEdition">
+							<xsl:with-param name="sources-count" select="$sources-count"/>
+							<xsl:with-param name="gen" select="$gen"/>
+							<xsl:with-param name="issn-save" select="$issn-save"/>
+						</xsl:call-template>
+					</xsl:element>
+				</xsl:when>
+			</xsl:choose>
 			<xsl:if test="booktitle">
 				<xsl:element name="source:source">
 					<xsl:call-template name="createBook">
@@ -1610,6 +1873,12 @@
 			</xsl:if>
 			
 			<!-- ABSTRACT -->
+			<xsl:if test="$import-name = 'MPIGF' and exists(docaff_reasearchcontext)">
+				<xsl:element name="dcterms:abstract">
+					<xsl:value-of select="docaff_reasearchcontext"/>
+				</xsl:element>
+			</xsl:if>
+			
 			<xsl:apply-templates select="abstract"/>
 			<xsl:call-template name="abstractMPIEMPIA"/>
 			
@@ -1629,9 +1898,14 @@
 		<xsl:param name="genre"/>
 		<xsl:apply-templates select="publisher"/>
 		<xsl:apply-templates select="publisheradd"/>
-		<xsl:if test="$genre != 'thesis'">
-			<xsl:apply-templates select="editiondescription"/>
-		</xsl:if>
+		<xsl:choose>
+			<xsl:when test="$import-name = 'MPIGF' and exists(authorcomment)">
+				<xsl:apply-templates select="authorcomment"/>
+			</xsl:when>
+			<xsl:when test="$genre != 'thesis'">
+				<xsl:apply-templates select="editiondescription"/>
+			</xsl:when>
+		</xsl:choose>
 	</xsl:template>
 	
 	<xsl:template match="corporatebody">
@@ -1683,7 +1957,7 @@
 			<xsl:attribute name="xsi:type" select="'eterms:EDOC'"/>
 			<xsl:value-of select="../../@id"/>
 		</xsl:element>
-		<xsl:for-each select="../identifiers/identifier">
+		<xsl:for-each select="../identifiers/identifier[@type != 'url' or $import-name != 'MPIGF']">
 			<xsl:call-template name="createIDs">
 				<xsl:with-param name="gen" select="$gen"/>
 				<xsl:with-param name="has-source" select="$has-source"/>
@@ -1728,6 +2002,11 @@
 					</xsl:when>
 					<xsl:when test="@type='isi'">
 						<xsl:attribute name="xsi:type" select="'eterms:ISI'"/>
+						<xsl:value-of select="."/>
+					</xsl:when>
+					<xsl:when test="@type='localid' and $import-name = 'MPINEURO'">
+						<xsl:attribute name="xsi:type" select="'eterms:OTHER'"/>
+						<xsl:text>Local-ID: </xsl:text>
 						<xsl:value-of select="."/>
 					</xsl:when>
 					<xsl:otherwise>
@@ -1914,6 +2193,60 @@
 	
 	</xsl:template>
 	
+	<!-- COLLECTED EDITION TEMPLATE -->
+	<xsl:template name="createCollectedEdition">
+		<xsl:param name="sources-count"/>
+		<xsl:param name="gen"/>
+		<xsl:param name="issn-save"/>
+		<!-- TITLE -->
+		<xsl:if test="booktitle">
+			<xsl:attribute name="type" select="$genre-ves/enum[. = 'collected-edition']/@uri"/>
+			<xsl:element name="dc:title">
+				<xsl:value-of select="booktitle"/>
+			</xsl:element>
+		</xsl:if>
+		<!-- CREATOR -->
+		<xsl:for-each select="creators/creator[@type='bookcontributorfn' or @type='bookcreatorfn']">
+			<xsl:element name="eterms:creator">
+				<xsl:call-template name="createCreator">
+					<xsl:with-param name="source" select="true()"/>
+				</xsl:call-template>
+			</xsl:element>
+		</xsl:for-each>
+		<xsl:apply-templates select="bookcorporatebody"/>
+		<!-- VOLUME -->
+		<xsl:if test="not(exists(titleofseries))">
+			<xsl:apply-templates select="volume"/>
+		</xsl:if>
+		
+		<!-- START_PAGE -->
+		<xsl:apply-templates select="spage"/>
+		<!-- END-PAGE -->
+		<xsl:apply-templates select="epage"/>
+		<!-- SEQUENCE_NR -->
+		<xsl:apply-templates select="artnum"/>
+		
+		<!-- Total number of pages -->
+		<xsl:call-template name="phydescPubl"/>
+		
+		<xsl:if test="exists(publisher) or exists(editiondescription)">
+			<xsl:element name="eterms:publishing-info">
+				<xsl:call-template name="createPublishinginfo"/>
+			</xsl:element>
+		</xsl:if>
+		
+		<!--  <xsl:call-template name="createSourceIdentifiers"/>-->
+		<xsl:for-each select="../identifiers/identifier[@type != 'issn' or not($issn-save)]">
+			<xsl:call-template name="createIDs">
+				<xsl:with-param name="gen" select="$gen"/>
+				<xsl:with-param name="has-source" select="true()"/>
+				<xsl:with-param name="is-source" select="true()"/>
+				<xsl:with-param name="sources-count" select="$sources-count"/>
+			</xsl:call-template>
+		</xsl:for-each>
+	
+	</xsl:template>
+	
 	<xsl:template name="phydescPubl">
 		<xsl:element name="eterms:total-number-of-pages">
 			<xsl:value-of select="phydesc"/>
@@ -1937,6 +2270,7 @@
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
+	
 	<xsl:template match="editiondescription">
 		<xsl:element name="eterms:edition">
 			<xsl:value-of select="."/>
@@ -2149,6 +2483,25 @@
 						<xsl:when test="$import-name = 'MPINEURO'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI of Neurobiology')"/>
 						</xsl:when>
+						<xsl:when test="$import-name = 'MPIPF'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Plant Breeding Research')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIINF'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Informatics')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIMF'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Medical Research')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'External Organizations')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIMMG'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for the Study of Religious and Ethnic Diversity')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIGF'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for the Study of Societies')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIS'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Solar System Research')"/>
+						</xsl:when>
 						<xsl:when test="$import-name = 'MPIeR'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for European Legal History')"/>
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'External Organizations')"/>
@@ -2203,7 +2556,7 @@
 							
 							<xsl:if test="not($source)">
 								<xsl:choose>
-									<xsl:when test="$import-name = 'MPIK' and @internextern='unknown' and exists(../../../docaff/docaff_external)">
+									<xsl:when test="($import-name = 'MPIK' or $import-name = 'MPINEURO') and @internextern='unknown' and exists(../../../docaff/docaff_external)">
 										<xsl:comment> Case MPIK for unknown user with external affiliation </xsl:comment>
 										<xsl:element name="organization:organization">
 											<xsl:element name="dc:title">
@@ -2551,9 +2904,11 @@
 		</eterms:start-page>
 	</xsl:template>
 	<xsl:template match="epage">
-		<eterms:end-page>
-			<xsl:value-of select="."/>
-		</eterms:end-page>
+		<xsl:if test="$import-name != 'MPIMMG' or ../spage != .">
+			<eterms:end-page>
+				<xsl:value-of select="."/>
+			</eterms:end-page>
+		</xsl:if>
 	</xsl:template>
 	<xsl:template match="issuenr">
 		<eterms:issue>
@@ -2649,6 +3004,11 @@
 		</xsl:if>
 		<xsl:if test="exists(datepublished) and datepublished != ''">
 			<xsl:choose>
+				<xsl:when test="$import-name = 'MPINEURO' and exists(../identifiers/identifier[@comment != '' and @type = 'doi'])">
+					<xsl:element name="eterms:published-online">
+						<xsl:value-of select="datepublished"/>
+					</xsl:element>
+				</xsl:when>
 				<xsl:when test="pubstatus = 'accepted'">
 					<xsl:element name="dcterms:dateAccepted">
 						<xsl:value-of select="datepublished"/>

@@ -30,8 +30,15 @@
 
 package de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
@@ -40,6 +47,7 @@ import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationTy
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsType;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Configurable;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
@@ -65,6 +73,9 @@ public class CommonTransformationInterface implements Transformation, Configurab
     
     private Util util;
     private CommonTransformation commonTrans;
+    
+    private Map<String, List<String>> properties = null;
+    private Map<String, String> configuration = null;
     
     /**
      * Public constructor.
@@ -193,6 +204,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
     {
         byte[] result = null;
         boolean supported = false;
+        this.configuration = configuration;
         
         if (srcFormat.getName().toLowerCase().startsWith("escidoc"))
         {
@@ -264,7 +276,7 @@ public class CommonTransformationInterface implements Transformation, Configurab
         //TODO 
         if (trgFormat.getName().toLowerCase().startsWith("escidoc"))
         {       
-            result = this.commonTrans.transformBibtexToEscidoc(src, srcFormat, trgFormat, service);
+            result = this.commonTrans.transformBibtexToEscidoc(src, srcFormat, trgFormat, service, configuration);
             if (result != null)
             {
                 supported = true;
@@ -332,15 +344,47 @@ public class CommonTransformationInterface implements Transformation, Configurab
 
     public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception
     {
-        // TODO Auto-generated method stub
-        return null;
+        if (configuration == null)
+        {
+            init();
+        }
+
+        return configuration;
+    }
+
+    private void init() throws IOException, FileNotFoundException, URISyntaxException
+    {
+        configuration = new LinkedHashMap<String, String>();
+        properties = new HashMap<String, List<String>>();
+        Properties props = new Properties();
+        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.bibtex.configuration.filename")));
+        for (Object key : props.keySet())
+        {
+            if (!"configuration".equals(key.toString()))
+            {
+                String[] values = props.getProperty(key.toString()).split(",");
+                properties.put(key.toString(), Arrays.asList(values));
+            }
+            else
+            {
+                String[] confValues = props.getProperty("configuration").split(",");
+                for (String field : confValues)
+                {
+                    String[] fieldArr = field.split("=", 2);
+                    configuration.put(fieldArr[0], fieldArr[1] == null ? "" : fieldArr[1]);
+                }
+            }
+        }
     }
 
     public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key) throws Exception
     {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    
+        if (properties == null)
+        {
+            init();
+        }
+
+        return properties.get(key);
+    }    
     
 }

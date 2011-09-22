@@ -15,6 +15,11 @@
 		<rdf:RDF>
 		
 			<xsl:comment>Found <xsl:value-of select="count(//excel:Row)"/> rows.</xsl:comment>
+			
+			<!-- Check if there are more than one worksheets -->
+			<xsl:if test="count(//excel:Worksheet) != 1"> 
+				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:WrongNumberOfWorksheets' ), 'There must be only one Worksheet.')"/>
+			</xsl:if>
 		
 			<xsl:for-each select="//excel:Row">
 
@@ -223,7 +228,7 @@
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="string-length(//excel:Row[$pos]/excel:Cell[1]/excel:Data) = 0 or //excel:Row[$pos]/@ss:Index != ''"/>
-			<xsl:otherwise>
+			<xsl:when test="normalize-space(//excel:Row[$pos]/excel:Cell[1]/excel:Data) != 'Nachname'">
 				<dcterms:alternative>
 					<xsl:value-of select="normalize-space(//excel:Row[$pos]/excel:Cell[1]/excel:Data)"/>
 					<xsl:text>, </xsl:text>
@@ -243,7 +248,7 @@
 						<xsl:with-param name="direction">backward</xsl:with-param>
 					</xsl:call-template>
 				</xsl:if>
-			</xsl:otherwise>
+			</xsl:when>
 		</xsl:choose>
 	
 	</xsl:template>

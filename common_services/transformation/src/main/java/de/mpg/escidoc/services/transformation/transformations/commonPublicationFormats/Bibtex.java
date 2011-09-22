@@ -33,8 +33,11 @@ package de.mpg.escidoc.services.transformation.transformations.commonPublication
 import java.io.StringReader;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import bibtex.dom.BibtexEntry;
 import bibtex.dom.BibtexFile;
@@ -51,6 +54,7 @@ import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
@@ -59,9 +63,11 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.transformation.Util;
 
 /**
  * Implementation of BibTex transformation.
@@ -74,12 +80,15 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 public class Bibtex
 {
     private final Logger logger = Logger.getLogger(Bibtex.class);
+    
+    private Map<String, String> configuration = null;
 
     /**
      * Public constructor.
      */
-    public Bibtex()
-    {       
+    public Bibtex(Map<String, String> configuration)
+    {
+        this.configuration = configuration;
     }
     
     /**
@@ -99,7 +108,7 @@ public class Bibtex
         catch (Exception e)
         {
             this.logger.error("Error parsing BibTex record.");
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
 
         PubItemVO itemVO = new PubItemVO();
@@ -284,9 +293,10 @@ public class Bibtex
                 }
 
                 // year, month
+                String dateString = null;
                 if (fields.get("year") != null)
                 {
-                    String dateString = BibTexUtil.bibtexDecode(fields.get("year").toString());
+                    dateString = BibTexUtil.bibtexDecode(fields.get("year").toString());
                     if (fields.get("month") != null)
                     {
                         String month = BibTexUtil.parseMonth(fields.get("month").toString());
@@ -343,7 +353,7 @@ public class Bibtex
                             }
                         }
                     }
-                    if (fields.get("author") instanceof BibtexPerson)
+                    else if (fields.get("author") instanceof BibtexPerson)
                     {
                         BibtexPerson author = (BibtexPerson) fields.get("author");
                         addCreator(
@@ -359,7 +369,7 @@ public class Bibtex
                         try
                         {
                             decoder = new AuthorDecoder(
-                                    BibTexUtil.bibtexDecode(fields.get("author").toString()));
+                                    BibTexUtil.bibtexDecode(fields.get("author").toString(), false), true);
 
                             if (decoder.getBestFormat() != null)
                             {
@@ -378,6 +388,83 @@ public class Bibtex
                                     {
                                         personVO.setGivenName(author.getInitial());
                                     }
+                                    
+                                    if (configuration != null && "true".equals(configuration.get("CoNE")) && ("false".equals(configuration.get("use-brackets-as-cone-indicator")) || (author.getTags().get("brackets") != null)))
+                                    {
+                                        String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
+                                        Node coneEntries = Util.queryConeExact("persons", query, (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
+                                        Node coneNode = coneEntries.getFirstChild().getFirstChild();
+                                        if (coneNode != null)
+                                        {
+                                            Node currentNode = coneNode.getFirstChild();
+                                            boolean first = true;
+                                            while (currentNode != null)
+                                            {
+                                                if (currentNode.getNodeType() == Node.ELEMENT_NODE && first)
+                                                {
+                                                    first = false;
+                                                    Node coneEntry = currentNode;
+                                                    String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
+                                                    personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
+                                                    for (int i = 0; i < coneEntry.getChildNodes().getLength(); i++)
+                                                    {
+                                                        Node posNode = coneEntry.getChildNodes().item(i);
+                                                        if ("escidoc:position".equals(posNode.getNodeName()))
+                                                        {
+                                                            String from = null;
+                                                            String until = null;
+                                                            String name = null;
+                                                            String id = null;
+                                                            
+                                                            Node node = posNode.getFirstChild().getFirstChild();
+                                                            
+                                                            while (node != null)
+                                                            {
+                                                                if ("eprints:affiliatedInstitution".equals(node.getNodeName()))
+                                                                {
+                                                                    name = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                else if ("escidoc:start-date".equals(node.getNodeName()))
+                                                                {
+                                                                    from = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                else if ("escidoc:end-date".equals(node.getNodeName()))
+                                                                {
+                                                                    until = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                else if ("dc:identifier".equals(node.getNodeName()))
+                                                                {
+                                                                    id = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                node = node.getNextSibling();
+                                                            }
+                                                            if (smaller(from, dateString) && smaller(dateString, until))
+                                                            {
+                                                                OrganizationVO org = new OrganizationVO();
+                                                                org.setName(new TextVO(name));
+                                                                org.setIdentifier(id);
+                                                                personVO.getOrganizations().add(org);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                else if (currentNode.getNodeType() == Node.ELEMENT_NODE)
+                                                {
+                                                    throw new RuntimeException("Ambigous CoNE entries for " + query);
+                                                }
+                                                currentNode = currentNode.getNextSibling();
+                                            }
+                                            if (first)
+                                            {
+                                                throw new RuntimeException("Missing CoNE entry for " + query);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            throw new RuntimeException("Missing CoNE entry for " + query);
+                                        }
+                                    }
+                                    
                                     if (affiliation != null)
                                     {
                                         OrganizationVO organization = new OrganizationVO();
@@ -394,7 +481,7 @@ public class Bibtex
                         }
                         catch (Exception e)
                         {
-                            this.logger.error("An error ocuured while getting field 'author'.");
+                            this.logger.error("An error occured while getting field 'author'.", e);
                             throw new RuntimeException(e);
                         }
                     }
@@ -568,7 +655,7 @@ public class Bibtex
                 if (fields.get("subtitle") != null)
                 {
                     mds.getAlternativeTitles().add(
-                            new TextVO(BibTexUtil.bibtexDecode(fields.get("language").toString())));
+                            new TextVO(BibTexUtil.bibtexDecode(fields.get("subtitle").toString())));
                 }
 
                 // url is now mapped to locator
@@ -600,6 +687,48 @@ public class Bibtex
                 {
                     mds.getSources().add(sourceVO);
                 }
+                
+                // New mapping for MPIS
+                // DOI
+                if (fields.get("DOI") != null)
+                {
+                    mds.getIdentifiers().add(
+                      new IdentifierVO(
+                              IdentifierVO.IdType.DOI,
+                              BibTexUtil.bibtexDecode(fields.get("DOI").toString())));
+                }
+                
+                // eid
+                if (fields.get("eid") != null)
+                {
+                    if (mds.getSources().size() == 1)
+                    {
+                        mds.getSources().get(0).setSequenceNumber(BibTexUtil.bibtexDecode(fields.get("eid").toString()));
+                    }
+                }
+                
+                // rev
+                if (fields.get("rev") != null)
+                {
+                    if ("Peer".equals(BibTexUtil.bibtexDecode(fields.get("rev").toString())))
+                    {
+                        mds.setReviewMethod(ReviewMethod.PEER);
+                    }
+                    else if ("No review".equals(BibTexUtil.bibtexDecode(fields.get("rev").toString())))
+                    {
+                        mds.setReviewMethod(ReviewMethod.NO_REVIEW);
+                    }
+                }
+                
+                // MPG-Affil
+                if (fields.get("MPG-Affil") != null)
+                {
+                    if ("Peer".equals(BibTexUtil.bibtexDecode(fields.get("MPG-Affil").toString())))
+                    {
+                        // TODO
+                    }
+                }
+                
             }
             else if (object instanceof BibtexToplevelComment)
             {
@@ -639,6 +768,21 @@ public class Bibtex
                 + (person.getLineage() != null ? " " + person.getLineage() : "")
                 + (person.getPreLast() != null ? ", " + person.getPreLast() : "")));
         personVO.setGivenName(BibTexUtil.bibtexDecode(person.getFirst()));
+        
+        if (configuration != null && "true".equals(configuration.get("CoNE")))
+        {
+            String query = personVO.getFamilyName() + " " + personVO.getGivenName() + " " + (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : "");
+            List<String> coneEntries = Util.queryConeForJava("persons", query);
+            if (coneEntries.size() == 1)
+            {
+                personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneEntries.get(0)));
+            }
+            else
+            {
+                throw new RuntimeException("Ambigous CoNE entry for " + query + ": " + coneEntries);
+            }
+        }
+        
         if (affiliation != null || affiliationAddress != null)
         {
             OrganizationVO organization = new OrganizationVO();
@@ -650,12 +794,29 @@ public class Bibtex
             }
             catch (Exception e)
             {
-                throw new RuntimeException();
+                throw new RuntimeException(e);
             }
 
             personVO.getOrganizations().add(organization);
         }
         CreatorVO creatorVO = new CreatorVO(personVO, role);
         publicationVO.getCreators().add(creatorVO);
+    }
+    /**
+     * Checks if date1 is before date2.
+     * 
+     * @param date1 A date in one of the formats "YYYY", "YYYY-MM" or "YYYY-MM-DD"
+     * @param date2 A date in one of the formats "YYYY", "YYYY-MM" or "YYYY-MM-DD"
+     * @return Returns true if date1 is before date2
+     */
+    private boolean smaller(String date1, String date2)
+    {
+        if (date1 == null || "".equals(date1) || date2 == null || "".equals(date2))
+        {
+            return true;
+        }
+        date1 = (date1 + "-01-01").substring(0, 10);
+        date2 = (date2 + "-ZZ-ZZ").substring(0, 10);
+        return date1.compareTo(date2) <= 0;
     }
 }

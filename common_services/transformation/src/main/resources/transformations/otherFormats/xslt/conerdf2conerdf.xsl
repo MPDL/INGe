@@ -44,6 +44,8 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
+		<!-- <xsl:message><xsl:value-of select="$ou"/></xsl:message>
+		<xsl:message><xsl:value-of select="count($ou-list//mdou:organizational-unit[normalize-space(dc:title) = $ou])"/></xsl:message> -->
 		<xsl:if test="normalize-space($ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid) = ''">
 			<xsl:message>ERROR with "<xsl:value-of select="$ou"/>"</xsl:message>
 		</xsl:if>

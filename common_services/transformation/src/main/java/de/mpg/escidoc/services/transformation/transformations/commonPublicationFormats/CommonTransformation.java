@@ -144,12 +144,12 @@ public class CommonTransformation
      * @return bibtex as byte[]
      * @throws RuntimeException
      */
-    public byte[] transformBibtexToEscidoc(byte[] src, Format srcFormat, Format trgFormat, String service)
+    public byte[] transformBibtexToEscidoc(byte[] src, Format srcFormat, Format trgFormat, String service, Map<String, String> configuration)
         throws RuntimeException
     {
         byte[] escidoc = null;
        
-        Bibtex bibtexTrans = new Bibtex();
+        Bibtex bibtexTrans = new Bibtex(configuration);
         try
         {
             escidoc = bibtexTrans.getBibtex(new String(src)).getBytes("UTF-8");

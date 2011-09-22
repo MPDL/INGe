@@ -233,12 +233,8 @@ public class EDocImport extends DefaultHandler implements Transformation, Config
             transformer.setParameter("root-ou", PropertyReader.getProperty("escidoc.pubman.root.organisation.id"));
             transformer.setParameter("source-name", srcFormat.getName());
             
-            
             transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
             transformer.transform(new StreamSource(new StringReader(newXml.toString())), new StreamResult(result));
-            System.out.println("done!");
-            
-            System.out.println("Finished!");
             
             return result.toString().getBytes(trgFormat.getEncoding());
             

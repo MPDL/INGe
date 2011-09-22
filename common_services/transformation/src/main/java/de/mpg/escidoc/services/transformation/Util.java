@@ -41,7 +41,9 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -329,7 +331,7 @@ public class Util
             document.appendChild(element);
             
             queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
-                 + model + "/query?format=jquery&q=" + URLEncoder.encode(query, "ISO-8859-15");
+                 + model + "/query?format=jquery&q=" + URLEncoder.encode(query, "UTF-8");
             String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                 + model + "/resource/$1?format=rdf";
             HttpClient client = new HttpClient();
@@ -391,7 +393,62 @@ public class Util
             //throw new RuntimeException(e);
         }
     }
-    
+
+    public static List<String> queryConeForJava(String model, String query)
+    {
+
+        List<String> returnSet = new ArrayList<String>();
+        String queryUrl = null;
+        try
+        {
+            System.out.println("queryCone: " + model);
+            
+            queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
+                 + model + "/query?format=jquery&q=" + URLEncoder.encode(query, "UTF-8");
+            HttpClient client = new HttpClient();
+            GetMethod method = new GetMethod(queryUrl);
+            
+            String coneSession = getConeSession();
+            
+            if (coneSession != null)
+            {
+                method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
+            }
+            ProxyHelper.executeMethod(client, method);
+            
+            if (method.getStatusCode() == 200)
+            {
+                String[] results = method.getResponseBodyAsString().split("\n");
+                for (String result : results)
+                {
+                    if (!"".equals(result.trim()))
+                    {
+                        String nextId = result.split("\\|")[1];
+                        if (!returnSet.contains(nextId))
+                        {
+                            returnSet.add(nextId);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                logger.error("Error querying CoNE: Status "
+                        + method.getStatusCode() + "\n" + method.getResponseBodyAsString());
+            }
+            
+            return returnSet;
+        }
+        catch (Exception e)
+        {
+            logger.error("Error querying CoNE service. This is normal during unit tests. (" + queryUrl +
+                    ") .Otherwise it should be clarified if any measures have to be taken.");
+            logger.debug("Stacktrace", e);
+            return null;
+            //throw new RuntimeException(e);
+        }
+    }
+
     public static String getConeSession() throws Exception
     {
         long now = new Date().getTime();
@@ -459,7 +516,7 @@ public class Util
             
             String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                  + model + "/query?format=jquery&dc:title=\"" + URLEncoder.encode(name, "UTF-8")
-                 + "\"&escidoc:position/eprints:affiliatedInstitution=" + URLEncoder.encode(ou, "UTF-8");
+                 + "\"&escidoc:position/eprints:affiliatedInstitution=" + URLEncoder.encode(ou, "UTF-8") + "";
             String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                 + model + "/resource/$1?format=rdf";
             HttpClient client = new HttpClient();
@@ -491,25 +548,30 @@ public class Util
                 if (method.getStatusCode() == 200)
                 {
                     results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
+                    Set<String> oldIds = new HashSet<String>();
                     for (String result : results)
                     {
                         if (!"".equals(result.trim()))
                         {
                             String id = result.split("\\|")[1];
-                            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
-
-                            ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
-                            client.executeMethod(detailMethod);
-                            logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned " + detailMethod.getResponseBodyAsString());
-                            if (detailMethod.getStatusCode() == 200)
+                            if (!oldIds.contains(id))
                             {
-                                Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
-                                element.appendChild(document.importNode(details.getFirstChild(), true));
-                            }
-                            else
-                            {
-                                logger.error("Error querying CoNE: Status "
-                                        + detailMethod.getStatusCode() + "\n" + detailMethod.getResponseBodyAsString());
+                                GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
+    
+                                ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
+                                client.executeMethod(detailMethod);
+                                logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned " + detailMethod.getResponseBodyAsString());
+                                if (detailMethod.getStatusCode() == 200)
+                                {
+                                    Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
+                                    element.appendChild(document.importNode(details.getFirstChild(), true));
+                                }
+                                else
+                                {
+                                    logger.error("Error querying CoNE: Status "
+                                            + detailMethod.getStatusCode() + "\n" + detailMethod.getResponseBodyAsString());
+                                }
+                                oldIds.add(id);
                             }
                         }
                     }
