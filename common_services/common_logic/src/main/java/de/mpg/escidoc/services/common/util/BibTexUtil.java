@@ -54,6 +54,7 @@ public class BibTexUtil
     private static Logger logger = Logger.getLogger(BibTexUtil.class);
 
     public static final String ESCAPE_CHARACTERS = "$&%#_";
+    public static final String HOPEFULLY_UNUSED_TOKEN = "<<<!!HOPEFULLY_UNUSED_TOKEN!!>>>";
 
     /**
      * Enum that lists all BibTeX genres.
@@ -62,7 +63,7 @@ public class BibTexUtil
     {
         article, book, booklet, conference, inbook, incollection, inproceedings,
         manual, mastersthesis, misc, phdthesis, proceedings, techreport, unpublished,
-        webpage
+        webpage, collection, talk, poster
     }
 
     /**
@@ -79,7 +80,7 @@ public class BibTexUtil
         genreMapping.put(BibTexUtil.Genre.inbook, MdsPublicationVO.Genre.BOOK_ITEM);
         genreMapping.put(BibTexUtil.Genre.incollection, MdsPublicationVO.Genre.BOOK_ITEM);
         genreMapping.put(BibTexUtil.Genre.inproceedings, MdsPublicationVO.Genre.CONFERENCE_PAPER);
-        genreMapping.put(BibTexUtil.Genre.manual, MdsPublicationVO.Genre.OTHER);
+        genreMapping.put(BibTexUtil.Genre.manual, MdsPublicationVO.Genre.MANUAL);
         genreMapping.put(BibTexUtil.Genre.mastersthesis, MdsPublicationVO.Genre.THESIS);
         genreMapping.put(BibTexUtil.Genre.misc, MdsPublicationVO.Genre.OTHER);
         genreMapping.put(BibTexUtil.Genre.phdthesis, MdsPublicationVO.Genre.THESIS);
@@ -88,6 +89,11 @@ public class BibTexUtil
         genreMapping.put(BibTexUtil.Genre.unpublished, MdsPublicationVO.Genre.OTHER);
         
         genreMapping.put(BibTexUtil.Genre.webpage, MdsPublicationVO.Genre.OTHER);
+        
+        genreMapping.put(BibTexUtil.Genre.collection, MdsPublicationVO.Genre.PROCEEDINGS);
+        
+        genreMapping.put(BibTexUtil.Genre.talk, MdsPublicationVO.Genre.TALK_AT_EVENT);
+        genreMapping.put(BibTexUtil.Genre.poster, MdsPublicationVO.Genre.POSTER);
     }
 
     /**
@@ -568,6 +574,17 @@ public class BibTexUtil
      */
     public static String bibtexDecode(String text)
     {
+        return bibtexDecode(text, true);
+    }
+    /**
+     * Translates from BibTeX to normalized UTF-8.
+     * 
+     * @param text A BibTeX encoded string.
+     * @param stripBraces Indicates whether empty braces "{}" should be removed as well.
+     * @return A UTF-8 encoded string.
+     */
+    public static String bibtexDecode(String text, boolean stripBraces)
+    {
         for (String element : encodingTable.keySet())
         {
             text = text.replace(element, encodingTable.get(element));
@@ -575,7 +592,8 @@ public class BibTexUtil
 
         // normalize
         text = text.replaceAll("[ \\t][ \\t]+", " ").replaceAll("\\n ", "\n");
-        return deEscapeCharacters(stripBraces(text));
+        text = stripBraces(text, stripBraces);
+        return deEscapeCharacters(text);
     }
 
     /**
@@ -614,8 +632,12 @@ public class BibTexUtil
      * @param text A BibTeX encoded string.
      * @return A string without braces.
      */
-    public static String stripBraces(String text)
+    public static String stripBraces(String text, boolean removeEmptyBraces)
     {
+        if (!removeEmptyBraces)
+        {
+            text = text.replace("{}", HOPEFULLY_UNUSED_TOKEN);
+        }
         if (text.startsWith("\"") && text.endsWith("\""))
         {
             text = text.substring(1, text.length() - 1);
@@ -636,6 +658,10 @@ public class BibTexUtil
             {
                 break;
             }
+        }
+        if (!removeEmptyBraces)
+        {
+            text = text.replace(HOPEFULLY_UNUSED_TOKEN, "{}");
         }
         return text.trim();
     }

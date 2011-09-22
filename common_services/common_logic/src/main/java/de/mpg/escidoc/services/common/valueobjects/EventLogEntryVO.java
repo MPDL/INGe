@@ -6,7 +6,7 @@ public class EventLogEntryVO extends ValueObject {
 
     public enum EventType
     {
-        CREATE, UPDATE, SUBMIT, RELEASE, WITHDRAW, IN_REVISION
+        CREATE, UPDATE, SUBMIT, RELEASE, WITHDRAW, IN_REVISION, ASSIGN_VERSION_PID
     }
     
     private EventType type;

@@ -106,6 +106,7 @@ public class EmailHandlingBean implements EmailHandling
              Properties props = System.getProperties();
              props.put("mail.smtp.host", smtpHost); 
              props.put("mail.smtp.auth", withAuth);
+             props.put("mail.smtp.starttls.enable", "true");
             //props.put("mail.transport.protocol", "smtp");
             //props.put("mail.from", senderAddress);
             //props.put("mail.user", usr);
@@ -210,7 +211,7 @@ public class EmailHandlingBean implements EmailHandling
             tr.close(); */
             
             // Send the message
-            Transport.send(message);      
+            Transport.send(message);
             
             status = "sent";
             logger.debug("Email sent!");

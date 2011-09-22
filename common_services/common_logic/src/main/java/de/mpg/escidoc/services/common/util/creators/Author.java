@@ -29,6 +29,9 @@
 
 package de.mpg.escidoc.services.common.util.creators;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Bean object to hold an author's data.
  *
@@ -45,6 +48,8 @@ public class Author
     private String title = null;
     private String prefix = null;
     private AuthorFormat format = null;
+    
+    private Map<String, String> tags = new HashMap<String, String>();
 
     public String getSurname()
     {
@@ -222,6 +227,11 @@ public class Author
     public void setFormat(AuthorFormat format)
     {
         this.format = format;
+    }
+
+    public Map<String, String> getTags()
+    {
+        return tags;
     }
 
 }

@@ -1500,6 +1500,10 @@ public class JiBXHelper
         {
             return EventLogEntryVO.EventType.IN_REVISION;
         }
+        else if ("assignVersionPid".equals(enumValue))
+        {
+            return EventLogEntryVO.EventType.ASSIGN_VERSION_PID;
+        }
         
         return type; // null is a possible return value
     }

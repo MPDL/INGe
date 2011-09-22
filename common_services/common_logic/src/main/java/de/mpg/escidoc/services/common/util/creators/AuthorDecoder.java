@@ -89,6 +89,7 @@ public class AuthorDecoder
 
     }
 
+    
     /**
      * Constructor that starts the processing of a given author string.
      *
@@ -97,7 +98,19 @@ public class AuthorDecoder
      */
     public AuthorDecoder(String authors) throws Exception
     {
-        //Remove newlines that have a seperator before or after it
+         this(authors, false);
+    }
+    
+    /**
+     * Constructor that starts the processing of a given author string.
+     *
+     * @param authors The author string to be parsed.
+     * @param bestOnly Indicates if only the first (and best) result should be evaluated.
+     * @throws Exception Any Exception.
+     */
+    public AuthorDecoder(String authors, boolean bestOnly) throws Exception
+    {
+        //Remove newlines that have a separator before or after it
 
 //        //replace newlines before or after commas
 //        authors = authors.replaceAll(",\\s*\\n\\s*", ", ");
@@ -144,10 +157,14 @@ public class AuthorDecoder
                 if (authorList != null)
                 {
                     logger.debug("Pattern found!");
+                    analyzeAuthors(authorList);
                     authorListList.add(authorList);
                     if (bestFormat == null)
                     {
                         bestFormat = authorFormat;
+                        if (bestOnly) {
+                            break;
+                        }
                     }
                 }
             }
@@ -157,6 +174,20 @@ public class AuthorDecoder
             }
         }
     }
+
+    private void analyzeAuthors(List<Author> authorList)
+    {
+        for (Author author : authorList)
+        {
+            if (author.getSurname().endsWith("{}"))
+            {
+                author.setSurname(author.getSurname().replace("{}", ""));
+                author.getTags().put("brackets", "true");
+            }
+        }
+    }
+
+
 
     public void displayAuthors()
     {
