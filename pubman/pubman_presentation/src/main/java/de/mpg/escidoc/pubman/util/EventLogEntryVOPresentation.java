@@ -80,6 +80,8 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO
                     return labelBundle.getString("ViewItemLog_lblWithdraw");
                 case IN_REVISION:
                     return labelBundle.getString("ViewItemLog_lblInRevision");
+                case ASSIGN_VERSION_PID:
+                    return labelBundle.getString("ViewItemLog_lblAssignVersionPid");
                     
             }
         }

@@ -227,7 +227,7 @@ public class BrowseBySessionBean extends FacesBean
     }
 
     /**
-     * Call the cone service to retrive all browse by values.
+     * Call the cone service to retrieve all browse by values.
      * @param type, type of the cone request (persons, subjects, journals)
      * @return
      */
