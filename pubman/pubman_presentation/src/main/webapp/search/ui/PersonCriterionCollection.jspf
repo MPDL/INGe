@@ -92,7 +92,7 @@ All rights reserved. Use is subject to license terms.
 							<h:selectBooleanCheckbox id="personCriterionBean_searchAuthor" value="#{personCriterionBean.searchAuthor}" />
 							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_AUTHOR}" for="personCriterionBean_searchAuthor" title="#{lbl.ENUM_CREATORROLE_AUTHOR}" />
 						</span>
-						<span name="checkboxDoubleContainer" style="display:none;">
+						<span class="checkboxDoubleContainer" style="display:none;">
 							<span class="large_checkbox tiny_marginRIncl">
 								<h:selectBooleanCheckbox id="personCriterionBean_searchEditor" value="#{personCriterionBean.searchEditor}" />
 								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_EDITOR}" for="personCriterionBean_searchEditor" title="#{lbl.ENUM_CREATORROLE_EDITOR}" />

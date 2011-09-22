@@ -36,7 +36,7 @@
 		<h:outputText value="#{lbl.adv_search_lbHeaderCollection}" />
 	</h3>
 	<span class="seperator"></span>
-	<div class="free_area0 itemBlockContent endline">
+	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 	
 		<tr:iterator id="contextCriterion" rows="0" var="contextCriterionBean" value="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.contextCriterionIterator}">
 	

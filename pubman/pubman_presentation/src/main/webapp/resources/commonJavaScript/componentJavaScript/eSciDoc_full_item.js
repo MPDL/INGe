@@ -168,7 +168,7 @@ function addFullItemFunctions() {
 	});
 	$('.showMoreCheckboxes').click(function() { 
 		$(this).hide();
-		var cont = $(this).parent().find('span[name="checkboxDoubleContainer"]');
+		var cont = $(this).parent().find('.checkboxDoubleContainer');
 		//if a container for checkboxDoubleGroup given the children gets visible status 
 		if (cont.length > 0) {
 			cont.show();
@@ -181,7 +181,7 @@ function addFullItemFunctions() {
 		if($(elem).find('.large_checkbox:gt(0)').find(':checked').length == 0) {
 			$(elem).find('.large_checkbox:gt(0)').hide();
 		} else {
-			$(elem).find('.showMoreCheckboxes').hide();
+//			$(elem).find('.showMoreCheckboxes').hide();
 		};
 	});
 	

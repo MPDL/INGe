@@ -96,7 +96,7 @@
 							<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedPrint" value="#{dateCriterionBean.searchPublishedPrint}" />
 							<h:outputLabel id="lblDateCriterionBean_searchPublishedPrint" value="#{lbl.adv_search_lblChkType_publishedpr}" for="dateCriterionBean_searchPublishedPrint" title="#{lbl.adv_search_lblChkType_publishedpr}" />
 						</span>
-						<span name="checkboxDoubleContainer" style="display:none;">
+						<span class="checkboxDoubleContainer" style="display:none;">
 							<span class="large_checkbox tiny_marginRIncl">
 								<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedOnline" value="#{dateCriterionBean.searchPublishedOnline}" />
 								<h:outputLabel id="lblDateCriterionBean_searchPublishedOnline" value="#{lbl.adv_search_lblChkType_publishedon}" for="dateCriterionBean_searchPublishedOnline" title="#{lbl.adv_search_lblChkType_publishedon}" />

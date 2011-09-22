@@ -52,7 +52,7 @@
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchArticle" value="#{genreCriterionBean.searchArticle}" />
 							<h:outputLabel title="#{tip.adv_search_lblChkGenre_article}" value="#{lbl.adv_search_lblChkGenre_article}" for="genreCriterionBean_searchArticle" />
 						</span>
-						<span name="checkboxDoubleContainer" style="display:none;">
+						<span class="checkboxDoubleContainer" style="display:none;">
 							<span class="large_checkbox tiny_marginRIncl">
 								<h:selectBooleanCheckbox id="genreCriterionBean_searchBook" value="#{genreCriterionBean.searchBook}" />
 								<h:outputLabel title="#{tip.adv_search_lblChkGenre_book}" value="#{lbl.adv_search_lblChkGenre_book}" for="genreCriterionBean_searchBook" />
@@ -195,13 +195,15 @@
 						<a class="medium_area0 xTiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>
 				</span>
+			<%--
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.addObject}" />
 					<tr:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size == 1}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}"/>
-<%-- 
+ 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{genreCriterionBean.clearCriterion}" />
---%>
+
 				</span>
+		--%>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{AdvancedSearchEdit.genreCriterionIterator.rowIndex > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -214,7 +216,7 @@
 							<h:selectBooleanCheckbox id="genreCriterionBean_searchArticlesMultiple" value="#{genreCriterionBean.searchArticle}" />
 							<h:outputLabel title="#{tip.adv_search_lblChkGenre_article}" value="#{lbl.adv_search_lblChkGenre_article}" for="genreCriterionBean_searchArticlesMultiple" />
 						</span>
-						<span name="checkboxDoubleContainer" style="display:none;">
+						<span class="checkboxDoubleContainer" style="display:none;">
 							<span class="large_checkbox tiny_marginRIncl">
 								<h:selectBooleanCheckbox id="genreCriterionBean_searchBooksMultiple" value="#{genreCriterionBean.searchBook}" />
 								<h:outputLabel title="#{tip.adv_search_lblChkGenre_book}" value="#{lbl.adv_search_lblChkGenre_book}" for="genreCriterionBean_searchBooksMultiple" />
@@ -397,7 +399,7 @@
 							<h:selectBooleanCheckbox id="degreeCriterionBean_diploma" value="#{degreeCriterionBean.searchDiploma}" />
 							<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_DIPLOMA}" />
 						</span>
-						<span name="checkboxDoubleContainer" style="display:none;">
+						<span class="checkboxDoubleContainer" style="display:none;">
 							<span class="large_checkbox tiny_marginRIncl">
 								<h:selectBooleanCheckbox id="degreeCriterionBean_master" value="#{degreeCriterionBean.searchMaster}" />
 								<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_MASTER}" />
@@ -426,10 +428,12 @@
 						<a class="medium_area0 xTiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>
 				</span>
+			<%--
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAddDegree" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.addObject}" />
 					<tr:commandButton id="btnRemoveDegree" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.size == 1}" action="#{AdvancedSearchEdit.degreeCriterionCollection.degreeCriterionManager.removeObject}"/>
 				</span>
+				 --%>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline noTopBorder itemLine" ></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection" >
