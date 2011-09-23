@@ -386,11 +386,15 @@
 
 
 .citeulikebookmark {
-    clip: rect(9px, 94px, 24px, 81px);
-    height: 24px;
-	margin-left:-7em;
-    margin-top: -0.6363em;
-    overflow: hidden;
+	float:right;
     position: absolute;
-    width: 94px;
+	clip: rect(0.8181em 8.5454em 2.1818em 7.3636em);
+    height: 24px;
+	width: 94px;
+	margin-left:-2em;
+    margin-top: -0.4545em;
+    overflow: hidden !important;
+}
+.citeulikebookmark img {
+	cursor:pointer;
 }
