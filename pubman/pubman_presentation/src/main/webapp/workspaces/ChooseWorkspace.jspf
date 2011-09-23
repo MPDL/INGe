@@ -48,7 +48,7 @@
 		<div class="free_area0 itemBlockContent endline">		
 			<div class="free_area0 endline itemLine firstLine">
 				<span class="quad_area0_p8 noPaddingTopBottom endline">
-					&#160;
+					<h:outputText value="#{lbl.chooseWorkspace_descQAWorkspace}" />
 					<br /><br />
 				</span>
 			</div>
@@ -76,7 +76,7 @@
 		<div class="free_area0 itemBlockContent endline">		
 			<div class="free_area0 endline itemLine firstLine">
 				<span class="quad_area0_p8 noPaddingTopBottom endline">
-					&#160;
+					<h:outputText value="#{lbl.chooseWorkspace_descImportWorkspace}" />
 					<br /><br />
 				</span>
 			</div>
@@ -104,7 +104,7 @@
 		<div class="free_area0 itemBlockContent endline">		
 			<div class="free_area0 endline itemLine firstLine">
 				<span class="quad_area0_p8 noPaddingTopBottom endline">
-					&#160;
+					<h:outputText value="#{lbl.chooseWorkspace_descYearbookWorkspace}" />
 					<br /><br />
 				</span>
 			</div>
@@ -132,7 +132,7 @@
 		<div class="free_area0 itemBlockContent endline">		
 			<div class="free_area0 endline itemLine firstLine">
 				<span class="quad_area0_p8 noPaddingTopBottom endline">
-					&#160;
+					<h:outputText value="#{lbl.chooseWorkspace_descYearbookModeratorWorkspace}" />
 					<br /><br />
 				</span>
 			</div>
@@ -160,7 +160,7 @@
 		<div class="free_area0 itemBlockContent endline">		
 			<div class="free_area0 endline itemLine firstLine">
 				<span class="quad_area0_p8 noPaddingTopBottom endline">
-					&#160;
+					<h:outputText value="#{lbl.chooseWorkspace_descReportWorkspace}" />
 					<br /><br />
 				</span>
 			</div>
