@@ -50,27 +50,33 @@
 			<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.isStatePending}"/>
 			</span>
 			<h:panelGroup styleClass="large_area0_p8 lineToolSection socialBookmarking" rendered="#{!ViewItemFull.isStatePending}">
-				<h:graphicImage id="imgSocialBookmarkingCiteULike" title="#{lbl.ViewItemFull_lblSocialBookmarking_CiteULike}" styleClass="min_imgArea sectionTool pointer" url="/resources/images/citeulike_32x32.png" onclick="citeULikeLink();"/>
+				<h:panelGroup layout="block" styleClass="sectionTool min_imgArea">
+					<h:panelGroup layout="block" styleClass="citeulikebookmark sectionTool">
+						<h:graphicImage id="imgSocialBookmarkingCiteULike" title="#{lbl.ViewItemFull_lblSocialBookmarking_CiteULike}" styleClass="pointer" url="http://static.citeulike.org/img/slogo.gif" height="28" width="112" onclick="citeULikeLink();"/>
+					</h:panelGroup>
+				</h:panelGroup>
 				<script type="text/javascript">
 					function citeULikeLink() {
 						window.open('http://www.citeulike.org/posturl?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'add','toolbar=no,width=720,height=755,scrollbars,resizable');
 					}
 				</script>
 				<!-- http://www.connotea.org/icon.png -->
-				<h:graphicImage id="imgSocialBookmarkingConnotea" title="#{lbl.ViewItemFull_lblSocialBookmarking_Connotea}" styleClass="min_imgArea sectionTool pointer" url="/resources/images/connotea_logo_32x32.png" onclick="connoteaLink();"/>
+				<h:graphicImage id="imgSocialBookmarkingConnotea" title="#{lbl.ViewItemFull_lblSocialBookmarking_Connotea}" styleClass="min_imgArea sectionTool pointer" url="http://www.connotea.org/icon.png" onclick="connoteaLink();"/>
 				<script type="text/javascript">
 					function connoteaLink() {
 						window.open('http://www.connotea.org/addpopup?continue=confirm&uri='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&usertitle='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'add','toolbar=no,width=720,height=755,scrollbars,resizable');
 					}
 				</script>
 				<!-- http://static.delicious.com/img/delicious.small.gif -->
-				<h:graphicImage id="imgSocialBookmarkingDelicious" title="#{lbl.ViewItemFull_lblSocialBookmarking_Delicious}" styleClass="min_imgArea sectionTool pointer" url="/resources/images/delicious_logo_32x32.png" onclick="deliciousLink();"/>
+				<h:graphicImage id="imgSocialBookmarkingDelicious" title="#{lbl.ViewItemFull_lblSocialBookmarking_Delicious}" styleClass="min_imgArea sectionTool pointer" url="http://static.delicious.com/img/delicious.small.gif" onclick="deliciousLink();"/>
 				<script type="text/javascript">
 					function deliciousLink() {
 						window.open('http://delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&amp;title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'), 'delicious','toolbar=no,width=550,height=550');
 						return false;
 					}
 				</script>
+				
+				
 			</h:panelGroup>
 		</div>
 
