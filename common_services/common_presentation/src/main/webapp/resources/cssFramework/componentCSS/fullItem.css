@@ -383,3 +383,14 @@
 	 background-color: green;
 }
 
+
+
+.citeulikebookmark {
+    clip: rect(9px, 94px, 24px, 81px);
+    height: 24px;
+	margin-left:-7em;
+    margin-top: -0.6363em;
+    overflow: hidden;
+    position: absolute;
+    width: 94px;
+}
