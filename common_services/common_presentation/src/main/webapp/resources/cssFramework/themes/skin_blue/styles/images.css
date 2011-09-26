@@ -795,7 +795,8 @@ body .wrapper {
 
 .authorCard {
     width: 2.83em;
-    height: 1.37em;
+    height: 1.3636em;
+	padding-top:0.1818em;
     background-image: url('../images/All_Info_Author_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;

@@ -371,19 +371,19 @@ body .wrapper {
 }
 
 .virrMediaTypeV {
-    background-image: url('../images/Virr_Media_TypeVolume_31_Static.gif');
+    background-image: url('../images/Virr_Media_TypeVolume_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .virrMediaTypeMG {
-    background-image: url('../images/Virr_Media_TypeMonographie_31_Static.gif');
+    background-image: url('../images/Virr_Media_TypeMonographie_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
 
 .virrMediaTypeM {
-    background-image: url('../images/Virr_Media_TypeMultivolume_31_Static.gif');
+    background-image: url('../images/Virr_Media_TypeMultivolume_31_Static.png');
     background-repeat: no-repeat;
     background-position: left;
 }
@@ -784,7 +784,8 @@ body .wrapper {
 
 .authorCard {
     width: 2.8181em;
-    height: 1.5454em;
+    height: 1.3636em;
+	padding-top:0.1818em;
     background-image: url('../images/All_Info_Author_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
@@ -833,25 +834,25 @@ body .wrapper {
 }
 
 .visibilityIcon {
-    background-image: url('../images/Virr_Visibility_EyeTrue_15_Active.gif');
+    background-image: url('../images/All_File_EyeTrue_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .visibilityIcon:hover, .visibilityIcon:focus {
-    background-image: url('../images/Virr_Visibility_EyeTrue_15_Hover.gif');
+    background-image: url('../images/All_File_EyeTrue_15_Hover.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .visibilityIcon:disabled {
-    background-image: url('../images/Virr_Visibility_EyeTrue_15_Deactivated.gif');
+    background-image: url('../images/All_File_EyeTrue_15_Deactivated.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .viewFileIcon {
-	background-image: url('../images/All_File_EyeTrue_15_Static.gif');
+	background-image: url('../images/All_File_EyeTrue_15_Static.png');
 	background-repeat: no-repeat;
 	background-position: bottom left;
 	padding-top:0.0909em;
