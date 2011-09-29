@@ -28,30 +28,16 @@
  */ 
 package test.framework.aa;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.StringTokenizer;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.rpc.ServiceException;
-
-import org.apache.axis.encoding.Base64;
-import org.apache.commons.httpclient.Cookie;
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
-import org.apache.commons.httpclient.cookie.CookieSpec;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import test.framework.TestBase;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
- * Testcases for the authentification service of the framework.
+ * Test cases for the authentification service of the framework.
  *
  * @author Peter (initial creation)
  * @author $Author$ (last modification)
@@ -60,18 +46,6 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class TestLoginLogout
 {    
-    private static final String LOGIN_URL ="/aa/j_spring_security_check";
-    protected static final String PROPERTY_USERNAME_SCIENTIST = "framework.scientist.username";
-    protected static final String PROPERTY_PASSWORD_SCIENTIST = "framework.scientist.password";
-    protected static final String PROPERTY_USERNAME_LIBRARIAN = "framework.librarian.username";
-    protected static final String PROPERTY_PASSWORD_LIBRARIAN = "framework.librarian.password";
-    protected static final String PROPERTY_USERNAME_AUTHOR = "framework.author.username";
-    protected static final String PROPERTY_PASSWORD_AUTHOR = "framework.author.password";
-    protected static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
-    protected static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
-    
-    private static final int NUMBER_OF_URL_TOKENS = 2;
-
     private static Logger logger = Logger.getLogger(TestLoginLogout.class);
     
 
@@ -82,7 +56,8 @@ public class TestLoginLogout
     public void login() throws Exception
     {
         long zeit = -System.currentTimeMillis();
-        AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
+        AdminHelper.loginUser(PropertyReader.getProperty(TestBase.PROPERTY_USERNAME_SCIENTIST), 
+                PropertyReader.getProperty(TestBase.PROPERTY_PASSWORD_SCIENTIST));
         zeit += System.currentTimeMillis(); 
         logger.info("login->" + zeit + "ms");
     }
@@ -93,17 +68,21 @@ public class TestLoginLogout
     @Test
     public void loginTwice() throws Exception
     {
-        String handle1 = AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
-        String user = ServiceLocator.getUserAccountHandler(handle1).retrieve("escidoc:user1"); 
-        String handle2 = AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
+        String scientistUserId = PropertyReader.getProperty(TestBase.PROPERTY_ID_SCIENTIST);
+        String handle1 = AdminHelper.loginUser(PropertyReader.getProperty(TestBase.PROPERTY_USERNAME_SCIENTIST), 
+                PropertyReader.getProperty(TestBase.PROPERTY_PASSWORD_SCIENTIST));
+        String user = ServiceLocator.getUserAccountHandler(handle1).retrieve(
+                scientistUserId); 
+        String handle2 = AdminHelper.loginUser(PropertyReader.getProperty(TestBase.PROPERTY_USERNAME_SCIENTIST), 
+                PropertyReader.getProperty(TestBase.PROPERTY_PASSWORD_SCIENTIST));
         
-        user = ServiceLocator.getUserAccountHandler(handle2).retrieve("escidoc:user1"); 
+        user = ServiceLocator.getUserAccountHandler(handle2).retrieve(scientistUserId); 
         // handle1 must still be valid
-        user = ServiceLocator.getUserAccountHandler(handle1).retrieve("escidoc:user1"); 
+        user = ServiceLocator.getUserAccountHandler(handle1).retrieve(scientistUserId); 
         // make handle2 invalid
         ServiceLocator.getUserManagementWrapper(handle2).logout();
         // handle1 must still be valid
-        user = ServiceLocator.getUserAccountHandler(handle1).retrieve("escidoc:user1"); 
+        user = ServiceLocator.getUserAccountHandler(handle1).retrieve(scientistUserId); 
     }
 
     /**
@@ -112,7 +91,8 @@ public class TestLoginLogout
     @Test
     public void logout() throws Exception
     {
-        String userHandle = AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
+        String userHandle = AdminHelper.loginUser(PropertyReader.getProperty(TestBase.PROPERTY_USERNAME_SCIENTIST), 
+                PropertyReader.getProperty(TestBase.PROPERTY_PASSWORD_SCIENTIST));
         long zeit = -System.currentTimeMillis();
         ServiceLocator.getUserManagementWrapper(userHandle).logout();
         zeit += System.currentTimeMillis(); 

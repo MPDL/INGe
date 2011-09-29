@@ -34,6 +34,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import test.framework.TestBase;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -54,7 +55,7 @@ public class TestRetrieveUserAccount extends TestBase
     @Test
     public void retrieveUserAcountById() throws Exception
     {
-        String id = USERID;
+        String id = PropertyReader.getProperty(PROPERTY_ID_SCIENTIST);
         long zeit = -System.currentTimeMillis();
         String user = ServiceLocator.getUserAccountHandler(userHandle).retrieve(id);
         zeit += System.currentTimeMillis();
@@ -98,7 +99,7 @@ public class TestRetrieveUserAccount extends TestBase
     @Test
     public void retrieveCurrentGrants() throws Exception
     {
-        String id = USERID;
+        String id = PropertyReader.getProperty(PROPERTY_ID_SCIENTIST);;
         long zeit = -System.currentTimeMillis();
         String grants = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(id);
         zeit += System.currentTimeMillis();

@@ -65,6 +65,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -81,15 +82,11 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
     private String userHandle;
     private static String TEST_FILE_ROOT = "xmltransforming/integration/transformContainerIntegrationTest/";
     private static String CONTAINER_FILE = TEST_FILE_ROOT + "container_with_members.xml";
-    private static final String CONTAINER_SCHEMA_FILE = "xsd/soap/container/0.7/container.xsd";
-    private static final String CONTAINER_LIST_SCHEMA_FILE = "xsd/soap/container/0.7/container-list.xsd";
     private static final String JPG_FARBTEST_FILE = TEST_FILE_ROOT + "farbtest_wasserfarben.jpg";
     
     private static final String PREDICATE_ISREVISIONOF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
     private static final String PREDICATE_FEDORARELATIONSHIP = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#fedoraRelationship";
     private static final String PREDICATE_ISMEMBEROF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isMemberOf";
-
-    private static final String WITHDRAWAL_COMMENT = "Withdrawal comment";
 
     /**
      * Get an {@link XmlTransforming} instance once.
@@ -114,8 +111,8 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
     {
         // get user handle for user "test_dep_scientist"
         userHandle = loginSystemAdministrator();
-        // use this handle to retrieve user "escidoc:user1"
-        String userXML = ServiceLocator.getUserAccountHandler(userHandle).retrieve("escidoc:user1");
+        // use this handle to retrieve user PROPERTY_USERNAME_SCIENTIST
+        String userXML = ServiceLocator.getUserAccountHandler(userHandle).retrieve(PROPERTY_USERNAME_SCIENTIST);
         // transform userXML to AccountUserVO
         user = xmlTransforming.transformToAccountUser(userXML);
         String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(user.getReference().getObjectId());
@@ -165,7 +162,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         assertEquals(null, container.getPid());
         assertNotNull(container.getVersion().getModificationDate());
         assertEquals("escidoc:persistent51", container.getContext().getObjectId());
-        assertEquals("escidoc:user42", container.getOwner().getObjectId());
+        assertEquals(PROPERTY_USERNAME_SCIENTIST, container.getOwner().getObjectId());
         assertTrue(2 == container.getMembers().size());
         MetadataSetVO md = container.getMetadataSets().get(0);
         assertTrue(md instanceof MdsPublicationVO);
@@ -261,7 +258,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         ContextRO ctx = new ContextRO();
         ctx.setObjectId("escidoc:persistent51");
         containerVOPreCreate.setContext(ctx);
-        containerVOPreCreate.setContentModel("escidoc:persistent4");
+        containerVOPreCreate.setContentModel(PropertyReader.getProperty(PROPERTY_CONTENT_PUBLICATION));
         
         MdsPublicationVO mds = getMdsPublication1();
         containerVOPreCreate.getMetadataSets().add(mds);
@@ -524,7 +521,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         // temporarelly using filter string, because FIZ very special parsing does not allow white spaces at certain places.
         String filterTMP = "<param><filter name=\"http://purl.org/dc/elements/1.1/identifier\"><id>"+objid1+"</id><id>"+objid2+"</id></filter></param>";
         logger.debug("Used filter to retrieve the containers: \n" + filterXML);
-        String containerListXML = ServiceLocator.getContainerHandler(userHandle).retrieveContainers(filterTMP);
+       String containerListXML = ServiceLocator.getContainerHandler(userHandle).retrieveContainers(filterMap); //todo
         logger.debug(containerListXML);
         assertXMLValid(containerListXML);
         List<? extends ContainerVO> containerList =

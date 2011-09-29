@@ -77,10 +77,6 @@
             <url>${escidoc.framework_access.framework.url}/axis/services/ReportHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/srw/search?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/JhoveHandlerService?wsdl</url>
-            <url>${escidoc.framework_access.framework.url}/axis/services/WorkflowDefinitionHandlerService?wsdl</url>
-            <url>${escidoc.framework_access.framework.url}/axis/services/WorkflowInstanceHandlerService?wsdl</url>
-            <url>${escidoc.framework_access.framework.url}/axis/services/WorkflowTemplateHandlerService?wsdl</url>
-            <url>${escidoc.framework_access.framework.url}/axis/services/WorkflowTypeHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/IngestHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/UserGroupHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/AdminHandlerService?wsdl</url>
@@ -161,22 +157,6 @@
             <mapping>
               <namespace>http://www.escidoc.de/services/JhoveHandlerService/0.1</namespace>
               <targetPackage>de.escidoc.www.services.tme</targetPackage>
-            </mapping>
-            <mapping>
-              <namespace>http://www.escidoc.de/services/WorkflowDefinitionHandlerService/0.1</namespace>
-              <targetPackage>de.escidoc.www.services.wm</targetPackage>
-            </mapping>
-            <mapping>
-              <namespace>http://www.escidoc.de/services/WorkflowInstanceHandlerService/0.1</namespace>
-              <targetPackage>de.escidoc.www.services.wm</targetPackage>
-            </mapping>
-            <mapping>
-              <namespace>http://www.escidoc.de/services/WorkflowTemplateHandlerService/0.1</namespace>
-              <targetPackage>de.escidoc.www.services.wm</targetPackage>
-            </mapping>
-            <mapping>
-              <namespace>http://www.escidoc.de/services/WorkflowTypeHandlerService/0.1</namespace>
-              <targetPackage>de.escidoc.www.services.wm</targetPackage>
             </mapping>
             <mapping>
               <namespace>http://www.escidoc.de/services/IngestHandlerService/0.1</namespace>

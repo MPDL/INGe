@@ -34,6 +34,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
@@ -41,6 +43,7 @@ import test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ContainerResultVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
@@ -62,6 +65,7 @@ public class TransformSearchResultTest extends XmlTransformingTestBase
     private static final String SEARCH_SAMPLE_FILE1 = TEST_FILE_ROOT + "search-result_sample.xml";
     private static final String SEARCH_SAMPLE_FILE2 = TEST_FILE_ROOT + "search-result_sample2.xml";
     private static final String SEARCH_SAMPLE_FILE3 = TEST_FILE_ROOT + "search-result_sample3.xml";
+    private static final String SEARCH_SAMPLE_FILE4 = TEST_FILE_ROOT + "search-retrieve-response_sample.xml";
     
     @Test
     public void testItemSearchResult() throws Exception
@@ -98,5 +102,23 @@ public class TransformSearchResultTest extends XmlTransformingTestBase
         assertTrue(((AffiliationResultVO) affiliationResultVO).getMetadataSets().size() == 1);
         assertTrue(((AffiliationResultVO) affiliationResultVO).getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO);
         assertEquals("MPI for the History of Science", ((MdsOrganizationalUnitDetailsVO)((AffiliationResultVO) affiliationResultVO).getMetadataSets().get(0)).getName());
+    }
+    
+    @Test
+    public void testContextListSearchRetrieveResponse() throws Exception
+    {
+        String searchResultXML = readFile(SEARCH_SAMPLE_FILE4);
+        List<ContextVO> contextListVO = xmlTransforming.transformToContextList(searchResultXML);
+        assertNotNull(contextListVO);
+        assertTrue(contextListVO.size() == 1);
+        
+        ContextVO contextVO = contextListVO.get(0);
+        assertTrue(contextVO instanceof ContextVO);
+        
+        assertEquals("Wrong Context name", contextVO.getName(), "PubMan Default Context");
+        assertEquals("Wrong Context Id", contextVO.getReference().getObjectId(), "escidoc:2001");
+        assertEquals("Wrong Context Created-by", contextVO.getCreator().getObjectId(), "escidoc:exuser1");
+        
+
     }
 }

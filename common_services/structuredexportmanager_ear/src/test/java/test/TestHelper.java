@@ -41,19 +41,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.StringTokenizer;
+import java.util.HashMap;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
-
-import org.apache.axis.encoding.Base64;
-import org.apache.commons.httpclient.Cookie;
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
-import org.apache.commons.httpclient.cookie.CookieSpec;
-import org.apache.commons.httpclient.methods.PostMethod;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.framework.AdminHelper;
@@ -72,13 +62,21 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class TestHelper
 {
 	
-	public static final String ITEMS_LIMIT = "50"; 
-	public static final String CONTENT_MODEL = "escidoc:persistent4"; 
+	public static final String ITEMS_LIMIT = "50";
+    /**
+     * Constants for queries.
+     */
+    private static final String SEARCH_RETRIEVE = "searchRetrieve";
+    private static final String QUERY = "query";
+    private static final String VERSION = "version";
+    private static final String OPERATION = "operation"; 
+    
+	public static String CONTENT_MODEL = null; 
 	public static String USER_NAME = null;
 	public static String USER_PASSWD = null; 
 	
 	/**
-	 * Initialize user credetials.
+	 * Initialize 
 	 */
 	public TestHelper() throws Exception
 	{
@@ -98,6 +96,14 @@ public class TestHelper
                 throw new RuntimeException("Property 'framework.scientist.password' not found.");
             }
 	    }
+	    if (CONTENT_MODEL == null)
+        {
+	        CONTENT_MODEL = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+            if (CONTENT_MODEL == null)
+            {
+                throw new RuntimeException("Property 'escidoc.framework_access.content-model.id.publication' not found.");
+            }
+        }
 	}
 	
     /**
@@ -203,16 +209,24 @@ public class TestHelper
     	
     	String userHandle = AdminHelper.loginUser(USER_NAME, USER_PASSWD); 
         ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
+        HashMap<String, String[]>  filterMap = new HashMap<String, String[]>();
+        String q1 = "\"/properties/public-status\"=released";
+        String q2 = "\"/properties/content-model \"=" + CONTENT_MODEL;
+        
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});
+        filterMap.put(QUERY, new String[]{q1 + " and " + q2});
+        
         // see here for filters: https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
-        String filter = 
+        /*String filter = 
         	"<param>" +
         		// escidoc content model
         		"<filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + CONTENT_MODEL + " </filter>" +
         		"<filter name=\"http://escidoc.de/core/01/properties/public-status\">released</filter>" +
         		// records limit	
         		"<limit>" + ITEMS_LIMIT + "</limit>" +
-        	"</param>";
-        return ch.retrieveItems(filter);
+        	"</param>";*/
+        return ch.retrieveItems(filterMap);
     
     }
     

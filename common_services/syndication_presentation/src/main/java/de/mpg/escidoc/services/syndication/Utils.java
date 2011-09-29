@@ -42,6 +42,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -117,6 +118,14 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  *
  */ 
 public class Utils {
+    
+    /**
+     * Constants for queries.
+     */
+    private static final String SEARCH_RETRIEVE = "searchRetrieve";
+    private static final String QUERY = "query";
+    private static final String VERSION = "version";
+    private static final String OPERATION = "operation"; 
 	
     private static Logger logger = Logger.getLogger(Utils.class);
 	
@@ -396,16 +405,24 @@ public class Utils {
 		}
 		logger.info("Organizational Unit List retrieval time: " + (System.currentTimeMillis() - start));
         
-		String filter = 
+		/*String filter = 
 			"<param>" + 
     			"<filter name=\"/properties/public-status\">opened</filter>" +
     			"<filter name=\"/properties/public-status\">closed</filter>" +
-    		"</param>";
+    		"</param>";*/
+		
+		HashMap<String, String[]>  filterMap = new HashMap<String, String[]>();
+        String q1 = "\"/properties/public-status\"=opened";
+        String q2 = "\"/properties/public-status\"=closed";
+        
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});
+        filterMap.put(QUERY, new String[]{q1 + " or " + q2});
 		
 		String orgUnitList;
 		try 
 		{
-			orgUnitList = ouh.retrieveOrganizationalUnits(filter);
+			orgUnitList = ouh.retrieveOrganizationalUnits(filterMap);
 		}
 		catch (Exception e) 
 		{

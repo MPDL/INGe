@@ -1,9 +1,7 @@
 
 package de.mpg.escidoc.services.common.valueobjects.intelligent.grants;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
 
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
@@ -53,28 +51,26 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class GrantList  extends CurrentGrants
 {
-    private List<Grant> grantList = new ArrayList<Grant>();
-    private Date lastModificationDate;
     private int numberOfRecords;
     private int limit;
     private int offset;
     
-   
-    /**
-     * Retrieves the grants for a given filter
-     * @param userHandle A user handle for authentication in the coreservice.
-     * @param filter The filter
-     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
-     */
-    public GrantList(String userHandle, String filter) throws RuntimeException
-    {
-        GrantList gl = Factory.retrieveGrants(userHandle, filter);
-        copyInFields(gl);
-    }
     
     public GrantList()
     {
         
+    }
+    
+    /**
+     * Retrieves the grants for a given filter
+     * @param userHandle A user handle for authentication in the coreservice.
+     * @param filter Map with filter conditions
+     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+     */
+    public GrantList(String userHandle, HashMap<String, String[]> filter) throws RuntimeException
+    {
+        GrantList gl = Factory.retrieveGrants(userHandle, filter);
+        copyInFields(gl);
     }
 
     public int getNumberOfRecords()
@@ -135,7 +131,13 @@ public class GrantList  extends CurrentGrants
             try
             {
                 UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
-                String filter = "<param><filter name=\"objectId\">" + objectId + "</filter><filter name=\"roleId\">" + roleId + "</filter><filter name=\"revokerId\"></filter><filter name=\"userId\"></filter></param>";
+                HashMap<String, String[]> filter = new HashMap<String, String[]>();
+                
+                filter.put("operation", new String[]{"searchRetrieve"});
+                filter.put("version", new String[]{"1.1"});
+                filter.put("query", new String[]{"\"objectId\"=" + objectId + " and " + "\"roleId\"=" + roleId});    
+                
+//                String filter = "<param><filter name=\"objectId\">" + objectId + "</filter><filter name=\"roleId\">" + roleId + "</filter><filter name=\"revokerId\"></filter><filter name=\"userId\"></filter></param>";
                 String grantListXml = uah.retrieveGrants(filter);
                 GrantList currentGrants = (GrantList) IntelligentVO.unmarshal(grantListXml, GrantList.class);
                    return currentGrants;
@@ -153,7 +155,7 @@ public class GrantList  extends CurrentGrants
          * @return The list of grants.
          * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
          */
-        private static GrantList retrieveGrants(String userHandle, String filter) throws RuntimeException
+        private static GrantList retrieveGrants(String userHandle, HashMap<String, String[]> filter) throws RuntimeException
         {
             try
             {

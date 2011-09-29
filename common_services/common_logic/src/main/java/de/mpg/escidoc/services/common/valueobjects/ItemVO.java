@@ -449,6 +449,19 @@ public class ItemVO extends ValueObject implements Searchable
     {
         this.contentModel = contentModel;
     }
+    
+    public void setContentModelHref(String contentModelHref)
+    {
+        if (contentModelHref == null)
+        {
+            return;
+        }
+        if (contentModelHref.contains("/"))
+        {
+            contentModelHref = contentModelHref.substring(contentModelHref.lastIndexOf("/") + 1);
+        }
+        this.setContentModel(contentModelHref);      
+    }
 
     public State getPublicStatus()
     {

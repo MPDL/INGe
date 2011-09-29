@@ -29,6 +29,8 @@
 
 package de.mpg.escidoc.services.util;
 
+import java.util.HashMap;
+
 import de.escidoc.www.services.om.ContextHandler;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -70,7 +72,7 @@ public class FrameworkUtil
         try
         {
             ContextHandler cHandler = ServiceLocator.getContextHandler(adminUserHandle);
-            return cHandler.retrieveContexts("<param></param>");
+            return cHandler.retrieveContexts(new HashMap<String, String[]>());
         }
         catch (Exception e)
         {

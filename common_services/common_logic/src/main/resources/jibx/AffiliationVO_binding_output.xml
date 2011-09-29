@@ -40,6 +40,7 @@
 		<structure field="reference" type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO"
 			usage="optional">
 			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="href" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 
 		<!-- Node: organizational-unit.@last-modification-date -->
@@ -77,8 +78,8 @@
 			<value style="element" name="has-children" ns="${xsd.soap.common.prop}" get-method="getHasChildren"/>
 
 		</structure>
-
-		<!-- Node: item.md-records -->
+		
+		<!-- Node: organizational-unit.md-records -->
 		<structure field="metadataSets" name="md-records" ns="${xsd.soap.common.mdrecords}"
 			marshaller="de.mpg.escidoc.services.common.xmltransforming.MetadataSetMarshaller">
 			

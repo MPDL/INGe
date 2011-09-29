@@ -47,8 +47,6 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class CleanupContextData extends TestBase
 {
-    private static final String FILTER_ALL = "<param></param>";
-
     private Logger logger = Logger.getLogger(getClass());
 
     /* (non-Javadoc)
@@ -64,9 +62,8 @@ public class CleanupContextData extends TestBase
      */
     @Test
     public void deleteContexts() throws Exception
-    {
-        String filter = FILTER_ALL;
-        String contexts = ServiceLocator.getContextHandler(userHandle).retrieveContexts(filter);
+    {      
+        String contexts = ServiceLocator.getContextHandler(userHandle).retrieveContexts(filterMap);
         logger.debug("Contexts=" + contexts);
 
         final String xPath = "//context-list/context";

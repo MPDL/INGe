@@ -6,7 +6,7 @@
                 xmlns:jfunc="java:de.mpg.escidoc.services.citationmanager.utils.XsltHelper"
                 xmlns:func="http://www.escidoc.de/citationstyle/functions"
                 xmlns:functx="http://www.functx.com"
-                xmlns:ei="http://www.escidoc.de/schemas/item/0.9"
+                xmlns:ei="http://www.escidoc.de/schemas/item/0.10"
                 xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5"
                 xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
                 xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"

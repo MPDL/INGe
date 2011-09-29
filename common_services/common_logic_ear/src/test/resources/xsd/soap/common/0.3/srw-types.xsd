@@ -3,12 +3,12 @@
 <!-- Version 1.1                                       -->
 <!-- 20 July 2004                                       -->
 <xsd:schema targetNamespace="http://www.loc.gov/zing/srw/" xmlns:diag="http://www.loc.gov/zing/srw/diagnostic/" xmlns:xcql="http://www.loc.gov/zing/cql/xcql/" xmlns="http://www.loc.gov/zing/srw/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
-  <xsd:import namespace="http://www.loc.gov/zing/cql/xcql/" schemaLocation="../../../common/0.4/xcql.xsd"/>
-  <xsd:import namespace="http://www.loc.gov/zing/srw/diagnostic/" schemaLocation="../../../common/0.4/diagnostics.xsd"/>
-  <xsd:import namespace="http://www.escidoc.de/schemas/container/0.8" schemaLocation="../../container/0.8/container.xsd" />
-  <xsd:import namespace="http://www.escidoc.de/schemas/context/0.7" schemaLocation="../../context/0.7/context.xsd" />
-  <xsd:import namespace="http://www.escidoc.de/schemas/item/0.9" schemaLocation="../../item/0.9/item.xsd"/>
-  <xsd:import namespace="http://www.escidoc.de/schemas/organizationalunit/0.8" schemaLocation="../../organizational-unit/0.8/organizational-unit.xsd" />
+  <xsd:import namespace="http://www.loc.gov/zing/cql/xcql/" schemaLocation="http://www.escidoc.org/schemas/common/0.4/xcql.xsd"/>
+  <xsd:import namespace="http://www.loc.gov/zing/srw/diagnostic/" schemaLocation="http://www.escidoc.org/schemas/common/0.4/diagnostics.xsd"/>
+  <xsd:import namespace="http://www.escidoc.de/schemas/container/0.8" schemaLocation="http://www.escidoc.org/schemas/soap/container/0.8/container.xsd" />
+  <xsd:import namespace="http://www.escidoc.de/schemas/context/0.7" schemaLocation="http://www.escidoc.org/schemas/soap/context/0.7/context.xsd" />
+  <xsd:import namespace="http://www.escidoc.de/schemas/item/0.9" schemaLocation="http://www.escidoc.org/schemas/soap/item/0.9/item.xsd"/>
+  <xsd:import namespace="http://www.escidoc.de/schemas/organizationalunit/0.8" schemaLocation="http://www.escidoc.org/schemas/soap/organizational-unit/0.8/organizational-unit.xsd" />
 
   <xsd:complexType name="requestType">
     <xsd:sequence>

@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import test.TestBase;
@@ -72,6 +73,8 @@ public class TransformContextTest extends TestBase
         = TEST_FILE_ROOT + "context_full_sample.xml";
     private static final String CONTEXT_LIST_SAMPLE_FILE
         = TEST_FILE_ROOT + "context-list_sample.xml";
+    private static final String CONTEXT_LIST_SAMPLE_FILE_SEARCH_RETRIEVE
+        = TEST_FILE_ROOT + "context-list_sample_search_retrieve.xml";
     private static final String MEMBER_LIST_SAMPLE_FILE
         = TEST_FILE_ROOT + "member-list_sample.xml";
 
@@ -152,6 +155,7 @@ public class TransformContextTest extends TestBase
      * @throws Exception Any exception.
      */
     @Test
+    @Ignore("New SearchRetrieveresponse")
     public void testTransformToContextList() throws Exception
     {
         logger.info("## testTransformToContextList ##");
@@ -180,6 +184,36 @@ public class TransformContextTest extends TestBase
         expectedPubCollectionList.add(expectedPubCollection);
         ObjectComparator oc = new ObjectComparator(expectedPubCollectionList, contextVOList);
         assertTrue(oc.toString(), oc.isEqual());
+    }
+    
+    /**
+     * Test for {@link XmlTransforming#transformToPubCollectionList(String)}. Reads list of pubCollections [XML] from
+     * file, transforms the list to a {@link List&lt;ContextVO>} and checks the results.
+     * 
+     * @throws Exception Any exception.
+     */
+    @Test
+    public void testTransformToContextListSearchRetrieve() throws Exception
+    {
+        logger.info("## testTransformToContextListSearchRetrieve ##");
+        // read pubCollection list [XML] from file
+        String contextList = readFile(CONTEXT_LIST_SAMPLE_FILE_SEARCH_RETRIEVE);
+        assertNotNull(contextList);
+
+        logger.info("contextList:"  + contextList);
+        
+        // transform the list to a List<ContextVO>
+        List<ContextVO> contextVOList = xmlTransforming.transformToContextList(contextList);
+        assertNotNull(contextVOList);
+        
+        // check results
+        assertEquals(1, contextVOList.size());
+        
+        ContextVO contextVO = contextVOList.get(0);
+        
+        assertEquals(contextVO.getReference().getObjectId(), "escidoc:2001");
+        assertEquals(contextVO.getName(), "PubMan Default Context");
+        assertEquals(contextVO.getType(), "PubMan");
     }
 
     

@@ -333,4 +333,17 @@ public class ItemRO extends ReferenceObject implements Cloneable
         }
     }
     
+    private void setHref(String href)
+    {
+        if (href == null)
+        {
+            return;
+        }
+        if (href.contains("/"))
+        {
+            href = href.substring(href.lastIndexOf("/") + 1);
+        }
+        this.setObjectId(href);      
+    }
+    
 }

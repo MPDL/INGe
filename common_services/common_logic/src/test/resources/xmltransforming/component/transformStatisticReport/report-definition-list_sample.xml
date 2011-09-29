@@ -4,10 +4,10 @@
 	<zs:numberOfRecords>9</zs:numberOfRecords>
 	<zs:records>
 		<zs:record>
-			<zs:recordSchema>http://www.escidoc.de/schemas/reportdefinition/0.3</zs:recordSchema>
+			<zs:recordSchema>${xsd.soap.statistic.reportdefinition}</zs:recordSchema>
 			<zs:recordPacking>xml</zs:recordPacking>
-			<zs:recordData>
-				<report-definition xmlns="http://www.escidoc.de/schemas/reportdefinition/0.3" objid="escidoc:repdef1">
+			<zs:recordData><search-result:search-result-record xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8">
+				<report-definition xmlns="${xsd.soap.statistic.reportdefinition}" objid="escidoc:repdef1">
 					<name>Successful Framework Requests</name>
 					<scope objid="escidoc:scope1" />
 					<sql>select handler, request, day, month, year, sum(requests) from _escidocaggdef1_request_statistics group by handler, request, day, month, year;</sql>
@@ -15,126 +15,127 @@
 						<allowed-role objid="default-user" />
 					</allowed-roles>
 				</report-definition>
+				</search-result:search-result-record>
 			</zs:recordData>
 			<zs:recordPosition>1</zs:recordPosition>
 		</zs:record>
 		<zs:record>
-			<zs:recordSchema>http://www.escidoc.de/schemas/reportdefinition/0.3</zs:recordSchema>
+			<zs:recordSchema>${xsd.soap.statistic.reportdefinition}</zs:recordSchema>
 			<zs:recordPacking>xml</zs:recordPacking>
-			<zs:recordData>
-				<report-definition xmlns="http://www.escidoc.de/schemas/reportdefinition/0.3" objid="escidoc:repdef2">
+			<zs:recordData><search-result:search-result-record xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8">
+				<report-definition xmlns="${xsd.soap.statistic.reportdefinition}" objid="escidoc:repdef2">
 					<name>Unsuccessful Framework Requests</name>
 					<scope objid="escidoc:scope1" />
 					<sql>		select * 		from _escidocaggdef2_error_statistics;	</sql>
 					<allowed-roles>
 						<allowed-role objid="default-user" />
 					</allowed-roles>
-				</report-definition>
+				</report-definition></search-result:search-result-record>
 			</zs:recordData>
 			<zs:recordPosition>2</zs:recordPosition>
 		</zs:record>
 		<zs:record>
-			<zs:recordSchema>http://www.escidoc.de/schemas/reportdefinition/0.3</zs:recordSchema>
+			<zs:recordSchema>${xsd.soap.statistic.reportdefinition}</zs:recordSchema>
 			<zs:recordPacking>xml</zs:recordPacking>
-			<zs:recordData>
-				<report-definition xmlns="http://www.escidoc.de/schemas/reportdefinition/0.3" objid="escidoc:repdef3">
+			<zs:recordData><search-result:search-result-record xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8">
+				<report-definition xmlns="${xsd.soap.statistic.reportdefinition}" objid="escidoc:repdef3">
 					<name>Successful Framework Requests by Month and Year</name>
 					<scope objid="escidoc:scope1" />
 					<sql>		select *		from _escidocaggdef1_request_statistics		where month = {month} and year = {year};	</sql>
 					<allowed-roles>
 						<allowed-role objid="default-user" />
 					</allowed-roles>
-				</report-definition>
+				</report-definition></search-result:search-result-record>
 			</zs:recordData>
 			<zs:recordPosition>3</zs:recordPosition>
 		</zs:record>
 		<zs:record>
-			<zs:recordSchema>http://www.escidoc.de/schemas/reportdefinition/0.3</zs:recordSchema>
+			<zs:recordSchema>${xsd.soap.statistic.reportdefinition}</zs:recordSchema>
 			<zs:recordPacking>xml</zs:recordPacking>
-			<zs:recordData>
-				<report-definition xmlns="http://www.escidoc.de/schemas/reportdefinition/0.3" objid="escidoc:repdef4">
+			<zs:recordData><search-result:search-result-record xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8">
+				<report-definition xmlns="${xsd.soap.statistic.reportdefinition}" objid="escidoc:repdef4">
 					<name>Item retrievals, all users</name>
 					<scope objid="escidoc:scope2" />
 					<sql>		select object_id as itemid, sum(requests) as itemrequests		from _escidocaggdef1_object_statistics		where object_id = {object_id} and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieve' group by object_id;	</sql>
 					<allowed-roles>
 						<allowed-role objid="default-user" />
 					</allowed-roles>
-				</report-definition>
+				</report-definition></search-result:search-result-record>
 			</zs:recordData>
 			<zs:recordPosition>4</zs:recordPosition>
 		</zs:record>
 		<zs:record>
-			<zs:recordSchema>http://www.escidoc.de/schemas/reportdefinition/0.3</zs:recordSchema>
+			<zs:recordSchema>${xsd.soap.statistic.reportdefinition}</zs:recordSchema>
 			<zs:recordPacking>xml</zs:recordPacking>
-			<zs:recordData>
-				<report-definition xmlns="http://www.escidoc.de/schemas/reportdefinition/0.3" objid="escidoc:repdef5">
+			<zs:recordData><search-result:search-result-record xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8">
+				<report-definition xmlns="${xsd.soap.statistic.reportdefinition}" objid="escidoc:repdef5">
 					<name>File downloads per Item, all users</name>
 					<scope objid="escidoc:scope2" />
 					<sql>		select parent_object_id as itemid, sum(requests)	as filerequests	from _escidocaggdef1_object_statistics		where parent_object_id = {object_id} and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' group by parent_object_id;	</sql>
 					<allowed-roles>
 						<allowed-role objid="default-user" />
 					</allowed-roles>
-				</report-definition>
+				</report-definition></search-result:search-result-record>
 			</zs:recordData>
 			<zs:recordPosition>5</zs:recordPosition>
 		</zs:record>
 		<zs:record>
-			<zs:recordSchema>http://www.escidoc.de/schemas/reportdefinition/0.3</zs:recordSchema>
+			<zs:recordSchema>${xsd.soap.statistic.reportdefinition}</zs:recordSchema>
 			<zs:recordPacking>xml</zs:recordPacking>
-			<zs:recordData>
-				<report-definition xmlns="http://www.escidoc.de/schemas/reportdefinition/0.3" objid="escidoc:repdef6">
+			<zs:recordData><search-result:search-result-record xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8">
+				<report-definition xmlns="${xsd.soap.statistic.reportdefinition}" objid="escidoc:repdef6">
 					<name>File downloads, all users</name>
 					<scope objid="escidoc:scope2" />
 					<sql>		select object_id as fileid, sum(requests) as filerequests		from _escidocaggdef1_object_statistics		where object_id = {object_id} and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' group by object_id;	</sql>
 					<allowed-roles>
 						<allowed-role objid="default-user" />
 					</allowed-roles>
-				</report-definition>
+				</report-definition></search-result:search-result-record>
 			</zs:recordData>
 			<zs:recordPosition>6</zs:recordPosition>
 		</zs:record>
 		<zs:record>
-			<zs:recordSchema>http://www.escidoc.de/schemas/reportdefinition/0.3</zs:recordSchema>
+			<zs:recordSchema>${xsd.soap.statistic.reportdefinition}</zs:recordSchema>
 			<zs:recordPacking>xml</zs:recordPacking>
-			<zs:recordData>
-				<report-definition xmlns="http://www.escidoc.de/schemas/reportdefinition/0.3" objid="escidoc:repdef7">
+			<zs:recordData><search-result:search-result-record xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8">
+				<report-definition xmlns="${xsd.soap.statistic.reportdefinition}" objid="escidoc:repdef7">
 					<name>Item retrievals, anonymous users</name>
 					<scope objid="escidoc:scope2" />
 					<sql>		select object_id as itemid, sum(requests) as itemrequests		from _escidocaggdef1_object_statistics		where object_id = {object_id} and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieve' and user_id='' group by object_id;	</sql>
 					<allowed-roles>
 						<allowed-role objid="default-user" />
 					</allowed-roles>
-				</report-definition>
+				</report-definition></search-result:search-result-record>
 			</zs:recordData>
 			<zs:recordPosition>7</zs:recordPosition>
 		</zs:record>
 		<zs:record>
-			<zs:recordSchema>http://www.escidoc.de/schemas/reportdefinition/0.3</zs:recordSchema>
+			<zs:recordSchema>${xsd.soap.statistic.reportdefinition}</zs:recordSchema>
 			<zs:recordPacking>xml</zs:recordPacking>
-			<zs:recordData>
-				<report-definition xmlns="http://www.escidoc.de/schemas/reportdefinition/0.3" objid="escidoc:repdef8">
+			<zs:recordData><search-result:search-result-record xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8">
+				<report-definition xmlns="${xsd.soap.statistic.reportdefinition}" objid="escidoc:repdef8">
 					<name>File downloads per Item, anonymous users</name>
 					<scope objid="escidoc:scope2" />
 					<sql>		select parent_object_id as itemid, sum(requests)	as filerequests	from _escidocaggdef1_object_statistics		where parent_object_id = {object_id} and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' and user_id='' group by parent_object_id;	</sql>
 					<allowed-roles>
 						<allowed-role objid="default-user" />
 					</allowed-roles>
-				</report-definition>
+				</report-definition></search-result:search-result-record>
 			</zs:recordData>
 			<zs:recordPosition>8</zs:recordPosition>
 		</zs:record>
 		<zs:record>
-			<zs:recordSchema>http://www.escidoc.de/schemas/reportdefinition/0.3</zs:recordSchema>
+			<zs:recordSchema>${xsd.soap.statistic.reportdefinition}</zs:recordSchema>
 			<zs:recordPacking>xml</zs:recordPacking>
-			<zs:recordData>
-				<report-definition xmlns="http://www.escidoc.de/schemas/reportdefinition/0.3" objid="escidoc:repdef9">
+			<zs:recordData><search-result:search-result-record xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8">
+				<report-definition xmlns="${xsd.soap.statistic.reportdefinition}" objid="escidoc:repdef9">
 					<name>File downloads, anonymous users</name>
 					<scope objid="escidoc:scope2" />
 					<sql>select object_id as fileid, sum(requests) as filerequests from _escidocaggdef1_object_statistics where object_id = {object_id} and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' and user_id='' group by object_id;</sql>
 					<allowed-roles>
 						<allowed-role objid="default-user" />
 					</allowed-roles>
-				</report-definition>
+				</report-definition></search-result:search-result-record>
 			</zs:recordData>
 			<zs:recordPosition>9</zs:recordPosition>
 		</zs:record>

@@ -41,6 +41,7 @@ import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import test.common.xmltransforming.XmlTransformingTestBase;
@@ -57,7 +58,10 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
+import de.mpg.escidoc.services.common.valueobjects.ResultVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO.InvitationStatus;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
@@ -68,6 +72,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -88,13 +93,12 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     private static String ITEM_WITHOUT_COMPONENTS_FILE = TEST_FILE_ROOT + "item_without_components.xml";
     private static String JPG_FARBTEST_FILE = TEST_FILE_ROOT + "farbtest_wasserfarben.jpg";
     private static String PDF_RUNAWAY_FILE = TEST_FILE_ROOT + "RunawayMassiveBinariesAndClusterEjectionScenarios.pdf";
-    private static final String ITEM_SCHEMA_FILE = "xsd/soap/item/0.8/item.xsd";
-    private static final String ITEM_LIST_SCHEMA_FILE = "xsd/soap/item/0.8/item-list.xsd";
     private static final String PREDICATE_ISREVISIONOF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
     private static final String PREDICATE_FEDORARELATIONSHIP = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#fedoraRelationship";
     private static final String PREDICATE_ISMEMBEROF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isMemberOf";
     
     private static final String WITHDRAWAL_COMMENT = "Withdrawal comment";
+    
 
     /**
      * Get an {@link XmlTransforming} instance once.
@@ -107,6 +111,9 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // TODO FrM: Wech
         // xmlTransforming = (XmlTransforming) getService(XmlTransforming.SERVICE_NAME);
         xmlTransforming = new XmlTransformingBean();
+        
+        PUBMAN_TEST_COLLECTION_ID = PropertyReader.getProperty(PROPERTY_CONTEXTID_TEST);
+        FACES_TEST_COLLECTION_ID = PUBMAN_TEST_COLLECTION_ID;
     }
 
     /**
@@ -120,7 +127,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // get user handle for user "test_dep_scientist"
         userHandle = loginScientist();
         // use this handle to retrieve user "escidoc:user1"
-        String userXML = ServiceLocator.getUserAccountHandler(userHandle).retrieve("escidoc:user1");
+        String userXML = ServiceLocator.getUserAccountHandler(userHandle).retrieve(PropertyReader.getProperty(PROPERTY_ID_SCIENTIST));
         // transform userXML to AccountUserVO
         user = xmlTransforming.transformToAccountUser(userXML);
         String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(user.getReference().getObjectId());
@@ -131,6 +138,10 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
             userGrants.add(grant);
         }
         user.setHandle(userHandle);
+        
+        filterMap.clear();
+        filterMap.put("operation", new String[]{"searchRetrieve"});
+        filterMap.put("version", new String[]{"1.1"});
     }
 
     /**
@@ -150,6 +161,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
      * 
      * @throws Exception
      */
+    
     @Test
     public void transformToPubItemWithoutComponents1() throws Exception
     {
@@ -169,8 +181,8 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         assertEquals(PubItemVO.State.PENDING, pubItem.getVersion().getState());
         assertEquals(null, pubItem.getPid());
         assertNotNull(pubItem.getVersion().getModificationDate());
-        assertEquals("escidoc:persistent3", pubItem.getContext().getObjectId());
-        assertEquals("escidoc:user1", pubItem.getOwner().getObjectId());
+        assertEquals(PropertyReader.getProperty(PROPERTY_CONTEXTID_TEST), pubItem.getContext().getObjectId());
+        assertEquals(PropertyReader.getProperty(PROPERTY_ID_SCIENTIST), pubItem.getOwner().getObjectId());
         assertTrue(0 == pubItem.getFiles().size());
         MdsPublicationVO md = pubItem.getMetadata();
         assertEquals(MdsPublicationVO.Genre.BOOK, md.getGenre());
@@ -816,12 +828,19 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         String filterXML = xmlTransforming.transformToFilterTaskParam(filter);
         //filterXML = filterXML.replace("\n", "");
         // temporarelly using filter string, because FIZ very special parsing does not allow white spaces at certain places.
-        String filterTMP = "<param><filter name=\"http://purl.org/dc/elements/1.1/identifier\"><id>"+objid1+"</id><id>"+objid2+"</id></filter></param>";
-        logger.debug("Used filter to retrieve the items: \n" + filterXML);
-        String pubItemListXML = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterTMP);
-        logger.debug(pubItemListXML);
+        // String filterTMP = "<param><filter name=\"http://purl.org/dc/elements/1.1/identifier\"><id>"+objid1+"</id><id>"+objid2+"</id></filter></param>";
+        //logger.debug("Used filter to retrieve the items: \n" + filterXML);
+        
+        String q1 = "\"/id\"=" + objid1;
+        String q2 = "\"/id\"=" + objid2;
+        String q = q1 + " or " + q2;
+        
+        filterMap.put("query", new String[]{q});
+        
+        String pubItemListXML = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);
+        logger.info(pubItemListXML);
         assertXMLValid(pubItemListXML);
-        List<PubItemVO> pubItemList = xmlTransforming.transformToPubItemList(pubItemListXML);
+        SearchRetrieveResponseVO pubItemList = xmlTransforming.transformToSearchRetrieveResponse(pubItemListXML);
         assertNotNull(pubItemList);
     }
 

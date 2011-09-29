@@ -30,25 +30,18 @@ roject* CDDL HEADER START
 package test;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import java.io.FileOutputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * JUnit test class for Structured Export component   
- * @author Author: Vlad Makarenko (initial creation) 
- * @author $Author$ (last modification) 
- * @version $Revision$ $LastChangedDate$
- */
 import org.apache.log4j.Logger;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
-import org.junit.Test; 
+import org.junit.Test;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
@@ -57,9 +50,6 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
- 
-
-import test.TestHelper;
 
 public class StructuredExportTest 
 {
@@ -79,13 +69,6 @@ public class StructuredExportTest
                     put("EDOC_EXPORT", pref + "publicationItems/metadataV2/full_item.xml");
                     put("EDOC_IMPORT", pref + "publicationItems/metadataV2/full_item.xml");
 					put("CSV", pref + "facesItems/item-list.xml");
-					
-//                    put("ENDNOTE", "src/test/resources/publicationItems/metadataV2/source-creators-bug.xml");
-//		    		put("ENDNOTE", "src/test/resources/test.xml");  
-//		    		put("BIBTEX", "src/test/resources/item_test_bibtex.xml");  
-//		    		put("BIBTEX", "src/test/resources/escidoc.xml");  
-//		    		put("XML", "src/test/resources/escidoc-item-ver2.xml");  
-//		    		put("BAD_ITEM_LIST", "src/test/resources/item_publication_bad.xml");  
 		    	}  
 	    	};
 
@@ -134,7 +117,6 @@ public class StructuredExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
-//	    @Ignore
 	    public final void testExplainExport() throws Exception
 	    {
 	    	String result = export.explainFormats();
@@ -147,7 +129,6 @@ public class StructuredExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
-//	    @Ignore
 	    public final void testFormatList() throws Exception
 	    {
 	    	String[] fl = export.getFormatsList();
@@ -163,11 +144,9 @@ public class StructuredExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
-//	    @Ignore
 	    public final void testStructuredExports() throws Exception
 	    {
 	    	long start;
-//	    	String[] fl = export.getFormatsList();
 	    	for (String f : ITEM_LISTS_FILE_MAMES.keySet()) 
 	    	{
 	    		logger.info("Export format: " + f);

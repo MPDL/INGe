@@ -69,7 +69,7 @@ public class AffiliationCreator extends TestBase
      */
     private static final Logger logger = Logger.getLogger(AffiliationCreator.class);
     private static XmlTransforming xmlTransforming = null;
-    private static final String FILTER_ALL = "<param></param>";
+    private static final HashMap<String, String[]> FILTER_ALL = new HashMap<String, String[]>();
 
     static
     {

@@ -36,6 +36,7 @@ import java.util.List;
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.Searchable;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 
@@ -47,7 +48,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminD
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 11:14:08
  */
-public class ContextVO extends ValueObject
+public class ContextVO extends ValueObject implements Searchable
 {
 	/**
 	 * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

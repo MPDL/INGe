@@ -177,7 +177,7 @@ public class AccountUserVO extends ValueObject
 
             if (grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue()))                    
             {
-                if (grant.getObjectRef().equals(refObj.getObjectId()))
+                if ( grant.getObjectRef() != null && grant.getObjectRef().equals(refObj.getObjectId()))
                 {
                     moderator = true;
                 }

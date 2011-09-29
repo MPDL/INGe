@@ -6,9 +6,9 @@
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
-		schemaLocation="../../common/0.3/common-types.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/common-types.xsd" />
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../common/0.3/xml.xsd" />
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/xml.xsd" />
 		
 	<xs:element name="member-ref-list">
 		<xs:annotation>

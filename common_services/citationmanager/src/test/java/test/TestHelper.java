@@ -41,6 +41,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,6 +63,7 @@ import org.w3c.dom.NodeList;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.framework.AdminHelper;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 // import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
@@ -76,10 +78,16 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class TestHelper
 { 
  
-	private static Logger logger = Logger.getLogger(TestHelper.class);
+	private static final String MAX_RECORDS = "maxRecords";
+    private static final String QUERY = "query";
+    private static final String SEARCH_RETRIEVE = "searchRetrieve";
+    private static final String OPERATION = "operation";
+    private static final String VERSION = "version";
+
+    private static Logger logger = Logger.getLogger(TestHelper.class);
 	
 	public static final String ITEMS_LIMIT = "50"; 
-	public static final String CONTENT_MODEL = "escidoc:persistent4"; 
+	public static final String PROPERTY_CONTENT_MODEL_PUBLICATION = "escidoc.framework_access.content-model.id.publication"; 
 	public static final String USER_NAME = "citman_user"; 
 	public static final String USER_PASSWD = "citman_user";
 	public static final String CONTEXT = "Citation Style Testing Context";
@@ -88,16 +96,13 @@ public class TestHelper
 	
     public static String getTestItemListFromFramework() throws IOException, ServiceException, URISyntaxException
     {
-    	
-    	return getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, 
-    		"<param>" +
-    		// escidoc content model
-//            "<filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + CONTENT_MODEL + " </filter>" +
-    		"<filter name=\"/properties/content-model/id\">" + CONTENT_MODEL + "</filter>" +
-//    		"<filter name=\"/properties/context/title\">" + CONTEXT + "</filter>" +
-//    		"<filter name=\"/properties/public-status\">pending</filter>" +
-    		"</param>"
-    	);	
+        HashMap<String, String[]> filter = new HashMap<String, String[]>();
+        
+        filter.put(QUERY, new String[]{"\"/properties/content-model/id\"=" + PropertyReader.getProperty(PROPERTY_CONTENT_MODEL_PUBLICATION),
+                                            "\"/properties/context/title\"=" + CONTEXT,
+                                            "\"/properties/public-status\"=pending"});
+        
+    	return getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, filter);
     }
     
     
@@ -194,11 +199,11 @@ public class TestHelper
     }
 
     
-    public static String getItemListFromFrameworkBase(String USER, String PASSWD, String filter) throws IOException, ServiceException, URISyntaxException
+    public static String getItemListFromFrameworkBase(String USER, String PASSWD, HashMap<String, String[]> filter) throws IOException, ServiceException, URISyntaxException
     {
     	logger.info("Retrieve USER, PASSWD:" + USER + ", " + PASSWD);
     	String userHandle = AdminHelper.loginUser(USER, PASSWD);
-    	logger.info("Retrieve filter:" + filter);
+    	logger.info("Retrieve filter:" + filter.entrySet().toString());
     	// see here for filters: https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
     	ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
     	return ch.retrieveItems(filter);
@@ -236,15 +241,19 @@ public class TestHelper
      * and writes to <code>DataSource/fileName</code>  
      * @throws Exception
      */
-    public static void getCitationStyleTestCollectionFromFramework(String fileName) throws Exception {
-    	String itemList = getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, 
-    			"<param>" 
-    			+  "<filter name=\"/properties/content-model/id\">" + CONTENT_MODEL +"</filter>"
-    			+  "<filter name=\"/properties/context/title\">" + CONTEXT +"</filter>"
-    			+  "<filter name=\"/properties/public-status\">released</filter>"
-    		    + "</param>"
-    	);    	
-    	writeToFile(ResourceUtil.getPathToDataSources() + fileName, itemList.getBytes());
+    public static void getCitationStyleTestCollectionFromFramework(String fileName) throws Exception
+    {
+        HashMap<String, String[]> filter = new HashMap<String, String[]>();
+        
+        filter.put(VERSION, new String[]{"1.1"});
+        filter.put(OPERATION, new String[]{SEARCH_RETRIEVE});       
+        filter.put(QUERY, new String[]{"\"/properties/content-model/id\"=" + PropertyReader.getProperty(PROPERTY_CONTENT_MODEL_PUBLICATION),
+                "\"/properties/context/title\"=" + CONTEXT,
+                "\"/properties/public-status\"=released"});
+        
+        String itemList = getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, filter);
+        
+        writeToFile(ResourceUtil.getPathToDataSources() + fileName, itemList.getBytes());
     }
     
 
@@ -257,22 +266,14 @@ public class TestHelper
      */
     public static String getItemListFromFramework() throws IOException, ServiceException, URISyntaxException
     {
-    	return getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, 
-        	"<param>" +
-        		// escidoc content model
-        		"<filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + CONTENT_MODEL + " </filter>" +
-        		// records limit	
-        		"<limit>" + ITEMS_LIMIT + "</limit>" +
-        	"</param>"
-        	
-// take one item:        	
-//    	"<param>" +
-//		//items
-//			"<filter name=\"http://purl.org/dc/elements/1.1/identifier\">" +  
-//				"<id>escidoc:23004</id>" + 
-//			" </filter>" +
-//		"</param>";
-    	);	
+        HashMap<String, String[]> filter = new HashMap<String, String[]>();
+        
+        filter.put(VERSION, new String[]{"1.1"});
+        filter.put(OPERATION, new String[]{SEARCH_RETRIEVE});       
+        filter.put(QUERY, new String[]{"\"/properties/content-model/id\"=" + PropertyReader.getProperty(PROPERTY_CONTENT_MODEL_PUBLICATION)});
+        filter.put(MAX_RECORDS, new String[]{ITEMS_LIMIT});
+        
+    	return getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, filter);
     }   
     
     /** 
@@ -310,21 +311,6 @@ public class TestHelper
 		return itemsArr;
     }    
     
-    
-	private Object[] extractSnippets(String snippetsXml)
-	{
-		Pattern p = Pattern.compile("<snippet:snippet\\s.*?>(.*?)</snippet:snippet>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-	    Matcher m = p.matcher(snippetsXml);
-	    
-	    ArrayList<String> al = new ArrayList<String>();
-	    while (m.find())
-	    {
-	    	al.add(m.group(1));
-	    }
-	    return al.toArray(); 
-	}
-	
-	
 	private static ArrayList<String> extractTag(String xml, String tag)
 	{
 		Pattern p = Pattern.compile("<(" +tag +")\\s.*?>(.*?)</\\1>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);

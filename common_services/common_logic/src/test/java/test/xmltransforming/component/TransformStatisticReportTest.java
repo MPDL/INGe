@@ -171,11 +171,9 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase
         assertEquals("Wrong scope id in report-definition", "escidoc:scope2", reportDefVO2.getScopeID());
         assertEquals("Wrong name in report-definition", "File downloads, anonymous users", reportDefVO2.getName());
         assertEquals("Wrong sql string in report-definition", "select object_id as fileid, sum(requests) as filerequests from _escidocaggdef1_object_statistics where object_id = {object_id} and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' and user_id='' group by object_id;", reportDefVO2.getSql());
-        
-        
-       
+                   
     }
-    
+
     @Test
     public void transformToStatisticReportDefinition() throws Exception
     {
@@ -207,4 +205,5 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase
         
     }
     
+
 }

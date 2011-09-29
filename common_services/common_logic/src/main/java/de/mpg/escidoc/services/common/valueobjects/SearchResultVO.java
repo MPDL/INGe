@@ -43,7 +43,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:30:52
  */
-public class SearchResultVO implements SearchResultElement
+public class SearchResultVO extends ValueObject implements SearchResultElement
 {
     /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

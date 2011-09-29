@@ -32,7 +32,11 @@ package de.mpg.escidoc.services.common.valueobjects;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
@@ -48,6 +52,11 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
  */
 public class FilterTaskParamVO extends ValueObject
 {
+    private static final String RIGHT_PARANTHESIS = " ) ";
+    private static final String LEFT_PARANTHESIS = " ( ";
+    private static final String OR = " or ";
+    private static final String AND = " and ";
+    
     /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
      * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
@@ -59,7 +68,9 @@ public class FilterTaskParamVO extends ValueObject
      */
   
     private List<Filter> filterList = new ArrayList<Filter>();
-
+    
+    private Logger logger = Logger.getLogger(getClass());
+    
     /**
      * @return the filter
      */
@@ -67,18 +78,291 @@ public class FilterTaskParamVO extends ValueObject
     {
         return filterList;
     }
+    
+    /*
+     * @return a Map representation of the FilterTaskParamVO object used for SOAP queries
+     */
+    public HashMap<String, String[]> toMap()
+    {
+        Filter previousFilter = null;
+        StringBuffer queryBuffer = new StringBuffer(1024);
+        String sorting = null;
+        
+        HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
+        filterMap.put("operation", new String[] { "searchRetrive" });
+        filterMap.put("version", new String[] { "1.1" });
+        
+        // the List is sorted corresponding to the filter class names, 
+        // so filters of the same type occur one after another in the List
+        Collections.sort(filterList);
+        
+        // loop through all entries in the filter list
+        for (Filter filter : filterList)
+        {
+            if (filter instanceof OffsetFilter)
+            {
+                OffsetFilter offsetFilter = (OffsetFilter)filter;
+                String offset = offsetFilter.getOffset();
+                Integer newOffset = Integer.parseInt(offset) + 1;
+                filterMap.put("startRecord", new String[] { newOffset.toString() });
+                previousFilter = filter;
+            }
+            else if (filter instanceof LimitFilter)
+            {
+                LimitFilter limitFilter = (LimitFilter)filter;
+                filterMap.put("maximumRecords", new String[] { limitFilter.getLimit() });
+                previousFilter = filter;
+            }
+            else if (filter instanceof OrderFilter)
+            {
+                OrderFilter orderFilter = (OrderFilter)filter;
+                sorting = " sortby" + "\"" + orderFilter.getProperty() + "\"/" + orderFilter.getSortOrder();
+                previousFilter = filter;
+            }
+            
+            else
+            {
+                // here the queryString for the "query" key is built
+                if (filter instanceof FrameworkItemTypeFilter)
+                {
+                    enhanceQuery(queryBuffer, "\"/properties/content-model/id\"=" + ((FrameworkItemTypeFilter)filter).getType(),
+                            previousFilter, filter);
+                            
+                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
+                    // "http://escidoc.de/core/01/structural-relations/content-model");
+                }
+                else if (filter instanceof FrameworkContextTypeFilter)
+                {
+                    enhanceQuery(queryBuffer, "\"/properties/type\"="
+                            + ((FrameworkContextTypeFilter)filter).getType().toString().replace('_', '-').toLowerCase(),
+                            previousFilter, filter);
+                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/type");
+                    // //context-type
+                }
+                else if (filter instanceof OwnerFilter)
+                {
+                    enhanceQuery(queryBuffer, "\"/properties/created-by/id\"=" + ((OwnerFilter)filter).getUserRef().getObjectId(),
+                            previousFilter, filter);
+                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
+                    // "http://escidoc.de/core/01/structural-relations/created-by"); //created-by
+                }
+                else if (filter instanceof ItemRefFilter)
+                {
+                    enhanceQuery(queryBuffer, "\"/id\"=", previousFilter, ((ItemRefFilter)filter));
+                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://purl.org/dc/elements/1.1/identifier");
+                    // //items
+                }
+                else if (filter instanceof AffiliationRefFilter)
+                {
+                    enhanceQuery(queryBuffer, "\"/id\"=", previousFilter, ((AffiliationRefFilter)filter));
+                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://purl.org/dc/elements/1.1/identifier");
+                    // //organizational-units
+                }
+                else if (filter instanceof RoleFilter)
+                {
+                    enhanceQuery(queryBuffer, "\"/role\"=" + ((RoleFilter)filter).getRole(), previousFilter, filter);
+                    previousFilter = filter;
+                    enhanceQuery(queryBuffer, "\"/user\"=" + ((RoleFilter)filter).getUserRef().getObjectId(), previousFilter, filter);
+                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "role");
+                }
+                else if (filter instanceof PubCollectionStatusFilter)
+                {
+                    enhanceQuery(queryBuffer, "\"/properties/public-status\"="
+                            + ((PubCollectionStatusFilter)filter).getState().toString().replace('_', '-').toLowerCase(),
+                            previousFilter, filter);
+                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
+                    // "http://escidoc.de/core/01/properties/public-status"); //public-status
+                }
+                else if (filter instanceof ItemStatusFilter)
+                {
+                    enhanceQuery(queryBuffer, "\"/properties/version/status\"="
+                            + ((ItemStatusFilter)filter).getState().toString().replace('_', '-').toLowerCase(),
+                            previousFilter, filter);
+                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
+                    // "http://escidoc.de/core/01/properties/version/status"); //latest-version-status (according to
+                    // FIZ, only latest versions are filtered)
+                }
+                else if (filter instanceof TopLevelAffiliationFilter) //todo
+                {
+                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "top-level-organizational-units"); //see
+                    // OrgUnitHandler - Method retrieveOrganizationalUnits()
+                }
+                else if (filter instanceof ObjectTypeFilter)
+                {
+                    enhanceQuery(queryBuffer, "\"/type\"=" + ((ObjectTypeFilter)filter).getObjectType(), previousFilter, filter);
+                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
+                    // //object-type
+                }
+                else if (filter instanceof ContextFilter)
+                {
+                    enhanceQuery(queryBuffer,
+                            "\"/properties/context/id\"=" + ((ContextFilter)filter).getContextId(),
+                            previousFilter, filter);
+                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
+                    // "http://escidoc.de/core/01/structural-relations/context");
+                }
+                else if (filter instanceof LocalTagFilter)
+                {
+                    enhanceQuery(queryBuffer, "\"//properties/content-model-specific/local-tags/local-tag\"="
+                            + ((LocalTagFilter)filter).getLocalTagId(),
+                            previousFilter, filter);
+                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
+                    // "/properties/content-model-specific/local-tags/local-tag");
+                }
+                else if (filter instanceof ItemPublicStatusFilter)
+                {
+                    enhanceQuery(queryBuffer,
+                            "\"/properties/public-status\"=" + ((ItemPublicStatusFilter)filter).getState(),
+                            previousFilter, filter);
+                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
+                    // "http://escidoc.de/core/01/properties/public-status"); //public-status
+                }
+                else if (filter instanceof UserAccountStateFilter)
+                {
+                    enhanceQuery(queryBuffer, "\"/properties/active\"=" + ((UserAccountStateFilter)filter).getActive(),
+                            previousFilter, filter);
+                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/active");
+                    // //public-status
+                }
+                else if (filter instanceof PersonsOrganizationsFilter)
+                {
+                    enhanceQuery(queryBuffer, "\"/md-record/publication/creator/person/organization/identifier\"="
+                            + ((PersonsOrganizationsFilter)filter).getOrgUnitId(),
+                            previousFilter, filter);
+                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
+                    // "/md-records/md-record/publication/creator/person/organization/identifier"); //person's
+                    // organization in metadata
+                }
+                previousFilter = filter;
+            }
+        }
+        queryBuffer.append(RIGHT_PARANTHESIS);
+        
+        if (sorting != null)
+        {
+            queryBuffer.append(sorting);           
+        }
+        logger.info("query: " + queryBuffer.toString());
+        filterMap.put("query", new String[]{queryBuffer.toString()});
+        
+        return filterMap;
+    }
+
+    private void enhanceQuery(StringBuffer b, String queryPiece, Filter previousFilter, Filter filter)
+    {   
+        if (queryPiece == null)
+            return;
+        
+        if  (previousFilter == null && filter != null)
+        {
+            b.append(LEFT_PARANTHESIS);
+            doAppend(b, queryPiece, filter);
+            return;
+        }
+        
+        if  (previousFilter != null && filter == null)
+        {
+            //end ??
+            return;
+        }
+        
+       
+        if  (((AbstractFilter)filter).compareTo((AbstractFilter)previousFilter) != 0)
+        {
+            // filter has changed - close the previous piece, connect pieces with AND and brackets if query has already been started
+            if (b.length() > 0)
+            {
+                b.append(RIGHT_PARANTHESIS);
+                b.append(AND);
+            }
+            b.append(LEFT_PARANTHESIS);
+            doAppend(b, queryPiece, filter);
+            
+            return;
+        }
+        else
+        {
+            // filter has not changed - connect pieces with OR without brackets (except for RoleFilters)
+            if (filter instanceof RoleFilter)
+                b.append(AND);
+            else
+                b.append(OR);
+            doAppend(b, queryPiece, filter);
+            
+            return;            
+        }   
+    }
+    
+    private void doAppend(StringBuffer b, String queryPiece, Filter filter)
+    {
+        int i = 0;
+        if (filter instanceof AffiliationRefFilter)
+        {
+            AffiliationRefFilter affiliationRefFilter = (AffiliationRefFilter)filter;
+
+            for (AffiliationRO affiliationRO : affiliationRefFilter.getIdList())
+            {
+                b.append(queryPiece);
+                b.append(affiliationRO.getObjectId());
+
+                if (++i == affiliationRefFilter.getIdList().size())
+                    break;
+                b.append(OR);
+            }
+
+        }
+        else if (filter instanceof ItemRefFilter)
+        {
+            ItemRefFilter itemRefFilter = (ItemRefFilter)filter;
+
+            for (ItemRO itemRO : itemRefFilter.getIdList())
+            {
+                b.append(queryPiece);
+                b.append(itemRO.getObjectId());
+                
+                if (++i == itemRefFilter.getIdList().size())
+                    break;
+                b.append(OR);
+            }
+
+        }
+        else
+        {
+            b.append(queryPiece);
+        }
+    }
+    
+    public String getOperator(Filter filter, Filter previousFilter)
+    {
+        if (filter == null || previousFilter == null)
+            return "";
+        if (((AbstractFilter)filter).compareTo((AbstractFilter)previousFilter) == 0)
+            return OR;
+        
+        return AND;
+    }
+
 
     /**
      * The interface the various specialized filters are implementing.
      */
-    public interface Filter extends Serializable
+    public interface Filter extends Serializable, Comparable
     {
+    }
+    
+    public abstract class AbstractFilter implements Comparable
+    {
+        public int compareTo(Object o)
+        {
+            return o.getClass().getName().compareTo(this.getClass().getName());
+        }
+        
     }
 
     /**
      * Class to filter by owner.
      */
-    public class OwnerFilter implements Filter
+    public class OwnerFilter extends AbstractFilter implements Filter
     {
         private AccountUserRO userRef;
 
@@ -112,7 +396,7 @@ public class FilterTaskParamVO extends ValueObject
     /**
      * Class to filter by item references. As long as no common content item refs are defined we use the ItemRO.
      */
-    public class ItemRefFilter implements Filter
+    public class ItemRefFilter extends AbstractFilter implements Filter
     {
         /**
          * List of ids.
@@ -146,8 +430,9 @@ public class FilterTaskParamVO extends ValueObject
     /**
      * Class to filter by PubCollection status.
      */
-    public class PubCollectionStatusFilter implements Filter
+    public class PubCollectionStatusFilter extends AbstractFilter implements Filter
     {
+        
         /**
          * The PubCollection state.
          */
@@ -184,8 +469,8 @@ public class FilterTaskParamVO extends ValueObject
     /**
      * Class to filter by item status.
      */
-    public class ItemStatusFilter implements Filter
-    {
+    public class ItemStatusFilter extends AbstractFilter implements Filter
+    {     
         /**
          * The item state.
          */
@@ -217,13 +502,14 @@ public class FilterTaskParamVO extends ValueObject
         {
             this.state = state;
         }
+
     }
 
     
     /**
      * Class to filter by item public status.
      */
-    public class ItemPublicStatusFilter implements Filter
+    public class ItemPublicStatusFilter extends AbstractFilter implements Filter
     {
         /**
          * The item state.
@@ -261,7 +547,7 @@ public class FilterTaskParamVO extends ValueObject
     /**
      * Class to filter by Role.
      */
-    public class RoleFilter implements Filter
+    public class RoleFilter extends AbstractFilter implements Filter
     {
         /**
          * The role to filter for.
@@ -315,12 +601,13 @@ public class FilterTaskParamVO extends ValueObject
         {
             this.userRef = userRef;
         }
+
     }
 
     /**
      * Class to filter by framework item (content) type.
      */
-    public class FrameworkItemTypeFilter implements Filter
+    public class FrameworkItemTypeFilter extends AbstractFilter implements Filter
     {
         /**
          * The framework item (content) type to filter for.
@@ -359,8 +646,9 @@ public class FilterTaskParamVO extends ValueObject
     /**
      * Class to filter by framework context type.
      */
-    public class FrameworkContextTypeFilter implements Filter
+    public class FrameworkContextTypeFilter extends AbstractFilter implements Filter
     {
+        
         /**
          * The framework context type to filter for.
          */
@@ -398,7 +686,7 @@ public class FilterTaskParamVO extends ValueObject
     /**
      * Class to filter by affiliation references.
      */
-    public class AffiliationRefFilter implements Filter
+    public class AffiliationRefFilter extends AbstractFilter implements Filter
     {
         /**
          * List of ids.
@@ -424,7 +712,7 @@ public class FilterTaskParamVO extends ValueObject
     /**
      * Class to filter all top level affiliations.
      */
-    public class TopLevelAffiliationFilter implements Filter
+    public class TopLevelAffiliationFilter extends AbstractFilter implements Filter
     {
         /**
          * Creates a new instance.
@@ -444,7 +732,7 @@ public class FilterTaskParamVO extends ValueObject
      * @version $Revision$ $LastChangedDate$
      *
      */
-    public class ObjectTypeFilter implements Filter
+    public class ObjectTypeFilter extends AbstractFilter implements Filter
     {
         
         public final static String OBJECT_TYPE_ITEM = "http://escidoc.de/core/01/resources/Item";
@@ -479,7 +767,7 @@ public class FilterTaskParamVO extends ValueObject
      * @version $Revision$ $LastChangedDate$
      *
      */
-    public class OffsetFilter implements Filter
+    public class OffsetFilter extends AbstractFilter implements Filter
     {
         private String offset;
 
@@ -499,7 +787,6 @@ public class FilterTaskParamVO extends ValueObject
             this.offset = offset;
         }
         
-        
     }
     
     /**
@@ -511,7 +798,7 @@ public class FilterTaskParamVO extends ValueObject
      * @version $Revision$ $LastChangedDate$
      *
      */
-    public class LimitFilter implements Filter
+    public class LimitFilter extends AbstractFilter implements Filter
     {
         private String limit;
 
@@ -530,10 +817,6 @@ public class FilterTaskParamVO extends ValueObject
         {
             this.limit = limit;
         }
-
-        
-        
-        
     }
     
     /**
@@ -545,10 +828,11 @@ public class FilterTaskParamVO extends ValueObject
      * @version $Revision$ $LastChangedDate$
      *
      */
-    public class OrderFilter implements Filter
+    public class OrderFilter extends AbstractFilter implements Filter
     {
-        public final static String ORDER_ASCENDING = "ascending";
-        public final static String ORDER_DESCENDING = "descending";
+        public final static String ORDER_ASCENDING = "sort.ascending";
+        public final static String ORDER_DESCENDING = "sort.descending";
+        public final static String SORTBY = "sortby";
         private String property;
         private String sortOrder;
         
@@ -577,14 +861,7 @@ public class FilterTaskParamVO extends ValueObject
         public void setSortOrder(String sortOrder)
         {
             this.sortOrder = sortOrder;
-        }
-        
-        
-
-        
-        
-        
-        
+        }     
     }
     
     /**
@@ -596,7 +873,7 @@ public class FilterTaskParamVO extends ValueObject
      * @version $Revision$ $LastChangedDate$
      *
      */
-    public class ContextFilter implements Filter
+    public class ContextFilter extends AbstractFilter implements Filter
     {
         
         private String contextId;
@@ -615,9 +892,7 @@ public class FilterTaskParamVO extends ValueObject
         public void setContextId(String contextId)
         {
             this.contextId = contextId;
-        }
-        
-        
+        } 
     }
     
     /**
@@ -629,7 +904,7 @@ public class FilterTaskParamVO extends ValueObject
      * @version $Revision$ $LastChangedDate$
      *
      */
-    public class LocalTagFilter implements Filter
+    public class LocalTagFilter extends AbstractFilter implements Filter
     {
         
         private String localTagId;
@@ -655,7 +930,6 @@ public class FilterTaskParamVO extends ValueObject
         {
             this.localTagId = localTagId;
         }
-
     }
     
     /**
@@ -667,7 +941,7 @@ public class FilterTaskParamVO extends ValueObject
      * @version $Revision$ $LastChangedDate$
      *
      */
-    public class UserAccountStateFilter implements Filter
+    public class UserAccountStateFilter extends AbstractFilter implements Filter
     {
        
         
@@ -686,11 +960,7 @@ public class FilterTaskParamVO extends ValueObject
         public UserAccountStateFilter(boolean active)
         {
             this.active = active;
-        }
-
-        
-        
-        
+        }    
     }
     
     /**
@@ -703,7 +973,7 @@ public class FilterTaskParamVO extends ValueObject
      *
      */
     
-    public class PersonsOrganizationsFilter implements Filter
+    public class PersonsOrganizationsFilter extends AbstractFilter implements Filter
     {
         
         private String orgUnitId;
@@ -723,10 +993,7 @@ public class FilterTaskParamVO extends ValueObject
         {
             this.orgUnitId = contextId;
         }
-        
-        
-    }
-    
-    
+
+    }    
     
 }

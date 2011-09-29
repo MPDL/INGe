@@ -64,6 +64,7 @@ import de.mpg.escidoc.services.common.valueobjects.face.MdsFacesContainerVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -92,7 +93,10 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
     @BeforeClass
     public static void setUpBeforeClass() throws Exception
     {
-        xmlTransforming = (XmlTransforming) getService(XmlTransforming.SERVICE_NAME);        
+        xmlTransforming = (XmlTransforming) getService(XmlTransforming.SERVICE_NAME); 
+        
+        PUBMAN_TEST_COLLECTION_ID = PropertyReader.getProperty(PROPERTY_CONTEXTID_TEST);
+        FACES_TEST_COLLECTION_ID = PUBMAN_TEST_COLLECTION_ID;
     }
 
     /**

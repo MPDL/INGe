@@ -85,8 +85,7 @@ public class SyndicationTest
     /**
      * Test feeds explain XML
      */
-    @Test
-//  @Ignore    
+    @Test    
     public void checkExplainFeedsXML()
     {
     	assertTrue("Empty explainFeedsXml", Utils.checkVal(sh.explainFeedsXML()));
@@ -96,8 +95,7 @@ public class SyndicationTest
     /**
      * Check all supported feed formats by feeds in syndication manager
      */
-    @Test
-//  @Ignore    
+    @Test    
     public void checkGetFeedFormatList()
     { 
     	
@@ -274,7 +272,6 @@ public class SyndicationTest
      * @throws Exception
      */
     @Test
-    @Ignore
     public final void testOrganizationalUnitList() throws Exception     
 	{ 
     	 TreeMap<String, String> outm = Utils.getOrganizationUnitTree(); 

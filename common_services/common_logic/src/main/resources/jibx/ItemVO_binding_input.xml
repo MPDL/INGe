@@ -45,6 +45,7 @@
 			<structure name="created-by" ns="${xsd.soap.common.srel}" field="owner"
 				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework" usage="optional">
 				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
 			</structure>
 
 			<!-- Node: item.properties.public-status -->
@@ -64,6 +65,7 @@
 				<!-- Node: item.properties.context.@objid -->
 				<!-- Field: PubItemVO.pubCollection [PubCollectionRO] -->
 				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
 
 			</structure>
 
@@ -74,6 +76,7 @@
 				<!-- Node: item.properties.content-model.@objid -->
 				<!-- mandatory in XML during update and during create, useless in VO -->
 				<value style="attribute" name="objid" field="contentModel" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setContentModelHref" usage="optional" />
 
 			</structure>			
 
@@ -92,6 +95,7 @@
 			<structure field="version" ns="${xsd.soap.common.prop}" usage="optional" name="version">
 			
 				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
 			
 				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" />
 				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" />
@@ -110,6 +114,7 @@
 	
 					<!-- Node: item.properties.version.modified-by.@objid -->
 					<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+					<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
 	
 				</structure>
 
@@ -134,6 +139,7 @@
 			<structure field="latestRelease" ns="${xsd.soap.common.prop}" usage="optional" name="latest-release">
 			
 				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
 			
 				<value style="element" name="number" ns="${xsd.soap.common.release}" field="versionNumber" usage="optional" />
 				<value style="element" name="date" ns="${xsd.soap.common.release}" field="modificationDate" usage="optional" />
@@ -171,7 +177,7 @@
 				<structure name="publication" ns="${xsd.metadata.publication}"
 					map-as="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" usage="optional" />
 				<!-- ViRR -->
-				<structure name="virr-book" ns="http://www.loc.gov/mods/v3" usage="optional" ordered="false" flexible="true"/>
+				<structure name="virr-book" ns="http://www.loc.gov/mods/v3" usage="optional" ordered="false" flexible="true"/>				
 
 			</collection>
 
@@ -195,6 +201,10 @@
 			item-type="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" test-method="hasRelations" usage="optional">
 			<structure map-as="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" />
 		</collection>
+		
+		<!-- Node: item.resources -->
+		<structure name="resources" ns="${xsd.soap.item.item}" usage="optional">
+		</structure>
 
 	</mapping>
 

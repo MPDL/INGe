@@ -39,7 +39,7 @@ import de.escidoc.core.common.exceptions.application.notfound.ContextNotFoundExc
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
- * Testcases for the basic service ContextHandler.
+ * Test cases for the basic service ContextHandler.
  * 
  * @author Johannes Mueller (initial creation)
  * @author $Author$ (last modification)
@@ -48,15 +48,14 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class TestContext extends TestBase
 {
-    private static final String PUBMAN_COLLECTION_ID = "escidoc:persistent3";
-    private static final String SWB_INSTANCE = "escidoc:persistent5";
+    private static final String PUBMAN_COLLECTION_ID = "escidoc:2001";
+    private static final String SWB_INSTANCE = "escidoc:2002";
     private static final String ILLEGAL_CONTEXT_ID = "escidoc:persistentX";
-    private static final String FILTER_ALL = "<param></param>";
-    private static final String FILTER_NONE = "<param><filter name=\"user\">escidoc:X</filter></param>";
-    private static final String FILTER_DEPOSITOR = "<param>" + 
-                                                   "<filter name=\"user\">" + USERID + "</filter>" +
-                                                   "<filter name=\"role\">Depositor</filter>" +
-                                                   "</param>"; 
+
+    private static final String FILTER_USER = "user";
+    private static final String FILTER_ROLE = "role";
+    private static final String NAME_VALUE_ESIDOCX = "escidoc:X";
+    private static final String ROLE_VALUE_DEPOSITOR = "Depositor";
 
     private Logger logger = Logger.getLogger(getClass());
 
@@ -116,11 +115,10 @@ public class TestContext extends TestBase
     @Test
     public void retrieveContexts() throws Exception
     {
-        String filter = FILTER_ALL;
         long zeit = -System.currentTimeMillis();
-        String contexts = ServiceLocator.getContextHandler(userHandle).retrieveContexts(filter);
+        String contexts = ServiceLocator.getContextHandler(userHandle).retrieveContexts(filterMap);
         zeit += System.currentTimeMillis();
-        logger.info("retrieveContexts(" + filter + ")->" + zeit + "ms");
+        logger.info("retrieveContexts(" + filterMap + ")->" + zeit + "ms");
         logger.debug("Contexts()=" + contexts);        
         assertNotNull(contexts);
         System.out.println(contexts);
@@ -132,11 +130,10 @@ public class TestContext extends TestBase
     @Test
     public void retrievePublicContexts() throws Exception
     {
-        String filter = FILTER_ALL;
         long zeit = -System.currentTimeMillis();
-        String contexts = ServiceLocator.getContextHandler().retrieveContexts(filter);
+        String contexts = ServiceLocator.getContextHandler().retrieveContexts(filterMap);
         zeit += System.currentTimeMillis();
-        logger.info("retrievePublicContexts(" + filter + ")->" + zeit + "ms");
+        logger.info("retrievePublicContexts(" + filterMap + ")->" + zeit + "ms");
         logger.debug("Contexts()=" + contexts);
         assertNotNull(contexts);
     }
@@ -147,11 +144,13 @@ public class TestContext extends TestBase
     @Test
     public void retrieveContextsForDepositor() throws Exception
     {
-        String filter = FILTER_DEPOSITOR;
+        filterMap.put(FILTER_USER, new String[]{USERID});
+        filterMap.put(FILTER_ROLE, new String[]{ROLE_VALUE_DEPOSITOR});
+        
         long zeit = -System.currentTimeMillis();
-        String contexts = ServiceLocator.getContextHandler(userHandle).retrieveContexts(filter);
+        String contexts = ServiceLocator.getContextHandler(userHandle).retrieveContexts(filterMap);
         zeit += System.currentTimeMillis();
-        logger.info("retrieveContextsForDepositor(" + filter + ")->" + zeit + "ms");
+        logger.info("retrieveContextsForDepositor(" + filterMap + ")->" + zeit + "ms");
         logger.debug("Contexts()=" + contexts);        
         assertNotNull(contexts);
     }
@@ -162,12 +161,13 @@ public class TestContext extends TestBase
     @Test
     public void retrieveContextsNotExisting() throws Exception
     {
-        String filter = FILTER_NONE;
+        filterMap.put(FILTER_USER, new String[]{NAME_VALUE_ESIDOCX});
+        
         long zeit = -System.currentTimeMillis();
-        String contexts = ServiceLocator.getContextHandler(userHandle).retrieveContexts(filter);
+        String contexts = ServiceLocator.getContextHandler(userHandle).retrieveContexts(filterMap);
         zeit += System.currentTimeMillis();
-        logger.info("retrieveContextsNotExisting(" + filter + ")->" + zeit + "ms");
-        logger.debug("Contexts(" + filter + ")=" + contexts);
+        logger.info("retrieveContextsNotExisting(" + filterMap + ")->" + zeit + "ms");
+        logger.debug("Contexts(" + filterMap + ")=" + contexts);
     }
 
     /**
@@ -207,19 +207,17 @@ public class TestContext extends TestBase
      */
     @Test(expected = ContextNotFoundException.class)
     public void retrieveMembersContextNotFound() throws Exception
-    {
-        String id = ILLEGAL_CONTEXT_ID;
-        String filter = FILTER_ALL;
+    {        
         long zeit = -System.currentTimeMillis();
         try
         {
-            String members = ServiceLocator.getContextHandler(userHandle).retrieveMembers(id, filter);
+            String members = ServiceLocator.getContextHandler(userHandle).retrieveMembers(ILLEGAL_CONTEXT_ID, filterMap);
             assertTrue(members, false);
         }
         finally
         {
             zeit += System.currentTimeMillis();
-            logger.info("retrieveMembersContextNotFound(" + id + "," + filter + ")->" + zeit + "ms");
+            logger.info("retrieveMembersContextNotFound(" + ILLEGAL_CONTEXT_ID + "," + filterMap + ")->" + zeit + "ms");
         }
     }
 }

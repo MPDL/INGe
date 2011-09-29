@@ -636,14 +636,14 @@ public class XmlTransformingBean implements XmlTransforming
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToPubCollectionList:contextList is null");
         }
-        ContextVOListWrapper pubContextVOListWrapper = null;
+        SearchRetrieveResponseVO response = null;
         try
         {
             // unmarshal ContextVOListWrapper from String
             IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", ContextVOListWrapper.class);
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
             StringReader sr = new StringReader(contextList);
-            pubContextVOListWrapper = (ContextVOListWrapper)uctx.unmarshalDocument(sr, null);
+            response = (SearchRetrieveResponseVO)uctx.unmarshalDocument(sr, null);
         }
         catch (JiBXException e)
         {
@@ -655,9 +655,16 @@ public class XmlTransformingBean implements XmlTransforming
         {
             throw new TechnicalException(e);
         }
-        // unwrap the List<ContextVO>
-        List<ContextVO> pubContextList = pubContextVOListWrapper.getContextVOList();
-        return pubContextList;
+        List<ContextVO> ctxList = new ArrayList<ContextVO>();
+        
+        if (response.getRecords() != null)
+        {
+            for(SearchRetrieveRecordVO s : response.getRecords())
+            {
+                ctxList.add((ContextVO) s.getData());
+            }
+        }
+        return ctxList;
     }
 
     /**
@@ -726,6 +733,62 @@ public class XmlTransformingBean implements XmlTransforming
         List<? extends ItemVO> itemList = itemVOListWrapper.getItemVOList();
 
         return itemList;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<? extends ItemVO> transformSearchRetrieveResponseToItemList(String itemListXml) throws TechnicalException
+    {
+        logger.debug("transformSearchRetrieveResponseToItemList(String) - String itemList=\n" + itemListXml);
+        if (itemListXml == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformSearchRetrieveResponseToItemList:itemList is null");
+        }
+        SearchRetrieveResponseVO response = this.transformToSearchRetrieveResponse(itemListXml);
+        List<SearchRetrieveRecordVO> records = response.getRecords();
+        
+        List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+        
+        if (records == null)
+        {
+            return pubItemList;
+        }
+        
+        for(SearchRetrieveRecordVO record : records)
+        {
+            pubItemList.add((PubItemVO)record.getData());
+        }
+
+        return pubItemList;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<ContextVO> transformSearchRetrieveResponseToContextList(String contextListXml) throws TechnicalException
+    {
+        logger.debug("transformSearchRetrieveResponseToContextList(String) - String contextList=\n" + contextListXml);
+        if (contextListXml == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformSearchRetrieveResponseToContextList:contextList is null");
+        }
+        SearchRetrieveResponseVO response = this.transformToSearchRetrieveResponse(contextListXml);
+        List<SearchRetrieveRecordVO> records = response.getRecords();
+        
+        List<ContextVO> pubContextList = new ArrayList<ContextVO>();
+        
+        if (records == null)
+        {
+            return pubContextList;
+        }
+        
+        for(SearchRetrieveRecordVO record : records)
+        {
+            pubContextList.add((ContextVO)record.getData());
+        }
+
+        return pubContextList;
     }
 
     /**

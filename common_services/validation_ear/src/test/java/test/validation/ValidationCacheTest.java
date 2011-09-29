@@ -50,6 +50,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.validation.ValidationSchemaCache;
 
 /**
@@ -65,7 +66,7 @@ public class ValidationCacheTest
 
     private String validationPoint = "submit_item";
     private String context = "publication";
-    private String contentType = "escidoc:persistent4";
+    private String contentType = "escidoc.framework_access.content-model.id.publication";
 
     private ValidationSchemaCache cache;
 
@@ -173,7 +174,8 @@ public class ValidationCacheTest
     public final void testGetPrecompiledTransformer() throws Exception
     {
 
-        Transformer transformer = cache.getPrecompiledTransformer(context, contentType, validationPoint);
+        Transformer transformer = cache.getPrecompiledTransformer(context, 
+                PropertyReader.getProperty(contentType), validationPoint);
 
         assertNotNull(transformer);
 

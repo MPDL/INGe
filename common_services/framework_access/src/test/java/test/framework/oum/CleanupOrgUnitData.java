@@ -96,10 +96,10 @@ public class CleanupOrgUnitData extends TestBase
     public void showOrganizationalUnits() throws Exception
     {
         String filter = FILTER_ALL;
-        String units = ServiceLocator.getOrganizationalUnitHandler().retrieveOrganizationalUnits(filter);
+        /*String units = ServiceLocator.getOrganizationalUnitHandler().retrieveOrganizationalUnits(filter);
         logger.debug("units=" + units);
         assertNotNull(units);
         logger.info(LINE);
-        deleteUnits(units,LINE);
+        deleteUnits(units,LINE);*/
     }
 }

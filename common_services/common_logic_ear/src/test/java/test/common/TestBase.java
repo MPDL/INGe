@@ -85,11 +85,15 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.ls.LSInput;
+import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import test.common.util.ImportResolver;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
@@ -137,9 +141,7 @@ public class TestBase
     protected static final String ITEM_FILE = TEST_FILE_ROOT + "schindlmayr/schindlmayr-springer.xml";
     protected static final String COMPONENT_FILE = TEST_FILE_ROOT + "schindlmayr/schindlmayr-springer.pdf";
     protected static final String MIME_TYPE = "application/pdf";
-    protected static final String PUBMAN_TEST_COLLECTION_ID = "escidoc:persistent3";
-    protected static final String FACES_TEST_COLLECTION_ID = "escidoc:persistent3";
-    protected static final String FACES_CONTENT_MODEL_ID = "escidoc:faces50";
+    
     protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
     protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION =
         "This is the sample collection description of the PubMan Test\n"
@@ -148,7 +150,6 @@ public class TestBase
             + "for your publication (metadata) and all relevant files. The MPS is the\n"
             + "responsible affiliation for this collection. Please contact\n"
             + "u.tschida@zim.mpg.de for any questions.";
-    private static final int NUMBER_OF_URL_TOKENS = 2;
 
     /**
      * The default scientist password property.
@@ -159,6 +160,14 @@ public class TestBase
      */
     protected static final String PROPERTY_PASSWORD_SCIENTIST = "framework.scientist.password";
     /**
+     * The default scientist user id property.
+     */
+    protected static final String PROPERTY_ID_SCIENTIST = "framework.scientist.id";
+    /**
+     * The default scientist display name property.
+     */
+    protected static final String PROPERTY_DISPLAY_NAME_SCIENTIST = "framework.scientist.displayname";
+    /**
      * The default librarian password property.
      */
     protected static final String PROPERTY_USERNAME_LIBRARIAN = "framework.librarian.username";
@@ -167,13 +176,29 @@ public class TestBase
      */
     protected static final String PROPERTY_PASSWORD_LIBRARIAN = "framework.librarian.password";
     /**
-     * The default admin password property.
+     * The default librarian user id property.
+     */
+    protected static final String PROPERTY_ID_LIBRARIAN = "framework.librarian.id";
+    /**
+     * The default librarian display name property.
+     */
+    protected static final String PROPERTY_DISPLAY_NAME_LIBRARIAN = "framework.librarian.displayname";
+    /**
+     * The default author user name property.
      */
     protected static final String PROPERTY_USERNAME_AUTHOR = "framework.author.username";
     /**
-     * The default admin password property.
+     * The default author password property.
      */
     protected static final String PROPERTY_PASSWORD_AUTHOR = "framework.author.password";
+    /**
+     * The default author user id property.
+     */
+    protected static final String PROPERTY_ID_AUTHOR = "framework.author.id";
+    /**
+     * The default author display name property.
+     */
+    protected static final String PROPERTY_DISPLAY_NAME_AUTHOR = "framework.author.displayname";
     /**
      * The default editor password property.
      */
@@ -183,24 +208,55 @@ public class TestBase
      */
     protected static final String PROPERTY_PASSWORD_EDITOR = "framework.editor.password";
     /**
-     * The default admin password property.
+     * The default editor user id property.
+     */
+    protected static final String PROPERTY_ID_EDITOR = "framework.editor.id";
+    /**
+     * The default editor display name property.
+     */
+    protected static final String PROPERTY_DISPLAY_NAME_EDITOR = "framework.editor.displayname";
+    /**
+     * The default admin user name property.
      */
     protected static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
     /**
      * The default admin password property.
      */
-    protected static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";       
+    protected static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password"; 
+    /**
+     * The default admin user id property.
+     */
+    protected static final String PROPERTY_ID_ADMIN = "framework.admin.id";   
+    /**
+     * The default admin user display name property.
+     */
+    protected static final String PROPERTY_DISPLAY_NAME_ADMIN = "framework.admin.displayname";
     /**
      * The default faces test container property.
      */
     protected static final String PROPERTY_FACES_CONTEXTID = "escidoc.faces.contextid";
+    /**
+     * The default test context.
+     */
+    protected static final String PROPERTY_CONTEXTID_TEST = "escidoc.framework_access.context.id.test";
+    /**
+     * The default content model of type "publication".
+     */
+    protected static final String PROPERTY_CONTENT_PUBLICATION = "escidoc.framework_access.content-model.id.publication";    
     
     private static Map<String, Schema> schemas = null;
     /**
      * Logger for this class.
      */
     private static final Logger logger = Logger.getLogger(TestBase.class);
-
+    /**
+     * Map for queries
+     */
+    protected static HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
+    
+    protected static String PUBMAN_TEST_COLLECTION_ID = null;
+    protected static String FACES_TEST_COLLECTION_ID = null;
+    
     /**
      * Helper method to retrieve a EJB service instance. The name to be passed to the method is normally
      * 'ServiceXY.SERVICE_NAME'.
@@ -336,9 +392,11 @@ public class TestBase
      * Creates a well-defined PubItemVO without any files attached.
      * 
      * @return pubItem
+     * @throws Exception 
+     * @throws IOException 
      */
-    protected PubItemVO getPubItemWithoutFiles()
-    {
+    protected PubItemVO getPubItemWithoutFiles() throws Exception
+    {   
         PubItemVO item = new PubItemVO();
         // Metadata
         MdsPublicationVO mds = getMdsPublication1();
@@ -355,7 +413,7 @@ public class TestBase
      * 
      * @return pubItem
      */
-    protected PubItemVO getPubItem2()
+    protected PubItemVO getPubItem2() throws Exception
     {
         PubItemVO item = new PubItemVO();
         // (1) metadata
@@ -363,7 +421,7 @@ public class TestBase
         item.setMetadata(mds);
         // (2) pubCollection
         ContextRO collectionRef = new ContextRO();
-        collectionRef.setObjectId("escidoc:persistent3");
+        collectionRef.setObjectId(PropertyReader.getProperty(PROPERTY_CONTEXTID_TEST));
         item.setContext(collectionRef);
         return item;
     }
@@ -372,6 +430,8 @@ public class TestBase
      * Creates a well-defined PubItemVO named "PubMan: The first of all.".
      * 
      * @return pubItem
+     * @throws Exception 
+     * @throws IOException 
      */
     protected PubItemVO getPubItemNamedTheFirstOfAll()
     {
@@ -433,9 +493,11 @@ public class TestBase
      * Creates a well-defined PubItemVO named "PubMan: The first of all.".
      * 
      * @return pubItem
+     * @throws Exception 
+     * @throws IOException 
      */
     protected ItemResultVO getPubItemResultNamedTheFirstOfAll()
-    {
+    {   
         ItemResultVO itemResult = new ItemResultVO();
         // properties of the item
         // PubCollectionRef
@@ -485,6 +547,8 @@ public class TestBase
      * Creates a well-defined, complex PubItemVO without files.
      * 
      * @return pubItem
+     * @throws Exception 
+     * @throws IOException 
      */
     protected PubItemVO getComplexPubItemWithoutFiles()
     {
@@ -508,6 +572,10 @@ public class TestBase
      */
     protected ContainerVO getFacesAlbumContainer() throws IOException, URISyntaxException
     {
+        
+        String FACES_TEST_COLLECTION_ID = PropertyReader.getProperty(PROPERTY_CONTEXTID_TEST);
+        String FACES_CONTENT_MODEL_ID = PropertyReader.getProperty(PROPERTY_CONTENT_PUBLICATION);
+
         ContainerVO container = new ContainerVO();
         // Metadata
         MdsFacesContainerVO mds = getMdsFacesAlbum();
@@ -561,8 +629,6 @@ public class TestBase
         // Genre
         mds.setGenre(Genre.BOOK);
         // Creator
-        OrganizationVO organization;
-        TextVO name;
         CreatorVO creator = createCreator(mds);
         mds.getCreators().add(creator);
         // Title
@@ -1159,6 +1225,7 @@ public class TestBase
         File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/");
         schemas = new HashMap<String, Schema>();
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        sf.setResourceResolver(new ImportResolver());
         for (File file : schemaFiles)
         {
             try
@@ -1215,25 +1282,6 @@ public class TestBase
             }
         }
         logger.info("XSD Schemas found: " + schemas);
-    }
-
-    /**
-     * Gets the <code>Schema</code> object for the provided <code>File</code>.
-     * 
-     * @param schemaStream The file containing the schema.
-     * @return Returns the <code>Schema</code> object.
-     * @throws Exception If anything fails.
-     */
-    private static Schema getSchema(final String schemaFileName) throws Exception
-    {
-        if (schemaFileName == null)
-        {
-            throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":getSchema:schemaFileName is null");
-        }
-        File schemaFile = new File(schemaFileName);
-        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema theSchema = sf.newSchema(schemaFile);
-        return theSchema;
     }
 
     /**

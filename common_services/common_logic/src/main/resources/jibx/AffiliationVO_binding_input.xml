@@ -40,6 +40,7 @@
 		<structure field="reference" type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO"
 			usage="optional">
 			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setHref" usage="optional" />			
 		</structure>
 		
 		<!-- Node: organizational-unit.@last-modification-date -->
@@ -64,6 +65,7 @@
 				<!-- Node: organizational-unit.properties.created-by.@objid -->
 				<!-- Field: AffiliationVO.creator[AccountUserRO].objectId[String] -->
 				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
 
 			</structure>
 
@@ -76,6 +78,7 @@
 				<!-- Node: organizational-unit.properties.created-by.@objid -->
 				<!-- Field: AffiliationVO.creator[AccountUserRO].objectId[String] -->
 				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
 
 			</structure>
 
@@ -102,11 +105,16 @@
 				set-method="setHasChildren"/>
 
 		</structure>
+		
+		<!-- Node: organizational-unit.resources -->
+		<structure name="resources" ns="${xsd.soap.ou.ou}" usage="optional">
+		</structure>
+		
 
 		<!-- Node: item.md-records -->
 		<structure name="md-records" ns="${xsd.soap.common.mdrecords}">
 
-			<!-- Node: item.md-records.md-record -->
+			<!-- Node: organizational-unit.md-records.md-record -->
 			<!-- Field: metadataSets [List<MetadataSetVO>] -->
 			<collection name="md-record" ns="${xsd.soap.common.mdrecords}" field="metadataSets"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
@@ -132,6 +140,7 @@
 
 				<!-- Node: organizational-unit.parents.parent.@objid -->
 				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
 
 			</structure>
 
@@ -150,6 +159,7 @@
 
                 <!-- Node: organizational-unit.parents.parent.@objid -->
                 <value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
+                <value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
                 
                 <!-- Node: organizational-unit.parents.parent.@objid -->
                 <value style="attribute" name="form" set-method="setForm" usage="optional" />

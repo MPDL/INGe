@@ -470,12 +470,15 @@
 		<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
 		<!-- URL of the FIZ framework instance -->
-		<escidoc.framework_access.framework.url>http://dev-coreservice.mpdl.mpg.de</escidoc.framework_access.framework.url>
-		<escidoc.common.framework.url>http://dev-coreservice.mpdl.mpg.de</escidoc.common.framework.url>
-		<escidoc.framework_access.login.url>http://dev-coreservice.mpdl.mpg.de</escidoc.framework_access.login.url>
+		<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
+		<escidoc.common.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
+		<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
 
 		<!-- Identifier of the content type "publication" in the actual framework instance -->
-		<escidoc.framework_access.content-model.id.publication>escidoc:persistent4</escidoc.framework_access.content-model.id.publication>
+		<escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
+		<escidoc.framework_access.context.id.test>escidoc:4001</escidoc.framework_access.context.id.test>
+		<escidoc.framework_access.context.name.test>Test Context</escidoc.framework_access.context.name.test>
+		<escidoc.framework_access.content-model.id.test>escidoc:2002</escidoc.framework_access.content-model.id.test>
 
 		<!--
 			 Due to a historical defect, QName was released with multiple serialVersionUID values even though its serialization was the same. To workaround this issue,
@@ -552,7 +555,7 @@
 		<xsd.soap.contentmodel>http://www.escidoc.de/schemas/contentmodel/0.1</xsd.soap.contentmodel>
 		<xsd.soap.contentmodel.contentstreams>http://www.escidoc.de/schemas/contentstreams/0.7</xsd.soap.contentmodel.contentstreams>
 		<xsd.soap.attributes>http://www.escidoc.de/schemas/attributes/0.1</xsd.soap.attributes>
-
+		
 		<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
 		<xsd.metadata.dcterms>http://purl.org/dc/terms/</xsd.metadata.dcterms>
 		<xsd.metadata.dcmitype>http://purl.org/dc/dcmitype/</xsd.metadata.dcmitype>

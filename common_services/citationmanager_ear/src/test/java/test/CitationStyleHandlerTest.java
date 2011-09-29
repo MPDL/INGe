@@ -34,14 +34,12 @@ import static org.junit.Assert.assertTrue;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 
 public class CitationStyleHandlerTest {
@@ -70,19 +68,10 @@ public class CitationStyleHandlerTest {
      */
     @BeforeClass
     public static final void getItemList() throws Exception
-    {
-//    	String dsName = ResourceUtil.getPathToDataSources() + "item-list-inga.xml";
-    	
-//    	logger.info("Data Source:" + dsName);
-//        itemList = ResourceUtil.getResourceAsString(dsName);
-//        
-//        logger.info("itemList:" + itemList);
-    	
+    {    	
         itemList = TestHelper.getTestItemListFromFramework();
 		assertTrue("item list from framework is empty", Utils.checkVal(itemList) );
-		logger.info("item list from framework:\n" + itemList);
-//		TestHelper.writeBinFile(itemList.getBytes(), "/home/vlad/Projects/escidoc/common_services/citationmanager_ear/src/test/resources/DataSources/il.xml");
-        
+		logger.info("item list from framework:\n" + itemList);    
     }
     
 
@@ -117,7 +106,7 @@ public class CitationStyleHandlerTest {
      * @throws Exception Any exception.
      */
     @Test
-//    @Ignore
+    @Ignore
     public final void testCitManOutput() throws Exception {
     	
     	for 

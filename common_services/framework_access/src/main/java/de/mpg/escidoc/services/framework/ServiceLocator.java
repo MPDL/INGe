@@ -111,6 +111,7 @@ public class ServiceLocator
     //private static TocHandlerServiceLocator authorizedTocHandlerServiceLocator;
     private static IngestHandlerServiceLocator authorizedIngestHandlerServiceLocator;
     private static AdminHandlerServiceLocator authorizedAdminHandlerServiceLocator;
+    private static SRWSampleServiceLocator authorizedSearchHandlerServiceLocator;
 
     /**
      * Get the configured URL of the running framework instance.
@@ -508,6 +509,17 @@ public class ServiceLocator
             throw new ServiceException(e);
         }
     }
+    
+    public static SRWPort getSearchHandler(String databaseIdentifier, String userHandle) throws ServiceException, URISyntaxException
+    {
+        try
+        {
+            return getSearchHandler(databaseIdentifier, new URL(getFrameworkUrl()), userHandle);
+        } catch (MalformedURLException e)
+        {
+            throw new ServiceException(e);
+        }
+    }
 
     /**
      * Gets the SearchHandler service for an anonymous user.
@@ -519,15 +531,38 @@ public class ServiceLocator
      */
     public static SRWPort getSearchHandler(String databaseIdentifier, URL frameworkUrl) throws ServiceException, URISyntaxException
     {
+        try
+        {
+            return getSearchHandler(databaseIdentifier, frameworkUrl, "");
+        } catch (MalformedURLException e)
+        {
+            throw new ServiceException(e);
+        }
+    }
+
+    /**
+     * Gets the SearchHandler service for an anonymous user.
+     *
+     * @param databaseIdentifier  escidoc search database identifier
+     * @return A SearchHandler (SRWPort).
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    public static SRWPort getSearchHandler(String databaseIdentifier, URL frameworkUrl, String userHandle) throws ServiceException, URISyntaxException, MalformedURLException
+    {
         if ( databaseIdentifier == null)
         {
             throw new ServiceException("Database identifier is not valid");
         }
-        SRWSampleServiceLocator searchHandlerServiceLocator = new SRWSampleServiceLocator();
-        String url = frameworkUrl.toString() + SRW_PATH + "/" + databaseIdentifier + "/" + searchHandlerServiceLocator.getSRWWSDDServiceName();
-        Logger.getLogger(ServiceLocator.class).info("publicSearchHandlerServiceLocator URL=" + url);
-        searchHandlerServiceLocator.setSRWEndpointAddress(url);
-        SRWPort handler = searchHandlerServiceLocator.getSRW();
+        if (authorizedSearchHandlerServiceLocator == null)
+        {
+            authorizedSearchHandlerServiceLocator = new SRWSampleServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            String url = frameworkUrl.toString() + SRW_PATH + "/" + databaseIdentifier + "/" + authorizedSearchHandlerServiceLocator.getSRWWSDDServiceName();
+            Logger.getLogger(ServiceLocator.class).info("authorizedSearchHandlerServiceLocator URL=" + url);
+            authorizedSearchHandlerServiceLocator.setSRWEndpointAddress(url);
+        }
+        SRWPort handler = authorizedSearchHandlerServiceLocator.getSRW();
+        ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }
 

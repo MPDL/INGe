@@ -31,6 +31,7 @@ package test.framework.sb;
 import static org.junit.Assert.assertNotNull;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import test.framework.om.TestItemBase;
@@ -53,6 +54,7 @@ public class TestSemanticStoreHandler extends TestItemBase
     /**
      * Test method for {@link de.fiz.escidoc.ssh.SemanticStoreHandlerRemote#spo(java.lang.String)}.
      */
+    @Ignore("TODO: Replace persistent objects")
     @Test
     public void findTriplesOfObject() throws Exception
     {
@@ -103,6 +105,7 @@ public class TestSemanticStoreHandler extends TestItemBase
     /**
      * Test method for {@link de.fiz.escidoc.ssh.SemanticStoreHandlerRemote#spo(java.lang.String)}.
      */
+    @Ignore("TODO: Replace persistent objects")
     @Test
     public void findObjectIsRevisionOf() throws Exception
     {
@@ -127,6 +130,7 @@ public class TestSemanticStoreHandler extends TestItemBase
     /**
      * Test method for {@link de.fiz.escidoc.ssh.SemanticStoreHandlerRemote#spo(java.lang.String)}.
      */
+    @Ignore("TODO: Replace persistent objects")
     @Test
     public void findRevisionsOfObject() throws Exception
     {

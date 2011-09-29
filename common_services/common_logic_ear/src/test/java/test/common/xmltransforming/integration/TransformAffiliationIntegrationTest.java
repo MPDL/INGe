@@ -344,7 +344,7 @@ public class TransformAffiliationIntegrationTest extends TestBase
         String xmlparam = xmlTransforming.transformToFilterTaskParam(filter);
         logger.debug("testCreateAndRetrieveAffiliationStructure() - String xmlparam=\n" + toString(getDocument(xmlparam, false), false));
 
-        String topLevelAffiliations = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveOrganizationalUnits(xmlparam);
+        String topLevelAffiliations = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveOrganizationalUnits(filterMap);  //TODO
         logger.info("top level affiliations retrieved.");
         logger.error("testCreateAndRetrieveAffiliationStructure() - String topLevelAffiliations=\n" + toString(getDocument(topLevelAffiliations, false), false));
 
@@ -454,7 +454,7 @@ public class TransformAffiliationIntegrationTest extends TestBase
         filter.getFilterList().add(arf1);
         xmlparam = xmlTransforming.transformToFilterTaskParam(filter);
         logger.debug("testCreateAndRetrieveAffiliationStructure() - String xmlparam=\n" + toString(getDocument(xmlparam, false), false));
-        String specificAffiliations = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveOrganizationalUnits(xmlparam);
+        String specificAffiliations = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveOrganizationalUnits(filterMap);  //TODO
         logger.info("specific affiliations retrieved.");
         List<AffiliationVO> specificAffiliationList = xmlTransforming.transformToAffiliationList(specificAffiliations);
         if (logger.isDebugEnabled())

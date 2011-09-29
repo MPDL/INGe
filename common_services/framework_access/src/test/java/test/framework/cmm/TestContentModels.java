@@ -35,6 +35,7 @@ import org.junit.Test;
 
 import test.framework.TestBase;
 import de.escidoc.core.common.exceptions.application.notfound.ContentModelNotFoundException;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -55,7 +56,7 @@ public class TestContentModels extends TestBase
     @Test
 	public void retrieveContentTypePubItem() throws Exception
 	{
-        String id = PUBITEM_TYPE_ID;
+        String id = PropertyReader.getProperty(PROPERTY_PUBITEM_TYPE_ID);
         long zeit = -System.currentTimeMillis();
         String type = ServiceLocator.getContentModelHandler(userHandle).retrieve(id);
         zeit += System.currentTimeMillis(); 

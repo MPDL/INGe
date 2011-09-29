@@ -356,6 +356,7 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
             }
         
     }
+    
 
     /**
      * @return the m_uri

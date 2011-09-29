@@ -45,9 +45,11 @@ import org.w3c.dom.NodeList;
 
 import test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.util.XmlComparator;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
@@ -71,11 +73,13 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
  */
 public class TransformPubItemTest extends XmlTransformingTestBase
 {
+    
     private Logger logger = Logger.getLogger(getClass());
     private static XmlTransforming xmlTransforming = new XmlTransformingBean();
     private static String TEST_FILE_ROOT = "xmltransforming/component/transformPubItemTest/";
     private static String JPG_FARBTEST_FILE = TEST_FILE_ROOT + "farbtest_wasserfarben.jpg";
     private static String RELEASED_ITEM_FILE = TEST_FILE_ROOT + "released_item_with_one_component.xml";
+    private static final String REST_ITEM_FILE = TEST_FILE_ROOT + "rest_item.xml";
     private static String SAVED_ITEM_FILE = TEST_FILE_ROOT + "saved_item1.xml";
     private static String WITHDRAWN_ITEM_FILE = TEST_FILE_ROOT + "withdrawn_item1.xml";
     private static String ITEM_LIST1_FILE = TEST_FILE_ROOT + "item_list1.xml";
@@ -287,7 +291,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         logger.info("Item[XML] read from file.");
         logger.info("Content: " + releasedPubItemXML);
         // transform the item directly into a PubItemVO
-        long zeit = -System.currentTimeMillis();
+
         ItemVO pubItemVO = xmlTransforming.transformToItem(releasedPubItemXML);
 
         assertNotNull("Local tags are null", pubItemVO.getLocalTags());
@@ -297,6 +301,33 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         
         assertEquals("4fe9cebf84b66a9ebb07729f24f9f8cc", pubItemVO.getFiles().get(0).getChecksum());
         assertEquals("CC-LICENSE", pubItemVO.getFiles().get(0).getDefaultMetadata().getLicense());
+    }
+    
+    /**
+     * Test method for
+     * {@link de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean#transformToItem(java.lang.String)}.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testTransformRestItemToPubItem() throws Exception
+    {
+        logger.info("### testTransformRestItemToPubItem ###");
+
+        // read item[XML] from file
+        String restPubItemXML = readFile(REST_ITEM_FILE);
+        logger.info("Item[XML] read from file.");
+        logger.info("Content: " + restPubItemXML);
+        // transform the item directly into a PubItemVO
+        ItemVO pubItemVO = xmlTransforming.transformToItem(restPubItemXML);
+
+        assertEquals("ObjectId not transformed correctly", "escidoc:149937", pubItemVO.getVersion().getObjectId());
+        assertEquals("ObjectId and Version not transformed correctly", "escidoc:149937:3", pubItemVO.getVersion().getObjectIdAndVersion());
+        assertEquals("Content Model not transformed correctly", "escidoc:persistent4", pubItemVO.getContentModel());
+        assertEquals("Context not transformed correctly", "escidoc:147965", pubItemVO.getContext().getObjectId());
+        assertEquals("Version number not transformed correctly", 3, pubItemVO.getLatestVersion().getVersionNumber());
+        assertEquals("Owner not transformed correctly", "escidoc:146934", pubItemVO.getOwner().getObjectId());
+        assertEquals("Latest release not transformed correctly", "escidoc:149937", pubItemVO.getLatestRelease().getObjectId());
     }
 
     /**

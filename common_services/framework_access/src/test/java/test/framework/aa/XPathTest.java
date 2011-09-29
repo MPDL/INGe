@@ -96,7 +96,7 @@ public class XPathTest extends TestBase
     public void testAccountUserXMLVorher() throws Exception
     {
         logger.debug("\n### testAccountUserXMLVorher ###");
-        String grantsXml = readFile("src/test/resources/testframework/um/xpathtest/user-account-vorher.xml");
+        String grantsXml = readFile("src/test/resources/test/framework/um/xpathtest/user-account-vorher.xml");
         Document grantsDoc = getDocument(grantsXml, false);
         String id = getAttributeValue(grantsDoc, "//user-account", "objid");
         logger.info("Vorher: id="+id);
@@ -110,7 +110,7 @@ public class XPathTest extends TestBase
     public void testAccountUserXMLNachher() throws Exception
     {
         logger.debug("\n### testAccountUserXMLNachher ###");
-        String grantsXml = readFile("src/test/resources/testframework/um/xpathtest/user-account-nachher.xml");
+        String grantsXml = readFile("src/test/resources/test/framework/um/xpathtest/user-account-nachher.xml");
         Document grantsDoc = getDocument(grantsXml, false);
         String id = getAttributeValue(grantsDoc, "//user-account[1]", "objid");
         logger.info("Vorher: id="+id);
@@ -124,11 +124,11 @@ public class XPathTest extends TestBase
     public void testNamespaceAwareness() throws Exception
     {
         logger.debug("\n### testNamespaceAwareness ###");
-        String grantsXml = readFile("src/test/resources/testframework/um/grants_with_double_hrefs.xml");
+        String grantsXml = readFile("src/test/resources/test/framework/um/grants_with_double_hrefs.xml");
         Document grantsDoc = getDocument(grantsXml, true);
         String xPath = "//*[local-name() = 'current-grants']/*[local-name() = 'grant'][1]/*[local-name() = 'object-ref']";
         NodeList nl = selectNodeList(grantsDoc, xPath);
-        // this should be one distict node
+        // this should be one distinct node
         assertTrue(nl.getLength() == 1);
         Node node = nl.item(0);
         NamedNodeMap nnl = node.getAttributes();
@@ -143,7 +143,7 @@ public class XPathTest extends TestBase
     public void testGetNodeText() throws Exception
     {
         logger.debug("\n### testGetNodeText ###");
-        String grantsXml = readFile("src/test/resources/testframework/um/user-account.xml");
+        String grantsXml = readFile("src/test/resources/test/framework/um/user-account.xml");
         Document grantsDoc = getDocument(grantsXml, false);
         String xPath = "//user-account/name";
         Node n = selectSingleNode(grantsDoc, xPath);

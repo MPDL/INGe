@@ -38,6 +38,7 @@ import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import test.common.xmltransforming.XmlTransformingTestBase;
@@ -103,6 +104,7 @@ public class TransformStatisticsTest extends XmlTransformingTestBase
     }
     
     @Test
+    @Ignore
     public void testTransformToStatisticReportRoundtrip() throws Exception
     {
         logger.info("### testTransformToStatisticReportRoundtrip()");

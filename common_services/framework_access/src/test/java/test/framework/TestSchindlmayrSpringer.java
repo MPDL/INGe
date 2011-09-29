@@ -59,18 +59,20 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import test.framework.om.TestItemBase;
+
 import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
+import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
 import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.escidoc.core.common.exceptions.application.violated.LockingException;
 import de.escidoc.core.common.exceptions.application.violated.OptimisticLockingException;
-import de.escidoc.core.common.exceptions.system.FedoraSystemException;
+
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
-import de.escidoc.core.common.exceptions.system.XmlParserSystemException;
+
 import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -182,8 +184,8 @@ public class TestSchindlmayrSpringer extends TestItemBase
     }
 
     private String update(String item) throws LockingException, MissingMethodParameterException,
-            InvalidStatusException, ItemNotFoundException, XmlParserSystemException, WebserverSystemException,
-            SqlDatabaseSystemException, AuthenticationException, FedoraSystemException, AuthorizationException,
+            InvalidStatusException, ItemNotFoundException, InvalidXmlException, WebserverSystemException,
+            SqlDatabaseSystemException, AuthenticationException, AuthorizationException,
             RemoteException, ServiceException, URISyntaxException
     {
         String id = getId(item);
@@ -193,8 +195,8 @@ public class TestSchindlmayrSpringer extends TestItemBase
     }
 
     private void submit(String item) throws LockingException, MissingMethodParameterException,
-            InvalidStatusException, ItemNotFoundException, XmlParserSystemException, WebserverSystemException,
-            SqlDatabaseSystemException, AuthenticationException, FedoraSystemException, AuthorizationException,
+            InvalidStatusException, ItemNotFoundException, InvalidXmlException, WebserverSystemException,
+            SqlDatabaseSystemException, AuthenticationException, AuthorizationException,
             RemoteException, ServiceException, URISyntaxException
     {
         String id = getId(item);

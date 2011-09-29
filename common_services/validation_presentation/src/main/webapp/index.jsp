@@ -49,6 +49,9 @@
 			There are several ways to access the service. Below are links to the REST frontend and the SOAP frontend.
 			There is also an EJB3 interface called <code>ejb.de.mpg.escidoc.services.validation.ItemValidating</code>.
 		</p>
+		<p>
+			There is a rudimentary SQL interface to edit validation schemas <a href="db.jsp">here</a>.
+		</p>
 		<ul>
 			<li>
 				<a href="services">SOAP Interface</a>

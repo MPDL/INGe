@@ -33,6 +33,7 @@ package test.xmltransforming.component;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -57,6 +58,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
  */
 public class TransformAffiliationTest extends TestBase
 {
+    private static final String REST_AFFILIATION_FILE = TEST_FILE_ROOT + "xmltransforming/component/transformAffiliationTest/organizational-unit_rest.xml";
     private static XmlTransforming xmlTransforming = new XmlTransformingBean();
 
     private Logger logger = Logger.getLogger(getClass());
@@ -177,6 +179,36 @@ public class TransformAffiliationTest extends TestBase
         String roundTripOrganizationalUnitXml = xmlTransforming.transformToOrganizationalUnit(affiliation);
         logger.debug("testTransformToOrganizationalUnit() - String organizationalUnitXml=\n" + organizationalUnitXml
                 + "\n\ntestTransformToOrganizationalUnit() - String roundTripOrganizationalUnitXml=\n" + roundTripOrganizationalUnitXml);
+    }
+    
+    /**
+     * Test method for
+     * {@link de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean#transformToItem(java.lang.String)}.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testTransformRestAffiliationToAffiliation() throws Exception
+    {
+        logger.info("### testTransformRestAffiliationToAffiliation ###");
+
+        // read item[XML] from file
+        String restAffiliationXML = readFile(REST_AFFILIATION_FILE);
+        logger.info("Affiliation[XML] read from file.");
+        logger.info("Content: " + restAffiliationXML);
+        // transform the xml directly into a AffiliationVO
+        AffiliationVO affiliationVO = xmlTransforming.transformToAffiliation(restAffiliationXML);
+
+        assertEquals("ObjectId not transformed correctly", "escidoc:830552", affiliationVO.getReference().getObjectId());
+        assertEquals("Creator (created-by) not transformed correctly", "escidoc:user42", affiliationVO.getCreator().getObjectId());
+        assertEquals("Modifier (modified-by) not transformed correctly", "escidoc:user42", affiliationVO.getModifiedBy().getObjectId());
+        
+        List<AffiliationRO> l = affiliationVO.getParentAffiliations();
+        
+        for (AffiliationRO a :l)
+        {
+            assertTrue(a.getObjectId().equals("escidoc:830550"));
+        }       
     }
 
     private void assertEqualsMPIWG(AffiliationVO affiliation)

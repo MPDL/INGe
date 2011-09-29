@@ -37,6 +37,7 @@
 	<namespace prefix="attributes" uri="${xsd.soap.attributes}" default="none" />
 	<namespace prefix="result" uri="${xsd.soap.result.result}" default="none" />
 	<namespace prefix="srw" uri="${xsd.soap.searchRetrieveResponse}" default="none"/>
+	<namespace prefix="search-result" uri="${xsd.soap.searchresult.searchresult}" default="none"/>
 	
 	
 	

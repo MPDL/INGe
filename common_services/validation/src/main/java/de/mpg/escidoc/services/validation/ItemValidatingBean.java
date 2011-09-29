@@ -106,8 +106,8 @@ public class ItemValidatingBean implements ItemValidating
         String context = findContext(itemXml);
         String contentModel = findContentModel(itemXml);
 
-        LOGGER.debug("Context found: " + context);
-        LOGGER.debug("ContentModel found: " + contentModel);
+        LOGGER.info("Context found: " + context);
+        LOGGER.info("ContentModel found: " + contentModel);
         
         return validateItemXml(itemXml, validationPoint, context, contentModel);
     }
@@ -175,7 +175,7 @@ public class ItemValidatingBean implements ItemValidating
                 .getInstance()
                 .getValidationSchemaId(context);
             
-            return validateItemXmlBySchema(itemXml, validationPoint, validationSchema, contentType);
+            return this.validateItemXmlBySchema(itemXml, validationPoint, validationSchema, contentType);
         }
         catch (Exception e)
         {

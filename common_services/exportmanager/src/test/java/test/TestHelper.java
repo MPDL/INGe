@@ -39,26 +39,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.StringTokenizer;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.rpc.ServiceException;
-
-import org.apache.axis.encoding.Base64;
-import org.apache.commons.httpclient.Cookie;
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
-import org.apache.commons.httpclient.cookie.CookieSpec;
-import org.apache.commons.httpclient.methods.PostMethod;
-
-import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.escidoc.services.framework.AdminHelper;
-import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ServiceLocator;
 
 // import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
 
@@ -74,9 +55,6 @@ public class TestHelper
 	public static final String ITEMS_LIMIT = "20"; 
 	public static final String CONTENT_MODEL_PUBMAN = "escidoc:persistent4"; 
 	public static final String CONTENT_MODEL_FACES = "escidoc:faces40";
-    private static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
-    private static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
-
 
 	
     /**
@@ -176,30 +154,5 @@ public class TestHelper
     		bos.close( );
     	}
     }
-    
-    
-    /**
-     * Get itemList from the current Framework instance
-     * @param fileName
-     * @throws IOException 
-     * @throws URISyntaxException 
-     * @throws ServiceException 
-     */
-    public static String getItemListFromFramework(final String contentModel, String limit) throws IOException, ServiceException, URISyntaxException
-    {
-    	
-    	String userHandle = AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN)); 
-        ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
-        String filter = 
-        	"<param>" + 
-        		// escidoc content model
-	    		"<filter name=\"/properties/content-model/id\">" + contentModel + "</filter>" +
-	    		//    		"<filter name=\"/properties/public-status\">pending</filter>" +
-	    		"<limit>" + limit + "</limit>" +
-        	"</param>";
-        return ch.retrieveItems(filter);
-    
-    }
-    
 
 }

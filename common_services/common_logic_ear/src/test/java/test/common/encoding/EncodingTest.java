@@ -46,6 +46,7 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -77,8 +78,8 @@ public class EncodingTest extends TestBase
         xmlTransforming = (XmlTransforming) context.lookup(XmlTransforming.SERVICE_NAME);
         // get user handle for user "test_dep_scientist"
         userHandle = loginScientist();
-        // use this handle to retrieve user "escidoc:user1"
-        userXml = ServiceLocator.getUserAccountHandler(userHandle).retrieve("escidoc:user1");
+        // use this handle to retrieve configured user
+        userXml = ServiceLocator.getUserAccountHandler(userHandle).retrieve(PropertyReader.getProperty(PROPERTY_ID_SCIENTIST));
         // transform userXML to AccountUserVO
         userVO = xmlTransforming.transformToAccountUser(userXml);
         String userGrantXML = ServiceLocator

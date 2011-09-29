@@ -42,24 +42,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Properties;
-import java.util.StringTokenizer;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
 
-import org.apache.axis.encoding.Base64;
-import org.apache.commons.httpclient.Cookie;
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
-import org.apache.commons.httpclient.cookie.CookieSpec;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -78,10 +68,9 @@ public class TestHelper
 	private static Logger logger = Logger.getLogger(TestHelper.class);
 	
 	public static final String ITEMS_LIMIT = "10"; 
-	public static final String CONTENT_MODEL = "escidoc:persistent4"; 
-//	public static final String USER_NAME = "citman_user"; 
-//	public static final String USER_PASSWD = "citman_user";
+	
 	public static final String CONTEXT_TITLE = "Citation Style Testing Context";
+	public static final String PROPERTY_CONTENT_MODEL = "escidoc.framework_access.content-model.id.publication"; 
     private static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
     private static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
 	
@@ -210,29 +199,27 @@ public class TestHelper
    
     /**
      * Get itemList from the current Framework instance
-     * @param fileName
      * @throws IOException 
      * @throws URISyntaxException 
      * @throws ServiceException 
      */    
     public static String getTestItemListFromFramework() throws IOException, ServiceException, URISyntaxException
     {
-    	return getItemListFromFrameworkBase(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN), 
-    		"<param>" +
-	    		"<filter name=\"/properties/content-model/id\">" + CONTENT_MODEL + "</filter>" +
-//	    		"<filter name=\"/properties/context/title\">" + CONTEXT_TITLE + "</filter>" +
-	    		"<limit>" + ITEMS_LIMIT + "</limit>" +
-	//    		"<filter name=\"/properties/public-status\">pending</filter>" +
-    		"</param>"
-    	);	
+        HashMap<String, String[]> filter = new HashMap<String, String[]>();
+        String q = "\"/properties/content-model/id\"=" + PropertyReader.getProperty(PROPERTY_CONTENT_MODEL) 
+                + " and " + "\"/properties/public-status\"=pending" + " and " + "\"/properties/context/title\"=" + CONTEXT_TITLE;
+        filter.put("version", new String[]{"1.1"});
+        filter.put("operation", new String[]{"searchRetrieve"});
+        filter.put("query", new String[] {q});
+       
+    	return getItemListFromFrameworkBase(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN), filter);	
     }
     
-    public static String getItemListFromFrameworkBase(String USER, String PASSWD, String filter) throws IOException, ServiceException, URISyntaxException
+    public static String getItemListFromFrameworkBase(String user, String passwd, HashMap<String, String[]> filter) throws IOException, ServiceException, URISyntaxException
     {
-//    	logger.info("Retrieve USER, PASSWD:" + USER + ", " + PASSWD);
-    	String userHandle = AdminHelper.loginUser(USER, PASSWD); 
+    	String userHandle = AdminHelper.loginUser(user, passwd); 
     	logger.info("Retrieve filter:" + filter);
-    	// see here for filters: https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
+    	
     	ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
     	return ch.retrieveItems(filter);
     }

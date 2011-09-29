@@ -46,6 +46,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
@@ -104,7 +105,8 @@ public class TestFile extends TestBase
     /**
      * Tests the upload of a file to the staging area.
      */
-    @Test
+    @Ignore("TODO: Replace persistent objects")
+    @Test   
     public void uploadFile() throws Exception
     {
         createItemWithFile(userHandle);
@@ -112,7 +114,8 @@ public class TestFile extends TestBase
 
     /**
      * Tests the download of a file from the staging area.
-     */
+     */    
+    @Ignore("TODO: Replace persistent objects")
     @Test
     public void downloadFile() throws Exception
     {

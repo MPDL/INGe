@@ -32,19 +32,14 @@ package test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
 import javax.xml.rpc.ServiceException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
-
-import net.sf.jasperreports.engine.util.JRXmlUtils;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -53,16 +48,13 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.escidoc.www.services.adm.AdminHandler;
 import de.escidoc.www.services.om.ContextHandler;
-import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
@@ -85,30 +77,21 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class TestCitationStylesSubstantial {
 
     private Logger logger = Logger.getLogger(getClass());
-	 
-    private static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
-    private static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
 
 	private static final String USER_NAME = "citman_user"; 
 	private static final String USER_PASSWD = "citman_user";
 	private static final String CONTEXT = "Citation Style Testing Context";
     
-	private static final String FILTER_CITATION_USER = 
-		"<param>" + 
-    		"<filter name=\"user\">" + USER_NAME + "</filter>" +
-    	"</param>";
-
-	private static final String FILTER_CITATION_STYLE_TEST_COLLECTION = 
-		"<param>" 
-		+  "<filter name=\"/properties/context/title\">" + CONTEXT +"</filter>"
-	    + "</param>";
 	
-	private static final String FILTER_CITATION_STYLE_CONTEXT = 
+	   //     
+		/*"<param>" 
+		+  "<filter name=\"/properties/context/title\">" + CONTEXT +"</filter>"
+	    + "</param>";*/
+	
+	/*private static final String FILTER_CITATION_STYLE_CONTEXT = 
 		"<param>" 
 		+  "<filter name=\"/properties/name\">" + CONTEXT +"</filter>"
-		+ "</param>";
-	
-	private static final String LMD_FORMAT = "<param last-modification-date=\"%s\"/>";
+		+ "</param>";*/
 
 	private static final String CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME = "backup/CitationStyleTestUserAccount.xml"; 
 	private static final String CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME = "backup/CitationStyleTestUserGrants.xml"; 
@@ -119,21 +102,16 @@ public class TestCitationStylesSubstantial {
 	private static String userHandle, adminHandle;   
 	private static UserAccountHandler uah_user, uah_admin; 
 	
-//	private static ProcessCitationStyles pcs;    
+	private static HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
+	   
 	private static CitationStyleExecutor cse;
-	private static XPath xpath;
+
 	 
 	 @BeforeClass
 	 public static void setUp() throws Exception
 	 {
+	     filterMap.clear();
 		 cse = new CitationStyleExecutor();
-		 
-//		 userHandle = TestHelper.loginUser(USER_NAME, USER_PASSWD);
-//		 uah_user = ServiceLocator.getUserAccountHandler(userHandle);
-//		 adminHandle = TestHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN));
-//		 uah_admin = ServiceLocator.getUserAccountHandler(adminHandle);
-		 XPathFactory factory = XPathFactory.newInstance();
-		 xpath = factory.newXPath();
 	 }
 	 
 	 /**
@@ -142,7 +120,7 @@ public class TestCitationStylesSubstantial {
      * @throws Exception
      */
 	 @Test
-//	 @Ignore
+	 @Ignore
 	 public final void testCitationStylesSnippetGeneration() throws Exception  {
 
 		 for ( String cs: cse.getStyles() ) 
@@ -175,7 +153,6 @@ public class TestCitationStylesSubstantial {
     	
     	if ("false".equalsIgnoreCase(tp.getProperty("substantial.skip.test")))
     	{
-    		boolean IS_IGNORE_MULTIPLY_SPACES = "true".equalsIgnoreCase(tp.getProperty("ignore.multiply.spaces"));
     		String FILE_NAME = tp.getProperty("substantial.test.xml");
     		String EXPECTED_KEY = tp.getProperty("substantial.expected.key");
     		String EXPECTED_XPATH = tp.getProperty("substantial.expected.xpath");
@@ -351,262 +328,6 @@ public class TestCitationStylesSubstantial {
     	return true;
 	}
     
-    private boolean restoreItems() throws Exception 
-    {
-		//load from file
-    	String itemList = TestHelper.getFileAsString(CITATION_STYLE_TEST_COLLECTION_FILE_NAME);
-    	if ( !Utils.checkVal(itemList) )
-    	{
-    		//file is empty
-    		logger.error("Empty itemList xml");
-    		return false;
-    	}
-    	
-    	ItemHandler ih = ServiceLocator.getItemHandler(userHandle);    	
-
-    	String context_id = getContextId();
-    	
-    	if ( !Utils.checkVal(context_id)  )
-    	{
-    		logger.error("No context has been found");
-    		return false;
-    	}
-    	logger.info("context for user:" + context_id);
-    	
-    	//get namespaces of the root element 
-    	NamedNodeMap namespaces = XmlHelper.xpathNode("/item-list", itemList).getAttributes() ;
-    	namespaces.removeNamedItem("xmlns:escidocItemList");
-    	
-    	
-    	NodeList nodes = XmlHelper.xpathNodeList("/item-list/item", itemList);
-    	
-    	if ( nodes == null || nodes.getLength()==0  )
-    	{
-    		logger.error("No items have been found in itemList");
-    		return false;
-    	}
-
-    	
-    	for (int i = 0; i < nodes.getLength(); i++) 
-    	{
-    		Node n = (Node) nodes.item(i);
-    		
-    		//remove old objid of the item
-    		logger.info("objid:" + ((Element)n).getAttribute("objid"));
-    		((Element)n).removeAttribute("objid");
-    		
-       		for (int ii = 0; ii < namespaces.getLength(); ii++)
-        	{
-//        		logger.info ("name:" + nnm.item(i).getNodeName() + ";type:" + nnm.item(i).getNodeType() + ";value:" + nnm.item(i).getNodeValue());
-        		((Element)n).setAttribute(namespaces.item(ii).getNodeName(), namespaces.item(ii).getNodeValue());
-        	}
-    		
-    		Document tmpDoc = JRXmlUtils.createDocument(n);
-    		
-    		//replace props
-    		for ( String expr : new String[] {
-    				"latest-release",
-    				"created-by",
-    				"public-status",
-    				"latest-version",
-    				"version"
-    		} )
-    		{
-        		Node nnn = XmlHelper.xpathNode("/item/properties/" + expr, tmpDoc);
-        		logger.info("xpath:" + "/item/properties/" + expr);
-        		if ( nnn != null )
-        			nnn.getParentNode().removeChild(nnn);
-    		}
-    		
-    		//set context_id
-    		XmlHelper.xpathNode("/item/properties/context/@objid", tmpDoc).setNodeValue(context_id);
-    		
-    		String itemXml = XmlHelper.outputString(tmpDoc);
-    		logger.info("item to be created: " + itemXml);
-    		
-    		//create item
-    		String createdItemXml = ih.create(itemXml);
-    		logger.info("created item: " + createdItemXml);
-
-    		String item_id = XmlHelper.xpathString("/item/@objid", createdItemXml);
-    		String last_modification_date = XmlHelper.xpathString("/item/@last-modification-date", createdItemXml);
-    		//submit item
-    		last_modification_date = XmlHelper.xpathString(
-    				"/result/@last-modification-date", 
-    				ih.submit(item_id, String.format(LMD_FORMAT, last_modification_date))
-    		);
-    		
-    		//assignObjectPid
-    		String pid = "CIT_COL_PID_" + System.currentTimeMillis() ;
-    		last_modification_date = XmlHelper.xpathString(
-    				"/result/@last-modification-date", 
-    				ih.assignObjectPid(
-    						item_id, 
-    	    				"<param last-modification-date=\"" + last_modification_date + "\">" + 
-//    	    					"<url>http://localhost/" + System.currentTimeMillis() + "</url>" +
-    	    				"<pid>" + pid + "</pid>" + 
-    	    				"</param>"
-    	    		)    				
-    		);
-    		//assignVersionPid
-    		last_modification_date = XmlHelper.xpathString(
-    				"/result/@last-modification-date", 
-    				ih.assignVersionPid(item_id + ":1", 
-    	    				"<param last-modification-date=\"" + last_modification_date + "\">" + 
-//    	    					"<url>http://localhost/" + System.currentTimeMillis() + "</url>" +
-    	    					"<pid>" + pid + ":1</pid>" +
-    	    				"</param>"
-    	    		)    		
-    	    );
-
-    		//release item
-    		logger.info("release object result:" +
-    			ih.release(item_id, String.format(LMD_FORMAT, last_modification_date))
-    		);
-    		
-//    		Thread.sleep(10000);
-    		
-    	}    	
-    	
-    	return true;
-		
-	}
-
-	/**
-     * Restores Context
-     * @return <code>true</code> if successful, <code>false</code> otherwise   
-     * @throws Exception
-     */
-	private boolean restoreContext() throws Exception 
-    {
-//    	//check test context
-    	ContextHandler ch = ServiceLocator.getContextHandler(userHandle);
-    	String contextList = ch.retrieveContexts(FILTER_CITATION_STYLE_CONTEXT);
-    	Double count =  XmlHelper.xpathNumber("/context-list/@number-of-records", contextList);
-    	if ( count > 0 )
-    	{
-    		//already exists, go away
-    		logger.info("context " + CONTEXT + " already exists.");
-    		return false;
-    	}
-    	
-    	//context does not exist, create it 
-    	String contextXml = TestHelper.getFileAsString(CITATION_STYLE_TEST_CONTEXTS_FILE_NAME);
-    	if ( !Utils.checkVal(contextXml) )
-    	{
-    		//file is empty
-    		logger.error("empty context xml");
-    		return false;
-    	}
-    	
-    	Document doc = JRXmlUtils.createDocument(XmlHelper.xpathNode("/context-list/context", contextXml));
-    	
-    	//clean up xml for creation 
-    	Element root = doc.getDocumentElement();  
-    	root.removeAttribute("objid");
-    	root.removeAttribute("last-modification-date");
-    	
-    	//replace props
-		for ( String expr : new String[] {
-				"creation-date",
-				"created-by",
-				"modified-by",
-				"public-status",
-				"public-status-comment",
-		})
-		{
-    		Node nnn = XmlHelper.xpathNode("/context/properties/" + expr, doc);
-    		nnn.getParentNode().removeChild(nnn);
-		}    	
-    	
-		contextXml = XmlHelper.outputString(doc);
-//		contextXml = Utils.replaceAllTotal(contextXml, "<(([\\w]+:)?creation-date).*?\\1>", "");
-////		contextXml = Utils.replaceAllTotal(contextXml, "<[\\w]+:?created-by.*?>", "");
-//		contextXml = Utils.replaceAllTotal(contextXml, "<([\\w]+:)?modified-by.*?>", "");
-//		contextXml = Utils.replaceAllTotal(contextXml, "<(([\\w]+:)?public-status-comment).*?\\1>", "");
-
-    	ch = ServiceLocator.getContextHandler(adminHandle);
-    	
-    	//create new context with admin account
-    	contextXml = ch.create(contextXml);
-    	
-    	doc = createDocument(contextXml);
-    	String new_objid = XmlHelper.xpathString("/context/@objid", doc);
-    	String last_modification_date = XmlHelper.xpathString("/context/@last-modification-date", doc);
-
-    	//open context
-		String result = ch.open(new_objid, String.format(LMD_FORMAT, last_modification_date));
-    	logger.info( "open context result: " + result );
-    	
-    	return true;
-		
-	}
-
-    
-	/**
-	 * restores Grants for the Context on the User
-	 * @return <code>true</code> if successful, <code>false</code> otherwise   
-	 * @throws Exception
-	 */
-	private boolean restoreGrants() throws Exception
-	{
-		//set grants
-		//get user account xml 
-		String userXml = uah_user.retrieve(USER_NAME);
-		if ( !Utils.checkVal(userXml) )
-		{
-			logger.info("Cannot find created user account");
-			return false;
-		}
-
-		String user_id = getUserId(userXml);
-		logger.info("user_name:" + USER_NAME + ", user_id: " + user_id);
-
-		String user_creator_id = getCreatorOfUserId(userXml);
-
-		String context_id = getContextId();
-		logger.info("context_name:" + CONTEXT + ", context_id: " + context_id);
-
-
-		String grantsXml = TestHelper.getFileAsString(CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME);
-
-		Document document = createDocument(grantsXml);
-
-		//get namespaces from the root element
-		NamedNodeMap nnm = document.getDocumentElement().getAttributes();
-
-		NodeList nodes = XmlHelper.xpathNodeList("/current-grants/grant", document);
-
-		for (int i = 0; i < nodes.getLength(); i++) 
-		{
-			Node n = (Node) nodes.item(i);
-			//remove old objid of the grant
-			((Element)n).removeAttribute("objid");
-			Document tmpDoc = JRXmlUtils.createDocument(n);
-			//set namespaces taken from root element
-			Element re = tmpDoc.getDocumentElement(); 
-			for (int j = 0; j < nnm.getLength(); j++) 
-			{
-				Node nn = nnm.item(j);
-				re.setAttribute(nn.getNodeName(), nn.getNodeValue());
-			}
-
-			//set new user_id
-			XmlHelper.xpathNode("/grant/properties/assigned-on/@objid", tmpDoc).setNodeValue(context_id);
-			//set user creator id
-			XmlHelper.xpathNode("/grant/properties/created-by/@objid", tmpDoc).setNodeValue(user_creator_id);
-
-			String grantXml = XmlHelper.outputString(tmpDoc);
-			//		grantXml = Utils.replaceAllTotal(grantXml, "(<([\\w]+:)?assigned-on\\s+objid=\")[^\"]+(\"\\s*/>)", "$1" + context_id + "$3");
-			//		grantXml = Utils.replaceAllTotal(grantXml, "(<([\\w]+:)?created-by\\s+objid=\")[^\"]+(\"\\s*/>)", "$1" + user_creator_id + "$3");
-
-			logger.info("grant: " + grantXml);
-
-			//grants the permission for user_id
-			uah_admin.createGrant(user_id, grantXml);
-		}
-		return true;
-	}
 
 
 	/**
@@ -616,7 +337,9 @@ public class TestCitationStylesSubstantial {
 	
 	public void backupItems() throws Exception
     {
-    	String itemList = ServiceLocator.getItemHandler(userHandle).retrieveItems( FILTER_CITATION_STYLE_TEST_COLLECTION );    	
+	    filterMap.put("query", new String[]{"\"/properties/title\"=" + CONTEXT});
+	    
+    	String itemList = ServiceLocator.getItemHandler(userHandle).retrieveItems( filterMap );    	
     	writeToFile(CITATION_STYLE_TEST_COLLECTION_FILE_NAME, itemList);
     }
     
@@ -626,8 +349,10 @@ public class TestCitationStylesSubstantial {
      */
     public void backupContext() throws Exception
     {
+        filterMap.put("query", new String[]{"\"/properties/title\"=" + CONTEXT});
+        
     	ContextHandler ch = ServiceLocator.getContextHandler(userHandle);
-    	String contextList = ch.retrieveContexts(FILTER_CITATION_STYLE_CONTEXT); 
+    	String contextList = ch.retrieveContexts(filterMap); 
     	writeToFile(CITATION_STYLE_TEST_CONTEXTS_FILE_NAME+ ".xml", contextList);
     }
 
@@ -686,18 +411,6 @@ private static void administration(String userHandle) throws Exception
     
     
 	/**
-     * Get <code>objid</code> of the Context against the name of it   
-     * @return objid of the Context   
-     * @throws Exception
-     */
-    private String getContextId() throws Exception 
-    {
-    	ContextHandler ch = ServiceLocator.getContextHandler(userHandle);
-    	String contextList = ch.retrieveContexts(FILTER_CITATION_STYLE_CONTEXT);
-    	return XmlHelper.xpathString("/context-list/context/@objid", contextList);
-	}
-    
-	/**
      * Get <code>objid</code> of the User   
      * @param userXml is User Account Xml
      * @return objid of the User   
@@ -707,24 +420,6 @@ private static void administration(String userHandle) throws Exception
     {
         return XmlHelper.xpathString("//user-account[1]/@objid", userXml); 
     }
-    
-	/**
-     * Get <code>objid</code> of the Creator of the User   
-     * @param userXml is User Account Xml
-     * @return objid of the Creator of the User    
-     * @throws Exception
-     */
-    private String getCreatorOfUserId(String userXml) throws Exception
-    {
-        return XmlHelper.xpathString("//user-account[1]/properties/created-by/@objid", userXml); 
-    }
-    
-    
-    private Document createDocument(String xml) throws Exception
-    {
-    	return JRXmlUtils.parse(new ByteArrayInputStream(xml.getBytes()));
-    }
-    
     
     private void writeToFile(String fileName, String content) throws IOException
     {
@@ -765,13 +460,6 @@ private static void administration(String userHandle) throws Exception
     	}
     	logger.info("strings are equal");
     	return true;
-    }
-	
-    private static String cleanCit(String str) {
-    	if (Utils.checkVal(str)) 
-    		str = str.replaceAll("[\\s\t\r\n]+", " ");
-	    	str = str.replaceAll("\\s+$", "");
-    	return str;
-    }    
+    }   
 
 }

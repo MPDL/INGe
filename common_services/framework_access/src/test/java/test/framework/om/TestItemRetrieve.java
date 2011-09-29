@@ -54,7 +54,7 @@ public class TestItemRetrieve extends TestItemBase
 
     private int countItems(String items) throws Exception
     {
-        final String xPath = "//item-list/item";
+        final String xPath = "//*[local-name() = 'item']";
         Document doc = getDocument(items, false);
         NodeList list = selectNodeList(doc, xPath);
         int number = list.getLength();
@@ -71,20 +71,22 @@ public class TestItemRetrieve extends TestItemBase
         logger.debug("#Items=" + number);
         return number;
     }
-
+    
     /**
      * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveItems(java.lang.String)}.
      */
     @Test
-    public void retrievePublicReleasedItems() throws Exception
-    {
-        String filter = "<param><filter name=\"http://escidoc.de/core/01/properties/public-status\">released</filter></param>";
-        logger.debug("Filter=" + filter);
+    @Ignore
+    public void retrieveAllItems() throws Exception
+    {     
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});
+        
         long zeit = -System.currentTimeMillis();
-        String items = ServiceLocator.getItemHandler().retrieveItems(filter);
+        String items = ServiceLocator.getItemHandler().retrieveItems(filterMap);
         zeit += System.currentTimeMillis();
-        logger.info("retrievePublicContentItems(" + filter + ")->" + zeit + "ms");
-        logger.debug("ContentItems(" + filter + ")=" + items);
+        logger.info("retrieveAllItems(" + filterMap.entrySet().toString() + ")->" + zeit + "ms");
+        logger.debug("ContentItems = " + items);
         assertNotNull(items);
         assertTrue(countItems(items) > 0);
     }
@@ -93,15 +95,109 @@ public class TestItemRetrieve extends TestItemBase
      * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveItems(java.lang.String)}.
      */
     @Test
+    @Ignore
+    public void retrievePublicReleasedItems() throws Exception
+    {
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});
+        filterMap.put(QUERY, new String[]{"\"/properties/public-status\"=released"});
+        
+        logger.debug("Filter=" + filterMap.entrySet().toString());
+        long zeit = -System.currentTimeMillis();
+        String items = ServiceLocator.getItemHandler().retrieveItems(filterMap);
+        zeit += System.currentTimeMillis();
+        logger.info("retrievePublicReleasedItems(" + filterMap + ")->" + zeit + "ms");
+        logger.debug("ContentItems =" + items);
+        assertNotNull(items);
+        assertTrue(countItems(items) > 0);
+    }
+    
+    /**
+     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveItems(java.lang.String)}.
+     */
+    @Test
+    @Ignore
+    public void retrieveItemById() throws Exception
+    {
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});
+        filterMap.put(QUERY, new String[]{"\"/id\"=escidoc:2006"});
+        
+        logger.debug("Filter=" + filterMap.entrySet().toString());
+        long zeit = -System.currentTimeMillis();
+        String items = ServiceLocator.getItemHandler().retrieveItems(filterMap);
+        zeit += System.currentTimeMillis();
+        logger.info("retrieveItemById(" + filterMap + ")->" + zeit + "ms");
+        logger.debug("ContentItems =" + items);
+        assertNotNull(items);
+        assertTrue(countItems(items) == 1);
+    }
+
+
+    /**
+     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveItems(java.lang.String)}.
+     */
+    @Test
     public void retrievePendingContentItems() throws Exception
     {
-        String filter = "<param><filter name=\"http://escidoc.de/core/01/properties/public-status\">pending</filter></param>";
-        logger.debug("Filter=" + filter);
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});
+
+        String q1 = "\"/properties/public-status\"=pending";
+        filterMap.put(QUERY, new String[]{q1});
+        
+        logger.debug("Filter=" + filterMap.entrySet().toString());
         long zeit = -System.currentTimeMillis();
-        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
+        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);
         zeit += System.currentTimeMillis();
-        logger.info("retrievePendingContentItems(" + filter + ")->" + zeit + "ms");
-        logger.debug("ContentItems(" + filter + ")=" + items);
+        logger.info("retrievePendingContentItems(" + filterMap.entrySet().toString() + ")->" + zeit + "ms");
+        logger.debug("ContentItems =" + items);
+        assertNotNull(items);
+        assertTrue(countItems(items) > 0);
+    }
+    
+    /**
+     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveItems(java.lang.String)}.
+     */
+    @Test
+    public void retrievePendingContentItemsSortByDescending() throws Exception
+    {
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});
+
+        String q1 = "\"/properties/public-status\"=pending";
+        String q2 = "sortBy " + "\"/id\"/sort.descending";
+        filterMap.put(QUERY, new String[]{q1 + " " + q2});
+        
+        logger.debug("Filter=" + filterMap.entrySet().toString());
+        long zeit = -System.currentTimeMillis();
+        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);
+        zeit += System.currentTimeMillis();
+        logger.info("retrievePendingContentItemsSortByDescending(" + filterMap.entrySet().toString() + ")->" + zeit + "ms");
+        logger.info("ContentItems =" + items);
+        assertNotNull(items);
+        assertTrue(countItems(items) > 0);
+    }
+    
+    /**
+     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveItems(java.lang.String)}.
+     */
+    @Test
+    public void retrievePendingContentItemsSortByAscending() throws Exception
+    {
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});
+
+        String q1 = "\"/properties/public-status\"=pending";
+        String q2 = "sortBy " + "\"/id\"/sort.ascending";
+        filterMap.put(QUERY, new String[]{q1 + " " + q2});
+        
+        logger.debug("Filter=" + filterMap.entrySet().toString());
+        long zeit = -System.currentTimeMillis();
+        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);
+        zeit += System.currentTimeMillis();
+        logger.info("retrievePendingContentItemsSortByAscending(" + filterMap.entrySet().toString() + ")->" + zeit + "ms");
+        logger.info("ContentItems =" + items);
         assertNotNull(items);
         assertTrue(countItems(items) > 0);
     }
@@ -112,15 +208,18 @@ public class TestItemRetrieve extends TestItemBase
     @Test
     public void retrieveOwnContentItems() throws Exception
     {
-        String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/created-by\">" + USERID + "</filter></param>";
-        logger.debug("Filter=" + filter);
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});
+        filterMap.put(QUERY, new String[]{"\"/properties/created-by/id\"=escidoc:3013" + " and " + "\"/properties/public-status\"=pending"});    
+
+        logger.debug("Filter=" + filterMap);
         long zeit = -System.currentTimeMillis();
-        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
+        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);
         zeit += System.currentTimeMillis();
-        logger.info("retrieveOwnContentItems(" + filter + ")->" + zeit + "ms");
-        logger.debug("ContentItems(" + filter + ")=" + items);
+        logger.info("retrieveOwnContentItems(" + filterMap + ")->" + zeit + "ms");
+        logger.info("ContentItems =" + items);
         assertNotNull(items);
-        assertTrue(countItems(items) > 0);
+        assertTrue(countItems(items) > 1);
     }
 
     /**
@@ -136,13 +235,19 @@ public class TestItemRetrieve extends TestItemBase
         ids[1] = getId(item);
         item = ServiceLocator.getItemHandler(userHandle).create(readFile(ITEM_FILE));
         ids[2] = getId(item);
-        String filter = "<param><filter name=\"http://purl.org/dc/elements/1.1/identifier\">" + "<id>" + ids[0] + "</id>" + "<id>" + ids[1] + "</id>" + "<id>" + ids[2] + "</id>" + "</filter></param>";
-        logger.debug("Filter=" + filter);
+        
+        String query = "\"/id\"=" + ids[0] + " or " + "\"/id\"=" + ids[1] + " or "+ "\"/id\"=" + ids[2];
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});       
+        filterMap.put(QUERY, new String[]{query});
+        
+        logger.debug("Filter=" + filterMap);
         long zeit = -System.currentTimeMillis();
-        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
+        Thread.sleep(3000);
+        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);
         zeit += System.currentTimeMillis();
-        logger.info("retrieveDefinedContentItems(" + filter + ")->" + zeit + "ms");
-        logger.debug("ContentItems(" + filter + ")=" + items);
+        logger.info("retrieveDefinedContentItems(" + filterMap + ")->" + zeit + "ms");
+        logger.debug("ContentItems(" + filterMap + ")=" + items);
         assertNotNull(items);
         assertTrue(countItems(items) == 3);
     }
@@ -153,14 +258,19 @@ public class TestItemRetrieve extends TestItemBase
     @Test
     public void retrieveContentItemsOfTypePublication() throws Exception
     {
+        logger.info(readFile(ITEM_FILE));
         String item = ServiceLocator.getItemHandler(userHandle).create(readFile(ITEM_FILE));
-        String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + PUBITEM_TYPE_ID + "</filter></param>";
-        logger.debug("Filter=" + filter);
+        String query = "\"/properties/content-model/id\"=" + PUBITEM_TYPE_ID;
+        
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});       
+        filterMap.put(QUERY, new String[]{query});
+        
         long zeit = -System.currentTimeMillis();
-        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
+        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);
         zeit += System.currentTimeMillis();
-        logger.info("retrieveContentItemsOfTypePublication(" + filter + ")->" + zeit + "ms");
-        logger.debug("ContentItems(" + filter + ")=" + items);
+        logger.info("retrieveContentItemsOfTypePublication()->" + zeit + "ms");
+        logger.debug("ContentItems(" + query + ")=" + items);
         assertNotNull(items);
         assertTrue(countItems(items) > 0);
     }
@@ -171,13 +281,15 @@ public class TestItemRetrieve extends TestItemBase
     @Test
     public void retrieveContentItemsOfNotExistingType() throws Exception
     {
-        String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + ILLEGAL_ID + "</filter></param>";
-        logger.debug("Filter=" + filter);
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});
+        filterMap.put(QUERY, new String[]{"\"/type\"=XXXX"});
+        
         long zeit = -System.currentTimeMillis();
-        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
+        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);
         zeit += System.currentTimeMillis();
-        logger.info("retrieveContentItemsOfNotExistingType(" + filter + ")->" + zeit + "ms");
-        logger.debug("ContentItems(" + filter + ")=" + items);
+        logger.info("retrieveContentItemsOfNotExistingType(" + filterMap.entrySet().toString() + ")->" + zeit + "ms");
+        logger.debug("ContentItems" + items);
         assertNotNull(items);
         assertTrue(countItems(items) == 0);
     }
@@ -188,15 +300,71 @@ public class TestItemRetrieve extends TestItemBase
     @Test
     public void retrieveContentItemsNotExisting() throws Exception
     {
-        String filter = FILTER_NONE;
-        logger.debug("Filter=" + filter);
+        String query = "\"/properties/created-by\"=" + "MisterX";
+        
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});
+        filterMap.put(QUERY, new String[]{query});
+        
         long zeit = -System.currentTimeMillis();
-        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
+        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);
         zeit += System.currentTimeMillis();
-        logger.info("retrieveContentItemsNotExisting(" + filter + ")->" + zeit + "ms");
-        logger.debug("ContentItems(" + filter + ")=" + items);
+        logger.info("retrieveContentItemsNotExisting()->" + zeit + "ms");
         assertNotNull(items);
         assertTrue(countItems(items) == 0);
+    }
+    
+    /**
+     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveItems(java.lang.String)}.
+     */
+    @Test
+    public void retrieveContentItemsUsingOrAndBrackets() throws Exception
+    {
+        String ids[] = new String[3];
+        String item = ServiceLocator.getItemHandler(userHandle).create(readFile(ITEM_FILE));
+        ids[0] = getId(item);
+        item = ServiceLocator.getItemHandler(userHandle).create(readFile(ITEM_FILE));
+        ids[1] = getId(item);
+        item = ServiceLocator.getItemHandler(userHandle).create(readFile(ITEM_FILE));
+        ids[2] = getId(item);
+        
+        String query1 = "\"/properties/public-status\"=pending";
+        String query2 = "\"/id\"=" + ids[0] + " or " + "\"/id\"=" + ids[1] + " or "+ "\"/id\"=" + ids[2];
+        String query = query1 + " and " + "(" + query2 + ")";
+        
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});       
+        filterMap.put(QUERY, new String[]{query});
+        
+        long zeit = -System.currentTimeMillis();
+        Thread.sleep(3000);
+        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);
+        zeit += System.currentTimeMillis();
+        logger.info("retrieveContentItemsUsingOrAndBrackets()->" + zeit + "ms");
+        logger.debug("ContentItems()=" + items);
+        assertNotNull(items);
+        assertTrue(countItems(items) == 3);
+    }
+    
+    /**
+     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveItems(java.lang.String)}.
+     */
+    @Test
+    public void retrievePendingContentItemsUsingMaxRecords() throws Exception
+    {
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});
+        filterMap.put(QUERY, new String[]{"\"/properties/public-status\"=pending"});
+        filterMap.put("maximumRecords", new String[]{"10"});
+        
+        logger.debug("Filter=" + filterMap.entrySet().toString());
+        long zeit = -System.currentTimeMillis();
+        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);
+        zeit += System.currentTimeMillis();
+        logger.info("retrievePendingContentItemsUsingMaxRecords(" + filterMap.entrySet().toString() + ")->" + zeit + "ms");
+        logger.debug("ContentItems =" + items);
+        assertNotNull(items);
+        assertTrue(countItems(items) == 10);
     }
 
     /**
@@ -206,7 +374,7 @@ public class TestItemRetrieve extends TestItemBase
     @Ignore
     public void retrievePendingContentItemRefs() throws Exception
     {
-        String filter = "<param><filter name=\"http://escidoc.de/core/01/properties/public-status\">pending</filter></param>";
+/*        String filter = "<param><filter name=\"http://escidoc.de/core/01/properties/public-status\">pending</filter></param>";
         logger.debug("Filter=" + filter);
         long zeit = -System.currentTimeMillis();
         String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
@@ -214,7 +382,7 @@ public class TestItemRetrieve extends TestItemBase
         logger.info("retrievePendingContentItemRefs(" + filter + ")->" + zeit + "ms");
         logger.debug("ContentItems(" + filter + ")=" + items);
         assertNotNull(items);
-        assertTrue(countItemRefs(items) > 0);
+        assertTrue(countItemRefs(items) > 0);*/
     }
 
     /**
@@ -227,11 +395,11 @@ public class TestItemRetrieve extends TestItemBase
         String filter = FILTER_NONE;
         logger.debug("Filter=" + filter);
         long zeit = -System.currentTimeMillis();
-        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
+/*        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
         zeit += System.currentTimeMillis();
         logger.info("retrieveContentItemRefsNotExisting(" + filter + ")->" + zeit + "ms");
         logger.debug("ContentItems(" + filter + ")=" + items);
         assertNotNull(items);
-        assertTrue(countItemRefs(items) == 0);
+        assertTrue(countItemRefs(items) == 0);*/
     }
 }

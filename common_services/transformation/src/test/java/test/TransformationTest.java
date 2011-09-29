@@ -323,8 +323,10 @@ public class TransformationTest
              stringWriter.write("Expected XML: ");
              stringWriter.write(compare);
              stringWriter.write("\n");
+             stringWriter.close();
              
              fail(stringWriter.toString());
+             
          }
 
      }     

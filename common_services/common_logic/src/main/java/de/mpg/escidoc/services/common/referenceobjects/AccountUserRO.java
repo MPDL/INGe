@@ -101,5 +101,18 @@ public class AccountUserRO extends ReferenceObject implements Cloneable
     {
         super(objectId);
     }
+    
+    private void setHref(String href)
+    {
+        if (href == null)
+        {
+            return;
+        }
+        if (href.contains("/"))
+        {
+            href = href.substring(href.lastIndexOf("/") + 1);
+        }
+        this.setObjectId(href);      
+    }
 
 }

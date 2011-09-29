@@ -95,6 +95,7 @@
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>common_logic</artifactId>
+							
 						</ejbModule>
 						<jarModule>
 							<groupId>javabib</groupId>

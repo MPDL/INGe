@@ -43,6 +43,7 @@ import test.common.TestBase;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * For testing the methods in {@link AccountUserVO}.
@@ -55,6 +56,11 @@ import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 public class AccountUserVOTest extends TestBase
 {
     private Logger logger = Logger.getLogger(getClass());
+    
+    public void setUp() throws Exception
+    {
+        PUBMAN_TEST_COLLECTION_ID = PropertyReader.getProperty(PROPERTY_CONTEXTID_TEST);
+    }
 
     /**
      * @throws Exception 

@@ -98,10 +98,10 @@ public class TestShowOrgUnitData extends TestBase
     public void showOrganizationalUnits() throws Exception
     {
         String filter = FILTER_TOP_LEVEL;
-        String units = ServiceLocator.getOrganizationalUnitHandler().retrieveOrganizationalUnits(filter);
+/*        String units = ServiceLocator.getOrganizationalUnitHandler().retrieveOrganizationalUnits(filter);
         logger.debug("units=" + units);
         assertNotNull(units);
         logger.info(LINE);
-        showUnits(units,LINE);
+        showUnits(units,LINE);*/
     }
 }

@@ -29,10 +29,12 @@
 
 <binding>
 
+	<namespace prefix="search-result" uri="${xsd.soap.searchresult.searchresult}" default="none"/>
+
 	<!-- concrete mapping for SearchRetrieveResponseVO -->
 	<!-- Type: SearchRetrieveResponseVO... -->
 	<mapping name="searchRetrieveResponse" ns="${xsd.soap.searchRetrieveResponse}"
-		class="de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO">
+		class="de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO" flexible="true" ordered="false">
 
 		<!-- Node: version -->
 		<value style="element" ns="${xsd.soap.searchRetrieveResponse}" name="version" field="version"/>
@@ -56,7 +58,19 @@
 					<!-- Node: record.recordData -->
 					<structure name="recordData" ns="${xsd.soap.searchRetrieveResponse}" usage="optional">
 						
-						<structure field="data" />
+						<!-- Node: record.search-result-record -->
+						<structure name="search-result-record" ns="${xsd.soap.searchresult.searchresult}" usage="optional">
+						
+							<!-- Node: record.recordData.search-result.score -->
+							<structure name="score" ns="${xsd.soap.searchresult.searchresult}" usage="optional"/>
+							
+							<!-- Node: record.recordData.search-result.highlight -->
+							<structure name="highlight" ns="${xsd.soap.searchresult.searchresult}" usage="optional"/>
+							
+							<!-- Node: record.recordData.search-result.valueObject -->
+							<structure field="data" />
+							
+						</structure>
 					
 					</structure>
 					
@@ -65,6 +79,7 @@
 				</structure>
 				
 			</collection>
+			
 			
 		</structure>
 

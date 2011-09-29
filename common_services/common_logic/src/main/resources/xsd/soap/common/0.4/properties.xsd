@@ -15,13 +15,13 @@
 	</xs:annotation>
 
 	<xs:import namespace="http://escidoc.de/core/01/properties/version/"
-		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/version.xsd"/>
+		schemaLocation="version.xsd"/>
 	<xs:import namespace="http://escidoc.de/core/01/properties/release/"
-		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/release.xsd"/>
+		schemaLocation="release.xsd"/>
 	<xs:import namespace="http://escidoc.de/core/01/structural-relations/"
-		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/structural-relations.xsd"/>
+		schemaLocation="structural-relations.xsd"/>
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
-		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/common-types.xsd"/>
+		schemaLocation="common-types.xsd"/>
 
 	<xs:element name="locator-url" type="xs:string">
 		<xs:annotation>

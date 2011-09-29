@@ -31,33 +31,13 @@ package test;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.StringTokenizer;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.rpc.ServiceException;
-
-import org.apache.axis.encoding.Base64;
-import org.apache.commons.httpclient.Cookie;
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
-import org.apache.commons.httpclient.cookie.CookieSpec;
-import org.apache.commons.httpclient.methods.PostMethod;
-
-import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.escidoc.services.framework.AdminHelper;
-import de.mpg.escidoc.services.framework.ServiceLocator;
 
 
 // import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
@@ -73,9 +53,9 @@ public class TestHelper
 {
 	
 	public static final String ITEMS_LIMIT = "50"; 
-	public static final String CONTENT_MODEL = "escidoc:persistent4"; 
+	/*public static final String CONTENT_MODEL = "escidoc:persistent4"; 
 	public static final String USER_NAME = "test_dep_scientist"; 
-	public static final String USER_PASSWD = "verdi"; 
+	public static final String USER_PASSWD = "verdi"; */
 	
     /**
      * Retrieve resource based on a path relative to the classpath.
@@ -140,29 +120,4 @@ public class TestHelper
     	}
     }
 
-    /**
-     * Get itemList from the current Framework instance
-     * @param fileName
-     * @throws IOException 
-     * @throws URISyntaxException 
-     * @throws ServiceException 
-     */
-    public static String getItemListFromFramework() throws IOException, ServiceException, URISyntaxException
-    {
-    	
-    	String userHandle = AdminHelper.loginUser("test_dep_scientist", "verdi"); 
-        ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
-        // see here for filters: https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
-        String filter = 
-        	"<param>" +
-        		// escidoc content model
-        		"<filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + CONTENT_MODEL + " </filter>" +
-        		// records limit	
-        		"<limit>" + ITEMS_LIMIT + "</limit>" +
-        	"</param>";
-        return ch.retrieveItems(filter);
-    
-    }
-    
-    
 }

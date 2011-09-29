@@ -36,10 +36,11 @@ import org.junit.Test;
 
 import test.framework.TestBase;
 import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
- * Testcases for the basic service OrganizationalUnitHandler.
+ * Test cases for the basic service OrganizationalUnitHandler.
  * 
  * @author Peter Broszeit (initial creation)
  * @author $Author$ (last modification)
@@ -48,13 +49,21 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class TestRetrieveOrganizationalUnit extends TestBase
 {
-    private static final String ORGUNIT_ID = "escidoc:persistent1";
-    private static final String FILTER_ALL = "<param></param>";
-    private static final String FILTER_BY_ID = "<param> <filter name=\"http://purl.org/dc/elements/1.1/identifier\"><id>" + ORGUNIT_ID
-            + "</id><id>escidoc:99999</id></filter></param>";
-    private static final String FILTER_TOP_LEVEL = "<param><filter name=\"top-level-organizational-units\"/></param>";
-
     private Logger logger = Logger.getLogger(getClass());
+    
+    /**
+     * Test method for {@link de.escidoc.www.services.oum.OrganizationalUnitHandlerRemote#retrieveOrganizationalUnits(java.util.Map)}.
+     */
+    @Test
+    public void retrieveOrganizationalUnits() throws Exception
+    {
+        long zeit = -System.currentTimeMillis();
+        String unit = ServiceLocator.getOrganizationalUnitHandler().retrieveOrganizationalUnits(filterMap);
+        zeit += System.currentTimeMillis();
+        logger.info("retrieveOrganizationalUnit(" + ")->" + zeit + "ms");
+        logger.debug("OrganizationalUnit(" + ")=" + unit);
+        assertNotNull(unit);
+    }
 
     /**
      * Test method for {@link de.escidoc.www.services.oum.OrganizationalUnitHandlerRemote#retrieve(java.lang.String)}.
@@ -63,7 +72,7 @@ public class TestRetrieveOrganizationalUnit extends TestBase
     public void retrieveOrganizationalUnit() throws Exception
     {
         logger.info("Framework: " + ServiceLocator.getFrameworkUrl());
-        String id = ORGUNIT_ID;
+        String id = PropertyReader.getProperty("framework.organizational_unit.id");
         long zeit = -System.currentTimeMillis();
         String unit = ServiceLocator.getOrganizationalUnitHandler().retrieve(id);
         zeit += System.currentTimeMillis();
@@ -78,7 +87,7 @@ public class TestRetrieveOrganizationalUnit extends TestBase
     @Test
     public void retrieveOrganizationalUnitWithSysAdmin() throws Exception
     {
-        String id = ORGUNIT_ID;
+        String id = PropertyReader.getProperty("framework.organizational_unit.id");
         long zeit = -System.currentTimeMillis();
         String unit = ServiceLocator.getOrganizationalUnitHandler(loginSystemAdministrator()).retrieve(id);
         zeit += System.currentTimeMillis();
@@ -107,9 +116,9 @@ public class TestRetrieveOrganizationalUnit extends TestBase
     @Test
     public void retrieveParents() throws Exception
     {
-        String id = ORGUNIT_ID;
+        String id = PropertyReader.getProperty("framework.organizational_unit.id");
         long zeit = -System.currentTimeMillis();
-        String parents = ServiceLocator.getOrganizationalUnitHandler().retrieveParents(id);
+        String parents = ServiceLocator.getOrganizationalUnitHandler().retrieveParentObjects(id);
         zeit += System.currentTimeMillis();
         logger.info("retrieveParents(" + id + ")->" + zeit + "ms");
         logger.debug("Parents(" + id + ")=" + parents);
@@ -122,7 +131,7 @@ public class TestRetrieveOrganizationalUnit extends TestBase
     @Test
     public void retrieveChildren() throws Exception
     {
-        String id = ORGUNIT_ID;
+        String id = PropertyReader.getProperty("framework.organizational_unit.id");
         long zeit = -System.currentTimeMillis();
         String children = ServiceLocator.getOrganizationalUnitHandler().retrieveChildObjects(id);
         zeit += System.currentTimeMillis();
@@ -138,12 +147,13 @@ public class TestRetrieveOrganizationalUnit extends TestBase
     @Test
     public void retrieveOrganizationalUnitsByID() throws Exception
     {
-        String filter = FILTER_BY_ID;
+        String id = PropertyReader.getProperty("framework.organizational_unit.id");
+        filterMap.put("id", new String[]{id});
         long zeit = -System.currentTimeMillis();
-        String units = ServiceLocator.getOrganizationalUnitHandler().retrieveOrganizationalUnits(filter);
+        String units = ServiceLocator.getOrganizationalUnitHandler().retrieveOrganizationalUnits(filterMap);
         zeit += System.currentTimeMillis();
-        logger.info("retrieveOrganizationalUnitsByID(" + filter + ")->" + zeit + "ms");
-        logger.debug("OrganizationalUnitsByID(" + filter + ")=" + units);
+        logger.info("retrieveOrganizationalUnitsByID(" + id + ")->" + zeit + "ms");
+        logger.debug("OrganizationalUnitsByID(" + id + ")=" + units);
         assertNotNull(units);
     }
 
@@ -154,12 +164,11 @@ public class TestRetrieveOrganizationalUnit extends TestBase
     @Test
     public void retrieveTopLevelOrganizationalUnits() throws Exception
     {
-        String filter = FILTER_TOP_LEVEL;
         long zeit = -System.currentTimeMillis();
-        String units = ServiceLocator.getOrganizationalUnitHandler().retrieveOrganizationalUnits(filter);
+        String units = ServiceLocator.getOrganizationalUnitHandler().retrieveOrganizationalUnits(filterMap);
         zeit += System.currentTimeMillis();
-        logger.info("retrieveTopLevelOrganizationalUnits(" + filter + ")->" + zeit + "ms");
-        logger.debug("TopLevelorganizationalUnits(" + filter + ")=" + units);
+        logger.info("retrieveTopLevelOrganizationalUnits(" + filterMap + ")->" + zeit + "ms");
+        logger.debug("TopLevelorganizationalUnits(" + filterMap + ")=" + units);
         assertNotNull(units);
     }
 
@@ -169,7 +178,7 @@ public class TestRetrieveOrganizationalUnit extends TestBase
     @Test
     public void retrieveOrganizationalUnitPathList() throws Exception
     {
-        String id = ORGUNIT_ID;
+        String id = PropertyReader.getProperty("framework.organizational_unit.id");
         long zeit = -System.currentTimeMillis();
         String pathlist = ServiceLocator.getOrganizationalUnitHandler().retrievePathList(id);
         zeit += System.currentTimeMillis();

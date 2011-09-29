@@ -55,6 +55,7 @@ import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -68,11 +69,18 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
 {
     private static final String ACCOUNT_USER_SCHEMA_FILE = "xsd/soap/user-account/0.7/user-account.xsd";
-    private static final String PUBMAN_COLLECTION_ID = "escidoc:persistent3";
-    private static final String TEST_DEP_SCIENTIST_LOGIN_NAME = "test_dep_scientist";
-    private static final String TEST_DEP_SCIENTIST_ID = "escidoc:user1";
-    private static final String TEST_DEP_LIBRARIAN_LOGIN_NAME = "test_dep_lib";
-    private static final String TEST_DEP_LIBRARIAN_ID = "escidoc:user2";
+    
+    private static String TEST_DEP_SCIENTIST_LOGIN_NAME = null;
+    private static String TEST_DEP_SCIENTIST_ID = null;
+    
+    private static String TEST_DEP_LIBRARIAN_LOGIN_NAME = null;
+    private static String TEST_DEP_LIBRARIAN_ID = null;
+    
+    private static String TEST_DEP_EDITOR_ID = null;
+    
+    private static String TEST_DEP_AUTHOR_LOGIN_NAME = null;
+    private static String TEST_DEP_AUTHOR_ID = null;
+    
     private static XmlTransforming xmlTransforming;
     private static Logger logger = Logger.getLogger(TransformAccountUserAndGrantsIntegrationTest.class);
 
@@ -85,6 +93,19 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
     public static void setUpBeforeClass() throws Exception
     {
         xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
+        
+        TEST_DEP_SCIENTIST_LOGIN_NAME = PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST);
+        TEST_DEP_SCIENTIST_ID = PropertyReader.getProperty(PROPERTY_ID_SCIENTIST);
+        
+        TEST_DEP_LIBRARIAN_ID = PropertyReader.getProperty(PROPERTY_ID_LIBRARIAN);
+        TEST_DEP_LIBRARIAN_LOGIN_NAME = PropertyReader.getProperty(PROPERTY_USERNAME_LIBRARIAN);
+        
+        TEST_DEP_EDITOR_ID = PropertyReader.getProperty(PROPERTY_ID_EDITOR);
+        
+        TEST_DEP_AUTHOR_ID = PropertyReader.getProperty(PROPERTY_ID_AUTHOR);
+        TEST_DEP_AUTHOR_LOGIN_NAME = PropertyReader.getProperty(PROPERTY_USERNAME_AUTHOR);
+
+        
     }
 
     /**
@@ -130,11 +151,10 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         logger.debug("UserAccount(" + userid + ")=" + user);
         AccountUserVO accountUser = xmlTransforming.transformToAccountUser(user);
         assertNotNull(accountUser);
-        assertEquals("escidoc:user1", accountUser.getReference().getObjectId());
+        assertEquals(TEST_DEP_SCIENTIST_ID, accountUser.getReference().getObjectId());
         assertEquals(userid, accountUser.getUserid());
         assertTrue(accountUser.isActive());
-        assertEquals("Test Depositor Scientist", accountUser.getName());
-        // assertEquals("", accountUser.getEmail());
+        assertEquals(PropertyReader.getProperty(PROPERTY_DISPLAY_NAME_SCIENTIST), accountUser.getName());
         
         // TODO: What is this test for?
         //assertTrue(1 == accountUser.getAffiliations().size());
@@ -208,12 +228,12 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
 
         AccountUserVO accountUser = xmlTransforming.transformToAccountUser(user);
         assertNotNull(accountUser);
-        assertEquals("escidoc:user2", accountUser.getReference().getObjectId());
+        assertEquals(TEST_DEP_LIBRARIAN_ID, accountUser.getReference().getObjectId());
         assertEquals(userid, accountUser.getUserid());
         // assertEquals("pubman",accountUser.getPassword());
         logger.debug("accountUser.isActive() = " + accountUser.isActive());
         assertTrue(accountUser.isActive());
-        assertEquals("Test Depositor Library", accountUser.getName());
+        assertEquals(PropertyReader.getProperty(PROPERTY_DISPLAY_NAME_LIBRARIAN), accountUser.getName());
         // assertEquals("", accountUser.getEmail());
         // TODO: What is this test for?
         //assertTrue(1 == accountUser.getAffiliations().size());
@@ -297,12 +317,10 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
 
         AccountUserVO accountUser = xmlTransforming.transformToAccountUser(user);
         assertNotNull(accountUser);
-        assertEquals("escidoc:user3", accountUser.getReference().getObjectId());
+        assertEquals(TEST_DEP_EDITOR_ID, accountUser.getReference().getObjectId());
         assertEquals(userid, accountUser.getUserid());
-        // assertEquals("escidoc",accountUser.getPassword());
         assertTrue(accountUser.isActive());
-        assertEquals("Test Editor", accountUser.getName());
-        // assertEquals("", accountUser.getEmail());
+        assertEquals(PropertyReader.getProperty(PROPERTY_DISPLAY_NAME_EDITOR), accountUser.getName());
         // TODO: What is this test for?
         //assertTrue(1 == accountUser.getAffiliations().size());
         assertTrue(0 == accountUser.getAffiliations().size());
@@ -321,20 +339,18 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         logger.info("### transformTestDepAuthor ###");
         userHandle = loginAuthor();
         UserAccountHandler uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
-        String userid = "test_author";
-        String user = uaHandler.retrieve(userid);
-        logger.debug("UserAccount(" + userid + ")=" + user);
+        String user = uaHandler.retrieve(TEST_DEP_AUTHOR_LOGIN_NAME);
+        logger.debug("UserAccount(" + TEST_DEP_AUTHOR_LOGIN_NAME + ")=" + user);
         assertXMLValid(user);
         logger.info("The account user XML retrieved from the framework is valid to the schema in " + ACCOUNT_USER_SCHEMA_FILE);
 
         AccountUserVO accountUser = xmlTransforming.transformToAccountUser(user);
         assertNotNull(accountUser);
-        assertEquals("escidoc:user4", accountUser.getReference().getObjectId());
-        assertEquals(userid, accountUser.getUserid());
-        // assertEquals("escidoc",accountUser.getPassword());
+        assertEquals(TEST_DEP_AUTHOR_ID, accountUser.getReference().getObjectId());
+        assertEquals(TEST_DEP_AUTHOR_LOGIN_NAME, accountUser.getUserid());
         assertTrue(accountUser.isActive());
-        assertEquals("Test Author", accountUser.getName());
-        // assertEquals("", accountUser.getEmail());
+        assertEquals(PropertyReader.getProperty(PROPERTY_DISPLAY_NAME_AUTHOR), accountUser.getName());
+       
         // TODO: What is this test for?
         //assertTrue(1 == accountUser.getAffiliations().size());
         assertTrue(0 == accountUser.getAffiliations().size());
@@ -362,11 +378,10 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
 
         AccountUserVO accountUser = xmlTransforming.transformToAccountUser(user);
         assertNotNull(accountUser);
-        assertEquals("escidoc:user42", accountUser.getReference().getObjectId());
+        assertEquals(PropertyReader.getProperty(PROPERTY_ID_ADMIN), accountUser.getReference().getObjectId());
         assertEquals(userid, accountUser.getUserid());
         assertTrue(accountUser.isActive());
-        assertEquals("roland", accountUser.getName());
-        //assertEquals("roland@roland", accountUser.getEmail());
+        assertEquals(PropertyReader.getProperty(PROPERTY_DISPLAY_NAME_ADMIN), accountUser.getName());
         // TODO: What is this test for?
         //assertTrue(1 == accountUser.getAffiliations().size());
         assertTrue(0 == accountUser.getAffiliations().size());

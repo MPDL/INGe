@@ -46,12 +46,6 @@ public class UserGroupList extends IntelligentVO
      * @param userHandle A user handle for authentication in the coreservice.
      * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
      */
-    public UserGroupList(String filter, String userHandle) throws RuntimeException
-    {
-        UserGroupList ugl = Factory.retrieveUserGroups(filter, userHandle);
-        copyInFields(ugl);
-    }
-    
     public UserGroupList(HashMap<String, String[]> filter, String userHandle) throws RuntimeException
     {
         UserGroupList ugl = Factory.retrieveUserGroups(filter, userHandle);
@@ -92,32 +86,7 @@ public class UserGroupList extends IntelligentVO
      *
      */
     public static class Factory
-    {
-        /**
-         * Retrieves a list of User Groups.
-         * @param filter The filter for the user group list.
-         * @param userHandle A user handle for authentication in the coreservice.
-         * @return The list of User Groups.
-         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
-         */
-        private static UserGroupList retrieveUserGroups(String filter, String userHandle) throws RuntimeException
-        {
-            UserGroupList ugld;
-            try
-            {
-                UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-                String uglXml = ugh.retrieveUserGroups(filter);
-                ugld = (UserGroupList)IntelligentVO.unmarshal(uglXml, UserGroupList.class);
-            }
-            catch (Exception e)
-            {
-               throw new RuntimeException(e);
-            }
-            
-            
-            return ugld;
-        }
-        
+    {      
         /**
          * Retrieves a list of User Groups.
          * @param filter The filter for the user group list.

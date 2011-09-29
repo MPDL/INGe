@@ -78,11 +78,22 @@ public class FrameworkValidationSchemaSource extends ShortContentHandler impleme
         
         ItemHandler itemHandler = ServiceLocator.getItemHandler();
         SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+        HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
         
         while (true)
         {
-            String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + contentModel + "</filter><order-by sorting=\"descending\">http://escidoc.de/core/01/properties/creation-date</order-by><limit>1</limit><offset>" + offset + "</offset></param>";
-            String oneItem = itemHandler.retrieveItems(filter);
+            /*String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + contentModel 
+            + "</filter><order-by sorting=\"descending\">http://escidoc.de/core/01/properties/creation-date</order-by><limit>1</limit><offset>" + offset + "</offset></param>";*/
+    
+            String qContent = "\"http://escidoc.de/core/01/structural-relations/content-model\"=" + contentModel;
+            String qOrderBy = "\"sorting=\"=descending\"http://escidoc.de/core/01/properties/creation-date\"";
+            String qLimit = "\"limit\"=1";
+            String qOffset = "\"offset\"=" + offset;
+            filterMap.clear();
+            filterMap.put("operation", new String[]{"searchRetrieve"});
+            filterMap.put("version", new String[]{"1.1"});            
+            filterMap.put("query", new String[]{qContent + " and " + qOrderBy + " and " + qLimit + " and " + qOffset });
+            String oneItem = itemHandler.retrieveItems(filterMap);
             
             resetHandler();
             parser.parse(new ByteArrayInputStream(oneItem.getBytes("UTF-8")), this);

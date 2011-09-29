@@ -30,10 +30,15 @@
 
 package test.common.xmltransforming;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
+
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 import test.common.TestBase;
 
@@ -71,8 +76,10 @@ public class XmlTransformingTestBase extends TestBase
      * Initialize the class, i.e. set the member variables so that they can be shared by different methods.
      * 
      * @throws ParserConfigurationException
+     * @throws URISyntaxException 
+     * @throws IOException 
      */
-    protected static void init() throws ParserConfigurationException
+    protected static void init() throws ParserConfigurationException, IOException, URISyntaxException
     {
         m_docBuilderFactory = DocumentBuilderFactory.newInstance();
         m_docBuilderFactory.setNamespaceAware(true);

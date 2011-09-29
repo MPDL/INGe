@@ -35,17 +35,16 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.rmi.RemoteException;
-import java.util.StringTokenizer;
+import java.util.HashMap;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -59,17 +58,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.axis.encoding.Base64;
-import org.apache.commons.httpclient.Cookie;
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
-import org.apache.commons.httpclient.cookie.CookieSpec;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.xerces.dom.AttrImpl;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
@@ -101,62 +90,86 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * @version $Revision:60 $ $LastChangedDate:2007-01-25 13:08:48 +0100 (Do, 25 Jan 2007) $
  * Revised by FrW: 10.03.2008
  */
-public class TestBase
-{
-    /**
-     * An illegal id ofa framework object.
-     */
-    protected static final String ILLEGAL_ID = "escidoc:persistentX";
 
+
+public class TestBase
+{   
     /**
      * The default users id.
      */
-    protected static final String USERID = "escidoc:user1";
+    public static final String USERID = "escidoc:3013";
+    
+    /**
+     * An illegal id of a framework object.
+     */
+    protected static final String ILLEGAL_ID = "escidoc:persistentX";
+    
+    /**
+     * Constants for queries.
+     */
+    protected static final String SEARCH_RETRIEVE = "searchRetrieve";
+
+    protected static final String QUERY = "query";
+
+    protected static final String VERSION = "version";
+
+    protected static final String OPERATION = "operation";
+
     
     /**
      * The default scientist password property.
      */
-    protected static final String PROPERTY_USERNAME_SCIENTIST = "framework.scientist.username";
+    public static final String PROPERTY_USERNAME_SCIENTIST = "framework.scientist.username";
     
     /**
      * The default scientist password property.
      */
-    protected static final String PROPERTY_PASSWORD_SCIENTIST = "framework.scientist.password";
+    public static final String PROPERTY_PASSWORD_SCIENTIST = "framework.scientist.password";
+    
+    /**
+     * The default scientist id property.
+     */
+    public static final String PROPERTY_ID_SCIENTIST = "framework.scientist.id";
     
     /**
      * The default librarian password property.
      */
-    protected static final String PROPERTY_USERNAME_LIBRARIAN = "framework.librarian.username";
+    public static final String PROPERTY_USERNAME_LIBRARIAN = "framework.librarian.username";
     
     /**
      * The default librarian password property.
      */
-    protected static final String PROPERTY_PASSWORD_LIBRARIAN = "framework.librarian.password";
+    public static final String PROPERTY_PASSWORD_LIBRARIAN = "framework.librarian.password";
     
     /**
      * The default admin password property.
      */
-    protected static final String PROPERTY_USERNAME_AUTHOR = "framework.author.username";
+    public static final String PROPERTY_USERNAME_AUTHOR = "framework.author.username";
     
     /**
      * The default admin  password property.
      */
-    protected static final String PROPERTY_PASSWORD_AUTHOR = "framework.author.password";
+    public static final String PROPERTY_PASSWORD_AUTHOR = "framework.author.password";
     
     /**
      * The default admin password property.
      */
-    protected static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
+    public static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
     
     /**
      * The default admin  password property.
      */
-    protected static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
+    public static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
+    
+    /**
+     * The default admin  password property.
+     */
+    public static final String PROPERTY_PUBITEM_TYPE_ID = "escidoc.framework_access.content-model.id.publication";
     
     /**
      * The id of the content model Publication Item.
      */
-    protected static final String PUBITEM_TYPE_ID = "escidoc:persistent6";
+    public static final String PUBITEM_TYPE_ID = "escidoc.framework_access.content-model.id.publication";
     
     /**
      * A line for separating output.
@@ -168,8 +181,11 @@ public class TestBase
      */
     protected String userHandle;
     
-    private static final int NUMBER_OF_URL_TOKENS = 2;
-
+    /**
+     * Map of key - value pairs containing the filter definition
+     */
+    protected static final HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
+    
   
     /**
      * Reads contents from text file and returns it as String.
@@ -178,29 +194,27 @@ public class TestBase
      * @return The entire contents of the filename as a String.
      * @throws FileNotFoundException
      */
-    protected String readFile(String fileName) throws IOException, FileNotFoundException
+
+    public static String readFile(final String fileName) throws IOException
     {
-        boolean isFileNameNull = (fileName == null);
-        StringBuffer fileBuffer;
-        String fileString = null;
-        String line;
-        if (!isFileNameNull)
+        InputStream fileIn;
+        fileIn = TestBase.class.getClassLoader().getResourceAsStream(fileName);
+
+        if (fileIn == null)
         {
-           
-                File file = new File(fileName);
-                FileReader in = new FileReader(file);
-                BufferedReader dis = new BufferedReader(in);
-                fileBuffer = new StringBuffer();
-                while ((line = dis.readLine()) != null)
-                {
-                    fileBuffer.append(line + "\n");
-                }
-                in.close();
-                fileString = fileBuffer.toString();
-           
+            fileIn = new FileInputStream(fileName);
         }
-        return fileString;
+        BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
+        String line = null;
+        StringBuilder result = new StringBuilder();
+        while ((line = br.readLine()) != null)
+        {
+            result.append(line);
+            result.append("\n");
+        }
+        return result.toString();
     }
+
 
     /**
      * Parse the given xml String into a Document.
@@ -545,6 +559,7 @@ public class TestBase
     @Before
     public void setUp() throws Exception
     {
+        filterMap.clear();
     	userHandle = AdminHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
     }
 

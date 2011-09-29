@@ -16,7 +16,7 @@
 	</xs:annotation>
 	
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
-		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/common-types.xsd" />
+		schemaLocation="common-types.xsd" />
 	
 	<xs:element name="origin" type="common-types:linkForCreate">
 		<xs:annotation>

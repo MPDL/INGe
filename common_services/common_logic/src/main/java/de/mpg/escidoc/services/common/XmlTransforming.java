@@ -467,4 +467,8 @@ public interface XmlTransforming
     public List<UserAttributeVO> transformToUserAttributesList(String userAttributesList) throws TechnicalException;
     
     public SearchRetrieveResponseVO transformToSearchRetrieveResponseAccountUser(String searcRetrieveResponseXml) throws TechnicalException;
+    
+    public List<? extends ItemVO> transformSearchRetrieveResponseToItemList(String xmlItemList) throws TechnicalException;
+    
+    public List<ContextVO> transformSearchRetrieveResponseToContextList(String xmlContextList) throws TechnicalException;
 }

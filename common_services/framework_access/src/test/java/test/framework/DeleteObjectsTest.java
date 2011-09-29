@@ -30,6 +30,7 @@ package test.framework;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -40,7 +41,7 @@ import org.w3c.dom.NodeList;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
- * Testcases to create script files for purging objects from the data store.
+ * Test cases to create script files for purging objects from the data store.
  *
  * @author Peter (initial creation)
  * @author $Author$ (last modification)
@@ -66,11 +67,16 @@ public class DeleteObjectsTest extends TestBase
     @Test
     public void deleteItems() throws Exception
     {
-        String filter = "<param></param>";
-        final String xPath = "//item-list/item";
+        
+        HashMap<String, String[]> filter = new HashMap<String, String[]>();
+        
+        filter.put("param", new String[]{""});
+        
         String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
         logger.debug("items=" + items);
         Document doc = getDocument(items, false);
+        
+        final String xPath = "//item-list/item";
         NodeList list = selectNodeList(doc, xPath);
         logger.info(list.getLength() + " Items:");
         File file = new File("purge-items.bat");

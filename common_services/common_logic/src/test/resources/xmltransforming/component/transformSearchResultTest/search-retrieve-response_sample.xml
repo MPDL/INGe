@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+	<version>1.1</version>
+	<numberOfRecords>1</numberOfRecords>
+	<records xmlns:ns1="http://www.loc.gov/zing/srw/">
+		<record>
+			<recordSchema>eSciDocSoap</recordSchema>
+			<recordPacking>xml</recordPacking>
+			<recordData>
+				<search-result:search-result-record xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8">
+					<search-result:score>2.2626607</search-result:score>
+					<context:context last-modification-date="2011-08-17T12:37:59.071Z" objid="escidoc:2001" xmlns:context="http://www.escidoc.de/schemas/context/0.7" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xlink="http://www.w3.org/1999/xlink">
+						<context:properties>
+							<prop:creation-date>2011-08-17T12:37:58.613Z</prop:creation-date>
+							<srel:created-by objid="escidoc:exuser1"/>
+							<srel:modified-by objid="escidoc:exuser1"/>
+							<prop:public-status>opened</prop:public-status>
+							<prop:public-status-comment>Context escidoc:2001 opened.</prop:public-status-comment>
+							<prop:name>PubMan Default Context</prop:name>
+							<prop:description>Default PubMan Context created by the PubMan installer.
+            The following settings are applied:
+
+            *validation schema =publication
+            *workflow = simple
+            *all supported publication genres are allowed
+            *type=PubMan
+
+            You may modify your settings as required, by using eSciDoc Admin solution, see http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Admin for more information.
+
+            Note: Please do not modify the type of the context (PubMan), as otherwise PubMan solution will not function properly out of the box.</prop:description>
+							<prop:type>PubMan</prop:type>
+							<prop:organizational-units>
+								<srel:organizational-unit objid="escidoc:2"/>
+							</prop:organizational-units>
+						</context:properties>
+
+						<context:admin-descriptors>
+							<context:admin-descriptor name="pubman">
+
+								<pubman-admin-descriptor xmlns="">
+									<allowed-genres>
+										<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/article</allowed-genre>
+										<allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+										<allowed-genre>http://purl.org/eprint/type/BookItem</allowed-genre>
+										<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</allowed-genre>
+										<allowed-genre>http://purl.org/eprint/type/ConferencePaper</allowed-genre>
+										<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</allowed-genre>
+										<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</allowed-genre>
+										<allowed-genre>http://purl.org/eprint/type/ConferencePoster</allowed-genre>
+										<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</allowed-genre>
+										<allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+										<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/paper</allowed-genre>
+										<allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+										<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal</allowed-genre>
+										<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue</allowed-genre>
+										<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series</allowed-genre>
+										<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other</allowed-genre>
+									</allowed-genres>
+									<template-item/>
+									<validation-schema>publication</validation-schema>
+									<workflow>simple</workflow>
+									<contact-email>default-context@support.org</contact-email>
+								</pubman-admin-descriptor>
+
+							</context:admin-descriptor>
+
+						</context:admin-descriptors>
+					</context:context>
+				</search-result:search-result-record>
+			</recordData>
+			<recordPosition>1</recordPosition>
+		</record>
+	</records>
+	<echoedSearchRetrieveRequest xmlns:ns2="http://www.loc.gov/zing/srw/">
+		<version>1.1</version>
+		<query>(&quot;type&quot;=context) AND ( ( &quot;/id&quot;=escidoc:2001 ) )</query>
+		<xQuery>
+			<ns3:triple xmlns:ns3="http://www.loc.gov/zing/cql/xcql/">
+				<ns3:boolean>
+					<ns3:value>and</ns3:value>
+				</ns3:boolean>
+				<ns3:leftOperand>
+					<ns3:searchClause>
+						<ns3:index>type</ns3:index>
+						<ns3:relation>
+							<ns3:value>=</ns3:value>
+						</ns3:relation>
+						<ns3:term>context</ns3:term>
+					</ns3:searchClause>
+				</ns3:leftOperand>
+				<ns3:rightOperand>
+					<ns3:searchClause>
+						<ns3:index>/id</ns3:index>
+						<ns3:relation>
+							<ns3:value>=</ns3:value>
+						</ns3:relation>
+						<ns3:term>escidoc:2001</ns3:term>
+					</ns3:searchClause>
+				</ns3:rightOperand>
+			</ns3:triple>
+		</xQuery>
+		<maximumRecords>20</maximumRecords>
+		<recordPacking>xml</recordPacking>
+		<recordSchema>eSciDocSoap</recordSchema>
+	</echoedSearchRetrieveRequest>
+	<extraResponseData xmlns:ns4="http://www.loc.gov/zing/srw/">
+		<ns5:extraData xmlns="http://oclc.org/srw/extraData" xmlns:ns5="http://oclc.org/srw/extraData">
+			<ns5:databaseTitle>context_admin</ns5:databaseTitle>
+		</ns5:extraData>
+	</extraResponseData>
+</searchRetrieveResponse>

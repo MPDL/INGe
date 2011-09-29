@@ -77,7 +77,6 @@ public class TestCitationManager {
      * @throws Exception Any exception.
      */
     @Test
-//    @Ignore
     public final void testGetStyles() throws Exception {
         logger.info("List of citation styles: " );
         for (String s : cse.getStyles() )
@@ -89,7 +88,6 @@ public class TestCitationManager {
      * @throws Exception Any exception.
      */
     @Test
-//    @Ignore
     public final void testExplainStuff() throws Exception 
     {
         String explain = cse.explainStyles();
@@ -145,7 +143,7 @@ public class TestCitationManager {
      */
     
     @Test
-//    @Ignore
+    @Ignore
     public final void testCitationStyles() throws Exception
     {
         for (String cs: cse.getStyles() )
