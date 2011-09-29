@@ -34,6 +34,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -65,7 +66,15 @@ public class RetrievePubCollectionTest extends TestBase
     private static final Logger logger = Logger.getLogger(RetrievePubCollectionTest.class);
     private static XmlTransforming xmlTransforming;
     private AccountUserVO user;
+    private HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
+    
+    private static final String SEARCH_RETRIEVE = "searchRetrieve";
+    private static final String QUERY = "query";
+    private static final String VERSION = "version";
+    private static final String OPERATION = "operation";
 
+
+    
     /**
      * Get an XmlTransforming instance and log in as depositor.
      * 
@@ -76,6 +85,10 @@ public class RetrievePubCollectionTest extends TestBase
     {
         xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
         user = getUserTestDepScientistWithHandle();
+        
+        filterMap.clear();
+        filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
+        filterMap.put(VERSION, new String[]{"1.1"});
     }
 
     /**
@@ -94,10 +107,16 @@ public class RetrievePubCollectionTest extends TestBase
         filterParam.getFilterList().add(roleFilter);
 
         // ... and transform filter to xml
-        String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
-
+        /*String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
+        <filter name="role">escidoc:role-depositor</filter>
+        <filter name="user">escidoc:3013</filter>*/
+        
+        String q1 = "\"/role\"=escidoc:role-depositor";
+        String q2 = "\"/user\"=" + user.getReference().getObjectId();
+        filterMap.put(QUERY, new String[]{q1 + " and " + q2});
+        
         // Get context list
-        String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterString);
+        String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap); 
         // ... and transform to PubCollections.
         List<ContextVO> pubCollectionList = xmlTransforming.transformToContextList(contextList);
 
@@ -125,11 +144,15 @@ public class RetrievePubCollectionTest extends TestBase
         filterParam.getFilterList().add(typeFilter);
 
         // ... and transform filter to xml
-        String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
-        logger.debug("getPubCollectionByType() - String filterString=" + filterString);
+        /*String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
+        <filter name="http://escidoc.de/core/01/properties/type">PubMan</filter>
+        logger.debug("getPubCollectionByType() - String filterString=" + filterString);*/
+        
+        String q = "\"/properties/type\"=PubMan";
+        filterMap.put(QUERY, new String[]{q});
 
         // Get context list
-        String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterString);
+        String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap); 
         //logger.debug("getPubCollectionByType() - retrieved collection XML=" + toString(getDocument(contextList, false), false));
         // ... and transform to PubCollections.
         List<ContextVO> pubCollectionList = xmlTransforming.transformToContextList(contextList);
@@ -171,9 +194,14 @@ public class RetrievePubCollectionTest extends TestBase
         {
             logger.debug("getPubCollectionByRoleAndType() - String filterString=" + filterString);
         }
+        
+        String q1 = "\"/role\"=escidoc:role-depositor";
+        String q2 = "\"/user\"=" + user.getReference().getObjectId();
+        String q3 = "\"/properties/type\"=PubMan";
+        filterMap.put(QUERY, new String[]{q1 + " and " + q2 + " and " + q3});
 
         // Get context list
-        String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterString);
+        String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
         // ... and transform to PubCollections.
         List<ContextVO> pubCollectionList = xmlTransforming.transformToContextList(contextList);
 

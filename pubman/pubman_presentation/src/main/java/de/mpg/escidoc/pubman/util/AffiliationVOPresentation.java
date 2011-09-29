@@ -48,6 +48,8 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.AffiliationRefFilter;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.framework.AdminHelper;
@@ -314,7 +316,6 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
     private  List<AffiliationVO> retrieveAllOrganizationalUnits(List<AffiliationRO> affiliations)
     {
 
-        String filterString="<param>";
         List<AffiliationVO> transformedAffs = new ArrayList<AffiliationVO>();
 
         if (affiliations.size()== 0 )
@@ -334,15 +335,17 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
                 return transformedAffs;
             }
             else{
-
+                FilterTaskParamVO filter = new FilterTaskParamVO();
+                
+                AffiliationRefFilter affiliationFilter = filter.new AffiliationRefFilter();
+                filter.getFilterList().add(affiliationFilter);
+                
                 for( AffiliationRO affiliation : affiliations )
                 {
-                    filterString=filterString.concat("<filter name=\"/id\">"+affiliation.getObjectId()+"</filter>" );
+                    affiliationFilter.getIdList().add(affiliation);
                 }
 
-                filterString=filterString.concat("</param>");
-
-                String ouXml = ouHandler.retrieveOrganizationalUnits(filterString);
+                String ouXml = ouHandler.retrieveOrganizationalUnits(filter.toMap());
                 transformedAffs=xmlTransforming.transformToAffiliationList(ouXml);
 
             }

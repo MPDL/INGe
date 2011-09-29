@@ -30,6 +30,7 @@
 
 package test.pubman;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -59,6 +60,7 @@ public class RetrieveAffiliationsTest
     private static final Logger logger = Logger.getLogger(PubItemDepositingTest.class);
 
     private XmlTransformingBean xmlTransforming;
+    
 
     @Before
     public void setUp()
@@ -74,10 +76,11 @@ public class RetrieveAffiliationsTest
         FilterTaskParamVO filter = new FilterTaskParamVO();
         List<Filter> filterList = filter.getFilterList();
         filterList.add(filter.new TopLevelAffiliationFilter());
-        String filterXml = xmlTransforming.transformToFilterTaskParam(filter);
+        /*String filterXml = xmlTransforming.transformToFilterTaskParam(filter);
+        <param>\n  <filter name="top-level-organizational-units"/>\n</param>*/
 
         OrganizationalUnitHandler ouh = ServiceLocator.getOrganizationalUnitHandler();
-        String ousXml = ouh.retrieveOrganizationalUnits(filterXml);
+        String ousXml = ouh.retrieveOrganizationalUnits(filter.toMap());
         logger.info(ousXml);
 
         List<AffiliationVO> affiliations = xmlTransforming.transformToAffiliationList(ousXml);

@@ -65,6 +65,7 @@ import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
+import org.junit.BeforeClass;
 import org.w3c.dom.Document;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -105,7 +106,8 @@ public class TestBase
 {
     private static final Logger logger = Logger.getLogger(TestBase.class);
     
-    protected static final String PUBMAN_TEST_COLLECTION_ID = "escidoc:persistent3";
+    protected static String PUBMAN_TEST_COLLECTION_ID = null;
+    
     protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
     protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION = "This is the sample collection description of the PubMan Test\n"
             + "collection. Any content can be stored in this collection, which is of relevance\n" + "for the users of the system. You can submit " + "relev" + "ant bibliographic information\n"
@@ -118,6 +120,17 @@ public class TestBase
     {
         System.setProperty("com.sun.xml.namespace.QName.useCompatibleSerialVersionUID", "1.0");
     }
+    
+    /**
+     * 
+     * @throws Exception
+     */
+    @BeforeClass
+    public static void init() throws Exception
+    {
+        PUBMAN_TEST_COLLECTION_ID = PropertyReader.getProperty("escidoc.framework_access.context.id.test");
+    }
+
 
     /**
      * Reads contents from text file and returns it as String.

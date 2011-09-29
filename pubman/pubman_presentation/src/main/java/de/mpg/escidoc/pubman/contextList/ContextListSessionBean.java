@@ -45,8 +45,11 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -361,14 +364,18 @@ public class ContextListSessionBean extends FacesBean
             try
             {
                 // Create filter
-                String filterString="<param>";
+                FilterTaskParamVO filter = new FilterTaskParamVO();
+                ItemRefFilter itmRefFilter = filter.new ItemRefFilter();
+                filter.getFilterList().add(itmRefFilter);
+                
                 boolean hasGrants = false;
 
                 for (GrantVO grant:this.loginHelper.getUserGrants())
                 {
                     if ( grant.getObjectRef() != null)
                     {
-                        filterString=filterString.concat("<filter name=\"/id\">"+grant.getObjectRef()+"</filter>" );
+                        itmRefFilter.getIdList().add(new ItemRO(grant.getObjectRef()));
+//                        filterString=filterString.concat("<filter name=\"/id\">"+grant.getObjectRef()+"</filter>" );
                         hasGrants=true;
                     }
 
@@ -377,12 +384,11 @@ public class ContextListSessionBean extends FacesBean
 
 
                 if (hasGrants){
-                    filterString=filterString.concat("</param>");
                     XmlTransformingBean xmlTransforming = new XmlTransformingBean();
                     //				String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
 
                     // Get context list
-                    String contextList = ServiceLocator.getContextHandler(this.loginHelper.getAccountUser().getHandle()).retrieveContexts(filterString);
+                    String contextList = ServiceLocator.getContextHandler(this.loginHelper.getAccountUser().getHandle()).retrieveContexts(filter.toMap());
                     // ... and transform to PubCollections.
 
                     this.allPrivilegedContextList= CommonUtils.convertToPubCollectionVOPresentationList(xmlTransforming.transformToContextList(contextList));

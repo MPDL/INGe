@@ -1615,7 +1615,7 @@ public class ItemControllerSessionBean extends FacesBean
 		String xmlItemList = "";
 		try
 		{
-			xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
+			xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(filter.toMap());
 		}
 		catch (AuthenticationException e)
 		{
@@ -1656,14 +1656,14 @@ public class ItemControllerSessionBean extends FacesBean
 
 
 		//workarround due to filter bug - create filters manually without whitespaces
-		String filter = "<param><filter name=\"http://purl.org/dc/elements/1.1/identifier\">";
+		/*String filter = "<param><filter name=\"http://purl.org/dc/elements/1.1/identifier\">";
 		for(ItemRO itemRO : itemRefs)
 		{
 			filter+="<id>"+itemRO.getObjectId()+"</id>";
 		}
 		filter+="</filter></param>";
-		logger.debug("Filter: \n" + filter);
-		/*
+		logger.debug("Filter: \n" + filter);*/
+
         // define the filter criteria
         FilterTaskParamVO filter = new FilterTaskParamVO();
         FilterTaskParamVO.ItemRefFilter f1 = filter.new ItemRefFilter(itemRefs);
@@ -1675,7 +1675,7 @@ public class ItemControllerSessionBean extends FacesBean
             logger.debug("Transforming filters...");
         }
         String xmlparam = this.xmlTransforming.transformToFilterTaskParam(filter);
-		 */
+
 		// retrieve the items applying the filter criteria
 		if (logger.isDebugEnabled())
 		{
@@ -1686,11 +1686,11 @@ public class ItemControllerSessionBean extends FacesBean
 		{
 			if(loginHelper.getESciDocUserHandle() != null)
 			{
-				xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(filter);
+				xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(filter.toMap());
 			}
 			else
 			{
-				xmlItemList = ServiceLocator.getItemHandler().retrieveItems(filter);
+				xmlItemList = ServiceLocator.getItemHandler().retrieveItems(filter.toMap());
 			}
 		}
 		catch (AuthenticationException e)
@@ -1879,7 +1879,7 @@ public class ItemControllerSessionBean extends FacesBean
 		String xmlAffiliationList = "";
 		try
 		{
-			xmlAffiliationList = ServiceLocator.getOrganizationalUnitHandler().retrieveOrganizationalUnits(xmlparam);
+			xmlAffiliationList = ServiceLocator.getOrganizationalUnitHandler().retrieveOrganizationalUnits(filter.toMap());
 		}
 		catch (AuthenticationException e)
 		{

@@ -499,12 +499,12 @@
 		<escidoc.pubman.sitemap.retrieve.timeout>20</escidoc.pubman.sitemap.retrieve.timeout>
 
 		<!-- URL of the FIZ framework instance -->
-		<escidoc.framework_access.framework.url>http://dev-coreservice.mpdl.mpg.de</escidoc.framework_access.framework.url>
-		<escidoc.common.framework.url>http://dev-coreservice.mpdl.mpg.de</escidoc.common.framework.url>
-		<escidoc.framework_access.login.url>http://dev-coreservice.mpdl.mpg.de</escidoc.framework_access.login.url>
+		<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
+		<escidoc.common.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
+		<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
 		
 		<!-- Identifier of the content type "publication" in the actual framework instance -->
-		<escidoc.framework_access.content-model.id.publication>escidoc:1001</escidoc.framework_access.content-model.id.publication>
+		<escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
 
 		<!--  Due to a historical defect, QName was released with multiple 
 			serialVersionUID values even though its serialization was the
@@ -521,7 +521,7 @@
 		<escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
 		<!-- Change transformation service properties as well when changing  'escidoc.pubman.external.organisation.id'-->
 		<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
-		<escidoc.pubman.root.organisation.id>escidoc:persistent13</escidoc.pubman.root.organisation.id>
+		<escidoc.pubman.root.organisation.id>escidoc:1</escidoc.pubman.root.organisation.id>
 		<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
 		
 		<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
@@ -537,7 +537,7 @@
 		<escidoc.cone.rdfs.template>models2rdfs.xsl</escidoc.cone.rdfs.template>
 		
 		<!-- searchAndExport service -->
-		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test and escidoc.content-model.objid=escidoc:persistent4</escidoc.search.and.export.default.sql.query>
+		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test and escidoc.content-model.objid=escidoc:2001</escidoc.search.and.export.default.sql.query>
 		<escidoc.search.and.export.indexes.explain.query>/srw/search/escidoc_all?operation=explain</escidoc.search.and.export.indexes.explain.query>
 		<escidoc.search.and.export.default.sort.keys>_relevance_</escidoc.search.and.export.default.sort.keys>
 		<escidoc.search.and.export.default.sort.order>descending</escidoc.search.and.export.default.sort.order>
@@ -555,7 +555,7 @@
 		<escidoc.import.database.server.port />
 		<escidoc.import.database.connection.url>jdbc:hsqldb:$3</escidoc.import.database.connection.url>
 		
-		<escidoc.import.task.content-model>escidoc:1002</escidoc.import.task.content-model>
+		<escidoc.import.task.content-model>escidoc:2001</escidoc.import.task.content-model>
 
 		<!-- Number of creator displayed on load of the view full item page, the rest is displayed through "more" button -->
 		<escidoc.pubman_presentation.viewFullItem.defaultSize>20</escidoc.pubman_presentation.viewFullItem.defaultSize>
@@ -602,6 +602,7 @@
 		<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.4</xsd.soap.statistic.reportdefinition>
 		<xsd.soap.contentmodel>http://www.escidoc.de/schemas/contentmodel/0.1</xsd.soap.contentmodel>
 		<xsd.soap.contentmodel.contentstreams>http://www.escidoc.de/schemas/contentstreams/0.7</xsd.soap.contentmodel.contentstreams>
+		<xsd.soap.attributes>http://www.escidoc.de/schemas/attributes/0.1</xsd.soap.attributes>
 		
 		<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
 		<xsd.metadata.dcterms>http://purl.org/dc/terms/</xsd.metadata.dcterms>

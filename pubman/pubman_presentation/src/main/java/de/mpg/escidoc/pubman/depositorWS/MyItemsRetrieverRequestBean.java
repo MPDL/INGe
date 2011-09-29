@@ -21,8 +21,10 @@ import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -168,7 +170,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
             FilterTaskParamVO filter = new FilterTaskParamVO();
 
             Filter f1 = filter.new OwnerFilter(loginHelper.getAccountUser().getReference());
-            filter.getFilterList().add(0,f1);
+            filter.getFilterList().add(f1);
             Filter f2 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
             filter.getFilterList().add(f2);
 
@@ -221,23 +223,12 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
             Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
             filter.getFilterList().add(f9);
 
+            String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(filter.toMap());
 
 
-
-
-            String xmlparam = xmlTransforming.transformToFilterTaskParam(filter);
-
-            String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
-
-            ItemVOListWrapper itemList = xmlTransforming.transformToItemListWrapper(xmlItemList);
-
-            List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-            for(ItemVO item : itemList.getItemVOList())
-            {
-                pubItemList.add(new PubItemVO(item));
-            }
-
-            numberOfRecords = Integer.parseInt(itemList.getNumberOfRecords());
+            List<PubItemVO> pubItemList = (List<PubItemVO>) xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList);
+            
+            numberOfRecords = pubItemList.size();
             returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
         }
         catch (Exception e)

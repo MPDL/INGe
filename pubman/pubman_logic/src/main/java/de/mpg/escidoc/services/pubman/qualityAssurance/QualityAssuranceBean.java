@@ -32,6 +32,7 @@ package de.mpg.escidoc.services.pubman.qualityAssurance;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -147,7 +148,7 @@ public class QualityAssuranceBean implements QualityAssurance
        
         logger.debug("Filter: " + xmlFilter);
 
-        String xmlItemList = itemHandler.retrieveItems(xmlFilter);
+        String xmlItemList = itemHandler.retrieveItems(new HashMap<String, String[]>()); //todo
         List<PubItemVO> pubItemList = xmlTransforming.transformToPubItemList(xmlItemList);
         return pubItemList;
            
@@ -185,9 +186,11 @@ public class QualityAssuranceBean implements QualityAssurance
             
             // ... and transform filter to xml
             String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
+            
+            HashMap<String, String[]> filterMap = filterParam.toMap();
 
             // Get context list
-            String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterString);
+            String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
             // ... and transform to PubCollections.
             return xmlTransforming.transformToContextList(contextList);
 
@@ -280,9 +283,11 @@ public class QualityAssuranceBean implements QualityAssurance
             
             // ... and transform filter to xml
             String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
+            
+            HashMap<String, String[]> filterMap = filterParam.toMap();
 
             // Get context list
-            String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterString);
+            String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
             // ... and transform to PubCollections.
             return xmlTransforming.transformToContextList(contextList);
 
@@ -326,9 +331,11 @@ public class QualityAssuranceBean implements QualityAssurance
             
             // ... and transform filter to xml
             String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
+            
+            HashMap<String, String[]> filterMap = filterParam.toMap();
 
             // Get context list
-            String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterString);
+            String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterMap);
             // ... and transform to PubCollections.
             return xmlTransforming.transformToContextList(contextList);
 

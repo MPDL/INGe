@@ -113,30 +113,21 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
                 filter.getFilterList().add(f8);
                 Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
                 filter.getFilterList().add(f9);
-               
-                String xmlparam = xmlTransforming.transformToFilterTaskParam(filter); 
                 
                 String xmlItemList = "";
                 if (loginHelper.getESciDocUserHandle() != null)
                 {
                     xmlItemList = ServiceLocator
-                      .getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
+                      .getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(filter.toMap());
                 }
                 else
                 {
-                    xmlItemList = ServiceLocator.getItemHandler().retrieveItems(xmlparam);
+                    xmlItemList = ServiceLocator.getItemHandler().retrieveItems(filter.toMap());
                 }
         
-                ItemVOListWrapper itemList =
-                    (ItemVOListWrapper) xmlTransforming.transformToItemListWrapper(xmlItemList);
-        
-                List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-                for (ItemVO item : itemList.getItemVOList())
-                {
-                    pubItemList.add(new PubItemVO(item));
-                }
+                List<PubItemVO> pubItemList = (List<PubItemVO>) xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList);
                 
-                numberOfRecords = Integer.parseInt(itemList.getNumberOfRecords());
+                numberOfRecords = pubItemList.size();
                 returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
             }
             else

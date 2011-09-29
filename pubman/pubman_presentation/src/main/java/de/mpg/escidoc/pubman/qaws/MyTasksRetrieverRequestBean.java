@@ -176,25 +176,12 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
             Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
             filter.getFilterList().add(f9);
 
+            String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(filter.toMap());
 
-            String xmlparam = xmlTransforming.transformToFilterTaskParam(filter);
+            List<PubItemVO> pubItemList = (List<PubItemVO>) xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList);
+            
 
-            String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
-
-            ItemVOListWrapper itemList = xmlTransforming.transformToItemListWrapper(xmlItemList);
-            //NBU
-            if (itemList.getItemVOList().size()==0 || itemList ==null)
-            {
-                return returnList;
-            }
-
-            List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-            for(ItemVO item : itemList.getItemVOList())
-            {
-                pubItemList.add(new PubItemVO(item));
-            }
-
-            numberOfRecords = Integer.parseInt(itemList.getNumberOfRecords());
+            numberOfRecords = pubItemList.size();
             returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
         }
         catch (Exception e)

@@ -1,22 +1,14 @@
 package de.mpg.escidoc.pubman.yearbook;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.http.HttpServletRequest;
 
-import org.apache.axis.types.NonNegativeInteger;
-import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
-import org.z3950.zing.cql.CQLParseException;
 
-import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
@@ -24,46 +16,20 @@ import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
-import de.mpg.escidoc.pubman.yearbook.YearbookItemSessionBean.YBWORKSPACE;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ContextFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkItemTypeFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemPublicStatusFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemStatusFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LimitFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LocalTagFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OffsetFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OwnerFilter;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.search.Search;
-import de.mpg.escidoc.services.search.parser.ParseException;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
-import de.mpg.escidoc.services.search.query.SearchQuery;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
-import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
-import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
-import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Yearbook workspace.
@@ -261,7 +227,7 @@ public class YearbookModeratorRetrieverRequestBean extends BaseListRetrieverRequ
               
               String xmlparam = xmlTransforming.transformToFilterTaskParam(filter); 
             
-              String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
+              String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(filter.toMap());
 
               ItemVOListWrapper itemList = (ItemVOListWrapper) xmlTransforming.transformToItemListWrapper(xmlItemList);
 
