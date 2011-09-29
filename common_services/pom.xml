@@ -479,6 +479,25 @@
 		<escidoc.framework_access.context.id.test>escidoc:4001</escidoc.framework_access.context.id.test>
 		<escidoc.framework_access.context.name.test>Test Context</escidoc.framework_access.context.name.test>
 		<escidoc.framework_access.content-model.id.test>escidoc:2002</escidoc.framework_access.content-model.id.test>
+		
+		<!-- User data used in JUnit tests; these users are assumed to have the Depositor and the Moderator role for the defined contexts -->
+		<framework.scientist.username>test_dep_scientist</framework.scientist.username>
+		<framework.scientist.id>escidoc:3001</framework.scientist.id>
+		<framework.scientist.displayname>Scientist User for Tests</framework.scientist.displayname>
+				
+		<framework.librarian.username>test_dep_lib</framework.librarian.username>
+		<framework.librarian.id>escidoc:3002</framework.librarian.id>
+		<framework.librarian.displayname>Librarian User for Tests</framework.librarian.displayname>
+				
+		<framework.author.username>test_author</framework.author.username>
+		<framework.author.id>escidoc:3010</framework.author.id>
+		<framework.author.displayname>Author User for Tests</framework.author.displayname>
+				
+		<framework.editor.username>test_editor</framework.editor.username>
+		<framework.editor.id>escidoc:3003</framework.editor.id> 
+		<framework.editor.displayname>Editor User for Tests</framework.editor.displayname>
+				
+		<framework.organizational_unit.id>escidoc:1</framework.organizational_unit.id>
 
 		<!--
 			 Due to a historical defect, QName was released with multiple serialVersionUID values even though its serialization was the same. To workaround this issue,
