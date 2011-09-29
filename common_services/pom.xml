@@ -715,7 +715,7 @@
 
 			<properties>
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</escidoc.cone.querier.class>
-				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.FrameworkValidationSchemaSource</escidoc.validation.source.classname>
+				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
 			</properties>
 			<distributionManagement>
 				<site>
