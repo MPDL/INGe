@@ -481,6 +481,10 @@
 		<escidoc.framework_access.content-model.id.test>escidoc:2002</escidoc.framework_access.content-model.id.test>
 		
 		<!-- User data used in JUnit tests; these users are assumed to have the Depositor and the Moderator role for the defined contexts -->
+		<framework.admin.username>roland</framework.admin.username>
+		<framework.admin.id>escidoc:exuser1</framework.admin.id>
+		<framework.admin.displayname>System Administrator User</framework.admin.displayname>
+				
 		<framework.scientist.username>test_dep_scientist</framework.scientist.username>
 		<framework.scientist.id>escidoc:3001</framework.scientist.id>
 		<framework.scientist.displayname>Scientist User for Tests</framework.scientist.displayname>
