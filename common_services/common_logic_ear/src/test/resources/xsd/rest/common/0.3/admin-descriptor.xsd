@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:admin-descriptor="http://www.escidoc.de/schemas/admindescriptor/0.3" 
+	xmlns:xlink="http://www.w3.org/1999/xlink" 
+	xmlns:dc="http://purl.org/dc/elements/1.0/" 
+	targetNamespace="http://www.escidoc.de/schemas/admindescriptor/0.3" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+	
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xlink.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xml.xsd"/>
+	<!-- This xsd is used in the API of Context; REST interface -->
+	<xs:element name="admin-descriptor">
+		<xs:annotation>
+			<xs:documentation>
+				<para>
+					Following you will find information which elements and attributes are "required",	"optional", "not-allowed" or will be "discarded"	in the input XML-stream when creating or updating such an object.
+				</para>
+				<para>
+					In "create" the rule for creating a new object is defined.
+				</para>
+				<para>
+					In "update" the rule for updating an object is	defined.
+				</para>
+				<para>
+					Possible values are: required | optional | not-allowed | discarded
+				</para>
+				<para>
+					required: this element or attribute has to be	delivered
+				</para>
+				<para>
+					optional: this element or attribute can be	deliverd and will be kept
+				</para>
+				<para>
+					not-allowed: this element or attribute is not allowed in delivery and will cause an exception
+				</para>
+				<para>
+					discarded: this element or attribute can be delivered but will not be used
+				</para>
+			</xs:documentation>
+			<xs:documentation>
+				<create>required</create>
+				<update>required</update>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="allowed-content-types">
+					<xs:annotation>
+						<xs:documentation>
+							<create>required</create>
+							<update>required</update>
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="allowed-content-type">
+								<xs:annotation>
+									<xs:documentation>
+										<create>required</create>
+										<update>required</update>
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="allowed-md-schema">
+											<xs:annotation>
+												<xs:documentation>
+													<create>required</create>
+													<update>required</update>
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:attribute ref="xlink:type">
+													<xs:annotation>
+														<xs:documentation>
+															<create>required</create>
+															<update>required</update>
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute ref="xlink:href">
+													<xs:annotation>
+														<xs:documentation>
+															<create>required</create>
+															<update>required</update>
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute ref="xlink:title">
+													<xs:annotation>
+														<xs:documentation>
+															<create>required</create>
+															<update>required</update>
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="allowed-tag-list" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>
+													<create>optional</create>
+													<update>optional</update>
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="page" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>
+																<create>optional</create>
+																<update>optional</update>
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="container" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>
+																<create>optional</create>
+																<update>optional</update>
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="subcontainer" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>
+																<create>optional</create>
+																<update>optional</update>
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="token" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>
+																<create>optional</create>
+																<update>optional</update>
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="allowed-xml-schema" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>
+													<create>optional</create>
+													<update>optional</update>
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="xml-language" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>
+																<create>optional</create>
+																<update>optional</update>
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="xml-allow-download" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>
+																<create>optional</create>
+																<update>optional</update>
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute ref="xlink:type">
+													<xs:annotation>
+														<xs:documentation>
+															<create>required</create>
+															<update>required</update>
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute ref="xlink:title">
+													<xs:annotation>
+														<xs:documentation>
+															<create>required</create>
+															<update>required</update>
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute ref="xlink:href">
+													<xs:annotation>
+														<xs:documentation>
+															<create>required</create>
+															<update>required</update>
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="name">
+													<xs:annotation>
+														<xs:documentation>
+															<create>required</create>
+															<update>required</update>
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="allowed-genres" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>
+													<create>optional</create>
+													<update>optional</update>
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="allowed-genre" minOccurs="0" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation>
+																<create>optional</create>
+																<update>optional</update>
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="default-md-record" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>
+													<create>required</create>
+													<update>required</update>
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:any processContents="skip"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute ref="xlink:type">
+										<xs:annotation>
+											<xs:documentation>
+												<create>required</create>
+												<update>required</update>
+											</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute ref="xlink:title">
+										<xs:annotation>
+											<xs:documentation>
+												<create>required</create>
+												<update>required</update>
+											</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute ref="xlink:href">
+										<xs:annotation>
+											<xs:documentation>
+												<create>required</create>
+												<update>required</update>
+											</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="webservices" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>optional</create>
+							<update>optional</update>
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="webservice" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="description"/>
+										<xs:element name="service"/>
+										<xs:element name="parameters"/>
+									</xs:sequence>
+									<xs:attribute ref="xlink:type"/>
+									<xs:attribute ref="xlink:title"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="authority-files" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>optional</create>
+							<update>optional</update>
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="authority-file" maxOccurs="unbounded">
+								<xs:complexType/>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute ref="xlink:type"/>
+						<xs:attribute ref="xlink:title"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="submission-methods">
+					<xs:annotation>
+						<xs:documentation>
+							<create>optional</create>
+							<update>optional</update>
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="method" type="admin-descriptor:methodTypes" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="relation-types" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>
+							<create>optional</create>
+							<update>optional</update>
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="relation-type" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType/>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute ref="xlink:type"/>
+						<xs:attribute ref="xlink:title"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="component-visibility" type="admin-descriptor:componentVisibilityTypes">
+					<xs:annotation>
+						<xs:documentation>
+							<create>optional</create>
+							<update>optional</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="visibility-of-references" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>
+							<create>optional</create>
+							<update>optional</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="visibility-of-annotations" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>
+							<create>optional</create>
+							<update>optional</update>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute ref="xlink:type">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>required</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute ref="xlink:title">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>required</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute ref="xlink:href">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>required</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:simpleType name="methodTypes">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="single-submission"/>
+			<xs:enumeration value="multiple-submission"/>
+			<xs:enumeration value="ingestion"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="componentVisibilityTypes">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="public"/>
+			<xs:enumeration value="private"/>
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

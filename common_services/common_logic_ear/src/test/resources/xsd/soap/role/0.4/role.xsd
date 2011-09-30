@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Changes applied to this schema since Version 0.3:
+    - Version changed to 0.4.
+    
+    - Changed namespace (both xmlns and targetNamespace) to http://www.escidoc.de/schemas/role/0.4.
+    
+    - Changed namespaces of referenced schema  http://www.escidoc.de/schemas/commontypes/0.4
+    
+    - Added namespace of referenced schemas
+      http://escidoc.de/core/01/properties/
+      http://escidoc.de/core/01/structural-relations/
+      
+    - Replaced rest attributes (xlink:type, xlink:title, xlink:href, xml:base) in role element 
+      with references to appropriate attribute groups in common-types.xsd.
+    
+    - Changed namespaces of contents of the element /role/properties 
+      to http://escidoc.de/core/01/properties/ for following elements:
+      * creation-date,
+      * name,
+      * description
+      
+      to http://escidoc.de/core/01/structural-relations/ for following elements:
+      * created-by
+      * modified-by
+      
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:prop="http://escidoc.de/core/01/properties/"
+    xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+    xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
+    xmlns:xacml-policy="urn:oasis:names:tc:xacml:1.0:policy"
+    xmlns:role="http://www.escidoc.de/schemas/role/0.4"
+    targetNamespace="http://www.escidoc.de/schemas/role/0.4"
+    elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+        schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/xml.xsd"/>
+    <xs:import namespace="http://escidoc.de/core/01/properties/" 
+        schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/properties.xsd"/>
+    <xs:import namespace="http://escidoc.de/core/01/structural-relations/" 
+        schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/structural-relations.xsd"/>
+    <xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
+        schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/common-types.xsd"/>
+    <xs:import namespace="urn:oasis:names:tc:xacml:1.0:policy"
+        schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/cs-xacml-schema-policy-01.xsd"/>
+    <xs:element name="role">
+        <xs:annotation>
+            <xs:documentation>
+                <para> Following you will find information which elements and
+                    attributes are "required", "optional", "not-allowed" or
+                    will be "discarded" in the input XML-stream when creating or
+                    updating such an object. </para>
+                <para> In "create" the rule for creating a new object is defined.
+                    </para>
+                <para> In "update" the rule for updating an object is defined.
+                    </para>
+                <para> Possible values are: required | optional | not-allowed |
+                    discarded </para>
+                <para> required: this element or attribute has to be delivered
+                    </para>
+                <para> optional: this element or attribute can be delivered and
+                    will be kept </para>
+                <para> not-allowed: this element or attribute is not allowed in
+                    delivery and will cause an exception </para>
+                <para> discarded: this element or attribute can be delivered but
+                    will not be used </para>
+            </xs:documentation>
+            <xs:documentation>
+                <create>required</create>
+                <update>required</update>
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="properties">
+                    <xs:annotation>
+                        <xs:documentation>
+                            <create>required</create>
+                            <update>required</update>
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0"
+                                ref="prop:creation-date">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        <create>discarded</create>
+                                        <update>discarded</update>
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element minOccurs="0"
+                                ref="srel:created-by">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        <create>discarded</create>
+                                        <update>discarded</update>
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element minOccurs="0"
+                                ref="srel:modified-by">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        <create>discarded</create>
+                                        <update>discarded</update>
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element ref="prop:name">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        <create>required</create>
+                                        <update>required</update>
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element ref="prop:description"
+                                minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        <create>optional</create>
+                                        <update>optional</update>
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="role:scope">
+                </xs:element>
+                <xs:choice>
+                    <xs:annotation>
+                        <xs:documentation>
+                            <create>required</create>
+                            <update>required</update>
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:element ref="xacml-policy:PolicySet"/>
+                    <xs:element ref="xacml-policy:Policy"/>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="common-types:eSciDocResourceIdentityAttributes"/>
+            <xs:attributeGroup ref="common-types:eSciDocRootElementAttributes"/>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="scope">
+        <xs:annotation>
+            <xs:documentation>
+                <create>required</create>
+                <update>required</update>
+            </xs:documentation>
+        </xs:annotation>
+            <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="role:scope-def" minOccurs="0"
+                    maxOccurs="unbounded">
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="unlimited" default="false" use="optional"
+                type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>
+                        <create>discarded</create>
+                        <update>discarded</update>
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="scope-def">
+        <xs:annotation>
+            <xs:documentation>
+                <create>required</create>
+                <update>required (see note 1.)</update>
+                <comment>1. If none provided in update, all scope
+                            defs are removed, i.e. the role becomes an
+                            unlimited one.</comment>
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="resource-type" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        <create>required</create>
+                        <update>required</update>
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="relation-attribute-id">
+                <xs:annotation>
+                    <xs:documentation>
+                        <create>optional</create>
+                        <update>optional (see note 2.)</update>
+                        <comment>2. If not provided in update, the
+                            relation-attribute-id is removed from the
+                            scope-def</comment>
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    
+</xs:schema>

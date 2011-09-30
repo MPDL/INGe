@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Changes applied to this schema since Version 0.5:
+	- Version changed to 0.6.
+	
+	- Referenze to user-account 0.6.
+	
+	Changes applied to this schema
+	- schema version and namespace set to 0.5
+	- referencing user-account.xsd instead of defining a rdf reprsentation of a user account.
+	
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:useraccount="http://www.escidoc.de/schemas/useraccount/0.6"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	targetNamespace="http://www.escidoc.de/schemas/useraccountlist/0.6"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/useraccount/0.6"
+		schemaLocation="http://www.escidoc.org/schemas/rest/user-account/0.6/user-account.xsd" />
+	<xs:import namespace="http://www.w3.org/1999/xlink"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xlink.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xml.xsd" />
+
+	<xs:element name="user-account-list">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="useraccount:user-account" minOccurs="0"
+					maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute ref="xlink:title" use="required" />
+			<xs:attribute ref="xlink:href" use="prohibited" />
+			<xs:attribute ref="xlink:type" use="required" />
+			<xs:attribute ref="xml:base" use="required" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

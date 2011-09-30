@@ -1,0 +1,304 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xacml-policy="urn:oasis:names:tc:xacml:1.0:policy"
+	xmlns:role="http://www.escidoc.de/schemas/role/0.3"
+	targetNamespace="http://www.escidoc.de/schemas/role/0.3"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/1999/xlink"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xlink.xsd" />
+	<xs:import namespace="urn:oasis:names:tc:xacml:1.0:policy"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/cs-xacml-schema-policy-01.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/common-types.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xml.xsd" />
+	<xs:element name="role">
+		<xs:annotation>
+			<xs:documentation>
+				<para>
+					Following you will find information which elements
+					and attributes are "required", "optional",
+					"not-allowed" or will be "discarded" in the input
+					XML-stream when creating or updating such an object.
+				</para>
+				<para>
+					In "create" the rule for creating a new object is
+					defined.
+				</para>
+				<para>
+					In "update" the rule for updating an object is
+					defined.
+				</para>
+				<para>
+					Possible values are: required | optional |
+					not-allowed | discarded
+				</para>
+				<para>
+					required: this element or attribute has to be
+					delivered
+				</para>
+				<para>
+					optional: this element or attribute can be delivered
+					and will be kept
+				</para>
+				<para>
+					not-allowed: this element or attribute is not
+					allowed in delivery and will cause an exception
+				</para>
+				<para>
+					discarded: this element or attribute can be
+					delivered but will not be used
+				</para>
+			</xs:documentation>
+			<xs:documentation>
+				<create>required</create>
+				<update>required</update>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="properties">
+					<xs:annotation>
+						<xs:documentation>
+							<create>required</create>
+							<update>required</update>
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="creation-date"
+								type="xs:dateTime" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>
+										<create>discarded</create>
+										<update>discarded</update>
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="created-by"
+								type="common-types:readOnlyLink" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>
+										<create>discarded</create>
+										<update>discarded</update>
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="modified-by"
+								type="common-types:readOnlyLink" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>
+										<create>discarded</create>
+										<update>discarded</update>
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="name">
+								<xs:annotation>
+									<xs:documentation>
+										<create>required</create>
+										<update>required</update>
+									</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction
+										base="xs:normalizedString">
+										<xs:maxLength value="255" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="description"
+								type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>
+										<create>optional</create>
+										<update>optional</update>
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="role:resources" minOccurs="0" />
+				<xs:element ref="role:scope" />
+				<xs:choice>
+					<xs:annotation>
+						<xs:documentation>
+							<create>required</create>
+							<update>required</update>
+						</xs:documentation>
+					</xs:annotation>
+					<xs:element ref="xacml-policy:PolicySet" />
+					<xs:element ref="xacml-policy:Policy" />
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute ref="xlink:type">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>discarded</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute ref="xlink:href">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>discarded</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute ref="xlink:title">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>discarded</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute ref="xml:base">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>discarded</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="last-modification-date"
+				type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>required</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="scope">
+		<xs:annotation>
+			<xs:documentation>
+				<create>required</create>
+				<update>required</update>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="role:scope-def" minOccurs="0"
+					maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="unlimited" default="false"
+				use="optional" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>discarded</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="scope-def">
+		<xs:annotation>
+			<xs:documentation>
+				<create>required</create>
+				<update>required (see note 1.)</update>
+				<comment>
+					1. If none provided in update, all scope defs are
+					removed, i.e. the role becomes an unlimited one.
+				</comment>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="resource-type" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<create>required</create>
+						<update>required</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="relation-attribute-id">
+				<xs:annotation>
+					<xs:documentation>
+						<create>optional</create>
+						<update>optional (see note 2.)</update>
+						<comment>
+							2. If not provided in update, the
+							relation-attribute-id is removed from the
+							scope-def
+						</comment>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="resources">
+		<xs:annotation>
+			<xs:documentation>
+				<create>discarded</create>
+				<update>discarded</update>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute ref="xlink:href">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>discarded</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute ref="xlink:title">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>discarded</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute ref="xlink:type">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>discarded</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="last-modification-date">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>discarded (see note 3.)</update>
+						<comment>
+							3. This attribute is contained if the
+							resources element is retrieved as a sub
+							resource. It is not contained in the
+							resources element within the user-account
+							element.
+						</comment>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute ref="xml:base">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>discarded (see note 4.)</update>
+						<comment>
+							4. This attribute is contained if the
+							resources element is retrieved as a sub
+							resource. It is not contained in the
+							resources element within the user-account
+							element.
+						</comment>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

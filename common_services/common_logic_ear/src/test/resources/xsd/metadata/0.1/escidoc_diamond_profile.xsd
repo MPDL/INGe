@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema 	
+	xmlns="http://purl.org/escidoc/metadata/profiles/0.1/diamond" xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dc="http://purl.org/dc/elements/1.1/" 
+	xmlns:dcterms="http://purl.org/dc/terms/" 
+	xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+	targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/diamond"
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+
+    		eSciDoc metadata diamond profile
+
+    	</xs:documentation>
+	</xs:annotation>
+	
+	<xs:import namespace="http://purl.org/escidoc/metadata/terms/0.1/" schemaLocation="../../metadata/0.1/escidoctypes.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd"/>
+		
+	<xs:element name="diamond" type="DiamondType"/>
+	
+	<xs:complexType name="DiamondType">
+		<xs:sequence>
+			<xs:element ref="eterms:diamond-elements"/>
+			<xs:element ref="eterms:shape"/>			
+			<xs:element ref="eterms:color"/>
+			<xs:element ref="eterms:mechanism"/>
+			<xs:element ref="eterms:condition"/>
+			<xs:element ref="eterms:temperature"/>
+			<xs:element ref="dc:description"/>
+			<xs:element ref="dcterms:abstract"/>
+			<xs:element ref="dc:identifier"/>
+			<xs:element ref="dc:date"/>
+			<xs:element ref="eterms:creator" minOccurs="0"/>
+		</xs:sequence>	
+	</xs:complexType>
+	
+</xs:schema>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           targetNamespace="http://www.escidoc.de/schemas/structmap/0.3"
+           xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.3"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:member-ref-list="http://www.escidoc.de/schemas/memberreflist/0.3"
+           xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3">
+  <xs:import namespace="http://www.escidoc.de/schemas/memberreflist/0.3"
+             schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/member-ref-list.xsd"></xs:import>
+
+  <xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+             schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/common-types.xsd"></xs:import>
+
+  <xs:element name="struct-map">
+    <xs:annotation>
+      <xs:documentation><para>Following you will find information which
+      elements and attributes are "required", "optional", "not-allowed" or
+      will be "discarded" in the input XML-stream when creating or updating
+      such an object. </para> <para> In "create" the rule for creating a new
+      object is defined. </para> <para> In "update" the rule for updating an
+      object is defined. </para> <para> Possible values are: required |
+      optional | not-allowed | discarded </para> <para> required: this element
+      or attribute has to be delivered </para> <para> optional: this element
+      or attribute can be delivered and will be kept </para> <para>
+      not-allowed: this element or attribute is not allowed in delivery and
+      will cause an exception </para> <para>discarded: this element or
+      attribute can be delivered but will not be used
+      </para></xs:documentation>
+
+      <xs:documentation><create>required</create> <update>required</update>
+      <comment>The struct map is read-only, changes can be done by spefic
+      methods </comment></xs:documentation>
+    </xs:annotation>
+
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="member-ref-list:member-ref-list"></xs:element>
+      </xs:sequence>
+
+      <xs:attributeGroup ref="common-types:readOnlyESciDocResourceLinkAttributes"></xs:attributeGroup>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

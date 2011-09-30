@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:common="http://www.escidoc.de/schemas/commontypes/0.2" targetNamespace="http://www.escidoc.de/schemas/commontypes/0.2">
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xlink.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xml.xsd"/>
+	<xs:complexType name="link">
+		<xs:attributeGroup ref="common:eSciDocResourceLinkAttributes"/>
+		<xs:attribute name="objid" type="common:objid" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>required</input>
+						<output>kept</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="laxLink">
+		<xs:attributeGroup ref="common:laxESciDocResourceLocationAttributes"/>
+		<xs:attribute name="objid" type="common:objid">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>not allowed</input>
+						<output>new</output>
+					</create>
+					<update>
+						<input>optional</input>
+						<output>kept/new</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="laxLinkSetByUser">
+		<xs:attributeGroup ref="common:laxESciDocResourceLinkAttributes"/>
+		<xs:attribute name="objid" type="common:objid">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>required</input>
+						<output>kept</output>
+					</create>
+					<update>
+						<input>optional</input>
+						<output>kept/new</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="laxLinkContainer">
+		<xs:attributeGroup ref="common:laxESciDocResourceLinkAttributesContainer"/>
+		<xs:attribute name="objid" type="common:objid" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>required</input>
+						<output>kept</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="linkWithoutObjid">
+		<xs:attributeGroup ref="common:eSciDocResourceLinkAttributes"/>
+	</xs:complexType>
+	<!-- 
+		Use eSciDocResourceLinkAttributes for elements which refer to a not-included
+		resource as there are elements refering to a base-resource, to a virtual 
+		resource. One indication for such resources is if the href includes
+		the objid of the current (the link element is stated in) resource.
+		(see eSciDocResourceIndentityAttributes below)
+	-->
+	<xs:attributeGroup name="eSciDocResourceLinkAttributes">
+		<xs:attribute ref="xlink:type" use="required" fixed="simple">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>required</input>
+						<output>kept</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="xlink:title">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>optional</input>
+						<output>new</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="xlink:href" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>required</input>
+						<output>kept</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="laxESciDocResourceLinkAttributes">
+		<xs:attribute ref="xlink:type">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>optional</input>
+						<output>kept/new</output>
+					</create>
+					<update>
+						<input>optional</input>
+						<output>kept/new</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="xlink:title">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>not allowed</input>
+						<output>new</output>
+					</create>
+					<update>
+						<input>optional</input>
+						<output>kept/new</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="xlink:href">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>required</input>
+						<output>kept</output>
+					</create>
+					<update>
+						<input>optional</input>
+						<output>kept/new</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="laxESciDocResourceLinkAttributesContainer">
+		<xs:attribute ref="xlink:type">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>optional</input>
+						<output>kept/new</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="xlink:title">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>not allowed</input>
+						<output>new</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="xlink:href" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>required</input>
+						<output>kept</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<!-- 
+		Use eSciDocResourceIndentityAttributes for elements which use xlink
+		and objid to state there identity and location.
+		(see eSciDocResourceLinkAttributes above)
+	-->
+	<xs:attributeGroup name="eSciDocResourceIndentityAttributes">
+		<xs:attributeGroup ref="common:eSciDocResourceLocationAttributes"/>
+		<xs:attribute name="objid" type="common:objid">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>not allowed</input>
+						<output>new</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<!-- 
+		Use eSciDocResourceLocationAttributes for elements which use xlink
+		to state there location.
+		(see eSciDocResourceIndentityAttributes above)
+	-->
+	<xs:attributeGroup name="eSciDocResourceLocationAttributes">
+		<xs:attribute ref="xlink:type" fixed="simple">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>optional</input>
+						<output>new/kept</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="xlink:title">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>not allowed</input>
+						<output>new</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="xlink:href">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>not allowed</input>
+						<output>new</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:simpleType name="objid">
+		<xs:annotation>
+			<xs:documentation>
+				The type of eSciDoc resource identifiers.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="eSciDocRestLink">
+		<xs:attributeGroup ref="common:eSciDocRestLinkAttributes"/>
+	</xs:complexType>
+	<xs:complexType name="eSciDocSoapLink">
+		<xs:attributeGroup ref="common:eSciDocSoapLinkAttributes"/>
+	</xs:complexType>
+	<xs:attributeGroup name="eSciDocSoapLinkAttributes">
+		<xs:attribute name="objid" type="common:objid" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+					<comment>
+						If this is required or ignored depends on the
+						element it belongs to.
+					</comment>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="eSciDocRestLinkAttributes">
+		<xs:attribute ref="xlink:href" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+					<comment>
+						If this is required or ignored depends on the
+						element it belongs to.
+					</comment>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="xlink:title" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+					<comment>
+						If this is required or ignored depends on the
+						element it belongs to.
+					</comment>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="xlink:type" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+					<comment>
+						If this is required or ignored depends on the
+						element it belongs to.
+					</comment>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="laxESciDocResourceLocationAttributesContainer">
+		<xs:attribute ref="xlink:type">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>optional</input>
+						<output>new/kept</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="xlink:title">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>not allowed</input>
+						<output>new</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="xlink:href">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>not allowed</input>
+						<output>new</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="laxESciDocResourceLocationAttributes">
+		<xs:attribute ref="xlink:type">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>optional</input>
+						<output>new/kept</output>
+					</create>
+					<update>
+						<input>optional</input>
+						<output>new/kept</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="xlink:title">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>not allowed</input>
+						<output>new</output>
+					</create>
+					<update>
+						<input>optional</input>
+						<output>new</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="xlink:href">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>not allowed</input>
+						<output>new</output>
+					</create>
+					<update>
+						<input>optional</input>
+						<output>kept/new</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="eSciDocRootElementAttributes">
+		<xs:attribute ref="xml:base">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>optional</input>
+						<output>new</output>
+					</create>
+					<update>
+						<input>optional</input>
+						<output>new</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="last-modification-date" type="xs:dateTime">
+			<xs:annotation>
+				<xs:documentation>
+					<create>
+						<input>optional</input>
+						<output>new</output>
+					</create>
+					<update>
+						<input>required</input>
+						<output>new</output>
+					</update>
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+</xs:schema>

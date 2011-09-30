@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	Changes applied to this schema (since version 0.6, July 2009):
+	  
+	July, 2009
+	- version changed to ??????????????????????????????????
+	- refers to xml and xlink in version 0.4
+	
+ -->
+<xs:schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified"
+	targetNamespace="http://www.escidoc.de/schemas/contentstreams/0.6"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:content-streams="http://www.escidoc.de/schemas/contentstreams/0.6"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <xs:import namespace="http://www.w3.org/1999/xlink"
+        schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/xlink.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/common-types.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/xml.xsd" />
+
+	<xs:element name="content-streams">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="content-streams:content-stream" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common-types:eSciDocResourceIdentityAttributes" />
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
+		</xs:complexType>
+	</xs:element>
+	
+		
+	<xs:element name="content-stream">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:any minOccurs="0" processContents="skip" />
+			</xs:sequence>
+			<xs:attribute name="name" use="required"/>
+			<xs:attribute name="storage" use="required"/>
+			<xs:attribute name="mime-type" use="required"/>
+			<xs:attribute ref="xlink:type" fixed="simple">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>discarded</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute ref="xlink:title" use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>discarded</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute ref="xlink:href" use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>discarded</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

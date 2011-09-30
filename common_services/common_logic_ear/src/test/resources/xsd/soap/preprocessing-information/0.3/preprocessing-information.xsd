@@ -1,0 +1,41 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/preprocessinginformation/0.3"
+	xmlns:preprocessing-information="http://www.escidoc.de/schemas/preprocessinginformation/0.3"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="preprocessing-information">
+		<xs:annotation>
+			<xs:documentation>
+				<para>
+					Preprocessing Information for Statistics.
+				</para>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="start-date" type="xs:date" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<comment>
+								The date from which the preprocessing of data should start.
+								If this element is not provided, 
+								all data from the beginning is preprocessed.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+                <xs:element name="end-date" type="xs:date" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>
+                            <comment>
+                                The date to which the preprocessing of data should end.
+                                If this element is not provided, 
+                                data from start-date until the end is preprocessed.
+                            </comment>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

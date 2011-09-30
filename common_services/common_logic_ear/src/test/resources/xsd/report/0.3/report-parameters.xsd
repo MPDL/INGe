@@ -1,0 +1,100 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/reportparameters/0.3"
+	xmlns:report="http://www.escidoc.de/schemas/reportparameters/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+	schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/common-types.xsd" />
+	<xs:element name="report-parameters">
+		<xs:annotation>
+			<xs:documentation>
+				<para>
+					Report-parameters define the parameters that have 
+					to be replaced in the sql-element of the the report-definition 
+					with the given report-definition-id when generating a report.
+				</para>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+        		<xs:element name="report-definition"
+                    type="common-types:linkRequired">
+          			<xs:annotation>
+            			<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<comment>
+								objid of the report-definition.
+							</comment>
+						</xs:documentation>
+          			</xs:annotation>
+        		</xs:element>
+				<xs:element name="parameter" minOccurs="0"
+					maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<comment>
+								represents one key-value-parameter.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:choice maxOccurs="1">
+								<xs:element name="datevalue"
+									type="xs:dateTime">
+									<xs:annotation>
+										<xs:documentation>
+											<comment>
+												value of one field in
+												date-format.
+											</comment>
+										</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="stringvalue"
+									type="xs:string">
+									<xs:annotation>
+										<xs:documentation>
+											<comment>
+												value of one field in
+												string-format.
+											</comment>
+										</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="decimalvalue"
+									type="xs:decimal">
+									<xs:annotation>
+										<xs:documentation>
+											<comment>
+												value of one field in
+												decimal-format.
+											</comment>
+										</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:choice>
+						</xs:sequence>
+						<xs:attribute name="name" type="xs:string"
+							use="required">
+							<xs:annotation>
+								<xs:documentation>
+									<comment>
+										name of the field.
+									</comment>
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

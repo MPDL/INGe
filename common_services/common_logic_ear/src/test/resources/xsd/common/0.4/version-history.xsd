@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ CDDL HEADER START
+  ~
+  ~ The contents of this file are subject to the terms of the Common Development and Distribution License, Version 1.0
+  ~ only (the "License"). You may not use this file except in compliance with the License.
+  ~
+  ~ You can obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.de/license. See the License for
+  ~ the specific language governing permissions and limitations under the License.
+  ~
+  ~ When distributing Covered Code, include this CDDL HEADER in each file and include the License file at
+  ~ license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with the fields enclosed by
+  ~ brackets "[]" replaced with your own identifying information: Portions Copyright [yyyy] [name of copyright owner]
+  ~
+  ~ CDDL HEADER END
+  ~
+  ~ Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft fuer wissenschaftlich-technische Information mbH
+  ~ and Max-Planck-Gesellschaft zur Foerderung der Wissenschaft e.V. All rights reserved. Use is subject to license
+  ~ terms.
+  -->
+
+<!--
+	Changes applied to this schema (since Version 03, Februar, 2008):
+	- Februar, 2008
+	- version changed to 04.
+	
+	- made element /version-history/version/valid-status optional
+	
+-->
+<xs:schema 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		xmlns:xlink="http://www.w3.org/1999/xlink" 
+		xmlns:premis="http://www.loc.gov/standards/premis/v1" 
+		xmlns:escidocVersions="http://www.escidoc.de/schemas/versionhistory/0.3" 
+		xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4" 
+		xmlns:item="http://www.escidoc.de/schemas/item/0.3" 
+		targetNamespace="http://www.escidoc.de/schemas/versionhistory/0.3" 
+		elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xlink.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xml.xsd"/>
+	<xs:import namespace="http://www.loc.gov/standards/premis/v1" schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/Event-v1-1.xsd"/>
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4" schemaLocation="http://www.escidoc.org/schemas/rest/common/0.4/common-types.xsd"/>
+	<xs:import namespace="http://www.escidoc.de/schemas/item/0.3" schemaLocation="http://www.escidoc.org/schemas/rest/item/0.3/item.xsd"/>
+	<xs:element name="version-history">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="escidocVersions:version" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="last-modification-date" type="xs:dateTime" use="required"/>
+			<xs:attribute ref="xml:base" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="version">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="pid" minOccurs="0">
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:string">
+								<xs:attribute name="timestamp" type="xs:dateTime" use="required"/>
+								<xs:attribute name="user" type="xs:string" use="required"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="version-number" type="xs:int"/>
+				<xs:element name="timestamp" type="xs:dateTime"/>
+				<xs:element name="version-status" type="item:status-types"/>
+				<xs:element name="valid-status" type="item:valid-status-types" minOccurs="0"/>
+				<xs:element name="comment"/>
+				<xs:element ref="escidocVersions:events"/>
+			</xs:sequence>
+			<xs:attribute name="objid" type="common-types:objid" use="required"/>
+			<xs:attribute name="timestamp" type="xs:dateTime" use="required"/>
+			<xs:attribute ref="xlink:href" use="required"/>
+			<xs:attribute ref="xlink:title" use="required"/>
+			<xs:attribute ref="xlink:type" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="events">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="premis:event" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

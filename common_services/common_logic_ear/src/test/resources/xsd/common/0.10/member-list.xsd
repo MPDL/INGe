@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ CDDL HEADER START
+  ~
+  ~ The contents of this file are subject to the terms of the Common Development and Distribution License, Version 1.0
+  ~ only (the "License"). You may not use this file except in compliance with the License.
+  ~
+  ~ You can obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.de/license. See the License for
+  ~ the specific language governing permissions and limitations under the License.
+  ~
+  ~ When distributing Covered Code, include this CDDL HEADER in each file and include the License file at
+  ~ license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with the fields enclosed by
+  ~ brackets "[]" replaced with your own identifying information: Portions Copyright [yyyy] [name of copyright owner]
+  ~
+  ~ CDDL HEADER END
+  ~
+  ~ Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft fuer wissenschaftlich-technische Information mbH
+  ~ and Max-Planck-Gesellschaft zur Foerderung der Wissenschaft e.V. All rights reserved. Use is subject to license
+  ~ terms.
+  -->
+
+<!-- edited with XMLSpy v2005 sp1 U (http://www.xmlspy.com) by JKR (FIZ Karlsruhe) -->
+<!--
+	Changes applied to this schema (since Version 03, Februar, 2008):
+	- Februar, 2008
+	- version changed to 04.
+	
+	- modified namespace (both xmlns and targetNamespace)
+	from http://www.escidoc.de/schemas/memberlist/0.3
+	to http://www.escidoc.de/schemas/memberlist/0.4
+	-namespaces of refered schemas changed:
+	from http://www.escidoc.de/schemas/commontypes/0.3
+	to http://www.escidoc.de/schemas/commontypes/0.4
+	from http://www.escidoc.de/schemas/item/0.3
+	to http://www.escidoc.de/schemas/item/0.4
+	from http://www.escidoc.de/schemas/container/0.3
+	to http://www.escidoc.de/schemas/container/0.4
+	
+	- March, 2008
+	- version changed to 05.
+	
+	-namespaces of refered schemas changed:
+	from http://www.escidoc.de/schemas/container/0.4
+	to http://www.escidoc.de/schemas/container/0.5
+	
+	from http://www.escidoc.de/schemas/item/0.4
+	to http://www.escidoc.de/schemas/item/0.5
+
+	- April, 2008
+	- version changed to 0.6
+
+	- namespaces of refered schemas changed:
+	from http://www.escidoc.de/schemas/container/0.5
+	to http://www.escidoc.de/schemas/container/0.6
+
+	from http://www.escidoc.de/schemas/item/0.5
+	to http://www.escidoc.de/schemas/item/0.6
+	
+	- Mai, 2008
+	- version changed to 0.7
+
+	- namespaces of refered schemas changed:
+	  - from http://www.escidoc.de/schemas/item/0.6
+	    to http://www.escidoc.de/schemas/item/0.7
+	  - from http://www.escidoc.de/schemas/container/0.6
+	    to http://www.escidoc.de/schemas/container/0.7
+	    
+	March, 2009
+	- version changed to 0.8
+	- namespaces of refered schemas changed:
+		- Item namespace from 0.7 to 0.8
+			
+    August, 2009
+	- version changed to 0.9
+	- namespaces of refered schemas changed:
+		- Item namespace from 0.8 to 0.9
+		- Container namespace from 0.7 to 0.8
+
+    May, 2010
+    - version changed to 0.10
+    - namespaces of refered schemas changed:
+        - Item namespace from 0.9 to 0.10
+        - Container namespace from 0.8 to 0.9
+-->
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:item="http://www.escidoc.de/schemas/item/0.10"
+	xmlns:container="http://www.escidoc.de/schemas/container/0.9"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
+	targetNamespace="http://www.escidoc.de/schemas/memberlist/0.10"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/xml.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/item/0.10"
+		schemaLocation="http://www.escidoc.org/schemas/soap/item/0.10/item.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/container/0.9"
+		schemaLocation="http://www.escidoc.org/schemas/soap/container/0.9/container.xsd" />
+		<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4" 
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/common-types.xsd"/>
+	<xs:element name="member-list">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="item:item" />
+					<xs:element ref="container:container" />
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="number-of-records" use="optional"/>
+			<xs:attribute name="offset" use="optional"/>
+			<xs:attribute name="limit" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
+
+
+

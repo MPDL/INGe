@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Version 0.1: Added schema
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4">
+
+	<xs:import namespace="http://www.w3.org/1999/xlink"
+		schemaLocation="http://www.escidoc.org/schemas/rest/common/0.3/xlink.xsd" />
+
+	<xs:element name="request">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="file" minOccurs="1" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:string">
+								<xs:attribute ref="xlink:type"
+									fixed="simple">
+									<xs:annotation>
+										<xs:documentation>
+											<create>discarded</create>
+											<update>discarded</update>
+										</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute ref="xlink:title">
+									<xs:annotation>
+										<xs:documentation>
+											<create>discarded</create>
+											<update>discarded</update>
+										</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute ref="xlink:href">
+									<xs:annotation>
+										<xs:documentation>
+											<create>optional</create>
+											<update>optional</update>
+										</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

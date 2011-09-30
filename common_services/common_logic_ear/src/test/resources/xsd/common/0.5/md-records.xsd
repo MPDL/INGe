@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ CDDL HEADER START
+  ~
+  ~ The contents of this file are subject to the terms of the Common Development and Distribution License, Version 1.0
+  ~ only (the "License"). You may not use this file except in compliance with the License.
+  ~
+  ~ You can obtain a copy of the license at license/ESCIDOC.LICENSE or http://www.escidoc.de/license. See the License for
+  ~ the specific language governing permissions and limitations under the License.
+  ~
+  ~ When distributing Covered Code, include this CDDL HEADER in each file and include the License file at
+  ~ license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with the fields enclosed by
+  ~ brackets "[]" replaced with your own identifying information: Portions Copyright [yyyy] [name of copyright owner]
+  ~
+  ~ CDDL HEADER END
+  ~
+  ~ Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft fuer wissenschaftlich-technische Information mbH
+  ~ and Max-Planck-Gesellschaft zur Foerderung der Wissenschaft e.V. All rights reserved. Use is subject to license
+  ~ terms.
+  -->
+
+<!--
+	Changes applied to this schema (since Version 03, Februar, 2008):
+	- Februar, 2008
+	- version changed to 04.
+	
+	- modified namespace (both xmlns and targetNamespace)
+	from http://www.escidoc.de/schemas/metadatarecords/0.3
+	to http://www.escidoc.de/schemas/metadatarecords/0.4.
+	-namespaces of refered schemas changed:
+	from http://www.escidoc.de/schemas/commontypes/0.3
+	to http://www.escidoc.de/schemas/commontypes/0.4
+	
+	changed type of the attribute /md-records/md-record/@name:
+	removed a restriction of its value
+	
+	- changed name of md-record/@type to md-record/@md-type
+	
+	- July, 2009
+	- version changed to 0.5
+	- added the optional attribute "origin" to element "md-record" 
+	- changed a type of attribute md-records/md-record/@name 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/metadatarecords/0.5"
+	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.5"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.4/common-types.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/xml.xsd" />
+	<xs:element name="md-records">
+		<xs:annotation>
+			<xs:documentation>
+				Following you will find information which elements and
+				attributes are "required", "optional" and "not allowed"
+				in the input XML-stream when creating or updating an
+				item. Also there is information which elements and
+				attributes are contained in the output XML-stream. Each
+				element and attribute contains an annotation with theses
+				rules.
+			</xs:documentation>
+            <xs:documentation><create>required</create><update>required</update>
+            <comment>For now, only one md-record is allowed that is required.</comment></xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="md-records:md-record" maxOccurs="unbounded"/>
+			</xs:sequence>
+
+			<xs:attributeGroup ref="common-types:eSciDocRootElementAttributes"/>
+
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="md-record">
+					<xs:annotation>
+            <xs:documentation><create>required</create><update>required</update>
+            <comment>For now, only one md-record is allowed that is required.</comment>
+            </xs:documentation></xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:any namespace="##any" processContents="skip" />
+			</xs:sequence>
+
+			<xs:attributeGroup ref="common-types:eSciDocRootElementAttributes"/>
+			<xs:attribute name="inherited" default="false">
+            	<xs:annotation>
+                	<xs:documentation>
+                	<para>
+			 The existence of the attribute means that the contained element is not a native element of 
+		     the contained resource, but borrowed from another resource.
+			</para>
+                    	<create>optional</create>
+                    	<update>optional</update>
+                	</xs:documentation>
+            	</xs:annotation>
+        	</xs:attribute>
+			<xs:attribute name="schema">
+				<xs:annotation>
+            <xs:documentation><create>optional</create><update>optional</update></xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<!--  
+			<xs:attribute name="name" type="md-records:nameType"
+				use="required"> -->
+				<xs:attribute name="name" use="required">
+				<xs:annotation>
+            <xs:documentation><create>required</create><update>required</update></xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+		<xs:restriction base="xs:NCName">
+			<xs:maxLength value="64" />
+		</xs:restriction>
+	</xs:simpleType>
+				<!--  <xs:simpleType>
+					<xs:restriction base="xs:NMTOKEN">
+						<xs:pattern value="[^\s]*" />
+						<xs:maxLength value="64" />
+					</xs:restriction>
+				</xs:simpleType> -->
+			</xs:attribute>
+			<xs:attribute name="md-type" use="optional">
+				<xs:annotation>
+            <xs:documentation><create>optional</create><update>optional</update></xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
