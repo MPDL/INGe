@@ -1151,7 +1151,7 @@ public class TestBase
             initializeSchemas();
         }
         String nameSpace = getNameSpaceFromXml(xmlData);
-        logger.debug("Looking up namespace '" + nameSpace + "'");
+        logger.info("Looking up namespace '" + nameSpace + "'");
         Schema schema = schemas.get(nameSpace);
         try
         {
