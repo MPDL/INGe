@@ -757,9 +757,9 @@
 				<escidoc.framework_access.content-model.id.publication>escidoc:persistent4</escidoc.framework_access.content-model.id.publication>
 		
 				<!-- URL of the FIZ framework instance -->
-				<escidoc.framework_access.framework.url>http://test-coreservice.mpdl.mpg.de</escidoc.framework_access.framework.url>
-				<escidoc.common.framework.url>http://test-coreservice.mpdl.mpg.de</escidoc.common.framework.url>
-				<escidoc.framework_access.login.url>http://test-coreservice.mpdl.mpg.de</escidoc.framework_access.login.url>
+				<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
+				<escidoc.common.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
+				<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
 
 				<escidoc.cone.service.url>http://dev-pubman.mpdl.mpg.de/cone/</escidoc.cone.service.url>
 				<escidoc.import.database.name>/usr/share/jboss/server/default/data/hypersonic/localDB</escidoc.import.database.name>
