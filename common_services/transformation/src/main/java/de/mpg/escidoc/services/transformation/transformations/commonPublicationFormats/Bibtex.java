@@ -35,9 +35,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.httpclient.HttpClient;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import bibtex.dom.BibtexEntry;
 import bibtex.dom.BibtexFile;
@@ -64,6 +64,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -82,6 +83,9 @@ public class Bibtex
     private final Logger logger = Logger.getLogger(Bibtex.class);
     
     private Map<String, String> configuration = null;
+    
+    private Set<String> groupSet = null;
+    private Set<String> projectSet = null;
 
     /**
      * Public constructor.
@@ -729,6 +733,56 @@ public class Bibtex
                     }
                 }
                 
+                // MPIS Groups
+                if (fields.get("group") != null)
+                {
+                    String[] groups = fields.get("group").toString().split(",");
+                    for (String group : groups)
+                    {
+                        group = group.trim();
+                        if (groupSet == null)
+                        {
+                            try
+                            {
+                                groupSet = Util.loadGroupSet();
+                            }
+                            catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        if (!groupSet.contains(group))
+                        {
+                            throw new RuntimeException("Group '" + group + "' not found.");
+                        }
+                        mds.getSubjects().add(new TextVO(group, null, SubjectClassification.MPIS_GROUPS.getUri()));
+                    }
+                }
+                
+                // MPIS Projects
+                if (fields.get("project") != null)
+                {
+                    String[] projects = fields.get("project").toString().split(",");
+                    for (String project : projects)
+                    {
+                        project = project.trim();
+                        if (projectSet == null)
+                        {
+                            try
+                            {
+                                projectSet = Util.loadProjectSet();
+                            }
+                            catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        if (!groupSet.contains(project))
+                        {
+                            throw new RuntimeException("Project '" + project + "' not found.");
+                        }
+                        mds.getSubjects().add(new TextVO(project, null, SubjectClassification.MPIS_PROJECTS.getUri()));
+                    }
+                }
+                
             }
             else if (object instanceof BibtexToplevelComment)
             {
@@ -755,7 +809,7 @@ public class Bibtex
             throw new RuntimeException(e);
         }
     }
-    
+
     private void addCreator(
             MdsPublicationVO publicationVO,
             BibtexPerson person,

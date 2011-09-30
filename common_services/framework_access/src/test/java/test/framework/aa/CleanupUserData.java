@@ -31,6 +31,7 @@ package test.framework.aa;
 import static org.junit.Assert.assertNotNull;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;

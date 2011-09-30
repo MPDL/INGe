@@ -194,6 +194,20 @@
 		</var>
 	</iso:let>
 
+	<!-- mpis-groups -->
+	<iso:let name="mpis-groups">
+		<var>
+			<?cone mpis-groups?>
+		</var>
+	</iso:let>
+
+	<!-- mpis-projects -->
+	<iso:let name="mpis-projects">
+		<var>
+			<?cone mpis-projects?>
+		</var>
+	</iso:let>
+
 	<!-- Validation rules -->
 	
 	<!-- Default rules -->
@@ -375,7 +389,7 @@
 	<!-- Locator has to be a valid URI -->
 	<iso:pattern name="uri_as_locator" id="uri_as_locator">
 		<iso:rule context="escidocComponents:component">
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or not(escidocComponents:content/@storage = 'external-url') or matches(escidocComponents:content/@xlink:href, '^(https?|ftp)://([0-9a-zA-Z;/?:@&amp;=+$\.\-_!~*()%]+)?(#[0-9a-zA-Z;/?:@&amp;=+$\.\-_!~*()%]+)?$')">LocatorIsNoUri</iso:assert>
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or not(escidocComponents:content/@storage = 'external-url') or matches(escidocComponents:content/@xlink:href, '^(https?|ftp)://([0-9a-zA-Z;/?:@&amp;=+$\.,\-_!~*()%]+)?(#[0-9a-zA-Z;/?:@&amp;=+$\.,\-_!~*()%]+)?$')">LocatorIsNoUri</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
@@ -391,6 +405,8 @@
 		<iso:rule context="publication:publication/dc:subject">
 			<iso:assert test="not(exists($ddcSubjects/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:DDC' or . = $ddcSubjects/var/rdf:RDF/rdf:Description/dc:title">IncorrectDDCClassification</iso:assert>
 			<iso:assert test="not(exists($mpipksSubjects/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:MPIPKS' or . = $mpipksSubjects/var/rdf:RDF/rdf:Description/dc:title">IncorrectMPIPKSClassification</iso:assert>
+			<iso:assert test="not(exists($mpis-groups/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:MPIS_GROUPS' or . = $mpis-groups/var/rdf:RDF/rdf:Description/dc:title">IncorrectMPISGroupsClassification</iso:assert>
+			<iso:assert test="not(exists($mpis-projects/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:MPIS_PROJECTS' or . = $mpis-projects/var/rdf:RDF/rdf:Description/dc:title">IncorrectMPISProjectsClassification</iso:assert>
 			<iso:assert test="not(exists($iso639-3/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:ISO639_3' or . = $iso639-3/var/rdf:RDF/rdf:Description/dc:title">IncorrectClassification</iso:assert>
 		</iso:rule>
 	</iso:pattern>

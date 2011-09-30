@@ -37,6 +37,7 @@
 	<xsl:param name="escidoc.pubman.stylesheet.contrast.url"/>
 	<xsl:param name="escidoc.pubman.stylesheet.classic.url"/>
 	<xsl:param name="escidoc.pubman.stylesheet.standard.url"/>
+	<xsl:param name="escidoc.common.presentation.url"/>
 	
 	
 	<xsl:variable name="defaultLang" select="'en'"/>
@@ -50,7 +51,7 @@
 			<head>
 				<title>CoNE - <xsl:value-of select="dc:title"/></title>
 				<link type="text/css" rel="stylesheet">
-					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.common.presentation.url" />resources/cssFramework/main.css</xsl:attribute>
+					<xsl:attribute name="href"><xsl:value-of select="$escidoc.common.presentation.url" />resources/cssFramework/main.css</xsl:attribute>
 				</link>
 				<link id="HighContrast" type="text/css" title="high contrast" rel="alternate stylesheet">
 					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.stylesheet.contrast.url" /></xsl:attribute>

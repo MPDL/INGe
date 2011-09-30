@@ -152,6 +152,7 @@ public class PropertyReader
         properties = new Properties();
         properties.load(instream);
         properties.putAll(solProperties);
+        instream.close();
             
         Logger.getLogger(PropertyReader.class).info("Properties loaded from " + fileLocation);
         //Logger.getLogger(PropertyReader.class).info(properties.toString());

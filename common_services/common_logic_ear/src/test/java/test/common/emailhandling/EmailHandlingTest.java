@@ -108,7 +108,7 @@ public class EmailHandlingTest extends TestBase
     @Test
     public void testSendMail() throws TechnicalException
     {
-        logger.debug("### testSendMail ###" );        
+        logger.info("### testSendMail ###" );        
  
         File file = new File(TEST_FILE_ROOT + "emailhandling/APA.html");
         assertNotNull(file);
