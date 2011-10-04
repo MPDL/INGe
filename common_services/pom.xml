@@ -544,11 +544,11 @@
 		<xsd.soap.common.srel>http://escidoc.de/core/01/structural-relations/</xsd.soap.common.srel>
 		<xsd.soap.common.version>http://escidoc.de/core/01/properties/version/</xsd.soap.common.version>
 		<xsd.soap.common.release>http://escidoc.de/core/01/properties/release/</xsd.soap.common.release>
-		<xsd.soap.item.item>http://www.escidoc.de/schemas/item/0.9</xsd.soap.item.item>
+		<xsd.soap.item.item>http://www.escidoc.de/schemas/item/0.10</xsd.soap.item.item>
 		<xsd.soap.context.context>http://www.escidoc.de/schemas/context/0.7</xsd.soap.context.context>
 		<xsd.soap.item.components>http://www.escidoc.de/schemas/components/0.9</xsd.soap.item.components>
 		<xsd.soap.context.contextlist>http://www.escidoc.de/schemas/contextlist/0.7</xsd.soap.context.contextlist>
-		<xsd.soap.item.itemlist>http://www.escidoc.de/schemas/itemlist/0.9</xsd.soap.item.itemlist>
+		<xsd.soap.item.itemlist>http://www.escidoc.de/schemas/itemlist/0.10</xsd.soap.item.itemlist>
 		<xsd.soap.common.mdrecords>http://www.escidoc.de/schemas/metadatarecords/0.5</xsd.soap.common.mdrecords>
 		<xsd.soap.common.relations>http://www.escidoc.de/schemas/relations/0.3</xsd.soap.common.relations>
 		<xsd.soap.searchresult.searchresult>http://www.escidoc.de/schemas/searchresult/0.8</xsd.soap.searchresult.searchresult>
@@ -564,17 +564,17 @@
 		<xsd.rest.stagingfile.stagingfile>http://www.escidoc.de/schemas/stagingfile/0.3</xsd.rest.stagingfile.stagingfile>
 		<xsd.soap.common.commontypes>http://www.escidoc.de/schemas/commontypes/0.4</xsd.soap.common.commontypes>
 		<xsd.soap.useraccount.grants>http://www.escidoc.de/schemas/grants/0.5</xsd.soap.useraccount.grants>
-		<xsd.soap.common.versionhistory>http://www.escidoc.de/schemas/versionhistory/0.3</xsd.soap.common.versionhistory>
-		<xsd.soap.common.memberlist>http://www.escidoc.de/schemas/memberlist/0.9</xsd.soap.common.memberlist>
-		<xsd.soap.container.container>http://www.escidoc.de/schemas/container/0.8</xsd.soap.container.container>
+		<xsd.soap.common.versionhistory>http://www.escidoc.de/schemas/versionhistory/0.4</xsd.soap.common.versionhistory>
+		<xsd.soap.common.memberlist>http://www.escidoc.de/schemas/memberlist/0.10</xsd.soap.common.memberlist>
+		<xsd.soap.container.container>http://www.escidoc.de/schemas/container/0.9</xsd.soap.container.container>
 		<xsd.soap.container.structmap>http://www.escidoc.de/schemas/structmap/0.4</xsd.soap.container.structmap>
-		<xsd.soap.container.containerlist>http://www.escidoc.de/schemas/containerlist/0.8</xsd.soap.container.containerlist>
+		<xsd.soap.container.containerlist>http://www.escidoc.de/schemas/containerlist/0.9</xsd.soap.container.containerlist>
 		<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
 		<xsd.soap.common.metadatarecords>http://www.escidoc.de/schemas/metadatarecords/0.5</xsd.soap.common.metadatarecords>
-		<xsd.soap.statistic.report>http://www.escidoc.de/schemas/report/0.3</xsd.soap.statistic.report>
-		<xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.3</xsd.soap.statistic.reportparameters>
-		<xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.3</xsd.soap.statistic.reportdefinitionlist>
-		<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.3</xsd.soap.statistic.reportdefinition>
+		<xsd.soap.statistic.report>http://www.escidoc.de/schemas/report/0.4</xsd.soap.statistic.report>
+		<xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.4</xsd.soap.statistic.reportparameters>
+		<xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.4</xsd.soap.statistic.reportdefinitionlist>
+		<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.4</xsd.soap.statistic.reportdefinition>
 		<xsd.soap.contentmodel>http://www.escidoc.de/schemas/contentmodel/0.1</xsd.soap.contentmodel>
 		<xsd.soap.contentmodel.contentstreams>http://www.escidoc.de/schemas/contentstreams/0.7</xsd.soap.contentmodel.contentstreams>
 		<xsd.soap.attributes>http://www.escidoc.de/schemas/attributes/0.1</xsd.soap.attributes>

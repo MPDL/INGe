@@ -50,29 +50,28 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
 public class ImportResolver implements LSResourceResolver
 {
     private static final Logger logger = Logger.getLogger(ImportResolver.class);
-    
-    @Override
-    public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId,
-            String baseURI)
+
+    public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId, String baseURI)
     {
 
-        System.out.println(systemId);
-        
-        try
-        {
-            LSInput result = new ImportInput();
-            result.setBaseURI(baseURI);
-            result.setByteStream(ResourceUtil.getResourceAsStream(systemId));
-            result.setCertifiedText(false);
-            result.setEncoding("UTF-8");
-            result.setSystemId(systemId);
-            return result;
-        }
-        catch (Exception e)
-        {
-            logger.warn("Included schema not found: " + systemId);
-            return null;
-        }
+
+            logger.debug("Loading " + systemId);
+            
+            try
+            {
+                LSInput result = new ImportInput();
+                result.setBaseURI(baseURI);
+                result.setByteStream(ResourceUtil.getResourceAsStream(systemId));
+                result.setCertifiedText(false);
+                result.setEncoding("UTF-8");
+                result.setSystemId(systemId);
+                return result;
+            }
+            catch (Exception e)
+            {
+                logger.warn("Included schema not found: " + systemId);
+                return null;
+            }
 
     }
     
