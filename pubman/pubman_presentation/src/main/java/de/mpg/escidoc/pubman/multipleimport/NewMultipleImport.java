@@ -43,6 +43,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.model.UploadedFile;
+import org.jfree.data.time.Millisecond;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -75,6 +76,14 @@ public class NewMultipleImport extends BreadcrumbPage
     public NewMultipleImport()
     {
         super.init();
+        try
+        {
+            ((MultipleImport) getSessionBean(MultipleImport.class)).initConfigParameters();
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

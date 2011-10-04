@@ -309,7 +309,7 @@
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Please enter a URL" />
         </field>
         <field type="text" align="left" variable="escidoc.cone.subjectVocab">
-            <spec txt="The subject classifications used in the 'Browse by' section (Selection of ddc, mpipks, iso639-3)  :" size="25" align="left" set="${escidoc.cone.subjectVocab}"/>
+            <spec txt="The subject classifications used in the 'Browse by' section (Selection of ddc, iso639-3)  :" size="25" align="left" set="${escidoc.cone.subjectVocab}"/>
             <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Please enter a semicolon separated list of classifications">
             	<param name="pattern" value="[a-zA-Z0-9._-]+(;[a-zA-Z0-9._-]+)*"/>
             </validator>

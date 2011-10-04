@@ -94,7 +94,7 @@
 					<span class="free_area0 checkboxDoubleGroup">
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedPrint" value="#{dateCriterionBean.searchPublishedPrint}" />
-							<h:outputLabel id="lblDateCriterionBean_searchPublishedPrint" value="#{lbl.adv_search_lblChkType_publishedpr}" for="dateCriterionBean_searchPublishedPrint" title="#{lbl.adv_search_lblChkType_publishedpr}" />
+							<h:outputLabel id="lblDateCriterionBean_searchPublishedPrint" value="#{lbl.adv_search_lblChkType_abb_publishedpr}" for="dateCriterionBean_searchPublishedPrint" title="#{lbl.adv_search_lblChkType_publishedpr}" />
 						</span>
 						<span class="checkboxDoubleContainer" style="display:none;">
 							<span class="large_checkbox tiny_marginRIncl">
@@ -119,11 +119,11 @@
 							</span>
 							<span class="large_checkbox tiny_marginRIncl">
 								<h:selectBooleanCheckbox id="dateCriterionBean_searchEventStart" value="#{dateCriterionBean.searchEventStart}" />
-								<h:outputLabel id="lblDateCriterionBean_searchEventStart" value="#{lbl.adv_search_lblChkType_event_start_date}" for="dateCriterionBean_searchEventStart" title="#{lbl.adv_search_lblChkType_event_start_date}" />
+								<h:outputLabel id="lblDateCriterionBean_searchEventStart" value="#{lbl.adv_search_lblChkType_abb_event_start_date}" for="dateCriterionBean_searchEventStart" title="#{lbl.adv_search_lblChkType_event_start_date}" />
 							</span>
 							<span class="large_checkbox tiny_marginRIncl">
 								<h:selectBooleanCheckbox id="dateCriterionBean_searchEventEnd" value="#{dateCriterionBean.searchEventEnd}" />
-								<h:outputLabel id="lblDdateCriterionBean_searchEventEnd" value="#{lbl.adv_search_lblChkType_event_end_date}" for="dateCriterionBean_searchEventEnd" title="#{lbl.adv_search_lblChkType_event_end_date}" />
+								<h:outputLabel id="lblDdateCriterionBean_searchEventEnd" value="#{lbl.adv_search_lblChkType_abb_event_end_date}" for="dateCriterionBean_searchEventEnd" title="#{lbl.adv_search_lblChkType_event_end_date}" />
 							</span>
 						</span>
 						<a class="large_area0 tiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>

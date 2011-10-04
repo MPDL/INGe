@@ -77,7 +77,7 @@
 				<h:panelGroup styleClass="medium_area0 xTiny_marginRIncl" rendered="#{!(genre.events_event_place_display == 'false' && genre.events_event_place_form_id == 'full-submission' || genre.events_event_place_display == 'false' && genre.events_event_place_form_id == 'all')}">
 					<h:panelGroup styleClass="medium_area0">
 						<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_place_optional != 'true'}" />
-						<h:outputText value="#{genre.events_event_place_label}"  converter="GenreLabelConverter"/>
+						<h:outputText value="#{genre.events_event_place_label}" converter="GenreLabelConverter"/>
 					</h:panelGroup>
 					<h:inputText styleClass="medium_txtInput" id="txtEventPlace" value="#{EditItem.pubItem.metadata.event.place.value}" />
 				</h:panelGroup>

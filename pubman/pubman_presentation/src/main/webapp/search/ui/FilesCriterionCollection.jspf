@@ -85,7 +85,7 @@ All rights reserved. Use is subject to license terms.
                         
                         <span class="large_checkbox">
 							<h:selectBooleanCheckbox id="fileCriterion_hasEmbargoDate" value="#{fileCriterionBean.fileCriterionVO.searchForEmbargoFiles}" />
-							<h:outputLabel for="fileCriterion_hasEmbargoDate" value="#{lbl.adv_search_fileComponentEmbargoDate}"/>
+							<h:outputLabel for="fileCriterion_hasEmbargoDate" value="#{lbl.adv_search_abb_fileComponentEmbargoDate}" title="#{lbl.adv_search_fileComponentEmbargoDate}"/>
 						</span>	
                             
                     </span>

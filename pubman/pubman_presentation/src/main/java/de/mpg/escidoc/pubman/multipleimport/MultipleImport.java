@@ -209,9 +209,16 @@ public class MultipleImport extends FacesBean
         
         FacesContext fc = FacesContext.getCurrentInstance();
         fc.getExternalContext().redirect("ImportWorkspace.jsp");
+
         return null;
     }
     
+    private void cleanUp()
+    {
+        this.configParameters = null;
+        this.parametersValues = null;
+    }
+
     /**
      * JSF action that is triggered from the submission menu.
      * 

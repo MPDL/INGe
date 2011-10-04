@@ -112,6 +112,12 @@
 					<h:panelGroup rendered="#{subjectVocab == 'iso639-3'}">
 						<h:outputText value="#{lbl.iso6393Desc}" />
 					</h:panelGroup>
+					<h:panelGroup rendered="#{subjectVocab == 'mpis-groups'}">
+						<h:outputText value="#{lbl.mpis_groupsDesc}" />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{subjectVocab == 'mpis-projects'}">
+						<h:outputText value="#{lbl.mpis_projectsDesc}" />
+					</h:panelGroup>
 				</div>
 			</tr:iterator>
 		</p>

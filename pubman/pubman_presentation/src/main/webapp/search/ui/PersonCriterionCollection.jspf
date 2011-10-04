@@ -139,7 +139,7 @@ All rights reserved. Use is subject to license terms.
 							</span>
 							<span class="large_checkbox tiny_marginRIncl">
 								<h:selectBooleanCheckbox id="personCriterionBean_searchHonoree" value="#{personCriterionBean.searchHonoree}" />
-								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_HONOREE}" for="personCriterionBean_searchHonoree" title="#{lbl.ENUM_CREATORROLE_HONOREE}" />
+								<h:outputLabel value="#{lbl.adv_search_lblSearchPerson_abb_honoree}" for="personCriterionBean_searchHonoree" title="#{lbl.ENUM_CREATORROLE_HONOREE}" />
 							</span>
 							<span class="large_checkbox tiny_marginRIncl">
 								<h:selectBooleanCheckbox id="personCriterionBean_searchInventor" value="#{personCriterionBean.searchInventor}" />
