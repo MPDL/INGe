@@ -393,10 +393,10 @@ body .wrapper {
 	color: #004465;
 }
 .contentMenu .sub span {
-	text-decoration:underline;
+/*	text-decoration:underline; */
 }
 .contentMenu .sub span.free_area0 {
-	text-decoration:underline;
+/*	text-decoration:underline; */
 }
 
 /***ACTION MENU***/
