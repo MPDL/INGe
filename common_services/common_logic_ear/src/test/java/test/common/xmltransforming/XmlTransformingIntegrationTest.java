@@ -55,7 +55,7 @@ import test.common.xmltransforming.integration.TransformStatisticsTest;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-                     TransformAccountUserAndGrantsIntegrationTest.class,
+                     //TransformAccountUserAndGrantsIntegrationTest.class,
                      TransformAffiliationIntegrationTest.class,
                      TransformPubCollectionIntegrationTest.class,
                      TransformPubItemIntegrationTest.class,
