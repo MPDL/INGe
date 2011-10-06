@@ -35,11 +35,11 @@
 	<title>CoNE - Control of Named Entities</title>
 	<link href="<%= PropertyReader.getProperty("escidoc.common.presentation.url") %>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
 	<link href="/common/resources/cssFramework/main.css" type="text/css" rel="stylesheet" />
-	<link href="/common/resources/cssFramework/themes/skin_MPG/styles/theme.css" type="text/css" title="MPG Skin" id="mpgSkin" rel="alternate stylesheet" />
 	<link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.contrast.url") %>" id="HighContrast" type="text/css" title="high contrast" rel="alternate stylesheet"/>
 	<link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.classic.url") %>" id="Classic" type="text/css" title="classic" rel="alternate stylesheet"/>	
+	<% if ("true".equals(PropertyReader.getProperty("escidoc.common.stylesheet.special.apply"))) { %><link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.special.url") %>" id="Special" type="text/css" title="special" rel="alternate stylesheet"/><% } %>
 	<link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.standard.url") %>" id="Standard" type="text/css" title="blue" rel="stylesheet"/>
-	
+
 	
 	<script language="JavaScript" type="text/javascript">
 	
