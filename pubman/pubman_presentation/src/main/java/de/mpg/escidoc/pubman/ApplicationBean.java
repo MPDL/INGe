@@ -30,12 +30,8 @@
 
 package de.mpg.escidoc.pubman;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -303,6 +299,7 @@ public class ApplicationBean extends FacesBean
         String StylesheetStandard = "";
         String StylesheetContrast = "";
         String StylesheetClassic = "";
+        String StylesheetSpecial = "";
         
         // First append the standard PubMan Stylesheet
         try {
@@ -357,6 +354,27 @@ public class ApplicationBean extends FacesBean
                 else
                 {
                     StylesheetClassic = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='Classic' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>";
+                }
+            }
+        } catch (IOException e)
+        {
+            throw new PubManStylesheetNotAvailableException(e);
+        } catch (URISyntaxException e)
+        {
+            throw new PubManStylesheetNotAvailableException(e);
+        }
+        
+        // Then append the special Stylesheet
+        try {
+            if(PropertyReader.getProperty("escidoc.pubman.stylesheet.special.apply").equals("true"))
+                {
+                if(PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type").equals(this.ALTERNATE_STYLESHEET))
+                {
+                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url") +"' id='Special' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblSpecial") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type") +"'/>");
+                }
+                else
+                {
+                    StylesheetSpecial = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url") +"' id='Special' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblSpecial") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type") +"'/>";
                 }
             }
         } catch (IOException e)

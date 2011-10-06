@@ -38,7 +38,6 @@
 	.headerLogo {background-image: url("<h:outputText value='#{ApplicationBean.logoUrl}'/>") !important; background-repeat: norepeat; background-position: top left;}
 </style>
 <link href="/common/resources/cssFramework/main.css" type="text/css" rel="stylesheet" />
-<link href="/common/resources/cssFramework/themes/skin_MPG/styles/theme.css" type="text/css" title="MPG Skin" id="mpgSkin" rel="alternate stylesheet" />
 <h:outputText value="#{ApplicationBean.pubmanStyleTags}" escape="false"/>
 
 <script type="text/javascript" language="JavaScript">var cookieVersion = "<h:outputText value='#{ApplicationBean.cookieVersion}'/>";</script>

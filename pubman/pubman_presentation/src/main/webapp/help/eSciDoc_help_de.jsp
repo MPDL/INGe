@@ -18,9 +18,6 @@
         <!-- <link rel="stylesheet" type="text/css" href="eSciDoc_help_de.css"> -->
     </head>
     <body>
-    	<div style="position:absolute; top:50px; left:200px; z-index:500000; width:500px; text-align:center; border:1px solid #ff0000; color:#ff0000;">
-    		<blockquote>Diese Seite  ist veraltet. Bitte melden Sie den Link &uuml;ber den Sie diese Seite erreicht haben an <br /><b>pubman-support@mpdl.mpg.de</b></blockquote>
-    	</div>
         <div class="maketitle wrapper" style="padding: 0.74em; font-size: 129% !important; width: auto;">
             <h2>PubMan Onlinehilfe</h2>
             <p class="MsoNormal">
@@ -118,7 +115,7 @@
                             (nur registrierte Nutzer)</a>
                         <br>
                         <span style=""></span>&nbsp;&nbsp;&nbsp; 
-                        3.4.5. <a href="eSciDoc_help_de.html#ViewLocalTagsPage">Lokale Tags (nur registrierte Nutzer)</a>
+                        3.4.5. <a href="eSciDoc_help_de.jsp#ViewLocalTagsPage">Lokale Tags (nur registrierte Nutzer)</a>
                     </span>
                     <span class="sectiontoc">
                         <br>
