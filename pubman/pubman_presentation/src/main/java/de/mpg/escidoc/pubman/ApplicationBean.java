@@ -46,6 +46,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.exceptions.PubManStylesheetNotAvailableException;
 import de.mpg.escidoc.pubman.exceptions.PubManVersionNotAvailableException;
+import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.util.CommonUtils;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -307,11 +308,11 @@ public class ApplicationBean extends FacesBean
                 {
                 if(PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type").equals(this.ALTERNATE_STYLESHEET))
                 {
-                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='Standard' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>");
+                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='Standard' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>");
                 }
                 else
                 {
-                    StylesheetStandard = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='Standard' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>";
+                    StylesheetStandard = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='Standard' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>";
                 }
             }
         } catch (IOException e)
@@ -328,11 +329,11 @@ public class ApplicationBean extends FacesBean
             {
                 if(PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type").equals(this.ALTERNATE_STYLESHEET))
                 {
-                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='HighContrast' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>");
+                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='HighContrast' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>");
                 }
                 else
                 {
-                    StylesheetContrast = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='HighContrast' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>";
+                    StylesheetContrast = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='HighContrast' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>";
                 }
             }
         } catch (IOException e)
@@ -349,11 +350,11 @@ public class ApplicationBean extends FacesBean
                 {
                 if(PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type").equals(this.ALTERNATE_STYLESHEET))
                 {
-                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='Classic' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>");
+                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='Classic' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>");
                 }
                 else
                 {
-                    StylesheetClassic = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='Classic' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>";
+                    StylesheetClassic = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='Classic' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>";
                 }
             }
         } catch (IOException e)
@@ -370,11 +371,11 @@ public class ApplicationBean extends FacesBean
                 {
                 if(PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type").equals(this.ALTERNATE_STYLESHEET))
                 {
-                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url") +"' id='Special' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblSpecial") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type") +"'/>");
+                    styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url") +"' id='Special' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblSpecial") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type") +"'/>");
                 }
                 else
                 {
-                    StylesheetSpecial = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url") +"' id='Special' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblSpecial") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type") +"'/>";
+                    StylesheetSpecial = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url") +"' id='Special' type='text/css' title='"+ ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblSpecial") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.special.type") +"'/>";
                 }
             }
         } catch (IOException e)
