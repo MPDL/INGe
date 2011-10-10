@@ -390,6 +390,7 @@ public class ApplicationBean extends FacesBean
         styleTags.append(StylesheetStandard);
         styleTags.append(StylesheetContrast);
         styleTags.append(StylesheetClassic);
+        styleTags.append(StylesheetSpecial);
         
         // Last Step: add Favicon information if it should be applied
         try {
