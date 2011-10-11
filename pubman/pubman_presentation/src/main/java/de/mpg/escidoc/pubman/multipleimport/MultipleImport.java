@@ -263,7 +263,11 @@ public class MultipleImport extends FacesBean
 	public List<SelectItem> initConfigParameters() throws Exception
     {
     	TransformationBean transformation = new TransformationBean();
-    	Map<String, String> config = transformation.getConfiguration(format, ESCIDOC_FORMAT);
+    	Map<String, String> config = null;
+    	if (format != null)
+    	{
+    	    config = transformation.getConfiguration(format, ESCIDOC_FORMAT);
+    	}
 		configParameters = new ArrayList<SelectItem>();
 		parametersValues = new LinkedHashMap<String, List<SelectItem>>();
     	if(config!=null)

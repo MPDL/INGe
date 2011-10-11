@@ -178,11 +178,10 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 
             String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(filter.toMap());
 
-            List<PubItemVO> pubItemList = (List<PubItemVO>) xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList);
+            ItemVOListWrapper pubItemList = xmlTransforming.transformSearchRetrieveResponseToItemList(xmlItemList);
             
-
-            numberOfRecords = pubItemList.size();
-            returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
+            numberOfRecords = Integer.parseInt(pubItemList.getNumberOfRecords());
+            returnList = CommonUtils.convertToPubItemVOPresentationList((List<PubItemVO>) pubItemList.getItemVOList());
         }
         catch (Exception e)
         {
