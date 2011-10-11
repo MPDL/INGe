@@ -60,7 +60,7 @@ Notes:
 	<xsl:variable name="STRUCT_MAP_PATH" select="/*[local-name()='container']/*[local-name()='struct-map']"/>
 	
 	  <!-- Paths to Content-Relations -->
-    <xsl:variable name="CONTENT_RELATIONS_PATH" select="/*/*[local-name()='relations']/*[local-name()='relation']"/>
+	<xsl:variable name="CONTENT_RELATIONS_PATH" select="/*/*[local-name()='relations']/*[local-name()='relation']"/>
 
     <!-- COMPONENT TYPES THAT DONT GET INDEXED -->
 	<xsl:variable name="NON_SUPPORTED_COMPONENT_TYPES"> http://purl.org/escidoc/metadata/ves/content-categories/correspondence http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement </xsl:variable>
@@ -142,11 +142,11 @@ Notes:
 			<xsl:call-template name="writeIndexField">
 				<xsl:with-param name="context" select="$CONTEXTNAME"/>
 				<xsl:with-param name="fieldname">objid</xsl:with-param>
-				<xsl:with-param name="fieldvalue" select="$PID"/>
+				<xsl:with-param name="fieldvalue" select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='item']/@*[local-name()='href'], '/'))"/>
 				<xsl:with-param name="indextype">UN_TOKENIZED</xsl:with-param>
 				<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
 			</xsl:call-template>
-            <!-- Wrtite item.xml as Field xml_representation, gets returned by the search -->
+           <!-- Wrtite item.xml as Field xml_representation, gets returned by the search -->
             <!--  DONT CHANGE THIS!! -->
 			<IndexField IFname="xml_representation" index="NO" store="YES" termVector="NO">
 				<xsl:text disable-output-escaping="yes">
@@ -165,10 +165,10 @@ Notes:
 			</xsl:call-template>
             
               <!-- INDEX CONTENT-RELATIONS -->
-            <xsl:call-template name="processContentRelations">
-                <xsl:with-param name="path" select="$CONTENT_RELATIONS_PATH"/>
-                <xsl:with-param name="context" select="$CONTEXTNAME"/>
-            </xsl:call-template>
+			<xsl:call-template name="processContentRelations">
+				<xsl:with-param name="path" select="$CONTENT_RELATIONS_PATH"/>
+				<xsl:with-param name="context" select="$CONTEXTNAME"/>
+			</xsl:call-template>
             
             <!-- INDEX METADATA -->
 			<xsl:call-template name="processMetadata">
@@ -234,10 +234,11 @@ Notes:
 			<xsl:call-template name="writeIndexField">
 				<xsl:with-param name="context" select="$CONTEXTNAME"/>
 				<xsl:with-param name="fieldname">objid</xsl:with-param>
-				<xsl:with-param name="fieldvalue" select="$PID"/>
+				<xsl:with-param name="fieldvalue" select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='container']/@*[local-name()='href'], '/'))"/>
 				<xsl:with-param name="indextype">UN_TOKENIZED</xsl:with-param>
 				<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
 			</xsl:call-template>
+
 
             <!-- Wrtite container.xml as Field xml_representation, gets returned by the search -->
             <!--  DONT CHANGE THIS!! -->
@@ -264,10 +265,10 @@ Notes:
 			</xsl:call-template>
 			
 			 <!-- INDEX CONTENT-RELATIONS -->
-            <xsl:call-template name="processContentRelations">
-                <xsl:with-param name="path" select="$CONTENT_RELATIONS_PATH"/>
-                <xsl:with-param name="context" select="$CONTEXTNAME"/>
-            </xsl:call-template>
+			<xsl:call-template name="processContentRelations">
+				<xsl:with-param name="path" select="$CONTENT_RELATIONS_PATH"/>
+				<xsl:with-param name="context" select="$CONTEXTNAME"/>
+			</xsl:call-template>
                         
             <!-- INDEX STRUCT-MAP -->
 			<xsl:for-each select="$STRUCT_MAP_PATH">
@@ -420,19 +421,19 @@ Notes:
 	</xsl:template>
 	
 	 <!-- PROCESS CONTENT-RELATIONS -->
-    <xsl:template name="processContentRelations">
-        <xsl:param name="path"/>
-        <xsl:param name="context"/>
-        <xsl:for-each select="$path">
-            <xsl:call-template name="writeIndexField">
-                <xsl:with-param name="context" select="$context"/>
-                <xsl:with-param name="fieldname">content-relation</xsl:with-param>
-                <xsl:with-param name="fieldvalue" select="concat(./@predicate, ' ', ./@objid)"/>
-                <xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
-                <xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
-            </xsl:call-template>
-        </xsl:for-each>
-    </xsl:template>
+	<xsl:template name="processContentRelations">
+		<xsl:param name="path"/>
+		<xsl:param name="context"/>
+		<xsl:for-each select="$path">
+			<xsl:call-template name="writeIndexField">
+				<xsl:with-param name="context" select="$context"/>
+				<xsl:with-param name="fieldname">content-relation</xsl:with-param>
+				<xsl:with-param name="fieldvalue" select="concat(./@predicate, ' ', ./@objid)"/>
+				<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
+				<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
 
     <!-- RECURSIVE ITERATION FOR COMPONENTS (FULLTEXTS) -->
     <!-- STORE EVERYTHING IN FIELD fulltext FOR SEARCH-->
@@ -550,7 +551,7 @@ Notes:
 						</xsl:choose>
 					</xsl:with-param>
 				</xsl:call-template>
-				
+			
 			</IndexField>
 			<xsl:call-template name="writeSortField">
 				<xsl:with-param name="context" select="$context"/>
@@ -605,40 +606,32 @@ Notes:
 		<xsl:call-template name="removeSubSupStr">
 			<xsl:with-param name="name" select="local-name($elem)" />
 			<xsl:with-param name="str" select="$elem"/>
-		</xsl:call-template>	
+		</xsl:call-template>
 	</xsl:template>
 		
 	<!-- REMOVE SUB AND SUP TAGS -->
 	<xsl:template name="removeSubSupStr">
 		<xsl:param name="name" />
 		<xsl:param name="str" />
-			<xsl:choose>
+		<xsl:choose>
 <!--				FIELDS WHERE SUB/SUPs should be removed-->
-				<xsl:when test="
-					contains(
-						concat(
-						',title,alternative,abstract,',
-						',publication.title,publication.alternative,publication.abstract,',
-						',publication.source.title,publication.source.alternative,publication.source.abstract,'
-						),
-					  	concat(',', $name, ',')
-					)">
-					
+			<xsl:when test=" contains( concat( ',title,alternative,abstract,', ',publication.title,publication.alternative,publication.abstract,', ',publication.source.title,publication.source.alternative,publication.source.abstract,' ), concat(',', $name, ',') )">
+						
+				<xsl:call-template name="removeTag">
+					<xsl:with-param name="str">
 						<xsl:call-template name="removeTag">
-							<xsl:with-param name="str">
-								<xsl:call-template name="removeTag">
-									<xsl:with-param name="str" select="$str" />
-									<xsl:with-param name="tag" select="'sub'" />
-								</xsl:call-template>
-							</xsl:with-param>
-							<xsl:with-param name="tag" select="'sup'" />
+							<xsl:with-param name="str" select="$str" />
+							<xsl:with-param name="tag" select="'sub'" />
 						</xsl:call-template>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="$str" />
-				</xsl:otherwise>
-			</xsl:choose>
-
+					</xsl:with-param>
+					<xsl:with-param name="tag" select="'sup'" />
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$str" />
+			</xsl:otherwise>
+		</xsl:choose>
+	
 	</xsl:template>	
 	
 	<!-- REMOVE TAG -->
@@ -648,67 +641,75 @@ Notes:
 		<xsl:choose>
 			<xsl:when test="contains($str, concat('&lt;', $tag, '&gt;'))">
 				<xsl:call-template name="replace-substring">
-				     <xsl:with-param name="original">
+					<xsl:with-param name="original">
 						<xsl:call-template name="replace-substring">
-						     <xsl:with-param name="original" select="$str"/>
-						     <xsl:with-param name="substring" select="concat('&lt;', $tag, '&gt;')"/>
+							<xsl:with-param name="original" select="$str"/>
+							<xsl:with-param name="substring" select="concat('&lt;', $tag, '&gt;')"/>
 						</xsl:call-template>
-				     </xsl:with-param>
-				     <xsl:with-param name="substring" select="concat('&lt;/', $tag, '&gt;')"/>
+					</xsl:with-param>
+					<xsl:with-param name="substring" select="concat('&lt;/', $tag, '&gt;')"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:otherwise><xsl:value-of select="$str"/></xsl:otherwise>
+			<xsl:otherwise>
+				<xsl:value-of select="$str"/>
+			</xsl:otherwise>
 		</xsl:choose>
-		
+	
 	</xsl:template>
 	
 	<!-- REPLACE STRING -->
 	<xsl:template name="replace-substring">
-	    <xsl:param name="original"/>
-	    <xsl:param name="substring"/>
-	    <xsl:param name="replacement" select="''"/>
-	    <xsl:variable name="first">
-	      <xsl:choose>
-	        <xsl:when test="contains($original, $substring)">
-	          <xsl:value-of select="substring-before($original, $substring)"/>
-	        </xsl:when>
-	        <xsl:otherwise>
-	          <xsl:value-of select="$original"/>
-	        </xsl:otherwise>
-	      </xsl:choose>
-	    </xsl:variable>
-	    <xsl:variable name="middle">
-	      <xsl:choose>
-	        <xsl:when test="contains($original, $substring)">
-	          <xsl:value-of select="$replacement"/>
-	        </xsl:when>
-	        <xsl:otherwise>
-	          <xsl:text></xsl:text>
-	        </xsl:otherwise>
-	      </xsl:choose>
-	    </xsl:variable>
-	    <xsl:variable name="last">
-	      <xsl:choose>
-	        <xsl:when test="contains($original, $substring)">
-	          <xsl:choose>
-	            <xsl:when test="contains(substring-after($original, $substring), $substring)">
-	              <xsl:call-template name="replace-substring">
-	                <xsl:with-param name="original"><xsl:value-of select="substring-after($original, $substring)"/></xsl:with-param>
-	                <xsl:with-param name="substring"><xsl:value-of select="$substring"/></xsl:with-param>
-	                <xsl:with-param name="replacement"><xsl:value-of select="$replacement"/></xsl:with-param>
-	              </xsl:call-template>
-	            </xsl:when>
-	            <xsl:otherwise>
-	              <xsl:value-of select="substring-after($original, $substring)"/>
-	            </xsl:otherwise>
-	          </xsl:choose>
-	        </xsl:when>
-	        <xsl:otherwise>
-	          <xsl:text></xsl:text>
-	        </xsl:otherwise>
-	      </xsl:choose>
-	    </xsl:variable>
-	    <xsl:value-of select="concat($first, $middle, $last)"/>
+		<xsl:param name="original"/>
+		<xsl:param name="substring"/>
+		<xsl:param name="replacement" select="''"/>
+		<xsl:variable name="first">
+			<xsl:choose>
+				<xsl:when test="contains($original, $substring)">
+					<xsl:value-of select="substring-before($original, $substring)"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$original"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="middle">
+			<xsl:choose>
+				<xsl:when test="contains($original, $substring)">
+					<xsl:value-of select="$replacement"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:text></xsl:text>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="last">
+			<xsl:choose>
+				<xsl:when test="contains($original, $substring)">
+					<xsl:choose>
+						<xsl:when test="contains(substring-after($original, $substring), $substring)">
+							<xsl:call-template name="replace-substring">
+								<xsl:with-param name="original">
+									<xsl:value-of select="substring-after($original, $substring)"/>
+								</xsl:with-param>
+								<xsl:with-param name="substring">
+									<xsl:value-of select="$substring"/>
+								</xsl:with-param>
+								<xsl:with-param name="replacement">
+									<xsl:value-of select="$replacement"/>
+								</xsl:with-param>
+							</xsl:call-template>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="substring-after($original, $substring)"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:text></xsl:text>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:value-of select="concat($first, $middle, $last)"/>
 	</xsl:template>
 	
         
@@ -1478,10 +1479,10 @@ Notes:
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<element index="TOKENIZED">
-				<xsl:value-of select="$ITEM_PROPERTIESPATH/*[local-name()='context']/@objid"/>
+				<xsl:value-of select="string-helper:getSubstringAfterLast($ITEM_PROPERTIESPATH/*[local-name()='context']/@*[local-name()='href'], '/')"/>
 			</element>
 			<element index="TOKENIZED">
-				<xsl:value-of select="$CONTAINER_PROPERTIESPATH/*[local-name()='context']/@objid"/>
+				<xsl:value-of select="string-helper:getSubstringAfterLast($CONTAINER_PROPERTIESPATH/*[local-name()='context']/@*[local-name()='href'], '/')"/>
 			</element>
 		</userdefined-index>
 		<userdefined-index name="content-model.objid">
@@ -1489,10 +1490,10 @@ Notes:
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<element index="TOKENIZED">
-				<xsl:value-of select="$ITEM_PROPERTIESPATH/*[local-name()='content-model']/@objid"/>
+				<xsl:value-of select="string-helper:getSubstringAfterLast($ITEM_PROPERTIESPATH/*[local-name()='content-model']/@*[local-name()='href'], '/')"/>
 			</element>
 			<element index="TOKENIZED">
-				<xsl:value-of select="$CONTAINER_PROPERTIESPATH/*[local-name()='content-model']/@objid"/>
+				<xsl:value-of select="string-helper:getSubstringAfterLast($CONTAINER_PROPERTIESPATH/*[local-name()='content-model']/@*[local-name()='href'], '/')"/>
 			</element>
 		</userdefined-index>
 		<userdefined-index name="publication.type">
@@ -1703,7 +1704,7 @@ Notes:
 				<xsl:copy-of select="$ITEM_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='title']"/>
 				<xsl:copy-of select="$ITEM_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='alternative']"/>
 				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='tableOfContents']"/>
-				<xsl:copy-of select="$ITEM_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='abstract']"/> 
+				<xsl:copy-of select="$ITEM_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='abstract']"/>
 				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='subject']"/>
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='title']"/>
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[not(local-name()='publication' or local-name()='source')]/*[local-name()='alternative']"/>
@@ -1721,7 +1722,7 @@ Notes:
 			<xsl:variable name="fields">
 				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='title']"/>
 				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='alternative']"/>
-				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='abstract']"/> 
+				<xsl:copy-of select="$ITEM_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='abstract']"/>
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='title']"/>
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='alternative']"/>
 				<xsl:copy-of select="$CONTAINER_METADATAPATH//*[local-name()='publication' or local-name()='source']/*[local-name()='abstract']"/>
@@ -1953,7 +1954,7 @@ Notes:
 			<xsl:attribute name="context">
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
-
+			
 			<xsl:for-each select="$COMPONENT_PROPERTIESPATH">
 				<xsl:variable name="fields">
 					<xsl:value-of select="concat(.//*[local-name()='visibility'],' ')"/>
