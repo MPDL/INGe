@@ -161,7 +161,11 @@ public class Util
      * @return true if equal, else false
      */
     public static boolean isFormatEqual(Format src1, Format src2)
-    {       
+    {   
+        if (src1 == null || src2 == null)
+        {
+            return false;
+        }
         if (!src1.getName().toLowerCase().trim().equals(src2.getName().toLowerCase().trim())) 
         { return false; }
         if (!src1.getType().toLowerCase().trim().equals(src2.getType().toLowerCase().trim())) 
@@ -180,7 +184,7 @@ public class Util
     }
     
     /**
-     * Converts a Aormat Vector into a Format Array.
+     * Converts a Format Vector into a Format Array.
      * @param formatsV as Vector
      * @return Format[]
      */

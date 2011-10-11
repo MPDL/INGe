@@ -738,7 +738,7 @@ public class XmlTransformingBean implements XmlTransforming
     /**
      * {@inheritDoc}
      */
-    public List<? extends ItemVO> transformSearchRetrieveResponseToItemList(String itemListXml) throws TechnicalException
+    public ItemVOListWrapper transformSearchRetrieveResponseToItemList(String itemListXml) throws TechnicalException
     {
         logger.debug("transformSearchRetrieveResponseToItemList(String) - String itemList=\n" + itemListXml);
         if (itemListXml == null)
@@ -748,7 +748,11 @@ public class XmlTransformingBean implements XmlTransforming
         SearchRetrieveResponseVO response = this.transformToSearchRetrieveResponse(itemListXml);
         List<SearchRetrieveRecordVO> records = response.getRecords();
         
-        List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+        ItemVOListWrapper pubItemList = new ItemVOListWrapper();
+        
+        pubItemList.setNumberOfRecords(response.getNumberOfRecords() + "");
+        List<PubItemVO> list = new ArrayList<PubItemVO>();
+        pubItemList.setItemVOList(list);
         
         if (records == null)
         {
@@ -757,7 +761,7 @@ public class XmlTransformingBean implements XmlTransforming
         
         for(SearchRetrieveRecordVO record : records)
         {
-            pubItemList.add((PubItemVO)record.getData());
+            list.add((PubItemVO)record.getData());
         }
 
         return pubItemList;

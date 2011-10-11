@@ -391,17 +391,24 @@ public class TransformationBean implements Transformation, Configurable
     {
         transformationClass = this.getTransformationClassForTransformation(srcFormat, trgFormat);
         
-        Transformation transformation = (Transformation) transformationClass.newInstance();
-        if (transformation instanceof Configurable)
+        if (transformationClass != null)
         {
-            //Set methods parameters
-            Class[] parameterTypes = new Class[]{Format.class, Format.class};
-            
-            //Call the method
-            Method method = transformationClass.getMethod("getConfiguration", parameterTypes);
-    
-            //Execute the method
-            return (Map<String, String>) method.invoke(transformationClass.newInstance(), srcFormat, trgFormat);
+            Transformation transformation = (Transformation) transformationClass.newInstance();
+            if (transformation instanceof Configurable)
+            {
+                //Set methods parameters
+                Class[] parameterTypes = new Class[]{Format.class, Format.class};
+                
+                //Call the method
+                Method method = transformationClass.getMethod("getConfiguration", parameterTypes);
+        
+                //Execute the method
+                return (Map<String, String>) method.invoke(transformationClass.newInstance(), srcFormat, trgFormat);
+            }
+            else
+            {
+                return null;
+            }
         }
         else
         {
