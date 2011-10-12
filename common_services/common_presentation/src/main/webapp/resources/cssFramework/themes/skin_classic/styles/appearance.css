@@ -760,8 +760,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color:transparent;
 	border:none;
 }
-
-.labelLine .groupBtn {
+/*
+.labelLine .groupBtn { /*browse by subject *//*
 	float:right;
 	text-align:right;
-}
+} */
