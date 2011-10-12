@@ -260,10 +260,10 @@
 						</span>
 					<!-- end: header section -->
 					</div>
-					<div id="content" class="full_area0 clear">
+					<div id="content" class="full_area0 clear ">
 					<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
 						<div class="clear">
-							<div id="headerSection">
+							<div id="headerSection portfolio">
 								<div class="clear free_area0">
 									&#160;
 								</div>
