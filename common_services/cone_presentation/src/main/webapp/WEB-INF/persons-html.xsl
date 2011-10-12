@@ -71,11 +71,13 @@
 				</link>
 				
 		<script language="JavaScript" type="text/javascript">
+		
+		  <xsl:text disable-output-escaping="yes"><![CDATA[
 		  function applyCookieStyle() {
 				var cookieValue = ""
 				var cookie = "layout=";
 				var dc = document.cookie;
-				if (dc.length <xsl:text disable-output-escaping="yes"> > </xsl:text> 0) {
+				if (dc.length > 0) {
 					var start = dc.indexOf(cookie);
 					if (start != -1) {
 						start += cookie.length;
@@ -89,7 +91,7 @@
 				}
 				var enableHiddenShemes = false;
 				cookie = "enableHiddenSchemes=";
-				if (dc.length <xsl:text disable-output-escaping="yes"> > </xsl:text> 0) {
+				if (dc.length > 0) {
 					var start = dc.indexOf(cookie);
 					if (start != -1) {
 						start += cookie.length;
@@ -101,13 +103,13 @@
 				
 				var el = null;
 				
-				if (cookieValue != "" <xsl:text disable-output-escaping="yes"> <![CDATA[&&]]> </xsl:text> document.getElementsByTagName && document.getElementById(cookieValue)) {
+				if (cookieValue != "" && document.getElementsByTagName && document.getElementById(cookieValue)) {
 					el = document.getElementsByTagName("link");
-					for (var i = 0; el.length<xsl:text disable-output-escaping="yes"> > </xsl:text>i; i++ ) {
-						if (el[i].getAttribute("rel").indexOf("style") != -1 <xsl:text disable-output-escaping="yes"> <![CDATA[&&]]> </xsl:text> el[i].getAttribute("id") == cookieValue <xsl:text disable-output-escaping="yes"> <![CDATA[&&]]> </xsl:text> enableHiddenShemes <xsl:text disable-output-escaping="yes"> <![CDATA[&&]]> </xsl:text> (el[i].getAttribute("title") == null || el[i].getAttribute("title") == "" ) ) {
+					for (var i = 0; el.length > i; i++ ) {
+						if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") == cookieValue && enableHiddenShemes && (el[i].getAttribute("title") == null || el[i].getAttribute("title") == "" ) ) {
 							el[i].setAttribute("title", el[i].getAttribute("id"));
 						}
-						if (el[i].getAttribute("rel").indexOf("style") != -1 <xsl:text disable-output-escaping="yes"> <![CDATA[&&]]> </xsl:text> el[i].getAttribute("id")) {
+						if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id")) {
 							el[i].disabled = true;
 							if (el[i].getAttribute("id") == cookieValue) el[i].disabled = false;
 						}
@@ -130,9 +132,9 @@
 				var cookieValue = "Standard";
 				if(document.getElementsByTagName) {
 					var el = document.getElementsByTagName("link");
-					for (var i = 0; el.length<xsl:text disable-output-escaping="yes"> > </xsl:text>i; i++ ) {
+					for (var i = 0; el.length > i; i++ ) {
 						var enabledCounter = 0;
-						if (el[i].getAttribute("rel").indexOf("style") != -1 <xsl:text disable-output-escaping="yes"> <![CDATA[&&]]> </xsl:text> el[i].getAttribute("id") <xsl:text disable-output-escaping="yes"> <![CDATA[&&]]> </xsl:text> el[i].getAttribute("title") <xsl:text disable-output-escaping="yes"> <![CDATA[&&]]> </xsl:text> el[i].disabled == false <xsl:text disable-output-escaping="yes"> <![CDATA[&&]]> </xsl:text> enabledCounter == 0) {
+						if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") && el[i].getAttribute("title") && el[i].disabled == false && enabledCounter == 0) {
 							cookieValue = el[i].getAttribute("id");
 							enabledCounter++;
 						}
@@ -148,6 +150,9 @@
 			}
 			applyCookieStyle();
 			window.onunload=function(e){setStyleCookie();};
+			
+			]]> </xsl:text>
+			
 		</script>
 				
 				<style type="text/css">
