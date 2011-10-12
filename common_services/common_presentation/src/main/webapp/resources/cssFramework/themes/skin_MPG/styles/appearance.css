@@ -797,6 +797,11 @@ body .wrapper {
 }
 
 /***** HEADER-SECTION *****/
+.withoutPageHeader {
+	background-position:left -12em;
+	padding-top:2em !important;
+}
+
 .headerSection h1 {
 	font-family: "Myriad Pro Condensed", "Arial Narrow", sans-serif;
 }

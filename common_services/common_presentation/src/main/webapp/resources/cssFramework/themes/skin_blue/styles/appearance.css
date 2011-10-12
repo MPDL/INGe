@@ -769,3 +769,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .licenseArea .messageArea {
 	background-color:#FFFFFF;
 }
+
+/***** without content header / e.g. AffiliationDetailPage *****/
+.withoutPageHeader {
+	padding-top:2em;
+}

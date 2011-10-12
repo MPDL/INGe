@@ -761,3 +761,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	float:right;
 	text-align:right;
 } */
+
+/***** without content header / e.g. AffiliationDetailPage *****/
+.withoutPageHeader {
+	padding-top:2em;
+}
