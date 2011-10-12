@@ -823,7 +823,9 @@ body .wrapper {
 .listHeader a:hover {
 	text-decoration:underline;
 }
-
+table#selSelectDate .huge_radioBtn label {	/*browse by year */
+	width:25em !important;
+}
 
 /***** INFO PAGE *****/
 .infoPage .sideSection {
