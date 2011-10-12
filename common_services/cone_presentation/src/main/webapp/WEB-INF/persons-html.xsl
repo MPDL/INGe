@@ -98,8 +98,11 @@
 						if(unescape(dc.substring(start,stop)) == 'true') {enableHiddenShemes = true;};
 					}
 				}
-				if (cookieValue != "" <xsl:text disable-output-escaping="yes"> <![CDATA[&&]]> </xsl:text> document.getElementsByTagName) {
-					var el = document.getElementsByTagName("link");
+				
+				var el = null;
+				
+				if (cookieValue != "" <xsl:text disable-output-escaping="yes"> <![CDATA[&&]]> </xsl:text> document.getElementsByTagName && document.getElementById(cookieValue)) {
+					el = document.getElementsByTagName("link");
 					for (var i = 0; el.length<xsl:text disable-output-escaping="yes"> > </xsl:text>i; i++ ) {
 						if (el[i].getAttribute("rel").indexOf("style") != -1 <xsl:text disable-output-escaping="yes"> <![CDATA[&&]]> </xsl:text> el[i].getAttribute("id") == cookieValue <xsl:text disable-output-escaping="yes"> <![CDATA[&&]]> </xsl:text> enableHiddenShemes <xsl:text disable-output-escaping="yes"> <![CDATA[&&]]> </xsl:text> (el[i].getAttribute("title") == null || el[i].getAttribute("title") == "" ) ) {
 							el[i].setAttribute("title", el[i].getAttribute("id"));
@@ -109,7 +112,18 @@
 							if (el[i].getAttribute("id") == cookieValue) el[i].disabled = false;
 						}
 					}
-				}
+				} else if ( (!cookieValue || (cookieValue && !document.getElementById(cookieValue))) && document.getElementsByTagName ) {
+					el = document.getElementsByTagName("link"); 
+					for (var j = 0; j < el.length; j++ ) {
+						if (el[j].id && el[j].rel == 'alternate stylesheet' && el[j].title && el[j].type == "text/css") {
+							el[j].disabled = true;
+						} else if (el[j].id && el[j].rel == 'stylesheet' && el[j].title && el[j].type == "text/css") {
+							el[j].disabled = false;
+						}
+					}
+				} 
+				
+				setStyleCookie();
 			}
 		
 			function setStyleCookie() {

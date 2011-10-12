@@ -79,8 +79,11 @@
 							if(unescape(dc.substring(start,stop)) == 'true') {enableHiddenShemes = true;};
 						}
 					}
-					if (cookieValue != "" && document.getElementsByTagName) {
-						var el = document.getElementsByTagName("link");
+					
+					var el = null;
+					
+					if (cookieValue != "" && document.getElementsByTagName && document.getElementById(cookieValue)) {
+						el = document.getElementsByTagName("link");
 						for (var i = 0; i < el.length; i++ ) {
 							if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") == cookieValue && enableHiddenShemes && (el[i].getAttribute("title") == null || el[i].getAttribute("title") == "" ) ) {
 								el[i].setAttribute("title", el[i].getAttribute("id"));
@@ -90,7 +93,18 @@
 								if (el[i].getAttribute("id") == cookieValue) el[i].disabled = false;
 							}
 						}
-					}
+					} else if ( (!cookieValue || (cookieValue && !document.getElementById(cookieValue))) && document.getElementsByTagName ) {
+						el = document.getElementsByTagName("link"); 
+						for (var j = 0; j < el.length; j++ ) {
+							if (el[j].id && el[j].rel == 'alternate stylesheet' && el[j].title && el[j].type == "text/css") {
+								el[j].disabled = true;
+							} else if (el[j].id && el[j].rel == 'stylesheet' && el[j].title && el[j].type == "text/css") {
+								el[j].disabled = false;
+							}
+						}
+					} 
+					
+					setStyleCookie();
 				}
 			
 				function setStyleCookie() {
