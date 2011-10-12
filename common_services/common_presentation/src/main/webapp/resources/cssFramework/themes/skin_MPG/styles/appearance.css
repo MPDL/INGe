@@ -806,6 +806,10 @@ body .wrapper {
 .header.alternateHeader .metaMenu .logoAlternate a {
 	background-color:transparent;
 }
+/*important for header in researcher portfolio*/
+.headerSection.portfolio {
+	margin-top:1.1818em;
+}
 
 /***** PRE-HEADER *****/
 .preListHeader {
