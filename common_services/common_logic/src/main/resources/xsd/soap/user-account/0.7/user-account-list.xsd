@@ -19,11 +19,11 @@
 	targetNamespace="http://www.escidoc.de/schemas/useraccountlist/0.7"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.escidoc.de/schemas/useraccount/0.7"
-		schemaLocation="http://www.escidoc.org/schemas/soap/user-account/0.7/user-account.xsd" />
+		schemaLocation="user-account.xsd" />
 	<xs:import namespace="http://www.w3.org/1999/xlink"
-		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/xlink.xsd" />
+		schemaLocation="../../../soap/common/0.3/xlink.xsd" />
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="http://www.escidoc.org/schemas/soap/common/0.3/xml.xsd" />
+		schemaLocation="../../../soap/common/0.3/xml.xsd" />
 
 	<xs:element name="user-account-list">
 		<xs:complexType>
