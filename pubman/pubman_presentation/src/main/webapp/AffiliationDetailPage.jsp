@@ -54,7 +54,7 @@
 				<body lang="#{InternationalizationHelper.locale}">
 					<h:outputText value="#{AffiliationDetailPage.beanName}" styleClass="noDisplay" />
 					<h:form id="form1">
-					<div class="full wrapper" style="padding-top: 12em;">
+					<div class="full wrapper withoutPageHeader">
 						<div id="content" class="full_area0 clear">
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<h1><h:outputText value="#{lbl.AffiliationTree_txtHeadlineDetails}" /></h1>
