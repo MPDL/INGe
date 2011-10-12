@@ -516,12 +516,8 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         f1.getIdList().add(new ItemRO(objid1));
         f1.getIdList().add(new ItemRO(objid2));
         filter.getFilterList().add(f1);
-        String filterXML = xmlTransforming.transformToFilterTaskParam(filter);
-        //filterXML = filterXML.replace("\n", "");
-        // temporarelly using filter string, because FIZ very special parsing does not allow white spaces at certain places.
-        String filterTMP = "<param><filter name=\"http://purl.org/dc/elements/1.1/identifier\"><id>"+objid1+"</id><id>"+objid2+"</id></filter></param>";
-        logger.debug("Used filter to retrieve the containers: \n" + filterXML);
-       String containerListXML = ServiceLocator.getContainerHandler(userHandle).retrieveContainers(filterMap); //todo
+        
+        String containerListXML = ServiceLocator.getContainerHandler(userHandle).retrieveContainers(filter.toMap());
         logger.debug(containerListXML);
         assertXMLValid(containerListXML);
         List<? extends ContainerVO> containerList =

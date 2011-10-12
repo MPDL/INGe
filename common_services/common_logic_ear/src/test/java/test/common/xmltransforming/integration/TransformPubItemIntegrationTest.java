@@ -138,10 +138,6 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
             userGrants.add(grant);
         }
         user.setHandle(userHandle);
-        
-        filterMap.clear();
-        filterMap.put("operation", new String[]{"searchRetrieve"});
-        filterMap.put("version", new String[]{"1.1"});
     }
 
     /**
@@ -825,19 +821,8 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         f1.getIdList().add(new ItemRO(objid1));
         f1.getIdList().add(new ItemRO(objid2));
         filter.getFilterList().add(f1);
-        String filterXML = xmlTransforming.transformToFilterTaskParam(filter);
-        //filterXML = filterXML.replace("\n", "");
-        // temporarelly using filter string, because FIZ very special parsing does not allow white spaces at certain places.
-        // String filterTMP = "<param><filter name=\"http://purl.org/dc/elements/1.1/identifier\"><id>"+objid1+"</id><id>"+objid2+"</id></filter></param>";
-        //logger.debug("Used filter to retrieve the items: \n" + filterXML);
         
-        String q1 = "\"/id\"=" + objid1;
-        String q2 = "\"/id\"=" + objid2;
-        String q = q1 + " or " + q2;
-        
-        filterMap.put("query", new String[]{q});
-        
-        String pubItemListXML = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);
+        String pubItemListXML = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter.toMap());
         logger.info(pubItemListXML);
         assertXMLValid(pubItemListXML);
         SearchRetrieveResponseVO pubItemList = xmlTransforming.transformToSearchRetrieveResponse(pubItemListXML);

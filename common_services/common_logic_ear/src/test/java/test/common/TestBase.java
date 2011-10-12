@@ -249,10 +249,6 @@ public class TestBase
      * Logger for this class.
      */
     private static final Logger logger = Logger.getLogger(TestBase.class);
-    /**
-     * Map for queries
-     */
-    protected static HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
     
     protected static String PUBMAN_TEST_COLLECTION_ID = null;
     protected static String FACES_TEST_COLLECTION_ID = null;
@@ -1223,6 +1219,7 @@ public class TestBase
     private static void initializeSchemas() throws IOException, SAXException, ParserConfigurationException
     {
         File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/");
+
         schemas = new HashMap<String, Schema>();
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         sf.setResourceResolver(new ImportResolver());
@@ -1230,7 +1227,10 @@ public class TestBase
         {
             try
             {
+                logger.debug("File: " + file.getCanonicalPath());
+                
                 Schema schema = sf.newSchema(file);
+                
                 SAXParserFactory factory = SAXParserFactory.newInstance();
                 SAXParser parser = factory.newSAXParser();
                 DefaultHandler handler = new DefaultHandler()
@@ -1269,6 +1269,7 @@ public class TestBase
                 if (handler.toString() != null)
                 {
                     schemas.put(handler.toString(), schema);
+                    logger.debug("Successfully added: " + file.getCanonicalPath());
                 }
                 else
                 {
@@ -1276,8 +1277,8 @@ public class TestBase
                 }
             }
             catch (Exception e)
-            {
-                logger.warn("Invalid xml schema " + file);
+            {                
+                logger.warn("Invalid xml schema " + file + " , cause " + e.getLocalizedMessage());
                 logger.debug("Stacktrace: ", e);
             }
         }

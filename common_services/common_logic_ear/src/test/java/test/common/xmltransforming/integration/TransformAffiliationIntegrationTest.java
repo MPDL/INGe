@@ -341,10 +341,8 @@ public class TransformAffiliationIntegrationTest extends TestBase
         FilterTaskParamVO filter = new FilterTaskParamVO();
         Filter f1 = filter.new TopLevelAffiliationFilter();
         filter.getFilterList().add(f1);
-        String xmlparam = xmlTransforming.transformToFilterTaskParam(filter);
-        logger.debug("testCreateAndRetrieveAffiliationStructure() - String xmlparam=\n" + toString(getDocument(xmlparam, false), false));
-
-        String topLevelAffiliations = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveOrganizationalUnits(filterMap);  //TODO
+        
+        String topLevelAffiliations = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveOrganizationalUnits(filter.toMap());  //TODO
         logger.info("top level affiliations retrieved.");
         logger.error("testCreateAndRetrieveAffiliationStructure() - String topLevelAffiliations=\n" + toString(getDocument(topLevelAffiliations, false), false));
 
@@ -452,9 +450,8 @@ public class TransformAffiliationIntegrationTest extends TestBase
         idList.add(new AffiliationRO(abbreviationToObjIdMapping.get("objectIdMPIMF")));
         idList.add(new AffiliationRO(abbreviationToObjIdMapping.get("objectIdFML")));
         filter.getFilterList().add(arf1);
-        xmlparam = xmlTransforming.transformToFilterTaskParam(filter);
-        logger.debug("testCreateAndRetrieveAffiliationStructure() - String xmlparam=\n" + toString(getDocument(xmlparam, false), false));
-        String specificAffiliations = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveOrganizationalUnits(filterMap);  //TODO
+      
+        String specificAffiliations = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveOrganizationalUnits(filter.toMap());  //TODO
         logger.info("specific affiliations retrieved.");
         List<AffiliationVO> specificAffiliationList = xmlTransforming.transformToAffiliationList(specificAffiliations);
         if (logger.isDebugEnabled())
