@@ -147,38 +147,38 @@
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline datesGroup">
 						<h:panelGroup rendered="#{!(genre.details_item_details_dates_item_date_issued_display == 'false' && genre.details_item_details_dates_item_date_issued_form_id == 'easy-submission' || genre.details_item_details_dates_item_date_issued_display == 'false' && genre.details_item_details_dates_item_date_issued_form_id == 'all')}">
-							<span class="large_area0 tiny_marginRIncl">
-								<h:outputLabel id="lblDatePublishedInPrint" styleClass="large_label" for="txtDatePublishedInPrint" value="#{genre.details_item_details_dates_item_date_issued_label}" converter="GenreLabelConverter"/>
+							<span class="xLarge_area0 tiny_marginRIncl">
+								<h:outputLabel id="lblDatePublishedInPrint" styleClass="xLarge_label" for="txtDatePublishedInPrint" value="#{genre.details_item_details_dates_item_date_issued_label}" converter="GenreLabelConverter"/>
 								<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedInPrint" value="#{ItemControllerSessionBean.currentPubItem.metadata.datePublishedInPrint}" />
 							</span>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{!(genre.details_item_details_dates_item_published_online_display == 'false' && genre.details_item_details_dates_item_published_online_form_id == 'easy-submission' || genre.details_item_details_dates_item_published_online_display == 'false' && genre.details_item_details_dates_item_published_online_form_id == 'all')}">
-							<span class="large_area0 tiny_marginRIncl">
-								<h:outputLabel id="lblDatePublishedOnline" styleClass="large_label" for="txtDatePublishedOnline" value="#{genre.details_item_details_dates_item_published_online_label}" converter="GenreLabelConverter"/>
+							<span class="xLarge_area0 tiny_marginRIncl">
+								<h:outputLabel id="lblDatePublishedOnline" styleClass="xLarge_label" for="txtDatePublishedOnline" value="#{genre.details_item_details_dates_item_published_online_label}" converter="GenreLabelConverter"/>
 								<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedOnline" value="#{ItemControllerSessionBean.currentPubItem.metadata.datePublishedOnline}"/>
 							</span>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{!(genre.details_item_details_dates_item_date_accepted_display == 'false' && genre.details_item_details_dates_item_date_accepted_form_id == 'easy-submission' || genre.details_item_details_dates_item_date_accepted_display == 'false' && genre.details_item_details_dates_item_date_accepted_form_id == 'all')}">
-							<span class="large_area0 tiny_marginRIncl">
-								<h:outputLabel id="lblDateAccepted" styleClass="large_label" for="txtDateAccepted" value="#{genre.details_item_details_dates_item_date_accepted_label}" converter="GenreLabelConverter"/>
+							<span class="xLarge_area0 tiny_marginRIncl">
+								<h:outputLabel id="lblDateAccepted" styleClass="xLarge_label" for="txtDateAccepted" value="#{genre.details_item_details_dates_item_date_accepted_label}" converter="GenreLabelConverter"/>
 								<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateAccepted" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateAccepted}"/>
 							</span>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{!(genre.details_item_details_dates_item_date_submitted_display == 'false' && genre.details_item_details_dates_item_date_submitted_form_id == 'easy-submission' || genre.details_item_details_dates_item_date_submitted_display == 'false' && genre.details_item_details_dates_item_date_submitted_form_id == 'all')}">
-							<span class="large_area0 tiny_marginRIncl">
-								<h:outputLabel id="lblDateSubmitted" styleClass="large_label" for="txtDateSubmitted" value="#{genre.details_item_details_dates_item_date_submitted_label}" converter="GenreLabelConverter"/>
+							<span class="xLarge_area0 tiny_marginRIncl">
+								<h:outputLabel id="lblDateSubmitted" styleClass="xLarge_label" for="txtDateSubmitted" value="#{genre.details_item_details_dates_item_date_submitted_label}" converter="GenreLabelConverter"/>
 								<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateSubmitted" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateSubmitted}" />
 							</span>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{!(genre.details_item_details_dates_item_date_modified_display == 'false' && genre.details_item_details_dates_item_date_modified_form_id == 'easy-submission' || genre.details_item_details_dates_item_date_modified_display == 'false' && genre.details_item_details_dates_item_date_modified_form_id == 'all')}">
-							<span class="large_area0 tiny_marginRIncl">
-								<h:outputLabel id="lblDateModified" styleClass="large_label" for="txtDateModified" value="#{genre.details_item_details_dates_item_date_modified_label}" converter="GenreLabelConverter"/>
+							<span class="xLarge_area0 tiny_marginRIncl">
+								<h:outputLabel id="lblDateModified" styleClass="xLarge_label" for="txtDateModified" value="#{genre.details_item_details_dates_item_date_modified_label}" converter="GenreLabelConverter"/>
 								<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateModified" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateModified}"/>
 							</span>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{!(genre.details_item_details_dates_item_date_created_display == 'false' && genre.details_item_details_dates_item_date_created_form_id == 'easy-submission' || genre.details_item_details_dates_item_date_created_display == 'false' && genre.details_item_details_dates_item_date_created_form_id == 'all')}">
-							<span class="large_area0 tiny_marginRIncl">
-								<h:outputLabel id="lblDateCreated" styleClass="large_label" for="txtDateCreated" value="#{genre.details_item_details_dates_item_date_created_label}" converter="GenreLabelConverter"/>
+							<span class="xLarge_area0 tiny_marginRIncl">
+								<h:outputLabel id="lblDateCreated" styleClass="xLarge_label" for="txtDateCreated" value="#{genre.details_item_details_dates_item_date_created_label}" converter="GenreLabelConverter"/>
 								<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateCreated" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateCreated}" />
 							</span>
 						</h:panelGroup>

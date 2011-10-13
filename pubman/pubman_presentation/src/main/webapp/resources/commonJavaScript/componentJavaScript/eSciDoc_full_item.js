@@ -186,8 +186,10 @@ function addFullItemFunctions() {
 	});
 	
 	$('.showMoreDates').click(function(){ $(this).hide(); $(this).siblings().show(); });
+	/* not sure if large_area0 is needed anymore - should be deprecated with xLarge_area0*/
 	$('.datesGroup').each(function(i,elem){if($(elem).find('span.large_area0:gt(0)').find(":text[value!='']").length == 0) {$(elem).find('span.large_area0:gt(0)').hide();} else {$(elem).find('.showMoreDates').hide();};});
-
+	$('.datesGroup').each(function(i,elem){if($(elem).find('span.xLarge_area0:gt(0)').find(":text[value!='']").length == 0) {$(elem).find('span.xLarge_area0:gt(0)').hide();} else {$(elem).find('.showMoreDates').hide();};});
+	
 	$('.showMoreAuthors').click(function(){ $(this).hide(); $(this).siblings().show(); });
 	$('.authorsGroup').each(function(i,elem){if($(elem).find('span.creatorHidden').find(":text[value!='']").length == 0) {$(elem).find('span.creatorHidden').hide();} else {$(elem).find('.showMoreAuthors').hide();};});
 
