@@ -88,6 +88,11 @@ public abstract class DataModelManager<T>
         }
         return objectDM;
     }
+    
+    public boolean getHasValue()
+    {
+    	return (objectList != null) && (objectList.size() > 0) && (!"".equals(objectList.get(0)));
+    }
 
     /**
      * Simple setter, not really used yet
