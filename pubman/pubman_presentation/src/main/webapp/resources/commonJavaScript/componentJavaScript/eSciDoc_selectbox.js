@@ -79,7 +79,29 @@ function updateSelectionBox(box, isStart) {
 			}
 		});
 	} else {
-		$(box).parent().find('.selectionBox').text(box.options[box.selectedIndex].text);
+		var contentText = box.options[box.selectedIndex].text;
+		
+		$(box).parent().find('.selectionBox').text(contentText);
+		
+		
+		/* at first: exclude all logical operation selectboxes */
+		if ($.trim(contentText) != 'AND' && $.trim(contentText) != 'OR' && $.trim(contentText) != 'NOT') {
+			
+			var parent = null; //define the parent object
+			for (var ij = 0; ij < $(box).parents().length; ij++) {
+				if ($($(box).parents().get(ij)).hasClass('.itemBlock')) {
+					parent = $($(box).parents().get(ij));
+					break;
+				}
+			}
+		
+			//compare the contentText and decide for remove hidden class
+			if ($.trim(contentText) != '-' && $.trim(contentText) != '--' && $.trim(contentText) != '') {
+				parent.find('.itemBlockContent').removeClass("hideBlockIfVoid");
+				parent.find('.itemBlockContent').removeClass("hideAdvSearchComplexBlockIfVoid");
+				/* parent.find('.itemBlockContent').removeClass("hideAdvSearchGenreBlockIfVoid"); -- should be expanded for text-input fields*/
+			}
+		}
 	}
 	
 }
