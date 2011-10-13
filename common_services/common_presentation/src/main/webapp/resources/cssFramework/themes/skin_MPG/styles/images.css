@@ -154,13 +154,13 @@ body .wrapper {
 
 /*START PAGE*/
 .myItemsIcon {
-    background-image: url('../images/All_Start_TeaserQa_31_Static.png');
+    background-image: url('../images/All_Start_TeaserMine_31_Static.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .qaWSIcon {
-    background-image: url('../images/All_Start_TeaserMine_31_Static.png');
+    background-image: url('../images/All_Start_TeaserQa_31_Static.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
