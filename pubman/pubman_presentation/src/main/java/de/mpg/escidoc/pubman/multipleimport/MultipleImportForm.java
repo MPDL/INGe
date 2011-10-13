@@ -32,7 +32,7 @@ package de.mpg.escidoc.pubman.multipleimport;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
  * Session bean to hold data needed for an import of multiple items.
@@ -42,22 +42,24 @@ import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
  * @version $Revision: 4287 $ $LastChangedDate: 2011-03-10 14:23:22 +0100 (Do, 10 Mrz 2011) $
  *
  */
-public class NewMultipleImport extends BreadcrumbPage
+public class MultipleImportForm extends FacesBean
 {
     
-    private static final Logger logger = Logger.getLogger(NewMultipleImport.class);
+    private static final Logger logger = Logger.getLogger(MultipleImportForm.class);
     
     public static final String BEAN_NAME = "NewMultipleImport";
     
-    public NewMultipleImport()
+    public MultipleImportForm()
     {
         super.init();
-    }
-
-    @Override
-    public boolean isItemSpecific()
-    {
-        return false;
+        try
+        {
+            ((MultipleImport) getSessionBean(MultipleImport.class)).initConfigParameters();
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
 }

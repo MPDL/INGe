@@ -70,7 +70,10 @@ public class ContextCriterionCollection
     
 	public void clearAllForms() 
 	{
-		contextCriterionBean.clearCriterion();
+	    for (ContextCriterionBean bean : contextCriterionManager.getObjectList())
+        {
+	        bean.clearCriterion();
+        }
     }
 
     public List<Criterion> getFilledCriterion()

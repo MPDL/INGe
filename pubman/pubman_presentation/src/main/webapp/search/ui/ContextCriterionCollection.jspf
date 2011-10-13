@@ -87,17 +87,6 @@
                     <f:selectItems value="#{contextCriterionBean.logicOptions}"/>
                 </h:selectOneMenu>	--%>           
 			</h:panelGroup>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			<%--
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">

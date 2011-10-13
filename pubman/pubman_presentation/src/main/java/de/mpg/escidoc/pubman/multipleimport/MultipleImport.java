@@ -31,7 +31,6 @@
 package de.mpg.escidoc.pubman.multipleimport;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +43,6 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
-import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
@@ -52,8 +50,6 @@ import de.mpg.escidoc.pubman.createItem.CreateItem.SubmissionMethod;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.transformation.Configurable;
-import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
@@ -93,7 +89,14 @@ public class MultipleImport extends FacesBean
     private Format format;
     private String name;
     
-    private List<SelectItem> configParameters =null;
+    /**
+     * A list of SelectItems representing the selected parameter values.
+     */
+    private List<SelectItem> configParameters = null;
+    
+    /**
+     * A list of all available parameters and their values.
+     */
     private Map<String, List<SelectItem>> parametersValues;
     
     private boolean rollback = true;

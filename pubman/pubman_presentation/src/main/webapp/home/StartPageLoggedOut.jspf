@@ -43,8 +43,6 @@
 		Benefit from the MPG service for long-term archiving! <br/>
 	</p>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">Read more</a>
-	<br />
-    <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><h:outputText value="#{lbl.Home_Link_Support }"/></a>
 	<br/><br/>
 	<h3>Search for publications here</h3>
 	<span class="huge_area0 xSmall_marginLIncl searchMenu" style="float:left; margin-top:0px !important;">
@@ -56,11 +54,6 @@
 	<div class="clear">&#160;</div>
 	
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or browse through different categories.</a>
-	<br/><br/>
-	<h2>
-	Short PubMan Introduction Video
-	</h2>
-	<a href="http://pubman.blogs.mpdl.mpg.de/2009/02/13/introduction-into-pubman-via-screencast-availabel-now/" target="_blank"><img src="/pubman/images/screencast.jpg" class="huge videoPreview"/></a>
 	<br/><br/><br/>
 	<h2>
 		PubMan Interfaces
@@ -100,11 +93,9 @@
 		PubMan bietet Ihnen die Möglichkeit Ihre Publikationen und ergänzendes Material dauerhaft zu veröffentlichen.
 	</p>
 	<p>
-		Ihre gesammelten Veröffentlichungen können Sie in einem "Reseacher Portfolio" präsentieren.
+		Ihre gesammelten Veröffentlichungen können Sie in einem "Researcher Portfolio" präsentieren.
 	</p>	
 	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">Lesen Sie mehr </a>
-	<br /><br />
-    <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><h:outputText value="#{lbl.Home_Link_Support}"/></a>
 	<br/><br/>
 	<h3>Suchen Sie hier nach Publikationen</h3>
 	<span class="huge_area0 xSmall_marginLIncl searchMenu" style="float:left; margin-top:0px !important;">
@@ -117,11 +108,6 @@
 	
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... oder browsen Sie durch verschiedene Kategorien.</a>
 	<br/><br/><br/>
-	<h2>
-		PubMan Einf&uuml;hrungsvideo
-	</h2>
-	<a href="http://pubman.blogs.mpdl.mpg.de/2009/02/13/introduction-into-pubman-via-screencast-availabel-now/" target="_blank"><img src="/pubman/images/screencast.jpg" class="huge videoPreview"/></a>
-	<br/><br/>
 	<h2>
 		PubMan Schnittstellen
 	</h2>
@@ -177,11 +163,6 @@
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>
 	<br/><br/><br/>
 	<h2>
-	PubMan紹介ビデオ
-	</h2>
-	<a href="http://pubman.blogs.mpdl.mpg.de/2009/02/13/introduction-into-pubman-via-screencast-availabel-now/" target="_blank"><img src="/pubman/images/screencast.jpg" class="huge videoPreview"/></a>
-	<br/><br/>
-	<h2>
 	PubManインタフェース
 	</h2>
 		<ul>
@@ -220,11 +201,6 @@
 	
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>
 	<br/><br/><br/>
-	<h2>
-	PubMan紹介ビデオ
-	</h2>
-	<a href="http://pubman.blogs.mpdl.mpg.de/2009/02/13/introduction-into-pubman-via-screencast-availabel-now/" target="_blank"><img src="/pubman/images/screencast.jpg" class="huge videoPreview"/></a>
-	<br/><br/>
 	<h2>
 	PubManインタフェース
 	</h2>

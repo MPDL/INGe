@@ -6,6 +6,8 @@ import java.util.List;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
+import de.mpg.escidoc.pubman.search.bean.CriterionBean;
+
 /**
  * DataModel and List Manager for data input managed in form of data tables. The
  * data object input user interface is powered using a simple DataModel combined
@@ -91,7 +93,12 @@ public abstract class DataModelManager<T>
     
     public boolean getHasValue()
     {
-    	return (objectList != null) && (objectList.size() > 0) && (!"".equals(objectList.get(0)));
+        if (objectList == null || objectList.size() == 0)
+        {
+            return false;
+        }
+        CriterionBean criterionBean = (CriterionBean) objectList.get(0);
+        return criterionBean.getCriterionVO() != null && (criterionBean.getCriterionVO().getSearchString() == null || !"".equals(criterionBean.getCriterionVO().getSearchString()));
     }
 
     /**

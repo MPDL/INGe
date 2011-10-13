@@ -59,7 +59,7 @@
 		<ul style="list-style-position: outside">
 			<li>...finish your data <h:outputLink id="lnkSubmissionsOrCheck" value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
 				<h:outputText value="submissions or check " />
-			</h:outputLink> if your items have been already realeased to the public.</li>
+			</h:outputLink> if your items have been already released to the public.</li>
 		</ul>
 	</h:panelGroup>
 	
@@ -72,15 +72,6 @@
 					<h:outputText value="moderate or edit" />
 				</h:outputLink> items entered for your context. 
 			</li>
-		</ul>
-	</h:panelGroup>
-	
-	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='en'}">
-		<h2>Help and further information</h2>
-		Helpful videos
-		<ul style="list-style-position: outside; margin: 4px;">
-			<li>video on <a href=" http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-how-to-submit-publications-to-pubman/" target="_blank">how to submit data</a></li>
-			<li>video on <a href="http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-pubman-user-workspaces/" target="_blank">usage of your workspaces</a></li>
 		</ul>
 	</h:panelGroup>
 
@@ -97,7 +88,7 @@
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 		<span class="free_area0 xTiny_marginRExcl"> <span class="big_imgArea startPageIcon submIcon">&#160;</span> </span>
 		<h2>Dateneingabe</h2>
-		Wollen Sie eine neue Publikation ertellen? Folgende Möglichkeiten können Sie nutzen:
+		Wollen Sie eine neue Publikation erstellen? Folgende Möglichkeiten können Sie nutzen:
 		<ul style="list-style-position: outside">
 			<li>Die <h:commandLink id="lnkEasySubmission_de" title="#{tlt.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
 				<h:outputText value="#{lbl.Home_Link_EasySub}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
@@ -133,14 +124,6 @@
 		</ul>
 	</h:panelGroup>
 	
-	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='de'}">
-		<h2>Hilfe und weitere Informationen</h2>
-		Nützliche Videos
-		<ul style="list-style-position: outside; margin: 4px;">
-			<li>video on <a href=" http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-how-to-submit-publications-to-pubman/" target="_blank">wie gebe ich Daten ein</a></li>
-			<li>video on <a href="http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-pubman-user-workspaces/" target="_blank">wie nutze ich meine Arbeitsbereiche</a></li>
-		</ul>
-	</h:panelGroup>
 </h:panelGroup>
 
 
@@ -192,14 +175,6 @@
 		</ul>
 	</h:panelGroup>
 	
-	<h:panelGroup styleClass="quadruple_area0" rendered="#{PubManSessionBean.locale =='ja'}">
-		<h2>ヘルプ、追加情報</h2>
-		紹介ビデオ
-		<ul style="list-style-position: outside; margin: 4px;">
-			<li><a href=" http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-how-to-submit-publications-to-pubman/" target="_blank">データの登録方法</a></li>
-			<li><a href="http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-pubman-user-workspaces/" target="_blank">登録一覧・管理画面の使い方</a></li>
-		</ul>
-	</h:panelGroup>
 </h:panelGroup>
 
 

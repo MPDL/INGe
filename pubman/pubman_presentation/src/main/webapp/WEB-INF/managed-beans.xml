@@ -549,6 +549,11 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
+        <managed-bean-name>MultipleImportForm</managed-bean-name>
+        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.MultipleImportForm</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
         <managed-bean-name>ImportWorkspace</managed-bean-name>
         <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.ImportWorkspace</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
