@@ -938,24 +938,18 @@ Notes:
 			</xsl:attribute>
 			<xsl:for-each select="$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']">
 				<element index="TOKENIZED">
+					<xsl:if test="position() &gt; 1">; </xsl:if>
 					<xsl:value-of select="./*[local-name()='person']/*[local-name()='family-name']"/>
-				</element>
-				<element index="TOKENIZED">
+					<xsl:text>, </xsl:text>
 					<xsl:value-of select="./*[local-name()='person']/*[local-name()='given-name']"/>
-				</element>
-				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='organization']/*[local-name()='title']"/>
 				</element>
 			</xsl:for-each>
 			<xsl:for-each select="$CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']">
 				<element index="TOKENIZED">
+					<xsl:if test="position() &gt; 1">; </xsl:if>
 					<xsl:value-of select="./*[local-name()='person']/*[local-name()='family-name']"/>
-				</element>
-				<element index="TOKENIZED">
+					<xsl:text>, </xsl:text>
 					<xsl:value-of select="./*[local-name()='person']/*[local-name()='given-name']"/>
-				</element>
-				<element index="TOKENIZED">
-					<xsl:value-of select="./*[local-name()='organization']/*[local-name()='title']"/>
 				</element>
 			</xsl:for-each>
 		</userdefined-index>
