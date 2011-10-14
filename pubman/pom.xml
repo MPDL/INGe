@@ -589,7 +589,7 @@
 		<xsd.rest.stagingfile.stagingfile>http://www.escidoc.de/schemas/stagingfile/0.3</xsd.rest.stagingfile.stagingfile>
 		<xsd.soap.common.commontypes>http://www.escidoc.de/schemas/commontypes/0.4</xsd.soap.common.commontypes>
 		<xsd.soap.useraccount.grants>http://www.escidoc.de/schemas/grants/0.5</xsd.soap.useraccount.grants>
-		<xsd.soap.common.versionhistory>http://www.escidoc.de/schemas/versionhistory/0.4</xsd.soap.common.versionhistory>
+		<xsd.soap.common.versionhistory>http://www.escidoc.de/schemas/versionhistory/0.3</xsd.soap.common.versionhistory>
 		<xsd.soap.common.memberlist>http://www.escidoc.de/schemas/memberlist/0.10</xsd.soap.common.memberlist>
 		<xsd.soap.container.container>http://www.escidoc.de/schemas/container/0.9</xsd.soap.container.container>
 		<xsd.soap.container.structmap>http://www.escidoc.de/schemas/structmap/0.4</xsd.soap.container.structmap>
