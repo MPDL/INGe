@@ -111,7 +111,6 @@ public class ServiceLocator
     //private static TocHandlerServiceLocator authorizedTocHandlerServiceLocator;
     private static IngestHandlerServiceLocator authorizedIngestHandlerServiceLocator;
     private static AdminHandlerServiceLocator authorizedAdminHandlerServiceLocator;
-    private static SRWSampleServiceLocator authorizedSearchHandlerServiceLocator;
 
     /**
      * Get the configured URL of the running framework instance.
@@ -554,14 +553,12 @@ public class ServiceLocator
         {
             throw new ServiceException("Database identifier is not valid");
         }
-        if (authorizedSearchHandlerServiceLocator == null)
-        {
-            authorizedSearchHandlerServiceLocator = new SRWSampleServiceLocator(new FileProvider(CONFIGURATION_FILE));
-            String url = frameworkUrl.toString() + SRW_PATH + "/" + databaseIdentifier + "/" + authorizedSearchHandlerServiceLocator.getSRWWSDDServiceName();
-            Logger.getLogger(ServiceLocator.class).info("authorizedSearchHandlerServiceLocator URL=" + url);
-            authorizedSearchHandlerServiceLocator.setSRWEndpointAddress(url);
-        }
-        SRWPort handler = authorizedSearchHandlerServiceLocator.getSRW();
+
+        SRWSampleServiceLocator searchHandlerServiceLocator = new SRWSampleServiceLocator(new FileProvider(CONFIGURATION_FILE));
+        String url = frameworkUrl.toString() + SRW_PATH + "/" + databaseIdentifier + "/" + searchHandlerServiceLocator.getSRWWSDDServiceName();
+        Logger.getLogger(ServiceLocator.class).info("searchHandlerServiceLocator URL=" + url);
+        searchHandlerServiceLocator.setSRWEndpointAddress(url);
+        SRWPort handler = searchHandlerServiceLocator.getSRW();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }
