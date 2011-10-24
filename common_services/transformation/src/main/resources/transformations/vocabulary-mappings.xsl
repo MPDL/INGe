@@ -47,9 +47,7 @@
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/commentary">commentary</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/handbook">handbook</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition">collected-edition</enum>
-		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">festschrift</enum>		
-		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/journal-article">journal-article</enum>
-		
+		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">festschrift</enum>
 		<enum uri="http://purl.org/eprint/type/Patent">patent</enum>
 	</xsl:variable>
 	
