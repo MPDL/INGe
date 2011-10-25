@@ -44,5 +44,5 @@ CREATE VIEW vw_search AS
     SELECT triples.subject, triples.predicate, triples.object, triples.lang, triples.model FROM triples WHERE (((((((triples.predicate)::text = 'http://purl.org/dc/elements/1.1/identifier'::text) OR ((triples.predicate)::text = 'http://purl.org/dc/elements/1.1/title'::text)) OR ((triples.predicate)::text = 'http://purl.org/dc/terms/alternative'::text)) OR ((triples.predicate)::text = 'http://purl.org/dc/terms/identifier'::text)) OR ((triples.predicate)::text = 'http://purl.org/dc/terms/publisher'::text)) OR ((triples.predicate)::text = 'http://purl.org/dc/elements/1.1/publisher'::text));
 
 
-INSERT INTO properties (name, value) VALUES ('max_id', '1069');
+INSERT INTO properties (name, value) VALUES ('max_id', '1');
 INSERT INTO properties (name, value) VALUES ('initialize', 'true');
