@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" 
+ xmlns:mml="http://www.w3.org/1998/Math/MathML">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Biflavones from Some Mosses</title>
+			</titleStmt>
+			<publicationStmt>
+				<date type="published" when="1988" />
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName>
+								<forename type="first">Hans</forename>
+								<surname>Geiger</surname>
+							</persName>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">Siegbert</forename>
+								<surname>Anhut</surname>
+							</persName>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">H</forename>
+								<forename type="middle">Dietmar</forename>
+								<surname>Zinsmeister</surname>
+							</persName>
+						</author>
+						<affiliation>
+							<orgName type="department">Institut für Chemie</orgName>
+							<orgName type="institution">Universität Hohenheim</orgName>
+							<address>
+								<postCode>D-7000</postCode>
+								<settlement>Stuttgart 70</settlement>
+								<country key="DE">Bundesrepublik Deutschland</country>
+							</address>
+						</affiliation>
+						<affiliation>
+							<orgName type="department">FB 15, Botanik</orgName>
+							<orgName type="institution">Universität des Saarlandes</orgName>
+							<address>
+								<postCode>D-6600</postCode>
+								<settlement>Saarbrücken</settlement>
+								<country key="DE">Bundesrepublik Deutschland</country>
+							</address>
+						</affiliation>
+						<title level="a" type="main">Biflavones from Some Mosses</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<biblScope type="vol">43</biblScope>
+							<biblScope type="fpage">1</biblScope>
+							<biblScope type="lpage">4</biblScope>
+							<date type="published" when="1988" />
+						</imprint>
+					</monogr>
+					<note type="submission">received August 24, 1987</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<list>
+						<item>
+							<term>Antitrichia curtipendula</term>
+						</item>
+						<item>
+							<term>Hylocomium splendens</term>
+						</item>
+						<item>
+							<term>Racomitrium lanuginosum</term>
+						</item>
+						<item>
+							<term>Plagiomnium elatum</term>
+						</item>
+						<item>
+							<term>Biflavones</term>
+						</item>
+						<item>
+							<term>5&apos;-Hydroxyamentoflavone</term>
+						</item>
+					</list>
+				</keywords>
+			</textClass>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<front>
+			<div type="abstract">
+				<head>Abstract</head>
+<p>From Antitrichia curtipendula and Racomitrium lanuginosum 5&apos;,3&quot;&apos;-dihydroxyrobustaflavone and 5&apos;, 8&quot;-biluteolin were isolated. In Plagiomnium elatum the new biflavone 5&apos;-hydroxyamento-flavone was detected.</p>
+			</div>
+		</front>
+	</text>
+</TEI>
+

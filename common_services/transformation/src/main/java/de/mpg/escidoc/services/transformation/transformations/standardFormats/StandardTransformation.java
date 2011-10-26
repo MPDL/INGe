@@ -40,6 +40,11 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.xml.transform.Transformer;
@@ -53,6 +58,9 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.transformation.Configurable;
+import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
@@ -69,13 +77,18 @@ public class StandardTransformation
     private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format("eSciDoc-publication-item-list", "application/xml", "*");
     private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item", "application/xml", "*");
     private static final Format ESCIDOC_COMPONENT_FORMAT = new Format("eSciDoc-publication-component", "application/xml", "*");
+   
     private static Properties properties;
+    
+ 
     
     /**
      * Public constructor.
      */
     public StandardTransformation()
     {}
+    
+
     
     /**
      * Metadata transformation method.
@@ -84,7 +97,7 @@ public class StandardTransformation
      * @param itemXML
      * @return transformed metadata as String
      */
-    public String xsltTransform(String formatFrom, String formatTo, String itemXML) throws RuntimeException
+    public String xsltTransform(String formatFrom, String formatTo, String itemXML, Map<String, String> configuration) throws RuntimeException
     {
         String xsltUri = formatFrom.toLowerCase() + "2" + formatTo.toLowerCase() + ".xsl";
         
@@ -100,9 +113,13 @@ public class StandardTransformation
             
             transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
 
-            transformer.setParameter("external_organization_id",
-                        this.getProperty("escidoc.pubman.external.organisation.id"));
-
+            //For zfn transformation
+            if (configuration != null)
+            {
+                transformer.setParameter("JournalConeID", configuration.get("JournalConeID"));
+                transformer.setParameter("License", configuration.get("License"));
+                transformer.setParameter("zfnId", configuration.get("id"));
+            }
     
             if(formatTo.endsWith("list"))
             {
@@ -194,4 +211,6 @@ public class StandardTransformation
         }
         return instream;
     }
+
+ 
 }

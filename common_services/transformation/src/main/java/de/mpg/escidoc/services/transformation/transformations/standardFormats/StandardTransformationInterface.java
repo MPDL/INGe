@@ -30,7 +30,16 @@
 
 package de.mpg.escidoc.services.transformation.transformations.standardFormats;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
@@ -39,6 +48,8 @@ import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationTy
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsType;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.transformation.Configurable;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.Util;
@@ -51,7 +62,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
  *
  */
 @TransformationModule
-public class StandardTransformationInterface implements Transformation
+public class StandardTransformationInterface implements Transformation, Configurable
 {
 
     private final Logger logger = Logger.getLogger(StandardTransformationInterface.class);
@@ -190,8 +201,9 @@ public class StandardTransformationInterface implements Transformation
         byte[] result = null;
         boolean supported = false;
         
-        //One xslt for both transformations
-        if (trgFormat.getName().equalsIgnoreCase("escidoc-publication-item-list"))
+        //One xslt for both transformations (ignore case for multiple import format name)
+        if (trgFormat.getName().equalsIgnoreCase("escidoc-publication-item-list") || 
+                trgFormat.getName().equalsIgnoreCase("escidoc-publication-item"))
         {
             trgFormat.setName("escidoc-publication-item");
         }
@@ -200,7 +212,7 @@ public class StandardTransformationInterface implements Transformation
         {   
             try
             {
-                String transformedXml = this.transformer.xsltTransform(srcFormat.getName(), trgFormat.getName(), new String(src, "UTF-8"));
+                String transformedXml = this.transformer.xsltTransform(srcFormat.getName(), trgFormat.getName(), new String(src, "UTF-8"), null);
                 result = transformedXml.getBytes("UTF-8");
             }
             catch (UnsupportedEncodingException e)
@@ -218,7 +230,6 @@ public class StandardTransformationInterface implements Transformation
         }
         return result;
     }
-
 
     
     /**
@@ -264,4 +275,66 @@ public class StandardTransformationInterface implements Transformation
         Format[] dummy = new Format[sourceFormats.size()];
         return sourceFormats.toArray(dummy);
     }
+   
+    
+    private Map<String, List<String>> propertiesTrans = null;   
+    private Map<String, String> configuration = null;
+
+    
+    private void init() throws IOException, FileNotFoundException, URISyntaxException
+    {
+
+        configuration = new LinkedHashMap<String, String>();
+        propertiesTrans = new HashMap<String, List<String>>();
+        Properties props = new Properties();
+        props.load(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.transformation.zfn.configuration.filename")));
+        for (Object key : props.keySet())
+        {
+            if (!"configuration".equals(key.toString()))
+            {
+                String[] values = props.getProperty(key.toString()).split(",");
+                propertiesTrans.put(key.toString(), Arrays.asList(values));
+            }
+            else
+            {
+                String[] confValues = props.getProperty("configuration").split(",");
+                for (String field : confValues)
+                {
+                    String[] fieldArr = field.split("=", 2);
+                    configuration.put(fieldArr[0], fieldArr[1] == null ? "" : fieldArr[1]);
+                }
+            }
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service, Map<String, String> configuration)
+        throws TransformationNotSupportedException
+    {
+        String itemString = new String(src);
+        return this.transformer.xsltTransform(srcFormat.getName(), trgFormat.getName(), itemString, configuration).getBytes();
+    }
+    
+    public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key) throws Exception
+    {
+        if (propertiesTrans == null)
+        {
+            init();
+        }
+
+        return propertiesTrans.get(key);
+    }
+
+    public Map<String, String> getConfiguration(Format srcFormat, Format trgFormat) throws Exception
+    {
+        if (configuration == null)
+        {
+            init();
+        }
+
+        return configuration;
+    }
+
 }

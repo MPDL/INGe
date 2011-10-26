@@ -84,4 +84,28 @@
 			<Encoding>UTF-8</Encoding>
 		</Target>
 	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>zfn_tei</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>escidoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>zfn_tei</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>escidoc-publication-component</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Target>
+	</Transformation>
 </Transformations>

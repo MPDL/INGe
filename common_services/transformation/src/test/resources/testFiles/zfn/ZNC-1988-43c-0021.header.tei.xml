@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" 
+ xmlns:mml="http://www.w3.org/1998/Math/MathML">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">In vivo Synthesis of [ 14 C]DiIinoyIgalactosylglycerol by Gametophytes of the Fern Anemia phyllitidis</title>
+			</titleStmt>
+			<publicationStmt>
+				<date type="published" when="1988" />
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName>
+								<forename type="first">Eckard</forename>
+								<surname>Klose</surname>
+							</persName>
+							<affiliation>
+								<orgName type="department">Allgemeine Botanik</orgName>
+								<orgName type="institution">Universität Ulm</orgName>
+								<address>
+									<postCode>D-7900</postCode>
+									<settlement>Ulm</settlement>
+									<country key="DE">Bundesrepublik Deutschland</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">Armin</forename>
+								<forename type="middle">R</forename>
+								<surname>Gemmrich</surname>
+							</persName>
+							<affiliation>
+								<orgName type="department">Allgemeine Botanik</orgName>
+								<orgName type="institution">Universität Ulm</orgName>
+								<address>
+									<postCode>D-7900</postCode>
+									<settlement>Ulm</settlement>
+									<country key="DE">Bundesrepublik Deutschland</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">In vivo Synthesis of [ 14 C]DiIinoyIgalactosylglycerol by Gametophytes of the Fern Anemia phyllitidis</title>
+					</analytic>
+					<monogr>
+						<title level="j" type="main">Z. Naturforsch</title>
+						<imprint>
+							<biblScope type="vol">43</biblScope>
+							<biblScope type="fpage">11</biblScope>
+							<biblScope type="lpage">14</biblScope>
+							<date type="published" when="1988" />
+						</imprint>
+					</monogr>
+					<note type="submission">received November 2, 1987</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<list>
+						<item>
+							<term>Desaturation</term>
+						</item>
+						<item>
+							<term>Linoleate</term>
+						</item>
+						<item>
+							<term>Linolenate</term>
+						</item>
+						<item>
+							<term>Monogalactosyldiacylglycerol</term>
+						</item>
+						<item>
+							<term>Fatty Acid Synthesis</term>
+						</item>
+					</list>
+				</keywords>
+			</textClass>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<front>
+			<div type="abstract">
+				<head>Abstract</head>
+<p>Blue light-grown gametophytes of Anemia phyllitidis were used for the in vivo synthesis of radioactively labeled dilinoylgalactosylglycerol, a potential intermediate in the synthesis of linolenic acid. Optimal yield was obtained by incubating gametophytes with [ l4 C]linoleate first for 2 h under anaerobic conditions followed by 46 h under aerobic conditions. As product [ l4 C]dilinoylgalactosylglycerol was identified.</p>
+			</div>
+		</front>
+	</text>
+</TEI>
+

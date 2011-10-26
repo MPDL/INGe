@@ -410,10 +410,7 @@ public class TransformationBean implements Transformation, Configurable
                 return null;
             }
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key) throws Exception
