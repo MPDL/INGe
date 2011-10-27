@@ -79,6 +79,7 @@ public class MultipleImport extends FacesBean
     public static final Format RIS_FORMAT = new Format("ris", "text/plain", "UTF-8");
     public static final Format WOS_FORMAT = new Format("wos", "text/plain", "UTF-8");
     public static final Format MAB_FORMAT = new Format("mab", "text/plain", "UTF-8");
+    public static final Format ZFN_FORMAT = new Format("zfn_tei", "application/xml", "UTF-8");
 
     private List<SelectItem> importFormats = new ArrayList<SelectItem>();
     private UploadedFile uploadedImportFile;
@@ -150,6 +151,7 @@ public class MultipleImport extends FacesBean
         importFormats.add(new SelectItem(MAB_FORMAT, getLabel("ENUM_IMPORT_FORMAT_MAB")));
         importFormats.add(new SelectItem(EDOC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_EDOC")));
         importFormats.add(new SelectItem(ESCIDOC_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ESCIDOC")));
+        importFormats.add(new SelectItem(ZFN_FORMAT, getLabel("ENUM_IMPORT_FORMAT_ZFN")));
         
         //Specialized formats
         importFormats.add(new SelectItem(EDOC_FORMAT_AEI, getLabel("ENUM_IMPORT_FORMAT_EDOCAEI")));

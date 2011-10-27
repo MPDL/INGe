@@ -52,10 +52,12 @@ import de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.MabProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.RisProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.WosProcessor;
+import de.mpg.escidoc.pubman.multipleimport.processor.ZfNProcessor;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -121,6 +123,7 @@ public class ImportProcess extends Thread
     private static final Format RIS_FORMAT = new Format("ris", "text/plain", "utf-8");
     private static final Format WOS_FORMAT = new Format("wos", "text/plain", "utf-8");
     private static final Format MAB_FORMAT = new Format("mab", "text/plain", "UTF-8");
+    public static final Format ZFN_FORMAT = new Format("zfn_tei", "application/xml", "UTF-8");
     private String name;
     private long lastBeat = 0;
 
@@ -312,6 +315,10 @@ public class ImportProcess extends Thread
             {
                 this.formatProcessor = new MabProcessor();
             }
+            else if (ZFN_FORMAT.matches(format))
+            {
+                this.formatProcessor = new ZfNProcessor();
+            }
             else
             {
                 return false;
@@ -432,6 +439,21 @@ public class ImportProcess extends Thread
                     try
                     {
                         log.activateItem(item);
+                        
+                        //Fetch files for zfn import
+                        if (this.format.getName().equalsIgnoreCase("zfn_tei"))
+                        {
+                            try
+                            {
+                                //Set file
+                                FileVO file = ((ZfNProcessor)this.formatProcessor).getFileforImport(this.configuration,this.user);
+                                item.getItemVO().getFiles().add(file);
+                            }
+                            catch (Exception e) {
+                                log.addDetail(ErrorLevel.WARNING, "Could not fetch file for import");
+                            }
+                        }
+                                              
                         log.addDetail(ErrorLevel.FINE, "import_process_save_item");
                         PubItemVO savedPubItem = pubItemDepositing.savePubItem(item.getItemVO(), user);
                         String objid = savedPubItem.getVersion().getObjectId();
@@ -583,7 +605,8 @@ public class ImportProcess extends Thread
             pubItemVO.setContentModel(publicationContentModel);
             pubItemVO.getVersion().setObjectId(null);
             pubItemVO.getLocalTags().add("multiple_import");
-            pubItemVO.getLocalTags().add(log.getMessage() + " " + log.getStartDateFormatted());
+            pubItemVO.getLocalTags().add(log.getMessage() + " " + log.getStartDateFormatted());           
+            
             // Default validation
             log.addDetail(ErrorLevel.FINE, "import_process_default_validation");
             ValidationReportVO validationReportVO = this.itemValidating.validateItemObject(pubItemVO);
