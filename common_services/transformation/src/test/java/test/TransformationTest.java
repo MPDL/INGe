@@ -450,7 +450,7 @@ public class TransformationTest
 //         Assert.assertTrue(referenceItem.equals(actualItem));
 //         this.logger.info("Transformation to oai_dc successful.");
      }
-     
+    
      //This transformation is currently not in use
      public void snippetToOutputFormatTest() throws Exception
      {

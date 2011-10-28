@@ -170,25 +170,17 @@ public class Util
         { return false; }
         if (!src1.getType().toLowerCase().trim().equals(src2.getType().toLowerCase().trim())) 
         { return false; }
-//        if (src1.getEncoding().equals("*") || src2.getEncoding().equals("*"))
-//        {
-            if (!src1.getName().toLowerCase().trim().equals(src2.getName().toLowerCase().trim())) 
-            { return false; }
-            if (!src1.getType().toLowerCase().trim().equals(src2.getType().toLowerCase().trim())) 
-            { return false; }
-            if (src1.getEncoding().equals("*") || src2.getEncoding().equals("*"))
-            {
-                return true;
-            }
-            else 
-            {
-                if (!src1.getEncoding().toLowerCase().trim().equals(src2.getEncoding().toLowerCase().trim())) 
-                { return false; }
-                else 
-                { return true; }
-//            }
+        if (src1.getEncoding().equals("*") || src2.getEncoding().equals("*"))
+        {
+            return true;
         }
-//        return false;
+        else 
+        {
+            if (!src1.getEncoding().toLowerCase().trim().equals(src2.getEncoding().toLowerCase().trim())) 
+            { return false; }
+            else 
+            { return true; }
+        }
     }
     
     /**
