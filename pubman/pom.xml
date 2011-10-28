@@ -646,8 +646,10 @@
 		<escidoc.transformation.endnote.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl</escidoc.transformation.endnote.stylesheet.filename>
 		<escidoc.transformation.endnote.configuration.filename>transformations/commonPublicationFormats/conf/endnote.properties</escidoc.transformation.endnote.configuration.filename>
 		<escidoc.transformation.edoc.stylesheet.filename>transformations/otherFormats/xslt/edoc-to-escidoc.xslt</escidoc.transformation.edoc.stylesheet.filename>
+		<escidoc.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</escidoc.transformation.zfn.stylesheet.filename>
 		<escidoc.transformation.edoc.configuration.filename>transformations/otherFormats/conf/edoc.properties</escidoc.transformation.edoc.configuration.filename>
 		<escidoc.transformation.bibtex.configuration.filename>transformations/commonPublicationFormats/conf/bibtex.properties</escidoc.transformation.bibtex.configuration.filename>
+		<escidoc.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</escidoc.transformation.zfn.configuration.filename>
 		<escidoc.transformation.mab.stylesheet.filename>transformations/otherFormats/xslt/mabxml2escidoc.xsl</escidoc.transformation.mab.stylesheet.filename>
 		<escidoc.transformation.report.sortorder.filename>transformations/reports/conf/reportSortOrder.xml</escidoc.transformation.report.sortorder.filename>
 		
