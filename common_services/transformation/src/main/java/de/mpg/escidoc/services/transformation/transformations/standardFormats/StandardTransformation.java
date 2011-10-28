@@ -99,18 +99,32 @@ public class StandardTransformation
      */
     public String xsltTransform(String formatFrom, String formatTo, String itemXML, Map<String, String> configuration) throws RuntimeException
     {
-        String xsltUri = formatFrom.toLowerCase() + "2" + formatTo.toLowerCase() + ".xsl";
-        
-        TransformerFactory factory = new TransformerFactoryImpl();
-        factory.setURIResolver(new LocalUriResolver(this.METADATA_XSLT_LOCATION));
-        StringWriter writer = new StringWriter();
-        
+    	StringWriter writer = new StringWriter();
+    	TransformerFactory factory = new TransformerFactoryImpl();
+    	ClassLoader cl = this.getClass().getClassLoader();
+    	String xsltUri = "";
+    	InputStream in = null;
+    	
         try
-        {
-            ClassLoader cl = this.getClass().getClassLoader();
-            InputStream in = cl.getResourceAsStream(this.METADATA_XSLT_LOCATION + "/" + xsltUri);
-            Transformer transformer = factory.newTransformer(new StreamSource(in));
-            
+        {      	
+        	factory.setURIResolver(new LocalUriResolver(this.METADATA_XSLT_LOCATION));
+        	if (formatFrom.equalsIgnoreCase("zfn_tei"))
+        	{
+        		xsltUri = PropertyReader.getProperty("escidoc.transformation.zfn.stylesheet.filename");
+                if (xsltUri != null)
+                {
+                	xsltUri = xsltUri.replace('\\', '/');
+                    in = cl.getResourceAsStream(xsltUri);
+                }                
+        	}
+        	else
+        	{
+        		xsltUri = formatFrom.toLowerCase() + "2" + formatTo.toLowerCase() + ".xsl";               
+                in = cl.getResourceAsStream(this.METADATA_XSLT_LOCATION + "/" + xsltUri);
+                
+        	}                   
+
+        	Transformer transformer = factory.newTransformer(new StreamSource(in));
             transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
 
             //For zfn transformation

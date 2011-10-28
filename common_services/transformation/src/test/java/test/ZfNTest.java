@@ -31,25 +31,22 @@ public class ZfNTest
     /* 
      * test ZfN TEI to eSciDoc item transformation 
      * */
-    @Test
-    public void zfn2escidoc() throws Exception
-    {
-        System.out.println("---Transformation ZfN to escidoc format ---");
-        Format teiFormat = new Format("zfn_tei", "application/xml", "UTF-8");
-        Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
-        Format escidocComponentFormat = new Format("eSciDoc-publication-component", "application/xml", "UTF-8");
-
-        byte[] result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/zfn/ZNC-1988-43c-0087.header.tei.xml")
-      .getBytes("UTF-8"), teiFormat, escidocFormat, "escidoc");
-
-//        result = this.trans.transform(this.util.getResourceAsString("testFiles/tei/Springer-351-S2.tei")
-//                .getBytes("UTF-8"), teiFormat, escidocComponentFormat, "escidoc");    
-        System.out.println(new String(result, "UTF-8"));
-   
-        XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-        PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
-        Assert.assertNotNull(itemVO);
-        System.out.println("PubItemVO successfully created.");    
-    }
+//    @Test
+//    public void zfn2escidoc() throws Exception
+//    {
+//        System.out.println("---Transformation ZfN to escidoc format ---");
+//        Format teiFormat = new Format("zfn_tei", "application/xml", "UTF-8");
+//        Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
+//
+//        byte[] result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/zfn/ZNC-1988-43c-0011.header.tei.xml")
+//      .getBytes("UTF-8"), teiFormat, escidocFormat, "escidoc");
+//
+//        System.out.println(new String(result, "UTF-8"));
+//   
+//        XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+//        PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result, "UTF-8"));
+//        Assert.assertNotNull(itemVO);
+//        System.out.println("PubItemVO successfully created.");    
+//    }
 
 }

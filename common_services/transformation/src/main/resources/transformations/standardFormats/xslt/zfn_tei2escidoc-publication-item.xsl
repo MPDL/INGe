@@ -186,7 +186,7 @@
 						"/>
 				</xsl:for-each>
 			</xsl:element>
-	
+		
 		</xsl:element>		
 	</xsl:template>
 	
@@ -331,8 +331,9 @@
 	
 	<xsl:template name="createOrganization">	
 		<xsl:variable name="orgName" select="
-			if (exists(t:affiliation/t:orgName) and (exists(t:affiliation/t:orgName[@type='department']) or exists(t:affiliation/t:orgName[@type='institution'])))
-			then string-join( (t:affiliation/t:orgName[@type='department'], t:affiliation/t:orgName[@type='institution']), ', ')
+			if (exists(t:affiliation/t:orgName) and (exists(t:affiliation/t:orgName[@type='department']) or exists(t:affiliation/t:orgName[@type='institution'])
+			or exists(t:affiliation/t:orgName[@type='laboratory'])))
+			then string-join( (t:affiliation/t:orgName[@type='department'], t:affiliation/t:orgName[@type='institution'], t:affiliation/t:orgName[@type='laboratory']), ', ')
 			else 'External Organization'
 		"/>	
 		<organization:organization>
@@ -346,6 +347,7 @@
 								string-join(
 									(
 										  $addr/t:postBox
+										, $addr/t:addrLine
 										, $addr/t:postCode
 										, $addr/t:settlement
 										, $addr/t:country 

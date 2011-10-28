@@ -230,7 +230,7 @@ public class ResourceUtil
      */
     public static String resolveFileName (String name)
     {
-        if (name.contains("/..") || name.contains("\\.."))
+        if (name != null && (name.contains("/..") || name.contains("\\..")))
         {
             Pattern pattern1 = Pattern.compile("(\\\\|/)\\.\\.");
             Matcher matcher1 = pattern1.matcher(name);
