@@ -109,8 +109,11 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
                 
                 Filter f10 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
                 filter.getFilterList().add(f10);
-                Filter f8 = filter.new LimitFilter(String.valueOf(limit));
-                filter.getFilterList().add(f8);
+                if (limit > 0)
+                {
+                    Filter f8 = filter.new LimitFilter(String.valueOf(limit));
+                    filter.getFilterList().add(f8);
+                }
                 Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
                 filter.getFilterList().add(f9);
                 
@@ -136,7 +139,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
             }
             
             pssb.setDiffDisplayNumber(pssb.getStoredPubItemsSize() - numberOfRecords);
-            if (pssb.getDiffDisplayNumber()>0)
+            if (pssb.getDiffDisplayNumber() > 0)
             {
                 error(pssb.getDiffDisplayNumber() + " " + getMessage("basket_ItemsChanged"));
             }
