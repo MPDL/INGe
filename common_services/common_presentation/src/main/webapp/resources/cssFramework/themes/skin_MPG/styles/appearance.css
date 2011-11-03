@@ -373,6 +373,15 @@ body .wrapper {
 	padding-bottom:0.3125em;
 }
 
+.coneMainMenu {
+/*	display:none; */
+}
+/* IE 7 Hack */
+*:first-child+html .coneMainMenu {
+	height:2.7272em;
+}
+
+
 /***CONTENT MENU - OPTION MENU***/
 .contentMenu a {
 	background-color: transparent;
@@ -505,7 +514,12 @@ body .wrapper {
 .logoAlternate span {
 	color: #888B8B;
 }
-
+.coneLogo {
+	height:5.7272em;
+}
+.searchExportLogo {
+	height:5.7272em;
+}
 
 /***** PAGE BROWSER - PAGINATOR *****/
 .pageBrowser .seperator {
@@ -805,16 +819,11 @@ body .wrapper {
 .headerSection h1 {
 	font-family: "Myriad Pro Condensed", "Arial Narrow", sans-serif;
 }
-.header.alternateHeader .metaMenu {
-	margin-bottom:7em;
-}
+
 .header.alternateHeader .metaMenu .logoAlternate a {
 	background-color:transparent;
 }
-/*important for header in researcher portfolio*/
-.headerSection.portfolio {
-	margin-top:1.1818em;
-}
+
 
 /***** PRE-HEADER *****/
 .preListHeader {

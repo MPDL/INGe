@@ -766,3 +766,15 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .withoutPageHeader {
 	padding-top:2em;
 }
+
+.coneLogo {
+	height:5.7272em;
+	display:none;
+}
+.coneMainMenu {
+	display:none;
+}
+.searchExportLogo {
+	height:5.7272em;
+	display:none;
+}
