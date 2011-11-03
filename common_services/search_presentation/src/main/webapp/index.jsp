@@ -42,7 +42,6 @@
 		<title>eSciDoc SearchAndExport Service</title>
 		
 		<link href="<%= PropertyReader.getProperty("escidoc.pubman.common.presentation.url") %>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>	
-		<link href="/common/resources/cssFramework/themes/skin_MPG/styles/theme.css" type="text/css" title="MPG Skin" id="mpgSkin" rel="alternate stylesheet" />
 		<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") %>" id="HighContrast" type="text/css" title="high contrast" rel="alternate stylesheet"/>
 		<link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") %>" id="Classic" type="text/css" title="classic" rel="alternate stylesheet"/>	
 		<% if ("true".equals(PropertyReader.getProperty("escidoc.pubman.stylesheet.special.apply"))) { %><link href="<%= PropertyReader.getProperty("escidoc.pubman.stylesheet.special.url") %>" id="Special" type="text/css" title="special" rel="alternate stylesheet"/><% } %>	
@@ -158,7 +157,7 @@
 						<!-- logo alternate area ends here -->
 					<!-- meta Menu ends here -->
 					</div>
-	
+					<div class="full_area0 searchExportLogo">&#160;</div>
 					<div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
 						<!-- main Menu starts here -->
 
