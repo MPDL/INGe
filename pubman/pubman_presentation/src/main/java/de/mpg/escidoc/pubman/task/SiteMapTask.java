@@ -376,7 +376,7 @@ public class SiteMapTask extends Thread
      */
     private ItemContainerSearchResult getItems(int firstRecord)
     {
-        SearchQuery itemQuery = new PlainCqlQuery("(escidoc.content-model.objid=" + contentModel + ")");
+        SearchQuery itemQuery = new PlainCqlQuery("(escidoc.objecttype=item and escidoc.content-model.objid=" + contentModel + ")");
         itemQuery.setStartRecord(firstRecord + "");
         itemQuery.setMaximumRecords(maxItemsPerRetrieve + "");
         try
