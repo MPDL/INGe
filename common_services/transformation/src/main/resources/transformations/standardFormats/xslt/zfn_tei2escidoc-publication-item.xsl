@@ -159,7 +159,24 @@
 						<xsl:value-of select="$date/@when"/>
 					</xsl:element>
 				</xsl:if>
-			</xsl:for-each>			
+			</xsl:for-each>				
+			<!-- Process dates like: "received March 28/September 9, 1988" -->
+			<xsl:if test="exists($sDesc/t:biblStruct/t:note[@type='submission'])">
+				<xsl:variable name="dateUnformatted" select="$sDesc/t:biblStruct/t:note"/>
+				<xsl:element name="{$dateMap/m[@key='submission']}">
+					<xsl:attribute name="xsi:type">dcterms:W3CDTF</xsl:attribute>
+					<xsl:if test="contains($dateUnformatted, '/')">
+						<xsl:call-template name="processDate">
+							<xsl:with-param name="dateUnformatted" select="substring-after($dateUnformatted, '/')"/>
+						</xsl:call-template>
+					</xsl:if>
+					<xsl:if test="not(contains($dateUnformatted, '/'))">
+						<xsl:call-template name="processDate">
+							<xsl:with-param name="dateUnformatted" select="$dateUnformatted"/>
+						</xsl:call-template>
+					</xsl:if>
+				</xsl:element>	
+			</xsl:if>	
 			<!-- END OF DATE -->
 			
 			<!-- SOURCE -->
@@ -261,7 +278,32 @@
 		
 	</xsl:template>
 	<!-- END OF SOURCE -->
-	
+
+	<!-- DATE -->		
+	<xsl:template name="processDate">
+		<xsl:param name="dateUnformatted" />
+			<xsl:variable name="dateUnformatted" select="replace($dateUnformatted,'received ', '')"/>
+			<xsl:variable name="monthUnformatted" select="substring-before($dateUnformatted,' ')"/>
+			<xsl:variable name="month">
+				<xsl:choose>
+					<xsl:when test="$monthUnformatted='January'">01</xsl:when>
+					<xsl:when test="$monthUnformatted='February'">02</xsl:when>
+					<xsl:when test="$monthUnformatted='March'">03</xsl:when>
+					<xsl:when test="$monthUnformatted='April'">04</xsl:when>
+					<xsl:when test="$monthUnformatted='May'">05</xsl:when>
+					<xsl:when test="$monthUnformatted='June'">06</xsl:when>
+					<xsl:when test="$monthUnformatted='July'">07</xsl:when>
+					<xsl:when test="$monthUnformatted='August'">08</xsl:when>
+					<xsl:when test="$monthUnformatted='September'">09</xsl:when>
+					<xsl:when test="$monthUnformatted='October'">10</xsl:when>
+					<xsl:when test="$monthUnformatted='November'">11</xsl:when>
+					<xsl:when test="$monthUnformatted='December'">12</xsl:when>
+				</xsl:choose>
+			</xsl:variable>
+			<xsl:variable name="day" select="substring-after(substring-before($dateUnformatted,','), ' ')"/>
+			<xsl:variable name="year" select="substring-after($dateUnformatted,', ')"/>
+			<xsl:value-of select="concat($year,'-',$month, '-', if (string-length($day)&lt;2) then concat('0', $day) else $day)"/>
+	</xsl:template> 
 	
 	<!-- CREATORS -->
 	<xsl:template name="createCreators">

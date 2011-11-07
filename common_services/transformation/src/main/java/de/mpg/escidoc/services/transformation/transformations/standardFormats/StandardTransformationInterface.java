@@ -314,7 +314,13 @@ public class StandardTransformationInterface implements Transformation, Configur
         throws TransformationNotSupportedException
     {
         String itemString = new String(src);
-        return this.transformer.xsltTransform(srcFormat.getName(), trgFormat.getName(), itemString, configuration).getBytes();
+        try {
+			return this.transformer.xsltTransform(srcFormat.getName(), trgFormat.getName(), itemString, configuration).getBytes("UTF-8");
+		} catch (Exception e) {
+			this.logger.error("Error during string conversion", e);
+			e.printStackTrace();
+		} 
+        return null;
     }
     
     public List<String> getConfigurationValues(Format srcFormat, Format trgFormat, String key) throws Exception
