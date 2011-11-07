@@ -313,8 +313,9 @@ public class StandardTransformationInterface implements Transformation, Configur
     public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service, Map<String, String> configuration)
         throws TransformationNotSupportedException
     {
-        String itemString = new String(src);
+        
         try {
+        	String itemString = new String(src, "UTF-8");
 			return this.transformer.xsltTransform(srcFormat.getName(), trgFormat.getName(), itemString, configuration).getBytes("UTF-8");
 		} catch (Exception e) {
 			this.logger.error("Error during string conversion", e);
