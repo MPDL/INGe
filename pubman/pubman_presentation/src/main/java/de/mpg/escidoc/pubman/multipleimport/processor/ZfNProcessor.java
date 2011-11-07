@@ -81,6 +81,7 @@ public class ZfNProcessor extends FormatProcessor
     private ArrayList<String> fileNames = new ArrayList<String>();
     private Map<String, String> config;
     private String currentFile = "";
+    private int fileSize = 0;
 
 
     private void initialize()
@@ -184,7 +185,8 @@ public class ZfNProcessor extends FormatProcessor
             fileVO.setMimeType(mimeType);
             fileVO.setName(this.getCurrentFile());
             fileVO.setContent(fileURL.toString());
-            fileVO.getDefaultMetadata().setSize(in.available());
+            System.out.println("SIZE:" + this.fileSize);
+            fileVO.getDefaultMetadata().setSize(this.fileSize);
             fileVO.setContentCategory(PubFileVOPresentation.ContentCategory.PUBLISHER_VERSION.getUri());
             fileVO.getDefaultMetadata().setLicense(this.getConfig().get("License"));
 
@@ -269,7 +271,8 @@ public class ZfNProcessor extends FormatProcessor
         
         if(this.f.retrieveFile(this.getCurrentFile(), out))
         {
-            input = new ByteArrayInputStream(out.toByteArray());           
+            input = new ByteArrayInputStream(out.toByteArray()); 
+            this.fileSize = out.size();
         }
         
         return input;
