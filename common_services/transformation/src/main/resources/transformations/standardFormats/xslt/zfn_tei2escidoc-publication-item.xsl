@@ -148,6 +148,16 @@
 			<xsl:variable name="imprint" select="$monogr/t:imprint"/>	
 			<xsl:variable name="pDesc" select="/t:TEI/t:teiHeader/t:profileDesc"/>	
 			
+			<!-- LANGUAGE -->
+			<xsl:if test="exists(/t:TEI/t:text/@xml:lang)">	
+				<xsl:element name="dc:language">
+					<xsl:attribute name="xsi:type">dcterms:ISO639-3</xsl:attribute>
+					<xsl:choose>
+						<xsl:when test="/t:TEI/t:text/@xml:lang = 'en'">eng</xsl:when>
+					</xsl:choose>
+				</xsl:element>
+			</xsl:if>
+			
 			<!-- DATES -->			
 			<xsl:variable name="iDates" select="$imprint/t:date"/>			
 			<xsl:for-each select="$dateMap/m/@key">
@@ -203,7 +213,6 @@
 						"/>
 				</xsl:for-each>
 			</xsl:element>
-		
 		</xsl:element>		
 	</xsl:template>
 	
