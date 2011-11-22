@@ -84,11 +84,6 @@ public final class ValidationSchemaCache
     private static final Logger LOGGER = Logger.getLogger(ValidationSchemaCache.class);
 
     /**
-     * Singleton.
-     */
-    private static ValidationSchemaCache instance = null;
-
-    /**
      * The schematron skeleton template used for precompilation.
      */
     private Transformer schematronTemplate = null;
@@ -133,7 +128,7 @@ public final class ValidationSchemaCache
     public static void main(final String[] args) throws Exception
     {
 
-        ValidationSchemaCache cache = ValidationSchemaCache.getInstance();
+        ValidationSchemaCache cache = ValidationSchemaCache.getInstance();      
         cache.resetCache();
         cache.precompileAll();
 
@@ -146,17 +141,7 @@ public final class ValidationSchemaCache
      */
     public static ValidationSchemaCache getInstance() throws TechnicalException
     {
-
-        //System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
-        
-        if (instance == null)
-        {
-            instance = new ValidationSchemaCache();
-            factory = new net.sf.saxon.TransformerFactoryImpl();
-            factory.setURIResolver(new LocalURIResolver());
-        }
-        return instance;
-
+        return ValidationSchemaCacheHolder.instance;
     }
 
     /**
@@ -871,18 +856,21 @@ public final class ValidationSchemaCache
 
     /**
      * Constructor is hidden. An instance can be retrieved by calling getInstance.
-     * @throws TechnicalException Any Exception.
      */
-    private ValidationSchemaCache() throws TechnicalException
+    private ValidationSchemaCache()
     {
         try
         {
             Context ctx = new InitialContext();
             xmlTransforming = (XmlTransforming) ctx.lookup(XmlTransforming.SERVICE_NAME);
+            
+            factory = new net.sf.saxon.TransformerFactoryImpl();
+            factory.setURIResolver(new LocalURIResolver());        
+            LOGGER.info("ValidationSchemaCache initialized.");
         }
         catch (Exception e)
         {
-            throw new TechnicalException("Error getting xmlTransforming bean.", e);
+            LOGGER.warn("Error occured when getting xmlTransforming bean.", e);
         }
     }
 
@@ -914,5 +902,14 @@ public final class ValidationSchemaCache
         }
 
         return validationSchemaContextMap.get(context);
+    }
+    
+    /**
+     * Helper class for creating a Singelton of a ValidationSchemaCache object
+     *
+     */
+    private static class ValidationSchemaCacheHolder
+    {
+        public static ValidationSchemaCache instance = new ValidationSchemaCache();       
     }
 }

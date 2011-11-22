@@ -318,9 +318,7 @@ public class ItemValidatingBean implements ItemValidating
      */
     public final void refreshValidationSchemaCache() throws TechnicalException
     {
-
-        ValidationSchemaCache.getInstance().refreshCache();
-
+            ValidationSchemaCache.getInstance().refreshCache();
     }
 
 }
