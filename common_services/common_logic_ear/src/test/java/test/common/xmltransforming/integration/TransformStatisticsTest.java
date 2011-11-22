@@ -115,7 +115,7 @@ public class TransformStatisticsTest extends XmlTransformingTestBase
         repDefVO.setName("TestReportDefiniton Successful Framework Requests by Month and Year");
         repDefVO.setObjectId("15");
         repDefVO.setScopeID("escidoc:scope1");
-        repDefVO.setSql("select * from _escidocaggdef1_request_statistics where month = {month} and year = {year};");
+        repDefVO.setSql("select * from escidocaggdef1_request_stats where month = {month} and year = {year};");
         
         String repDefXML = xmlTransforming.transformToStatisticReportDefinition(repDefVO);
         logger.debug("report definition before creation: - "+repDefXML);
