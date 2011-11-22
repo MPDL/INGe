@@ -80,7 +80,7 @@ public class FilterTaskParamVO extends ValueObject
     }
     
     /*
-     * @return a Map representation of the FilterTaskParamVO object used for SOAP queries
+     * @return a Map representation of the FilterTaskParamVO object used for infrastructure SOAP queries
      */
     public HashMap<String, String[]> toMap()
     {
@@ -93,7 +93,8 @@ public class FilterTaskParamVO extends ValueObject
         filterMap.put("version", new String[] { "1.1" });
         
         // the List is sorted corresponding to the filter class names, 
-        // so filters of the same type occur one after another in the List
+        // so filters of the same type occur one after another in the List after sorting.
+        // Filter of the same class are composed by "or" in the query, filters of different classes by "and". 
         Collections.sort(filterList);
         
         // loop through all entries in the filter list
@@ -127,60 +128,43 @@ public class FilterTaskParamVO extends ValueObject
                 {
                     enhanceQuery(queryBuffer, "\"/properties/content-model/id\"=" + ((FrameworkItemTypeFilter)filter).getType(),
                             previousFilter, filter);
-                            
-                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                    // "http://escidoc.de/core/01/structural-relations/content-model");
                 }
                 else if (filter instanceof FrameworkContextTypeFilter)
                 {
                     enhanceQuery(queryBuffer, "\"/properties/type\"="
                             + ((FrameworkContextTypeFilter)filter).getType().toString().replace('_', '-').toLowerCase(),
                             previousFilter, filter);
-                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/type");
-                    // //context-type
                 }
                 else if (filter instanceof OwnerFilter)
                 {
                     enhanceQuery(queryBuffer, "\"/properties/created-by/id\"=" + ((OwnerFilter)filter).getUserRef().getObjectId(),
                             previousFilter, filter);
-                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                    // "http://escidoc.de/core/01/structural-relations/created-by"); //created-by
                 }
                 else if (filter instanceof ItemRefFilter)
                 {
                     enhanceQuery(queryBuffer, "\"/id\"=", previousFilter, ((ItemRefFilter)filter));
-                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://purl.org/dc/elements/1.1/identifier");
-                    // //items
                 }
                 else if (filter instanceof AffiliationRefFilter)
                 {
                     enhanceQuery(queryBuffer, "\"/id\"=", previousFilter, ((AffiliationRefFilter)filter));
-                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://purl.org/dc/elements/1.1/identifier");
-                    // //organizational-units
                 }
                 else if (filter instanceof RoleFilter)
                 {
                     enhanceQuery(queryBuffer, "\"/role\"=" + ((RoleFilter)filter).getRole(), previousFilter, filter);
                     previousFilter = filter;
                     enhanceQuery(queryBuffer, "\"/user\"=" + ((RoleFilter)filter).getUserRef().getObjectId(), previousFilter, filter);
-                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "role");
                 }
                 else if (filter instanceof PubCollectionStatusFilter)
                 {
                     enhanceQuery(queryBuffer, "\"/properties/public-status\"="
                             + ((PubCollectionStatusFilter)filter).getState().toString().replace('_', '-').toLowerCase(),
                             previousFilter, filter);
-                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                    // "http://escidoc.de/core/01/properties/public-status"); //public-status
                 }
                 else if (filter instanceof ItemStatusFilter)
                 {
                     enhanceQuery(queryBuffer, "\"/properties/version/status\"="
                             + ((ItemStatusFilter)filter).getState().toString().replace('_', '-').toLowerCase(),
                             previousFilter, filter);
-                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                    // "http://escidoc.de/core/01/properties/version/status"); //latest-version-status (according to
-                    // FIZ, only latest versions are filtered)
                 }
                 else if (filter instanceof TopLevelAffiliationFilter) //todo
                 {
@@ -190,48 +174,35 @@ public class FilterTaskParamVO extends ValueObject
                 else if (filter instanceof ObjectTypeFilter)
                 {
                     enhanceQuery(queryBuffer, "\"/type\"=" + ((ObjectTypeFilter)filter).getObjectType(), previousFilter, filter);
-                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
-                    // //object-type
                 }
                 else if (filter instanceof ContextFilter)
                 {
                     enhanceQuery(queryBuffer,
                             "\"/properties/context/id\"=" + ((ContextFilter)filter).getContextId(),
                             previousFilter, filter);
-                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                    // "http://escidoc.de/core/01/structural-relations/context");
                 }
                 else if (filter instanceof LocalTagFilter)
                 {
                     enhanceQuery(queryBuffer, "\"//properties/content-model-specific/local-tags/local-tag\"="
                             + ((LocalTagFilter)filter).getLocalTagId(),
                             previousFilter, filter);
-                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                    // "/properties/content-model-specific/local-tags/local-tag");
                 }
                 else if (filter instanceof ItemPublicStatusFilter)
                 {
                     enhanceQuery(queryBuffer,
                             "\"/properties/public-status\"=" + ((ItemPublicStatusFilter)filter).getState(),
                             previousFilter, filter);
-                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                    // "http://escidoc.de/core/01/properties/public-status"); //public-status
                 }
                 else if (filter instanceof UserAccountStateFilter)
                 {
                     enhanceQuery(queryBuffer, "\"/properties/active\"=" + ((UserAccountStateFilter)filter).getActive(),
                             previousFilter, filter);
-                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/active");
-                    // //public-status
                 }
                 else if (filter instanceof PersonsOrganizationsFilter)
                 {
                     enhanceQuery(queryBuffer, "\"/md-record/publication/creator/person/organization/identifier\"="
                             + ((PersonsOrganizationsFilter)filter).getOrgUnitId(),
                             previousFilter, filter);
-                    // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                    // "/md-records/md-record/publication/creator/person/organization/identifier"); //person's
-                    // organization in metadata
                 }
                 previousFilter = filter;
             }
@@ -248,15 +219,15 @@ public class FilterTaskParamVO extends ValueObject
         return filterMap;
     }
 
-    private void enhanceQuery(StringBuffer b, String queryPiece, Filter previousFilter, Filter filter)
+    private void enhanceQuery(StringBuffer b, String querySnippet, Filter previousFilter, Filter filter)
     {   
-        if (queryPiece == null)
+        if (querySnippet == null)
             return;
         
         if  (previousFilter == null && filter != null)
         {
             b.append(LEFT_PARANTHESIS);
-            doAppend(b, queryPiece, filter);
+            doAppend(b, querySnippet, filter);
             return;
         }
         
@@ -269,25 +240,25 @@ public class FilterTaskParamVO extends ValueObject
        
         if  (((AbstractFilter)filter).compareTo((AbstractFilter)previousFilter) != 0)
         {
-            // filter has changed - close the previous piece, connect pieces with AND and brackets if query has already been started
+            // filter has changed - close the previous one, connect snippets with AND and brackets if query has already been started
             if (b.length() > 0)
             {
                 b.append(RIGHT_PARANTHESIS);
                 b.append(AND);
             }
             b.append(LEFT_PARANTHESIS);
-            doAppend(b, queryPiece, filter);
+            doAppend(b, querySnippet, filter);
             
             return;
         }
         else
         {
-            // filter has not changed - connect pieces with OR without brackets (except for RoleFilters)
+            // filter has not changed - connect snippets with OR without brackets (except for RoleFilters)
             if (filter instanceof RoleFilter)
                 b.append(AND);
             else
                 b.append(OR);
-            doAppend(b, queryPiece, filter);
+            doAppend(b, querySnippet, filter);
             
             return;            
         }   
