@@ -62,6 +62,7 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationResultVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
@@ -481,8 +482,9 @@ public class SearchBean implements Search
                 {
                     String searchResultItem = messages[0].getAsString();
                     logger.debug("Search result: " + searchResultItem);
-                    AffiliationVO itemResult = (AffiliationVO) xmlTransforming.transformToSearchResult(searchResultItem);
-                    resultList.add(itemResult);
+                    SearchResultElement searchResultElement = xmlTransforming.transformToSearchResult(searchResultItem);
+                    AffiliationResultVO affiliationResultVO = (AffiliationResultVO)searchResultElement;
+                    resultList.add((AffiliationVO)affiliationResultVO);
 
                 }
             }
