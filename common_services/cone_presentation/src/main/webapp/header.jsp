@@ -34,7 +34,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>CoNE - Control of Named Entities</title>
 	<link href="<%= PropertyReader.getProperty("escidoc.common.presentation.url") %>resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
-	<link href="/common/resources/cssFramework/main.css" type="text/css" rel="stylesheet" />
 	<link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.contrast.url") %>" id="HighContrast" type="text/css" title="high contrast" rel="alternate stylesheet"/>
 	<link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.classic.url") %>" id="Classic" type="text/css" title="classic" rel="alternate stylesheet"/>	
 	<% if ("true".equals(PropertyReader.getProperty("escidoc.common.stylesheet.special.apply"))) { %><link href="<%= PropertyReader.getProperty("escidoc.common.stylesheet.special.url") %>" id="Special" type="text/css" title="special" rel="alternate stylesheet"/><% } %>

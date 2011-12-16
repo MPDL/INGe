@@ -8,5 +8,10 @@
 	{
 		PropertyReader.loadProperties();
 		ModelList.reload();
+		out.println("...reloaded!");
+	}
+	else
+	{
+	    out.println("Not logged in, sorry!");
 	}
 %>
