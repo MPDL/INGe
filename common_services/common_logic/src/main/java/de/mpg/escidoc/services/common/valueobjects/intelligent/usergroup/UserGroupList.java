@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.w3c.dom.Document;
@@ -139,8 +140,7 @@ public class UserGroupList extends IntelligentVO
             try
             {
                 UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-                
-                String filter = "<param><filter></filter></param>";
+
                 /*
                 String uglXml = ugh.retrieveUserGroups(filter);
                 UserGroupList ugl= (UserGroupList)Grant.Factory.unmarshal(uglXml, UserGroupList.class);
@@ -148,11 +148,10 @@ public class UserGroupList extends IntelligentVO
                 
                 //workaround---------------------------------------------------------
                 HttpClient httpClient = new HttpClient();
-                PostMethod method = new PostMethod(ServiceLocator.getFrameworkUrl() + "/aa/user-groups/filter");
+                GetMethod method = new GetMethod(ServiceLocator.getFrameworkUrl() + "/aa/user-groups");
 
                 method.addRequestHeader("Cookie", "escidocCookie=" + userHandle);
 
-                method.setRequestEntity(new StringRequestEntity(filter));
                 ProxyHelper.executeMethod(httpClient, method);
                 if (method.getStatusCode() != 200)
                 {

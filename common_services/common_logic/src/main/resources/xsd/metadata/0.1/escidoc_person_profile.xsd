@@ -19,7 +19,7 @@
 	<xs:element name="person" type="PersonType"/>
 	<xs:complexType name="PersonType">
 		<xs:sequence>
-			<xs:element ref="eterms:complete-name"/>
+			<xs:element ref="eterms:complete-name" minOccurs="0"/>
 			<xs:element ref="eterms:family-name" minOccurs="0"/>
 			<xs:element ref="eterms:given-name" minOccurs="0"/>
 			<xs:element ref="eterms:alternative-name" minOccurs="0" maxOccurs="unbounded"/>
