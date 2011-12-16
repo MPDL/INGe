@@ -639,7 +639,7 @@
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
 		
 		<!-- AA -->
-		<escidoc.aa.instance.url>http://localhost:8080/auth</escidoc.aa.instance.url>
+		<escidoc.aa.instance.url>http://localhost:8080/auth/</escidoc.aa.instance.url>
 		<escidoc.aa.default.target>http://localhost:8080/auth/clientLogin</escidoc.aa.default.target>
 		<escidoc.aa.public.key.file>public.key</escidoc.aa.public.key.file>
 		<escidoc.aa.private.key.file>private.key</escidoc.aa.private.key.file>
