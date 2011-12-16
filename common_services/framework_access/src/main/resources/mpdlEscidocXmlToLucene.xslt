@@ -828,6 +828,29 @@ Notes:
 			</xsl:for-each>
 		</userdefined-index>
 
+        <!-- USER DEFINED INDEX: publication.compound.creators.names -->
+		<userdefined-index name="publication.compound.creators.names">
+			<xsl:attribute name="context">
+				<xsl:value-of select="$CONTEXTNAME"/>
+			</xsl:attribute>
+			<xsl:if test="count($ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']/*[local-name()='person']) &gt; 0">
+				<element index="TOKENIZED">
+					<xsl:for-each select="$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']/*[local-name()='person']">
+						<xsl:if test="position() &gt; 1">; </xsl:if>
+						<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
+					</xsl:for-each>
+				</element>
+			</xsl:if>
+			<xsl:if test="count($CONTAINER_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']/*[local-name()='person']) &gt; 0">
+				<element index="TOKENIZED">
+					<xsl:for-each select="$ITEM_METADATAPATH/*[local-name()='publication']/*[local-name()='creator']/*[local-name()='person']">
+						<xsl:if test="position() &gt; 1">; </xsl:if>
+						<xsl:value-of select="concat(./*[local-name()='family-name'],' ', ./*[local-name()='given-name'])"/>
+					</xsl:for-each>
+				</element>
+			</xsl:if>
+		</userdefined-index>
+
         <!-- USER DEFINED INDEX: publication.source.any.person-complete-name -->
 		<userdefined-index name="publication.source.any.person-complete-name">
 			<xsl:attribute name="context">
