@@ -30,12 +30,17 @@
 
 package de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Node;
 
@@ -48,9 +53,7 @@ import bibtex.dom.BibtexToplevelComment;
 import bibtex.parser.BibtexParser;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.util.BibTexUtil;
-import de.mpg.escidoc.services.common.util.creators.Author;
-import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;
+
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -69,6 +72,8 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Util;
+import de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.Author;
+import de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.AuthorDecoder;
 
 /**
  * Implementation of BibTex transformation.
@@ -519,7 +524,7 @@ public class Bibtex
                             }
                         }
                     }
-                    if (fields.get("editor") instanceof BibtexPerson)
+                    else if (fields.get("editor") instanceof BibtexPerson)
                     {
                         BibtexPerson editor = (BibtexPerson) fields.get("editor");
                         addCreator(
@@ -544,8 +549,6 @@ public class Bibtex
                                 {
                                     PersonVO personVO = new PersonVO();
                                     personVO.setFamilyName(author.getSurname());
-                                    OrganizationVO organization = new OrganizationVO();
-                                    personVO.getOrganizations().add(organization);
                                     if (author.getGivenName() != null)
                                     {
                                         personVO.setGivenName(author.getGivenName());
@@ -556,6 +559,8 @@ public class Bibtex
                                     }
                                     if (affiliation != null)
                                     {
+                                        OrganizationVO organization = new OrganizationVO();
+                                        personVO.getOrganizations().add(organization);
                                         organization.setName(new TextVO(affiliation));
                                         organization.setAddress(affiliationAddress);
                                         organization.setIdentifier(
@@ -736,52 +741,64 @@ public class Bibtex
                 // MPIS Groups
                 if (fields.get("group") != null)
                 {
-                    String[] groups = fields.get("group").toString().split(",");
+                    String[] groups = BibTexUtil.bibtexDecode(fields.get("group").toString()).split(",");
                     for (String group : groups)
                     {
                         group = group.trim();
-                        if (groupSet == null)
+                        if (!"".equals(group))
                         {
-                            try
+                            if (groupSet == null)
                             {
-                                groupSet = Util.loadGroupSet();
+                                try
+                                {
+                                    groupSet = loadGroupSet();
+                                }
+                                catch (Exception e)
+                                {
+                                    throw new RuntimeException(e);
+                                }
                             }
-                            catch (Exception e) {
-                                throw new RuntimeException(e);
+                            if (!groupSet.contains(group))
+                            {
+                                throw new RuntimeException("Group '" + group + "' not found.");
                             }
+                            mds.getSubjects().add(new TextVO(group, null, SubjectClassification.MPIS_GROUPS.toString()));
                         }
-                        if (!groupSet.contains(group))
-                        {
-                            throw new RuntimeException("Group '" + group + "' not found.");
-                        }
-                        mds.getSubjects().add(new TextVO(group, null, SubjectClassification.MPIS_GROUPS.getUri()));
                     }
                 }
                 
                 // MPIS Projects
                 if (fields.get("project") != null)
                 {
-                    String[] projects = fields.get("project").toString().split(",");
+                    String[] projects = BibTexUtil.bibtexDecode(fields.get("project").toString()).split(",");
                     for (String project : projects)
                     {
                         project = project.trim();
-                        if (projectSet == null)
+                        if (!"".equals(project))
                         {
-                            try
+                            if (projectSet == null)
                             {
-                                projectSet = Util.loadProjectSet();
+                                try
+                                {
+                                    projectSet = loadProjectSet();
+                                }
+                                catch (Exception e)
+                                {
+                                    throw new RuntimeException(e);
+                                }
                             }
-                            catch (Exception e) {
-                                throw new RuntimeException(e);
+                            if (!projectSet.contains(project))
+                            {
+                                throw new RuntimeException("Project '" + project + "' not found.");
                             }
+                            mds.getSubjects().add(new TextVO(project, null, SubjectClassification.MPIS_PROJECTS.toString()));
                         }
-                        if (!groupSet.contains(project))
-                        {
-                            throw new RuntimeException("Project '" + project + "' not found.");
-                        }
-                        mds.getSubjects().add(new TextVO(project, null, SubjectClassification.MPIS_PROJECTS.getUri()));
                     }
                 }
+                
+                // Cite Key
+                mds.getIdentifiers().add(new IdentifierVO(IdType.BIBTEX_CITEKEY, entry.getEntryKey()));
+                
                 
             }
             else if (object instanceof BibtexToplevelComment)
@@ -872,5 +889,51 @@ public class Bibtex
         date1 = (date1 + "-01-01").substring(0, 10);
         date2 = (date2 + "-ZZ-ZZ").substring(0, 10);
         return date1.compareTo(date2) <= 0;
+    }
+    
+    /**
+     * Get group classification from CoNE.
+     * 
+     * @return A set containing MPIS groups.
+     * @throws Exception
+     */
+    public static Set<String> loadGroupSet() throws Exception
+    {
+        HttpClient httpClient = new HttpClient();
+        GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url") + "mpis-groups/all?f=options");
+        httpClient.executeMethod(getMethod);
+        InputStream inputStream = getMethod.getResponseBodyAsStream();
+        String line;
+        Set<String> result = new HashSet<String>();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+        while ((line = bufferedReader.readLine()) != null)
+        {
+            result.add(line.replaceAll("(\\d|_)+\\|", ""));
+        }
+        inputStream.close();
+        return result;
+    }
+    
+    /**
+     * Get project classification from CoNE.
+     * 
+     * @return A set containing MPIS projects.
+     * @throws Exception
+     */
+    public static Set<String> loadProjectSet() throws Exception
+    {
+        HttpClient httpClient = new HttpClient();
+        GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url") + "mpis-projects/all?f=options");
+        httpClient.executeMethod(getMethod);
+        InputStream inputStream = getMethod.getResponseBodyAsStream();
+        String line;
+        Set<String> result = new HashSet<String>();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+        while ((line = bufferedReader.readLine()) != null)
+        {
+            result.add(line.replaceAll("(\\d|_)+\\|", ""));
+        }
+        inputStream.close();
+        return result;
     }
 }

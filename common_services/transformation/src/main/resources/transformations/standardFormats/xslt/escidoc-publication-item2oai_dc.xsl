@@ -20,8 +20,8 @@
 	<!--
 		Transformations from eSciDoc PubItem to OAI DC See mapping:
 		http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Dublin_Core_Mapping
-		Author: Vlad Makarenko (initial creation) $Author: $ (last changed)
-		$Revision: $ $LastChangedDate: $
+		Author: Vlad Makarenko (initial creation) $Author$ (last changed)
+		$Revision$ $LastChangedDate$
 	-->
 <xsl:stylesheet version="2.0"
 

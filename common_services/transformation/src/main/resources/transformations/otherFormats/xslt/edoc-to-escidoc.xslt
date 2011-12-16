@@ -61,12 +61,7 @@
 	<xsl:param name="CoNE" select="'true'"/>
 	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
-	
-	<xsl:param name="a" select="''"/>
-	<!--
-		DC XML  Header
-	-->
-	
+
 	<xsl:variable name="dependentGenre">
 		<type>article</type>
 		<type>conference-paper</type>
@@ -76,7 +71,6 @@
 		<type>paper</type>
 		<type>poster</type>
 		<type>talk-at-event</type>
-		<type>talk-at-event</type>
 		<type>contribution-to-handbook</type>
 		<type>contribution-to-encyclopedia</type>
 		<type>contribution-to-festschrift</type>
@@ -84,6 +78,9 @@
 		<type>contribution-to-collected-edition</type>
 		<type>editorial</type>
 		<type>newspaper-article</type>
+		<type>book-review</type>
+		<type>opinion</type>
+		<type>commentary</type>
 	</xsl:variable>
 	
 	<xsl:variable name="collection-mapping">
@@ -796,6 +793,15 @@
 		</edoc>
 	</xsl:variable>
 	
+	<xsl:variable name="mpiis-comments">
+		<comment>pp</comment>
+		<comment>pp.</comment>
+		<comment>pages</comment>
+		<comment>(pp)</comment>
+		<comment>(pp.)</comment>
+		<comment>(pages)</comment>
+	</xsl:variable>
+	
 	<xsl:variable name="authors">
 		<authors/>
 	</xsl:variable>
@@ -992,7 +998,14 @@
 				<!-- fturl-comment as content-category? -->
 				<xsl:variable name="comment" select="@comment"/>
 				<xsl:variable name="edoc-id" select="../../../@id"/>
-							
+
+				<!-- Mime-type -->
+				<xsl:variable name="mime-type">
+					<xsl:if test="$CoNE = 'true'">
+						<xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', substring($filename, string-length($filename) - 3), '&quot;'))"/>
+					</xsl:if>
+				</xsl:variable>
+
 				<ec:properties>
 					<xsl:choose>
 						<xsl:when test="$import-name = 'BPC'">
@@ -1032,7 +1045,7 @@
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:when>
-						<xsl:when test="$import-name = 'CBS'">
+						<xsl:when test="$import-name = 'CBS' or $import-name = 'MPI MoleGen'">
 							<xsl:choose>
 								<xsl:when test="$access='MPG' or $access='INSTITUT' or $access='INTERNAL'">
 									<prop:visibility>audience</prop:visibility>
@@ -1063,7 +1076,7 @@
 						<xsl:when test="$import-name = 'MPIE' or $import-name = 'MPIA'">
 							<prop:visibility>private</prop:visibility>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIMF'">
+						<xsl:when test="$import-name = 'MPIMF' or $import-name = 'MPIIS'">
 							<prop:visibility>audience</prop:visibility>
 						</xsl:when>
 						<xsl:when test="$import-name = 'EVOLBIO'">
@@ -1097,12 +1110,15 @@
 						<xsl:when test="$import-name = 'MPIINF'">
 							<prop:visibility>private</prop:visibility>
 						</xsl:when>
+						<xsl:when test="$import-name = 'MPQ'">
+							<prop:visibility>audience</prop:visibility>
+						</xsl:when>
 						<xsl:otherwise>
 							<xsl:choose>
 								<xsl:when test="$access='USER'">
 									<prop:visibility>private</prop:visibility>
 								</xsl:when>
-								<xsl:when test="$access='INSTITUT' or $access='MPG'">
+								<xsl:when test="$access='INSTITUT' or $access='MPG' or $access='INTERNAL'">
 									<prop:visibility>audience</prop:visibility>
 								</xsl:when>
 								<xsl:when test="$access='PUBLIC'">
@@ -1171,7 +1187,7 @@
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
 							</prop:content-category>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF'">
+						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen'">
 							<prop:content-category>
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 							</prop:content-category>
@@ -1196,6 +1212,15 @@
 								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 							</prop:content-category>
 						</xsl:when>
+						<xsl:when test="$import-name = 'MPIP'">
+							<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/></prop:content-category>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPQ'">
+							<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/></prop:content-category>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIIS'">
+							<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'abstract']/@uri"/></prop:content-category>
+						</xsl:when>
 						<!-- Default: prop:content-category -->
 						<xsl:otherwise>
 							<xsl:choose>
@@ -1216,11 +1241,6 @@
 							</xsl:choose>
 						</xsl:otherwise>
 					</xsl:choose>
-					<xsl:variable name="mime-type">
-						<xsl:if test="$CoNE = 'true'">
-							<xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', substring($filename, string-length($filename) - 3), '&quot;'))"/>
-						</xsl:if>
-					</xsl:variable>
 					<xsl:choose>
 						<xsl:when test="exists($mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title)">
 							<prop:mime-type>
@@ -1229,7 +1249,8 @@
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:comment>Mime Type for <xsl:value-of select="$filename"/> not found in CONE</xsl:comment>
-							<prop:mime-type>application/pdf</prop:mime-type>
+							<!-- ERROR -->
+									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownMimeTypeSuffix' ), concat('Mime Type for ', $filename, ' not found in CONE'))"/>
 						</xsl:otherwise>
 					</xsl:choose>
 					<!--  <xsl:choose>
@@ -1333,6 +1354,15 @@
 										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
 									</eterms:content-category>
 								</xsl:when>
+								<xsl:when test="$import-name = 'MPIP' or $import-name = 'MPI MoleGen'">
+									<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/></eterms:content-category>
+								</xsl:when>
+								<xsl:when test="$import-name = 'MPQ'">
+									<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/></eterms:content-category>
+								</xsl:when>
+								<xsl:when test="$import-name = 'MPIIS'">
+									<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'abstract']/@uri"/></eterms:content-category>
+								</xsl:when>
 								<!-- Default: eterms:content-category -->
 								<xsl:otherwise>
 									<xsl:choose>
@@ -1381,14 +1411,14 @@
 								</xsl:when>
 							</xsl:choose>
 							<xsl:choose>
-								<xsl:when test="ends-with($filename, '.doc')">
-									<dc:format xsi:type="dcterms:IMT">application/msword</dc:format>
-								</xsl:when>
-								<xsl:when test="ends-with($filename, '.zip')">
-									<dc:format xsi:type="dcterms:IMT">application/zip</dc:format>
+								<xsl:when test="exists($mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title)">
+									<dc:format xsi:type="dcterms:IMT">
+										<xsl:value-of select="$mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title"/>
+									</dc:format>
 								</xsl:when>
 								<xsl:otherwise>
-									<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+									<!-- ERROR -->
+									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownMimeTypeSuffix' ), concat('Mime Type for ', $filename, ' not found in CONE'))"/>
 								</xsl:otherwise>
 							</xsl:choose>
 							<xsl:if test="exists(@size) and @size != ''">
@@ -1533,14 +1563,19 @@
 				<xsl:choose>
 					<xsl:when test="$import-name = 'MPIGF'">
 						<xsl:choose>
-							<xsl:when test="exists(../creators/creator[@role = 'author']) and not(exists(../creators/creator[@role = 'editor']))">
-								<xsl:call-template name="createEntry">
-									<xsl:with-param name="gen" select="'book'"/>
-								</xsl:call-template>
-							</xsl:when>
-							<xsl:when test="exists(../creators/creator[@role = 'editor']) and not(exists(../creators/creator[@role = 'author']))">
+							<xsl:when test="exists(../creators/creator[@role = 'editor'])">
 								<xsl:call-template name="createEntry">
 									<xsl:with-param name="gen" select="'collected-edition'"/>
+								</xsl:call-template>
+							</xsl:when>
+							<xsl:when test="exists(corporatebody)">
+								<xsl:call-template name="createEntry">
+									<xsl:with-param name="gen" select="'collected-edition'"/>
+								</xsl:call-template>
+							</xsl:when>
+							<xsl:when test="exists(../creators/creator[@role = 'author'])">
+								<xsl:call-template name="createEntry">
+									<xsl:with-param name="gen" select="'book'"/>
 								</xsl:call-template>
 							</xsl:when>
 							<xsl:otherwise>
@@ -1554,8 +1589,6 @@
 						</xsl:call-template>
 					</xsl:otherwise>
 				</xsl:choose>
-				
-				
 			</xsl:when>
 			<xsl:when test="genre='Conference-Paper'">
 				<xsl:call-template name="createEntry">
@@ -1707,29 +1740,31 @@
 				<xsl:with-param name="has-source" select="$has-source"/>
 			</xsl:call-template>			
 			<!-- PUBLISHING-INFO -->
-			<xsl:if test="exists(publisher) or exists(editiondescription)">
-				<xsl:choose>
-					<xsl:when test="$gen='book' or $gen='proceedings' or $gen='thesis'">
-						<!-- case: book or proceedings -->
-						<xsl:element name="eterms:publishing-info">
-							<xsl:call-template name="createPublishinginfo">
-								<xsl:with-param name="genre" select="$gen"/>
-							</xsl:call-template>
-						</xsl:element>
-					</xsl:when>
-					<xsl:when test="$gen='book-item'">
-						<!-- case: book-item without source book -->
-						<xsl:if test="not(exists(booktitle))">
+			<xsl:choose>
+				<xsl:when test="exists(publisher) or exists(editiondescription) and not($dependentGenre[type = $gen])">
+					<xsl:choose>
+						<xsl:when test="$import-name = 'MPI MoleGen' and exists(editiondescription) and not(exists(publisher)) and $gen != 'thesis'"/>
+						<xsl:otherwise>
+							<!-- case: book or proceedings -->
 							<xsl:element name="eterms:publishing-info">
 								<xsl:call-template name="createPublishinginfo">
 									<xsl:with-param name="genre" select="$gen"/>
 								</xsl:call-template>
 							</xsl:element>
-						</xsl:if>
-					</xsl:when>
-				
-				</xsl:choose>
-			</xsl:if>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
+				<xsl:when test="$gen='book-item'">
+					<!-- case: book-item without source book -->
+					<xsl:if test="not(exists(booktitle))">
+						<xsl:element name="eterms:publishing-info">
+							<xsl:call-template name="createPublishinginfo">
+								<xsl:with-param name="genre" select="$gen"/>
+							</xsl:call-template>
+						</xsl:element>
+					</xsl:if>
+				</xsl:when>
+			</xsl:choose>
 			
 			<!-- DATES -->
 			<xsl:call-template name="createDates"/>
@@ -1747,7 +1782,7 @@
 				  Source with ISBN = booktitle , titleofproceedings , issuetitle
 				  Source with ISSN = titleofseries , journaltitle
 				  
-				  If a publication has a an identifier (ISSN or ISBN), but doesn't have a source 
+				  If a publication has an identifier (ISSN or ISBN), but doesn't have a source 
 				  to store it, then this ID will be store in an other source.
 				  
 				  Example:
@@ -1762,7 +1797,7 @@
 			
 			<!-- Check whether there is 1 source which will save the isbn -->
 			<xsl:variable name="isbn-save" select="booktitle or issuetitle or titleofproceedings" as="xs:boolean"/>
-			<!-- Check whether there is 1 source which will save the isbn -->
+			<!-- Check whether there is 1 source which will save the issn -->
 			<xsl:variable name="issn-save" select="titleofseries or journaltitle" as="xs:boolean"/>
 			
 			<xsl:if test="issuetitle">
@@ -1795,17 +1830,16 @@
 						</xsl:call-template>
 					</xsl:element>
 				</xsl:when>
+				<xsl:when test="booktitle">
+					<xsl:element name="source:source">
+						<xsl:call-template name="createBook">
+							<xsl:with-param name="sources-count" select="$sources-count"/>
+							<xsl:with-param name="gen" select="$gen"/>
+							<xsl:with-param name="issn-save" select="$issn-save"/>
+						</xsl:call-template>
+					</xsl:element>
+				</xsl:when>
 			</xsl:choose>
-			<xsl:if test="booktitle">
-				<xsl:element name="source:source">
-					<xsl:call-template name="createBook">
-						<xsl:with-param name="sources-count" select="$sources-count"/>
-						<xsl:with-param name="gen" select="$gen"/>
-						<xsl:with-param name="issn-save" select="$issn-save"/>
-					</xsl:call-template>
-				</xsl:element>
-			</xsl:if>
-			
 			<xsl:if test="titleofproceedings">
 				<xsl:element name="source:source">
 					<xsl:call-template name="createProceedings">
@@ -1841,9 +1875,20 @@
 				<xsl:call-template name="createEvent"/>
 			</xsl:if>
 			<!-- TOTAL NUMBER OF PAGES -->
-			<xsl:if test="phydesc and not($dependentGenre[type = $gen] and (exists(titleofproceedings) or exists(booktitle) or exists(issuetitle) or exists(journaltitle) or exists(titleofseries)))">
-				<xsl:call-template name="phydescPubl"/>
-			</xsl:if>
+			<xsl:variable name="authorcomment" select="authorcomment"/>
+			<xsl:choose>
+				<xsl:when test="$import-name = 'MPIIS' and exists($mpiis-comments/comment[contains($authorcomment, .)])">
+					<xsl:element name="eterms:total-number-of-pages">
+						<xsl:value-of select="authorcomment"/>
+					</xsl:element>
+				</xsl:when>
+				<xsl:when test="phydesc and ($gen = 'paper' or $gen = 'issue')">
+					<xsl:call-template name="phydescPubl"/>
+				</xsl:when>
+				<xsl:when test="phydesc and not($dependentGenre[type = $gen] and (exists(titleofproceedings) or exists(booktitle) or exists(issuetitle) or exists(journaltitle) or exists(titleofseries)))">
+					<xsl:call-template name="phydescPubl"/>
+				</xsl:when>
+			</xsl:choose>
 			
 			<!-- DEGREE -->
 			<xsl:variable name="degree-type">
@@ -1981,7 +2026,74 @@
 		<xsl:param name="is-source" as="xs:boolean"/>
 		<xsl:param name="sources-count"/>
 		
-		<xsl:if test=" ((@type='issn' or @type='isbn') and not($dependentGenre[type = $gen]) and not($is-source) and ($sources-count &lt; 2)) or ((@type='issn' or @type='isbn') and $dependentGenre[type = $gen] and $is-source and ($sources-count = 1)) or ((@type='issn' or @type='isbn') and $dependentGenre[type = $gen] and ($sources-count &gt; 1)) or (not(@type='issn' or @type='isbn') and not($is-source))">
+		<xsl:comment>@type = <xsl:value-of select="@type"/>
+		$dependentGenre[type = $gen] = <xsl:value-of select="not(not($dependentGenre[type = $gen]))"/>
+		$is-source = <xsl:value-of select="$is-source"/>
+		$sources-count = <xsl:value-of select="$sources-count"/>
+		</xsl:comment>
+		
+		<xsl:if test="(
+						(
+							@type='issn' 
+						or 
+							@type='isbn'
+						) 
+						and
+						not(
+							$dependentGenre[type = $gen]
+						) 
+						and 
+						not(
+							$is-source
+						) 
+						and 
+						(
+							$sources-count &lt; 2
+						)
+					) 
+					or 
+					(
+						(
+							@type='issn' 
+						or 
+							@type='isbn'
+						) 
+						and 
+							$dependentGenre[type = $gen] 
+						and 
+							$is-source 
+						and 
+						(
+							$sources-count = 1
+						)
+					) 
+					or 
+					(
+						(
+							@type='issn' 
+						or 
+							@type='isbn'
+						) 
+						and 
+						$dependentGenre[type = $gen] 
+						and 
+						(
+							$sources-count &gt; 1
+						)
+					) 
+					or 
+					(
+						not(
+							@type='issn' 
+						or 
+							@type='isbn'
+						) 
+						and 
+						not(
+							$is-source
+						)
+					)">
+						
 			<xsl:element name="dc:identifier">
 				<xsl:choose>
 					<xsl:when test="@type='doi'">
@@ -2060,9 +2172,11 @@
 
 		<!-- PUBLISHININFO -->
 		<xsl:if test="not(exists(issuetitle)) and (exists(publisher) or exists(editiondescription))">
-			<xsl:element name="eterms:publishing-info">
-				<xsl:call-template name="createPublishinginfo"/>
-			</xsl:element>
+			<xsl:if test="not($import-name = 'MPI MoleGen' and exists(editiondescription) and not(exists(publisher)) and $gen != 'thesis')">
+				<xsl:element name="eterms:publishing-info">
+					<xsl:call-template name="createPublishinginfo"/>
+				</xsl:element>
+			</xsl:if>
 		</xsl:if>
 		<xsl:for-each select="../identifiers/identifier[@type != 'isbn' or not($isbn-save)]">
 			<xsl:call-template name="createIDs">
@@ -2176,9 +2290,11 @@
 		<xsl:call-template name="phydescPubl"/>
 		
 		<xsl:if test="exists(publisher) or exists(editiondescription)">
-			<xsl:element name="eterms:publishing-info">
-				<xsl:call-template name="createPublishinginfo"/>
-			</xsl:element>
+			<xsl:if test="not($import-name = 'MPI MoleGen' and exists(editiondescription) and not(exists(publisher)) and $gen != 'thesis')">
+				<xsl:element name="eterms:publishing-info">
+					<xsl:call-template name="createPublishinginfo"/>
+				</xsl:element>
+			</xsl:if>
 		</xsl:if>
 		
 		<!--  <xsl:call-template name="createSourceIdentifiers"/>-->
@@ -2230,9 +2346,11 @@
 		<xsl:call-template name="phydescPubl"/>
 		
 		<xsl:if test="exists(publisher) or exists(editiondescription)">
-			<xsl:element name="eterms:publishing-info">
-				<xsl:call-template name="createPublishinginfo"/>
-			</xsl:element>
+			<xsl:if test="not($import-name = 'MPI MoleGen' and exists(editiondescription) and not(exists(publisher)) and $gen != 'thesis')">
+				<xsl:element name="eterms:publishing-info">
+					<xsl:call-template name="createPublishinginfo"/>
+				</xsl:element>
+			</xsl:if>
 		</xsl:if>
 		
 		<!--  <xsl:call-template name="createSourceIdentifiers"/>-->
@@ -2298,8 +2416,21 @@
 			</xsl:element>
 		</xsl:for-each>
 		<xsl:apply-templates select="seriescorporatebody"/>		
+		
 		<!-- VOLUME -->
-		<xsl:apply-templates select="volume"/>
+		<xsl:choose>
+			<xsl:when test="exists(volume)">
+				<xsl:apply-templates select="volume"/>
+			</xsl:when>
+			<xsl:when test="$import-name = 'MPII' and exists(editiondescription) and $gen = 'report'">
+				<eterms:volume>
+					<xsl:value-of select="editiondescription"/>
+				</eterms:volume>
+			</xsl:when>
+		</xsl:choose>
+			
+		<!-- ISSUE -->
+		<xsl:apply-templates select="issuenr"/>
 		
 		<xsl:if test="not(exists(issuetitle|journaltitle|booktitle|titleofproceedings))">
 			<!-- START_PAGE -->
@@ -2331,7 +2462,7 @@
 			<xsl:element name="dc:title">
 				<xsl:value-of select="titleofproceedings"/>
 			</xsl:element>
-			<xsl:if test="editiondescrition">
+			<xsl:if test="editiondescription">
 				<xsl:element name="eterms:volume">
 					<xsl:value-of select="editiondescription"/>
 				</xsl:element>
@@ -2360,9 +2491,11 @@
 		</xsl:if>
 		
 		<xsl:if test="exists(publisher)">
-			<xsl:element name="eterms:publishing-info">
-				<xsl:call-template name="createPublishinginfo"/>
-			</xsl:element>
+			<xsl:if test="not($import-name = 'MPI MoleGen' and exists(editiondescription) and not(exists(publisher)) and $gen != 'thesis')">
+				<xsl:element name="eterms:publishing-info">
+					<xsl:call-template name="createPublishinginfo"/>
+				</xsl:element>
+			</xsl:if>
 		</xsl:if>
 		
 		<!-- <xsl:call-template name="createSourceIdentifiers"/>-->
@@ -2501,6 +2634,26 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIS'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Solar System Research')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIP'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Polymer Research')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPI MoleGen'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Molecular Genetics')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'KHI'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Kunsthistorisches Institut in Florenz, MPI')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPQ'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI of Quantum Optics')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIIS'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Intelligent Systems (formerly MPI for Metals Research)')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'BiblHertz'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Bibliotheca Hertziana (MPI for Art History)')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'External Organizations')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for the History of Science')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIeR'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for European Legal History')"/>
@@ -3156,11 +3309,18 @@
 				<xsl:value-of select="normalize-space(discipline)"/>
 				<xsl:text></xsl:text>
 			</xsl:if>
-			<xsl:if test="$import-name = 'FHI' or $import-name = 'MPINEURO'">
-				<xsl:if test="exists(../../docaff/docaff_researchcontext)">
-					<xsl:value-of select="normalize-space(../../docaff/docaff_researchcontext)"/>
-				</xsl:if>
-			</xsl:if>
+			<xsl:choose>
+				<xsl:when test="$import-name = 'FHI' or $import-name = 'MPINEURO'">
+					<xsl:if test="exists(../../docaff/docaff_researchcontext)">
+						<xsl:value-of select="normalize-space(../../docaff/docaff_researchcontext)"/>
+					</xsl:if>
+				</xsl:when>
+				<xsl:when test="$import-name = 'MPIIS'">
+					<xsl:if test="exists(../../docaff/affiliation/mpgssunit)">
+						<xsl:value-of select="normalize-space(../../docaff/affiliation/mpgssunit)"/>
+					</xsl:if>
+				</xsl:when>
+			</xsl:choose>
 		</xsl:variable>
 		<xsl:if test="exists($freekeywords) and normalize-space($freekeywords) != ''">
 			<xsl:element name="dcterms:subject">

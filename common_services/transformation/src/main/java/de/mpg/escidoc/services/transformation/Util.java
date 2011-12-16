@@ -946,49 +946,5 @@ public class Util
         }
         
     }
-    
-    /**
-     * Get group classification from CoNE.
-     * 
-     * @return A set containing MPIS groups.
-     * @throws Exception
-     */
-    public static Set<String> loadGroupSet() throws Exception
-    {
-        HttpClient httpClient = new HttpClient();
-        GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url") + "mpis-groups/all?f=options");
-        httpClient.executeMethod(getMethod);
-        InputStream inputStream = getMethod.getResponseBodyAsStream();
-        String line;
-        Set<String> result = new HashSet<String>();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-        while ((line = bufferedReader.readLine()) != null)
-        {
-            result.add(line.replaceAll("\\d+\\|", ""));
-        }
-        inputStream.close();
-        return result;
-    }    
-    /**
-     * Get project classification from CoNE.
-     * 
-     * @return A set containing MPIS projects.
-     * @throws Exception
-     */
-    public static Set<String> loadProjectSet() throws Exception
-    {
-        HttpClient httpClient = new HttpClient();
-        GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url") + "mpis-projects/all?f=options");
-        httpClient.executeMethod(getMethod);
-        InputStream inputStream = getMethod.getResponseBodyAsStream();
-        String line;
-        Set<String> result = new HashSet<String>();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-        while ((line = bufferedReader.readLine()) != null)
-        {
-            result.add(line.replaceAll("\\d+\\|", ""));
-        }
-        inputStream.close();
-        return result;
-    }
+
 }

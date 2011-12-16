@@ -171,8 +171,10 @@
 				<xsl:variable name="format">
 					<xsl:value-of select="concat(string-join((source:source[1]/eterms:start-page, source:source[1]/eterms:end-page), '-'), ' ', source:source[1]/eterms:total-number-of-pages )" />
 				</xsl:variable>
+				
 				<xsl:variable name="format" select="normalize-space($format)" />
-				<xsl:if test="$format!='' and $format!='-'">
+				
+				<xsl:if test="$format != '' and $format != '-'">
 					<dc:format>
 						<xsl:value-of select="$format" />
 					</dc:format>
