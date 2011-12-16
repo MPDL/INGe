@@ -157,7 +157,7 @@
 		
 		if (chosenName.indexOf('(') >= 0)
 		{
-			orgName = chosenName.substring(chosenName.indexOf('(') + 1, chosenName.indexOf(')')).replace(/^\s*(.*\S)\s*$/, '$1');
+			orgName = chosenName.substring(chosenName.indexOf('(') + 1, chosenName.lastIndexOf(')')).replace(/^\s*(.*\S)\s*$/, '$1');
 			chosenName = chosenName.substring(0, chosenName.indexOf('(')).replace(/^\s*(.*\S)\s*$/, '$1');
 		}
 		var familyName = '';
@@ -184,7 +184,7 @@
 			{
 				for (var i = 0; i < details.http_purl_org_escidoc_metadata_terms_0_1_position.length; i++)
 				{
-					if (details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_eprint_terms_affiliatedInstitution == orgName
+					if (details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_eprint_terms_affiliatedInstitution.replace(/^\s*(.*\S)\s*$/, '$1') == orgName
 						&& typeof details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_dc_elements_1_1_identifier != 'undefined')
 					{
 						orgId = details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_dc_elements_1_1_identifier;
@@ -195,7 +195,7 @@
 			else if (typeof details.http_purl_org_escidoc_metadata_terms_0_1_position != 'undefined'
 				&& typeof details.http_purl_org_escidoc_metadata_terms_0_1_position.http_purl_org_eprint_terms_affiliatedInstitution != 'undefined'
 				&& typeof details.http_purl_org_escidoc_metadata_terms_0_1_position.http_purl_org_dc_elements_1_1_identifier != 'undefined'
-				&& details.http_purl_org_escidoc_metadata_terms_0_1_position.http_purl_org_eprint_terms_affiliatedInstitution == orgName)
+				&& details.http_purl_org_escidoc_metadata_terms_0_1_position.http_purl_org_eprint_terms_affiliatedInstitution.replace(/^\s*(.*\S)\s*$/, '$1') == orgName)
 			{
 				orgId = details.http_purl_org_escidoc_metadata_terms_0_1_position.http_purl_org_dc_elements_1_1_identifier;
 			}

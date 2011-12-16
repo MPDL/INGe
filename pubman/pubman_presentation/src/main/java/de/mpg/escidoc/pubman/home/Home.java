@@ -91,7 +91,7 @@ public class Home extends FacesBean
         InitialContext ictx = new InitialContext();
         Search search = (Search)ictx.lookup(Search.SERVICE_NAME);
         //SearchRetrieverRequestBean srrb = (SearchRetrieverRequestBean)ictx.lookup(SearchRetrieverRequestBean.BEAN_NAME);
-        String cqlQuery = "escidoc.property.content-model.objid=" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+        String cqlQuery = "escidoc.content-model.objid=" + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
         SearchQuery cql = new PlainCqlQuery(cqlQuery);
         cql.setMaximumRecords("4");
         cql.setSortKeysAndOrder("sort.escidoc.last-modification-date", SortingOrder.DESCENDING);
