@@ -660,6 +660,13 @@ public class SQLQuerier implements Querier
         {
             String predicateValue = result.getString("predicate");
             String object = result.getString("object");
+            
+            // Redirect?
+            if ("http://www.w3.org/2002/07/owl#sameAs".equals(predicateValue))
+            {
+                return details(modelName, predicates, object, language, idStack, connection);
+            }
+            
             String lang = result.getString("lang");
             
             LocalizedTripleObject localizedTripleObject = null;

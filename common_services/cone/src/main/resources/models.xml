@@ -272,7 +272,7 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 		<primary-identifier control="true" subject-prefix="escidocmimetypes/resource/" identifier-prefix="mimetypes/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/relation</primary-identifier>
 		<predicates>
 			<predicate name="Type" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" resourceModel="mimetypes" searchable="true" shouldBeUnique="true"/>
-			<predicate name="File Ending" value="http://purl.org/escidoc/metadata/terms/0.1/suffix" multiple="false" mandatory="false" localized="false" searchable="true" default=".abc" overwrite="false"/>
+			<predicate name="File Ending" value="http://purl.org/escidoc/metadata/terms/0.1/suffix" multiple="true" mandatory="false" localized="false" searchable="true" default=".abc" overwrite="false"/>
 		</predicates>
 		<result>
 			<pattern>
