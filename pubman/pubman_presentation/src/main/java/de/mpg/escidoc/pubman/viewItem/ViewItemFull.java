@@ -2435,6 +2435,8 @@ public class ViewItemFull extends FacesBean
         {
             error(getMessage("basket_SingleAlreadyInBasket"));
         }
+        this.canAddToBasket = false;
+        this.canDeleteFromBasket = true;
         return "";
     }
 
@@ -2443,6 +2445,8 @@ public class ViewItemFull extends FacesBean
         PubItemStorageSessionBean pssb = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
         pssb.getStoredPubItems().remove(this.pubItem.getVersion().getObjectIdAndVersion());
         info(getMessage("basket_SingleRemovedSuccessfully"));
+        this.canAddToBasket = true;
+        this.canDeleteFromBasket = false;
         return "";
     }
 
