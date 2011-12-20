@@ -25,6 +25,9 @@ Notes:
  -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xalan="http://xml.apache.org/xalan" xmlns:lastdate-helper="xalan://de.escidoc.sb.gsearch.xslt.LastdateHelper" xmlns:string-helper="xalan://de.escidoc.sb.gsearch.xslt.StringHelper" xmlns:element-type-helper="xalan://de.escidoc.sb.gsearch.xslt.ElementTypeHelper" xmlns:sortfield-helper="xalan://de.escidoc.sb.gsearch.xslt.SortFieldHelper" xmlns:escidoc-core-accessor="xalan://de.escidoc.sb.gsearch.xslt.EscidocCoreAccessor" extension-element-prefixes="lastdate-helper string-helper element-type-helper sortfield-helper escidoc-core-accessor">
 	<xsl:output method="xml" indent="yes" encoding="UTF-8"/>
+
+	<!-- Include stylesheet that writes important fields for gsearch -->
+	<xsl:include href="index/gsearchAttributes.xslt"/>
     
     <!-- Parameters that get passed while calling this stylesheet-transformation -->
 	<xsl:param name="LANGUAGE"/>
@@ -122,16 +125,11 @@ Notes:
 
     <!-- WRITE INDEX FOR ITEM -->
 	<xsl:template name="processItem">
-		<xsl:variable name="PID" select="string-helper:removeVersionIdentifier(/*[local-name()='item']/@objid)"/>
+		<xsl:variable name="PID" select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='item']/@*[local-name()='href'], '/'))"/>
         <!-- START IndexDocument -->
 		<IndexDocument>
-            <!-- Gsearch needs PID to find object when updating -->
-			<xsl:attribute name="PID">
-				<xsl:value-of select="$PID"/>
-			</xsl:attribute>
-			<IndexField IFname="PID" index="UN_TOKENIZED" store="NO" termVector="NO">
-				<xsl:value-of select="$PID"/>
-			</IndexField>
+        <!-- Call this template immediately after opening IndexDocument-element! -->
+			<xsl:call-template name="processGsearchAttributes"/>
 			<xsl:call-template name="writeIndexField">
 				<xsl:with-param name="context" select="$CONTEXTNAME"/>
 				<xsl:with-param name="fieldname">objecttype</xsl:with-param>
@@ -213,7 +211,7 @@ Notes:
 
     <!-- WRITE INDEX FOR CONTAINER -->
 	<xsl:template name="processContainer">
-		<xsl:variable name="PID" select="string-helper:removeVersionIdentifier(/*[local-name()='container']/@objid)"/>
+		<xsl:variable name="PID" select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='container']/@*[local-name()='href'], '/'))"/>
 
         <!-- START IndexDocument -->
 		<IndexDocument> 
@@ -616,7 +614,7 @@ Notes:
 		<xsl:choose>
 <!--				FIELDS WHERE SUB/SUPs should be removed-->
 			<xsl:when test=" contains( concat( ',title,alternative,abstract,', ',publication.title,publication.alternative,publication.abstract,', ',publication.source.title,publication.source.alternative,publication.source.abstract,' ), concat(',', $name, ',') )">
-						
+				
 				<xsl:call-template name="removeTag">
 					<xsl:with-param name="str">
 						<xsl:call-template name="removeTag">
@@ -735,10 +733,10 @@ Notes:
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<element index="UN_TOKENIZED">
-				<xsl:value-of select="string-helper:removeVersionIdentifier(/*[local-name()='item']/@objid)"/>
+				<xsl:value-of select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='item']/@*[local-name()='href'], '/'))"/>
 			</element>
 			<element index="UN_TOKENIZED">
-				<xsl:value-of select="string-helper:removeVersionIdentifier(/*[local-name()='container']/@objid)"/>
+				<xsl:value-of select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='container']/@*[local-name()='href'], '/'))"/>
 			</element>
 		</userdefined-index>
 
@@ -1468,7 +1466,7 @@ Notes:
 				</xsl:if>
 			</xsl:for-each>
 			<element index="TOKENIZED">
-				<xsl:value-of select="string-helper:removeVersionIdentifier(/*[local-name()='item']/@objid)"/>
+				<xsl:value-of select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='item']/@*[local-name()='href'], '/'))"/>
 			</element>
 			<element index="TOKENIZED">
 				<xsl:value-of select="$ITEM_PROPERTIESPATH/*[local-name()='pid']"/>
@@ -1477,7 +1475,7 @@ Notes:
 				<xsl:value-of select="$ITEM_PROPERTIESPATH/*[local-name()='latest-release']/*[local-name()='pid']"/>
 			</element>
 			<element index="TOKENIZED">
-				<xsl:value-of select="string-helper:removeVersionIdentifier(/*[local-name()='container']/@objid)"/>
+				<xsl:value-of select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='container']/@*[local-name()='href'], '/'))"/>
 			</element>
 			<element index="TOKENIZED">
 				<xsl:value-of select="$CONTAINER_PROPERTIESPATH/*[local-name()='pid']"/>
