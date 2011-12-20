@@ -563,6 +563,7 @@ public class EasySubmission extends FacesBean
     {
         EasySubmissionSessionBean essb = this.getEasySubmissionSessionBean();
         // set the name if it is not filled
+        logger.info("this.getLocators().size():"+ this.getLocators().size());
         if (this.getLocators().get(this.getLocators().size() - 1).getFile().getDefaultMetadata().getTitle().getValue() == null
                 || this.getLocators().get(this.getLocators().size() - 1).getFile().getDefaultMetadata().getTitle()
                         .getValue().trim().equals(""))
@@ -579,8 +580,6 @@ public class EasySubmission extends FacesBean
         // Visibility PUBLIC is static default value for locators
         this.getLocators().get(this.getLocators().size() - 1).getFile().setVisibility(Visibility.PUBLIC);
         // As default value set 'supplementary material'
-        this.getLocators().get(this.getLocators().size() - 1).getFile()
-                .setContentCategory(ContentCategory.SUPPLEMENTARY_MATERIAL.getUri());
         this.locatorIterator = new UIXIterator();
         return "loadNewEasySubmission";
     }
