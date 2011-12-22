@@ -127,6 +127,7 @@
 			<structure field="latestVersion" ns="${xsd.soap.common.prop}" usage="optional" name="latest-version">
 			
 				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" set-method="setHref" usage="optional" />
 			
 				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" />
 				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" />
