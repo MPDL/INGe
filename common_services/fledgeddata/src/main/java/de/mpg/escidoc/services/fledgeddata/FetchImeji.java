@@ -1,21 +1,22 @@
 package de.mpg.escidoc.services.fledgeddata;
 
-import java.io.ByteArrayOutputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 import java.util.SortedMap;
-import java.util.zip.ZipOutputStream;
 
+import de.mpg.escidoc.services.fledgeddata.oai.OAIUtil;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.CannotDisseminateFormatException;
+import de.mpg.escidoc.services.fledgeddata.oai.exceptions.IdDoesNotExistException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.NoItemsMatchException;
+import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError;
 import de.mpg.escidoc.services.fledgeddata.oai.valueobjects.oaiRecordFactory;
 
 
@@ -95,22 +96,6 @@ public class FetchImeji
         listIdentifiersMap.put("identifiers", identifiers.iterator());
         return listIdentifiersMap;
     }
-    
-    public static String getRecord (String identifier, String metadataPrefix, Properties properties) 
-    {
-    	String record = "";
-    	String extension = "&q=( ID_URI.URI=\""+identifier+"\" )";
-    	try 
-    	{
-    		return getExport(extension, properties);
-		} 
-    	catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	return record;
-    }
-    
 	
 	public String quickCreate(Object nativeItem, String schemaURL,
 			String metadataPrefix) throws IllegalArgumentException,
@@ -149,21 +134,26 @@ public class FetchImeji
 		return null;
 	}
 	
-	private static String getExport(String extension, Properties properties) throws MalformedURLException
+	public static String getRecord(String identifier, String metadataPrefix, Properties properties) 
+			throws OAIInternalServerError,
+				   IdDoesNotExistException,
+				   CannotDisseminateFormatException
 	{
-		String resultXml = "";
-		String exportUrl = "export?format=rdf"; //Evtl. aus properties lesen
-		String baseUrl = properties.getProperty("Repository.baseURL");
-		URL url = new URL(baseUrl + "/" + exportUrl + extension); 
-		System.out.println("fetch imeji: " + url.toExternalForm());
+		//Properties
+		String nativeFormat = properties.getProperty("Repository.nativeFormat.Name");
+		String oaiXslt = properties.getProperty("Repository.oai.stylesheet");
+		String fetchUrl = properties.getProperty("Repository.oai.fetchURL");
 		
-		byte[] input = null;
+		//Variables
+		String resultXml = "";
+		InputStreamReader isReader;
+		BufferedReader bReader;
         URLConnection conn = null;
-        Date retryAfter = null;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ZipOutputStream zos = new ZipOutputStream(baos);
+        OAIUtil util = new OAIUtil();
+
         try
         {
+    		URL url = new URL(util.constructFetchUrl(fetchUrl, identifier));
             conn = url.openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
@@ -171,23 +161,57 @@ public class FetchImeji
             {
                 case 200:
                     System.out.println("Fetch xml from export");
-                	resultXml = (String) httpConn.getContent();
-                	System.out.println("ResultXml: " + resultXml);
-                    httpConn.disconnect();                  
+                	
+                    // Get XML
+                    isReader = new InputStreamReader(httpConn.getInputStream(),"UTF-8");
+                    bReader = new BufferedReader(isReader);
+                    String line = "";
+                    while ((line = bReader.readLine()) != null)
+                    {
+                    	resultXml += line + "\n";
+                    }
+                    httpConn.disconnect();  
+                    System.out.println("ResultXml: " + resultXml);
                     break;
                 default:
-                    throw new RuntimeException("An error occurred during importing from external system: "
+                    throw new OAIInternalServerError("An error occurred during metadata fetch from repository: "
                             + responseCode + ": " + httpConn.getResponseMessage() + ".");
             }
+
         }
         catch (Exception e)
         {
-        	//TODO
-            throw new RuntimeException(e);
+            throw new OAIInternalServerError(e.getMessage());
         }
 
-        System.out.println("Create map from xml");
-        //TODO
+        //check if result is empty
+        if (!resultXml.contains("<imeji:image rdf:about=\""+identifier+"\">"))
+        {
+        	throw new IdDoesNotExistException(identifier);
+        }
+        
+        if (metadataPrefix.equalsIgnoreCase(nativeFormat))
+        {
+        	System.out.println("Create native format record");
+        	resultXml = util.craeteNativeOaiRecord(resultXml, identifier);
+        }
+        else 
+        	if (metadataPrefix.equalsIgnoreCase("oai_dc"))
+        	{        		
+        		try
+        		{
+        			System.out.println("Create oai_dc record");
+        			resultXml = util.xsltTransform(oaiXslt, resultXml);
+        		}
+        		catch (Exception e) 
+        		{
+					throw new OAIInternalServerError("An error occurred during transformation to oai_dc format. " + e.getMessage());
+				}
+        	}
+        	else
+        	{
+        		throw new CannotDisseminateFormatException(metadataPrefix);
+        	}
         
 		
 		return resultXml;

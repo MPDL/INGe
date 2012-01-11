@@ -15,9 +15,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -34,10 +36,15 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import net.sf.saxon.TransformerFactoryImpl;
+
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
+
+import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError;
+import de.mpg.escidoc.services.fledgeddata.oai.verb.ServerVerb;
 
 
 /**
@@ -82,61 +89,6 @@ public class OAIUtil {
             }
         }
         return sb.toString();
-    }
-
-    /**
-     * Convert a packed LCCN String to MARC display format.
-     * @param packedLCCN an LCCN String in packed storage format (e.g. 'n&nbsp;&nbsp;2001050268').
-     * @return  an LCCN String in MARC display format (e.g. 'n2001-50268').
-     */
-    public static String toLCCNDisplay(String packedLCCN) {
-	StringBuffer sb = new StringBuffer();
-	if (Character.isDigit(packedLCCN.charAt(2))) {
-	    sb.append(packedLCCN.substring(0, 2).trim());
-	    sb.append(packedLCCN.substring(2, 6));
-	    sb.append("-");
-	    int i = Integer.parseInt(packedLCCN.substring(6).trim());
-	    sb.append(Integer.toString(i));
-	} else {
-	    sb.append(packedLCCN.substring(0, 3).trim());
-	    sb.append(packedLCCN.substring(3, 5));
-	    sb.append("-");
-	    int i = Integer.parseInt(packedLCCN.substring(5).trim());
-	    sb.append(Integer.toString(i));
-	}
-	return sb.toString();
-    }
-
-    /**
-     * convert a packed LCCN to display format.
-     * @param packedLCCN an LCCN String in packed storage format (e.g. 'n&nbsp;&nbsp;2001050268').
-     * @return  an LCCN String in MARC display format (e.g. 'n2001-50268').
-     * @deprecated use toLCCNDisplay() instead.
-     */
-    public static String getLCCN(String packedLCCN) {
-	return toLCCNDisplay(packedLCCN);
-    }
-
-    public static Document parse(InputStream is)
-    throws SAXException, IOException, ParserConfigurationException {
-        return getThreadedDocumentBuilder().parse(is);
-    }
-
-    public static DocumentBuilder getThreadedDocumentBuilder()
-    throws ParserConfigurationException {
-        DocumentBuilder builder = dbFactory.newDocumentBuilder();
-        return builder;
-    }
-    
-    /**
-     * Transform a DOM Node into an XML String.
-     * @param node
-     * @return an XML String representation of the specified Node
-     * @throws TransformerException
-     */
-    public static String toString(Node node)
-    throws TransformerException {
-        return toString(node, true);
     }
     
     /**
@@ -216,15 +168,13 @@ public class OAIUtil {
     }
     
     /**
-     * Load the properties from the location defined by the system property <code>pubman.properties.file</code>.
-     * If this property is not set the default file path <code>pubman.properties</code> is used.
+     * Load the properties from the location defined by the system property
      *
      * @throws IOException If the properties file could not be found neither in the file system nor in the classpath. 
      * @throws URISyntaxException 
      */
     public static Properties loadProperties() throws IOException, URISyntaxException
     {
-        String propertiesFile = null;
         Properties properties = new Properties();
         URL propUrl = null;
         try
@@ -233,7 +183,7 @@ public class OAIUtil {
         }
         catch (Exception e)
         {
-            Logger.getLogger(OAIUtil.class).warn("WARNING: solution.properties not found: " + e.getMessage());
+            Logger.getLogger(OAIUtil.class).warn("WARNING: oai.properties not found: " + e.getMessage());
 
         }
         if (propUrl != null)
@@ -283,4 +233,99 @@ public class OAIUtil {
         return instream;
     }
     
+    /**
+     * Metadata transformation method.
+     * @param xsltUri
+     * @param itemXML
+     * @return transformed metadata as String
+     * @throws IOException 
+     */
+    public String xsltTransform(String xsltUri, String itemXML) throws RuntimeException
+    {       
+        TransformerFactory factory = new TransformerFactoryImpl();
+        StringWriter writer = new StringWriter();
+        System.out.println("Transform with xslt: " + xsltUri);
+        
+        try
+        {
+            ClassLoader cl = this.getClass().getClassLoader();
+            InputStream in = getInputStream(xsltUri);
+            Transformer transformer = factory.newTransformer(new StreamSource(in));   
+            StringReader xmlSource = new StringReader(itemXML);
+            transformer.transform(new StreamSource(xmlSource), new StreamResult(writer));
+        }
+        catch (TransformerException e)
+        {
+        	System.out.println(e.getMessage());
+            throw new RuntimeException();
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException("Could not find xslt: " + xsltUri);
+        }
+
+        return writer.toString();
+    }
+    
+    public String craeteNativeOaiRecord (String xml, String identifier)
+    {
+    	StringBuffer sb = new StringBuffer();
+    	String responseDate = ServerVerb.createResponseDate(new Date());
+
+    	xml = xml.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "");
+    	
+    	sb.append("<header>");
+    		sb.append("<identifier>" + "oai:"+identifier + "</identifier>");
+    		sb.append("<datestamp>" + responseDate + "</datestamp>");
+    		sb.append("<setSpec>" + parseCollection(xml) + "</setSpec>"); 
+    	sb.append("</header>");
+    	sb.append("<metadata>");
+    		sb.append(xml);
+    	sb.append("</metadata>");
+    	
+    	return sb.toString();
+    }
+    
+    private String parseCollection (String xml)
+    {
+    	String col = "";
+    	// magic number 31 is offset of: <imeji:collection rdf:resource=" as an quick and dirty way to retrieve the collection
+    	int from = xml.indexOf("imeji:collection") + 31;
+    	int until = xml.indexOf("\"", from);
+    	col = xml.substring(from, until);
+    	
+    	return col;
+    }
+    
+    
+    public static boolean isHarvestable(Properties properties)
+    {
+		if (properties.getProperty("Repository.harvestable") != null 
+				&& properties.getProperty("Repository.harvestable").equalsIgnoreCase("true")) 
+		{
+			return true;
+		} 
+		return false;
+    }
+    
+    public String constructFetchUrl (String url, String identifier) throws OAIInternalServerError
+    {
+    	String fetchUrl = "";
+    	final String id_token = "FETCH_ID";
+
+    	
+    	if (!url.contains(id_token))
+    	{
+    		throw new OAIInternalServerError("Placeholder FETCH_ID not set in Repository.oai.fetchURL");
+    	}
+    	
+    	fetchUrl = url.replace(id_token, identifier);  
+    	fetchUrl = fetchUrl.replace(" ", "%20");
+    	    	
+    	if (fetchUrl.equals(""))
+    	{
+    		throw new OAIInternalServerError("Repository.oai.fetchURL not set in properties file.");
+    	}
+    	return fetchUrl;
+    }
 }

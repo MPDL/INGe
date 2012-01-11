@@ -10,8 +10,6 @@
  */
 package de.mpg.escidoc.services.fledgeddata.oai.verb;
 
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URI;
@@ -27,10 +25,6 @@ import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 
 import de.mpg.escidoc.services.fledgeddata.oai.OAIUtil;
 
@@ -40,8 +34,8 @@ import de.mpg.escidoc.services.fledgeddata.oai.OAIUtil;
  *
  * @author Jefffrey A. Young, OCLC Online Computer Library Center
  */
-public abstract class ServerVerb {
-    private static final boolean debug = false;
+public abstract class ServerVerb 
+{
 
     private int statusCode = HttpServletResponse.SC_OK; // http status
     private String message = null; // http response message
@@ -64,9 +58,6 @@ public abstract class ServerVerb {
      * @param xmlText complete XML response string
      */
     protected void init(String xmlText) {
-        if (debug) {
-            System.out.println("ServerVerb.init: xmlText=" + xmlText);
-        }
         this.xmlText = xmlText;
     }
 
@@ -128,7 +119,8 @@ public abstract class ServerVerb {
     protected static String getRequestElement(HttpServletRequest request,
             List validParamNames,
             String baseURL,
-            boolean xmlEncodeSetSpec) {
+            boolean xmlEncodeSetSpec) 
+    {
         StringBuffer sb = new StringBuffer();
         sb.append("<request");
         Enumeration params = request.getParameterNames();
@@ -192,30 +184,6 @@ public abstract class ServerVerb {
         return false;
     }
 
-//  /**
-//  * Get the OAI requestURL from the verb response
-//  *
-//  * @param request the HTTP servlet request object
-//  * @return the current verb's requestURL value
-//  */
-//  protected static String getRequestURL(HttpServletRequest request) {
-//  StringBuffer sb = new StringBuffer();
-//  sb.append(HttpUtils.getRequestURL(request));
-//  sb.append("?");
-//  Enumeration params = request.getParameterNames();
-//  while (params.hasMoreElements()) {
-//  String name = (String)params.nextElement();
-//  String value = request.getParameter(name);
-//  sb.append(OAIUtil.xmlEncode(name));
-//  sb.append("=");
-//  sb.append(OAIUtil.xmlEncode(value));
-//  if (params.hasMoreElements()) {
-//  sb.append("&amp;");
-//  }
-//  }
-//  return sb.toString();
-//  }
-
     /**
      * Get the complete XML response for the verb request
      *
@@ -225,7 +193,8 @@ public abstract class ServerVerb {
         return xmlText;
     }
 
-    public static HashMap getVerbs() {
+    public static HashMap getVerbs() 
+    {
         HashMap serverVerbsMap = new HashMap();
         serverVerbsMap.put("ListRecords", ListRecords.class);
         serverVerbsMap.put("ListIdentifiers", ListIdentifiers.class);
@@ -237,39 +206,4 @@ public abstract class ServerVerb {
         return serverVerbsMap;
     }
 
-    public static HashMap getExtensionVerbs(Properties properties) {
-        HashMap extensionVerbsMap = new HashMap();
-        String propertyPrefix = "ExtensionVerbs.";
-        Enumeration propNames = properties.propertyNames();
-        while (propNames.hasMoreElements()) {
-            String propertyName = (String)propNames.nextElement();
-            if (propertyName.startsWith(propertyPrefix)) {
-                String verb = propertyName.substring(propertyPrefix.length());
-                String verbClassName = (String)properties.get(propertyName);
-                if (debug) {
-                    System.out.println("ExtensionVerb.getVerbs: verb=" + verb);
-                    System.out.println("ExtensionVerb.verbClassName=" + verbClassName);
-                }
-                try {
-                    Class serverVerbClass = Class.forName(verbClassName);
-                    Method init =
-                        serverVerbClass.getMethod("init",
-                                new Class[] {Properties.class});
-                    try {
-                        init.invoke(null, new Object[] {properties});
-                    } catch (InvocationTargetException e) {
-                        throw e.getTargetException();
-                    }
-                    extensionVerbsMap.put(verb, serverVerbClass);
-                    if (debug) {
-                        System.out.println("ExtensionVerb.getVerbs: " + verb + "=" + verbClassName);
-                    }
-                } catch (Throwable e) {
-                    System.err.println("ExtensionVerb: couldn't construct: " + verbClassName);
-                    e.printStackTrace();
-                }
-            }
-        }
-        return extensionVerbsMap;
-    }
 }

@@ -25,7 +25,6 @@ import de.mpg.escidoc.services.fledgeddata.oai.exceptions.NoItemsMatchException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.NoMetadataFormatsException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.NoSetHierarchyException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError;
-import de.mpg.escidoc.services.fledgeddata.oai.valueobjects.oaiRecordFactory;
 import de.mpg.escidoc.services.fledgeddata.oai.verb.ServerVerb;
 
 /**
@@ -35,19 +34,7 @@ import de.mpg.escidoc.services.fledgeddata.oai.verb.ServerVerb;
  * @author Jeffrey A. Young, OCLC Online Computer Library Center
  */
 public class oaiCatalog 
-{
-
-    /**
-     * The RecordFactory that understands how to convert this database's
-     * native "item" to the various metadataFormats to be supported.
-     */
-    private oaiRecordFactory recordFactory;
-    
-    /**
-     * is this repository harvestable?
-     */
-    private boolean harvestable = true;
-    
+{ 
     /**
      * optional property to limit the life of resumptionTokens (<0 indicates no limit)
      **/
@@ -73,31 +60,13 @@ public class oaiCatalog
         "0000-01-01",
         "0000-01-01T00:00:00Z"
     };
-    
-    /**
-     * return a handle to the RecordFactory
-     * @return guess
-     */
-    public oaiRecordFactory getRecordFactory() { return recordFactory; }
-    
-    public void setHarvestable(boolean harvestable) {
-        this.harvestable = harvestable;
-    }
-    
-    /**
-     * Is this repository harvestable?
-     * @return true if harvestable, false otherwise.
-     */
-    public boolean isHarvestable() { return harvestable; }
-    
+
     /**
      * get the optional millisecondsToLive property (<0 indicates no limit)
      **/
     public int getMillisecondsToLive() { return millisecondsToLive; }
     
-    public void setRecordFactory(oaiRecordFactory recordFactory) {
-        this.recordFactory = recordFactory;
-    }
+
     
     public void setSupportedGranularityOffset(int i) {
         supportedGranularityOffset = i;
@@ -305,13 +274,6 @@ public class oaiCatalog
         return true;
     }
     
-    /**
-     * Retrieve the Crosswalks property
-     *
-     * @return the Crosswalks object containing a detailed list of oai
-     * formats supported by this application.
-     */
-    //public Crosswalks getCrosswalks() { return recordFactory.getCrosswalks(); }
     
     /**
      * Retrieve the list of supported Sets. This should probably be initialized
@@ -334,96 +296,6 @@ public class oaiCatalog
   //  public abstract Map listSets(String resumptionToken)
   //  throws BadResumptionTokenException, OAIInternalServerError;
     
-    /**
-     * Factory method for creating an AbstractCatalog instance. The properties
-     * object must contain the following entries:
-     * <ul>
-     *   <li><b>AbstractCatalog.className</b> property which points to a class
-     *       that implements the AbstractCatalog interface. Note that this class
-     *       must have a constructor that accepts a properties object as a
-     *       parameter.</li>
-     *   <li><b>Crosswalks.&lt;supported formats&gt;</b> properties which
-     *       satisfy the constructor for the Crosswalks class</li>
-     * </ul>
-     *
-     * @param properties Properties object containing entries necessary to
-     * initialize the class
-     * to be created.
-     * @return on object instantiating the AbstractCatalog interface.
-     * @exception Throwable some sort of problem occurred.
-     */
-//    public static AbstractCatalog factory(Properties properties,
-//            ServletContext context)
-//    throws Throwable {
-//        AbstractCatalog oaiCatalog = null;
-//        String oaiCatalogClassName =
-//            properties.getProperty("AbstractCatalog.oaiCatalogClassName");
-//        String recordFactoryClassName =
-//            properties.getProperty("AbstractCatalog.recordFactoryClassName");
-//        if (oaiCatalogClassName == null) {
-//            throw new ClassNotFoundException(
-//            "AbstractCatalog.oaiCatalogClassName is missing from properties file");
-//        }
-//        if (recordFactoryClassName == null) {
-//            throw new ClassNotFoundException(
-//            "AbstractCatalog.recordFactoryClassName is missing from properties file");
-//        }
-//        Class oaiCatalogClass = Class.forName(oaiCatalogClassName);
-//        try {
-//            Constructor oaiCatalogConstructor = null;
-//            try {
-//                oaiCatalogConstructor =
-//                    oaiCatalogClass.getConstructor(new Class[] {Properties.class,
-//                            ServletContext.class});
-//                oaiCatalog =
-//                    (AbstractCatalog)oaiCatalogConstructor.newInstance(new Object[]
-//                                                                                  {properties, context});
-//            } catch (NoSuchMethodException e) {
-//                oaiCatalogConstructor =
-//                    oaiCatalogClass.getConstructor(new Class[] {Properties.class});
-//                oaiCatalog =
-//                    (AbstractCatalog)oaiCatalogConstructor.newInstance(new Object[]
-//                                                                                  {properties});
-//            }
-//            if (debug) {
-//                System.out.println("AbstractCatalog.factory: recordFactoryClassName="
-//                        + recordFactoryClassName);
-//            }
-//            Class recordFactoryClass = Class.forName(recordFactoryClassName);
-//            Constructor recordFactoryConstructor =
-//                recordFactoryClass.getConstructor(new Class[] {Properties.class});
-//            oaiCatalog.recordFactory =
-//                (RecordFactory)recordFactoryConstructor.newInstance(new Object[] {properties});
-//            if (debug) {
-//                System.out.println("AbstractCatalog.factory: recordFactory=" + oaiCatalog.recordFactory);
-//            }
-//            String harvestable = properties.getProperty("AbstractCatalog.harvestable");
-//            if (harvestable != null && harvestable.equals("false")) {
-//                oaiCatalog.harvestable = false;
-//            }
-//            String secondsToLive =
-//                properties.getProperty("AbstractCatalog.secondsToLive");
-//            if (secondsToLive != null) {
-//                oaiCatalog.millisecondsToLive = Integer.parseInt(secondsToLive) * 1000;
-//            }
-//            String granularity = properties.getProperty("AbstractCatalog.granularity");
-//            for (int i = 0; granularity != null && i < VALID_GRANULARITIES.length; ++i) {
-//                if (granularity.equalsIgnoreCase(VALID_GRANULARITIES[i])) {
-//                    oaiCatalog.supportedGranularityOffset = i;
-//                    break;
-//                }
-//            }
-//            if (oaiCatalog.supportedGranularityOffset == -1) {
-//                oaiCatalog.supportedGranularityOffset = 0;
-//                System.err.println("AbstractCatalog.factory: Invalid or missing AbstractCatalog.granularity property. Setting value to default: " +
-//                        VALID_GRANULARITIES[oaiCatalog.supportedGranularityOffset]);
-//            }
-//        } catch (InvocationTargetException e) {
-//            throw e.getTargetException();
-//        }
-//        return oaiCatalog;
-//    }
-//    
     /**
      * Allow the database to return some Identify &lt;description&gt; elements
      * 
@@ -460,6 +332,7 @@ public class oaiCatalog
     	if (repository.equalsIgnoreCase("escidoc"))
     	{
     		return null;
+    		//TODO
     		//return fetcheSciDoc.listIdentifiers(String from, String until, String set, String metadataPrefix);
     	}
     	return null;
@@ -495,31 +368,17 @@ public class oaiCatalog
     {
     	String repository = properties.getProperty("oai.repositoryName", "undefined");
     	if (repository.equalsIgnoreCase("imeji"))
+    		
     	{
     		return FetchImeji.getRecord(identifier, metadataPrefix, properties);
     	}
     	if (repository.equalsIgnoreCase("escidoc"))
     	{
     		return null;
+    		//TODO
     		//return fetcheSciDoc.getRecord(identifier, metadataPrefix, properties);
     	}
     	return null;
-    }
-    
-    /**
-     * Retrieve the specified metadata for the specified identifier
-     *
-     * @param identifier the OAI identifier
-     * @return the String containing the result record.
-     * @exception OAIInternalServerError signals an http status code 500 problem
-     * @throws CannotDisseminateFormatException 
-     * @throws IdDoesNotExistException 
-     * @throws IdDoesNotExistException 
-     */
-    public String getMetadata(String identifier, String metadataPrefix)
-    throws OAIInternalServerError, IdDoesNotExistException,
-    IdDoesNotExistException, CannotDisseminateFormatException {
-        throw new OAIInternalServerError("You need to override AbstractCatalog.getMetadata()");
     }
     
     /**
@@ -631,9 +490,4 @@ public class oaiCatalog
         }
         return resumptionMap;
     }
-    
-    /**
-     * close the repository
-     */
-//    public abstract void close();
 }

@@ -17,6 +17,7 @@ import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import de.mpg.escidoc.services.fledgeddata.oai.OAIUtil;
 import de.mpg.escidoc.services.fledgeddata.oai.oaiCatalog;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.BadArgumentException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.CannotDisseminateFormatException;
@@ -62,13 +63,11 @@ public class GetRecord extends ServerVerb
         
         //Variables
         StringBuffer sb = new StringBuffer();
+        boolean harvestable = OAIUtil.isHarvestable(properties);
         
         //Parameters
         String identifier = request.getParameter("identifier");
         String metadataPrefix = request.getParameter("metadataPrefix");
-
-        System.out.println("GetRecord.constructGetRecord: identifier=" + identifier);
-        System.out.println("GetRecord.constructGetRecord: metadataPrefix=" + metadataPrefix);
         
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
        
@@ -82,7 +81,7 @@ public class GetRecord extends ServerVerb
         sb.append(" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/");
         sb.append(" http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\">");
         sb.append("<responseDate>" + createResponseDate(new Date()) + "</responseDate>");
-
+        
         try 
         {
 		    if (metadataPrefix == null || metadataPrefix.length() == 0
@@ -93,43 +92,41 @@ public class GetRecord extends ServerVerb
 		    }
 		    else
 		    {
-		    	if (false) //TODO check md format
-		    	{
-		    		throw new CannotDisseminateFormatException(metadataPrefix);
-		    	} 
-		    	else 
-		    	{
+				if (! harvestable) 
+				{         
+				    sb.append("<request verb=\"GetRecord\">" + baseURL + "</request>");
+				    sb.append("<error code=\"badArgument\">Database is unavailable for harvesting</error>");
+				}
+				else 
+				{		        
 					String record = oaiCatalog.getRecord(identifier, metadataPrefix, properties);
 					if (record != null) 
 					{
 					    sb.append(getRequestElement(request, validParamNames, baseURL));
-					    sb.append("<GetRecord>");
-					    sb.append(record);
-					    sb.append("</GetRecord>");
+					    sb.append("<GetRecord>" + record + "</GetRecord>");
 					} 
 					else 
 					{
 					    throw new IdDoesNotExistException(identifier);
 					}
-		    	}
+				}
 		    }
-        } 
-	catch (BadArgumentException e) {
-	    sb.append("<request verb=\"GetRecord\">");
-	    sb.append(baseURL);
-	    sb.append("</request>");
-	    sb.append(e.getMessage());
-	} catch (CannotDisseminateFormatException e) {
-	    sb.append(getRequestElement(request, validParamNames, baseURL));
-	    sb.append(e.getMessage());
-	} catch (IdDoesNotExistException e) {
-	    sb.append(getRequestElement(request, validParamNames, baseURL));
-	    sb.append(e.getMessage());
-	} 
-        catch (OAIInternalServerError e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+        } catch (BadArgumentException e) {
+		    sb.append("<request verb=\"GetRecord\">");
+		    sb.append(baseURL);
+		    sb.append("</request>");
+		    sb.append(e.getMessage());
+		} catch (CannotDisseminateFormatException e) {
+		    sb.append(getRequestElement(request, validParamNames, baseURL));
+		    sb.append(e.getMessage());
+		} catch (IdDoesNotExistException e) {
+		    sb.append(getRequestElement(request, validParamNames, baseURL));
+		    sb.append(e.getMessage());
+		} catch (OAIInternalServerError e) {
+		    sb.append(getRequestElement(request, validParamNames, baseURL));
+		    sb.append(e.getMessage());
+			e.printStackTrace();
+		}
         sb.append("</OAI-PMH>");
         response.setContentType("text/xml; charset=UTF-8");
         

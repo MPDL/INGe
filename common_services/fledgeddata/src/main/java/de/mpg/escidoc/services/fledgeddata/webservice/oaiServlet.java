@@ -10,32 +10,23 @@
  */
 package de.mpg.escidoc.services.fledgeddata.webservice;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.SocketException;
-import java.util.Date;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPOutputStream;
 
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -102,7 +93,6 @@ public class oaiServlet extends HttpServlet {
         boolean serviceUnavailable = isServiceUnavailable();   
         HashMap serverVerbs = ServerVerb.getVerbs();       
         request.setCharacterEncoding("UTF-8");
-        Date then = null;
             
         if (serviceUnavailable) 
         {
@@ -145,7 +135,6 @@ public class oaiServlet extends HttpServlet {
         try 
         {
             String verb = request.getParameter("verb");
-            System.out.println("verb= " + verb);
             String result;
             Class verbClass = null;
             verbClass = (Class)serverVerbs.get(verb);
@@ -177,22 +166,29 @@ public class oaiServlet extends HttpServlet {
      * @param response the servlet's response information
      * @exception IOException an I/O error occurred
      */
-    public static Writer getWriter(HttpServletRequest request, HttpServletResponse response) throws IOException 
+    public static Writer getWriter(HttpServletRequest request, HttpServletResponse response) 
+    		throws IOException 
     {
         Writer out;
         String encodings = request.getHeader("Accept-Encoding");
-        System.out.println("encodings=" + encodings);
-        if (encodings != null && encodings.indexOf("gzip") != -1) {
+
+        if (encodings != null && encodings.indexOf("gzip") != -1) 
+        {
             response.setHeader("Content-Encoding", "gzip");
             out = new OutputStreamWriter(new GZIPOutputStream(response.getOutputStream()),
             "UTF-8");
-        } else if (encodings != null && encodings.indexOf("deflate") != -1) {
-            response.setHeader("Content-Encoding", "deflate");
-            out = new OutputStreamWriter(new DeflaterOutputStream(response.getOutputStream()),
-            "UTF-8");
-        } else {
-            out = response.getWriter();
-        }
+        } 
+        else 
+        	if (encodings != null && encodings.indexOf("deflate") != -1) 
+        	{
+	            response.setHeader("Content-Encoding", "deflate");
+	            out = new OutputStreamWriter(new DeflaterOutputStream(response.getOutputStream()),
+	            "UTF-8");
+        	} 
+        	else 
+        	{
+        		out = response.getWriter();
+        	}
         return out;
     }
     

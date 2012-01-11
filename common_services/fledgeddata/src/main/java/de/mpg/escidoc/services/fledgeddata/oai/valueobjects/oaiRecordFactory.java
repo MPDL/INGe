@@ -24,7 +24,6 @@ import de.mpg.escidoc.services.fledgeddata.oai.exceptions.CannotDisseminateForma
  */
 public abstract class oaiRecordFactory
 {
-    private imejiRecord imeji;
     //private eSciDocRecord escidoc;
 
     /**
@@ -38,33 +37,6 @@ public abstract class oaiRecordFactory
     {
     	
     }
-
-
-    /** get supported metadatFormats from source
-     * Get a list of supported schemaLocations for the specified native record.
-     * @param nativeItem native database record
-     * @return A Vector containing all the schemaLocations this record can support.
-     * @exception NoMetadatdaFormatsException This record doesn't support any of the
-     * available schemaLocations for this repository.
-     
-    public Vector getSchemaLocations(Object nativeItem)
-	throws NoMetadataFormatsException {
-	if (isDeleted(nativeItem)) {
-	    throw new NoMetadataFormatsException();
-	}
-	Vector v = new Vector();
-	Iterator iterator = getCrosswalks().iterator();
-	while (iterator.hasNext()) {
-	    Map.Entry entry = (Map.Entry)iterator.next();
-	    CrosswalkItem crosswalkItem = (CrosswalkItem)entry.getValue();
-	    Crosswalk crosswalk = crosswalkItem.getCrosswalk();
-	    if (crosswalk.isAvailableFor(nativeItem)) {
-		v.add(crosswalk.getSchemaLocation());
-	    }
-	}
-	return v;
-    }
-    */
 
     /**
      * Convert a native "item" to a "record" String. Use this version of createHeader
@@ -135,65 +107,6 @@ public abstract class oaiRecordFactory
 	    return new String[] {xmlHeader.toString(),identifier};
 	}
 
-    /**
-     * Create the &lt;record&gt; for the given record and metadataFormat selection. Use this
-     * version of create if the setSpecs can be derived from the nativeItem itself.
-     *
-     * @param nativeItem the native record
-     * @param schemaURL the schemaURL desired for the response
-     * @param metadataPrefix 
-     * @return a String containing the OAI record response.
-     * @exception IllegalArgumentException One of the header components for this record is bad.
-     * @throws CannotDisseminateFormatException 
-     * @exception This nativeItem doesn't support the specified metadataPrefix
-     */
-    public String create(Object nativeItem, String schemaURL, String metadataPrefix)
-	throws IllegalArgumentException, CannotDisseminateFormatException {
-	return create(nativeItem, schemaURL, metadataPrefix, (Iterator)null, (Iterator)null);
-    }
-
-    /**
-     * Create the &lt;record&gt; for the given record and metadataFormat selection.
-     * Use this version of create if the setSpecs are derived from a source other
-     * other than the nativeItem itself.
-     *
-     * @param nativeItem the native record
-     * @param schemaURL the schemaURL desired for the response
-     * @param metadataPrefix 
-     * @param setSpecs 
-     * @param abouts 
-     * @return a String containing the OAI record response.
-     * @exception IllegalArgumentException One of the header components for this record is bad.
-     * @throws CannotDisseminateFormatException 
-     * @exception This nativeItem doesn't support the specified metadataPrefix
-     */
-    public String create(Object nativeItem, String schemaURL, String metadataPrefix,
-			 Iterator setSpecs, Iterator abouts)
-	throws IllegalArgumentException, CannotDisseminateFormatException {
-        if (isDeleted(nativeItem)) {
-            StringBuffer sb = new StringBuffer("<record>");
-            sb.append(createHeader(nativeItem)[0]);
-            sb.append("</record>");
-            return sb.toString();
-        }
-        String result = quickCreate(nativeItem, schemaURL, metadataPrefix);
-        if (result == null) {
-            if (setSpecs == null) {
-                setSpecs = getSetSpecs(nativeItem);
-            }
-            if (abouts == null) {
-                abouts = getAbouts(nativeItem);
-            }
-            result = create(nativeItem, schemaURL, metadataPrefix,
-                            getOAIIdentifier(nativeItem),
-                            getDatestamp(nativeItem),
-                            setSpecs,
-                            abouts,
-                            isDeleted(nativeItem));
-        }
-      
-        return result;
-    }
 
     /**
      * Allows classes that implement RecordFactory to override the default create() method.

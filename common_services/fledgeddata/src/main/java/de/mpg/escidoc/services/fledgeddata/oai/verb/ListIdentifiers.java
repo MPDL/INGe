@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.TransformerException;
 
+import de.mpg.escidoc.services.fledgeddata.oai.OAIUtil;
 import de.mpg.escidoc.services.fledgeddata.oai.oaiCatalog;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.BadArgumentException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.BadResumptionTokenException;
@@ -85,7 +86,7 @@ public class ListIdentifiers extends ServerVerb
     	
     	//Variables
 		StringBuffer sb = new StringBuffer();
-		boolean harvestable = isHarvestable(properties);
+		boolean harvestable = OAIUtil.isHarvestable(properties);
 		ArrayList validParamNames = null;
 	    ArrayList requiredParamNames = null;
 	    Map listIdentifiersMap = null;
@@ -242,16 +243,7 @@ public class ListIdentifiers extends ServerVerb
     
 	    return sb.toString();
 	}
-    
-    private static boolean isHarvestable(Properties properties)
-    {
-		if (properties.getProperty("Repository.harvestable") != null 
-				&& properties.getProperty("Repository.harvestable").equalsIgnoreCase("true")) 
-		{
-			return true;
-		} 
-		return false;
-    }
+
     
     private static void checkDate (String from, String until) throws BadArgumentException
     {
