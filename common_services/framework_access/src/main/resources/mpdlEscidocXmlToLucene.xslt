@@ -337,7 +337,7 @@ Notes:
 					<xsl:call-template name="writeIndexField">
 						<xsl:with-param name="context" select="$context"/>
 						<xsl:with-param name="fieldname" select="concat($path,'.',local-name())"/>
-						<xsl:with-param name="fieldvalue" select="."/>
+						<xsl:with-param name="fieldvalue" select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='item']/@*[local-name()='href'], '/'))"/>
 						<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
 						<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
 					</xsl:call-template>
@@ -345,7 +345,7 @@ Notes:
 					<xsl:call-template name="writeIndexField">
 						<xsl:with-param name="context" select="$CONTEXTNAME"/>
 						<xsl:with-param name="fieldname">metadata</xsl:with-param>
-						<xsl:with-param name="fieldvalue" select="."/>
+						<xsl:with-param name="fieldvalue" select="string-helper:removeVersionIdentifier(string-helper:getSubstringAfterLast(/*[local-name()='item']/@*[local-name()='href'], '/'))"/>
 						<xsl:with-param name="indextype">TOKENIZED</xsl:with-param>
 						<xsl:with-param name="store" select="$STORE_FOR_SCAN"/>
 					</xsl:call-template>
