@@ -1,6 +1,7 @@
 
 package de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,12 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -22,6 +29,9 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.GrantList;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ProxyHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -135,75 +145,32 @@ public class UserGroupList extends IntelligentVO
          */
         public static UserGroupList retrieveActiveUserGroups(String userHandle) throws RuntimeException
         {
-            
-            UserGroupList ugl;
             try
             {
                 UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
 
-                /*
+                HashMap<String, String[]> filter = new HashMap<String, String[]>();
+                filter.put("operation", new String[]{"searchRetrieve"});
+                filter.put("version", new String[]{"1.1"});
+             
                 String uglXml = ugh.retrieveUserGroups(filter);
-                UserGroupList ugl= (UserGroupList)Grant.Factory.unmarshal(uglXml, UserGroupList.class);
-                */
-                
-                //workaround---------------------------------------------------------
-                HttpClient httpClient = new HttpClient();
-                GetMethod method = new GetMethod(ServiceLocator.getFrameworkUrl() + "/aa/user-groups");
-
-                method.addRequestHeader("Cookie", "escidocCookie=" + userHandle);
-
-                ProxyHelper.executeMethod(httpClient, method);
-                if (method.getStatusCode() != 200)
+                System.out.println(uglXml);
+               
+                SearchRetrieveResponseVO res = new XmlTransformingBean().transformToSearchRetrieveResponseUserGroup(uglXml);
+                UserGroupList userGroupList = new UserGroupList();
+                List<UserGroup> userGroupArray = new ArrayList<UserGroup>();
+                for (int index = 0; index < res.getNumberOfRecords(); index++)
                 {
-                    throw new RuntimeException("Error: " + method.getResponseBodyAsString());
+                	userGroupArray.add((UserGroup) res.getRecords().get(index).getData());
                 }
-                      
+                userGroupList.setUserGroupLists(userGroupArray);
                 
-                String resp = method.getResponseBodyAsString();
-                
-                DocumentBuilderFactory dbf = new net.sf.saxon.dom.DocumentBuilderFactoryImpl();
-                DocumentBuilder db = dbf.newDocumentBuilder();  
-                Document doc = db.parse(method.getResponseBodyAsStream() );
-                
-                NodeList childnodes = doc.getDocumentElement().getChildNodes();
-                
-                if (childnodes.getLength()==0)
-                {
-                    return new UserGroupList();
-                }
-                
-                List<String> ids = new ArrayList<String>();
-                for(int i = 0; i<childnodes.getLength(); i++)
-                {
-                    Node n = childnodes.item(i); 
-                    if(childnodes.item(i).getNodeType() == Node.ELEMENT_NODE)
-                    {
-                        //n.getAttributes().getNamedItemNS("xlink","href");
-                        String href = n.getAttributes().getNamedItemNS("http://www.w3.org/1999/xlink", "href").getNodeValue();
-                        String objid  = href.substring(href.lastIndexOf("/")+1, href.length());
-                        ids.add(objid);
-                        //System.out.println(objid);
-                    }
-                }
-
-                ugl = new UserGroupList();
-                List<UserGroup> uglList = new ArrayList<UserGroup>();
-                for(String id : ids)
-                {
-                    UserGroup ug = new UserGroup(id, userHandle);
-                    uglList.add(ug);
-                }
-
-                ugl.setUserGroupLists(uglList);
-                
-                //workaround end--------------------------------------------------------------
+                return userGroupList;
             }
             catch (Exception e)
             {
                throw new RuntimeException(e);
             }
-
-            return ugl;
         }
     }
 }

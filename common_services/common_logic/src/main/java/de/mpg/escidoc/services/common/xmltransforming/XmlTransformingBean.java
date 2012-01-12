@@ -2201,6 +2201,43 @@ public class XmlTransformingBean implements XmlTransforming
     	return searchRetrieveResponseVO;
     }
     
+    public SearchRetrieveResponseVO transformToSearchRetrieveResponseUserGroup (String searcRetrieveResponseXml) throws TechnicalException
+    {
+    	return transformToSearchRetrieveResponseGrant(searcRetrieveResponseXml);
+    }
+    
+    public SearchRetrieveResponseVO transformToSearchRetrieveResponseGrant(String searcRetrieveResponseXml) throws TechnicalException
+    {
+    	logger.debug("transformToSearchRetrieveResponse(String) - String searchRetrieveResponse=\n" + searcRetrieveResponseXml);
+    	if (searcRetrieveResponseXml == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToSearchRetrieveResponse: searchRetrieveResponseXml is null");
+        }
+    	SearchRetrieveResponseVO searchRetrieveResponseVO = null;
+    	
+    	 try
+         {
+             // unmarshal pidServiceResponse from String
+             IBindingFactory bfact = BindingDirectory.getFactory("binding", SearchRetrieveResponseVO.class);
+             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+             StringReader sr = new StringReader(searcRetrieveResponseXml);
+             Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+             searchRetrieveResponseVO = (SearchRetrieveResponseVO)unmarshalledObject;
+         }
+         catch (JiBXException e)
+         {
+             // throw a new UnmarshallingException, log the root cause of the JiBXException first
+             logger.error(e.getRootCause());
+             throw new UnmarshallingException(searcRetrieveResponseXml, e);
+         }
+         catch (ClassCastException e)
+         {
+             throw new TechnicalException(e);
+         }
+    	 
+    	return searchRetrieveResponseVO;
+    }
+    
     public SearchRetrieveResponseVO transformToSearchRetrieveResponseAccountUser(String searcRetrieveResponseXml) throws TechnicalException
     {
     	logger.debug("transformToSearchRetrieveResponse(String) - String searchRetrieveResponse=\n" + searcRetrieveResponseXml);

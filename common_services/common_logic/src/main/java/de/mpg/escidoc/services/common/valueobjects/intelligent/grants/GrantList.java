@@ -1,10 +1,15 @@
 
 package de.mpg.escidoc.services.common.valueobjects.intelligent.grants;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import de.escidoc.www.services.aa.UserAccountHandler;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /** 
@@ -132,15 +137,23 @@ public class GrantList  extends CurrentGrants
             {
                 UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
                 HashMap<String, String[]> filter = new HashMap<String, String[]>();
-                
+                  
                 filter.put("operation", new String[]{"searchRetrieve"});
                 filter.put("version", new String[]{"1.1"});
-                filter.put("query", new String[]{"\"objectId\"=" + objectId + " and " + "\"roleId\"=" + roleId});    
+                filter.put("query", new String[]{"\"/properties/assigned-on/id\"=" + objectId + " and " + "\"/properties/role/id\"=" + roleId});
                 
-//                String filter = "<param><filter name=\"objectId\">" + objectId + "</filter><filter name=\"roleId\">" + roleId + "</filter><filter name=\"revokerId\"></filter><filter name=\"userId\"></filter></param>";
                 String grantListXml = uah.retrieveGrants(filter);
-                GrantList currentGrants = (GrantList) IntelligentVO.unmarshal(grantListXml, GrantList.class);
-                   return currentGrants;
+                SearchRetrieveResponseVO res = new XmlTransformingBean().transformToSearchRetrieveResponseGrant(grantListXml);
+                GrantList grantList = new GrantList();
+                List<Grant> grantArray = new ArrayList<Grant>();
+                for (int index = 0; index < res.getNumberOfRecords(); index++)
+                {
+                	grantArray.add((Grant) res.getRecords().get(index).getData());
+                }
+                System.out.println(grantArray);
+                grantList.setGrants(grantArray);
+                
+                return grantList;
             }
             catch (Exception e)
             {
@@ -169,7 +182,5 @@ public class GrantList  extends CurrentGrants
                 throw new RuntimeException(e);
             }
         }
-        
-      
     }
 }
