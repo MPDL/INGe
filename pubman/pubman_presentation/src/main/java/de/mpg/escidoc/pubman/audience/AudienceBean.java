@@ -199,17 +199,27 @@ public class AudienceBean extends FacesBean
      */
     public SelectItem[] getUserGroups()
     {
-        SelectItem[] selectItems = new SelectItem[this.getUserGroupList().getUserGroupLists().size() +1];
-        // the first and empty list entry
-        SelectItem selectItem = new SelectItem("", "-");
-        selectItems[0] = selectItem;
-        
-        for(int i = 0; i < this.getUserGroupList().getUserGroupLists().size(); i++)
+    	SelectItem[] selectItems = null;
+    	
+    	if (this.getUserGroupList() != null)
         {
-            selectItem = new SelectItem(this.getUserGroupList().getUserGroupLists().get(i).getObjid(), this.getUserGroupList().getUserGroupLists().get(i).getName());
-            selectItems[i+1] = selectItem;
+    		selectItems = new SelectItem[this.getUserGroupList().getUserGroupLists().size() +1];
+            // the first and empty list entry
+            SelectItem selectItem = new SelectItem("", "-");
+            selectItems[0] = selectItem;
+            for(int i = 0; i < this.getUserGroupList().getUserGroupLists().size(); i++)
+            {
+                selectItem = new SelectItem(this.getUserGroupList().getUserGroupLists().get(i).getObjid(), this.getUserGroupList().getUserGroupLists().get(i).getName());
+                selectItems[i+1] = selectItem;
+            }
         }
-        
+        else 
+        {
+        	selectItems = new SelectItem[1];
+            // the first and empty list entry
+            SelectItem selectItem = new SelectItem("", "-");
+            selectItems[0] = selectItem;
+        }
         return selectItems;
     }
     
