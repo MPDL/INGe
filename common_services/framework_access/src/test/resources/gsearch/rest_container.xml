@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://dev-pubman.mpdl.mpg.de/xsl/Resource2Html.xsl"?>
+<container:container xmlns:relations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:container="http://www.escidoc.de/schemas/container/0.9" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="http://dev-pubman.mpdl.mpg.de" xlink:type="simple" xlink:title="testTransformContainerResultToContainerVO" xlink:href="/ir/container/escidoc:4034" last-modification-date="2011-09-28T09:23:21.734Z">
+	<container:properties xlink:type="simple" xlink:title="Properties" xlink:href="/ir/container/escidoc:4034/properties">
+		<prop:creation-date>2011-09-28T09:23:17.385Z</prop:creation-date>
+		<srel:created-by xlink:type="simple" xlink:title="System Administrator User" xlink:href="/aa/user-account/escidoc:exuser1" />
+		<prop:public-status>withdrawn</prop:public-status>
+		<prop:public-status-comment>Status changed to withdrawn for Container escidoc:4034.</prop:public-status-comment>
+		<prop:name>testTransformContainerResultToContainerVO</prop:name>
+		<srel:context xlink:type="simple" xlink:title="Test Context" xlink:href="/ir/context/escidoc:4001" />
+		<srel:content-model xlink:type="simple" xlink:title="Content Model Publication" xlink:href="/cmm/content-model/escidoc:2001" />
+		<prop:lock-status>unlocked</prop:lock-status>
+		<prop:pid>hdl:someHandle/test/escidoc:4034</prop:pid>
+
+		<prop:version xlink:type="simple" xlink:title="current version" xlink:href="/ir/container/escidoc:4034:1">
+			<version:number>1</version:number>
+			<version:date>2011-09-28T09:23:21.734Z</version:date>
+			<version:status>released</version:status>
+
+			<srel:modified-by xlink:type="simple" xlink:title="System Administrator User" xlink:href="/aa/user-account/escidoc:exuser1" />
+
+			<version:comment>ContainerHandler.release()</version:comment>
+
+			<version:pid>hdl:someHandle/test/escidoc:4034:1</version:pid>
+		</prop:version>
+
+		<prop:latest-version xlink:type="simple" xlink:title="latest version" xlink:href="/ir/container/escidoc:4034:1">
+			<version:number>1</version:number>
+			<version:date>2011-09-28T09:23:21.734Z</version:date>
+		</prop:latest-version>
+
+		<prop:latest-release xlink:type="simple" xlink:title="latest release" xlink:href="/ir/container/escidoc:4034:1">
+			<release:number>1</release:number>
+			<release:date>2011-09-28T09:23:20.740Z</release:date>
+
+			<release:pid>hdl:someHandle/test/escidoc:4034:1</release:pid>
+		</prop:latest-release>
+		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+	</container:properties>
+	<escidocMetadataRecords:md-records xlink:type="simple" xlink:title="Metadata Records of Container escidoc:4034" xlink:href="/ir/container/escidoc:4034/md-records">
+
+		<escidocMetadataRecords:md-record name="escidoc" xlink:type="simple" xlink:title="escidoc" xlink:href="/ir/container/escidoc:4034/md-records/md-record/escidoc">
+			<faces-album>
+				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">testTransformContainerResultToContainerVO</dc:title>
+				<name>FacesAlbum</name>
+				<description>Faces (album)
+From Wikipedia, the free encyclopedia
+
+Faces is a double-LP by R&amp;B artists Earth, Wind &amp; Fire,which was released in 1980.</description>
+				<eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" role="http://www.loc.gov/loc.terms/relators/EDT">
+					<person:person xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+
+						<eterms:family-name>Ban</eterms:family-name>
+						<eterms:given-name>Ki Moon</eterms:given-name>
+					</person:person>
+				</eterms:creator>
+			</faces-album>
+		</escidocMetadataRecords:md-record>
+
+	</escidocMetadataRecords:md-records>
+	<relations:relations xlink:type="simple" xlink:title="Relations of Container" xlink:href="/ir/container/escidoc:4034/relations"></relations:relations>
+
+	<container:resources xlink:type="simple" xlink:title="Resources" xlink:href="/ir/container/escidoc:4034/resources" />
+</container:container>
+

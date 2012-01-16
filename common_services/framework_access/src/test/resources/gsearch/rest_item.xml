@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://coreservice.mpdl.mpg.de/xsl/Resource2Html.xsl"?>
+<escidocItem:item xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"
+	xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5"
+	xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.7"
+	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9"
+	xmlns:version="http://escidoc.de/core/01/properties/version"
+	xmlns:release="http://escidoc.de/core/01/properties/release"
+	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10" xmlns:prop="http://escidoc.de/core/01/properties"
+	xmlns:srel="http://escidoc.de/core/01/structural-relations"
+	xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="http://coreservice.mpdl.mpg.de"
+	xlink:type="simple"
+	xlink:title="Laser Interferometry &amp;amp; Gravitational Wave Astronomy, AEI-Hannover, MPI for Gravitational Physics, Max Planck Society"
+	xlink:href="/ir/item/escidoc:149937" last-modification-date="2011-01-26T11:39:53.825Z">
+	
+	<escidocItem:properties xlink:type="simple"
+		xlink:title="Properties" xlink:href="/ir/item/escidoc:149937/properties">
+		<prop:creation-date>2009-12-16T15:11:45.013Z</prop:creation-date>
+		<srel:created-by xlink:type="simple" xlink:title="Import User"
+			xlink:href="/aa/user-account/escidoc:146934" />
+		<prop:public-status>released</prop:public-status>
+		<prop:public-status-comment></prop:public-status-comment>
+		<srel:context xlink:type="simple"
+			xlink:title="Import Context of the MPI for Gravitational Physics"
+			xlink:href="/ir/context/escidoc:147965" />
+		<srel:content-model xlink:type="simple"
+			xlink:title="ct" xlink:href="/cmm/content-model/escidoc:persistent4" />
+		<prop:lock-status>unlocked</prop:lock-status>
+		<prop:pid>hdl:someHandle/test/escidoc:149937</prop:pid>
+		<prop:version xlink:type="simple" xlink:title="This Version"
+			xlink:href="/ir/item/escidoc:149937:3">
+			<version:number>3</version:number>
+			<version:date>2011-01-26T11:39:53.825Z</version:date>
+			<version:status>released</version:status>
+			<srel:modified-by xlink:type="simple" xlink:title="Andrea Seesko"
+				xlink:href="/aa/user-account/escidoc:22127" />
+			<version:comment></version:comment>
+			<version:pid>hdl:someHandle/test/escidoc:149937:3</version:pid>
+		</prop:version>
+
+		<prop:latest-version xlink:type="simple"
+			xlink:title="Latest Version" xlink:href="/ir/item/escidoc:149937:3">
+			<version:number>3</version:number>
+			<version:date>2011-01-26T11:39:53.825Z</version:date>
+		</prop:latest-version>
+		<prop:latest-release xlink:type="simple"
+			xlink:title="Latest public version" xlink:href="/ir/item/escidoc:149937:3">
+			<release:number>3</release:number>
+			<release:date>2011-01-26T11:39:53.825Z</release:date>
+			<release:pid>hdl:someHandle/test/escidoc:149937:3</release:pid>
+		</prop:latest-release>
+		
+		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+			<local-tags>
+				<local-tag>multiple_import</local-tag>
+				<local-tag>AEI eDoc Import B 2009-12-16 15:03</local-tag>
+
+			</local-tags>
+		</prop:content-model-specific>		 
+	</escidocItem:properties>
+	  
+	<escidocMetadataRecords:md-records
+		xlink:type="simple" xlink:title="Metadata Records of Item escidoc:149937"
+		xlink:href="/ir/item/escidoc:149937/md-records">
+		<escidocMetadataRecords:md-record
+			name="escidoc" xlink:type="simple" xlink:title="escidoc"
+			xlink:href="/ir/item/escidoc:149937/md-records/md-record/escidoc">
+			<publication:publication
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+				<eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+					role="http://www.loc.gov/loc.terms/relators/AUT">
+					<person:person
+						xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+						<eterms:complete-name></eterms:complete-name>
+						<eterms:family-name>Hild</eterms:family-name>
+
+						<eterms:given-name>Stefan</eterms:given-name>
+		
+						<organization:organization
+							xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+							<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Laser Interferometry &amp;
+								Gravitational Wave Astronomy, AEI-Hannover, MPI for
+								Gravitational Physics, Max Planck Society</dc:title>
+							<eterms:address></eterms:address>
+							<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:1
+							</dc:identifier>
+						</organization:organization>
+						
+						<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"
+							xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons4336
+						</dc:identifier>
+					</person:person>
+				</eterms:creator>
+				<eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+					role="http://www.loc.gov/loc.terms/relators/AUT">
+					<person:person
+						xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+						<eterms:complete-name></eterms:complete-name>
+						<eterms:family-name>Brinkmann</eterms:family-name>
+						<eterms:given-name>Marc</eterms:given-name>
+
+						<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"
+							xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons40432
+						</dc:identifier>
+
+					</person:person>
+				</eterms:creator>
+				
+				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Photon-pressure-induced test mass
+					deformation in gravitational-wave detectors</dc:title>
+				<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"
+					xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:EDOC">334871
+				</dc:identifier>
+				<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"
+					xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISI">000251428400025
+				</dc:identifier>
+				<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"
+					xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:DOI">10.1088/0264-9381/24/22/025
+				</dc:identifier>
+				<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007-11-21
+				</dcterms:issued>
+
+				<source:source
+					xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+					type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Classical and Quantum Gravity
+					</dc:title>
+					<eterms:volume xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">24</eterms:volume>
+					<eterms:issue xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">22</eterms:issue>
+					<eterms:start-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">5681
+					</eterms:start-page>
+					<eterms:end-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">5688
+					</eterms:end-page>
+
+					<eterms:sequence-number
+						xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:sequence-number>
+					<eterms:total-number-of-pages
+						xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"
+						xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISSN">0264-9381
+					</dc:identifier>
+				</source:source>
+				<eterms:total-number-of-pages
+					xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"></eterms:total-number-of-pages>
+				<dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">A widely used
+					assumption within the gravitational-wave community has so far been
+					that a test mass acts like a rigid body for frequencies in the
+					detection band, i.e. for frequencies far below the first internal
+					resonance. In this paper, we demonstrate that localized forces,
+					applied for example by a photon pressure actuator, can result in a
+					non-negligible elastic deformation of the test masses. For a photon
+					pressure actuator setup used in the gravitational-wave detector GEO
+					600, we measured that this effect modifies the standard response
+					function by 10% at 1 kHz and about 100% at 2.5 kHz.
+				</dcterms:abstract>
+				<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:subject>
+				<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:subject>
+
+				<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+			</publication:publication>
+		</escidocMetadataRecords:md-record>
+
+	</escidocMetadataRecords:md-records>
+	
+	<escidocComponents:components xlink:type="simple"
+		xlink:title="Components of Item escidoc:149937" xlink:href="/ir/item/escidoc:149937/components">
+
+		<escidocComponents:component xlink:type="simple"
+			xlink:title="cqg7_22_025.pdf"
+			xlink:href="/ir/item/escidoc:149937/components/component/escidoc:149936">
+			<escidocComponents:properties
+				xlink:type="simple" xlink:title="Properties"
+				xlink:href="/ir/item/escidoc:149937/components/component/escidoc:149936/properties">
+
+				<prop:creation-date>2009-12-16T15:11:44.864Z</prop:creation-date>
+				<srel:created-by xlink:type="simple" xlink:title="Import User"
+					xlink:href="/aa/user-account/escidoc:146934" />
+
+
+
+				<prop:valid-status>valid</prop:valid-status>
+				<prop:visibility>public</prop:visibility>
+
+				<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+				<prop:file-name>cqg7_22_025.pdf</prop:file-name>
+				<prop:mime-type>application/pdf</prop:mime-type>
+				<prop:checksum>5bd6fdfa5e3802ed17c2849a5080e596</prop:checksum>
+				<prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+
+			</escidocComponents:properties>
+			<escidocComponents:content xlink:type="simple"
+				xlink:title="cqg7_22_025.pdf"
+				xlink:href="/ir/item/escidoc:149937/components/component/escidoc:149936/content"
+				storage="internal-managed" />
+			<escidocMetadataRecords:md-records
+				xlink:type="simple" xlink:title="Metadata Records of Component escidoc:149936"
+				xlink:href="/ir/item/escidoc:149937/components/component/escidoc:149936/md-records">
+				<escidocMetadataRecords:md-record
+					name="escidoc" xlink:type="simple" xlink:title="escidoc"
+					xlink:href="/ir/item/escidoc:149937/components/component/escidoc:149936/md-records/md-record/escidoc">
+					<file:file xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file">
+						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">cqg7_22_025.pdf</dc:title>
+						<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:description>
+						<eterms:content-category
+							xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
+						</eterms:content-category>
+						<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/"
+							xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">application/pdf
+						</dc:format>
+
+						<dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">238027
+						</dcterms:extent>
+						<dcterms:dateCopyrighted xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:dateCopyrighted>
+						<dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/">eDoc_access: PUBLIC</dc:rights>
+						<dcterms:license xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:license>
+					</file:file>
+				</escidocMetadataRecords:md-record>
+
+			</escidocMetadataRecords:md-records>
+		</escidocComponents:component>
+
+	</escidocComponents:components>
+ 	 
+	<relations:relations xlink:type="simple"
+		xlink:title="Relations of Item" xlink:href="/ir/item/escidoc:149937/relations">
+	</relations:relations>
+	<escidocItem:resources xlink:type="simple"
+		xlink:title="Resources" xlink:href="/ir/item/escidoc:149937/resources" />
+		
+</escidocItem:item>
+
