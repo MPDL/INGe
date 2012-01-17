@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zs:searchRetrieveResponse xmlns:zs="http://www.loc.gov/zing/srw/" xmlns:grants="http://www.escidoc.de/schemas/grants/0.5" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/">
+	<zs:version>1.1</zs:version>
+	<zs:numberOfRecords>1</zs:numberOfRecords>
+	<zs:records>
+		<zs:record>
+			<zs:recordSchema>http://www.escidoc.de/schemas/grants/0.5</zs:recordSchema>
+			<zs:recordPacking>xml</zs:recordPacking>
+			<zs:recordData>
+				<search-result:search-result-record xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.8">
+					<grants:grant xmlns:grants="http://www.escidoc.de/schemas/grants/0.5" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" objid="escidoc:3044" last-modification-date="0001-12-31T23:00:00.000Z">
+						<grants:properties>
+							<srel:granted-to resource="user-account" objid="escidoc:3029"/>
+							<prop:creation-date>0001-12-31T23:00:00.000Z</prop:creation-date>
+							<srel:created-by objid="escidoc:exuser1" />
+							<srel:role objid="escidoc:role-audience" />
+							<srel:assigned-on objid="escidoc:24001" />
+						</grants:properties>
+					</grants:grant>
+				</search-result:search-result-record>
+			</zs:recordData>
+			<zs:recordPosition>1</zs:recordPosition>
+		</zs:record>
+	</zs:records>
+</zs:searchRetrieveResponse>

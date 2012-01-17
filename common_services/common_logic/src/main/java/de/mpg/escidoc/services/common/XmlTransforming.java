@@ -464,6 +464,25 @@ public interface XmlTransforming
 
     public SearchRetrieveResponseVO transformToSearchRetrieveResponse(String searcRetrieveResponseXml) throws TechnicalException;
     
+    
+    /**
+     * Transform a xml string to a SearchRetriveResoponse with support of UserGroup-Objects.
+     * 
+     * @param searcRetrieveResponseXml xml string of ug search result.
+     * @return  ug search result
+     * @throws TechnicalException if transforming fails
+     */
+    public SearchRetrieveResponseVO transformToSearchRetrieveResponseUserGroup (String searchRetrieveResponseXml) throws TechnicalException;
+    
+    /**
+     * Transform a xml string to a SearchRetriveResoponse with support of Grant-Objects.
+     * 
+     * @param searcRetrieveResponseXml xml string of grant search result.
+     * @return  grant search result
+     * @throws TechnicalException if transforming fails
+     */
+    public SearchRetrieveResponseVO transformToSearchRetrieveResponseGrant(String searchRetrieveResponseXml) throws TechnicalException;
+    
     public List<UserAttributeVO> transformToUserAttributesList(String userAttributesList) throws TechnicalException;
     
     public SearchRetrieveResponseVO transformToSearchRetrieveResponseAccountUser(String searcRetrieveResponseXml) throws TechnicalException;

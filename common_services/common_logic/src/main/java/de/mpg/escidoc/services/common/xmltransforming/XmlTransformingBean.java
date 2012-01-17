@@ -2201,15 +2201,15 @@ public class XmlTransformingBean implements XmlTransforming
     	return searchRetrieveResponseVO;
     }
     
-    public SearchRetrieveResponseVO transformToSearchRetrieveResponseUserGroup (String searcRetrieveResponseXml) throws TechnicalException
+    public SearchRetrieveResponseVO transformToSearchRetrieveResponseUserGroup (String searchRetrieveResponseXml) throws TechnicalException
     {
-    	return transformToSearchRetrieveResponseGrant(searcRetrieveResponseXml);
+    	return transformToSearchRetrieveResponseGrant(searchRetrieveResponseXml);
     }
     
-    public SearchRetrieveResponseVO transformToSearchRetrieveResponseGrant(String searcRetrieveResponseXml) throws TechnicalException
+    public SearchRetrieveResponseVO transformToSearchRetrieveResponseGrant(String searchRetrieveResponseXml) throws TechnicalException
     {
-    	logger.debug("transformToSearchRetrieveResponse(String) - String searchRetrieveResponse=\n" + searcRetrieveResponseXml);
-    	if (searcRetrieveResponseXml == null)
+    	logger.debug("transformToSearchRetrieveResponse(String) - String searchRetrieveResponse=\n" + searchRetrieveResponseXml);
+    	if (searchRetrieveResponseXml == null)
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToSearchRetrieveResponse: searchRetrieveResponseXml is null");
         }
@@ -2220,7 +2220,7 @@ public class XmlTransformingBean implements XmlTransforming
              // unmarshal pidServiceResponse from String
              IBindingFactory bfact = BindingDirectory.getFactory("binding", SearchRetrieveResponseVO.class);
              IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
-             StringReader sr = new StringReader(searcRetrieveResponseXml);
+             StringReader sr = new StringReader(searchRetrieveResponseXml);
              Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
              searchRetrieveResponseVO = (SearchRetrieveResponseVO)unmarshalledObject;
          }
@@ -2228,7 +2228,7 @@ public class XmlTransformingBean implements XmlTransforming
          {
              // throw a new UnmarshallingException, log the root cause of the JiBXException first
              logger.error(e.getRootCause());
-             throw new UnmarshallingException(searcRetrieveResponseXml, e);
+             throw new UnmarshallingException(searchRetrieveResponseXml, e);
          }
          catch (ClassCastException e)
          {

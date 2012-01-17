@@ -46,7 +46,9 @@ import test.xmltransforming.component.TransformParamTest;
 import test.xmltransforming.component.TransformPubItemTest;
 import test.xmltransforming.component.TransformPubItemVersionListTest;
 import test.xmltransforming.component.TransformRelationTest;
+import test.xmltransforming.component.TransformSearchResultGrantList;
 import test.xmltransforming.component.TransformSearchResultTest;
+import test.xmltransforming.component.TransformSearchResultUserGroupList;
 import test.xmltransforming.component.TransformStatisticReportTest;
 import test.xmltransforming.component.TransformTocTest;
 
@@ -74,7 +76,9 @@ import test.xmltransforming.component.TransformTocTest;
                      TransformStatisticReportTest.class,
                      TransformTocTest.class,
                      TransformSearchResultTest.class,
-                     TransformFacesItemTest.class
+                     TransformFacesItemTest.class,
+                     TransformSearchResultGrantList.class,
+                     TransformSearchResultUserGroupList.class
                     })
 public class XmlTransformingTest extends TestBase
 {
