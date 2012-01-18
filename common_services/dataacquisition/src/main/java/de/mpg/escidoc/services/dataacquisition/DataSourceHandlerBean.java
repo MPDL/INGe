@@ -1,6 +1,8 @@
 package de.mpg.escidoc.services.dataacquisition;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Vector;
 
@@ -17,12 +19,14 @@ import de.mpg.escidoc.metadataprofile.schema.x01.importSource.MDFetchSettingsTyp
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.ThirdPartyTransformation;
 
 /**
  * This class handles the import function from external sources.
  * 
  * @author kleinfe1
+ * @author $Author$ (last modification)
  */
 public class DataSourceHandlerBean
 {
@@ -31,13 +35,31 @@ public class DataSourceHandlerBean
     private ThirdPartyTransformation thirdPartyTransformer = null;
     private static final Logger LOGGER = Logger.getLogger(DataHandlerBean.class);
     private String transformationFormat = null;
-    private final String sourceXmlPath = "resources/sources.xml";
+//    private final String sourceXmlPath = "resources/sources.xml";
+    private String sourceXmlPath = null;
 
     /**
      * Public constructor for DataSourceHandlerBean class.
      */
     public DataSourceHandlerBean()
     {
+    	try
+        {
+    		String sourcesXmlPath = PropertyReader.getProperty("sourcesXml", this.getClass());
+        	if (sourcesXmlPath == null)
+        	{
+        		sourcesXmlPath = PropertyReader.getProperty("sourcesXml");
+        	}
+	        LOGGER.info("SourcesXml-Property: " + sourceXmlPath);
+        }
+        catch (IOException e)
+        {
+	        e.printStackTrace();
+        }
+        catch (URISyntaxException e)
+        {
+	        e.printStackTrace();
+        }
     }
 
     /**
@@ -53,8 +75,9 @@ public class DataSourceHandlerBean
         
         try
         {
-            ClassLoader cl = this.getClass().getClassLoader();
-            java.io.InputStream in = cl.getResourceAsStream("resources/sources.xml");
+        	
+        	ClassLoader cl = this.getClass().getClassLoader();
+            java.io.InputStream in = cl.getResourceAsStream(this.sourceXmlPath);
             this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
             //System.out.println(this.sourceDoc);
             this.thirdPartyTransformer = new ThirdPartyTransformation();
