@@ -1,16 +1,27 @@
 package de.mpg.escidoc.services.fledgeddata;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.SortedMap;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.fledgeddata.oai.OAIUtil;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.CannotDisseminateFormatException;
@@ -140,9 +151,9 @@ public class FetchImeji
 				   CannotDisseminateFormatException
 	{
 		//Properties
-		String nativeFormat = properties.getProperty("Repository.nativeFormat.Name");
-		String oaiXslt = properties.getProperty("Repository.oai.stylesheet");
-		String fetchUrl = properties.getProperty("Repository.oai.fetchURL");
+		String nativeFormat = properties.getProperty("Repository.nativeFormat.Name", "Property 'Repository.nativeFormat.Name' is undefined.");
+		String oaiXslt = properties.getProperty("Repository.oai.stylesheet", "Property 'Repository.oai.stylesheet' is undefined.");
+		String fetchUrl = properties.getProperty("Repository.oai.fetchURL", "Property 'Repository.oai.fetchURL' is undefined.");
 		
 		//Variables
 		String resultXml = "";
@@ -215,6 +226,70 @@ public class FetchImeji
         
 		
 		return resultXml;
+	}
+	
+	public static List listSets( Properties properties) throws OAIInternalServerError
+	{
+		//Properties
+		String listSetsURL = properties.getProperty("Repository.oai.listSetsURL", "Property 'Repository.oai.listSetsURL' is undefined.");
+		String[] listSetsURLArray = listSetsURL.split("#");
+		
+		//Variables
+		Map <String, String>sets;
+		List setList = new ArrayList();
+		String resultXml = "";
+		InputStreamReader isReader;
+		BufferedReader bReader;
+        URLConnection conn = null;
+        String type ="";
+
+        try
+        {
+        	for (int i=0; i<listSetsURLArray.length; i++)
+        	{
+        		if (listSetsURLArray[i].trim().contains("collection")){type="collection";}
+        		if (listSetsURLArray[i].trim().contains("album")){type="album";}
+        		
+	    		URL url = new URL(listSetsURLArray[i].trim());
+	            conn = url.openConnection();
+	            HttpURLConnection httpConn = (HttpURLConnection) conn;
+	            int responseCode = httpConn.getResponseCode();
+	            resultXml = "";
+	            
+	            switch (responseCode)
+	            {
+	                case 200:
+	                    // Get XML
+	                    isReader = new InputStreamReader(httpConn.getInputStream(),"UTF-8");
+	                    bReader = new BufferedReader(isReader);
+	                    String line = "";
+	                    while ((line = bReader.readLine()) != null)
+	                    {
+	                    	resultXml += line + "\n";
+	                    }	  
+	                    httpConn.disconnect();  
+	                    break;
+	                default:
+	                    throw new OAIInternalServerError("An error occurred during the construction of a ListSets request: "
+	                            + responseCode + ": " + httpConn.getResponseMessage() + ".");
+	            }
+	            
+	            DocumentBuilderFactory docFact = DocumentBuilderFactory.newInstance();
+	            DocumentBuilder bd = docFact.newDocumentBuilder();
+	            InputSource is = new InputSource();
+	            is.setCharacterStream(new StringReader(resultXml.toLowerCase().trim()));
+	            Document doc = bd.parse(is);
+	            
+	            //Create sets map
+	            setList = Util.createSets(doc, setList, type);
+        	}
+        }
+        catch (Exception e)
+        {
+            throw new OAIInternalServerError(e.getMessage());
+        }
+
+		return setList;
 	}
 
 }

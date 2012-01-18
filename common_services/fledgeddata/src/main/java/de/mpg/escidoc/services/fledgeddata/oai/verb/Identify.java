@@ -52,7 +52,7 @@ public class Identify extends ServerVerb
         String styleSheet = properties.getProperty("oai.styleSheet");
         String description = properties.getProperty("oai.description","undefined");
         String responseDate = createResponseDate(new Date());
-        String repositoryName = properties.getProperty("Identify.repositoryName");
+        String repositoryName = properties.getProperty("Identify.repositoryName", "undefined");
         String adminMail = properties.getProperty("Identify.adminEmail", "undefined");
         String earliestDateStamp = properties.getProperty("Identify.earliestDatestamp", "undefined");
         String deletedRecords = properties.getProperty("Identify.deletedRecord", "undefined");

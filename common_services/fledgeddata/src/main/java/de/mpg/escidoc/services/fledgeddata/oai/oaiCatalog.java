@@ -13,6 +13,7 @@ package de.mpg.escidoc.services.fledgeddata.oai;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -283,18 +284,25 @@ public class oaiCatalog
      * <setName> values for the corresponding the Map values.
      * @exception NoSetHierarchyException No sets are defined for this repository
      * @exception OAIInternalServerError An error occurred
+     * @throws CannotDisseminateFormatException 
+     * @throws IdDoesNotExistException 
      */
-   // public abstract Map listSets() throws NoSetHierarchyException, OAIInternalServerError;
+    public static List listSets(Properties properties) throws NoSetHierarchyException, OAIInternalServerError
+    {
+		String repository = properties.getProperty("oai.repositoryName", "undefined");
+		if (repository.equalsIgnoreCase("imeji"))
+		{
+			return FetchImeji.listSets(properties);
+		}
+		if (repository.equalsIgnoreCase("escidoc"))
+		{
+			return null;
+			//TODO
+			//return fetcheSciDoc.listSets(Properties properties);
+		}
+		return null;
+    }
     
-    /**
-     * Retrieve the next cluster of supported sets.
-     * @return a Map object containing <setSpec> values as the Map keys and 
-     * <setName> values for the corresponding the Map values.
-     * @exception BadResumptionTokenException The resumptionToken is bad.
-     * @exception OAIInternalServerError An error occurred
-     */
-  //  public abstract Map listSets(String resumptionToken)
-  //  throws BadResumptionTokenException, OAIInternalServerError;
     
     /**
      * Allow the database to return some Identify &lt;description&gt; elements
