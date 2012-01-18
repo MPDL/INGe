@@ -161,11 +161,23 @@ public class FetchImeji
 		BufferedReader bReader;
         URLConnection conn = null;
         OAIUtil util = new OAIUtil();
+        
+        //Small hack to enable collection and album fetching from imeji
+        if (identifier.contains("collection"))
+        {
+        	fetchUrl=fetchUrl.replace("image", "collection");
+        }
+        if (identifier.contains("album"))
+        {
+        	fetchUrl=fetchUrl.replace("image", "album");
+        }
 
+        
         try
         {
     		URL url = new URL(util.constructFetchUrl(fetchUrl, identifier));
             conn = url.openConnection();
+            System.out.println("URL"+url.toExternalForm());
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
@@ -196,7 +208,7 @@ public class FetchImeji
         }
 
         //check if result is empty
-        if (!resultXml.contains("<imeji:image rdf:about=\""+identifier+"\">"))
+        if (!resultXml.contains("rdf:about"))
         {
         	throw new IdDoesNotExistException(identifier);
         }
