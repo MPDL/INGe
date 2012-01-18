@@ -8,6 +8,15 @@
 	<name>ugtool</name>
 	<url>http://www.mpdl.mpg.de</url>
 	
+	<description>ugtool is a tool to create, edit and delete User-Groups in escidoc</description>
+	<licenses>
+		<license>
+			<name>Common Development And Distribution License</name>
+			<url>http://www.sun.com/cddl/cddl.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
@@ -20,6 +29,32 @@
 			<url>http://rd.mpdl.mpg.de/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
+	
+	<developers>	
+		<developer>
+			<id>walter</id>
+			<name>Matthias Walter</name>
+			<email>walter@mpdl.mpg.de</email>
+			<roles>
+				<role>Software developer</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
+	</developers>
+	
+	<ciManagement>
+		<system>Continuum</system>
+		<url>http://continuum.mpdl.mpg.de/continuum</url>
+		<notifiers>
+			<notifier>
+				<type>mail</type>
+				<configuration>
+					<address>walter@mpdl.mpg.de</address>
+				</configuration>
+			</notifier>
+		</notifiers>
+	</ciManagement>
 	
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/tools/ugtool/</connection>

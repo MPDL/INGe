@@ -20,14 +20,12 @@
  *
  * CDDL HEADER END
  */
-
 /*
  * Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
- * für wissenschaftlich-technische Information mbH and Max-Planck-
- * Gesellschaft zur Förderung der Wissenschaft e.V.
+ * f&#252;r wissenschaftlich-technische Information mbH and Max-Planck-
+ * Gesellschaft zur F&#246;rderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */
-
 package de.mpg.escidoc.http;
 
 import java.io.IOException;
