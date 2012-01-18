@@ -45,10 +45,10 @@ public class DataSourceHandlerBean
     {
     	try
         {
-    		String sourcesXmlPath = PropertyReader.getProperty("sourcesXml", this.getClass());
-        	if (sourcesXmlPath == null)
+    		String sourceXmlPath = PropertyReader.getProperty("sourcesXml", this.getClass());
+        	if (sourceXmlPath == null)
         	{
-        		sourcesXmlPath = PropertyReader.getProperty("sourcesXml");
+        		sourceXmlPath = PropertyReader.getProperty("sourcesXml");
         	}
 	        LOGGER.info("SourcesXml-Property: " + sourceXmlPath);
         }
