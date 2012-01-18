@@ -21,6 +21,12 @@
 		</snapshotRepository>
 	</distributionManagement>
 	
+	<scm>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/tools/ugtool/</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/tools/ugtool/</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
+	</scm>
+	
 	<build>
    <!-- For annotations and other Java5 stuff -->
 		<plugins>
