@@ -261,7 +261,7 @@ public class UserGroup
 		// String userGroupID = "escidoc:27004";
 		// String grantID = "escidoc:27011";
 		Document userGroupXML = this.getUserGroupXML(userGroupID);
-		if (userGroupXML == null) 
+		if (userGroupXML == null)
 		{
 			return false;
 		}
@@ -309,7 +309,7 @@ public class UserGroup
 		// String userGroupID = "escidoc:27004";
 		// String selectors = "escidoc:exuser1,escidoc:3029";
 		Document userGroupXML = this.getUserGroupXML(userGroupID);
-		if (userGroupXML == null) 
+		if (userGroupXML == null)
 		{
 			return false;
 		}
@@ -325,8 +325,8 @@ public class UserGroup
 				System.out.println("Request body sent to Server: ");
 				post.setRequestEntity(new StringRequestEntity(Util.getParamXml(Util.OPTION_ADD_SELECTOR,
 				        lastModificationDate, selectors, (selectorType.equalsIgnoreCase("organizational-unit") ? "o"
-				                : selectorType), selectorType.equalsIgnoreCase("organizational-unit") ? "user-attribute"
-				                : "internal")));
+				                : selectorType),
+				        selectorType.equalsIgnoreCase("organizational-unit") ? "user-attribute" : "internal")));
 				this.client.executeMethod(post);
 				if (post.getStatusCode() != 200)
 				{
@@ -358,7 +358,7 @@ public class UserGroup
 		// String userGroupID = "escidoc:27004";
 		// String selectors = "escidoc:27014,escidoc:27013";
 		Document userGroupXML = this.getUserGroupXML(userGroupID);
-		if (userGroupXML == null) 
+		if (userGroupXML == null)
 		{
 			return false;
 		}
@@ -403,7 +403,7 @@ public class UserGroup
 		String userGroupID = Util.input("Enter UserGroupID which you want to activate:");
 		// String userGroupID = "escidoc:27004";
 		Document userGroupXML = this.getUserGroupXML(userGroupID);
-		if (userGroupXML == null) 
+		if (userGroupXML == null)
 		{
 			return false;
 		}
@@ -446,7 +446,7 @@ public class UserGroup
 		String userGroupID = Util.input("Enter UserGroupID which you want to deactivate:");
 		// String userGroupID = "escidoc:27004";
 		Document userGroupXML = this.getUserGroupXML(userGroupID);
-		if (userGroupXML == null) 
+		if (userGroupXML == null)
 		{
 			return false;
 		}
@@ -490,7 +490,8 @@ public class UserGroup
 		get.setRequestHeader("Cookie", "escidocCookie=" + this.USER_HANDLE);
 		try
 		{
-			this.client.executeMethod(get);if (get.getStatusCode() != 200)
+			this.client.executeMethod(get);
+			if (get.getStatusCode() != 200)
 			{
 				System.out.println("Server StatusCode: " + get.getStatusCode());
 				return null;

@@ -22,8 +22,8 @@
  */
 /*
  * Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
- * f&#252;r wissenschaftlich-technische Information mbH and Max-Planck-
- * Gesellschaft zur F&#246;rderung der Wissenschaft e.V.
+ * für wissenschaftlich-technische Information mbH and Max-Planck-
+ * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */
 package de.mpg.escidoc.util;
@@ -201,7 +201,8 @@ public class Util
 		return responseXML;
 	}
 
-	// converts a XML-Object into a String. The String is written to the console.
+	// converts a XML-Object into a String. The String is written to the
+	// console.
 	public static String xmlToString(final Document xmlDocument)
 	{
 		XMLOutputter outputter = new XMLOutputter();
@@ -247,7 +248,8 @@ public class Util
 		return xmlToString(doc);
 	}
 
-	// calls the getParamXml with 4 parameters (<param> XML-File is genereated depending on the option)
+	// calls the getParamXml with 4 parameters (<param> XML-File is genereated
+	// depending on the option)
 	public static String getParamXml(final String option, final String lastModificationDate, final String ids)
 	{
 		return Util.getParamXml(option, lastModificationDate, ids, "", "");

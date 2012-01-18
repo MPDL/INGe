@@ -22,8 +22,8 @@
  */
 /*
  * Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
- * f&#252;r wissenschaftlich-technische Information mbH and Max-Planck-
- * Gesellschaft zur F&#246;rderung der Wissenschaft e.V.
+ * für wissenschaftlich-technische Information mbH and Max-Planck-
+ * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */
 package de.mpg.escidoc.main;
@@ -34,11 +34,11 @@ import de.mpg.escidoc.http.Login;
 import de.mpg.escidoc.http.UserGroup;
 import de.mpg.escidoc.util.Util;
 
-
 /**
- * The main Class of the UgTool. 
+ * The main Class of the UgTool.
  * 
- * UgTool offers nearly all available operations to create, modify oder delete UserGroups.
+ * UgTool offers nearly all available operations to create, modify oder delete
+ * UserGroups.
  * 
  * @author Matthias Walter (initial creation)
  * @author $Author$ (last modification)
@@ -46,133 +46,133 @@ import de.mpg.escidoc.util.Util;
  */
 public class UgTool
 {
-    /**
-     * @param args
-     */
-    public static void main(String[] args)
-    {
-    	String frameworkUrl = null;
-    	frameworkUrl = Util.getProperty("frameworkUrl");
-        System.out.println(frameworkUrl);
-        HttpClient client = Util.getHttpClient();
-        Login login = new Login(client,frameworkUrl);
-        String userHandle = null;
-        while (userHandle == null)
-        {
-        	userHandle = login.getUserHandle();
-        	if (userHandle == null) 
-        	{
-        		System.out.println("\nLogin failed, please try again!\n");
-        	}
-        }
-        UserGroup userGroup = new UserGroup(client, frameworkUrl, userHandle);
-        optionMenu(userGroup);
-    }
-    
-    private static void optionMenu(UserGroup userGroup)
-    {
-    	String option = null;
-        boolean quit = false;
-        while (quit != true)
-        {
-            Util.printMainMenu();
-            option = Util.input("Choose your option: ");
-            if ("getUG".compareToIgnoreCase(option) == 0)
-            {
-                userGroup.getAllUserGroups();
-            }
-            else if ("createUG".compareToIgnoreCase(option) == 0)
-            {
-            	Boolean complete = userGroup.createUserGroups();
-                if (complete == false) 
-                {
-                	System.out.println("\nAction aborted, please try again:");
-                }
-            }
-            else if ("getSpecificUG".compareToIgnoreCase(option) == 0)
-            {
-            	Boolean complete = userGroup.getSpecificUserGroup();
-                if (complete == false) 
-                {
-                	System.out.println("\nAction aborted, please try again:");
-                }
-            }
-            else if ("deleteUG".compareToIgnoreCase(option) == 0)
-            {
-            	Boolean complete = userGroup.deleteUserGroup();
-                if (complete == false) 
-                {
-                	System.out.println("\nAction aborted, please try again:");
-                }
-            }
-            else if ("getGrantUG".compareToIgnoreCase(option) == 0)
-            {
-            	Boolean complete = userGroup.getGrantsOfUserGroup();
-                if (complete == false) 
-                {
-                	System.out.println("\nAction aborted, please try again:");
-                }
-            }
-            else if ("setGrantUG".compareToIgnoreCase(option) == 0)
-            {
-                Boolean complete = userGroup.setGrantsOfUserGroup();
-                if (complete == false) 
-                {
-                	System.out.println("\nAction aborted, please try again:");
-                }
-            }
-            else if ("revokeGrantUG".compareToIgnoreCase(option) == 0)
-            {
-                Boolean complete = userGroup.revokeGrantFromUserGroup();
-                if (complete == false) 
-                {
-                	System.out.println("\nAction aborted, please try again:");
-                }
-            }
-            else if ("addSelectorUG".compareToIgnoreCase(option) == 0)
-            {
-            	Boolean complete = userGroup.addSelectorToUserGroup();
-                if (complete == false) 
-                {
-                	System.out.println("\nAction aborted, please try again:");
-                }
-            }
-            else if ("removeSelectorUG".compareToIgnoreCase(option) == 0)
-            {
-            	Boolean complete = userGroup.removeSelectorFromUserGroup();
-                if (complete == false) 
-                {
-                	System.out.println("\nAction aborted, please try again:");
-                }
-            }
-            else if ("activateUG".compareToIgnoreCase(option) == 0)
-            {
-            	Boolean complete = userGroup.activateUserGroup();
-                if (complete == false) 
-                {
-                	System.out.println("\nAction aborted, please try again:");
-                }
-            }
-            else if ("deactivateUG".compareToIgnoreCase(option) == 0)
-            {
-            	Boolean complete = userGroup.deactivateUserGroup();
-                if (complete == false) 
-                {
-                	System.out.println("\nAction aborted, please try again:");
-                }
-            }
-            else if ("?".compareToIgnoreCase(option) == 0)
-            {
-            }
-            else if ("quit".compareToIgnoreCase(option) == 0)
-            {
-                System.out.println("Tool execution stopped.");
-                quit = true;
-            }
-            else
-            {
-                System.out.println("!NO ALLOWED COMMANDS!\n");
-            }
-        }
-    }
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args)
+	{
+		String frameworkUrl = null;
+		frameworkUrl = Util.getProperty("frameworkUrl");
+		System.out.println(frameworkUrl);
+		HttpClient client = Util.getHttpClient();
+		Login login = new Login(client, frameworkUrl);
+		String userHandle = null;
+		while (userHandle == null)
+		{
+			userHandle = login.getUserHandle();
+			if (userHandle == null)
+			{
+				System.out.println("\nLogin failed, please try again!\n");
+			}
+		}
+		UserGroup userGroup = new UserGroup(client, frameworkUrl, userHandle);
+		optionMenu(userGroup);
+	}
+
+	private static void optionMenu(UserGroup userGroup)
+	{
+		String option = null;
+		boolean quit = false;
+		while (quit != true)
+		{
+			Util.printMainMenu();
+			option = Util.input("Choose your option: ");
+			if ("getUG".compareToIgnoreCase(option) == 0)
+			{
+				userGroup.getAllUserGroups();
+			}
+			else if ("createUG".compareToIgnoreCase(option) == 0)
+			{
+				Boolean complete = userGroup.createUserGroups();
+				if (complete == false)
+				{
+					System.out.println("\nAction aborted, please try again:");
+				}
+			}
+			else if ("getSpecificUG".compareToIgnoreCase(option) == 0)
+			{
+				Boolean complete = userGroup.getSpecificUserGroup();
+				if (complete == false)
+				{
+					System.out.println("\nAction aborted, please try again:");
+				}
+			}
+			else if ("deleteUG".compareToIgnoreCase(option) == 0)
+			{
+				Boolean complete = userGroup.deleteUserGroup();
+				if (complete == false)
+				{
+					System.out.println("\nAction aborted, please try again:");
+				}
+			}
+			else if ("getGrantUG".compareToIgnoreCase(option) == 0)
+			{
+				Boolean complete = userGroup.getGrantsOfUserGroup();
+				if (complete == false)
+				{
+					System.out.println("\nAction aborted, please try again:");
+				}
+			}
+			else if ("setGrantUG".compareToIgnoreCase(option) == 0)
+			{
+				Boolean complete = userGroup.setGrantsOfUserGroup();
+				if (complete == false)
+				{
+					System.out.println("\nAction aborted, please try again:");
+				}
+			}
+			else if ("revokeGrantUG".compareToIgnoreCase(option) == 0)
+			{
+				Boolean complete = userGroup.revokeGrantFromUserGroup();
+				if (complete == false)
+				{
+					System.out.println("\nAction aborted, please try again:");
+				}
+			}
+			else if ("addSelectorUG".compareToIgnoreCase(option) == 0)
+			{
+				Boolean complete = userGroup.addSelectorToUserGroup();
+				if (complete == false)
+				{
+					System.out.println("\nAction aborted, please try again:");
+				}
+			}
+			else if ("removeSelectorUG".compareToIgnoreCase(option) == 0)
+			{
+				Boolean complete = userGroup.removeSelectorFromUserGroup();
+				if (complete == false)
+				{
+					System.out.println("\nAction aborted, please try again:");
+				}
+			}
+			else if ("activateUG".compareToIgnoreCase(option) == 0)
+			{
+				Boolean complete = userGroup.activateUserGroup();
+				if (complete == false)
+				{
+					System.out.println("\nAction aborted, please try again:");
+				}
+			}
+			else if ("deactivateUG".compareToIgnoreCase(option) == 0)
+			{
+				Boolean complete = userGroup.deactivateUserGroup();
+				if (complete == false)
+				{
+					System.out.println("\nAction aborted, please try again:");
+				}
+			}
+			else if ("?".compareToIgnoreCase(option) == 0)
+			{
+			}
+			else if ("quit".compareToIgnoreCase(option) == 0)
+			{
+				System.out.println("Tool execution stopped.");
+				quit = true;
+			}
+			else
+			{
+				System.out.println("!NO ALLOWED COMMANDS!\n");
+			}
+		}
+	}
 }
