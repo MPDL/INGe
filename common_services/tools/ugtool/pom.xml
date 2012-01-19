@@ -84,7 +84,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>de.mpg.mpdl.main.UgTool</mainClass>
+							<mainClass>de.mpg.escidoc.main.UgTool</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
