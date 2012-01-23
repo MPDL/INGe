@@ -43,7 +43,6 @@ import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError
 public class ListIdentifiers extends ServerVerb 
 {
 	
-    private static final boolean debug = false;
     private static ArrayList validParamNames1 = new ArrayList();  
     private static ArrayList validParamNames2 = new ArrayList();
     private static ArrayList requiredParamNames1 = new ArrayList();

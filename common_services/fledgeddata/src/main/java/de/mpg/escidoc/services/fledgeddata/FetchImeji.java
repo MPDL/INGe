@@ -1,36 +1,27 @@
 package de.mpg.escidoc.services.fledgeddata;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-import java.util.SortedMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.services.fledgeddata.oai.OAIUtil;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.CannotDisseminateFormatException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.IdDoesNotExistException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.NoItemsMatchException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError;
-import de.mpg.escidoc.services.fledgeddata.oai.valueobjects.oaiRecordFactory;
 
 
 
@@ -42,15 +33,6 @@ import de.mpg.escidoc.services.fledgeddata.oai.valueobjects.oaiRecordFactory;
  */
 public class FetchImeji 
 {
-
-    private static SortedMap nativeMap = null;
-    private HashMap resumptionResults=new HashMap();
-    private static int maxListSize;
-    private ArrayList sets = null;
-    private boolean schemaLocationIndexed = false;
-    private static oaiRecordFactory oaiRecordFactory;
-	
-	
 	/**
 	 * 
 	 * @param metadataPrefix
@@ -70,8 +52,6 @@ public class FetchImeji
 		//TODO: set
 		
 		//Properties
-		String nativeFormat = properties.getProperty("Repository.nativeFormat.Name", "Property 'Repository.nativeFormat.Name' is undefined.");
-		String oaiXslt = properties.getProperty("Repository.oai.stylesheet", "Property 'Repository.oai.stylesheet' is undefined.");
 		String fetchUrl = properties.getProperty("Repository.oai.listRecordsURL", "Property 'Repository.oai.listRecordsURL' is undefined.");
 		
 		//Variables
@@ -85,14 +65,13 @@ public class FetchImeji
         {
     		URL url = new URL(fetchUrl);
             conn = url.openConnection();
-            System.out.println("URL"+url.toExternalForm());
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
             {
                 case 200:
-                    System.out.println("Fetch xml from export");
                 	
+                    System.out.println("Fetch xml from " + url.toExternalForm());                	
                     // Get XML
                     isReader = new InputStreamReader(httpConn.getInputStream(),"UTF-8");
                     bReader = new BufferedReader(isReader);
@@ -271,7 +250,6 @@ public class FetchImeji
 		String[] listSetsURLArray = listSetsURL.split("#");
 		
 		//Variables
-		Map <String, String>sets;
 		List setList = new ArrayList();
 		String resultXml = "";
 		InputStreamReader isReader;
@@ -413,8 +391,6 @@ public class FetchImeji
         	{
         		throw new CannotDisseminateFormatException(metadataPrefix);
         	}
-        
-		
 		return resultXml;
 	}
 
