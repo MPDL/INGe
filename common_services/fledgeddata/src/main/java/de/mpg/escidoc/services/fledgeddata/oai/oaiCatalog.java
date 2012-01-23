@@ -312,30 +312,15 @@ public class oaiCatalog
     public String getDescriptions() {
         return null;
     }
-    
-    /**
-     * Retrieve a list of schemaLocation values associated with the specified
-     * identifier.
-     *
-     * @param identifier the OAI identifier
-     * @return a Vector containing schemaLocation Strings
-     * @exception IdDoesNotExistException The specified identifier doesn't exist.
-     * @exception NoMetadataFormatsException The identifier exists, but no metadataFormats are
-     * provided for it.
-     * @exception OAIInternalServerError signals an http status code 500 problem
-     */
-   // public abstract Vector getSchemaLocations(String identifier)
-   // throws IdDoesNotExistException, NoMetadataFormatsException, OAIInternalServerError;
-    
 
-    public Map listIdentifiers(String from, String until, String set, String metadataPrefix, Properties properties)
+    public String listIdentifiers(String from, String until, String set, Properties properties)
     		throws BadArgumentException, CannotDisseminateFormatException, NoItemsMatchException,
     			   NoSetHierarchyException, OAIInternalServerError
     {
     	String repository = properties.getProperty("oai.repositoryName", "undefined");
     	if (repository.equalsIgnoreCase("imeji"))
     	{
-    		return FetchImeji.listIdentifiers(from, until, set, metadataPrefix);
+    		return FetchImeji.listIdentifiers(from, until, set, properties);
     	}
     	if (repository.equalsIgnoreCase("escidoc"))
     	{
@@ -346,21 +331,15 @@ public class oaiCatalog
     	return null;
     }
     
-    /**
-     * Retrieve the next set of Identifiers associated with the resumptionToken
-     *
-     * @param resumptionToken implementation-dependent format taken from the
-     * previous listIdentifiers() Map result.
-     * @return a Map object containing an optional "resumptionToken" key/value
-     * pair and an "headers" Map object. The "headers" Map contains OAI
-     * identifier keys with corresponding values of "true" or null depending on
-     * whether the identifier is deleted or not.
-     * @exception BadResumptionTokenException The resumptionToken is bad.
-     * @exception OAIInternalServerError signals an http status code 500 problem
-     */
-//    public abstract Map listIdentifiers(String resumptionToken)
-//    throws BadResumptionTokenException, OAIInternalServerError;
-//    
+    public static Map listIdentifiers(String resumptionToken)
+    throws BadResumptionTokenException, OAIInternalServerError 
+    {
+    	//TODO
+        Map listRecordsMap = new HashMap();
+
+        return listRecordsMap;
+    }
+
     /**
      * Retrieve the specified metadata for the specified identifier
      *
@@ -406,35 +385,24 @@ public class oaiCatalog
      * @exception NoSetHierarchyException sets aren't defined for this repository
      * @exception OAIInternalServerError signals an http status code 500 problem
      */
-//    public Map listRecords(String from, String until, String set, String metadataPrefix)
-//    throws BadArgumentException, CannotDisseminateFormatException, NoItemsMatchException,
-//    NoSetHierarchyException, OAIInternalServerError {
-//
-//            System.out.println("in AbstractCatalog.listRecords");
-//
-//        Map listIdentifiersMap = listIdentifiers(from, until, set, metadataPrefix);
-//        String resumptionToken = (String)listIdentifiersMap.get("resumptionToken");
-//        Iterator identifiers = (Iterator)listIdentifiersMap.get("identifiers");
-//        
-//        Map listRecordsMap = new HashMap();
-//        ArrayList records = new ArrayList();
-//        
-//        while (identifiers.hasNext()) {
-//            String identifier = (String)identifiers.next();
-//            try {
-//                records.add(getRecord(identifier, metadataPrefix));
-//            } catch (IdDoesNotExistException e) {
-//                throw new OAIInternalServerError("GetRecord failed to retrieve identifier '"
-//                        + identifier + "'");
-//            }
-//        }
-//        listRecordsMap.put("records", records.iterator());
-//        if (resumptionToken != null) {
-//            listRecordsMap.put("resumptionToken", resumptionToken);
-//        }
-//        return listRecordsMap;
-//    }
-//    
+    public static String listRecords(String metadataPrefix, Properties properties, String from, String until)
+    		throws NoItemsMatchException, CannotDisseminateFormatException, OAIInternalServerError
+    {
+    	String repository = properties.getProperty("oai.repositoryName", "undefined");
+    	if (repository.equalsIgnoreCase("imeji"))
+    		
+    	{
+    		return FetchImeji.listRecords(metadataPrefix, properties, from ,until);
+    	}
+    	if (repository.equalsIgnoreCase("escidoc"))
+    	{
+    		return null;
+    		//TODO
+    		//return fetcheSciDoc.listRecords(metadataPrefix, properties, from ,until);
+    	}
+    	return null;
+    }
+    
     /**
      * Retrieve the next set of records associated with the resumptionToken
      *
@@ -446,14 +414,15 @@ public class oaiCatalog
      * @exception BadResumptionTokenException The resumptionToken is bad.
      * @exception OAIInternalServerError signals an http status code 500 problem
      */
-//    public Map listRecords(String resumptionToken)
-//    throws BadResumptionTokenException, OAIInternalServerError {
+    public static Map listRecords(String resumptionToken)
+    throws BadResumptionTokenException, OAIInternalServerError 
+    {
 //        Map listIdentifiersMap = listIdentifiers(resumptionToken);
 //        resumptionToken = (String)listIdentifiersMap.get("resumptionToken");
 //        Iterator identifiers = (Iterator)listIdentifiersMap.get("identifiers");
 //        String metadataPrefix = (String)listIdentifiersMap.get("metadataPrefix");
 //        
-//        Map listRecordsMap = new HashMap();
+        Map listRecordsMap = new HashMap();
 //        ArrayList records = new ArrayList();
 //        
 //        while (identifiers.hasNext()) {
@@ -472,30 +441,30 @@ public class oaiCatalog
 //        if (resumptionToken != null) {
 //            listRecordsMap.put("resumptionToken", resumptionToken);
 //        }
-//        return listRecordsMap;
+        return listRecordsMap;
+    }
+//    
+//    public Map getResumptionMap(String resumptionToken) {
+////        return getResumptionMap(resumptionToken, -1, -1);
+////    }
+////    
+////    public Map getResumptionMap(String resumptionToken, int completeListSize, int cursor) {
+////        Map resumptionMap = null;
+////        if (resumptionToken != null) {
+////            resumptionMap = new HashMap();
+////            resumptionMap.put("resumptionToken", resumptionToken);
+////            if (millisecondsToLive > 0) {
+//////              Date now = new Date();
+////                Date then = new Date((new Date()).getTime() + millisecondsToLive);
+////                resumptionMap.put("expirationDate", ServerVerb.createResponseDate(then));
+////            }
+////            if (completeListSize >= 0) {
+////                resumptionMap.put("completeListSize", Integer.toString(completeListSize));
+////            }
+////            if (cursor >= 0) {
+////                resumptionMap.put("cursor", Integer.toString(cursor));
+////            }
+////        }
+//        return resumptionMap;
 //    }
-    
-    public Map getResumptionMap(String resumptionToken) {
-        return getResumptionMap(resumptionToken, -1, -1);
-    }
-    
-    public Map getResumptionMap(String resumptionToken, int completeListSize, int cursor) {
-        Map resumptionMap = null;
-        if (resumptionToken != null) {
-            resumptionMap = new HashMap();
-            resumptionMap.put("resumptionToken", resumptionToken);
-            if (millisecondsToLive > 0) {
-//              Date now = new Date();
-                Date then = new Date((new Date()).getTime() + millisecondsToLive);
-                resumptionMap.put("expirationDate", ServerVerb.createResponseDate(then));
-            }
-            if (completeListSize >= 0) {
-                resumptionMap.put("completeListSize", Integer.toString(completeListSize));
-            }
-            if (cursor >= 0) {
-                resumptionMap.put("cursor", Integer.toString(cursor));
-            }
-        }
-        return resumptionMap;
-    }
 }

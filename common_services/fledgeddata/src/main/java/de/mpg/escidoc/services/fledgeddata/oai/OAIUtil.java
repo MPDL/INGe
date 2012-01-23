@@ -21,6 +21,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Date;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -38,9 +39,10 @@ import javax.xml.transform.stream.StreamSource;
 
 import net.sf.saxon.TransformerFactoryImpl;
 
-import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError;
@@ -183,7 +185,7 @@ public class OAIUtil {
         }
         catch (Exception e)
         {
-            Logger.getLogger(OAIUtil.class).warn("WARNING: oai.properties not found: " + e.getMessage());
+            //Logger.getLogger(OAIUtil.class).warn("WARNING: oai.properties not found: " + e.getMessage());
 
         }
         if (propUrl != null)
@@ -194,7 +196,7 @@ public class OAIUtil {
             in.close();
         }
             
-        Logger.getLogger(OAIUtil.class).info("Properties loaded.");
+        //Logger.getLogger(OAIUtil.class).info("Properties loaded.");
         return properties;
     }
     
@@ -250,7 +252,7 @@ public class OAIUtil {
         {
             ClassLoader cl = this.getClass().getClassLoader();
             InputStream in = getInputStream(xsltUri);
-            Transformer transformer = factory.newTransformer(new StreamSource(in));   
+            Transformer transformer = factory.newTransformer(new StreamSource(in));            
             StringReader xmlSource = new StringReader(itemXML);
             transformer.transform(new StreamSource(xmlSource), new StreamResult(writer));
         }
@@ -267,6 +269,12 @@ public class OAIUtil {
         return writer.toString();
     }
     
+    /**
+     * Create a single oai record
+     * @param xml
+     * @param identifier
+     * @return
+     */
     public String craeteNativeOaiRecord (String xml, String identifier)
     {
     	StringBuffer sb = new StringBuffer();
@@ -286,6 +294,104 @@ public class OAIUtil {
     	return sb.toString();
     }
     
+    /**
+     * Create a list of oai records
+     * @param xml
+     * @return
+     * @throws IOException 
+     * @throws SAXException 
+     * @throws ParserConfigurationException 
+     */
+    public String craeteNativeOaiRecords (String xml) throws SAXException, IOException, ParserConfigurationException
+    {
+    	StringBuffer sb = new StringBuffer();
+    	String responseDate = ServerVerb.createResponseDate(new Date());
+    	
+        DocumentBuilderFactory docFact = DocumentBuilderFactory.newInstance();
+        DocumentBuilder bd = docFact.newDocumentBuilder();
+        InputSource is = new InputSource();
+        is.setCharacterStream(new StringReader(xml.toLowerCase().trim()));
+        Document doc = bd.parse(is);
+
+        NodeList rootNodes = doc.getElementsByTagName("imeji:image");
+		NodeList metadataNodes = doc.getElementsByTagName("imeji:metadataset");
+		NodeList collNodes = doc.getElementsByTagName("imeji:collection");
+		NodeList dateNodes = doc.getElementsByTagName("imeji:creationdate");
+		//TODO chatch error when node is missing
+		
+		//Create the formatted xml
+		for (int i=0; i< rootNodes.getLength(); i++)
+		{
+			sb.append("<record>");
+	    	sb.append("<header>");
+	    		sb.append("<identifier>" + rootNodes.item(i).getAttributes().item(0).getNodeValue() + "</identifier>");
+	    		sb.append("<datestamp>" + dateNodes.item(i).getTextContent() + "</datestamp>");
+	    		sb.append("<setSpec>" + collNodes.item(i).getAttributes().item(0).getNodeValue() + "</setSpec>"); 
+	    	sb.append("</header>");
+	    	sb.append("<metadata>");
+		        try
+		        {
+		           //Set up the output transformer
+		          TransformerFactory transfac = TransformerFactory.newInstance();
+		          Transformer trans = transfac.newTransformer();
+		          trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+		          trans.setOutputProperty(OutputKeys.INDENT, "yes");
+
+		          // Print the DOM node
+		          StringWriter sw = new StringWriter();
+		          StreamResult result = new StreamResult(sw);
+		          DOMSource source = new DOMSource(metadataNodes.item(i));
+		          trans.transform(source, result);
+		    	
+		    	  sb.append(sw.toString());
+		    	
+		        }
+		        catch (TransformerException e)
+		        {
+		          e.printStackTrace();
+		        }
+		    	sb.append("</metadata>");
+		    sb.append("</record>");
+		}
+    	return sb.toString();
+    }
+    
+    /**
+     * Create a list of oai headers
+     * @param xml
+     * @return
+     * @throws IOException 
+     * @throws SAXException 
+     * @throws ParserConfigurationException 
+     */
+    public String craeteOaiHeader (String xml) throws SAXException, IOException, ParserConfigurationException
+    {
+    	StringBuffer sb = new StringBuffer();
+    	String responseDate = ServerVerb.createResponseDate(new Date());
+    	
+        DocumentBuilderFactory docFact = DocumentBuilderFactory.newInstance();
+        DocumentBuilder bd = docFact.newDocumentBuilder();
+        InputSource is = new InputSource();
+        is.setCharacterStream(new StringReader(xml.toLowerCase().trim()));
+        Document doc = bd.parse(is);
+
+        NodeList rootNodes = doc.getElementsByTagName("imeji:image");
+		NodeList dateNodes = doc.getElementsByTagName("imeji:creationdate");
+		NodeList collNodes = doc.getElementsByTagName("imeji:collection");
+		//TODO chatch error when node is missing
+		
+		//Create the formatted xml
+		for (int i=0; i< rootNodes.getLength(); i++)
+		{
+		    	sb.append("<header>");
+		    		sb.append("<identifier>" + rootNodes.item(i).getAttributes().item(0).getNodeValue() + "</identifier>");
+		    		sb.append("<datestamp>" + dateNodes.item(i).getTextContent() + "</datestamp>");
+		    		sb.append("<setSpec>" + collNodes.item(i).getAttributes().item(0).getNodeValue() + "</setSpec>"); 
+		    	sb.append("</header>");
+		}
+    	return sb.toString();
+    }
+    
     private String parseCollection (String xml)
     {
     	String col = "";
@@ -300,8 +406,7 @@ public class OAIUtil {
     
     public static boolean isHarvestable(Properties properties)
     {
-		if (properties.getProperty("Repository.harvestable") != null 
-				&& properties.getProperty("Repository.harvestable").equalsIgnoreCase("true")) 
+		if (properties.getProperty("Repository.harvestable", "true").equalsIgnoreCase("true")) 
 		{
 			return true;
 		} 

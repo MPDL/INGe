@@ -29,6 +29,7 @@ import de.mpg.escidoc.services.fledgeddata.oai.exceptions.CannotDisseminateForma
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.IdDoesNotExistException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.NoItemsMatchException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.NoMetadataFormatsException;
+import de.mpg.escidoc.services.fledgeddata.oai.exceptions.NoRecordsMatchException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.NoSetHierarchyException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError;
 
@@ -99,37 +100,34 @@ public class ListIdentifiers extends ServerVerb
 		
 		//Parameters
 		String oldResumptionToken = request.getParameter("resumptionToken");
-		String metadataPrefix = request.getParameter("metadataPrefix");
 		String from = request.getParameter("from");
 		String until = request.getParameter("until");
 		String set = request.getParameter("set");
-	
-		if (metadataPrefix != null && metadataPrefix.length() == 0)
-		{
-		    metadataPrefix = null;
+		
+        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+
+		if (styleSheet != null) {
+		    sb.append("<?xml-stylesheet type=\"text/xsl\" href=\"");
+		    sb.append(styleSheet);
+		    sb.append("\"?>");
 		}
 		
-		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
-		
-		if (styleSheet != null) 
-		{
-		    sb.append("<?xml-stylesheet type=\"text/xsl\" href=\"" + styleSheet + "\"?>");
-		}
-		sb.append("<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\"");
-		sb.append(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"");
-		sb.append(" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/");
-		sb.append(" http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\">");
-		sb.append("<responseDate>" + responseDate + "</responseDate>");
+	    sb.append("<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\"");
+        sb.append(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"");
+        sb.append(" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/");
+        sb.append(" http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\">");
+        sb.append("<responseDate>" + createResponseDate(new Date()) + "</responseDate>");
 	
-		if (! harvestable) 
-		{         
-		    sb.append("<request verb=\"ListIdentifiers\">");
-		    sb.append(baseURL);
-		    sb.append("</request>");
-		    sb.append("<error code=\"badArgument\">Database is unavailable for harvesting</error>");
-		}
-		else 
-		{
+        if (!harvestable) 
+        {
+        	sb.append("<request verb=\"ListIdentifiers\">");
+        	sb.append(baseURL);
+        	sb.append("</request>");
+        	sb.append("<error code=\"badArgument\">Database is unavailable for harvesting</error>");
+        } 
+        else 
+        {
+        	//++++ Request without resumption token ++++++
 		    if (oldResumptionToken == null) 
 		    {
 				validParamNames = validParamNames1;
@@ -137,111 +135,139 @@ public class ListIdentifiers extends ServerVerb
 
 				try 
 				{
-					checkDate(from, until);
-					//TODO check what is that....
+				    if (from != null && from.length() > 0 && from.length() < 10) {
+					throw new BadArgumentException();
+				    }
+				    if (until != null && until.length() > 0 && until.length() < 10) {
+					throw new BadArgumentException();
+				    }
+				    if (from != null && until != null && from.length() != until.length()) {
+					throw new BadArgumentException();
+				    }
+				    if (from == null || from.length() == 0) {
+					from = "0001-01-01";
+				    }
+				    if (until == null || until.length() == 0) {
+					until = "9999-12-31";
+				    }
 				    //from = abstractCatalog.toFinestFrom(from);
 				    //until = abstractCatalog.toFinestUntil(until);
-					if (set != null) 
+				    if (from.compareTo(until) > 0)
+					throw new BadArgumentException();
+		                    if (set != null) {
+		                        if (set.length() == 0) set = null;
+		                        //else if (urlEncodeSetSpec) set = set.replace(' ', '+');
+		                    }
+		                    
+		            String record = oaiCatalog.listIdentifiers(from ,until, set, properties);
+		            
+					if (record != null) 
 					{
-						if (set.length() == 0) set = null;
-		            }		                    
-				    if (metadataPrefix == null) 
-				    {
-				    	throw new BadArgumentException();
-				    }
-				    
-					listIdentifiersMap = oaiCatalog.listIdentifiers(from, until, set, metadataPrefix, properties);
-			    	System.out.println("do listidentifiers action, no resumption token");
-				} 				
-				catch (BadArgumentException e) {
+					    sb.append(getRequestElement(request, validParamNames, baseURL));
+					    sb.append("<ListIdentifiers>" + record + "</ListIdentifiers>");
+					} 
+					else 
+					{
+					    throw new NoRecordsMatchException();
+					}
+		            
+				} catch (NoItemsMatchException e) {
+				    //sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
+				    sb.append(e.getMessage());
+				} catch (BadArgumentException e) {
 				    sb.append("<request verb=\"ListIdentifiers\">");
 				    sb.append(baseURL);
 				    sb.append("</request>");
 				    sb.append(e.getMessage());
+		// 		} catch (BadGranularityException e) {
+		// 		    sb.append(getRequestElement(request));
+		// 		    sb.append(e.getMessage());
 				} catch (CannotDisseminateFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NoItemsMatchException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NoSetHierarchyException e) {
+				    //sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
+				    sb.append(e.getMessage());
+				}// catch (NoSetHierarchyException e) {
+				 //   //sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
+				 //   sb.append(e.getMessage());
+				//}
+				catch (NoSetHierarchyException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (OAIInternalServerError e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				} 				
+				}
 		    } 
+		    
+		    //++++ Request with resumption token ++++++
 		    else 
 		    {
 				validParamNames = validParamNames2;
 				requiredParamNames = requiredParamNames2;
 				if (hasBadArguments(request, requiredParamNames.iterator(), validParamNames)) 
 				{
-				    sb.append(getRequestElement(request, validParamNames, baseURL));
+				    //sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
 				    sb.append(new BadArgumentException().getMessage());
 				} 
 				else 
 				{
-//				    try 
-//				    {
-				    	//TODO listIdentifiersMap = abstractCatalog.listIdentifiers(oldResumptionToken);
-				    	System.out.println("do listidentifiers action, with resumption token");
-//				    } catch (BadResumptionTokenException e) {
-//					sb.append(getRequestElement(request, validParamNames, baseURL));
-//					sb.append(e.getMessage());
-//				    }
+				    try 
+				    {
+				    	listIdentifiersMap = oaiCatalog.listIdentifiers(oldResumptionToken);
+				    } catch (Exception e) {
+					//sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
+					sb.append(e.getMessage());
+				    }
 				}
 		    }
-	
 		    if (listIdentifiersMap != null) 
 		    {
-				sb.append(getRequestElement(request, validParamNames, baseURL));
-				sb.append("<ListIdentifiers>");
-				Iterator identifiers = (Iterator)listIdentifiersMap.get("headers");
-				while (identifiers.hasNext()) 
+		    	//sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
+				if (hasBadArguments(request, requiredParamNames.iterator(), validParamNames)) 
 				{
-					sb.append((String)identifiers.next());
-				}
-				    
-				Map newResumptionMap = (Map)listIdentifiersMap.get("resumptionMap");
-				if (newResumptionMap != null) 
+				    sb.append(new BadArgumentException().getMessage());
+				} 
+				else 
 				{
-					String newResumptionToken = (String)newResumptionMap.get("resumptionToken");
-					String expirationDate = (String)newResumptionMap.get("expirationDate");
-					String completeListSize = (String)newResumptionMap.get("completeListSize");
-					String cursor = (String)newResumptionMap.get("cursor");
-					sb.append("<resumptionToken");
-					if (expirationDate != null) {
-						    sb.append(" expirationDate=\"");
-						    sb.append(expirationDate);
-						    sb.append("\"");
-					}
-					if (completeListSize != null) {
-						    sb.append(" completeListSize=\"");
-						    sb.append(completeListSize);
-						    sb.append("\"");
-					}
-					if (cursor != null) {
-						    sb.append(" cursor=\"");
-						    sb.append(cursor);
-						    sb.append("\"");
-					}
-					sb.append(">");
-					sb.append(newResumptionToken);
-					sb.append("</resumptionToken>");
+				    sb.append("<ListIdentifiers>\n");
+				    Iterator records = (Iterator)listIdentifiersMap.get("records");
+				    while (records.hasNext()) 
+				    {
+						sb.append((String)records.next());
+						sb.append("\n");
+				    }
+				    Map newResumptionMap = (Map)listIdentifiersMap.get("resumptionMap");
+				    if (newResumptionMap != null) 
+				    {
+						String newResumptionToken = (String)newResumptionMap.get("resumptionToken");
+						String expirationDate = (String)newResumptionMap.get("expirationDate");
+						String completeListSize = (String)newResumptionMap.get("completeListSize");
+						String cursor = (String)newResumptionMap.get("cursor");
+						sb.append("<resumptionToken");
+						if (expirationDate != null) 
+						{
+						    sb.append(" expirationDate=\"" + expirationDate + "\"");
+						}
+						if (completeListSize != null) 
+						{
+						    sb.append(" completeListSize=\"" + completeListSize + "\"");
+						}
+						if (cursor != null) 
+						{
+						    sb.append(" cursor=\"" + cursor + "\"");
+						}
+						sb.append(">" + newResumptionToken + "</resumptionToken>");
+				    } 
+				    else 
+				    	if (oldResumptionToken != null) 
+				    	{
+				    		sb.append("<resumptionToken />");
+					    }
+				    sb.append("</ListIdentifiers>");
 				}
-				else if (oldResumptionToken != null) 
-				{
-					sb.append("<resumptionToken />");
-				}
-				sb.append("</ListIdentifiers>");
-			} 
-		}
-		sb.append("</OAI-PMH>");
-	    response.setContentType("text/xml; charset=UTF-8");
-    
-	    return sb.toString();
+		    }
+	}
+    sb.append("</OAI-PMH>");
+    return sb.toString();
 	}
 
     
