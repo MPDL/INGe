@@ -45,7 +45,7 @@ public class DataSourceHandlerBean
     {
     	try
         {
-    		String sourceXmlPath = PropertyReader.getProperty("sourcesXml", this.getClass());
+    		sourceXmlPath = PropertyReader.getProperty("sourcesXml", this.getClass());
         	if (sourceXmlPath == null)
         	{
         		sourceXmlPath = PropertyReader.getProperty("sourcesXml");
@@ -75,7 +75,7 @@ public class DataSourceHandlerBean
         
         try
         {
-        	
+        	System.out.println();
         	ClassLoader cl = this.getClass().getClassLoader();
             java.io.InputStream in = cl.getResourceAsStream(this.sourceXmlPath);
             this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
