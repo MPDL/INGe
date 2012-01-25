@@ -176,6 +176,16 @@
 			<organization>Max Planck Digital Library</organization>
 			<timezone>+2</timezone>
 		</developer>
+		<developer>
+			<id>siedersleben</id>
+			<name>Gudrun Siedersleben</name>
+			<email>siedersleben@mpdl.mpg.de</email>
+			<roles>
+				<role>Software developer</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
 	</developers>
 
 	<mailingLists>
@@ -496,7 +506,7 @@
 		<framework.admin.displayname>System Administrator User</framework.admin.displayname>
 				
 		<framework.scientist.username>test_dep_scientist</framework.scientist.username>
-		<framework.scientist.id>escidoc:3001</framework.scientist.id>
+		<framework.scientist.id>escidoc:41002</framework.scientist.id>
 		<framework.scientist.displayname>Scientist User for Tests</framework.scientist.displayname>
 				
 		<framework.librarian.username>test_dep_lib</framework.librarian.username>
