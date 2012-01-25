@@ -652,6 +652,46 @@
 				<edoc-genre>Thesis</edoc-genre>
 				<pubman-genre>thesis</pubman-genre>
 			</genre>
+			<genre type="default">
+				<edoc-genre>Booklet</edoc-genre>
+				<pubman-genre>other</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>book-review</edoc-genre>
+				<pubman-genre>book-review</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>catalogue-article</edoc-genre>
+				<pubman-genre>article</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Catalogue-entry</edoc-genre>
+				<pubman-genre>Other</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>collection-article</edoc-genre>
+				<pubman-genre>contribution-to-collected-edition</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>newspaper-article</edoc-genre>
+				<pubman-genre>newspaper-article</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>contribution-to-encyclopedia</edoc-genre>
+				<pubman-genre>contribution-to-encyclopedia</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>festschrift-article</edoc-genre>
+				<pubman-genre>contribution-to-festschrift</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>online-article</edoc-genre>
+				<pubman-genre>article</pubman-genre>
+			</genre>
+			<genre type="default">
+				<edoc-genre>Thesis</edoc-genre>
+				<pubman-genre>thesis</pubman-genre>
+			</genre>			
 		</genres>
 	</xsl:variable>
 	
@@ -813,6 +853,17 @@
 		</organizational-units>
 	</xsl:variable>
 	
+	<xsl:variable name="mpiis-subjects">
+		<subject>ZWE EDV</subject>
+		<subject>Nanofluidics</subject>
+		<subject>Wetting and Capillarity</subject>
+		<subject>Entropic Forces</subject>
+		<subject>Critical Phenomena</subject>
+		<subject>Collective Dynamics</subject>
+		<subject>Soft Matter at Interfaces</subject>
+		<subject>Morphometry</subject>
+		<subject>Miscellaneous</subject>
+	</xsl:variable>
 	<xsl:function name="escidocFunctions:ou-name">
 		<xsl:param name="name"/>
 		
@@ -1002,7 +1053,7 @@
 				<!-- Mime-type -->
 				<xsl:variable name="mime-type">
 					<xsl:if test="$CoNE = 'true'">
-						<xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', substring($filename, string-length($filename) - 3), '&quot;'))"/>
+						<xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', escidocFunctions:suffix($filename), '&quot;'))"/>
 					</xsl:if>
 				</xsl:variable>
 
@@ -1247,6 +1298,9 @@
 								<xsl:value-of select="$mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title"/>
 							</prop:mime-type>
 						</xsl:when>
+						<xsl:when test="$CoNE = 'false'">
+							<xsl:comment>CoNE disabled, therefore no mime type</xsl:comment>
+						</xsl:when>
 						<xsl:otherwise>
 							<xsl:comment>Mime Type for <xsl:value-of select="$filename"/> not found in CONE</xsl:comment>
 							<!-- ERROR -->
@@ -1415,6 +1469,9 @@
 									<dc:format xsi:type="dcterms:IMT">
 										<xsl:value-of select="$mime-type/cone/rdf:RDF/rdf:Description/dc:relation/rdf:Description/dc:title"/>
 									</dc:format>
+								</xsl:when>
+								<xsl:when test="$CoNE = 'false'">
+									<xsl:comment>CoNE disabled, therefore no mime type</xsl:comment>
 								</xsl:when>
 								<xsl:otherwise>
 									<!-- ERROR -->
@@ -1728,7 +1785,14 @@
 			<xsl:apply-templates select="corporatebody"/>
 			<!-- TITLE -->
 			<xsl:element name="dc:title">
-				<xsl:value-of select="title"/>
+				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIINF'">
+						<xsl:value-of select="replace(title, '\{|\}', '')"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="title"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:element>
 			<!-- LANGUAGE -->
 			<xsl:apply-templates select="language"/>
@@ -1871,7 +1935,7 @@
 			</xsl:if>-->
 
 			<!-- EVENT -->
-			<xsl:if test="exists(nameofevent)">
+			<xsl:if test="exists(nameofevent) or ($import-name = 'MPIINF' and (exists(placeofevent) or exists(dateofevent) or exists(enddateofevent)))">
 				<xsl:call-template name="createEvent"/>
 			</xsl:if>
 			<!-- TOTAL NUMBER OF PAGES -->
@@ -2027,7 +2091,6 @@
 		<xsl:param name="sources-count"/>
 		
 		<xsl:comment>@type = <xsl:value-of select="@type"/>
-		$dependentGenre[type = $gen] = <xsl:value-of select="not(not($dependentGenre[type = $gen]))"/>
 		$is-source = <xsl:value-of select="$is-source"/>
 		$sources-count = <xsl:value-of select="$sources-count"/>
 		</xsl:comment>
@@ -2117,6 +2180,11 @@
 						<xsl:value-of select="."/>
 					</xsl:when>
 					<xsl:when test="@type='localid' and $import-name = 'MPINEURO'">
+						<xsl:attribute name="xsi:type" select="'eterms:OTHER'"/>
+						<xsl:text>Local-ID: </xsl:text>
+						<xsl:value-of select="."/>
+					</xsl:when>
+					<xsl:when test="@type='localid' and $import-name = 'MPIINF'">
 						<xsl:attribute name="xsi:type" select="'eterms:OTHER'"/>
 						<xsl:text>Local-ID: </xsl:text>
 						<xsl:value-of select="."/>
@@ -2709,7 +2777,7 @@
 							
 							<xsl:if test="not($source)">
 								<xsl:choose>
-									<xsl:when test="($import-name = 'MPIK' or $import-name = 'MPINEURO') and @internextern='unknown' and exists(../../../docaff/docaff_external)">
+									<xsl:when test="($import-name = 'MPIK' or $import-name = 'MPINEURO' or $import-name = 'MPIIS') and @internextern='unknown' and exists(../../../docaff/docaff_external)">
 										<xsl:comment> Case MPIK for unknown user with external affiliation </xsl:comment>
 										<xsl:element name="organization:organization">
 											<xsl:element name="dc:title">
@@ -2791,46 +2859,50 @@
 											</dc:identifier>
 										</xsl:element>
 									</xsl:when>
-									<xsl:when test=". = ../creator[1] and @internextern='unknown' and not(../creator[@internextern = 'mpg']) and ../../../docaff/affiliation and not(../../../docaff_external)">
+									<xsl:when test=". = ../creator[1] and @internextern='unknown' and not(../creator[@internextern = 'mpg']) and ../../../docaff/affiliation and not(../../../docaff/docaff_external)">
 										
 										<xsl:for-each select="../../../docaff/affiliation">
 											<xsl:variable name="mpgunit" select="normalize-space(mpgunit)"/>
 											<xsl:variable name="mpgsunit" select="normalize-space(mpgsunit)"/>
 											<xsl:comment> Case 4 </xsl:comment>
-											<xsl:element name="organization:organization">
-												<xsl:element name="dc:title">
-													<xsl:choose>
-														<xsl:when test="mpgsunit">
-															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgsunit))]/escidoc-ou"/>
-														</xsl:when>
-														<xsl:otherwise>
-															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgunit))]/escidoc-ou"/>
-														</xsl:otherwise>
-													</xsl:choose>
+											<xsl:if test="$collection-mapping/mapping[(lower-case(edoc-collection) = normalize-space(lower-case($mpgsunit))) or (lower-case(edoc-collection) = normalize-space(lower-case($mpgunit)))]/escidoc-ou != ''">
+												<xsl:element name="organization:organization">
+													<xsl:element name="dc:title">
+														<xsl:choose>
+															<xsl:when test="mpgsunit">
+																<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgsunit))]/escidoc-ou"/>
+															</xsl:when>
+															<xsl:otherwise>
+																<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgunit))]/escidoc-ou"/>
+															</xsl:otherwise>
+														</xsl:choose>
+													</xsl:element>
+													<dc:identifier>
+														<xsl:choose>
+															<xsl:when test="mpgsunit">
+																<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgsunit))]/escidoc-id"/>
+															</xsl:when>
+															<xsl:otherwise>
+																<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgunit))]/escidoc-id"/>
+															</xsl:otherwise>
+														</xsl:choose>
+													</dc:identifier>
 												</xsl:element>
-												<dc:identifier>
-													<xsl:choose>
-														<xsl:when test="mpgsunit">
-															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgsunit))]/escidoc-id"/>
-														</xsl:when>
-														<xsl:otherwise>
-															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgunit))]/escidoc-id"/>
-														</xsl:otherwise>
-													</xsl:choose>
-												</dc:identifier>
-											</xsl:element>
+											</xsl:if>
 										</xsl:for-each>
 									</xsl:when>
 									<xsl:when test=". = ../creator[1] and ../../../docaff/docaff_external and not(../creator[@internextern = 'mpg'])">
 										<xsl:comment> Case 5 </xsl:comment>
-										<organization:organization>
-											<dc:title>
-												<xsl:value-of select="escidocFunctions:ou-name(../../../docaff/docaff_external)"/>
-											</dc:title>
-											<dc:identifier>
-												<xsl:value-of select="escidocFunctions:ou-id(../../../docaff/docaff_external)"/>
-											</dc:identifier>
-										</organization:organization>
+										<xsl:if test="escidocFunctions:ou-name(../../../docaff/docaff_external) != 'External Organizations'">
+											<organization:organization>
+												<dc:title>
+													<xsl:value-of select="escidocFunctions:ou-name(../../../docaff/docaff_external)"/>
+												</dc:title>
+												<dc:identifier>
+													<xsl:value-of select="escidocFunctions:ou-id(../../../docaff/docaff_external)"/>
+												</dc:identifier>
+											</organization:organization>
+										</xsl:if>
 									</xsl:when>
 									<xsl:when test=". = ../creator[1] and not(../creator[@internextern = 'mpg'])">
 										<xsl:comment> Case 6 </xsl:comment>
@@ -3027,7 +3099,15 @@
 	<xsl:template name="createEvent">
 		<xsl:element name="event:event">
 			<xsl:element name="dc:title">
-				<xsl:value-of select="nameofevent"/>
+				<xsl:choose>
+					<xsl:when test="exists(createEvent)">
+						<xsl:value-of select="nameofevent"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:text>Untitled Event</xsl:text>
+					</xsl:otherwise>
+				</xsl:choose>
+				
 			</xsl:element>
 			<xsl:element name="eterms:start-date">
 				<xsl:value-of select="dateofevent"/>
@@ -3316,8 +3396,11 @@
 					</xsl:if>
 				</xsl:when>
 				<xsl:when test="$import-name = 'MPIIS'">
-					<xsl:if test="exists(../../docaff/affiliation/mpgssunit)">
-						<xsl:value-of select="normalize-space(../../docaff/affiliation/mpgssunit)"/>
+					<xsl:if test="exists(../../docaff/affiliation/mpgssunit[. = $mpiis-subjects/subject])">
+						<xsl:for-each select="../../docaff/affiliation/mpgssunit[. = $mpiis-subjects/subject]">
+							<xsl:value-of select="normalize-space(.)"/>
+							<xsl:text> </xsl:text>
+						</xsl:for-each>
 					</xsl:if>
 				</xsl:when>
 			</xsl:choose>
@@ -3372,6 +3455,19 @@
 				<xsl:variable name="date1" select="substring(concat($value1, '-01-01'), 1, 10)"/>
 				<xsl:variable name="date2" select="substring(concat($value2, '-ZZ-ZZ'), 1, 10)"/>
 				<xsl:value-of select="compare($date1, $date2) != 1"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:function>
+	
+	<xsl:function name="escidocFunctions:suffix">
+		<xsl:param name="filename"/>
+		<xsl:choose>
+			<xsl:when test="contains($filename, '.')">
+				<xsl:value-of select="escidocFunctions:suffix(substring-after($filename, '.'))"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>.</xsl:text>
+				<xsl:value-of select="$filename"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:function>
