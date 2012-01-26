@@ -53,22 +53,31 @@ public class SchematronUtil
         if (ou != null)
         {
             HttpClient httpClient = new HttpClient();
-            GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.framework_access.framework.url") + "/oum/organizational-unit/" + ou + "/resources/path-list");
-            httpClient.executeMethod(getMethod);
-            if (getMethod.getStatusCode() == 200)
+            GetMethod getMethod = new GetMethod(PropertyReader.getProperty("escidoc.framework_access.framework.url") + "/oum/organizational-unit/" + ou.trim() + "/resources/path-list");
+            try
             {
-                if (getMethod.getResponseBodyAsString().contains("\"/oum/organizational-unit/" + PropertyReader.getProperty("escidoc.pubman.root.organisation.id") + "\""))
+                httpClient.executeMethod(getMethod);
+                if (getMethod.getStatusCode() == 200)
                 {
-                    return true;
+                    if (getMethod.getResponseBodyAsString().contains("\"/oum/organizational-unit/" + PropertyReader.getProperty("escidoc.pubman.root.organisation.id") + "\""))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
+                    LOGGER.warn("Error while checking organizational-unit path: Return code " + getMethod.getStatusCode() + "\n" + getMethod.getResponseBodyAsString());
                     return false;
                 }
             }
-            else
+            catch (IllegalArgumentException e)
             {
-                LOGGER.warn("Error while checking organizational-unit path: Return code " + getMethod.getStatusCode() + "\n" + getMethod.getResponseBodyAsString());
+                LOGGER.warn("Error while checking organizational-unit path: " + e.getMessage());
+                LOGGER.debug("Error", e);
                 return false;
             }
         }
