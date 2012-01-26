@@ -695,6 +695,7 @@
 							'Thesis'
 						)">
 						<xsl:variable name="currentAuthorPosition" select="position()"/>
+						<xsl:comment>--Author --</xsl:comment>
 						<xsl:call-template name="createCreator">
 							<xsl:with-param name="role" select="$creator-ves/enum[.='author']/@uri"/>
 							<xsl:with-param name="pos" select="count(../A[position() &lt; $currentAuthorPosition]) + 1"/>
@@ -731,7 +732,7 @@
 					</xsl:when>
 					<xsl:when test="$refType='Thesis'">
 						<xsl:call-template name="createCreator">
-							<xsl:with-param name="role" select="$creator-ves/enum[.='scientific advisor']/@uri"/>
+							<xsl:with-param name="role" select="$creator-ves/enum[.='advisor']/@uri"/>
 						</xsl:call-template>
 					</xsl:when>
 				</xsl:choose>
