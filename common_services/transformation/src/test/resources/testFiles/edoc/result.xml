@@ -166,7 +166,7 @@
 					<prop:visibility>public</prop:visibility>
                <!--PDF file of proceedings--><!--PDF file of proceedingspublisher-version-->
 					<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
-					<prop:mime-type>application/pdf</prop:mime-type>
+					<!-- <prop:mime-type>application/pdf</prop:mime-type> -->
 				</ec:properties>
 				<ec:content xlink:href="http://edoc.mpg.de/get.epl?fid=52979&amp;did=405209&amp;ver=0" storage="internal-managed"/>
 				<mdr:md-records>
@@ -174,7 +174,7 @@
 						<file:file>
 							<dc:title>diplomarbeit_wenz.pdf</dc:title>
 							<eterms:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</eterms:content-category>
-							<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+							<!-- <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format> -->
 							<dcterms:extent>4271408</dcterms:extent>
 							<dc:rights>eDoc_access: PUBLIC</dc:rights>
 						</file:file>

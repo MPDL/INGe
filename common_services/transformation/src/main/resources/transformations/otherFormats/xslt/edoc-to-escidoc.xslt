@@ -1805,7 +1805,7 @@
 			</xsl:call-template>			
 			<!-- PUBLISHING-INFO -->
 			<xsl:choose>
-				<xsl:when test="exists(publisher) or exists(editiondescription) and not($dependentGenre[type = $gen])">
+				<xsl:when test="(exists(publisher) or exists(editiondescription)) and not($dependentGenre[type = $gen])">
 					<xsl:choose>
 						<xsl:when test="$import-name = 'MPI MoleGen' and exists(editiondescription) and not(exists(publisher)) and $gen != 'thesis'"/>
 						<xsl:otherwise>
@@ -3100,7 +3100,7 @@
 		<xsl:element name="event:event">
 			<xsl:element name="dc:title">
 				<xsl:choose>
-					<xsl:when test="exists(createEvent)">
+					<xsl:when test="exists(nameofevent)">
 						<xsl:value-of select="nameofevent"/>
 					</xsl:when>
 					<xsl:otherwise>
