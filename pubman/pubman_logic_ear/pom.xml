@@ -814,13 +814,13 @@
 								</goals>
 							</execution>
 						</executions>
-						<configuration>
-							<wait>false</wait>
+						<configuration>cd
 							<container>
 								<containerId>jboss42x</containerId>
 								<zipUrlInstaller>
 									<url>${cargo.jboss.url}</url>
-									<installDir>${cargo.install.dir}</installDir>
+									<downloadDir>${cargo.install.dir}</downloadDir>
+									<extractDir>${cargo.install.dir}</extractDir>
 								</zipUrlInstaller>
 							</container>
 							<configuration>
