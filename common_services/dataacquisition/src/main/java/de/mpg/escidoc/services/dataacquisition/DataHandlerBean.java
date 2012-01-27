@@ -290,11 +290,7 @@ public class DataHandlerBean implements DataHandler
 		String explainXML = "";
 		try
 		{
-			String sourcesXmlPath = PropertyReader.getProperty("sourcesXml", this.getClass());
-			if (sourcesXmlPath == null)
-			{
-				sourcesXmlPath = PropertyReader.getProperty("sourcesXml");
-			}
+			String sourcesXmlPath = PropertyReader.getProperty("escidoc.import.sources.xml");
 			logger.info("SourcesXml-Property: " + sourcesXmlPath);
 			ClassLoader cl = this.getClass().getClassLoader();
 			InputStream fileIn = cl.getResourceAsStream(sourcesXmlPath);

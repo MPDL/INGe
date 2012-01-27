@@ -86,33 +86,13 @@ public class PropertyReader
 	 * 
 	 * @param key
 	 *            The key of the property.
-	 * @return The value of the property.
-	 * @throws IOException
-	 * @throws URISyntaxException
-	 */
-	public static String getProperty(String key) throws IOException, URISyntaxException
-	{
-		return getProperty(key, PropertyReader.class);
-	}
-
-	/**
-	 * Gets the value of a property for the given key from the system properties
-	 * or the escidoc property file. It is always tried to get the requested
-	 * property value from the system properties. This option gives the
-	 * opportunity to set a specific property temporary using the system
-	 * properties. If the requested property could not be obtained from the
-	 * system properties the escidoc property file is accessed. (For details on
-	 * access to the properties file see class description.)
-	 * 
-	 * @param key
-	 *            The key of the property.
 	 * @param callingClass
 	 *            Class of the calling class
 	 * @return The value of the property.
 	 * @throws IOException
 	 * @throws URISyntaxException
 	 */
-	public static String getProperty(String key, Class callingClass) throws IOException, URISyntaxException
+	public static String getProperty(String key) throws IOException, URISyntaxException
 	{
 		// First check system properties
 		String value = System.getProperty(key);
@@ -146,21 +126,6 @@ public class PropertyReader
 	 * <code>pubman.properties.file</code>. If this property is not set the
 	 * default file path <code>pubman.properties</code> is used.
 	 * 
-	 * @throws IOException
-	 *             If the properties file could not be found neither in the file
-	 *             system nor in the classpath.
-	 * @throws URISyntaxException
-	 */
-	public static void loadProperties() throws IOException, URISyntaxException
-	{
-		loadProperties(PropertyReader.class);
-	}
-
-	/**
-	 * Load the properties from the location defined by the system property
-	 * <code>pubman.properties.file</code>. If this property is not set the
-	 * default file path <code>pubman.properties</code> is used.
-	 * 
 	 * @param callingClass
 	 *            Class of the calling class
 	 * @throws IOException
@@ -168,18 +133,17 @@ public class PropertyReader
 	 *             system nor in the classpath.
 	 * @throws URISyntaxException
 	 */
-	public static void loadProperties(Class callingClass) throws IOException, URISyntaxException
+	public static void loadProperties() throws IOException, URISyntaxException
 	{
 		String propertiesFile = null;
 		Properties solProperties = new Properties();
 		try
 		{
-			solution = callingClass.getClassLoader().getResource("solution.properties");
+			solution = PropertyReader.class.getClassLoader().getResource("solution.properties");
 		}
 		catch (Exception e)
 		{
 			Logger.getLogger(PropertyReader.class).warn("WARNING: solution.properties not found: " + e.getMessage());
-
 		}
 		if (solution != null)
 		{

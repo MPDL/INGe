@@ -33,7 +33,7 @@ public class DataSourceHandlerBean
     private ImportSourcesDocument sourceDoc = null;
     private ImportSourcesType sourceType = null;
     private ThirdPartyTransformation thirdPartyTransformer = null;
-    private static final Logger LOGGER = Logger.getLogger(DataHandlerBean.class);
+    private static final Logger LOGGER = Logger.getLogger(DataSourceHandlerBean.class);
     private String transformationFormat = null;
 //    private final String sourceXmlPath = "resources/sources.xml";
     private String sourceXmlPath = null;
@@ -45,11 +45,7 @@ public class DataSourceHandlerBean
     {
     	try
         {
-    		sourceXmlPath = PropertyReader.getProperty("sourcesXml", this.getClass());
-        	if (sourceXmlPath == null)
-        	{
-        		sourceXmlPath = PropertyReader.getProperty("sourcesXml");
-        	}
+    		sourceXmlPath = PropertyReader.getProperty("escidoc.import.sources.xml");
 	        LOGGER.info("SourcesXml-Property: " + sourceXmlPath);
         }
         catch (IOException e)

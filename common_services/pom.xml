@@ -646,6 +646,9 @@
 		<organization.logo>http://www.mpdl.mpg.de/mpdl/sys/css/screen/images/logo.gif</organization.logo>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		
+		<!-- import-source -->
+		<escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
+		
 		<!-- Transformation stylesheets -->
 		<escidoc.transformation.endnote.ice.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl</escidoc.transformation.endnote.ice.stylesheet.filename>
 		<escidoc.transformation.endnote.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl</escidoc.transformation.endnote.stylesheet.filename>
