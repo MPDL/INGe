@@ -549,6 +549,9 @@
 		
 		<escidoc.cone.mimetype.pattern>application/vnd.cone-(.+)</escidoc.cone.mimetype.pattern>
 		
+		<!-- import-source -->
+		<escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
+		
 		<!-- Import database -->
 		<escidoc.import.database.driver.class>org.hsqldb.jdbcDriver</escidoc.import.database.driver.class>
 		<escidoc.import.database.server.name />
