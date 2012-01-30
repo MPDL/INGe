@@ -41,7 +41,6 @@ import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import test.common.xmltransforming.XmlTransformingTestBase;
@@ -58,10 +57,8 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
-import de.mpg.escidoc.services.common.valueobjects.ResultVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO.InvitationStatus;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
@@ -161,7 +158,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     @Test
     public void transformToPubItemWithoutComponents1() throws Exception
     {
-        logger.debug("### transformToPubItem ###");
+        logger.info("### transformToPubItemWithoutComponents1 ###");
         // read item[XML] from file
         String itemPreCreate = readFile(ITEM_WITHOUT_COMPONENTS_FILE);
         logger.debug("itemPreCreate(XML) =" + itemPreCreate);
@@ -262,7 +259,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     @Test
     public void testTransformToItemWithOneComponentCreate() throws Exception
     {
-        logger.debug("### testTransformToItemWithOneComponentCreate ###");
+        logger.info("### testTransformToItemWithOneComponentCreate ###");
         // create a new item with one component using framework_access directly
         // create new PubItemVO containing some metadata content
         PubItemVO pubItemVOPreCreate = getPubItemWithoutFiles();
@@ -310,7 +307,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     @Test
     public void testTransformToItemWithTwoComponentsCreate() throws Exception
     {
-        logger.debug("### testTransformToItemWithTwoComponentsCreate ###");
+        logger.info("### testTransformToItemWithTwoComponentsCreate ###");
         // create a new item with two components using framework_access directly
         // create new PubItemVO containing some metadata content
         PubItemVO pubItemVOPreCreate = getPubItemWithoutFiles();
@@ -374,7 +371,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     @Test
     public void testTransformToItemWithOneComponentUpdate() throws Exception
     {
-        logger.debug("### testTransformToItemWithOneComponentUpdate ###");
+        logger.info("### testTransformToItemWithOneComponentUpdate ###");
         // create a new item with one component using framework_access directly
         // create new PubItemVO containing some metadata content
         PubItemVO pubItemVOPreCreate = getPubItemWithoutFiles();
@@ -452,7 +449,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     @Test
     public void testTransformToItemWithOneComponentUpdateWithChangedContentCategory() throws Exception
     {
-        logger.debug("### testTransformToItemWithOneComponentUpdateWithChangedContentCategory ###");
+        logger.info("### testTransformToItemWithOneComponentUpdateWithChangedContentCategory ###");
         // create a new item with one component using framework_access directly
         // create new PubItemVO containing some metadata content
         PubItemVO pubItemVOPreCreate = getPubItemWithoutFiles();
@@ -541,7 +538,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     @Test
     public void testTransformToItemWithTwoComponentsUpdate() throws Exception
     {
-        logger.debug("### testTransformToItemWithTwoComponentsUpdate ###");
+        logger.info("### testTransformToItemWithTwoComponentsUpdate ###");
 
         // create a new item with one component using framework_access directly
         // create new PubItemVO containing some metadata content
@@ -633,7 +630,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     @Test
     public void testTransformToItemWithoutComponentsCreate() throws Exception
     {
-        logger.debug("### testTransformToItemWithoutComponentsCreate ###");
+        logger.info("### testTransformToItemWithoutComponentsCreate ###");
         // create a complex PubItemVO from scratch
         PubItemVO pubItemVO = getComplexPubItemWithoutFiles();
         logger.debug("pubItemVO.getMetadata().getCreators().get(0).getPerson().getAlternativeNames().get(1): " + pubItemVO.getMetadata().getCreators().get(0).getPerson().getAlternativeNames().get(1));
@@ -680,7 +677,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     @Test
     public void testTransformToItemWithoutComponentsUpdate() throws Exception
     {
-        logger.debug("### testTransformToItemWithoutComponentsUpdate ###");
+        logger.info("### testTransformToItemWithoutComponentsUpdate ###");
         // create a minimal PubItemVO from scratch
         PubItemVO pubItemVOPreCreate = getPubItemWithoutFiles();
         logger.info("PubItemVO created from scratch.");
@@ -744,6 +741,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     @Test
     public void testRoundtripPubItemWithRelations() throws Exception
     {
+        logger.info("### testRoundtripPubItemWithRelations ###");
         // create a "target" item
         PubItemVO targetItemPreCreate = getPubItemWithoutFiles();
         String targetItemPreCreateXml = xmlTransforming.transformToItem(targetItemPreCreate);
@@ -799,7 +797,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     @Test
     public void testTransformToPubItemList() throws Exception
     {
-        logger.debug("### testTransformToPubItemList ###");
+        logger.info("### testTransformToPubItemList ###");
         // first item: create a minimal PubItemVO from scratch and transform it to an item(XML)
         String pubItem1 = xmlTransforming.transformToItem(getPubItemWithoutFiles());
         logger.debug("pubItem1 created from scratch and transformed to XML.");
@@ -838,7 +836,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     @Test
     public void testIllegalXMLCharacterTransforming() throws Exception
     {
-        logger.debug("### testIllegalXMLCharacterTransforming ###");
+        logger.info("### testIllegalXMLCharacterTransforming ###");
         // create a complex PubItemVO without files
         PubItemVO pubItemVOPreCreate = getComplexPubItemWithoutFiles();
         MdsPublicationVO mdsPreCreate = pubItemVOPreCreate.getMetadata();
@@ -894,7 +892,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     @Test
     public void testTransformWithdrawnItemAndCheckComment() throws Exception
     {
-        logger.debug("### testTransformWithdrawnItemAndCheckComment ###");
+        logger.info("### testTransformWithdrawnItemAndCheckComment ###");
         // create a complex PubItemVO from scratch
         PubItemVO pubItemVO = getComplexPubItemWithoutFiles();
         logger.info("Complex PubItemVO created from scratch.");
