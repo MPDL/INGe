@@ -45,6 +45,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import de.mpg.escidoc.services.fledgeddata.oai.exceptions.CannotDisseminateFormatException;
+import de.mpg.escidoc.services.fledgeddata.oai.exceptions.IdDoesNotExistException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError;
 import de.mpg.escidoc.services.fledgeddata.oai.verb.ServerVerb;
 
@@ -270,7 +272,7 @@ public class OAIUtil {
     }
     
     /**
-     * Create a single oai record
+     * Create a single oai record.
      * @param xml
      * @param identifier
      * @return
@@ -295,7 +297,7 @@ public class OAIUtil {
     }
     
     /**
-     * Create a list of oai records
+     * Create a list of oai records.
      * @param xml
      * @return
      * @throws IOException 
@@ -317,7 +319,7 @@ public class OAIUtil {
 		NodeList metadataNodes = doc.getElementsByTagName("imeji:metadataset");
 		NodeList collNodes = doc.getElementsByTagName("imeji:collection");
 		NodeList dateNodes = doc.getElementsByTagName("imeji:creationdate");
-		//TODO chatch error when node is missing
+		//TODO catch error when node is missing
 		
 		//Create the formatted xml
 		for (int i=0; i< rootNodes.getLength(); i++)
@@ -357,7 +359,59 @@ public class OAIUtil {
     }
     
     /**
-     * Create a list of oai headers
+     * Create a list of oai records.
+     * @param xml
+     * @return
+     * @throws IOException 
+     * @throws SAXException 
+     * @throws ParserConfigurationException 
+     * @throws OAIInternalServerError 
+     * @throws CannotDisseminateFormatException 
+     * @throws IdDoesNotExistException 
+     */
+    public String craeteNativeOaiRecordsFromSet (String xml, String set, Properties properties) throws SAXException, IOException, 
+				    	ParserConfigurationException, 
+				    	IdDoesNotExistException, 
+				    	CannotDisseminateFormatException, 
+				    	OAIInternalServerError
+    {
+    	StringBuffer sb = new StringBuffer();
+    	String responseDate = ServerVerb.createResponseDate(new Date());
+    	
+        DocumentBuilderFactory docFact = DocumentBuilderFactory.newInstance();
+        DocumentBuilder bd = docFact.newDocumentBuilder();
+        InputSource is = new InputSource();
+        is.setCharacterStream(new StringReader(xml.toLowerCase().trim()));
+        Document doc = bd.parse(is);
+
+        NodeList rootNodes = doc.getElementsByTagName("imeji:images");
+		NodeList metadataNodes = doc.getElementsByTagName("imeji:metadataset");
+		NodeList collNodes = doc.getElementsByTagName("imeji:collection");
+		NodeList dateNodes = doc.getElementsByTagName("imeji:creationdate");
+		//TODO catch error when node is missing
+		
+		//Create the formatted xml
+		for (int i=0; i< rootNodes.getLength(); i++)
+		{
+			String id = rootNodes.item(i).getAttributes().item(0).getNodeValue();
+			sb.append("<record>");
+		    	sb.append("<header>");
+		    		sb.append("<identifier>" + id + "</identifier>");
+		    		//sb.append("<datestamp>" + dateNodes.item(i).getTextContent() + "</datestamp>");
+		    		sb.append("<setSpec>" + set + "</setSpec>"); 
+		    	sb.append("</header>");
+		    	sb.append("<metadata>");
+		    	//TODO
+		    		String record = oaiCatalog.getRecord(id, "imeji", properties);
+		    		sb.append(record);
+			    sb.append("</metadata>");
+		    sb.append("</record>");
+		}
+    	return sb.toString();
+    }
+    
+    /**
+     * Create a list of oai headers.
      * @param xml
      * @return
      * @throws IOException 
@@ -378,7 +432,7 @@ public class OAIUtil {
         NodeList rootNodes = doc.getElementsByTagName("imeji:image");
 		NodeList dateNodes = doc.getElementsByTagName("imeji:creationdate");
 		NodeList collNodes = doc.getElementsByTagName("imeji:collection");
-		//TODO chatch error when node is missing
+		//TODO catch error when node is missing
 		
 		//Create the formatted xml
 		for (int i=0; i< rootNodes.getLength(); i++)
@@ -387,6 +441,41 @@ public class OAIUtil {
 		    		sb.append("<identifier>" + rootNodes.item(i).getAttributes().item(0).getNodeValue() + "</identifier>");
 		    		sb.append("<datestamp>" + dateNodes.item(i).getTextContent() + "</datestamp>");
 		    		sb.append("<setSpec>" + collNodes.item(i).getAttributes().item(0).getNodeValue() + "</setSpec>"); 
+		    	sb.append("</header>");
+		}
+    	return sb.toString();
+    }
+    
+    /**
+     * Create a list of oai headers when a set parameter was provided in the request.
+     * @param xml
+     * @return
+     * @throws IOException 
+     * @throws SAXException 
+     * @throws ParserConfigurationException 
+     */
+    public String craeteOaiHeaderFromSet (String xml, String set) throws SAXException, IOException, ParserConfigurationException
+    {
+    	StringBuffer sb = new StringBuffer();
+    	String responseDate = ServerVerb.createResponseDate(new Date());
+    	
+        DocumentBuilderFactory docFact = DocumentBuilderFactory.newInstance();
+        DocumentBuilder bd = docFact.newDocumentBuilder();
+        InputSource is = new InputSource();
+        is.setCharacterStream(new StringReader(xml.toLowerCase().trim()));
+        Document doc = bd.parse(is);
+
+        NodeList rootNodes = doc.getElementsByTagName("imeji:images");
+		NodeList collNodes = doc.getElementsByTagName("imeji:collection");
+		//TODO catch error when node is missing
+		
+		//Create the formatted xml
+		for (int i=0; i< rootNodes.getLength(); i++)
+		{
+		    	sb.append("<header>");
+		    		sb.append("<identifier>" + rootNodes.item(i).getAttributes().item(0).getNodeValue() + "</identifier>");
+		    		//sb.append("<datestamp>" + dateNodes.item(i).getTextContent() + "</datestamp>");
+		    		sb.append("<setSpec>" + set + "</setSpec>");
 		    	sb.append("</header>");
 		}
     	return sb.toString();

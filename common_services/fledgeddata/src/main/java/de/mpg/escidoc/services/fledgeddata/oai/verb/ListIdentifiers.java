@@ -149,18 +149,24 @@ public class ListIdentifiers extends ServerVerb
 				    if (until == null || until.length() == 0) {
 					until = "9999-12-31";
 				    }
-				    //from = abstractCatalog.toFinestFrom(from);
-				    //until = abstractCatalog.toFinestUntil(until);
+				    
+				    //TODO: check from/until parameter				    
 				    if (from.compareTo(until) > 0)
-					throw new BadArgumentException();
-		                    if (set != null) {
-		                        if (set.length() == 0) set = null;
-		                        //else if (urlEncodeSetSpec) set = set.replace(' ', '+');
-		                    }
+				    {
+				    	throw new BadArgumentException();
+				    }
+				    
+		            if (set != null)
+		            {
+		            	if (set.length()==0)
+		            	{
+		            		set=null;
+		            	}
+		            }
 		                    
 		            String record = oaiCatalog.listIdentifiers(from ,until, set, properties);
 		            
-					if (record != null) 
+					if (record != null && !record.equals("")) 
 					{
 					    sb.append(getRequestElement(request, validParamNames, baseURL));
 					    sb.append("<ListIdentifiers>" + record + "</ListIdentifiers>");
@@ -171,41 +177,34 @@ public class ListIdentifiers extends ServerVerb
 					}
 		            
 				} catch (NoItemsMatchException e) {
-				    //sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
 				    sb.append(e.getMessage());
 				} catch (BadArgumentException e) {
 				    sb.append("<request verb=\"ListIdentifiers\">");
 				    sb.append(baseURL);
 				    sb.append("</request>");
 				    sb.append(e.getMessage());
-		// 		} catch (BadGranularityException e) {
-		// 		    sb.append(getRequestElement(request));
-		// 		    sb.append(e.getMessage());
 				} catch (CannotDisseminateFormatException e) {
-				    //sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
+				    sb.append(getRequestElement(request, validParamNames, baseURL));
 				    sb.append(e.getMessage());
-				}// catch (NoSetHierarchyException e) {
-				 //   //sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
-				 //   sb.append(e.getMessage());
-				//}
-				catch (NoSetHierarchyException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				}catch (NoSetHierarchyException e) {
+					sb.append(getRequestElement(request, validParamNames, baseURL));
+					sb.append(e.getMessage());
 				} catch (OAIInternalServerError e) {
-					// TODO Auto-generated catch block
+				    sb.append(getRequestElement(request, validParamNames, baseURL));
+				    sb.append(e.getMessage());
 					e.printStackTrace();
 				}
 		    } 
 		    
 		    //++++ Request with resumption token ++++++
+		    //Implement request token
 		    else 
 		    {
 				validParamNames = validParamNames2;
 				requiredParamNames = requiredParamNames2;
 				if (hasBadArguments(request, requiredParamNames.iterator(), validParamNames)) 
 				{
-				    //sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
-				    sb.append(new BadArgumentException().getMessage());
+				    sb.append(getRequestElement(request, validParamNames, baseURL, false));
 				} 
 				else 
 				{
@@ -220,9 +219,9 @@ public class ListIdentifiers extends ServerVerb
 		    }
 		    if (listIdentifiersMap != null) 
 		    {
-		    	//sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
 				if (hasBadArguments(request, requiredParamNames.iterator(), validParamNames)) 
 				{
+			    	sb.append(getRequestElement(request, validParamNames, baseURL, false));
 				    sb.append(new BadArgumentException().getMessage());
 				} 
 				else 

@@ -385,20 +385,20 @@ public class oaiCatalog
      * @exception NoSetHierarchyException sets aren't defined for this repository
      * @exception OAIInternalServerError signals an http status code 500 problem
      */
-    public static String listRecords(String metadataPrefix, Properties properties, String from, String until)
+    public static String listRecords(String metadataPrefix, Properties properties, String from, String until, String set)
     		throws NoItemsMatchException, CannotDisseminateFormatException, OAIInternalServerError
     {
     	String repository = properties.getProperty("oai.repositoryName", "undefined");
     	if (repository.equalsIgnoreCase("imeji"))
     		
     	{
-    		return FetchImeji.listRecords(metadataPrefix, properties, from ,until);
+    		return FetchImeji.listRecords(metadataPrefix, properties, from ,until, set);
     	}
     	if (repository.equalsIgnoreCase("escidoc"))
     	{
     		return null;
     		//TODO
-    		//return fetcheSciDoc.listRecords(metadataPrefix, properties, from ,until);
+    		//return fetcheSciDoc.listRecords(metadataPrefix, properties, from ,until, set);
     	}
     	return null;
     }

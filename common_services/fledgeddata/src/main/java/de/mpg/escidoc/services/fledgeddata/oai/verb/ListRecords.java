@@ -85,6 +85,7 @@ public class ListRecords extends ServerVerb
         String baseURL = properties.getProperty("oai.baseURL", baseURL = request.getRequestURL().toString());
         String styleSheet = properties.getProperty("oai.styleSheet");
         String extraXmlns = properties.getProperty("oai.extraXmlns");
+        String nativeFormat = properties.getProperty("Repository.nativeFormat.Name", "Property 'Repository.nativeFormat.Name' is undefined.");
         
         //Variables
         StringBuffer sb = new StringBuffer();
@@ -94,11 +95,11 @@ public class ListRecords extends ServerVerb
 	    ArrayList requiredParamNames = null;
         
         //Parameters
-        String identifier = request.getParameter("identifier");
         String metadataPrefix = request.getParameter("metadataPrefix");
         String oldResumptionToken = request.getParameter("resumptionToken");
 		String from = request.getParameter("from");
 		String until = request.getParameter("until");
+		String set = request.getParameter("set");
 	
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
 
@@ -131,6 +132,14 @@ public class ListRecords extends ServerVerb
 
 				try 
 				{
+			        if (metadataPrefix == null || metadataPrefix.equals(""))
+			        {
+			        	throw new BadArgumentException();
+			        }
+			        if (!metadataPrefix.equalsIgnoreCase("oai_dc") && !metadataPrefix.equals(nativeFormat))
+			        {
+			        	throw new CannotDisseminateFormatException(metadataPrefix);
+			        }
 				    if (from != null && from.length() > 0 && from.length() < 10) {
 					throw new BadArgumentException();
 				    }
@@ -146,19 +155,23 @@ public class ListRecords extends ServerVerb
 				    if (until == null || until.length() == 0) {
 					until = "9999-12-31";
 				    }
-				    //from = abstractCatalog.toFinestFrom(from);
-				    //until = abstractCatalog.toFinestUntil(until);
+				    //TODO: check parameter from/until
 				    if (from.compareTo(until) > 0)
-					throw new BadArgumentException();
-				    String set = request.getParameter("set");
-		                    if (set != null) {
-		                        if (set.length() == 0) set = null;
-		                        //else if (urlEncodeSetSpec) set = set.replace(' ', '+');
-		                    }
+				    {
+				    	throw new BadArgumentException();
+				    }
+				    
+		            if (set != null)
+		            {
+		            	if (set.length()==0)
+		            	{
+		            		set=null;
+		            	}
+		            }
 		                    
-		            String record = oaiCatalog.listRecords(metadataPrefix, properties, from ,until);
+		            String record = oaiCatalog.listRecords(metadataPrefix, properties, from ,until, set);
 		            
-					if (record != null) 
+					if (record != null && !record.equals("")) 
 					{
 					    sb.append(getRequestElement(request, validParamNames, baseURL));
 					    sb.append("<ListRecords>" + record + "</ListRecords>");
@@ -169,7 +182,7 @@ public class ListRecords extends ServerVerb
 					}
 		            
 				} catch (NoItemsMatchException e) {
-				    //sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
+				    sb.append(getRequestElement(request, validParamNames, baseURL));
 				    sb.append(e.getMessage());
 				} catch (BadArgumentException e) {
 				    sb.append("<request verb=\"ListRecords\">");
@@ -180,7 +193,7 @@ public class ListRecords extends ServerVerb
 		// 		    sb.append(getRequestElement(request));
 		// 		    sb.append(e.getMessage());
 				} catch (CannotDisseminateFormatException e) {
-				    //sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
+				    sb.append(getRequestElement(request, validParamNames, baseURL));
 				    sb.append(e.getMessage());
 				}// catch (NoSetHierarchyException e) {
 				 //   //sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
@@ -189,14 +202,14 @@ public class ListRecords extends ServerVerb
 		    } 
 		    
 		    //++++ Request with resumption token ++++++
+		    //TODO
 		    else 
 		    {
 				validParamNames = validParamNames2;
 				requiredParamNames = requiredParamNames2;
 				if (hasBadArguments(request, requiredParamNames.iterator(), validParamNames)) 
 				{
-				    //sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
-				    sb.append(new BadArgumentException().getMessage());
+				    sb.append(getRequestElement(request, validParamNames, baseURL, false));
 				} 
 				else 
 				{
@@ -204,14 +217,13 @@ public class ListRecords extends ServerVerb
 				    {
 				    	listRecordsMap = oaiCatalog.listRecords(oldResumptionToken);
 				    } catch (BadResumptionTokenException e) {
-					//sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
-					sb.append(e.getMessage());
+					sb.append(getRequestElement(request, validParamNames, baseURL, false));
 				    }
 				}
 		    }
 		    if (listRecordsMap != null) 
 		    {
-		    	//sb.append(getRequestElement(request, validParamNames, baseURL, xmlEncodeSetSpec));
+		    	sb.append(getRequestElement(request, validParamNames, baseURL, false));
 				if (hasBadArguments(request, requiredParamNames.iterator(), validParamNames)) 
 				{
 				    sb.append(new BadArgumentException().getMessage());

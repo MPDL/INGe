@@ -49,8 +49,6 @@ public class FetchImeji
 				   CannotDisseminateFormatException, 
 				   NoItemsMatchException
 	{
-		//TODO: set
-		
 		//Properties
 		String fetchUrl = properties.getProperty("Repository.oai.listRecordsURL", "Property 'Repository.oai.listRecordsURL' is undefined.");
 		
@@ -59,7 +57,20 @@ public class FetchImeji
 		InputStreamReader isReader;
 		BufferedReader bReader;
         URLConnection conn = null;
-        OAIUtil util = new OAIUtil();        
+        OAIUtil util = new OAIUtil();    
+        
+        if (set != null)
+        {
+            //Small hack to enable collection and album fetching from imeji
+            if (set.contains("collection"))
+            {
+            	fetchUrl=fetchUrl.replace("image", "collection");
+            }
+            if (set.contains("album"))
+            {
+            	fetchUrl=fetchUrl.replace("image", "album");
+            }
+        }
         
         try
         {
@@ -101,7 +112,14 @@ public class FetchImeji
 
         try 
         {
-			resultXml = util.craeteOaiHeader(resultXml);
+        	if (set != null)
+        	{
+        		resultXml = util.craeteOaiHeaderFromSet(resultXml, set);
+        	}
+        	else
+        	{
+        		resultXml = util.craeteOaiHeader(resultXml);
+        	}
 		} 
         catch (Exception e)
         {
@@ -306,7 +324,7 @@ public class FetchImeji
 		return setList;
 	}
 	
-	public static String listRecords(String metadataPrefix, Properties properties, String from, String until) 
+	public static String listRecords(String metadataPrefix, Properties properties, String from, String until, String set) 
 			throws OAIInternalServerError,
 				   CannotDisseminateFormatException, 
 				   NoItemsMatchException
@@ -322,6 +340,20 @@ public class FetchImeji
 		BufferedReader bReader;
         URLConnection conn = null;
         OAIUtil util = new OAIUtil();        
+        
+        if (set != null)
+        {
+            //Small hack to enable collection and album fetching from imeji
+            if (set.contains("collection"))
+            {
+            	fetchUrl=fetchUrl.replace("image", "collection");
+            }
+            if (set.contains("album"))
+            {
+            	fetchUrl=fetchUrl.replace("image", "album");
+            }
+            fetchUrl += "&q=%20(ID_URI.URI=\""+set+"\"%20)";
+        }
         
         try
         {
@@ -367,7 +399,14 @@ public class FetchImeji
         	try 
         	{
         		System.out.println("Create native format record");
-				resultXml = util.craeteNativeOaiRecords(resultXml);
+        		if (set != null)
+        		{
+        			resultXml = util.craeteNativeOaiRecordsFromSet(resultXml, set, properties);
+        		}
+        		else
+        		{
+        			resultXml = util.craeteNativeOaiRecords(resultXml);
+        		}
 			} 
         	catch (Exception e)
         	{
