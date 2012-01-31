@@ -8,10 +8,21 @@
 		<display-name>OAI Servlet</display-name>
 		<servlet-class>de.mpg.escidoc.services.fledgeddata.webservice.oaiServlet</servlet-class>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>SitemapServlet</servlet-name>
+		<display-name>Sitemap Servlet</display-name>
+		<servlet-class>de.mpg.escidoc.services.fledgeddata.webservice.SitemapServlet</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>oaiServlet</servlet-name>
 		<url-pattern>/oai/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>SitemapServlet</servlet-name>
+		<url-pattern>/sitemap/*</url-pattern>
 	</servlet-mapping>
 
 	<session-config>
