@@ -58,11 +58,16 @@
         
         xmlns:prop="${xsd.soap.common.prop}"
         
+        xmlns="http://www.loc.gov/zing/srw/" 
+        xmlns:ns2="http://www.loc.gov/zing/cql/xcql/" 
+        xmlns:ns3="http://www.loc.gov/zing/srw/diagnostic/"
+        
         xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:dcterms="http://purl.org/dc/terms/"
         
         xmlns:xlink="http://www.w3.org/1999/xlink"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       
   
 	>
 	
@@ -80,10 +85,10 @@
 	</xsl:template>
 
 	
-	<xsl:template match="publication:publication">
+	<xsl:template match="//publication:publication">
 		<!-- ONLY FHI SPECIFIC!!! -->
 	    <!-- hack: negation is not implement for REST interface -->
-		<xsl:if test="not(exists(dcterms:issued) or exists(eterms:published-online))">
+
 			<xsl:element name="{name()}">
 				<xsl:copy-of select="@*" />
 					<xsl:element name="eterms:authors">
@@ -106,7 +111,7 @@
 					</xsl:element>
 				<xsl:apply-templates />
 			</xsl:element>
-		</xsl:if>
+
 	</xsl:template>
 	
 

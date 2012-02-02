@@ -43,8 +43,6 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Stack;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
@@ -72,7 +70,6 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
-import org.apache.xml.utils.res.IntArrayWrapper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -192,9 +189,7 @@ public class ReportFHI {
     public static String getItemListFromFramework()
     {
     	
-//    	Publications of the Fritz Haber Institute (escidoc:23049)
-//    	Import Context of the Fritz Haber Institute (escidoc:644575)
-//		Genre types: Book, Book Item, Article, Conference Paper
+//    	Publications of the test context
 //		Time range: previous month
     	
         String itemList = null;
@@ -202,12 +197,12 @@ public class ReportFHI {
 		try {
 			method = new GetMethod(ServiceLocator.getFrameworkUrl() + "/ir/items");
 	        method.setRequestHeader("Cookie", "escidocCookie=" + adminHandler);
-	        method.setQueryString("operation=searchRetrieve&query=" +
-	        		rprops.getProperty("FHI.query") +
-	        		"%20and%20" +
-	        		getTimeRangeQuery() +
-	        		rprops.getProperty("FHI.sort.by") 
-	        		);
+	        String query = "operation=searchRetrieve&query=" + rprops.getProperty("FHI.query") +
+                    "%20and%20" +
+                    getTimeRangeQuery() +
+                    rprops.getProperty("FHI.sort.by");
+	        logger.info("query " + query);
+	        method.setQueryString(query);
 	        HttpClient client = new HttpClient();
 			ProxyHelper.executeMethod(client, method);
 			logger.info("URI:" + method.getURI()  + "\nStatus code:" + method.getStatusCode());
@@ -219,7 +214,7 @@ public class ReportFHI {
 	        	itemList = replaceAllTotal(itemList, AMPS_ALONE, "&amp;");
 	    		
 	        	if (logger.isDebugEnabled())
-	        		writeToFile("target/search-res.xml", itemList.getBytes());
+	        		writeToFile("target/search-res.xml", itemList.getBytes("UTF-8"));
 	        	logger.debug(itemList);
 	        	
 	        }
