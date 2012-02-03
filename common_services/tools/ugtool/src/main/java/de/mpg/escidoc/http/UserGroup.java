@@ -29,6 +29,7 @@
 package de.mpg.escidoc.http;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -129,7 +130,7 @@ public class UserGroup
 	// returns info for one specific UserGroup
 	public Boolean getSpecificUserGroup()
 	{
-		String userGroupID = Util.input("Enter UserGroupID to view grants:");
+		String userGroupID = Util.input("Enter UserGroupID to show:");
 		// String userGroupID = "escidoc:27004";
 		Document userGroupXml = this.getUserGroupXML(userGroupID);
 		if (userGroupXml == null)
@@ -173,7 +174,7 @@ public class UserGroup
 	// returns all grants for the given UserGroup
 	public Boolean getGrantsOfUserGroup()
 	{
-		String userGroupID = Util.input("Enter UserGroupID to view grants:");
+		String userGroupID = Util.input("Enter UserGroupID to show its grants:");
 		Document responseXML = null;
 		if (this.USER_HANDLE != null)
 		{
@@ -212,10 +213,45 @@ public class UserGroup
 		// String grantedRoles =
 		// "escidoc:role-ou-administrator,escidoc:role-administrator";
 		// System.out.println("Set Grants to: " + grantedRoles);
-		String userGroupID = Util.input("Enter UserGroupID whose grants will be modified:");
-		String grantedRoles = Util.input("Enter the Grants which will be added to the Usergroup( " + userGroupID
-		        + ") (comma separated):");
+		String userGroupID = Util.input("Enter usergroup-ID whose grants will be modified:");
+		String grantedRoles = Util.input("Enter the roles which will be added to the Usergroup( " + userGroupID
+		        + ") (separated by \",\"):");
+		String assignDecision = Util.input("Do you want to assign the grant to a specific ressource? (Y/N)");
+		String assignObjectType;
+		String assignObjectIds;
+		List<String> assignObjectIdList = null;
+		List<String> assignObjectUrlList = null;
+		if ("y".equalsIgnoreCase(assignDecision) || "yes".equalsIgnoreCase(assignDecision))
+		{
+			assignObjectType = Util.input("Enter the type you want the grant to be assigned on: \"item\" / \"context\" / \"container\"");
+			assignObjectIds = Util.input("Enter the item-ID(s) you want the usergroups' grant to be assigned on (separated by \",\")");
+			assignObjectIdList = Util.stringToList(assignObjectIds);
+			assignObjectUrlList = new ArrayList<String>();
+			if ("item".equalsIgnoreCase(assignObjectType))
+			{
+				for (String objectId: assignObjectIdList)
+				{
+					assignObjectUrlList.add("/ir/item/" + objectId);
+				}
+			}
+			if ("context".equalsIgnoreCase(assignObjectType))
+			{
+				for (String itemId: assignObjectIdList)
+				{
+					assignObjectUrlList.add("/ir/context/" + itemId);
+				}
+			}
+			if ("item".equalsIgnoreCase(assignObjectType))
+			{
+				for (String itemId: assignObjectIdList)
+				{
+					assignObjectUrlList.add("/ir/container/" + itemId);
+				}
+			}
+		}
+		
 		List<String> grantedRolesList = Util.stringToList(grantedRoles);
+		
 		Document responseXML = null;
 
 		for (String role : grantedRolesList)
@@ -228,7 +264,14 @@ public class UserGroup
 				try
 				{
 					System.out.println("Request body sent to Server: ");
-					put.setRequestEntity(new StringRequestEntity(Util.getGrantXml(userGroupID, role)));
+					if ("y".equalsIgnoreCase(assignDecision) || "yes".equalsIgnoreCase(assignDecision))
+					{
+						put.setRequestEntity(new StringRequestEntity(Util.getGrantXml(userGroupID, role, assignObjectUrlList)));
+					}
+					else
+					{
+						put.setRequestEntity(new StringRequestEntity(Util.getGrantXml(userGroupID, role)));
+					}
 					this.client.executeMethod(put);
 					if (put.getStatusCode() != 200)
 					{
@@ -284,7 +327,7 @@ public class UserGroup
 					System.out.println("Server StatusCode: " + post.getStatusCode());
 					return false;
 				}
-				System.out.println("Grant " + userGroupID + " revoked from " + userGroupID);
+				System.out.println("Grant " + grantID + " revoked from " + userGroupID);
 			}
 			catch (IOException e)
 			{
@@ -305,7 +348,7 @@ public class UserGroup
 		String userGroupID = Util.input("Enter UserGroupID whose Selectors you want to edit:");
 		String selectorType = Util
 		        .input("Which kind of Selectors do you want to add (\"user-account\" / \"user-group\" / \"organizational-unit\"): ");
-		String selectors = Util.input("Enter the UserIDs you want to add as Selectors (comma separated): ");
+		String selectors = Util.input("Enter the UserID(s) you want to add as Selectors (separated by \",\"): ");
 		// String userGroupID = "escidoc:27004";
 		// String selectors = "escidoc:exuser1,escidoc:3029";
 		Document userGroupXML = this.getUserGroupXML(userGroupID);
@@ -354,7 +397,7 @@ public class UserGroup
 	public Boolean removeSelectorFromUserGroup()
 	{
 		String userGroupID = Util.input("Enter UserGroupID whose Selectors you want to edit:");
-		String selectors = Util.input("Enter SelectorIDs to remove from the UserGroup (comma separated): ");
+		String selectors = Util.input("Enter SelectorID(s) to remove from the UserGroup (separated by \",\"): ");
 		// String userGroupID = "escidoc:27004";
 		// String selectors = "escidoc:27014,escidoc:27013";
 		Document userGroupXML = this.getUserGroupXML(userGroupID);

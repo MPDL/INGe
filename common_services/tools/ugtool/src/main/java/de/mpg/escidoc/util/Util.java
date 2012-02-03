@@ -301,29 +301,41 @@ public class Util
 	// Generates the grantXML
 	public static String getGrantXml(final String userGroupID, final String grant)
 	{
+		return getGrantXml(userGroupID, grant, null);
+	}
+	
+	// Generates the grantXML
+	public static String getGrantXml(final String userGroupID, final String grant, final List<String> assignedItemsUrl)
+	{
 		Document doc = new Document();
-
+		
 		Element root = new Element("grant", "grants", "http://www.escidoc.de/schemas/grants/0.5");
 		doc.addContent(root);
-
+		
 		Element properties = new Element("properties", "grants", "http://www.escidoc.de/schemas/grants/0.5");
 		root.addContent(properties);
-
+		
 		Element grantedTo = new Element("granted-to", "srel", "http://escidoc.de/core/01/structural-relations/");
 		grantedTo.setAttribute("href", "/aa/user-group/" + userGroupID,
-		        Namespace.getNamespace("xlink", "http://www.w3.org/1999/xlink"));
+				Namespace.getNamespace("xlink", "http://www.w3.org/1999/xlink"));
 		properties.addContent(grantedTo);
-
+		
 		Element role = new Element("role", "srel", "http://escidoc.de/core/01/structural-relations/");
 		role.setAttribute("href", "/aa/role/" + grant, Namespace.getNamespace("xlink", "http://www.w3.org/1999/xlink"));
 		properties.addContent(role);
-
+		
+		if (assignedItemsUrl != null)
+		{
+			for (String element: assignedItemsUrl)
+			{
+				Element assignedOn = new Element("assigned-on", "srel", "http://escidoc.de/core/01/structural-relations/");
+				assignedOn.setAttribute("href", element, Namespace.getNamespace("xlink","http://www.w3.org/1999/xlink"));
+				properties.addContent(assignedOn);
+			}
+			 
+		}
 		// Implementation for the assigning grants to specific Contents
-		// Element assignedOn = new Element("assigned-on", "srel",
-		// "http://escidoc.de/core/01/structural-relations/");
-		// assignedOn.setAttribute("href", "/aa/user-group/" + userGroupIDs,
-		// Namespace.getNamespace("xlink", "http://www.w3.org/1999/xlink"));
-		// properties.addContent(assignedOn);
+		
 		return xmlToString(doc);
 	}
 
