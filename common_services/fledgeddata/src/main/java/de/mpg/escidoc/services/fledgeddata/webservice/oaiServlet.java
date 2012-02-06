@@ -30,7 +30,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.fledgeddata.FetchImeji;
 import de.mpg.escidoc.services.fledgeddata.oai.OAIUtil;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError;
 import de.mpg.escidoc.services.fledgeddata.oai.verb.ServerVerb;
@@ -46,7 +48,7 @@ public class oaiServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;      
     private static final String VERSION = "1.5.59";
-    private Log log = LogFactory.getLog(oaiServlet.class);
+    private static final Logger LOGGER = Logger.getLogger(oaiServlet.class);
     private Properties properties = new Properties();
     
     /**
@@ -57,8 +59,7 @@ public class oaiServlet extends HttpServlet {
     /**
      * init is called one time when the Servlet is loaded. This is the
      * place where one-time initialization is done. Specifically, we
-     * load the properties file for this application, and create the
-     * AbstractCatalog object for subsequent use.
+     * load the properties file for this application.
      *
      * @param config servlet configuration information
      * @exception ServletException there was a problem with initialization
@@ -67,9 +68,8 @@ public class oaiServlet extends HttpServlet {
         super.init(config);
         
         try {
+        	LOGGER.info("[FDS] Initialize oai servlet.");
             this.properties = OAIUtil.loadProperties();
-            System.out.println("Read properties");
-            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             throw new ServletException(e.getMessage());
@@ -96,8 +96,9 @@ public class oaiServlet extends HttpServlet {
             
         if (serviceUnavailable) 
         {
+        	LOGGER.info("[FDS] oai servcice set to 'unavailable' in properties file.");
             response.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE,
-            "Sorry. This server is down for maintenance");
+            "[FDS] Sorry. This server is down for maintenance");
         } 
         else 
         {

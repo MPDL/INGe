@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.TransformerException;
 
+import org.apache.log4j.Logger;
+
 /**
  * This class represents an BadVerb response on either the server or
  * on the client
@@ -28,6 +30,8 @@ import javax.xml.transform.TransformerException;
 public class BadVerb extends ServerVerb 
 {
 	private static ArrayList validParamNames = new ArrayList();
+	private static final Logger LOGGER = Logger.getLogger(BadVerb.class);
+	
     static 
     {
         validParamNames.add("verb");
@@ -46,7 +50,8 @@ public class BadVerb extends ServerVerb
     public static String construct(Properties properties, HttpServletRequest request, HttpServletResponse response)
         throws TransformerException 
     {
-
+    	LOGGER.debug("[FDS] ---- construct response for Bad Request ----");
+    	
         StringBuffer sb = new StringBuffer();
         String styleSheet = properties.getProperty("oai.styleSheet");
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");

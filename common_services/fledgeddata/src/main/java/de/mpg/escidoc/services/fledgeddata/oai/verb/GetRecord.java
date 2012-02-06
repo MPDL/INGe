@@ -17,6 +17,8 @@ import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.services.fledgeddata.oai.OAIUtil;
 import de.mpg.escidoc.services.fledgeddata.oai.oaiCatalog;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.BadArgumentException;
@@ -34,6 +36,7 @@ import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError
 public class GetRecord extends ServerVerb 
 {
     private static ArrayList validParamNames = new ArrayList();
+    private static final Logger LOGGER = Logger.getLogger(GetRecord.class);
     
     static 
     {
@@ -54,7 +57,7 @@ public class GetRecord extends ServerVerb
      */
     public static String construct(Properties properties, HttpServletRequest request, HttpServletResponse response)      
     {
-    	System.out.println("---- construct response for GetRecord verb ----");
+    	LOGGER.debug("[FDS] ---- construct response for GetRecord verb ----");
     	
     	//Properties
         String baseURL = properties.getProperty("oai.baseURL", baseURL = request.getRequestURL().toString());

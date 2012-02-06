@@ -10,8 +10,6 @@
  */
 package de.mpg.escidoc.services.fledgeddata.oai.verb;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -37,8 +35,8 @@ import de.mpg.escidoc.services.fledgeddata.oai.OAIUtil;
 public abstract class ServerVerb 
 {
 
-    private int statusCode = HttpServletResponse.SC_OK; // http status
-    private String message = null; // http response message
+    private int statusCode = HttpServletResponse.SC_OK; 	// http status
+    private String message = null; 							// http response message
 
     /**
      * Complete XML response String

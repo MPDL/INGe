@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.TransformerException;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.services.fledgeddata.oai.OAIUtil;
 import de.mpg.escidoc.services.fledgeddata.oai.oaiCatalog;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.BadArgumentException;
@@ -43,6 +45,7 @@ public class ListRecords extends ServerVerb
     private static ArrayList validParamNames2 = new ArrayList();
     private static ArrayList requiredParamNames1 = new ArrayList();
     private static ArrayList requiredParamNames2 = new ArrayList();
+    private static final Logger LOGGER = Logger.getLogger(ListRecords.class);
     
     static 
     {
@@ -79,7 +82,7 @@ public class ListRecords extends ServerVerb
         
     {
     	
-    	System.out.println("---- construct response for ListRecord verb ----");
+    	LOGGER.debug("[FDS] ---- construct response for ListRecord verb ----");
     	
     	//Properties
         String baseURL = properties.getProperty("oai.baseURL", baseURL = request.getRequestURL().toString());

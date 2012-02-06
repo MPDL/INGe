@@ -14,6 +14,7 @@ import java.util.Properties;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -33,6 +34,9 @@ import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError
  */
 public class FetchImeji 
 {
+	private static final Logger LOGGER = Logger.getLogger(FetchImeji.class);
+	
+	
 	/**
 	 * 
 	 * @param metadataPrefix
@@ -82,7 +86,7 @@ public class FetchImeji
             {
                 case 200:
                 	
-                    System.out.println("Fetch xml from " + url.toExternalForm());                	
+                    LOGGER.debug("[FDS] Fetch xml from " + url.toExternalForm());                	
                     // Get XML
                     isReader = new InputStreamReader(httpConn.getInputStream(),"UTF-8");
                     bReader = new BufferedReader(isReader);
@@ -94,7 +98,7 @@ public class FetchImeji
                     httpConn.disconnect();  
                     break;
                 default:
-                    throw new OAIInternalServerError("An error occurred during metadata fetch from repository: "
+                    throw new OAIInternalServerError("[FDS] An error occurred during metadata fetch from repository: "
                             + responseCode + ": " + httpConn.getResponseMessage() + ".");
             }
 
@@ -114,11 +118,11 @@ public class FetchImeji
         {
         	if (set != null)
         	{
-        		resultXml = util.craeteOaiHeaderFromSet(resultXml, set);
+        		resultXml = util.createOaiHeaderFromSet(resultXml, set);
         	}
         	else
         	{
-        		resultXml = util.craeteOaiHeader(resultXml);
+        		resultXml = util.createOaiHeader(resultXml);
         	}
 		} 
         catch (Exception e)
@@ -129,41 +133,10 @@ public class FetchImeji
 		return resultXml;
 	}
 	
-	public String quickCreate(Object nativeItem, String schemaURL,
-			String metadataPrefix) throws IllegalArgumentException,
-			CannotDisseminateFormatException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	
 	public boolean isDeleted(Object nativeItem) {
-		// TODO Auto-generated method stub
+		// TODO
 		return false;
-	}
-	
-	
-	public Iterator getSetSpecs(Object nativeItem)
-			throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	public String getOAIIdentifier(Object nativeItem) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	public String getDatestamp(Object nativeItem) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	public Iterator getAbouts(Object nativeItem) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	public static String getRecord(String identifier, String metadataPrefix, Properties properties) 
@@ -198,14 +171,12 @@ public class FetchImeji
         {
     		URL url = new URL(util.constructFetchUrl(fetchUrl, identifier));
             conn = url.openConnection();
-            System.out.println("URL"+url.toExternalForm());
+            LOGGER.debug("[FDS] Fetch xml from " + url.toExternalForm()); 
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
             {
                 case 200:
-                    System.out.println("Fetch xml from export");
-                	
                     // Get XML
                     isReader = new InputStreamReader(httpConn.getInputStream(),"UTF-8");
                     bReader = new BufferedReader(isReader);
@@ -218,7 +189,7 @@ public class FetchImeji
                     System.out.println("ResultXml: " + resultXml);
                     break;
                 default:
-                    throw new OAIInternalServerError("An error occurred during metadata fetch from repository: "
+                    throw new OAIInternalServerError("[FDS] An error occurred during metadata fetch from repository: "
                             + responseCode + ": " + httpConn.getResponseMessage() + ".");
             }
 
@@ -236,20 +207,33 @@ public class FetchImeji
         
         if (metadataPrefix.equalsIgnoreCase(nativeFormat))
         {
-        	System.out.println("Create native format record");
-        	resultXml = util.craeteNativeOaiRecord(resultXml, identifier);
+        	LOGGER.debug("[FDS] Create native format record");
+        	resultXml = util.createNativeOaiRecord(resultXml, identifier);
         }
         else 
         	if (metadataPrefix.equalsIgnoreCase("oai_dc"))
         	{        		
         		try
         		{
-        			System.out.println("Create oai_dc record");
-        			resultXml = util.xsltTransform(oaiXslt, resultXml);
+        			LOGGER.debug("[FDS] Create oai_dc record");
+        			String type = "";
+        			if (identifier.contains("image"))
+        			{
+        				type = "image";
+        			}
+        			if (identifier.contains("album"))
+        			{
+        				type = "album";
+        			}
+        			if (identifier.contains("collection"))
+        			{
+        				type = "collection";
+        			}
+        			resultXml = util.xsltTransform(oaiXslt, resultXml, type);       			
         		}
         		catch (Exception e) 
         		{
-					throw new OAIInternalServerError("An error occurred during transformation to oai_dc format. " + e.getMessage());
+					throw new OAIInternalServerError("[FDS] An error occurred during transformation to oai_dc format. " + e.getMessage());
 				}
         	}
         	else
@@ -302,7 +286,7 @@ public class FetchImeji
 	                    httpConn.disconnect();  
 	                    break;
 	                default:
-	                    throw new OAIInternalServerError("An error occurred during the construction of a ListSets request: "
+	                    throw new OAIInternalServerError("[FDS] An error occurred during the construction of a ListSets request: "
 	                            + responseCode + ": " + httpConn.getResponseMessage() + ".");
 	            }
 	            
@@ -359,14 +343,12 @@ public class FetchImeji
         {
     		URL url = new URL(fetchUrl);
             conn = url.openConnection();
-            System.out.println("URL"+url.toExternalForm());
+            LOGGER.debug("[FDS] Fetch xml from " + url.toExternalForm()); 
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
             {
                 case 200:
-                    System.out.println("Fetch xml from export");
-                	
                     // Get XML
                     isReader = new InputStreamReader(httpConn.getInputStream(),"UTF-8");
                     bReader = new BufferedReader(isReader);
@@ -378,7 +360,7 @@ public class FetchImeji
                     httpConn.disconnect();  
                     break;
                 default:
-                    throw new OAIInternalServerError("An error occurred during metadata fetch from repository: "
+                    throw new OAIInternalServerError("[FDS] An error occurred during metadata fetch from repository: "
                             + responseCode + ": " + httpConn.getResponseMessage() + ".");
             }
 
@@ -398,14 +380,14 @@ public class FetchImeji
         {       	
         	try 
         	{
-        		System.out.println("Create native format record");
+        		LOGGER.debug("[FDS] Create native format record");
         		if (set != null)
         		{
-        			resultXml = util.craeteNativeOaiRecordsFromSet(resultXml, set, properties);
+        			resultXml = util.createNativeOaiRecordsFromSet(resultXml, set, properties);
         		}
         		else
         		{
-        			resultXml = util.craeteNativeOaiRecords(resultXml);
+        			resultXml = util.createNativeOaiRecords(resultXml);
         		}
 			} 
         	catch (Exception e)
@@ -418,8 +400,8 @@ public class FetchImeji
         	{        		
         		try
         		{
-        			System.out.println("Create oai_dc record");
-        			resultXml = util.xsltTransform(oaiXslt, resultXml);
+        			LOGGER.debug("[FDS] Create oai_dc record");
+        			resultXml = util.xsltTransform(oaiXslt, resultXml, "image"); 
         		}
         		catch (Exception e) 
         		{

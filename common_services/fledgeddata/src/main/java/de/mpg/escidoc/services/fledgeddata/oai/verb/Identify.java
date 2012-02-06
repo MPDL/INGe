@@ -17,6 +17,8 @@ import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.BadArgumentException;
 
 
@@ -28,9 +30,10 @@ import de.mpg.escidoc.services.fledgeddata.oai.exceptions.BadArgumentException;
  * @author Friederike Kleinfercher, MPDL
  */
 public class Identify extends ServerVerb 
-{
-	
+{	
     private static ArrayList validParamNames = new ArrayList();
+    private static final Logger LOGGER = Logger.getLogger(Identify.class);
+    
     static 
     {
         validParamNames.add("verb");
@@ -46,7 +49,7 @@ public class Identify extends ServerVerb
     public static String construct(Properties properties, HttpServletRequest request, HttpServletResponse response)    		
     {
     	
-    	System.out.println("---- construct response for Identify verb ----");
+    	LOGGER.debug("[FDS] ---- construct response for Identify verb ----");
     	// Properties
         String baseURL = properties.getProperty("oai.baseURL",baseURL = request.getRequestURL().toString());
         String styleSheet = properties.getProperty("oai.styleSheet");

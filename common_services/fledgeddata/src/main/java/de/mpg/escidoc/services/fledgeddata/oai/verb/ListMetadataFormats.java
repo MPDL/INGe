@@ -17,6 +17,8 @@ import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.BadArgumentException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError;
 
@@ -26,12 +28,13 @@ import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError
  * the client or on the server.
  *
  * @author Jeffrey A. Young, OCLC Online Computer Library Center
- * @author Friederike Kleinfercher
+ * @author Friederike Kleinfercher, MPDL
  */
 public class ListMetadataFormats extends ServerVerb 
 {
     private static ArrayList validParamNames = new ArrayList();
     private static ArrayList requiredParamNames = new ArrayList();
+    private static final Logger LOGGER = Logger.getLogger(ListMetadataFormats.class);
     
     static 
     {
@@ -55,7 +58,7 @@ public class ListMetadataFormats extends ServerVerb
      */
     public static String construct(Properties properties, HttpServletRequest request, HttpServletResponse response)      
     {
-    	System.out.println("---- construct response for GetRecord verb ----");
+    	LOGGER.debug("[FDS] ---- construct response for GetRecord verb ----");
     	
     	//Properties
         String baseURL = properties.getProperty("oai.baseURL", request.getRequestURL().toString());

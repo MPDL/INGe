@@ -12,7 +12,6 @@ package de.mpg.escidoc.services.fledgeddata.oai.verb;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -20,6 +19,9 @@ import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
+import de.mpg.escidoc.services.fledgeddata.FetchImeji;
 import de.mpg.escidoc.services.fledgeddata.oai.OAIUtil;
 import de.mpg.escidoc.services.fledgeddata.oai.oaiCatalog;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.NoSetHierarchyException;
@@ -29,16 +31,23 @@ import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError
  * A ListSets OAI verb representation.
  *
  * @author Jeffrey A. Young, OCLC Online Computer Library Center
+ * @author Friederike Kleinfercher, MPDL
  */
-public class ListSets extends ServerVerb {
+public class ListSets extends ServerVerb
+{
     private static ArrayList validParamNames = new ArrayList();
-    static {
-	validParamNames.add("verb");
-	validParamNames.add("resumptionToken");
-    }
     private static ArrayList requiredParamNames = new ArrayList();
-    static {
-	validParamNames.add("verb");
+    private static final Logger LOGGER = Logger.getLogger(ListSets.class);
+    
+    static 
+    {
+    	validParamNames.add("verb");
+    	validParamNames.add("resumptionToken");
+    }
+    
+    static 
+    {
+    	validParamNames.add("verb");
     }
 
     /**
@@ -50,7 +59,7 @@ public class ListSets extends ServerVerb {
      */
     public static String construct(Properties properties, HttpServletRequest request, HttpServletResponse response)      		
     {
-    	System.out.println("---- construct response for ListSets verb ----");
+    	LOGGER.debug("[FDS] ---- construct response for ListSets verb ----");
     	
     	//Properties
         String baseURL = properties.getProperty("oai.baseURL", baseURL = request.getRequestURL().toString());

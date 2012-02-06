@@ -21,16 +21,12 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Date;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -39,12 +35,13 @@ import javax.xml.transform.stream.StreamSource;
 
 import net.sf.saxon.TransformerFactoryImpl;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import de.mpg.escidoc.services.fledgeddata.Util;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.CannotDisseminateFormatException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.IdDoesNotExistException;
 import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError;
@@ -54,10 +51,13 @@ import de.mpg.escidoc.services.fledgeddata.oai.verb.ServerVerb;
 /**
  * Utility methods for OAICat and OAIHarvester
  */
-public class OAIUtil {
+public class OAIUtil 
+{
+	private static final Logger LOGGER = Logger.getLogger(OAIUtil.class);
     private static DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-    private static TransformerFactory tFactory = TransformerFactory.newInstance();
-    static {
+
+    static 
+    {
         dbFactory.setNamespaceAware(true);
     }
     
@@ -96,82 +96,6 @@ public class OAIUtil {
     }
     
     /**
-     * Transform a DOM Node into an XML String
-     * @param node
-     * @param omitXMLDeclaration
-     * @return an XML String representation of the specified Node
-     * @throws TransformerException
-     */
-    public static String toString(Node node, boolean omitXMLDeclaration)
-    throws TransformerException {
-        StringWriter writer = new StringWriter();
-        Transformer transformer =
-            getThreadedIdentityTransformer(omitXMLDeclaration);
-        Source source = new DOMSource(node);
-        Result result = new StreamResult(writer);
-        transformer.transform(source, result);
-        return writer.toString();
-    }
-    
-    /**
-     * Get a thread-safe Transformer without an assigned transform. This is useful
-     * for transforming a DOM Document into XML text.
-     * @param omitXmlDeclaration 
-     * @return an "identity" Transformer assigned to the current thread
-     * @throws TransformerConfigurationException
-     */
-    public static Transformer getThreadedIdentityTransformer(
-            boolean omitXmlDeclaration)
-    throws TransformerConfigurationException {
-        return getTransformer(omitXmlDeclaration, (String) null);
-    }
-    
-    /**
-     * Get a thread-safe Transformer.
-     * @param omitXmlDeclaration
-     * @param xslURL
-     * @return a thread-safe Transformer
-     * @throws TransformerConfigurationException
-     */
-    public static Transformer getTransformer(boolean omitXmlDeclaration,
-            String xslURL)
-    throws TransformerConfigurationException {
-        return getTransformer(omitXmlDeclaration, true, xslURL);
-    }
-    
-    /**
-     * @param omitXmlDeclaration
-     * @param standalone
-     * @param xslURL 
-     * @return a Transformer for the specified XSL document
-     * @throws TransformerConfigurationException
-     */
-    public static Transformer getTransformer(
-            boolean omitXmlDeclaration,
-            boolean standalone, String xslURL)
-    throws TransformerConfigurationException {
-        Transformer transformer = null;
-        if (xslURL == null) {
-            transformer = tFactory.newTransformer(); // "never null"
-        } else {
-            Source xslSource = null;
-            if (xslURL.startsWith("file://")) {
-                InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(xslURL.substring(6));
-                xslSource = new StreamSource(is);
-            } else {
-                xslSource = new StreamSource(xslURL);
-            }
-            transformer = tFactory.newTransformer(xslSource);
-        }
-//      transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.setOutputProperty(OutputKeys.STANDALONE,
-                standalone?"yes":"no");
-        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
-                omitXmlDeclaration?"yes":"no");
-        return transformer;
-    }
-    
-    /**
      * Load the properties from the location defined by the system property
      *
      * @throws IOException If the properties file could not be found neither in the file system nor in the classpath. 
@@ -183,22 +107,20 @@ public class OAIUtil {
         URL propUrl = null;
         try
         {
-        	propUrl = OAIUtil.class.getClassLoader().getResource("oai.properties");
+        	propUrl = Util.class.getClassLoader().getResource("fds.properties");
         }
         catch (Exception e)
         {
-            //Logger.getLogger(OAIUtil.class).warn("WARNING: oai.properties not found: " + e.getMessage());
-
+        	LOGGER.error("[FDS] ERROR reading properties: " + propUrl);
         }
         if (propUrl != null)
-        {
-            System.out.println("properties URI is "+propUrl.toString());
-            InputStream in = getInputStream("oai.properties");
+        {            
+            InputStream in = getInputStream("fds.properties");
             properties.load(in);
             in.close();
         }
             
-        //Logger.getLogger(OAIUtil.class).info("Properties loaded.");
+        LOGGER.info("[FDS] Fledged data service properties loaded.");
         return properties;
     }
     
@@ -244,28 +166,27 @@ public class OAIUtil {
      * @return transformed metadata as String
      * @throws IOException 
      */
-    public String xsltTransform(String xsltUri, String itemXML) throws RuntimeException
+    public String xsltTransform(String xsltName, String itemXML, String type) throws RuntimeException
     {       
         TransformerFactory factory = new TransformerFactoryImpl();
         StringWriter writer = new StringWriter();
-        System.out.println("Transform with xslt: " + xsltUri);
+        LOGGER.info("[FDS] Transform xml with xslt: " + xsltName);
         
         try
         {
-            ClassLoader cl = this.getClass().getClassLoader();
-            InputStream in = getInputStream(xsltUri);
+            InputStream in = getInputStream(xsltName);
             Transformer transformer = factory.newTransformer(new StreamSource(in));            
             StringReader xmlSource = new StringReader(itemXML);
+            transformer.setParameter("type", type);
             transformer.transform(new StreamSource(xmlSource), new StreamResult(writer));
         }
         catch (TransformerException e)
         {
-        	System.out.println(e.getMessage());
             throw new RuntimeException();
         }
         catch (IOException e)
         {
-            throw new RuntimeException("Could not find xslt: " + xsltUri);
+            throw new RuntimeException("Could not find xslt: " + xsltName);
         }
 
         return writer.toString();
@@ -277,7 +198,7 @@ public class OAIUtil {
      * @param identifier
      * @return
      */
-    public String craeteNativeOaiRecord (String xml, String identifier)
+    public String createNativeOaiRecord (String xml, String identifier)
     {
     	StringBuffer sb = new StringBuffer();
     	String responseDate = ServerVerb.createResponseDate(new Date());
@@ -304,7 +225,7 @@ public class OAIUtil {
      * @throws SAXException 
      * @throws ParserConfigurationException 
      */
-    public String craeteNativeOaiRecords (String xml) throws SAXException, IOException, ParserConfigurationException
+    public String createNativeOaiRecords (String xml) throws SAXException, IOException, ParserConfigurationException
     {
     	StringBuffer sb = new StringBuffer();
     	String responseDate = ServerVerb.createResponseDate(new Date());
@@ -319,7 +240,10 @@ public class OAIUtil {
 		NodeList metadataNodes = doc.getElementsByTagName("imeji:metadataset");
 		NodeList collNodes = doc.getElementsByTagName("imeji:collection");
 		NodeList dateNodes = doc.getElementsByTagName("imeji:creationdate");
-		//TODO catch error when node is missing
+		if (rootNodes == null || metadataNodes == null || collNodes== null || dateNodes==null)
+		{
+			throw new SAXException ("[FDS] xml document does not contain necessary elements.");
+		}
 		
 		//Create the formatted xml
 		for (int i=0; i< rootNodes.getLength(); i++)
@@ -369,7 +293,7 @@ public class OAIUtil {
      * @throws CannotDisseminateFormatException 
      * @throws IdDoesNotExistException 
      */
-    public String craeteNativeOaiRecordsFromSet (String xml, String set, Properties properties) throws SAXException, IOException, 
+    public String createNativeOaiRecordsFromSet (String xml, String set, Properties properties) throws SAXException, IOException, 
 				    	ParserConfigurationException, 
 				    	IdDoesNotExistException, 
 				    	CannotDisseminateFormatException, 
@@ -388,7 +312,10 @@ public class OAIUtil {
 		NodeList metadataNodes = doc.getElementsByTagName("imeji:metadataset");
 		NodeList collNodes = doc.getElementsByTagName("imeji:collection");
 		NodeList dateNodes = doc.getElementsByTagName("imeji:creationdate");
-		//TODO catch error when node is missing
+		if (rootNodes == null || metadataNodes == null || collNodes== null || dateNodes==null)
+		{
+			throw new SAXException ("[FDS] xml document does not contain necessary elements.");
+		}
 		
 		//Create the formatted xml
 		for (int i=0; i< rootNodes.getLength(); i++)
@@ -401,7 +328,6 @@ public class OAIUtil {
 		    		sb.append("<setSpec>" + set + "</setSpec>"); 
 		    	sb.append("</header>");
 		    	sb.append("<metadata>");
-		    	//TODO
 		    		String record = oaiCatalog.getRecord(id, "imeji", properties);
 		    		sb.append(record);
 			    sb.append("</metadata>");
@@ -418,7 +344,7 @@ public class OAIUtil {
      * @throws SAXException 
      * @throws ParserConfigurationException 
      */
-    public String craeteOaiHeader (String xml) throws SAXException, IOException, ParserConfigurationException
+    public String createOaiHeader (String xml) throws SAXException, IOException, ParserConfigurationException
     {
     	StringBuffer sb = new StringBuffer();
     	String responseDate = ServerVerb.createResponseDate(new Date());
@@ -432,7 +358,10 @@ public class OAIUtil {
         NodeList rootNodes = doc.getElementsByTagName("imeji:image");
 		NodeList dateNodes = doc.getElementsByTagName("imeji:creationdate");
 		NodeList collNodes = doc.getElementsByTagName("imeji:collection");
-		//TODO catch error when node is missing
+		if (rootNodes == null || collNodes== null || dateNodes==null)
+		{
+			throw new SAXException ("[FDS] xml document does not contain necessary elements.");
+		}
 		
 		//Create the formatted xml
 		for (int i=0; i< rootNodes.getLength(); i++)
@@ -454,7 +383,7 @@ public class OAIUtil {
      * @throws SAXException 
      * @throws ParserConfigurationException 
      */
-    public String craeteOaiHeaderFromSet (String xml, String set) throws SAXException, IOException, ParserConfigurationException
+    public String createOaiHeaderFromSet (String xml, String set) throws SAXException, IOException, ParserConfigurationException
     {
     	StringBuffer sb = new StringBuffer();
     	String responseDate = ServerVerb.createResponseDate(new Date());

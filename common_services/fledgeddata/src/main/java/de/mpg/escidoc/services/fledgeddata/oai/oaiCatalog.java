@@ -302,17 +302,20 @@ public class oaiCatalog
 		}
 		return null;
     }
-    
-    
-    /**
-     * Allow the database to return some Identify &lt;description&gt; elements
-     * 
-     * @return an XML String fragment containing description elements
-     */
-    public String getDescriptions() {
-        return null;
-    }
 
+    /**
+     * TODO
+     * @param from
+     * @param until
+     * @param set
+     * @param properties
+     * @return
+     * @throws BadArgumentException
+     * @throws CannotDisseminateFormatException
+     * @throws NoItemsMatchException
+     * @throws NoSetHierarchyException
+     * @throws OAIInternalServerError
+     */
     public String listIdentifiers(String from, String until, String set, Properties properties)
     		throws BadArgumentException, CannotDisseminateFormatException, NoItemsMatchException,
     			   NoSetHierarchyException, OAIInternalServerError
@@ -331,6 +334,13 @@ public class oaiCatalog
     	return null;
     }
     
+    /**
+     * TODO
+     * @param resumptionToken
+     * @return
+     * @throws BadResumptionTokenException
+     * @throws OAIInternalServerError
+     */
     public static Map listIdentifiers(String resumptionToken)
     throws BadResumptionTokenException, OAIInternalServerError 
     {
@@ -417,6 +427,7 @@ public class oaiCatalog
     public static Map listRecords(String resumptionToken)
     throws BadResumptionTokenException, OAIInternalServerError 
     {
+    	//TODO
 //        Map listIdentifiersMap = listIdentifiers(resumptionToken);
 //        resumptionToken = (String)listIdentifiersMap.get("resumptionToken");
 //        Iterator identifiers = (Iterator)listIdentifiersMap.get("identifiers");
