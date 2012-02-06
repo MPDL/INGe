@@ -1,5 +1,8 @@
 package test;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.List;
@@ -12,7 +15,6 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
-import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.wos.WoSImport;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.wos.WoSTransformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -51,15 +53,34 @@ public class WoSImportTester {
 	
 
     @Test
-    public void wosListTransformation() throws Exception
+    public void wosList1Transformation() throws Exception
     {
-        this.logger.info("Transform WoS list to xml format");
+        this.logger.info("Transform WoS list 1 to xml format");
         Format inputFormat = new Format("WoS", "text/plain", "utf-8");
         Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
         byte[] result = wosTransformer.transform(ResourceUtil.getResourceAsString("testFiles/wos/WoS.txt").getBytes("UTF-8"), inputFormat, outputFormat, "escidoc");
         
         XmlTransformingBean xmlTransforming = new XmlTransformingBean();
         List <PubItemVO> itemVOList = xmlTransforming.transformToPubItemList(new String(result));
+        
+        assertEquals(1, itemVOList.size());
+        
+        this.logger.info("PubItemVO List successfully created.");
+    }
+
+    @Test
+    public void wosList2Transformation() throws Exception
+    {
+        this.logger.info("Transform WoS list 2 to xml format");
+        Format inputFormat = new Format("WoS", "text/plain", "utf-8");
+        Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
+        byte[] result = wosTransformer.transform(ResourceUtil.getResourceAsString("testFiles/wos/WoS_2012.txt").getBytes("UTF-8"), inputFormat, outputFormat, "escidoc");
+        
+        XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+        List <PubItemVO> itemVOList = xmlTransforming.transformToPubItemList(new String(result));
+        
+        assertEquals(5, itemVOList.size());
+        
         this.logger.info("PubItemVO List successfully created.");
     }
 

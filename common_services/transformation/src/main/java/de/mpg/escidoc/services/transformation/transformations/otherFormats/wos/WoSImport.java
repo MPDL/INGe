@@ -38,7 +38,7 @@ public class WoSImport{
     public String transformWoS2XML(String file){
     	String result = "";
     	    	
-    	String[] itemList = getItemListFromString(file, "(\\r\\n|\\r|\\n)ER\\s\\s");
+    	String[] itemList = getItemListFromString(file, "(\nER\n+EF\n)|(\nER\n)");
     	List<List<Pair>> items = new ArrayList();
     	if(itemList!=null && itemList.length>1){ //transform items to XML
     		 
