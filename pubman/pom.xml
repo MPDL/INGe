@@ -749,7 +749,7 @@
 			<distributionManagement>
 				<site>
 					<id>website</id>
-					<url>scp://pubman.mpdl.mpg.de:/srv/www/htdocs/pubman_mpdl/software</url>
+					<url>scp://pubman.mpdl.mpg.de:/srv/www/htdocs/pubman_mpdl/staging</url>
 				</site>
 			</distributionManagement>
 		
@@ -795,7 +795,7 @@
 			<distributionManagement>
 				<site>
 					<id>website</id>
-					<url>scp://pubman.mpdl.mpg.de:/srv/www/htdocs/pubman_mpdl/software</url>
+					<url>scp://pubman.mpdl.mpg.de:/srv/www/htdocs/pubman_mpdl/staging</url>
 				</site>
 			</distributionManagement>
 		
