@@ -194,8 +194,8 @@ public class FilterTaskParamVOTest
         String s = q1[0].trim();
 
         assertTrue(s.contains("( \"/properties/created-by/id\"=max )  and"));
-        assertTrue(s.contains("\"/properties/public-status\"=RELEASED or "));
-        assertTrue(s.contains("\"/properties/public-status\"=SUBMITTED"));
+        assertTrue(s.contains("\"/properties/public-status\"=released or "));
+        assertTrue(s.contains("\"/properties/public-status\"=submitted"));
         
         String[] q3 = map.get("maximumRecords");
         s = q3[0].trim();
