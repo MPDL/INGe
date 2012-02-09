@@ -190,7 +190,7 @@ public class FilterTaskParamVO extends ValueObject
                 else if (filter instanceof ItemPublicStatusFilter)
                 {
                     enhanceQuery(queryBuffer,
-                            "\"/properties/public-status\"=" + ((ItemPublicStatusFilter)filter).getState(),
+                            "\"/properties/public-status\"=" + ((ItemPublicStatusFilter)filter).getState().toString().replace('_', '-').toLowerCase(),
                             previousFilter, filter);
                 }
                 else if (filter instanceof UserAccountStateFilter)
