@@ -545,7 +545,7 @@
 		<escidoc.search.and.export.maximum.records>50</escidoc.search.and.export.maximum.records>
 		
 		<!-- Vocabularies which wil be integrated inot Borwse by, seperator is ;-->
-		<escidoc.cone.subjectVocab>ddc;mpipks;iso639-3</escidoc.cone.subjectVocab>
+		<escidoc.cone.subjectVocab>ddc;iso639-3</escidoc.cone.subjectVocab>
 		
 		<escidoc.cone.mimetype.pattern>application/vnd.cone-(.+)</escidoc.cone.mimetype.pattern>
 		
@@ -749,7 +749,7 @@
 			<distributionManagement>
 				<site>
 					<id>website</id>
-					<url>scp://escidoc1.escidoc.mpg.de:/srv/www/staging/projects/pubman</url>
+					<url>scp://pubman.mpdl.mpg.de:/srv/www/htdocs/pubman_mpdl/software</url>
 				</site>
 			</distributionManagement>
 		
@@ -795,7 +795,7 @@
 			<distributionManagement>
 				<site>
 					<id>website</id>
-					<url>scp://escidoc1.escidoc.mpg.de:/srv/www/00_default/projects/snapshots/pubman</url>
+					<url>scp://pubman.mpdl.mpg.de:/srv/www/htdocs/pubman_mpdl/software</url>
 				</site>
 			</distributionManagement>
 		
