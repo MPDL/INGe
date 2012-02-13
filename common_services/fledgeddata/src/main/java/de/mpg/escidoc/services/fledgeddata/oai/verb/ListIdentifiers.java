@@ -97,14 +97,22 @@ public class ListIdentifiers extends ServerVerb
 	    oaiCatalog oaiCatalog = new oaiCatalog();
     	
     	//Properties
-		String baseURL = properties.getProperty("oai.baseURL", baseURL = request.getRequestURL().toString());
+		String baseURL = properties.getProperty("oai.baseURL");
 		String styleSheet = properties.getProperty("oai.styleSheet");
 		
 		//Parameters
-		String oldResumptionToken = request.getParameter("resumptionToken");
-		String from = request.getParameter("from");
-		String until = request.getParameter("until");
-		String set = request.getParameter("set");
+		String oldResumptionToken = "";
+		String from = "";
+		String until = "";
+		String set ="";		
+		if (request != null)
+		{
+			//Parameters
+			 oldResumptionToken = request.getParameter("resumptionToken");
+			 from = request.getParameter("from");
+			 until = request.getParameter("until");
+			 set = request.getParameter("set");
+		}
 		
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
 
@@ -130,7 +138,7 @@ public class ListIdentifiers extends ServerVerb
         else 
         {
         	//++++ Request without resumption token ++++++
-		    if (oldResumptionToken == null) 
+		    if (oldResumptionToken == null || oldResumptionToken.equals("")) 
 		    {
 				validParamNames = validParamNames1;
 				requiredParamNames = requiredParamNames1;
@@ -171,7 +179,10 @@ public class ListIdentifiers extends ServerVerb
 		            
 					if (record != null && !record.equals("")) 
 					{
-					    sb.append(getRequestElement(request, validParamNames, baseURL));
+						if (request != null)
+						{
+							sb.append(getRequestElement(request, validParamNames, baseURL));
+						}
 					    sb.append("<ListIdentifiers>" + record + "</ListIdentifiers>");
 					} 
 					else 

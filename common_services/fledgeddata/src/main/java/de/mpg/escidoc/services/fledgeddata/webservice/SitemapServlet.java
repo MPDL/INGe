@@ -7,11 +7,7 @@ package de.mpg.escidoc.services.fledgeddata.webservice;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.net.SocketException;
 import java.util.Properties;
-import java.util.zip.GZIPOutputStream;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -21,10 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.fledgeddata.Util;
 import de.mpg.escidoc.services.fledgeddata.oai.OAIUtil;
-import de.mpg.escidoc.services.fledgeddata.oai.oaiCatalog;
-import de.mpg.escidoc.services.fledgeddata.oai.exceptions.OAIInternalServerError;
-import de.mpg.escidoc.services.fledgeddata.oai.verb.ListIdentifiers;
 import de.mpg.escidoc.services.fledgeddata.sitemap.Sitemap;
 
 
@@ -47,12 +41,22 @@ public class SitemapServlet extends HttpServlet
      * @param config servlet configuration information
      * @exception ServletException there was a problem with initialization
      */
-    public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) throws ServletException 
+    {
         super.init(config);
         
-        try {
-        	LOGGER.info("[FDS] Initialize oai servlet.");
+        try 
+        {
+        	LOGGER.info("[FDS] Initialize sitemap servlet.");
+        	
+        	LOGGER.info("[FDS] Read out properties file.");
             this.properties = OAIUtil.loadProperties();
+            
+            LOGGER.info("[FDS] Create initial sitemap entries.");
+            Sitemap sitemap = new Sitemap();
+            Sitemap.setProperties(properties);
+            sitemap.start();
+            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             throw new ServletException(e.getMessage());
@@ -65,29 +69,26 @@ public class SitemapServlet extends HttpServlet
     /**
      * 
      */
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException 
-    {
-    	try 
-        {   System.out.println("CREATE SITEMAP");
-    		String listIdentfiersXml = "";
-        	listIdentfiersXml = ListIdentifiers.construct(properties, request, response);
-            String result = Sitemap.createSitemap(listIdentfiersXml);
-            
-            response.setStatus(200);
-            response.setContentType("application/xml");
-            OutputStream out = response.getOutputStream();
-            out.write(result.getBytes("UTF-8"));
-            out.close();
-            
-        } catch (OAIInternalServerError e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
-        } catch (SocketException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
-        } catch (Throwable e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
-        }
-    }
+//    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException 
+//    {
+//    	try 
+//        {   
+//    		//TODO
+//            Thread nextThread = new Sitemap();
+//            nextThread.start();
+//            
+//            response.setStatus(200);
+//            response.setContentType("application/xml");
+//            OutputStream out = response.getOutputStream();
+//            String appPath = Util.getResourceAsFile("index.jsp").getAbsolutePath();
+//            out.(Util.getResourceAsFile(appPath + "sitemap.xml"));
+//            out.close();
+//            
+//        } catch (Throwable e) {
+//            e.printStackTrace();
+//            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+//        }
+//    }
     
     /**
      * Peform a POST action. Actually this gets shunted to GET
@@ -96,8 +97,8 @@ public class SitemapServlet extends HttpServlet
      * @param response the servlet's response information
      * @exception IOException an I/O error occurred
      */
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException 
-    {
-        doGet(request, response);
-    }
+//    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException 
+//    {
+//        doGet(request, response);
+//    }
 }
