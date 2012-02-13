@@ -5,19 +5,14 @@
 package de.mpg.escidoc.services.fledgeddata.webservice;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Properties;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.fledgeddata.Util;
 import de.mpg.escidoc.services.fledgeddata.oai.OAIUtil;
 import de.mpg.escidoc.services.fledgeddata.sitemap.Sitemap;
 
@@ -65,40 +60,4 @@ public class SitemapServlet extends HttpServlet
             throw new ServletException(e.getMessage());
         }
     }   
-
-    /**
-     * 
-     */
-//    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException 
-//    {
-//    	try 
-//        {   
-//    		//TODO
-//            Thread nextThread = new Sitemap();
-//            nextThread.start();
-//            
-//            response.setStatus(200);
-//            response.setContentType("application/xml");
-//            OutputStream out = response.getOutputStream();
-//            String appPath = Util.getResourceAsFile("index.jsp").getAbsolutePath();
-//            out.(Util.getResourceAsFile(appPath + "sitemap.xml"));
-//            out.close();
-//            
-//        } catch (Throwable e) {
-//            e.printStackTrace();
-//            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
-//        }
-//    }
-    
-    /**
-     * Peform a POST action. Actually this gets shunted to GET
-     *
-     * @param request the servlet's request information
-     * @param response the servlet's response information
-     * @exception IOException an I/O error occurred
-     */
-//    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException 
-//    {
-//        doGet(request, response);
-//    }
 }

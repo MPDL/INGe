@@ -13,16 +13,12 @@
 		<servlet-name>SitemapServlet</servlet-name>
 		<display-name>Sitemap Servlet</display-name>
 		<servlet-class>de.mpg.escidoc.services.fledgeddata.webservice.SitemapServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>oaiServlet</servlet-name>
 		<url-pattern>/oai/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>SitemapServlet</servlet-name>
-		<url-pattern>/sitemap/*</url-pattern>
 	</servlet-mapping>
 
 	<session-config>
@@ -33,5 +29,5 @@
 	<welcome-file-list id="WelcomeFileList">
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-
+	
 </web-app>
