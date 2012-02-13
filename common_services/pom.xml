@@ -249,6 +249,7 @@
 		<module>pid_cache_ear</module>
 		<module>aa_logic</module>
 		<module>aa_presentation</module>
+		<module>fledgeddata</module>
 
 	</modules>
 
