@@ -35,6 +35,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -303,10 +304,10 @@ public class BrowseBySessionBean extends FacesBean
         Calendar cal = Calendar.getInstance();
         int currentYear = cal.get(Calendar.YEAR);
         int yearTmp = currentYear;
-
+        DecimalFormat yearFormatter = new DecimalFormat( "0000" );
         while (this.getYearStart() <= yearTmp)
         {
-            years.add(yearTmp + "");
+            years.add(yearFormatter.format(yearTmp));
             yearTmp--;
         }
 
