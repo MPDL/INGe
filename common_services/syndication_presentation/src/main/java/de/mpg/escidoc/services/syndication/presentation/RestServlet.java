@@ -99,7 +99,9 @@ public class RestServlet extends HttpServlet
     protected final void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
             IOException
     {
-        
+    	//TODO delete logger.info! Included due to loggin problems
+    	logger.info("RestServlet.doPost() started");
+    	logger.debug("RestServlet.doPost() started");
         String url = null;
         try
         {
