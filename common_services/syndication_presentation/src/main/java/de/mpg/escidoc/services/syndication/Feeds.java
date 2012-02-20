@@ -174,14 +174,16 @@ public class Feeds
 			throw new SyndicationException("Cannot parse: " + feedsFileName, e);
 		}
 		
-		if (logger.isDebugEnabled())
-		{
+//		if (logger.isDebugEnabled())
+//		{
 			List<Feed> feeds = fs.getFeeds();
 			for(Feed feed: (List<Feed>)feeds)
 			{	
+				//TODO Remove logger.info after solving logger.debug problems!
+				logger.info("FEED: " + feed.toString());
 				logger.debug("FEED: " + feed.toString());
 			}
-		}
+//		}
 		
     	return fs;
     }	

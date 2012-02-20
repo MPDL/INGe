@@ -288,6 +288,8 @@ public class Feed extends SyndFeedImpl
 	 * @return <code>CachingTtl</code>
 	 */
 	public String getCachingTtl() {
+		//TODO Remove logger.info after solving logger.debug problems!
+		logger.info("CachingTtl: " + cachingTtl.toString());
 		logger.debug("CachingTtl: " + cachingTtl.toString());
 		return cachingTtl;
 	}
