@@ -475,6 +475,9 @@ body .wrapper {
 .organisationSearchMenu a:focus {
 	text-decoration:underline;
 }
+.checkboxDoubleContainer .large_checkbox label {
+	white-space:normal;
+}
 
 /***SELECT MENU***/
 .selectMenu {
@@ -1120,8 +1123,6 @@ a.OraLinkDisabled:hover {
 .licenseArea .messageArea {
 	background-color:#FFFFFF;
 }
-
-
 
 
 

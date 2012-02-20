@@ -790,3 +790,9 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	height:5.7272em;
 	display:none;
 }
+
+
+/***** advanced search *****/
+.checkboxDoubleContainer .large_checkbox label {
+	white-space:normal;
+}

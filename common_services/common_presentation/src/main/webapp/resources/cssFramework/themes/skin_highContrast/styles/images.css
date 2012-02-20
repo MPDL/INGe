@@ -799,6 +799,7 @@ body .wrapper {
     background-image: url('../images/All_Info_Author_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
+    padding-top:0.1818em;
 }
 
 .authorCard:hover, .authorCard:focus {
@@ -819,7 +820,8 @@ body .wrapper {
     background-image: url('../images/All_Info_Organization_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
-	padding-top:0.0909em;
+	padding-top:0.2727em;
+	padding-left:0.4545em;
 }
 
 .ouCard:hover, .ouCard:focus {

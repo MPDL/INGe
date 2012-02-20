@@ -3889,3 +3889,8 @@ option {	/* fix for FF2 and floating contents */
 /*GENERAL DEFINITIONS*/
 /* distance for different input fields after top-border */
 .marginTExcl6p { margin-top:0.5454em; }
+
+.showAll {
+	overflow:visible !important;
+}
+

@@ -796,7 +796,7 @@ body .wrapper {
 .authorCard {
     width: 2.83em;
     height: 1.3636em;
-	padding-top:0.1818em;
+	padding-top:0.2727em;
     background-image: url('../images/All_Info_Author_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
@@ -820,7 +820,8 @@ body .wrapper {
     background-image: url('../images/All_Info_Organization_15_Active.png');
     background-repeat: no-repeat;
     background-position: center center;
-	padding-top:0.0909em;
+	padding-top:0.1818em;
+	padding-left:0.5454em;
 }
 
 .ouCard:hover, .ouCard:focus {
