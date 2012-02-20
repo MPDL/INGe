@@ -636,12 +636,8 @@ public class XmlTransformingBean implements XmlTransforming
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToPubCollectionList:contextList is null");
         }
-// TODO: remove this hack if escidoc 1.3.4 will be stable - this is a workaround for JIRA INFR-1449        
-        String searchString = "<pubman-admin-descriptor>";
-        String replaceString = "<pubman-admin-descriptor xmlns=\"\">";
-        contextList = contextList.replace(searchString, replaceString);
-// END WORKAROUND        
-        logger.info("transformed =" + contextList);
+
+        logger.info("transformed contextList =" + contextList);
         
         SearchRetrieveResponseVO response = null;
         try
@@ -784,12 +780,8 @@ public class XmlTransformingBean implements XmlTransforming
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformSearchRetrieveResponseToContextList:contextList is null");
         }
-     // TODO: remove this hack if escidoc 1.3.4 will be stable - this is a workaround for JIRA INFR-1449        
-        String searchString = "<pubman-admin-descriptor>";
-        String replaceString = "<pubman-admin-descriptor xmlns=\"\">";
-        contextListXml = contextListXml.replace(searchString, replaceString);
-        logger.info("transformed =" + contextListXml);
-// END WORKAROUND        
+   
+        logger.info("transformed contextList =" + contextListXml);
         
         SearchRetrieveResponseVO response = this.transformToSearchRetrieveResponse(contextListXml);
         List<SearchRetrieveRecordVO> records = response.getRecords();
