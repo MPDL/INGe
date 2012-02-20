@@ -107,6 +107,8 @@ public class RestServlet extends HttpServlet
         {
         	url = PropertyReader.getProperty("escidoc.syndication.service.url") + req.getServletPath() + req.getPathInfo();
         	//TODO delete logger.info! Included due to logger.debug problems
+        	logger.info("PropertyReader.getProperty('escidoc.syndication.service.url'): " + PropertyReader.getProperty("escidoc.syndication.service.url"));
+        	//TODO delete logger.info! Included due to logger.debug problems
         	logger.info("req.getServletPath(): " + req.getServletPath().toString());
         	//TODO delete logger.info! Included due to logger.debug problems
         	logger.info("req.getPathInfo(): " + req.getPathInfo().toString());
