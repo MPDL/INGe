@@ -126,7 +126,7 @@ public class Feed extends SyndFeedImpl
 	private String cachingStatus;
 
 	//TTL for until the channel, it will be recached after  
-	private String cachingTtl;
+	private String cachingTtl = "0";
 	
 	//List of the parameters generated according to the URI
 	private List paramList = new ArrayList<String>();
@@ -288,6 +288,7 @@ public class Feed extends SyndFeedImpl
 	 * @return <code>CachingTtl</code>
 	 */
 	public String getCachingTtl() {
+		logger.debug("CachingTtl: " + cachingTtl.toString());
 		return cachingTtl;
 	}
 
