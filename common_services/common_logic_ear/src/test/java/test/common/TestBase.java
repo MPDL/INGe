@@ -1221,6 +1221,7 @@ public class TestBase
     private static void initializeSchemas() throws IOException, SAXException, ParserConfigurationException
     {
         File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/");
+        logger.debug("Number of schema files: " + schemaFiles.length);
 
         schemas = new HashMap<String, Schema>();
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
