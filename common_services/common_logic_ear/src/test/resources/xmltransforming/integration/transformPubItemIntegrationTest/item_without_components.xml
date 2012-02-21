@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><item:item xmlns:item="${xsd.soap.item.item}"  xmlns:eterms="${xsd.metadata.escidocprofile.types}" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:components="${xsd.soap.item.components}" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:md-records="${xsd.soap.common.mdrecords}" xmlns:relations="${xsd.soap.common.relations}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<item:properties xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:md-records="${xsd.soap.common.metadatarecords}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">
-		<srel:context objid="${escidoc.framework_access.context.id.test}"/>
-		<srel:content-model objid="${escidoc.framework_access.content-model.id.publication}"/>
-		<prop:content-model-specific>
+		<item:context objid="${escidoc.framework_access.context.id.test}"/>
+		<item:content-model objid="${escidoc.framework_access.content-model.id.publication}"/>
+		<item:content-model-specific>
 			<anything/>
-		</prop:content-model-specific>
+		</item:content-model-specific>
 	</item:properties>
 	<md-records:md-records>
 		<md-records:md-record name="escidoc">
