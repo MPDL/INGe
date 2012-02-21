@@ -46,6 +46,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.sun.syndication.io.FeedException;
@@ -99,44 +100,24 @@ public class RestServlet extends HttpServlet
     protected final void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
             IOException
     {
-    	//TODO delete logger.info! Included due to logger.debug problems
-    	logger.info("RestServlet.doPost() started");
-    	logger.debug("RestServlet.doPost() started");
         String url = null;
         try
         {
         	url = PropertyReader.getProperty("escidoc.syndication.service.url") + req.getServletPath() + req.getPathInfo();
-        	//TODO delete logger.info! Included due to logger.debug problems
-        	logger.info("PropertyReader.getProperty('escidoc.syndication.service.url'): " + PropertyReader.getProperty("escidoc.syndication.service.url"));
-        	//TODO delete logger.info! Included due to logger.debug problems
-        	logger.info("req.getServletPath(): " + req.getServletPath().toString());
-        	//TODO delete logger.info! Included due to logger.debug problems
-        	logger.info("req.getPathInfo(): " + req.getPathInfo().toString());
-        	//TODO delete logger.info! Included due to logger.debug problems
-        	logger.info("URL: " + url);
-        	url = url.replace("//", "/");
-        	//TODO delete logger.info! Included due to logger.debug problems
-        	logger.info("New URL: " + url);
         }
         catch (Exception e)
         {
             handleException(e, resp);
         }
     	String q = req.getQueryString();
-    	//TODO delete logger.info! Included due to logger.debug problems
-    	logger.info("Request-QueryString: " + q);
     	
     	if (Utils.checkVal(q))
     	{
     		url += "?" + q;
-    		//TODO delete logger.info! Included due to logger.debug problems
-        	logger.info("Complete URL: " + q);
     	}
     	
     	
     	Feed feed = synd.getFeeds().matchFeedByUri( url );
-    	//TODO delete logger.info! Included due to logger.debug problems
-    	logger.info("Requested Feed: " + feed.toString());
     	
     	
     	//set correct mime-type
@@ -148,8 +129,6 @@ public class RestServlet extends HttpServlet
 
     	//cache handling
     	String ttl = feed.getCachingTtl();
-    	//TODO delete logger.info! Included due to logger.debug problems
-    	logger.info("CachingTtl: " + ttl);
     	
     	if (Utils.checkVal(ttl))
     	{

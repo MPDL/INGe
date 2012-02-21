@@ -288,9 +288,6 @@ public class Feed extends SyndFeedImpl
 	 * @return <code>CachingTtl</code>
 	 */
 	public String getCachingTtl() {
-		//TODO Remove logger.info after solving logger.debug problems!
-		logger.info("CachingTtl: " + cachingTtl.toString());
-		logger.debug("CachingTtl: " + cachingTtl.toString());
 		return cachingTtl;
 	}
 
@@ -578,8 +575,6 @@ public class Feed extends SyndFeedImpl
 	 */
 	private String performSearch(String query, String maximumRecords, String sortKeys) throws SyndicationException 
 	{
-		//TODO delete logger.info! Included due to logger.debug problems
-		logger.info("Query: " + query);
 		URL url;
 		try {
 			url = new URL(
@@ -597,16 +592,12 @@ public class Feed extends SyndFeedImpl
 			throw new SyndicationException("Wrong URL:", e);
 		}
 		
-		//TODO delete logger.info! Included due to logger.debug problems
-		logger.info("Search URL: " + url.toString());
 		Object content;
 		URLConnection uconn;
 		
 		try 
 		{
 			uconn = ProxyHelper.openConnection(url); 
-			//TODO delete logger.info! Included due to logger.debug problems
-	    	logger.info("URLConnection: " + uconn.toString());
 			if ( !(uconn instanceof HttpURLConnection) )
 	            throw new IllegalArgumentException(
 	                "URL protocol must be HTTP." 
