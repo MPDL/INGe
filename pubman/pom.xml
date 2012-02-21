@@ -737,8 +737,6 @@
 				<escidoc.systemtype>workstation</escidoc.systemtype>
 				<jboss.deploy.port>8080</jboss.deploy.port>
 				<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
-				<!-- syndication service -->
-				<escidoc.syndication.service.url>http://localhost:8080/syndication</escidoc.syndication.service.url>
 				
 				<!-- URL of stylesheets in common-presentation -->
 				<escidoc.pubman.common.presentation.url>http://localhost:8080/common/</escidoc.pubman.common.presentation.url>
@@ -780,7 +778,7 @@
 				<jboss.deploy.port>8889</jboss.deploy.port>
 				<jboss.install.dir>/mnt/jboss/dev-pubman</jboss.install.dir>
 				<!-- syndication service -->
-				<escidoc.syndication.service.url>http://dev-pubman.mpdl.mpg.de/syndication/</escidoc.syndication.service.url>
+				<escidoc.syndication.service.url>http://dev-pubman.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
 				
 				<!-- URL of stylesheets in common-presentation -->
 				<escidoc.pubman.common.presentation.url>http://dev-pubman.mpdl.mpg.de/common/</escidoc.pubman.common.presentation.url>
