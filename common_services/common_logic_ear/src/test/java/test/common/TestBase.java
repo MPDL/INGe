@@ -1138,6 +1138,7 @@ public class TestBase
      */
     public static void assertXMLValid(final String xmlData) throws Exception
     {
+        logger.info("### assertXMLValid ###");
         if (xmlData == null)
         {
             throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":assertXMLValid:xmlData is null");
@@ -1149,6 +1150,7 @@ public class TestBase
         String nameSpace = getNameSpaceFromXml(xmlData);
         logger.info("Looking up namespace '" + nameSpace + "'");
         Schema schema = schemas.get(nameSpace);
+  
         try
         {
             Validator validator = schema.newValidator();
@@ -1227,7 +1229,7 @@ public class TestBase
         {
             try
             {
-                logger.debug("File: " + file.getCanonicalPath());
+                logger.debug("Schema file: " + file.getCanonicalPath());
                 
                 Schema schema = sf.newSchema(file);
                 
