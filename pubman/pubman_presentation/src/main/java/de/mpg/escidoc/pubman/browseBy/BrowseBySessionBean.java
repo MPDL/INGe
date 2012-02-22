@@ -94,8 +94,6 @@ public class BrowseBySessionBean extends FacesBean
 
     private List<String> browseByYears;
 
-    private SelectItem[] DATE_OPTIONS;
-
     private String dateMode = "published";
 
     /**
@@ -498,17 +496,6 @@ public class BrowseBySessionBean extends FacesBean
     {
         this.browseByYears = browseByYears;
     }
-
-    public SelectItem[] getDATE_OPTIONS()
-    {
-        return DATE_OPTIONS;
-    }
-
-    public void setDATE_OPTIONS(SelectItem[] date_options)
-    {
-        DATE_OPTIONS = date_options;
-    }
-
 
     public String getDateType()
     {

@@ -68,7 +68,7 @@
 			 --%> 
 			<span class="huge_radioBtn full_area0">
 				<h:selectOneRadio id="selSelectDate" value="#{BrowseBySessionBean.dateMode}" onclick="submit(); fullItemReload();">										
-						<f:selectItems id="selDateOptions" value="#{BrowseBySessionBean.DATE_OPTIONS}"/> 
+						<f:selectItems id="selDateOptions" value="#{BrowseByPage.dateOptions}"/> 
 				</h:selectOneRadio>
 			</span> 
 		</span>
