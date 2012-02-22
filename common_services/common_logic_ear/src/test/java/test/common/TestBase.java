@@ -1272,7 +1272,7 @@ public class TestBase
                 if (handler.toString() != null)
                 {
                     schemas.put(handler.toString(), schema);
-                    logger.debug("Successfully added: " + file.getCanonicalPath());
+                    logger.debug("Successfully added: " + file.getCanonicalPath() + " key: " + handler.toString());
                 }
                 else
                 {
