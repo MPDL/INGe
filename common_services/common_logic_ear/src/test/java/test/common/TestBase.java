@@ -1272,8 +1272,13 @@ public class TestBase
                 parser.parse(file, handler);
                 if (handler.toString() != null)
                 {
+                    Schema s = schemas.get(handler.toString());
+                    if (s != null) 
+                    {
+                        logger.debug("overwriting key '" + handler.toString() + "'");
+                    }
                     schemas.put(handler.toString(), schema);
-                    logger.debug("Successfully added: " + file.getCanonicalPath() + " key: " + handler.toString() + " value: " + schema.toString() + " " + schema.newValidator());
+                    logger.debug("Successfully added: " + file.getCanonicalPath() + " key: '" + handler.toString() + "' value: " + schema.toString() + " " + schema.newValidator());
                 }
                 else
                 {
