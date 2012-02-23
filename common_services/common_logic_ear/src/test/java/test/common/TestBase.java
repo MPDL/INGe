@@ -1159,7 +1159,7 @@ public class TestBase
         }
         catch (SAXParseException e)
         {
-            e.getStackTrace();
+            e.printStackTrace();
             StringBuffer sb = new StringBuffer();
             sb.append("XML invalid at line:" + e.getLineNumber() + ", column:" + e.getColumnNumber() + "\n");
             sb.append("SAXParseException message: " + e.getMessage() + "\n");
