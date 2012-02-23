@@ -96,6 +96,17 @@
 	<div id="ImgFullItemLoad" class="noDisplay" style="position: fixed;"></div>
 </div>
 <div class="full_area0" id="fullItem">
+	<style type="text/css">
+		table input[type="radio"] {
+			margin-left:0;
+		}
+		.line180 {
+			line-height:155% !important;
+		}
+		.line180 * {
+			line-height:180%;
+		}
+	</style>
 	<div class="full_area0 fullItem">
 		<div class="full_area0 itemBlock noTopBorder">
 			<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -104,65 +115,74 @@
 			</h3>
 			<span class="seperator"></span>
 			<div class="free_area0 itemBlockContent endline">
-
+				
 			<!-- Import from external source -->
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstLine" rendered="#{EasySubmission.disableBibtexFields}">		
-					<b class="xLarge_area0 endline labelLine">
-						<h:outputText value="#{lbl.easy_submission_lblProvideID}" /><span class="noDisplay">: </span>
-					</b>
-					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<span class="large_area0 largeFormPush">
-							<h:outputLabel id="lblIDType" styleClass="large_label" value="#{lbl.easy_submission_lblIDType}"/>
-							
-							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
-								<h:panelGroup layout="block" styleClass="large_area0">
-									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
-									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="free_area0 xTiny_marginLExcl" rendered="#{EasySubmission.disableBibtexFields}">
+					<h:panelGroup layout="block" styleClass="free_area0 endline firstLine">		
+						<b class="free_area0 endline labelLine" style="float:right;">
+							<h:outputText value="#{lbl.easy_submission_lblProvideID}" /><span class="noDisplay">: </span>
+						</b>
+						<br style="line-height:5em;" />
+						<b class="free_area0 endline labelLine" style="float:right;">
+							<h:outputText value="#{lbl.easy_submission_lblFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}" />
+							<span class="noDisplay">: </span>
+						</b>
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="free_area0 endline firstLine">
+						<span class="free_area0 xTiny_marginLExcl endline">
+							<span class="large_area0 largeFormPush">
+								<h:outputLabel id="lblIDType" styleClass="large_label" value="#{lbl.easy_submission_lblIDType}"/>
+								
+								<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
+									<h:panelGroup layout="block" styleClass="large_area0">
+										<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+										<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+									</h:panelGroup>
+									<h:selectOneMenu id="selCurrentExternalServiceType" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{EasySubmissionSessionBean.currentExternalServiceType}" onchange="$(this).parents('.itemBlock').find('.hiddenButton').click();" binding="#{EasySubmission.sourceSelect}">
+										<f:selectItems value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}" />
+									</h:selectOneMenu>
 								</h:panelGroup>
-								<h:selectOneMenu id="selCurrentExternalServiceType" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{EasySubmissionSessionBean.currentExternalServiceType}" onchange="$(this).parents('.itemBlock').find('.hiddenButton').click();" binding="#{EasySubmission.sourceSelect}">
-									<f:selectItems value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}" />
-								</h:selectOneMenu>
-							</h:panelGroup>
-						<%--
-							<h:selectOneMenu id="selCurrentExternalServiceType" styleClass="large_select replace" value="#{EasySubmissionSessionBean.currentExternalServiceType}" onchange="$(this).parents('.itemBlock').find('.hiddenButton').click();" binding="#{EasySubmission.sourceSelect}">
-								<f:selectItems id="selExternalServiceOptions" value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}"/>
-							</h:selectOneMenu>	--%>
-							<h:commandButton title="#{tip.easy_submission_btSelectSource}" action="#{EasySubmission.changeImportSource}" immediate="true" styleClass="hiddenButton" id="btnChangeImportSource" value="" style="visibility:hidden;"/>
+								<h:panelGroup layout="block" styleClass="free_area0" style="line-height:0.8181em;">
+									&#160;
+									<h:commandButton title="#{tip.easy_submission_btSelectSource}" action="#{EasySubmission.changeImportSource}" immediate="true" styleClass="hiddenButton" id="btnChangeImportSource" value="" style="visibility:hidden;"/>
+								</h:panelGroup>
+							</span>
+							<span class="xDouble_area0">
+								<h:outputLabel id="lblIDValue" styleClass="xDouble_label" value="#{lbl.easy_submission_lblIDValue}"/>
+								<h:inputText id="inpServiceID" styleClass="xDouble_txtInput" value="#{EasySubmission.serviceID}"/>
+							</span>
 						</span>
-						<span class="xDouble_area0">
-							<h:outputLabel id="lblIDValue" styleClass="xDouble_label" value="#{lbl.easy_submission_lblIDValue}"/>
-							<h:inputText id="inpServiceID" styleClass="xDouble_txtInput" value="#{EasySubmission.serviceID}"/>
-						</span>
-					</span>
-					<b class="xLarge_area0 endline labelLine">
-						<h:outputText value="#{lbl.easy_submission_lblFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}" />
-						<span class="noDisplay">: </span>
-					</b>
-					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneRadio id="selSelectFulltext" styleClass="large_radioBtn tiny_marginRIncl xHuge_area0" value="#{EasySubmissionSessionBean.radioSelectFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}">										
-							<f:selectItems id="selFulltextOptions" value="#{EasySubmissionSessionBean.FULLTEXT_OPTIONS}"/>
-						</h:selectOneRadio>
-					</span>
+						<br class="clear" />
+						<h:panelGroup styleClass="free_area0 xTiny_marginLExcl endline line180" rendered="#{EasySubmissionSessionBean.fulltext}">
+							<tr:selectOneRadio>
+								<f:selectItems id="selFulltextOptions" value="#{EasySubmissionSessionBean.FULLTEXT_OPTIONS}"/>
+							</tr:selectOneRadio>
+						</h:panelGroup>
+					</h:panelGroup>
 				</h:panelGroup>
-
+	
 			<!-- Import from bibtex file -->
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstLine" rendered="#{EasySubmission.disableExternalFields}">		
-					<b class="xLarge_area0 endline labelLine">
-						<h:outputText value="#{lbl.easy_submission_lblUploadBibtex}" /><span class="noDisplay">: </span>
-					</b>
-					<span class="xHuge_area0 xTiny_marginLExcl endline fileSection">
-						<tr:inputFile id="inpUploadedBibTexFile" styleClass="fileInput" value="#{EasySubmission.uploadedBibTexFile}" />
-					</span>
-
-					<b class="xLarge_area0 endline labelLine">
-						<h:outputText value="#{lbl.easy_submission_lblReference}" />
-						<span class="noDisplay">: </span>
-					</b>
-					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneRadio id="selSelectReference" styleClass="xLarge_radioBtn tiny_marginRIncl xHuge_area0" value="LOCATOR" binding="#{EasySubmissionSessionBean.radioSelectReference}">										
-							<f:selectItems id="selReferenceOptions" value="#{EasySubmissionSessionBean.REFERENCE_OPTIONS}"/>
-						</h:selectOneRadio>
-					</span>
+				<h:panelGroup layout="block" styleClass="free_area0 xTiny_marginLExcl" rendered="#{EasySubmission.disableExternalFields}">
+					<h:panelGroup layout="block" styleClass="free_area0 endline firstLine">		
+						<b class="free_area0 endline labelLine" style="float:right;">
+							<h:outputText value="#{lbl.easy_submission_lblUploadBibtex}" /><span class="noDisplay">: </span>
+						</b>
+						<br class="clear" style="line-height:2.54em;" />
+						<b class="free_area0 endline labelLine" style="float:right;">
+							<h:outputText value="#{lbl.easy_submission_lblReference}" /><span class="noDisplay">: </span>
+						</b>
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="free_area0 endline firstLine line180">
+						<span class="free_area0 xTiny_marginLExcl endline fileSection">
+							<h:panelGroup style="line-height:2.5454em;">
+								<tr:inputFile id="inpUploadedBibTexFile" styleClass="fileInput" value="#{EasySubmission.uploadedBibTexFile}" />
+							</h:panelGroup>
+							<br class="clear" style="line-height:0.6363em;" />
+							<tr:selectOneRadio styleClass="clear import">
+								<f:selectItems id="selReferenceOptions" value="#{EasySubmissionSessionBean.REFERENCE_OPTIONS}"/>
+							</tr:selectOneRadio>
+						</span>
+					</h:panelGroup>
 				</h:panelGroup>
 			</div>
 		</div>

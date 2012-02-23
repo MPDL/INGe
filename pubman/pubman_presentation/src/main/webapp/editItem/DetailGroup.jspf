@@ -61,8 +61,8 @@
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_details_dates_optional != 'true'}" /><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_item_details_dates_item_date_issued_display == 'false' && genre.details_item_details_dates_item_date_issued_form_id == 'full-submission' || genre.details_item_details_dates_item_date_issued_display == 'false' && genre.details_item_details_dates_item_date_issued_form_id == 'all')}">
-					<h:outputLabel styleClass="large_label" for="txtDatePublishedInPrint" value="#{genre.details_item_details_dates_item_date_issued_label}" converter="GenreLabelConverter"/>
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl showAll" rendered="#{!(genre.details_item_details_dates_item_date_issued_display == 'false' && genre.details_item_details_dates_item_date_issued_form_id == 'full-submission' || genre.details_item_details_dates_item_date_issued_display == 'false' && genre.details_item_details_dates_item_date_issued_form_id == 'all')}">
+					<h:outputLabel styleClass="large_label showAll" for="txtDatePublishedInPrint" value="#{genre.details_item_details_dates_item_date_issued_label}" converter="GenreLabelConverter"/>
 					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedInPrint" value="#{EditItem.pubItem.metadata.datePublishedInPrint}" />
 				</h:panelGroup>
 				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_item_details_dates_item_published_online_display == 'false' && genre.details_item_details_dates_item_published_online_form_id == 'full-submission' || genre.details_item_details_dates_item_published_online_display == 'false' && genre.details_item_details_dates_item_published_online_form_id == 'all')}">

@@ -51,8 +51,8 @@
 			</span>
 			<h:panelGroup styleClass="large_area0_p8 lineToolSection socialBookmarking" rendered="#{!ViewItemFull.isStatePending}">
 				
-				<h:panelGroup layout="block" styleClass="citeulikebookmark">
-					<h:graphicImage id="imgSocialBookmarkingCiteULike" title="#{lbl.ViewItemFull_lblSocialBookmarking_CiteULike}" url="http://static.citeulike.org/img/slogo.gif" height="28" width="112" onclick="citeULikeLink();"/>
+				<h:panelGroup layout="block" styleClass="citeulikebookmark min_imgBtn sectionTool pointer">
+					<h:graphicImage id="imgSocialBookmarkingCiteULike" title="#{lbl.ViewItemFull_lblSocialBookmarking_CiteULike}" url="http://static.citeulike.org/img/slogo.gif" height="110%" width="112" onclick="citeULikeLink();"/>
 				</h:panelGroup>
 				<script type="text/javascript">
 					function citeULikeLink() {
@@ -60,14 +60,18 @@
 					}
 				</script>
 				<!-- http://www.connotea.org/icon.png -->
-				<h:graphicImage id="imgSocialBookmarkingConnotea" title="#{lbl.ViewItemFull_lblSocialBookmarking_Connotea}" styleClass="min_imgArea sectionTool pointer" url="http://www.connotea.org/icon.png" onclick="connoteaLink();"/>
+				<h:panelGroup layout="block" styleClass="min_imgBtn sectionTool pointer" style="overflow:hidden;">
+					<h:graphicImage id="imgSocialBookmarkingConnotea" title="#{lbl.ViewItemFull_lblSocialBookmarking_Connotea}" url="http://www.connotea.org/icon.png" height="85%" onclick="connoteaLink();"/>
+				</h:panelGroup>
 				<script type="text/javascript">
 					function connoteaLink() {
 						window.open('http://www.connotea.org/addpopup?continue=confirm&uri='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&usertitle='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'add','toolbar=no,width=720,height=755,scrollbars,resizable');
 					}
 				</script>
 				<!-- http://static.delicious.com/img/delicious.small.gif -->
-				<h:graphicImage id="imgSocialBookmarkingDelicious" title="#{lbl.ViewItemFull_lblSocialBookmarking_Delicious}" styleClass="min_imgArea sectionTool pointer" url="http://www.stadtbibliothek-guetersloh.de/images/social/delicious.png" onclick="deliciousLink();"/>
+				<h:panelGroup layout="block" styleClass="min_imgBtn sectionTool pointer" style="overflow:hidden;">
+					<h:graphicImage id="imgSocialBookmarkingDelicious" title="#{lbl.ViewItemFull_lblSocialBookmarking_Delicious}" url="http://www.delicious.com/static/img/logo_delicious_sprite.png" height="84%" onclick="deliciousLink();"/>
+				</h:panelGroup>
 				<script type="text/javascript">
 					function deliciousLink() {
 						window.open('http://delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&amp;title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText converter="JavascriptEscapeConverter" value="#{ViewItemFull.pubItem.metadata.title.value}"/>'), 'delicious','toolbar=no,width=550,height=550');
