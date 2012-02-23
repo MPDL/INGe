@@ -168,7 +168,6 @@ public class EasySubmission extends FacesBean
     // Import
     private Vector<DataSourceVO> dataSources = new Vector<DataSourceVO>();
     private HtmlSelectOneRadio radioSelectFulltext = new HtmlSelectOneRadio();
-    private HtmlSelectOneRadio radioSelectReference = new HtmlSelectOneRadio();
     private HtmlSelectOneMenu sourceSelect = new HtmlSelectOneMenu();
     public SelectItem[] EXTERNAL_SERVICE_OPTIONS;
     public SelectItem[] FULLTEXT_OPTIONS;
@@ -176,8 +175,8 @@ public class EasySubmission extends FacesBean
     private final String FULLTEXT_ALL = "ALL";
     private final String FULLTEXT_DEFAULT = "FORMAT";
     public SelectItem[] REFERENCE_OPTIONS;
-    private final String REFERENCE_FILE = "FILE";
-    private final String REFERENCE_LOCATOR = "LOCATOR";
+//TODO    private final String REFERENCE_FILE = "FILE";
+//    private final String REFERENCE_LOCATOR = "LOCATOR";
     private String serviceID;
     private String creatorParseString;
     private boolean overwriteCreators;
@@ -937,8 +936,7 @@ public class EasySubmission extends FacesBean
             PubItemVO itemVO = this.xmlTransforming.transformToPubItem(new String(result));
             itemVO.setContext(getItem().getContext());
             // Check if reference has to be uploaded as file
-            if (this.getEasySubmissionSessionBean().getRadioSelectReference().getValue()
-                    .equals(this.getREFERENCE_FILE()))
+            if (this.getEasySubmissionSessionBean().getRadioSelectReferenceValue().equals(this.getEasySubmissionSessionBean().getREFERENCE_FILE()))
             {
                 LocatorUploadBean locatorBean = new LocatorUploadBean();
                 Vector<FileVO> locators = locatorBean.getLocators(itemVO);
@@ -1657,11 +1655,9 @@ public class EasySubmission extends FacesBean
 
     private void setBibTexInfo()
     {
-        this.getEasySubmissionSessionBean().setREFERENCE_OPTIONS(
-                new SelectItem[] { new SelectItem(this.REFERENCE_FILE, getLabel("easy_submission_lblReference_file")),
-                        new SelectItem(this.REFERENCE_LOCATOR, getLabel("easy_submission_lblReference_locator")) });
-        this.getEasySubmissionSessionBean().getRadioSelectReference().setValue(this.REFERENCE_LOCATOR);
-        this.getEasySubmissionSessionBean().getRadioSelectReference().setSubmittedValue(this.REFERENCE_LOCATOR);
+//        this.getEasySubmissionSessionBean().setREFERENCE_OPTIONS(
+//                new SelectItem[] { new SelectItem(this.REFERENCE_FILE, getLabel("easy_submission_lblReference_file")),
+//                        new SelectItem(this.REFERENCE_LOCATOR, getLabel("easy_submission_lblReference_locator")) });
     }
 
     /**
@@ -2435,16 +2431,6 @@ public class EasySubmission extends FacesBean
         this.radioSelectFulltext = radioSelectFulltext;
     }
 
-    public HtmlSelectOneRadio getRadioSelectReference()
-    {
-        return this.radioSelectReference;
-    }
-
-    public void setRadioSelectReference(HtmlSelectOneRadio radioSelectReference)
-    {
-        this.radioSelectReference = radioSelectReference;
-    }
-
     public SelectItem[] getREFERENCE_OPTIONS()
     {
         return this.REFERENCE_OPTIONS;
@@ -2455,15 +2441,16 @@ public class EasySubmission extends FacesBean
         this.REFERENCE_OPTIONS = reference_options;
     }
 
-    public String getREFERENCE_FILE()
-    {
-        return this.REFERENCE_FILE;
-    }
-
-    public String getREFERENCE_LOCATOR()
-    {
-        return this.REFERENCE_LOCATOR;
-    }
+//    TODO
+//    public String getREFERENCE_FILE()
+//    {
+//        return this.REFERENCE_FILE;
+//    }
+//
+//    public String getREFERENCE_LOCATOR()
+//    {
+//        return this.REFERENCE_LOCATOR;
+//    }
 
     /*
      * public void chooseSourceGenre(ValueChangeEvent event) { String sourceGenre = event.getNewValue().toString();

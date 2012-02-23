@@ -69,6 +69,9 @@ public class EasySubmissionSessionBean extends EditItemBean
     public static final String ES_STEP3 = "STEP3";
     public static final String ES_STEP4 = "STEP4";
     public static final String ES_STEP5 = "STEP5";
+    
+    private final String REFERENCE_FILE = "FILE";
+    private final String REFERENCE_LOCATOR = "LOCATOR";
 
 
     private String currentSubmissionMethod = SUBMISSION_METHOD_MANUAL;
@@ -117,6 +120,7 @@ public class EasySubmissionSessionBean extends EditItemBean
      */
     private String showAuthorCopyPaste;
     private String creatorParseString;
+    private String radioSelectReferenceValue;
 
     /**
      * Public constructor.
@@ -126,8 +130,6 @@ public class EasySubmissionSessionBean extends EditItemBean
         this.currentSubmissionStep = ES_STEP1;
         this.importSourceRefresh = false;
         initAuthorCopyPasteCreatorBean();
-
-
     }
 
     /**
@@ -286,15 +288,13 @@ public class EasySubmissionSessionBean extends EditItemBean
     {
         this.radioSelectFulltext = radioSelectFulltext;
     }
-
-    public HtmlSelectOneRadio getRadioSelectReference()
-    {
-        return radioSelectReference;
+    
+    public String getRadioSelectReferenceValue(){
+        return this.radioSelectReferenceValue;
     }
-
-    public void setRadioSelectReference(HtmlSelectOneRadio radioSelectReference)
-    {
-        this.radioSelectReference = radioSelectReference;
+    
+    public void setRadioSelectReferenceValue(String newRadioSelectReferenceValue){
+        this.radioSelectReferenceValue = newRadioSelectReferenceValue;
     }
 
     public String getGenreBundle() {
@@ -341,13 +341,15 @@ public class EasySubmissionSessionBean extends EditItemBean
 
     public SelectItem[] getREFERENCE_OPTIONS()
     {
+        this.REFERENCE_OPTIONS = new SelectItem[] { new SelectItem(this.REFERENCE_FILE, getLabel("easy_submission_lblReference_file")),
+                new SelectItem(this.REFERENCE_LOCATOR, getLabel("easy_submission_lblReference_locator")) };
         return this.REFERENCE_OPTIONS;
     }
 
-    public void setREFERENCE_OPTIONS(SelectItem[] reference_options)
-    {
-        this.REFERENCE_OPTIONS = reference_options;
-    }
+//    public void setREFERENCE_OPTIONS(SelectItem[] reference_options)
+//    {
+//        this.REFERENCE_OPTIONS = reference_options;
+//    }
 
     public boolean isFulltext()
     {
@@ -367,5 +369,14 @@ public class EasySubmissionSessionBean extends EditItemBean
         setShowAuthorCopyPaste("");
     }
 
+    public String getREFERENCE_FILE()
+    {
+        return this.REFERENCE_FILE;
+    }
+
+    public String getREFERENCE_LOCATOR()
+    {
+        return this.REFERENCE_LOCATOR;
+    }
 }
 

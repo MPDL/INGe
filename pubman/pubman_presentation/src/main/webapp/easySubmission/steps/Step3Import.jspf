@@ -178,7 +178,7 @@
 								<tr:inputFile id="inpUploadedBibTexFile" styleClass="fileInput" value="#{EasySubmission.uploadedBibTexFile}" />
 							</h:panelGroup>
 							<br class="clear" style="line-height:0.6363em;" />
-							<tr:selectOneRadio styleClass="clear import">
+							<tr:selectOneRadio styleClass="clear import" value="#{EasySubmissionSessionBean.radioSelectReferenceValue}">
 								<f:selectItems id="selReferenceOptions" value="#{EasySubmissionSessionBean.REFERENCE_OPTIONS}"/>
 							</tr:selectOneRadio>
 						</span>
