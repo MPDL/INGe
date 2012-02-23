@@ -1159,6 +1159,7 @@ public class TestBase
         }
         catch (SAXParseException e)
         {
+            e.getStackTrace();
             StringBuffer sb = new StringBuffer();
             sb.append("XML invalid at line:" + e.getLineNumber() + ", column:" + e.getColumnNumber() + "\n");
             sb.append("SAXParseException message: " + e.getMessage() + "\n");
@@ -1225,7 +1226,7 @@ public class TestBase
 
         schemas = new HashMap<String, Schema>();
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        sf.setResourceResolver(new ImportResolver());
+//        sf.setResourceResolver(new ImportResolver());
         for (File file : schemaFiles)
         {
             try
@@ -1272,7 +1273,7 @@ public class TestBase
                 if (handler.toString() != null)
                 {
                     schemas.put(handler.toString(), schema);
-                    logger.debug("Successfully added: " + file.getCanonicalPath() + " key: " + handler.toString());
+                    logger.debug("Successfully added: " + file.getCanonicalPath() + " key: " + handler.toString() + " value: " + schema.toString() + " " + schema.newValidator());
                 }
                 else
                 {
