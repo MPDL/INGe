@@ -70,6 +70,10 @@ public class EasySubmissionSessionBean extends EditItemBean
     public static final String ES_STEP4 = "STEP4";
     public static final String ES_STEP5 = "STEP5";
     
+    public final String FULLTEXT_NONE = "NONE";
+    public final String FULLTEXT_ALL = "ALL";
+    public final String FULLTEXT_DEFAULT = "FORMAT";
+    
     private final String REFERENCE_FILE = "FILE";
     private final String REFERENCE_LOCATOR = "LOCATOR";
 
@@ -100,7 +104,6 @@ public class EasySubmissionSessionBean extends EditItemBean
     private boolean fulltext = true;
 
     private String radioSelectFulltext;
-    private HtmlSelectOneRadio radioSelectReference = new HtmlSelectOneRadio();
 
 
     private boolean importSourceRefresh = false;
@@ -130,6 +133,7 @@ public class EasySubmissionSessionBean extends EditItemBean
         this.currentSubmissionStep = ES_STEP1;
         this.importSourceRefresh = false;
         initAuthorCopyPasteCreatorBean();
+        this.radioSelectReferenceValue = this.REFERENCE_LOCATOR;
     }
 
     /**
@@ -263,6 +267,22 @@ public class EasySubmissionSessionBean extends EditItemBean
     }
 
     public SelectItem[] getFULLTEXT_OPTIONS() {
+        //TODO Workaround cause Labels are set before the language change is done. Could be done better if there are performance issues (see EasySubmission.java)
+        for (int i = 0; i < FULLTEXT_OPTIONS.length; i++)
+        {
+            if (FULLTEXT_OPTIONS[i].getValue().equals(this.FULLTEXT_ALL))
+            {
+                FULLTEXT_OPTIONS[i].setLabel(getLabel("easy_submission_lblFulltext_all"));
+            }
+            else if (FULLTEXT_OPTIONS[i].getValue().equals(this.FULLTEXT_NONE))
+            {
+                FULLTEXT_OPTIONS[i].setLabel(getLabel("easy_submission_lblFulltext_none"));
+            }
+            else
+            {
+                FULLTEXT_OPTIONS[i].setLabel(this.getCurrentFTLabel());
+            }
+        }
         return FULLTEXT_OPTIONS;
     }
 
@@ -345,11 +365,6 @@ public class EasySubmissionSessionBean extends EditItemBean
                 new SelectItem(this.REFERENCE_LOCATOR, getLabel("easy_submission_lblReference_locator")) };
         return this.REFERENCE_OPTIONS;
     }
-
-//    public void setREFERENCE_OPTIONS(SelectItem[] reference_options)
-//    {
-//        this.REFERENCE_OPTIONS = reference_options;
-//    }
 
     public boolean isFulltext()
     {
