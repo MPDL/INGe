@@ -102,7 +102,6 @@ function updateSelectionBox(box, isStart) {
 					}
 				});
 				$(parent).find(".selectionBox").html(val);
-				console.log(val);
 			}
 		});
 	} else {
