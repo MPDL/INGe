@@ -690,7 +690,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .infoMessageArea {
 	border: 1px solid #56871B !important;
     border-color: #56871B;
-	position:absolute;
+/*	position:absolute; */
 }
 
 .infoMessageArea h2 {
