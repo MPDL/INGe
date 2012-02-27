@@ -826,7 +826,15 @@ body .wrapper {
 .header.alternateHeader .metaMenu .logoAlternate a {
 	background-color:transparent;
 }
-
+.header.alternateHeader .mainMenu {	/* uses in cone */
+	margin-top:6em;
+}
+.header.alternateHeader .mainMenu a {	/* uses in cone */
+	color:#FFFFFF;
+}
+.header.alternateHeader .searchExportLogo+.mainMenu {
+	margin-top:0.2727em;
+}
 
 /***** PRE-HEADER *****/
 .preListHeader {
