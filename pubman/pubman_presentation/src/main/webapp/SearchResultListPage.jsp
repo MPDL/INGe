@@ -197,7 +197,7 @@
 									<!-- Subheadline ends here -->
 								</h:panelGroup>
 
-							<div style="inline-block; float:left;">
+							<div style="clear:both; margin-top:0.6363em;">
 								<!-- Subheadline starts here -->
 								<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SearchRetrieverRequestBean.numberOfMessages == 1}"/>
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{SearchRetrieverRequestBean.hasErrorMessages and SearchRetrieverRequestBean.numberOfMessages != 1}">
