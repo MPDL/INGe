@@ -349,6 +349,10 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	font-family: "Myriad Pro Condensed", "Arial Narrow", sans-serif;
 }
 
+.header.alternateHeader .mainMenu a.active {
+	color: #524240;
+}
+
 /* INFO PAGE*/
 .infoPage .sideSection {
     border-style: solid;

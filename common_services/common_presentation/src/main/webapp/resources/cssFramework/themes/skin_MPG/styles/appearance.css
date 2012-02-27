@@ -832,6 +832,14 @@ body .wrapper {
 .header.alternateHeader .mainMenu a {	/* uses in cone */
 	color:#FFFFFF;
 }
+.header.alternateHeader .mainMenu a.active {	/* uses in cone */
+	background-image: url("../images/BG_MainNavi_hover_bold.png");
+    background-position: 0 0.2em;
+    background-repeat: no-repeat;
+    height: 1.3125em;
+    padding-bottom: 0.3125em;
+    text-decoration: none;
+}
 .header.alternateHeader .searchExportLogo+.mainMenu {
 	margin-top:0.2727em;
 }

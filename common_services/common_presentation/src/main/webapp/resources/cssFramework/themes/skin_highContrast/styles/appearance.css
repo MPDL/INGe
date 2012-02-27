@@ -259,6 +259,12 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
  -----------------------------------------------
  
  */
+ 
+.header.alternateHeader .mainMenu a.active {
+	color: #343434;
+}
+ 
+ 
 /*COLORING FOR ALL MENU INPUTS AND LABELS*/
 .metaMenu input, .metaMenu button, .metaMenu a, .quickSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input, .contentMenu a {
     background-color: #FFFFFF;
