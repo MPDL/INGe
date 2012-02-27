@@ -970,7 +970,7 @@ table#selSelectDate .huge_radioBtn label {	/*browse by year */
 .infoMessageArea {
 	border: 1px solid #56871B !important;
     border-color: #56871B;
-	position:absolute;
+/*	position:absolute; */
 }
 .infoMessageArea h2 {
 	color:#006F7B;
