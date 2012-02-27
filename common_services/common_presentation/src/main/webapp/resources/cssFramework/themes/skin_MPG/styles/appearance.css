@@ -733,6 +733,13 @@ body .wrapper {
     color: #FFFFFF;
     background-color: #004465;
 }
+.fullItem .itemHeader .medium_area0_p4.statusArea {
+	width:10.5454em;
+	text-align:center;
+}
+.fullItem .itemHeader .medium_area0_p4.statusArea .medium_label {
+	width:auto;
+}
 /*FULL ITEM BLOCK*/
 .fullItem .metaDataSection {
     border-color: #B0B1B1 !important;
