@@ -60,45 +60,47 @@
 						</div>
 					</div>
 					<div class="full_area0">
-						<% if (request.getSession() != null && Login.getLoggedIn(request)) {
-							
-							boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue());
-							boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue());
-
-							%>
-							Model:
-							<br/>
-							<select name="model" size="1">
-								<% for (ModelList.Model model : ModelList.getInstance().getList()) { %>
-									<% if ((model.isOpen() && editOpen) || (!model.isOpen() && editClosed)) { %>
-										<option value="<%= model.getName() %>"><%= model.getName() %></option>
+						<div class="small_marginLExcl">
+							<% if (request.getSession() != null && Login.getLoggedIn(request)) {
+								
+								boolean editOpen = (request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue());
+								boolean editClosed = (request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue());
+	
+								%>
+								Model:
+								<br/>
+								<select name="model" size="1">
+									<% for (ModelList.Model model : ModelList.getInstance().getList()) { %>
+										<% if ((model.isOpen() && editOpen) || (!model.isOpen() && editClosed)) { %>
+											<option value="<%= model.getName() %>"><%= model.getName() %></option>
+										<% } %>
 									<% } %>
-								<% } %>
-							</select>
-							<br/>
-							<br/>
-							RDF File:
-							<br/>
-							<input type="file" name="file"/>
-							<br/>
-							<br/>
-							If an object already exists:
-							<br/>
-							<input type="radio" name="workflow" value="overwrite"/>
-							Replace it with the imported object
-							<br/>
-							<input type="radio" name="workflow" value="update-overwrite"/>
-							Update it with the imported object (overwrite matching predicates)
-							<br/>
-							<input type="radio" name="workflow" value="update-add"/>
-							Update it with the imported object (add matching predicates where possible)
-							<br/>
-							<input type="radio" name="workflow" value="skip" checked=""/>
-							Do not import it
-							<br/>
-							<br/>
-							<input type="submit" name="submit"/>
-						<% } %>
+								</select>
+								<br/>
+								<br/>
+								RDF File:
+								<br/>
+								<input type="file" name="file"/>
+								<br/>
+								<br/>
+								If an object already exists:
+								<br/>
+								<input type="radio" name="workflow" value="overwrite"/>
+								Replace it with the imported object
+								<br/>
+								<input type="radio" name="workflow" value="update-overwrite"/>
+								Update it with the imported object (overwrite matching predicates)
+								<br/>
+								<input type="radio" name="workflow" value="update-add"/>
+								Update it with the imported object (add matching predicates where possible)
+								<br/>
+								<input type="radio" name="workflow" value="skip" checked=""/>
+								Do not import it
+								<br/>
+								<br/>
+								<input type="submit" name="submit"/>
+							<% } %>
+						</div>
 					</div>
 				</div>
 			</div>
