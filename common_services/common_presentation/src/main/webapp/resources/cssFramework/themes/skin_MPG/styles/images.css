@@ -96,6 +96,12 @@
  background-position: center center;
  }
  */
+ 
+/* GLOBAL IMAGE CLASS */
+.min_imgBtn {
+	padding:0.1818em;
+}
+ 
 /*SORTING IMAGES FOR CONTENT MENU*/
 .ascSort {
     background-image: url('../images/All_Sorting_TriangleAscending_15_Active.png');
