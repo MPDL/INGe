@@ -44,12 +44,12 @@
 
 <link rel="search" type="application/opensearchdescription+xml" title="<h:outputText value='#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}'/>" href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />search/OpenSearch.jsp" />
 
-<script type="text/javascript" language="JavaScript" src="resources/commonJavaScript/jquery/jquery.min.js">;</script>
+<script type="text/javascript" language="JavaScript" src="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}'/>../resources/commonJavaScript/jquery/jquery.min.js">;</script>
 <%--
 <script type="text/javascript" language="JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" />
 <script type="text/javascript" language="JavaScript" src="http://code.jquery.com/jquery-latest.js" />
 --%>
-<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
-<script src="./resources/commonJavaScript/eSciDoc_javascript.js" language="JavaScript" type="text/javascript">;</script>
+<script type="text/javascript" language="JavaScript" src="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}'/>../resources/scripts.js">;</script>
+<script src="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}'/>../resources/commonJavaScript/eSciDoc_javascript.js" language="JavaScript" type="text/javascript">;</script>
 
 <link href="/cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
