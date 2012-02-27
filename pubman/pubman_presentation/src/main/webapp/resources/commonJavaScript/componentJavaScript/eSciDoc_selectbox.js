@@ -63,6 +63,17 @@ function resizeSelectbox(maxWidth) {
 	});
 }
 
+/* this function search for the parent node */
+function searchParentTag(source_obj, searchTagString) {
+	for (var i=0; i < $(source_obj).parents().length; i++) {
+		if ($($(source_obj).parents()[i]).hasClass(searchTagString)) {
+			return $($(source_obj).parents()[i]);
+			break;
+		}
+	}
+	return false;
+}
+
 /*
  * the function update the text into selectionBox for viewing the selected option in selectbox
  * @parameter box = selectbox object
@@ -70,12 +81,28 @@ function resizeSelectbox(maxWidth) {
  */
 function updateSelectionBox(box, isStart) {
 	if (isStart) {	//if start every selectbox will be focused to update the selectionBox
+		/*
 		$('.selectContainer').each(function() {
 			//check if the selectbox is on metaMenu
 			if ($(this).parent().hasClass("metaMenu")) {
 //				console.log('Parent: ' + $(this).parent().attr('class'))
 			} else {
 				$(this).find('select').focus();
+			}
+		});
+		
+	*/
+		$("select").each(function(i){
+			var parent = null;
+			if (parent = searchParentTag(this, "selectContainer")) {
+				var val = $(this).val();
+				$(this).find("option").each(function(i){
+					if ($(this).val() == val) {
+						val = $(this).text();
+					}
+				});
+				$(parent).find(".selectionBox").html(val);
+				console.log(val);
 			}
 		});
 	} else {
@@ -96,11 +123,14 @@ function updateSelectionBox(box, isStart) {
 			}
 		
 			//compare the contentText and decide for remove hidden class
-			if ($.trim(contentText) != '-' && $.trim(contentText) != '--' && $.trim(contentText) != '') {
-				parent.find('.itemBlockContent').removeClass("hideBlockIfVoid");
-				parent.find('.itemBlockContent').removeClass("hideAdvSearchComplexBlockIfVoid");
-				/* parent.find('.itemBlockContent').removeClass("hideAdvSearchGenreBlockIfVoid"); -- should be expanded for text-input fields*/
+			if (parent) {
+				if ($.trim(contentText) != '-' && $.trim(contentText) != '--' && $.trim(contentText) != '') {
+					parent.find('.itemBlockContent').removeClass("hideBlockIfVoid");
+					parent.find('.itemBlockContent').removeClass("hideAdvSearchComplexBlockIfVoid");
+					/* parent.find('.itemBlockContent').removeClass("hideAdvSearchGenreBlockIfVoid"); -- should be expanded for text-input fields*/
+				} 
 			}
+			
 		}
 	}
 	
