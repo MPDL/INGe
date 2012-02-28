@@ -93,6 +93,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.sun.org.apache.xerces.internal.xni.grammars.XMLGrammarPool;
+
 import test.common.util.ImportResolver;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
@@ -1231,10 +1233,15 @@ public class TestBase
         {
             try
             {
+                if (file.getCanonicalPath().contains("rest"))
+                {
+                    logger.debug("Skipping schema file: " + file.getCanonicalPath());
+                    continue;
+                }
                 logger.debug("Schema file: " + file.getCanonicalPath());
                 
                 Schema schema = sf.newSchema(file);
-                
+               
                 SAXParserFactory factory = SAXParserFactory.newInstance();
                 SAXParser parser = factory.newSAXParser();
                 DefaultHandler handler = new DefaultHandler()
