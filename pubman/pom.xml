@@ -467,6 +467,11 @@
 		<escidoc.pubman.stylesheet.classic.url>/common/resources/cssFramework/themes/skin_classic/styles/theme.css</escidoc.pubman.stylesheet.classic.url>
 		<escidoc.pubman.stylesheet.classic.type>alternate stylesheet</escidoc.pubman.stylesheet.classic.type>
 		<escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
+		
+		<!-- Properties for PubMan special theme-->
+		<escidoc.pubman.stylesheet.classic.url>/common/resources/cssFramework/themes/skin_MPG/styles/theme.css</escidoc.pubman.stylesheet.classic.url>
+		<escidoc.pubman.stylesheet.classic.type>alternate stylesheet</escidoc.pubman.stylesheet.classic.type>
+		<escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
 				
 		<!--Common presentation -->
 
