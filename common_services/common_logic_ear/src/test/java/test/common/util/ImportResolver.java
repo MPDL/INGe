@@ -55,7 +55,7 @@ public class ImportResolver implements LSResourceResolver
     {
 
 
-            logger.debug("Loading " + systemId);
+            logger.debug("Loading type:" + type + " namespaceURI: " + namespaceURI + " systemId: " + systemId + " baseURI: " + baseURI);
             
             try
             {
