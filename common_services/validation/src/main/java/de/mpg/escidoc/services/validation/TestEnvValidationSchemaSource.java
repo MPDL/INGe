@@ -65,7 +65,7 @@ public class TestEnvValidationSchemaSource implements ValidationSchemaSource
                 
         try
         {            
-            id = new CacheTuple(PropertyReader.getProperty(Constants.PROPERTY_CONTENT_MODEL_ID_PUBLICATION), "publication");  
+            id = new CacheTuple(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"), "publication");  
             schematron = this.readFile("testenv/pubman_test_collection.xml");
         }
         catch (IOException e)
