@@ -42,10 +42,10 @@ import org.junit.runners.Suite;
  * @revised by MuJ: 03.09.2007
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ValueObjectEqualsTest.class
-                    ,ValueObjectCloneTest.class
-                    ,FilterTaskParamVOTest.class
-                    ,AccountUserVOTest.class
+@Suite.SuiteClasses({test.valueobjects.ValueObjectEqualsTest.class
+                    ,test.valueobjects.ValueObjectCloneTest.class
+                    ,test.valueobjects.FilterTaskParamVOTest.class
+                    ,test.valueobjects.AccountUserVOTest.class
                     })
 public class ValueObjectTest
 {
