@@ -1,35 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?><item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3"  xmlns:eterms="${xsd.metadata.escidocprofile.types}" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xmlns:resources="http://www.escidoc.de/schemas/resources/0.2" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8"?><item:item xmlns:item="${xsd.soap.item.item}"  xmlns:eterms="${xsd.metadata.escidocprofile.types}" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:components="${xsd.soap.item.components}" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:md-records="${xsd.soap.common.mdrecords}" xmlns:relations="${xsd.soap.common.relations}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<item:properties>
-		<item:context objid="escidoc:persistent3"/>
-		<item:content-model objid="escidoc:persistent4"/>
+		<item:context objid="${escidoc.framework_access.context.id.test}"/>
+		<item:content-model objid="${escidoc.framework_access.content-model.id.publication}"/>
 		<item:content-model-specific>
 			<anything/>
 		</item:content-model-specific>
 	</item:properties>
 	<md-records:md-records>
 		<md-records:md-record name="escidoc">
-			<publication:publication xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:prop="${xsd.soap.common.prop}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:srel="${xsd.soap.common.srel}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:version="${xsd.soap.common.version}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:release="${xsd.soap.common.release}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" type="http://purl.org/eprint/type/Book">
+			<publication:publication xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:prop="${xsd.soap.common.prop}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:srel="${xsd.soap.common.srel}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:version="${xsd.soap.common.version}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:release="${xsd.soap.common.release}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" type="http://purl.org/eprint/type/Book">
 				<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 					<person:person>
-						<eterms:complete-name xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">Hans Meier</eterms:complete-name>
-						<eterms:family-name xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">Meier</eterms:family-name>
-						<eterms:given-name xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">Hans</eterms:given-name>
-						<eterms:alternative-name xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">Werner</eterms:alternative-name>
-						<eterms:alternative-name xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">
+						<eterms:complete-name xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">Hans Meier</eterms:complete-name>
+						<eterms:family-name xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">Meier</eterms:family-name>
+						<eterms:given-name xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">Hans</eterms:given-name>
+						<eterms:alternative-name xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">Werner</eterms:alternative-name>
+						<eterms:alternative-name xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">
 							These tokens are escaped and must stay escaped: &amp;quot;&amp;amp;amp;&amp;quot;,
 							&amp;quot;&amp;amp;gt;&amp;quot;, &amp;quot;&amp;amp;lt;&amp;quot;,
 							&amp;quot;&amp;amp;quot;&amp;quot;, &amp;quot;&amp;amp;apos;&amp;quot;
 						</eterms:alternative-name>
-						<eterms:alternative-name xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">
+						<eterms:alternative-name xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}">
 							These tokens are escaped and must stay escaped, too: &amp;amp;auml; &amp;amp;Auml;
 							&amp;amp;szlig;
 						</eterms:alternative-name>
-						<eterms:person-title xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">Dr. (?)</eterms:person-title>
-						<eterms:pseudonym xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">&amp;lt;b&amp;gt;Shorty&amp;lt;/b&amp;gt;</eterms:pseudonym>
-						<eterms:pseudonym xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">&amp;lt;&amp;apos;Dr. Short&amp;apos;&amp;gt;</eterms:pseudonym>
+						<eterms:person-title xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}">Dr. (?)</eterms:person-title>
+						<eterms:pseudonym xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">&amp;lt;b&amp;gt;Shorty&amp;lt;/b&amp;gt;</eterms:pseudonym>
+						<eterms:pseudonym xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">&amp;lt;&amp;apos;Dr. Short&amp;apos;&amp;gt;</eterms:pseudonym>
 						<organization:organization>
 							<dc:title>Vinzenzmurr</dc:title>
-							<eterms:address xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">
+							<eterms:address xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}">
 								&amp;lt;a href=&amp;quot;www.buxtehude.de&amp;quot;&amp;gt;Irgendwo in
 								Deutschland&amp;lt;/a&amp;gt;
 							</eterms:address>
@@ -41,69 +41,69 @@
 				<eterms:creator role="http://www.loc.gov/loc.terms/relators/CTB">
 					<organization:organization>
 						<dc:title>MPDL</dc:title>
-						<eterms:address xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">Amalienstraße</eterms:address>
+						<eterms:address xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">Amalienstraße</eterms:address>
 						<dc:identifier>1a</dc:identifier>
 					</organization:organization>
 				</eterms:creator>
-				<dc:title xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="en">Über den Wölken. The first of all. Das Maß aller Dinge.</dc:title>
-				<dc:language xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="dcterms:ISO639-3">de</dc:language>
-				<dc:language xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="dcterms:ISO639-3">en</dc:language>
-				<dc:language xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="dcterms:ISO639-3">fr</dc:language>
-				<dcterms:alternative xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="de">Die Erste von allen.</dcterms:alternative>
-				<dcterms:alternative xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="fr">Wulewu</dcterms:alternative>
-				<dc:identifier xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="eterms:ISI">0815</dc:identifier>
-				<dc:identifier xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="eterms:ISSN">issn</dc:identifier>
+				<dc:title xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}" xml:lang="en">Über den Wölken. The first of all. Das Maß aller Dinge.</dc:title>
+				<dc:language xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}" xsi:type="dcterms:ISO639-3">de</dc:language>
+				<dc:language xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}" xsi:type="dcterms:ISO639-3">en</dc:language>
+				<dc:language xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}" xsi:type="dcterms:ISO639-3">fr</dc:language>
+				<dcterms:alternative xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}" xml:lang="de">Die Erste von allen.</dcterms:alternative>
+				<dcterms:alternative xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}" xml:lang="fr">Wulewu</dcterms:alternative>
+				<dc:identifier xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}" xsi:type="eterms:ISI">0815</dc:identifier>
+				<dc:identifier xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}" xsi:type="eterms:ISSN">issn</dc:identifier>
 				<eterms:publishing-info>
-					<dc:publisher xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">
+					<dc:publisher xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}">
 						O'Reilly Media Inc., 1005 Gravenstein Highway North, Sebastopol
 					</dc:publisher>
-					<eterms:place xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">Garching-Itzehoe-Capreton</eterms:place>
-					<eterms:edition xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">One and a half</eterms:edition>
+					<eterms:place xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}">Garching-Itzehoe-Capreton</eterms:place>
+					<eterms:edition xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">One and a half</eterms:edition>
 				</eterms:publishing-info>
-				<dcterms:created xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="dcterms:W3CDTF">2005-02</dcterms:created>
-				<dcterms:modified xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="dcterms:W3CDTF">2007-02-27</dcterms:modified>
-				<dcterms:dateSubmitted xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="dcterms:W3CDTF">2005-08-31</dcterms:dateSubmitted>
-				<dcterms:dateAccepted xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="dcterms:W3CDTF">2005</dcterms:dateAccepted>
-				<dcterms:issued xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="dcterms:W3CDTF">2006-02-01</dcterms:issued>
+				<dcterms:created xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xsi:type="dcterms:W3CDTF">2005-02</dcterms:created>
+				<dcterms:modified xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xsi:type="dcterms:W3CDTF">2007-02-27</dcterms:modified>
+				<dcterms:dateSubmitted xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xsi:type="dcterms:W3CDTF">2005-08-31</dcterms:dateSubmitted>
+				<dcterms:dateAccepted xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xsi:type="dcterms:W3CDTF">2005</dcterms:dateAccepted>
+				<dcterms:issued xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xsi:type="dcterms:W3CDTF">2006-02-01</dcterms:issued>
 				<eterms:review-method>http://purl.org/escidoc/metadata/ves/review-methods/internal</eterms:review-method>
 				<source:source>
-					<dc:title xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="jp">Dies ist die Wurzel allen Übels.</dc:title>
-					<dcterms:alternative xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="en">This is the root of all ???.</dcterms:alternative>
-					<dcterms:alternative xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="en">
+					<dc:title xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xml:lang="jp">Dies ist die Wurzel allen Übels.</dc:title>
+					<dcterms:alternative xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xml:lang="en">This is the root of all ???.</dcterms:alternative>
+					<dcterms:alternative xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xml:lang="en">
 						&amp;lt; and &amp;amp; are illegal characters in XML and therefore have to be escaped.
 					</dcterms:alternative>
-					<dcterms:alternative xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="en">
+					<dcterms:alternative xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xml:lang="en">
 						&amp;gt; and &amp;apos; and ? are problematic characters in XML and therefore should be escaped.
 					</dcterms:alternative>
-					<dcterms:alternative xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="en">
+					<dcterms:alternative xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xml:lang="en">
 						What about `, ´, äöüÄÖÜß, áàéèô, and the good old % (not to forget the /, the \, -, the _, the
 						~, the @ and the #)?
 					</dcterms:alternative>
-					<dcterms:alternative xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="en">
+					<dcterms:alternative xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xml:lang="en">
 						By the way, the Euro sign looks like this: €
 					</dcterms:alternative>
-					<eterms:creator xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" role="http://www.loc.gov/loc.terms/relators/AUT">
-						<organization:organization xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}" xmlns:properties="${xsd.core.properties}">
+					<eterms:creator xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" role="http://www.loc.gov/loc.terms/relators/AUT">
+						<organization:organization xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}">
 							<dc:title>murrrmurr</dc:title>
-							<eterms:address xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">Ümläüte ßind ßchön. à bientôt!</eterms:address>
+							<eterms:address xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">Ümläüte ßind ßchön. à bientôt!</eterms:address>
 							<dc:identifier>BLA-BLU-BLÄ</dc:identifier>
 						</organization:organization>
 					</eterms:creator>
-					<eterms:volume xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">8a</eterms:volume>
-					<eterms:issue xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">13b</eterms:issue>
-					<eterms:start-page xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">-12</eterms:start-page>
-					<eterms:end-page xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">131313</eterms:end-page>
-					<eterms:sequence-number xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">1-3-6</eterms:sequence-number>
-					<eterms:publishing-info xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">
+					<eterms:volume xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">8a</eterms:volume>
+					<eterms:issue xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">13b</eterms:issue>
+					<eterms:start-page xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">-12</eterms:start-page>
+					<eterms:end-page xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">131313</eterms:end-page>
+					<eterms:sequence-number xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">1-3-6</eterms:sequence-number>
+					<eterms:publishing-info xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">
 						<dc:publisher>Martas Druckerei</dc:publisher>
 						<eterms:place>Hamburg-München</eterms:place>
 						<eterms:edition>III</eterms:edition>
 					</eterms:publishing-info>
-					<dc:identifier xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="eterms:ISBN">XY-347H-112</dc:identifier>
+					<dc:identifier xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xsi:type="eterms:ISBN">XY-347H-112</dc:identifier>
 					<source:source>
-						<dc:title xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="en">The source of the source.</dc:title>
-						<eterms:creator xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" role="http://www.loc.gov/loc.terms/relators/ART">
-							<organization:organization xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}" xmlns:properties="${xsd.core.properties}">
+						<dc:title xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xml:lang="en">The source of the source.</dc:title>
+						<eterms:creator xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" role="http://www.loc.gov/loc.terms/relators/ART">
+							<organization:organization xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}" xmlns:relations="${xsd.soap.common.relations}" >
 								<dc:title>
 									Creator of the Source of the source
 								</dc:title>
@@ -113,19 +113,19 @@
 					</source:source>
 				</source:source>
 				<event:event>
-					<dc:title xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="en">Weekly progress meeting</dc:title>
-					<dcterms:alternative xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="de">Wöchentliches Fortschrittsmeeting</dcterms:alternative>
-					<eterms:start-date xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="dcterms:W3CDTF">2004-11-11</eterms:start-date>
-					<eterms:end-date xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="dcterms:W3CDTF">2005-02-19</eterms:end-date>
-					<eterms:place xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">Köln</eterms:place>
-					<eterms:invitation-status xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">invited</eterms:invitation-status>
+					<dc:title xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xml:lang="en">Weekly progress meeting</dc:title>
+					<dcterms:alternative xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xml:lang="de">Wöchentliches Fortschrittsmeeting</dcterms:alternative>
+					<eterms:start-date xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xsi:type="dcterms:W3CDTF">2004-11-11</eterms:start-date>
+					<eterms:end-date xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xsi:type="dcterms:W3CDTF">2005-02-19</eterms:end-date>
+					<eterms:place xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">Köln</eterms:place>
+					<eterms:invitation-status xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">invited</eterms:invitation-status>
 				</event:event>
 				<eterms:total-number-of-pages>999</eterms:total-number-of-pages>
 				<eterms:degree>http://purl.org/escidoc/metadata/ves/academic-degrees/master</eterms:degree>
-				<dcterms:abstract xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="de">Dies ist die Zusammenfassung der Veröffentlichung.</dcterms:abstract>
-				<dcterms:abstract xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="en">This is the summary of the publication.</dcterms:abstract>
-				<dc:subject xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">wichtig,wissenschaftlich,spannend</dc:subject>
-				<dcterms:tableOfContents xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">1.Einleitung 2.Inhalt</dcterms:tableOfContents>
+				<dcterms:abstract xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xml:lang="de">Dies ist die Zusammenfassung der Veröffentlichung.</dcterms:abstract>
+				<dcterms:abstract xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}" xml:lang="en">This is the summary of the publication.</dcterms:abstract>
+				<dc:subject xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">wichtig,wissenschaftlich,spannend</dc:subject>
+				<dcterms:tableOfContents xmlns:item="${xsd.soap.item.item}" xmlns:components="${xsd.soap.item.components}"  xmlns:relations="${xsd.soap.common.relations}">1.Einleitung 2.Inhalt</dcterms:tableOfContents>
 				<eterms:location>IPP, Garching</eterms:location>
 			</publication:publication>
 		</md-records:md-record>
