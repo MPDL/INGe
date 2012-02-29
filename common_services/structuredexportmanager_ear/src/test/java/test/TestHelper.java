@@ -216,16 +216,7 @@ public class TestHelper
         filterMap.put(OPERATION, new String[]{SEARCH_RETRIEVE});
         filterMap.put(VERSION, new String[]{"1.1"});
         filterMap.put(QUERY, new String[]{q1 + " and " + q2});
-        
-        // see here for filters: https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
-        /*String filter = 
-        	"<param>" +
-        		// escidoc content model
-        		"<filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + CONTENT_MODEL + " </filter>" +
-        		"<filter name=\"http://escidoc.de/core/01/properties/public-status\">released</filter>" +
-        		// records limit	
-        		"<limit>" + ITEMS_LIMIT + "</limit>" +
-        	"</param>";*/
+       
         return ch.retrieveItems(filterMap);
     
     }
