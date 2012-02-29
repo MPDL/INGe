@@ -53,10 +53,7 @@ public class TestHelper
 {
 	
 	public static final String ITEMS_LIMIT = "50"; 
-	/*public static final String CONTENT_MODEL = "escidoc:persistent4"; 
-	public static final String USER_NAME = "test_dep_scientist"; 
-	public static final String USER_PASSWD = "verdi"; */
-	
+
     /**
      * Retrieve resource based on a path relative to the classpath.
      * @param fileName The path of the resource.
