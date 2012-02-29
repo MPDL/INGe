@@ -85,17 +85,11 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.ls.LSInput;
-import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
-
-import com.sun.org.apache.xerces.internal.xni.grammars.XMLGrammarPool;
-
-import test.common.util.ImportResolver;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
@@ -1233,11 +1227,14 @@ public class TestBase
         {
             try
             {
+                
+//TODO remove this hack when xsd files are cleared
                 if (file.getCanonicalPath().contains("rest"))
                 {
                     logger.debug("Skipping schema file: " + file.getCanonicalPath());
                     continue;
                 }
+// end TODO                
                 logger.debug("Schema file: " + file.getCanonicalPath());
                 
                 Schema schema = sf.newSchema(file);
