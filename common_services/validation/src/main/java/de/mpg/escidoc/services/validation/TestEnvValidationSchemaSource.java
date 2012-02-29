@@ -39,7 +39,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.framework.Constants;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.validation.util.CacheTuple;
 
