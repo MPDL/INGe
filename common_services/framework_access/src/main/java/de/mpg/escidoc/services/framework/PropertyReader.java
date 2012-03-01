@@ -169,6 +169,21 @@ public class PropertyReader
 		Logger.getLogger(PropertyReader.class).info("Properties loaded from " + fileLocation);
 		// Logger.getLogger(PropertyReader.class).info(properties.toString());
 	}
+	
+    public static void setProperty(String key, String value) throws IOException, URISyntaxException 
+    {
+        if(properties==null)
+        {
+            loadProperties();
+        }
+        
+        Object object = null;
+        if((object = properties.getProperty(key)) != null)
+        {
+            Logger.getLogger(PropertyReader.class).debug("Overwriting property (" + key + ", " + object.toString() + ")" + " with " + value);
+        }
+        properties.setProperty(key, value);
+    }
 
 	/**
 	 * Retrieves the Inputstream of the given file path. First the resource is
