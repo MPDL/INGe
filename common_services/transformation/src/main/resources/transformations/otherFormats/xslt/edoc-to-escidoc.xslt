@@ -1494,7 +1494,7 @@
 										<xsl:value-of select="../../../rights/copyright"/>
 									</xsl:element>
 								</xsl:when>
-								<xsl:when test="$import-name = 'MPIGF' or $import-name = 'MPIINF'">
+								<xsl:when test="$import-name = 'MPIGF' or $import-name = 'MPIINF' or $import-name = 'MPIP'">
 									<xsl:if test="exists(../../../rights/copyright)">
 										<xsl:element name="dc:rights">
 											<xsl:value-of select="../../../rights/copyright"/>
@@ -3462,9 +3462,7 @@
 	<xsl:function name="escidocFunctions:suffix">
 		<xsl:param name="filename"/>
 		<xsl:choose>
-			<xsl:when test="contains($filename, '.')">
-				<xsl:value-of select="escidocFunctions:suffix(substring-after($filename, '.'))"/>
-			</xsl:when>
+			<xsl:when test="contains($filename, '.')">.<xsl:value-of select="escidocFunctions:suffix(substring-after($filename, '.'))"/></xsl:when>
 			<xsl:otherwise>
 				<xsl:text>.</xsl:text>
 				<xsl:value-of select="$filename"/>
