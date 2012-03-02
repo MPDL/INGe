@@ -3462,7 +3462,7 @@
 	<xsl:function name="escidocFunctions:suffix">
 		<xsl:param name="filename"/>
 		<xsl:choose>
-			<xsl:when test="contains($filename, '.')">.<xsl:value-of select="escidocFunctions:suffix(substring-after($filename, '.'))"/></xsl:when>
+			<xsl:when test="contains($filename, '.')"><xsl:value-of select="escidocFunctions:suffix(substring-after($filename, '.'))"/></xsl:when>
 			<xsl:otherwise>
 				<xsl:text>.</xsl:text>
 				<xsl:value-of select="$filename"/>
