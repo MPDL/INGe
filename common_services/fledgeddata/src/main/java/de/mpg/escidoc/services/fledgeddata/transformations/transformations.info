@@ -1,0 +1,4 @@
+All transformations will be stored temporarily in this folder, as the escidoc transformation service is not 
+yet compatible with most of the escidoc solutions.
+As soon as the transformation service is updated this section will be moved and the Fledged Data Service will be able to 
+offer all transformations provided by the escidoc transformation service.

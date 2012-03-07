@@ -52,6 +52,14 @@
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/dlcTest.java</include>
+					</includes>
+				</configuration>
 			</plugin>			
 		</plugins>
 		<resources>
@@ -116,5 +124,23 @@
 			<version>1.5</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>mets_1.7</artifactId>
+			<version>1.7</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>mods_3.3</artifactId>
+			<version>3.3</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>			
+			<groupId>xmlbeans</groupId>			
+			<artifactId>xbean</artifactId>			
+			<version>2.4.0</version>			
+			<scope>compile</scope>		
+		</dependency>	
 	</dependencies>
 </project>

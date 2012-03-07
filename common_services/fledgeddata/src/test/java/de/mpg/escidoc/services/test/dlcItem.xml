@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocMetadataRecords:md-record name="escidoc"
+       xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5"    
+       xmlns:xlink="http://www.w3.org/1999/xlink"   
+       xml:base="http://dlc.mpdl.mpg.de:8080"  
+       xlink:type="simple" 
+       xlink:title="escidoc" 
+       xmlns:mods="http://www.loc.gov/mods/v3" 
+       xlink:href="/ir/item/escidoc:8011/md-records/md-record/escidoc" 
+>
+	<mods:mods version="3.0">
+		<mods:recordInfo>
+			<mods:recordIdentifier source="mab001">680189386</mods:recordIdentifier>
+		</mods:recordInfo>
+		<mods:language>
+			<mods:languageTerm authority="rfc4646" type="code">ger</mods:languageTerm>
+		</mods:language>
+		<mods:name ID="mab100" authority="pnd" displayLabel="author1" type="personal">
+			<mods:role>
+				<mods:roleTerm authority="marcrelator" type="code">authnr</mods:roleTerm>
+			</mods:role>
+			<mods:namePart>Egger, Augustinus</mods:namePart>
+		</mods:name>
+		<mods:titleInfo ID="mab331" displayLabel="mainTitle">
+			<mods:title>́Dié christliche Mutter</mods:title>
+		</mods:titleInfo>
+		<mods:titleInfo ID="mab335">
+			<mods:subTitle>Erbauungs- und Gebetbuch</mods:subTitle>
+		</mods:titleInfo>
+		<mods:physicalDescription>
+			<mods:extent>703 S.</mods:extent><mods:extent>Ill.</mods:extent>
+		</mods:physicalDescription>
+		<mods:note ID="mab359" type="statement of responsibility">von Augustin Egger</mods:note>
+		<mods:originInfo displayLabel="publisher1">
+			<mods:place>
+				<mods:placeTerm type="text">Einsiedeln [u.a.]</mods:placeTerm>
+			</mods:place>
+			<mods:publisher>Benziger</mods:publisher>
+			<mods:dateIssued encoding="w3cdtf" keyDate="yes">1898</mods:dateIssued>
+		</mods:originInfo>
+		<mods:subject authority="rswk">
+			<mods:topic>  4040949-1           Mutter</mods:topic>
+			<mods:topic>  4121093-1           Christin</mods:topic>
+			<mods:topic>  4016409-3           Familienerziehung</mods:topic>
+			<mods:topic>  4130226-6           Relig Erziehung</mods:topic>
+			<mods:topic>  4069996-1           Christliche Existenz</mods:topic>
+			<mods:topic>  4034864-7           Lebens...</mods:topic>
+			<mods:topic>  4019515-6           Gebetbuch</mods:topic>
+			<mods:topic>  4129866-4           Erbauungsliteratur</mods:topic>
+			<mods:topic>  |Quelle 1898</mods:topic>
+			<mods:topic>  |Ratgeber</mods:topic>
+		</mods:subject>
+		<mods:relatedItem name="tei" type="tei_sd">http://dlc.mpdl.mpg.de:8080/ir/item/escidoc:8011/components/component/escidoc:8013/content</mods:relatedItem>
+	</mods:mods>
+</escidocMetadataRecords:md-record>
+
