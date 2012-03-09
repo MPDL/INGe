@@ -172,12 +172,12 @@
 			<iso:report test="not(dc:title != '')">TitleNotProvided</iso:report>
 			<iso:report test="not(exists(source:source[@type = 'http://purl.org/escidoc/metadata/ves/publication-types/proceedings' or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/journal']))">SourceGenreMustBeProceedingsOrJournal</iso:report>
 		</iso:rule>
-		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/conferencepaper' or  or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract']/escidoc:creator[exists(person:person)]">
+		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/conferencepaper' or  @type = 'http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract']/escidoc:creator[exists(person:person)]">
 			<iso:report test="not(@role != '')">CreatorRoleNotProvided</iso:report>
 			<iso:report test="not(person:person/escidoc:family-name != '')">CreatorFamilyNameNotProvided</iso:report>
 			<iso:report test="not(person:person/escidoc:given-name != '')">CreatorGivennameNotProvided</iso:report>
 		</iso:rule>
-		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/conferencepaper' or  or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract']/source:source">
+		<iso:rule context="publication:publication[@type = 'http://purl.org/eprint/type/conferencepaper' or  @type = 'http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract']/source:source">
 			<iso:report test="not(dc:title != '')">SourceTitleNotProvided</iso:report>
 		</iso:rule>
 	</iso:pattern>

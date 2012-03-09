@@ -40,7 +40,7 @@ public class MetadataSearchCriterion implements Serializable
         DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, DATE_EVENT_START, DATE_EVENT_END, TOPIC,
         SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CONTEXT_NAME, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE,
         COMPONENT_ACCESSIBILITY, COMPONENT_STORAGE, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY, COMPONENT_COMPOUND_PROPERTIES, LOCAL_TAG, COPYRIGHT_DATE, 
-        EMBARGO_DATE, DEGREE, PERSON_IDENTIFIER, LATEST_RELEASE_OBJID
+        EMBARGO_DATE, DEGREE, PERSON_IDENTIFIER, LATEST_RELEASE_OBJID, OBJID
     };
 
     /**
@@ -159,8 +159,11 @@ public class MetadataSearchCriterion implements Serializable
     /** Index field for person identifier. */
     private static final String INDEX_PERSON_IDENTIFIER = "escidoc.publication.creator.person.identifier";
     
-    /** Index field for person identifier. */
+    /** Index field for item latest released objectID. */
     private static final String INDEX_LATEST_RELEASE_OBJID = "escidoc.property.latest-release.objid";
+    
+    /** Index field for item latest released objectID. */
+    private static final String INDEX_OBJID = "escidoc.property.objid";
     
     
     /** String to be used to represent an empty search term. */
@@ -512,6 +515,9 @@ public class MetadataSearchCriterion implements Serializable
             case LATEST_RELEASE_OBJID:
                 indexes.add(INDEX_LATEST_RELEASE_OBJID);
                 break;
+            case OBJID:
+                indexes.add(INDEX_OBJID);
+                break;
             case DATE_EVENT_START:
                 indexes.add(INDEX_DATE_EVENT_START);
                 break;
@@ -858,6 +864,11 @@ public class MetadataSearchCriterion implements Serializable
     public static String getINDEX_PERSON_IDENTIFIER()
     {
         return INDEX_PERSON_IDENTIFIER;
+    }
+    
+    public static String getINDEX_OBJID()
+    {
+        return INDEX_OBJID;
     }
 
 
