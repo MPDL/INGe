@@ -272,9 +272,9 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
          {
              for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
              {
-             	mdsList.add(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.NOT));
-             	}
+             	mdsList.add(new MetadataSearchCriterion(CriterionType.OBJID , rel.getTargetItemRef().getObjectId(), LogicalOperator.NOT));
              }
+         }
          MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
          
          String additionalQuery = yisb.getYearbookItem().getLocalTags().get(0);
@@ -317,7 +317,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         {
             for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
             {
-                mdsList.add(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.NOT));
+                mdsList.add(new MetadataSearchCriterion(CriterionType.OBJID, rel.getTargetItemRef().getObjectId(), LogicalOperator.NOT));
             }
         }
        
@@ -358,7 +358,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         	
             for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
             {
-            	query += " NOT " + MetadataSearchCriterion.getINDEX_IDENTIFIER() + "=\"" + rel.getTargetItemRef().getObjectId() + "\"";
+            	query += " NOT " + MetadataSearchCriterion.getINDEX_OBJID() + "=\"" + rel.getTargetItemRef().getObjectId() + "\"";
             }
         }
     	
@@ -386,11 +386,11 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
         {
             if(i==0)
             {
-                objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.AND));
+                objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.OBJID, rel.getTargetItemRef().getObjectId(), LogicalOperator.AND));
             }
             else
             {
-                objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, rel.getTargetItemRef().getObjectId(), LogicalOperator.OR));   
+                objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.OBJID, rel.getTargetItemRef().getObjectId(), LogicalOperator.OR));   
             }
             i++;
            
@@ -451,11 +451,11 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
                 {
                     if(i==0)
                     {
-                        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, item.getObjectId(), LogicalOperator.AND));
+                        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.OBJID, item.getObjectId(), LogicalOperator.AND));
                     }
                     else
                     {
-                        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.IDENTIFIER, item.getObjectId(), LogicalOperator.OR));   
+                        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.OBJID, item.getObjectId(), LogicalOperator.OR));   
                     }
                     i++;
                    

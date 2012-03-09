@@ -46,6 +46,8 @@ import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.UserAttributeVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
@@ -332,6 +334,20 @@ public class YearbookItemSessionBean extends FacesBean
     public boolean validateItem(PubItemVO pubItem) throws Exception
     {
     	YearbookInvalidItemRO storedItem= null;
+    	for (CreatorVO creator : pubItem.getMetadata().getCreators())
+    	{
+    	    if (creator.getOrganization() != null)
+    	    {
+    	        creator.getOrganization().setIdentifier(creator.getOrganization().getIdentifier().trim());
+    	    }
+    	    else if (creator.getPerson() != null) 
+    	    {
+    	        for (OrganizationVO organization : creator.getPerson().getOrganizations())
+    	        {
+    	            organization.setIdentifier(organization.getIdentifier().trim());
+    	        }
+    	    }
+    	}
         if(invalidItemMap.containsKey(pubItem.getVersion().getObjectId()))
         {
              storedItem = invalidItemMap.get(pubItem.getVersion().getObjectId());

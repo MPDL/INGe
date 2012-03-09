@@ -469,9 +469,9 @@
 		<escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
 		
 		<!-- Properties for PubMan special theme-->
-		<escidoc.pubman.stylesheet.classic.url>/common/resources/cssFramework/themes/skin_MPG/styles/theme.css</escidoc.pubman.stylesheet.classic.url>
-		<escidoc.pubman.stylesheet.classic.type>alternate stylesheet</escidoc.pubman.stylesheet.classic.type>
-		<escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
+		<escidoc.pubman.stylesheet.special.url>/common/resources/cssFramework/themes/skin_MPG/styles/theme.css</escidoc.pubman.stylesheet.special.url>
+		<escidoc.pubman.stylesheet.special.type>alternate stylesheet</escidoc.pubman.stylesheet.special.type>
+		<escidoc.pubman.stylesheet.special.apply>true</escidoc.pubman.stylesheet.special.apply>
 				
 		<!--Common presentation -->
 
@@ -684,8 +684,8 @@
 		<organization.logo>http://www.mpdl.mpg.de/mpdl/sys/css/screen/images/logo.gif</organization.logo>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		
-		<escidoc.pubman.yearbook.context.id>escidoc:241288</escidoc.pubman.yearbook.context.id>
-		<escidoc.pubman.yearbook.content-model.id>escidoc:245286</escidoc.pubman.yearbook.content-model.id>
+		<escidoc.pubman.yearbook.context.id>escidoc:117417</escidoc.pubman.yearbook.context.id>
+		<escidoc.pubman.yearbook.content-model.id>escidoc:119021</escidoc.pubman.yearbook.content-model.id>
 		
 		<!-- Externalisation of home page content -->
 		<escidoc.pubman.logo.url>/pubman/resources/images/pubman_logo.png</escidoc.pubman.logo.url>

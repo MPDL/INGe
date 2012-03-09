@@ -351,6 +351,18 @@
 							<artifactId>aa_logic</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<!--
+						<jarModule>
+							<groupId>commons-net</groupId>
+							<artifactId>commons-net</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>commons-compress</groupId>
+							<artifactId>commons-compress</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						-->
 					</modules>
 				</configuration>
 			</plugin>
@@ -809,12 +821,6 @@
 			<artifactId>common_presentation</artifactId>
 			<version>1.0.46-SNAPSHOT</version>
 			<type>war</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-net</groupId>
-			<artifactId>commons-net</artifactId>
-			<version>3.0.1</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>

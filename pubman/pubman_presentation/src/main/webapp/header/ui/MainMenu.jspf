@@ -49,7 +49,7 @@
 	<h:outputText styleClass="free_area0" value="#{lbl.mainMenu_lnkDepositor}" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0 and BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'DepositorWSPage'}" />
 
 
-	<h:outputLink id="lnkWorkspaces" styleClass="free_area0" title="#{tip.MainMenu_WorkspacesPage}" value="#{ApplicationBean.appContext}WorkspacesPage.jsp" rendered="#{LoginHelper.isModerator and BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'WorkspacesPage'}">
+	<h:outputLink id="lnkWorkspaces" styleClass="free_area0" title="#{tip.MainMenu_WorkspacesPage}" value="#{ApplicationBean.appContext}WorkspacesPage.jsp" rendered="#{(LoginHelper.isModerator or LoginHelper.isDepositor) and BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'WorkspacesPage'}">
 		<h:outputText value="#{lbl.mainMenu_lnkWorkspaces}" />
 	</h:outputLink>
 	<h:outputText styleClass="free_area0" value="#{lbl.mainMenu_lnkWorkspaces}" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'WorkspacesPage'}" />
