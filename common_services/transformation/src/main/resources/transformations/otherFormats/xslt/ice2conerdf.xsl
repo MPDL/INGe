@@ -3,7 +3,7 @@
 	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
 	
 	<xsl:param name="ou-url" select="'http://migration-coreservice.mpdl.mpg.de:8080'"/>
-	<xsl:param name="ou-file-path" select="'file:/C:/Dokumente und Einstellungen/saquet/Desktop/pm_units_100322.xml'"/>
+	<xsl:param name="ou-file-path" select="'file:/C:/tmp/test.xml'"/>
 	
 	<xsl:variable name="ou-list" select="document(concat($ou-url, '/srw/search/escidocou_all?query=(escidoc.objid=e*)&amp;maximumRecords=10000'))"/>
 	<xsl:variable name="ou-file" select="document($ou-file-path)"/>
@@ -45,8 +45,9 @@
 	</xsl:template>
 	
 	<xsl:template name="position">
-		<xsl:variable name="ou-code" select="name"/>
+		<xsl:variable name="ou-code" select="."/>
 		<xsl:variable name="ou-name" select="normalize-space($ou-file/units/unit[code=$ou-code]/name_en)"/>
+		<xsl:comment>XX<xsl:value-of select="$ou-name"/>XX</xsl:comment>
 		<xsl:variable name="escidoc-ou">
 			<xsl:if test="$ou-name != ''">
 				<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ou-name]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid"/>
