@@ -5,11 +5,14 @@
 	<xsl:param name="ou-url" select="'http://migration-coreservice.mpdl.mpg.de:8080'"/>
 	<xsl:param name="cone-url" select="'http://migration-pubman.mpdl.mpg.de:8080/cone'"/>
 	<xsl:param name="check-existence" select="false()"/>
+	<xsl:param name="check-compare" select="'false'"/>
+	
+	<xsl:param name="compare-query" select="'%22*MPI%20for%20Psycholinguistics*%22'"/>
 	
 	<xsl:variable name="ou-list" select="document(concat($ou-url, '/srw/search/escidocou_all?query=(escidoc.objid=e*)&amp;maximumRecords=10000'))"/>
 	<xsl:variable name="cone-list" select="document(concat($cone-url, '/persons/all?format=rdf'))"/>
 	
-	
+	<xsl:variable name="comparation-list" select="document(concat($cone-url, '/persons/query?format=rdf&amp;q=', $compare-query, '&amp;l=*&amp;n=0&amp;m=full'))"/>
 
 	<xsl:template match="/">
 		<rdf:RDF>
@@ -40,6 +43,12 @@
 					<xsl:variable name="givenname" select="normalize-space($main/excel:Cell[2]/excel:Data)"/>
 					
 					<rdf:Description>
+						<xsl:if test="$check-compare = 'true' and exists($comparation-list/rdf:RDF/rdf:Description[dc:title = concat($familyname, ', ', $givenname)])">
+							<xsl:attribute name="rdf:about" select="$comparation-list/rdf:RDF/rdf:Description[dc:title = concat($familyname, ', ', $givenname)]/@rdf:about"/>
+							<xsl:comment>
+								Match found with name <xsl:value-of select="concat($familyname, ', ', $givenname)"/>
+							</xsl:comment>
+						</xsl:if>
 						<dc:title>
 							<xsl:value-of select="normalize-space($main/excel:Cell[1]/excel:Data)"/>
 							<xsl:text>, </xsl:text>
