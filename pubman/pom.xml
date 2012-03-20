@@ -563,7 +563,7 @@
 		<escidoc.import.database.server.port />
 		<escidoc.import.database.connection.url>jdbc:hsqldb:$3</escidoc.import.database.connection.url>
 		
-		<escidoc.import.task.content-model>escidoc:2001</escidoc.import.task.content-model>
+		<escidoc.import.task.content-model>escidoc:112070</escidoc.import.task.content-model>
 
 		<!-- Number of creator displayed on load of the view full item page, the rest is displayed through "more" button -->
 		<escidoc.pubman_presentation.viewFullItem.defaultSize>20</escidoc.pubman_presentation.viewFullItem.defaultSize>
