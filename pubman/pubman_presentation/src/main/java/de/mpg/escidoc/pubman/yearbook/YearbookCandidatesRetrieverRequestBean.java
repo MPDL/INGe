@@ -272,7 +272,7 @@ public class YearbookCandidatesRetrieverRequestBean extends BaseListRetrieverReq
          {
              for(ItemRelationVO rel : yisb.getYearbookItem().getRelations())
              {
-             	mdsList.add(new MetadataSearchCriterion(CriterionType.OBJID , rel.getTargetItemRef().getObjectId(), LogicalOperator.NOT));
+             	 mdsList.add(new MetadataSearchCriterion(CriterionType.OBJID , rel.getTargetItemRef().getObjectId(), LogicalOperator.NOT));
              }
          }
          MetadataSearchQuery mdQuery = new MetadataSearchQuery( contentTypes, mdsList );
