@@ -646,19 +646,22 @@ public class BibTexUtil
         {
             text = text.substring(1, text.length() - 1);
         }
-        Pattern pattern = Pattern.compile("\\{([^\\}]*)\\}");
-        while (true)
-        {
+        
+//        text = text.substring(text.indexOf("{")+1, text.lastIndexOf("}")-1);
+        
+        Pattern pattern = Pattern.compile("\\{(.*)\\}");
+//        while (true)
+//        {
             Matcher matcher = pattern.matcher(text);
             if (matcher.find())
             {
                 text = matcher.replaceAll("$1");
             }
-            else
-            {
-                break;
-            }
-        }
+//            else
+//            {
+//                break;
+//            }
+//        }
         if (!removeEmptyBraces)
         {
             text = text.replace(HOPEFULLY_UNUSED_TOKEN, "{}");

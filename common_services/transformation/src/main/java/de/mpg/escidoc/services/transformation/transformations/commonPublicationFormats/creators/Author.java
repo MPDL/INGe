@@ -228,6 +228,11 @@ public class Author
     {
         this.format = format;
     }
+    
+    public void addTag(final String key, final String value)
+    {
+        tags.put(key, value);
+    }
 
     public Map<String, String> getTags()
     {

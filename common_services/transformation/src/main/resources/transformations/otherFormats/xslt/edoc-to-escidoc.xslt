@@ -1246,7 +1246,14 @@
 						<xsl:when test="$import-name = 'EVOLBIO'">
 							<xsl:comment>EVOLBIO</xsl:comment>
 							<prop:content-category>
-								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+								<xsl:choose>
+									<xsl:when test="lower-case($comment) = 'scan'">
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+									</xsl:otherwise>
+								</xsl:choose>
 							</prop:content-category>
 						</xsl:when>
 						<xsl:when test="exists($genre-mapping/genres/genre[@type = $import-name and edoc-genre = $comment])">
@@ -1387,9 +1394,21 @@
 										<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/>
 									</eterms:content-category>
 								</xsl:when>
-								<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET' or $import-name = 'EVOLBIO'">
+								<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIMET'">
 									<eterms:content-category>
 										<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+									</eterms:content-category>
+								</xsl:when>
+								<xsl:when test="$import-name = 'EVOLBIO'">
+									<eterms:content-category>
+										<xsl:choose>
+											<xsl:when test="lower-case($comment) = 'scan'">
+												<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+											</xsl:otherwise>
+										</xsl:choose>
 									</eterms:content-category>
 								</xsl:when>
 								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO'">
@@ -1599,6 +1618,11 @@
 		<xsl:choose>
 			<xsl:when test="genre='Article'">
 				<xsl:choose>
+					<xsl:when test="$import-name = 'MPIEVA' and contains(lower-case(title), '[abstract]')">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'meeting-abstract'"/>
+						</xsl:call-template>
+					</xsl:when>
 					<xsl:when test="$import-name = 'MPIGF' and (contains(title, 'Rezension') or contains(title, 'Book Review'))">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="gen" select="'book-review'"/>
@@ -2074,6 +2098,14 @@
 				<xsl:with-param name="sources-count" select="0"/>
 			</xsl:call-template>
 		</xsl:for-each>
+		<xsl:if test="$import-name = 'MPIKOFO'">
+			<xsl:for-each select="../relations/relation[@type = 'url' and @reltype='hasreferences']">
+				<dc:identifier xsi:type="eterms:URI"><xsl:value-of select="identifier"/></dc:identifier>
+			</xsl:for-each>
+			<xsl:for-each select="../relations/relation[@type = 'doi' and @reltype='hasreferences']">
+				<dc:identifier xsi:type="eterms:DOI"><xsl:value-of select="identifier"/></dc:identifier>
+			</xsl:for-each>
+		</xsl:if>
 	</xsl:template>
 	
 	<!-- 
@@ -2717,6 +2749,15 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIIS'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Intelligent Systems (formerly MPI for Metals Research)')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIEVA'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Evolutionary Anthropology')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIKOFO'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max-Planck-Institut für Kohlenforschung')"/>
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIKYB'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Biological Cybernetics')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'BiblHertz'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Bibliotheca Hertziana (MPI for Art History)')"/>

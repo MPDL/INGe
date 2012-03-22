@@ -74,6 +74,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.Author;
 import de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.AuthorDecoder;
+import de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators.MpiKybFormat;
 
 /**
  * Implementation of BibTex transformation.
@@ -378,7 +379,7 @@ public class Bibtex
                         try
                         {
                             decoder = new AuthorDecoder(
-                                    BibTexUtil.bibtexDecode(fields.get("author").toString(), false), true);
+                                    BibTexUtil.bibtexDecode(fields.get("author").toString(), false), false);
 
                             if (decoder.getBestFormat() != null)
                             {
@@ -398,7 +399,102 @@ public class Bibtex
                                         personVO.setGivenName(author.getInitial());
                                     }
                                     
-                                    if (configuration != null && "true".equals(configuration.get("CoNE")) && ("false".equals(configuration.get("use-brackets-as-cone-indicator")) || (author.getTags().get("brackets") != null)))
+                                    /* Case for MPI-KYB (Biological Cybernetics)
+                                     * with CoNE identifier in brackets
+                                     * and affiliations to adopt from CoNE for each author (also in brackets)
+                                     */
+                                    if (configuration != null && "true".equals(configuration.get("CoNE")) && ("identifier and affiliation in brackets".equals(configuration.get("use-brackets-as-cone-indicator"))) && (author.getTags().get("identifier") != null))
+                                    {
+                                        String query = author.getTags().get("identifier");
+                                        int affiliationsCount = Integer.parseInt(author.getTags().get("affiliationsCount"));
+                                        if (affiliationsCount > 0 || configuration.get(affiliation) != null)
+                                        {
+                                            for (int ouCount = 0; ouCount < (affiliationsCount > 0 ? affiliationsCount : 1 ); ouCount++) // 1 is for the case configuration.get(affiliation) != null
+                                            {
+                                                String organizationalUnit = (author.getTags().get("affiliation" + new Integer(ouCount).toString()) != null ? author.getTags().get("affiliation" + new Integer(ouCount).toString()) : (configuration.get(affiliation) != null ? configuration.get(affiliation) : ""));
+                                                Node coneEntries = null;
+                                                if (query.equals(author.getTags().get("identifier")))
+                                                {
+                                                    coneEntries = Util.queryConeExactWithIdentifier("persons", query, organizationalUnit);
+                                                }
+                                                else 
+                                                {
+                                                    coneEntries = Util.queryConeExact("persons", query, organizationalUnit);
+                                                }
+                                                Node coneNode = coneEntries.getFirstChild().getFirstChild();
+                                                if (coneNode != null)
+                                                {
+                                                    Node currentNode = coneNode.getFirstChild();
+                                                    boolean first = true;
+                                                    while (currentNode != null)
+                                                    {
+                                                        if (currentNode.getNodeType() == Node.ELEMENT_NODE && first)
+                                                        {
+                                                            first = false;
+                                                            Node coneEntry = currentNode;
+                                                            String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
+                                                            personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
+                                                            for (int i = 0; i < coneEntry.getChildNodes().getLength(); i++)
+                                                            {
+                                                                Node posNode = coneEntry.getChildNodes().item(i);
+                                                                if ("escidoc:position".equals(posNode.getNodeName()))
+                                                                {
+                                                                    String from = null;
+                                                                    String until = null;
+                                                                    String name = null;
+                                                                    String id = null;
+                                                                    
+                                                                    Node node = posNode.getFirstChild().getFirstChild();
+                                                                    
+                                                                    while (node != null)
+                                                                    {
+                                                                        if ("eprints:affiliatedInstitution".equals(node.getNodeName()))
+                                                                        {
+                                                                            name = node.getFirstChild().getNodeValue();
+                                                                        }
+                                                                        else if ("escidoc:start-date".equals(node.getNodeName()))
+                                                                        {
+                                                                            from = node.getFirstChild().getNodeValue();
+                                                                        }
+                                                                        else if ("escidoc:end-date".equals(node.getNodeName()))
+                                                                        {
+                                                                            until = node.getFirstChild().getNodeValue();
+                                                                        }
+                                                                        else if ("dc:identifier".equals(node.getNodeName()))
+                                                                        {
+                                                                            id = node.getFirstChild().getNodeValue();
+                                                                        }
+                                                                        node = node.getNextSibling();
+                                                                    }
+                                                                    if (smaller(from, dateString) && smaller(dateString, until))
+                                                                    {
+                                                                        OrganizationVO org = new OrganizationVO();
+                                                                        org.setName(new TextVO(name));
+                                                                        org.setIdentifier(id);
+                                                                        personVO.getOrganizations().add(org);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        else if (currentNode.getNodeType() == Node.ELEMENT_NODE)
+                                                        {
+                                                            throw new RuntimeException("Ambigous CoNE entries for " + query);
+                                                        }
+                                                        currentNode = currentNode.getNextSibling();
+                                                    }
+                                                    if (first)
+                                                    {
+                                                        throw new RuntimeException("Missing CoNE entry for " + query);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    throw new RuntimeException("Missing CoNE entry for " + query);
+                                                } 
+                                            }
+                                        }
+                                    }
+                                    else if (configuration != null && "true".equals(configuration.get("CoNE")) && ("no".equals(configuration.get("use-brackets-as-cone-indicator")) || (author.getTags().get("brackets") != null)))
                                     {
                                         String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
                                         Node coneEntries = Util.queryConeExact("persons", query, (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));

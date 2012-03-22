@@ -600,6 +600,94 @@ public class Util
         }
     }
     
+    
+    /**
+     * Queries the CoNE service and transforms the result into a DOM node.
+     * 
+     * @param model The type of object (e.g. "persons")
+     * @param name The query string.
+     * @param ou Specialty for persons
+     * @param coneSession A JSESSIONID to not produce a new session with each call.
+     * @return A DOM node containing the results.
+     */
+    public static Node queryConeExactWithIdentifier (String model, String identifier, String ou)
+    {
+        DocumentBuilder documentBuilder;
+        
+        try
+        {
+            System.out.println("queryConeExact: " + model);
+            
+            documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+            
+            Document document = documentBuilder.newDocument();
+            Element element = document.createElement("cone");
+            document.appendChild(element);
+            
+            String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
+                    + model + "/query?format=jquery&dc:identifier/rdf:value=\"" + URLEncoder.encode(identifier, "UTF-8")
+                    + "\"&escidoc:position/eprints:affiliatedInstitution=" + URLEncoder.encode(ou, "UTF-8") + "";
+            String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
+                    + model + "/resource/$1?format=rdf";
+            HttpClient client = new HttpClient();
+            GetMethod method = new GetMethod(queryUrl);
+            
+            String coneSession = getConeSession();
+            
+            if (coneSession != null)
+            {
+                method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
+            }
+            ProxyHelper.executeMethod(client, method);
+            logger.info("CoNE query: " + queryUrl + " returned " + method.getResponseBodyAsString());
+            if (method.getStatusCode() == 200)
+            {
+                ArrayList<String> results = new ArrayList<String>();
+                results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
+                Set<String> oldIds = new HashSet<String>();
+                for (String result : results)
+                {
+                    if (!"".equals(result.trim()))
+                    {
+                        String id = result.split("\\|")[1];
+                        if (!oldIds.contains(id))
+                        {
+                            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
+                            
+                            ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
+                            client.executeMethod(detailMethod);
+                            logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="  + Base64.encode(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned " + detailMethod.getResponseBodyAsString());
+                            if (detailMethod.getStatusCode() == 200)
+                            {
+                                Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
+                                element.appendChild(document.importNode(details.getFirstChild(), true));
+                            }
+                            else
+                            {
+                                logger.error("Error querying CoNE: Status "
+                                        + detailMethod.getStatusCode() + "\n" + detailMethod.getResponseBodyAsString());
+                            }
+                            oldIds.add(id);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                logger.error("Error querying CoNE: Status "
+                        + method.getStatusCode() + "\n" + method.getResponseBodyAsString());
+            }            
+            return document;
+        }
+        catch (Exception e)
+        {
+            logger.error("Error querying CoNE service. This is normal during unit tests. " +
+                    "Otherwise it should be clarified if any measures have to be taken.");
+            return null;
+            //throw new RuntimeException(e);
+        }
+    }
+    
     /**
      * Queries CoNE service and returns the result as DOM node.
      * The returned XML has the following structure:

@@ -1936,7 +1936,7 @@ Notes:
 				<xsl:value-of select="$CONTEXTNAME"/>
 			</xsl:attribute>
 			<element index="TOKENIZED">
-				<xsl:value-of select="string-helper:removeVersionIdentifier(/*[local-name()='item']/@objid)"/>
+				<xsl:value-of select="string-helper:removeVersionIdentifier(substring-after(substring-after(substring-after(/*[local-name()='item']/@xlink:href, '/'), '/'), '/'))"/>
 			</element>
 			<element index="TOKENIZED">
 				<xsl:value-of select="$ITEM_PROPERTIESPATH/*[local-name()='pid']"/>

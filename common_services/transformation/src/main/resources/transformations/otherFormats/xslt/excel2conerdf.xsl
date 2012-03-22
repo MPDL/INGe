@@ -80,6 +80,21 @@
 								<xsl:value-of select="$main/excel:Cell[4]/excel:Data"/>
 							</xsl:if>
 						</escidoc:degree>
+						
+						<!-- <dc:identifier>
+							<rdf:Description>
+								<xsi:type>MPIKYB</xsi:type>
+								<rdf:value>
+									<xsl:value-of select="$main/excel:Cell[5]/excel:Data"/>
+									<xsl:if test="$main/excel:Cell[3]/@ss:Index = 4 and normalize-space($main/excel:Cell[3]/excel:Data) != ''">
+										<xsl:value-of select="$main/excel:Cell[4]/excel:Data"/>
+									</xsl:if>
+									<xsl:if test="$main/excel:Cell[4]/@ss:Index = 5">
+										<xsl:value-of select="$main/excel:Cell[4]/excel:Data"/>
+									</xsl:if>
+								</rdf:value>
+							</rdf:Description>
+						</dc:identifier> -->
 					</rdf:Description>
 				</xsl:if>
 			</xsl:for-each>

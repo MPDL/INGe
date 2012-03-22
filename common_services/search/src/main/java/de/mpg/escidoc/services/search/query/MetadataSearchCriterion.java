@@ -163,7 +163,7 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_LATEST_RELEASE_OBJID = "escidoc.property.latest-release.objid";
     
     /** Index field for item latest released objectID. */
-    private static final String INDEX_OBJID = "escidoc.property.objid";
+    private static final String INDEX_OBJID = "escidoc.objid";
     
     
     /** String to be used to represent an empty search term. */
