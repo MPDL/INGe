@@ -179,7 +179,13 @@ public class Bibtex
                 // title
                 if (fields.get("title") != null)
                 {
-                    mds.setTitle(new TextVO(BibTexUtil.bibtexDecode(fields.get("title").toString())));
+                    if (fields.get("chapter") != null)
+                    {
+                        mds.setTitle(new TextVO(BibTexUtil.bibtexDecode(fields.get("chapter").toString()) + " - " + BibTexUtil.bibtexDecode(fields.get("title").toString())));
+                    }
+                    else {
+                        mds.setTitle(new TextVO(BibTexUtil.bibtexDecode(fields.get("title").toString())));
+                    }
                 }
 
                 // booktitle
@@ -268,6 +274,14 @@ public class Bibtex
                 {
                     publishingInfoVO.setPublisher(BibTexUtil.bibtexDecode(fields.get("publisher").toString()));
                 }
+                else if (fields.get("school") != null && (bibGenre == BibTexUtil.Genre.mastersthesis || bibGenre == BibTexUtil.Genre.phdthesis || bibGenre == BibTexUtil.Genre.techreport))
+                {
+                    publishingInfoVO.setPublisher(BibTexUtil.bibtexDecode(fields.get("school").toString()));
+                }
+                else if (fields.get("institution") != null)
+                {
+                    publishingInfoVO.setPublisher(BibTexUtil.bibtexDecode(fields.get("institution").toString()));
+                }
 
                 // series
                 if (fields.get("series") != null)
@@ -279,13 +293,52 @@ public class Bibtex
                         sourceVO.setTitle(new TextVO(BibTexUtil.bibtexDecode(fields.get("series").toString())));
                     }
                     else if (bibGenre == BibTexUtil.Genre.inbook
-                            || bibGenre == BibTexUtil.Genre.incollection)
+                            || bibGenre == BibTexUtil.Genre.incollection
+                            || bibGenre == BibTexUtil.Genre.inproceedings)
                     {
                         SourceVO sourceOfSource = new SourceVO(
                                 new TextVO(BibTexUtil.bibtexDecode(fields.get("series").toString())));
                         sourceVO.getSources().add(sourceOfSource);
                     }
                 }
+                
+
+                // type --> degree
+                if (fields.get("type") != null && bibGenre == BibTexUtil.Genre.mastersthesis)
+                {
+                    if (fields.get("type").toString().toLowerCase().contains("master") || fields.get("type").toString().toLowerCase().contains("m.a.") || fields.get("type").toString().toLowerCase().contains("m.s.") || fields.get("type").toString().toLowerCase().contains("m.sc."))
+                    {
+                        mds.setDegree(MdsPublicationVO.DegreeType.MASTER);
+                    }
+                    else if (fields.get("type").toString().toLowerCase().contains("bachelor"))
+                    {
+                        mds.setDegree(MdsPublicationVO.DegreeType.BACHELOR);
+                    }
+                    else if (fields.get("type").toString().toLowerCase().contains("magister"))
+                    {
+                        mds.setDegree(MdsPublicationVO.DegreeType.MAGISTER);
+                    }
+                    else if (fields.get("type").toString().toLowerCase().contains("diplom")) // covers also the english version (diploma)
+                    {
+                        mds.setDegree(MdsPublicationVO.DegreeType.DIPLOMA);
+                    }
+                    else if (fields.get("type").toString().toLowerCase().contains("statsexamen") || fields.get("type").toString().toLowerCase().contains("state examination"))
+                    {
+                        mds.setDegree(MdsPublicationVO.DegreeType.DIPLOMA);
+                    }
+                }
+                else if (fields.get("type") != null && bibGenre == BibTexUtil.Genre.phdthesis)
+                {
+                    if (fields.get("type").toString().toLowerCase().contains("phd") || fields.get("type").toString().toLowerCase().contains("dissertation") || fields.get("type").toString().toLowerCase().contains("doktor") || fields.get("type").toString().toLowerCase().contains("doctor"))
+                    {
+                        mds.setDegree(MdsPublicationVO.DegreeType.PHD);
+                    }
+                    else if (fields.get("type").toString().toLowerCase().contains("habilitation"))
+                    {
+                        mds.setDegree(MdsPublicationVO.DegreeType.HABILITATION);
+                    }
+                }
+                
 
                 // volume
                 if (fields.get("volume") != null)

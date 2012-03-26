@@ -943,6 +943,9 @@
 						<xsl:when test="$import-name = 'CBS'">
 							<xsl:call-template name="authorcommentCBS"/>
 						</xsl:when>
+						<xsl:when test="$import-name = 'BiblHertz'">
+							<xsl:call-template name="localTags"/>
+						</xsl:when>
 					</xsl:choose>
 				</xsl:element>
 			</xsl:element>
@@ -1671,6 +1674,51 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
+			<xsl:when test="genre='booklet'">
+				<xsl:choose>
+					<xsl:when test="$import-name = 'BiblHertz'">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'other'"/>
+						</xsl:call-template>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="genre='book-review'">
+				<xsl:choose>
+					<xsl:when test="$import-name = 'BiblHertz'">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'book-review'"/>
+						</xsl:call-template>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="genre='catalogue-article'">
+				<xsl:choose>
+					<xsl:when test="$import-name = 'BiblHertz'">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'article'"/>
+						</xsl:call-template>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="genre='catalogue-entry'">
+				<xsl:choose>
+					<xsl:when test="$import-name = 'BiblHertz'">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'other'"/>
+						</xsl:call-template>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="genre='collection-article'">
+				<xsl:choose>
+					<xsl:when test="$import-name = 'BiblHertz'">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'contribution-to-collected-edition'"/>
+						</xsl:call-template>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
 			<xsl:when test="genre='Conference-Paper'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'conference-paper'"/>
@@ -1680,6 +1728,24 @@
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'conference-report'"/>
 				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="genre='contribution-to-encyclopedia'">
+				<xsl:choose>
+					<xsl:when test="$import-name = 'BiblHertz'">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'contribution-to-encyclopedia'"/>
+						</xsl:call-template>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="genre='festschrift-article'">
+				<xsl:choose>
+					<xsl:when test="$import-name = 'BiblHertz'">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'contribution-to-festschrift'"/>
+						</xsl:call-template>
+					</xsl:when>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Habilitation'">
 				<xsl:call-template name="createEntry">
@@ -1720,10 +1786,28 @@
 					<xsl:with-param name="gen" select="'courseware-lecture'"/>
 				</xsl:call-template>
 			</xsl:when>
+			<xsl:when test="genre='newspaper-article'">
+				<xsl:choose>
+					<xsl:when test="$import-name = 'BiblHertz'">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'newspaper-article'"/>
+						</xsl:call-template>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:when>
 			<xsl:when test="genre='Other'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'other'"/>
 				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="genre='online-article'">
+				<xsl:choose>
+					<xsl:when test="$import-name = 'BiblHertz'">
+						<xsl:call-template name="createEntry">
+							<xsl:with-param name="gen" select="'article'"/>
+						</xsl:call-template>
+					</xsl:when>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="genre='Paper'">
 				<xsl:call-template name="createEntry">
@@ -1907,7 +1991,6 @@
 					</xsl:call-template>
 				</xsl:element>
 			</xsl:if>
-			
 			<xsl:choose>
 				<xsl:when test="booktitle and ($import-name = 'MPIGF')">
 					<xsl:element name="source:source">
@@ -1918,7 +2001,34 @@
 						</xsl:call-template>
 					</xsl:element>
 				</xsl:when>
-				<xsl:when test="booktitle">
+				<xsl:when test="booktitle and ($import-name = 'BiblHertz') and ($gen = 'contribution-to-collected-edition')">
+					<xsl:element name="source:source">
+						<xsl:call-template name="createCollectedEdition">
+							<xsl:with-param name="sources-count" select="$sources-count"/>
+							<xsl:with-param name="gen" select="$gen"/>
+							<xsl:with-param name="issn-save" select="$issn-save"/>
+						</xsl:call-template>
+					</xsl:element>
+				</xsl:when>
+				<xsl:when test="booktitle and ($import-name = 'BiblHertz') and ($gen = 'contribution-to-encyclopedia')">
+					<xsl:element name="source:source">
+						<xsl:call-template name="createEncyclopedia">
+							<xsl:with-param name="sources-count" select="$sources-count"/>
+							<xsl:with-param name="gen" select="$gen"/>
+							<xsl:with-param name="issn-save" select="$issn-save"/>
+						</xsl:call-template>
+					</xsl:element>
+				</xsl:when>
+				<xsl:when test="booktitle and ($import-name = 'BiblHertz') and ($gen = 'contribution-to-festschrift')">
+					<xsl:element name="source:source">
+						<xsl:call-template name="createFestschrift">
+							<xsl:with-param name="sources-count" select="$sources-count"/>
+							<xsl:with-param name="gen" select="$gen"/>
+							<xsl:with-param name="issn-save" select="$issn-save"/>
+						</xsl:call-template>
+					</xsl:element>
+				</xsl:when>
+				<xsl:when test="booktitle and ($gen != 'contribution-to-festschrift') and ($gen != 'contribution-to-encyclopedia') and ($gen != 'contribution-to-collected-edition')">
 					<xsl:element name="source:source">
 						<xsl:call-template name="createBook">
 							<xsl:with-param name="sources-count" select="$sources-count"/>
@@ -2417,6 +2527,117 @@
 		<!-- TITLE -->
 		<xsl:if test="booktitle">
 			<xsl:attribute name="type" select="$genre-ves/enum[. = 'collected-edition']/@uri"/>
+			<xsl:element name="dc:title">
+				<xsl:value-of select="booktitle"/>
+			</xsl:element>
+		</xsl:if>
+		<!-- CREATOR -->
+		<xsl:for-each select="creators/creator[@type='bookcontributorfn' or @type='bookcreatorfn']">
+			<xsl:element name="eterms:creator">
+				<xsl:call-template name="createCreator">
+					<xsl:with-param name="source" select="true()"/>
+				</xsl:call-template>
+			</xsl:element>
+		</xsl:for-each>
+		<xsl:apply-templates select="bookcorporatebody"/>
+		<!-- VOLUME -->
+		<xsl:if test="not(exists(titleofseries))">
+			<xsl:apply-templates select="volume"/>
+		</xsl:if>
+		
+		<!-- START_PAGE -->
+		<xsl:apply-templates select="spage"/>
+		<!-- END-PAGE -->
+		<xsl:apply-templates select="epage"/>
+		<!-- SEQUENCE_NR -->
+		<xsl:apply-templates select="artnum"/>
+		
+		<!-- Total number of pages -->
+		<xsl:call-template name="phydescPubl"/>
+		
+		<xsl:if test="exists(publisher) or exists(editiondescription)">
+			<xsl:if test="not($import-name = 'MPI MoleGen' and exists(editiondescription) and not(exists(publisher)) and $gen != 'thesis')">
+				<xsl:element name="eterms:publishing-info">
+					<xsl:call-template name="createPublishinginfo"/>
+				</xsl:element>
+			</xsl:if>
+		</xsl:if>
+		
+		<!--  <xsl:call-template name="createSourceIdentifiers"/>-->
+		<xsl:for-each select="../identifiers/identifier[@type != 'issn' or not($issn-save)]">
+			<xsl:call-template name="createIDs">
+				<xsl:with-param name="gen" select="$gen"/>
+				<xsl:with-param name="has-source" select="true()"/>
+				<xsl:with-param name="is-source" select="true()"/>
+				<xsl:with-param name="sources-count" select="$sources-count"/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	
+	<!-- Encyclopedia TEMPLATE -->
+	<xsl:template name="createEncyclopedia">
+		<xsl:param name="sources-count"/>
+		<xsl:param name="gen"/>
+		<xsl:param name="issn-save"/>
+		<!-- TITLE -->
+		<xsl:if test="booktitle">
+			<xsl:attribute name="type" select="$genre-ves/enum[. = 'encyclopedia']/@uri"/>
+			<xsl:element name="dc:title">
+				<xsl:value-of select="booktitle"/>
+			</xsl:element>
+		</xsl:if>
+		<!-- CREATOR -->
+		<xsl:for-each select="creators/creator[@type='bookcontributorfn' or @type='bookcreatorfn']">
+			<xsl:element name="eterms:creator">
+				<xsl:call-template name="createCreator">
+					<xsl:with-param name="source" select="true()"/>
+				</xsl:call-template>
+			</xsl:element>
+		</xsl:for-each>
+		<xsl:apply-templates select="bookcorporatebody"/>
+		<!-- VOLUME -->
+		<xsl:if test="not(exists(titleofseries))">
+			<xsl:apply-templates select="volume"/>
+		</xsl:if>
+		
+		<!-- START_PAGE -->
+		<xsl:apply-templates select="spage"/>
+		<!-- END-PAGE -->
+		<xsl:apply-templates select="epage"/>
+		<!-- SEQUENCE_NR -->
+		<xsl:apply-templates select="artnum"/>
+		
+		<!-- Total number of pages -->
+		<xsl:call-template name="phydescPubl"/>
+		
+		<xsl:if test="exists(publisher) or exists(editiondescription)">
+			<xsl:if test="not($import-name = 'MPI MoleGen' and exists(editiondescription) and not(exists(publisher)) and $gen != 'thesis')">
+				<xsl:element name="eterms:publishing-info">
+					<xsl:call-template name="createPublishinginfo"/>
+				</xsl:element>
+			</xsl:if>
+		</xsl:if>
+		
+		<!--  <xsl:call-template name="createSourceIdentifiers"/>-->
+		<xsl:for-each select="../identifiers/identifier[@type != 'issn' or not($issn-save)]">
+			<xsl:call-template name="createIDs">
+				<xsl:with-param name="gen" select="$gen"/>
+				<xsl:with-param name="has-source" select="true()"/>
+				<xsl:with-param name="is-source" select="true()"/>
+				<xsl:with-param name="sources-count" select="$sources-count"/>
+			</xsl:call-template>
+		</xsl:for-each>
+	
+	</xsl:template>
+	
+	<!-- Festschrift TEMPLATE -->
+	<xsl:template name="createFestschrift">
+		<xsl:param name="sources-count"/>
+		<xsl:param name="gen"/>
+		<xsl:param name="issn-save"/>
+		<!-- TITLE -->
+		<xsl:if test="booktitle">
+			<xsl:attribute name="type" select="$genre-ves/enum[. = 'festschrift']/@uri"/>
 			<xsl:element name="dc:title">
 				<xsl:value-of select="booktitle"/>
 			</xsl:element>
@@ -3283,6 +3504,11 @@
 						<xsl:value-of select="datepublished"/>
 					</xsl:element>
 				</xsl:when>
+				<xsl:when test="$import-name = 'BiblHertz' and genre = 'online-article'">
+					<xsl:element name="eterms:published-online">
+						<xsl:value-of select="datepublished"/>
+					</xsl:element>
+				</xsl:when>
 				<xsl:when test="pubstatus = 'accepted'">
 					<xsl:element name="dcterms:dateAccepted">
 						<xsl:value-of select="datepublished"/>
@@ -3467,6 +3693,29 @@
 			<local-tags>
 				<local-tag>
 					<xsl:value-of select="./basic/authorcomment"/>
+				</local-tag>
+			</local-tags>
+		</xsl:if>
+	</xsl:template>
+	
+	
+	<!-- LocalTags template -->
+	
+	<xsl:template name="localTags">
+		<xsl:comment>in LocalTags!</xsl:comment>
+		<xsl:comment>LastModified: <xsl:value-of select="../metametadata/lastmodified"></xsl:value-of></xsl:comment>
+		<xsl:comment>FullName: <xsl:value-of select="./metametadata/owner/fullname"></xsl:value-of></xsl:comment>
+		<xsl:if test="$import-name = 'BiblHertz'">
+			<local-tags>
+				<local-tag>
+					<xsl:if test="../metametadata/lastmodified">
+						<xsl:value-of select="../metametadata/lastmodified"/>
+					</xsl:if>
+				</local-tag>
+				<local-tag>
+					<xsl:if test="../metametadata/owner/fullname">
+							<xsl:value-of select="../metametadata/owner/fullname"/>
+					</xsl:if>
 				</local-tag>
 			</local-tags>
 		</xsl:if>
