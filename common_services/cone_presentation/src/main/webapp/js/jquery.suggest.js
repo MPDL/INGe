@@ -133,7 +133,6 @@
 			
 				var q = $.trim($input.val());
 				var lang = '';
-				lang = $('body').attr('lang');
 
 				if (q.length >= options.minchars) {
 					
@@ -151,7 +150,19 @@
 						vocab = vocab.substring(vocab.lastIndexOf("/"));
 						
 						var source = options.source;
-						var data = "format=json&lang="+lang+"&q="+escape(q)
+						var data = '';
+						
+						// Check if source URL already contains a language
+						if (!(source.indexOf('?lang=') >= 0 || source.indexOf('&lang=') >= 0 || source.indexOf('?l=') >= 0 || source.indexOf('&l=') >= 0))
+						{
+							lang = $('body').attr('lang');
+							data = "format=json&lang="+lang+"&q="+escape(q);
+						}
+						else
+						{
+							data = "format=json&q="+escape(q);
+						}
+ 
 						if (source.indexOf('?') >= 0)
 						{
 							data = source.substring(source.indexOf('?') + 1) + '&' + data;
