@@ -141,6 +141,11 @@ public class AuthorDecoder
 //        authors = authors.trim();
         
         logger.debug("Testing '" + authors + "'");
+        
+        //remove "et al." from the authorsString
+        if (authors.contains("et al.")){
+            authors = authors.substring( 0, authors.indexOf("et al.")).trim();
+        }
 
         AuthorFormat[] authorFormats = AuthorFormatList.getFormats();
 
