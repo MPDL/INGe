@@ -89,7 +89,8 @@ public class MarcTransformation implements Transformation, Configurable
      */
     public Format[] getSourceFormats()
     {
-        return new Format[]{ESCIDOC_ITEM_LIST_FORMAT, ESCIDOC_ITEM_FORMAT, MARC21_FORMAT, MARCXML_FORMAT_UTF8, MARCXML_FORMAT_MARC8};
+        //return new Format[]{ESCIDOC_ITEM_LIST_FORMAT, ESCIDOC_ITEM_FORMAT, MARC21_FORMAT, MARCXML_FORMAT_UTF8, MARCXML_FORMAT_MARC8};
+        return new Format[]{};
     }
 
     /**
@@ -97,18 +98,18 @@ public class MarcTransformation implements Transformation, Configurable
      */
     public Format[] getSourceFormats(Format trg)
     {
-        if (trg != null && (trg.matches(ESCIDOC_ITEM_FORMAT) || trg.matches(ESCIDOC_ITEM_LIST_FORMAT)))
-        {
-            return new Format[]{MARC21_FORMAT, MARCXML_FORMAT_UTF8, MARCXML_FORMAT_MARC8};
-        }
-        else if (trg != null && (trg.matches(MARC21_FORMAT) || trg.matches(MARCXML_FORMAT_UTF8) || trg.matches(MARCXML_FORMAT_MARC8)))
-        {
-            return new Format[]{ESCIDOC_ITEM_FORMAT, ESCIDOC_ITEM_LIST_FORMAT};
-        }
-        else
-        {
+//        if (trg != null && (trg.matches(ESCIDOC_ITEM_FORMAT) || trg.matches(ESCIDOC_ITEM_LIST_FORMAT)))
+//        {
+//            return new Format[]{MARC21_FORMAT, MARCXML_FORMAT_UTF8, MARCXML_FORMAT_MARC8};
+//        }
+//        else if (trg != null && (trg.matches(MARC21_FORMAT) || trg.matches(MARCXML_FORMAT_UTF8) || trg.matches(MARCXML_FORMAT_MARC8)))
+//        {
+//            return new Format[]{ESCIDOC_ITEM_FORMAT, ESCIDOC_ITEM_LIST_FORMAT};
+//        }
+//        else
+//        {
             return new Format[]{};
-        }
+//        }
     }
 
     /**
@@ -125,18 +126,18 @@ public class MarcTransformation implements Transformation, Configurable
      */
     public Format[] getTargetFormats(Format src) throws RuntimeException
     {
-        if (src != null && (src.matches(MARC21_FORMAT) || src.matches(MARCXML_FORMAT_UTF8) || src.matches(MARCXML_FORMAT_MARC8)))
-        {
-            return new Format[]{ESCIDOC_ITEM_FORMAT, ESCIDOC_ITEM_LIST_FORMAT};
-        }
-        else if (src != null && (src.matches(ESCIDOC_ITEM_FORMAT) || src.matches(ESCIDOC_ITEM_LIST_FORMAT)))
-        {
-            return new Format[]{MARC21_FORMAT, MARCXML_FORMAT_UTF8, MARCXML_FORMAT_MARC8};
-        }
-        else
-        {
+//        if (src != null && (src.matches(MARC21_FORMAT) || src.matches(MARCXML_FORMAT_UTF8) || src.matches(MARCXML_FORMAT_MARC8)))
+//        {
+//            return new Format[]{ESCIDOC_ITEM_FORMAT, ESCIDOC_ITEM_LIST_FORMAT};
+//        }
+//        else if (src != null && (src.matches(ESCIDOC_ITEM_FORMAT) || src.matches(ESCIDOC_ITEM_LIST_FORMAT)))
+//        {
+//            return new Format[]{MARC21_FORMAT, MARCXML_FORMAT_UTF8, MARCXML_FORMAT_MARC8};
+//        }
+//        else
+//        {
             return new Format[]{};
-        }
+//        }
     }
 
     /**
