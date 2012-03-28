@@ -58,9 +58,12 @@
         
         xmlns:prop="${xsd.soap.common.prop}"
         
-        xmlns="http://www.loc.gov/zing/srw/" 
-        xmlns:ns2="http://www.loc.gov/zing/cql/xcql/" 
-        xmlns:ns3="http://www.loc.gov/zing/srw/diagnostic/"
+        xmlns:search-result="${xsd.soap.searchresult.searchresult}"
+        
+        xmlns:sru-zr="http://www.loc.gov/zing/srw/"
+        xmlns:sru-xcql="http://www.loc.gov/zing/cql/xcql/" 
+        xmlns:sru-diagnostic="http://www.loc.gov/zing/srw/diagnostic/"
+        xmlns:sru-extradata="http://oclc.org/srw/extraData/"
         
         xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:dcterms="http://purl.org/dc/terms/"
@@ -71,27 +74,28 @@
   
 	>
 	
-	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+	<xsl:output method="xml" encoding="UTF-8"/>
 
 
 <!--	<xsl:template match="/">-->
 <!--		<xsl:apply-templates />-->
 <!--	</xsl:template>-->
 
-	<xsl:template match="node() | @*">
-		<xsl:copy copy-namespaces="no">
-			<xsl:apply-templates select="node() | @*"/>
+	<xsl:template match="*">
+		<xsl:copy>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
 		</xsl:copy>
 	</xsl:template>
 
-	
+
 	<xsl:template match="//publication:publication">
 		<!-- ONLY FHI SPECIFIC!!! -->
 	    <!-- hack: negation is not implement for REST interface -->
 
-			<xsl:element name="{name()}">
+			<publication:publication>
 				<xsl:copy-of select="@*" />
-					<xsl:element name="eterms:authors">
+					<eterms:authors>
 						<xsl:for-each select="eterms:creator">
 							<xsl:variable name="au" select="
 								string-join((
@@ -105,12 +109,12 @@
 								else ''
 							"/>
 						</xsl:for-each>
-					</xsl:element>
+					</eterms:authors>
 					<xsl:element name="eterms:source-titles">
 						<xsl:value-of select="string-join((source:source/dc:title[.!='']), '; ')"/>
 					</xsl:element>
-				<xsl:apply-templates />
-			</xsl:element>
+				<xsl:apply-templates/>
+			</publication:publication>
 
 	</xsl:template>
 	
