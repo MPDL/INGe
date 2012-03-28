@@ -41,9 +41,9 @@
 	<version>1.0.46-SNAPSHOT</version>
 	
 	<scm>
-	  <connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/transformation</connection>
-    <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/transformation</developerConnection>
-    <url>https://zim02.gwdg.de/repos/common/transformation</url>
+	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/transformation</connection>
+    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/transformation</developerConnection>
+    <url>https://subversion.mpdl.mpg.de/repos/common/transformation</url>
   </scm>
 	<build>
 		<plugins>

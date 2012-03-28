@@ -40,9 +40,9 @@
 	<name>dataacquisition_ear</name>
 	<version>1.0.55-SNAPSHOT</version>
 	<scm>
-	  <connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/dataacquisition_ear</connection>
-    <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/dataacquisition_ear</developerConnection>
-    <url>https://zim02.gwdg.de/repos/common/dataacquisition_ear</url>
+	  <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/dataacquisition_ear</connection>
+    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/dataacquisition_ear</developerConnection>
+    <url>https://subversion.mpdl.mpg.de/repos/common/dataacquisition_ear</url>
   </scm>
 	<build>
 		<plugins>

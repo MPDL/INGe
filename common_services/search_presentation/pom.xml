@@ -41,9 +41,9 @@
 	<packaging>war</packaging>
 	
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/search_presentation-1.0.15</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/search_presentation-1.0.15</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/search_presentation-1.0.15</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/search_presentation-1.0.15</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/pubman/tags/search_presentation-1.0.15</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/tags/search_presentation-1.0.15</url>
 	</scm>
 	<build>
 		<plugins>
