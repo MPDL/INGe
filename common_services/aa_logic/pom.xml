@@ -31,14 +31,14 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.58-SNAPSHOT</version>
+		<version>1.0.58</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>aa_logic</artifactId>
 	<packaging>jar</packaging>
 	<name>aa_logic</name>
-	<version>0.1.1-SNAPSHOT</version>
+	<version>0.1.1</version>
 	<build>
 		<resources>
 			<resource>
@@ -120,7 +120,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.58-SNAPSHOT</version>
+			<version>1.1.58</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
