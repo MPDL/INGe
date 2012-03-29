@@ -40,7 +40,7 @@
 					<xsl:value-of select="@type" />
 				</dc:type>
 				
-				<dc:type xsi:type="dcterms:DCMIType">Text</dc:type>
+				<dc:type>Text</dc:type>
 				
 				<xsl:if test="eterms:degree!=''">
 					<dc:type>
@@ -133,7 +133,7 @@
 				</xsl:variable>
 				
 				<xsl:if test="$date != ''">
-					<dc:date xsi:type="dcterms:W3CDTF">
+					<dc:date>
 						<xsl:value-of select="$date" />
 					</dc:date>
 				</xsl:if>
