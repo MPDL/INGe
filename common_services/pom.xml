@@ -731,7 +731,7 @@
 			<distributionManagement>
 				<site>
 					<id>website</id>
-					<url>scp://escidoc1.escidoc.mpg.de:/srv/www/staging/projects/common_services</url>
+					<url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/common_services</url>
 				</site>
 			</distributionManagement>
 
@@ -749,7 +749,7 @@
 			<distributionManagement>
 				<site>
 					<id>website</id>
-					<url>scp://escidoc1.escidoc.mpg.de:/srv/www/00_default/projects/snapshots/common_services</url>
+					<url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/common_services</url>
 				</site>
 			</distributionManagement>
 
