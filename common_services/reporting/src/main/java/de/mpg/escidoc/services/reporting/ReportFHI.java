@@ -197,7 +197,7 @@ public class ReportFHI {
 		try {
 			method = new GetMethod(ServiceLocator.getFrameworkUrl() + "/ir/items");
 	        method.setRequestHeader("Cookie", "escidocCookie=" + adminHandler);
-	        String query = "operation=searchRetrieve&query=" + rprops.getProperty("FHI.query") +
+	        String query = "operation=searchRetrieve&maximumRecords=1000&query=" + rprops.getProperty("FHI.query") +
                     "%20and%20" +
                     getTimeRangeQuery() +
                     rprops.getProperty("FHI.sort.by");
