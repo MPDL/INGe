@@ -47,12 +47,12 @@
 		<system>Jira</system>
 		<url>http://zim01.gwdg.de:8080/BrowseProject.jspa?id=10050</url>
 	</issueManagement>
-
+	
 	<organization>
 		<name>Max Planck Digital Library</name>
 		<url>http://www.mpdl.mpg.de/</url>
 	</organization>
-
+	
 	<developers>
 		<developer>
 			<id>mdreyer</id>
@@ -187,7 +187,7 @@
 			<timezone>+2</timezone>
 		</developer>
 	</developers>
-
+	
 	<mailingLists>
 		<mailingList>
 			<name>FIZ Karlsruhe eSciDoc infrastructure mailing list</name>
@@ -204,7 +204,7 @@
 			<archive>https://listserv.gwdg.de/mailman/private/escidoc-code/</archive>
 		</mailingList>
 	</mailingLists>
-
+	
 	<ciManagement>
 		<system>Continuum</system>
 		<url>http://continuum.mpdl.mpg.de/continuum</url>
@@ -217,7 +217,7 @@
 			</notifier>
 		</notifiers>
 	</ciManagement>
-
+	
 	<modules>
 		<module>framework_access</module>
 		<module>common_logic</module>
@@ -250,15 +250,15 @@
 		<module>aa_logic</module>
 		<module>aa_presentation</module>
 		<module>fledgeddata</module>
-
+	
 	</modules>
-
+	
 	<scm>
 		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</connection>
 		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</developerConnection>
 		<url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</url>
 	</scm>
-
+	
 	<repositories>
 		<repository>
 			<id>central</id>
@@ -271,7 +271,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
+	
 	<pluginRepositories>
 		<pluginRepository>
 			<id>central</id>
@@ -285,7 +285,7 @@
 		</pluginRepository>
 	</pluginRepositories>
 
-
+	
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
@@ -298,10 +298,10 @@
 			<url>http://rd.mpdl.mpg.de/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
+
 	
-
 	<build>
-
+		
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -340,6 +340,11 @@
 						<argLine>-Xmx1200M</argLine>
 					</configuration>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.0</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -370,11 +375,11 @@
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
 				<artifactId>wagon-ssh</artifactId>
-				<!--version>1.0-beta-2</version-->
+				<version>2.2</version>
 			</extension>
 		</extensions>
 	</build>
-
+	
 	<reporting>
 		<plugins>
 			<plugin>
@@ -510,23 +515,23 @@
 		<framework.admin.username>roland</framework.admin.username>
 		<framework.admin.id>escidoc:exuser1</framework.admin.id>
 		<framework.admin.displayname>System Administrator User</framework.admin.displayname>
-				
+		
 		<framework.scientist.username>test_dep_scientist</framework.scientist.username>
 		<framework.scientist.id>escidoc:41002</framework.scientist.id>
 		<framework.scientist.displayname>Scientist User for Tests</framework.scientist.displayname>
-				
+		
 		<framework.librarian.username>test_dep_lib</framework.librarian.username>
 		<framework.librarian.id>escidoc:3002</framework.librarian.id>
 		<framework.librarian.displayname>Librarian User for Tests</framework.librarian.displayname>
-				
+		
 		<framework.author.username>test_author</framework.author.username>
 		<framework.author.id>escidoc:3010</framework.author.id>
 		<framework.author.displayname>Author User for Tests</framework.author.displayname>
-				
+		
 		<framework.editor.username>test_editor</framework.editor.username>
-		<framework.editor.id>escidoc:3003</framework.editor.id> 
+		<framework.editor.id>escidoc:3003</framework.editor.id>
 		<framework.editor.displayname>Editor User for Tests</framework.editor.displayname>
-				
+		
 		<framework.organizational_unit.id>escidoc:1</framework.organizational_unit.id>
 
 		<!--
@@ -540,10 +545,10 @@
 		<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
 		<escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
 		<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
-
+		
 		<escidoc.pubman.root.organisation.id>escidoc:persistent13</escidoc.pubman.root.organisation.id>
 		<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
-
+		
 		<escidoc.cone.database.driver.class>org.postgresql.Driver</escidoc.cone.database.driver.class>
 		<escidoc.cone.database.server.name>zim02.gwdg.de</escidoc.cone.database.server.name>
 		<escidoc.cone.database.server.port>5432</escidoc.cone.database.server.port>
@@ -556,10 +561,10 @@
 		<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 		<escidoc.cone.modelsxml.path>models.xml</escidoc.cone.modelsxml.path>
 		<escidoc.cone.rdfs.template>models2rdfs.xsl</escidoc.cone.rdfs.template>
-
+		
 		<escidoc.cone.mimetype.pattern>application/vnd.cone-(.+)</escidoc.cone.mimetype.pattern>
 		<escidoc.pubman.genres.configuration>Genres.xml</escidoc.pubman.genres.configuration>
-
+		
 		<escidoc.dataacquisition.service.url>http://localhost:8080/dataacquisition/</escidoc.dataacquisition.service.url>
 		<!-- unAPI -->
 		<escidoc.unapi.download.server>http://localhost:8080/dataacquisition/download/unapi</escidoc.unapi.download.server>
@@ -608,11 +613,11 @@
 		<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
 		<xsd.metadata.dcterms>http://purl.org/dc/terms/</xsd.metadata.dcterms>
 		<xsd.metadata.dcmitype>http://purl.org/dc/dcmitype/</xsd.metadata.dcmitype>
-
+		
 		<xsd.soap.toc.toc>http://www.escidoc.de/schemas/toc/0.6</xsd.soap.toc.toc>
 		<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
 		<xsd.soap.result.result>http://www.escidoc.de/schemas/result/0.1</xsd.soap.result.result>
-
+		
 		<xsd.metadata.organization>http://purl.org/escidoc/metadata/profiles/0.1/organization</xsd.metadata.organization>
 		<xsd.metadata.organizationalunit>http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit</xsd.metadata.organizationalunit>
 		<xsd.metadata.file>http://purl.org/escidoc/metadata/profiles/0.1/file</xsd.metadata.file>
@@ -640,15 +645,15 @@
 		<escidoc.search.and.export.default.sort.order>ascending</escidoc.search.and.export.default.sort.order>
 		<escidoc.search.and.export.start.record>1</escidoc.search.and.export.start.record>
 		<escidoc.search.and.export.maximum.records>50</escidoc.search.and.export.maximum.records>
+
 		
-
 		<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
-
+		
 		<escidoc.statistics.max_mind_geo_lite_city_db.location />
 		<escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
-
+		
 		<xsd.soap.searchRetrieveResponse>http://www.loc.gov/zing/srw/</xsd.soap.searchRetrieveResponse>
-
+		
 		<escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
 		<organization.logo>http://www.mpdl.mpg.de/mpdl/sys/css/screen/images/logo.gif</organization.logo>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -665,7 +670,7 @@
 		<escidoc.transformation.mab.stylesheet.filename>transformations/otherFormats/xslt/mabxml2escidoc.xsl</escidoc.transformation.mab.stylesheet.filename>
 		<escidoc.transformation.report.sortorder.filename>transformations/reports/conf/reportSortOrder.xml</escidoc.transformation.report.sortorder.filename>
 		<escidoc.transformation.bibtex.configuration.filename>transformations/commonPublicationFormats/conf/bibtex.properties</escidoc.transformation.bibtex.configuration.filename>
-
+		
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
 		
 		<!-- AA -->
@@ -697,9 +702,9 @@
 		<escidoc.common.stylesheet.classic.url>/common/resources/cssFramework/themes/skin_classic/styles/theme.css</escidoc.common.stylesheet.classic.url>
 		<escidoc.common.stylesheet.classic.type>alternate stylesheet</escidoc.common.stylesheet.classic.type>
 		<escidoc.common.stylesheet.classic.apply>true</escidoc.common.stylesheet.classic.apply>
-
+	
 	</properties>
-
+	
 	<profiles>
 		<!-- this profile is used by developers -->
 		<profile>
@@ -739,14 +744,14 @@
 					<url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/common_services</url>
 				</site>
 			</distributionManagement>
-
+		
 		</profile>
 		<profile>
 			<id>env-testing-continuum</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
-
+			
 			<properties>
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</escidoc.cone.querier.class>
 				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
@@ -757,7 +762,7 @@
 					<url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/common_services</url>
 				</site>
 			</distributionManagement>
-
+		
 		</profile>
 		<profile>
 			<id>env-production-escidoc2</id>
