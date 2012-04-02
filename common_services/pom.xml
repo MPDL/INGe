@@ -365,12 +365,12 @@
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
 				<artifactId>wagon-webdav</artifactId>
-				<version>1.0-beta-2</version>
+				<!--version>1.0-beta-2</version-->
 			</extension>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
 				<artifactId>wagon-ssh</artifactId>
-				<version>1.0-beta-2</version>
+				<!--version>1.0-beta-2</version-->
 			</extension>
 		</extensions>
 	</build>
@@ -733,7 +733,6 @@
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
 				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
 			</properties>
-			
 			<distributionManagement>
 				<site>
 					<id>website</id>
