@@ -25,7 +25,7 @@
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */
-package de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.creators;
+package de.mpg.escidoc.services.common.util.creators;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,14 +126,14 @@ public class MpiKybFormat extends AuthorFormat
             author.setSurname(surname.trim());
             if (identifier != null)
             {
-                author.addTag(IDENTIFIER, identifier);
+                author.getTags().put(IDENTIFIER, identifier);
             }
             if (affiliations != null)
             {
-                author.addTag(AFFILIATION_COUNT, new Integer(affiliationCount).toString());
+                author.getTags().put(AFFILIATION_COUNT, new Integer(affiliationCount).toString());
                 for (int j = 0; j < affiliationCount; j++)
                 {
-                    author.addTag(AFFILIATION + new Integer(j).toString(), affiliations.get(j));
+                    author.getTags().put(AFFILIATION + new Integer(j).toString(), affiliations.get(j));
                 }
             }
             author.setFormat(this);

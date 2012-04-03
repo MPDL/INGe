@@ -574,7 +574,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
                 parts = authorString.split(";");
             }
             else {
-                if (authorString.indexOf("{") != -1)
+                if (authorString.indexOf("{") != -1 && authorString.indexOf("}") != -1 && authorString.indexOf("{") < authorString.indexOf("}"))
                 {
                     identifier = authorString.substring(authorString.indexOf("{") + 1, authorString.indexOf("}"));
                     if (authorString.indexOf("{", authorString.indexOf("}")) != -1)

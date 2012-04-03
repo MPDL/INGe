@@ -515,18 +515,18 @@ public class BibTexUtil
     private static Map<String, String> monthTable = new HashMap<String, String>();
     static
     {
-        monthTable.put("0", "01");
-        monthTable.put("1", "02");
-        monthTable.put("2", "03");
-        monthTable.put("3", "04");
-        monthTable.put("4", "05");
-        monthTable.put("5", "06");
-        monthTable.put("6", "07");
-        monthTable.put("7", "08");
-        monthTable.put("8", "09");
-        monthTable.put("9", "10");
-        monthTable.put("10", "11");
-        monthTable.put("11", "12");
+        monthTable.put("1", "01");
+        monthTable.put("2", "02");
+        monthTable.put("3", "03");
+        monthTable.put("4", "04");
+        monthTable.put("5", "05");
+        monthTable.put("6", "06");
+        monthTable.put("7", "07");
+        monthTable.put("8", "08");
+        monthTable.put("9", "09");
+        monthTable.put("10", "10");
+        monthTable.put("11", "11");
+        monthTable.put("12", "12");
 
         monthTable.put("00", "01");
         monthTable.put("01", "02");

@@ -1056,6 +1056,8 @@
 				<!-- Mime-type -->
 				<xsl:variable name="mime-type">
 					<xsl:if test="$CoNE = 'true'">
+						<xsl:comment>MiME-Type CoNE-Abgleich mit <xsl:value-of select="escidocFunctions:suffix($filename)"></xsl:value-of></xsl:comment>
+						<xsl:comment><xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', escidocFunctions:suffix($filename), '&quot;'))"/></xsl:comment>
 						<xsl:copy-of select="Util:queryCone('escidocmimetypes', concat('&quot;', escidocFunctions:suffix($filename), '&quot;'))"/>
 					</xsl:if>
 				</xsl:variable>
@@ -1314,7 +1316,7 @@
 						<xsl:otherwise>
 							<xsl:comment>Mime Type for <xsl:value-of select="$filename"/> not found in CONE</xsl:comment>
 							<!-- ERROR -->
-									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownMimeTypeSuffix' ), concat('Mime Type for ', $filename, ' not found in CONE'))"/>
+							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownMimeTypeSuffix' ), concat('Mime Type for ', $filename, ' not found in CONE'))"/>
 						</xsl:otherwise>
 					</xsl:choose>
 					<!--  <xsl:choose>
@@ -1844,7 +1846,7 @@
 					<xsl:with-param name="gen" select="'talk-at-event'"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="genre='Thesis'">
+			<xsl:when test="genre='Thesis' or genre='thesis'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'thesis'"/>
 				</xsl:call-template>
@@ -1928,6 +1930,16 @@
 				</xsl:when>
 				<xsl:when test="$gen='book-item'">
 					<!-- case: book-item without source book -->
+					<xsl:if test="not(exists(booktitle))">
+						<xsl:element name="eterms:publishing-info">
+							<xsl:call-template name="createPublishinginfo">
+								<xsl:with-param name="genre" select="$gen"/>
+							</xsl:call-template>
+						</xsl:element>
+					</xsl:if>
+				</xsl:when>
+				<xsl:when test="$gen='book-review'">
+					<!-- case: book-review without source book -->
 					<xsl:if test="not(exists(booktitle))">
 						<xsl:element name="eterms:publishing-info">
 							<xsl:call-template name="createPublishinginfo">
@@ -2932,7 +2944,7 @@
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Social Anthropology')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'EVOLBIO'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Evolutionary Biology')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Evolutionary Biology')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPINEURO'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI of Neurobiology')"/>

@@ -23,8 +23,8 @@
 
 /*
 * Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
 
@@ -155,7 +155,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         fileVO.setContent("<blink>organisation</blink>");
         // set some properties of the FileVO (mandatory fields first of all)
         fileVO.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/post-print");
-        fileVO.setName("Ein Kaufmannsund (&), ein Größer (>), ein Kleiner (<), Anführungsstriche (\") und ein Apostroph (').");
+        fileVO.setName("Ein Kaufmannsund (&), ein GrÃ¶ÃŸer (>), ein Kleiner (<), AnfÃ¼hrungsstriche (\") und ein Apostroph (').");
         fileVO.setDescription("This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
@@ -341,14 +341,14 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         logger.info("### testTransformItemWithLocalTags ###");
 
         PubItemVO pubItem = getPubItemNamedTheFirstOfAll();
-        pubItem.getLocalTags().add("Ümläut-Tág");
-        pubItem.getLocalTags().add("Ûmlàut-TÄg");
+        pubItem.getLocalTags().add("ÃœmlÃ¤ut-TÃ¡g");
+        pubItem.getLocalTags().add("Ã›mlÃ ut-TÃ„g");
         String itemXml = xmlTransforming.transformToItem(pubItem);
         
         logger.info(itemXml);
         
-        assertTrue("Local tag not found", itemXml.contains("<local-tag>Ümläut-Tág</local-tag>"));
-        assertTrue("Local tag not found", itemXml.contains("<local-tag>Ûmlàut-TÄg</local-tag>"));
+        assertTrue("Local tag not found", itemXml.contains("<local-tag>ÃœmlÃ¤ut-TÃ¡g</local-tag>"));
+        assertTrue("Local tag not found", itemXml.contains("<local-tag>Ã›mlÃ ut-TÃ„g</local-tag>"));
     }
 
     /**
@@ -440,7 +440,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         // read item[XML] from file
         String savedPubItemXML = readFile(SAVED_ITEM_FILE);
         logger.info("Item[XML] read from file.");
-        logger.debug("Item[XML]: " + savedPubItemXML.length() + " chars, " + savedPubItemXML.getBytes("UTF-8").length + " bytes, ü = " + (savedPubItemXML.contains("ü")));
+        logger.debug("Item[XML]: " + savedPubItemXML.length() + " chars, " + savedPubItemXML.getBytes("UTF-8").length + " bytes, Ã¼ = " + (savedPubItemXML.contains("Ã¼")));
         
         // transform the item directly into a PubItemVO
         long zeit = -System.currentTimeMillis();
@@ -477,7 +477,8 @@ public class TransformPubItemTest extends XmlTransformingTestBase
             String s2 = savedItem.getMetadata().getFreeKeywords().getValue();
             logger.debug("s2: " + s2.length() + " chars, " + s2.getBytes("UTF-8").length + " bytes, \u00FC = " + (s2.contains("\u00FC")));
             oc = new ObjectComparator(expectedPubItem.getMetadata(), savedItem.getMetadata());
-            assertTrue("Metadata are not equal", oc.isEqual());
+            
+            assertTrue("Metadata are not equal" + oc, oc.isEqual());
         }
         catch (AssertionError e)
         {
