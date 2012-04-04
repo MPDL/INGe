@@ -172,7 +172,7 @@
 			</xsl:for-each>				
 			<!-- Process dates like: "received March 28/September 9, 1988" -->
 			<xsl:if test="exists($sDesc/t:biblStruct/t:note[@type='submission'])">
-				<xsl:variable name="dateUnformatted" select="$sDesc/t:biblStruct/t:note"/>
+				<xsl:variable name="dateUnformatted" select="$sDesc/t:biblStruct/t:note[@type='submission']"/>
 				<xsl:element name="{$dateMap/m[@key='submission']}">
 					<xsl:attribute name="xsi:type">dcterms:W3CDTF</xsl:attribute>
 					<xsl:if test="contains($dateUnformatted, '/')">
@@ -309,9 +309,14 @@
 					<xsl:when test="$monthUnformatted='December'">12</xsl:when>
 				</xsl:choose>
 			</xsl:variable>
-			<xsl:variable name="day" select="substring-after(substring-before($dateUnformatted,','), ' ')"/>
+			<!-- Not very nice, but sometimes dates are seperated by comma and sometimes by point -->
+			<xsl:variable name="day" select="substring-after(substring-before(replace($dateUnformatted,'.',','),','), ' ')"/>
 			<xsl:variable name="year" select="substring-after($dateUnformatted,', ')"/>
-			<xsl:value-of select="concat($year,'-',$month, '-', if (string-length($day)&lt;2) then concat('0', $day) else $day)"/>
+			<xsl:variable name="date" select="concat($year,'-',$month, '-', if (string-length($day)&lt;2) then concat('0', $day) else $day)"/>
+			<!-- check if date is complete -->
+			<xsl:if test="string-length($date)=10">
+				<xsl:value-of select="$date"/>
+			</xsl:if>
 	</xsl:template> 
 	
 	<!-- CREATORS -->
