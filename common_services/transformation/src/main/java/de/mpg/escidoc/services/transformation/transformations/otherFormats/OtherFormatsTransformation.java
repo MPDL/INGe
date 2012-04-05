@@ -57,7 +57,7 @@ import com.ctc.wstx.io.BufferRecycler;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.mets.ViRR2METSTransformation;
+import de.mpg.escidoc.services.transformation.transformations.otherFormats.mets.METSTransformation;
 import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.ThirdPartyTransformation;
 
 /**
@@ -86,7 +86,7 @@ public class OtherFormatsTransformation
      */
     public byte[] transformEscidocToMets(byte[] src)
     {
-        ViRR2METSTransformation metsTrans = new ViRR2METSTransformation();
+        METSTransformation metsTrans = new METSTransformation();
         return metsTrans.transformToMETS(new String(src));
     }
     
