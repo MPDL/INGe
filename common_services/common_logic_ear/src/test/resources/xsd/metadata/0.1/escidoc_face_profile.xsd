@@ -17,8 +17,8 @@
 	</xs:annotation>
 	
 	<xs:import namespace="http://purl.org/escidoc/metadata/terms/0.1/" schemaLocation="../../metadata/0.1/escidoctypes.xsd"/>
-	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
-	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="../../metadata/0.1/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="../../metadata/0.1/dcterms.xsd"/>
 		
 	<xs:element name="face" type="FaceType"/>
 	

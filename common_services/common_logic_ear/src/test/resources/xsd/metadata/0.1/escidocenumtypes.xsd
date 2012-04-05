@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns="http://purl.org/escidoc/metadata/ves/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://purl.org/escidoc/metadata/ves/0.1/" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
-	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="../../metadata/0.1/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="../../metadata/0.1/dcterms.xsd"/>
 	<!--*******************************
     ReviewMethodEnum
     ********************************-->
