@@ -124,7 +124,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>aa_logic</artifactId>
-			<version>0.1.2-SNAPSHOT</version>
+			<version>0.1.3-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
