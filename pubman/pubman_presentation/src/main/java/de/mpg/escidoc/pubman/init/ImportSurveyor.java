@@ -93,10 +93,11 @@ public class ImportSurveyor extends Thread
             }
             
             Connection connection = ImportLog.getConnection();
+            // Searches for Import-Items which are in status "pending" OR "rollback" AND which have NOT been changed in the last 60 Minutes
             String query = "select id from escidoc_import_log where "
                     + "(status = 'PENDING' or status = 'ROLLBACK') "
                     + "and id not in (select parent from escidoc_import_log_item where "
-                    + "datediff('minute', startdate, now()) <= 60)";
+                    + "datediff('minute', startdate, now()) <= 60)"; // datediff is defined as function in PostgreSQL for Migration
             ResultSet resultSet = null;
             PreparedStatement statement = null;
             try
