@@ -41,6 +41,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
@@ -1218,13 +1219,18 @@ public class TestBase
     private static void initializeSchemas() throws IOException, SAXException, ParserConfigurationException
     {
         File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/");
+        PrintWriter pwriter = new PrintWriter("target/schemas.txt");
         logger.debug("Number of schema files: " + schemaFiles.length);
+        pwriter.println("Number of schema files: " + schemaFiles.length);
 
         schemas = new HashMap<String, Schema>();
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 //        sf.setResourceResolver(new ImportResolver());
         for (File file : schemaFiles)
         {
+            logger.debug("Schema file: " + file.getCanonicalPath());
+            pwriter.println("Schema file: " + file.getCanonicalPath());
+            
             try
             {
                 
@@ -1234,9 +1240,13 @@ public class TestBase
                     logger.debug("Skipping schema file: " + file.getCanonicalPath());
                     continue;
                 }
+                if (file.getCanonicalPath().endsWith("srw-types.xsd") && !file.getCanonicalPath().contains("0.8"))
+                {
+                    logger.debug("Skipping schema file: " + file.getCanonicalPath());
+                    continue;
+                }
 // end TODO                
-                logger.debug("Schema file: " + file.getCanonicalPath());
-                
+                         
                 Schema schema = sf.newSchema(file);
                
                 SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -1296,6 +1306,7 @@ public class TestBase
             }
         }
         logger.info("XSD Schemas found: " + schemas);
+        pwriter.close();
     }
 
     /**
