@@ -32,7 +32,7 @@
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>common_services</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.59</version>
+	<version>1.0.60-SNAPSHOT</version>
 	<name>common_services</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/common_services</url>
 	<description>The Common Services project provides all the basic services (such as framework access, endnotemanager etc.) used by applications like Faces or PubMan.</description>
@@ -254,9 +254,9 @@
 	</modules>
 	
 	<scm>
-		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.59</connection>
-		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.59</developerConnection>
-		<url>https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.59</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</url>
 	</scm>
 	
 	<repositories>
