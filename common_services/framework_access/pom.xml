@@ -31,17 +31,17 @@
   <parent>
     <artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.59-SNAPSHOT</version>
+		<version>1.0.59</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.mpg.escidoc.services</groupId>
   <artifactId>framework_access</artifactId>
   <name>framework_access</name>
-  <version>1.3.1-SNAPSHOT</version>
+  <version>1.3.1</version>
   <scm>
-    <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/framework_access</connection>
-    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/framework_access</developerConnection>
-    <url>https://subversion.mpdl.mpg.de/repos/common/</url>
+    <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.59/framework_access</connection>
+    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.59/framework_access</developerConnection>
+    <url>https://subversion.mpdl.mpg.de/repos/common/tags/common_services-1.0.59/framework_access</url>
   </scm>
   <build>
     <plugins>
