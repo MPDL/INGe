@@ -38,7 +38,7 @@
 	<artifactId>aa_logic</artifactId>
 	<packaging>jar</packaging>
 	<name>aa_logic</name>
-	<version>0.1.2-SNAPSHOT</version>
+	<version>0.1.2</version>
 	<build>
 		<resources>
 			<resource>
@@ -127,4 +127,10 @@
 	<dependencyManagement>
 		<dependencies />
 	</dependencyManagement>
+
+  <scm>
+    <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/aa_logic-0.1.2</connection>
+    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/aa_logic-0.1.2</developerConnection>
+    <url>https://subversion.mpdl.mpg.de/repos/common/tags/aa_logic-0.1.2</url>
+  </scm>
 </project>
