@@ -15,6 +15,7 @@ import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -68,6 +69,7 @@ public class PidCacheServiceTest
 	}
 	
 	@Test
+	@Ignore
 	public void init() throws Exception
 	{	
 	    // Wait until pid cache is surely filled
