@@ -175,6 +175,26 @@
 			<organization>Max Planck Digital Library</organization>
 			<timezone>+2</timezone>
 		</developer>
+		<developer>
+			<id>siedersleben</id>
+			<name>Gudrun Siedersleben</name>
+			<email>siedersleben@mpdl.mpg.de</email>
+			<roles>
+				<role>Software developer</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
+		<developer>
+			<id>walter</id>
+			<name>Matthias Walter</name>
+			<email>walter@mpdl.mpg.de</email>
+			<roles>
+				<role>Software developer</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
 	</developers>
 	
 	<mailingLists>
