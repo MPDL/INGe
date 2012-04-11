@@ -34,7 +34,7 @@
 	<packaging>pom</packaging>
 	<version>7.0.0-SNAPSHOT</version>
 	<name>pubman</name>
-	<url>http://escidoc1.escidoc.mpg.de/projects/pubman</url>
+	<url>http://pubman.mpdl.mpg.de/software</url>
 	<description>
 		PubMan supports scientists and institutes in the management and
 		the digital curation of their publications. This solution
@@ -386,13 +386,6 @@
 					<targetJdk>1.5</targetJdk>
 				</configuration>
 			</plugin>
-			<!--<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-checkstyle-plugin</artifactId>
-			<configuration>
-				<configLocation>http://escidoc1.escidoc.mpg.de/resources/checkstyle/checkstyle.xml</configLocation>
-			</configuration>
-		</plugin>-->
 			<plugin>
 				<!-- JavaNCSS - A Source Measurement Suite for Java
 					http://www.kclee.de/clemens/java/javancss/ -->
@@ -753,7 +746,7 @@
 			<distributionManagement>
 				<site>
 					<id>website</id>
-					<url>scp://pubman.mpdl.mpg.de:/srv/www/staging</url>
+					<url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/pubman</url>
 				</site>
 			</distributionManagement>
 		
@@ -802,18 +795,6 @@
 					<url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/pubman</url>
 				</site>
 			</distributionManagement>
-		
-		</profile>
-		<profile>
-			<id>env-production-escidoc2</id>
-		
-		</profile>
-		<profile>
-			<id>env-production-escidoc3</id>
-		
-		</profile>
-		<profile>
-			<id>env-production-escidoc4</id>
 		
 		</profile>
 		<profile>
