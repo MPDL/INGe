@@ -36,7 +36,7 @@ public class MetadataSearchCriterion implements Serializable
     /** Criteria types for the search criterion. */
     public enum CriterionType
     {
-        TITLE, ANY, ANY_INCLUDE, ABSTRACT, PERSON, PERSON_ROLE, ORGANIZATION, ORGANIZATION_PIDS, GENRE, DATE_ANY,
+        TITLE, ANY, ANY_INCLUDE, ABSTRACT, PERSON, PERSON_ROLE, ORGANIZATION, CREATOR_ORGANIZATION, ORGANIZATION_PIDS, CREATOR_ORGANIZATION_IDS, GENRE, DATE_ANY,
         DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, DATE_EVENT_START, DATE_EVENT_END, TOPIC,
         SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CONTEXT_NAME, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE,
         COMPONENT_ACCESSIBILITY, COMPONENT_STORAGE, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY, COMPONENT_COMPOUND_PROPERTIES, LOCAL_TAG, COPYRIGHT_DATE, 
@@ -91,8 +91,12 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_PERSON_ROLE = "escidoc.publication.creator.role";
     /** Index field for organizations. */
     private static final String INDEX_ORGANIZATION = "escidoc.any-organizations";
+    /** Index field for creator_organizations. */
+    private static final String INDEX_CREATOR_ORGANIZATION = "escidoc.publication.creator.person.organization.title";
     /** Index field for organization pids. */
     private static final String INDEX_ORGANIZATION_PIDS = "escidoc.any-organization-pids";
+    /** Index field for creator organization ids. */
+    private static final String INDEX_CREATOR_ORGANIZATION_IDS = "escidoc.publication.creator.person.organization.identifier";
     /** Index field for genre. */
     private static final String INDEX_GENRE = "escidoc.publication.type";
     /** Index field for dates. */
@@ -422,6 +426,9 @@ public class MetadataSearchCriterion implements Serializable
             case ORGANIZATION:
                 indexes.add(INDEX_ORGANIZATION);
                 break;
+            case CREATOR_ORGANIZATION:
+                indexes.add(INDEX_CREATOR_ORGANIZATION);
+                break;
             case GENRE:
                 indexes.add(INDEX_GENRE);
                 break;
@@ -457,6 +464,9 @@ public class MetadataSearchCriterion implements Serializable
                 break;
             case ORGANIZATION_PIDS:
                 indexes.add(INDEX_ORGANIZATION_PIDS);
+                break;
+            case CREATOR_ORGANIZATION_IDS:
+                indexes.add(INDEX_CREATOR_ORGANIZATION_IDS);
                 break;
             case DATE_ANY:
                 indexes.add(INDEX_DATE_ANY);
@@ -725,10 +735,20 @@ public class MetadataSearchCriterion implements Serializable
     {
         return INDEX_ORGANIZATION;
     }
+    
+    public static String getINDEX_CREATOR_ORGANIZATION()
+    {
+        return INDEX_CREATOR_ORGANIZATION;
+    }
 
     public static String getINDEX_ORGANIZATION_PIDS()
     {
         return INDEX_ORGANIZATION_PIDS;
+    }
+    
+    public static String getINDEX_CREATOR_ORGANIZATION_IDS()
+    {
+        return INDEX_CREATOR_ORGANIZATION_IDS;
     }
 
     public static String getINDEX_GENRE()
