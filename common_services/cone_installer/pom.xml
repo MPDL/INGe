@@ -29,7 +29,7 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.56</version>
+		<version>1.0.60-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
@@ -39,9 +39,9 @@
 	<version>0.1.0-SNAPSHOT</version>
 	
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/cone_installer/</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/cone_installer/</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/trunk/common_services/cone_installer/</url>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/cone_installer/</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/cone_installer/</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
 	</scm>
 	
 	<build>
@@ -194,7 +194,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.60-SNAPSHOT</version>
+			<version>1.3.2-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -217,7 +217,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.57-SNAPSHOT</version>
+			<version>1.1.60-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 	
