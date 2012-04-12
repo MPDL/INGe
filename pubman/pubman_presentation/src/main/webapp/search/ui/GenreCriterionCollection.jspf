@@ -396,8 +396,8 @@
 
 					<span class="free_area0 checkboxDoubleGroup">
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="degreeCriterionBean_diploma" value="#{degreeCriterionBean.searchDiploma}" />
-							<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_DIPLOMA}" />
+							<h:selectBooleanCheckbox id="degreeCriterionBean_dis" value="#{degreeCriterionBean.searchPHD}" />
+							<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_PHD}"/>
 						</span>
 						<span class="checkboxDoubleContainer" style="display:none;">
 							<span class="large_checkbox tiny_marginRIncl">
@@ -405,8 +405,8 @@
 								<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_MASTER}" />
 							</span>
 							<span class="large_checkbox tiny_marginRIncl">
-								<h:selectBooleanCheckbox id="degreeCriterionBean_dis" value="#{degreeCriterionBean.searchPHD}" />
-								<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_PHD}"/>
+								<h:selectBooleanCheckbox id="degreeCriterionBean_diploma" value="#{degreeCriterionBean.searchDiploma}" />
+								<h:outputLabel value="#{lbl.ENUM_DEGREETYPE_DIPLOMA}" />
 							</span>
 							<span class="large_checkbox tiny_marginRIncl">
 								<h:selectBooleanCheckbox id="degreeCriterionBean_hab" value="#{degreeCriterionBean.searchHab}" />

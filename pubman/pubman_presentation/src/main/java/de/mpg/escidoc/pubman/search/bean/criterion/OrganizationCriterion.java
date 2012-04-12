@@ -70,13 +70,13 @@ public class OrganizationCriterion extends Criterion
         if(getAffiliation() != null && getAffiliation().getReference().getObjectId() != null && !"".equals(getAffiliation().getReference().getObjectId()))
         {
             MetadataSearchCriterion criterion = 
-                new MetadataSearchCriterion( CriterionType.ORGANIZATION_PIDS, getAffiliation().getReference().getObjectId());
+                new MetadataSearchCriterion( CriterionType.CREATOR_ORGANIZATION_IDS, getAffiliation().getReference().getObjectId());
             criterions.add( criterion );
         }
         else if(isSearchStringEmpty() != true)
         {
             MetadataSearchCriterion criterion = 
-                new MetadataSearchCriterion( CriterionType.ORGANIZATION, getSearchString() );
+                new MetadataSearchCriterion( CriterionType.CREATOR_ORGANIZATION, getSearchString() );
             criterions.add( criterion );
         }
            return criterions;

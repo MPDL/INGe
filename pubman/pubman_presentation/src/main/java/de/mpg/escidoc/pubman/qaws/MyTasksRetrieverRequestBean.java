@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
@@ -22,6 +23,8 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
@@ -63,7 +66,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     // Faces navigation string
     public static final String LOAD_QAWS = "loadQAWSPage";
 
-    //private Map<String, AffiliationVOPresentation> affiliationMap;
+    private Map<String, AffiliationVOPresentation> affiliationMap;
 
     public MyTasksRetrieverRequestBean()
     {
@@ -522,20 +525,50 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     {
         return "QAWSPage.jsp";
     }
+    
+    private void addChildAffiliations(List<AffiliationVOPresentation> affs, List<SelectItem> affSelectItems, int level) throws Exception
+    {
+        if ( affs==null)
+        {
+            return;
+        }
+
+        String prefix = "";
+        for (int i = 0; i < level; i++)
+        {
+            //2 save blanks
+            prefix += '\u00A0';
+            prefix += '\u00A0';
+            prefix += '\u00A0';
+        }
+        //1 right angle
+        prefix += '\u2514';
+        for (AffiliationVOPresentation aff : affs)
+        {
+            affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
+            if (aff.getChildren() != null)
+            {
+                addChildAffiliations(aff.getChildren(), affSelectItems, level + 1);
+            }
+        }
+    }
+
 
     public List<SelectItem> getOrgUnitSelectItems()
     {
-        if (getQAWSSessionBean().getOrgUnitSelectItems() != null)
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        List<SelectItem> userAffiliationsList = new ArrayList<SelectItem> ();
+        userAffiliationsList.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+        try 
         {
-            return this.getQAWSSessionBean().getOrgUnitSelectItems();
+            List<AffiliationVOPresentation> affList = loginHelper.getAccountUsersAffiliations();
+            addChildAffiliations(affList, userAffiliationsList, 0);
         }
-        else
-        {
-            List<SelectItem> list = new ArrayList<SelectItem>();
-            list.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
-            list.add(new SelectItem("", getLabel("qaws_lblLoading") + " >--->--->--->--->--->--->--->---"));
-            return list;
+        catch(Exception e)
+        {            
+            //TODO
         }
+        return userAffiliationsList;
     }
 
     public void setSelectedOrgUnit(String selectedOrgUnit)
