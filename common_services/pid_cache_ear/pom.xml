@@ -39,6 +39,13 @@
 	<packaging>ear</packaging>
 	<name>pid_cache_ear</name>
 	<version>0.1.23-SNAPSHOT</version>
+	
+	<scm>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/pid_cache_ear</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/pid_cache_ear</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
+	</scm>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -69,17 +76,17 @@
 							<artifactId>common_logic</artifactId>
 						</ejbModule>
 						<jarModule>
-                            <groupId>axis</groupId>
-                            <artifactId>axis</artifactId>
-                            <includeInApplicationXml>
+							<groupId>axis</groupId>
+							<artifactId>axis</artifactId>
+							<includeInApplicationXml>
                                 true
                             </includeInApplicationXml>
-                        </jarModule>
+						</jarModule>
 						<jarModule>
-                            <groupId>com.maxmind.geoip</groupId>
-                            <artifactId>geoip</artifactId>
-                            <includeInApplicationXml>true</includeInApplicationXml>
-                        </jarModule>
+							<groupId>com.maxmind.geoip</groupId>
+							<artifactId>geoip</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -117,23 +124,23 @@
 				</executions>
 			</plugin>
 			<plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
-                    <items>
-                        <item>timestamp</item>
-                    </items>
-                </configuration>
-       		</plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
+					<items>
+						<item>timestamp</item>
+					</items>
+				</configuration>
+			</plugin>
        		<!-- enables the process test resources feature in the ear -->
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
@@ -262,10 +269,10 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-	      	<groupId>com.maxmind.geoip</groupId>
-	      	<artifactId>geoip</artifactId>
-	      	<version>1.2.3</version>
-    	</dependency>
+			<groupId>com.maxmind.geoip</groupId>
+			<artifactId>geoip</artifactId>
+			<version>1.2.3</version>
+		</dependency>
 		<dependency>
 			<groupId>jboss-ejb3-client</groupId>
 			<artifactId>jboss-ejb-client</artifactId>

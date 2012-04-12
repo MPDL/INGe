@@ -39,6 +39,13 @@
 	<packaging>jar</packaging>
 	<name>aa_logic</name>
 	<version>0.1.4-SNAPSHOT</version>
+	
+	<scm>
+		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/aa_logic</connection>
+		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services/aa_logic</developerConnection>
+		<url>https://subversion.mpdl.mpg.de/repos/common/</url>
+	</scm>
+	
 	<build>
 		<resources>
 			<resource>
@@ -127,10 +134,4 @@
 	<dependencyManagement>
 		<dependencies />
 	</dependencyManagement>
-
-  <scm>
-    <connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/aa_logic-0.1.2</connection>
-    <developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/tags/aa_logic-0.1.2</developerConnection>
-    <url>https://subversion.mpdl.mpg.de/repos/common/tags/aa_logic-0.1.2</url>
-  </scm>
 </project>
