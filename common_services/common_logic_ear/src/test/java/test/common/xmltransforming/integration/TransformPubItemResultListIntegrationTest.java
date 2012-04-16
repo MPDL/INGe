@@ -53,6 +53,7 @@ import org.junit.Test;
 
 import test.common.AffiliationCreator;
 import test.common.xmltransforming.XmlTransformingTestBase;
+import de.escidoc.www.services.adm.AdminHandler;
 import de.escidoc.www.services.om.ContainerHandler;
 import de.escidoc.www.services.om.ItemHandler;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
@@ -495,6 +496,14 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
                     + md
                     + "\"></param>");
             logger.info("Affiliation '" + affiliationRef + "' closed.");
+            
+            AdminHandler adminHandler = ServiceLocator.getAdminHandler(adminUserHandle);
+            adminHandler.deleteObjects("<param><id>" + affiliationRef + "</id></param>");
+            
+            logger.info("Affiliation '" + affiliationRef + "' deleted.");
+            
+            String status = adminHandler.getPurgeStatus();
+            logger.info("Purge status '" + status);
 //
 //        }
     }
