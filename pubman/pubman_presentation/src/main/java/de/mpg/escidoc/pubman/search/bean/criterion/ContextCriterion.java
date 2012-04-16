@@ -3,7 +3,6 @@ package de.mpg.escidoc.pubman.search.bean.criterion;
 import java.util.ArrayList;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 

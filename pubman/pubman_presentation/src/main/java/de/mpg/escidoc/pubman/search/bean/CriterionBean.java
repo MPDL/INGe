@@ -2,7 +2,6 @@ package de.mpg.escidoc.pubman.search.bean;
 
 import javax.faces.model.SelectItem;
 
-
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;

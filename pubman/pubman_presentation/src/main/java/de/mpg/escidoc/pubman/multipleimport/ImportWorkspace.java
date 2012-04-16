@@ -37,7 +37,6 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.SortColumn;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.SortDirection;
 import de.mpg.escidoc.pubman.util.LoginHelper;

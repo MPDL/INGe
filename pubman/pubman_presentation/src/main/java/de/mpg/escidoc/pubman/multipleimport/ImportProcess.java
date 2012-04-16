@@ -77,7 +77,6 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
-import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
 
 /**
  * TODO Description

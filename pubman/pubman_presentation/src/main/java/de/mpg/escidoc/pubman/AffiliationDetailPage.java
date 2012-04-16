@@ -31,7 +31,6 @@ package de.mpg.escidoc.pubman;
 
 import javax.naming.InitialContext;
 
-
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;

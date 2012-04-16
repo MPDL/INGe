@@ -1,7 +1,6 @@
 package de.mpg.escidoc.pubman.yearbook;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -13,12 +12,9 @@ import org.apache.axis.types.NonNegativeInteger;
 import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
-import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.yearbook.YearbookItemSessionBean.YBWORKSPACE;
@@ -28,20 +24,18 @@ import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
 import de.mpg.escidoc.services.search.query.SearchQuery;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
-import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
-import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Yearbook workspace.

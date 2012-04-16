@@ -8,8 +8,6 @@ import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
-import de.mpg.escidoc.pubman.search.bean.AnyFieldCriterionCollection.AnyFieldCriterionManager;
-import de.mpg.escidoc.pubman.search.bean.criterion.AnyFieldCriterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.ContextCriterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.util.SelectItemComparator;

@@ -50,7 +50,7 @@ import org.apache.axis.encoding.Base64;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
-import org.apache.commons.net.ftp.*;
+import org.apache.commons.net.ftp.FTPClient;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;

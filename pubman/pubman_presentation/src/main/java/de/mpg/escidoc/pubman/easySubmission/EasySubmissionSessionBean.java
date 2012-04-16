@@ -33,7 +33,6 @@ package de.mpg.escidoc.pubman.easySubmission;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;

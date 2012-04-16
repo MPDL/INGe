@@ -1,15 +1,8 @@
 package de.mpg.escidoc.pubman.util;
 
-import java.util.ArrayList;
-import java.util.EmptyStackException;
-import java.util.List;
-import java.util.Stack;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.*;
-import de.mpg.escidoc.services.citationmanager.utils.Utils;
-import de.mpg.escidoc.services.common.util.HtmlUtils;
+import javax.faces.convert.Converter;
 
 public class HTMLSubSupConverter implements Converter{
     public static final String CONVERTER_ID = "HTMLSubSupConverter";

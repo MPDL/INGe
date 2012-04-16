@@ -32,9 +32,6 @@ package de.mpg.escidoc.pubman.search;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-import javax.faces.event.PhaseEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PhaseListener;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
@@ -62,8 +59,8 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
+import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 
 /**
  * Provides a set of search type query masks, which can be dynamically increased and combined 

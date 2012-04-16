@@ -33,7 +33,6 @@ package de.mpg.escidoc.pubman.search.bean;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 

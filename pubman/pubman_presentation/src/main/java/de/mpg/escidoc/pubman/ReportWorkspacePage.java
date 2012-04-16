@@ -31,32 +31,15 @@
 package de.mpg.escidoc.pubman;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.desktop.Login;
-import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.pubman.util.OrganizationVOPresentation;
-import de.mpg.escidoc.pubman.util.PubItemResultVO;
-import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
-import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
-import de.mpg.escidoc.services.search.query.PlainCqlQuery;
-
-import de.mpg.escidoc.services.search.Search;
 
 
 

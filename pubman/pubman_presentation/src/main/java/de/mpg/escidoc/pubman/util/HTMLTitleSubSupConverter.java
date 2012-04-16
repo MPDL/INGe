@@ -4,9 +4,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import de.mpg.escidoc.services.citationmanager.utils.Utils;
-import de.mpg.escidoc.services.common.util.HtmlUtils;
-
 /**
  * Removes all sub and sup tags from a string, used for browser title
  *

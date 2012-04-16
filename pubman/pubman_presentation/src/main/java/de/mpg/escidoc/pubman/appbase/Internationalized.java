@@ -1,7 +1,5 @@
 package de.mpg.escidoc.pubman.appbase;
 
-import java.io.Serializable;
-
 import javax.faces.component.UIComponent;
 
 /**
