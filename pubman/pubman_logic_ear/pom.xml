@@ -814,7 +814,7 @@
 								</goals>
 							</execution>
 						</executions>
-						<configuration>cd
+						<configuration>
 							<container>
 								<containerId>jboss42x</containerId>
 								<zipUrlInstaller>
