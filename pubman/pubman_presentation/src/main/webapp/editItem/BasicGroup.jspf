@@ -36,7 +36,9 @@ All rights reserved. Use is subject to license terms.
 		<h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter"/>
 	</h3>
 	<span class="seperator"></span>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 	<div class="free_area0 itemBlockContent endline">
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 
 <%-- Genre --%>
 		<h:panelGroup layout="block" styleClass="labelLine marginTExcl6p clear" rendered="#{!(genre.item_basic_item_genre_display == 'false' && genre.item_basic_item_genre_form_id == 'full-submission' || genre.item_basic_item_genre_display == 'false' && genre.item_basic_item_genre_form_id == 'all')}">
@@ -155,7 +157,7 @@ All rights reserved. Use is subject to license terms.
 			</h:panelGroup>
 		</tr:iterator>
 	
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
+			
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
+	
 </h:panelGroup>

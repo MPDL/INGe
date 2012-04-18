@@ -36,7 +36,9 @@
 		<h:outputText value="#{genre.details_label}" converter="GenreLabelConverter"/>
 	</h3>
 	<span class="seperator"></span>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 	<div class="free_area0 itemBlockContent endline">
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 
 <%-- Language of Publication --%>
 		<tr:iterator var="language" id="lgTable" value="#{EditItem.languages}" binding="#{EditItem.pubLangIterator}" varStatus="index" rendered="#{!(genre.details_item_language_display == 'false' && genre.details_item_language_form_id == 'full-submission' || genre.details_item_language_display == 'false' && genre.details_item_language_form_id == 'all')}">
@@ -217,9 +219,5 @@
 				</h:panelGroup>
 			</span>
 		</h:panelGroup>
-
-	
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 </h:panelGroup>

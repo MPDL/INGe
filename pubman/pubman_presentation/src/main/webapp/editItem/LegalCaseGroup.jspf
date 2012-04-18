@@ -36,7 +36,10 @@
 		<h:outputText value="#{genre.legal_case_label}" converter="GenreLabelConverter"/>
 	</h3>
 	<span class="seperator"></span>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /></a>
 	<div class="free_area0 itemBlockContent endline">
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /></a>
+	
 	<%-- Court --%>
 	<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">				
 		<b class="xLarge_area0_p8 endline labelLine clear">
@@ -86,10 +89,7 @@
 		</span>
 	</h:panelGroup>	
 	
-
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /></a>	
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /></a>
 </h:panelGroup>		
 			
 		

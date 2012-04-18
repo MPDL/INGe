@@ -65,7 +65,9 @@
 <%-- Start of grid list with label --%>
 	<div class="full_area0 itemBlock">
 	<span class="xLarge_area0_p8 endline blockHeader">&nbsp</span> 
+	<a class="free_area0 expand" > <h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline">
+		<a class="free_area0 collapse"> <h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 		<span class="xLarge_area0_p8 endline blockHeader">&nbsp;</span>
 		<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline"
 			rendered="#{!(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
@@ -258,11 +260,6 @@
 		</tr:iterator>
 		<span class="full_area0 clear">&nbsp;</span>
 		</span>
-		<a class="free_area0 collapse"> <h:outputText
-			value="#{lbl.ViewItemFull_lblHideGroup}" /> 
-			</a>
 	</h:panelGroup>
-	<a class="free_area0 expand" > <h:outputText
-		value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 		</div>
 </h:panelGroup>

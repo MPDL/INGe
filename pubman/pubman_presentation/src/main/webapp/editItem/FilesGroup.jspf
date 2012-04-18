@@ -36,7 +36,9 @@
 		<h:outputText value="#{genre.files_label}" converter="GenreLabelConverter" rendered="#{genre.files_display != 'false'}"/>
 	</h3>
 	<span class="seperator"></span>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /></a>
 	<div class="free_area0 itemBlockContent endline">
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /></a>
 		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" varStatus="index">
 
 <%-- Add File from local system--%>
@@ -235,7 +237,5 @@
 			</h:panelGroup>
 
 		</tr:iterator>
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /></a>	
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /></a>
 </h:panelGroup>

@@ -36,7 +36,9 @@
 		<h:outputText value="#{genre.events_label}" converter="GenreLabelConverter"/>
 	</h3>
 	<span class="seperator"></span>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /></a>
 	<div class="free_area0 itemBlockContent endline">
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /></a>
 
 <%-- Event title --%>
 		<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.events_event_title_display == 'false' && genre.events_event_title_form_id == 'full-submission' || genre.events_event_title_display == 'false' && genre.events_event_title_form_id == 'all')}">
@@ -103,8 +105,5 @@
 				</h:panelGroup>
 			</span>
 		</h:panelGroup>
-	
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /></a>	
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /></a>
 </h:panelGroup>

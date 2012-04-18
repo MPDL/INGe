@@ -36,7 +36,9 @@
 		<h:outputText value="#{genre.locators_label}" converter="GenreLabelConverter"/>
 	</h3>
 	<span class="seperator"></span>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /></a>
 	<div class="free_area0 itemBlockContent endline">
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /></a>
 		<tr:iterator var="locator" id="locatorUploads" value="#{EditItem.locators}" varStatus="index">
 
 <%-- Add locator --%>
@@ -134,7 +136,5 @@
 				</span>
 			</h:panelGroup>
 		</tr:iterator>
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /></a>	
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /></a>
 </h:panelGroup>
