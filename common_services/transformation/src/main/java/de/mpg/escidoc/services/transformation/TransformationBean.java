@@ -360,7 +360,7 @@ public class TransformationBean implements Transformation, Configurable
                 transformationClass = cl.loadClass(transformationClass.getName());
     
                 Transformation transformation = (Transformation) transformationClass.newInstance();
-                if (transformation instanceof Configurable)
+                if (transformation instanceof Configurable) 
                 {
                     
                     //Set methods parameters

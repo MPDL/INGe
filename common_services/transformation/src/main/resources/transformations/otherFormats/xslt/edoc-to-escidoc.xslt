@@ -2972,12 +2972,12 @@
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Polymer Research')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPI MoleGen'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Molecular Genetics')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Molecular Genetics')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'KHI'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Kunsthistorisches Institut in Florenz, MPI')"/>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPQ'">
+						<xsl:when test="$import-name = 'MPQ'"> 
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI of Quantum Optics')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIIS'">
@@ -3051,7 +3051,7 @@
 							
 							<xsl:if test="not($source)">
 								<xsl:choose>
-									<xsl:when test="($import-name = 'MPIK' or $import-name = 'MPINEURO' or $import-name = 'MPIIS') and @internextern='unknown' and exists(../../../docaff/docaff_external)">
+									<xsl:when test="($import-name = 'MPIK' or $import-name = 'MPINEURO' or $import-name = 'MPIIS' or $import-name = 'MPIKOFO') and @internextern='unknown' and exists(../../../docaff/docaff_external)">
 										<xsl:comment> Case MPIK for unknown user with external affiliation </xsl:comment>
 										<xsl:element name="organization:organization">
 											<xsl:element name="dc:title">
@@ -3494,6 +3494,12 @@
 				<xsl:value-of select="dateaccepted"/>
 			</xsl:element>
 		</xsl:if>
+		<!-- case ACCEPTED in 'authorcomment' -->
+		<xsl:if test="(not (exists(dateaccepted) and dateaccepted != '')) and exists(authorcomment) and fn:contains(authorcomment, 'ACCEPTED:')">
+			<xsl:element name="dcterms:dateAccepted">
+				<xsl:value-of select="fn:substring-before(fn:substring-after(authorcomment, 'ACCEPTED:'), '&#xA;')"/>
+			</xsl:element>
+		</xsl:if>
 		<xsl:if test="exists(datecreated) and datecreated != ''">
 			<xsl:element name="dcterms:created">
 				<xsl:value-of select="datecreated"/>
@@ -3502,6 +3508,12 @@
 		<xsl:if test="exists(datesubmitted) and datesubmitted != ''">
 			<xsl:element name="dcterms:dateSubmitted">
 				<xsl:value-of select="datesubmitted"/>
+			</xsl:element>
+		</xsl:if>
+		<!-- case SUBMITTED in 'authorcomment' -->
+		<xsl:if test="(not (exists(datesubmitted) and datesubmitted != '')) and exists(authorcomment) and fn:contains(authorcomment, 'SUBMITTED:')">
+			<xsl:element name="dcterms:dateSubmitted">
+				<xsl:value-of select="fn:substring-after(authorcomment, 'SUBMITTED:')"/>
 			</xsl:element>
 		</xsl:if>
 		<xsl:if test="exists(datemodified) and datemodified != ''">
@@ -3542,6 +3554,12 @@
 					</xsl:element>
 				</xsl:otherwise>
 			</xsl:choose>
+		</xsl:if>
+		<!-- case PUBLISHED in 'authorcomment' -->
+		<xsl:if test="(not (exists(datepublished) and datepublished != '')) and exists(authorcomment) and fn:contains(authorcomment, 'PUBLISHED:')">
+			<xsl:element name="dcterms:issued">
+				<xsl:value-of select="fn:substring-before(fn:substring-after(authorcomment, 'PUBLISHED:'), '&#xA;')"/>
+			</xsl:element>
 		</xsl:if>
 	</xsl:template>
 	<!-- old templates -->

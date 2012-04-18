@@ -562,7 +562,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
         for (String authorString : authors)
         {
             Author author = new Author();
-            String[] parts = authorString.split(",");
+            String[] parts = null;
             String identifier = null;
             String affiliation = null;
             if (authorString.indexOf(",") != -1)
@@ -577,7 +577,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
                 if (authorString.indexOf("{") != -1 && authorString.indexOf("}") != -1 && authorString.indexOf("{") < authorString.indexOf("}"))
                 {
                     identifier = authorString.substring(authorString.indexOf("{") + 1, authorString.indexOf("}"));
-                    if (authorString.indexOf("{", authorString.indexOf("}")) != -1)
+                    if (authorString.indexOf("{", authorString.indexOf("}")) != -1 && authorString.indexOf("}", authorString.indexOf("}")) != -1 && authorString.indexOf("{", authorString.indexOf("}")) < authorString.indexOf("}", authorString.indexOf("}")))
                     {
                         affiliation = authorString.substring(authorString.indexOf("{", authorString.indexOf("}")) + 1 , authorString.indexOf("}", authorString.indexOf("{", authorString.indexOf("}"))));
                     }
@@ -587,7 +587,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
             }
             
             
-            if (parts.length>1)
+            if (parts != null && parts.length>1)
             {
                 
                 String[] surnameParts = parts[0].split("\\s");
@@ -654,7 +654,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
                 author.setTitle(title.trim());
                
             }
-            else 
+            else if (parts != null)
             {
                 author.setSurname(parts[0].trim());
             }

@@ -763,11 +763,11 @@
 				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="$Flavor = 'BGC'">
-				<xsl:variable name="additionalAuthorInformation" select="tokenize(../NUM_3, '\n')"/>
+				<xsl:variable name="additionalAuthorInformation" select="tokenize(../NUM_1, '\n')"/>
 					
 				<xsl:variable name="institute-authors-positions">
 					<xsl:choose>
-						<xsl:when test="matches(../NUM_3, '\n')">
+						<xsl:when test="matches(../NUM_1, '\n')">
 							<xsl:for-each select="$additionalAuthorInformation">
 								<xsl:variable name="author-pos" select="substring-before(., '-')"/>
 								<xsl:variable name="ou-id" select="substring-after(., '-')"/>
@@ -776,8 +776,8 @@
 								</pos>
 							</xsl:for-each>
 						</xsl:when>
-						<xsl:when test="../NUM_3 != ''">
-							<xsl:for-each select="../NUM_3">
+						<xsl:when test="../NUM_1 != ''">
+							<xsl:for-each select="../NUM_1">
 								<pos>
 									<xsl:value-of select="substring-before(., '-')"/>
 								</pos>
@@ -792,8 +792,7 @@
 				<xsl:comment><xsl:value-of select="$pos"/> = <xsl:value-of select="$institute-authors-positions"/></xsl:comment>
 				
 				<xsl:choose>
-					<xsl:when test="exists($institute-authors-positions/pos) and $institute-authors-positions[pos = $pos]">
-						<xsl:comment>Querying CoNE for ´<xsl:value-of select="concat($person/familyname, ', ', $person/givenname)"/>´</xsl:comment>
+					<xsl:when test="exists($institute-authors-positions/pos) and $institute-authors-positions/pos != '' and $institute-authors-positions[pos = $pos]">
 						<xsl:variable name="cone-creator">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($person/familyname, ', ', $person/givenname), 'MPI for Biogeochemistry')"/>
 						</xsl:variable>

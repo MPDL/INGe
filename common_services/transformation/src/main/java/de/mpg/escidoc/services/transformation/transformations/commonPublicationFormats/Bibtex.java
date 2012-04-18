@@ -350,8 +350,14 @@ public class Bibtex
                     }
                     else if (bibGenre == BibTexUtil.Genre.inbook)
                     {
-                        sourceVO.getSources().get(0).setVolume(
-                                BibTexUtil.bibtexDecode(fields.get("volume").toString()));
+                        if (sourceVO.getSources() != null && !sourceVO.getSources().isEmpty()) 
+                        {
+                            sourceVO.getSources().get(0).setVolume(BibTexUtil.bibtexDecode(fields.get("volume").toString()));
+                        }
+                        else
+                        {
+                            sourceVO.setVolume(BibTexUtil.bibtexDecode(fields.get("volume").toString()));
+                        }
                     }
                 }
 
@@ -469,6 +475,11 @@ public class Bibtex
                                                 if (query.equals(author.getTags().get("identifier")))
                                                 {
                                                     coneEntries = Util.queryConeExactWithIdentifier("persons", query, organizationalUnit);
+                                                    // for MPIKYB due to OUs which do not occur in CoNE
+                                                    if (coneEntries.getFirstChild().getFirstChild() == null)
+                                                    {
+                                                        logger.error("No Person with Identifier (" + author.getTags().get("identifier") + ") and OU (" + organizationalUnit + ") found in CoNE for Publication \"" + fields.get("title") + "\"");
+                                                    }
                                                 }
                                                 else 
                                                 {
