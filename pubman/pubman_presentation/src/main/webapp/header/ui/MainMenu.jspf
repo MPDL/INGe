@@ -60,8 +60,6 @@
 		<h:outputText value="#{lbl.mainMenu_lblSubmission}" />
 	</h:outputLink>
 	<h:outputText styleClass="free_area0" value="#{lbl.mainMenu_lblSubmission}" rendered="#{LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0 and (BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'CreateItemPage' || BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'SubmissionPage' || BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'EditItemPage' || BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'EasySubmissionPage')}" />
-
-
 	
 	<h:outputLink id="lnkCartItems" styleClass="free_area0" title="#{tip.MainMenu_cartItemsPage}" value="#{ApplicationBean.appContext}CartItemsPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'CartItemsPage'}" >
 		<h:outputText value="#{lbl.mainMenu_lblCart} "/>
@@ -71,6 +69,11 @@
 		<h:outputText value="#{lbl.mainMenu_lblCart}"  />
 		<h:outputText value=" (#{PubItemStorageSessionBean.displayNumber})" />
 	</h:panelGroup>
+	
+	<h:outputLink id="lnkTools" styleClass="free_area0" title="#{tip.MainMenu_ToolsPage}" value="#{ApplicationBean.appContext}ToolsPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ToolsPage'}">
+		<h:outputText value="#{lbl.mainMenu_lblTools}" />
+	</h:outputLink>
+	<h:outputText styleClass="free_area0" value="#{lbl.mainMenu_lblTools}" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'ToolsPage'}"/>
 </div>
 <script type="text/javascript">
 	if ($.browser.msie && $.browser.version == 7) {

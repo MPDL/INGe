@@ -27,6 +27,7 @@ import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemPublicStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -111,7 +112,13 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
             Filter f2 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
             filter.getFilterList().add(f2);
 
-            if (getSelectedItemState().toLowerCase().equals("all"))
+            if (getSelectedItemState().toLowerCase().equals("withdrawn"))
+            {
+                //use public status instead of version status here
+                Filter f3 = filter.new ItemPublicStatusFilter(PubItemVO.State.WITHDRAWN);
+                filter.getFilterList().add(0,f3);
+            }
+            else if (getSelectedItemState().toLowerCase().equals("all"))
             {
                 Filter f3 = filter.new ItemStatusFilter(PubItemVO.State.SUBMITTED);
                 filter.getFilterList().add(0,f3);
@@ -349,7 +356,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         itemStateSelectItems.add(new SelectItem("all",getLabel("ItemList_filterAllExceptPendingWithdrawn")));
         itemStateSelectItems.add(new SelectItem(PubItemVO.State.SUBMITTED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.SUBMITTED))));
         itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.RELEASED))));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.IN_REVISION))));
+         itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.IN_REVISION))));
+         itemStateSelectItems.add(new SelectItem(PubItemVO.State.WITHDRAWN.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.WITHDRAWN))));
         setItemStateSelectItems(itemStateSelectItems);
 
         return itemStateSelectItems;

@@ -2881,7 +2881,7 @@ public class ViewItemFull extends FacesBean
             this.canDelete = true;
         }
 
-        if (!this.isStateWithdrawn && (this.isStateReleased && this.isLatestVersion) && (this.isOwner || this.isModerator))
+        if (!this.isStateWithdrawn && ((this.isStateReleased || this.pubItem.getLatestRelease().getObjectId() != null) && this.isLatestVersion)  && (this.isOwner || this.isModerator))
         {
             this.canWithdraw = true;
         }
