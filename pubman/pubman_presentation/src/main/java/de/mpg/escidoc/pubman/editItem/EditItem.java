@@ -31,7 +31,9 @@ package de.mpg.escidoc.pubman.editItem;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +59,12 @@ import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
+import de.escidoc.core.common.exceptions.application.invalid.InvalidSearchQueryException;
+import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.core.common.exceptions.system.SystemException;
+import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.pubman.DepositorWSPage;
 import de.mpg.escidoc.pubman.EditItemPage;
 import de.mpg.escidoc.pubman.ErrorPage;
@@ -90,13 +98,17 @@ import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
 import de.mpg.escidoc.pubman.yearbook.YearbookInvalidItemRO;
 import de.mpg.escidoc.pubman.yearbook.YearbookItemSessionBean;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -111,6 +123,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
@@ -2199,6 +2212,87 @@ public class EditItem extends FacesBean
     public void setItem(PubItemVOPresentation item)
     {
         this.item = item;
+    }
+    
+    public String getOwner() throws Exception
+    {
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        InitialContext initialContext = new InitialContext();
+        XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+        UserAccountHandler userAccountHandler = null;
+        
+        HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
+        filterParams.put("operation", new String[] {"searchRetrieve"});
+        filterParams.put("query", new String[] {"\"/id\"=" + this.item.getOwner().getObjectId()});
+        String searchResponse = null;
+                
+        userAccountHandler = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
+        searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
+        SearchRetrieveResponseVO searchedObject = xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);
+        if (searchedObject.getRecords().get(0).getData() != null)
+        {
+            AccountUserVO owner = (AccountUserVO) searchedObject.getRecords().get(0).getData();
+            if (owner.getName() != null && owner.getName().trim() != "")
+            {
+                return owner.getName();
+            }
+            else if (owner.getUserid() != null && owner.getUserid() != "")
+            {
+                return owner.getUserid();
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else 
+        {
+            return null;
+        }
+    }
+    
+    public String getLastModifier() throws Exception
+    {
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        InitialContext initialContext = new InitialContext();
+        XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+        UserAccountHandler userAccountHandler = null;
+        if (this.item.getVersion().getModifiedByRO() != null && this.item.getVersion().getModifiedByRO().getObjectId() != null)
+        {
+            HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
+            filterParams.put("operation", new String[] {"searchRetrieve"});
+            filterParams.put("query", new String[] {"\"/id\"=" + this.item.getVersion().getModifiedByRO().getObjectId()});
+            String searchResponse = null;
+                    
+            userAccountHandler = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
+            searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
+            SearchRetrieveResponseVO searchedObject = xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);
+            if (searchedObject.getRecords().get(0).getData() != null)
+            {
+                AccountUserVO modifier = (AccountUserVO) searchedObject.getRecords().get(0).getData();
+                if (modifier.getName() != null && modifier.getName().trim() != "")
+                {
+                    return modifier.getName();
+                }
+                else if (modifier.getUserid() != null && modifier.getUserid() != "")
+                {
+                    return modifier.getUserid();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else 
+            {
+                return null;
+            }
+        }
+        else 
+        {
+            return null;
+        }
+        
     }
 
     public boolean isFromEasySubmission()

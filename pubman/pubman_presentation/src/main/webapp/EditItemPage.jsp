@@ -105,7 +105,10 @@
 									</div> <!-- content menu ends here -->
 									<div class="subHeader">
 										<!-- Subheadline starts here -->
-										<h:outputText value="#{lbl.EditItem_lblCollectionOfItem} #{EditItem.contextName}." />
+										<h:outputText value="#{lbl.EditItem_lblItemVersionID} '#{EditItem.item.version.objectId}'." rendered="#{EditItem.item.version.objectId != null}"/><br/>
+										<h:outputText value="#{lbl.EditItem_lblCollectionOfItem} '#{EditItem.contextName}'." /><br/>
+										<h:outputText value="#{lbl.EditItem_lblItemDepositor} '#{EditItem.owner}'." rendered="#{EditItem.owner != null}"/><br/>
+										<h:outputText value="#{lbl.EditItem_lblItemLastModifier} '#{EditItem.lastModifier}'." rendered="#{EditItem.lastModifier != null}"/>
 										<!-- Subheadline ends here -->
 									</div>
 									<div class="subHeader"> <!-- Subheadline starts here -->
