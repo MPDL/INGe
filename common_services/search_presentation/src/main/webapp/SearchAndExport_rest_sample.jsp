@@ -32,6 +32,7 @@
 <%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
 <%
 	String urlBase = (request.getProtocol().contains("HTTPS") ? "https" : "http") + "://" + request.getServerName() + (request.getServerPort() != 80 ? ":" + request.getServerPort() : "");
+	String cqlString = request.getQueryString();
 	String searchPath = urlBase + "/search/SearchAndExport";
 	String feedPath = urlBase + "/syndication/feed";
 	String feedImage = "<img src=\""+ urlBase +"/syndication/resources/Live_bookmarks.png\" />";
@@ -306,7 +307,7 @@
 										CQL search query<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<input class="quad_txtInput" type="text" name="cqlQuery" value="<%= PropertyReader.getProperty("escidoc.search.and.export.default.sql.query") %>" />
+										<input class="quad_txtInput" type="text" name="cqlQuery" value="<%= cqlString != null ? cqlString : PropertyReader.getProperty("escidoc.search.and.export.default.sql.query") %>" />
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
