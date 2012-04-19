@@ -178,7 +178,8 @@
 								<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
 									<!-- Subheadline starts here -->
 										<h:outputLink id="lnkAdvancedSearchPage" styleClass="free_area0 xTiny_marginRIncl" value="AdvancedSearchPage.jsp"><h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>
-										<a class="free_area0" href="#" onclick="$(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $(this).hide();"><h:outputText value="#{lbl.ShowQuery}"/></a>
+										<a class="free_area0 xTiny_marginRIncl" href="#" onclick="$(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $(this).hide();"><h:outputText value="#{lbl.ShowQuery}"/></a>
+										<h:outputLink id="lnkRestServiceExamplePage" styleClass="free_area0 xTiny_marginRIncl" value="#{ApplicationBean.pubmanInstanceUrl}/search/SearchAndExport_rest_sample.jsp?#{SearchRetrieverRequestBean.cqlQuery}"><h:outputText value="#{lbl.SearchResultList_lblRestServiceExamplePage}"/></h:outputLink>
 									<!-- Subheadline ends here -->
 								</h:panelGroup>
 	
