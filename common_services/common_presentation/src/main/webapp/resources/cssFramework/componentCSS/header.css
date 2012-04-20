@@ -311,7 +311,7 @@
 	padding-top:0.1818em;
 	display:inline;
 	white-space:nowrap;
-	text-transform:capitalize;
+	text-transform:none;
 }
 
 	/*REPLACEMENT HACK FOR IE LESS THAN 6*/
