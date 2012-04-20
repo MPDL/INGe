@@ -2872,7 +2872,7 @@ public class ViewItemFull extends FacesBean
             this.canAccept = true;
         }
 
-        if (!this.isStateWithdrawn && (this.isStateSubmitted && this.isLatestVersion && this.isModerator && !this.isModifyDisabled && this.isWorkflowStandard)){
+        if (!this.isStateWithdrawn && (this.isStateSubmitted && this.isLatestVersion && this.isModerator && !this.isModifyDisabled && this.isWorkflowStandard && !this.isPublicStateReleased)){
             this.canRevise = true;
         }
 

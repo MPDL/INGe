@@ -2222,12 +2222,17 @@ public class EditItem extends FacesBean
         UserAccountHandler userAccountHandler = null;
         
         HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-        filterParams.put("operation", new String[] {"searchRetrieve"});
-        filterParams.put("query", new String[] {"\"/id\"=" + this.item.getOwner().getObjectId()});
-        String searchResponse = null;
-                
+        if (this.item.getOwner() != null && this.item.getOwner().getObjectId() != null)
+        {
+            filterParams.put("operation", new String[] {"searchRetrieve"});
+            filterParams.put("query", new String[] {"\"/id\"=" + this.item.getOwner().getObjectId()});
+        }
+        else 
+        {
+            return null;
+        }
         userAccountHandler = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
-        searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
+        String searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
         SearchRetrieveResponseVO searchedObject = xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);
         if (searchedObject.getRecords().get(0).getData() != null)
         {
