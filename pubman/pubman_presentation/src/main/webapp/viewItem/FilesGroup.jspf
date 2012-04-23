@@ -36,7 +36,9 @@
 		<h:outputText value="#{lbl.ViewItemMedium_lblSubHeaderFile}" />
 	</h3>
 	<span class="seperator"></span>
+	<a id="lnkShowGroupFile" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemMedium_lblSubHeaderFile}" /></a>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showFiles}">
+		<a id="lnkHideGroupFile" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemMedium_lblSubHeaderFile}" /></a>
 
 		<tr:iterator var="file" value="#{ViewItemFull.pubItem.fileBeanList}" varStatus="index">
 
@@ -173,10 +175,6 @@
 					</tr:iterator>
 				</span>
 			</h:panelGroup>
-	
 		</tr:iterator>
-
-		<a id="lnkHideGroupFile" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemMedium_lblSubHeaderFile}" /></a>	
 	</h:panelGroup>
-	<a id="lnkShowGroupFile" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemMedium_lblSubHeaderFile}" /></a>
 </h:panelGroup>

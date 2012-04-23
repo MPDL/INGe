@@ -36,7 +36,9 @@
 		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderSystemDetails}" />
 	</h3>
 	<span class="seperator"></span>
+	<a id="lnkShowGroupSystemDetails" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline">
+		<a id="lnkHideGroupSystemDetails" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 
 <%-- Item identifier --%>
 		<div class="free_area0 endline itemLine noTopBorder">
@@ -88,9 +90,5 @@
 				<h:outputText value="#{ViewItemFull.pubItem.pr}, #{lbl.ViewItemFull_lblIsAffiliatedTo}: #{ViewItemFull.affiliations}"/>
 			</span>
 		</h:panelGroup>--%>
-
-		<a id="lnkHideGroupSystemDetails" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
 	</h:panelGroup>
-	<a id="lnkShowGroupSystemDetails" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
-
 </h:panelGroup>

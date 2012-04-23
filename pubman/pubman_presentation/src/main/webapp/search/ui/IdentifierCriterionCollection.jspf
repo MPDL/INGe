@@ -36,7 +36,9 @@
 		<h:outputText value="#{lbl.adv_search_lbHeaderIdent}" />
 	</h3>
 	<span class="seperator"></span>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.adv_search_lbHeaderIdent}" /></a>
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderIdent}" /></a>
 
 		<tr:iterator id="identifierCriterion" rows="0" var="identifierCriterionBean" value="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.objectDM}" binding="#{identifierCriterionIterator}" varStatus="index">
 
@@ -91,7 +93,5 @@
 			</h:panelGroup>
 
 		</tr:iterator>
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderIdent}" /></a>
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.adv_search_lbHeaderIdent}" /></a>
 </div>

@@ -36,7 +36,9 @@
 		<h:outputText value="#{lbl.adv_search_lbHeaderCollection}" />
 	</h3>
 	<span class="seperator"></span>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.adv_search_lbHeaderCollection}" /></a>
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
+		<a class="clear free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderCollection}" /></a>
 	
 		<tr:iterator id="contextCriterion" rows="0" var="contextCriterionBean" value="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.contextCriterionIterator}">
 	
@@ -104,7 +106,5 @@
 			</h:panelGroup>
 			 --%>
 		</tr:iterator>
-		<a class="clear free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderCollection}" /></a>
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.adv_search_lbHeaderCollection}" /></a>
 </div>

@@ -36,7 +36,9 @@
 		<h:outputText value="#{lbl.ViewItemFull_lblCreators}" />
 	</h3>
 	<span class="seperator"></span>
+	<a id="lnkShowGroupPersOrg" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 	<div class="free_area0 itemBlockContent endline">
+		<a id="lnkHideGroupPersOrg" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 
 <%-- Creators --%>
 		<div class="free_area0 endline itemLine noTopBorder">
@@ -116,8 +118,5 @@
 				</tr:iterator>
 			</span>
 		</div>
-	
-		<a id="lnkHideGroupPersOrg" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
 	</div>
-	<a id="lnkShowGroupPersOrg" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 </h:panelGroup>

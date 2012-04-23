@@ -36,7 +36,9 @@ All rights reserved. Use is subject to license terms.
 		<h:outputText value="#{lbl.adv_search_lbHeaderOrgan}" />
 	</h3>
 	<span class="seperator"></span>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.adv_search_lbHeaderOrgan}" /></a>
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
+		<a class="clear free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderOrgan}" /></a>
 
 		<tr:iterator id="organizationCriterion" rows="0" var="organizationCriterionBean" value="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.objectDM}" binding="#{organizationCriterionIterator}" varStatus="index">
 
@@ -105,7 +107,5 @@ All rights reserved. Use is subject to license terms.
 			</h:panelGroup>
 
 		</tr:iterator>
-		<a class="clear free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderOrgan}" /></a>
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.adv_search_lbHeaderOrgan}" /></a>
 </div>

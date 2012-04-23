@@ -36,7 +36,9 @@ All rights reserved. Use is subject to license terms.
 		<h:outputText value="#{lbl.adv_search_lbHeaderLanguage}" />
 	</h3>
 	<span class="seperator"></span>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.adv_search_lbHeaderLanguage}" /></a>
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderLanguage}" /></a>
 
 		<tr:iterator id="languageCriterion" rows="0" var="languageCriterionBean" value="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.objectDM}" binding="#{languageCriterionIterator}" varStatus="index">
 
@@ -117,7 +119,5 @@ All rights reserved. Use is subject to license terms.
 			</h:panelGroup>
 
 		</tr:iterator>
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderLanguage}" /></a>
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.adv_search_lbHeaderLanguage}" /></a>
 </div>

@@ -36,7 +36,9 @@
 		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLegalCase}" />
 	</h3>
 	<span class="seperator"></span>
+	<a id="lnkShowGroupEvent" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showLegalCase}">
+		<a id="lnkHideGroupEvent" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 
 <%-- Legal Case Court, Date, Identifier --%>
 		<div class="free_area0 endline itemLine noTopBorder">
@@ -58,10 +60,5 @@
 				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.legalCase.title == null || ViewItemFull.pubItem.metadata.legalCase.title == ''}"/>
 			</span>
 		</div>
-
-
-
-		<a id="lnkHideGroupEvent" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
 	</h:panelGroup>
-	<a id="lnkShowGroupEvent" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 </h:panelGroup>

@@ -262,6 +262,7 @@ public class ViewItemFull extends FacesBean
     private boolean canShowRevisions = false;
     private boolean canShowReleaseHistory = false;
     private boolean canShowLastMessage = false;
+    private boolean isStateWasReleased = false;
 
 
     /**
@@ -476,6 +477,7 @@ public class ViewItemFull extends FacesBean
             this.isStateInRevision = this.pubItem.getVersion().getState().toString()
             .equals(PubItemVO.State.IN_REVISION.toString()) && !this.isStateWithdrawn;;
             this.isPublicStateReleased = this.pubItem.getPublicStatus() == PubItemVO.State.RELEASED;
+            this.isStateWasReleased  = this.pubItem.getLatestRelease().getObjectId() != null ? true : false;
 
             // display a warn message if the item version is not the latest
             if (this.isLatestVersion == false)
@@ -2880,8 +2882,8 @@ public class ViewItemFull extends FacesBean
         {
             this.canDelete = true;
         }
-
-        if (!this.isStateWithdrawn && ((this.isStateReleased || this.pubItem.getLatestRelease().getObjectId() != null) && this.isLatestVersion)  && (this.isOwner || this.isModerator))
+        
+        if (!this.isStateWithdrawn && ((this.isStateReleased || this.isStateWasReleased) && this.isLatestVersion)  && (this.isOwner || this.isModerator))
         {
             this.canWithdraw = true;
         }

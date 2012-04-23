@@ -36,7 +36,9 @@
 		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocators}" />
 	</h3>
 	<span class="seperator"></span>
+	<a id="lnkShowGroupLocator" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showLocators}">
+		<a id="lnkHideGroupLocator" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 
 		<tr:iterator var="locator" value="#{ViewItemFull.pubItem.locatorBeanList}" varStatus="index">
 
@@ -67,8 +69,5 @@
 			</h:panelGroup>
 
 		</tr:iterator>
-
-		<a id="lnkHideGroupLocator" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
 	</h:panelGroup>
-	<a id="lnkShowGroupLocator" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 </h:panelGroup>

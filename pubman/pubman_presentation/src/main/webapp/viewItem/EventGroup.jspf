@@ -36,7 +36,9 @@
 		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderEvent}" />
 	</h3>
 	<span class="seperator"></span>
+	<a id="lnkShowGroupEvent" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showEvents}">
+		<a id="lnkHideGroupEvent" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 
 <%-- Event title --%>
 		<div class="free_area0 endline itemLine noTopBorder">
@@ -92,8 +94,5 @@
 				<h:outputText value="#{lbl.yes}" />
 			</span>
 		</h:panelGroup>
-
-		<a id="lnkHideGroupEvent" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
 	</h:panelGroup>
-	<a id="lnkShowGroupEvent" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 </h:panelGroup>

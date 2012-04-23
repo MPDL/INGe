@@ -36,8 +36,10 @@
 		<h:outputText value="#{lbl.adv_search_lbHeaderContentDetails}" />
 	</h3>
 	<span class="seperator"></span>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.adv_search_lbHeaderContentDetails}" /></a>
 	<div class="free_area0 itemBlockContent hideAdvSearchComplexBlockIfVoid endline">
-
+		<a class="free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderContentDetails}" /></a>
+		
 <%-- Identifier --%>
 
 		<tr:iterator id="identifierCriterion" rows="0" var="identifierCriterionBean" value="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.identifierCriterionIterator}" varStatus="index">
@@ -260,12 +262,6 @@
             </h:panelGroup>
 
         </tr:iterator>
-
-
-	
-	
-
-		<a class="free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderContentDetails}" /></a>
+        
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.adv_search_lbHeaderContentDetails}" /></a>
 </div>

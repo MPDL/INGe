@@ -36,7 +36,9 @@
 		<h:outputText value="#{lbl.ViewItemFull_lblBasic}" />
 	</h3>
 	<span class="seperator"></span>
+	<a id="lnkShowGroupBasic" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 	<h:panelGroup styleClass="free_area0 itemBlockContent endline">
+		<a id="lnkHideGroupBasic" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
 
 <%-- Citation URL --%>
 		<div class="free_area0 endline itemLine noTopBorder" >
@@ -124,8 +126,5 @@
 				</span>
 			</h:panelGroup>
 		</tr:iterator>	
-	
-		<a id="lnkHideGroupBasic" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
 	</h:panelGroup>
-	<a id="lnkShowGroupBasic" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 </h:panelGroup>

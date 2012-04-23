@@ -36,7 +36,9 @@
 		<h:outputText value="#{lbl.adv_search_lbHeaderGenre}" />
 	</h3>
 	<span class="seperator"></span>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.adv_search_lbHeaderGenre}" /></a>
 	<div class="free_area0 itemBlockContent hideAdvSearchGenreBlockIfVoid endline">
+		<a class="free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderGenre}" /></a>
 
 <!-- Start Genre -->
 		<tr:iterator id="genreCriterion" rows="0" var="genreCriterionBean" value="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.genreCriterionIterator}" varStatus="index">
@@ -453,8 +455,5 @@
 			</h:panelGroup>
 		</tr:iterator>
 <!-- End Degree -->
-
-		<a class="free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderGenre}" /></a>
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.adv_search_lbHeaderGenre}" /></a>
 </div>

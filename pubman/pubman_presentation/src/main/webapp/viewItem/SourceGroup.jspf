@@ -47,7 +47,9 @@
 			<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderSource} #{ViewItemFull.sourceIterator.rowIndex +1}" />
 		</h3>
 		<span class="seperator"></span>
+		<a id="lnkShowGroupSource" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 		<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline">
+			<a id="lnkHideGroupSource" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 	
 	<%-- Source Title --%>
 			<div class="free_area0 endline itemLine noTopBorder">
@@ -205,11 +207,6 @@
 					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{source.identifiers == null || source.identifiers == ''}"/>
 				</span>
 			</h:panelGroup>
-	
-			<a id="lnkHideGroupSource" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
 		</h:panelGroup>
-		<a id="lnkShowGroupSource" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
-	
 	</h:panelGroup>
-
 </tr:iterator>

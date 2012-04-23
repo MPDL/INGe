@@ -36,7 +36,9 @@
 		<h:outputText value="#{lbl.EditItem_lblContent}" />
 	</h3>
 	<span class="seperator"></span>
+	<a id="lnkShowGroupContent" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.hasAbstracts || ViewItemFull.hasFreeKeywords || ViewItemFull.hasSubjects}">
+		<a id="lnkHideGroupContent" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 
 <%-- Free keywords --%>
 		<div class="free_area0 endline itemLine noTopBorder">
@@ -81,8 +83,5 @@
 				<h:outputText value="#{lbl.lbl_noEntry}"/>
 			</span>			
 		</h:panelGroup>
-		
-		<a id="lnkHideGroupContent" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
 	</h:panelGroup>
-	<a id="lnkShowGroupContent" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 </h:panelGroup>

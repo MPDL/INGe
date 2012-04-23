@@ -36,7 +36,9 @@
 		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderDetails}" />
 	</h3>
 	<span class="seperator"></span>
+	<a id="lnkShowGroupDetails" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showDetails}">
+		<a id="lnkHideGroupDetails" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
 
 <%-- Languages --%>
 		<div class="free_area0 endline itemLine noTopBorder">
@@ -147,8 +149,5 @@
 				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.degreeType == '' || ViewItemFull.degreeType == null}"/>
 			</span>
 		</div>
-
-		<a id="lnkHideGroupDetails" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>	
 	</h:panelGroup>
-	<a id="lnkShowGroupDetails" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 </h:panelGroup>
