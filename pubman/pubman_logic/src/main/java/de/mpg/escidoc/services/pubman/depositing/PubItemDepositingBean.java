@@ -35,7 +35,6 @@ import static de.mpg.escidoc.services.pubman.logging.PMLogicMessages.PUBITEM_CRE
 import static de.mpg.escidoc.services.pubman.logging.PMLogicMessages.PUBITEM_UPDATED;
 
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,7 +44,6 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
@@ -70,15 +68,11 @@ import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.RoleFilter;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
-import de.mpg.escidoc.services.common.valueobjects.SearchResultVO;
-import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveRecordVO;
-import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
@@ -332,21 +326,6 @@ public class PubItemDepositingBean implements PubItemDepositing
         }
     }
 
-    private List<ContextVO> transformToContextVOList(List<SearchRetrieveRecordVO> records)
-    {
-        List<ContextVO> ctxList = new ArrayList<ContextVO>();
-        
-        if (records != null)
-        {
-            for(SearchRetrieveRecordVO s : records)
-            {
-                SearchResultVO result = (SearchResultVO)s.getData();
-                ctxList.add((ContextVO) result.getResultVO());
-            }
-        }
-        return ctxList;
-    }
-    
     /**
      * {@inheritDoc}
      * Changed by Peter Broszeit, 17.10.2007: Method prepared to save also released items and restructed. 
@@ -363,18 +342,6 @@ public class PubItemDepositingBean implements PubItemDepositing
             throw new IllegalArgumentException(getClass().getSimpleName() + ".savePubItem: user is null.");
         }
         
-        String fwUrl = "";
-        try 
-        {
-            fwUrl = ServiceLocator.getFrameworkUrl();
-        } 
-        catch (ServiceException e) 
-        {
-            logger.error("FW URL not found!", e);
-        }
-        //check if there are any FileVOs that are Locators (without content). If so, add dummy content due to framework bug
-        List<FileVO> fileList = pubItem.getFiles();
-
         // Transform the item to XML
         String itemXML = xmlTransforming.transformToItem(pubItem);
         if (logger.isDebugEnabled())
