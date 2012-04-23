@@ -445,6 +445,7 @@
 
 		<!-- the ears are deployed to this server using jboss:harddeploy -->
 		<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
+		<jboss.install.node>default</jboss.install.node>
 		<!-- These properties are included in the properties-service.xml via a xsl transformation -->
 		<jboss.property.1>pubman.properties.file=./pubman.properties</jboss.property.1>
 		<jboss.property.2>com.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0</jboss.property.2>
@@ -755,6 +756,7 @@
 				<escidoc.systemtype>workstation</escidoc.systemtype>
 				<jboss.deploy.port>8080</jboss.deploy.port>
 				<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
+				<jboss.install.node>default</jboss.install.node>
 				
 				<!-- URL of stylesheets in common-presentation -->
 				<escidoc.pubman.common.presentation.url>http://localhost:8080/common/</escidoc.pubman.common.presentation.url>
