@@ -516,12 +516,6 @@
 			<type>ejb</type>
 		</dependency>
 		<dependency>
-      		<groupId>de.mpg.escidoc.services</groupId>
-      		<artifactId>test_environment</artifactId>
-      		<version>0.0.1-SNAPSHOT</version>
-      		<scope>test</scope>
-    	</dependency>
-		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
 			<version>1.0</version>
