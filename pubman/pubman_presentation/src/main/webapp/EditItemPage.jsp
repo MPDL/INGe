@@ -107,8 +107,12 @@
 										<!-- Subheadline starts here -->
 										<h:outputText value="#{lbl.EditItem_lblItemVersionID} '#{EditItem.item.version.objectId}'." rendered="#{EditItem.item.version.objectId != null}"/><br/>
 										<h:outputText value="#{lbl.EditItem_lblCollectionOfItem} '#{EditItem.contextName}'." /><br/>
-										<h:outputText value="#{lbl.EditItem_lblItemDepositor} '#{EditItem.owner}'." rendered="#{EditItem.owner != null}"/><br/>
-										<h:outputText value="#{lbl.EditItem_lblItemLastModifier} '#{EditItem.lastModifier}'." rendered="#{EditItem.lastModifier != null}"/>
+										<h:outputText value="#{lbl.EditItem_lblItemDepositor} '#{EditItem.owner}'" rendered="#{EditItem.owner != null}"/>
+										<h:outputText value="." rendered="#{EditItem.owner != null and EditItem.creationDate == null}"/>
+										<h:outputText value=" --- #{EditItem.creationDate}" rendered="#{EditItem.creationDate != null}"/><br/>
+										<h:outputText value="#{lbl.EditItem_lblItemLastModifier} '#{EditItem.lastModifier}'" rendered="#{EditItem.lastModifier != null}"/>
+										<h:outputText value="." rendered="#{EditItem.lastModifier != null and EditItem.lastModificationDate == null}"/>
+										<h:outputText value=" --- #{EditItem.lastModificationDate}" rendered="#{EditItem.lastModificationDate != null}"/>
 										<!-- Subheadline ends here -->
 									</div>
 									<div class="subHeader"> <!-- Subheadline starts here -->

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -168,6 +169,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 
             if (!getSelectedOrgUnit().toLowerCase().equals("all"))
             {
+                String orgUNIT = getSelectedOrgUnit();
                 AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
                 addOrgFiltersRecursive(affTree.getAffiliationMap().get(getSelectedOrgUnit()), filter);
             }
@@ -212,6 +214,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     {
         try
         {
+            AffiliationVOPresentation affiliation = aff;
             Filter f = filter.new PersonsOrganizationsFilter(aff.getReference().getObjectId());
             filter.getFilterList().add(f);
 
@@ -440,26 +443,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      * @param level
      * @throws Exception
      */
-    /*
-    private void addChildAffiliationsToMenu(List<AffiliationVOPresentation> affs, List<SelectItem> affSelectItems, int level) throws Exception
-    {
-        String prefix = "";
-        for (int i = 0; i < level; i++)
-        {
-            //2 save blanks
-            prefix += '\u00A0';
-            prefix += '\u00A0';
-            prefix += '\u00A0';
-        }
-        //1 right angle
-        prefix+='\u2514';
-        for(AffiliationVOPresentation aff : affs){
-            affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix+" "+aff.getName()));
-            affiliationMap.put(aff.getReference().getObjectId(), aff);
-            addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level+1);
-        }
-    }
-     */
+
     /**
      * Sets the current menu items for the context filter menu.
      * @param contextSelectItems
@@ -553,6 +537,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         for (AffiliationVOPresentation aff : affs)
         {
             affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
+            AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
+            affTree.getAffiliationMap().put(aff.getReference().getObjectId(), aff);
             if (aff.getChildren() != null)
             {
                 addChildAffiliations(aff.getChildren(), affSelectItems, level + 1);
@@ -569,12 +555,14 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         try 
         {
             List<AffiliationVOPresentation> affList = loginHelper.getAccountUsersAffiliations();
+            Collections.sort(affList);
             addChildAffiliations(affList, userAffiliationsList, 0);
         }
         catch(Exception e)
         {            
             //TODO
         }
+        this.getQAWSSessionBean().setOrgUnitSelectItems(userAffiliationsList);
         return userAffiliationsList;
     }
 

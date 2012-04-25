@@ -292,12 +292,7 @@
 					$(document).ready(function () {
 						$(window).scrollTop($("input[id$='offset']").val());
 						$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
-						var element = document.getElementById('selSelectedOrgUnit');
-						if (element.options != null && element.options.length == 2)
-						{
-							throb();
-							$.getJSON('AffiliationsAsJSON.jsp', loadAffiliations);
-						}
+						
 					});
 				]]>
 			</script>

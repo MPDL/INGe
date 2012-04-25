@@ -2256,6 +2256,17 @@ public class EditItem extends FacesBean
         }
     }
     
+    public String getCreationDate() 
+    {
+        if (this.item.getCreationDate() != null)
+        {
+            return this.item.getCreationDate().toString();
+        }
+        else {
+            return null;
+        }
+    }
+    
     public String getLastModifier() throws Exception
     {
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
@@ -2298,6 +2309,17 @@ public class EditItem extends FacesBean
             return null;
         }
         
+    }
+    
+    public String getLastModificationDate() 
+    {
+        if (this.item.getModificationDate() != null)
+        {
+            return this.item.getModificationDate().toString();
+        }
+        else {
+            return null;
+        }
     }
 
     public boolean isFromEasySubmission()

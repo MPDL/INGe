@@ -87,13 +87,12 @@
 										<h:outputText value="#{lbl.Tools_lblUnAPI}"/>
 									</h:outputLink>
 									<h:outputText styleClass="seperator void" />
-									<h:outputLink id="lnkMenuValidationService" styleClass="free_area0" value="#{ApplicationBean.pubmanInstanceUrl}/validation/" target="_blank">
-										<h:outputText value="#{lbl.Tools_lblValidationService}"/>
-									</h:outputLink>
-									<h:outputText styleClass="seperator void" />
-									<h:outputText styleClass="seperator void" />
 									<h:outputLink id="lnkMenuSWORD" styleClass="free_area0" value="#{ApplicationBean.pubmanInstanceUrl}/sword-app/" target="_blank">
 										<h:outputText value="#{lbl.Tools_lblSWORD}"/>
+									</h:outputLink>
+									<h:outputText styleClass="seperator void" />
+									<h:outputLink id="lnkMenuValidationService" styleClass="free_area0" value="#{ApplicationBean.pubmanInstanceUrl}/validation/" target="_blank">
+										<h:outputText value="#{lbl.Tools_lblValidationService}"/>
 									</h:outputLink>
 									<h:outputText styleClass="seperator void" />
 								</div>
