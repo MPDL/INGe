@@ -1,3 +1,4 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
 
  CDDL HEADER START
@@ -88,7 +89,9 @@
 
 
 <%@page import="de.mpg.escidoc.services.cone.Querier.ModeType"%>
-<%@page import="de.mpg.escidoc.services.cone.util.Describable"%><html>
+<%@page import="de.mpg.escidoc.services.cone.util.Describable"%>
+
+<html>
 	<jsp:include page="header.jsp"/>
 	<body>
 		<div class="full wrapper">
@@ -105,9 +108,6 @@
 							</div>
 						</div>
 					</div>
-					<div class="full_area0 formButtonArea">
-						<input type="submit" value="Search" class="free_txtBtn activeButton endline" />
-					</div>
 					<div class="full_area0">
 						<div class="full_area0 fullItem">
 							<div class="full_area0 itemBlock noTopBorder">
@@ -116,12 +116,12 @@
 								</h3>
 								<span class="seperator"></span>
 								<div class="free_area0 itemBlockContent endline">
-									<div class="free_area0 endline itemLine firstline noTopBorder">
+									<div class="free_area0 endline itemLine firstline noTopBorder" style="margin-top:0.81em;">
 										<select class="medium_select xSmall_marginLExcl" size="1" name="model">
-											<%	for (ModelList.Model model : ModelList.getInstance().getList()) { %>
-													<option value="<%= model.getName() %>" <%= (model.getName().equals(request.getParameter("model")) ? "selected" : "") %>
-													<% if (model.getName().equals(request.getParameter("model"))) { %>selected<% } %>><%= model.getName() %></option>
-											<% } %>
+										<%	for (ModelList.Model model : ModelList.getInstance().getList()) { %>
+											<option value="<%= model.getName() %>" <%= (model.getName().equals(request.getParameter("model")) ? "selected" : "") %>
+											<% if (model.getName().equals(request.getParameter("model"))) { %>selected<% } %>><%= model.getName() %></option>
+										<% } %>
 										</select>
 										<input type="text" class="half_txtInput" name="searchterm" value="<%= (request.getParameter("searchterm") != null ? request.getParameter("searchterm") : "") %>" />
 										<select class="small_select" size="1" name="lang">
@@ -130,6 +130,9 @@
 											<option value="en" <% if ("en".equals(request.getParameter("lang"))) { %>selected<% } %>>english</option>
 											<option value="fr" <% if ("fr".equals(request.getParameter("lang"))) { %>selected<% } %>>french</option>
 										</select>
+										<div class="small_area0 formButtonArea">
+											<input type="submit" value="Search" class="free_txtBtn activeButton endline" style="padding-left:0.36em; padding-right:0.36em;"/>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -159,10 +162,10 @@
 												<% } else { %>
 													<div class="free_area0 endline itemLine">
 												<% }; i++; %>
-													<b class="xHuge_area0 large_marginLIncl endline clear">
-														<a href="view.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>"><%= pair.getValue().toString() %></a>
-													</b>
-													
+														<b class="xHuge_area0 large_marginLIncl endline clear">
+															<a href="view.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>"><%= pair.getValue().toString() %></a>
+														</b>
+														
 													<%	for (ModelList.Model model : ModelList.getInstance().getList()) {
 														 if (model.getName().equals(request.getParameter("model"))){ 
 															request.getSession().setAttribute("open_model",new Boolean(model.isOpen()));
@@ -170,23 +173,23 @@
 															break;
 														 }	
 													 } %>
-													<span class="large_area0_p8 lineToolSection">
-														<% if (loggedIn) { %>
-															<% 
-															if((Boolean)request.getSession().getAttribute("open_model") &&																	
-																	(request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue())) { %>
-																<a class="free_txtBtn groupBtn sectionTool" href="edit.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">Edit</a>
-															<% } %>														
-														
-															<% 
-															if(!(Boolean)request.getSession().getAttribute("open_model") &&
-																	(request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue())) { %>
-																<a class="free_txtBtn groupBtn sectionTool" href="edit.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">Edit</a>
-															<% } %>
+														<span class="large_area0_p8 lineToolSection">
+															<% if (loggedIn) { %>
+																<% 
+																if((Boolean)request.getSession().getAttribute("open_model") &&																	
+																		(request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue())) { %>
+																	<a class="free_txtBtn groupBtn sectionTool" href="edit.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">Edit</a>
+																<% } %>														
 															
-														<% } %>
-													</span>
-												</div>
+																<% 
+																if(!(Boolean)request.getSession().getAttribute("open_model") &&
+																		(request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue())) { %>
+																	<a class="free_txtBtn groupBtn sectionTool" href="edit.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">Edit</a>
+																<% } %>
+																
+															<% } %>
+														</span>
+													</div>
 											<% } %>
 										<% } %>
 									</div>
@@ -194,9 +197,6 @@
 							</div>
 							<% } %>
 						</div>
-					</div>
-					<div class="full_area0 formButtonArea">
-						<input type="submit" value="Search" class="free_txtBtn activeButton endline" />
 					</div>
 				</form>
 			</div>
