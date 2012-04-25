@@ -346,7 +346,7 @@
 											<input class="double_txtInput" type="text" name="startRecord" value="<%= PropertyReader.getProperty("escidoc.search.and.export.start.record") %>" />
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
-											<label class="double_label" for="maximumRecords">Maximum Records</label>
+											<label class="double_label" for="maximumRecords">Maximum Records (max. 5000)</label>
 											<input class="double_txtInput" type="text" name="maximumRecords" value="<%= PropertyReader.getProperty("escidoc.search.and.export.maximum.records") %>" />
 										</span>
 									</span> 

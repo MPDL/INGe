@@ -200,7 +200,7 @@ public class FilterTaskParamVO extends ValueObject
                 }
                 else if (filter instanceof PersonsOrganizationsFilter)
                 {
-                    enhanceQuery(queryBuffer, "\"/md-record/publication/creator/person/organization/identifier\"="
+                    enhanceQuery(queryBuffer, "\"/md-records/md-record/publication/creator/person/organization/identifier\"="
                             + ((PersonsOrganizationsFilter)filter).getOrgUnitId(),
                             previousFilter, filter);
                 }
