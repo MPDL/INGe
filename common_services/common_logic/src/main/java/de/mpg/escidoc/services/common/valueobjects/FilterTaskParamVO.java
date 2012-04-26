@@ -183,7 +183,7 @@ public class FilterTaskParamVO extends ValueObject
                 }
                 else if (filter instanceof LocalTagFilter)
                 {
-                    enhanceQuery(queryBuffer, "\"//properties/content-model-specific/local-tags/local-tag\"="
+                    enhanceQuery(queryBuffer, "\"/properties/content-model-specific/local-tags/local-tag\"="
                             + ((LocalTagFilter)filter).getLocalTagId(),
                             previousFilter, filter);
                 }

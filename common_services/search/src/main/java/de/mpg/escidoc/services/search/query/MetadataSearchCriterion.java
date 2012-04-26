@@ -37,7 +37,7 @@ public class MetadataSearchCriterion implements Serializable
     public enum CriterionType
     {
         TITLE, ANY, ANY_INCLUDE, ABSTRACT, PERSON, PERSON_ROLE, ORGANIZATION, CREATOR_ORGANIZATION, ORGANIZATION_PIDS, CREATOR_ORGANIZATION_IDS, GENRE, DATE_ANY,
-        DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, DATE_EVENT_START, DATE_EVENT_END, TOPIC,
+        DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, DATE_EVENT_START, DATE_EVENT_END, EVENT_INVITATION_STATUS, TOPIC,
         SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CONTEXT_NAME, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE,
         COMPONENT_ACCESSIBILITY, COMPONENT_STORAGE, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY, COMPONENT_COMPOUND_PROPERTIES, LOCAL_TAG, COPYRIGHT_DATE, 
         EMBARGO_DATE, DEGREE, PERSON_IDENTIFIER, LATEST_RELEASE_OBJID, OBJID
@@ -113,10 +113,12 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_DATE_MODIFIED = "escidoc.publication.modified";
     /** Index field for the published online date. */
     private static final String INDEX_DATE_PUBLISHED_ONLINE = "escidoc.publication.published-online";
-    /** Index field for the evebt start date. */
+    /** Index field for the event start date. */
     private static final String INDEX_DATE_EVENT_START = "escidoc.publication.event.start-date";
-    /** Index field for the evebt start date. */
+    /** Index field for the event end date. */
     private static final String INDEX_DATE_EVENT_END = "escidoc.publication.event.end-date";
+    /** Index field for the event invitation status. */
+    private static final String INDEX_EVENT_INVITATION_STATUS = "escidoc.publication.event.invitation-status";
     /** Index field for topics. */
     private static final String INDEX_TOPIC = "escidoc.publication.subject";
     /** Index field for sources. */
@@ -534,6 +536,9 @@ public class MetadataSearchCriterion implements Serializable
             case DATE_EVENT_END:
                 indexes.add(INDEX_DATE_EVENT_END);
                 break;
+            case EVENT_INVITATION_STATUS:
+                indexes.add(INDEX_EVENT_INVITATION_STATUS);
+                break;
             default:
                 throw new TechnicalException("The index " + type.name() + " is unknown. Cannot map to index name.");
         }
@@ -804,6 +809,11 @@ public class MetadataSearchCriterion implements Serializable
     public static String getINDEX_EVENT()
     {
         return INDEX_EVENT;
+    }
+    
+    public static String getINDEX_EVENT_INVITATION_STATUS()
+    {
+        return INDEX_EVENT_INVITATION_STATUS;
     }
 
     public static String getINDEX_IDENTIFIER()
