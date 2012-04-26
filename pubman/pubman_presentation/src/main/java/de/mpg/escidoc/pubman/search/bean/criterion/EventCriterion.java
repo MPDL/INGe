@@ -31,10 +31,15 @@
 package de.mpg.escidoc.pubman.search.bean.criterion;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import net.sf.saxon.event.MetaTagAdjuster;
+
+import de.mpg.escidoc.pubman.search.bean.criterion.DateCriterion.DateType;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 
 /**
  * event criterion vo for the advanced search.
@@ -45,12 +50,25 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionTyp
  */
 public class EventCriterion extends Criterion
 {
+    private final static String  INVITATION_SEARCH = "invited";
+    private boolean invitationStatus = false;
+    
     /**
      * constructor.
      */
     public EventCriterion()
     {
         super();
+    }
+    
+    public void setInvitationStatus(boolean invitationStatus)
+    {
+        this.invitationStatus = invitationStatus;
+    }
+    
+    public boolean getInvitationStatus()
+    {
+        return this.invitationStatus;
     }
     
     /**
@@ -60,6 +78,11 @@ public class EventCriterion extends Criterion
         ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
         MetadataSearchCriterion criterion = 
             new MetadataSearchCriterion( CriterionType.EVENT, getSearchString() );
+        if (getInvitationStatus())
+        {
+            criterion.addSubCriteria(new MetadataSearchCriterion(CriterionType.EVENT_INVITATION_STATUS, EventCriterion.INVITATION_SEARCH, LogicalOperator.AND));
+        }
+        
         criterions.add( criterion );
            return criterions;
     }    

@@ -182,10 +182,7 @@
 											<f:selectItems value="#{MyItemsRetrieverRequestBean.importSelectItems}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-								<!-- <% /* 
-									<h:selectOneMenu id="selSelectedImport" styleClass="xDouble_select replace" value="#{MyItemsRetrieverRequestBean.selectedImport}" onchange="$(this).parents('div').find('.changeImport').click();" rendered="#{LoginHelper.isModerator}">
-										<f:selectItems value="#{MyItemsRetrieverRequestBean.importSelectItems}"/>
-									</h:selectOneMenu>	*/ %> -->
+				
 									<h:commandButton id="btnChangeImport" styleClass="noDisplay changeImport" action="#{MyItemsRetrieverRequestBean.changeImport}" value="change import" rendered="#{LoginHelper.isModerator}"/>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>

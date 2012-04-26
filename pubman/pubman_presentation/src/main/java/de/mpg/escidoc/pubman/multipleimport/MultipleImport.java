@@ -408,6 +408,7 @@ public class MultipleImport extends FacesBean
     public void setName(String name)
     {
         this.name = name;
+        this.name = name.replace("ä", "ae").replace("Ä", "Ae").replace("ö", "oe").replace("Ö", "Oe").replace("ü", "ue").replace("Ü", "Ue").replace("ß", "ss");
     }
 
     /**

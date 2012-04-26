@@ -277,7 +277,7 @@
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all" label="g_events"/>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
 				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
-					<group id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
+					<group id="source_title_alternative" repeatable="true" display="true" optional="true" label="source_title_alternative"/>
 				</group>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
 				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
@@ -374,7 +374,7 @@
 			</group>
 			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
 				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
-					<group id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
+					<group id="source_title_alternative" repeatable="true" display="true" optional="true" label="source_title_alternative"/>
 				</group>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
@@ -648,7 +648,7 @@
 		</genre>
 		<genre id="ISSUE" label="ENUM_GENRE_ISSUE">
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
-				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
+				<field id="item_title_alternative" repeatable="true" display="true" optional="true" label="item_title_alternative"/>
 			</group>
 			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
 				<group id="publishing_info" repeatable="false" display="false" label="g_publishing_info" optional="true" form-id="easy-submission"/>
