@@ -47,6 +47,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO.State;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
@@ -240,7 +241,39 @@ public class ContextListSessionBean extends FacesBean
 
     public List<PubContextVOPresentation> getDepositorContextList()
     {
-        return depositorContextList;
+        List<PubContextVOPresentation> newDepositorContextList = new ArrayList<PubContextVOPresentation> ();
+        if ( getOpenContextsAvailable() )
+        {
+            for (PubContextVOPresentation context : this.depositorContextList)
+            {
+                if (context.getState() == State.OPENED)
+                {
+                    newDepositorContextList.add(context);
+                }
+            }
+        }
+        setDepositorContextList(newDepositorContextList);
+        return this.depositorContextList;
+    }
+    
+    public boolean getOpenContextsAvailable()
+    {
+        State state = State.CLOSED;
+        for (PubContextVOPresentation context : this.depositorContextList)
+        {
+            if (context.getState() == State.OPENED)
+            {
+                state = State.OPENED;
+            }
+        }
+        if (state == State.OPENED)
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
     }
 
     public int getDepositorContextListSize()

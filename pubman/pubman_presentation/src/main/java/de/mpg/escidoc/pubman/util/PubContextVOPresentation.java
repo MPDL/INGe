@@ -160,4 +160,16 @@ public class PubContextVOPresentation extends ContextVO
             return result;
         }
     }
+    
+    public boolean getDisabled()
+    {
+        if (this.getState().equals(State.CLOSED))
+        {
+            return Boolean.TRUE;
+        }
+        else 
+        {
+            return Boolean.FALSE;
+        }
+    }
 }
