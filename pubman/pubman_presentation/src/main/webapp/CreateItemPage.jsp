@@ -107,7 +107,8 @@
 								<div class="full_area0 fullItem" id="fullItem">
 									<div class="full_area0 small_marginLExcl">
 										<!-- Subheadline starts here -->
-										<h3><h:outputText value="#{msg.create_Item_Select_Collection}"/></h3>
+										<h3><h:outputText value="#{msg.create_Item_Select_Collection}" rendered="#{ContextListSessionBean.openContextsAvailable}"/></h3>
+										<h3><h:outputText value="#{msg.depositorWE_noOpenContextsAvailable}" rendered="#{!ContextListSessionBean.openContextsAvailable}"/></h3>
 										<!-- Subheadline ends here -->
 									</div>
 									<jsp:directive.include file="createItem/CreateItem.jspf"/>

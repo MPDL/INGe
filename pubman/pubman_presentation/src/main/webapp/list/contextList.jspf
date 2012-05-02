@@ -30,12 +30,11 @@ All rights reserved. Use is subject to license terms.
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
-<h:panelgroup layout="block" styleClass="full_area0 itemHeader" rendered="#{ContextListSessionBean.openContextsAvailable}">
-	<h:outputText id="tytSelectContextFirst" value="#{msg.NoOpenContextAvailable}"/>
-</h:panelgroup>
+
 <tr:iterator id="iterdepositorContextList2" var="context" value="#{ContextListSessionBean.depositorContextList}" binding="#{ContextListSessionBean.contextIterator}" rows="0" varStatus="index">
 
 	<h:panelGroup layout="block" styleClass="full_area0 itemHeader" rendered="#{ContextListSessionBean.contextIterator.rowIndex == 0}">
+		
 		<span class="xLarge_area0 endline">
 			&#160;
 		</span>
@@ -45,7 +44,7 @@ All rights reserved. Use is subject to license terms.
 				<tr:commandLink id="lnkSelectContextFirst" shortDesc="#{tip.list_select}" action="#{context.select}" rendered="#{!context.disabled}">
 					<tr:outputText value="#{context.name}"/>
 				</tr:commandLink>
-				<h:outputText id="tytSelectContextFirst" rendered="#{context.disabled}" value="#{context.name}">
+				<h:outputText id="txtSelectContextFirst" rendered="#{context.disabled}" value="#{context.name}">
 				</h:outputText>
 			</b>
 		</span>

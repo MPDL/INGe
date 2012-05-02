@@ -128,7 +128,8 @@ public class CreateItem extends FacesBean
             logger.warn("The user does not have privileges for any context.");
             return null;
         }
-        if (this.getContextListSessionBean().getDepositorContextList().size() == 1)
+        
+        if (this.getContextListSessionBean().getDepositorContextList().size() == 1 && this.getContextListSessionBean().getOpenContextsAvailable())
         {
             ContextVO contextVO = this.getContextListSessionBean().getDepositorContextList().get(0);
             if (logger.isDebugEnabled())

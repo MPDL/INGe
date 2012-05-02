@@ -251,8 +251,8 @@ public class ContextListSessionBean extends FacesBean
                     newDepositorContextList.add(context);
                 }
             }
+            setDepositorContextList(newDepositorContextList);
         }
-        setDepositorContextList(newDepositorContextList);
         return this.depositorContextList;
     }
     
