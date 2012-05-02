@@ -712,7 +712,7 @@
 		<escidoc.pubman.survey.styles />
 	
 		<!-- Test properties -->
-		<escidoc.framework_access.context.id.test>escidoc:4001</escidoc.framework_access.context.id.test>
+		<escidoc.framework_access.context.id.test>escidoc:171002</escidoc.framework_access.context.id.test>
 		<framework.admin.id>escidoc:exuser1</framework.admin.id>
 	</properties>
 	
