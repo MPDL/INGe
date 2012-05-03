@@ -553,14 +553,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_logic</artifactId>
-			<version>7.0.1-SNAPSHOT</version>
+			<version>7.1.0-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_presentation</artifactId>
-			<version>7.0.1-SNAPSHOT</version>
+			<version>7.1.0-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
