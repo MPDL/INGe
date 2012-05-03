@@ -83,7 +83,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_logic</artifactId>
-			<version>7.0.1-SNAPSHOT</version>
+			<version>7.1.0-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -104,6 +104,16 @@
 			<version>3.0.1</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+	      <groupId>org.richfaces.ui</groupId>
+	      <artifactId>richfaces-ui</artifactId>
+	      <version>3.3.3.Final</version>
+    	</dependency>
+    	<dependency>
+	      <groupId>org.richfaces.framework</groupId>
+	      <artifactId>richfaces-impl</artifactId>
+	      <version>3.3.3.Final</version>
+	    </dependency>
 	</dependencies>
 	
 </project>
