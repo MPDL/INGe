@@ -7,7 +7,6 @@ import de.mpg.escidoc.services.aa.AuthenticationVO.Role;
 
 public class Login
 {
-
     /**
      * Hide constructor of the static class.
      */
@@ -46,6 +45,7 @@ public class Login
 	    {
 	        if ("escidoc:role-system-administrator".equals(role.getKey()))
 	        {
+	            request.getSession().setAttribute("logged_in", Boolean.TRUE);
 	            request.getSession().setAttribute("user", aa.getAuthenticationVO());
 	    		request.getSession().setAttribute("edit_open_vocabulary", Boolean.TRUE);
 	    		request.getSession().setAttribute("edit_closed_vocabulary", Boolean.TRUE);

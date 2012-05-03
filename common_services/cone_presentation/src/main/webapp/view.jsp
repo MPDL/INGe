@@ -110,10 +110,10 @@
 	    model = ModelList.getInstance().getModelByAlias(modelName);
 	}
 	
+	boolean loggedIn = Login.getLoggedIn(request);
+	
 	if (uri != null && !"".equals(uri) && modelName != null && !"".equals(modelName))
 	{
-	    boolean loggedIn = Login.getLoggedIn(request);
-		
 		Querier querier = QuerierFactory.newQuerier(loggedIn);
 		
 	    results = querier.details(modelName, uri, "*");
@@ -182,7 +182,7 @@
 
 
 								<% if (model != null) { %>
-									<%= printPredicates(model.getPredicates(), results, (request.getSession().getAttribute("user_handle_exist")!=null)) %>
+									<%= printPredicates(model.getPredicates(), results, loggedIn) %>
 								<% } %>
 								
 								

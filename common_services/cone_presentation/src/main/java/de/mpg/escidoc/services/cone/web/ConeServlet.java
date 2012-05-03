@@ -62,10 +62,8 @@ package de.mpg.escidoc.services.cone.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -76,7 +74,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
@@ -141,14 +138,14 @@ public class ConeServlet extends HttpServlet
         
         PrintWriter out = response.getWriter();
         
-//        System.out.println("request.getPathInfo() " + request.getPathInfo());
-//        System.out.println("getPathTranslated() " + request.getPathTranslated());
-//        System.out.println("getRequestURI() " + request.getRequestURI());
-//        System.out.println("getServletPath() " + request.getServletPath());
-//        System.out.println("getLocalAddr() " + request.getLocalAddr());
-//        System.out.println("getLocalName() " + request.getLocalName());
-//        System.out.println("getLocalPort() " + request.getLocalPort());
-//        System.out.println("getLocalPort() " + request.getLocalPort());
+        logger.debug("request.getPathInfo() " + request.getPathInfo());
+        logger.debug("getPathTranslated() " + request.getPathTranslated());
+        logger.debug("getRequestURI() " + request.getRequestURI());
+        logger.debug("getServletPath() " + request.getServletPath());
+        logger.debug("getLocalAddr() " + request.getLocalAddr());
+        logger.debug("getLocalName() " + request.getLocalName());
+        logger.debug("getLocalPort() " + request.getLocalPort());
+        logger.debug("getLocalPort() " + request.getLocalPort());
         
         // Read the model name and action from the URL
         String[] path = request.getServletPath().split("/", 4);
