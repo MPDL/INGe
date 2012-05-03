@@ -109,6 +109,7 @@ public class SQLQuerier implements Querier
      */
     public List<? extends Describable> query(String model, String searchString, String language, ModeType modeType, int limit) throws Exception
     {
+        logger.debug("query:  model = '" + model + "' searchString = '" + searchString + "' language = '" + language + "' modeType = '" + modeType.toString() +"' linit = '" + limit +"'");
         if (modeType == ModeType.FAST)
         {
             return queryFast(model, searchString, language, limit);
