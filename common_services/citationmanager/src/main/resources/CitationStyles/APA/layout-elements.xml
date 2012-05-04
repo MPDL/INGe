@@ -190,6 +190,29 @@
 				<layout-element ref="pub:publication/source:source[1]/eterms:end-page/text()" />
 			</elements>
 		</layout-element>
+		
+		<layout-element name="e-number">
+			<elements>
+				<layout-element name="e-number-only">
+					<parameters>
+						<valid-if><![CDATA[(pub:publication/source:source[1]/eterms:start-page=null or pub:publication/source:source[1]/eterms:start-page='') and (pub:publication/source:source[1]/eterms:sequence-number!=null or pub:publication/source:source[1]/eterms:sequence-number!='')]]></valid-if>
+						<ends-with value=". " />
+					</parameters>
+					<elements>
+						<layout-element ref="pub:publication/source:source[1]/eterms:sequence-number/text()" />
+					</elements>
+				</layout-element>
+				<layout-element name="e-number-and-pages">
+					<parameters>
+						<valid-if><![CDATA[(pub:publication/source:source[1]/eterms:start-page!=null or pub:publication/source:source[1]/eterms:start-page!='') and (pub:publication/source:source[1]/eterms:sequence-number!=null or pub:publication/source:source[1]/eterms:sequence-number!='')]]></valid-if>
+						<ends-with value=", " />
+					</parameters>
+					<elements>
+						<layout-element ref="pub:publication/source:source[1]/eterms:sequence-number/text()" />
+					</elements>
+				</layout-element>
+			</elements>
+		</layout-element>
 
 		<layout-element name="source-edition-start-page-end-page">
 			<parameters>
@@ -209,20 +232,46 @@
 
 
 		<layout-element name="volume-issue">
-			<parameters>
-				<delimiter value="" />
-			</parameters>
 			<elements>
-				<layout-element ref="pub:publication/source:source[1]/eterms:volume/text()">
+				<layout-element>
 					<parameters>
-						<font-style ref="ITALIC" />
+						<valid-if><![CDATA[pub:publication/source:source[1]/eterms:sequence-number!=null or pub:publication/source:source[1]/eterms:sequence-number!='']]></valid-if>
+						<ends-with value=": "/>
+						<delimiter value="" />
 					</parameters>
+					<elements>
+						<layout-element ref="pub:publication/source:source[1]/eterms:volume/text()">
+							<parameters>
+								<font-style ref="ITALIC" />
+							</parameters>
+						</layout-element>
+						<layout-element ref="pub:publication/source:source[1]/eterms:issue/text()">
+							<parameters>
+								<starts-with value="(" />
+								<ends-with value=")" />
+							</parameters>
+						</layout-element>
+					</elements>
 				</layout-element>
-				<layout-element ref="pub:publication/source:source[1]/eterms:issue/text()">
+				<layout-element>
 					<parameters>
-						<starts-with value="(" />
-						<ends-with value=")" />
+						<valid-if><![CDATA[pub:publication/source:source[1]/eterms:sequence-number=null or pub:publication/source:source[1]/eterms:sequence-number='']]></valid-if>
+						<ends-with value=", "/>
+						<delimiter value="" />
 					</parameters>
+					<elements>
+						<layout-element ref="pub:publication/source:source[1]/eterms:volume/text()">
+							<parameters>
+								<font-style ref="ITALIC" />
+							</parameters>
+						</layout-element>
+						<layout-element ref="pub:publication/source:source[1]/eterms:issue/text()">
+							<parameters>
+								<starts-with value="(" />
+								<ends-with value=")" />
+							</parameters>
+						</layout-element>
+					</elements>
 				</layout-element>
 			</elements>
 		</layout-element>
@@ -231,6 +280,7 @@
 			<parameters>
 				<font-style ref="ITALIC" />
 				<starts-with value=" " />
+				<ends-with value=","/>
 			</parameters>
 		</layout-element>
 

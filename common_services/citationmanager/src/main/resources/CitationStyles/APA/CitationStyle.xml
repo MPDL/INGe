@@ -310,11 +310,11 @@
 			<layout-element name="volume-issue-start-page-end-page">
 				<parameters>
 					<ends-with value="."/>
-					<delimiter value=", " />
 				</parameters>
 				<elements>
 					<layout-element ref="$source-title" />
 					<layout-element ref="$volume-issue" />
+					<layout-element ref="$e-number" />
 					<layout-element ref="$start-page-end-page" />
 				</elements>
 			</layout-element>

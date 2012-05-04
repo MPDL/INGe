@@ -168,7 +168,7 @@ public class CitationStyleManagerImpl implements CitationStyleManager
 
 	public String validate(String cs) throws IOException, CitationStyleManagerException  
 	{
-		Utils.checkName(cs, "Citaion Style is not defined");
+		Utils.checkName(cs, "Citation Style is not defined");
 		
 		return xh.validateCitationStyleXML(cs);
 	}
