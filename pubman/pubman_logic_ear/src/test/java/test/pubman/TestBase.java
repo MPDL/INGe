@@ -106,6 +106,8 @@ public class TestBase
 {
     private static final Logger logger = Logger.getLogger(TestBase.class);
     
+    protected String userhandle = null;
+    
     protected static String PUBMAN_TEST_COLLECTION_ID = null;
     
     protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
