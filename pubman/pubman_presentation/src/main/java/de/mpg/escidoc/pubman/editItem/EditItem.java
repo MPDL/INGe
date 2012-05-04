@@ -31,7 +31,6 @@ package de.mpg.escidoc.pubman.editItem;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -59,11 +58,6 @@ import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
-import de.escidoc.core.common.exceptions.application.invalid.InvalidSearchQueryException;
-import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.pubman.DepositorWSPage;
 import de.mpg.escidoc.pubman.EditItemPage;
@@ -98,8 +92,6 @@ import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
 import de.mpg.escidoc.pubman.yearbook.YearbookInvalidItemRO;
 import de.mpg.escidoc.pubman.yearbook.YearbookItemSessionBean;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
@@ -123,7 +115,6 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ProxyHelper;
@@ -193,7 +184,6 @@ public class EditItem extends FacesBean
     private String suggestConeUrl = null;
     private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
     private CoreInputFile inputFile = new CoreInputFile();
-    private String genreBundle;
     // Flag for the binding method to avoid unnecessary binding
     private boolean bindFilesAndLocators = true;
 
@@ -543,44 +533,53 @@ public class EditItem extends FacesBean
         // first clear the file list
         if (this.bindFilesAndLocators == true)
         {
-            this.getPubItem().getFiles().clear();
+            PubItemVOPresentation pubItem = this.getPubItem();
+            
+            pubItem.getFiles().clear();
+            
             // add the files
-            if (this.getFiles() != null && this.getFiles().size() > 0)
+            List<PubFileVOPresentation> files = this.getFiles();
+            
+            if (files != null && files.size() > 0)
             {
-                for (int i = 0; i < this.getFiles().size(); i++)
+                for (int i = 0; i < files.size(); i++)
                 {
-                    this.getPubItem().getFiles().add(this.getFiles().get(i).getFile());
+                    pubItem.getFiles().add(files.get(i).getFile());
                 }
             }
             // add the locators
-            if (this.getLocators() != null && this.getLocators().size() > 0)
+            List<PubFileVOPresentation> locators = this.getLocators();
+            
+            int lsize = locators.size();
+            
+            logger.debug("found locator: " + lsize);
+            
+            if (locators != null && lsize > 0)
             {
-                for (int i = 0; i < this.getLocators().size(); i++)
+                for (PubFileVOPresentation loc : locators)
                 {
                     // add name from content if not available
-                    if (this.getLocators().get(i).getFile().getDefaultMetadata().getTitle() == null
-                            || this.getLocators().get(i).getFile().getDefaultMetadata().getTitle().getValue() == null
-                            || this.getLocators().get(i).getFile().getDefaultMetadata().getTitle().getValue().trim()
-                            .equals(""))
+                    MdsFileVO defaultMetadata = loc.getFile().getDefaultMetadata();
+                    TextVO title = defaultMetadata.getTitle();
+                    if (title == null
+                            || title.getValue() == null
+                            || title.getValue().trim().equals(""))                          
                     {
-                        this.getLocators()
-                        .get(i)
-                        .getFile()
-                        .getDefaultMetadata()
-                        .setTitle(
-                                new TextVO(this.getEditItemSessionBean().getLocators().get(i).getFile()
-                                        .getContent()));
-                        // this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().setName(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent());
+                        defaultMetadata.setTitle(new TextVO(loc.getFile().getContent()));                                                             
                     }
-                    if (this.getLocators().get(i).getFile().getDefaultMetadata().getDescription() == null
-                            || this.getLocators().get(i).getFile().getDefaultMetadata().getDescription().equals(""))
+                    if (defaultMetadata.getDescription() == null
+                            || defaultMetadata.getDescription().equals(""))
                     {
-                        this.getLocators().get(i).getFile().getDefaultMetadata()
-                        .setDescription(this.getLocators().get(i).getFile().getDescription());
+                        defaultMetadata.setDescription(loc.getFile().getDescription());                      
                     }
+                    
                     // Visibility PUBLIC is static default value for locators
-                    this.getLocators().get(i).getFile().setVisibility(Visibility.PUBLIC);
-                    this.getPubItem().getFiles().add(this.getLocators().get(i).getFile());
+                    loc.getFile().setVisibility(Visibility.PUBLIC);
+                    pubItem.getFiles().add(loc.getFile());
+                    
+                    logger.debug(loc.getFile().getName() + " | " + loc.getFile().getContent());
+                    
+                    loc.getFile().setName(loc.getFile().getContent());
                 }
             }
         }
