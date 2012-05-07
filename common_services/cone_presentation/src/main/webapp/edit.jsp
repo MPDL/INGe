@@ -168,7 +168,7 @@
 	
 				            	    if (predicate.isLocalized())
 					                {
-					                    out.append("<input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"" + (object.getLanguage() != null ? object.getLanguage() : "") + "\"");
+					                    out.append("<input title=\"Language\" type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\"  value=\"" + (object.getLanguage() != null ? object.getLanguage() : "") + "\"");
 										out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "\"");
 										out.append("/>");
 										out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "', 'iso639-1', true)</script>");
@@ -771,7 +771,7 @@
 									<% } %>
 									</ul>
 								<% } %>
-								<% if (errors.size() > 0) { %>
+								<% if (request.getParameter("save") != null && errors.size() > 0) { %>
 									<ul>
 										<% for (String error : errors) { %>
 											<li class="messageError"><b>Error: </b><%= error %></li>

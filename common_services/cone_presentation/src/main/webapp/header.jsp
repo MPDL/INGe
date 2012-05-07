@@ -122,15 +122,27 @@
 
 		var instanceUrl = '<%= PropertyReader.getProperty("escidoc.cone.service.url") %>';
 
-		function remove(element)
+		function remove(element, hasPredicates)
 		{
 			
 			var parent = $(element).parents(".inputField");
 			var listSize = $(parent).parent().children(".inputField").length;
-
-			if (listSize > 1)
+			
+			if (listSize > 1 && hasPredicates)
 			{
 				$(parent).remove();
+				
+			}
+			else if (hasPredicates)
+			{
+				$(parent).find('input[class*="min_imgBtn groupBtn remove"]').remove();
+				
+				if ($(parent).find(".itemLine").size() > 0)
+				{
+					$(parent).find(".itemLine").remove();				
+					$(parent).find('input[class*="small_txtInput"]').remove();
+					$(parent).find('input[class="noDisplay"]').remove();
+				}
 			}
 			else
 			{
