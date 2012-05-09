@@ -205,6 +205,7 @@
 							<artifactId>saxon-dom</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<!-- 
 						<jarModule>
 							<groupId>trinidad</groupId>
 							<artifactId>trinidad-api</artifactId>
@@ -215,6 +216,19 @@
 							<artifactId>trinidad-impl</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+							     
+						-->
+						<jarModule>
+						  <groupId>org.richfaces.ui</groupId>
+					      <artifactId>richfaces-ui</artifactId>
+					      <includeInApplicationXml>true</includeInApplicationXml>
+					    </jarModule>
+					    <jarModule>
+						  <groupId>org.richfaces.framework</groupId>
+					      <artifactId>richfaces-impl</artifactId>
+					      <includeInApplicationXml>true</includeInApplicationXml>
+					    </jarModule>
+					    
 						<jarModule>
 							<groupId>commons-beanutils</groupId>
 							<artifactId>commons-beanutils</artifactId>
@@ -245,32 +259,18 @@
 							<artifactId>cql-java</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
-						
 						<jarModule>
 							<groupId>commons-digester</groupId>
 							<artifactId>commons-digester</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
-						<jarModule>
-							<groupId>richfaces</groupId>
-							<artifactId>richfaces-api</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>richfaces</groupId>
-							<artifactId>richfaces-impl</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>richfaces</groupId>
-							<artifactId>richfaces-ui</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
+						<!-- 
 						<jarModule>
 							<groupId>jsf-facelets</groupId>
 							<artifactId>jsf-facelets</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						-->
 						<jarModule>
 							<groupId>postgresql</groupId>
 							<artifactId>postgresql</artifactId>
@@ -609,6 +609,7 @@
 			<version>8.7</version>
 			<scope>compile</scope>
 		</dependency>
+		<!--  
 		<dependency>
 			<groupId>trinidad</groupId>
 			<artifactId>trinidad-api</artifactId>
@@ -621,6 +622,19 @@
 			<version>1.2.6</version>
 			<scope>provided</scope>
 		</dependency>
+		-->
+		<dependency>
+	      <groupId>org.richfaces.ui</groupId>
+	      <artifactId>richfaces-ui</artifactId>
+	      <version>3.3.3.Final</version>
+	     
+    	</dependency>
+    	<dependency>
+	      <groupId>org.richfaces.framework</groupId>
+	      <artifactId>richfaces-impl</artifactId>
+	      <version>3.3.3.Final</version>
+	       
+	    </dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
@@ -710,30 +724,6 @@
 			<artifactId>commons-digester</artifactId>
 			<version>1.8</version>
 			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>richfaces</groupId>
-			<artifactId>richfaces-api</artifactId>
-			<version>3.1.4</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>richfaces</groupId>
-			<artifactId>richfaces-impl</artifactId>
-			<version>3.1.4</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>richfaces</groupId>
-			<artifactId>richfaces-ui</artifactId>
-			<version>3.1.4</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>jsf-facelets</groupId>
-			<artifactId>jsf-facelets</artifactId>
-			<version>1.1.13</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>postgresql</groupId>
