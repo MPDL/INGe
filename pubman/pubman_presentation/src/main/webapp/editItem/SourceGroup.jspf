@@ -128,7 +128,7 @@
 						</h:panelGroup>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<a4j:commandButton reRender="editSource" id="btnAddDetails" styleClass="min_imgBtn groupTool add" value=" " title="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btAdd}" action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}" disabled="#{!(genre.sources_source_basic_source_title_alternative_repeatable == 'true')}" />
+						<a4j:commandButton reRender="editSource" id="btnAddDetails" styleClass="min_imgBtn groupTool add" value=" " title="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btAdd}" action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}"  />
 						<a4j:commandButton reRender="editSource" id="btnRemoveDetails" styleClass="min_imgBtn groupTool remove" value=" " title="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btRemove}" action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}" />
 					</span>
 				</h:panelGroup>
