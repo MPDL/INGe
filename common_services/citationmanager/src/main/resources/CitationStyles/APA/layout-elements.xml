@@ -180,16 +180,6 @@
 				<ends-with value="." />
 			</parameters>
 		</layout-element>
-
-		<layout-element name="start-page-end-page">
-			<parameters>
-				<delimiter value="-" />
-			</parameters>
-			<elements>
-				<layout-element ref="pub:publication/source:source[1]/eterms:start-page/text()" />
-				<layout-element ref="pub:publication/source:source[1]/eterms:end-page/text()" />
-			</elements>
-		</layout-element>
 		
 		<layout-element name="e-number">
 			<elements>
@@ -214,6 +204,44 @@
 			</elements>
 		</layout-element>
 
+		<layout-element name="start-page-end-page">
+			<elements>
+				<layout-element name="start-page-end-page-without-pp">
+					<parameters>
+						<valid-if><![CDATA[pub:publication/source:source[1]/eterms:sequence-number=null or pub:publication/source:source[1]/eterms:sequence-number='']]></valid-if>
+						<delimiter value="-" />
+						<ends-with value=". "/>
+					</parameters>
+					<elements>
+						<layout-element ref="pub:publication/source:source[1]/eterms:start-page/text()" />
+						<layout-element ref="pub:publication/source:source[1]/eterms:end-page/text()" />
+					</elements>
+				</layout-element>
+				<layout-element name="start-page-end-page-with-pp">
+					<parameters>
+						<valid-if><![CDATA[pub:publication/source:source[1]/eterms:sequence-number!=null or pub:publication/source:source[1]/eterms:sequence-number!='']]></valid-if>
+						<starts-with value="pp. "></starts-with>
+						<delimiter value="-" />
+						<ends-with value=". "/>
+					</parameters>
+					<elements>
+						<layout-element ref="pub:publication/source:source[1]/eterms:start-page/text()" />
+						<layout-element ref="pub:publication/source:source[1]/eterms:end-page/text()" />
+					</elements>
+				</layout-element>
+			</elements>
+		</layout-element>
+		
+		<layout-element name="doi">
+			<parameters>
+				<valid-if><![CDATA[pub:publication/source:source[1]/dc:identifier/@xsi:type="eterms:DOI"]]></valid-if>
+				<starts-with value="doi:"/>
+			</parameters>
+			<elements>
+				<layout-element ref="pub:publication/source:source[1]/dc:identifier/text()" />
+			</elements>
+		</layout-element>
+		
 		<layout-element name="source-edition-start-page-end-page">
 			<parameters>
 				<starts-with value="(" />
@@ -255,8 +283,28 @@
 				</layout-element>
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[pub:publication/source:source[1]/eterms:sequence-number=null or pub:publication/source:source[1]/eterms:sequence-number='']]></valid-if>
+						<valid-if><![CDATA[(pub:publication/source:source[1]/eterms:sequence-number=null or pub:publication/source:source[1]/eterms:sequence-number='') and (pub:publication/source:source[1]/eterms:start-page!=null or pub:publication/source:source[1]/eterms:start-page!='') ]]></valid-if>
 						<ends-with value=", "/>
+						<delimiter value="" />
+					</parameters>
+					<elements>
+						<layout-element ref="pub:publication/source:source[1]/eterms:volume/text()">
+							<parameters>
+								<font-style ref="ITALIC" />
+							</parameters>
+						</layout-element>
+						<layout-element ref="pub:publication/source:source[1]/eterms:issue/text()">
+							<parameters>
+								<starts-with value="(" />
+								<ends-with value=")" />
+							</parameters>
+						</layout-element>
+					</elements>
+				</layout-element>
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[(pub:publication/source:source[1]/eterms:sequence-number=null or pub:publication/source:source[1]/eterms:sequence-number='') and (pub:publication/source:source[1]/eterms:start-page=null or pub:publication/source:source[1]/eterms:start-page='') ]]></valid-if>
+						<ends-with value=". "/>
 						<delimiter value="" />
 					</parameters>
 					<elements>

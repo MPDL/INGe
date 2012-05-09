@@ -316,6 +316,7 @@
 					<layout-element ref="$volume-issue" />
 					<layout-element ref="$e-number" />
 					<layout-element ref="$start-page-end-page" />
+					<layout-element ref="$doi" />
 				</elements>
 			</layout-element>
 
