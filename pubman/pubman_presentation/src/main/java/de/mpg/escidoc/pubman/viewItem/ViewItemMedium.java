@@ -30,7 +30,9 @@
 
 package de.mpg.escidoc.pubman.viewItem;
 
-import org.apache.myfaces.trinidad.component.UIXIterator;
+
+
+import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 
@@ -43,11 +45,11 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 public class ViewItemMedium extends FacesBean
 {
     
-    private UIXIterator creatorPersonsIterator = new UIXIterator();
+    private HtmlAjaxRepeat creatorPersonsIterator = new HtmlAjaxRepeat();
     
-    private UIXIterator creatorAffiliationsIterator = new UIXIterator();    
+    private HtmlAjaxRepeat creatorAffiliationsIterator = new HtmlAjaxRepeat();    
     
-    private UIXIterator fileSearchHitIterator = new UIXIterator();
+    private HtmlAjaxRepeat fileSearchHitIterator = new HtmlAjaxRepeat();
     
     /**
      * Public constructor.
@@ -57,29 +59,29 @@ public class ViewItemMedium extends FacesBean
         
     }
 
-    public UIXIterator getCreatorPersonsIterator() {
+    public HtmlAjaxRepeat getCreatorPersonsIterator() {
         return creatorPersonsIterator;
     }
 
-    public void setCreatorPersonsIterator(UIXIterator creatorPersonsIterator) {
+    public void setCreatorPersonsIterator(HtmlAjaxRepeat creatorPersonsIterator) {
         this.creatorPersonsIterator = creatorPersonsIterator;
     }
 
-    public UIXIterator getCreatorAffiliationsIterator() {
+    public HtmlAjaxRepeat getCreatorAffiliationsIterator() {
         return creatorAffiliationsIterator;
     }
 
     public void setCreatorAffiliationsIterator(
-            UIXIterator creatorAffiliationsIterator) {
+            HtmlAjaxRepeat creatorAffiliationsIterator) {
         this.creatorAffiliationsIterator = creatorAffiliationsIterator;
     }
 
-    public UIXIterator getFileSearchHitIterator()
+    public HtmlAjaxRepeat getFileSearchHitIterator()
     {
         return fileSearchHitIterator;
     }
 
-    public void setFileSearchHitIterator(UIXIterator fileSearchHitIterator)
+    public void setFileSearchHitIterator(HtmlAjaxRepeat fileSearchHitIterator)
     {
         this.fileSearchHitIterator = fileSearchHitIterator;
     }

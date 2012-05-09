@@ -29,13 +29,13 @@ All rights reserved. Use is subject to license terms.
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <!-- 
 	TODO: There is another contextList.jspf under /list. One of the two should be removed.
  -->
 
-<tr:iterator id="iterDepositorContextList" var="context" value="#{ContextListSessionBean.depositorContextList}" binding="#{ContextListSessionBean.contextIterator}" rows="0" varStatus="index">
+<a4j:repeat id="iterDepositorContextList" var="context" value="#{ContextListSessionBean.depositorContextList}" rows="0" rowKeyVar="index">
 
 	<h:panelGroup layout="block" styleClass="full_area0 itemHeader" rendered="#{ContextListSessionBean.contextIterator.rowIndex == 0}">
 		<span class="xLarge_area0 endline">
@@ -44,9 +44,9 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<tr:commandLink id="lnkSelectForEasySubmissionFirst" shortDesc="#{tip.EasySubmission_select}" action="#{context.selectForEasySubmission}">
-					<tr:outputText value="#{context.name}"/>
-				</tr:commandLink>
+				<h:commandLink id="lnkSelectForEasySubmissionFirst" title="#{tip.EasySubmission_select}" action="#{context.selectForEasySubmission}">
+					<h:outputText value="#{context.name}"/>
+				</h:commandLink>
 			</b>
 		</span>
 	</h:panelGroup>
@@ -57,9 +57,9 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<tr:commandLink id="lnkSelectForEasySubmissionFollowing" shortDesc="#{tip.EasySubmission_select}" action="#{context.selectForEasySubmission}">
-					<tr:outputText value="#{context.name}"/>
-				</tr:commandLink>
+				<h:commandLink id="lnkSelectForEasySubmissionFollowing" title="#{tip.EasySubmission_select}" action="#{context.selectForEasySubmission}">
+					<h:outputText value="#{context.name}"/>
+				</h:commandLink>
 			</b>
 		</span>
 	</h:panelGroup>
@@ -77,4 +77,4 @@ All rights reserved. Use is subject to license terms.
 		</div>
 	</h:panelGroup>
 
-</tr:iterator>
+</a4j:repeat>

@@ -142,7 +142,7 @@
 		fillField('publisher', publisher, parent);
 		fillField('place', place, parent);
 		fillField('sourceIdentifierPasteField', allIDs, parent);
-		$(parent).find('.hiddenAutosuggestUploadBtn').click();
+		$pb(parent).find('.hiddenAutosuggestUploadBtn').click();
 	}
 
 	function getPersonDetails(details)
@@ -226,15 +226,15 @@
 
 		if (personId != null && personId != '')
 		{
-			$(parent).find('.authorLink').replaceWith('<a href="' + personId + '" class="small_area0 authorCard authorLink" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+			$pb(parent).find('.authorLink').replaceWith('<a href="' + personId + '" class="small_area0 authorCard authorLink" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
 			
 		}
 
 		// Try to disable input field
-		$.each($(parent).find('.disableAfter'),
+		$pb.each($pb(parent).find('.disableAfter'),
 				function ()
 				{
-					$(this).attr('readonly', true);
+					$pb(this).attr('readonly', true);
 				}
 		);
 		
@@ -245,11 +245,11 @@
 		var orgIdString = (orgId == null ? '' : orgId);
 		
 		
-		$.each($input.parents('.itemBlockContent').find('.personOrganizations').find('.organizationName'),
+		$pb.each($input.parents('.itemBlockContent').find('.personOrganizations').find('.organizationName'),
 			function ()
 			{
-				var otherOrgName = $(this).val();
-				var otherOrgId = $(this).siblings('.organizationIdentifier').val();
+				var otherOrgName = $pb(this).val();
+				var otherOrgId = $pb(this).siblings('.organizationIdentifier').val();
 				
 				if (orgName == otherOrgName && orgIdString == otherOrgId)
 				{
@@ -296,9 +296,9 @@
 	
 	function removeConeId(element)
 	{
-		var $input = $(element);
+		var $input = $pb(element);
 		var parent = $input.parents('.' + personSuggestCommonParentClass);
-		if ($(parent).find('.personIdentifier').val() != '')
+		if ($pb(parent).find('.personIdentifier').val() != '')
 		{
 			fillField('personIdentifier', '', parent);
 		}
@@ -306,41 +306,41 @@
 	
 	function fillField(name, value, commonParent, readonly)
 	{
-		var field = $(commonParent).find('.' + name)
+		var field = $pb(commonParent).find('.' + name)
 		field.val(value);
 		field.attr('title', value);
 		if (typeof readonly != 'undefined')
 		{
-			$(field).attr('readonly', true);
+			$pb(field).attr('readonly', true);
 		}
 	}
 	
 	function fillFields()
 	{
-		$input = $(this);
+		$input = $pb(this);
 		globalId = this.resultID;
-		$.getJSON(journalDetailsBaseURL.replace('$1', this.resultID), getJournalDetails);
+		$pb.getJSON(journalDetailsBaseURL.replace('$1', this.resultID), getJournalDetails);
 	}
 	
 	function fillPersonFields()
 	{
-		$input = $(this);
+		$input = $pb(this);
 		$input.resultValue = this.resultValue;
 		$input.resultID = this.resultID;
 		$input.resultLanguage = this.resultLanguage;
 		if (typeof this.resultLanguage != 'undefined')
 		{
-			$.getJSON(personDetailsBaseURL.replace('$1', this.resultID).replace('$2', this.resultLanguage), getPersonDetails);
+			$pb.getJSON(personDetailsBaseURL.replace('$1', this.resultID).replace('$2', this.resultLanguage), getPersonDetails);
 		}
 		else
 		{
-			$.getJSON(personDetailsBaseURL.replace('$1', this.resultID).replace('$1', this.resultID).replace('$2', '*'), getPersonDetails);
+			$pb.getJSON(personDetailsBaseURL.replace('$1', this.resultID).replace('$1', this.resultID).replace('$2', '*'), getPersonDetails);
 		}
 	}
 	
 	function fillOrganizationFields()
 	{
-		$input = $(this);
+		$input = $pb(this);
 		var parent = $input.parents('.' + commonParentClass);
 		fillField('organizationName', this.resultValue, parent);
 		fillField('organizationIdentifier', this.resultID, parent);
@@ -348,15 +348,15 @@
 		
 		if (this.resultID != null && this.resultID != '')
 		{
-			$(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+			$pb(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
 			
 		}
 
 		// Try to disable input field
-		$.each($(parent).find('.disableAfter'),
+		$pb.each($pb(parent).find('.disableAfter'),
 				function ()
 				{
-					$(this).attr('readonly', true);
+					$pb(this).attr('readonly', true);
 				}
 		);
 		
@@ -364,57 +364,57 @@
 	
 	function bindJournalSuggest()
 	{
-		$('.journalSuggest').suggest(journalSuggestURL, { onSelect: fillFields});
+		$pb('.journalSuggest').suggest(journalSuggestURL, { onSelect: fillFields});
 	}
 	
 	function bindSuggests()
 	{
-		$('select.journalPulldown[value="'+journalSuggestTrigger+'"]').parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
-		$('span.journalPulldown').find('input[type=hidden][value="'+journalSuggestTrigger+'"]').parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
+		$pb('select.journalPulldown[value="'+journalSuggestTrigger+'"]').parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
+		$pb('span.journalPulldown').find('input[type=hidden][value="'+journalSuggestTrigger+'"]').parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
 		
-		$('select.journalPulldown').change(
+		$pb('select.journalPulldown').change(
 				function(){
-					if($(this).val() == journalSuggestTrigger) {
-						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
+					if($pb(this).val() == journalSuggestTrigger) {
+						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
 					} else { 
-						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest');
-						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keypress');
-						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keydown');
-						$('.autoSuggestsArea').hide();
+						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest');
+						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keypress');
+						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keydown');
+						$pb('.autoSuggestsArea').hide();
 					};
 					var t = window.setTimeout('bindJournalSuggest()', 500);
 				});
 
-		$('span.journalPulldown').find('input[type=hidden]').change(
+		$pb('span.journalPulldown').find('input[type=hidden]').change(
 				function(){
-					if($(this).val() == journalSuggestTrigger) {
-						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
+					if($pb(this).val() == journalSuggestTrigger) {
+						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
 					} else {
-						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest');
-						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keypress');
-						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keydown');
-						$('.autoSuggestsArea').hide();
+						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest');
+						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keypress');
+						$pb(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keydown');
+						$pb('.autoSuggestsArea').hide();
 					};
 					var t = window.setTimeout('bindJournalSuggest()', 500);
 				});
 
 		bindJournalSuggest();
-		$('.languageSuggest').suggest(languageSuggestURL, { onSelect: selectLanguage});
-		$('.subjectSuggest').each(
+		$pb('.languageSuggest').suggest(languageSuggestURL, { onSelect: selectLanguage});
+		$pb('.subjectSuggest').each(
 			function(i,ele){
-				$(ele).suggest(subjectSuggestURL, { vocab: $(ele).parents('.subjectArea').find('.vocabulary'), onSelect: function() {$(this).val(this.currentResult)}});
+				$pb(ele).suggest(subjectSuggestURL, { vocab: $pb(ele).parents('.subjectArea').find('.vocabulary'), onSelect: function() {$pb(this).val(this.currentResult)}});
 			});
-		$('.personSuggest').suggest(personSuggestURL, { onSelect: fillPersonFields });
+		$pb('.personSuggest').suggest(personSuggestURL, { onSelect: fillPersonFields });
 		
-		$('.organizationSuggest').suggest(organizationSuggestURL, { onSelect: fillOrganizationFields });
+		$pb('.organizationSuggest').suggest(organizationSuggestURL, { onSelect: fillOrganizationFields });
 
 	};
 	
 	function selectLanguage()
 	{
-		$input = $(this);
+		$input = $pb(this);
 		var lang = document.getElementsByTagName('body')[0].lang;
-		$.getJSON(languageDetailsBaseURL.replace('$1', this.resultID).replace('$2', lang), selectLanguageDetails);
+		$pb.getJSON(languageDetailsBaseURL.replace('$1', this.resultID).replace('$2', lang), selectLanguageDetails);
 	}
 	
 	function selectLanguageDetails(details)
@@ -426,7 +426,7 @@
 		if (typeof name == 'undefined')
 		{
 			var url = details.id;
-			$.getJSON(languageDetailsBaseURL.replace('$1', url).replace('$2', 'en'), selectLanguageDetails);
+			$pb.getJSON(languageDetailsBaseURL.replace('$1', url).replace('$2', 'en'), selectLanguageDetails);
 		}
 		else
 		{

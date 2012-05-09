@@ -29,20 +29,20 @@ All rights reserved. Use is subject to license terms.
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
-<tr:iterator id="itemVersionIterator" value="#{ItemVersionListSessionBean.versionList}" binding="#{ItemVersionListSessionBean.versionIterator}" var="versionEntry" varStatus="index">
+<a4j:repeat id="itemVersionIterator" value="#{ItemVersionListSessionBean.versionList}" binding="#{ItemVersionListSessionBean.versionIterator}" var="versionEntry" rowKeyVar="index">
 
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock">
 		<h3 class="xLarge_area0_p8 endline blockHeader">
 			<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{versionEntry.reference.versionNumber}"/>
 			<br/>
-			<tr:commandLink id="lnkRollback" action="#{versionEntry.rollback}" useWindow="true" text="#{lbl.ViewItemFull_lblRollback}" rendered="#{ItemVersionListSessionBean.versionIterator.rowIndex > 0}" onclick="if(!confirm('#{msg.ConfirmRollbackItemVersion}')){return false;}" />
+			<h:commandLink id="lnkRollback" action="#{versionEntry.rollback}" useWindow="true" value="#{lbl.ViewItemFull_lblRollback}" rendered="#{ItemVersionListSessionBean.versionIterator.rowIndex > 0}" onclick="if(!confirm('#{msg.ConfirmRollbackItemVersion}')){return false;}" />
 		</h3>
 		<h:panelGroup styleClass="seperator" />
 		<div class="free_area0 itemBlockContent endline">
 
-		<tr:iterator value="#{versionEntry.eventLogEntries}" var="eventEntry" varStatus="index" binding="#{ItemVersionListSessionBean.eventIterator}">
+		<a4j:repeat value="#{versionEntry.eventLogEntries}" var="eventEntry" rowKeyVar="index" binding="#{ItemVersionListSessionBean.eventIterator}">
 
 			<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder" rendered="#{ItemVersionListSessionBean.eventIterator.rowIndex == 0}">
 				<span class="xLarge_area0_p8 endline labelLine clear">
@@ -69,8 +69,8 @@ All rights reserved. Use is subject to license terms.
 				</span>
 			</div>
 
-		</tr:iterator>
+		</a4j:repeat>
 		</div>
 	</h:panelGroup>
 		
-</tr:iterator>
+</a4j:repeat>

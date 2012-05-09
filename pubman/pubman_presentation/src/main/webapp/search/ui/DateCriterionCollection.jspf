@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -38,7 +38,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
 
-		<tr:iterator id="dateCriterion" rows="0" var="dateCriterionBean" value="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.dateCriterionIterator}" varStatus="index">
+		<a4j:repeat id="dateCriterion" rows="0" var="dateCriterionBean" value="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.dateCriterionIterator}" rowKeyVar="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.dateCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -55,10 +55,10 @@
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAddFirst" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.addObject}" />
-					<tr:commandButton id="btnRemoveFirst" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size == 1}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.removeObject}"/>
+					<h:commandButton id="btnAddFirst" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.addObject}" />
+					<h:commandButton id="btnRemoveFirst" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size == 1}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.removeObject}"/>
 <%-- 
-					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
+					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
 --%>
 				</span>
 			</h:panelGroup>
@@ -77,10 +77,10 @@
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAddFollowing" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.addObject}" />
-					<tr:commandButton id="btnRemoveFollowing" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size == 1}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.removeObject}"/>
+					<h:commandButton id="btnAddFollowing" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.addObject}" />
+					<h:commandButton id="btnRemoveFollowing" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size == 1}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.removeObject}"/>
 <%-- 
-					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
+					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
 --%>
 				</span>
 			</h:panelGroup>
@@ -147,7 +147,7 @@
 				</h:selectOneMenu>	 --%>
 			</h:panelGroup>
 
-		</tr:iterator>
+		</a4j:repeat>
 		
 	</div>
 </div>

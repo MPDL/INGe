@@ -30,7 +30,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemStatistics.showNIMSLink and ViewItemStatistics.nimsLink!=null}">
@@ -110,7 +110,7 @@
 			</span>
 		</div>
 
-		<tr:iterator value="#{ViewItemStatistics.fileList}" var="file" binding="#{ViewItemStatistics.fileIterator}" varStatus="index">
+		<a4j:repeat value="#{ViewItemStatistics.fileList}" var="file" binding="#{ViewItemStatistics.fileIterator}" rowKeyVar="index">
 			<div class="free_area0 endline itemLine noTopBorder">
 				<span class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<span class="noDisplay"> </span>
@@ -138,6 +138,6 @@
 			<div class="free_area0 endline itemLine noTopBorder">
 				<h:graphicImage url="./statisticchart/?id=#{file.file.reference.objectId}&type=file&lang=#{InternationalizationHelper.locale}"/>
 			</div>
-		</tr:iterator>
+		</a4j:repeat>
 	</div>
 </h:panelGroup>

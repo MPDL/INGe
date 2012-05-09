@@ -29,8 +29,8 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 
-<tr:iterator id="detailsDescription" var="topAffiliation" value="#{AffiliationBean.topLevelAffs}">
+<a4j:repeat id="detailsDescription" var="topAffiliation" value="#{AffiliationBean.topLevelAffs}">
     <link href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}'/>/syndication/feed/rss_2.0/publications/organization/<h:outputText value='#{topAffiliation.reference.objectId}'/>" rel="alternate" type="application/rss+xml" title="<h:outputText value='#{lbl.Feed_Recent_Releases}'/>, <h:outputText value='#{topAffiliation.name}' />|rss_2.0" />
     <link href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}'/>/syndication/feed/atom_1.0/publications/organization/<h:outputText value='#{topAffiliation.reference.objectId}'/>" rel="alternate" type="application/atom+xml" title="<h:outputText value='#{lbl.Feed_Recent_Releases}'/>, <h:outputText value='#{topAffiliation.name}' />|atom_1.0" />  
-</tr:iterator>
+</a4j:repeat>
 

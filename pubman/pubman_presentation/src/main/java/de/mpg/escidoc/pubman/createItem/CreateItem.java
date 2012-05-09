@@ -34,8 +34,8 @@ import java.util.List;
 
 import javax.faces.context.FacesContext;
 
+import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.log4j.Logger;
-import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -175,7 +175,7 @@ public class CreateItem extends FacesBean
                 this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(Genre.ARTICLE);
                 this.getEditItemSessionBean().setGenreBundle(genreBundle);
                 this.getEditItem().setItem(null);
-                this.getEditItem().setIdentifierIterator(new UIXIterator());
+                this.getEditItem().setIdentifierIterator(new HtmlAjaxRepeat());
                 this.getEditItem().init();
             }
             return navigateTo;

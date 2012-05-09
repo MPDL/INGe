@@ -28,7 +28,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad" xmlns:c="http://sourceforge.net/projects/jsf-comp">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"  xmlns:c="http://sourceforge.net/projects/jsf-comp">
 
 	<jsp:output doctype-root-element="html"
 	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -50,7 +50,7 @@
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{ViewItemStatisticsPage.beanName}" styleClass="noDisplay" />
-			<tr:form usesUpload="true">
+			<h:form >
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
@@ -169,14 +169,14 @@
 				</div>
 			</div>
 			<jsp:directive.include file="footer/Footer.jspf" />
-			</tr:form>
+			</h:form>
 			<script type="text/javascript">
-				$("input[id$='offset']").submit(function() {
-					$(this).val($(window).scrollTop());
+				$pb("input[id$='offset']").submit(function() {
+					$pb(this).val($pb(window).scrollTop());
 				});
-				$(document).ready(function () {
-					$(window).scrollTop($("input[id$='offset']").val());
-					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
+				$pb(document).ready(function () {
+					$pb(window).scrollTop($pb("input[id$='offset']").val());
+					$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
 				});
 			</script>
 			</body>

@@ -33,7 +33,7 @@
 	- page: The current page of items (optional, default 0)
 	- itemsPerPage: The number of items that should be displayed (optional, default 0, show all)
  -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
 	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
 	<f:view locale="#{InternationalizationHelper.userLocale}">
@@ -43,7 +43,7 @@
 		
 		<html>
 		<body>
-			<tr:iterator var="item" value="#{ImportItems.import.items}" first="#{ImportItems.page * ImportItems.itemsPerPage}" rows="#{ImportItems.itemsPerPage}">
+			<a4j:repeat var="item" value="#{ImportItems.import.items}" first="#{ImportItems.page * ImportItems.itemsPerPage}" rows="#{ImportItems.itemsPerPage}">
 				<h:panelGroup>
 					<div class="full_area0" style="margin-bottom: 0.19em;">
 						<div class="medium_area0_p8 state noPaddingTopBottom" style="margin-left: 2.28em;">					
@@ -63,7 +63,7 @@
 						</div>
 						<div class="large_area0_p8 noPaddingTopBottom">
 							<h:inputHidden id="inpItemDetailsLink" value="#{item.detailsLink}"/>
-							<a onmouseover="$(this).createDialog({addr: $(this).siblings('input').val(), bg: '#FFF',opacity: 0.5});">
+							<a onmouseover="$pb(this).createDialog({addr: $pb(this).siblings('input').val(), bg: '#FFF',opacity: 0.5});">
 								Details
 							</a>
 						</div>
@@ -72,7 +72,7 @@
 						</div>
 					</div>
 				</h:panelGroup>
-			</tr:iterator>
+			</a4j:repeat>
 		</body>
 		</html>
 	</f:view>

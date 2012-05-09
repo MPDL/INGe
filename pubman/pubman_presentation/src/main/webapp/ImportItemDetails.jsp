@@ -27,7 +27,7 @@
  Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
 	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
 	<f:view locale="#{InternationalizationHelper.userLocale}">
@@ -37,7 +37,7 @@
 			
 		<div class="xHuge_area2_p8 messageArea" style="height: 28.37em; overflow-y: auto;">
 
-			<input type="button" id="btnClose" onclick="$.closeDialog()" value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
+			<input type="button" id="btnClose" onclick="$pb.closeDialog()" value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
 
 			<h2><h:outputText value="#{lbl.import_workspace_details}"/></h2>
 			
@@ -47,7 +47,7 @@
 				</span>
 			</h:panelGroup>
 			
-			<tr:iterator var="detail" value="#{ImportItemDetails.details}" rows="0">
+			<a4j:repeat var="detail" value="#{ImportItemDetails.details}" rows="0">
 				<h:panelGroup styleClass="quad_area0" style="margin-bottom: 0.56em;">
 					<span class="small_area0 endline">
 						<h:outputText value="#{detail.status}"/>&#160;
@@ -66,7 +66,7 @@
 					</span>
 					
 				</h:panelGroup>
-			</tr:iterator>
+			</a4j:repeat>
 		
 		</div>
 			

@@ -36,7 +36,6 @@ import java.util.List;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
-import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -74,7 +73,7 @@ public class ContextListSessionBean extends FacesBean
     private QualityAssurance qualityAssurance;
     private LoginHelper loginHelper;
 
-    private UIXIterator contextIterator = new UIXIterator();
+   // private UIXIterator contextIterator = new UIXIterator();
 
     /**
      * Public constructor.
@@ -328,6 +327,7 @@ public class ContextListSessionBean extends FacesBean
         this.moderatorContextList = moderatorContextList;
     }
 
+    /*
     public UIXIterator getContextIterator()
     {
         return contextIterator;
@@ -337,6 +337,7 @@ public class ContextListSessionBean extends FacesBean
     {
         this.contextIterator = contextIterator;
     }
+    */
 
     public void setYearbookContextList(List<PubContextVOPresentation> yearbookContextList)
     {

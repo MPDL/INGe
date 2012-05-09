@@ -27,7 +27,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
 	<jsp:output doctype-root-element="html"
 	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -49,7 +49,7 @@
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 				<h:outputText value="#{NewMultipleImport.beanName}" styleClass="noDisplay" />
-				<tr:form usesUpload="true" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+				<h:form  rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 					<div class="full wrapper">
 						<h:inputHidden id="offset"></h:inputHidden>
 						
@@ -108,12 +108,12 @@
 										<div class="subHeader">
 											<!-- <% /* Subheadline starts here */ %> -->
 											<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{MultipleImport.hasErrorMessages}">
-												<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
+												<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
 												<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
 												<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{MultipleImport.hasMessages}"/>
 											</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{MultipleImport.hasMessages and !MultipleImport.hasErrorMessages}">
-												<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
+												<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
 												<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
 												<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{MultipleImport.hasMessages}"/>
 											</h:panelGroup>
@@ -155,7 +155,8 @@
 														<h:outputText value="#{lbl.multipleImport_uploadFile}" /><span class="noDisplay">: </span>
 													</b>
 													<span class="xHuge_area0 xTiny_marginLExcl endline fileSection">
-														<tr:inputFile id="inpMultipleImportUploadedImportFile" styleClass="fileInput" value="#{MultipleImport.uploadedImportFile}" />
+														<rich:fileUpload id="inpMultipleImportUploadedImportFile" styleClass="fileInput" fileUploadListener="#{MultipleImport.fileUploaded}" 
+															immediateUpload="true" maxFilesQuantity="1"/>
 													</span>
 												</h:panelGroup>
 											</div>
@@ -163,14 +164,14 @@
 									</div>
 									<div class="full_area0 formButtonArea">
 										<h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.EditItem_lnkCancel}" /></h:outputLink>
-										<tr:commandLink id="lnkUploadFile" styleClass="free_area1_p8 activeButton" shortDesc="#{tip.easy_submission_btnImport}" action="#{MultipleImport.uploadFile}"><h:outputText value="#{lbl.easy_submission_btnImport}" /></tr:commandLink>
+										<h:commandLink id="lnkUploadFile" styleClass="free_area1_p8 activeButton" title="#{tip.easy_submission_btnImport}" action="#{MultipleImport.uploadFile}"><h:outputText value="#{lbl.easy_submission_btnImport}" /></h:commandLink>
 									</div>
 								</div>
 							<!-- <% /* end: content section */ %> -->
 							</div>			
 					</div>
 				<jsp:directive.include file="footer/Footer.jspf" />
-				</tr:form>
+				</h:form>
 			</body>
 		</html>
 	</f:view>

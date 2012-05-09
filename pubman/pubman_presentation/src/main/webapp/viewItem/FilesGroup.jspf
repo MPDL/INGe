@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <h:panelGroup id="files" layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -40,9 +40,9 @@
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showFiles}">
 		<a id="lnkHideGroupFile" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemMedium_lblSubHeaderFile}" /></a>
 
-		<tr:iterator var="file" value="#{ViewItemFull.pubItem.fileBeanList}" varStatus="index">
+		<a4j:repeat var="file" value="#{ViewItemFull.pubItem.fileBeanList}" rowKeyVar="index">
 
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine newBlock" rendered="#{index.index > 0}"/>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine newBlock" rendered="#{index > 0}"/>
 
 <%-- File name --%>
 	<h:panelGroup layout="block">
@@ -59,25 +59,25 @@
 							<h:outputText value=", #{file.fileSize}"/>
 						</div>
 						<div class="xHuge_area0 endline marginTExcl6p">
-							<tr:goLink id="lnkCitationURL" targetFrame="_blank" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+							<h:outputLink id="lnkCitationURL" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}" title="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
 								<span class="std_imgBtn viewFileIcon"></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
-							</tr:goLink>
+							</h:outputLink>
 							<!-- Link for fulltext searchhits with open pdf params-->
-							<tr:goLink id="lnkSearchHitsURL" targetFrame="_blank" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}#search=#{file.openPDFSearchParameter}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+							<h:outputLink id="lnkSearchHitsURL" target="_blank" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}#search=#{file.openPDFSearchParameter}" title="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
 								<span class="std_imgBtn viewFileIcon"></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
-							</tr:goLink>
+							</h:outputLink>
 						
-							<tr:goLink id="lnkCitationURLDownload" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+							<h:outputLink id="lnkCitationURLDownload" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download" title="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
 								<span class="std_imgBtn downloadFileIcon tiny_marginLExcl"></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
-							</tr:goLink>
+							</h:outputLink>
 							<!-- Link for fulltext searchhits with open pdf params-->
-							<tr:goLink id="lnkSearchHitsURLDownload" destination="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download#search=#{file.openPDFSearchParameter}" shortDesc="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
+							<h:outputLink id="lnkSearchHitsURLDownload" value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.file.name}?mode=download#search=#{file.openPDFSearchParameter}" title="#{lbl.ViewItemFull_lblPdfWarning}" rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}">
 								<span class="std_imgBtn downloadFileIcon tiny_marginLExcl"></span>
 								<h:outputText value="#{lbl.ViewItemFull_lblSaveFulltext}" />
-							</tr:goLink>
+							</h:outputLink>
 						</div>
 					</div>
 				</div>
@@ -164,7 +164,7 @@
 					<h:outputText value="#{lbl.ViewItemFull_lblFulltextSearchResults}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<tr:iterator var="hit" value="#{file.searchHits}" varStatus="index">
+					<a4j:repeat var="hit" value="#{file.searchHits}" rowKeyVar="index">
 						<h:panelGroup styleClass="xHuge_area0">
 							<h:outputText value="#{hit.beforeSearchHitString}"/>
 								<h:outputText value='<em class="searchHit">' escape="false"/>
@@ -172,9 +172,9 @@
 								<h:outputText value="</em>" escape="false"/>
 							<h:outputText value="#{hit.afterSearchHitString}"/>
 						</h:panelGroup>
-					</tr:iterator>
+					</a4j:repeat>
 				</span>
 			</h:panelGroup>
-		</tr:iterator>
+		</a4j:repeat>
 	</h:panelGroup>
 </h:panelGroup>

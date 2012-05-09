@@ -29,9 +29,9 @@ All rights reserved. Use is subject to license terms.
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
-<tr:iterator var="item" value="#{PubItemListSessionBean.currentPartList}">
+<a4j:repeat var="item" value="#{PubItemListSessionBean.currentPartList}">
 	<li class="full_area0 listItem">
 		<div class="free_area0 itemHeader">
 			<b class="huge_marginRIncl xTiny_marginLExcl"><h:outputText value="#{lbl.List_lblRevision}"/><br class="noDisplay" /></b>
@@ -43,8 +43,8 @@ All rights reserved. Use is subject to license terms.
 		</div>
 		<div class="free_area0_p0  small_marginLIncl endline listItemLine">
 			<span class="huge_area0_p8 endline labelLine">
-	 			<div><a class="collapse itemInfoSwitch" style="display: none;" onclick="$(this).siblings('a').show(); $(this).hide();"><span class="noDisplay"><h:outputText value="#{lbl.List_lkShow}"/> </span><h:outputText value="#{lbl.List_lkLess}"/><span class="noDisplay"> <h:outputText value="#{lbl.List_lkDetails}"/></span></a>
-				<a class="expand itemInfoSwitch" onclick="$(this).siblings('a').show(); $(this).hide();"><span class="noDisplay"><h:outputText value="#{lbl.List_lkShow}"/> </span><h:outputText value="#{lbl.List_lkMore}"/><span class="noDisplay"> <h:outputText value="#{lbl.List_lkDetails}"/></span></a></div>
+	 			<div><a class="collapse itemInfoSwitch" style="display: none;" onclick="$pb(this).siblings('a').show(); $pb(this).hide();"><span class="noDisplay"><h:outputText value="#{lbl.List_lkShow}"/> </span><h:outputText value="#{lbl.List_lkLess}"/><span class="noDisplay"> <h:outputText value="#{lbl.List_lkDetails}"/></span></a>
+				<a class="expand itemInfoSwitch" onclick="$pb(this).siblings('a').show(); $pb(this).hide();"><span class="noDisplay"><h:outputText value="#{lbl.List_lkShow}"/> </span><h:outputText value="#{lbl.List_lkMore}"/><span class="noDisplay"> <h:outputText value="#{lbl.List_lkDetails}"/></span></a></div>
 				&#160;
 			</span>
 			<span class="xHuge_area0 endline">
@@ -94,4 +94,4 @@ All rights reserved. Use is subject to license terms.
 			</div>
 		</div>
 	</li>
-</tr:iterator>
+</a4j:repeat>

@@ -29,7 +29,7 @@
 */
 
 function addPaginatorFunctions() {
-	$('.gotoBox').find(':text').keydown(function(event){ switch (event.keyCode) { case 13: $(this).parents('.gotoBox').find('.paginatorFallbackGoBtn').click(); break;   }});
+	$pb('.gotoBox').find(':text').keydown(function(event){ switch (event.keyCode) { case 13: $pb(this).parents('.gotoBox').find('.paginatorFallbackGoBtn').click(); break;   }});
 }
 
 function installExtPaginator() {

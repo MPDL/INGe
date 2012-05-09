@@ -28,29 +28,29 @@
 */ %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <h2><h:outputText value="#{AffiliationDetail.affiliationVO.name}"/></h2>
 <!-- Affiliation description -->
-<tr:iterator var="description" value="#{AffiliationDetail.affiliationVO.defaultMetadata.descriptions}" varStatus="index">
+<a4j:repeat var="description" value="#{AffiliationDetail.affiliationVO.defaultMetadata.descriptions}" rowKeyVar="index">
 	<h:outputText value="#{description}"/>
 	<br/>
-</tr:iterator>
+</a4j:repeat>
 <br/>
 <h:outputText value="#{AffiliationDetail.affiliationVO.defaultMetadata.city}, #{AffiliationDetail.affiliationVO.defaultMetadata.countryCode}"/>
 <br/>
 <!--URIs as links -->
-<tr:iterator id="affiliationDetailUri" var="uri" value="#{AffiliationDetail.affiliationVO.uris}" varStatus="index">
+<a4j:repeat id="affiliationDetailUri" var="uri" value="#{AffiliationDetail.affiliationVO.uris}" rowKeyVar="index">
 	<h:outputLink id="lnkAffiliationDetailUri" value="#{uri}" target="_blank">
 		<h:outputText value="#{uri}"/>
 	</h:outputLink>
 	<br/>
-</tr:iterator>
+</a4j:repeat>
 <!--other identifiers as plain text -->
-<tr:iterator var="identifier" value="#{AffiliationDetail.affiliationVO.defaultMetadata.identifiers}" varStatus="index">
+<a4j:repeat var="identifier" value="#{AffiliationDetail.affiliationVO.defaultMetadata.identifiers}" rowKeyVar="index">
 		<h:outputText value="#{identifier.id}" rendered="#{identifier.typeString != 'URI'}"/>
 	<br/>
-</tr:iterator>
+</a4j:repeat>
 
 
 
@@ -76,27 +76,27 @@
 				</h:panelGroup>
 			</h:panelGroup>
 			<h:panelGroup styleClass="formField" layout="block" rendered="#{AffiliationDetail.renderDetails}">
-				<tr:iterator var="description" value="#{AffiliationDetail.affiliationVO.defaultMetadata.descriptions}" varStatus="index">
+				<a4j:repeat var="description" value="#{AffiliationDetail.affiliationVO.defaultMetadata.descriptions}" rowKeyVar="index">
 					<h:outputText value="#{description}"/>
 					<br/>
-				</tr:iterator>
+				</a4j:repeat>
 				
 				
 				<br/><br/>
 				<h:outputText value="#{AffiliationDetail.affiliationVO.defaultMetadata.city}, #{AffiliationDetail.affiliationVO.defaultMetadata.countryCode}"/>
 				<br/>
 				<!--URIs as links -->
-				<tr:iterator var="uri" value="#{AffiliationDetail.affiliationVO.uris}" varStatus="index">
+				<a4j:repeat var="uri" value="#{AffiliationDetail.affiliationVO.uris}" rowKeyVar="index">
 					<h:outputLink value="#{uri}" target="_blank">
 						<h:outputText value="#{uri}"/>
 					</h:outputLink>
 					<br/>
-				</tr:iterator>
+				</a4j:repeat>
 				<!--other identifiers as plain text -->
-				<tr:iterator var="identifier" value="#{AffiliationDetail.affiliationVO.defaultMetadata.identifiers}" varStatus="index">
+				<a4j:repeat var="identifier" value="#{AffiliationDetail.affiliationVO.defaultMetadata.identifiers}" rowKeyVar="index">
 						<h:outputText value="#{identifier.id}" rendered="#{identifier.typeString != 'URI'}"/>
 					<br/>
-				</tr:iterator>
+				</a4j:repeat>
 <!-- 
 				<h:outputText value="#{AffiliationDetail.affiliationVO.postcode}"/>
 				<h:outputText value="#{AffiliationDetail.affiliationVO.city}"/>

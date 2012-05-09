@@ -34,9 +34,6 @@ import java.util.List;
 
 import javax.faces.component.html.HtmlPanelGrid;
 
-import org.apache.myfaces.trinidad.model.ChildPropertyTreeModel;
-import org.apache.myfaces.trinidad.model.TreeModel;
-
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
@@ -60,7 +57,7 @@ public class AffiliationSessionBean extends FacesBean
     public static final String BEAN_NAME = "AffiliationSessionBean";
     
     //instance of the Affiliation Tree
-    private TreeModel treeAffiliation = new ChildPropertyTreeModel();
+    //private TreeModel treeAffiliation = new ChildPropertyTreeModel();
     //flag to control the dynamic creation of the tree from outside
     private boolean wasInit = false;
     private List<AffiliationVOPresentation> currentAffiliationList = new ArrayList<AffiliationVOPresentation>();
@@ -165,6 +162,7 @@ public class AffiliationSessionBean extends FacesBean
         this.add = add;
     }
 
+    /*
     public TreeModel getTreeAffiliation()
     {
         return treeAffiliation;
@@ -174,7 +172,7 @@ public class AffiliationSessionBean extends FacesBean
     {
         this.treeAffiliation = treeAffiliation;
     }
-
+	*/
     public boolean isWasInit()
     {
         return wasInit;

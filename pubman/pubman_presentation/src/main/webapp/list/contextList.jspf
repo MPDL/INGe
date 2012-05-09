@@ -29,9 +29,9 @@ All rights reserved. Use is subject to license terms.
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
-<tr:iterator id="iterdepositorContextList2" var="context" value="#{ContextListSessionBean.depositorContextList}" binding="#{ContextListSessionBean.contextIterator}" rows="0" varStatus="index">
+<a4j:repeat id="iterdepositorContextList2" var="context" value="#{ContextListSessionBean.depositorContextList}" binding="#{ContextListSessionBean.contextIterator}" rows="0" rowKeyVar="index">
 
 	<h:panelGroup layout="block" styleClass="full_area0 itemHeader" rendered="#{ContextListSessionBean.contextIterator.rowIndex == 0}">
 		
@@ -41,9 +41,9 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<tr:commandLink id="lnkSelectContextFirst" shortDesc="#{tip.list_select}" action="#{context.select}" rendered="#{!context.disabled}">
-					<tr:outputText value="#{context.name}"/>
-				</tr:commandLink>
+				<h:commandLink id="lnkSelectContextFirst" title="#{tip.list_select}" action="#{context.select}" rendered="#{!context.disabled}">
+					<h:outputText value="#{context.name}"/>
+				</h:commandLink>
 				<h:outputText id="txtSelectContextFirst" rendered="#{context.disabled}" value="#{context.name}">
 				</h:outputText>
 			</b>
@@ -56,9 +56,9 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<tr:commandLink id="lnkSelectContext" shortDesc="#{tip.list_select}" action="#{context.select}" rendered="#{!context.disabled}">
-					<tr:outputText value="#{context.name}"/>
-				</tr:commandLink>
+				<h:commandLink id="lnkSelectContext" title="#{tip.list_select}" action="#{context.select}" rendered="#{!context.disabled}">
+					<h:outputText value="#{context.name}"/>
+				</h:commandLink>
 				<h:outputText id="txtSelectContext" rendered="#{context.disabled}" value="#{context.name}">
 				</h:outputText>
 			</b>
@@ -78,4 +78,4 @@ All rights reserved. Use is subject to license terms.
 		</div>
 	</h:panelGroup>
 
-</tr:iterator>
+</a4j:repeat>

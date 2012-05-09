@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.showSources and !ViewItemFull.isStateWithdrawn}">
 		<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -40,7 +40,7 @@
 </h:panelGroup>
 
 
-<tr:iterator var="source" value="#{ViewItemFull.sourceList}" binding="#{ViewItemFull.sourceIterator}" varStatus="index">
+<a4j:repeat var="source" value="#{ViewItemFull.sourceList}" binding="#{ViewItemFull.sourceIterator}" rowKeyVar="index">
 
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemFull.showSources and !ViewItemFull.isStateWithdrawn}">
 		<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -62,7 +62,7 @@
 			</div>
 
 	<%-- Source alternative title --%>
-		<tr:iterator var="altTitle" value="#{source.source.alternativeTitles}" binding="#{ViewItemFull.sourceTitleIterator}" varStatus="index">
+		<a4j:repeat var="altTitle" value="#{source.source.alternativeTitles}" binding="#{ViewItemFull.sourceTitleIterator}" rowKeyVar="index">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;
@@ -79,7 +79,7 @@
 					<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{altTitle.value == ''}" escape="false"/>
 				</span>
 			</h:panelGroup>
-		</tr:iterator>
+		</a4j:repeat>
 	
 	<%-- Source genre --%>
 			<div class="free_area0 endline itemLine">
@@ -99,7 +99,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.sourceCreatorPersonsIterator.rowCount <= 0 && ViewItemFull.sourceCreatorOrganizationsIterator.rowCount <=0}"/>
-					<tr:iterator var="sourceCreatorPerson" value="#{source.sourceCreatorArray}" binding="#{ViewItemFull.sourceCreatorPersonsIterator}" varStatus="index" rows="0">
+					<a4j:repeat var="sourceCreatorPerson" value="#{source.sourceCreatorArray}" binding="#{ViewItemFull.sourceCreatorPersonsIterator}" rowKeyVar="index" rows="0">
 						<h:panelGroup styleClass="free_area0 creator clear" rendered="#{sourceCreatorPerson.creatorType=='PERSON'}">
 							<h:outputText value="#{sourceCreatorPerson.creatorObj.formattedDisplay}, #{sourceCreatorPerson.creatorRole}" escape="false"/>
 							<h:panelGroup rendered="#{sourceCreatorPerson.creatorObj.portfolioLink != null and sourceCreatorPerson.creatorObj.portfolioLink != ''}">
@@ -113,7 +113,7 @@
 							<h:outputLink id="lnkSourceCreatorOrganizationLink" styleClass="ouCard" rendered="#{sourceCreatorPerson.creatorObj.identifier != null and sourceCreatorPerson.creatorObj.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{sourceCreatorPerson.creatorObj.identifier}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 						</h:panelGroup>
 						<h:outputText value="<br />" escape="false"/>
-					</tr:iterator>
+					</a4j:repeat>
 				</span>
 			</div>
 	
@@ -124,7 +124,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.sourceCreatorAffiliationsIterator.rowCount <= 0}"/>
-					<tr:iterator id="creatorAffiliations" var="creatorAffiliation" value="#{source.sourceOrganizationList}" binding="#{ViewItemFull.sourceCreatorAffiliationsIterator}" varStatus="index" rows="0">
+					<a4j:repeat id="creatorAffiliations" var="creatorAffiliation" value="#{source.sourceOrganizationList}" binding="#{ViewItemFull.sourceCreatorAffiliationsIterator}" rowKeyVar="index" rows="0">
 						<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
 						<h:panelGroup styleClass="free_area0 affiliation">
                         <!--<h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/>-->
@@ -135,7 +135,7 @@
                         </h:panelGroup>
                         </h:panelGroup>
 						<h:outputText value="<br />" escape="false"/>						
-					</tr:iterator>					
+					</a4j:repeat>					
 				</span>
 			</div>
 
@@ -209,4 +209,4 @@
 			</h:panelGroup>
 		</h:panelGroup>
 	</h:panelGroup>
-</tr:iterator>
+</a4j:repeat>

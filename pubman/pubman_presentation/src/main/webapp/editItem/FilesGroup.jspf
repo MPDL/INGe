@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <h:panelGroup layout="block" id="editFile" styleClass="full_area0 itemBlock" rendered="#{EditItem.pubItem!=null and !(genre.files_display == 'false' && genre.files_form_id == 'full-submission' || genre.files_display == 'false' && genre.files_form_id == 'all')}" >
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -37,21 +37,64 @@
 	</h3>
 	<span class="seperator"></span>
 	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /></a>
-	<div class="free_area0 itemBlockContent endline">
+	<h:panelGroup layout="block" id="files" styleClass="free_area0 itemBlockContent endline">
 		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /></a>
-		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" varStatus="index">
-
-<%-- Add File from local system--%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder fileSection"  rendered="#{component.index == 0 && (component.file.name == null || component.file.name == '')}">
+		
+		
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine fileSection">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblFile}" rendered="#{genre.files_display != 'false'}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel id="lblLocalPath" styleClass="quad_label" value="#{lbl.EditItem_localPath}"/>
-					<tr:inputFile id="inpFile" styleClass="quad_area0 fileInput" value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" />
+					
+					<rich:fileUpload allowFlash="auto" id="inpFile" styleClass="quad_area0 fileInput" fileUploadListener="#{EditItem.fileUploaded}" maxFilesQuantity="50"
+					immediateUpload="true">
+						<a4j:support event="onuploadcomplete" reRender="files" />
+						
+					</rich:fileUpload>
+				</span>
+				<%--
+				<span class="large_area0_p8 lineToolSection">
+					<h:commandButton id="btnUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" value="#{lbl.EditItem_btUpload_File}"/>
+				</span>
+				--%>
+		</h:panelGroup>
+			
+		
+		<%-- Add File from url--%>
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputLabel id="lblAddFileFromUrl" styleClass="quad_label" value="#{lbl.EditItem_lblFileURL}" />
+				<h:inputText id="inpAddFileFromUrl" styleClass="quad_txtInput" value="#{EditItem.locatorUpload}" />
+			</span>
+			<span class="large_area0_p8 lineToolSection">
+				<h:commandButton id="btnUploadFileFromUrl" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_btUpload_URL}" title="#{tip.EditItem_btUploadLocator}" action="#{EditItem.uploadLocator}" />
+			</span>
+		</h:panelGroup>
+			
+		<a4j:repeat var="component" id="fileUploads" value="#{EditItem.files}" rowKeyVar="index">
+
+
+<%-- Add File from local system --%>
+<%--
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine fileSection"  rendered="#{component.index == 0 && (component.file.name == null || component.file.name == '')}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblFile}" rendered="#{genre.files_display != 'false'}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel id="lblLocalPath" styleClass="quad_label" value="#{lbl.EditItem_localPath}"/>
+					
+					<rich:fileUpload allowFlash="false" id="inpFile" styleClass="quad_area0 fileInput" fileUploadListener="#{EditItem.fileUploaded}" maxFilesQuantity="1"
+					immediateUpload="true" onuploadcomplete="$pb('#form1:btnRemoveFile6').click();">
+						
+					</rich:fileUpload>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{lbl.EditItem_btUpload_File}"/>
+					<h:commandButton id="btnUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" value="#{lbl.EditItem_btUpload_File}"/>
 				</span>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine fileSection" rendered="#{component.index > 0 && (component.file.name == null || component.file.name == '')}">
@@ -60,13 +103,16 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel id="lblMultiLocalPath" styleClass="quad_label" value="#{lbl.EditItem_localPath}"/>
-					<tr:inputFile id="inpMultiFile" styleClass="quad_area0 fileInput" value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" />
+					<rich:fileUpload id="inpFileMulti" styleClass="quad_area0 fileInput" fileUploadListener="#{EditItem.fileUploaded}" maxFilesQuantity="1" immediateUpload="true">
+						<a4j:support event="onuploadcomplete" reRender="files" action="#{EditItem.logUploadComplete}"></a4j:support>
+					</rich:fileUpload>
+					<a4j:commandButton value="feaf"  action="#{EditItem.logUploadComplete}" reRender="files"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnMultiUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{lbl.EditItem_btUpload_File}"/>
+					<h:commandButton id="btnMultiUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" value="#{lbl.EditItem_btUpload_File}"/>
 				</span>
 			</h:panelGroup>
-			
+--%>			
 <%-- Add File from url--%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"  rendered="#{component.file.name == null || component.file.name == ''}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -77,7 +123,7 @@
 					<h:inputText id="inpAddFileFromUrl" styleClass="quad_txtInput" value="#{EditItem.locatorUpload}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnUploadFileFromUrl" styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btUpload_URL}" shortDesc="#{tip.EditItem_btUploadLocator}" action="#{EditItem.uploadLocator}" />
+					<h:commandButton id="btnUploadFileFromUrl" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_btUpload_URL}" title="#{tip.EditItem_btUploadLocator}" action="#{EditItem.uploadLocator}" />
 				</span>
 			</h:panelGroup>
 
@@ -215,27 +261,31 @@
 					<h:panelGroup styleClass="quad_area0" rendered="true">
 						<label class="quad_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="#{lbl.EditItem_lblLicencingInfo}"/></label>
 						<h:inputText id="inpLicenseUrl" styleClass="xDouble_txtInput tiny_marginRIncl licenseURL" value="#{component.file.defaultMetadata.license}"/>
-						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicense}" styleClass="large_txtBtn groupBtn ccLicense" 
-									 onclick="var actualCCContent = $(this).parents('.licenseArea').find('.messageArea').find('.ccContent');
-											  $(actualCCContent).append($('head').children('div')); 
-											  $(actualCCContent).parents('.messageArea').removeClass('noDisplay');"
-									 ondblclick="return false;"/>
+						<h:outputLink styleClass="large_txtBtn groupBtn ccLicense" value=""
+									 onclick="var actualCCContent = $pb(this).parents('.licenseArea').find('.messageArea').find('.ccContent');
+											  $pb(actualCCContent).append($pb('head').children('div')); 
+											  $pb(actualCCContent).parents('.messageArea').removeClass('noDisplay'); return false;"
+									 ondblclick="return false;">
+							<h:outputText value="#{lbl.EditItem_btnSelectCCLicense}" />
+						</h:outputLink>
 					</h:panelGroup>
 					<h:panelGroup id="cc_js_widget_container" styleClass="xHuge_area2_p8 messageArea noDisplay" style="margin-top: -1.82em;">
-						<input type="button" onclick="$(this).parents('.messageArea').addClass('noDisplay');" 
+						<input type="button" onclick="$pb(this).parents('.messageArea').addClass('noDisplay');" 
 							   value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
 						<div class="ccContent">&#160;</div>
-						<button class="activeButton" onclick="$(this).parents('.licenseArea').find('.licenseURL').val($(this).parents('.messageArea').find('#cc_js_result_uri').val()); 									  		   
-									  		  $(this).parents('.messageArea').addClass('noDisplay');" style="margin-right:0.3636em;"><h:outputText value="#{lbl.EditItem_btnSelectCCLicenseApply}" /></button>
+						<button class="activeButton" onclick="$pb(this).parents('.licenseArea').find('.licenseURL').val($pb(this).parents('.messageArea').find('#cc_js_result_uri').val()); 									  		   
+									  		  $pb(this).parents('.messageArea').addClass('noDisplay');" style="margin-right:0.3636em;"><h:outputText value="#{lbl.EditItem_btnSelectCCLicenseApply}" /></button>
 						
 				     </h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnRemoveFile" styleClass="min_imgBtn sectionTool remove" text=" " shortDesc="#{tip.EditItem_removeFile}" action="#{component.removeFile}" rendered="#{genre.files_repeatable != 'false'}"/>
-					<tr:commandButton id="btnAddFile" styleClass="min_imgBtn sectionTool add" text=" " shortDesc="#{tip.EditItem_addFile}" action="#{EditItem.addFile}" rendered="#{genre.files_repeatable != 'false'}"/>
+					<a4j:commandButton id="btnRemoveFile" reRender="files" styleClass="min_imgBtn sectionTool remove" value=" " title="#{tip.EditItem_removeFile}" action="#{component.removeFile}" rendered="#{genre.files_repeatable != 'false'}"/>
+					<%--
+					<h:commandButton id="btnAddFile" styleClass="min_imgBtn sectionTool add" value=" " title="#{tip.EditItem_addFile}" action="#{EditItem.addFile}" rendered="#{genre.files_repeatable != 'false'}"/>
+					--%>
 				</span>
 			</h:panelGroup>
 
-		</tr:iterator>
-	</div>
+		</a4j:repeat>
+	</h:panelGroup>
 </h:panelGroup>

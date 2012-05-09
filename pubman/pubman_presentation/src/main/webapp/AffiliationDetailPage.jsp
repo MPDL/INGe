@@ -31,7 +31,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:jsp="http://java.sun.com/JSP/Page"
-	xmlns:tr="http://myfaces.apache.org/trinidad">
+	xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
 
 <jsp:output doctype-root-element="html"
@@ -68,7 +68,7 @@
 									</h:panelGroup>
 										<h:panelGroup styleClass="seperator" />
 									<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
-										<b><tr:outputText id="detailsTitle" value="#{AffiliationDetailPage.affiliation.defaultMetadata.name}"/></b>
+										<b><h:outputText id="detailsTitle" value="#{AffiliationDetailPage.affiliation.defaultMetadata.name}"/></b>
 									</h:panelGroup>
 								</div>
 								<h:panelGroup layout="block" styleClass="full_area0 itemBlock">
@@ -83,9 +83,9 @@
 												<h:outputText value="#{lbl.AffiliationDetailAlternativeTitle}" /><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 endline">
-												<tr:iterator id="detailsAltTitles" var="alternative" value="#{AffiliationDetailPage.affiliation.defaultMetadata.alternativeNames}">
-			                                        <tr:outputText id="txtAffiliationDetailAlternativeTitle" styleClass="xHuge_area0 endline" value="#{alternative} "/>    
-			                                    </tr:iterator>
+												<a4j:repeat id="detailsAltTitles" var="alternative" value="#{AffiliationDetailPage.affiliation.defaultMetadata.alternativeNames}">
+			                                        <h:outputText id="txtAffiliationDetailAlternativeTitle" styleClass="xHuge_area0 endline" value="#{alternative} "/>    
+			                                    </a4j:repeat>
 											</span>
 										</div>
 										<!-- city & country -->
@@ -94,8 +94,8 @@
 												<h:outputText value="#{lbl.AffiliationDetailLocation}" /><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 endline">
-												<tr:outputText id="detailsCity" value="#{AffiliationDetailPage.affiliation.defaultMetadata.city}, "/>
-	                                    		<tr:outputText id="detailsCountry" value="#{AffiliationDetailPage.affiliation.defaultMetadata.countryCode}"/>
+												<h:outputText id="detailsCity" value="#{AffiliationDetailPage.affiliation.defaultMetadata.city}, "/>
+	                                    		<h:outputText id="detailsCountry" value="#{AffiliationDetailPage.affiliation.defaultMetadata.countryCode}"/>
 											</span>
 										</div>
 										<!-- descriptions -->
@@ -104,9 +104,9 @@
 												<h:outputText value="#{lbl.AffiliationDetailDescription}" /><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 endline">
-												 <tr:iterator id="detailsDescription" var="description" value="#{AffiliationDetailPage.affiliation.defaultMetadata.descriptions}">
-			                                        <tr:outputText id="txtAffiliationDetailDescription" styleClass="xHuge_area0 endline" value="#{description} "/>    
-			                                    </tr:iterator>
+												 <a4j:repeat id="detailsDescription" var="description" value="#{AffiliationDetailPage.affiliation.defaultMetadata.descriptions}">
+			                                        <h:outputText id="txtAffiliationDetailDescription" styleClass="xHuge_area0 endline" value="#{description} "/>    
+			                                    </a4j:repeat>
 											</span>
 										</div>
 										<!-- identifiers -->
@@ -115,9 +115,9 @@
                                                 <h:outputText value="#{lbl.AffiliationDetailIdentifier}" /><span class="noDisplay">: </span>
                                             </b>
                                             <span class="xHuge_area0 endline">
-                                                 <tr:iterator id="detailsIdentifier" var="identifier" value="#{AffiliationDetailPage.affiliation.defaultMetadata.identifiers}">
-                                                    <tr:outputText id="txtAffiliationDetailIdentifier" styleClass="xHuge_area0 endline" value="#{identifier.id} "/>    
-                                                </tr:iterator>
+                                                 <a4j:repeat id="detailsIdentifier" var="identifier" value="#{AffiliationDetailPage.affiliation.defaultMetadata.identifiers}">
+                                                    <h:outputText id="txtAffiliationDetailIdentifier" styleClass="xHuge_area0 endline" value="#{identifier.id} "/>    
+                                                </a4j:repeat>
                                             </span>
                                         </div>
 									</div>
@@ -129,7 +129,7 @@
 									<h:panelGroup styleClass="seperator"></h:panelGroup>
 									<div class="free_area0 itemBlockContent endline">
 										<!-- any field -->
-										<tr:iterator id="successorsDescription" var="successors" value="#{AffiliationDetailPage.affiliation.successors}">
+										<a4j:repeat id="successorsDescription" var="successors" value="#{AffiliationDetailPage.affiliation.successors}">
 										<div class="free_area0 endline itemLine noTopBorder">
 											<b class="xLarge_area0_p8 endline labelLine clear">
 												<h:outputText value="#{lbl.AffiliationDetailName}" /><span class="noDisplay">: </span>
@@ -138,7 +138,7 @@
                                              <h:outputText styleClass="xHuge_area0 endline" value="#{successors.defaultMetadata.name}"/>    
                                          </span>
 										</div>
-										</tr:iterator>
+										</a4j:repeat>
 									</div>
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{AffiliationDetailPage.affiliation.hasPredecessors}">
@@ -148,7 +148,7 @@
 									<h:panelGroup styleClass="seperator"></h:panelGroup>
 								   <div class="free_area0 itemBlockContent endline">
 									<!-- any field -->
-									<tr:iterator id="predecessorsDescription" var="predecessor" value="#{AffiliationDetailPage.affiliation.predecessors}">
+									<a4j:repeat id="predecessorsDescription" var="predecessor" value="#{AffiliationDetailPage.affiliation.predecessors}">
 									  <div class="free_area0 endline itemLine noTopBorder">
 										 <b class="xLarge_area0_p8 endline labelLine clear">
 											    <h:outputText value="#{lbl.AffiliationDetailName}" /><span class="noDisplay">: </span>
@@ -157,7 +157,7 @@
 		                                     <h:outputText styleClass="xHuge_area0 endline" value="#{predecessor.defaultMetadata.name}"/>    
 										 </span>
 									  </div>
-									</tr:iterator>
+									</a4j:repeat>
 								   </div>
 								</h:panelGroup>
 							</div>

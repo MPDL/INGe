@@ -28,7 +28,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad" xmlns:ui="http://java.sun.com/jsf/facelets">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"  xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<jsp:output doctype-root-element="html"
 	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -50,7 +50,7 @@
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{YearbookCandidatesRetrieverRequestBean.beanName}" styleClass="noDisplay" />
-			<tr:form usesUpload="true">
+			<h:form >
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
@@ -151,11 +151,11 @@
 											<h:panelGroup styleClass="xDouble_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="selSelectedOrgUnit" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{YearbookCandidatesRetrieverRequestBean.selectedOrgUnit}" onchange="$(this).parents('div').find('.changeOrgUnit').click();">
+										<h:selectOneMenu id="selSelectedOrgUnit" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{YearbookCandidatesRetrieverRequestBean.selectedOrgUnit}" onchange="$pb(this).parents('div').find('.changeOrgUnit').click();">
 											<f:selectItems value="#{YearbookCandidatesRetrieverRequestBean.orgUnitSelectItems}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-					<!-- <% /* 		<h:selectOneMenu id="selSelectedOrgUnit" styleClass="xDouble_select replace" value="#{YearbookCandidatesRetrieverRequestBean.selectedOrgUnit}" onchange="$(this).parents('div').find('.changeOrgUnit').click();">
+					<!-- <% /* 		<h:selectOneMenu id="selSelectedOrgUnit" styleClass="xDouble_select replace" value="#{YearbookCandidatesRetrieverRequestBean.selectedOrgUnit}" onchange="$pb(this).parents('div').find('.changeOrgUnit').click();">
 										<f:selectItems value="#{YearbookCandidatesRetrieverRequestBean.orgUnitSelectItems}"/>
 									</h:selectOneMenu>	*/ %> -->
 									<h:commandButton id="btChangeOrgUnit" styleClass="noDisplay changeOrgUnit" action="#{YearbookCandidatesRetrieverRequestBean.changeOrgUnit}" value="change org unit"/>
@@ -170,11 +170,11 @@
 											<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="sortBy" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();">
+										<h:selectOneMenu id="sortBy" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$pb(this).parents('div').find('.changeSortBy').click();">
 											<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-					<!-- <% /*		<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
+					<!-- <% /*		<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$pb(this).parents('div').find('.changeSortBy').click();" >
 										<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
 									</h:selectOneMenu>	*/ %> -->
 									
@@ -240,21 +240,21 @@
 				
 			</div>
 			<jsp:directive.include file="footer/Footer.jspf" />
-			</tr:form>
+			</h:form>
 			<script type="text/javascript">
 			<![CDATA[
-				$("input[id$='offset']").submit(function() {
-					$(this).val($(window).scrollTop());
+				$pb("input[id$='offset']").submit(function() {
+					$pb(this).val($pb(window).scrollTop());
 				});
-				$(document).ready(function () {
-					$(window).scrollTop($("input[id$='offset']").val());
-					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
+				$pb(document).ready(function () {
+					$pb(window).scrollTop($pb("input[id$='offset']").val());
+					$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
 
 					var element = document.getElementById('selSelectedOrgUnit');
 					if (element.options != null && element.options.length == 2)
 					{
 						throb();
-						$.getJSON('AffiliationsAsJSON.jsp', loadAffiliations);
+						$pb.getJSON('AffiliationsAsJSON.jsp', loadAffiliations);
 					}
 				});
 				]]>
@@ -265,8 +265,8 @@
 					document.getElementById('content').style.opacity='0.4';
 					document.getElementById('content').style.bg='FFF';
 					document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea half_marginLIncl smallThrobber');
-					$('#fullItem :input :text').attr('readonly', true);
-				    $('#fullItem :textarea').attr('readonly', true);
+					$pb('#fullItem :input :text').attr('readonly', true);
+				    $pb('#fullItem :textarea').attr('readonly', true);
 				}
 			</script>
 			</body>

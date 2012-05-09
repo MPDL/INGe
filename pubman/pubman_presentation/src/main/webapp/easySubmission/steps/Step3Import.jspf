@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <f:subview id="Import">
 
@@ -138,7 +138,7 @@
 										<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
 										<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 									</h:panelGroup>
-									<h:selectOneMenu id="selCurrentExternalServiceType" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{EasySubmissionSessionBean.currentExternalServiceType}" onchange="$(this).parents('.itemBlock').find('.hiddenButton').click();" binding="#{EasySubmission.sourceSelect}">
+									<h:selectOneMenu id="selCurrentExternalServiceType" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{EasySubmissionSessionBean.currentExternalServiceType}" onchange="$pb(this).parents('.itemBlock').find('.hiddenButton').click();" binding="#{EasySubmission.sourceSelect}">
 										<f:selectItems value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}" />
 									</h:selectOneMenu>
 								</h:panelGroup>
@@ -154,9 +154,9 @@
 						</span>
 						<br class="clear" />
 						<h:panelGroup styleClass="free_area0 xTiny_marginLExcl endline line180" rendered="#{EasySubmissionSessionBean.fulltext}">
-							<tr:selectOneRadio value="#{EasySubmissionSessionBean.radioSelectFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}">
+							<h:selectOneRadio value="#{EasySubmissionSessionBean.radioSelectFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}">
 								<f:selectItems id="selFulltextOptions" value="#{EasySubmissionSessionBean.FULLTEXT_OPTIONS}"/>
-							</tr:selectOneRadio>
+							</h:selectOneRadio>
 						</h:panelGroup>
 					</h:panelGroup>
 				</h:panelGroup>
@@ -175,12 +175,14 @@
 					<h:panelGroup layout="block" styleClass="free_area0 endline firstLine line180">
 						<span class="free_area0 xTiny_marginLExcl endline fileSection">
 							<h:panelGroup style="line-height:2.5454em;">
-								<tr:inputFile id="inpUploadedBibTexFile" styleClass="fileInput" value="#{EasySubmission.uploadedBibTexFile}" />
+								<rich:fileUpload id="inpUploadedBibTexFile" styleClass="fileInput" fileUploadListener="#{EasySubmission.bibtexFileUploaded}" 
+									immediateUpload="true" maxFilesQuantity="1"/>
+								
 							</h:panelGroup>
 							<br class="clear" style="line-height:0.6363em;" />
-							<tr:selectOneRadio styleClass="clear import" value="#{EasySubmissionSessionBean.radioSelectReferenceValue}" >
+							<h:selectOneRadio styleClass="clear import" value="#{EasySubmissionSessionBean.radioSelectReferenceValue}" >
 								<f:selectItems id="selReferenceOptions" value="#{EasySubmissionSessionBean.REFERENCE_OPTIONS}"/>
-							</tr:selectOneRadio>
+							</h:selectOneRadio>
 						</span>
 					</h:panelGroup>
 				</h:panelGroup>
@@ -190,10 +192,10 @@
 </div>
 <div class="full_area0 formButtonArea">		
 	<h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.EditItem_lnkCancel}" /></h:outputLink>
-	<tr:commandLink id="lnkImport" shortDesc="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}">
+	<h:commandLink id="lnkImport" title="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}">
 		<h:outputText value="#{lbl.easy_submission_btnUpload}" rendered="#{EasySubmission.disableExternalFields}"/>
 		<h:outputText value="#{lbl.easy_submission_btnFetch}" rendered="#{EasySubmission.disableBibtexFields}"/>
-	</tr:commandLink>
+	</h:commandLink>
 </div>
 
 </f:subview>

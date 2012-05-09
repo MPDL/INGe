@@ -76,8 +76,8 @@
 	<h:outputText styleClass="free_area0" value="#{lbl.mainMenu_lblTools}" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'ToolsPage'}"/>
 </div>
 <script type="text/javascript">
-	if ($.browser.msie && $.browser.version == 7) {
-		$('.mainMenu').css('margin-top', '-0.7272em');
-		$('.wrapper').css('width', '84.0909em');
+	if ($pb.browser.msie && $pb.browser.version == 7) {
+		$pb('.mainMenu').css('margin-top', '-0.7272em');
+		$pb('.wrapper').css('width', '84.0909em');
 	}
 </script>

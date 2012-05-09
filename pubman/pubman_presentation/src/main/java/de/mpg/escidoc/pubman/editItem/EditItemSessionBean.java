@@ -59,6 +59,8 @@ public class EditItemSessionBean extends EditItemBean
 
     private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
     
+    private boolean filesInitialized = false;
+    
     private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
     
     private String genreBundle = "Genre_ARTICLE";
@@ -111,6 +113,7 @@ public class EditItemSessionBean extends EditItemBean
         clean();
         
         // make sure that at least one locator and one file is stored in the  EditItemSessionBean
+        /*
         if(this.getFiles().size() < 1)
         {
             FileVO newFile = new FileVO();
@@ -118,6 +121,7 @@ public class EditItemSessionBean extends EditItemBean
             newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
             this.getFiles().add(new PubFileVOPresentation(this.getFiles().size(), newFile, false));
         }
+        */
         if(this.getLocators().size() < 1)
         {
             FileVO newLocator = new FileVO();
@@ -134,13 +138,14 @@ public class EditItemSessionBean extends EditItemBean
      */
     public void clean()
     {
+    	
         super.clean(); 
-        
         this.files.clear();
         this.locators.clear();
         this.sources.clear();
         this.genreBundle = "";
         this.offset="";
+        this.filesInitialized = false;
     }
     
     public void bindSourcesToBean(List<SourceVO> sourceList)
@@ -195,7 +200,7 @@ public class EditItemSessionBean extends EditItemBean
 
     public List<PubFileVOPresentation> getFiles() 
     {
-        return files;
+        return files; 
     }
 
     public void setFiles(List<PubFileVOPresentation> files) 
@@ -204,8 +209,9 @@ public class EditItemSessionBean extends EditItemBean
     }
 
     public List<PubFileVOPresentation> getLocators()
-    {
-        return locators;
+    {	
+    	
+    	return locators;
     }
 
     public void setLocators(List<PubFileVOPresentation> locators)
@@ -279,4 +285,12 @@ public class EditItemSessionBean extends EditItemBean
     {
         this.currentSubmission = currentSubmission;
     }
+
+	public boolean isFilesInitialized() {
+		return filesInitialized;
+	}
+
+	public void setFilesInitialized(boolean filesInitialized) {
+		this.filesInitialized = filesInitialized;
+	}
 }

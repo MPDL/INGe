@@ -29,7 +29,7 @@ All rights reserved. Use is subject to license terms.
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -40,7 +40,7 @@ All rights reserved. Use is subject to license terms.
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 		<a class="clear free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderOrgan}" /></a>
 
-		<tr:iterator id="organizationCriterion" rows="0" var="organizationCriterionBean" value="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.objectDM}" binding="#{organizationCriterionIterator}" varStatus="index">
+		<a4j:repeat id="organizationCriterion" rows="0" var="organizationCriterionBean" value="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.objectDM}" binding="#{organizationCriterionIterator}" rowKeyVar="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{organizationCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -61,8 +61,8 @@ All rights reserved. Use is subject to license terms.
                 </h:panelGroup>
 				
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAddOrganizationCriterionFirst" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />
-					<tr:commandButton id="btnRemoveOrganizationCriterionFirst" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size == 1}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}"/>
+					<h:commandButton id="btnAddOrganizationCriterionFirst" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />
+					<h:commandButton id="btnRemoveOrganizationCriterionFirst" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size == 1}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}"/>
 				</span>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{organizationCriterionIterator.rowIndex > 0}">
@@ -84,8 +84,8 @@ All rights reserved. Use is subject to license terms.
                 </h:panelGroup>
 
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAddOrganizationCriterion" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />
-					<tr:commandButton id="btnRemoveOrganizationCriterion" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size == 1}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}"/>
+					<h:commandButton id="btnAddOrganizationCriterion" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />
+					<h:commandButton id="btnRemoveOrganizationCriterion" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size == 1}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}"/>
 				</span>
 			</h:panelGroup>
 
@@ -106,6 +106,6 @@ All rights reserved. Use is subject to license terms.
 				</h:selectOneMenu>	 --%>
 			</h:panelGroup>
 
-		</tr:iterator>
+		</a4j:repeat>
 	</div>
 </div>

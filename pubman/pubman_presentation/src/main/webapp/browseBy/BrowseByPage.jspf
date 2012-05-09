@@ -37,12 +37,12 @@
 		</span>
 		<h:panelGroup styleClass="seperator" />
 		<span class="free_area0_p8 itemHeadline" style="width:62em;">
-			<tr:iterator var="char" id="charIter" value="#{BrowseBySessionBean.characters}" binding="#{BrowseByPage.characterIterator}" varStatus="index" rows="0">
+			<a4j:repeat var="char" id="charIter" value="#{BrowseBySessionBean.characters}" binding="#{BrowseByPage.characterIterator}" rowKeyVar="index" rows="0">
 				<b>
 					<h:panelGroup styleClass="xTiny_area0 free_txtBtn groupBtn" rendered="#{BrowseBySessionBean.currentCharacter != char}">
-						<tr:commandLink id="lnkChar" action="#{BrowseByPage.startCharacterSearch}">
+						<h:commandLink id="lnkChar" action="#{BrowseByPage.startCharacterSearch}">
 							<h:outputText value="#{char}" />
-						</tr:commandLink>
+						</h:commandLink>
 					</h:panelGroup>
 					
 					<h:panelGroup styleClass="xTiny_area0 disabled" rendered="#{(BrowseBySessionBean.showChars) and (BrowseBySessionBean.currentCharacter == char)}">
@@ -50,7 +50,7 @@
 					</h:panelGroup>
 					
 				</b>
-			</tr:iterator>
+			</a4j:repeat>
 		</span>
 	</h:panelGroup>
 <!-- Character Search Result -->
@@ -90,7 +90,7 @@
 		<h:panelGroup styleClass="seperator" />
 		 --%>
 		<div class="free_area0 itemBlockContent endline">
-			<tr:iterator var="link" id="linkIter" value="#{BrowseBySessionBean.searchResults}" varStatus="index" rows="0">
+			<a4j:repeat var="link" id="linkIter" value="#{BrowseBySessionBean.searchResults}" rowKeyVar="index" rows="0">
 				<div class="free_area0 itemLine noTopBorder">
 					<!-- This one is only valid for cone identifier, other values from cone are not populated with the url -->
 					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.selectedValue == 'persons'}">									
@@ -106,7 +106,7 @@
 						</h:outputLink>
 					</h:panelGroup>					
 				</div>
-			</tr:iterator>
+			</a4j:repeat>
 		</div>
 	</h:panelGroup>
 <!-- Display full link list -->
@@ -116,7 +116,7 @@
 		</span>
 		<h:panelGroup styleClass="seperator" />
 		<div class="free_area0 itemBlockContent endline">
-			<tr:iterator var="link" id="linkIterAll" value="#{BrowseBySessionBean.coneAll}" varStatus="index" rows="0">
+			<a4j:repeat var="link" id="linkIterAll" value="#{BrowseBySessionBean.coneAll}" rowKeyVar="index" rows="0">
 				<div class="free_area0 itemLine noTopBorder">
 					<!-- This one is only valid for cone identifier, other values from cone are not populated with the url -->
 					<h:panelGroup styleClass="free_area0 xTiny_marginLExcl" rendered="#{BrowseBySessionBean.selectedValue == 'persons'}">									
@@ -132,7 +132,7 @@
 						</h:outputLink>
 					</h:panelGroup>					
 				</div>
-			</tr:iterator>
+			</a4j:repeat>
 		</div>
 	</h:panelGroup>
 	<h:panelGroup styleClass="full_area0 itemBlock" rendered="#{BrowseBySessionBean.selectedValue == 'year'}">
@@ -141,7 +141,7 @@
 		</span>
 		
 		<div class="free_area0 itemBlockContent endline">
-			<tr:iterator var="year" id="yearIter" value="#{BrowseBySessionBean.browseByYears}" binding="#{BrowseByPage.yearIterator}" varStatus="index" rows="0" >
+			<a4j:repeat var="year" id="yearIter" value="#{BrowseBySessionBean.browseByYears}" binding="#{BrowseByPage.yearIterator}" rowKeyVar="index" rows="0" >
 				<div class="small_area0 noTopBorder" style="padding-left: 8px !important;">
 					<span class="seperator"></span>
 					
@@ -157,7 +157,7 @@
 						</h:outputLink>									
 					</h:panelGroup>		
 				</div>
-			</tr:iterator>			
+			</a4j:repeat>			
 		</div>
 	</h:panelGroup>
 </div>

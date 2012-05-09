@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 
 
@@ -38,10 +38,52 @@
 		<h:outputText value="#{genre.files_label}" converter="GenreLabelConverter"/>
 	</h3>
 	<span class="seperator"></span>
-	<div class="free_area0 itemBlockContent endline">
-		<tr:iterator var="component" id="fileUploads" value="#{EasySubmission.files}" binding="#{EasySubmission.fileIterator}" varStatus="index">
+	<h:panelGroup id="files" styleClass="free_area0 itemBlockContent endline">
+		<%-- Add Files --%>
+		<h:panelGroup layout="block" styleClass="files" rendered="#{!(genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'easy-submission' || genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'all')}">
+			<h:panelGroup layout="block" styleClass="free_area0_p6 endline itemLine noTopBorder fileSection xSmall_negMarginLExcl">
+				<span class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" />
+						  <h:outputText value="#{lbl.EditItem_lblFile}"/>
+						  <span class="noDisplay">: </span>
+				</span>
+				<div id="ccContentHelper" class="ccContentHelper noDisplay">&#160;</div>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">					
+
+					<rich:fileUpload allowFlash="auto" id="inpFileUploaded" styleClass="fileInput" fileUploadListener="#{EasySubmission.fileUploaded}" maxFilesQuantity="50"
+					immediateUpload="true">
+						<a4j:support event="onuploadcomplete" reRender="files"/>
+						
+					</rich:fileUpload>
+				</span>
+				<%-- 
+				<span class="large_area0_p8 lineToolSection">
+					<h:commandButton id="btnUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" 
+									  text="#{lbl.easy_submission_btnUploadFile}" partialSubmit="false"/>
+				</span>
+				--%>
+			</h:panelGroup>
+			
+			<%-- Add File from url--%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel id="lblEditItemURL" styleClass="quad_label" value="#{lbl.EditItem_lblFileURL}" />
+					<h:inputText id="inpLocatorUpload" styleClass="quad_txtInput" value="#{EasySubmission.locatorUpload}" />
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<h:commandButton id="btnEditItemUpload" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_btUpload_URL}"  
+									  title="#{tip.EditItem_btUploadLocator}" action="#{EasySubmission.uploadLocator}" />
+				</span>
+			</h:panelGroup>
+		</h:panelGroup>
+	
+		<a4j:repeat var="component" id="fileUploads" value="#{EasySubmission.files}" binding="#{EasySubmission.fileIterator}" rowKeyVar="index">
 
 <%-- Add File --%>
+<%--
 		<h:panelGroup layout="block" styleClass="files" rendered="#{!(genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'easy-submission' || genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0_p6 endline itemLine noTopBorder fileSection xSmall_negMarginLExcl"  rendered="#{component.index == 0 && component.size == 0}">
 				<span class="xLarge_area0_p8 endline labelLine clear">
@@ -51,11 +93,12 @@
 				</span>
 				<div id="ccContentHelper" class="ccContentHelper noDisplay">&#160;</div>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">					
-					<tr:inputFile id="inpFileUploaded" styleClass="fileInput" value="#{EasySubmission.uploadedFile}" valueChangeListener="#{EasySubmission.fileUploaded}"
-								  onchange=""/>
+					<rich:fileUpload id="inpFileUploaded" styleClass="fileInput" fileUploadListener="#{EasySubmission.fileUploaded}" 
+					immediateUpload="true"/>
+
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" 
+					<h:commandButton id="btnUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" 
 									  text="#{lbl.easy_submission_btnUploadFile}" partialSubmit="false"/>
 				</span>
 			</h:panelGroup>
@@ -67,15 +110,18 @@
 						  <span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<tr:inputFile id="inpUploadedFile" styleClass="fileInput" value="#{EasySubmission.uploadedFile}" valueChangeListener="#{EasySubmission.fileUploaded}" />
+				<rich:fileUpload id="inpUploadedFile" styleClass="fileInput" fileUploadListener="#{EasySubmission.fileUploaded}" 
+					immediateUpload="true"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnEasySubmissionUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" 
+					<h:commandButton id="btnEasySubmissionUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" 
 									  text="#{lbl.EditItem_btUpload_File}" partialSubmit="false"/>
 				</span>
 			</h:panelGroup>
 		</h:panelGroup>
+		--%>
 <%-- Add File from url--%>
+<%--
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"  rendered="#{component.size == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<span class="noDisplay"> </span>
@@ -85,10 +131,11 @@
 					<h:inputText id="inpLocatorUpload" styleClass="quad_txtInput" value="#{EasySubmission.locatorUpload}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnEditItemUpload" styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btUpload_URL}"  
-									  shortDesc="#{tip.EditItem_btUploadLocator}" action="#{EasySubmission.uploadLocator}" />
+					<h:commandButton id="btnEditItemUpload" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_btUpload_URL}"  
+									  title="#{tip.EditItem_btUploadLocator}" action="#{EasySubmission.uploadLocator}" />
 				</span>
 			</h:panelGroup>
+--%>
 <%-- Real filename --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.index == 0 && component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -245,33 +292,39 @@
 						<h:inputText id="inpComponentFileDefaultMetadataLicense" styleClass="xDouble_txtInput tiny_marginRIncl licenseURL" 
 									 value="#{component.file.defaultMetadata.license}"/>
 
-						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicense}" styleClass="large_txtBtn groupBtn ccLicense" 
-									onclick="var actualCCContent = $(this).parents('.licenseArea').find('.messageArea').find('.ccContent');
-											 $(actualCCContent).append($('head').children('div')); 
-											 $(actualCCContent).parents('.messageArea').removeClass('noDisplay');"
-									ondblclick="return false;"/>
+						<h:outputLink styleClass="large_txtBtn groupBtn ccLicense" value=""
+									onclick="var actualCCContent = $pb(this).parents('.licenseArea').find('.messageArea').find('.ccContent');
+											 $pb(actualCCContent).append($pb('head').children('div')); 
+											 $pb(actualCCContent).parents('.messageArea').removeClass('noDisplay');return false;"
+									ondblclick="return false;">
+									<h:outputText value="#{lbl.EditItem_btnSelectCCLicense}"/>
+						</h:outputLink>
 					</h:panelGroup>
 					<h:panelGroup id="cc_js_widget_container" styleClass="xHuge_area2_p8 messageArea noDisplay" style="margin-top: -1.82em;">
-						<input type="button" onclick="$(this).parents('.messageArea').addClass('noDisplay');" 
+						<input type="button" onclick="$pb(this).parents('.messageArea').addClass('noDisplay');" 
 							   value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
 						<div class="ccContent">&#160;</div>
-						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicenseApply}" styleClass="activeButton" 
-									 onclick="$(this).parents('.licenseArea').find('.licenseURL').val($(this).parents('.messageArea').find('#cc_js_result_uri').val()); 									  		   
-									  		  $(this).parents('.messageArea').addClass('noDisplay');"/>
+						<h:outputLink styleClass="activeButton" value=""
+									 onclick="$pb(this).parents('.licenseArea').find('.licenseURL').val($pb(this).parents('.messageArea').find('#cc_js_result_uri').val()); 									  		   
+									  		  $pb(this).parents('.messageArea').addClass('noDisplay');return false;">
+				  		  <h:outputText value="#{lbl.EditItem_btnSelectCCLicenseApply}" />
+				  		  </h:outputLink>
 				     </h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnRemoveFileEasySubmission" styleClass="min_imgBtn sectionTool remove" 
-									  text=" " action="#{component.removeFileEasySubmission}" 
+					<a4j:commandButton id="btnRemoveFileEasySubmission" reRender="files" styleClass="min_imgBtn sectionTool remove" 
+									  value=" " action="#{component.removeFileEasySubmission}" 
 									  rendered="#{genre.files_repeatable != 'false'}"/>
-					<tr:commandButton id="btnAddFile" styleClass="min_imgBtn sectionTool add" 
-									  text=" " action="#{EasySubmission.addFile}" 
+					<%--
+					<h:commandButton id="btnAddFile" styleClass="min_imgBtn sectionTool add" 
+									  value=" " action="#{EasySubmission.addFile}" 
 									  disabled="#{EasySubmission.files[EasySubmission.numberOfFiles-1].size == 0}" 
 									  rendered="#{genre.files_repeatable != 'false'}"/>
+									  --%>
 				</span>
 				
 			</h:panelGroup>
 		
-		</tr:iterator>	
-	</div>
+		</a4j:repeat>	
+	</h:panelGroup>
 </h:panelGroup>

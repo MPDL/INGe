@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -66,7 +66,7 @@
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<span class="free_area0 authorsGroup">
 					<!-- Display {ViewItemFull.defaultSize} creators by default -->
-					<tr:iterator var="creator" value="#{ViewItemFull.creators}" rows="#{ViewItemFull.defaultSize}" varStatus="creatorStatus"> 
+					<a4j:repeat var="creator" value="#{ViewItemFull.creators}" rows="#{ViewItemFull.defaultSize}" rowKeyVar="creatorStatus"> 
 						<h:panelGroup id="txtCreatorPersonFormattedDisplay" styleClass="free_area0 creator clear" rendered="#{creator.creatorType == 'PERSON'}">
 							<h:outputText value="#{creator.creatorObj.formattedDisplay}" escape="false"/>
 							<h:panelGroup rendered="#{creator.creatorObj.portfolioLink != null}">
@@ -83,10 +83,10 @@
 							<h:outputLink id="lnkCreatorOrganizationLink" styleClass="ouCard" rendered="#{creator.creatorObj.identifier != null and creator.creatorObj.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.creatorObj.identifier}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 						</h:panelGroup>
 						<br/>
-					</tr:iterator>
+					</a4j:repeat>
 
 					<!-- Hidden creators, visible after clicking on more -->
-					<tr:iterator var="creator" value="#{ViewItemFull.creators}" varStatus="creatorStatus" first="#{ViewItemFull.defaultSize}" rows="#{ViewItemFull.creatorArraySize}" rendered="#{ViewItemFull.creatorArraySize > ViewItemFull.defaultSize}"> 
+					<a4j:repeat var="creator" value="#{ViewItemFull.creators}" rowKeyVar="creatorStatus" first="#{ViewItemFull.defaultSize}" rows="#{ViewItemFull.creatorArraySize}" rendered="#{ViewItemFull.creatorArraySize > ViewItemFull.defaultSize}"> 
 						<h:panelGroup id="txtCreatorPersonFormattedHidden" styleClass="free_area0 creator creatorHidden tiny_marginRIncl" rendered="#{creator.creatorType == 'PERSON'}">
 							<h:outputText value="#{creator.creatorObj.formattedDisplay}" escape="false"/>
 							<h:panelGroup rendered="#{creator.creatorObj.portfolioLink != null}">
@@ -101,7 +101,7 @@
 							&#160;
 							<h:outputLink id="lnkCreatorOrganizationLink" styleClass="ouCard" rendered="#{creator.creatorObj.identifier != null and creator.creatorObj.identifier != ''}" value="#" onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.creatorObj.identifier}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 						</h:panelGroup>
-					</tr:iterator>
+					</a4j:repeat>
 					
 					<h:panelGroup rendered="#{ViewItemFull.creatorArraySize > ViewItemFull.defaultSize}">
 						<a class="large_area0 tiny_marginRIncl showMoreAuthors" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
@@ -118,7 +118,7 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblAffiliations}"/><span class="noDisplay">: <br /></span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<tr:iterator var="creatorAffiliation" value="#{ViewItemFull.organizationList}" rows="0">
+				<a4j:repeat var="creatorAffiliation" value="#{ViewItemFull.organizationList}" rows="0">
 					<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
 					<h:panelGroup id="txtCreatorAffiliation" styleClass="free_area0 affiliation">
 						<h:outputText value="#{creatorAffiliation.organizationName}"/>
@@ -131,7 +131,7 @@
 						</h:panelGroup>
 					</h:panelGroup>
 					<h:outputText value="<br />" escape="false"/>
-				</tr:iterator>
+				</a4j:repeat>
 			</span>
 		</div>
 

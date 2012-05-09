@@ -128,12 +128,12 @@
 						<!-- end: content section -->
 						<jsp:directive.include file="footer/Footer.jspf" />
 						<script type="text/javascript">
-							$("input[id$='offset']").submit(function() {
-								$(this).val($(window).scrollTop());
+							$pb("input[id$='offset']").submit(function() {
+								$pb(this).val($pb(window).scrollTop());
 							});
-							$(document).ready(function () {
-								$(window).scrollTop($("input[id$='offset']").val());
-								$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop())});
+							$pb(document).ready(function () {
+								$pb(window).scrollTop($pb("input[id$='offset']").val());
+								$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop())});
 							});
 						</script>
 					</div> <!-- end: full wrapper -->

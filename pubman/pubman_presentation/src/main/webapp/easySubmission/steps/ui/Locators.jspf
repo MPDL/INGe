@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <h:panelGroup layout="block" id="editLocator" styleClass="full_area0 itemBlock" rendered="#{!(genre.locators_display == 'false' && genre.locators_form_id == 'easy-submission' || genre.locators_display == 'false' && genre.locators_form_id == 'all')}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -37,7 +37,7 @@
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
-		<tr:iterator var="locator" id="locatorUploads" value="#{EasySubmission.locators}" binding="#{EasySubmission.locatorIterator}" varStatus="index">
+		<a4j:repeat var="locator" id="locatorUploads" value="#{EasySubmission.locators}" binding="#{EasySubmission.locatorIterator}" rowKeyVar="index">
 
 <%-- Add locator --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator == null || locator.locator == '') && locator.index == 0 }" >
@@ -49,7 +49,7 @@
 					<h:inputText id="inpLocatorLocator1" styleClass="quad_txtInput" value="#{locator.locator}"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="lblEasySubmissionSaveLocator" styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSave}" action="#{EasySubmission.saveLocator}" />
+					<h:commandButton id="lblEasySubmissionSaveLocator" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_lnkSave}" action="#{EasySubmission.saveLocator}" />
 				</span>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{(locator.locator == null || locator.locator == '') && locator.index > 0 }" >
@@ -61,7 +61,7 @@
 					<h:inputText id="inpLocatorLocator2" styleClass="quad_txtInput" value="#{locator.locator}"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="tr" styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSave}" action="#{EasySubmission.saveLocator}" />
+					<h:commandButton id="tr" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_lnkSave}" action="#{EasySubmission.saveLocator}" />
 				</span>
 			</h:panelGroup>
 
@@ -138,11 +138,11 @@
 				</h:panelGroup>
 
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnRemoveLocatorEasySubmission" styleClass="min_imgBtn sectionTool remove" text=" " action="#{locator.removeLocatorEasySubmission}" rendered="#{genre.locators_repeatable != 'false'}"/>	
-					<tr:commandButton id="btnEasySubmissionAddLocator" styleClass="min_imgBtn sectionTool add" text=" " action="#{EasySubmission.addLocator}" disabled="#{EasySubmission.locators[EasySubmission.numberOfLocators-1].locator == null || EasySubmission.locators[EasySubmission.numberOfLocators-1].locator == '' }" rendered="#{genre.locators_repeatable != 'false'}"/>
+					<h:commandButton id="btnRemoveLocatorEasySubmission" styleClass="min_imgBtn sectionTool remove" value=" " action="#{locator.removeLocatorEasySubmission}" rendered="#{genre.locators_repeatable != 'false'}"/>	
+					<h:commandButton id="btnEasySubmissionAddLocator" styleClass="min_imgBtn sectionTool add" value=" " action="#{EasySubmission.addLocator}" disabled="#{EasySubmission.locators[EasySubmission.numberOfLocators-1].locator == null || EasySubmission.locators[EasySubmission.numberOfLocators-1].locator == '' }" rendered="#{genre.locators_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
 
-		</tr:iterator>
+		</a4j:repeat>
 	</div>
 </h:panelGroup>

@@ -12,10 +12,6 @@ import javax.faces.event.ActionEvent;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
-import org.apache.myfaces.trinidad.event.SelectionEvent;
-import org.apache.myfaces.trinidad.model.ChildPropertyTreeModel;
-import org.apache.myfaces.trinidad.model.SortCriterion;
-import org.apache.myfaces.trinidad.model.TreeModel;
 
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -43,7 +39,7 @@ public class AffiliationBean extends FacesBean
 
     private static Logger logger = Logger.getLogger(AffiliationBean.class);
     public static final String LOAD_AFFILIATION_TREE = "loadAffiliationTree";
-    private TreeModel tree;
+    //private TreeModel tree;
     private List<AffiliationVOPresentation> selected = null;
     private List<AffiliationVOPresentation> topLevelAffs = null;
     AffiliationVOPresentation selectedAffiliation = null;
@@ -59,11 +55,12 @@ public class AffiliationBean extends FacesBean
      */
     public AffiliationBean() throws Exception
     {
-        tree = new ChildPropertyTreeModel(getAffiliations(), "children");
+        //tree = new ChildPropertyTreeModel(getAffiliations(), "children");
         timestamp = new Date().getTime();
         this.setTopLevelAffs(getTopLevelAffiliations());
     }
 
+    /*
     public TreeModel getTree()
     {
         if (timestamp < ((AffiliationTree) getSessionBean(AffiliationTree.class)).getTimestamp())
@@ -86,6 +83,7 @@ public class AffiliationBean extends FacesBean
     {
         logger.debug("SELECT: " + event);
     }
+    */
 
     public void selectNode(ActionEvent event) throws Exception
     {

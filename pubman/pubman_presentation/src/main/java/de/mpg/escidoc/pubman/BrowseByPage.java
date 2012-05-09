@@ -39,8 +39,8 @@ import java.util.Locale;
 
 import javax.faces.model.SelectItem;
 
+import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.log4j.Logger;
-import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
@@ -68,9 +68,9 @@ public class BrowseByPage extends BreadcrumbPage
     private final String queryPerson = "foaf:family_name";
     private final String queryDdc = "dc:title";
     private BrowseBySessionBean bbBean;
-    private UIXIterator characterIterator = new UIXIterator();
-    private UIXIterator subjectIterator = new UIXIterator();
-    private UIXIterator yearIterator = new UIXIterator();
+    private HtmlAjaxRepeat characterIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat subjectIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat yearIterator = new HtmlAjaxRepeat();
     private String currentCharacter = "A";
     private List<String> creators;
     private List<String> subjects;
@@ -112,7 +112,7 @@ public class BrowseByPage extends BreadcrumbPage
         if (characterIterator.getRowIndex() != -1)
         {
             int index = this.characterIterator.getRowIndex();
-            curChar = this.characterIterator.getRowData(index).toString();
+            curChar = this.characterIterator.getRowData().toString();
         }
         else
         {
@@ -249,7 +249,7 @@ public class BrowseByPage extends BreadcrumbPage
     public String loadBrowseBySubject()
     {
         int index = this.subjectIterator.getRowIndex();
-        String curSubject = this.subjectIterator.getRowData(index).toString();
+        String curSubject = this.subjectIterator.getRowData().toString();
         this.setSelectedValue(curSubject);
         this.setSearchIndex(this.subSearchIndex);
         if (this.bbBean.getSearchResults() != null)
@@ -325,12 +325,12 @@ public class BrowseByPage extends BreadcrumbPage
         return false;
     }
 
-    public UIXIterator getCharacterIterator()
+    public HtmlAjaxRepeat getCharacterIterator()
     {
         return characterIterator;
     }
 
-    public void setCharacterIterator(UIXIterator characterIterator)
+    public void setCharacterIterator(HtmlAjaxRepeat characterIterator)
     {
         this.characterIterator = characterIterator;
     }
@@ -365,12 +365,12 @@ public class BrowseByPage extends BreadcrumbPage
         this.subjects = subjects;
     }
 
-    public UIXIterator getSubjectIterator()
+    public HtmlAjaxRepeat getSubjectIterator()
     {
         return subjectIterator;
     }
 
-    public void setSubjectIterator(UIXIterator subjectIterator)
+    public void setSubjectIterator(HtmlAjaxRepeat subjectIterator)
     {
         this.subjectIterator = subjectIterator;
     }
@@ -403,12 +403,12 @@ public class BrowseByPage extends BreadcrumbPage
         return "";
     }
 
-    public UIXIterator getYearIterator()
+    public HtmlAjaxRepeat getYearIterator()
     {
         return yearIterator;
     }
 
-    public void setYearIterator(UIXIterator yearIterator)
+    public void setYearIterator(HtmlAjaxRepeat yearIterator)
     {
         this.yearIterator = yearIterator;
     }

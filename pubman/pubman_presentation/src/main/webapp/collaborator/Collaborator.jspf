@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -53,8 +53,8 @@
 				</h:panelGroup>
 			</span>
 			<span class="large_area0_p8 lineToolSection citationBlock">
-				<tr:commandButton id="btnAddCollaborator" styleClass="min_imgBtn groupTool add" text=" " />
-				<tr:commandButton id="btnRemoveCollaborator" styleClass="min_imgBtn groupTool remove" text=" " />
+				<h:commandButton id="btnAddCollaborator" styleClass="min_imgBtn groupTool add" value=" " />
+				<h:commandButton id="btnRemoveCollaborator" styleClass="min_imgBtn groupTool remove" value=" " />
 			</span>
 		</h:panelGroup>
 

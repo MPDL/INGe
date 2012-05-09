@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <f:subview id="easySubmissionStep1Manual">
 
@@ -135,7 +135,7 @@
 								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 							</h:panelGroup>
-							<h:selectOneMenu id="selGenre" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{EasySubmission.item.metadata.genre}" onchange="document.getElementById('easySubmission:easySubmissionStep1Manual:btnChangeGenre').click();" binding="#{EasySubmission.genreSelect}">
+							<h:selectOneMenu id="selGenre" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{EasySubmission.item.metadata.genre}" onchange="$pb('.btnChangeGenre').click();" binding="#{EasySubmission.genreSelect}">
 								<f:selectItems value="#{EasySubmission.genres}" />
 							</h:selectOneMenu>
 						</h:panelGroup>
@@ -143,7 +143,7 @@
 						<h:selectOneMenu id="selGenre" value="#{EasySubmission.item.metadata.genre}" styleClass="large_select replace" onchange="document.getElementById('easySubmission:easySubmissionStep1Manual:btnChangeGenre').click();" binding="#{EasySubmission.genreSelect}">
 							<f:selectItems id="selGenres" value="#{EasySubmission.genres}" />
 						</h:selectOneMenu>	--%>
-						<h:commandButton action="#{EasySubmission.changeGenre}" immediate="true" styleClass="hiddenButton" id="btnChangeGenre" value="" style="visibility:hidden;"/>
+						<h:commandButton action="#{EasySubmission.changeGenre}" immediate="true" styleClass="hiddenButton btnChangeGenre" id="btnChangeGenre" value="" style="visibility:hidden;"/>
 					</span>
 				</h:panelGroup>
 		

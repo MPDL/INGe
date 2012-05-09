@@ -29,7 +29,7 @@ All rights reserved. Use is subject to license terms.
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -40,7 +40,7 @@ All rights reserved. Use is subject to license terms.
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 		<a class="clear free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderFiles}" /></a>
 
-    <tr:iterator id="fileCriterion" rows="0" var="fileCriterionBean" value="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.fileCriterionIterator}" varStatus="index">
+    <a4j:repeat id="fileCriterion" rows="0" var="fileCriterionBean" value="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.fileCriterionIterator}" rowKeyVar="index">
 
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" >
 			<b class="xLarge_area0_p8 endline labelLine clear">
@@ -120,10 +120,10 @@ All rights reserved. Use is subject to license terms.
 				</span>
 			</span>
 			<span class="large_area0_p8 lineToolSection">
-                    <tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.addObject}" />
-                    <tr:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.size == 1}" action="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.removeObject}"/>
+                    <h:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.addObject}" />
+                    <h:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.size == 1}" action="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.removeObject}"/>
 <%-- 
-                    <tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
+                    <h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
 --%>
             </span>
 		</h:panelGroup>
@@ -145,6 +145,6 @@ All rights reserved. Use is subject to license terms.
 				</h:selectOneMenu>	 --%>
 		</h:panelGroup>
  
-       </tr:iterator>
+       </a4j:repeat>
 	</div>
 </div>

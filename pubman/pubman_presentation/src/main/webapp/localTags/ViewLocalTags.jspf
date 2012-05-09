@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <%-- JIRA AS-583 --%>
 
@@ -43,7 +43,7 @@
 <%-- Tags --%>
 
 
-		<tr:iterator var="localTag" value="#{EditItem.pubItem.wrappedLocalTags}">
+		<a4j:repeat var="localTag" value="#{EditItem.pubItem.wrappedLocalTags}">
 	
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 	
@@ -55,12 +55,12 @@
 					<h:outputText styleClass="quad_area0" value="#{localTag.value}"/>
 				</span>
 			</h:panelGroup>
-		</tr:iterator>
+		</a4j:repeat>
 
 
 
 	</div>
 	<div class="large_area0_p0 lineToolSection">
-		<tr:commandButton id="editLocalTags" styleClass="free_txtBtn groupBtn"  text="#{lbl.actionMenu_lnkEditLocalTags}" action="#{EditItem.loadEditLocalTags}"  rendered="#{EditItem.localTagEditingAllowed}" />
+		<h:commandButton id="editLocalTags" styleClass="free_txtBtn groupBtn"  value="#{lbl.actionMenu_lnkEditLocalTags}" action="#{EditItem.loadEditLocalTags}"  rendered="#{EditItem.localTagEditingAllowed}" />
 	</div>
 </div>

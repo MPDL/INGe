@@ -26,7 +26,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
 	<jsp:directive.page contentType="text/plain;charset=UTF-8" pageEncoding="UTF-8"/>
 	<f:view locale="#{InternationalizationHelper.userLocale}">
@@ -35,14 +35,14 @@
 		<f:loadBundle var="tip" basename="Tooltip"/>
 		
 		[
-			<tr:iterator var="ou" value="#{AffiliationTree.affiliationSelectItems}" rows="0">
+			<a4j:repeat var="ou" value="#{AffiliationTree.affiliationSelectItems}" rows="0">
 				<h:panelGroup>
 				{
-					"id" : "<tr:outputText value="#{ou.value}" escape="false"/>",
-					"value" : "<tr:outputText value="#{ou.label}" escape="false"/>",
+					"id" : "<h:outputText value="#{ou.value}" escape="false"/>",
+					"value" : "<h:outputText value="#{ou.label}" escape="false"/>",
 				},
 				</h:panelGroup>
-			</tr:iterator>
+			</a4j:repeat>
 			{}
 		]
 		

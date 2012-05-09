@@ -27,35 +27,35 @@
  * All rights reserved. Use is subject to license terms.
  */
 function addItemListFunctions(){
-    $('.itemList').each(function(i, ele){
-        $(ele).find('.mediumView').each(function(j, elem){
-            $(elem).hide();
+    $pb('.itemList').each(function(i, ele){
+        $pb(ele).find('.mediumView').each(function(j, elem){
+            $pb(elem).hide();
         });
-        $(ele).find('.collapse').each(function(j, elem){
-            $(elem).hide();
+        $pb(ele).find('.collapse').each(function(j, elem){
+            $pb(elem).hide();
         });
-        $(ele).find('.expand').each(function(j, elem){
-            $(elem).show();
+        $pb(ele).find('.expand').each(function(j, elem){
+            $pb(elem).show();
         });
-        $(ele).find('.collapseTriangle').each(function(j, elem){
-            $(elem).hide();
+        $pb(ele).find('.collapseTriangle').each(function(j, elem){
+            $pb(elem).hide();
         });
-        $(ele).find('.expandTriangle').each(function(j, elem){
-            $(elem).show();
+        $pb(ele).find('.expandTriangle').each(function(j, elem){
+            $pb(elem).show();
         });
-        $(ele).find('.listItem').hover(function(){
-            $(this).addClass('listBackground');
+        $pb(ele).find('.listItem').hover(function(){
+            $pb(this).addClass('listBackground');
         }, function(){
-            $(this).removeClass('listBackground');
+            $pb(this).removeClass('listBackground');
         });
     });
 // Openration of the select menu for checkboxes 
 // Start with event on document to close the select menu on click elswhere    
-    $('html').click(function(){
-//        $('.selectMenu').hide();
+    $pb('html').click(function(){
+//        $pb('.selectMenu').hide();
     });
     
-    $('.selectMenu').click(function(evt){
+    $pb('.selectMenu').click(function(evt){
     	evt.preventDefault();
     	evt.stopPropagation();
     	evt.stopImmediatePropagation();
@@ -65,110 +65,110 @@ function addItemListFunctions(){
     	element.hide(100);
     }
     
-    $('.checkBoxSelectButton').click(function(evt){
+    $pb('.checkBoxSelectButton').click(function(evt){
     	evt.preventDefault();
     	evt.stopPropagation();
     	evt.stopImmediatePropagation();
     	
-    	$('body').unbind("click");
-    	$('body').unbind("keydown");
+    	$pb('body').unbind("click");
+    	$pb('body').unbind("keydown");
     	
-    	var cbsButtonPosition = $(this).position();
+    	var cbsButtonPosition = $pb(this).position();
     	
-    	var slctMenu = $(this).siblings('.selectMenu');
-    	$('body').one("click", function(evt) {
+    	var slctMenu = $pb(this).siblings('.selectMenu');
+    	$pb('body').one("click", function(evt) {
     		hideElement(slctMenu);
     	});
-    	$('body').one('keydown', function(evt){
+    	$pb('body').one('keydown', function(evt){
 			if (Number(evt.which) === 27) {	//check the key-number for number of escape
 				hideElement(slctMenu);
 			}
 		});
     	slctMenu.toggle(100, function(){
-    		if ($(slctMenu).is(':visible')) {
-    			$(slctMenu).css("left", cbsButtonPosition.left + 10);
-//    			$(slctMenu).css("top", cbsButtonPosition.top - 2);
+    		if ($pb(slctMenu).is(':visible')) {
+    			$pb(slctMenu).css("left", cbsButtonPosition.left + 10);
+//    			$pb(slctMenu).css("top", cbsButtonPosition.top - 2);
         	}
     	});
     	
-//    	$(this).siblings('.selectMenu').toggle(100);
+//    	$pb(this).siblings('.selectMenu').toggle(100);
     });
     
 // Select options    
     var tog = '';
-    $('.listHeader').find('.allCheckBox').click(function(){
-    	$('.itemList').find("input[type=checkbox]").attr("checked", !tog);
+    $pb('.listHeader').find('.allCheckBox').click(function(){
+    	$pb('.itemList').find("input[type=checkbox]").attr("checked", !tog);
     	tog = !tog;
     });
-//	$(this).parents('.selectMenu').hide();
-    hideElement($(this).parents('.selectMenu'));
+//	$pb(this).parents('.selectMenu').hide();
+    hideElement($pb(this).parents('.selectMenu'));
 
-    $('.listHeader').find('.selectAll').click(function(){
-        $('.itemList').find('input[type=checkbox]').attr('checked', true);
+    $pb('.listHeader').find('.selectAll').click(function(){
+        $pb('.itemList').find('input[type=checkbox]').attr('checked', true);
     });
-//	$(this).parents('.selectMenu').hide();
-    hideElement($(this).parents('.selectMenu'));
+//	$pb(this).parents('.selectMenu').hide();
+    hideElement($pb(this).parents('.selectMenu'));
 
-    $('.selectMenu').find('.toggleAll').click(function(){
-        $('.listItem').find('input[type=checkbox]').click();
+    $pb('.selectMenu').find('.toggleAll').click(function(){
+        $pb('.listItem').find('input[type=checkbox]').click();
     });
-//	$(this).parents('.selectMenu').hide();
-    hideElement($(this).parents('.selectMenu'));
+//	$pb(this).parents('.selectMenu').hide();
+    hideElement($pb(this).parents('.selectMenu'));
 
-    $('.selectMenu').find('.selectNone').click(function(){
-        $(this).parents('.itemList').find('.itemCheckBox').attr('checked', false);
+    $pb('.selectMenu').find('.selectNone').click(function(){
+        $pb(this).parents('.itemList').find('.itemCheckBox').attr('checked', false);
     });
-//	$(this).parents('.selectMenu').hide();
-    hideElement($(this).parents('.selectMenu'));
+//	$pb(this).parents('.selectMenu').hide();
+    hideElement($pb(this).parents('.selectMenu'));
     
-    $('.selectMenu').find('a').each(function(i, elem){
-        $(elem).click(function(){
-//            $(this).parents('.selectMenu').hide()
-        	hideElement($(this).parents('.selectMenu'));
+    $pb('.selectMenu').find('a').each(function(i, elem){
+        $pb(elem).click(function(){
+//            $pb(this).parents('.selectMenu').hide()
+        	hideElement($pb(this).parents('.selectMenu'));
         });
     });
     
-    $('.headerSwitchView').find('.expandTriangle').click(function(){
-        $(this).hide();
-        $(this).siblings('.collapseTriangle').show();
-        $(this).parents('.itemList').find('.listItem').find('.expandTriangle:visible').each(function(i, elem){
-            $(elem).trigger('click');
+    $pb('.headerSwitchView').find('.expandTriangle').click(function(){
+        $pb(this).hide();
+        $pb(this).siblings('.collapseTriangle').show();
+        $pb(this).parents('.itemList').find('.listItem').find('.expandTriangle:visible').each(function(i, elem){
+            $pb(elem).trigger('click');
         });
     });
     
-    $('.headerSwitchView').find('.collapseTriangle').click(function(){
-        $(this).hide();
-        $(this).siblings('.expandTriangle').show();
-        $(this).parents('.itemList').find('.listItem').find('.collapseTriangle:visible').each(function(i, elem){
-            $(elem).trigger('click');
+    $pb('.headerSwitchView').find('.collapseTriangle').click(function(){
+        $pb(this).hide();
+        $pb(this).siblings('.expandTriangle').show();
+        $pb(this).parents('.itemList').find('.listItem').find('.collapseTriangle:visible').each(function(i, elem){
+            $pb(elem).trigger('click');
         });
     });
     
-    $('.shortView').find('.expandTriangle').each(function(i, ele){
-        $(ele).click(function(){
-            $(this).hide();
-            $(this).siblings('.collapseTriangle').show();
-            var parentElement = $(this).parents('.listItem');
-            $(parentElement).children('.mediumView').slideToggle('normal', function(){
-                if (($(parentElement).find('.itemHeader').find('.expandTriangle:visible').length) ==
+    $pb('.shortView').find('.expandTriangle').each(function(i, ele){
+        $pb(ele).click(function(){
+            $pb(this).hide();
+            $pb(this).siblings('.collapseTriangle').show();
+            var parentElement = $pb(this).parents('.listItem');
+            $pb(parentElement).children('.mediumView').slideToggle('normal', function(){
+                if (($pb(parentElement).find('.itemHeader').find('.expandTriangle:visible').length) ==
                 0) {
-                    $(parentElement).find('.headerSwitchView').find('.expandTriangle').hide();
-                    $(parentElement).find('.headerSwitchView').find('.collapseTriangle').show();
+                    $pb(parentElement).find('.headerSwitchView').find('.expandTriangle').hide();
+                    $pb(parentElement).find('.headerSwitchView').find('.collapseTriangle').show();
                 }
             });
         })
     });
     
-    $('.shortView').find('.collapseTriangle').each(function(i, ele){
-        $(ele).click(function(){
-            $(this).hide();
-            $(this).siblings('.expandTriangle').show();
-            var parentElement = $(this).parents('.listItem');
-            $(parentElement).children('.mediumView').slideToggle('normal', function(){
-                if (($(parentElement).find('.itemHeader').find('.collapseTriangle:visible').length) ==
+    $pb('.shortView').find('.collapseTriangle').each(function(i, ele){
+        $pb(ele).click(function(){
+            $pb(this).hide();
+            $pb(this).siblings('.expandTriangle').show();
+            var parentElement = $pb(this).parents('.listItem');
+            $pb(parentElement).children('.mediumView').slideToggle('normal', function(){
+                if (($pb(parentElement).find('.itemHeader').find('.collapseTriangle:visible').length) ==
                 0) {
-                    $(parentElement).find('.headerSwitchView').find('.expandTriangle').show();
-                    $(parentElement).find('.headerSwitchView').find('.collapseTriangle').hide();
+                    $pb(parentElement).find('.headerSwitchView').find('.expandTriangle').show();
+                    $pb(parentElement).find('.headerSwitchView').find('.collapseTriangle').hide();
                 }
             });
         })

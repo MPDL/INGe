@@ -28,7 +28,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
 	<jsp:output doctype-root-element="html"
 	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -55,7 +55,7 @@
 			<h:outputText value="#{SearchRetrieverRequestBean.beanName}" styleClass="noDisplay" />
 			<h:outputText value="#{SearchResultListPage.beanName}" styleClass="noDisplay" />
 			
-			<tr:form usesUpload="true">
+			<h:form >
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
@@ -101,12 +101,12 @@
 												<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 												<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 											</h:panelGroup>
-											<h:selectOneMenu id="selEXPORTFORMAT_OPTIONS" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
+											<h:selectOneMenu id="selEXPORTFORMAT_OPTIONS" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$pb(this).parents('.sub').find('.exportUpdateButton').click();">
 												<f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
 											</h:selectOneMenu>
 										</h:panelGroup>
 									<!-- <% /*
-										<h:selectOneMenu id="selEXPORTFORMAT_OPTIONS" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
+										<h:selectOneMenu id="selEXPORTFORMAT_OPTIONS" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$pb(this).parents('.sub').find('.exportUpdateButton').click();">
 											<f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 										</h:selectOneMenu>	*/ %> -->
 										<h:commandButton id="btnUpdateExportFormats" styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />	
@@ -151,12 +151,12 @@
 												<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 												<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 											</h:panelGroup>
-											<h:selectOneMenu id="sortBy" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();">
+											<h:selectOneMenu id="sortBy" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$pb(this).parents('div').find('.changeSortBy').click();">
 												<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
 											</h:selectOneMenu>
 										</h:panelGroup>
 									<!-- <% /*
-										<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
+										<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$pb(this).parents('div').find('.changeSortBy').click();" >
 											<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
 										</h:selectOneMenu>	*/ %> -->
 										<h:commandLink styleClass="ascSort" value="#{lbl.ItemList_SortOrderAscending}" id="sortOrderAsc" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.displaySortOrder}" action="#{PubItemListSessionBean.changeSortOrder}" />
@@ -178,7 +178,7 @@
 								<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
 									<!-- Subheadline starts here -->
 										<h:outputLink id="lnkAdvancedSearchPage" styleClass="free_area0 xTiny_marginRIncl" value="AdvancedSearchPage.jsp"><h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>
-										<a class="free_area0 xTiny_marginRIncl" href="#" onclick="$(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $(this).hide();"><h:outputText value="#{lbl.ShowQuery}"/></a>
+										<a class="free_area0 xTiny_marginRIncl" href="#" onclick="$pb(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $pb(this).hide();"><h:outputText value="#{lbl.ShowQuery}"/></a>
 										<h:outputLink id="lnkRestServiceExamplePage" styleClass="free_area0 xTiny_marginRIncl" value="#{ApplicationBean.pubmanInstanceUrl}/search/SearchAndExport_rest_sample.jsp?#{SearchRetrieverRequestBean.cqlQuery}"><h:outputText value="#{lbl.SearchResultList_lblRestServiceExamplePage}"/></h:outputLink>
 									<!-- Subheadline ends here -->
 								</h:panelGroup>
@@ -227,14 +227,14 @@
 			
 			</div>
 			<jsp:directive.include file="footer/Footer.jspf" />
-			</tr:form>
+			</h:form>
 			<script type="text/javascript">
-				$("input[id$='offset']").submit(function() {
-					$(this).val($(window).scrollTop());
+				$pb("input[id$='offset']").submit(function() {
+					$pb(this).val($pb(window).scrollTop());
 				});
-				$(document).ready(function () {
-					$(window).scrollTop($("input[id$='offset']").val());
-					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
+				$pb(document).ready(function () {
+					$pb(window).scrollTop($pb("input[id$='offset']").val());
+					$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
 				});
 			</script>
 			</body>

@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -52,7 +52,7 @@
 		</div>
 
 <%-- Subject --%>
-		<tr:iterator var="subject" value="#{ViewItemFull.pubItem.metadata.subjects}" rendered="#{ViewItemFull.hasSubjects}">
+		<a4j:repeat var="subject" value="#{ViewItemFull.pubItem.metadata.subjects}" rendered="#{ViewItemFull.hasSubjects}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText value="#{subject.type}"/><span class="noDisplay">: </span>
@@ -61,10 +61,10 @@
 					<h:outputText value="#{subject.value}" />
 				</span>
 			</h:panelGroup>
-		</tr:iterator>
+		</a4j:repeat>
 
 <%-- Abstract --%>
-		<tr:iterator var="abstract" value="#{ViewItemFull.pubItem.metadata.abstracts}" binding="#{ViewItemFull.abstractIterator}" varStatus="index" rendered="#{ViewItemFull.hasAbstracts}">
+		<a4j:repeat var="abstract" value="#{ViewItemFull.pubItem.metadata.abstracts}" binding="#{ViewItemFull.abstractIterator}" rowKeyVar="index" rendered="#{ViewItemFull.hasAbstracts}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText value="#{lbl.ViewItemFull_lblAbstract}"/><span class="noDisplay">: </span>
@@ -73,7 +73,7 @@
 					<h:outputText value="#{abstract.value}" converter="HTMLSubSupConverter" escape="false"/>
 				</span>
 			</h:panelGroup>
-		</tr:iterator>
+		</a4j:repeat>
 
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{!ViewItemFull.hasAbstracts}">
 			<b class="xLarge_area0_p8 endline labelLine clear">

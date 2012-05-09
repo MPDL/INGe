@@ -28,7 +28,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
 	<jsp:output doctype-root-element="html"
 	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -50,7 +50,7 @@
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{WorkspacesPage.beanName}" styleClass="noDisplay" />
-			<tr:form id="formTest" usesUpload="true">
+			<h:form id="formTest" >
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			<!-- start: skip link navigation -->
@@ -100,12 +100,12 @@
 							</div>
 							<div class="subHeader">
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{ReportWorkspaceBean.hasErrorMessages}">
-									<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
+									<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
 									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ReportWorkspaceBean.hasMessages}"/>
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{ReportWorkspaceBean.hasMessages and !ReportWorkspaceBean.hasErrorMessages}">
-									<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
+									<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
 									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ReportWorkspaceBean.hasMessages}"/>
 								</h:panelGroup>
@@ -124,21 +124,21 @@
 						
 						<div class="full_area0 formButtonArea">
 							<h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}WorkspacesPage.jsp"><h:outputText value="#{lbl.EditItem_lnkCancel}" /></h:outputLink>
-							<tr:commandLink id="lnkGenerateReport" styleClass="free_area1_p8 activeButton" shortDesc="#{tip.easy_submission_btnImport}" action="#{ReportWorkspaceBean.generateReport}"><h:outputText value="#{lbl.ReportWorkspace_btnGenereateList}" /></tr:commandLink>
+							<h:commandLink id="lnkGenerateReport" styleClass="free_area1_p8 activeButton" title="#{tip.easy_submission_btnImport}" action="#{ReportWorkspaceBean.generateReport}"><h:outputText value="#{lbl.ReportWorkspace_btnGenereateList}" /></h:commandLink>
 						</div>
 					</div>	
 				<!-- end: content section -->
 				</div>
 			</div>
 			<jsp:directive.include file="footer/Footer.jspf" />
-			</tr:form>
+			</h:form>
 			<script type="text/javascript">
-				$("input[id$='offset']").submit(function() {
-					$(this).val($(window).scrollTop());
+				$pb("input[id$='offset']").submit(function() {
+					$pb(this).val($pb(window).scrollTop());
 				});
-				$(document).ready(function () {
-					$(window).scrollTop($("input[id$='offset']").val());
-					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
+				$pb(document).ready(function () {
+					$pb(window).scrollTop($pb("input[id$='offset']").val());
+					$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
 				});
 
 				organizationSuggestURL = 'OrganizationSuggest.jsp';

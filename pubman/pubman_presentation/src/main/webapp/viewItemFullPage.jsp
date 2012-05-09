@@ -27,7 +27,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad"  xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"   xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<jsp:output doctype-root-element="html"
 	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -52,7 +52,7 @@
 			<!-- The unAPI Identifier for this item -->
 			<h:outputText value="&lt;abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'&gt;&lt;/abbr&gt;" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}"/>
 
-			<tr:form usesUpload="true">
+			<h:form >
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
@@ -134,12 +134,12 @@
 											<h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 											<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="selEXPORTFORMAT" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
+										<h:selectOneMenu id="selEXPORTFORMAT" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$pb(this).parents('.sub').find('.exportUpdateButton').click();">
 											<f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
 								<!-- 
-									<h:selectOneMenu id="selEXPORTFORMAT" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
+									<h:selectOneMenu id="selEXPORTFORMAT" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$pb(this).parents('.sub').find('.exportUpdateButton').click();">
 											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>	-->
 									
@@ -198,7 +198,7 @@
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea clear" style="padding-top: 0px !important;" rendered="#{ViewItemFull.pubItem.validationReport!=null}">
 									<h2><h:outputText value="#{lbl.Yearbook_validationMessageHeader}"/></h2>
 									<ul>
-									<tr:iterator var="valitem" value="#{ViewItemFull.pubItem.validationReport.items}">
+									<a4j:repeat var="valitem" value="#{ViewItemFull.pubItem.validationReport.items}">
 										<h:panelGroup rendered="#{valitem.restrictive}">
 											<li class="messageWarn">
 											<h:outputText value="#{msg[valitem.content]}"/>
@@ -209,7 +209,7 @@
 											<h:outputText value="#{msg[valitem.content]}"/>
 											</li>
 										</h:panelGroup>
-								</tr:iterator>
+								</a4j:repeat>
 								</ul>	
 						   	</h:panelGroup>
 						   	<!-- Survey link -->
@@ -340,7 +340,7 @@
 				</div>
 			</div>
 			<jsp:directive.include file="footer/Footer.jspf" />
-			</tr:form>
+			</h:form>
 			
 			</body>
 		</html>

@@ -27,7 +27,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad" xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"  xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<jsp:output doctype-root-element="html"
 	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -50,7 +50,7 @@
 			<body lang="#{InternationalizationHelper.locale}">
 				<h:outputText value="#{EditItemPage.beanName}" styleClass="noDisplay" />
 				
-				<tr:form usesUpload="true" onsubmit="fullItemReload();">
+				<h:form id="form1" onsubmit="fullItemReloadAjax();">
 					
 					<div class="full wrapper">
 						<h:inputHidden value="#{EditItemSessionBean.offset}" id="offset"></h:inputHidden>
@@ -121,7 +121,7 @@
 										<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea clear" style="padding-top: 0px !important;" rendered="#{EditItem.item.validationReport!=null}">
 											<h2><h:outputText value="#{lbl.Yearbook_validationMessageHeader}"/></h2>
 											<ul>
-											<tr:iterator var="valitem" value="#{EditItem.item.validationReport.items}">
+											<a4j:repeat var="valitem" value="#{EditItem.item.validationReport.items}">
 													<h:panelGroup rendered="#{valitem.restrictive}">
 														<li class="messageWarn">
 														<h:outputText value="#{msg[valitem.content]}"/>
@@ -132,17 +132,17 @@
 														<h:outputText value="#{msg[valitem.content]}"/>
 														</li>
 													</h:panelGroup>
-											</tr:iterator>
+											</a4j:repeat>
 											</ul>	
 									   </h:panelGroup>
 										
 										<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{EditItem.hasErrorMessages}">
-											<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
+											<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
 											<h2><h:outputText value="#{lbl.warning_lblMessageHeader}" /></h2>
 											<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EditItem.hasMessages}"/>
 										</h:panelGroup>
 										<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{EditItem.hasMessages and !EditItem.hasErrorMessages}">
-											<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
+											<input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$pb(this).parents('.messageArea').removeClass('absoluteMessageArea'); $pb(this).hide();" />
 											<h2><h:outputText value="#{lbl.info_lblMessageHeader}" /></h2>
 											<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EditItem.hasMessages}"/>
 										</h:panelGroup>
@@ -155,42 +155,42 @@
 									<div class="full_area0 fullItemControls">
 										<span class="full_area0_p5">
 											<h:panelGroup styleClass="seperator" rendered="#{!(genre.sources_display == 'false' and genre.sources_form_id == 'full-submission' or  genre.sources_display == 'false' and genre.sources_form_id == 'all')}"/>
-											<h:outputLink styleClass="free_area0" value="#editSource" rendered="#{!(genre.sources_display == 'false' and genre.sources_form_id == 'full-submission' or  genre.sources_display == 'false' and genre.sources_form_id == 'all')}">
+											<h:outputLink styleClass="free_area0" value="#form1:editSource" rendered="#{!(genre.sources_display == 'false' and genre.sources_form_id == 'full-submission' or  genre.sources_display == 'false' and genre.sources_form_id == 'all')}">
 												<h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter" />
 											</h:outputLink>
 											
 											<h:panelGroup styleClass="seperator" rendered="#{!(genre.legal_case_display == 'false' and genre.legal_case_form_id == 'full-submission' or  genre.legal_case_display == 'false' and genre.legal_case_form_id == 'all')}"/>
-											<h:outputLink styleClass="free_area0" value="#editLegalCase" rendered="#{!(genre.legal_case_display == 'false' and genre.legal_case_form_id == 'full-submission' or  genre.legal_case_display == 'false' and genre.legal_case_form_id == 'all')}">
+											<h:outputLink styleClass="free_area0" value="#form1:editLegalCase" rendered="#{!(genre.legal_case_display == 'false' and genre.legal_case_form_id == 'full-submission' or  genre.legal_case_display == 'false' and genre.legal_case_form_id == 'all')}">
 												<h:outputText value="#{genre.legal_case_label}" converter="GenreLabelConverter" />
 											</h:outputLink>
 											
 											<h:panelGroup styleClass="seperator" rendered="#{!(genre.events_display == 'false' and genre.events_form_id == 'full-submission' or  genre.events_display == 'false' and genre.events_form_id == 'all')}"/>
-											<h:outputLink styleClass="free_area0" value="#editEvent" rendered="#{!(genre.events_display == 'false' and genre.events_form_id == 'full-submission' or  genre.events_display == 'false' and genre.events_form_id == 'all')}">
+											<h:outputLink styleClass="free_area0" value="#form1:editEvent" rendered="#{!(genre.events_display == 'false' and genre.events_form_id == 'full-submission' or  genre.events_display == 'false' and genre.events_form_id == 'all')}">
 												<h:outputText value="#{genre.events_label}" converter="GenreLabelConverter" />
 											</h:outputLink>
 											
 											<h:panelGroup styleClass="seperator" rendered="#{!(genre.details_display == 'false' and genre.details_form_id == 'full-submission' or  genre.details_display == 'false' and genre.details_form_id == 'all')}"/>
-											<h:outputLink styleClass="free_area0" value="#editDetail" rendered="#{!(genre.details_display == 'false' and genre.details_form_id == 'full-submission' or  genre.details_display == 'false' and genre.details_form_id == 'all')}">
+											<h:outputLink styleClass="free_area0" value="#form1:editDetail" rendered="#{!(genre.details_display == 'false' and genre.details_form_id == 'full-submission' or  genre.details_display == 'false' and genre.details_form_id == 'all')}">
 												<h:outputText value="#{genre.details_label}" converter="GenreLabelConverter" />
 											</h:outputLink>
 											
 											<h:panelGroup styleClass="seperator" rendered="#{!(genre.content_display == 'false' and genre.content_form_id == 'full-submission' or  genre.content_display == 'false' and genre.content_form_id == 'all')}"/>
-											<h:outputLink styleClass="free_area0" value="#editContent" rendered="#{!(genre.content_display == 'false' and genre.content_form_id == 'full-submission' or  genre.content_display == 'false' and genre.content_form_id == 'all')}">
+											<h:outputLink styleClass="free_area0" value="#form1:editContent" rendered="#{!(genre.content_display == 'false' and genre.content_form_id == 'full-submission' or  genre.content_display == 'false' and genre.content_form_id == 'all')}">
 												<h:outputText value="#{genre.content_label}"  converter="GenreLabelConverter" />
 											</h:outputLink>
 											
 											<h:panelGroup styleClass="seperator" rendered="#{!(genre.creator_person_organization_display == 'false' and genre.creator_person_organization_form_id == 'full-submission' or  genre.creator_person_organization_display == 'false' and genre.creator_person_organization_form_id == 'all')}"/>
-											<h:outputLink styleClass="free_area0" value="#editPerson" rendered="#{!(genre.creator_person_organization_display == 'false' and genre.creator_person_organization_form_id == 'full-submission' or  genre.creator_person_organization_display == 'false' and genre.creator_person_organization_form_id == 'all')}">
+											<h:outputLink styleClass="free_area0" value="#form1:editPerson" rendered="#{!(genre.creator_person_organization_display == 'false' and genre.creator_person_organization_form_id == 'full-submission' or  genre.creator_person_organization_display == 'false' and genre.creator_person_organization_form_id == 'all')}">
 												<h:outputText value="#{genre.creator_person_organization_label}" converter="GenreLabelConverter" />
 											</h:outputLink>
 											
 											<h:panelGroup styleClass="seperator" rendered="#{!(genre.locators_display == 'false' and genre.locators_form_id == 'full-submission' or  genre.locators_display == 'false' and genre.locators_form_id == 'all')}"/>
-											<h:outputLink styleClass="free_area0" value="#editLocator" rendered="#{!(genre.locators_display == 'false' and genre.locators_form_id == 'full-submission' or  genre.locators_display == 'false' and genre.locators_form_id == 'all')}">
+											<h:outputLink styleClass="free_area0" value="#form1:editLocator" rendered="#{!(genre.locators_display == 'false' and genre.locators_form_id == 'full-submission' or  genre.locators_display == 'false' and genre.locators_form_id == 'all')}">
 												<h:outputText value="#{genre.locators_label}" converter="GenreLabelConverter" />
 											</h:outputLink>
 											
 											<h:panelGroup styleClass="seperator" rendered="#{!(genre.files_display == 'false' and genre.files_form_id == 'full-submission' or  genre.files_display == 'false' and genre.files_form_id == 'all')}"/>
-											<h:outputLink styleClass="free_area0" value="#editFile" rendered="#{!(genre.files_display == 'false' and genre.files_form_id == 'full-submission' or  genre.files_display == 'false' and genre.files_form_id == 'all')}">
+											<h:outputLink styleClass="free_area0" value="#form1:editFile" rendered="#{!(genre.files_display == 'false' and genre.files_form_id == 'full-submission' or  genre.files_display == 'false' and genre.files_form_id == 'all')}">
 												<h:outputText value="#{genre.files_label}" converter="GenreLabelConverter" />
 											</h:outputLink>
 											
@@ -236,14 +236,18 @@
 					</div> <!--  end: full wrapper -->
 					
 					<jsp:directive.include file="footer/Footer.jspf" />
-				</tr:form>
+					
+				</h:form>
+				
+				
+				
 				<script type="text/javascript">
-					$("input[id$='offset']").submit(function() {
-						$(this).val($(window).scrollTop());
+					$pb("input[id$='offset']").submit(function() {
+						$pb(this).val($pb(window).scrollTop());
 					});
-					$(document).ready(function () {
-						$(window).scrollTop($("input[id$='offset']").val());
-						$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
+					$pb(document).ready(function () {
+						$pb(window).scrollTop($pb("input[id$='offset']").val());
+						$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
 					});
 				
 					languageSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>iso639-3/query';
@@ -259,13 +263,21 @@
 					journalSuggestTrigger = 'JOURNAL';
 				</script>
 				<script type="text/javascript">
-					function fullItemReload()
+					function fullItemReloadAjax()
 					{
 						document.getElementById('fullItem').style.opacity='0.4';
 						document.getElementById('fullItem').style.bg='FFF';
 						document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea half_marginLIncl smallThrobber');
-						$('#fullItem :input :text').attr('readonly', true);
-					    $('#fullItem :textarea').attr('readonly', true);
+						//$pb('#fullItem :input :text').attr('readonly', true);
+					    //$pb('#fullItem :textarea').attr('readonly', true);
+					}
+					function fullItemReloadStop()
+					{
+						document.getElementById('fullItem').style.opacity='1.0';
+						document.getElementById('fullItem').style.bg='FFF';
+						document.getElementById('ImgFullItemLoad').setAttribute('class','noDisplay');
+						//$pb('#fullItem :input :text').attr('readonly', true);
+					    //$pb('#fullItem :textarea').attr('readonly', true);
 					}
 				</script>
 			</body>

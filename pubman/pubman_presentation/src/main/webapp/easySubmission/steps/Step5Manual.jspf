@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <f:subview id="easySubmissionStep3Manual">
 
@@ -220,7 +220,7 @@
 		
 		<!-- Identifier -->
 				<h:panelGroup layout="block" rendered="#{!(genre.details_identifiers_display == 'false' && genre.details_identifiers_form_id == 'easy-submission' || genre.details_identifiers_display == 'false' && genre.details_identifiers_form_id == 'all')}">
-					<tr:iterator var="identifier" value="#{EasySubmission.identifierCollection.identifierManager.objectDM}" binding="#{EasySubmission.identifierIterator}" varStatus="index">
+					<a4j:repeat var="identifier" value="#{EasySubmission.identifierCollection.identifierManager.objectDM}" binding="#{EasySubmission.identifierIterator}" rowKeyVar="index">
 						<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 							
 							<b class="xLarge_area0_p8 endline labelLine clear">
@@ -252,11 +252,11 @@
 								</h:panelGroup>
 							</span>
 							<span class="large_area0_p8 lineToolSection">
-								<tr:commandButton id="btnAddObject" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.easy_submission_addID}" action="#{EasySubmission.identifierCollection.identifierManager.addObject}" rendered="#{genre.details_identifiers_repeatable != 'false'}"/>
-								<tr:commandButton id="btnRemoveObject" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.easy_submission_removeID}" action="#{EasySubmission.identifierCollection.identifierManager.removeObject}" disabled="#{EasySubmission.identifierCollection.identifierManager.size == 1}" rendered="#{genre.details_identifiers_repeatable != 'false'}"/>
+								<h:commandButton id="btnAddObject" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.easy_submission_addID}" action="#{EasySubmission.identifierCollection.identifierManager.addObject}" rendered="#{genre.details_identifiers_repeatable != 'false'}"/>
+								<h:commandButton id="btnRemoveObject" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.easy_submission_removeID}" action="#{EasySubmission.identifierCollection.identifierManager.removeObject}" disabled="#{EasySubmission.identifierCollection.identifierManager.size == 1}" rendered="#{genre.details_identifiers_repeatable != 'false'}"/>
 							</span>
 						</h:panelGroup>
-					</tr:iterator>
+					</a4j:repeat>
 				</h:panelGroup>
 
 		<%-- Degree type --%>
@@ -312,7 +312,7 @@
 				</h:panelGroup>
 		
 		<!-- Alternative event title -->
-				<tr:iterator var="altTitle" value="#{EasySubmission.eventTitleCollection.alternativeTitleManager.objectDM}">
+				<a4j:repeat var="altTitle" value="#{EasySubmission.eventTitleCollection.alternativeTitleManager.objectDM}">
 					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.events_event_title_alternative_display == 'false' && genre.events_event_title_alternative_form_id == 'easy-submission' || genre.events_event_title_alternative_display == 'false' && genre.events_event_title_alternative_form_id == 'all')}">
 						<b class="xLarge_area0_p8 endline labelLine clear">
 							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_title_alternative_optional != 'true'}" /><h:outputText value="#{genre.events_event_title_alternative_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
@@ -321,11 +321,11 @@
 							<h:inputTextarea id="inpAltEventTitle" styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
 						</span>
 						<span class="large_area0_p8 lineToolSection">
-							<tr:commandButton id="btnAddAltTitle" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.easy_submission_addAltTitle}" action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.addObject}" rendered="#{genre.events_event_title_alternative_repeatable != 'false'}"/>
-							<tr:commandButton id="btnRemoveAltTitle" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.easy_submission_removeAltTitle}" action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.removeObject}" rendered="#{genre.events_event_title_alternative_repeatable != 'false'}"/>
+							<h:commandButton id="btnAddAltTitle" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.easy_submission_addAltTitle}" action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.addObject}" rendered="#{genre.events_event_title_alternative_repeatable != 'false'}"/>
+							<h:commandButton id="btnRemoveAltTitle" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.easy_submission_removeAltTitle}" action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.removeObject}" rendered="#{genre.events_event_title_alternative_repeatable != 'false'}"/>
 						</span>
 					</h:panelGroup>
-				</tr:iterator>
+				</a4j:repeat>
 		
 		<!-- Event place, Event start date, Event end date -->
 				<div class="free_area0 endline itemLine noTopBorder">

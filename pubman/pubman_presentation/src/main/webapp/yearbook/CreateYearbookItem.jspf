@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -67,21 +67,21 @@
 						<span class="noDisplay">: </span>
 					</b>
 									
-					<tr:iterator var="context" value="#{YearbookItemCreateBean.contextIds}" varStatus="index">				
+					<a4j:repeat var="context" value="#{YearbookItemCreateBean.contextIds}" rowKeyVar="index">				
 						<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
-							<tr:selectOneChoice styleClass="large_select" id="selectContext" value="#{context.objectId}">
+							<h:selectOneMenu styleClass="large_select" id="selectContext" value="#{context.objectId}">
 								<f:selectItems value="#{YearbookItemCreateBean.contextSelectItems}"/>
-							</tr:selectOneChoice>
+							</h:selectOneMenu>
 						</h:panelGroup>
 						<h:panelGroup styleClass="large_area0_p8 lineToolSection">
-							<tr:commandButton id="btnAddContext" styleClass="min_imgBtn groupTool add" text=" " action="#{YearbookItemCreateBean.addContext}" >
-								<f:setPropertyActionListener value="#{index.index}" target="#{YearbookItemCreateBean.contextPosition}"/>
-							</tr:commandButton>
-							<tr:commandButton id="btnRemoveContext" styleClass="min_imgBtn groupTool remove" text=" " action="#{YearbookItemCreateBean.removeContext}">
-								<f:setPropertyActionListener value="#{index.index}" target="#{YearbookItemCreateBean.contextPosition}"/>
-							</tr:commandButton>
+							<h:commandButton id="btnAddContext" styleClass="min_imgBtn groupTool add" value=" " action="#{YearbookItemCreateBean.addContext}" >
+								<f:setPropertyActionListener value="#{index}" target="#{YearbookItemCreateBean.contextPosition}"/>
+							</h:commandButton>
+							<h:commandButton id="btnRemoveContext" styleClass="min_imgBtn groupTool remove" value=" " action="#{YearbookItemCreateBean.removeContext}">
+								<f:setPropertyActionListener value="#{index}" target="#{YearbookItemCreateBean.contextPosition}"/>
+							</h:commandButton>
 						</h:panelGroup>
-					</tr:iterator>
+					</a4j:repeat>
 									
 									
 									<%-- 
@@ -123,23 +123,23 @@
 										<h:outputText value="#{lbl.Yearbook_collaboratorUserIds}"/>
 										<span class="noDisplay">: </span>
 									</b>
-									<tr:iterator var="coll" value="#{YearbookItemCreateBean.collaboratorUserIds}" varStatus="indexUser">				
+									<a4j:repeat var="coll" value="#{YearbookItemCreateBean.collaboratorUserIds}" rowKeyVar="indexUser">				
 										<h:panelGroup>
 											<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
-												<tr:selectOneChoice styleClass="large_select" id="selectContext" value="#{coll.objectId}">
+												<h:selectOneMenu styleClass="large_select" id="selectContext" value="#{coll.objectId}">
 													<f:selectItems value="#{YearbookItemCreateBean.userAccountSelectItems}"/>
-												</tr:selectOneChoice>
+												</h:selectOneMenu>
 											</h:panelGroup>
 											<h:panelGroup styleClass="large_area0_p8 lineToolSection">
-												<tr:commandButton id="btnAddUserId" styleClass="min_imgBtn groupTool add" text=" " action="#{YearbookItemCreateBean.addUser}" >
-													<f:setPropertyActionListener value="#{indexUser.index}" target="#{YearbookItemCreateBean.userPosition}"/>
-												</tr:commandButton>
-												<tr:commandButton id="btnRemoveUserId" styleClass="min_imgBtn groupTool remove" text=" " action="#{YearbookItemCreateBean.removeUser}">
-													<f:setPropertyActionListener value="#{indexUser.index}" target="#{YearbookItemCreateBean.userPosition}"/>
-												</tr:commandButton>
+												<h:commandButton id="btnAddUserId" styleClass="min_imgBtn groupTool add" value=" " action="#{YearbookItemCreateBean.addUser}" >
+													<f:setPropertyActionListener value="#{indexUser}" target="#{YearbookItemCreateBean.userPosition}"/>
+												</h:commandButton>
+												<h:commandButton id="btnRemoveUserId" styleClass="min_imgBtn groupTool remove" value=" " action="#{YearbookItemCreateBean.removeUser}">
+													<f:setPropertyActionListener value="#{indexUser}" target="#{YearbookItemCreateBean.userPosition}"/>
+												</h:commandButton>
 											</h:panelGroup>
 										</h:panelGroup>
-									</tr:iterator>
+									</a4j:repeat>
 
 								</h:panelGroup>
 							</span>

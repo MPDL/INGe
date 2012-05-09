@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <h:panelGroup layout="block" id="editContent" styleClass="full_area0 itemBlock" rendered="#{EditItem.pubItem!=null and !(genre.content_display == 'false' && genre.content_form_id == 'full-submission' || genre.content_display == 'false' && genre.content_form_id == 'all')}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -51,7 +51,7 @@
 		</h:panelGroup>
 
 <%-- Classified Subject (List) --%>		
-		<tr:iterator id="iterContentGroupDDCSubjectList" var="subject" value="#{EditItem.contentSubjectCollection.contentSubjectManager.objectDM}" rendered="#{EditItem.hasSubjectClassification && !(genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'full-submission' || genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'all')}">
+		<a4j:repeat id="iterContentGroupDDCSubjectList" var="subject" value="#{EditItem.contentSubjectCollection.contentSubjectManager.objectDM}" rendered="#{EditItem.hasSubjectClassification && !(genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'full-submission' || genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblClassifiedSubject}" rendered="#{EditItem.contentSubjectCollection.contentSubjectManager.objectDM.rowIndex == 0}"/><span class="noDisplay">: </span>
@@ -81,14 +81,14 @@
 					</h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAddSubject" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addSubject}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.addObject}" rendered="#{genre.content_item_subject_repeatable != 'false'}"/>
-					<tr:commandButton id="btnRemoveSubject" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeSubject}" disabled="#{EditItem.contentSubjectCollection.contentSubjectManager.size == 1}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.removeObject}" rendered="#{genre.content_item_subject_repeatable != 'false'}"/>
+					<a4j:commandButton reRender="editContent" id="btnAddSubject" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addSubject}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.addObject}" rendered="#{genre.content_item_subject_repeatable != 'false'}"/>
+					<a4j:commandButton reRender="editContent" id="btnRemoveSubject" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeSubject}" disabled="#{EditItem.contentSubjectCollection.contentSubjectManager.size == 1}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.removeObject}" rendered="#{genre.content_item_subject_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
-		</tr:iterator>
+		</a4j:repeat>
 
 <%-- Abstract --%>		
-		<tr:iterator id="iterContentGroupAbstract" var="abstract" value="#{EditItem.contentAbstractCollection.contentAbstractManager.objectDM}" rendered="#{!(genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'full-submission' || genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'all')}">
+		<a4j:repeat id="iterContentGroupAbstract" var="abstract" value="#{EditItem.contentAbstractCollection.contentAbstractManager.objectDM}" rendered="#{!(genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'full-submission' || genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;
@@ -116,12 +116,12 @@
 						--%>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton id="btnAddAbstract" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addAbstract}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" rendered="#{genre.content_item_abstract_repeatable != 'false'}"/>
-						<tr:commandButton id="btnRemoveAbstract" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeAbstract}" disabled="#{EditItem.contentAbstractCollection.contentAbstractManager.size == 1}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObject}" rendered="#{genre.content_item_abstract_repeatable != 'false'}"/>
+						<a4j:commandButton reRender="editContent" id="btnAddAbstract" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addAbstract}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" rendered="#{genre.content_item_abstract_repeatable != 'false'}"/>
+						<a4j:commandButton reRender="editContent" id="btnRemoveAbstract" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeAbstract}" disabled="#{EditItem.contentAbstractCollection.contentAbstractManager.size == 1}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObject}" rendered="#{genre.content_item_abstract_repeatable != 'false'}"/>
 					</span>
 				</h:panelGroup>
 			</h:panelGroup>
-		</tr:iterator>
+		</a4j:repeat>
 	</div>
 	
 </h:panelGroup>

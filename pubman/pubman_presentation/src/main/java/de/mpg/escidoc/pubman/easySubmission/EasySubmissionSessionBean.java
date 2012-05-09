@@ -36,6 +36,7 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.richfaces.model.UploadItem;
 
 import de.mpg.escidoc.pubman.EditItemBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
@@ -95,6 +96,8 @@ public class EasySubmissionSessionBean extends EditItemBean
 
     private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
 
+    
+    private UploadItem uploadedBibtexFile;
     private String selectedDate;
 
     //For import service
@@ -149,6 +152,7 @@ public class EasySubmissionSessionBean extends EditItemBean
         this.setSelectedDate("");
         this.initAuthorCopyPasteCreatorBean();
         this.setCurrentSubmissionStep(ES_STEP3);
+        this.uploadedBibtexFile=null;
     }
 
     public String getCurrentSubmissionMethod()
@@ -392,5 +396,13 @@ public class EasySubmissionSessionBean extends EditItemBean
     {
         return this.REFERENCE_LOCATOR;
     }
+
+	public UploadItem getUploadedBibtexFile() {
+		return uploadedBibtexFile;
+	}
+
+	public void setUploadedBibtexFile(UploadItem uploadedBibtexFile) {
+		this.uploadedBibtexFile = uploadedBibtexFile;
+	}
 }
 

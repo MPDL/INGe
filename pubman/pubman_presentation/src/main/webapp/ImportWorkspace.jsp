@@ -27,7 +27,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
 	<jsp:output doctype-root-element="html" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" /> 
 
@@ -47,7 +47,7 @@
 				<script type="text/javascript">
 					var detailsAwaiting = '<tr class="full_area0 importDetails"><td colspan="8" class="full_area0"><div class="big_imgArea half_marginLIncl smallThrobber"></div></td></tr>';
 				</script>
-				<tr:form>
+				<h:form>
 					<div class="full wrapper">
 						<h:inputHidden id="offset"></h:inputHidden>
 						<jsp:directive.include file="header/Header.jspf" />
@@ -161,7 +161,7 @@
 										</tr>
 									</thead>
 									<tbody style="text-align: left; vertical-align: top;">
-										<tr:iterator var="import" rows="0" value="#{ImportWorkspace.imports}" binding="#{ImportWorkspace.importIterator}">
+										<a4j:repeat var="import" rows="0" value="#{ImportWorkspace.imports}" binding="#{ImportWorkspace.importIterator}">
 											<h:panelGroup>
 												<tr class="full_area0 listItem">
 													<td class="tiny_area0 endline">
@@ -213,7 +213,7 @@
 														<h:panelGroup styleClass="seperator"></h:panelGroup> 
 														<span class="large_area0_p8 detailsLinkArea"> 
 															<h:inputHidden id="inpImportItemsLink" value="#{import.itemsLink}" /> 
-															<a onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())} else {$(this).parents('tr').next('.importDetails').remove();}">
+															<a onclick="if(!$pb(this).parents('tr').next('tr').hasClass('importDetails')) {$pb(this).parents('tr').after(detailsAwaiting); $pb(this).parents('tr').next('.importDetails').find('td').load($pb(this).siblings('input').val())} else {$pb(this).parents('tr').next('.importDetails').remove();}">
 																<h:outputText value="#{lbl.import_workspace_detailsView}" />
 															</a> 
 														</span>
@@ -225,24 +225,24 @@
 																<h:outputText value="#{import.errorLevel}" />
 															</h:panelGroup> 
 															<h:panelGroup rendered="#{import.finished}">
-																<tr:commandLink id="lnkRemove" shortDesc="#{tip.import_workspace_remove_import}" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.remove}">
+																<h:commandLink id="lnkRemove" title="#{tip.import_workspace_remove_import}" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.remove}">
 																	<h:outputText value="#{lbl.import_workspace_remove_import}" />
-																</tr:commandLink>
+																</h:commandLink>
 			
-																<tr:commandLink id="lnkDeleteAll" shortDesc="#{tip.import_workspace_delete_items}" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.deleteAll}" rendered="#{import.importedItems}">
+																<h:commandLink id="lnkDeleteAll" title="#{tip.import_workspace_delete_items}" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.deleteAll}" rendered="#{import.importedItems}">
 																	<h:outputText value="#{lbl.import_workspace_delete_items}" />
-																</tr:commandLink>
+																</h:commandLink>
 			
-																<tr:commandLink id="lnkSubmitAndReleaseAll" shortDesc="#{tip.import_workspace_submit_release_items}" styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitAndReleaseAll}" rendered="#{import.importedItems}">
+																<h:commandLink id="lnkSubmitAndReleaseAll" title="#{tip.import_workspace_submit_release_items}" styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitAndReleaseAll}" rendered="#{import.importedItems}">
 																	<h:outputText
 																		value="#{lbl.import_workspace_submit_release_items}" />
-																</tr:commandLink>
+																</h:commandLink>
 															</h:panelGroup> 
 														</span>
 													</td>
 												</tr>
 											</h:panelGroup>
-										</tr:iterator>
+										</a4j:repeat>
 									</tbody>
 								</table>
 							</div>
@@ -250,26 +250,26 @@
 						</div>			
 					</div>
 					<jsp:directive.include file="footer/Footer.jspf" />
-				</tr:form>
+				</h:form>
 				<script type="text/javascript">
 					function reloadImports() {
-						$('.listItem').find('.statusArea').find('div:not(.FINISHED)').siblings('input').each(
+						$pb('.listItem').find('.statusArea').find('div:not(.FINISHED)').siblings('input').each(
 							function(i,ele) {
-								$.get($(ele).val(), function(data){
-									$(ele).parents('tr').replaceWith($(data));
+								$pb.get($pb(ele).val(), function(data){
+									$pb(ele).parents('tr').replaceWith($pb(data).find('tr'));
 								});
 							}
 						);
 						window.setTimeout("reloadImports()", 2000);
 					}
 					function reloadDetails() {
-						$('.listItem').find('.statusArea').find('div:not(.FINISHED),span.ajaxedImport').parents('tr').next('.importDetails').each(
+						$pb('.listItem').find('.statusArea').find('div:not(.FINISHED),span.ajaxedImport').parents('tr').next('.importDetails').each(
 							function(i,ele) {	
-								$.get($(ele).prev('.listItem').find('.detailsLinkArea').find('input').val(), function(data) {
-									$(ele).children('td').empty().append(data);
+								$pb.get($pb(ele).prev('.listItem').find('.detailsLinkArea').find('input').val(), function(data) {
+									$pb(ele).children('td').empty().append(data);
 								});
-								if(($(ele).prev('.listItem').find('.statusArea').find('.FINISHED').length != 0 ) &amp;&amp; ($(ele).prev('.listItem').find('.ajaxedImport').length != 0)) {
-									$(ele).prev('.listItem').find('.ajaxedImport').removeClass('ajaxedImport');
+								if(($pb(ele).prev('.listItem').find('.statusArea').find('.FINISHED').length != 0 ) &amp;&amp; ($pb(ele).prev('.listItem').find('.ajaxedImport').length != 0)) {
+									$pb(ele).prev('.listItem').find('.ajaxedImport').removeClass('ajaxedImport');
 								}
 							}
 						);

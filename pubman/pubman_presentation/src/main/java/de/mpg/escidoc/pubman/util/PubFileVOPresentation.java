@@ -38,8 +38,8 @@ import javax.faces.event.ValueChangeEvent;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.log4j.Logger;
-import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -472,7 +472,7 @@ public class PubFileVOPresentation extends FacesBean
          
         easySubmissionSessionBean.getFiles().remove(this.index);
         easySubmission.reorganizeFileIndexes();
-        easySubmission.setFileIterator(new UIXIterator());
+        easySubmission.setFileIterator(new HtmlAjaxRepeat());
         easySubmission.init();
         return "loadNewEasySubmission";        
     }
@@ -484,7 +484,7 @@ public class PubFileVOPresentation extends FacesBean
          
         easySubmissionSessionBean.getLocators().remove(this.index);
         easySubmission.reorganizeLocatorIndexes();
-        easySubmission.setLocatorIterator(new UIXIterator());
+        easySubmission.setLocatorIterator(new HtmlAjaxRepeat());
         easySubmission.init();
         return "loadNewEasySubmission";        
     }

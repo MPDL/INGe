@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 
@@ -48,7 +48,7 @@
     					<div class="gfc-title"></div>
 					</div>
 					<div class="gfc-results">
-    					<tr:iterator var="item" value="#{HomePage.latest}">
+    					<a4j:repeat var="item" value="#{HomePage.latest}">
     						<div class="gfc-result">
 								<div class="gf-result">
 									<div class="gf-title">
@@ -60,7 +60,7 @@
 									<div class="gf-snippet"><h:outputText value="#{item.shortAbstract}"/></div>
 								</div>
 							</div>
-    					</tr:iterator>
+    					</a4j:repeat>
     				</div>
     			</div>
     		</div>

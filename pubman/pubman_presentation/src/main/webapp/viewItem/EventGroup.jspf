@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -52,7 +52,7 @@
 		</div>
 
 <%-- Event alternative title --%>
-		<tr:iterator var="eventAltTitles" value="#{ViewItemFull.pubItem.metadata.event.alternativeTitles}" binding="#{ViewItemFull.eventAltTitleIterator}" varStatus="index">
+		<a4j:repeat var="eventAltTitles" value="#{ViewItemFull.pubItem.metadata.event.alternativeTitles}" binding="#{ViewItemFull.eventAltTitleIterator}" rowKeyVar="index">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText value="#{lbl.ViewItemFull_lblEventAlternativeTitle}"/><span class="noDisplay">: </span>
@@ -61,7 +61,7 @@
 					<h:outputText value="#{eventAltTitles.value}"/>
 				</span>
 			</h:panelGroup>
-		</tr:iterator>
+		</a4j:repeat>
 
 <%-- Event place --%>
 		<div class="free_area0 endline itemLine">

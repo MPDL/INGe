@@ -41,12 +41,12 @@
  * @notice if the content is greater than the maximum width it would be cutted
  */
 function resizeSelectbox(maxWidth) {
-	$('.selectContainer').each(function() {
+	$pb('.selectContainer').each(function() {
 		//check if the selectbox is on metaMenu
-		if ($(this).parent().hasClass("metaMenu")) {
-//			console.log('Parent: ' + $(this).parent().attr('class'))
+		if ($pb(this).parent().hasClass("metaMenu")) {
+//			console.log('Parent: ' + $pb(this).parent().attr('class'))
 		} else {
-			var element = $(this);
+			var element = $pb(this);
 			//Define the current width of customized selectBox
 			var curSelectWidth = element.find('select').width();
 			
@@ -65,9 +65,9 @@ function resizeSelectbox(maxWidth) {
 
 /* this function search for the parent node */
 function searchParentTag(source_obj, searchTagString) {
-	for (var i=0; i < $(source_obj).parents().length; i++) {
-		if ($($(source_obj).parents()[i]).hasClass(searchTagString)) {
-			return $($(source_obj).parents()[i]);
+	for (var i=0; i < $pb(source_obj).parents().length; i++) {
+		if ($pb($pb(source_obj).parents()[i]).hasClass(searchTagString)) {
+			return $pb($pb(source_obj).parents()[i]);
 			break;
 		}
 	}
@@ -82,48 +82,48 @@ function searchParentTag(source_obj, searchTagString) {
 function updateSelectionBox(box, isStart) {
 	if (isStart) {	//if start every selectbox will be focused to update the selectionBox
 		/*
-		$('.selectContainer').each(function() {
+		$pb('.selectContainer').each(function() {
 			//check if the selectbox is on metaMenu
-			if ($(this).parent().hasClass("metaMenu")) {
-//				console.log('Parent: ' + $(this).parent().attr('class'))
+			if ($pb(this).parent().hasClass("metaMenu")) {
+//				console.log('Parent: ' + $pb(this).parent().attr('class'))
 			} else {
-				$(this).find('select').focus();
+				$pb(this).find('select').focus();
 			}
 		});
 		
 	*/
-		$("select").each(function(i){
+		$pb("select").each(function(i){
 			var parent = null;
 			if (parent = searchParentTag(this, "selectContainer")) {
-				var val = $(this).val();
-				$(this).find("option").each(function(i){
-					if ($(this).val() == val) {
-						val = $(this).text();
+				var val = $pb(this).val();
+				$pb(this).find("option").each(function(i){
+					if ($pb(this).val() == val) {
+						val = $pb(this).text();
 					}
 				});
-				$(parent).find(".selectionBox").html(val);
+				$pb(parent).find(".selectionBox").html(val);
 			}
 		});
 	} else {
 		var contentText = box.options[box.selectedIndex].text;
 		
-		$(box).parent().find('.selectionBox').text(contentText);
+		$pb(box).parent().find('.selectionBox').text(contentText);
 		
 		
 		/* at first: exclude all logical operation selectboxes */
-		if ($.trim(contentText) != 'AND' && $.trim(contentText) != 'OR' && $.trim(contentText) != 'NOT') {
+		if ($pb.trim(contentText) != 'AND' && $pb.trim(contentText) != 'OR' && $pb.trim(contentText) != 'NOT') {
 			
 			var parent = null; //define the parent object
-			for (var ij = 0; ij < $(box).parents().length; ij++) {
-				if ($($(box).parents().get(ij)).hasClass('.itemBlock')) {
-					parent = $($(box).parents().get(ij));
+			for (var ij = 0; ij < $pb(box).parents().length; ij++) {
+				if ($pb($pb(box).parents().get(ij)).hasClass('.itemBlock')) {
+					parent = $pb($pb(box).parents().get(ij));
 					break;
 				}
 			}
 		
 			//compare the contentText and decide for remove hidden class
 			if (parent) {
-				if ($.trim(contentText) != '-' && $.trim(contentText) != '--' && $.trim(contentText) != '') {
+				if ($pb.trim(contentText) != '-' && $pb.trim(contentText) != '--' && $pb.trim(contentText) != '') {
 					parent.find('.itemBlockContent').removeClass("hideBlockIfVoid");
 					parent.find('.itemBlockContent').removeClass("hideAdvSearchComplexBlockIfVoid");
 					/* parent.find('.itemBlockContent').removeClass("hideAdvSearchGenreBlockIfVoid"); -- should be expanded for text-input fields*/
@@ -136,7 +136,7 @@ function updateSelectionBox(box, isStart) {
 }
 
 
-$(document).ready(function(e){
+$pb(document).ready(function(e){
 	resizeSelectbox(431);
 	updateSelectionBox(null, true)
 });

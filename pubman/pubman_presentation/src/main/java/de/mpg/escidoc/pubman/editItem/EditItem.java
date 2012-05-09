@@ -28,6 +28,8 @@
  */
 package de.mpg.escidoc.pubman.editItem;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -42,21 +44,19 @@ import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.rpc.ServiceException;
 
+import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
-import org.apache.myfaces.trinidad.component.UIXIterator;
-import org.apache.myfaces.trinidad.component.core.data.CoreTable;
-import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
-import org.apache.myfaces.trinidad.model.UploadedFile;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
 
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.pubman.DepositorWSPage;
@@ -171,19 +171,19 @@ public class EditItem extends FacesBean
     private ContentSubjectCollection contentSubjectCollection;
     private IdentifierCollection identifierCollection;
     private List<ListItem> languages = null;
-    private UploadedFile uploadedFile;
+    private List<UploadItem> uploadedFile;
     private String locatorUpload;
-    private UIXIterator fileIterator = new UIXIterator();
-    private UIXIterator pubLangIterator = new UIXIterator();
-    private UIXIterator identifierIterator = new UIXIterator();
-    private UIXIterator sourceIterator = new UIXIterator();
-    private UIXIterator sourceIdentifierIterator = new UIXIterator();
-    private CoreTable fileTable = new CoreTable();
+    private HtmlAjaxRepeat fileIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat pubLangIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat identifierIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat sourceIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat sourceIdentifierIterator = new HtmlAjaxRepeat();
+    //private CoreTable fileTable = new CoreTable();
     private PubItemVOPresentation item = null;
     private boolean fromEasySubmission = false;
     private String suggestConeUrl = null;
     private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
-    private CoreInputFile inputFile = new CoreInputFile();
+    //private CoreInputFile inputFile = new CoreInputFile();
     // Flag for the binding method to avoid unnecessary binding
     private boolean bindFilesAndLocators = true;
 
@@ -213,7 +213,7 @@ public class EditItem extends FacesBean
     {
         // Perform initializations inherited from our superclass
         super.init();
-        this.fileTable = new CoreTable();
+        //this.fileTable = new CoreTable();
         // enables the commandlinks
         this.enableLinks();
         // initializes the (new) item if necessary
@@ -345,10 +345,11 @@ public class EditItem extends FacesBean
                 this.getEditItemSessionBean().setGenreBundle("Genre_" + pubItem.getMetadata().getGenre().name());
             }
             this.getItemControllerSessionBean().initializeItem(pubItem);
-            if (this.getEditItemSessionBean().getFiles().size() == 0
+            if (!this.getEditItemSessionBean().isFilesInitialized()
                     || this.getEditItemSessionBean().getLocators().size() == 0)
             {
                 bindFiles();
+                this.getEditItemSessionBean().setFilesInitialized(true);
             }
             if (this.getEditItemSessionBean().getSources().size() == 0)
             {
@@ -481,6 +482,7 @@ public class EditItem extends FacesBean
         }
         this.getEditItemSessionBean().setLocators(locators);
         // make sure that at least one locator and one file is stored in the EditItemSessionBean
+       /*
         if (this.getEditItemSessionBean().getFiles().size() < 1)
         {
             FileVO newFile = new FileVO();
@@ -488,6 +490,7 @@ public class EditItem extends FacesBean
             newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
             this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
         }
+        */
         if (this.getEditItemSessionBean().getLocators().size() < 1)
         {
             FileVO newLocator = new FileVO();
@@ -618,12 +621,20 @@ public class EditItem extends FacesBean
      * @return The URL of the uploaded file.
      * @throws Exception If anything goes wrong...
      */
-    protected URL uploadFile(UploadedFile uploadedFile, String mimetype, String userHandle) throws Exception
+    protected URL uploadFile(UploadItem uploadedFile, String mimetype, String userHandle) throws Exception
     {
         // Prepare the HttpMethod.
         String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
         PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-        method.setRequestEntity(new InputStreamRequestEntity(uploadedFile.getInputStream()));
+        if(uploadedFile.isTempFile())
+        {
+        	method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(uploadedFile.getFile())));
+        }
+        else
+        {
+        	method.setRequestEntity(new InputStreamRequestEntity(new ByteArrayInputStream(uploadedFile.getData())));
+        }
+        
         method.setRequestHeader("Content-Type", mimetype);
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
         // Execute the method with HttpClient.
@@ -1251,7 +1262,7 @@ public class EditItem extends FacesBean
         this.identifierCollection = null;
         this.languages = null;
         this.uploadedFile = null;
-        this.fileTable = null;
+        //this.fileTable = null;
     }
 
     /**
@@ -1406,46 +1417,57 @@ public class EditItem extends FacesBean
     }
 
 
-
+public String logUploadComplete()
+{
+	logger.info("upload complete");
+	return "";
+}
+    
     public String uploadFile()
     {
-        int indexUpload = this.getEditItemSessionBean().getFiles().size() - 1;
-        UploadedFile file = getUploadedFile();
-        String contentURL;
-        if (file != null && file.getLength() > 0)
-        {
-            contentURL = uploadFile(file);
-            if (contentURL != null && !contentURL.trim().equals(""))
-            {
-                FileVO fileVO = this.getEditItemSessionBean().getFiles().get(indexUpload).getFile();
-                fileVO.getDefaultMetadata().setSize((int)file.getLength());
-                fileVO.setName(file.getFilename());
-                fileVO.getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
-                fileVO.setMimeType(file.getContentType());
-                // correct several PDF Mime type errors manually
-                if (file.getFilename() != null
-                        && (file.getFilename().endsWith(".pdf") || file.getFilename().endsWith(".PDF")))
-                {
-                    fileVO.setMimeType("application/pdf");
-                }
-                FormatVO formatVO = new FormatVO();
-                formatVO.setType("dcterms:IMT");
-                formatVO.setValue(fileVO.getMimeType());
-                fileVO.getDefaultMetadata().getFormats().add(formatVO);
-                fileVO.setContent(contentURL);
-            }
-            // bindFiles();
-        }
-        else
-        {
-            // show error message
-            error(getMessage("ComponentEmpty"));
-        }
+    	for(UploadItem file: getUploadedFile())
+    	{
+	        //int indexUpload = this.getEditItemSessionBean().getFiles().size() - 1;
+	        
+	        String contentURL;
+	        if (file != null && file.getFileSize() > 0)
+	        {
+	            contentURL = uploadFile(file);
+	            if (contentURL != null && !contentURL.trim().equals(""))
+	            {
+	            	 FileVO fileVO = new FileVO();
+	            	 fileVO.getMetadataSets().add(new MdsFileVO());
+	                 fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+	                 this.getEditItemSessionBean().getFiles() .add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), fileVO, false));
+	                fileVO.getDefaultMetadata().setSize((int)file.getFileSize());
+	                fileVO.setName(file.getFileName());
+	                fileVO.getDefaultMetadata().setTitle(new TextVO(file.getFileName()));
+	                fileVO.setMimeType(file.getContentType());
+	                // correct several PDF Mime type errors manually
+	                if (file.getFileName() != null
+	                        && (file.getFileName().endsWith(".pdf") || file.getFileName().endsWith(".PDF")))
+	                {
+	                    fileVO.setMimeType("application/pdf");
+	                }
+	                FormatVO formatVO = new FormatVO();
+	                formatVO.setType("dcterms:IMT");
+	                formatVO.setValue(fileVO.getMimeType());
+	                fileVO.getDefaultMetadata().getFormats().add(formatVO);
+	                fileVO.setContent(contentURL);
+	            }
+	            // bindFiles();
+	        }
+	        else
+	        {
+	            // show error message
+	            error(getMessage("ComponentEmpty"));
+	        }
+    	}
         return"";
 
     }
 
-    public String uploadFile(UploadedFile file)
+    public String uploadFile(UploadItem file)
     {
         String contentURL = "";
         if (file != null)
@@ -1488,9 +1510,9 @@ public class EditItem extends FacesBean
         return contentURL;
     }
 
-    public void fileUploaded(ValueChangeEvent event)
+    public void fileUploaded(UploadEvent event)
     {
-        this.uploadedFile = (UploadedFile)event.getNewValue();
+        this.uploadedFile = event.getUploadItems();
         uploadFile();
     }
 
@@ -2151,6 +2173,7 @@ public class EditItem extends FacesBean
     public List<PubFileVOPresentation> getLocators()
     {
         return this.getEditItemSessionBean().getLocators();
+        
     }
 
     public void setLocators(List<PubFileVOPresentation> locators)
@@ -2158,16 +2181,17 @@ public class EditItem extends FacesBean
         this.getEditItemSessionBean().setLocators(locators);
     }
 
-    public UploadedFile getUploadedFile()
+    public List<UploadItem> getUploadedFile()
     {
         return this.uploadedFile;
     }
 
-    public void setUploadedFile(UploadedFile uploadedFile)
+    public void setUploadedFile(List<UploadItem> uploadedFile)
     {
         this.uploadedFile = uploadedFile;
     }
 
+    /*
     public CoreTable getFileTable()
     {
         return this.fileTable;
@@ -2178,6 +2202,7 @@ public class EditItem extends FacesBean
         this.fileTable = fileTable;
     }
 
+	*/
     public int getNumberOfFiles()
     {
         int fileNumber = 0;
@@ -2458,12 +2483,12 @@ public class EditItem extends FacesBean
         return "loadEditLocalTags";
     }
 
-    public UIXIterator getFileIterator()
+    public HtmlAjaxRepeat getFileIterator()
     {
         return this.fileIterator;
     }
 
-    public void setFileIterator(UIXIterator fileIterator)
+    public void setFileIterator(HtmlAjaxRepeat fileIterator)
     {
         this.fileIterator = fileIterator;
     }
@@ -2486,42 +2511,42 @@ public class EditItem extends FacesBean
         this.suggestConeUrl = suggestConeUrl;
     }
 
-    public UIXIterator getPubLangIterator()
+    public HtmlAjaxRepeat getPubLangIterator()
     {
         return pubLangIterator;
     }
 
-    public void setPubLangIterator(UIXIterator pubLangIterator)
+    public void setPubLangIterator(HtmlAjaxRepeat pubLangIterator)
     {
         this.pubLangIterator = pubLangIterator;
     }
 
-    public UIXIterator getIdentifierIterator()
+    public HtmlAjaxRepeat getIdentifierIterator()
     {
         return identifierIterator;
     }
 
-    public void setIdentifierIterator(UIXIterator identifierIterator)
+    public void setIdentifierIterator(HtmlAjaxRepeat identifierIterator)
     {
         this.identifierIterator = identifierIterator;
     }
 
-    public UIXIterator getSourceIterator()
+    public HtmlAjaxRepeat getSourceIterator()
     {
         return sourceIterator;
     }
 
-    public void setSourceIterator(UIXIterator sourceIterator)
+    public void setSourceIterator(HtmlAjaxRepeat sourceIterator)
     {
         this.sourceIterator = sourceIterator;
     }
 
-    public UIXIterator getSourceIdentifierIterator()
+    public HtmlAjaxRepeat getSourceIdentifierIterator()
     {
         return sourceIdentifierIterator;
     }
 
-    public void setSourceIdentifierIterator(UIXIterator sourceIdentifierIterator)
+    public void setSourceIdentifierIterator(HtmlAjaxRepeat sourceIdentifierIterator)
     {
         this.sourceIdentifierIterator = sourceIdentifierIterator;
     }
@@ -2536,6 +2561,7 @@ public class EditItem extends FacesBean
         this.genreSelect = genreSelect;
     }
 
+    /*
     public CoreInputFile getInputFile()
     {
         return inputFile;
@@ -2545,7 +2571,7 @@ public class EditItem extends FacesBean
     {
         this.inputFile = inputFile;
     }
-
+*/
     public String getGenreBundle()
     {
         // return genreBundle;

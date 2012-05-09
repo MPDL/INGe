@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <h:panelGroup layout="block" styleClass="full_area0 mediumView">
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
@@ -120,22 +120,22 @@
 			<h:outputText value="#{lbl.ViewItemFull_lblFulltextSearchResults}" /><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<tr:iterator value="#{item.fileBeanList}" var="fileBean" varStatus="index">
+			<a4j:repeat value="#{item.fileBeanList}" var="fileBean" rowKeyVar="index">
 				<h:panelGroup styleClass="xHuge_area0 endline" rendered="#{fileBean.showSearchHits}">
-					<tr:goLink id="lnkSearchHitsURL" targetFrame="." destination="#{item.link}/component/#{fileBean.file.reference.objectId}/#{fileBean.file.name}#search=#{fileBean.openPDFSearchParameter}" shortDesc="#{fileBean.file.description}" rendered="#{fileBean.file.mimeType=='application/pdf'}">
+					<h:outputLink id="lnkSearchHitsURL" target="." value="#{item.link}/component/#{fileBean.file.reference.objectId}/#{fileBean.file.name}#search=#{fileBean.openPDFSearchParameter}" title="#{fileBean.file.description}" rendered="#{fileBean.file.mimeType=='application/pdf'}">
 						<h:outputText value="#{fileBean.fileName}"/>
-					</tr:goLink>
-					<tr:goLink id="lnkFileURL" targetFrame="." destination="#{item.link}/component/#{fileBean.file.reference.objectId}/#{fileBean.file.name}" shortDesc="#{fileBean.file.description}" rendered="#{fileBean.file.mimeType!='application/pdf'}">
+					</h:outputLink>
+					<h:outputLink id="lnkFileURL" target="." value="#{item.link}/component/#{fileBean.file.reference.objectId}/#{fileBean.file.name}" title="#{fileBean.file.description}" rendered="#{fileBean.file.mimeType!='application/pdf'}">
 						<h:outputText value="#{fileBean.fileName}"/>
-					</tr:goLink>
+					</h:outputLink>
 					<br/>
-					<tr:iterator id="fileSearchHitIterator" var="hit" value="#{fileBean.searchHits}" varStatus="index" >
+					<a4j:repeat id="fileSearchHitIterator" var="hit" value="#{fileBean.searchHits}" rowKeyVar="index" >
 							<h:outputText value="#{hit.beforeSearchHitString}"/>
 							<h:outputText styleClass="searchHit" value="#{hit.searchHitString}"/>
 							<h:outputText value="#{hit.afterSearchHitString}"/>
-					</tr:iterator>
+					</a4j:repeat>
 				</h:panelGroup>
-			</tr:iterator>
+			</a4j:repeat>
 		</span>
 	</h:panelGroup>
 </h:panelGroup>

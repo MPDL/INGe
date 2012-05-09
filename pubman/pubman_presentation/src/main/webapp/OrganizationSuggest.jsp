@@ -26,7 +26,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" >
 
 	<jsp:directive.page contentType="text/plain;charset=UTF-8" pageEncoding="UTF-8"/>
 	<f:view locale="#{InternationalizationHelper.userLocale}">
@@ -35,15 +35,15 @@
 		<f:loadBundle var="tip" basename="Tooltip"/>
 		
 		[
-			<tr:iterator var="ou" value="#{OrganizationSuggest.creatorOrganizations}" rows="50">
+			<a4j:repeat var="ou" value="#{OrganizationSuggest.creatorOrganizations}" rows="50">
 				<h:panelGroup>
 				{
-					"id" : "<tr:outputText value="#{ou.identifier}" escape="false"/>",
-					"value" : "<tr:outputText value="#{ou.name.value}" escape="false"/>",
-					"address" : "<tr:outputText value="#{ou.address}" escape="false"/>"
+					"id" : "<h:outputText value="#{ou.identifier}" escape="false"/>",
+					"value" : "<h:outputText value="#{ou.name.value}" escape="false"/>",
+					"address" : "<h:outputText value="#{ou.address}" escape="false"/>"
 				}<h:panelGroup rendered="#{!ou.last}">,</h:panelGroup>
 				</h:panelGroup>
-			</tr:iterator>
+			</a4j:repeat>
 		]
 		
 	</f:view>

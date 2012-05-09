@@ -49,11 +49,11 @@
 		<span class="quickSearchMenu">
 			<input id="inpSearchForPublications" class="large_txtInput quickSearchTextInput" type="text" />
 		</span>
-		<input id="btnGo" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
+		<input id="btnGo" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$pb('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $pb(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $pb('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
 	</span>
 	<div class="clear">&#160;</div>
 	
-	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or browse through different categories.</a>
+	<a onclick="$pb('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or browse through different categories.</a>
 	<br/><br/><br/>
 	<h2>
 		PubMan Interfaces
@@ -102,11 +102,11 @@
 		<span class="quickSearchMenu">
 			<input id="inpSearchForPublicationsDe" class="large_txtInput quickSearchTextInput" type="text" />
 		</span>
-		<input id="btnLos" class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
+		<input id="btnLos" class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" type="button" onclick="$pb('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $pb(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $pb('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
 	</span>
 	<div class="clear">&#160;</div>
 	
-	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... oder browsen Sie durch verschiedene Kategorien.</a>
+	<a onclick="$pb('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... oder browsen Sie durch verschiedene Kategorien.</a>
 	<br/><br/><br/>
 	<h2>
 		PubMan Schnittstellen
@@ -156,11 +156,11 @@
 		<span class="quickSearchMenu">
 			<input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text">
 		</span>
-		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
+		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$pb('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $pb(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $pb('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
 	</span>
 	<div class="clear">&#160;</div>
 	
-	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>
+	<a onclick="$pb('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>
 	<br/><br/><br/>
 	<h2>
 	PubManインタフェース
@@ -195,11 +195,11 @@
 		<span class="quickSearchMenu">
 			<input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text">
 		</span>
-		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
+		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$pb('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $pb(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $pb('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
 	</span>
 	<div class="clear">&#160;</div>
 	
-	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>
+	<a onclick="$pb('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>
 	<br/><br/><br/>
 	<h2>
 	PubManインタフェース

@@ -30,6 +30,7 @@ package de.mpg.escidoc.pubman.easySubmission;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -46,17 +47,17 @@ import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
-import org.apache.myfaces.trinidad.component.UIXIterator;
-import org.apache.myfaces.trinidad.model.UploadedFile;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ErrorPage;
@@ -154,15 +155,14 @@ public class EasySubmission extends FacesBean
     public final String INTERNAL_MD_FORMAT = "eSciDoc-publication-item";
     // Faces navigation string
     public final static String LOAD_EASYSUBMISSION = "loadEasySubmission";
-    private UploadedFile uploadedFile;
-    private UIXIterator fileIterator = new UIXIterator();
-    private UIXIterator locatorIterator = new UIXIterator();
-    private UIXIterator creatorIterator = new UIXIterator();
+    private List<UploadItem> uploadedFile;
+    private HtmlAjaxRepeat fileIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat locatorIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat creatorIterator = new HtmlAjaxRepeat();
     public SelectItem[] locatorVisibilities;
     private CreatorCollection creatorCollection;
     private IdentifierCollection identifierCollection;
     private String selectedDate;
-    private UploadedFile uploadedBibTexFile;
     private boolean fromEasySubmission = false;
     // Import
     private Vector<DataSourceVO> dataSources = new Vector<DataSourceVO>();
@@ -180,7 +180,7 @@ public class EasySubmission extends FacesBean
     private String hiddenAlternativeTitlesField;
     private String hiddenIdsField;
     private TitleCollection eventTitleCollection;
-    private UIXIterator identifierIterator;
+    private HtmlAjaxRepeat identifierIterator;
     private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
     /** pub context name. */
     private String contextName = null;
@@ -463,6 +463,7 @@ public class EasySubmission extends FacesBean
         upload(true);
         // then try to save the locator
         saveLocator();
+        
         if (this.getEasySubmissionSessionBean().getFiles() != null
                 && this.getEasySubmissionSessionBean().getFiles().size() > 0
                 && this.getEasySubmissionSessionBean().getFiles()
@@ -573,7 +574,7 @@ public class EasySubmission extends FacesBean
         // Visibility PUBLIC is static default value for locators
         this.getLocators().get(this.getLocators().size() - 1).getFile().setVisibility(Visibility.PUBLIC);
         // As default value set 'supplementary material'
-        this.locatorIterator = new UIXIterator();
+        this.locatorIterator = new HtmlAjaxRepeat();
         return "loadNewEasySubmission";
     }
 
@@ -722,9 +723,9 @@ public class EasySubmission extends FacesBean
      * 
      * @param event
      */
-    public void fileUploaded(ValueChangeEvent event)
+    public void fileUploaded(UploadEvent event)
     {
-        uploadedFile = (UploadedFile)event.getNewValue();
+        uploadedFile = event.getUploadItems();
         upload(true);
         /*
          * int indexUpload = this.getEasySubmissionSessionBean().getFiles().size() - 1; UploadedFile file =
@@ -738,6 +739,11 @@ public class EasySubmission extends FacesBean
          * fileVO.getDefaultMetadata().getFormats().add(formatVO); fileVO.setContent(contentURL); } }
          */
     }
+    
+    public void bibtexFileUploaded(UploadEvent event)
+    {
+        getEasySubmissionSessionBean().setUploadedBibtexFile(event.getUploadItem());
+    }
 
     /**
      * This method uploads a selected file and gives out error messages if needed
@@ -749,63 +755,80 @@ public class EasySubmission extends FacesBean
      */
     public String upload(boolean needMessages)
     {
-        StringBuffer errorMessage = new StringBuffer();
-        int indexUpload = this.getFiles().size() - 1;
-        UploadedFile file = this.uploadedFile;
-        String contentURL;
-        if (file != null)
-        {
-            // set the file name automatically if it is not filled by the user
-            /*
-             * if (this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue() == null ||
-             * this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue().trim() .equals(""))
-             * { this.getFiles().get(indexUpload).getFile().getDefaultMetadata() .setTitle(new
-             * TextVO(file.getFilename())); } if (this.getFiles().get(this.getFiles().size() - 1).getContentCategory()
-             * != null && !this.getFiles().get(this.getFiles().size() - 1).getContentCategory().trim().equals("") &&
-             * !this.getFiles().get(this.getFiles().size() - 1).getContentCategory().trim().equals("-")) {
-             */
-            contentURL = uploadFile(file);
-            if (contentURL != null && !contentURL.trim().equals(""))
-            {
-                this.getFiles().get(indexUpload).getFile().getDefaultMetadata()
-                        .setTitle(new TextVO(file.getFilename()));
-                this.getFiles().get(indexUpload).getFile().setName(file.getFilename());
-                this.getFiles().get(indexUpload).getFile().getDefaultMetadata().setSize((int)file.getLength());
-                // set the file name automatically if it is not filled by the user
-                /*
-                 * if(this.getFiles().get(indexUpload).getFile().getName() == null ||
-                 * this.getFiles().get(indexUpload).getFile().getName().trim().equals("")) {
-                 * this.getFiles().get(indexUpload).getFile().setName(file.getFilename()); }
-                 */
-                this.getFiles().get(indexUpload).getFile().setMimeType(file.getContentType());
-                FormatVO formatVO = new FormatVO();
-                formatVO.setType("dcterms:IMT");
-                formatVO.setValue(file.getContentType());
-                // correct several PDF Mime type errors manually
-                if (file.getFilename() != null
-                        && (file.getFilename().endsWith(".pdf") || file.getFilename().endsWith(".PDF")))
-                {
-                    this.getFiles().get(indexUpload).getFile().setMimeType("application/pdf");
-                    formatVO.setValue("application/pdf");
-                }
-                this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getFormats().add(formatVO);
-                this.getFiles().get(indexUpload).getFile().setContent(contentURL);
-            }
-            this.init();
-        }/*
-          * else { errorMessage.append(getMessage("ComponentContentCategoryNotProvidedEasySubmission")); } } else { if
-          * (this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue() != null &&
-          * !this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue().trim() .equals("")) {
-          * errorMessage.append(getMessage("ComponentContentNotProvided")); if
-          * (this.getFiles().get(indexUpload).getContentCategory() != null &&
-          * !this.getFiles().get(indexUpload).getContentCategory().trim().equals("") &&
-          * !this.getFiles().get(indexUpload).getContentCategory().trim().equals("-")) {
-          * errorMessage.append(getMessage("ComponentContentCategoryNotProvidedEasySubmission")); } } }
-          */
-        if (errorMessage.length() > 0)
-        {
-            error(errorMessage.toString());
-        }
+    	if(uploadedFile!=null)
+    	{
+	    	for(UploadItem file : this.uploadedFile)
+	    	{
+		        StringBuffer errorMessage = new StringBuffer();
+		        int indexUpload = this.getFiles().size() - 1;
+		        //UploadItem file = this.uploadedFile;
+		        String contentURL;
+		        if (file != null)
+		        {
+		            // set the file name automatically if it is not filled by the user
+		            /*
+		             * if (this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue() == null ||
+		             * this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue().trim() .equals(""))
+		             * { this.getFiles().get(indexUpload).getFile().getDefaultMetadata() .setTitle(new
+		             * TextVO(file.getFilename())); } if (this.getFiles().get(this.getFiles().size() - 1).getContentCategory()
+		             * != null && !this.getFiles().get(this.getFiles().size() - 1).getContentCategory().trim().equals("") &&
+		             * !this.getFiles().get(this.getFiles().size() - 1).getContentCategory().trim().equals("-")) {
+		             */
+		            contentURL = uploadFile(file);
+		            if (contentURL != null && !contentURL.trim().equals(""))
+		            {
+		            	
+		            	FileVO newFile = new FileVO();
+		                newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+		                newFile.setVisibility(FileVO.Visibility.PUBLIC);
+		                newFile.setDefaultMetadata(new MdsFileVO());
+		                newFile.getDefaultMetadata().setTitle(new TextVO());
+		                this.getEasySubmissionSessionBean()
+		                        .getFiles()
+		                        .add(new PubFileVOPresentation(this.getEasySubmissionSessionBean().getFiles().size(), newFile,
+		                                false));
+		            	
+		                newFile.getDefaultMetadata().setTitle(new TextVO(file.getFileName()));
+		                newFile.setName(file.getFileName());
+		                newFile.getDefaultMetadata().setSize((int)file.getFileSize());
+		                // set the file name automatically if it is not filled by the user
+		                /*
+		                 * if(this.getFiles().get(indexUpload).getFile().getName() == null ||
+		                 * this.getFiles().get(indexUpload).getFile().getName().trim().equals("")) {
+		                 * this.getFiles().get(indexUpload).getFile().setName(file.getFilename()); }
+		                 */
+		                newFile.setMimeType(file.getContentType());
+		                FormatVO formatVO = new FormatVO();
+		                formatVO.setType("dcterms:IMT");
+		                formatVO.setValue(file.getContentType());
+		                // correct several PDF Mime type errors manually
+		                if (file.getFileName() != null
+		                        && (file.getFileName().endsWith(".pdf") || file.getFileName().endsWith(".PDF")))
+		                {
+		                	newFile.setMimeType("application/pdf");
+		                    formatVO.setValue("application/pdf");
+		                }
+		                newFile.getDefaultMetadata().getFormats().add(formatVO);
+		                newFile.setContent(contentURL);
+		            }
+		            this.init();
+		        }
+		    	/*
+		          * else { errorMessage.append(getMessage("ComponentContentCategoryNotProvidedEasySubmission")); } } else { if
+		          * (this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue() != null &&
+		          * !this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue().trim() .equals("")) {
+		          * errorMessage.append(getMessage("ComponentContentNotProvided")); if
+		          * (this.getFiles().get(indexUpload).getContentCategory() != null &&
+		          * !this.getFiles().get(indexUpload).getContentCategory().trim().equals("") &&
+		          * !this.getFiles().get(indexUpload).getContentCategory().trim().equals("-")) {
+		          * errorMessage.append(getMessage("ComponentContentCategoryNotProvidedEasySubmission")); } } }
+		          */
+		        if (errorMessage.length() > 0)
+		        {
+		            error(errorMessage.toString());
+		        }
+	    	}
+    	}
         return "loadNewEasySubmission";
     }
 
@@ -815,10 +838,10 @@ public class EasySubmission extends FacesBean
      * @param file
      * @return
      */
-    public String uploadFile(UploadedFile file)
+    public String uploadFile(UploadItem file)
     {
         String contentURL = "";
-        if (file != null && file.getLength() > 0)
+        if (file != null && file.getFileSize() > 0)
         {
             try
             {
@@ -858,12 +881,19 @@ public class EasySubmission extends FacesBean
      * @return The URL of the uploaded file.
      * @throws Exception If anything goes wrong...
      */
-    protected URL uploadFile(UploadedFile uploadedFile, String mimetype, String userHandle) throws Exception
+    protected URL uploadFile(UploadItem uploadedFile, String mimetype, String userHandle) throws Exception
     {
         // Prepare the HttpMethod.
         String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
         PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-        method.setRequestEntity(new InputStreamRequestEntity(uploadedFile.getInputStream()));
+        if(uploadedFile.isTempFile())
+        {
+        	method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(uploadedFile.getFile())));
+        }
+        else
+        {
+        	method.setRequestEntity(new InputStreamRequestEntity(new ByteArrayInputStream(uploadedFile.getData())));
+        }
         method.setRequestHeader("Content-Type", mimetype);
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
         // Execute the method with HttpClient.
@@ -909,8 +939,18 @@ public class EasySubmission extends FacesBean
             StringBuffer content = new StringBuffer();
             try
             {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(
-                        this.uploadedBibTexFile.getInputStream()));
+            	UploadItem uploadedBibTexFile = getEasySubmissionSessionBean().getUploadedBibtexFile();
+            	InputStream fileIs = null;
+            	if(uploadedBibTexFile.isTempFile())
+            	{
+            		fileIs = new FileInputStream(uploadedBibTexFile.getFile());
+            	}
+            	else
+            	{
+            		fileIs = new ByteArrayInputStream(uploadedBibTexFile.getData());
+            	}
+            	
+                BufferedReader reader = new BufferedReader(new InputStreamReader(fileIs));
                 String line;
                 while ((line = reader.readLine()) != null)
                 {
@@ -1224,7 +1264,7 @@ public class EasySubmission extends FacesBean
         else if (EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX.equals(this.getEasySubmissionSessionBean()
                 .getImportMethod()))
         {
-            String uploadResult = uploadBibtexFile();
+           String uploadResult = uploadBibtexFile();
             if (uploadResult == null)
             {
                 return null;
@@ -1867,32 +1907,32 @@ public class EasySubmission extends FacesBean
         this.getEasySubmissionSessionBean().setLocators(files);
     }
 
-    public UploadedFile getUploadedFile()
+    public List<UploadItem> getUploadedFile()
     {
         return this.uploadedFile;
     }
 
-    public void setUploadedFile(UploadedFile uploadedFile)
+    public void setUploadedFile(List<UploadItem> uploadedFile)
     {
         this.uploadedFile = uploadedFile;
     }
 
-    public UIXIterator getFileIterator()
+    public HtmlAjaxRepeat getFileIterator()
     {
         return this.fileIterator;
     }
 
-    public void setFileIterator(UIXIterator fileIterator)
+    public void setFileIterator(HtmlAjaxRepeat fileIterator)
     {
         this.fileIterator = fileIterator;
     }
 
-    public UIXIterator getLocatorIterator()
+    public HtmlAjaxRepeat getLocatorIterator()
     {
         return this.locatorIterator;
     }
 
-    public void setLocatorIterator(UIXIterator locatorIterator)
+    public void setLocatorIterator(HtmlAjaxRepeat locatorIterator)
     {
         this.locatorIterator = locatorIterator;
     }
@@ -1927,15 +1967,6 @@ public class EasySubmission extends FacesBean
         this.serviceID = serviceID;
     }
 
-    public UploadedFile getUploadedBibTexFile()
-    {
-        return this.uploadedBibTexFile;
-    }
-
-    public void setUploadedBibTexFile(UploadedFile uploadedBibTexFile)
-    {
-        this.uploadedBibTexFile = uploadedBibTexFile;
-    }
 
     /**
      * Returns all options for visibility.
@@ -2489,12 +2520,12 @@ public class EasySubmission extends FacesBean
         return this.i18nHelper.getSelectItemsDegreeType(true);
     }
 
-    public UIXIterator getCreatorIterator()
+    public HtmlAjaxRepeat getCreatorIterator()
     {
         return creatorIterator;
     }
 
-    public void setCreatorIterator(UIXIterator creatorIterator)
+    public void setCreatorIterator(HtmlAjaxRepeat creatorIterator)
     {
         this.creatorIterator = creatorIterator;
     }
@@ -2614,14 +2645,14 @@ public class EasySubmission extends FacesBean
         return eventTitleCollection;
     }
 
-    public void setIdentifierIterator(UIXIterator identifierIterator)
+    public void setIdentifierIterator(HtmlAjaxRepeat identifierIterator)
     {
         this.identifierIterator = identifierIterator;
     }
 
     /* JUS BEGIN */
     /* JUS BEGIN */
-    public UIXIterator getIdentifierIterator()
+    public HtmlAjaxRepeat getIdentifierIterator()
     {
         return identifierIterator;
     }

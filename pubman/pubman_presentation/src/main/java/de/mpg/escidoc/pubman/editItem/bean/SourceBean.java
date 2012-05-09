@@ -38,8 +38,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
-import org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton;
-
 import de.mpg.escidoc.pubman.EditItemBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection.IdentifierManager;
@@ -71,7 +69,7 @@ public class SourceBean extends EditItemBean
     private IdentifierCollection identifierCollection;
     private TitleCollection titleCollection;
     private boolean autosuggestJournals = false;
-    private CoreCommandButton btnChooseCollection = new CoreCommandButton();
+    //private CoreCommandButton btnChooseCollection = new CoreCommandButton();
     private String hiddenAlternativeTitlesField;
     private String hiddenIdsField;
 
@@ -86,7 +84,7 @@ public class SourceBean extends EditItemBean
     {
         this.list = list;
         setSource(source);
-        this.btnChooseCollection.setId("Source1");
+        //this.btnChooseCollection.setId("Source1");
         if (source.getGenre() != null && source.getGenre().equals(SourceVO.Genre.JOURNAL))
         {
             this.autosuggestJournals = true;
@@ -219,6 +217,7 @@ public class SourceBean extends EditItemBean
         this.autosuggestJournals = autosuggestJournals;
     }
 
+    /*
     public CoreCommandButton getBtnChooseCollection()
     {
         return btnChooseCollection;
@@ -229,6 +228,7 @@ public class SourceBean extends EditItemBean
         this.btnChooseCollection = btnChooseCollection;
     }
 
+*/
     /**
      * Takes the text from the hidden input fields, splits it using the delimiter and adds them to the model. Format of
      * alternative titles: alt title 1 ||##|| alt title 2 ||##|| alt title 3 Format of ids: URN|urn:221441 ||##||

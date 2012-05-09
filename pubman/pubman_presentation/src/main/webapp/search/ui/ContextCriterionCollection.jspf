@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -40,7 +40,7 @@
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 		<a class="clear free_area0 collapse advSearchCollapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderCollection}" /></a>
 	
-		<tr:iterator id="contextCriterion" rows="0" var="contextCriterionBean" value="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.contextCriterionIterator}">
+		<a4j:repeat id="contextCriterion" rows="0" var="contextCriterionBean" value="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.contextCriterionIterator}">
 	
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -68,8 +68,8 @@
 	 				
 				</h:panelGroup>
 				<h:panelGroup styleClass="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAddFollowing" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionManager.addObject}" />
-					<tr:commandButton id="btnRemoveFollowing" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionManager.size == 1}" action="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionManager.removeObject}"/>
+					<h:commandButton id="btnAddFollowing" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionManager.addObject}" />
+					<h:commandButton id="btnRemoveFollowing" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionManager.size == 1}" action="#{AdvancedSearchEdit.contextCriterionCollection.contextCriterionManager.removeObject}"/>
 				</h:panelGroup>
 			</h:panelGroup>
 			
@@ -105,6 +105,6 @@
 				</h:panelGroup>
 			</h:panelGroup>
 			 --%>
-		</tr:iterator>
+		</a4j:repeat>
 	</div>
 </div>

@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <h:panelGroup layout="block" id="editLocator" styleClass="full_area0 itemBlock"  rendered="#{EditItem.pubItem!=null and  !(genre.locators_display == 'false' && genre.locators_form_id == 'full-submission' || genre.locators_display == 'false' && genre.locators_form_id == 'all')}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -39,8 +39,8 @@
 	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /></a>
 	<div class="free_area0 itemBlockContent endline">
 		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /></a>
-		<tr:iterator var="locator" id="locatorUploads" value="#{EditItem.locators}" varStatus="index">
-
+		<a4j:repeat var="locator" id="locatorUploads" value="#{EditItem.locators}" rowKeyVar="index">
+	
 <%-- Add locator --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator == null || locator.locator == '') && locator.index == 0 }" >
 
@@ -52,7 +52,7 @@
 					<h:inputText id="inpAddUrl" styleClass="quad_txtInput" value="#{locator.locator}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnSaveUrl" styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSaveURL}" shortDesc="#{tip.EditItem_lnkSave}" action="#{EditItem.saveLocator}" />
+					<h:commandButton id="btnSaveUrl" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_lnkSaveURL}" title="#{tip.EditItem_lnkSave}" action="#{EditItem.saveLocator}" />
 				</span>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{(locator.locator == null || locator.locator == '') && locator.index > 0 }" >
@@ -65,7 +65,7 @@
 					<h:inputText id="inpMultiAddUrl" styleClass="quad_txtInput" value="#{locator.locator}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnMultiSaveUrl" styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSaveURL}" shortDesc="#{tip.EditItem_lnkSave}" action="#{EditItem.saveLocator}" />
+					<h:commandButton id="btnMultiSaveUrl" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_lnkSaveURL}" title="#{tip.EditItem_lnkSave}" action="#{EditItem.saveLocator}" />
 				</span>
 			</h:panelGroup>
 
@@ -131,10 +131,13 @@
 					</span>
 				</h:panelGroup>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAddLicensingInfo" styleClass="min_imgBtn sectionTool remove" text=" " shortDesc="#{tip.EditItem_removeLoc}" action="#{locator.removeLocatorEditItem}" rendered="#{genre.locators_repeatable != 'false'}"/>	
-					<tr:commandButton id="btnRemoveLicensingInfo" styleClass="min_imgBtn sectionTool add" text=" " shortDesc="#{tip.EditItem_addLoc}" action="#{EditItem.addLocator}" disabled="#{EditItem.locators[EditItem.numberOfLocators-1].locator == null || EditItem.locators[EditItem.numberOfLocators-1].locator == '' }" rendered="#{genre.locators_repeatable != 'false'}"/>
+					<a4j:commandButton reRender="editLocator" id="btnRemoveLocator" styleClass="min_imgBtn sectionTool remove" value=" " title="#{tip.EditItem_removeLoc}" action="#{locator.removeLocatorEditItem}" rendered="#{genre.locators_repeatable != 'false'}"/>	
+					<a4j:commandButton reRender="editLocator" id="btnAddLocator" styleClass="min_imgBtn sectionTool add" value=" " title="#{tip.EditItem_addLoc}" action="#{EditItem.addLocator}" disabled="#{EditItem.locators[EditItem.numberOfLocators-1].locator == null || EditItem.locators[EditItem.numberOfLocators-1].locator == '' }" rendered="#{genre.locators_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
-		</tr:iterator>
+		</a4j:repeat>
+			
+					
+					
 	</div>
 </h:panelGroup>

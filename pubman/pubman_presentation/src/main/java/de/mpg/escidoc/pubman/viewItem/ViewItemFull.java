@@ -51,8 +51,8 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.log4j.Logger;
-import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
@@ -164,19 +164,19 @@ public class ViewItemFull extends FacesBean
     private static final String FUNCTION_MODIFY = "modify";
     private static final String FUNCTION_NEW_REVISION = "new_revision";
     private static final String VALIDATION_ERROR_MESSAGE = "depositorWS_NotSuccessfullySubmitted";
-    private UIXIterator titleIterator = new UIXIterator();
-    private UIXIterator creatorPersonsIterator = new UIXIterator();
-    private UIXIterator creatorOrganizationsIterator = new UIXIterator();
-    private UIXIterator creatorAffiliationsIterator = new UIXIterator();
-    private UIXIterator abstractIterator = new UIXIterator();
-    private UIXIterator eventAltTitleIterator = new UIXIterator();
-    private UIXIterator sourceIterator = new UIXIterator();
-    private UIXIterator sourceTitleIterator = new UIXIterator();
-    private UIXIterator sourceCreatorPersonsIterator = new UIXIterator();
-    private UIXIterator sourceCreatorOrganizationsIterator = new UIXIterator();
-    private UIXIterator sourceCreatorAffiliationsIterator = new UIXIterator();
-    private UIXIterator fileIterator = new UIXIterator();
-    private UIXIterator locatorIterator = new UIXIterator();
+    private HtmlAjaxRepeat titleIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat creatorPersonsIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat creatorOrganizationsIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat creatorAffiliationsIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat abstractIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat eventAltTitleIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat sourceIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat sourceTitleIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat sourceCreatorPersonsIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat sourceCreatorOrganizationsIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat sourceCreatorAffiliationsIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat fileIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat locatorIterator = new HtmlAjaxRepeat();
     private ContextVO context = null;
     private AccountUserVO creator = null;
     
@@ -2007,92 +2007,92 @@ public class ViewItemFull extends FacesBean
         return this.getCreators().size();
     }
 
-    public UIXIterator getTitleIterator()
+    public HtmlAjaxRepeat getTitleIterator()
     {
         return this.titleIterator;
     }
 
-    public void setTitleIterator(UIXIterator titleIterator)
+    public void setTitleIterator(HtmlAjaxRepeat titleIterator)
     {
         this.titleIterator = titleIterator;
     }
 
-    public UIXIterator getCreatorPersonsIterator()
+    public HtmlAjaxRepeat getCreatorPersonsIterator()
     {
         return this.creatorPersonsIterator;
     }
 
-    public void setCreatorPersonsIterator(UIXIterator creatorPersonsIterator)
+    public void setCreatorPersonsIterator(HtmlAjaxRepeat creatorPersonsIterator)
     {
         this.creatorPersonsIterator = creatorPersonsIterator;
     }
 
-    public UIXIterator getCreatorAffiliationsIterator()
+    public HtmlAjaxRepeat getCreatorAffiliationsIterator()
     {
         return this.creatorAffiliationsIterator;
     }
 
-    public void setCreatorAffiliationsIterator(UIXIterator creatorAffiliationsIterator)
+    public void setCreatorAffiliationsIterator(HtmlAjaxRepeat creatorAffiliationsIterator)
     {
         this.creatorAffiliationsIterator = creatorAffiliationsIterator;
     }
 
-    public UIXIterator getAbstractIterator()
+    public HtmlAjaxRepeat getAbstractIterator()
     {
         return this.abstractIterator;
     }
 
-    public void setAbstractIterator(UIXIterator abstractIterator)
+    public void setAbstractIterator(HtmlAjaxRepeat abstractIterator)
     {
         this.abstractIterator = abstractIterator;
     }
 
-    public UIXIterator getEventAltTitleIterator()
+    public HtmlAjaxRepeat getEventAltTitleIterator()
     {
         return this.eventAltTitleIterator;
     }
 
-    public void setEventAltTitleIterator(UIXIterator eventAltTitleIterator)
+    public void setEventAltTitleIterator(HtmlAjaxRepeat eventAltTitleIterator)
     {
         this.eventAltTitleIterator = eventAltTitleIterator;
     }
 
-    public UIXIterator getSourceIterator()
+    public HtmlAjaxRepeat getSourceIterator()
     {
         return this.sourceIterator;
     }
 
-    public void setSourceIterator(UIXIterator sourceIterator)
+    public void setSourceIterator(HtmlAjaxRepeat sourceIterator)
     {
         this.sourceIterator = sourceIterator;
     }
 
-    public UIXIterator getSourceTitleIterator()
+    public HtmlAjaxRepeat getSourceTitleIterator()
     {
         return this.sourceTitleIterator;
     }
 
-    public void setSourceTitleIterator(UIXIterator sourceTitleIterator)
+    public void setSourceTitleIterator(HtmlAjaxRepeat sourceTitleIterator)
     {
         this.sourceTitleIterator = sourceTitleIterator;
     }
 
-    public UIXIterator getSourceCreatorPersonsIterator()
+    public HtmlAjaxRepeat getSourceCreatorPersonsIterator()
     {
         return this.sourceCreatorPersonsIterator;
     }
 
-    public void setSourceCreatorPersonsIterator(UIXIterator sourceCreatorPersonsIterator)
+    public void setSourceCreatorPersonsIterator(HtmlAjaxRepeat sourceCreatorPersonsIterator)
     {
         this.sourceCreatorPersonsIterator = sourceCreatorPersonsIterator;
     }
 
-    public UIXIterator getSourceCreatorAffiliationsIterator()
+    public HtmlAjaxRepeat getSourceCreatorAffiliationsIterator()
     {
         return this.sourceCreatorAffiliationsIterator;
     }
 
-    public void setSourceCreatorAffiliationsIterator(UIXIterator sourceCreatorAffiliationsIterator)
+    public void setSourceCreatorAffiliationsIterator(HtmlAjaxRepeat sourceCreatorAffiliationsIterator)
     {
         this.sourceCreatorAffiliationsIterator = sourceCreatorAffiliationsIterator;
     }
@@ -2107,32 +2107,32 @@ public class ViewItemFull extends FacesBean
         this.sourceList = sourceList;
     }
 
-    public UIXIterator getFileIterator()
+    public HtmlAjaxRepeat getFileIterator()
     {
         return this.fileIterator;
     }
 
-    public void setFileIterator(UIXIterator fileIterator)
+    public void setFileIterator(HtmlAjaxRepeat fileIterator)
     {
         this.fileIterator = fileIterator;
     }
 
-    public UIXIterator getLocatorIterator()
+    public HtmlAjaxRepeat getLocatorIterator()
     {
         return this.locatorIterator;
     }
 
-    public void setLocatorIterator(UIXIterator locatorIterator)
+    public void setLocatorIterator(HtmlAjaxRepeat locatorIterator)
     {
         this.locatorIterator = locatorIterator;
     }
 
-    public UIXIterator getCreatorOrganizationsIterator()
+    public HtmlAjaxRepeat getCreatorOrganizationsIterator()
     {
         return this.creatorOrganizationsIterator;
     }
 
-    public void setCreatorOrganizationsIterator(UIXIterator creatorOrganizationsIterator)
+    public void setCreatorOrganizationsIterator(HtmlAjaxRepeat creatorOrganizationsIterator)
     {
         this.creatorOrganizationsIterator = creatorOrganizationsIterator;
     }
@@ -2305,12 +2305,12 @@ public class ViewItemFull extends FacesBean
         return false;
     }
 
-    public UIXIterator getSourceCreatorOrganizationsIterator()
+    public HtmlAjaxRepeat getSourceCreatorOrganizationsIterator()
     {
         return this.sourceCreatorOrganizationsIterator;
     }
 
-    public void setSourceCreatorOrganizationsIterator(UIXIterator sourceCreatorOrganizationsIterator)
+    public void setSourceCreatorOrganizationsIterator(HtmlAjaxRepeat sourceCreatorOrganizationsIterator)
     {
         this.sourceCreatorOrganizationsIterator = sourceCreatorOrganizationsIterator;
     }

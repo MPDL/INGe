@@ -29,9 +29,9 @@ All rights reserved. Use is subject to license terms.
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
-<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{EditItem.pubItem!=null and !(genre.item_basic_display == 'false' && genre.item_basic_form_id == 'full-submission' || genre.item_basic_display == 'false' && genre.item_basic_form_id == 'all')}">
+<h:panelGroup id="basic" layout="block" styleClass="full_area0 itemBlock" rendered="#{EditItem.pubItem!=null and !(genre.item_basic_display == 'false' && genre.item_basic_form_id == 'full-submission' || genre.item_basic_display == 'false' && genre.item_basic_form_id == 'all')}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter"/>
 	</h3>
@@ -52,15 +52,15 @@ All rights reserved. Use is subject to license terms.
 						<h:panelGroup styleClass="double_area0 selectionBox">&#160;</h:panelGroup>
 						<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 					</h:panelGroup>
-					<h:selectOneMenu id="cboGenre" styleClass="replace" value="#{EditItem.pubItem.metadata.genre}" onfocus="updateSelectionBox(this);" onchange="document.getElementById('btnChangeGenre').click();fullItemReload();">
+					<h:selectOneMenu id="cboGenre" styleClass="replace" value="#{EditItem.pubItem.metadata.genre}" onfocus="updateSelectionBox(this);" onchange="$pb('.btnChangeGenre').click();fullItemReloadAjax();">
 						<f:selectItems value="#{EditItem.genres}" />
 					</h:selectOneMenu>
 				</h:panelGroup>
 			<%--
-				<h:selectOneMenu id="cboGenre" value="#{EditItem.pubItem.metadata.genre}" styleClass="double_select replace" onchange="document.getElementById('btnChangeGenre').click();fullItemReload();">
+				<h:selectOneMenu id="cboGenre" value="#{EditItem.pubItem.metadata.genre}" styleClass="double_select replace" onchange="document.getElementById('btnChangeGenre').click();fullItemReloadAjax();">
 					<f:selectItems value="#{EditItem.genres}" />
 				</h:selectOneMenu>	 --%>
-				<h:commandButton action="#{EditItem.changeGenre}" styleClass="hiddenButton" id="btnChangeGenre" value="" style="visibility:hidden;"/>
+				<h:commandButton action="#{EditItem.changeGenre}" styleClass="hiddenButton btnChangeGenre" id="btnChangeGenre" value="" style="visibility:hidden;"/>
 			</span>
 		</h:panelGroup>
 
@@ -98,8 +98,8 @@ All rights reserved. Use is subject to license terms.
 				<h:inputTextarea id="inputTitleText" styleClass="quad_txtArea inputTxtArea" value="#{EditItem.titleCollection.titleIF.title.value}" cols="15" rows="3" ></h:inputTextarea>
 			</span>
 			<span class="large_area0_p8 lineToolSection">
-				<h:commandButton id="btnAddTitle" title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.titleCollection.addTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-				<h:commandButton id="btnRemoveTitle" title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.titleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
+				<a4j:commandButton id="btnAddTitle" reRender="basic" title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.titleCollection.addTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
+				<a4j:commandButton id="btnRemoveTitle" reRender="basic" title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.titleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
 			</span>
 		</h:panelGroup>
 
@@ -117,7 +117,7 @@ All rights reserved. Use is subject to license terms.
 				</h:panelGroup>
 
 <%-- Alternative title --%>
-		<tr:iterator id="iterAlternativeTitle" var="altTitle" value="#{EditItem.titleCollection.alternativeTitleManager.objectDM}" rendered="#{!(genre.item_basic_item_title_alternative_display == 'false' && genre.item_basic_item_title_alternative_form_id == 'full-submission' || genre.item_basic_item_title_alternative_display == 'false' && genre.item_basic_item_title_alternative_form_id == 'all')}">
+		<a4j:repeat id="iterAlternativeTitle" var="altTitle" value="#{EditItem.titleCollection.alternativeTitleManager.objectDM}" rendered="#{!(genre.item_basic_item_title_alternative_display == 'false' && genre.item_basic_item_title_alternative_form_id == 'full-submission' || genre.item_basic_item_title_alternative_display == 'false' && genre.item_basic_item_title_alternative_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_alternative_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_title_alternative_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
@@ -151,11 +151,11 @@ All rights reserved. Use is subject to license terms.
 							</h:panelGroup>
 						</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAddAlternativeTitle" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addAltTitle}" action="#{EditItem.titleCollection.alternativeTitleManager.addObject}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-					<tr:commandButton id="btnRemoveAlternativeTitle" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeAltTitle}" action="#{EditItem.titleCollection.alternativeTitleManager.removeObject}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
+					<a4j:commandButton id="btnAddAlternativeTitle" reRender="basic" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addAltTitle}" action="#{EditItem.titleCollection.alternativeTitleManager.addObject}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
+					<a4j:commandButton id="btnRemoveAlternativeTitle" reRender="basic" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeAltTitle}" action="#{EditItem.titleCollection.alternativeTitleManager.removeObject}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
-		</tr:iterator>
+		</a4j:repeat>
 	
 			
 	</div>

@@ -97,11 +97,11 @@
 	<h3 class="xLarge_area0_p8 endline blockHeader"> &#160; </h3>
 	<div class="free_area0 itemBlockContent endline">
 		<p>
-			<tr:iterator var="subjectVocab" id="subjectVocabIter" value="#{BrowseBySessionBean.controlledVocabs}" binding="#{BrowseByPage.subjectIterator}" varStatus="index" rows="0">
+			<a4j:repeat var="subjectVocab" id="subjectVocabIter" value="#{BrowseBySessionBean.controlledVocabs}" binding="#{BrowseByPage.subjectIterator}" rowKeyVar="index" rows="0">
 				<div class="quad_area0_p8 noPaddingTopBottom firstLine">
 					<b class="medium_area0 labelLine">
-						<tr:commandButton id="lnkSubject" styleClass="free_area0 groupBtn" text="#{subjectVocab}" action="#{BrowseByPage.loadBrowseBySubject}" immediate="true">
-						</tr:commandButton> <span class="noDisplay">: </span>
+						<h:commandButton id="lnkSubject" styleClass="free_area0 groupBtn" value="#{subjectVocab}" action="#{BrowseByPage.loadBrowseBySubject}" immediate="true">
+						</h:commandButton> <span class="noDisplay">: </span>
 					</b>
 					<h:panelGroup  rendered="#{subjectVocab == 'ddc'}">
 						<h:outputText value="#{lbl.ddcDesc}" />
@@ -119,7 +119,7 @@
 						<h:outputText value="#{lbl.mpis_projectsDesc}" />
 					</h:panelGroup>
 				</div>
-			</tr:iterator>
+			</a4j:repeat>
 		</p>
 		
 	</div>

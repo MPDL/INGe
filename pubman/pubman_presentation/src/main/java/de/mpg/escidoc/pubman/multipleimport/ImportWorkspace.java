@@ -34,7 +34,7 @@ import java.util.List;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.component.UIXIterator;
+import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.SortColumn;
@@ -60,7 +60,7 @@ public class ImportWorkspace extends BreadcrumbPage
     
     private List<ImportLog> imports = null;
     
-    private UIXIterator importIterator = new UIXIterator();
+    private HtmlAjaxRepeat importIterator = new HtmlAjaxRepeat();
 
     /**
      * Default constructor.
@@ -171,12 +171,12 @@ public class ImportWorkspace extends BreadcrumbPage
     }
     
     
-    public UIXIterator getImportIterator()
+    public HtmlAjaxRepeat getImportIterator()
     {
         return importIterator;
     }
 
-    public void setImportIterator(UIXIterator importIterator)
+    public void setImportIterator(HtmlAjaxRepeat importIterator)
     {
         this.importIterator = importIterator;
     }
@@ -189,7 +189,7 @@ public class ImportWorkspace extends BreadcrumbPage
         if (importIterator.getRowIndex() != -1)
         {
             int index = this.importIterator.getRowIndex();
-            currentImport = (ImportLog) this.importIterator.getRowData(index);
+            currentImport = (ImportLog) this.importIterator.getRowData();
         }
         
         if (currentImport != null)

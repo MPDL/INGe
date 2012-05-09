@@ -1,9 +1,9 @@
 /*QUICK SEARCH INITIALISATION*/
 
 function addQuickSearchFunction(){
-	$('.quickSearchTextInput').keyup(function(keyEvent){
+	$pb('.quickSearchTextInput').keyup(function(keyEvent){
 		if(keyEvent.keyCode == '13'){
-			$(this).parents('.searchMenu').find('.quickSearchBtn').click();
+			$pb(this).parents('.searchMenu').find('.quickSearchBtn').click();
 		};
 	});
 };
@@ -21,7 +21,7 @@ function validateDate(inputField) {
 	var bcString = "BC";
 	var possibleDate = inputField.value;
 	if((inputField.value=="")||(inputField.value==input_empty)) {
-		$(inputField).val(input_empty).addClass("blankInput");
+		$pb(inputField).val(input_empty).addClass("blankInput");
 	}
 	if(!(inputField.value == input_empty)) {
 		/*REMOVE SPACES*/
@@ -75,8 +75,8 @@ function validateDate(inputField) {
 		}
 
 		if(!(isValidDate)) {
-			$(inputField).addClass("falseValue");
-		} else $(inputField).removeClass("falseValue");
+			$pb(inputField).addClass("falseValue");
+		} else $pb(inputField).removeClass("falseValue");
 	}
 }
 
@@ -90,8 +90,8 @@ function addDateJSLabels() {
 	*</div>
 	*
 	*/
-	$(".dateJSInput").each(function(){
-		var classNameString = $(this).attr("class");
+	$pb(".dateJSInput").each(function(){
+		var classNameString = $pb(this).attr("class");
 		var lengthValue;
 		var possibleLengthValues = classNameString.split(' ');
 		for(var i=0; i<possibleLengthValues.length; i++) {
@@ -100,8 +100,8 @@ function addDateJSLabels() {
 				lengthValue = wholeLengthValue[0];
 			}
 		}
-		$(this).wrap('<div class="dateJSBox '+lengthValue+'_area0"></div>');
-		$(this).after('<label class="dateJSLabel '+lengthValue+'_label '+lengthValue+'_negMarginLIncl noDisplay" for="'+$(this).attr("id")+'"></label>');
+		$pb(this).wrap('<div class="dateJSBox '+lengthValue+'_area0"></div>');
+		$pb(this).after('<label class="dateJSLabel '+lengthValue+'_label '+lengthValue+'_negMarginLIncl noDisplay" for="'+$pb(this).attr("id")+'"></label>');
 	});
 }
 
@@ -114,68 +114,68 @@ function dateParse(dateString)
 // Deactivated due to datejs bug, see http://jira.mpdl.mpg.de/browse/PUBMAN-1719
 //function addDateJSFunctions() {}
 function addDateJSFunctions() {
-	$(".dateJSInput").each(function(){
-		$(this).focus(function() {
+	$pb(".dateJSInput").each(function(){
+		$pb(this).focus(function() {
 			var input_empty = "", empty_string = "";
 			
-			$(this).removeClass("falseValue");
+			$pb(this).removeClass("falseValue");
 			
-			if($(this).val() === input_empty)
+			if($pb(this).val() === input_empty)
 			{
-				$(this).val(empty_string);
-				$(this).removeClass("blankInput");
+				$pb(this).val(empty_string);
+				$pb(this).removeClass("blankInput");
 			}
 	
-			if($(this).val() != "")
+			if($pb(this).val() != "")
 			{
 				var date = null;
-				date = dateParse($(this).val());
+				date = dateParse($pb(this).val());
 
 				if(date!=null)
 				{
-					$(".dateJSLabel[for='"+$(this).attr("id")+"']").removeClass("noDisplay").text(date.toString("yyyy-MMMM-dd"));
+					$pb(".dateJSLabel[for='"+$pb(this).attr("id")+"']").removeClass("noDisplay").text(date.toString("yyyy-MMMM-dd"));
 				}
 			}
 	        return false;    
 		});
-		$(this).blur(function(){
+		$pb(this).blur(function(){
 			var input_empty = "", empty_string = "";
 		
-			$(".dateJSLabel[for='"+$(this).attr("id")+"']").addClass("noDisplay").text("");
+			$pb(".dateJSLabel[for='"+$pb(this).attr("id")+"']").addClass("noDisplay").text("");
 			
-			if($(this).val() === empty_string)
+			if($pb(this).val() === empty_string)
 			{
-				$(this).val(input_empty).addClass("blankInput");
+				$pb(this).val(input_empty).addClass("blankInput");
 			}
 			validateDate(this);
 		});
-		$(this).keyup(function(event){
+		$pb(this).keyup(function(event){
 			var message = "";
 			var input_empty = "", empty_string = "";
 			var date = null;
 
-			$(".dateJSLabel[for='"+$(this).attr("id")+"']").text("");
-			if($(this).val() != "")
+			$pb(".dateJSLabel[for='"+$pb(this).attr("id")+"']").text("");
+			if($pb(this).val() != "")
 			{
-				date = dateParse($(this).val());
+				date = dateParse($pb(this).val());
 				
 				if(date != null)
 				{
-					$(".dateJSLabel[for='"+$(this).attr("id")+"']").removeClass("noDisplay").text(date.toString("yyyy-MMMM-dd"));
+					$pb(".dateJSLabel[for='"+$pb(this).attr("id")+"']").removeClass("noDisplay").text(date.toString("yyyy-MMMM-dd"));
 					var oEvent = event || window.event;
 					if(oEvent.keyCode == 13)
 					{
-						$(this).val(date.toString("yyyy-MM-dd"));
-						$(".dateJSLabel[for='"+$(this).attr("id")+"']").addClass("noDisplay").text("");
+						$pb(this).val(date.toString("yyyy-MM-dd"));
+						$pb(".dateJSLabel[for='"+$pb(this).attr("id")+"']").addClass("noDisplay").text("");
 					};
 				} else
 					{
-						$(".dateJSLabel[for='"+$(this).attr("id")+"']").addClass("noDisplay").text(message);
+						$pb(".dateJSLabel[for='"+$pb(this).attr("id")+"']").addClass("noDisplay").text(message);
 					}
 			}
 			else
 				{
-					$(".dateJSLabel[for='"+$(this).attr("id")+"']").addClass("noDisplay").text("");
+					$pb(".dateJSLabel[for='"+$pb(this).attr("id")+"']").addClass("noDisplay").text("");
 				}			
 	      	var evt = event || window.event;
 	      	if(evt.stopPropagation) evt.stopPropagation();
@@ -201,5 +201,5 @@ function installDateTextbox() {
 }
 
 function installSameHeight() {
-	$('.sameHeightSlave').each(function(i,elem){$(elem).height($('.sameHeightMaster').height());});
+	$pb('.sameHeightSlave').each(function(i,elem){$pb(elem).height($pb('.sameHeightMaster').height());});
 }

@@ -194,23 +194,28 @@ function install_javascripts() {
 }
 
 /*INCLUDES EXTERNAL JAVASCRIPTS*/
+
 function include_javascripts() {
-	if(!included){
-		include_dom(jsURL + 'componentJavaScript/eSciDoc_ext_paginator.js');
-		include_dom(jsURL + 'componentJavaScript/eSciDoc_selectbox.js');
-		include_dom(jsURL + 'componentJavaScript/eSciDoc_item_list.js');
-		include_dom(jsURL + 'componentJavaScript/eSciDoc_full_item.js');
-		include_dom(jsURL + 'componentJavaScript/eSciDoc_single_elements.js');
-		include_dom(coneURL + 'js/jquery.suggest.js')
-		include_dom(jsURL + 'componentJavaScript/autoSuggestFunctions.js');
-		include_dom(jsURL + 'componentJavaScript/breadcrump.js');
-		/*REITERATION NEEDED TO START ALL INCLUDED JAVASCRIPTS*/
-		included = true;
-		include_javascripts();
-	} else {
-		addEvent(window, 'load', function(){window.setTimeout('install_javascripts()', 1);});
-	}
+	
+		if(!included){
+			//console.log("inclide js $ " + $().jquery)
+			//console.log("inclide js jquery " + jQuery.fn.jquery)
+			include_dom(jsURL + 'componentJavaScript/eSciDoc_ext_paginator.js');
+			include_dom(jsURL + 'componentJavaScript/eSciDoc_selectbox.js');
+			include_dom(jsURL + 'componentJavaScript/eSciDoc_item_list.js');
+			include_dom(jsURL + 'componentJavaScript/eSciDoc_full_item.js');
+			include_dom(jsURL + 'componentJavaScript/eSciDoc_single_elements.js');
+			include_dom(coneURL + 'js/jquery.suggest.js')
+			include_dom(jsURL + 'componentJavaScript/autoSuggestFunctions.js');
+			include_dom(jsURL + 'componentJavaScript/breadcrump.js');
+			/*REITERATION NEEDED TO START ALL INCLUDED JAVASCRIPTS*/
+			included = true;
+			include_javascripts();
+		} else {
+			addEvent(window, 'load', function(){window.setTimeout('install_javascripts()', 1);});
+		}
 }
+
 
 
 
@@ -219,3 +224,35 @@ if (!(location.pathname.match(/faces\/help\//))) {
 }
 applyCookieStyle();
 window.onunload=function(e){setStyleCookie();};
+
+/*This method is called by the a4j:status element in Header.jspf before every Richfaces Ajax Call */
+function beforeAjaxRequest()
+{
+	if(typeof window.fullItemReloadAjax == 'function')
+	{ 
+		fullItemReloadAjax();
+	}
+	
+}
+
+/*This method is called by the a4j:status element in Header.jspf after every Richfaces Ajax Call */
+function afterAjaxRequest()
+{
+	if(typeof window.fullItemReloadStop == 'function')
+	{ 
+		fullItemReloadStop();
+	}
+	install_javascripts();
+	resizeSelectbox(431);
+	updateSelectionBox(null, true);
+	
+}
+
+/*Stops the enter key, otherwise everytime the enter key is pressed in an textfield, the quicksearchbutton is activated  */
+function stopRKey(evt) {
+	  var evt = (evt) ? evt : ((event) ? event : null);
+	  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+	  if ((evt.keyCode == 13) && (node.type=="text"))  {return false;}
+	}
+
+document.onkeypress = stopRKey; 

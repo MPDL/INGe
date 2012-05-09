@@ -32,7 +32,7 @@
  <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
  <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
  <%@ taglib uri="http://www.escidoc.de/jsf" prefix="e" %>
- <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
+ <%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
  <%-- 
  <h:selectOneMenu styleClass="topSpace5" immediate="true" onchange="submit();" valueChangeListener="#{ItemListSessionBean.setSelection}" rendered="#{ItemListSessionBean.isSearchResultList}">
@@ -62,7 +62,7 @@
 				<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 			</h:panelGroup>
-			<h:selectOneMenu id="extSelectTop" value="#{PubItemListSessionBean.elementsPerPageTop}" onfocus="updateSelectionBox(this);" onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
+			<h:selectOneMenu id="extSelectTop" value="#{PubItemListSessionBean.elementsPerPageTop}" onfocus="updateSelectionBox(this);" onchange="$pb(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
 				<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
 				<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
  				<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
@@ -70,7 +70,7 @@
 				<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
 			</h:selectOneMenu>
 		</h:panelGroup>
-<%--	<h:selectOneMenu id="extSelectTop" styleClass="free_select" value="#{PubItemListSessionBean.elementsPerPageTop}" onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
+<%--	<h:selectOneMenu id="extSelectTop" styleClass="free_select" value="#{PubItemListSessionBean.elementsPerPageTop}" onchange="$pb(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
  			<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
  			<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
  			<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
@@ -84,18 +84,30 @@
 
  	<div class="small_marginLExcl pageBrowser">
  		<label id="lblPage" class="noDisplay pageLabel">Page</label>
- 		<tr:goButton id="btPartListSize" styleClass="min_imgBtn skipToFirst" text=" " shortDesc="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForFirstPage}"/>
- 		<tr:goButton id="btList_lkPrevious" styleClass="backward" text="#{lbl.List_lkPrevious}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 - PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForPreviousPage}"/>
+ 		<h:outputLink  id="btPartListSize" styleClass="min_imgBtn skipToFirst"   title="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}"  value="#{PubItemListSessionBean.linkForFirstPage}"  >
+			<h:outputText value=" "/>
+ 		</h:outputLink>
+ 		<h:outputLink  id="btList_lkPrevious" styleClass="backward"   title="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 - PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}"  value="#{PubItemListSessionBean.linkForPreviousPage}"  >
+			<h:outputText value="#{lbl.List_lkPrevious}"/>
+ 		</h:outputLink>
  		<h:panelGroup styleClass="seperator" />
- 		<tr:iterator id="paginator" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="7">
+ 		<a4j:repeat id="paginator" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="7">
  	
- 			<tr:goButton id="btPageNumber1" styleClass="xSmall_txtBtn" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" destination="#{paginatorPage.link}" rendered="#{!(paginatorPage.number == PubItemListSessionBean.currentPageNumber)}"/>
- 			<tr:goButton id="btPageNumber2" styleClass="xSmall_txtBtn actual" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" disabled="true" rendered="#{paginatorPage.number == PubItemListSessionBean.currentPageNumber}"/>
+ 			<h:outputLink  id="btPageNumber1" styleClass="xSmall_txtBtn"   title="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}"  value="#{paginatorPage.link}" rendered="#{!(paginatorPage.number == PubItemListSessionBean.currentPageNumber)}"  >
+				<h:outputText value="#{paginatorPage.number}"/>
+ 			</h:outputLink>
+ 			<h:outputLink  id="btPageNumber2" styleClass="xSmall_txtBtn actual"   title="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" disabled="true" rendered="#{paginatorPage.number == PubItemListSessionBean.currentPageNumber}">
+				<h:outputText value="#{paginatorPage.number}"/>
+ 			</h:outputLink>
  			<h:panelGroup styleClass="seperator" />
  		
- 		</tr:iterator>
- 		<tr:goButton id="btList_lkNext" styleClass="forward" text="#{lbl.List_lkNext}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 + PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}" destination="#{PubItemListSessionBean.linkForNextPage}"/>
- 		<tr:goButton id="btLinkForLastPage" styleClass="min_imgBtn skipToLast" text=" " shortDesc="#{lbl.ItemList_Results} #{((PubItemListSessionBean.paginatorPageSize-1) * PubItemListSessionBean.elementsPerPage + 1)} - #{PubItemListSessionBean.totalNumberOfElements}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}" destination="#{PubItemListSessionBean.linkForLastPage}"/>
+ 		</a4j:repeat>
+ 		<h:outputLink  id="btList_lkNext" styleClass="forward"   title="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 + PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"  value="#{PubItemListSessionBean.linkForNextPage}"  >
+			<h:outputText value="#{lbl.List_lkNext}"/>
+		 </h:outputLink>
+ 		<h:outputLink  id="btLinkForLastPage" styleClass="min_imgBtn skipToLast"   title="#{lbl.ItemList_Results} #{((PubItemListSessionBean.paginatorPageSize-1) * PubItemListSessionBean.elementsPerPage + 1)} - #{PubItemListSessionBean.totalNumberOfElements}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"  value="#{PubItemListSessionBean.linkForLastPage}"  >
+			<h:outputText value=" "/>
+ 		</h:outputLink>
  	</div>
 
  	<div class="gotoBox">
@@ -142,7 +154,7 @@
  	</div>
  	<ol>
 
- 	<tr:iterator id="iterCurrentPartList" var="item" value="#{PubItemListSessionBean.currentPartList}" rows="0">
+ 	<a4j:repeat id="iterCurrentPartList" var="item" value="#{PubItemListSessionBean.currentPartList}" rows="0">
  	<h:panelGroup>
  		<li class="full_area0 listItem">
  			<h:panelGroup layout="block" styleClass="free_area0 itemHeader">
@@ -203,7 +215,7 @@
  			
 
 			<h:panelGroup layout="block" styleClass="full_area0 mediumView">
-				<tr:iterator var="rel" value="#{item.relations}" rows="0">
+				<a4j:repeat var="rel" value="#{item.relations}" rows="0">
 				<div class="free_area0_p0 small_marginLIncl endline listItemLine">
 					<span class="huge_area0_p8 endline labelLine">
 						<h:outputText value="#{lbl.Yearbook_member}"/><span class="noDisplay">: </span>
@@ -212,12 +224,12 @@
 						<h:outputLink value="#{ApplicationBean.appContext}../item/#{rel.targetItemRef.objectId}"><h:outputText value="#{rel.targetItemRef.objectId}" /></h:outputLink>
 					</span>
 				</div>
-				</tr:iterator>
+				</a4j:repeat>
 			</h:panelGroup>
  			
  		</li>
  	</h:panelGroup>
- 	</tr:iterator>
+ 	</a4j:repeat>
  	</ol>
  </div>
 
@@ -234,7 +246,7 @@
 				<h:panelGroup styleClass="small_area0 selectionBox">&#160;</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 			</h:panelGroup>
-			<h:selectOneMenu id="extSelectBottom" value="#{PubItemListSessionBean.elementsPerPageBottom}" onfocus="updateSelectionBox(this);" onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
+			<h:selectOneMenu id="extSelectBottom" value="#{PubItemListSessionBean.elementsPerPageBottom}" onfocus="updateSelectionBox(this);" onchange="$pb(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
 				<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
 				<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
  				<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
@@ -242,7 +254,7 @@
 				<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
 			</h:selectOneMenu>
 		</h:panelGroup>
-<%--	<h:selectOneMenu id="extSelectBottom" styleClass="free_select" value="#{PubItemListSessionBean.elementsPerPageBottom}" onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
+<%--	<h:selectOneMenu id="extSelectBottom" styleClass="free_select" value="#{PubItemListSessionBean.elementsPerPageBottom}" onchange="$pb(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
  			<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
  			<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
  			<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
@@ -256,18 +268,30 @@
 
  	<div class="small_marginLExcl pageBrowser">
  		<label class="noDisplay pageLabel"><h:outputText value="#{lbl.List_lblPage}"/></label>
- 		<tr:goButton id="btPartListSizeBottom" styleClass="min_imgBtn skipToFirst" text=" " shortDesc="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForFirstPage}"/>
- 		<tr:goButton id="btList_lkPreviousBottom" styleClass="backward" text="#{lbl.List_lkPrevious}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 -PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForPreviousPage}"/>
+ 		<h:outputLink  id="btPartListSizeBottom" styleClass="min_imgBtn skipToFirst"   title="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}"  value="#{PubItemListSessionBean.linkForFirstPage}"  >
+			<h:outputText value=" "/>
+ 		</h:outputLink>
+ 		<h:outputLink  id="btList_lkPreviousBottom" styleClass="backward"   title="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 -PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}"  value="#{PubItemListSessionBean.linkForPreviousPage}"  >
+			<h:outputText value="#{lbl.List_lkPrevious}"/>
+ 		</h:outputLink>
  		<h:panelGroup styleClass="seperator" />
- 		<tr:iterator id="paginator2" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="7">
+ 		<a4j:repeat id="paginator2" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="7">
  	
- 			<tr:goButton id="btPageNumber1Bottom" styleClass="xSmall_txtBtn" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" destination="#{paginatorPage.link}" rendered="#{!(paginatorPage.number == PubItemListSessionBean.currentPageNumber)}"/>
- 			<tr:goButton id="btPageNumber2Bottom" styleClass="xSmall_txtBtn actual" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" disabled="true" rendered="#{paginatorPage.number == PubItemListSessionBean.currentPageNumber}"/>
+ 			<h:outputLink  id="btPageNumber1Bottom" styleClass="xSmall_txtBtn"   title="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}"  value="#{paginatorPage.link}" rendered="#{!(paginatorPage.number == PubItemListSessionBean.currentPageNumber)}"  >
+				<h:outputText value="#{paginatorPage.number}"/>
+ 			</h:outputLink>
+ 			<h:outputLink  id="btPageNumber2Bottom" styleClass="xSmall_txtBtn actual"   title="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" disabled="true" rendered="#{paginatorPage.number == PubItemListSessionBean.currentPageNumber}">
+				<h:outputText value="#{paginatorPage.number}"/>
+			 </h:outputLink>
  			<h:panelGroup styleClass="seperator" />
  		
- 		</tr:iterator>
- 		<tr:goButton id="btList_lkNextBottom" styleClass="forward" text="#{tip.List_lkNext}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 +PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}" destination="#{PubItemListSessionBean.linkForNextPage}"/>
- 		<tr:goButton id="btLinkForLastPageBottom" styleClass="min_imgBtn skipToLast" text=" " shortDesc="#{lbl.ItemList_Results} #{((PubItemListSessionBean.paginatorPageSize-1) * PubItemListSessionBean.elementsPerPage + 1)} - #{PubItemListSessionBean.totalNumberOfElements}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}" destination="#{PubItemListSessionBean.linkForLastPage}"/>
+ 		</a4j:repeat>
+ 		<h:outputLink  id="btList_lkNextBottom" styleClass="forward"   title="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 +PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"  value="#{PubItemListSessionBean.linkForNextPage}"  >
+			<h:outputText value="#{tip.List_lkNext}"/>
+ 		</h:outputLink>
+ 		<h:outputLink  id="btLinkForLastPageBottom" styleClass="min_imgBtn skipToLast"   title="#{lbl.ItemList_Results} #{((PubItemListSessionBean.paginatorPageSize-1) * PubItemListSessionBean.elementsPerPage + 1)} - #{PubItemListSessionBean.totalNumberOfElements}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"  value="#{PubItemListSessionBean.linkForLastPage}"  >
+			<h:outputText value=" "/>
+ 		</h:outputLink>
  	</div>
 
 	<div class="gotoBox">

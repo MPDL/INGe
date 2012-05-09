@@ -33,8 +33,8 @@ package de.mpg.escidoc.pubman.releases;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ajax4jsf.component.html.HtmlAjaxRepeat;
 import org.apache.log4j.Logger;
-import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -61,8 +61,8 @@ public class ItemVersionListSessionBean extends FacesBean
     
     private List<EventLogEntryVOPresentation> eventLogList = new ArrayList<EventLogEntryVOPresentation>();
     
-    private UIXIterator eventIterator = new UIXIterator();
-    private UIXIterator versionIterator = new UIXIterator();
+    private HtmlAjaxRepeat eventIterator = new HtmlAjaxRepeat();
+    private HtmlAjaxRepeat versionIterator = new HtmlAjaxRepeat();
        
     /**
      * Public constructor.
@@ -151,12 +151,12 @@ public class ItemVersionListSessionBean extends FacesBean
         this.eventLogList = eventLogList;
     }
 
-    public void setEventIterator(UIXIterator eventIterator)
+    public void setEventIterator(HtmlAjaxRepeat eventIterator)
     {
         this.eventIterator = eventIterator;
     }
 
-    public UIXIterator getEventIterator()
+    public HtmlAjaxRepeat getEventIterator()
     {
         return eventIterator;
     }
@@ -174,7 +174,7 @@ public class ItemVersionListSessionBean extends FacesBean
     /**
      * @return the versionIterator
      */
-    public UIXIterator getVersionIterator()
+    public HtmlAjaxRepeat getVersionIterator()
     {
         return versionIterator;
     }
@@ -182,7 +182,7 @@ public class ItemVersionListSessionBean extends FacesBean
     /**
      * @param versionIterator the versionIterator to set
      */
-    public void setVersionIterator(UIXIterator versionIterator)
+    public void setVersionIterator(HtmlAjaxRepeat versionIterator)
     {
         this.versionIterator = versionIterator;
     }

@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <%-- JIRA AS-583 --%>
 
@@ -42,7 +42,7 @@
 
 <%-- Tags --%>
 
-		<tr:iterator var="localTag" value="#{EditItem.pubItem.wrappedLocalTags}">
+		<a4j:repeat var="localTag" value="#{EditItem.pubItem.wrappedLocalTags}">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 
@@ -54,10 +54,10 @@
 					<h:outputText styleClass="quad_area0" value="#{localTag.value}" rendered="#{!EditItem.localTagEditingAllowed}"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAddLocalTag" styleClass="min_imgBtn groupTool add" text=" " action="#{EditItem.addLocalTag}" rendered="#{EditItem.localTagEditingAllowed and localTag.isLast}"/>
-					<tr:commandButton id="btnRemoveLocalTag" styleClass="min_imgBtn groupTool remove" text=" " action="#{localTag.removeLocalTag}" rendered="#{EditItem.localTagEditingAllowed and !localTag.isSingle}"/>
+					<h:commandButton id="btnAddLocalTag" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.addLocalTag}" rendered="#{EditItem.localTagEditingAllowed and localTag.isLast}"/>
+					<h:commandButton id="btnRemoveLocalTag" styleClass="min_imgBtn groupTool remove" value=" " action="#{localTag.removeLocalTag}" rendered="#{EditItem.localTagEditingAllowed and !localTag.isSingle}"/>
 				</span>
 			</h:panelGroup>
-		</tr:iterator>
+		</a4j:repeat>
 	</div>
 </div>

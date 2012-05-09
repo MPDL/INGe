@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -42,7 +42,7 @@
 		
 <%-- Identifier --%>
 
-		<tr:iterator id="identifierCriterion" rows="0" var="identifierCriterionBean" value="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.identifierCriterionIterator}" varStatus="index">
+		<a4j:repeat id="identifierCriterion" rows="0" var="identifierCriterionBean" value="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.identifierCriterionIterator}" rowKeyVar="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.identifierCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -53,10 +53,10 @@
 					<h:inputText id="searchString" styleClass="quad_txtInput" value="#{identifierCriterionBean.identifierCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.addObject}" />
-					<tr:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.size == 1}" action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.removeObject}"/>
+					<h:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.addObject}" />
+					<h:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.size == 1}" action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.removeObject}"/>
 <%-- 
-					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{identifierCriterionBean.clearCriterion}" />
+					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{identifierCriterionBean.clearCriterion}" />
 --%>
 				</span>
 			</h:panelGroup>
@@ -69,10 +69,10 @@
 					<h:inputText id="searchStringMultiple" styleClass="quad_txtInput" value="#{identifierCriterionBean.identifierCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAddMultiple" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.addObject}" />
-					<tr:commandButton id="btnRemoveMultiple" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.size == 1}" action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.removeObject}"/>
+					<h:commandButton id="btnAddMultiple" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.addObject}" />
+					<h:commandButton id="btnRemoveMultiple" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.size == 1}" action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.removeObject}"/>
 <%-- 
-					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{identifierCriterionBean.clearCriterion}" />
+					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{identifierCriterionBean.clearCriterion}" />
 --%>
 				</span>
 			</h:panelGroup>
@@ -95,11 +95,11 @@
 				</h:selectOneMenu> 	--%>				
 			</h:panelGroup>
 
-		</tr:iterator>
+		</a4j:repeat>
 
 <%-- Event --%>
 
-		<tr:iterator id="eventCriterion" rows="0" var="eventCriterionBean" value="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.eventCriterionIterator}" varStatus="index">
+		<a4j:repeat id="eventCriterion" rows="0" var="eventCriterionBean" value="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.eventCriterionIterator}" rowKeyVar="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -110,10 +110,10 @@
 					<h:inputText id="searchStringFollowing" styleClass="quad_txtInput" value="#{eventCriterionBean.eventCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAddFollowing" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.addObject}" />
-					<tr:commandButton id="btnRemoveFollowing" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size == 1}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}" />
+					<h:commandButton id="btnAddFollowing" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.addObject}" />
+					<h:commandButton id="btnRemoveFollowing" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size == 1}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}" />
 <%-- 
-					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{eventCriterionBean.clearCriterion}" />
+					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{eventCriterionBean.clearCriterion}" />
 --%>
 				</span>
 			</h:panelGroup>
@@ -148,14 +148,14 @@
 				</h:selectOneMenu>	--%>				
 			</h:panelGroup>
 
-		</tr:iterator>
+		</a4j:repeat>
 		
 
 
 
 
 <%-- Source --%>
-		<tr:iterator var="sourceCriterionBean" rows="0" value="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.sourceCriterionIterator}" varStatus="index">
+		<a4j:repeat var="sourceCriterionBean" rows="0" value="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.sourceCriterionIterator}" rowKeyVar="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -166,10 +166,10 @@
 					<h:inputText styleClass="quad_txtInput" value="#{sourceCriterionBean.sourceCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.size == 1}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.removeObject}"/>
+					<h:commandButton styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.addObject}" />
+					<h:commandButton styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.size == 1}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.removeObject}"/>
 <%-- 
-					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{sourceCriterionBean.clearCriterion}" />
+					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{sourceCriterionBean.clearCriterion}" />
 --%>
 				</span>
 			</h:panelGroup>
@@ -192,11 +192,11 @@
 				</h:selectOneMenu>	--%>		
 			</h:panelGroup>
 
-		</tr:iterator>
+		</a4j:repeat>
 
 <%-- Language --%>
 
-		<tr:iterator id="languageCriterion" rows="0" var="languageCriterionBean" value="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.objectDM}">
+		<a4j:repeat id="languageCriterion" rows="0" var="languageCriterionBean" value="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.objectDM}">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine languageArea">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -213,8 +213,8 @@
 					</h:selectOneMenu>--%>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAddMultiple" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.addObject}" />
-					<tr:commandButton id="btnRemoveMultiple" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size == 1}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.removeObject}"/>
+					<h:commandButton id="btnAddMultiple" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.addObject}" />
+					<h:commandButton id="btnRemoveMultiple" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size == 1}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.removeObject}"/>
 				</span>
 			</h:panelGroup>
 
@@ -235,10 +235,10 @@
 				</h:selectOneMenu>	--%>				
 			</h:panelGroup>
 
-		</tr:iterator>
+		</a4j:repeat>
 		
 <%-- LocalTag --%>
-        <tr:iterator var="localTagCriterionBean" rows="0" value="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.localTagCriterionIterator}" varStatus="index">
+        <a4j:repeat var="localTagCriterionBean" rows="0" value="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.localTagCriterionIterator}" rowKeyVar="index">
 
             <h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
                 <b class="xLarge_area0_p8 endline labelLine clear">
@@ -249,10 +249,10 @@
                     <h:inputText styleClass="quad_txtInput" value="#{localTagCriterionBean.localTagCriterionVO.searchString}" />
                 </span>
                 <span class="large_area0_p8 lineToolSection">
-                    <tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.addObject}" />
-                    <tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.size == 1}" action="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.removeObject}"/>
+                    <h:commandButton styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.addObject}" />
+                    <h:commandButton styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.size == 1}" action="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.removeObject}"/>
 <%-- 
-                    <tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{sourceCriterionBean.clearCriterion}" />
+                    <h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{sourceCriterionBean.clearCriterion}" />
 --%>
                 </span>
             </h:panelGroup>
@@ -274,7 +274,7 @@
                 </h:selectOneMenu>	 --%>              
             </h:panelGroup>
 
-        </tr:iterator>
+        </a4j:repeat>
         
 	</div>
 </div>

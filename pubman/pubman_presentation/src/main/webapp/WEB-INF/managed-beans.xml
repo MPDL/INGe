@@ -174,11 +174,6 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>SearchResultListPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.SearchResultListPage</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
 		<managed-bean-name>SearchResultList</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.search.SearchResultList</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>

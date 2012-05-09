@@ -29,9 +29,9 @@ All rights reserved. Use is subject to license terms.
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
-<tr:iterator value="#{ItemVersionListSessionBean.releaseList}" var="entry" varStatus="index">
+<a4j:repeat value="#{ItemVersionListSessionBean.releaseList}" var="entry" rowKeyVar="index">
 
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock">
 		<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -58,4 +58,4 @@ All rights reserved. Use is subject to license terms.
 		</div>
 	</h:panelGroup>
 
-</tr:iterator>
+</a4j:repeat>

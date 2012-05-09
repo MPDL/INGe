@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
 <h:panelGroup layout="block"  id="editLegalCase"  styleClass="full_area0 itemBlock" rendered="#{EditItem.pubItem!=null and !(genre.legal_case_display == 'false' && genre.legal_case_form_id == 'full-submission' || genre.legal_case_display == 'false' && genre.legal_case_form_id == 'all')}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
