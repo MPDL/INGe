@@ -50,7 +50,7 @@
 			<body lang="#{InternationalizationHelper.locale}">
 				<h:outputText value="#{EditItemPage.beanName}" styleClass="noDisplay" />
 				
-				<h:form id="form1" onsubmit="fullItemReloadAjax();">
+				<h:form id="form1" >
 					
 					<div class="full wrapper">
 						<h:inputHidden value="#{EditItemSessionBean.offset}" id="offset"></h:inputHidden>
@@ -265,19 +265,20 @@
 				<script type="text/javascript">
 					function fullItemReloadAjax()
 					{
-						document.getElementById('fullItem').style.opacity='0.4';
-						document.getElementById('fullItem').style.bg='FFF';
-						document.getElementById('ImgFullItemLoad').setAttribute('class','big_imgArea half_marginLIncl smallThrobber');
-						//$pb('#fullItem :input :text').attr('readonly', true);
-					    //$pb('#fullItem :textarea').attr('readonly', true);
+						var x = $pb('#fullItem');
+						$pb('#fullItem').css('opacity','0.4');
+						$pb('#fullItem').css('bg','FFF');
+						$pb('#ImgFullItemLoad').attr('class','big_imgArea half_marginLIncl smallThrobber');
+						$pb('#fullItem :input :text').attr('readonly', true);
+					    $pb('#fullItem :textarea').attr('readonly', true);
 					}
 					function fullItemReloadStop()
 					{
-						document.getElementById('fullItem').style.opacity='1.0';
-						document.getElementById('fullItem').style.bg='FFF';
-						document.getElementById('ImgFullItemLoad').setAttribute('class','noDisplay');
-						//$pb('#fullItem :input :text').attr('readonly', true);
-					    //$pb('#fullItem :textarea').attr('readonly', true);
+						$pb('#fullItem').css('opacity','1.0');
+						$pb('#fullItem').css('bg','FFF');
+						$pb('#ImgFullItemLoad').attr('class','noDisplay');
+						$pb('#fullItem :input :text').attr('readonly', true);
+					    $pb('#fullItem :textarea').attr('readonly', true);
 					}
 				</script>
 			</body>
