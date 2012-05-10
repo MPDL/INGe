@@ -320,22 +320,31 @@ public class AdvancedSearchEdit extends FacesBean
     private ArrayList<MetadataSearchCriterion> transformToSearchCriteria
         ( Criterion predecessor, Criterion transformMe ) throws TechnicalException
     {
-        
+        ArrayList<MetadataSearchCriterion> results = transformMe.createSearchCriterion();
         // we're on the first element of the criteria
-        if( predecessor == null ) {
-            ArrayList<MetadataSearchCriterion> results = transformMe.createSearchCriterion();
-            if( results.size() != 0 ) {
-                // set the first logicaloperator to unset
-                results.get( 0 ).setLogicalOperator( LogicalOperator.UNSET );
+        if (predecessor == null)
+        {
+            if (results.size() != 0)
+            {
+                // set the first logical operator to unset
+                results.get(0).setLogicalOperator(LogicalOperator.UNSET);
             }
             return results;
-            
         }
-        else {
-            ArrayList<MetadataSearchCriterion> results = transformMe.createSearchCriterion();
-            if( results.size() != 0 ) {
+        else
+        {
+            if (results.size() != 0)
+            {
                 LogicalOperator operator = predecessor.getLogicalOperator();
-                results.get( 0 ).setLogicalOperator( operator );
+                results.get(0).setLogicalOperator(operator);
+                
+                Class<? extends Criterion> c = predecessor.getClass();
+                Class<? extends Criterion> d = transformMe.getClass();
+                
+                if( c.equals(d) && c.getName().contains("OrganizationCriterion"))   // hack TODO
+                {
+                    results.get(0).setLogicalOperator(LogicalOperator.OR);
+                }
             }
             return results;
         }
