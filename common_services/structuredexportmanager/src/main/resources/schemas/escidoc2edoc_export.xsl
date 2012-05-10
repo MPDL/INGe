@@ -21,7 +21,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -119,11 +119,7 @@
 	<xsl:template name="metadata">
 	
 		<xsl:element name="metadata">
-		
-			<xsl:call-template name="fturl">
-				<xsl:with-param name="size" select="true()"/>
-			</xsl:call-template>
-			
+					
 			<xsl:call-template name="basic"/>
 			
 			<xsl:call-template name="creators"/>
@@ -509,6 +505,10 @@
 					<xsl:value-of select="$vm/review-method/v2-to-edoc/map[@v2=$esdrm]"/>
 				</xsl:element>
 			</xsl:if>
+			
+			<xsl:call-template name="fturl">
+				<xsl:with-param name="size" select="true()"/>
+			</xsl:call-template>
 		
 		</xsl:element>
 		
