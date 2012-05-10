@@ -180,14 +180,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>cone_ear</artifactId>
-			<version>1.2.16-SNAPSHOT</version>
+			<version>1.2.19-SNAPSHOT</version>
 			<scope>provided</scope>
 			<type>ear</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>cone</artifactId>
-			<version>1.2.16-SNAPSHOT</version>
+			<version>1.2.19-SNAPSHOT</version>
 			<scope>provided</scope>
 			<type>jar</type>
 		</dependency>
