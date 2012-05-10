@@ -21,7 +21,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -155,44 +155,44 @@
 	<!-- FTURL -->	
 	<xsl:template name="fturl">
 	
-		<xsl:param name="size"/>	
+		<xsl:param name="size"/>
+
+		<xsl:comment>FTURL</xsl:comment>
 
 		<xsl:variable name="imc" select="
 			../../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='internal-managed' and @xlink:href]
 		"/>
+
+		<xsl:for-each select="$imc">
 		
-		<xsl:if test="count($imc)>1">
-			
-			<xsl:for-each select="$imc">
-			
-				<xsl:element name="fturl">
-					
-					<xsl:variable name="vft" select="../escidocComponents:properties/prop:visibility"/>
-					<xsl:variable name="vft" select="$vm/fulltext-visibility/v2-to-edoc/map[@v2=$vft]"/>
-					
-					<xsl:attribute name="viewftext" select="
-						func:coalesce(($vft, $vm/fulltext-visibility/v2-to-edoc/@default))
-					"/>
-					
-						<xsl:attribute name="filename" select="@xlink:title"/>
-					
-					<xsl:if test="$size">
-						<xsl:attribute name="size" select="
-							../mdr:md-records/mdr:md-record[1]/file:file/dcterms:extent
-						"/>
-					</xsl:if>
-					
-					<xsl:value-of select="concat(
-						$coreservice_instance,
-						@xlink:href	
-					)"/>
-					
-				</xsl:element>
+			<xsl:comment><xsl:value-of select="$imc/@xlink:href"/></xsl:comment>
+		
+			<xsl:element name="fturl">
 				
-			</xsl:for-each>
+				<xsl:variable name="vft" select="../escidocComponents:properties/prop:visibility"/>
+				<xsl:variable name="vft" select="$vm/fulltext-visibility/v2-to-edoc/map[@v2=$vft]"/>
+				
+				<xsl:attribute name="viewftext" select="
+					func:coalesce(($vft, $vm/fulltext-visibility/v2-to-edoc/@default))
+				"/>
+				
+					<xsl:attribute name="filename" select="@xlink:title"/>
+				
+				<xsl:if test="$size and exists(../mdr:md-records/mdr:md-record[1]/file:file/dcterms:extent)">
+					<xsl:attribute name="size" select="
+						../mdr:md-records/mdr:md-record[1]/file:file/dcterms:extent
+					"/>
+				</xsl:if>
+				
+				<xsl:value-of select="concat(
+					$coreservice_instance,
+					@xlink:href	
+				)"/>
+				
+			</xsl:element>
 			
-		</xsl:if>
-	
+		</xsl:for-each>
+
 	</xsl:template>	
 	
 	
