@@ -1854,13 +1854,6 @@
                                                                         </xsl:variable>
                                                                         <xsl:copy-of select="$var"/>
                                                                     </le>
-                                                                    <le>
-                                                                        <xsl:variable name="var"><!--### Plain Layout Element ###-->
-	<!--### @ref is available ###--><xsl:variable name="var" select="$doi"/>
-                                                                            <xsl:copy-of select="$var"/>
-                                                                        </xsl:variable>
-                                                                        <xsl:copy-of select="$var"/>
-                                                                    </le>
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="delimiter" select="' '"/>
                                                             </xsl:call-template>
@@ -1870,12 +1863,19 @@
 			--><xsl:variable name="var">
                                                             <xsl:copy-of select="$var"/>
                                                             <xsl:if test="exists($var) and $var!=''">
-                                                                <xsl:text>.</xsl:text>
+                                                                <xsl:text>. </xsl:text>
                                                             </xsl:if>
                                                         </xsl:variable>
                                                         <xsl:copy-of select="$var"/>
                                                     </xsl:variable>
                                                     <xsl:copy-of select="$volume-issue-start-page-end-page"/>
+                                                </le>
+                                                <le>
+                                                    <xsl:variable name="var"><!--### Plain Layout Element ###-->
+	<!--### @ref is available ###--><xsl:variable name="var" select="$doi"/>
+                                                        <xsl:copy-of select="$var"/>
+                                                    </xsl:variable>
+                                                    <xsl:copy-of select="$var"/>
                                                 </le>
                                                 <le>
                                                     <xsl:variable name="var"><!--### Plain Layout Element ###-->
