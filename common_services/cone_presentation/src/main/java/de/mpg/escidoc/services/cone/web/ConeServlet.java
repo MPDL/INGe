@@ -145,7 +145,6 @@ public class ConeServlet extends HttpServlet
         logger.debug("getLocalAddr() " + request.getLocalAddr());
         logger.debug("getLocalName() " + request.getLocalName());
         logger.debug("getLocalPort() " + request.getLocalPort());
-        logger.debug("getLocalPort() " + request.getLocalPort());
         
         // Read the model name and action from the URL
         String[] path = request.getServletPath().split("/", 4);
