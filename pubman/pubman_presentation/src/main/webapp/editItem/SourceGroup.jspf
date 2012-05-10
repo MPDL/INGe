@@ -128,7 +128,7 @@
 						</h:panelGroup>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<a4j:commandButton reRender="editSource" id="btnAddDetails" styleClass="min_imgBtn groupTool add" value=" " title="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btAdd}" action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}"  />
+						<a4j:commandButton reRender="editSource" id="btnAddDetails1" styleClass="min_imgBtn groupTool add" value=" " title="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btAdd}" action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}"  />
 						<a4j:commandButton reRender="editSource" id="btnRemoveDetails" styleClass="min_imgBtn groupTool remove" value=" " title="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btRemove}" action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}" />
 					</span>
 				</h:panelGroup>
@@ -187,7 +187,7 @@
 							<h:inputText id="inpcreator_persons_person_family_name_optional" styleClass="large_txtInput personSuggest familyName" value="#{creator.person.familyName}" rendered="#{!(genre.sources_source_person_organization_source_persons_person_family_name_display == 'false' && genre.sources_source_person_organization_source_persons_person_family_name_form_id == 'full-submission' || genre.sources_source_person_organization_source_persons_person_family_name_display == 'false' && genre.sources_source_person_organization_source_persons_person_family_name_form_id == 'all')}" />
 							<h:inputText id="inppersons_person_given_name_optional" styleClass="large_txtInput givenName" value="#{creator.person.givenName}" />
 							<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" value="#{creator.autoPasteValue}" />
-							<h:commandButton id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations" action="#{creator.addOrganization}" />
+							<a4j:commandButton reRender="editSource" id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations" action="#{creator.addOrganization}" />
 							<h:inputText id="inppersons_person_ous_optional" styleClass="xSmall_txtInput ouNumber" value="#{creator.ouNumbers}" />
 							<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" value="#{creator.person.identifier.id}" />
 							<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{creator.person.identifier.id}" rendered="#{creator.person.identifier.id != null and creator.person.identifier.id != ''}" target="_blank">&nbsp;</h:outputLink>
@@ -338,7 +338,7 @@
 			<h:inputTextarea id="inpSourceDetailIdentifierCopy" styleClass="quad_txtArea inputTxtArea sourceIdentifierPasteField" value="#{sourceBean.hiddenIdsField}" cols="15" rows="3" />
 		</span>
 		<span class="large_area0_p8 lineToolSection">
-			<h:commandButton id="btnSourceDetailIdentifierCopy" styleClass="free_txtBtn groupTool hiddenAutosuggestUploadBtn" action="#{sourceBean.parseAndSetAlternativeTitlesAndIds}" />
+			<a4j:commandButton reRender="editSource" id="btnSourceDetailIdentifierCopy" styleClass="free_txtBtn groupTool hiddenAutosuggestUploadBtn" action="#{sourceBean.parseAndSetAlternativeTitlesAndIds}" />
 		</span>
 	</div>
 <%-- Source details identifier --%>

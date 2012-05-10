@@ -225,6 +225,38 @@ if (!(location.pathname.match(/faces\/help\//))) {
 applyCookieStyle();
 window.onunload=function(e){setStyleCookie();};
 
+
+
+
+
+function fullItemReloadAjax()
+{
+	
+		var fi = $pb('#fullItem');
+		var fil = $pb('#ImgFullItemLoad');
+		if ((fi && fi.length > 0) && (fil && fil.length > 0))
+		{
+			fi.css('opacity','0.4');
+			fil.attr('class','big_imgArea half_marginLIncl smallThrobber');
+			fi.find("input[type='text'], textarea").attr("readonly", "true");
+		}
+	
+	
+	
+}
+function fullItemReloadStop()
+{
+	var fi = $pb('#fullItem');
+	var fil = $pb('#ImgFullItemLoad');
+	if ((fi && fi.length > 0) && (fil && fil.length > 0))
+	{
+		fi.css('opacity','1.0');
+		fil.attr('class','noDisplay');
+		fi.find("input[type='text'], textarea").removeAttr("readonly");
+	}
+	
+}
+
 /*This method is called by the a4j:status element in Header.jspf before every Richfaces Ajax Call */
 function beforeAjaxRequest()
 {

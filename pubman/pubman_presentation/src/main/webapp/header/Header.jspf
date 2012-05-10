@@ -65,7 +65,7 @@
 </div>
 <%-- import main menu here --%>
 	<jsp:directive.include file="ui/MainMenu.jspf"/>
-	<a4j:status id="a4jstatus" onstart="beforeAjaxRequest()" onstop="afterAjaxRequest()" />
+	
 
 	
 

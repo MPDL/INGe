@@ -61,6 +61,19 @@ if(typeof jQuery != 'undefined')
 --%>
 
 <a4j:loadScript src="resource://jquery.js"/>
+<script>
+if (jQuery.browser.msie && jQuery.browser.version == 9) {
+    window.XMLSerializer = function() {
+
+    };
+    window.XMLSerializer.prototype.serializeToString = function(oNode) {
+
+      return oNode.xml;
+
+    };
+  }
+</script>
+
 <%--
 <script type="text/javascript" language="JavaScript" src="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />../resources/commonJavaScript/jquery/jquery-1.4.min.js">;</script>
 

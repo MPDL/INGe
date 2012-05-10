@@ -141,7 +141,7 @@
 						value="#{creator.person.givenName}" />
 					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" title="#{creator.autoPasteValue}" 
 						value="#{creator.autoPasteValue}" />
-					<h:commandButton id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations"
+					<a4j:commandButton reRender="editPerson" id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations"
 						action="#{creator.addOrganization}" />
 					<h:inputText id="inppersons_person_ous_optional" styleClass="xSmall_txtInput ouNumber" value="#{creator.ouNumbers}" title="#{creator.ouNumbers}" />
 					<h:inputText id="inppersons_identifier" styleClass="noDisplay personIdentifier" title="#{creator.person.identifier.id}" 

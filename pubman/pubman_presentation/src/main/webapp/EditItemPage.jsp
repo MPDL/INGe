@@ -41,17 +41,19 @@
 		<f:loadBundle var="genre" basename="#{EditItem.genreBundle}" />
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
+				<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 				<script src="./resources/commonJavaScript/jquery/jquery.jdialog.min.js" language="JavaScript" type="text/javascript">;</script>
 				<script type='text/javascript' src='http://api.creativecommons.org/jswidget/tags/0.96/complete.js?locale=#{PubManSessionBean.locale}&amp;want_a_license=definitely'>;</script>
 				<link rel="stylesheet" href="http://labs.creativecommons.org/demos/jswidget/tags/0.97/example_web_app/example-widget-style.css" />
+			
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 				<h:outputText value="#{EditItemPage.beanName}" styleClass="noDisplay" />
 				
-				<h:form id="form1" >
-					
+				<h:form id="form1">
+					<a4j:status id="a4jstatus" onstart="beforeAjaxRequest();" onstop="afterAjaxRequest();" />
 					<div class="full wrapper">
 						<h:inputHidden value="#{EditItemSessionBean.offset}" id="offset"></h:inputHidden>
 					
@@ -262,25 +264,8 @@
 					personSuggestCommonParentClass = 'suggestAnchor';
 					journalSuggestTrigger = 'JOURNAL';
 				</script>
-				<script type="text/javascript">
-					function fullItemReloadAjax()
-					{
-						var x = $pb('#fullItem');
-						$pb('#fullItem').css('opacity','0.4');
-						$pb('#fullItem').css('bg','FFF');
-						$pb('#ImgFullItemLoad').attr('class','big_imgArea half_marginLIncl smallThrobber');
-						$pb('#fullItem :input :text').attr('readonly', true);
-					    $pb('#fullItem :textarea').attr('readonly', true);
-					}
-					function fullItemReloadStop()
-					{
-						$pb('#fullItem').css('opacity','1.0');
-						$pb('#fullItem').css('bg','FFF');
-						$pb('#ImgFullItemLoad').attr('class','noDisplay');
-						$pb('#fullItem :input :text').attr('readonly', true);
-					    $pb('#fullItem :textarea').attr('readonly', true);
-					}
-				</script>
+				
+				
 			</body>
 		</html>
 	</f:view>
