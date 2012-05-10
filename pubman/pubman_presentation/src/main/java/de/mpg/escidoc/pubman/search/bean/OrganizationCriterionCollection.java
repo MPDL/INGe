@@ -3,8 +3,14 @@ package de.mpg.escidoc.pubman.search.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.bean.criterion.OrganizationCriterion;
+import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 
 /**
  * Bean to handle the OrganizationCriterionCollection on a single jsp.
@@ -15,6 +21,8 @@ import de.mpg.escidoc.pubman.search.bean.criterion.OrganizationCriterion;
 public class OrganizationCriterionCollection
 {
     public static final String BEAN_NAME = "OrganizationCriterionCollection";
+    
+    private static final Logger logger = Logger.getLogger(OrganizationCriterionCollection.class);
     
     private List<OrganizationCriterion> parentVO;
     private OrganizationCriterionManager organizationCriterionManager;
@@ -52,6 +60,55 @@ public class OrganizationCriterionCollection
         organizationCriterionManager = new OrganizationCriterionManager(parentVO);
     }
     
+    private List<OrganizationCriterion> resolveIncludes(List<OrganizationCriterion> inVO)
+    {
+        List<OrganizationCriterion> resolved = new ArrayList<OrganizationCriterion>();
+        
+        for (OrganizationCriterion criterion : inVO)
+        {
+            resolved.add(criterion);
+            
+            AffiliationVO affiliation;
+            try
+            {
+                affiliation = ItemControllerSessionBean.retrieveAffiliation(criterion.getAffiliation().getReference().getObjectId());
+
+                AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
+                
+                //AffiliationVOPresentation affiliation = criterion.getAffiliation();           
+                logger.debug("Adding " + affiliation.toString());
+                
+                if (criterion.getIncludePredecessorsAndSuccessors())
+                { 
+                    List<AffiliationVO> sucessorsVO = affiliationPres.getSuccessors();
+                    
+                    for (AffiliationVO affiliationVO : sucessorsVO)
+                    {
+                        OrganizationCriterion organizationCriterion = new OrganizationCriterion();
+                        organizationCriterion.setAffiliation(new AffiliationVOPresentation(affiliationVO));
+                        resolved.add(organizationCriterion);
+                        logger.debug("Adding sucessor " + organizationCriterion.getAffiliation().toString());
+                    }
+                    
+                    List<AffiliationVO> predecessorsVO = affiliationPres.getPredecessors();
+                    
+                    for (AffiliationVO affiliationVO : predecessorsVO)
+                    {
+                        OrganizationCriterion organizationCriterion = new OrganizationCriterion();
+                        organizationCriterion.setAffiliation(new AffiliationVOPresentation(affiliationVO));
+                        resolved.add(organizationCriterion);
+                        logger.debug("Adding predecessor " + organizationCriterion.getAffiliation().toString());
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                logger.error("Error while retrieving affiliation from id", e);
+            }
+        }
+        return resolved;
+    }
+
     /**
      * Specialized DataModelManager to deal with objects of type OrganizationCriterionBean
      * @author Mario Wagner
@@ -143,7 +200,7 @@ public class OrganizationCriterionCollection
                 returnList.add(vo);
             }
         }
-        return returnList;
+        return resolveIncludes(returnList);
     }
 
 }
