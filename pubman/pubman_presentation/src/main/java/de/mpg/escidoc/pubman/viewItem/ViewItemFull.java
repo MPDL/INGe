@@ -1655,7 +1655,7 @@ public class ViewItemFull extends FacesBean
             {
                 try
                 {
-                    affiliationList.add(new AffiliationVOPresentation(ItemControllerSessionBean
+                    affiliationList.add(new AffiliationVOPresentation(itemControllerSessionBean
                             .retrieveAffiliation(affiliationRefList.get(i).getObjectId())));
                 }
                 catch (Exception e)

@@ -88,21 +88,6 @@ All rights reserved. Use is subject to license terms.
 					<h:commandButton id="btnRemoveOrganizationCriterion" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size == 1}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}"/>
 				</span>
 			</h:panelGroup>
-			
-			
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-				<b class="xLarge_area0_p8 endline labelLine clear">
-								&#160;<span class="noDisplay"> </span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<span class="free_area0 checkboxDoubleGroup">
-						<span class="large_checkbox tiny_marginRIncl">							
-							<h:selectBooleanCheckbox id="OrganizationCriterionBean_includePredecessorsAndSuccessors" value="#{organizationCriterionBean.organizationCriterionVO.includePredecessorsAndSuccessors }" />
-							<h:outputLabel id="lblOrganizationCriterionBean_includePredecessorsAndSuccessors" value="#{lbl.adv_search_lblInclHistory}" />						
-						</span>
-					</span>
-				</span>
-			</h:panelGroup>
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">

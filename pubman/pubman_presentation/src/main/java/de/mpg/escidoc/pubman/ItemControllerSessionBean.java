@@ -86,7 +86,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.AdminHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -2144,7 +2143,7 @@ public class ItemControllerSessionBean extends FacesBean
 	 * @return the requested affiliation
 	 * @throws Exception if framework access fails
 	 */
-	public static AffiliationVO retrieveAffiliation(String affiliationId) throws Exception
+	public AffiliationVO retrieveAffiliation(String affiliationId) throws Exception
 	{
 		if (logger.isDebugEnabled())
 		{
@@ -2169,7 +2168,7 @@ public class ItemControllerSessionBean extends FacesBean
 		{
 			logger.debug("Transforming the affiliation...");
 		}
-		AffiliationVO affiliation = new XmlTransformingBean().transformToAffiliation(xmlAffiliation);
+		AffiliationVO affiliation = this.xmlTransforming.transformToAffiliation(xmlAffiliation);
 
 		return affiliation;
 	}

@@ -53,7 +53,6 @@ public class OrganizationCriterion extends Criterion
      */
     
     AffiliationVOPresentation affiliation = null;
-    private boolean includePredecessorsAndSuccessors = false;
     
     public OrganizationCriterion()
     {
@@ -61,7 +60,6 @@ public class OrganizationCriterion extends Criterion
         AffiliationVO affiliationVO = new AffiliationVO();
         affiliationVO.setReference(new AffiliationRO());
         affiliation = new AffiliationVOPresentation(affiliationVO);
-      
     }
     
     /**
@@ -117,13 +115,5 @@ public class OrganizationCriterion extends Criterion
         this.affiliation = affiliation;
     }
     
-    public void setIncludePredecessorsAndSuccessors(boolean include)
-    {
-        this.includePredecessorsAndSuccessors = include;
-    }
     
-    public boolean getIncludePredecessorsAndSuccessors()
-    {
-        return this.includePredecessorsAndSuccessors;
-    }
 }
