@@ -118,6 +118,7 @@ public class WriteMETSData
         cur.insertElementWithText("owner", "http://dfg-viewer.de/", owner);
         cur.insertElementWithText("ownerLogo", "http://dfg-viewer.de/", logo);
         cur.insertElementWithText("ownerSiteURL", "http://dfg-viewer.de/", url);
+        cur.insertElementWithText("contact", "http://dfg-viewer.de/", "bibliothek@rg.mpg.de");
         cur.dispose();
         xml.set(dvrights);
         wrap.setXmlData(xml);
@@ -136,7 +137,7 @@ public class WriteMETSData
         dpCur.toNextToken();
         dpCur.beginElement("links", "http://dfg-viewer.de/");
         dpCur.insertElementWithText("reference", "http://dfg-viewer.de/", reference);
-        dpCur.insertElementWithText("presentation", "http://dfg-viewer.de/", "http://virr.mpdl.mpg.de/");
+        dpCur.insertElementWithText("presentation", "http://dfg-viewer.de/", "http://vm38.mpdl.mpg.de:8080/dlib-journals/");
         dpCur.dispose();
         dpXml.set(dvdigiprov);
         dpWrap.setXmlData(dpXml);

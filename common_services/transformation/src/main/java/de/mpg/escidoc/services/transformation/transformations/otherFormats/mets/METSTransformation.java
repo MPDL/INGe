@@ -38,6 +38,9 @@ import de.mpg.escidoc.services.common.DataGathering;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.transformation.Configurable;
+import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
  * This class provides METS transformation for a escidoc objects.
@@ -265,9 +268,9 @@ public class METSTransformation
         String reference;
         String amdId = "amd1";
         owner = "Max Planck Institute for European Legal History ";
-        logo = "http://www.mpier.uni-frankfurt.de/images/minerva_logo.gif ";
-        url = "http://www.mpier.uni-frankfurt.de ";
-        reference = "http://virr.mpdl.mpg.de/";
+        logo = "http://www.rg.mpg.de/media/img/mpier_logo.gif";
+        url = "http://www.rg.mpg.de";
+        reference = "http://vm38.mpdl.mpg.de:8080/dlib-journals/";
         
         this.writeMETS.createAmdSec(amdId, owner, logo, url, reference);
     }
@@ -513,6 +516,12 @@ public class METSTransformation
         }
        
     }
-    
+
+	public byte[] transform(byte[] src, Format srcFormat, Format trgFormat,
+			String service, Map<String, String> configuration)
+			throws TransformationNotSupportedException, RuntimeException {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }
