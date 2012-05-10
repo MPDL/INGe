@@ -43,7 +43,7 @@
 			<f:loadBundle var="genre" basename="#{EasySubmissionSessionBean.genreBundle}"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
-
+				<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
