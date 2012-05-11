@@ -22,7 +22,7 @@
  */
 
 /*
- * Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
+ * Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
  * für wissenschaftlich-technische Information mbH and Max-Planck-
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
@@ -31,8 +31,11 @@
 package de.mpg.escidoc.pubman;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -1321,10 +1324,20 @@ public class ItemControllerSessionBean extends FacesBean
 		// remove languages from subjects
 		if (pubItem.getMetadata().getSubjects() != null)
 		{
+		    List<TextVO> emptySubjects = new ArrayList<TextVO>();
+            
 			for (TextVO subject : pubItem.getMetadata().getSubjects())
 			{
+			    if (subject.getValue() == null || "".equals(subject.getValue()))
+			    {
+			        emptySubjects.add(subject);
+			    }
 				subject.setLanguage(null);
 			}
+			for (TextVO emptySubject : emptySubjects)
+            {
+			    pubItem.getMetadata().getSubjects().remove(emptySubject);
+            }
 		}
 
 		// delete unfilled Sources
@@ -1344,8 +1357,12 @@ public class ItemControllerSessionBean extends FacesBean
 					// delete unfilled publishingInfo
 					if (pubItem.getMetadata().getSources().get(i).getPublishingInfo() != null)
 					{
-						if (pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPublisher() == null
+						if ((pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPublisher() == null
 								|| pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPublisher().length() == 0)
+    							&& (pubItem.getMetadata().getSources().get(i).getPublishingInfo().getEdition() == null
+                                    || pubItem.getMetadata().getSources().get(i).getPublishingInfo().getEdition().length() == 0)
+                                    && (pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPlace() == null
+                                            || pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPlace().length() == 0))
 						{
 							pubItem.getMetadata().getSources().get(i).setPublishingInfo(null);
 						}
