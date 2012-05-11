@@ -56,7 +56,7 @@
 					value="#{lbl.EditItem_btnAddAuthorsOverwrite}" /> </span> </span>
 			</h:panelGroup>
 			<h:panelGroup styleClass="large_area0_p8 sectionToolSection">
-				<h:commandButton id="btnAddAuthors" title="#{tip.EditItem_btnAddAuthors}"
+				<a4j:commandButton reRender="editPerson" id="btnAddAuthors" title="#{tip.EditItem_btnAddAuthors}"
 					styleClass="free_txtBtn groupBtn sectionTool" value="#{lbl.EditItem_btnAddAuthors}"
 					action="#{EditItem.addCreatorString}" />
 			</h:panelGroup>

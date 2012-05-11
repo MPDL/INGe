@@ -294,7 +294,8 @@
 
 						<h:outputLink styleClass="large_txtBtn groupBtn ccLicense" value=""
 									onclick="var actualCCContent = $pb(this).parents('.licenseArea').find('.messageArea').find('.ccContent');
-											 $pb(actualCCContent).append($pb('head').children('div')); 
+											 $pb(actualCCContent).empty();
+											 $pb(actualCCContent).append($pb('head').children('div').clone()); 
 											 $pb(actualCCContent).parents('.messageArea').removeClass('noDisplay');return false;"
 									ondblclick="return false;">
 									<h:outputText value="#{lbl.EditItem_btnSelectCCLicense}"/>

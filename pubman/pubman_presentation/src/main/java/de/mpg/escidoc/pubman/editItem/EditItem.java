@@ -1640,7 +1640,7 @@ public String logUploadComplete()
             .getLocators()
             .add(new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size(), newLocator, true));
         }
-        return "loadEditItem";
+        return null;
     }
 
     /**
@@ -1678,7 +1678,7 @@ public String logUploadComplete()
             list.set(indexUpload, pubFile);
             this.getEditItemSessionBean().setLocators(list);
         }
-        return "loadEditItem";
+        return null;
     }
 
     /**

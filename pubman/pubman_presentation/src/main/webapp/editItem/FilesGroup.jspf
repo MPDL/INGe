@@ -72,7 +72,7 @@
 				<h:inputText id="inpAddFileFromUrl" styleClass="quad_txtInput" value="#{EditItem.locatorUpload}" />
 			</span>
 			<span class="large_area0_p8 lineToolSection">
-				<h:commandButton id="btnUploadFileFromUrl" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_btUpload_URL}" title="#{tip.EditItem_btUploadLocator}" action="#{EditItem.uploadLocator}" />
+				<a4j:commandButton reRender="editFile" id="btnUploadFileFromUrl" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_btUpload_URL}" title="#{tip.EditItem_btUploadLocator}" action="#{EditItem.uploadLocator}" />
 			</span>
 		</h:panelGroup>
 			
@@ -114,6 +114,7 @@
 			</h:panelGroup>
 --%>			
 <%-- Add File from url--%>
+<%--
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"  rendered="#{component.file.name == null || component.file.name == ''}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<span class="noDisplay"> </span>
@@ -123,9 +124,10 @@
 					<h:inputText id="inpAddFileFromUrl" styleClass="quad_txtInput" value="#{EditItem.locatorUpload}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<h:commandButton id="btnUploadFileFromUrl" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_btUpload_URL}" title="#{tip.EditItem_btUploadLocator}" action="#{EditItem.uploadLocator}" />
+					<a4j:commandButton reRender="editFile" id="btnUploadFileFromUrl" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_btUpload_URL}" title="#{tip.EditItem_btUploadLocator}" action="#{EditItem.uploadLocator}" />
 				</span>
 			</h:panelGroup>
+--%>			
 
 <%-- Real filename --%>
 			<h:panelGroup rendered="#{component.index == 0}">
@@ -263,7 +265,8 @@
 						<h:inputText id="inpLicenseUrl" styleClass="xDouble_txtInput tiny_marginRIncl licenseURL" value="#{component.file.defaultMetadata.license}"/>
 						<h:outputLink styleClass="large_txtBtn groupBtn ccLicense" value=""
 									 onclick="var actualCCContent = $pb(this).parents('.licenseArea').find('.messageArea').find('.ccContent');
-											  $pb(actualCCContent).append($pb('head').children('div')); 
+											   $pb(actualCCContent).empty();
+											  $pb(actualCCContent).append($pb('head').children('div').clone()); 
 											  $pb(actualCCContent).parents('.messageArea').removeClass('noDisplay'); return false;"
 									 ondblclick="return false;">
 							<h:outputText value="#{lbl.EditItem_btnSelectCCLicense}" />
