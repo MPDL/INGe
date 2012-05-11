@@ -55,7 +55,6 @@
 	
 	<!-- Validation points -->
 	<iso:phase id="default">
-		<iso:active pattern="publisher_name_required"/>
 		<iso:active pattern="organization_name_required"/>
 		<iso:active pattern="event_title_required"/>
 		<iso:active pattern="source_title_required"/>
@@ -101,7 +100,6 @@
 	
 	<iso:phase id="easy_submission_step_5">
 		<iso:active pattern="event_title_required"/>
-		<iso:active pattern="publisher_name_required"/>
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
 		<iso:active pattern="component_data_required"/>
@@ -123,7 +121,6 @@
 	</iso:phase>
 	
 	<iso:phase id="submit_item">
-		<iso:active pattern="publisher_name_required"/>
 		<iso:active pattern="organization_name_required"/>
 		<iso:active pattern="event_title_required"/>
 		<iso:active pattern="source_title_required"/>
@@ -145,7 +142,6 @@
 	</iso:phase>
 	
 	<iso:phase id="accept_item">
-		<iso:active pattern="publisher_name_required"/>
 		<iso:active pattern="organization_name_required"/>
 		<iso:active pattern="event_title_required"/>
 		<iso:active pattern="source_title_required"/>
@@ -341,13 +337,6 @@
 		</iso:rule>
 		<iso:rule context="publication:publication/escidoc:creator/organization:organization">
 			<iso:assert test="dc:title != ''">CreatorOrganizationNameNotProvided</iso:assert>
-		</iso:rule>
-	</iso:pattern>
-	
-	<!-- if "Publisher place" or "Publisher edition" is filled, "Publisher name" has to be filled also -->
-	<iso:pattern name="publisher_name_required" id="publisher_name_required">
-		<iso:rule context="escidoc:publishing-info">
-			<iso:assert test="dc:publisher != '' or not(* != '')">PublisherNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
