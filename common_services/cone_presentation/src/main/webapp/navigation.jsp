@@ -21,7 +21,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -70,7 +70,7 @@
 				<% if (Login.getLoggedIn(request)) { %>
 					<a class="medium_area0_p8 endline" href="logout.jsp?target=<%= URLEncoder.encode(PropertyReader.getProperty("escidoc.cone.service.url") + request.getServletPath().substring(1), "UTF-8") %>">Logout</a>
 				<% } else { %>
-					<a class="medium_area0_p8 endline" href="/auth/login.jsp">Login</a>
+					<a class="medium_area0_p8 endline" href="/auth/login.jsp?from=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Login</a>
 				<% } %>
 				<span class="seperator"></span>
 		
