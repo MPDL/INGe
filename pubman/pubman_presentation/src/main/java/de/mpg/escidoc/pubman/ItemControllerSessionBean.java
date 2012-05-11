@@ -31,11 +31,8 @@
 package de.mpg.escidoc.pubman;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -1284,11 +1281,11 @@ public class ItemControllerSessionBean extends FacesBean
 		if (pubItem.getMetadata().getPublishingInfo() != null)
 		{
 			if ((pubItem.getMetadata().getPublishingInfo().getPublisher() == null
-					|| pubItem.getMetadata().getPublishingInfo().getPublisher().length() == 0)
+					        || pubItem.getMetadata().getPublishingInfo().getPublisher().length() == 0)
 					&& (pubItem.getMetadata().getPublishingInfo().getEdition() == null
 							|| pubItem.getMetadata().getPublishingInfo().getEdition().length() == 0)
-							&& (pubItem.getMetadata().getPublishingInfo().getPlace() == null
-									|| pubItem.getMetadata().getPublishingInfo().getPlace().length() == 0))
+					&& (pubItem.getMetadata().getPublishingInfo().getPlace() == null
+							|| pubItem.getMetadata().getPublishingInfo().getPlace().length() == 0))
 			{
 				pubItem.getMetadata().setPublishingInfo(null);
 			}
@@ -1348,7 +1345,8 @@ public class ItemControllerSessionBean extends FacesBean
 				// delete source if title is not filled
 				if (pubItem.getMetadata().getSources().get(i) == null
 						|| pubItem.getMetadata().getSources().get(i).getTitle() == null
-						|| pubItem.getMetadata().getSources().get(i).getTitle().getValue() == null || pubItem.getMetadata().getSources().get(i).getTitle().getValue().trim().equals(""))
+						|| pubItem.getMetadata().getSources().get(i).getTitle().getValue() == null 
+						|| pubItem.getMetadata().getSources().get(i).getTitle().getValue().trim().equals(""))
 				{
 					pubItem.getMetadata().getSources().remove(i);
 				}
@@ -1358,11 +1356,11 @@ public class ItemControllerSessionBean extends FacesBean
 					if (pubItem.getMetadata().getSources().get(i).getPublishingInfo() != null)
 					{
 						if ((pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPublisher() == null
-								|| pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPublisher().length() == 0)
+								    || pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPublisher().length() == 0)
     							&& (pubItem.getMetadata().getSources().get(i).getPublishingInfo().getEdition() == null
                                     || pubItem.getMetadata().getSources().get(i).getPublishingInfo().getEdition().length() == 0)
-                                    && (pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPlace() == null
-                                            || pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPlace().length() == 0))
+                                && (pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPlace() == null
+                                    || pubItem.getMetadata().getSources().get(i).getPublishingInfo().getPlace().length() == 0))
 						{
 							pubItem.getMetadata().getSources().get(i).setPublishingInfo(null);
 						}
