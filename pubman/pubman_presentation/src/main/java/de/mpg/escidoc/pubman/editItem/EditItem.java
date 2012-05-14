@@ -33,12 +33,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlSelectOneMenu;
@@ -55,6 +57,8 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
+import org.apache.tika.Tika;
+import org.apache.tika.detect.DefaultDetector;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -1442,13 +1446,35 @@ public String logUploadComplete()
 	                fileVO.getDefaultMetadata().setSize((int)file.getFileSize());
 	                fileVO.setName(file.getFileName());
 	                fileVO.getDefaultMetadata().setTitle(new TextVO(file.getFileName()));
-	                fileVO.setMimeType(file.getContentType());
+	                
+	                
+	                
+                	Tika tika = new Tika();
+                	if(file.isTempFile())
+                	{
+                		try {
+							fileVO.setMimeType(tika.detect(new FileInputStream(file.getFile()), file.getFileName()));
+						} catch (IOException e) {
+							logger.info("Error while trying to detect mimetype of file " + file.getFileName());
+						}
+                	}
+                	else
+                	{
+                		fileVO.setMimeType(tika.detect(file.getFileName()));
+                	}
+	                	
+	                
+	               
+	               
+	               
 	                // correct several PDF Mime type errors manually
+	               /*
 	                if (file.getFileName() != null
 	                        && (file.getFileName().endsWith(".pdf") || file.getFileName().endsWith(".PDF")))
 	                {
 	                    fileVO.setMimeType("application/pdf");
 	                }
+	                */
 	                FormatVO formatVO = new FormatVO();
 	                formatVO.setType("dcterms:IMT");
 	                formatVO.setValue(fileVO.getMimeType());

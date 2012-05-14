@@ -31,6 +31,7 @@ package de.mpg.escidoc.pubman.easySubmission;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -56,6 +57,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
+import org.apache.tika.Tika;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -797,7 +799,25 @@ public class EasySubmission extends FacesBean
 		                 * this.getFiles().get(indexUpload).getFile().getName().trim().equals("")) {
 		                 * this.getFiles().get(indexUpload).getFile().setName(file.getFilename()); }
 		                 */
-		                newFile.setMimeType(file.getContentType());
+		                
+		                
+		                //newFile.setMimeType(file.getContentType());
+		                
+		                Tika tika = new Tika();
+	                	if(file.isTempFile())
+	                	{
+	                		try {
+	                			newFile.setMimeType(tika.detect(new FileInputStream(file.getFile()), file.getFileName()));
+							} catch (IOException e) {
+								logger.info("Error while trying to detect mimetype of file " + file.getFileName());
+							}
+	                	}
+	                	else
+	                	{
+	                		newFile.setMimeType(tika.detect(file.getFileName()));
+	                	}
+		                
+		                
 		                FormatVO formatVO = new FormatVO();
 		                formatVO.setType("dcterms:IMT");
 		                formatVO.setValue(file.getContentType());

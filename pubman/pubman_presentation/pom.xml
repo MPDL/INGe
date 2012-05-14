@@ -117,6 +117,11 @@
 	      <artifactId>richfaces-impl</artifactId>
 	      <version>3.3.3.Final</version>
 	    </dependency>
+	    <dependency>
+		  <groupId>org.apache.tika</groupId>
+		  <artifactId>tika-core</artifactId>
+		  <version>1.1</version>
+		</dependency>
 	 
 	</dependencies>
 	
