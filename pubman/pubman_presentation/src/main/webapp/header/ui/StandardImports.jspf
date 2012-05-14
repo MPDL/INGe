@@ -97,7 +97,6 @@ jQueryPb = jQuery;
 
 <script type="text/javascript" language="JavaScript" src="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />../resources/scripts.js">;</script>
 <script type="text/javascript" language="JavaScript" src="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />../resources/commonJavaScript/eSciDoc_javascript.js">;</script>
-
 <script type="text/javascript"> 
 <%--if($rf != null)
 {
