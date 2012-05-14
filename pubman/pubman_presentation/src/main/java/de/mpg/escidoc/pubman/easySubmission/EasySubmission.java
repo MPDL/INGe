@@ -820,14 +820,16 @@ public class EasySubmission extends FacesBean
 		                
 		                FormatVO formatVO = new FormatVO();
 		                formatVO.setType("dcterms:IMT");
-		                formatVO.setValue(file.getContentType());
+		                formatVO.setValue(newFile.getMimeType());
 		                // correct several PDF Mime type errors manually
+		                /*
 		                if (file.getFileName() != null
 		                        && (file.getFileName().endsWith(".pdf") || file.getFileName().endsWith(".PDF")))
 		                {
 		                	newFile.setMimeType("application/pdf");
 		                    formatVO.setValue("application/pdf");
 		                }
+		                */
 		                newFile.getDefaultMetadata().getFormats().add(formatVO);
 		                newFile.setContent(contentURL);
 		            }
