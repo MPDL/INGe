@@ -44,14 +44,15 @@
 			<head>
 
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
-
+				
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
-
+				
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 
 			<h:outputText value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
 			<h:form >
+			<a4j:status id="a4jstatus" onstop="afterAjaxRequest();" />
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
@@ -128,6 +129,7 @@
 					*/
 					$pb(window).scrollTop($pb("input[id$='offset']").val());
 					$pb(window).scroll(function(){$pb("input[id$='offset']").val($pb(window).scrollTop());});
+					// maintain attributes for autosuggest filled persons
 				});
 				languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>iso639-3/query?format=json';
 				personSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>persons/query?lang=*';

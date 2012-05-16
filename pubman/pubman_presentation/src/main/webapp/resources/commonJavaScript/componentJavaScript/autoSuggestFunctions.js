@@ -32,11 +32,11 @@
 * JavaScript functions for pubman_presentation
 */
 
-	var languageSuggestURL = '';
-	var journalSuggestURL = '';
-	var subjectSuggestURL = '';
-	var personSuggestURL = '';
-	var organizationSuggestURL = '';
+//	var languageSuggestURL = '';
+//	var journalSuggestURL = '';
+//	var subjectSuggestURL = '';
+//	var personSuggestURL = '';
+//	var organizationSuggestURL = '';
 	var journalDetailsBaseURL = '';
 	var languageDetailsBaseURL = '';
 	var autopasteDelimiter = ' ||##|| ';
@@ -223,6 +223,8 @@
 		$input.blur();
 		$input.focus();
 		fillField('personIdentifier', personId, parent, true);
+		$pb(parent).find('.removeAutoSuggestPerson').css('display', 'inline');
+		$pb(parent).find('.givenName').attr('class', 'medium_txtInput givenName');
 
 		if (personId != null && personId != '')
 		{
@@ -304,6 +306,51 @@
 		}
 	}
 	
+	// removes 'readonly' attributes and resets fields for autosuggest
+	function removeAuthorAutoSuggest(element)
+	{
+		var $input = $pb(element);
+		var parent = $input.parent();
+		if ($pb(parent).find('.personIdentifier').val() != '')
+		{
+			var field = $pb(parent).find('.personIdentifier');
+			$pb(field).attr('readonly', false);
+			fillField('personIdentifier', '', parent);
+		}
+		if ($pb(parent).find('.familyName').val() != '')
+		{
+			var field = $pb(parent).find('.familyName');
+			$pb(field).attr('readonly', false);
+			fillField('familyName', '', parent);
+		}
+		if ($pb(parent).find('.givenName').val() != '')
+		{
+			var field = $pb(parent).find('.givenName');
+			$pb(field).attr('readonly', false);
+			fillField('givenName', '', parent);
+		}
+		$input.css('display', 'none');
+		$input.parent().find('.givenName').attr('class', 'large_txtInput givenName');
+		return;
+	}
+	
+	function updatePersonUi()
+	{
+		// maintain attributes for autosuggest filled persons
+		if($pb('.personIdentifier' != null))
+		{
+			$pb('.personIdentifier').each(function(ind){
+				if (this.value) {
+					$pb(this).parents('.' + personSuggestCommonParentClass).find('.familyName').attr('readonly', true);
+					$pb(this).parents('.' + personSuggestCommonParentClass).find('.givenName').attr('readonly', true);
+					$pb(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestPerson').css('display', 'inline');
+					$pb(this).parents('.' + personSuggestCommonParentClass).find('.givenName').attr('class', 'medium_txtInput givenName');
+				}
+			})
+		}
+		
+	}
+	
 	function fillField(name, value, commonParent, readonly)
 	{
 		var field = $pb(commonParent).find('.' + name)
@@ -364,7 +411,10 @@
 	
 	function bindJournalSuggest()
 	{
-		$pb('.journalSuggest').suggest(journalSuggestURL, { onSelect: fillFields});
+		if(typeof journalSuggestURL != 'undefined')
+		{
+			$pb('.journalSuggest').suggest(journalSuggestURL, { onSelect: fillFields});
+		}
 	}
 	
 	function bindSuggests()
@@ -399,15 +449,25 @@
 				});
 
 		bindJournalSuggest();
-		$pb('.languageSuggest').suggest(languageSuggestURL, { onSelect: selectLanguage});
+		if(typeof languageSuggestURL != 'undefined')
+		{
+			$pb('.languageSuggest').suggest(languageSuggestURL, { onSelect: selectLanguage});
+		}
 		$pb('.subjectSuggest').each(
 			function(i,ele){
-				$pb(ele).suggest(subjectSuggestURL, { vocab: $pb(ele).parents('.subjectArea').find('.vocabulary'), onSelect: function() {$pb(this).val(this.currentResult)}});
+				if(typeof subjectSuggestURL != 'undefined')
+				{
+					$pb(ele).suggest(subjectSuggestURL, { vocab: $pb(ele).parents('.subjectArea').find('.vocabulary'), onSelect: function() {$pb(this).val(this.currentResult)}});
+				}
 			});
-		$pb('.personSuggest').suggest(personSuggestURL, { onSelect: fillPersonFields });
-		
-		$pb('.organizationSuggest').suggest(organizationSuggestURL, { onSelect: fillOrganizationFields });
-
+		if(typeof personSuggestURL != 'undefined')
+		{
+			$pb('.personSuggest').suggest(personSuggestURL, { onSelect: fillPersonFields });
+		}
+		if(typeof organizationSuggestURL != 'undefined')
+		{
+			$pb('.organizationSuggest').suggest(organizationSuggestURL, { onSelect: fillOrganizationFields });
+		}
 	};
 	
 	function selectLanguage()

@@ -277,7 +277,10 @@ function afterAjaxRequest()
 	install_javascripts();
 	resizeSelectbox(431);
 	updateSelectionBox(null, true);
-	
+	if(typeof window.updatePersonUi == 'function')
+	{ 
+		updatePersonUi();
+	}
 }
 
 /*Stops the enter key, otherwise everytime the enter key is pressed in an textfield, the quicksearchbutton is activated  */

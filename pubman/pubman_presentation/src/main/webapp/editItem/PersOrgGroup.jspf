@@ -68,7 +68,7 @@
 	<a class="free_area0 expand" > <h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /></a>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline">
 		<a class="free_area0 collapse"> <h:outputText value="#{lbl.ViewItemFull_lblHideGroup}" /></a>
-		<span class="xLarge_area0_p8 endline blockHeader">&nbsp;</span>
+		<span class="clearLeft xLarge_area0_p8 endline blockHeader">&nbsp;</span>
 		<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline"
 			rendered="#{!(genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' && genre.creator_person_organization_creator_persons_form_id == 'all')}">
 			<h:outputText styleClass="small_area0" value="#{genre.creator_person_organization_creator_select_roles_label}"
@@ -82,7 +82,7 @@
 			<h:outputText styleClass="large_area0"
 				value="#{genre.creator_person_organization_creator_persons_person_given_name_label}" converter="GenreLabelConverter"
 				rendered="#{!(genre.creator_person_organization_creator_persons_person_given_name_display == 'false' && genre.creator_person_organization_creator_persons_person_given_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_given_name_display == 'false' && genre.creator_person_organization_creator_persons_person_given_name_form_id == 'all')}" />
-			<h:outputText styleClass="xSmall_area0" value="#{lbl.organizationNumbers}"
+			<h:outputText styleClass="small_area0" value="#{lbl.organizationNumbers}"
 				rendered="#{!(genre.creator_person_organization_creator_organizations_display == 'false' && genre.creator_person_organization_creator_organizations_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_display == 'false' && genre.creator_person_organization_creator_organizations_form_id == 'all')}" />
 			<h:outputText styleClass="medium_area0" value=" " />
 		</h:panelGroup> 
@@ -138,9 +138,11 @@
 						styleClass="large_txtInput personSuggest familyName" value="#{creator.person.familyName}"
 						rendered="#{!(genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'all')}" />
 					<h:inputText id="inppersons_person_given_name_optional" styleClass="large_txtInput givenName" title="#{creator.person.givenName}" 
-						value="#{creator.person.givenName}" />
+						value="#{creator.person.givenName}"/>
+					<a4j:commandButton id="btnRemoveAuthorAutoSuggest" value=" " styleClass="xSmall_area0 closeIcon removeAutoSuggestPerson" style="display:none;"
+						onclick="return removeAuthorAutoSuggest($(this))" reRender="iterCreatorOrganisationAuthors"/>
 					<h:inputText id="inpcreator_hidden_organizations" styleClass="noDisplay organizationPasteField" title="#{creator.autoPasteValue}" 
-						value="#{creator.autoPasteValue}" />
+						value="#{creator.autoPasteValue}"/>
 					<a4j:commandButton reRender="editPerson" id="btnAddCreatorOrganization" styleClass="noDisplay hiddenButtonPasteOrganizations"
 						action="#{creator.addOrganization}" />
 					<h:inputText id="inppersons_person_ous_optional" styleClass="xSmall_txtInput ouNumber" value="#{creator.ouNumbers}" title="#{creator.ouNumbers}" />

@@ -76,7 +76,7 @@
 			</span>
 		</h:panelGroup>
 			
-		<a4j:repeat var="component" id="fileUploads" value="#{EditItem.files}" rowKeyVar="index">
+		<a4j:repeat var="component" id="fileUploads" value="#{EditItem.files}" rowKeyVar="index" rows="0">
 
 
 <%-- Add File from local system --%>
