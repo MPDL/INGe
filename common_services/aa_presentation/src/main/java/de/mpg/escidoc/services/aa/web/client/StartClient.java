@@ -51,14 +51,11 @@ public abstract class StartClient extends Client
 
     protected void process(HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        String tan = request.getParameter("tan");
-        String from = request.getParameter("target");
 
         try
         {
-            String aaInstanceUrl = Config.getProperty("escidoc.aa.instance.url");
             String url = startAuthentication(request, response);
-            response.sendRedirect(url + "?target=" + aaInstanceUrl + "clientReturn" + URLEncoder.encode(URLEncoder.encode("?target=" + from + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1"), "ISO-8859-1"), "ISO-8859-1"));
+            response.sendRedirect(url);
 
         }
         catch (Exception e)

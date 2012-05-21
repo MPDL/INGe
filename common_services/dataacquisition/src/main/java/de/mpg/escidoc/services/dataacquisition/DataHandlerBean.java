@@ -32,10 +32,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-// import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-// import java.net.SocketException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -56,7 +54,6 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-// import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
@@ -694,91 +691,6 @@ public class DataHandlerBean implements DataHandler
 				this.logger.error("Could not transform BMC fulltext", e);
 			}
 		}
-	
-	    /* byte[] input = null;
-	    if (this.currentSource.getName().equals("PubMedCentral"))
-	    {
-	        InputStream inputStream = null;
-            try
-            {
-                URL url = new URL(fulltext.getFtUrl().getHost() + "/00/00/BMC_Microbiol_2011_Aug_2_11_174.tar.gz");
-                URLConnection urlc = url.openConnection();
-                inputStream = urlc.getInputStream();
-                input = IOUtils.toByteArray(inputStream);
-            }
-            catch (IOException e1)
-            {
-                this.logger.error("FTPClient SocketException");
-                e1.printStackTrace();
-            }
-//            StringBuilder stringBuilder = new StringBuilder();
-//            for (byte b : input)
-//            {
-//                stringBuilder.append(b);
-//            }
-//            System.out.print(stringBuilder.toString());
-	    }
-	    else 
-	    {
-    		URLConnection conn = null;
-    		try
-    		{
-    			conn = ProxyHelper.openConnection(fulltext.getFtUrl());
-//    			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2) Gecko/20100101 Firefox/10.0.2");
-    			HttpURLConnection httpConn = (HttpURLConnection) conn;
-    			int responseCode = httpConn.getResponseCode();
-    			switch (responseCode) {
-    			case 503:
-    				// request was not processed by source
-    				this.logger.warn("Import source " + this.currentSource.getName() + "did not provide data in format "
-    				        + fulltext.getFtLabel());
-    				throw new FormatNotAvailableException(fulltext.getFtLabel());
-    			case 302:
-    				String alternativeLocation = conn.getHeaderField("Location");
-    				fulltext.setFtUrl(new URL(alternativeLocation));
-    				return fetchFile(fulltext);
-    			case 200:
-    				this.logger.info("Source responded with 200.");
-    				GetMethod method = new GetMethod(fulltext.getFtUrl().toString());
-    				HttpClient client = new HttpClient();
-    				ProxyHelper.executeMethod(client, method);
-    				input = method.getResponseBody();
-    				httpConn.disconnect();
-    				break;
-    			case 403:
-    				throw new AccessException("Access to url " + this.currentSource.getName() + " is restricted.");
-    			default:
-    				throw new RuntimeException("An error occurred during importing from external system: " + responseCode
-    				        + ": " + httpConn.getResponseMessage());
-    			}
-    		}
-    		catch (AccessException e)
-    		{
-    			this.logger.error("Access denied.", e);
-    			throw new AccessException(this.currentSource.getName());
-    		}
-    		catch (Exception e)
-    		{
-    			throw new RuntimeException(e);
-    		}
-    		// bmc needs transformation from xml to html
-    		if (this.currentSource.getName().equalsIgnoreCase("BioMed Central")
-    		        && fulltext.getFtFormat().equalsIgnoreCase("text/html"))
-    		{
-    			Format from = new Format("bmc_fulltext_xml", "application/xml", "*");
-    			Format to = new Format("bmc_fulltext_html", "text/html", "*");
-    			TransformationBean transformer = new TransformationBean();
-    
-    			try
-    			{
-    				input = transformer.transform(input, from, to, "escidoc");
-    			}
-    			catch (Exception e)
-    			{
-    				this.logger.error("Could not transform BMC fulltext", e);
-    			}
-    		}
-	    }*/
 
 		return input;
 	}

@@ -201,8 +201,7 @@
 		<dc:identifier xsi:type="dcterms:URI">http://www.pubmedcentral.nih.gov/</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
-		<!-- <item-url>http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=GETID%26tool=pmcentrez%26rendertype=abstract</item-url> -->
-		<item-url>http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc%26id=GETID%26retmode=xml%26rettype=abstract</item-url>
+		<item-url>http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=GETID%26tool=pmcentrez%26rendertype=abstract</item-url>
 		<source-identifier>pmcid:pmc</source-identifier>
 		<source-identifier>pmcid: pmc</source-identifier>
 		<source-identifier>pmcid</source-identifier>
@@ -235,7 +234,7 @@
 		</MD-fetch-settings>
 		<FT-fetch-settings>
 			<FT-fetch-setting default="true">
-				<dc:identifier>ftp://ftp.ncbi.nlm.nih.gov/pub/pmc</dc:identifier>
+				<dc:identifier>http://www.pubmedcentral.nih.gov/picrender.fcgi?artid=GETID%26blobtype=pdf</dc:identifier>
 				<dc:format>application/pdf</dc:format>
 				<label>PDF</label>
 				<name>pdf</name>

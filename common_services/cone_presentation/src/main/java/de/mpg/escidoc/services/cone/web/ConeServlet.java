@@ -156,6 +156,7 @@ public class ConeServlet extends HttpServlet
         boolean loggedIn = false;
         if (request.getSession().getAttribute("logged_in") != null)
         {
+            Login.checkLogin(request, false);
             loggedIn = getLoggedIn(request);
         }
         
@@ -163,7 +164,7 @@ public class ConeServlet extends HttpServlet
         {
             try
             {
-                response.sendRedirect(PropertyReader.getProperty("escidoc.aa.instance.url") + "login");
+                response.sendRedirect(PropertyReader.getProperty("escidoc.aa.instance.url") + "login?" + request.getQueryString() + "&from=" + request.getRequestURL());
             }
             catch (Exception e)
             {
