@@ -794,7 +794,7 @@
 				<xsl:choose>
 					<xsl:when test="exists($institute-authors-positions/pos) and $institute-authors-positions/pos != '' and $institute-authors-positions[pos = $pos]">
 						<xsl:variable name="cone-creator">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($person/familyname, ', ', $person/givenname), 'MPI for Biogeochemistry')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($person/familyname, ', ', $person/givenname), 'Max Planck Institute for Biogeochemistry')"/>
 						</xsl:variable>
 						<xsl:variable name="multiplePersonsFound" select="exists($cone-creator/cone/rdf:RDF/rdf:Description[@rdf:about != preceding-sibling::attribute/@rdf:about])"/>
 						<xsl:if test="$multiplePersonsFound">
@@ -816,14 +816,16 @@
 									</eterms:given-name>
 									<xsl:choose>
 										<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description/escidocTerms:position)">
-											<organization:organization>
-												<dc:title>
-													<xsl:value-of select="$cone-creator/cone[1]/rdf:RDF[1]/rdf:Description[1]/escidocTerms:position/rdf:Description/eprints:affiliatedInstitution"/>
-												</dc:title>
-												<dc:identifier>
-													<xsl:value-of select="$cone-creator/cone[1]/rdf:RDF[1]/rdf:Description[1]/escidocTerms:position/rdf:Description/dc:identifier"/>
-												</dc:identifier>
-											</organization:organization>
+											<xsl:for-each select="$cone-creator/cone/rdf:RDF/rdf:Description/escidocTerms:position">
+												<organization:organization>
+													<dc:title>
+														<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
+													</dc:title>
+													<dc:identifier>
+														<xsl:value-of select="rdf:Description/dc:identifier"/>
+													</dc:identifier>
+												</organization:organization>
+											</xsl:for-each>
 										</xsl:when>
 										<xsl:otherwise>
 											<xsl:comment>Warning: No position found in CoNE!</xsl:comment>

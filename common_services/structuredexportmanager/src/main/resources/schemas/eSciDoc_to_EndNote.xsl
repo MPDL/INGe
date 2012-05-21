@@ -637,13 +637,13 @@
 		<xsl:variable name="sgenre" select="$genre-ves/enum[@uri=$sgenre-uri]"/>
 		<!-- TITLE -->
 		<xsl:choose>
-			<xsl:when test="($sgenre='book' or $sgenre='proceedings' or $sgenre='issue' or $sgenre='series') and not($genre='proceedings')">
+			<xsl:when test="($sgenre='book' or $sgenre='proceedings' or $sgenre='issue' or ($sgenre='series' and not($genre='book-item'))) and not($genre='proceedings')">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag">B</xsl:with-param>
 					<xsl:with-param name="value" select="dc:title"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="$genre='proceedings' and $sgenre='series'">
+			<xsl:when test="($genre='proceedings' and $sgenre='series') or ($genre='book-item' and $sgenre='series')">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag">S</xsl:with-param>
 					<xsl:with-param name="value" select="dc:title"/>
@@ -664,9 +664,28 @@
 			</xsl:call-template>
 		</xsl:if>
 		<!-- CREATOR -->
-		<xsl:if test="not($genre='article')">
+		<xsl:if test="not($genre='article') and (not($sgenre='series') and position()!=2)">
 			<xsl:call-template name="print-line">
 				<xsl:with-param name="tag">E</xsl:with-param>
+				<xsl:with-param name="value">
+					<xsl:for-each select="eterms:creator/person:person">
+						<xsl:value-of select="
+							string-join(
+								(
+									eterms:family-name[.!=''], 
+									eterms:given-name[.!='']
+								), 
+								', '
+							)
+						"/>
+						<xsl:value-of select="if (position()!=last()) then '; ' else ''" />
+					</xsl:for-each>
+				</xsl:with-param>
+			</xsl:call-template>
+		</xsl:if>
+		<xsl:if test="$sgenre='series' and position()=2">
+			<xsl:call-template name="print-line">
+				<xsl:with-param name="tag">Y</xsl:with-param>
 				<xsl:with-param name="value">
 					<xsl:for-each select="eterms:creator/person:person">
 						<xsl:value-of select="

@@ -558,7 +558,83 @@ public class Bibtex
                                             }
                                         }
                                     }
-                                    else if (configuration != null && "true".equals(configuration.get("CoNE")) && ("no".equals(configuration.get("use-brackets-as-cone-indicator")) || (author.getTags().get("brackets") != null)))
+                                    else if (configuration != null && "true".equals(configuration.get("CoNE")) && ("empty brackets".equals(configuration.get("use-brackets-as-cone-indicator")) && (author.getTags().get("brackets") != null)))
+                                    {
+                                        String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
+                                        Node coneEntries = Util.queryConeExact("persons", query, (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));
+                                        Node coneNode = coneEntries.getFirstChild().getFirstChild();
+                                        if (coneNode != null)
+                                        {
+                                            Node currentNode = coneNode.getFirstChild();
+                                            boolean first = true;
+                                            while (currentNode != null)
+                                            {
+                                                if (currentNode.getNodeType() == Node.ELEMENT_NODE && first)
+                                                {
+                                                    first = false;
+                                                    Node coneEntry = currentNode;
+                                                    String coneId = coneEntry.getAttributes().getNamedItem("rdf:about").getNodeValue();
+                                                    personVO.setIdentifier(new IdentifierVO(IdType.CONE, coneId));
+                                                    for (int i = 0; i < coneEntry.getChildNodes().getLength(); i++)
+                                                    {
+                                                        Node posNode = coneEntry.getChildNodes().item(i);
+                                                        if ("escidoc:position".equals(posNode.getNodeName()))
+                                                        {
+                                                            String from = null;
+                                                            String until = null;
+                                                            String name = null;
+                                                            String id = null;
+                                                            
+                                                            Node node = posNode.getFirstChild().getFirstChild();
+                                                            
+                                                            while (node != null)
+                                                            {
+                                                                if ("eprints:affiliatedInstitution".equals(node.getNodeName()))
+                                                                {
+                                                                    name = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                else if ("escidoc:start-date".equals(node.getNodeName()))
+                                                                {
+                                                                    from = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                else if ("escidoc:end-date".equals(node.getNodeName()))
+                                                                {
+                                                                    until = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                else if ("dc:identifier".equals(node.getNodeName()))
+                                                                {
+                                                                    id = node.getFirstChild().getNodeValue();
+                                                                }
+                                                                node = node.getNextSibling();
+                                                            }
+                                                            if (smaller(from, dateString) && smaller(dateString, until))
+                                                            {
+                                                                OrganizationVO org = new OrganizationVO();
+                                                                org.setName(new TextVO(name));
+                                                                org.setIdentifier(id);
+                                                                personVO.getOrganizations().add(org);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                else if (currentNode.getNodeType() == Node.ELEMENT_NODE)
+                                                {
+                                                    throw new RuntimeException("Ambigous CoNE entries for " + query);
+                                                }
+                                                currentNode = currentNode.getNextSibling();
+                                            }
+                                            if (first)
+                                            {
+                                                throw new RuntimeException("Missing CoNE entry for " + query);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            throw new RuntimeException("Missing CoNE entry for " + query);
+                                        }
+                                    }
+                                    
+                                    else if (configuration != null && "true".equals(configuration.get("CoNE")) && ("no".equals(configuration.get("use-brackets-as-cone-indicator"))))
                                     {
                                         String query = personVO.getFamilyName() + ", " + personVO.getGivenName();
                                         Node coneEntries = Util.queryConeExact("persons", query, (configuration.get("OrganizationalUnit") != null ? configuration.get("OrganizationalUnit") : ""));

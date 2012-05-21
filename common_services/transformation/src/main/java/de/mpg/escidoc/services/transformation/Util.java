@@ -31,14 +31,11 @@
 package de.mpg.escidoc.services.transformation;
 
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -50,6 +47,14 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+// Only for DOM Debugging
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
 
 import javax.xml.parsers.DocumentBuilder;
 
@@ -588,7 +593,14 @@ public class Util
             {
                 logger.error("Error querying CoNE: Status "
                         + method.getStatusCode() + "\n" + method.getResponseBodyAsString());
-            }            
+            }
+            javax.xml.transform.TransformerFactory tfactory = TransformerFactory.newInstance();
+            javax.xml.transform.Transformer xform = tfactory.newTransformer();
+            javax.xml.transform.Source src= new DOMSource(document);
+            java.io.StringWriter writer = new StringWriter();
+            javax.xml.transform.Result result = new javax.xml.transform.stream.StreamResult(writer);
+            xform.transform(src, result);
+            System.out.println(writer.toString());
             return document;
         }
         catch (Exception e)

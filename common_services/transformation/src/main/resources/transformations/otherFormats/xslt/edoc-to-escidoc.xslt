@@ -45,7 +45,6 @@
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
 	<xsl:param name="is-item-list" select="true()"/>
-	
 	<xsl:param name="useAuthorList" select="false()"/>
 	<xsl:param name="removeSpacesInInitials" select="false()"/>
 	<xsl:param name="createLocatorsForPublicComponents" select="false()"/>
@@ -2993,10 +2992,8 @@
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Biological Cybernetics')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'BiblHertz'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Bibliotheca Hertziana (MPI for Art History)')"/>
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'External Organizations')"/>
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for the History of Science')"/>
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Bibliotheca Hertziana - Max-Planck-Institut für Kunstgeschichte')"/>
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'External Organizations')"/>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIeR'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for European Legal History')"/>
@@ -3243,7 +3240,7 @@
 										</xsl:comment>
 										<xsl:comment>end: <xsl:value-of select="rdf:Description/escidoc:end-date"/>
 										</xsl:comment>
-										<xsl:comment>pubdate &lt; end<xsl:value-of select="escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)"/>
+										<xsl:comment>pubdate &lt; end <xsl:value-of select="escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)"/>
 										</xsl:comment>
 										<xsl:if test="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)">
 											<xsl:comment> Case 8 </xsl:comment>

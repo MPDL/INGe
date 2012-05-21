@@ -48,13 +48,17 @@
    xmlns:person="${xsd.metadata.person}"
 	xmlns:source="${xsd.metadata.source}"
 	xmlns:event="${xsd.metadata.event}"
-	xmlns:organization="${xsd.metadata.organization}"		
+	xmlns:organization="${xsd.metadata.organization}"
+	xmlns:eprints="http://purl.org/eprint/terms/"
+	xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"	
 	xmlns:eterms="${xsd.metadata.terms}"
    xmlns:srel="${xsd.soap.common.srel}"
    xmlns:prop="${xsd.core.properties}"   
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
-   xmlns:escidoc="urn:escidoc:functions"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:escidocFunction="urn:escidoc:functions"
+   xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
    xmlns:itemlist="${xsd.soap.item.itemlist}">
 
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
@@ -64,9 +68,14 @@
 	<xsl:param name="user" select="'dummy:user'"/>
 	<xsl:param name="context" select="'dummy:context'"/>
 	<xsl:param name="content-model"/>
+	<xsl:param name="is-item-list" select="true()"/>
+	<xsl:param name="external-ou"/>
+	<xsl:param name="root-ou" select="'dummy-root-ou'"/>
 	<xsl:param name="external-organization" select="'dummy-external-ou'"/>
 	
-	<xsl:param name="is-item-list" select="true()"/>
+	<!-- Configuration parameters -->
+	<xsl:param name="CoNE" select="'true'"/>
+	<xsl:param name="import-name" select="'MPDL'"/>
 	
 	<!--
 		DC XML  Header
@@ -75,6 +84,13 @@
 		
 	<!-- VARIABLEN -->
 	
+	<xsl:variable name="organizational-units">
+		<organizational-units>
+			<ou name="root" id="{$root-ou}"/>
+			<ou name="external" id="{$external-organization}"/>
+		</organizational-units>
+	</xsl:variable>
+	
 	<xsl:variable name="sourceGenre">
 		<genre item="CHAP" source="book"/>
 		<genre item="JOUR" source="journal"/>
@@ -82,7 +98,63 @@
 		<genre item="NEWS" source="article"/>
 	</xsl:variable>
 	
-	<xsl:variable name="genre"/>		
+	<xsl:variable name="genre"/>
+	
+	<!-- FUNCTIONS -->
+	
+	<xsl:function name="escidocFunction:ou-name">
+		<xsl:param name="name"/>
+		
+		<xsl:choose>
+			<xsl:when test="$name = 'root'">
+				<!-- TODO: Externalize MPS name -->
+				<xsl:value-of select="'Max Planck Society'"/>
+			</xsl:when>
+			<xsl:when test="$organizational-units//ou[@name = $name or @alias = $name]">
+				<xsl:value-of select="$organizational-units//ou[@name = $name or @alias = $name]/@name"/>
+				
+				<xsl:if test="$organizational-units//ou[@name = $name or @alias = $name]/../@name != $name">
+					<xsl:text>, </xsl:text>
+					<xsl:value-of select="escidocFunction:ou-name($organizational-units//ou[@name = $name or @alias = $name]/../@name)"/>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="'External Organizations'"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	
+	</xsl:function>
+	
+	<xsl:function name="escidocFunction:ou-id">
+		<xsl:param name="name"/>
+		
+		<xsl:choose>
+			<xsl:when test="$organizational-units//ou[@name = $name or @alias = $name]">
+				<xsl:value-of select="$organizational-units//ou[@name = $name or @alias = $name]/@id"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$organizational-units//ou[@name = 'root']/@id"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:function>	
+	
+	<xsl:function name="escidocFunction:smaller" as="xs:boolean">
+		<xsl:param name="value1"/>
+		<xsl:param name="value2"/>
+		<xsl:choose>
+			<xsl:when test="not(exists($value1)) or $value1 = ''">
+				<xsl:value-of select="true()"/>
+			</xsl:when>
+			<xsl:when test="not(exists($value2)) or $value2 = ''">
+				<xsl:value-of select="true()"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:variable name="date1" select="substring(concat($value1, '-01-01'), 1, 10)"/>
+				<xsl:variable name="date2" select="substring(concat($value2, '-ZZ-ZZ'), 1, 10)"/>
+				<xsl:value-of select="compare($date1, $date2) != 1"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:function>
 	
 	<xsl:template match="/">
 		<xsl:choose>
@@ -335,76 +407,141 @@
 		<xsl:param name="familyname"/>
 		<xsl:param name="givenname"/>
 		<xsl:param name="title"/>
-		<xsl:element name="person:person">
-			<xsl:element name="eterms:family-name">
-				<xsl:value-of select="$familyname"/>
-			</xsl:element>
-			<xsl:element name="eterms:given-name">
-				<xsl:value-of select="$givenname"/>
-			</xsl:element>
+		<xsl:param name="publicationDate" />
+		
+		<xsl:variable name="coneCreator">
 			<xsl:choose>
-			<xsl:when test="../AD">
-				<xsl:element name="organization:organization">
-					<xsl:element name="dc:title">
-						<xsl:value-of select="../AD"/>
-					</xsl:element>
-				</xsl:element>
+				<xsl:when test="$CoNE = 'false'">
+					<!-- No CoNE --></xsl:when>
+				<xsl:when test="$import-name = 'MPDL'">
+					<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'MPDL')"/>
+					<xsl:copy-of select="Util:queryConeExact('persons', concat($familyname, ', ', $givenname), 'External Organizations')"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$familyname, ', ', $givenname, '&quot;'))"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		
+		<xsl:variable name="multiplePersonsFound" select="exists($coneCreator/cone/rdf:RDF/rdf:Description[@rdf:about != $coneCreator/cone/rdf:RDF/rdf:Description/@rdf:about])"/>
+				
+		<xsl:choose>
+			<xsl:when test="$multiplePersonsFound">
+				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching --', concat($familyname, ', ', givenname), '--'))"/>
+			</xsl:when>
+			<xsl:when test="not(exists($coneCreator/cone/rdf:RDF/rdf:Description))">
+				<xsl:comment>NOT FOUND IN CONE</xsl:comment>
+				<person:person>
+					<eterms:family-name>
+						<xsl:value-of select="familyname"/>
+					</eterms:family-name>
+					<xsl:choose>
+						<xsl:when test="exists(givenname) and not(givenname='')">
+							<eterms:given-name>
+								<xsl:value-of select="$givenname"/>
+							</eterms:given-name>
+						</xsl:when>
+						<!-- TODO alternative: initials? -->
+					</xsl:choose>
+					
+					<organization:organization>
+						<dc:title>
+							<xsl:value-of select="escidocFunction:ou-name('external')"/>
+						</dc:title>
+						<dc:identifier>
+							<xsl:value-of select="escidocFunction:ou-id('external')"/>
+						</dc:identifier>
+					</organization:organization>
+					
+				</person:person>
 			</xsl:when>
 			<xsl:otherwise>
-				<organization:organization>
-					<dc:title>External Organizations</dc:title>
-					<dc:identifier><xsl:value-of select="$external-organization"/></dc:identifier>
-				</organization:organization>
-				</xsl:otherwise>
-			</xsl:choose>	
-		</xsl:element>
+				<xsl:comment>CONE CREATOR</xsl:comment>
+				<person:person>
+					<eterms:family-name>
+						<xsl:value-of select="$familyname"/>
+					</eterms:family-name>
+					<eterms:given-name>
+						<xsl:value-of select="$givenname"/>
+					</eterms:given-name>
+					<dc:identifier xsi:type="eterms:CONE">
+						<xsl:value-of select="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/@rdf:about"/>
+					</dc:identifier>
+					<!-- CBS OU depend on date (affiliatedInstitution depend on publicationDateFormatted) -->
+					<xsl:variable name="publicationDateFormatted">
+						<xsl:choose>
+							<xsl:when test="exists($publicationDate) and fn:matches($publicationDate, '\d+?/\d+?/\d+?/')">
+								<xsl:value-of select="fn:substring-before($publicationDate, '/')"/>-<xsl:value-of select="fn:substring-before(fn:substring-after($publicationDate, '/'), '/')"/>-<xsl:value-of select="fn:substring-before(fn:substring-after(fn:substring-after($publicationDate, '/'), '/'), '/')"/>
+							</xsl:when>
+							<xsl:when test="exists($publicationDate) and fn:matches($publicationDate/text(), '\d+?/\d+?//')">
+								<xsl:value-of select="fn:substring-before($publicationDate, '/')"/>-<xsl:value-of select="fn:substring-before(fn:substring-after($publicationDate, '/'), '/')"/>
+							</xsl:when>
+							<xsl:when test="exists($publicationDate) and fn:matches($publicationDate, '\d+?///')">
+								<xsl:value-of select="fn:substring-before($publicationDate, '/')"/>
+							</xsl:when>
+						</xsl:choose>
+					</xsl:variable>
+
+					<xsl:choose>
+						<xsl:when test="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunction:smaller(rdf:Description/escidoc:start-date, $publicationDateFormatted) and escidocFunction:smaller($publicationDateFormatted, rdf:Description/escidoc:end-date)]">
+							<xsl:for-each select="$coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position">
+								<xsl:comment>pubdate: <xsl:value-of select="$publicationDateFormatted"/>
+								</xsl:comment>
+								<xsl:comment>start: <xsl:value-of select="rdf:Description/escidoc:start-date"/>
+								</xsl:comment>
+								<xsl:comment>start &lt; pubdate <xsl:value-of select="escidocFunction:smaller(rdf:Description/escidoc:start-date, $publicationDateFormatted)"/>
+								</xsl:comment>
+								<xsl:comment>end: <xsl:value-of select="rdf:Description/escidoc:end-date"/>
+								</xsl:comment>
+								<xsl:comment>pubdate &lt; end <xsl:value-of select="escidocFunction:smaller($publicationDateFormatted, rdf:Description/escidoc:end-date)"/>
+								</xsl:comment>
+								<xsl:if test="escidocFunction:smaller(rdf:Description/escidoc:start-date, $publicationDateFormatted) and escidocFunction:smaller($publicationDateFormatted, rdf:Description/escidoc:end-date)">
+									<xsl:comment> Case 1 </xsl:comment>
+									<organization:organization>
+										<dc:title>
+											<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
+										</dc:title>
+										<dc:identifier>
+											<xsl:value-of select="rdf:Description/dc:identifier"/>
+										</dc:identifier>
+									</organization:organization>
+								</xsl:if>
+							</xsl:for-each>
+						</xsl:when>
+						<xsl:otherwise>
+							<organization:organization>
+								<dc:title>External Organizations</dc:title>
+								<dc:identifier>
+									<xsl:value-of select="$external-organization"/>
+								</dc:identifier>
+							</organization:organization>
+						</xsl:otherwise>
+					</xsl:choose>
+				
+				</person:person>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
-	<xsl:template match="A1">
+	<xsl:template match="A1|AU">
 		<xsl:variable name="var">
            	<xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
       	</xsl:variable>
+      	<xsl:variable name="publicationDate">
+      		<xsl:value-of select="../Y1" />
+      	</xsl:variable>
        	<xsl:for-each select="$var/authors/author">
-        	<xsl:element name="eterms:creator">
+        	<eterms:creator>
 				<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>						
 				<xsl:call-template name="createPerson">
 					<xsl:with-param name="familyname" select="familyname"/>
 					<xsl:with-param name="givenname" select="givenname"/>
 					<xsl:with-param name="title" select="title"/>
+					<xsl:with-param name="publicationDate" select="$publicationDate"/>
 				</xsl:call-template>
-			</xsl:element>          
+			</eterms:creator>          
       	</xsl:for-each>		
 	</xsl:template>
-	<xsl:template match="AU">
-		<xsl:variable name="var">
-           	<xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
-      	</xsl:variable>
-       	<xsl:for-each select="$var/authors/author">
-		<xsl:element name="eterms:creator">
-			<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
-			<xsl:call-template name="createPerson">
-				<xsl:with-param name="familyname" select="familyname"/>
-				<xsl:with-param name="givenname" select="givenname"/>
-				<xsl:with-param name="title" select="title"/>
-			</xsl:call-template>
-		</xsl:element>
-		</xsl:for-each>
-	</xsl:template>
-	<xsl:template match="A2">
-		<xsl:variable name="var">
-           	<xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
-      	</xsl:variable>
-       	<xsl:for-each select="$var/authors/author">
-		<xsl:element name="eterms:creator">
-			<xsl:attribute name="role" select="$creator-ves/enum[.='contributor']/@uri"/>
-			<xsl:call-template name="createPerson">
-				<xsl:with-param name="familyname" select="familyname"/>
-				<xsl:with-param name="givenname" select="givenname"/>
-				<xsl:with-param name="title" select="title"/>
-			</xsl:call-template>
-		</xsl:element>
-		</xsl:for-each>
-	</xsl:template>
-	<xsl:template match="ED">
+	<xsl:template match="A2|ED">
 		<xsl:variable name="var">
            	<xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
       	</xsl:variable>

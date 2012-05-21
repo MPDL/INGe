@@ -885,3 +885,9 @@ body .wrapper {
 	background-position: right;
 	height: 2.90em !important;
 }
+
+.closeIcon {
+	background-image: url('../images/All_DropDown_CrossClose_15_Active.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
