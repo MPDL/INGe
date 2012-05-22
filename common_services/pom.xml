@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-
  CDDL HEADER START
-
  The contents of this file are subject to the terms of the
  Common Development and Distribution License, Version 1.0 only
  (the "License"). You may not use this file except in compliance
  with the License.
-
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
  or http://www.escidoc.de/license.
  See the License for the specific language governing permissions
  and limitations under the License.
-
  When distributing Covered Code, include this CDDL HEADER in each
  file and include the License file at license/ESCIDOC.LICENSE.
  If applicable, add the following below this CDDL HEADER, with the
  fields enclosed by brackets "[]" replaced with your own identifying
  information: Portions Copyright [yyyy] [name of copyright owner]
-
  CDDL HEADER END
-
-
  Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
@@ -47,12 +40,10 @@
 		<system>Jira</system>
 		<url>http://zim01.gwdg.de:8080/BrowseProject.jspa?id=10050</url>
 	</issueManagement>
-	
 	<organization>
 		<name>Max Planck Digital Library</name>
 		<url>http://www.mpdl.mpg.de/</url>
 	</organization>
-	
 	<developers>
 		<developer>
 			<id>mdreyer</id>
@@ -187,7 +178,6 @@
 			<timezone>+2</timezone>
 		</developer>
 	</developers>
-	
 	<mailingLists>
 		<mailingList>
 			<name>FIZ Karlsruhe eSciDoc infrastructure mailing list</name>
@@ -204,7 +194,6 @@
 			<archive>https://listserv.gwdg.de/mailman/private/escidoc-code/</archive>
 		</mailingList>
 	</mailingLists>
-	
 	<ciManagement>
 		<system>Continuum</system>
 		<url>http://continuum.mpdl.mpg.de/continuum</url>
@@ -217,7 +206,6 @@
 			</notifier>
 		</notifiers>
 	</ciManagement>
-	
 	<modules>
 		<module>framework_access</module>
 		<module>common_logic</module>
@@ -250,15 +238,12 @@
 		<module>aa_logic</module>
 		<module>aa_presentation</module>
 		<module>fledgeddata</module>
-	
 	</modules>
-	
 	<scm>
 		<connection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</connection>
 		<developerConnection>scm:svn:https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</developerConnection>
 		<url>https://subversion.mpdl.mpg.de/repos/common/trunk/common_services</url>
 	</scm>
-	
 	<repositories>
 		<repository>
 			<id>central</id>
@@ -271,7 +256,6 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	
 	<pluginRepositories>
 		<pluginRepository>
 			<id>central</id>
@@ -284,8 +268,6 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-
-	
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
@@ -298,10 +280,7 @@
 			<url>http://rd.mpdl.mpg.de/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
-
-	
 	<build>
-		
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -361,6 +340,56 @@
 			<!--				<version>2.0-20080211.215359-1</version>-->
 			<!--			</plugin>-->
 		</plugins>
+		<pluginManagement>
+			<plugins>
+    		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>
+    									axistools-maven-plugin
+    								</artifactId>
+										<versionRange>[1.3,)</versionRange>
+										<goals>
+											<goal>wsdl2java</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+    									org.zeroturnaround
+    								</groupId>
+										<artifactId>
+    									javarebel-maven-plugin
+    								</artifactId>
+										<versionRange>
+    									[1.0.5,)
+    								</versionRange>
+										<goals>
+											<goal>generate</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<extensions>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
@@ -374,7 +403,6 @@
 			</extension>
 		</extensions>
 	</build>
-	
 	<reporting>
 		<plugins>
 			<plugin>
@@ -457,12 +485,10 @@
 			</plugin>
 		</plugins>
 	</reporting>
-
 	<!-- properties valid for all profiles -->
 	<properties>
 		<!-- the jdk version to use -->
 		<jdk.version>1.5</jdk.version>
-
 		<!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
 		<cargo.port>8080</cargo.port>
 		<cargo.rmi.port>1099</cargo.rmi.port>
@@ -475,13 +501,11 @@
 		<cargo.jboss.url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</cargo.jboss.url>
 		<!-- local intallation of the jboss for integration-tests -->
 		<cargo.jboss.install.dir>${user.home}/jboss/jboss-4.2.2.GA/jboss-4.2.2.GA</cargo.jboss.install.dir>
-
 		<!-- deploy the pubman ear to this server and port via jmx /goal: jboss:deploy -->
 		<jboss.deploy.host>localhost</jboss.deploy.host>
 		<jboss.deploy.port>8080</jboss.deploy.port>
 		<!-- the ears are deployed to this server using jboss:harddeploy -->
 		<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
-
 		<!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
 		<escidoc.pubman_presentation.disable.advanced_search>false</escidoc.pubman_presentation.disable.advanced_search>
 		<escidoc.pubman_presentation.disable.export>false</escidoc.pubman_presentation.disable.export>
@@ -489,61 +513,48 @@
 		<escidoc.pubman_presentation.disable.new_revision>false</escidoc.pubman_presentation.disable.new_revision>
 		<escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
 		<escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
-
 		<!-- URL of this PubMan instance -->
 		<escidoc.pubman.instance.url>http://localhost:8080/pubman</escidoc.pubman.instance.url>
 		<escidoc.pubman.item.pattern>/viewItemPage.jsp?itemId=$1</escidoc.pubman.item.pattern>
 		<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
-
 		<!-- URL of the FIZ framework instance -->
 		<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
 		<escidoc.common.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.common.framework.url>
 		<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
-
 		<!-- Identifier of the content type "publication" in the actual framework instance -->
 		<escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
 		<escidoc.framework_access.context.id.test>escidoc:171002</escidoc.framework_access.context.id.test>
 		<escidoc.framework_access.context.name.test>Test Context</escidoc.framework_access.context.name.test>
 		<escidoc.framework_access.content-model.id.test>escidoc:2002</escidoc.framework_access.content-model.id.test>
-		
 		<!-- User data used in JUnit tests; these users are assumed to have the Depositor and the Moderator role for the defined contexts -->
 		<framework.admin.username>roland</framework.admin.username>
 		<framework.admin.id>escidoc:exuser1</framework.admin.id>
 		<framework.admin.displayname>System Administrator User</framework.admin.displayname>
-		
 		<framework.scientist.username>test_dep_scientist</framework.scientist.username>
 		<framework.scientist.id>escidoc:41002</framework.scientist.id>
 		<framework.scientist.displayname>Scientist User for Tests</framework.scientist.displayname>
-		
 		<framework.librarian.username>test_dep_lib</framework.librarian.username>
 		<framework.librarian.id>escidoc:3002</framework.librarian.id>
 		<framework.librarian.displayname>Librarian User for Tests</framework.librarian.displayname>
-		
 		<framework.author.username>test_author</framework.author.username>
 		<framework.author.id>escidoc:3010</framework.author.id>
 		<framework.author.displayname>Author User for Tests</framework.author.displayname>
-		
 		<framework.editor.username>test_editor</framework.editor.username>
 		<framework.editor.id>escidoc:3003</framework.editor.id>
 		<framework.editor.displayname>Editor User for Tests</framework.editor.displayname>
-		
 		<framework.organizational_unit.id>escidoc:1</framework.organizational_unit.id>
-
 		<!--
 			 Due to a historical defect, QName was released with multiple serialVersionUID values even though its serialization was the same. To workaround this issue,
 			 serialVersionUID is set with either a default value or a compatibility value. To use the compatibility value you have to set the following property to "1.0".
 		-->
 		<com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>1.0</com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>
-
 		<!-- RE Pattern for retrieving determinators from item xml -->
 		<escidoc.content.model.pattern>:content-model (?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
 		<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
 		<escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
 		<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
-		
 		<escidoc.pubman.root.organisation.id>escidoc:persistent13</escidoc.pubman.root.organisation.id>
 		<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
-		
 		<escidoc.cone.database.driver.class>org.postgresql.Driver</escidoc.cone.database.driver.class>
 		<escidoc.cone.database.server.name>zim02.gwdg.de</escidoc.cone.database.server.name>
 		<escidoc.cone.database.server.port>5432</escidoc.cone.database.server.port>
@@ -556,15 +567,12 @@
 		<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 		<escidoc.cone.modelsxml.path>models.xml</escidoc.cone.modelsxml.path>
 		<escidoc.cone.rdfs.template>models2rdfs.xsl</escidoc.cone.rdfs.template>
-		
 		<escidoc.cone.mimetype.pattern>application/vnd.cone-(.+)</escidoc.cone.mimetype.pattern>
 		<escidoc.pubman.genres.configuration>Genres.xml</escidoc.pubman.genres.configuration>
-		
 		<escidoc.dataacquisition.service.url>http://localhost:8080/dataacquisition/</escidoc.dataacquisition.service.url>
 		<!-- unAPI -->
 		<escidoc.unapi.download.server>http://localhost:8080/dataacquisition/download/unapi</escidoc.unapi.download.server>
 		<escidoc.unapi.view.server>http://localhost:8080/dataacquisition/view/unapi</escidoc.unapi.view.server>
-
 		<!-- Current XSD Schema versions -->
 		<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
 		<xsd.soap.common.srel>http://escidoc.de/core/01/structural-relations/</xsd.soap.common.srel>
@@ -604,15 +612,12 @@
 		<xsd.soap.contentmodel>http://www.escidoc.de/schemas/contentmodel/0.1</xsd.soap.contentmodel>
 		<xsd.soap.contentmodel.contentstreams>http://www.escidoc.de/schemas/contentstreams/0.7</xsd.soap.contentmodel.contentstreams>
 		<xsd.soap.attributes>http://www.escidoc.de/schemas/attributes/0.1</xsd.soap.attributes>
-		
 		<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
 		<xsd.metadata.dcterms>http://purl.org/dc/terms/</xsd.metadata.dcterms>
 		<xsd.metadata.dcmitype>http://purl.org/dc/dcmitype/</xsd.metadata.dcmitype>
-		
 		<xsd.soap.toc.toc>http://www.escidoc.de/schemas/toc/0.6</xsd.soap.toc.toc>
 		<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
 		<xsd.soap.result.result>http://www.escidoc.de/schemas/result/0.1</xsd.soap.result.result>
-		
 		<xsd.metadata.organization>http://purl.org/escidoc/metadata/profiles/0.1/organization</xsd.metadata.organization>
 		<xsd.metadata.organizationalunit>http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit</xsd.metadata.organizationalunit>
 		<xsd.metadata.file>http://purl.org/escidoc/metadata/profiles/0.1/file</xsd.metadata.file>
@@ -625,14 +630,12 @@
 		<xsd.metadata.source>http://purl.org/escidoc/metadata/profiles/0.1/source</xsd.metadata.source>
 		<xsd.metadata.event>http://purl.org/escidoc/metadata/profiles/0.1/event</xsd.metadata.event>
 		<xsd.metadata.person>http://purl.org/escidoc/metadata/profiles/0.1/person</xsd.metadata.person>
-		
 		<!-- syndication service -->
 		<escidoc.syndication.service.url>http://localhost:8080/syndication</escidoc.syndication.service.url>
 		<escidoc.syndication.maximum.records>50</escidoc.syndication.maximum.records>
 		<escidoc.syndication.ttl>0</escidoc.syndication.ttl>
 		<escidoc.syndication.feeds.xml.path>resources/feeds.xml</escidoc.syndication.feeds.xml.path>
 		<esicdoc.syndication.feeds.content.model>escidoc:2001</esicdoc.syndication.feeds.content.model>
-		
 		<!-- searchAndExport service -->
 		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test and escidoc.content-model.objid=escidoc:persistent4</escidoc.search.and.export.default.sql.query>
 		<escidoc.search.and.export.indexes.explain.query>/srw/search/escidoc_all?operation=explain</escidoc.search.and.export.indexes.explain.query>
@@ -640,22 +643,15 @@
 		<escidoc.search.and.export.default.sort.order>ascending</escidoc.search.and.export.default.sort.order>
 		<escidoc.search.and.export.start.record>1</escidoc.search.and.export.start.record>
 		<escidoc.search.and.export.maximum.records>50</escidoc.search.and.export.maximum.records>
-
-		
 		<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
-		
 		<escidoc.statistics.max_mind_geo_lite_city_db.location />
 		<escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
-		
 		<xsd.soap.searchRetrieveResponse>http://www.loc.gov/zing/srw/</xsd.soap.searchRetrieveResponse>
-		
 		<escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
 		<organization.logo>http://www.mpdl.mpg.de/mpdl/sys/css/screen/images/logo.gif</organization.logo>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		
 		<!-- import-source -->
 		<escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
-		
 		<!-- Transformation stylesheets -->
 		<escidoc.transformation.endnote.ice.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl</escidoc.transformation.endnote.ice.stylesheet.filename>
 		<escidoc.transformation.endnote.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl</escidoc.transformation.endnote.stylesheet.filename>
@@ -667,9 +663,7 @@
 		<escidoc.transformation.mab.stylesheet.filename>transformations/otherFormats/xslt/mabxml2escidoc.xsl</escidoc.transformation.mab.stylesheet.filename>
 		<escidoc.transformation.report.sortorder.filename>transformations/reports/conf/reportSortOrder.xml</escidoc.transformation.report.sortorder.filename>
 		<escidoc.transformation.bibtex.configuration.filename>transformations/commonPublicationFormats/conf/bibtex.properties</escidoc.transformation.bibtex.configuration.filename>
-		
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
-		
 		<!-- AA -->
 		<escidoc.aa.instance.url>http://localhost:8080/auth/</escidoc.aa.instance.url>
 		<escidoc.aa.default.target>http://localhost:8080/auth/clientLogin</escidoc.aa.default.target>
@@ -679,29 +673,22 @@
 		<escidoc.aa.ip.table>ips.xml</escidoc.aa.ip.table>
 		<escidoc.aa.client.start.class>de.mpg.escidoc.services.aa.web.client.EscidocAaClientStart</escidoc.aa.client.start.class>
 		<escidoc.aa.client.finish.class>de.mpg.escidoc.services.aa.web.client.EscidocAaClientFinish</escidoc.aa.client.finish.class>
-		
 		<!--Common presentation -->
-				
 		<!-- URL of stylesheets in common-presentation -->
 		<escidoc.common.presentation.url>http://localhost:8080/common/</escidoc.common.presentation.url>
-
 		<!-- Properties for common standard theme-->
 		<escidoc.common.stylesheet.standard.url>/common/resources/cssFramework/themes/skin_blue/styles/theme.css</escidoc.common.stylesheet.standard.url>
 		<escidoc.common.stylesheet.standard.type>stylesheet</escidoc.common.stylesheet.standard.type>
 		<escidoc.common.stylesheet.standard.apply>true</escidoc.common.stylesheet.standard.apply>
-		
 		<!-- Properties for common contrast theme-->
 		<escidoc.common.stylesheet.contrast.url>/common/resources/cssFramework/themes/skin_highContrast/styles/theme.css</escidoc.common.stylesheet.contrast.url>
 		<escidoc.common.stylesheet.contrast.type>alternate stylesheet</escidoc.common.stylesheet.contrast.type>
 		<escidoc.common.stylesheet.contrast.apply>true</escidoc.common.stylesheet.contrast.apply>
-		
 		<!-- Properties for common classic theme-->
 		<escidoc.common.stylesheet.classic.url>/common/resources/cssFramework/themes/skin_classic/styles/theme.css</escidoc.common.stylesheet.classic.url>
 		<escidoc.common.stylesheet.classic.type>alternate stylesheet</escidoc.common.stylesheet.classic.type>
 		<escidoc.common.stylesheet.classic.apply>true</escidoc.common.stylesheet.classic.apply>
-	
 	</properties>
-	
 	<profiles>
 		<!-- this profile is used by developers -->
 		<profile>
@@ -741,14 +728,12 @@
 					<url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/common_services</url>
 				</site>
 			</distributionManagement>
-		
 		</profile>
 		<profile>
 			<id>env-testing-continuum</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
-			
 			<properties>
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</escidoc.cone.querier.class>
 				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
@@ -759,7 +744,6 @@
 					<url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/common_services</url>
 				</site>
 			</distributionManagement>
-		
 		</profile>
 		<profile>
 			<id>env-production-escidoc2</id>
