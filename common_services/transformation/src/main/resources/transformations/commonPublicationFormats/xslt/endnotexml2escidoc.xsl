@@ -475,14 +475,12 @@
 				</xsl:element>
 			</xsl:if>
 			
-			
 			<!-- SUBJECT -->
 			<xsl:if test="K">
 				<xsl:element name="dcterms:subject">
 					<xsl:value-of select="K"/>
 				</xsl:element>
 			</xsl:if>
-			
 			
 			<!-- tableOfContents-->
 <!--			<xsl:if test="ROUND_LEFT_BRACKET and $refType='Report'">-->
@@ -496,7 +494,6 @@
 				</xsl:element>
 			</xsl:if>
 			
-			
 			<!-- LOCATION -->
 <!--			<xsl:if test="I and $refType = 'Manuscript'">-->
 <!--				<xsl:element name="eterms:location">-->
@@ -507,8 +504,6 @@
 		</xsl:element>
 		
 	</xsl:template>
-
-	
 	
 	<!-- SOURCE -->
 	<xsl:template name="createSource">
@@ -519,12 +514,10 @@
 		
 		<xsl:element name="source:source">
 
-
 			<!-- SOURCE GENRE -->
 			<xsl:attribute name="type">
 				<xsl:value-of select="$sgen"/>
 			</xsl:attribute>
-			
 
 			<!-- SOURCE TITLE -->
 			<xsl:element name="dc:title">

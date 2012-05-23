@@ -199,7 +199,7 @@
 				</mdr:md-record>
 			</xsl:element>
 			<xsl:element name="ec:components">
-				<xsl:if test="F and $source-name = 'endnote-ice'">
+				<xsl:if test="F and ($Flavor ='BGC' or $Flavor = 'ICE')">
 					<xsl:variable name="oa" select="NUM_4 = 'OA'"/>
 					<xsl:for-each select="tokenize(F, ' ')">
 						<xsl:call-template name="component">
@@ -325,77 +325,40 @@
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
-			<xsl:for-each select="U and $Flavor != 'BGC'">
-				<xsl:element name="dc:identifier">
-					<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
-					<xsl:value-of select="."/>
-				</xsl:element>
-			</xsl:for-each>
-			<xsl:for-each select="U and $Flavor = 'BGC'">
-				<xsl:element name="dc:identifier">
-					<xsl:attribute name="xsi:type">eterms:ISI</xsl:attribute>
-					<xsl:value-of select="."/>
-				</xsl:element>
-			</xsl:for-each>
+			
+			<xsl:choose>
+				<xsl:when test="$Flavor = 'BGC'">
+					<xsl:for-each select="U">
+						<dc:identifier>
+							<xsl:attribute name="xsi:type">eterms:ISI</xsl:attribute>
+							<xsl:value-of select="."/>
+						</dc:identifier>
+					</xsl:for-each>
+					<xsl:for-each select="TILDE">
+						<dc:identifier>
+							<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
+							<xsl:value-of select="."/>
+						</dc:identifier>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:for-each select="U">
+						<dc:identifier>
+							<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
+							<xsl:value-of select="."/>
+						</dc:identifier>
+					</xsl:for-each>
+				</xsl:otherwise>
+			</xsl:choose>
 			<xsl:if test="$Flavor = 'BGC' or $Flavor = 'ICE'">
 				<xsl:for-each select="DOLLAR">
-					<xsl:element name="dc:identifier">
+					<dc:identifier>
 						<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
 						<xsl:value-of select="."/>
-					</xsl:element>
+					</dc:identifier>
 				</xsl:for-each>
 			</xsl:if>
-			<xsl:for-each select="TILDE and $Flavor = 'BGC'">
-				<eterms:identifier>
-					<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
-					<xsl:value-of select="."/>
-				</eterms:identifier>
-			</xsl:for-each>
 			<!-- END OF IDENTIFIERS -->
-			<!-- PUBLISHING INFO -->
-			<xsl:variable name="publisher">
-				<xsl:choose>
-					<xsl:when test="(B or I) and $refType = 'Thesis'">
-						<xsl:value-of select="string-join((B, I), ', ')" />
-					</xsl:when>
-					<xsl:when test="(I or Y or QUESTION) and $refType = 'Report'">
-						<xsl:value-of select="string-join((I, Y, QUESTION), ', ')" />
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="I" />
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:variable>
-			<xsl:variable name="place">
-				<xsl:if test="C and $refType = ('Book', 'Book Section', 'Edited Book', 'Electronic Article', 'Electronic Book', 'Manuscript', 'Newspaper Article', 'Report', 'Thesis', 'Magazine Article')">
-					<xsl:value-of select="C" />
-				</xsl:if>
-			</xsl:variable>
-			<xsl:variable name="edition">
-				<xsl:if test="NUM_7 and $sourceGenre=''">
-					<xsl:value-of select="NUM_7" />
-				</xsl:if>
-			</xsl:variable>
-			<xsl:if test="concat($publisher, $place, $edition)!=''">
-				<xsl:element name="eterms:publishing-info">
-					<xsl:if test="$publisher!=''">
-						<xsl:element name="dc:publisher">
-							<xsl:value-of select="$publisher"/>
-						</xsl:element>
-					</xsl:if>
-					<xsl:if test="$place!=''">
-						<xsl:element name="eterms:place">
-							<xsl:value-of select="$place"/>
-						</xsl:element>
-					</xsl:if>
-					<xsl:if test="$edition!=''">
-						<xsl:element name="eterms:edition">
-							<xsl:value-of select="$edition"/>
-						</xsl:element>
-					</xsl:if>
-				</xsl:element>
-			</xsl:if>			
-			<!-- END OF PUBLISHING INFO -->
 			<!-- DATES -->
 			<xsl:variable name="year">
 				<xsl:if test="D and ( $refType = ( 'Generic' , 'Book' , 'Book Section' , 'Conference Paper' , 'Conference Proceedings' , 'Edited Book' , 'Electronic Article' , 'Electronic Book' , 'Journal Article' , 'Magazine Article' , 'Manuscript' , 'Newspaper Article' , 'Report' , 'Thesis' ) )">
@@ -432,13 +395,13 @@
 			<xsl:if test="$sourceGenre!=''">
 				<xsl:call-template name="createSource">
 					<xsl:with-param name="sgen" select="$sourceGenre"/>
+					<xsl:with-param name="identifier" select="AT" />
 				</xsl:call-template>
 			</xsl:if>
 			<!-- SECOND SOURCE -->
 			<xsl:if test="$secondSourceGenre = $genre-ves/enum[.='series']/@uri">
 				<xsl:call-template name="createSecondSource">
 					<xsl:with-param name="ssgen" select="$secondSourceGenre"/>
-					<xsl:with-param name="identifier" select="AT" />
 				</xsl:call-template>
 			</xsl:if>
 			<!-- TOTAL NUMBER OF PAGES -->
@@ -504,7 +467,10 @@
 	<!-- SOURCE -->
 	<xsl:template name="createSource">
 		<xsl:param name="sgen"/>
+		<xsl:param name="identifier"/>
+		
 		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
+		
 		<xsl:element name="source:source">
 			<!-- SOURCE GENRE -->
 			<xsl:attribute name="type">
@@ -609,19 +575,49 @@
 					<xsl:value-of select="AMPERSAND"/>
 				</xsl:element>
 			</xsl:if>
-			<!-- SOURCE PUBLISHINGINFO -->
-			<xsl:if test="I and $refType = ('Generic', 'Book', 'Book Section', 'Conference Paper', 'Conference Proceedings', 'Edited Book', 'Electronic Article', 'Electronic Book', 'Magazine Article', 'Newspaper Article')">
+			<!-- SOUCRE PUBLISHING INFO -->
+			<xsl:variable name="publisher">
+				<xsl:choose>
+					<xsl:when test="(B or I) and $refType = 'Thesis'">
+						<xsl:value-of select="string-join((B, I), ', ')" />
+					</xsl:when>
+					<xsl:when test="(I or Y or QUESTION) and $refType = 'Report'">
+						<xsl:value-of select="string-join((I, Y, QUESTION), ', ')" />
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="I" />
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			<xsl:variable name="place">
+				<xsl:if test="C and $refType = ('Book', 'Book Section', 'Edited Book', 'Electronic Article', 'Electronic Book', 'Manuscript', 'Newspaper Article', 'Report', 'Thesis', 'Magazine Article')">
+					<xsl:value-of select="C" />
+				</xsl:if>
+			</xsl:variable>
+			<xsl:variable name="edition">
+				<xsl:if test="NUM_7 and $Flavor != 'BGC' and $Flavor != 'ICE'">
+					<xsl:value-of select="NUM_7" />
+				</xsl:if>
+			</xsl:variable>
+			<xsl:if test="concat($publisher, $place, $edition)!=''">
 				<xsl:element name="eterms:publishing-info">
-					<xsl:element name="dc:publisher">
-						<xsl:value-of select="I"/>
-					</xsl:element>
-					<xsl:if test="NUM_7 and $refType = ('Book Section', 'Electronic Article', 'Magazine Article', 'Newspaper Article', 'Report')">
+					<xsl:if test="$publisher!=''">
+						<xsl:element name="dc:publisher">
+							<xsl:value-of select="$publisher"/>
+						</xsl:element>
+					</xsl:if>
+					<xsl:if test="$place!=''">
+						<xsl:element name="eterms:place">
+							<xsl:value-of select="$place"/>
+						</xsl:element>
+					</xsl:if>
+					<xsl:if test="$edition!=''">
 						<xsl:element name="eterms:edition">
-							<xsl:value-of select="NUM_7"/>
+							<xsl:value-of select="$edition"/>
 						</xsl:element>
 					</xsl:if>
 				</xsl:element>
-			</xsl:if>
+			</xsl:if>			
 			<!--  SOURCE IDENTIFIER -->
 			<xsl:if test="$identifier and $refType = ('Book Section') and $sgen = $genre-ves/enum[.='book']/@uri">
 				<dc:identifier>
@@ -1047,12 +1043,6 @@
 						<dc:title>
 							<xsl:value-of select="$filename"/>
 						</dc:title>
-						<file:content-category>
-							<xsl:choose>
-								<xsl:when test="contains(., 's')">supplementary-material</xsl:when>
-								<xsl:otherwise>any-fulltext</xsl:otherwise>
-							</xsl:choose>
-						</file:content-category>
 						<dc:format xsi:type="dcterms:IMT">
 							<xsl:value-of select="$mimetype"/>
 						</dc:format>

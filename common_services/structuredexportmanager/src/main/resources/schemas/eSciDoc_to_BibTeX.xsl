@@ -308,9 +308,12 @@
 	</xsl:template>
 	
 	<!-- SOURCE -->
-	<xsl:template match="source:source">		
+	<xsl:template match="source:source">
+		<xsl:variable name="sourceType">
+			<xsl:value-of select="@type"/>
+		</xsl:variable>
 		<!-- TITLE -->
-		<xsl:variable name="sgenre" select="$genre-ves/enum[@uri=@type]"/>
+		<xsl:variable name="sgenre" select="$genre-ves/enum[@uri=$sourceType]"/>
 		<xsl:choose>
 			<xsl:when test="$sgenre='series'">
 				<xsl:call-template name="createField">
@@ -318,13 +321,13 @@
 					<xsl:with-param name="xpath" select="dc:title"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="$sgenre='journal'">
+			<xsl:when test="$sgenre='journal' or $sgenre='newspaper' or $sgenre='issue' ">
 				<xsl:call-template name="createField">
 					<xsl:with-param name="name" select="'journal'"/>
 					<xsl:with-param name="xpath" select="dc:title"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="$sgenre='book' or $sgenre='proceedings'">
+			<xsl:when test="$sgenre='book' or $sgenre='proceedings' or $sgenre='collected-edition' or $sgenre='handbook' or $sgenre='festschrift'  or $sgenre='encyclopedia' ">
 				<xsl:call-template name="createField">
 					<xsl:with-param name="name" select="'booktitle'"/>
 					<xsl:with-param name="xpath" select="dc:title"/>
