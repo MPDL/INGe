@@ -339,7 +339,6 @@
 			</xsl:for-each>
 			<!-- END OF IDENTIFIERS -->
 			
-			
 			<!-- PUBLISHING INFO -->
 			<xsl:variable name="publisher" select="
 				if (B and I and $refType = 'Thesis') then string-join((B, I), ', ')
@@ -385,7 +384,7 @@
 			"/>
 			
 			<xsl:if test="$dateCreated!=''">
-				<dcterms:created xsi:type="dcterms:W3CDTF"><xsl:value-of select="$dateCreated"/></dcterms:created>				
+				<dcterms:issued xsi:type="dcterms:W3CDTF"><xsl:value-of select="$dateCreated"/></dcterms:issued>				
 			</xsl:if>
 			
 			<xsl:variable name="datePublishedOnline" select="
@@ -504,7 +503,6 @@
 <!--					<xsl:value-of select="I"/>-->
 <!--				</xsl:element>-->
 <!--			</xsl:if>-->
-			
 			
 		</xsl:element>
 		

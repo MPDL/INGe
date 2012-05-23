@@ -39,8 +39,15 @@
 	<!-- Configuration parameters -->
 	<xsl:param name="Flavor" select="'OTHER'"/>
 	<xsl:param name="CoNE" select="'false'"/>
-	<xsl:param name="fulltext-location" select="'http://www.clib-jena.mpg.de/theses/ice/'"/>
 	<xsl:param name="refType" />
+	<xsl:variable name="fulltext-location">
+		<xsl:if test="$Flavor = 'ICE'">
+			<xsl:value-of select="'http://www.clib-jena.mpg.de/theses/ice/'"/>
+		</xsl:if>
+		<xsl:if test="$Flavor = 'BGC'">
+			<xsl:value-of select="'http://www.clib-jena.mpg.de/theses/bgc/'"/>
+		</xsl:if>
+	</xsl:variable>
 	<xsl:variable name="genreMap">
 		<m key="Book">book</m>
 		<m key="Edited Book">book</m>
@@ -227,6 +234,7 @@
 		<xsl:param name="gen"/>
 		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
 		<xsl:variable name="sourceGenre" select=" if ( B and $refType = ('Book', 'Edited Book', 'Manuscript') ) then $genre-ves/enum[.='series']/@uri else if ( B and $refType = 'Book Section' ) then $genre-ves/enum[.='book']/@uri else if ( B and $refType = ('Electronic Article', 'Newspaper Article', 'Magazine Article') ) then $genre-ves/enum[.='journal']/@uri else if ( J and $refType = 'Journal Article' ) then $genre-ves/enum[.='journal']/@uri else if ( S and $refType = ('Book Section', 'Conference Proceedings') ) then $genre-ves/enum[.='series']/@uri else '' "/>
+		<xsl:variable name="secondSourceGenre" select="if ( S and $sourceGenre = $genre-ves/enum[.='book']/@uri) then $genre-ves/enum[.='series']/@uri else ''" />
 		<xsl:element name="pub:publication">
 			<xsl:attribute name="type">
 				<xsl:value-of select="$gen"/>
@@ -291,11 +299,19 @@
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
-			<xsl:for-each select="AT[ $refType = ('Book', 'Book Section', 'Conference Proceedings', 'Edited Book', 'Electronic Book') ]">
+			<xsl:for-each select="AT[ $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book') ]">
 				<xsl:element name="dc:identifier">
 					<xsl:attribute name="xsi:type">eterms:ISBN</xsl:attribute>
 					<xsl:value-of select="."/>
 				</xsl:element>
+			</xsl:for-each>
+			<xsl:for-each select="AT[
+					$refType = ('Book Section') and $sourceGenre != $genre-ves/enum[.='book']/@uri	
+				]">
+				<dc:identifier>
+					<xsl:attribute name="xsi:type">eterms:ISBN</xsl:attribute>
+					<xsl:value-of select="."/>
+				</dc:identifier>
 			</xsl:for-each>
 			<xsl:for-each select="AT[ $refType = ('Electronic Article', 'Journal Article', 'Magazine Article', 'Newspaper Article') ]">
 				<xsl:element name="dc:identifier">
@@ -309,13 +325,19 @@
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
-			<xsl:for-each select="U">
+			<xsl:for-each select="U and $Flavor != 'BGC'">
 				<xsl:element name="dc:identifier">
 					<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
-			<xsl:if test="$source-name = 'endnote-ice'">
+			<xsl:for-each select="U and $Flavor = 'BGC'">
+				<xsl:element name="dc:identifier">
+					<xsl:attribute name="xsi:type">eterms:ISI</xsl:attribute>
+					<xsl:value-of select="."/>
+				</xsl:element>
+			</xsl:for-each>
+			<xsl:if test="$Flavor = 'BGC' or $Flavor = 'ICE'">
 				<xsl:for-each select="DOLLAR">
 					<xsl:element name="dc:identifier">
 						<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
@@ -323,6 +345,12 @@
 					</xsl:element>
 				</xsl:for-each>
 			</xsl:if>
+			<xsl:for-each select="TILDE and $Flavor = 'BGC'">
+				<eterms:identifier>
+					<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
+					<xsl:value-of select="."/>
+				</eterms:identifier>
+			</xsl:for-each>
 			<!-- END OF IDENTIFIERS -->
 			<!-- PUBLISHING INFO -->
 			<xsl:variable name="publisher">
@@ -385,9 +413,9 @@
 				</xsl:choose>
 			</xsl:variable>
 			<xsl:if test="$year">
-				<dcterms:created xsi:type="dcterms:W3CDTF">
+				<dcterms:issued xsi:type="dcterms:W3CDTF">
 					<xsl:value-of select="concat($year, if ($year!='' and $date!='') then '-' else '', $date)"/>
-				</dcterms:created>
+				</dcterms:issued>
 			</xsl:if>
 			<xsl:if test="NUM_7 and ( $refType = 'Journal Article' )">
 				<eterms:published-online xsi:type="dcterms:W3CDTF">
@@ -404,6 +432,13 @@
 			<xsl:if test="$sourceGenre!=''">
 				<xsl:call-template name="createSource">
 					<xsl:with-param name="sgen" select="$sourceGenre"/>
+				</xsl:call-template>
+			</xsl:if>
+			<!-- SECOND SOURCE -->
+			<xsl:if test="$secondSourceGenre = $genre-ves/enum[.='series']/@uri">
+				<xsl:call-template name="createSecondSource">
+					<xsl:with-param name="ssgen" select="$secondSourceGenre"/>
+					<xsl:with-param name="identifier" select="AT" />
 				</xsl:call-template>
 			</xsl:if>
 			<!-- TOTAL NUMBER OF PAGES -->
@@ -484,6 +519,9 @@
 					<xsl:when test="J[ $refType = ('Journal Article', 'Magazine Article') ]">
 						<xsl:value-of select="J"/>
 					</xsl:when>
+					<xsl:when test="S and $refType = ('Conference Proceedings')">
+						<xsl:value-of select="S"/>
+					</xsl:when>
 				</xsl:choose>
 			</xsl:element>
 			<!-- SOURCE ALTTITLE -->
@@ -493,7 +531,7 @@
 				</xsl:element>
 			</xsl:for-each>
 			<!-- SOURCE CREATORS -->
-			<xsl:for-each select=" E[ $refType = ('Book', 'Edited Book', 'Report', 'Book Section', 'Conference Proceedings') ] | Y[ $refType = ('Conference Proceedings', 'Book Section') ] ">
+			<xsl:for-each select=" E[ $refType = ('Book', 'Edited Book', 'Report', 'Book Section', 'Conference Proceedings') ] | Y[ $refType = ('Conference Proceedings') ] ">
 				<xsl:call-template name="createCreator">
 					<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
 					<xsl:with-param name="isSource" select="true()"/>
@@ -584,9 +622,56 @@
 					</xsl:if>
 				</xsl:element>
 			</xsl:if>
+			<!--  SOURCE IDENTIFIER -->
+			<xsl:if test="$identifier and $refType = ('Book Section') and $sgen = $genre-ves/enum[.='book']/@uri">
+				<dc:identifier>
+					<xsl:attribute name="xsi:type">eterms:ISBN</xsl:attribute>
+					<xsl:value-of select="$identifier"/>
+				</dc:identifier>
+			</xsl:if>
 		</xsl:element>
 	</xsl:template>
 	<!-- END OF SOURCE -->
+	
+	<!-- SECOND SOURCE -->
+	<xsl:template name="createSecondSource">
+		<xsl:param name="ssgen"/>
+		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
+		
+		<source:source>
+
+
+			<!-- SOURCE GENRE -->
+			<xsl:attribute name="type">
+				<xsl:value-of select="$ssgen"/>
+			</xsl:attribute>
+			
+
+			<!-- SOURCE TITLE -->
+			<dc:title>
+				<xsl:choose>
+					<xsl:when test="S">
+						<xsl:value-of select="S"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoSeriesTitle' ), concat('There is more than one CoNE entry matching -', $ssgen))"/>
+						</xsl:otherwise>
+				</xsl:choose>
+			</dc:title>
+			<xsl:for-each select="
+				Y[
+					$refType = ('Book Section')
+				]
+				">
+				<xsl:call-template name="createCreator">
+					<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
+					<xsl:with-param name="isSource" select="true()"/>
+				</xsl:call-template>
+			</xsl:for-each>
+		</source:source>
+	</xsl:template>
+	<!-- END OF SECOND SOURCE -->
+	
 	<!-- CREATORS -->
 	<xsl:template name="createCreators">
 		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
