@@ -71,17 +71,19 @@
 	request.getSession().setAttribute("latestSearch", path);
 	boolean loggedIn = Login.getLoggedIn(request);
 	
-	if (request.getParameter("searchterm") != null && !"".equals(request.getParameter("searchterm")))
+	String searchterm = UrlHelper.fixURLEncoding(request.getParameter("searchterm"));
+	
+	if (searchterm != null && !"".equals(searchterm))
 	{
 		Querier querier = QuerierFactory.newQuerier(loggedIn);
 	   
 	    if (request.getParameter("lang") != null && !"".equals(request.getParameter("lang")))
 	    {
-	    	results = querier.query(request.getParameter("model"), request.getParameter("searchterm"), request.getParameter("lang"), Querier.ModeType.FAST);
+	    	results = querier.query(request.getParameter("model"), searchterm, request.getParameter("lang"), Querier.ModeType.FAST);
 	    }
 	    else
 	    {
-	        results = querier.query(request.getParameter("model"), request.getParameter("searchterm"), Querier.ModeType.FAST);
+	        results = querier.query(request.getParameter("model"), searchterm, Querier.ModeType.FAST);
 	    }
 		querier.release();
 	}
@@ -123,7 +125,7 @@
 											<% if (model.getName().equals(request.getParameter("model"))) { %>selected<% } %>><%= model.getName() %></option>
 										<% } %>
 										</select>
-										<input type="text" class="half_txtInput" name="searchterm" value="<%= (request.getParameter("searchterm") != null ? request.getParameter("searchterm") : "") %>" />
+										<input type="text" class="half_txtInput" name="searchterm" value="<%= (searchterm != null ? searchterm : "") %>" />
 										<select class="small_select" size="1" name="lang">
 											<option value="">--</option>
 											<option value="de" <% if ("de".equals(request.getParameter("lang"))) { %>selected<% } %>>german</option>
