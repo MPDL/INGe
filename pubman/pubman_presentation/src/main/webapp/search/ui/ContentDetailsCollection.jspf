@@ -116,17 +116,15 @@
 					<h:commandButton styleClass="free_txtBtn groupBtn" value="#{lbl.adv_search_btClear}" action="#{eventCriterionBean.clearCriterion}" />
 --%>
 				</span>
-			</h:panelGroup>
 			
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<span class="noDisplay"> </span>
+								&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<span class="free_area0 checkboxDoubleGroup">
-						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="EventCritertionBean_invitationStatus" value="#{eventCriterionBean.eventCriterionVO.invitationStatus }" />
-							<h:outputLabel id="lblEventCriterionBean_invitationStatus" value="Invited" />
+					<span class="xHuge_area0">
+						<span class="xHuge_checkbox tiny_marginRIncl">	
+							<h:selectBooleanCheckbox value="#{eventCriterionBean.eventCriterionVO.invitationStatus }" />
+							<h:outputLabel value="#{lbl.adv_search_lblEventInvited}" />
 						</span>
 					</span>
 				</span>
