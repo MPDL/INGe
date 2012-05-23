@@ -229,7 +229,7 @@ public class SearchBean implements Search
         try
         {
             logger.info("Cql search string: <" + searchRetrieveRequest.getQuery() + ">");
-            logger.debug("Cql sorting key(s): <" + searchRetrieveRequest.getSortKeys() + ">");
+            logger.info("Cql sorting key(s): <" + searchRetrieveRequest.getSortKeys() + ">");
             searchResult = ServiceLocator.getSearchHandler(index).searchRetrieveOperation(searchRetrieveRequest);
             logger.debug("Search result: " + searchResult.getNumberOfRecords() + " item(s) or container(s)");
         } 
