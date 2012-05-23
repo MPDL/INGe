@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
 
@@ -86,7 +87,7 @@ public class FilterTaskParamVO extends ValueObject
     {
         Filter previousFilter = null;
         StringBuffer queryBuffer = new StringBuffer(1024);
-        String sorting = null;
+        String sorting = "";
         
         HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
         filterMap.put("operation", new String[] { "searchRetrive" });
@@ -117,7 +118,13 @@ public class FilterTaskParamVO extends ValueObject
             else if (filter instanceof OrderFilter)
             {
                 OrderFilter orderFilter = (OrderFilter)filter;
-                sorting = " sortby" + "\"" + orderFilter.getProperty() + "\"/" + orderFilter.getSortOrder();
+                
+                StringTokenizer tok = new StringTokenizer(orderFilter.getProperty());
+                while(tok.hasMoreTokens())
+                {
+                    sorting += " sortby" + "\"" + tok.nextToken() + "\"/";
+                    sorting += orderFilter.getSortOrder();
+                }
                 previousFilter = filter;
             }
             
@@ -207,12 +214,10 @@ public class FilterTaskParamVO extends ValueObject
                 previousFilter = filter;
             }
         }
-        queryBuffer.append(RIGHT_PARANTHESIS);
+        queryBuffer.append(RIGHT_PARANTHESIS); 
+       
+        queryBuffer.append(sorting);  
         
-        if (sorting != null)
-        {
-            queryBuffer.append(sorting);           
-        }
         logger.info("query: " + queryBuffer.toString());
         filterMap.put("query", new String[]{queryBuffer.toString()});
         
