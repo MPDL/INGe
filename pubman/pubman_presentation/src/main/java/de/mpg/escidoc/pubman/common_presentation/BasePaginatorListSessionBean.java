@@ -620,6 +620,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         beforeRedirect();
         try
         {
+            logger.debug("redirectURL :" + getRedirectUrl());
             getExternalContext().redirect(getRedirectUrl());
         }
         catch (IOException e)
@@ -661,6 +662,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         }
         
         parameterUrl = parameterUrl.substring(0, parameterUrl.length()-1);
+        
+        logger.debug("parameterUrl: " + parameterUrl);
        
         return parameterUrl;
     }

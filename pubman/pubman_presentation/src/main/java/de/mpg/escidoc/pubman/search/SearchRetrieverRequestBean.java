@@ -21,6 +21,7 @@ import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.search.Search;
@@ -184,7 +185,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
             if(sc.getIndex() == null || !sc.getIndex().equals(""))
             {
-                if (sc.getSortOrder().equals("descending"))
+                if (sc.getSortOrder().equals(OrderFilter.ORDER_DESCENDING))
                 {
 
                     query.setSortOrder(SortingOrder.DESCENDING);
