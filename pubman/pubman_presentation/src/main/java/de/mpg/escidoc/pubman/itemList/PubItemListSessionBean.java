@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletResponse;
 
@@ -1158,5 +1159,93 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         return true;
 
     }
-
+    
+    public void nextItem ()
+    {
+        PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
+        FacesContext fc = FacesContext.getCurrentInstance();
+        try
+        {
+            for (int i = 0 ; i < this.getCurrentPartList().size(); i++ ) 
+            {
+                if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals(currentItem.getVersion().getObjectId()))
+                {
+                    if( (i + 1) < this.getCurrentPartList().size()  )
+                    {
+                        fc.getExternalContext().redirect(this.getCurrentPartList().get(i+1).getLink());
+                        return;
+                    }
+                    else if ( (i + 1) >= this.getCurrentPartList().size() && this.getCurrentPageNumber() < this.getPaginatorPageSize() )
+                    {
+                        this.setCurrentPageNumber(this.getCurrentPageNumber() + 1);
+                        this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
+                        fc.getExternalContext().redirect(this.getCurrentPartList().get(0).getLink());
+                        return;
+                    }
+                    else
+                    {
+                        this.setCurrentPageNumber(1); 
+                        this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
+                        fc.getExternalContext().redirect(this.getCurrentPartList().get(0).getLink());
+                        return;
+                    }
+                }
+            }
+        }
+        catch (IOException e)
+        {
+            logger.debug("IO-Exception while retrieving ExternalContext for nextItem");
+            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            logger.debug("Exception while getting link to nextItem");
+            e.printStackTrace();
+        }
+    }
+    
+    public void previousItem() 
+    {
+        PubItemVOPresentation currentItem = getItemControllerSessionBean().getCurrentPubItem();
+        FacesContext fc = FacesContext.getCurrentInstance();
+        try
+        {
+            for (int i = 0 ; i < this.getCurrentPartList().size(); i++ ) 
+            {
+                if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals(currentItem.getVersion().getObjectId()))
+                {
+                    if( (i - 1) >= 0 )
+                    {
+                        fc.getExternalContext().redirect(this.getCurrentPartList().get(i - 1).getLink());
+                        return;
+                    }
+                    else if ( (i - 1) < 0 && this.getCurrentPageNumber() > 1)
+                    {
+                        this.setCurrentPageNumber(this.getCurrentPageNumber() - 1);
+                        this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
+                        fc.getExternalContext().redirect(this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
+                        return;
+                    }
+                    else
+                    {
+                        this.setCurrentPageNumber(this.getPaginatorPageSize()); 
+                        this.update(this.getCurrentPageNumber(), this.getElementsPerPage());
+                        fc.getExternalContext().redirect(this.getCurrentPartList().get(this.getCurrentPartList().size() - 1).getLink());
+                        return;
+                    }
+                }
+            }
+        }
+        catch (IOException e)
+        {
+            logger.debug("IO-Exception while retrieving ExternalContext for previousItem");
+            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            logger.debug("Exception while getting link to previousItem");
+            e.printStackTrace();
+        }
+    }
+    
 }

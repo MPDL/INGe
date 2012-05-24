@@ -36,6 +36,7 @@ import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.MissingResourceException;
@@ -56,6 +57,7 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.DepositorWSPage;
 import de.mpg.escidoc.pubman.ErrorPage;
@@ -99,6 +101,7 @@ import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.escidoc.pubman.yearbook.YearbookInvalidItemRO;
 import de.mpg.escidoc.pubman.yearbook.YearbookItemSessionBean;
+import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
@@ -107,6 +110,7 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
@@ -122,6 +126,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
@@ -1697,13 +1702,114 @@ public class ViewItemFull extends FacesBean
     }
 
     /**
-     * Returns the Modification date as formatted String (YYYY-MM-DD)
+     * Returns the item modifier (last)
      * 
-     * @return String the formatted date of modification
+     * @return String name or id of the owner
      */
     public String getModificationDate()
     {
         return CommonUtils.formatTimestamp(this.pubItem.getModificationDate());
+    }
+    
+    public String getLastModifier() throws Exception
+    {
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        InitialContext initialContext = new InitialContext();
+        XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+        UserAccountHandler userAccountHandler = null;
+        if (this.pubItem.getVersion().getModifiedByRO() != null && this.pubItem.getVersion().getModifiedByRO().getObjectId() != null)
+        {
+            HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
+            filterParams.put("operation", new String[] {"searchRetrieve"});
+            filterParams.put("query", new String[] {"\"/id\"=" + this.pubItem.getVersion().getModifiedByRO().getObjectId()});
+            String searchResponse = null;
+                    
+            userAccountHandler = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
+            searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
+            SearchRetrieveResponseVO searchedObject = xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);
+            if (searchedObject.getRecords().get(0).getData() != null)
+            {
+                AccountUserVO modifier = (AccountUserVO) searchedObject.getRecords().get(0).getData();
+                if (modifier.getName() != null && modifier.getName().trim() != "")
+                {
+                    return modifier.getName();
+                }
+                else if (modifier.getUserid() != null && modifier.getUserid() != "")
+                {
+                    return modifier.getUserid();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else 
+            {
+                return null;
+            }
+        }
+        else 
+        {
+            return null;
+        }
+        
+    }
+    
+    /**
+     * Returns the Creation date as formatted String (YYYY-MM-DD)
+     * 
+     * @return String the formatted date of modification
+     */
+    public String getCreationDate()
+    {
+        return CommonUtils.formatTimestamp(this.pubItem.getCreationDate());
+    }
+    
+    /**
+     * Returns the item owner
+     * 
+     * @return String name or id of the owner
+     */
+    public String getOwner() throws Exception
+    {
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        InitialContext initialContext = new InitialContext();
+        XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+        UserAccountHandler userAccountHandler = null;
+        
+        HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
+        if (this.pubItem.getOwner() != null && this.pubItem.getOwner().getObjectId() != null)
+        {
+            filterParams.put("operation", new String[] {"searchRetrieve"});
+            filterParams.put("query", new String[] {"\"/id\"=" + this.pubItem.getOwner().getObjectId()});
+        }
+        else 
+        {
+            return null;
+        }
+        userAccountHandler = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
+        String searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
+        SearchRetrieveResponseVO searchedObject = xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);
+        if (searchedObject.getRecords().get(0).getData() != null)
+        {
+            AccountUserVO owner = (AccountUserVO) searchedObject.getRecords().get(0).getData();
+            if (owner.getName() != null && owner.getName().trim() != "")
+            {
+                return owner.getName();
+            }
+            else if (owner.getUserid() != null && owner.getUserid() != "")
+            {
+                return owner.getUserid();
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else 
+        {
+            return null;
+        }
     }
 
     /**

@@ -115,9 +115,8 @@
 										<h:outputText value="#{lbl.EditItem_lblItemLastModifier} '#{EditItem.lastModifier}'" rendered="#{EditItem.lastModifier != null}"/>
 										<h:outputText value="." rendered="#{EditItem.lastModifier != null and EditItem.lastModificationDate == null}"/>
 										<h:outputText value=" --- #{EditItem.lastModificationDate}" rendered="#{EditItem.lastModificationDate != null}"/>
-										<!-- Subheadline ends here -->
 									</div>
-									<div class="subHeader"> <!-- Subheadline starts here -->
+									<div class="subHeader">
 										
 										<!-- Special validation messages for yearbook -->
 										<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea clear" style="padding-top: 0px !important;" rendered="#{EditItem.item.validationReport!=null}">

@@ -14,6 +14,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
@@ -223,6 +224,36 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
        
         saveOldParameters();
         
+    }
+    
+    public void update(final int pageNumber, final int elementsPerP)
+    {
+        setElementsPerPage(elementsPerP);
+        setCurrentPageNumber(pageNumber);
+        
+        //logger.info("No List update: "+noListUpdate);
+        if (!getNoListUpdate())
+        {
+            currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage, getAdditionalFilters());
+            totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
+            
+            //reset current page and reload list if list is shorter than the given current page number allows
+            if (getTotalNumberOfElements()>0 && getTotalNumberOfElements()<= getOffset()){
+                setCurrentPageNumber(((getTotalNumberOfElements()-1)/getElementsPerPage())+1);
+                currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage, getAdditionalFilters());
+                totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
+            }
+            
+            paginatorPageList.clear();
+            for(int i=0; i<((getTotalNumberOfElements()-1)/elementsPerPage) + 1; i++)
+            {
+                paginatorPageList.add(new PaginatorPage(i+1));
+            }
+            
+            listUpdated();
+        }
+       
+        saveOldParameters();
     }
     
     /**
@@ -946,6 +977,14 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         this.redirectParameterMap = redirectParameterMap;
     }
 
-   
+    /**
+     * Returns the ItemControllerSessionBean.
+     * 
+     * @return a reference to the scoped data bean (ItemControllerSessionBean)
+     */
+    protected ItemControllerSessionBean getItemControllerSessionBean()
+    {
+        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+    }
     
 }

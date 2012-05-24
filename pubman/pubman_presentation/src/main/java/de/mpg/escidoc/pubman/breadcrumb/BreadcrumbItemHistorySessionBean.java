@@ -231,5 +231,24 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
             return new BreadcrumbItem("HomePage", "HomePage", null, false).getDisplayValue();
         }
     }
+    
+    /**
+     * Returns the display value of the last breadcrumb entry. If the breadcrumbs are
+     * empty, the 'Homepage' value is returned.
+     * @return display value of the last breadcrumb entry
+     */
+    public String getPreviousItemName() {
+        if (breadcrumbs.size() > 1)
+        {
+            System.out.println(breadcrumbs.get(breadcrumbs.size() - 2).getDisplayValue());
+            return breadcrumbs.get(breadcrumbs.size() - 2).getDisplayValue();
+        }
+        else
+        {
+            System.out.println(new BreadcrumbItem("HomePage", "HomePage", null, false).getDisplayValue());
+            return new BreadcrumbItem("HomePage", "HomePage", null, false).getDisplayValue();
+        }
+    }
 
+  
 }

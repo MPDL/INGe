@@ -113,6 +113,19 @@
  	 </context-param>     
     	
 
+<!-- 
+	<context-param>
+	   <param-name>org.richfaces.SKIN</param-name>
+	   <param-value>plain</param-value>
+	</context-param>
+
+
+
+	<context-param>
+      <param-name>org.richfaces.CONTROL_SKINNING</param-name>
+      <param-value>disable</param-value>
+	</context-param>
+-->
 	<filter> 
 	   <display-name>RichFaces Filter</display-name> 
 	   <filter-name>richfaces</filter-name> 

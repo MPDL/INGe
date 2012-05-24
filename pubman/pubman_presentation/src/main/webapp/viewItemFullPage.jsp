@@ -173,62 +173,72 @@
 								
 							<!-- content menu ends here -->
 							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="subHeader" rendered="#{ViewItemFull.isStateInRevision}">
-								<h:outputText value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.version.lastMessage}" rendered="#{ViewItemFull.canShowLastMessage}" />
-								<h:outputText value="#{msg.ViewItemFull_inRevision} #{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.canShowLastMessage}" />
+						
+						<h:panelGroup layout="block" styleClass="subHeader" rendered="#{ViewItemFull.isLoggedIn }">
+							<!-- Subheadline starts here -->
+							<h:outputText value="#{lbl.EditItem_lblItemVersionID} '#{ViewItemFull.pubItem.version.objectIdAndVersion}'." rendered="#{ViewItemFull.pubItem.version.objectIdAndVersion != null}"/><br/>
+							<h:outputText value="#{lbl.EditItem_lblCollectionOfItem} '#{ViewItemFull.contextName}', #{lbl.ViewItemFull_lblIsAffiliatedTo}: '#{ViewItemFull.affiliations}'." /><br/>
+							<h:outputText value="#{lbl.EditItem_lblItemDepositor} '#{ViewItemFull.owner}'" rendered="#{ViewItemFull.owner != null }"/>
+							<h:outputText value="." rendered="#{ViewItemFull.owner != null and ViewItemFull.creationDate == null}"/>
+							<h:outputText value=" --- #{ViewItemFull.creationDate}" rendered="#{ViewItemFull.creationDate != null}"/><br/>
+							<h:outputText value="#{lbl.EditItem_lblItemLastModifier} '#{ViewItemFull.lastModifier}'" rendered="#{ViewItemFull.lastModifier != null}"/>
+							<h:outputText value="." rendered="#{ViewItemFull.lastModifier != null and ViewItemFull.modificationDate == null}"/>
+							<h:outputText value=" --- #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null}"/>
+						</h:panelGroup>	
+						<h:panelGroup layout="block" styleClass="subHeader" rendered="#{ViewItemFull.isStateInRevision}">
+							<h:outputText value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.version.lastMessage}" rendered="#{ViewItemFull.canShowLastMessage}" />
+							<h:outputText value="#{msg.ViewItemFull_inRevision} #{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.canShowLastMessage}" />
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="subHeader" rendered="#{ViewItemFull.isStateSubmitted}">
+							<h:outputText value="#{msg.ViewItemFull_submitted} #{ViewItemFull.pubItem.version.lastMessage}" rendered="#{ViewItemFull.canShowLastMessage}" />
+							<h:outputText value="#{msg.ViewItemFull_submitted} #{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.canShowLastMessage}" />
+						</h:panelGroup>
+						<div class="subHeader">
+							<!-- JSF messages -->
+							<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.numberOfMessages == 1}"/>
+							<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{ViewItemFull.hasErrorMessages and ViewItemFull.numberOfMessages != 1}">
+								<h2><h:outputText  value="#{lbl.warning_lblMessageHeader}"/></h2>
+								<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
 							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="subHeader" rendered="#{ViewItemFull.isStateSubmitted}">
-								<h:outputText value="#{msg.ViewItemFull_submitted} #{ViewItemFull.pubItem.version.lastMessage}" rendered="#{ViewItemFull.canShowLastMessage}" />
-								<h:outputText value="#{msg.ViewItemFull_submitted} #{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.canShowLastMessage}" />
+							<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{ViewItemFull.hasMessages and !ViewItemFull.hasErrorMessages and ViewItemFull.numberOfMessages != 1}">
+								<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
+								<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
 							</h:panelGroup>
-							<div class="subHeader">
-								<!-- Subheadline starts here -->
-								<!-- JSF messages -->
-								<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.numberOfMessages == 1}"/>
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{ViewItemFull.hasErrorMessages and ViewItemFull.numberOfMessages != 1}">
-									<h2><h:outputText  value="#{lbl.warning_lblMessageHeader}"/></h2>
-									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
-								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{ViewItemFull.hasMessages and !ViewItemFull.hasErrorMessages and ViewItemFull.numberOfMessages != 1}">
-									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
-									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
-								</h:panelGroup>
-								&#160;
-								<!-- Special validation messages for yearbook -->
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea clear" style="padding-top: 0px !important;" rendered="#{ViewItemFull.pubItem.validationReport!=null}">
-									<h2><h:outputText value="#{lbl.Yearbook_validationMessageHeader}"/></h2>
-									<ul>
-									<a4j:repeat var="valitem" value="#{ViewItemFull.pubItem.validationReport.items}">
-										<h:panelGroup rendered="#{valitem.restrictive}">
-											<li class="messageWarn">
-											<h:outputText value="#{msg[valitem.content]}"/>
-											</li>
-										</h:panelGroup>
-										<h:panelGroup rendered="#{!valitem.restrictive}">
-											<li class="messageStatus">
-											<h:outputText value="#{msg[valitem.content]}"/>
-											</li>
-										</h:panelGroup>
+							<!-- Special validation messages for yearbook -->
+							<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea clear" style="padding-top: 0px !important;" rendered="#{ViewItemFull.pubItem.validationReport!=null}">
+								<h2><h:outputText value="#{lbl.Yearbook_validationMessageHeader}"/></h2>
+								<ul>
+								<a4j:repeat var="valitem" value="#{ViewItemFull.pubItem.validationReport.items}">
+									<h:panelGroup rendered="#{valitem.restrictive}">
+										<li class="messageWarn">
+										<h:outputText value="#{msg[valitem.content]}"/>
+										</li>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!valitem.restrictive}">
+										<li class="messageStatus">
+										<h:outputText value="#{msg[valitem.content]}"/>
+										</li>
+									</h:panelGroup>
 								</a4j:repeat>
 								</ul>	
-						   	</h:panelGroup>
+					   		</h:panelGroup>
 						   	<!-- Survey link -->
 						   	<h:panelGroup layout="block" style="margin-top:1em;" rendered="#{not empty HomePage.surveyUrl}">
 								<div class="xHuge_area2_p6 messageArea">
 									<span class="half_area0">
 										<h2><h:outputText value="#{HomePage.surveyTitle}"/></h2>
-										</span>
-										<span class="huge_area0"> 
-											<h:outputText value="#{HomePage.surveyText}"/>
-										</span> 
-										<span class="free_area0">
-										<div class="medium_area2_p6 small_marginLExcl">
-										
-										<h:outputLink  styleClass="activeButton" value="#{HomePage.surveyUrl}" title="User Survey" target="_blank">
-											<h:outputText value="User Survey"/>
-										</h:outputLink>
-											</div>
-										</span>
+									</span>
+									<span class="huge_area0"> 
+										<h:outputText value="#{HomePage.surveyText}"/>
+									</span> 
+									<span class="free_area0">
+									<div class="medium_area2_p6 small_marginLExcl">
+									
+									<h:outputLink  styleClass="activeButton" value="#{HomePage.surveyUrl}" title="User Survey" target="_blank">
+										<h:outputText value="User Survey"/>
+									</h:outputLink>
+										</div>
+									</span>
 								</div>
 							</h:panelGroup>
 							<!-- Subheadline ends here -->
@@ -275,7 +285,16 @@
 								<h:panelGroup styleClass="seperator" />
 							</span>
 						</div>
+						<h:panelGroup styleClass="full_area0 pageBrowser">
+							<h:commandLink  id="btList_lkPreviousBottom" styleClass="backward" action="#{PubItemListSessionBean.previousItem}" rendered="#{BreadcrumbItemHistorySessionBean.previousItemName == 'SearchResultListPage'}"  >
+								<h:outputText value="#{lbl.List_lkPrevious}"/>
+					 		</h:commandLink>
+							<h:commandLink  id="btList_lkNextBottom" styleClass="forward" style="float:right;" action="#{PubItemListSessionBean.nextItem}" rendered="#{BreadcrumbItemHistorySessionBean.previousItemName == 'SearchResultListPage'}" >
+								<h:outputText value="#{tip.List_lkNext}"/>
+							</h:commandLink>
+						</h:panelGroup>
 						<div class="full_area0 itemHeader">
+							
 							<h:panelGroup styleClass="xLarge_area0 endline blockHeader">
 								&#160;	
 							</h:panelGroup>
@@ -299,6 +318,7 @@
 								</h:outputLabel>
 							</h:panelGroup>
 						</div>
+						
 						<h:panelGroup layout="block" styleClass="full_area0 itemBlock noTopBorder" rendered="#{ViewItemFull.isLoggedIn}">
 							<h3 class="xLarge_area0_p8 endline blockHeader">
 								&#160;
@@ -331,7 +351,6 @@
 							<!--JUS content section -->
 							<jsp:directive.include file="viewItem/LegalCaseGroup.jspf" />
 							<jsp:directive.include file="viewItem/SourceGroup.jspf" />
-							<jsp:directive.include file="viewItem/SystemDetailGroup.jspf" />
 							<jsp:directive.include file="viewItem/WithdrawnGroup.jspf" />
 
 						</div>
