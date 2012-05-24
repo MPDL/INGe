@@ -1520,6 +1520,8 @@ public class ItemControllerSessionBean extends FacesBean
 					}
 				}
 			}
+			
+			// remove empty tags
 			List<String> emptyTags = new ArrayList<String>();
 			
 			for (String tag : pubItem.getLocalTags())
