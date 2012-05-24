@@ -58,13 +58,14 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
-				</configuration>
+       				<source>${jdk.version}</source>
+       				<target>${jdk.version}</target>
+     			</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>javacc-maven-plugin</artifactId>
+				<version>2.6</version>
 				<executions>
 					<execution>
 						<id>javacc</id>
