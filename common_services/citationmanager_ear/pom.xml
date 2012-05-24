@@ -55,7 +55,6 @@
 					<displayName>citationmanager</displayName>
 					<description>citationmanager integration testing ear</description>
 					<resourcesDir>target/classes</resourcesDir>
-					<version>5</version>
 					<modules>
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
@@ -152,20 +151,12 @@
 			<!-- enables the compile test resources feature in the ear -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
 				<executions>
 					<execution>
 						<phase>test-compile</phase>
 						<goals>
 							<goal>testCompile</goal>
 						</goals>
-						<configuration>
-							<source>1.5</source>
-							<target>1.5</target>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>

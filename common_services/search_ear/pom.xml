@@ -179,10 +179,6 @@
 						<goals>
 							<goal>testCompile</goal>
 						</goals>
-						<configuration>
-							<source>${jdk.version}</source>
-							<target>${jdk.version}</target>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
