@@ -199,9 +199,19 @@
 				</mdr:md-record>
 			</xsl:element>
 			<xsl:element name="ec:components">
-				<xsl:if test="F and ($Flavor ='BGC' or $Flavor = 'ICE')">
+				<xsl:if test="F and ($Flavor = 'ICE')">
 					<xsl:variable name="oa" select="NUM_4 = 'OA'"/>
 					<xsl:for-each select="tokenize(F, ' ')">
+						<xsl:call-template name="component">
+							<xsl:with-param name="oa" select="$oa"/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:if>
+			</xsl:element>
+			<xsl:element name="ec:components">
+				<xsl:if test="F and ($Flavor ='BGC')">
+					<xsl:variable name="oa" select="NUM_4 = 'OA'"/>
+					<xsl:for-each select="tokenize(F, '&#xA;')">
 						<xsl:call-template name="component">
 							<xsl:with-param name="oa" select="$oa"/>
 						</xsl:call-template>
@@ -257,7 +267,7 @@
 			<!--ALTTITLE -->
 			<xsl:choose>
 				<!-- ICE puts filename into %F -->
-				<xsl:when test="$source-name = 'endnote-ice'">
+				<xsl:when test="$Flavor = 'BGC' or $Flavor = 'ICE'">
 					<xsl:for-each select=" B[$refType = ('Generic', 'Electronic Book')] | J[$refType = ('Book', 'Book Section', 'Manuscript', 'Edited Book', 'Electronic Article', 'Report')] | Q | EXCLAMATION | S[$refType = ('Generic')] ">
 						<xsl:element name="dcterms:alternative">
 							<xsl:value-of select="."/>
@@ -1025,8 +1035,15 @@
 				</prop:visibility>
 				<prop:content-category>
 					<xsl:choose>
-						<xsl:when test="contains(., 's')">supplementary-material</xsl:when>
-						<xsl:otherwise>any-fulltext</xsl:otherwise>
+						<xsl:when test="contains(lower-case(.), 's')">
+							<xsl:value-of select="$contentCategory-ves/enum[.='supplementary-material']/@uri"/>
+						</xsl:when>
+						<xsl:when test="contains(lower-case(.), 'd')">
+							<xsl:value-of select="$contentCategory-ves/enum[.='pre-print']/@uri"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="$contentCategory-ves/enum[.='publisher-version']/@uri"/>
+						</xsl:otherwise>
 					</xsl:choose>
 				</prop:content-category>
 				<prop:file-name>
