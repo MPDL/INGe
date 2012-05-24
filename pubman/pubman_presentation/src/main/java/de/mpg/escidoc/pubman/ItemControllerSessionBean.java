@@ -1522,20 +1522,22 @@ public class ItemControllerSessionBean extends FacesBean
 			}
 			
 			// remove empty tags
-			List<String> emptyTags = new ArrayList<String>();
 			
-			for (String tag : pubItem.getLocalTags())
-			{
-			    if (tag == null || "".equals(tag))
-			    {
-			        emptyTags.add(tag);
-			    }
-			}
-			
-			for (String tag : emptyTags)
-			{
-			    pubItem.getLocalTags().remove(tag);
-			}
+            if (pubItem.getLocalTags() != null)
+            {
+                List<String> emptyTags = new ArrayList<String>();
+                for (String tag : pubItem.getLocalTags())
+                {
+                    if (tag == null || "".equals(tag))
+                    {
+                        emptyTags.add(tag);
+                    }
+                }
+                for (String tag : emptyTags)
+                {
+                    pubItem.getLocalTags().remove(tag);
+                }
+            }
 		}
 		catch (Exception e) {
 			logger.error("Error getting external org id", e);
