@@ -272,6 +272,14 @@
 		</testResources>
 		<plugins>
 			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
@@ -550,6 +558,7 @@
 	</reporting>
 	<!-- properties valid for all profiles -->
 	<properties>
+		<jdk.version>1.6</jdk.version>
 		<!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
 		<cargo.port>8080</cargo.port>
 		<cargo.rmi.port>1099</cargo.rmi.port>
@@ -763,10 +772,13 @@
 		<escidoc.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</escidoc.transformation.zfn.configuration.filename>
 		<escidoc.transformation.mab.stylesheet.filename>transformations/otherFormats/xslt/mabxml2escidoc.xsl</escidoc.transformation.mab.stylesheet.filename>
 		<escidoc.transformation.report.sortorder.filename>transformations/reports/conf/reportSortOrder.xml</escidoc.transformation.report.sortorder.filename>
+		<escidoc.transformation.marc.stylesheet.filename>transformations/standardFormats/xslt/marc.xsl</escidoc.transformation.marc.stylesheet.filename>
+		<escidoc.transformation.marc.configuration.filename>transformations/standardFormats/conf/marc.properties</escidoc.transformation.marc.configuration.filename>
+
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
 		<escidoc.pubman.genres.configuration>Genres.xml</escidoc.pubman.genres.configuration>
 		<!-- AA -->
-		<escidoc.aa.instance.url>http://localhost:8080/aa_presentation</escidoc.aa.instance.url>
+		<escidoc.aa.instance.url>http://localhost:8080/aa_presentation/</escidoc.aa.instance.url>
 		<escidoc.aa.default.target>http://localhost:8080/aa_presentation/clientLogin</escidoc.aa.default.target>
 		<escidoc.aa.public.key.file>public.key</escidoc.aa.public.key.file>
 		<escidoc.aa.private.key.file>private.key</escidoc.aa.private.key.file>
