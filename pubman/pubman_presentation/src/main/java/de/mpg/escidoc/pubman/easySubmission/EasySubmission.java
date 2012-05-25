@@ -809,7 +809,7 @@ public class EasySubmission extends FacesBean
 	                		try {
 	                			newFile.setMimeType(tika.detect(new FileInputStream(file.getFile()), file.getFileName()));
 							} catch (IOException e) {
-								logger.info("Error while trying to detect mimetype of file " + file.getFileName());
+								logger.info("Error while trying to detect mimetype of file " + file.getFileName(), e);
 							}
 	                	}
 	                	else
