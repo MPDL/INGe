@@ -309,6 +309,14 @@
 		</testResources>
 		<plugins>
 			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
@@ -573,6 +581,7 @@
 	</reporting>
 	<!-- properties valid for all profiles -->
 	<properties>
+		<jdk.version>1.6</jdk.version>
 		<!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
 		<cargo.port>8080</cargo.port>
 		<cargo.rmi.port>1099</cargo.rmi.port>
