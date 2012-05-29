@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -186,6 +186,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
     {
         DDC("http://purl.org/escidoc/metadata/terms/0.1/DDC"),
         MPIPKS("http://purl.org/escidoc/metadata/terms/0.1/MPIPKS"),
+        MPIRG("http://purl.org/escidoc/metadata/terms/0.1/MPIRG"),
         ISO639_3("http://purl.org/escidoc/metadata/terms/0.1/ISO639-3"),
         MPIS_GROUPS("http://purl.org/escidoc/metadata/terms/0.1/MPIS_GROUPS"),
         MPIS_PROJECTS("http://purl.org/escidoc/metadata/terms/0.1/MPIS_PROJECTS");
