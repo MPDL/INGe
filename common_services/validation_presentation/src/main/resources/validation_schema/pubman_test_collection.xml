@@ -21,7 +21,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -190,6 +190,13 @@
 	<iso:let name="mpipksSubjects">
 		<var>
 			<?cone mpipks?>
+		</var>
+	</iso:let>
+
+	<!-- MPIRG -->
+	<iso:let name="mpirgSubjects">
+		<var>
+			<?cone mpirg?>
 		</var>
 	</iso:let>
 
@@ -404,6 +411,7 @@
 		<iso:rule context="publication:publication/dc:subject">
 			<iso:assert test="not(exists($ddcSubjects/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:DDC' or . = $ddcSubjects/var/rdf:RDF/rdf:Description/dc:title">IncorrectDDCClassification</iso:assert>
 			<iso:assert test="not(exists($mpipksSubjects/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:MPIPKS' or . = $mpipksSubjects/var/rdf:RDF/rdf:Description/dc:title">IncorrectMPIPKSClassification</iso:assert>
+			<iso:assert test="not(exists($mpirgSubjects/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:MPIRG' or . = $mpirgSubjects/var/rdf:RDF/rdf:Description/dc:title">IncorrectClassification</iso:assert>
 			<iso:assert test="not(exists($mpis-groups/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:MPIS_GROUPS' or . = $mpis-groups/var/rdf:RDF/rdf:Description/dc:title">IncorrectMPISGroupsClassification</iso:assert>
 			<iso:assert test="not(exists($mpis-projects/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:MPIS_PROJECTS' or . = $mpis-projects/var/rdf:RDF/rdf:Description/dc:title">IncorrectMPISProjectsClassification</iso:assert>
 			<iso:assert test="not(exists($iso639-3/var/rdf:RDF)) or . = '' or @xsi:type != 'eterms:ISO639_3' or . = $iso639-3/var/rdf:RDF/rdf:Description/dc:title">IncorrectClassification</iso:assert>

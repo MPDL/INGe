@@ -21,7 +21,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -93,7 +93,8 @@
 				</xsl:element>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoItemsForTransforamtion' ), 'Empty item list')"/>
+				<!-- Do not throw any error when there is no item in the list -->
+				<!-- <xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoItemsForTransforamtion' ), 'Empty item list')"/> -->
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>

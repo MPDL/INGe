@@ -157,16 +157,12 @@
 	
 		<xsl:param name="size"/>
 
-		<xsl:comment>FTURL</xsl:comment>
-
 		<xsl:variable name="imc" select="
 			../../../escidocComponents:components/escidocComponents:component/escidocComponents:content[@storage='internal-managed' and @xlink:href]
 		"/>
 
 		<xsl:for-each select="$imc">
-		
-			<xsl:comment><xsl:value-of select="$imc/@xlink:href"/></xsl:comment>
-		
+
 			<xsl:element name="fturl">
 				
 				<xsl:variable name="vft" select="../escidocComponents:properties/prop:visibility"/>

@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -102,7 +102,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 */
 
 /*
-* Copyright 2006-2010 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.

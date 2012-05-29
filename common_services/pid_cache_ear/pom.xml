@@ -176,6 +176,7 @@
 							</execution>
 						</executions>
 						<configuration>
+							<wait>false</wait>
 							<container>
 								<containerId>jboss42x</containerId>
 								<zipUrlInstaller>
