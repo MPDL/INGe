@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -30,9 +30,16 @@
 
 package de.mpg.escidoc.services.aa;
 
+import java.io.InputStream;
+import java.net.URLEncoder;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.services.aa.crypto.RSAEncoder;
+import de.mpg.escidoc.services.aa.util.ResourceUtil;
 
 /**
  * TODO Description
@@ -44,10 +51,14 @@ import de.mpg.escidoc.services.aa.crypto.RSAEncoder;
  */
 public class Aa
 {
+    private static Logger logger = Logger.getLogger(Aa.class);
+    
     private AuthenticationVO authenticationVO = null;
     
     public Aa(HttpServletRequest request) throws Exception
     {
+        initConfig(request);
+        
         String[] encodedXml = request.getParameterValues("auth");
         if (encodedXml != null)
         {
@@ -72,4 +83,49 @@ public class Aa
         return authenticationVO;
     }
     
+    public void initConfig(HttpServletRequest request) throws ServletException
+    {
+        if (Config.getProperties().isEmpty())
+        {
+            String context = request.getContextPath();
+            if (context != null && context.startsWith("/"))
+            {
+                String propertyFilename = context.substring(1) + ".properties";
+                logger.info("Loading properties from " + propertyFilename);
+                try
+                {
+                    InputStream propertyStream = ResourceUtil.getResourceAsStream(propertyFilename);
+                    Config.getProperties().load(propertyStream);
+                    //propertyStream.close();
+                }
+                catch (Exception e)
+                {
+                    throw new ServletException(e);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Create a link to the login page with the referer information and a random TAN.
+     * 
+     * @param request the servlet request.
+     * @return a URL
+     * @throws Exception Encoding exception is unlikely.
+     */
+    public static String getLoginLink(HttpServletRequest request) throws Exception
+    {
+        String tan;
+        do
+        {
+            tan = TanStore.createTan(request.getSession().getId());
+        }
+        while (!TanStore.storeTan(tan));
+        
+        String from = request.getRequestURL().toString();
+        
+        String page = Config.getProperty("escidoc.aa.instance.url");
+        
+        return page + "login.jsp?from=" + URLEncoder.encode(from, "ISO-8859-1") + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1");
+    }
 }

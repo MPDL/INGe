@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -30,8 +30,12 @@
 
 package de.mpg.escidoc.services.aa;
 
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
+
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * TODO Description
@@ -73,5 +77,22 @@ public class TanStore
             tanSet.add(tan);
             return true;
         }
+    }
+
+    /**
+     * Generate a random transaction number.
+     * 
+     * @param id The session id.
+     * @return a random transaction number
+     */
+    public static String createTan(String id)
+    {
+        Random random = new Random(new Date().getTime());
+        
+        byte[] tanBytes = new byte[16];
+        
+        random.nextBytes(tanBytes);
+        
+        return new String(Base64.encodeBase64(tanBytes));
     }
 }
