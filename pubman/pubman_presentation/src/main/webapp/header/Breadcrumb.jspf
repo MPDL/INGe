@@ -39,7 +39,7 @@
 		<a4j:repeat id="BreadcrumbNavigation" var="item" value="#{BreadcrumbItemHistorySessionBean.breadcrumbs}">
 			<li>
 <%-- start has to be reworked anyway --%>
-				<h:outputLink id="lnkDestination" value="/#{ApplicationBean.appContext}#{item.page}" rendered="#{!item.isLast && item.defaultAction == null}">
+				<h:outputLink id="lnkDestination" value="#{ApplicationBean.appContext}#{item.page}" rendered="#{!item.isLast && item.defaultAction == null}">
 					<h:outputText value="#{item.pageLabel}" />
 				</h:outputLink>
 				<h:commandLink id="lnkAction" action="#{item.executeDefaultAction}" rendered="#{!item.isLast && item.defaultAction != null}">
