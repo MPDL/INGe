@@ -27,6 +27,7 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
+<%@page import="de.mpg.escidoc.services.aa.Aa"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="de.mpg.escidoc.services.cone.ModelList.Model" %>
 <%@ page import="de.mpg.escidoc.services.cone.ModelList" %>
@@ -70,7 +71,7 @@
 				<% if (Login.getLoggedIn(request)) { %>
 					<a class="medium_area0_p8 endline" href="logout.jsp?target=<%= URLEncoder.encode(PropertyReader.getProperty("escidoc.cone.service.url") + request.getServletPath().substring(1), "UTF-8") %>">Logout</a>
 				<% } else { %>
-					<a class="medium_area0_p8 endline" href="/auth/login.jsp?from=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Login</a>
+					<a class="medium_area0_p8 endline" href="<%= Aa.getLoginLink(request) %>">Login</a>
 				<% } %>
 				<span class="seperator"></span>
 		
