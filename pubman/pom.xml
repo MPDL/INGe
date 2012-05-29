@@ -282,6 +282,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
+				<version>2.0</version>
 				<configuration>
 					<!-- send an announcement email on release -->
 					<!-- <preparationGoals>changes:announcement-mail</preparationGoals> -->
@@ -298,6 +299,7 @@
 <!--			</plugin>-->
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2-beta-5</version>
 				<configuration>
 					<descriptors>
 						<descriptor>src/assemble/bin.xml</descriptor>
@@ -476,6 +478,7 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.7.1</version>
 					<configuration>
 						<!--  if there are no tests, don't bail out -->
 						<failIfNoTests>false</failIfNoTests>
@@ -497,14 +500,17 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.6.1</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.1</version>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>taglist-maven-plugin</artifactId>
+				<version>2.2</version>
 			</plugin>
 <!--			<plugin>-->
 <!--				<groupId>org.apache.maven.plugins</groupId>-->
@@ -533,10 +539,12 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>changelog-maven-plugin</artifactId>
+				<version>2.0</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
+				<version>2.7.1</version>
 				<configuration>
 					<sourceEncoding>utf-8</sourceEncoding>
 					<minimumTokens>100</minimumTokens>
@@ -547,12 +555,14 @@
 					http://www.kclee.de/clemens/java/javancss/ -->
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>javancss-maven-plugin</artifactId>
+				<version>2.0</version>
 			</plugin>
 			<plugin>
 				<!-- A Java package dependency analyzer that generates
 					  design quality metrics http://clarkware.com/software/JDepend.html -->
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jdepend-maven-plugin</artifactId>
+				<version>2.0-beta-2</version>
 			</plugin>
 		</plugins>
 	</reporting>
@@ -816,6 +826,7 @@
 					<plugin>
 						<groupId>org.zeroturnaround</groupId>
 						<artifactId>javarebel-maven-plugin</artifactId>
+						<version>1.0.5</version>
 						<executions>
 							<execution>
 								<id>generate-rebel-xml</id>

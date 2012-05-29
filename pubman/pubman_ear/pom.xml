@@ -23,10 +23,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.4.2</version>
 				<configuration>
 					<displayName>pubman</displayName>
 					<description>Pubman</description>
-					<resourcesDir>target/classes/in_ear</resourcesDir>
+					<earSourceDirectory>target/classes/in_ear</earSourceDirectory>
 					<version>5</version>
 					<modules>
 						<webModule>
@@ -367,43 +368,9 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>test-compile</phase>
-						<goals>
-							<goal>testCompile</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>integration-test</phase>
-						<goals>
-							<goal>test</goal>
-						</goals>
-						<configuration>
-							<skip>true</skip>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.1</version>
 				<executions>
 					<execution>
 						<phase>validate</phase>
@@ -660,7 +627,7 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>xmlbeans</groupId>
+			<groupId>org.apache.xmlbeans</groupId>
 			<artifactId>xmlbeans</artifactId>
 			<version>2.3.0</version>
 			<scope>compile</scope>
@@ -823,6 +790,7 @@
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>jboss-maven-plugin</artifactId>
+						<version>1.5.0</version>
 						<configuration>
 							<jbossHome>${jboss.install.dir}</jbossHome>
 							<serverName>${jboss.install.node}</serverName>
@@ -852,6 +820,8 @@
 										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf" />
                                         <!-- copy over the configuration file -->
 										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${project.build.directory}/jboss/server/conf" />
+                                        <!-- copy over the aa configuration file -->
+										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" todir="${project.build.directory}/jboss/server/conf" />
                                         <!-- copy over the validation datasource descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${project.build.directory}/jboss/server/deploy" />
 									
@@ -871,6 +841,8 @@
 										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/deploy" />
                                         <!-- copy over the configuration file -->
 										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
+                                        <!-- copy over the aa configuration file -->
+										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" todir="${jboss.install.dir}/server/${jboss.install.node}/conf" />
 										<!-- copy over the validation datasource descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/server/${jboss.install.node}/deploy" />
                                         <!-- configuration for the runtime server jboss server -->
