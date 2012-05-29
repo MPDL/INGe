@@ -456,7 +456,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.62</version>
+			<version>1.0.63-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -511,8 +511,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_logic</artifactId>
-			<version>7.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
+			<version>7.1.0-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
