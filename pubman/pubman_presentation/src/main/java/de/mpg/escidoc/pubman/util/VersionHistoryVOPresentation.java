@@ -13,6 +13,7 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -81,6 +82,13 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         pubItemVOLatestVersion.getMetadataSets().set(0, pubItemVOThisVersion.getMetadata());
         pubItemVOLatestVersion.getLocalTags().clear();
         pubItemVOLatestVersion.getLocalTags().addAll(pubItemVOThisVersion.getLocalTags());
+        
+        // Do not forget the files
+        pubItemVOLatestVersion.getFiles().clear();
+        for (FileVO fileVO : pubItemVOThisVersion.getFiles())
+        {
+            pubItemVOLatestVersion.getFiles().add(fileVO);
+        }
         
         // Then process it into the framework ...
         String xmlItemNewVersion = xmlTransforming.transformToItem(pubItemVOLatestVersion);
