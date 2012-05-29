@@ -31,9 +31,9 @@ All rights reserved. Use is subject to license terms.
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://richfaces.org/rich" prefix="rich" %> <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 
-<a4j:repeat id="iterdepositorContextList2" var="context" value="#{ContextListSessionBean.depositorContextList}" binding="#{ContextListSessionBean.contextIterator}" rows="0" rowKeyVar="index">
+<a4j:repeat id="iterdepositorContextList2" var="context" value="#{ContextListSessionBean.depositorContextList}" rows="0" rowKeyVar="index">
 
-	<h:panelGroup layout="block" styleClass="full_area0 itemHeader" rendered="#{ContextListSessionBean.contextIterator.rowIndex == 0}">
+	<h:panelGroup layout="block" styleClass="full_area0 itemHeader" rendered="#{index == 0}">
 		
 		<span class="xLarge_area0 endline">
 			&#160;
@@ -49,7 +49,7 @@ All rights reserved. Use is subject to license terms.
 			</b>
 		</span>
 	</h:panelGroup>
-	<h:panelGroup layout="block" styleClass="full_area0 itemHeader" rendered="#{ContextListSessionBean.contextIterator.rowIndex > 0}">
+	<h:panelGroup layout="block" styleClass="full_area0 itemHeader" rendered="#{index > 0}">
 		<span class="xLarge_area0 endline">
 			&#160;
 		</span>
