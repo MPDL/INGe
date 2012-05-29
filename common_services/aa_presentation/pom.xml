@@ -22,7 +22,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -133,27 +133,27 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>common_logic</artifactId>
-			<version>1.1.60-SNAPSHOT</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.1.1</version>
 			<type>jar</type>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>aa_logic</artifactId>
 			<version>0.1.4-SNAPSHOT</version>
 			<type>jar</type>
-			<scope>provided</scope>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>common_logic</artifactId>
+			<version>1.1.60-SNAPSHOT</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>

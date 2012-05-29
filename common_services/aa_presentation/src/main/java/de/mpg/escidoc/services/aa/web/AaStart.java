@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -78,15 +78,10 @@ public class AaStart extends HttpServlet
     {
         request.setCharacterEncoding(DEFAULT_ENCODING);
         response.setCharacterEncoding(DEFAULT_ENCODING);
-        
-        String tan;
-        do
-        {
-            tan = createTan(request.getSession().getId());
-        }
-        while (!TanStore.storeTan(tan));
-        
+
         String from = request.getParameter("from");
+        String tan = request.getParameter("tan");
+        
         Matcher matcher = authPattern.matcher(from);
         from = matcher.replaceAll("");
         
@@ -106,23 +101,6 @@ public class AaStart extends HttpServlet
         
         response.sendRedirect(target);
  
-    }
-
-    /**
-     * Generate a random transaction number.
-     * 
-     * @param id The session id.
-     * @return a random transaction number
-     */
-    private String createTan(String id)
-    {
-        Random random = new Random(new Date().getTime());
-        
-        byte[] tanBytes = new byte[16];
-        
-        random.nextBytes(tanBytes);
-        
-        return new String(Base64.encodeBase64(tanBytes));
     }
     
 }

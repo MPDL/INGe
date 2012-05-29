@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -40,7 +40,7 @@ import de.mpg.escidoc.services.aa.AuthenticationVO;
 import de.mpg.escidoc.services.aa.AuthenticationVO.Role;
 import de.mpg.escidoc.services.aa.AuthenticationVO.Type;
 import de.mpg.escidoc.services.aa.Config;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.aa.util.ResourceUtil;
 
 /**
  * TODO Description

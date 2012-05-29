@@ -6,10 +6,16 @@
 <html>
 	<%
 		AaServerConfiguration configuration = new AaServerConfiguration();
+	
 		String from = request.getParameter("from");
 		if (from == null)
 		{
 		    from = "";
+		}
+		String tan = request.getParameter("tan");
+		if (tan == null)
+		{
+		    tan = "";
 		}
 	
 		if (configuration.getMap().size() == 1)
@@ -17,7 +23,7 @@
 			%>
 			<head>
 				<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-				<meta http-equiv="refresh" content="0; login?from=<%= from %>&target=<%= URLEncoder.encode(configuration.getMap().values().iterator().next()) %>clientLogin">
+				<meta http-equiv="refresh" content="0; login?from=<%= from %>&tan=<%= tan %>&target=<%= URLEncoder.encode(configuration.getMap().values().iterator().next()) %>clientLogin">
 				<!-- <title>Insert title here</title> -->
 			</head>
 		<% } else { %>
