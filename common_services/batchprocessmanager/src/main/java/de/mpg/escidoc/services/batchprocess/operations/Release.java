@@ -55,31 +55,42 @@ public class Release extends Operation
         {
             for (ItemVO ivo : new ArrayList<ItemVO>(elements.getElements()))
             {
-                String paramXml = null;
                 String modificationDate = JiBXHelper.serializeDate(ivo.getModificationDate());
-                try
+                PidTaskParamVO paramAssignation = new PidTaskParamVO(ivo.getVersion().getModificationDate(),
+                        ServiceLocator.getFrameworkUrl() + "/ir/item/" + ivo.getVersion().getObjectId());
+                String paramXml = xmlTransforming.transformToPidTaskParam(paramAssignation);
+                if (ivo.getVersion().getState() == ItemVO.State.SUBMITTED)
                 {
-                    // Assign objectPID
-                    PidTaskParamVO paramAssignation = new PidTaskParamVO(ivo.getVersion().getModificationDate(),
-                            ServiceLocator.getFrameworkUrl() + "/ir/item/" + ivo.getVersion().getObjectId());
-                    paramXml = xmlTransforming.transformToPidTaskParam(paramAssignation);
-                    modificationDate = ih.assignObjectPid(ivo.getVersion().getObjectId(), paramXml);
+                    try
+                    {
+                        // Assign objectPID
+                        String result = ih.assignObjectPid(ivo.getVersion().getObjectId(), paramXml);
+                        modificationDate = JiBXHelper.serializeDate(xmlTransforming.transformToResult(result).getLastModificationDate());
+                        paramAssignation = new PidTaskParamVO(xmlTransforming.transformToResult(result).getLastModificationDate(),
+                                ServiceLocator.getFrameworkUrl() + "/ir/item/" + ivo.getVersion().getObjectId());
+                        paramXml = xmlTransforming.transformToPidTaskParam(paramAssignation);
+                    }
+                    catch (Exception e)
+                    {
+                        logger.warn(ivo.getVersion().getObjectId() + " has already an object PID");
+                    }
+                    // Assign Version PID
+                    String resp = ih.assignVersionPid(ivo.getVersion().getObjectId(), paramXml);
+                    ResultVO rVO = xmlTransforming.transformToResult(resp);
+                    modificationDate = JiBXHelper.serializeDate(rVO.getLastModificationDate());
+                    // Release
+                    ih.release(ivo.getVersion().getObjectId(), TASKPARAM.replace("XXX_DATE_XXX", modificationDate));
+                    
+                    logger.info("Releasing " + ivo.getVersion().getObjectId());
+                    
+                    // Write Report
+                    this.report.addEntry("Release" + ivo.getVersion().getObjectId(), "Release "
+                            + ivo.getVersion().getObjectId(), ReportEntryStatusType.FINE);
                 }
-                catch (Exception e)
+                else
                 {
-                    logger.warn(ivo.getVersion().getObjectId() + " has already an object PID");
+                    logger.warn("Item " + ivo.getVersion().getObjectId() + " is " + ivo.getVersion().getState());
                 }
-                // Assign Version PID
-                PidTaskParamVO paramVersion = new PidTaskParamVO(JiBXHelper.deserializeDate(modificationDate),
-                        ServiceLocator.getFrameworkUrl() + "/ir/item/" + ivo.getVersion().getObjectIdAndVersion());
-                String resp = ih.assignVersionPid(ivo.getVersion().getObjectId(), paramXml);
-                ResultVO rVO = xmlTransforming.transformToResult(resp);
-                modificationDate = JiBXHelper.serializeDate(rVO.getLastModificationDate());
-                // Release
-                ih.release(ivo.getVersion().getObjectId(), TASKPARAM.replace("XXX_DATE_XXX", modificationDate));
-                // Write Report
-                this.report.addEntry("Release" + ivo.getVersion().getObjectId(), "Release "
-                        + ivo.getVersion().getObjectId(), ReportEntryStatusType.FINE);
             }
         }
     }

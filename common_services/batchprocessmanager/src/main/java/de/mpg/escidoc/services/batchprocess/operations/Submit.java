@@ -3,6 +3,8 @@ package de.mpg.escidoc.services.batchprocess.operations;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.batchprocess.BatchProcess;
 import de.mpg.escidoc.services.batchprocess.BatchProcessReport.ReportEntryStatusType;
@@ -15,6 +17,8 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class Submit extends Operation
 {
+    private static final Logger logger = Logger.getLogger(Submit.class);
+    
     private static String TASKPARAM = "<param last-modification-date=\"XXX_DATE_XXX\"><comment>Batch submit</comment></param>";
 
     @Override
@@ -46,6 +50,7 @@ public class Submit extends Operation
                             .serializeDate(ivo.getModificationDate())));
                     xml = ih.retrieve(ivo.getVersion().getObjectId());
                     submitted.add(xmlTransforming.transformToItem(xml));
+                    logger.info("Submitting " + ivo.getVersion().getObjectId());
                     this.report.addEntry("Submit" + ivo.getVersion().getObjectId(), "Submit "
                             + ivo.getVersion().getObjectId(), ReportEntryStatusType.FINE);
                 }
