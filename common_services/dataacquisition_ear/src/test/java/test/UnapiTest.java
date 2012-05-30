@@ -101,14 +101,13 @@ public class UnapiTest
         ProxyHelper.executeMethod(client, getMethod);
         String formatsXml = new String (getMethod.getResponseBody(), "UTF-8");
         formatsList = this.formatsHelper(formatsXml);
-//        logger.info(url);
-//        logger.info(formatsXml);
-
-        
+        logger.info(formatsList);
+    
         //Retrieve item in all formats
         for (int i = 0; i < formatsList.size(); i ++)
         {
             url = location + "?id=" + this.bmcId + "&format=" + formatsList.get(i);
+            logger.info(url);
             getMethod = new GetMethod(url);            
             int code = ProxyHelper.executeMethod(client, getMethod);
             this.logger.info("Fetch: " + url + "    Response: " + code);
