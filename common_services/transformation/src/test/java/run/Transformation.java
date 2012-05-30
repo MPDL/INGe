@@ -74,7 +74,7 @@ public class Transformation
         }
         else
         {
-            logger.error("Wrong number of arguments");
+            logger.error("Give the following arguments:\n	source-filename: where the the source is located.\n	source-format: the name of the format, e.g. \"edoc\"\n	source-type: the mimetype, e.g. \"application/xml\"\n	source-encoding: the character encoding scheme, e.g. \"UTF-8\"\n	target-filename: where the the result should be stored.\n	target-format: the name of the format, e.g. \"edoc\"\n	target-type: the mimetype, e.g. \"application/xml\"\n	target-encoding: the character encoding scheme, e.g. \"UTF-8\"\n	transformation-service (optional): not yet implemented, use \"escidoc\".");
         }
     }
     
