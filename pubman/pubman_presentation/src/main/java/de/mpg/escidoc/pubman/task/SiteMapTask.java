@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -452,7 +452,7 @@ public class SiteMapTask extends Thread
                 }
                 catch (Exception e)
                 {
-                    e.printStackTrace();
+                    logger.error("Error", e);
                 }
             }
             else
@@ -487,7 +487,7 @@ public class SiteMapTask extends Thread
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                logger.error("Error", e);
             }
 
         }
@@ -503,7 +503,7 @@ public class SiteMapTask extends Thread
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            logger.error("Error", e);
         }
     }
 

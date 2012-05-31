@@ -83,7 +83,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO
         pubItemVOLatestVersion.getLocalTags().clear();
         pubItemVOLatestVersion.getLocalTags().addAll(pubItemVOThisVersion.getLocalTags());
         
-        // Do not forget the files
+        // Do not forget the files and locators
         pubItemVOLatestVersion.getFiles().clear();
         for (FileVO fileVO : pubItemVOThisVersion.getFiles())
         {

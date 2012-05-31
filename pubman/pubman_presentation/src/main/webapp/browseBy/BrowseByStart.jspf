@@ -21,7 +21,7 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
+            Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur F�derung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
@@ -108,6 +108,9 @@
 					</h:panelGroup>
 					<h:panelGroup rendered="#{subjectVocab == 'mpipks'}">
 						<h:outputText value="#{lbl.mpipksDesc}" />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{subjectVocab == 'mpirg'}">
+						<h:outputText value="#{lbl.mpirgDesc}" />
 					</h:panelGroup>
 					<h:panelGroup rendered="#{subjectVocab == 'iso639-3'}">
 						<h:outputText value="#{lbl.iso6393Desc}" />
