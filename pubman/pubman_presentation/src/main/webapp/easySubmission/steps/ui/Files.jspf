@@ -65,15 +65,15 @@
 			</h:panelGroup>
 			
 			<%-- Add File from url--%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+			<h:panelGroup layout="block" styleClass="free_area0_p6 endline itemLine noTopBorder xTiny_negMarginLExcl">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<span class="noDisplay"> </span>
 				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<span class="quad_area0 endline">
 					<h:outputLabel id="lblEditItemURL" styleClass="quad_label" value="#{lbl.EditItem_lblFileURL}" />
 					<h:inputText id="inpLocatorUpload" styleClass="quad_txtInput" value="#{EasySubmission.locatorUpload}" />
 				</span>
-				<span class="large_area0_p8 lineToolSection">
+				<span class="free_area0_p0 xTiny_negMarginLExcl" style="margin-top:1.72em; margin-left:0.9090em;">
 					<h:commandButton id="btnEditItemUpload" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_btUpload_URL}"  
 									  title="#{tip.EditItem_btUploadLocator}" action="#{EasySubmission.uploadLocator}" />
 				</span>

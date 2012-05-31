@@ -104,8 +104,8 @@ All rights reserved. Use is subject to license terms.
 								&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<span class="free_area0 checkboxDoubleGroup">
-						<span class="large_checkbox tiny_marginRIncl">							
+					<span class="xHuge_area0">
+						<span class="xHuge_checkbox tiny_marginRIncl">							
 							<h:selectBooleanCheckbox value="#{organizationCriterionBean.organizationCriterionVO.includePredecessorsAndSuccessors }" />
 							<h:outputLabel value="#{lbl.adv_search_lblInclHistory}" />						
 						</span>
