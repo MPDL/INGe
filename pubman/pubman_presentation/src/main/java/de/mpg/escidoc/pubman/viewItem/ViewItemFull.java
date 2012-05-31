@@ -1790,21 +1790,29 @@ public class ViewItemFull extends FacesBean
         userAccountHandler = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
         String searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
         SearchRetrieveResponseVO searchedObject = xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);
-        if (searchedObject.getRecords().get(0).getData() != null)
+        if (!searchedObject.getRecords().isEmpty()) 
         {
-            AccountUserVO owner = (AccountUserVO) searchedObject.getRecords().get(0).getData();
-            if (owner.getName() != null && owner.getName().trim() != "")
+            if (searchedObject.getRecords().get(0).getData() != null)
             {
-                return owner.getName();
+                AccountUserVO owner = (AccountUserVO) searchedObject.getRecords().get(0).getData();
+                if (owner.getName() != null && owner.getName().trim() != "")
+                {
+                    return owner.getName();
+                }
+                else if (owner.getUserid() != null && owner.getUserid().trim() != "")
+                {
+                    return owner.getUserid();
+                }
+                else
+                {
+                    return null;
+                }
             }
-            else if (owner.getUserid() != null && owner.getUserid() != "")
-            {
-                return owner.getUserid();
-            }
-            else
+            else 
             {
                 return null;
             }
+            
         }
         else 
         {

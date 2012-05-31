@@ -184,15 +184,9 @@
 							<h:outputText value="#{lbl.EditItem_lblItemLastModifier} '#{ViewItemFull.lastModifier}'" rendered="#{ViewItemFull.lastModifier != null}"/>
 							<h:outputText value="." rendered="#{ViewItemFull.lastModifier != null and ViewItemFull.modificationDate == null}"/>
 							<h:outputText value=" --- #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null}"/>
+							<h:outputText value="#{msg.ViewItemFull_latestMessage} #{ViewItemFull.pubItem.version.lastMessage}" rendered="#{ViewItemFull.canShowLastMessage}" />
+							<h:outputText value="#{msg.ViewItemFull_latestMessage} #{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.canShowLastMessage}" />
 						</h:panelGroup>	
-						<h:panelGroup layout="block" styleClass="subHeader" rendered="#{ViewItemFull.isStateInRevision}">
-							<h:outputText value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.version.lastMessage}" rendered="#{ViewItemFull.canShowLastMessage}" />
-							<h:outputText value="#{msg.ViewItemFull_inRevision} #{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.canShowLastMessage}" />
-						</h:panelGroup>
-						<h:panelGroup layout="block" styleClass="subHeader" rendered="#{ViewItemFull.isStateSubmitted}">
-							<h:outputText value="#{msg.ViewItemFull_submitted} #{ViewItemFull.pubItem.version.lastMessage}" rendered="#{ViewItemFull.canShowLastMessage}" />
-							<h:outputText value="#{msg.ViewItemFull_submitted} #{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.canShowLastMessage}" />
-						</h:panelGroup>
 						<div class="subHeader">
 							<!-- JSF messages -->
 							<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.numberOfMessages == 1}"/>
