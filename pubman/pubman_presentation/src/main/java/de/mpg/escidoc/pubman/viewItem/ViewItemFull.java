@@ -1711,7 +1711,7 @@ public class ViewItemFull extends FacesBean
         return CommonUtils.formatTimestamp(this.pubItem.getModificationDate());
     }
     
-    public String getLastModifier() throws Exception
+    public String getLatestModifier() throws Exception
     {
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         InitialContext initialContext = new InitialContext();
@@ -1727,19 +1727,26 @@ public class ViewItemFull extends FacesBean
             userAccountHandler = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
             searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
             SearchRetrieveResponseVO searchedObject = xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);
-            if (searchedObject.getRecords().get(0).getData() != null)
+            
+            if (searchedObject != null && searchedObject.getNumberOfRecords() > 0 && !searchedObject.getRecords().isEmpty()) 
             {
-                AccountUserVO modifier = (AccountUserVO) searchedObject.getRecords().get(0).getData();
-                if (modifier.getName() != null && modifier.getName().trim() != "")
+                if (searchedObject.getRecords().get(0).getData() != null)
                 {
-                    return modifier.getName();
+                    AccountUserVO modifier = (AccountUserVO) searchedObject.getRecords().get(0).getData();
+                    if (modifier.getName() != null && modifier.getName().trim() != "")
+                    {
+                        return modifier.getName();
+                    }
+                    else if (modifier.getUserid() != null && modifier.getUserid() != "")
+                    {
+                        return modifier.getUserid();
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
-                else if (modifier.getUserid() != null && modifier.getUserid() != "")
-                {
-                    return modifier.getUserid();
-                }
-                else
-                {
+                else {
                     return null;
                 }
             }
