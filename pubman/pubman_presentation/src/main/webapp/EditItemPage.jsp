@@ -116,7 +116,7 @@
 										<h:outputText value="." rendered="#{EditItem.lastModifier != null and EditItem.lastModificationDate == null}"/>
 										<h:outputText value=" --- #{EditItem.lastModificationDate}" rendered="#{EditItem.lastModificationDate != null}"/>
 									</div>
-									<div class="subHeader">
+									<h:panelGroup id="messages" styleClass="subHeader">
 										
 										<!-- Special validation messages for yearbook -->
 										<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea clear" style="padding-top: 0px !important;" rendered="#{EditItem.item.validationReport!=null}">
@@ -148,7 +148,7 @@
 											<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EditItem.hasMessages}"/>
 										</h:panelGroup>
 										
-									</div> <!-- Subheadline ends here -->
+									</h:panelGroup> <!-- Subheadline ends here -->
 								</div>
 							</div>
 							<div class="full_area0">
