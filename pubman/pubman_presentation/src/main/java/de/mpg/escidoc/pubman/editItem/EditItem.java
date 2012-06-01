@@ -1588,6 +1588,10 @@ public String logUploadComplete()
         {
             error(getMessage("errorLocatorMain").replace("$1", locatorBean.getError()));
         }
+        else
+        {
+        	setLocatorUpload("");
+        }
     }
 
     /**
