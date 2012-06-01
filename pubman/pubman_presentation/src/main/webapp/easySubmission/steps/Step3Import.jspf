@@ -175,7 +175,7 @@
 					<h:panelGroup layout="block" styleClass="free_area0 endline firstLine line180">
 						<span class="free_area0 xTiny_marginLExcl endline fileSection">
 							<h:panelGroup style="line-height:2.5454em;">
-								<rich:fileUpload id="inpUploadedBibTexFile" styleClass="fileInput" fileUploadListener="#{EasySubmission.bibtexFileUploaded}" 
+								<rich:fileUpload  addControlLabel="#{lbl.EditItem_btAddFile}" id="inpUploadedBibTexFile" styleClass="fileInput" fileUploadListener="#{EasySubmission.bibtexFileUploaded}" 
 									immediateUpload="true" maxFilesQuantity="1"/>
 								
 							</h:panelGroup>

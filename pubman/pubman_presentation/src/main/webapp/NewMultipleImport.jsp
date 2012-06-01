@@ -155,7 +155,7 @@
 														<h:outputText value="#{lbl.multipleImport_uploadFile}" /><span class="noDisplay">: </span>
 													</b>
 													<span class="xHuge_area0 xTiny_marginLExcl endline fileSection">
-														<rich:fileUpload id="inpMultipleImportUploadedImportFile" styleClass="fileInput" fileUploadListener="#{MultipleImport.fileUploaded}" 
+														<rich:fileUpload id="inpMultipleImportUploadedImportFile"  addControlLabel="#{lbl.EditItem_btAddFile}" styleClass="fileInput" fileUploadListener="#{MultipleImport.fileUploaded}" 
 															immediateUpload="true" maxFilesQuantity="1"/>
 													</span>
 												</h:panelGroup>
