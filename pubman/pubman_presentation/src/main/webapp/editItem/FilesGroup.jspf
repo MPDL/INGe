@@ -48,7 +48,7 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel id="lblLocalPath" styleClass="quad_label" value="#{lbl.EditItem_localPath}"/>
 					
-					<rich:fileUpload allowFlash="auto" id="inpFile" styleClass="quad_area0 fileInput" fileUploadListener="#{EditItem.fileUploaded}" maxFilesQuantity="50"
+					<rich:fileUpload allowFlash="auto" id="inpFile" styleClass="quad_area1 fileInput" fileUploadListener="#{EditItem.fileUploaded}" maxFilesQuantity="50"
 					immediateUpload="true">
 						<a4j:support event="onuploadcomplete" reRender="files" />
 						
