@@ -26,8 +26,13 @@
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */
+
 function addItemListFunctions(){
-    $pb('.itemList').each(function(i, ele){
+	
+	var slctMenu = $pb('.selectMenu');
+    var itemList = $pb('.itemList');
+	
+    itemList.each(function(i, ele){
         $pb(ele).find('.mediumView').each(function(j, elem){
             $pb(elem).hide();
         });
@@ -55,7 +60,9 @@ function addItemListFunctions(){
 //        $pb('.selectMenu').hide();
     });
     
-    $pb('.selectMenu').click(function(evt){
+    
+    
+    slctMenu.click(function(evt){
     	evt.preventDefault();
     	evt.stopPropagation();
     	evt.stopImmediatePropagation();
@@ -97,41 +104,40 @@ function addItemListFunctions(){
 // Select options    
     var tog = '';
     $pb('.listHeader').find('.allCheckBox').click(function(){
-    	$pb('.itemList').find("input[type=checkbox]").attr("checked", !tog);
+    	itemList.find("input[type=checkbox]").attr("checked", !tog);
     	tog = !tog;
     });
-//	$pb(this).parents('.selectMenu').hide();
-    hideElement($pb(this).parents('.selectMenu'));
 
     $pb('.listHeader').find('.selectAll').click(function(){
-        $pb('.itemList').find('input[type=checkbox]').attr('checked', true);
+        itemList.find('input[type=checkbox]').attr('checked', true);
+        hideElement(slctMenu);
     });
-//	$pb(this).parents('.selectMenu').hide();
-    hideElement($pb(this).parents('.selectMenu'));
 
-    $pb('.selectMenu').find('.toggleAll').click(function(){
-        $pb('.listItem').find('input[type=checkbox]').click();
+    slctMenu.find('.toggleAll').click(function(){
+        $pb('.listItem').find('input[type="checkbox"]').click();
+        if (itemList.find('.listItem input[type="checkbox"][checked]').length < 1) {
+        	itemList.find('.allCheckBox').removeAttr("checked");
+        } else if (itemList.find('.listItem input[type="checkbox"][checked]').length == itemList.find('.listItem input[type="checkbox"]').length) {
+        	itemList.find('.allCheckBox').attr('checked', true);
+        }
+        hideElement(slctMenu);
     });
-//	$pb(this).parents('.selectMenu').hide();
-    hideElement($pb(this).parents('.selectMenu'));
 
-    $pb('.selectMenu').find('.selectNone').click(function(){
-        $pb(this).parents('.itemList').find('.itemCheckBox').attr('checked', false);
+    slctMenu.find('.selectNone').click(function(){
+    	itemList.find("input[type='checkbox']").removeAttr("checked");
+    	hideElement(slctMenu);
     });
-//	$pb(this).parents('.selectMenu').hide();
-    hideElement($pb(this).parents('.selectMenu'));
     
-    $pb('.selectMenu').find('a').each(function(i, elem){
+    slctMenu.find('a').each(function(i, elem){
         $pb(elem).click(function(){
-//            $pb(this).parents('.selectMenu').hide()
-        	hideElement($pb(this).parents('.selectMenu'));
+        	hideElement(slctMenu);
         });
     });
     
     $pb('.headerSwitchView').find('.expandTriangle').click(function(){
         $pb(this).hide();
         $pb(this).siblings('.collapseTriangle').show();
-        $pb(this).parents('.itemList').find('.listItem').find('.expandTriangle:visible').each(function(i, elem){
+        itemList.find('.listItem').find('.expandTriangle:visible').each(function(i, elem){
             $pb(elem).trigger('click');
         });
     });
@@ -139,7 +145,7 @@ function addItemListFunctions(){
     $pb('.headerSwitchView').find('.collapseTriangle').click(function(){
         $pb(this).hide();
         $pb(this).siblings('.expandTriangle').show();
-        $pb(this).parents('.itemList').find('.listItem').find('.collapseTriangle:visible').each(function(i, elem){
+        itemList.find('.listItem').find('.collapseTriangle:visible').each(function(i, elem){
             $pb(elem).trigger('click');
         });
     });
