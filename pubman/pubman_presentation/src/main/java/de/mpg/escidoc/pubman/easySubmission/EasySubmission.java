@@ -2748,6 +2748,10 @@ public class EasySubmission extends FacesBean
             // }
             error(getMessage("errorLocatorMain").replace("$1", locatorBean.getError()));
         }
+        else
+        {
+        	setLocatorUpload("");
+        }
     }
 
     /**
