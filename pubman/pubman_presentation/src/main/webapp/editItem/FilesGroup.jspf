@@ -270,6 +270,7 @@
 					<%--
 					<h:outputLabel id="lblLocalPath" styleClass="quad_label" value="#{lbl.EditItem_localPath}"/>
 					--%>
+					
 					<rich:fileUpload listHeight="60px" addControlLabel="#{lbl.EditItem_btAddFile}" allowFlash="auto" id="inpFile" styleClass="quad_area1 fileInput" fileUploadListener="#{EditItem.fileUploaded}" maxFilesQuantity="50"
 					immediateUpload="true">
 						<a4j:support event="onuploadcomplete" reRender="files" />
