@@ -232,25 +232,31 @@ public class EasySubmission extends FacesBean
             // this.getEasySubmissionSessionBean().setCurrentItem(this.getItemControllerSessionBean().getCurrentPubItem()
             // );
             // bindFiles();
-            if (essb.getFiles() == null)
+            
+        	if (essb.getLocators() == null)
             {
                 // add a locator
-                FileVO newLocator = new FileVO();
+                
+        		FileVO newLocator = new FileVO();
                 newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
                 newLocator.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.getUri());
                 newLocator.setVisibility(FileVO.Visibility.PUBLIC);
                 newLocator.setDefaultMetadata(new MdsFileVO());
                 newLocator.getDefaultMetadata().setTitle(new TextVO());
                 this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
+                
                 // add a file
+                /*
                 FileVO newFile = new FileVO();
                 newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
                 newFile.setVisibility(FileVO.Visibility.PUBLIC);
                 newFile.setDefaultMetadata(new MdsFileVO());
                 newFile.getDefaultMetadata().setTitle(new TextVO());
                 this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
+                */
             }
-            if (essb.getFiles().size() < 1)
+            /*
+        	if (essb.getFiles().size() < 1)
             {
                 // add a file
                 FileVO newFile = new FileVO();
@@ -260,6 +266,7 @@ public class EasySubmission extends FacesBean
                 newFile.getDefaultMetadata().setTitle(new TextVO());
                 this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
             }
+            */
             if (essb.getLocators().size() < 1)
             {
                 // add a locator
@@ -271,6 +278,8 @@ public class EasySubmission extends FacesBean
                 newLocator.getDefaultMetadata().setTitle(new TextVO());
                 this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
             }
+            
+            
         }
         if (essb.getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP4))
         {
@@ -1360,7 +1369,8 @@ public class EasySubmission extends FacesBean
         // parse hidden source information
         parseAndSetAlternativeSourceTitlesAndIds();
         // first try to upload the entered file
-        upload(false);
+        //upload(false);
+        
         // then try to save the locator
         saveLocator();
         // save the files and locators in the item in the ItemControllerSessionBean
