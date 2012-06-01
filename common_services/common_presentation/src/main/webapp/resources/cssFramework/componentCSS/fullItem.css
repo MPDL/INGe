@@ -123,10 +123,20 @@
 
 .fullItem .itemHeader .statusArea {
 	margin-top: 0.56em;
+	text-align:center;
+	width:9.1818em;
 }
 
 .fullItem .itemHeader .statusArea * {
 	float: left;
+}
+
+.fullItem .itemHeader .statusArea .statusIcon {
+	float:none;
+	margin:0 auto;
+}
+.fullItem .itemHeader .statusArea .statusLabel {
+	clear:left;
 }
 
 .fullItem .itemHeadline {

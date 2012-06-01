@@ -899,3 +899,11 @@ body .wrapper {
 	background-repeat:no-repeat;
 	background-position: 0 0.2em;
 }
+
+
+.fullItem .lineToolSection.socialBookmarking img {
+	margin-left:0.0909em;
+}
+.fullItem .lineToolSection.socialBookmarking .sectionTool {
+	margin-right:-0.1818em;
+}
