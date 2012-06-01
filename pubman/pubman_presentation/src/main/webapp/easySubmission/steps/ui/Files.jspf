@@ -288,7 +288,8 @@
 			</h:panelGroup>
 		
 		</a4j:repeat>	
-		
+
+
 		<%-- Add Files --%>
 		<h:panelGroup layout="block" styleClass="files" rendered="#{!(genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'easy-submission' || genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0_p6 endline itemLine fileSection xSmall_negMarginLExcl #{EasySubmission.numberOfFiles == 0 ? 'noTopBorder' : ''}">
@@ -315,7 +316,7 @@
 			</h:panelGroup>
 			
 			<%-- Add File from url--%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder  xTiny_negMarginLExcl">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<span class="noDisplay"> </span>
 				</b>
