@@ -294,7 +294,7 @@
 				<h:inputText id="inpAddFileFromUrl" styleClass="quad_txtInput" value="#{EditItem.locatorUpload}" />
 			</span>
 			<span class="large_area0_p8 lineToolSection">
-				<a4j:commandButton reRender="editFile" id="btnUploadFileFromUrl" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_btUpload_URL}" title="#{tip.EditItem_btUploadLocator}" action="#{EditItem.uploadLocator}" />
+				<a4j:commandButton reRender="editFile,messages" id="btnUploadFileFromUrl" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_btUpload_URL}" title="#{tip.EditItem_btUploadLocator}" action="#{EditItem.uploadLocator}" />
 			</span>
 		</h:panelGroup>
 		
