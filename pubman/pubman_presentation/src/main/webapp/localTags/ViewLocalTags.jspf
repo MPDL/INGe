@@ -60,7 +60,7 @@
 
 
 	</div>
-	<div class="large_area0_p0 lineToolSection">
+	<div class="xLarge_area0_p0 sectionToolSection">
 		<h:commandButton id="editLocalTags" styleClass="free_txtBtn groupBtn"  value="#{lbl.actionMenu_lnkEditLocalTags}" action="#{EditItem.loadEditLocalTags}"  rendered="#{EditItem.localTagEditingAllowed}" />
 	</div>
 </div>

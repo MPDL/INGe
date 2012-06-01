@@ -299,17 +299,17 @@
 								<b><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}" converter="HTMLSubSupConverter" escape="false"/></b>
 								<h:outputText value="#{ViewItemFull.citationHtml}" escape="false"/>
 							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="medium_area0_p4 statusArea" >
-								<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl withdrawnItem" rendered="#{ViewItemFull.isStateWithdrawn}" />
-								<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl pendingItem" rendered="#{ViewItemFull.isStatePending}" />
-								<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl submittedItem" rendered="#{ViewItemFull.isStateSubmitted}" />
-								<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl releasedItem" rendered="#{ViewItemFull.isStateReleased}" />
-								<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl inRevisionItem" rendered="#{ViewItemFull.isStateInRevision}" />
+							<h:panelGroup styleClass="free_area0 status statusArea" >
+								<h:panelGroup layout="block" styleClass="big_imgArea statusIcon withdrawnItem" rendered="#{ViewItemFull.isStateWithdrawn}" />
+								<h:panelGroup layout="block" styleClass="big_imgArea statusIcon pendingItem" rendered="#{ViewItemFull.isStatePending}" />
+								<h:panelGroup layout="block" styleClass="big_imgArea statusIcon submittedItem" rendered="#{ViewItemFull.isStateSubmitted}" />
+								<h:panelGroup layout="block" styleClass="big_imgArea statusIcon releasedItem" rendered="#{ViewItemFull.isStateReleased}" />
+								<h:panelGroup layout="block" styleClass="big_imgArea statusIcon inRevisionItem" rendered="#{ViewItemFull.isStateInRevision}" />
 								<h:outputText styleClass="noDisplay" value="Item is " />
-								<h:outputLabel styleClass="medium_label endline" style="text-align: center;" rendered="#{ViewItemFull.isStateWithdrawn}">
+								<h:outputLabel styleClass="medium_label statusLabel free_area_p3" rendered="#{ViewItemFull.isStateWithdrawn}">
 									<h:outputText value="#{ViewItemFull.itemPublicState}" />
 								</h:outputLabel>
-								<h:outputLabel styleClass="medium_label endline" style="text-align: center;" rendered="#{!ViewItemFull.isStateWithdrawn}">
+								<h:outputLabel styleClass="medium_label statusLabel free_area_p3" rendered="#{!ViewItemFull.isStateWithdrawn}">
 									<h:outputText value="#{ViewItemFull.itemState}" />
 								</h:outputLabel>
 							</h:panelGroup>
