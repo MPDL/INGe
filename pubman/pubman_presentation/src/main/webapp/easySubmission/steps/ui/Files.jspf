@@ -21,7 +21,7 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
+            Copyright 2006-2011 Fachinformationszentrum Karlsruhe Gesellschaft
             für wissenschaftlich-technische Information mbH and Max-Planck-
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
@@ -39,46 +39,7 @@
 	</h3>
 	<span class="seperator"></span>
 	<h:panelGroup id="files" styleClass="free_area0 itemBlockContent endline">
-		<%-- Add Files --%>
-		<h:panelGroup layout="block" styleClass="files" rendered="#{!(genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'easy-submission' || genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'all')}">
-			<h:panelGroup layout="block" styleClass="free_area0_p6 endline itemLine noTopBorder fileSection xSmall_negMarginLExcl">
-				<span class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" />
-						  <h:outputText value="#{lbl.EditItem_lblFile}"/>
-						  <span class="noDisplay">: </span>
-				</span>
-				<div id="ccContentHelper" class="ccContentHelper noDisplay">&#160;</div>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">					
-
-					<rich:fileUpload allowFlash="auto" id="inpFileUploaded" styleClass="fileInput" fileUploadListener="#{EasySubmission.fileUploaded}" maxFilesQuantity="50"
-					immediateUpload="true">
-						<a4j:support event="onuploadcomplete" reRender="files"/>
-						
-					</rich:fileUpload>
-				</span>
-				<%-- 
-				<span class="large_area0_p8 lineToolSection">
-					<h:commandButton id="btnUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" 
-									  text="#{lbl.easy_submission_btnUploadFile}" partialSubmit="false"/>
-				</span>
-				--%>
-			</h:panelGroup>
-			
-			<%-- Add File from url--%>
-			<h:panelGroup layout="block" styleClass="free_area0_p6 endline itemLine noTopBorder xTiny_negMarginLExcl">
-				<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<span class="noDisplay"> </span>
-				</b>
-				<span class="quad_area0 endline">
-					<h:outputLabel id="lblEditItemURL" styleClass="quad_label" value="#{lbl.EditItem_lblFileURL}" />
-					<h:inputText id="inpLocatorUpload" styleClass="quad_txtInput" value="#{EasySubmission.locatorUpload}" />
-				</span>
-				<span class="free_area0_p0 xTiny_negMarginLExcl" style="margin-top:1.72em; margin-left:0.9090em;">
-					<h:commandButton id="btnEditItemUpload" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_btUpload_URL}"  
-									  title="#{tip.EditItem_btUploadLocator}" action="#{EasySubmission.uploadLocator}" />
-				</span>
-			</h:panelGroup>
-		</h:panelGroup>
+		
 	
 		<a4j:repeat var="component" id="fileUploads" value="#{EasySubmission.files}" binding="#{EasySubmission.fileIterator}" rowKeyVar="index">
 
@@ -327,5 +288,47 @@
 			</h:panelGroup>
 		
 		</a4j:repeat>	
+		
+		<%-- Add Files --%>
+		<h:panelGroup layout="block" styleClass="files" rendered="#{!(genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'easy-submission' || genre.files_component_content_display == 'false' && genre.files_component_content_form_id == 'all')}">
+			<h:panelGroup layout="block" styleClass="free_area0_p6 endline itemLine fileSection xSmall_negMarginLExcl #{EasySubmission.numberOfFiles == 0 ? 'noTopBorder' : ''}">
+				<span class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" />
+						  <h:outputText value="#{lbl.EditItem_lblFile}"/>
+						  <span class="noDisplay">: </span>
+				</span>
+				<div id="ccContentHelper" class="ccContentHelper noDisplay">&#160;</div>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">					
+
+					<rich:fileUpload addControlLabel="#{lbl.EditItem_btAddFile}" listHeight="60px" allowFlash="auto" id="inpFileUploaded" styleClass="fileInput" fileUploadListener="#{EasySubmission.fileUploaded}" maxFilesQuantity="50"
+					immediateUpload="true">
+						<a4j:support event="onuploadcomplete" reRender="files"/>
+						
+					</rich:fileUpload>
+				</span>
+				<%-- 
+				<span class="large_area0_p8 lineToolSection">
+					<h:commandButton id="btnUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" 
+									  text="#{lbl.easy_submission_btnUploadFile}" partialSubmit="false"/>
+				</span>
+				--%>
+			</h:panelGroup>
+			
+			<%-- Add File from url--%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel id="lblEditItemURL" styleClass="quad_label" value="#{lbl.EditItem_lblFileURL}" />
+					<h:inputText id="inpLocatorUpload" styleClass="quad_txtInput" value="#{EasySubmission.locatorUpload}" />
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<h:commandButton id="btnEditItemUpload" styleClass="free_txtBtn groupBtn" value="#{lbl.EditItem_btUpload_URL}"  
+									  title="#{tip.EditItem_btUploadLocator}" action="#{EasySubmission.uploadLocator}" />
+				</span>
+			</h:panelGroup>
+		</h:panelGroup>
+		
 	</h:panelGroup>
 </h:panelGroup>
