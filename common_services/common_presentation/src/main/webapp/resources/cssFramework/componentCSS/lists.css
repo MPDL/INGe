@@ -245,6 +245,16 @@ th .selectMenu {
 	padding-top: 0em;
 }
 
+.selectMenu .selectAll {
+	cursor:pointer;
+}
+.selectMenu .selectNone {
+	cursor:pointer;
+}
+.selectMenu .toggleAll {
+	cursor:pointer;
+}
+
 .optionHeadlineSeparator {
 	margin:0; 
 	padding:0;
