@@ -328,6 +328,7 @@
 }
 
 .fullItem .inputTxtArea {
+	min-height: 4em;
 	height: 4em;
 }
 
