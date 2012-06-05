@@ -567,7 +567,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		
 		
 		 try {
-			getExternalContext().redirect("SearchResultListPage.jsp?"+SearchRetrieverRequestBean.parameterQuery+"="+URLEncoder.encode(query, "UTF-8")+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");
+			getExternalContext().redirect("SearchResultListPage.jsp?q="+URLEncoder.encode(query, "UTF-8")+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
