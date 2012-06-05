@@ -2287,24 +2287,24 @@ public String logUploadComplete()
         }
         userAccountHandler = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
         String searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
-        SearchRetrieveResponseVO searchedObject = xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);
-        if (searchedObject.getRecords().get(0).getData() != null)
+        SearchRetrieveResponseVO searchedObject = xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);       
+        if (searchedObject == null || searchedObject.getRecords() == null 
+                || searchedObject.getRecords().get(0) == null
+                || searchedObject.getRecords().get(0).getData() == null)
         {
-            AccountUserVO owner = (AccountUserVO) searchedObject.getRecords().get(0).getData();
-            if (owner.getName() != null && owner.getName().trim() != "")
-            {
-                return owner.getName();
-            }
-            else if (owner.getUserid() != null && owner.getUserid() != "")
-            {
-                return owner.getUserid();
-            }
-            else
-            {
-                return null;
-            }
+            return null;
         }
-        else 
+        
+        AccountUserVO owner = (AccountUserVO)searchedObject.getRecords().get(0).getData();
+        if (owner.getName() != null && owner.getName().trim() != "")
+        {
+            return owner.getName();
+        }
+        else if (owner.getUserid() != null && owner.getUserid() != "")
+        {
+            return owner.getUserid();
+        }
+        else
         {
             return null;
         }
@@ -2327,36 +2327,38 @@ public String logUploadComplete()
         InitialContext initialContext = new InitialContext();
         XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
         UserAccountHandler userAccountHandler = null;
+        
         if (this.item.getVersion().getModifiedByRO() != null && this.item.getVersion().getModifiedByRO().getObjectId() != null)
         {
             HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-            filterParams.put("operation", new String[] {"searchRetrieve"});
-            filterParams.put("query", new String[] {"\"/id\"=" + this.item.getVersion().getModifiedByRO().getObjectId()});
+            filterParams.put("operation", new String[] { "searchRetrieve" });
+            filterParams.put("query", new String[] { "\"/id\"="
+                    + this.item.getVersion().getModifiedByRO().getObjectId() });
+            
             String searchResponse = null;
-                    
             userAccountHandler = ServiceLocator.getUserAccountHandler(loginHelper.getESciDocUserHandle());
             searchResponse = userAccountHandler.retrieveUserAccounts(filterParams);
             SearchRetrieveResponseVO searchedObject = xmlTransforming.transformToSearchRetrieveResponseAccountUser(searchResponse);
-            if (searchedObject.getRecords().get(0).getData() != null)
-            {
-                AccountUserVO modifier = (AccountUserVO) searchedObject.getRecords().get(0).getData();
-                if (modifier.getName() != null && modifier.getName().trim() != "")
-                {
-                    return modifier.getName();
-                }
-                else if (modifier.getUserid() != null && modifier.getUserid() != "")
-                {
-                    return modifier.getUserid();
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            else 
+                    
+            if (searchedObject == null || searchedObject.getRecords() == null
+                    || searchedObject.getRecords().get(0) == null
+                    || searchedObject.getRecords().get(0).getData() == null)
             {
                 return null;
             }
+            AccountUserVO modifier = (AccountUserVO)searchedObject.getRecords().get(0).getData();
+            if (modifier.getName() != null && modifier.getName().trim() != "")
+            {
+                return modifier.getName();
+            }
+            else if (modifier.getUserid() != null && modifier.getUserid() != "")
+            {
+                return modifier.getUserid();
+            }
+            else
+            {
+                return null;
+            }      
         }
         else 
         {
