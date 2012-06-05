@@ -176,6 +176,18 @@
 						<h:inputText id="inpClassificationValue" styleClass="xDouble_txtInput subjectSuggest" value="#{criterion.searchString}" />
 					</h:panelGroup>
 				</h:panelGroup>
+				
+				
+				 <!-- input for genre-->
+                <h:panelGroup layout="block" styleClass="quad_area1 endline selectContainer marginTExcl6p" rendered="#{criterion.searchCriterion == 'GENRE'}">
+					<h:panelGroup layout="block" styleClass="quad_area0">
+							<h:panelGroup styleClass="quad_area0 selectionBox">&#160;</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+						</h:panelGroup>
+						<h:selectOneMenu id="selectGenre" onchange="updateSelectionBox(this);" value="#{criterion.searchString}">
+							<f:selectItems value="#{AdvancedSearchBean.genreListMenu}" />
+						</h:selectOneMenu>
+				</h:panelGroup>
                 
                 <!-- input for language-->
                 <h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline languageArea" rendered="#{criterion.searchCriterion == 'LANG'}">
@@ -312,7 +324,7 @@
 						</h:panelGroup>       
                     </span>
                     <span class="large_area0 tiny_marginRIncl">
-                        <h:outputLabel styleClass="large_label" value="#{lbl.adv_search_lblLocatorAvailabile}"/>
+                        <h:outputLabel styleClass="large_label" value="#{lbl.adv_search_lblLocatorAvailable}"/>
                         
                         <h:panelGroup layout="block" styleClass="large_area1 endline selectContainer">
 							<h:panelGroup layout="block" styleClass="large_area0">

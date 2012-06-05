@@ -60,6 +60,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 	
 	private List<SelectItem> contextListMenu;
 	
+	private List<SelectItem> genreListMenu = initGenreListMenu();
+	
 	private List<SelectItem> contentCategoryListMenu = initContentCategoryListMenu();
 	
 	private List<SelectItem> componentVisibilityListMenu = initComponentVisibilityListMenu();
@@ -222,6 +224,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		return Arrays.asList(this.i18nHelper.getSelectItemsContentCategory(true));
 	}
 	
+	private List<SelectItem> initGenreListMenu() {
+		return Arrays.asList(this.i18nHelper.getSelectItemsGenre());
+	}
+	
 	public List<SelectItem> initSubjectTypesListMenu()
     {
         List <SelectItem> vocabs = new ArrayList<SelectItem>();
@@ -312,6 +318,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 		eventGroup.setSelectItems(eventGroupList.toArray(new SelectItem[0]));
 		criterionTypeList.add(eventGroup);
 		
+		
+
+		//Language
+		criterionTypeList.add(new SelectItem(SearchCriterion.GENRE,  getLabel("adv_search_lbHeaderGenre")));
 		
 		//Language
 		criterionTypeList.add(new SelectItem(SearchCriterion.LANG,  getLabel("adv_search_lblLanguageTerm")));
@@ -765,6 +775,16 @@ public class AdvancedSearchBean extends FacesBean implements Serializable{
 
 	public void setGenreListSearchCriterion(SearchCriterionBase genreListSearchCriterion) {
 		this.genreListSearchCriterion = genreListSearchCriterion;
+	}
+
+
+	public List<SelectItem> getGenreListMenu() {
+		return genreListMenu;
+	}
+
+
+	public void setGenreListMenu(List<SelectItem> genreListMenu) {
+		this.genreListMenu = genreListMenu;
 	}
 
 
